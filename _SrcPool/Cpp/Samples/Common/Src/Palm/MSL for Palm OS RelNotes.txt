@@ -1,0 +1,178 @@
+===============================================================================
+Metrowerks Standard Library for Palm OS® Release Notes
+===============================================================================
+
+Version: 9.0
+Date:    19 September 2002
+Authors: Ben Combee, Howard Hinnant, Cecilia Rodriguez
+
+===============================================================================
+
+This is the second supported release of the Metrowerks Standard Libraries
+for Palm OS.  This release includes a partial port of the standard C and C++
+libraries.
+
+To use MSL, you need to add this access path to your project in the system
+access path list:
+
+{Compiler}\CW for Palm OS Support
+
+The MSL source, include, and library files are located in the MSL tree under 
+this folder.
+
+This library does not attempt to implement everything, but instead provides
+useful functionality for the Palm OS environment.  Because of this, code
+you have written for a full standard library may require some reimplementation.
+
+The code for this library is based on MSL 8.0, which shipped as part of
+CodeWarrior Professional for Macintosh/Windows, version 8.0 in May 2002.
+These files are stored in a separate tree from the MSL used in CW Pro, so they
+don't require integration.
+
+===============================================================================
+Known Problems
+===============================================================================
+
+In cfloat (float.h), the values defined for LDBL_MAX and LDBL_EPSILON may not
+be correct.  Long doubles are not supported by the Palm OS math library.
+
+atof and stdtod are not marked as unimplemented in cstdlib but actually are
+not implemented for Palm OS
+
+===============================================================================
+Standard C Library
+===============================================================================
+
+A full set of standard headers for a freestanding implemention of Standard C
+are provided.  This set is defined by section 4 of the ISO C (1999) document
+to include <float.h>, <iso646.h>, <limits.h>, <stdarg.h>, <stdbool.h>, 
+<stddef.h>, and <stdint.h>.
+
+In addition to these headers, some additional standard library functionality
+is provided as follows:
+
+<assert.h>
+    assert
+
+<errno.h>
+    errno
+
+<stdlib.h>
+    atoi, atol, strtol, strtoul, rand, srand, calloc, free, malloc, 
+    realloc, __msize, RAND_MAX, abort, exit, bsearch, qsort, div_t,
+    ldiv_t, abs, labs,  div, ldiv
+
+<string.h>
+    everything but strerror and __strerror
+
+<time.h>
+    CLOCKS_PER_SEC, clock_t, clock
+
+<stdio.h>
+    EOF
+
+No implementations are provided for items mentioned in these headers:
+
+    <signal.h>, <wctype.h>, <wchar.h>, <locale.h>, <math.h>
+	
+If you need standard math functions, we provide the 3rd party library
+MathLib in the Other SDKs folder.  This shared library has implementations
+of most common math functions and is widely used on the Palm OS platform.	
+
+This version of MSL implements many of these functions as part of a static
+library.  Ones that directly correspond to Palm OS API functions are implemented
+as inline functions.
+
+===============================================================================
+Standard C++ Library
+===============================================================================
+
+The standard C++ library is provided both as a set of headers and as a static
+library.
+
+The "STL" part of the standard C++ library is present, but there is no
+support for locales, numerics, and file/console I/O.  Below are the standard
+headers that have been ported to Palm OS:
+
+algorithm
+bitset
+deque
+exception
+functional
+iosfwd
+iterator
+limits
+list
+map
+memory
+new
+numeric
+queue
+set
+stack
+stdexcept
+string
+typeinfo
+utility
+vector
+
+These headers are provided, but functionality related to file I/O or console I/O
+has been disabled:
+
+iomanip
+ios
+istream
+ostream
+sstream
+streambuf
+strstream
+
+The following standard headers are not available on Palm OS:
+
+fstream
+iostream
+locale
+complex
+valarray
+
+In addition to the standard headers, these non-standard headers are also 
+available on Palm OS:
+
+algorithm.h          Imports the contents of <algorithm> to the global namespace
+bitset.h             Imports the contents of <bitset> to the global namespace
+cdeque               A circular buffer, a cross between vector and deque
+cdeque.h             Imports the contents of <cdeque> to the global namespace
+deque.h              Imports the contents of <deque> to the global namespace
+exception.h          Imports the contents of <exception> to the global namespace
+functional.h         Imports the contents of <functional> to the global namespace
+functional_ext       SGI extensions to <functional>
+functional_ext.h     Imports the contents of <functional_ext> to the global namespace
+hash_fun             Hash function implementation
+hash_fun.h           Imports the contents of <hash_fun> to the global namespace
+hash_map             hash_map and hash_multimap containers
+hash_map.h           Imports the contents of <hash_map> to the global namespace
+hash_set             hash_set and hash_multiset containers
+hash_set.h           Imports the contents of <hash_set> to the global namespace
+hash_table           Hash table implementation for the hash containers
+iosfwd.h             Imports the contents of <iosfwd> to the global namespace
+iterator.h           Imports the contents of <iterator> to the global namespace
+map.h                Imports the contents of <map> to the global namespace
+msl_utility          Various utilities under namespace Metrowerks
+mslconfig            Configuration file
+MSLstring.h          A mini, refcounted string used to implement exception-derived structs
+mutex.h              Not used
+new.h                Imports the contents of <new> to the global namespace
+numeric.h            Imports the contents of <numeric> to the global namespace
+queue.h              Imports the contents of <queue> to the global namespace
+RefCountedPtrArray.h A refcounted smart-pointer
+set.h                Imports the contents of <set> to the global namespace
+slist                A singly linked list
+slist.h              Imports the contents of <slist> to the global namespace
+stack.h              Imports the contents of <stack> to the global namespace
+stdexcept.h          Imports the contents of <stdexcept> to the global namespace
+stringfwd            Forward declarations for <string>
+stringfwd.h          Imports the contents of <stringfwd> to the global namespace
+tree                 Implementation of the rb-tree for map/set.
+typeinfo.h           Imports the contents of <typeinfo> to the global namespace
+utility.h            Imports the contents of <utility> to the global namespace
+vector.h             Imports the contents of <vector> to the global namespace
