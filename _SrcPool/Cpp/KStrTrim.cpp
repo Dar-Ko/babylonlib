@@ -18,37 +18,47 @@
 #endif
 
 //StrTrim()--------------------------------------------------------------------
-/*Trims leading and trailing whitespace characters from the string.
+/*Removes leading and trailing whitespace characters from a string.
+  Whitespace characters are '\t','\n','\v','\f','\r' [0x09,0x0D] and ' ' (0x20).
 
   Returns: source string whitout leading and trailing whitespace characters,
-  or NULL in case of a failure
+  or NULL in case of a failure.
  */
-LPTSTR StrTrim(LPTSTR szSource //[in/out] zero-terminated szSource to be trimmed
+LPTSTR StrTrim(LPTSTR szSource //[in/out] zero-terminated string to be trimmed
               )
 {
 if ( (szSource == NULL) || (szSource[0] == _T('/0')) )
-    return szSource; //Nothing to do
+  return szSource; //Nothing to do
 
   //Count leading white spaces
 unsigned int iHead = 0;
 while(_istspace(szSource[iHead]))
   iHead++;
 
-  //Count trailing white spaces
-unsigned int iTail = _tcslen(szSource)-1;
-while(_istspace(szSource[iTail]))
-  iTail--;
-  //Move valid portion of the string to the begining
-if (iHead > 0)
+  //When string has only white spaces, iHead is equal to string length.
+unsigned int iTail = _tcslen(szSource);
+if (iTail > iHead)
   {
-  unsigned int i = 0;
-  while ( i <= (iTail - iHead) )
+    //Count trailing white spaces.
+  iTail--;
+  while(_istspace(szSource[iTail]))
+    iTail--;
+
+    //Move valid portion of the string to the begining
+  if (iHead > 0)
     {
-    szSource[i] = szSource[iHead + i];
-    i++;
+    unsigned int i = 0;
+    while ( i <= (iTail - iHead) )
+      {
+      szSource[i] = szSource[iHead + i];
+      i++;
+      }
     }
+  szSource[iTail - iHead + 1] = _T('\0'); //Cut off trailing white spaces
   }
-szSource[iTail - iHead + 1] = _T('\0'); //Cout of trailing white spaces
+else
+  szSource[0] = _T('\0');
+
 return szSource;
 }
 
