@@ -1,5 +1,5 @@
 /*$Workfile: TsLeapYear.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2003/01/30 03:40:22 $
+  $Revision: 1.3 $ $Date: 2003/01/31 03:09:03 $
   $Author: ddarko $
 
   Test leap year validation
@@ -15,8 +15,14 @@
 #include "KTrace.h"    //ASSERT macro
 #include "KTime.h"     //IsLeapYear()
 #include "KTChar.h"    //TCHAR typedef
+#include "KTestLog.h" //TESTENTRY struct
 
 extern bool TsWriteToView(LPCTSTR lszText);
+
+#ifdef _DEBUG
+  #undef THIS_FILE
+  static char THIS_FILE[] = __FILE__;
+#endif
 
 //TestLeapYear()------------------------------------------------------------
 /*Function validates leap years.
@@ -26,6 +32,9 @@ extern bool TsWriteToView(LPCTSTR lszText);
 bool TestLeapYear()
 {
 TsWriteToView(_T("TestLeapYear()\r\n"));
+TESTENTRY logEntry = 
+  {_T("IsLeapYear()"), _T("KTime.h"), false};
+
 bool bRes = true;
 const int TESTCOUNT = 19;
 const int ID_HYSTORIC  = 0; //Id of Gregorian Calendar results
@@ -110,6 +119,11 @@ while ((i < TESTCOUNT) && bRes)
   i++;
   }
 
+  //Write test log
+logEntry.m_bResult = bRes;
+LogTest(&logEntry);
+logEntry.m_szObjectName = _T("IS_LEAP_YEAR()");
+LogTest(&logEntry);
 TsWriteToView(_T("======================\r\n"));
 return bRes;
 }
@@ -117,6 +131,8 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  4    Biblioteka1.3         30/01/2003 9:47:38 PMDarko           Write results
+ *       to the test log
  *  3    Biblioteka1.2         22/01/2003 10:23:23 PMDarko           Unicode
  *  2    Biblioteka1.1         20/01/2003 3:15:36 AMDarko           Replaced BOOL
  *       with bool
