@@ -1,5 +1,5 @@
 /*$Workfile: KZLineIn.cpp$: implementation file
-  $Revision: 5$ $Date: 30/01/2003 9:43:43 PM$
+  $Revision: 6$ $Date: 2003-08-22 16:59:47$
   $Author: Darko$
 
   Line impedance calculation
@@ -20,11 +20,11 @@
   C4275: non dll-interface class 'std::_Complex_base<double>' used as base for dll-interface class
   Feb. 2k D.K.
 
-  If precompiled header is enabled (/Yu"StdAfx.h" switch) and header is
+  If precompiled header is enabled (/Yu"stdafx.h" switch) and header is
   between #if and #endif following error is generated :
   fatal error C1020: unexpected #endif
   #if 1
-    #include "StdAfx.h"
+    #include "stdafx.h"
   #endif
   Feb 2k D.K.
  */
@@ -105,3 +105,15 @@ return Zin;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+/******************************************************************************
+ * $Log: 
+ *  6    Biblioteka1.5         2003-08-22 16:59:47  Darko           comment
+ *  5    Biblioteka1.4         2003-01-30 22:43:43  Darko           Excluded
+ *       stdafx.h
+ *  4    Biblioteka1.3         2002-01-25 16:59:57  Darko           Updated
+ *       comments
+ *  3    Biblioteka1.2         2001-07-11 22:53:49  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:52:44  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 16:04:31  Darko           
+ * $
+ *****************************************************************************/
