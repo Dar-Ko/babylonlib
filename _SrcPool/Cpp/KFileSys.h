@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KFileSys.h$: header file
+/*$Workfile: KFileSys.h$: header file
   $Revision: 2$ $Date: 8/27/02 11:34:54 PM$
   $Author: Darko$
 
