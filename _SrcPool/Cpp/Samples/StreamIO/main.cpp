@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 4$ $Date: 9/16/02 5:57:53 PM$
+  $Revision: 4$ $Date: 16/09/2002 4:57:53 PM$
   $Author: Darko Kolakovic$
 
   Illustrates how to use the getline function to read a line of text from the stream.
@@ -421,9 +421,10 @@ istream & getline( istream & in, string & str )
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         9/16/02 5:57:53 PM   Darko Kolakovic 
- *  3    Biblioteka1.2         7/16/02 1:39:21 AM   Darko           Updated comment
- *  2    Biblioteka1.1         2/17/02 3:17:41 AM   Darko           GetLines()
- *  1    Biblioteka1.0         2/4/02 7:46:46 PM    Darko           
+ *  4    Biblioteka1.3         16/09/2002 4:57:53 PMDarko Kolakovic 
+ *  3    Biblioteka1.2         16/07/2002 12:39:21 AMDarko           Updated
+ *       comment
+ *  2    Biblioteka1.1         17/02/2002 2:17:41 AMDarko           GetLines()
+ *  1    Biblioteka1.0         04/02/2002 6:46:46 PMDarko           
  * $
  *****************************************************************************/
