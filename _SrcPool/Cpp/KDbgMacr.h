@@ -1,6 +1,6 @@
 /*$Workfile: KDbgMacr.h$: header file
-  $Revision: 11$ $Date: 1/29/02 8:30:46 PM$
-  $Author: Darko$
+  $Revision: 14$ $Date: 10/11/02 2:33:35 PM$
+  $Author: Darko Kolakovic$
 
   Dumps values of some compiler-specific predefined macros
   Copyright: CommonSoft Inc.
@@ -67,7 +67,7 @@
   #ifdef __VERSION__
     /*Macro expands to a string which describes the version major, minor
       number of GNU C and bugfix level in the form "M.m.f"                   */
-	const char* g___VERSION__ = __VERSION__;
+    const char* g___VERSION__ = __VERSION__;
   #endif
 
   /*Major version number of GNU CC                                         */
@@ -141,15 +141,10 @@
     #endif
   #endif
 
-  //#ifdef __STRICT_ANSI__
-    /*Standard predefined symbols (-ansi option has been used)               */
-	#if defined(__APPLE__)
+    #if defined(__APPLE__)
       #warning "Target OS is MacOS."
     #endif
 
-    #ifdef __vax__
-      #warning "Target is Vax."
-    #endif
     #ifdef __unix__
       #warning "Target OS is Unix."
     #endif
@@ -168,10 +163,15 @@
     #ifdef __NetBSD__
       #warning "Target OS is Berkeley Unix."
     #endif
- // #else /*nonstandard predefined symbols                                     */
-    #ifdef vax
-      #warning "Target is Vax."
+
+    #ifdef __clipper__
+      #warning "Target is Clipper."
     #endif
+
+    #ifdef Lynx
+      #warning "Target is Lynx."
+    #endif
+
     #ifdef unix
       #warning "Target OS is Unix."
     #endif
@@ -216,6 +216,9 @@
     #endif
     #ifdef VMS
       #warning "Target OS is VMS."
+    #endif
+    #ifdef __NeXT__
+      #warning "Target OS is NeXTStep."
     #endif
     #ifdef VXWORKS_VERSION
       #warning "Target OS is WindRiver VxWorks (ver)."
@@ -271,6 +274,10 @@
     #ifdef M68020
       #warning "CPU: Motorola 68020."
     #endif
+    #if defined (__m88k__)
+      #warning "CPU: Motorola 88000 CPU family."
+    #endif
+
     #ifdef _AM29K
       #warning "CPU: AMD 29000 CPU family."
     #endif
@@ -283,9 +290,93 @@
     #ifdef _M_IX86
       #warning "CPU: Intel x86 CPU family."
     #endif
+    #if defined (__i386__)
+      #warning "CPU: Intel 80386."
+    #endif
+    #if defined (__i860__)
+      #warning "CPU: Intel 80860."
+    #endif
+    #if defined (__i960__)
+      #warning "CPU: Intel 80960."
+    #endif
 
-    #if (defined(__arm__) || defined(__ARMEL__))
+    #if defined(__ia64__)
+      #warning "CPU: Intel 64b."
+    #endif
+
+    #if (defined(__arm__) || defined(__ARMEL__) || defined(arm))
       #warning "CPU: ARM Risc CPU family."
+    #endif
+
+    #ifdef __ns32000__
+      #warning "CPU: National Semiconductor 32000 CPU family."
+    #endif
+
+    #ifdef __mn10300__
+      #warning "CPU: Matsushita Electric (Panasonic) 10300 32b."
+    #endif
+
+    #ifdef __mn10200__
+      #warning "CPU: Matsushita Electric (Panasonic) 10200 RISC."
+    #endif
+
+    #if defined (__H8300__) || defined (__H8300H__) || defined (__H8300S__)
+      #warning "CPU: Hitachi H8/300[HS] CPU family."
+    #endif
+
+    #ifdef __v850__
+      #warning "CPU: NEC V850 RISC."
+    #endif
+
+    #if defined (__z8000__)
+      #warning "CPU: Z8000 16b."
+    #endif
+
+    #if defined (_TMS320C4x) || defined (_TMS320C3x)
+      #warning "CPU: Texas Instruments TMS32xxx CPU family."
+    #endif
+
+    #ifdef __hppa__
+      #warning "CPU: HP PA-RISC 7xxx CPU family."
+    #endif
+
+    #ifdef __M32R__
+      #warning "CPU: Mitsubishi M32R RISC CPU family."
+    #endif
+
+    #if (defined(__ppc__) || defined(__PPC__) || defined(ppc))
+      #warning "Compiling for PowerPC platform."
+    #endif
+
+    #ifdef __mips64
+      #warning "Compiling for MIPS 64 platform."
+    #endif
+    #ifdef __mips__
+      #warning "Compiling for MIPS platform."
+    #endif
+
+    #ifdef __alpha__
+      #warning "Compiling for DEC APLHA platform."
+    #endif
+
+    #if (defined(__sparc__) || defined (__sparc_v9__) || defined(__sparcv9))
+      #warning "Compiling for Scalable Processor ARChitecture platform."
+    #endif
+
+    #ifdef __sh__
+      #warning "Compiling for Hitachi SH-3 and SH-4 platform."
+    #endif
+
+    #if (defined(__vax__) || defined(vax))
+      #warning "Compiling for Vax platform."
+    #endif
+
+    #if defined (__arch64__)
+      #warning "Compiling for CygWin/Intel 64b platform."
+    #endif
+
+    #ifdef __arc__
+      #warning "Compiling for ARC target."
     #endif
 
     /*Current version of manufacturer of the system                          */
@@ -308,7 +399,7 @@
 
 
 /* ========================================================================= */
-#ifdef MSC				/*Microsoft C - Windows 3.0	Compiler		         */
+#ifdef MSC        /*Microsoft C - Windows 3.0 Compiler             */
   #pragma message ("Microsoft C 16b compiler")
 
   #ifdef VXWORKS
@@ -317,7 +408,7 @@
 
 #endif
 
-#ifdef MSVC				/*Microsoft Visual C - 4.x+ Compiler        	     */
+#ifdef MSVC       /*Microsoft Visual C - 4.x+ Compiler               */
   #pragma message ("Microsoft Visual C/C++ 4.x+ compiler")
 
 #endif
@@ -506,11 +597,6 @@
     #pragma message ("CPU: 80286")
     const int g__M_IX86 = 200;
   #endif
-  #ifdef _M_I286
-    #pragma message ("Compiling for for Intel x86 platform.")
-    #pragma message ("CPU: 80286")
-    const int g__M_IX86 = 200;
-  #endif
   #ifdef _M_MPPC
     #pragma message ("Compiling for for Power Macintosh platform.")
   #endif
@@ -526,6 +612,9 @@
   #ifdef WIN16
     #pragma message ("Target OS is Win16.")
   #endif
+  #ifdef _WINDOWS
+    #pragma message ("Target OS is Win16.")
+  #endif
   #ifdef MSDOS
     #pragma message ("Target OS is MS-DOS.")
   #endif
@@ -533,6 +622,9 @@
     #pragma message ("Target OS is MS-DOS.")
   #endif
   #ifdef DOS
+    #pragma message ("Target OS is DOS.")
+  #endif
+  #ifdef _DOS
     #pragma message ("Target OS is DOS.")
   #endif
   #ifdef DOS16
@@ -590,15 +682,133 @@
     #pragma message ("Target OS is MacOS.")
   #endif
 
+  #ifdef WINVER
+    /*Windows Target Version Macros
+
+     +---------------------+---------------------------------+
+     |   Macros to Define  |   Minimum System Required       |
+     +---------------------+---------------------------------+
+     | WINVER=0x030A       |Windows 3.1                      |
+     |                     |                                 |
+     | WINVER=0x0400       |Windows 95 and Windows NT 4.0    |
+     |                     |                                 |
+     |_WIN32_WINDOWS=0x0410|Windows 98 and Windows NT 4.0    |
+     |WINVER=0x0400        |                                 |
+     |                     |                                 |
+     |_WIN32_WINNT=0x0400  |Windows NT 4.0                   |
+     |WINVER=0x0400        |                                 |
+     |                     |                                 |
+     |_WIN32_WINDOWS=0x0410|Windows 98                       |
+     |                     |                                 |
+     |_WIN32_WINDOWS=0x0490|Windows Millenium                |
+     |                     |                                 |
+     |WINVER=0x0500        |Windows 98 and Windows 2000      |
+     |                     |                                 |
+     |_WIN32_WINNT=0x0500  |Windows 2000                     |
+     |WINVER=0x0500        |                                 |
+     |                     |                                 |
+     |_WIN32_WINNT=0x0501  |Windows XP                       |
+     |WINVER=0x0501        |                                 |
+     +---------------------+---------------------------------+
+     |_WIN32_IE=0x0300     |Internet Explorer 3.0, 3.01, 3.02|
+     |                     |                                 |
+     |_WIN32_IE=0x0400     |Internet Explorer 4.0            |
+     |                     |                                 |
+     |_WIN32_IE=0x0401     |Internet Explorer 4.01           |
+     |                     |                                 |
+     |_WIN32_IE=0x0500     |Internet Explorer 5.0, 5.0a, 5.0b|
+     |                     |                                 |
+     |_WIN32_IE=0x0501     |Internet Explorer 5.01, 5.5      |
+     +---------------------+---------------------------------+
+ 
+    Note: Setting WINVER to 0x0500 implies _WIN32_IE=0x0400
+ 
+
+     */
+    const WORD g__WINVER = WINVER;
+
+    #if WINVER == 0x0300
+      #pragma message ("Target OS is MS Windows 3.0.")
+    #elif WINVER == 0x030a
+      #pragma message ("Target OS is MS Windows 3.1.")
+    #elif WINVER == 0x0400
+      #pragma message ("Target OS is MS Windows NT 4.0.")
+    #elif WINVER == 0x0500
+      #pragma message ("Target OS is MS Windows 2000.")
+    #elif WINVER == 0x0501
+      #pragma message ("Target OS is MS Windows XP.")
+    #else
+      #pragma message ("Target OS is MS Windows ?.?.")
+    #endif
+  #endif
+
+  #ifdef _WIN32_WINDOWS
+    #if _WIN32_WINDOWS == 0x0410
+      #pragma message ("Target OS is MS Windows 98 (9x).")
+    #elif _WIN32_WINDOWS == 0x0490
+      #pragma message ("Target OS is MS Windows Me (9x).")
+    #else
+      #pragma message ("Target OS is MS Windows 9? (9x).")
+    #endif
+  #else
+    #if WINVER == 0x0400
+      /*Windows 95 and Windows NT 4.0 */
+      #pragma message ("Target OS is MS Windows 95.")
+    #endif
+    #if WINVER == 0x0500
+      /*Windows 98 and Windows 2000 */
+      #pragma message ("Target OS is MS Windows 98.")
+    #endif
+  #endif
+
+  #ifdef _WIN32_WINNT
+    #if _WIN32_WINNT == 0x0400
+      #pragma message ("Target OS is MS Windows NT 4.0 (WINNT).")
+    #elif _WIN32_WINNT == 0x0500
+      #pragma message ("Target OS is MS Windows 2000 (WINNT).")
+    #elif _WIN32_WINNT == 0x0501
+      #pragma message ("Target OS is MS Windows XP (WINNT).")
+    #else
+      #pragma message ("Target OS is MS Windows ?? (WINNT).")
+    #endif
+  #endif
+
+  #ifdef _CONSOLE
+    #pragma message ("Target is an console application.")
+  #endif
+
+    /* 16-bit OS mode; see stdlib.h 1985-1992, Microsoft Corporation*/
+  #if _OS_MODE == 0 /*  _DOS_MODE */
+    #ifdef _WIN32
+      #pragma message ("Target OS mode is DOS (Win32) console.")
+    #else
+      #pragma message ("Target OS mode is DOS.")
+    #endif
+  #endif
+  #if _OS_MODE == 1 /* _OS2_MODE */
+    #pragma message ("Target OS mode is OS/2.")
+  #endif
+  #if _OS_MODE == 2 /*  _WIN_MODE */
+    #pragma message ("Target OS mode is Windows.")
+  #endif
+
+    /* x86 CPU mode; see stdlib.h 1985-1992, Microsoft Corporation*/
+  #if _CPU_MODE == 0  /* _REAL_MODE */
+    #pragma message ("Target CPU mode is real mode.")
+  #endif
+  #if _CPU_MODE == 1 /* _PROT_MODE */
+    #pragma message ("Target CPU mode is protect mode.")
+  #endif
+
   #ifdef _WIN32_IE
     #pragma message ("Supported Internet Explorer:")
     /*Supported version of Microsoft Internet Explorer.
 
-        Browser                   _WIN32_IE value
-        Internet Explorer 3.0       0x0300
-        Internet Explorer 4.0       0x0400
-        Internet Explorer 5.0       0x0500
-        Internet Explorer 5.01      0x0501
+        Browser                             _WIN32_IE value
+        Internet Explorer 3.0, 3.01, 3.02       0x0300
+        Internet Explorer 4.0                   0x0400
+        Internet Explorer 5.0, 5.0a, 5.0b       0x0500
+        Internet Explorer 5.01, 5.5             0x0501
 
         _WIN32_IE value    Description
          0x0200            The application will be compatible with Comctl32.dll
@@ -748,7 +958,8 @@ WATCOM C/C++ predefines the macro __WINDOWS__ to identify the target operating s
 
 __WINDOWS_386__
 
-WATCOM C/C++ predefines the macro __WINDOWS_386__ to identify the target operating system as 32-bit Microsoft Windows.  This macro is defined when the "zw" or "bt=windows" option is specified and you are using a 32-bit compiler.
+WATCOM C/C++ predefines the macro __WINDOWS_386__ to identify the target operating system as 32-bit Microsoft Windows.
+This macro is defined when the "zw" or "bt=windows" option is specified and you are using a 32-bit compiler.
 
 The following macros indicate which compiler is compiling the C/C++ source code.
 
@@ -834,11 +1045,11 @@ M_I86HM, __HUGE__
 /*IBM compilers are actually two products: the C product, and the C++ product.
   The C++ compiler is always packaged with the latest version of the C compiler.
   Version numbers do not always match:
-	   C++ compiler           C compiler
+     C++ compiler           C compiler
        C Set 3.1                3.0
-	   C++ 3.6.6                4.3
-	Visual Age C++ 4.0          n/a
-	Visual Age C++ 5.0          5.0
+     C++ 3.6.6                4.3
+  Visual Age C++ 4.0          n/a
+  Visual Age C++ 5.0          5.0
 
    Note:
    __xlC__    is the version of the C compiler in hexadecimal notation
@@ -1031,8 +1242,10 @@ M_I86HM, __HUGE__
   #warning "Target OS is MacOS 9."
 #endif
 
-#if defined(MSDOS) || defined(_MSDOS) || defined(__MSDOS__)
-  #warning "Target OS is MS DOS"
+#ifndef _MSC_VER /*Not a Microsoft VC compiler */
+  #if defined(MSDOS) || defined(_MSDOS) || defined(__MSDOS__)
+    #warning "Target OS is MS DOS"
+  #endif
 #endif
 
 #if defined(OS2) || defined(_OS2) || defined(__OS2__)
@@ -1043,12 +1256,16 @@ M_I86HM, __HUGE__
   #endif
 #endif
 
-#if defined(WIN64) || defined(_WIN64) || defined(__WIN64__)
-  #warning "Target OS is MS Windows 64b"
+#ifndef _MSC_VER /*Not a Microsoft VC compiler */
+  #if defined(WIN64) || defined(_WIN64) || defined(__WIN64__)
+    #warning "Target OS is MS Windows 64b"
+  #endif
 #endif
 
-#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
-  #warning "Target OS is MS Windows 32b"
+#ifndef _MSC_VER /*Not a Microsoft VC compiler */
+  #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+    #warning "Target OS is MS Windows 32b"
+  #endif
 #endif
 
 
