@@ -1,0 +1,6 @@
+// Microsoft Visual C++ generated Help ID include file.
+// Used by KAbtRes.rc
+//
+#define HIDC_COPYRIGHT                  0x806403fd    // IDD_ABOUTBOX [English (Canada)]
+#define HIDC_DESCRIPTION                0x80640401    // IDD_ABOUTBOX [English (Canada)]
+#define HIDC_VERSION                    0x80640400    // IDD_ABOUTBOX [English (Canada)]
