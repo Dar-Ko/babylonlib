@@ -31,6 +31,22 @@
 
   Returns: the address of the string that was copied, or NULL if enough memory 
   could not be allocated, or original string was NULL.
+
+  Example:
+
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include "KStrings.h"	//StrDup()
+    void MyCopy()
+      {
+      const char* szText = "  Some text.  ";
+      char* szCopy = StrDup(szText);
+
+      StrTrim(szCopy);
+      printf(szCopy);
+
+      free(szCopy);
+      }
  */
 TCHAR* StrDup(LPCTSTR pszSource //[in] Address of a constant zero-terminated 
                                 //character string to copy into new memory.

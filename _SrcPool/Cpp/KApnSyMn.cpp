@@ -1,5 +1,5 @@
 /*$Workfile: KApnSyMn.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:09:08 $
+  $Revision: 1.2 $ $Date: 2002/09/11 20:53:59 $
   $Author: ddarko $
 
   Append an item to the system menu.
