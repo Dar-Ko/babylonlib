@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\16\KFileN16.inl$: header file
+/*$Workfile: KFileN16.inl$: header file
   $Revision: 1$ $Date: 8/27/02 5:04:41 PM$
   $Author: Darko Kolakovic$
 

@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\16\KFileGetS.cpp$: implementation file
+/*$Workfile: KFileGetS.cpp$: implementation file
   $Revision: 1$ $Date: 8/27/02 5:04:34 PM$
   $Author: Darko Kolakovic$
 

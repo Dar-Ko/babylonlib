@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\16\KFileN16.cpp$: implementation file
+/*$Workfile: KFileN16.cpp$: implementation file
   $Revision: 1$ $Date: 8/27/02 5:04:37 PM$
   $Author: Darko Kolakovic$
 

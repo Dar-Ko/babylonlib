@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\16\KioPPI.h$: header file
+/*$Workfile: KioPPI.h$: header file
   $Revision: 1$ $Date: 9/18/02 6:12:32 PM$
   $Author: Darko Kolakovic$
 
