@@ -1,5 +1,5 @@
 /*$Workfile: KBitMan.h$: header file
-  $Revision: 5$ $Date: 1/25/02 4:56:07 PM$
+  $Revision: 5$ $Date: 25/01/2002 3:56:07 PM$
   $Author: Darko$
   
   Manipulation with bits.
@@ -302,11 +302,11 @@ template <class T> T ResetNthBit (T& Status,const unsigned int& nPos)
 #endif /*_KBITMAN_H_                                                         */
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         1/25/02 4:56:07 PM   Darko           Updated
+ *  5    Biblioteka1.4         25/01/2002 3:56:07 PMDarko           Updated
  *       comments
- *  4    Biblioteka1.3         8/19/01 11:51:30 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:50:12 PM  Darko           
- *  2    Biblioteka1.1         6/8/01 11:49:08 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:55:31 PM   Darko           
+ *  4    Biblioteka1.3         19/08/2001 10:51:30 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:50:12 PMDarko           
+ *  2    Biblioteka1.1         08/06/2001 10:49:08 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:55:31 PMDarko           
  * $
  *****************************************************************************/

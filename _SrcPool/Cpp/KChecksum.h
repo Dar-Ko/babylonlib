@@ -1,5 +1,5 @@
 /*$Workfile: KChecksum.h$: header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
+  $Revision: 1.3 $ $Date: 2003/01/28 04:15:24 $
   $Author: ddarko $
 
   Calculates a checksum
@@ -46,8 +46,8 @@ public:
 #endif  //__KCHECKSUM_H__
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         7/16/02 1:40:50 AM   Darko           Fixed VSS Log 
+ * 2    Biblioteka1.1         16/07/2002 12:40:50 AMDarko           Fixed VSS Log 
  *      tag
- * 1    Biblioteka1.0         4/9/02 1:18:27 PM    Darko Kolakovic 
+ * 1    Biblioteka1.0         09/04/2002 12:18:27 PMDarko Kolakovic 
  *$
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KComplex.h$: header file
-  $Revision: 8$ $Date: 4/4/02 1:12:41 AM$
+  $Revision: 8$ $Date: 04/04/2002 12:12:41 AM$
   $Author: Darko$
 
   TComplex Numbers: extension to the template std::complex

@@ -1,5 +1,5 @@
 /*$Workfile: KCharCst.h$: header file
-  $Revision: 6$ $Date: 8/19/02 10:45:01 AM$
+  $Revision: 6$ $Date: 19/08/2002 9:45:01 AM$
   $Author: Darko Kolakovic$
 
   ASCII Character Table

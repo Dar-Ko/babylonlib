@@ -1,5 +1,5 @@
 /*$Workfile: KColorCt.h$: header file
-  $Revision: 9$ $Date: 1/29/02 11:19:54 PM$
+  $Revision: 9$ $Date: 29/01/2002 10:19:54 PM$
   $Author: Darko$
 
   Predefined Color Codes

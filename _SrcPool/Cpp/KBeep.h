@@ -1,5 +1,5 @@
 /*$Workfile: KBeep.h$: header file
-  $Revision: 2$ $Date: 9/16/02 5:57:42 PM$
+  $Revision: 2$ $Date: 16/09/2002 4:57:42 PM$
   $Author: Darko Kolakovic$
 
   Generates beep sounds
@@ -90,7 +90,7 @@ inline void CBeep::Dump()
 #endif  //__KBEEP_H__
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         9/16/02 5:57:42 PM   Darko Kolakovic 
- * 1    Biblioteka1.0         9/13/02 3:39:14 PM   Darko Kolakovic 
+ * 2    Biblioteka1.1         16/09/2002 4:57:42 PMDarko Kolakovic 
+ * 1    Biblioteka1.0         13/09/2002 2:39:14 PMDarko Kolakovic 
  *$
  *****************************************************************************/
