@@ -1,5 +1,5 @@
 /*$Workfile: KStrTrSl.c$: implementation file
-  $Revision: 2$ $Date: 9/10/02 6:55:04 PM$
+  $Revision: 1$ $Date: 25/10/2002 2:20:47 AM$
   $Author: Darko Kolakovic$
 
   Remove trailing slashes from a string
@@ -56,5 +56,7 @@ return szSource;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: $
+ * $Log: 
+ *  1    Biblioteka1.0         25/10/2002 2:20:47 AMDarko Kolakovic 
+ * $
  *****************************************************************************/

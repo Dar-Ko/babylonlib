@@ -1,5 +1,5 @@
 /*$Workfile: KDbgGUID.cpp$: implementation file
-  $Revision: 1$ $Date: 8/27/02 11:33:58 PM$
+  $Revision: 1$ $Date: 27/08/2002 10:33:58 PM$
   $Author: Darko$
 
   Dumps GUID

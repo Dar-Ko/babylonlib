@@ -1,5 +1,5 @@
 /*$Workfile: KHypLink.cpp$: implementation file
-  $Revision: 5$ $Date: 1/29/02 2:40:23 PM$
+  $Revision: 5$ $Date: 29/01/2002 2:40:23 PM$
   $Author: Darko$
 
   HyperLink static control.
@@ -443,10 +443,10 @@ if (m_bAutoDelete)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         1/29/02 2:40:23 PM   Darko           Tag update
- *  4    Biblioteka1.3         8/16/01 11:37:33 PM  Darko           Update
- *  3    Biblioteka1.2         7/7/01 12:09:29 AM   Darko           Example
- *  2    Biblioteka1.1         6/8/01 10:50:54 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:56:38 PM   Darko           
+ *  5    Biblioteka1.4         29/01/2002 2:40:23 PMDarko           Tag update
+ *  4    Biblioteka1.3         16/08/2001 11:37:33 PMDarko           Update
+ *  3    Biblioteka1.2         07/07/2001 12:09:29 AMDarko           Example
+ *  2    Biblioteka1.1         08/06/2001 10:50:54 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:56:38 PMDarko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KStrRplSpaces.cpp$: implementation file
-  $Revision: 2$ $Date: 9/10/02 6:54:18 PM$
+  $Revision: 3$ $Date: 25/10/2002 2:26:29 AM$
   $Author: Darko Kolakovic$
 
   Replace consecutive white spaces with single character
@@ -79,8 +79,10 @@ return szSource;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         9/10/02 6:54:18 PM   Darko Kolakovic Fixed 1 byte
+ *  3    Biblioteka1.2         25/10/2002 2:26:29 AMDarko Kolakovic Cut-off
+ *       trailing whitespace
+ *  2    Biblioteka1.1         10/09/2002 5:54:18 PMDarko Kolakovic Fixed 1 byte
  *       offset
- *  1    Biblioteka1.0         9/9/02 11:16:48 PM   Darko           
+ *  1    Biblioteka1.0         09/09/2002 10:16:48 PMDarko           
  * $
  *****************************************************************************/

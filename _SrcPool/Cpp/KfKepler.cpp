@@ -1,5 +1,5 @@
 /*$Workfile: KfKepler.cpp$: implementation file
-  $Revision: 1$ $Date: 9/5/02 9:22:28 PM$
+  $Revision: 1$ $Date: 05/09/2002 8:22:28 PM$
   $Author: Darko$
 
   Solves a quadratic equation
@@ -47,6 +47,6 @@ return dEccentricAnomaly;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         9/5/02 9:22:28 PM    Darko           
+ *  1    Biblioteka1.0         05/09/2002 8:22:28 PMDarko           
  * $
  *****************************************************************************/

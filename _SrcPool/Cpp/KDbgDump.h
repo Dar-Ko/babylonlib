@@ -1,5 +1,5 @@
 /*$Workfile: KDbgDump.h$: header file
-  $Revision: 1$ $Date: 8/27/02 11:33:56 PM$
+  $Revision: 1$ $Date: 27/08/2002 10:33:56 PM$
   $Author: Darko$
 
   Dumps values of some compiler-specific predefined macros
@@ -46,7 +46,7 @@
 #endif /*__KDBGDUMP_H__                                                      */
 /******************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         8/27/02 11:33:56 PM  Darko           
+ *  1    Biblioteka1.0         27/08/2002 10:33:56 PMDarko           
  * $
  *****************************************************************************/
 

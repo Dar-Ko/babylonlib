@@ -1,5 +1,5 @@
 /*$Workfile: KDbgREFIID.cpp$: implementation file
-  $Revision: 1$ $Date: 8/27/02 11:34:00 PM$
+  $Revision: 1$ $Date: 27/08/2002 10:34:00 PM$
   $Author: Darko$
 
   Dumps OLE interface name
