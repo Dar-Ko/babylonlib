@@ -463,6 +463,10 @@ SOURCE=.\Src\TestConformance.h
 SOURCE=..\Common\Res\Win\SrcPool.ico
 # End Source File
 # End Group
+# Begin Group "Logs"
+
+# PROP Default_Filter "*.log"
+# End Group
 # Begin Source File
 
 SOURCE=.\Assert.txt

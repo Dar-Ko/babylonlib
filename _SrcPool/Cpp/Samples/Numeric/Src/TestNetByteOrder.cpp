@@ -1,5 +1,5 @@
 /*$Workfile: TestNetByteOrder.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-05 13:05:31$
+  $Revision: 5$ $Date: 2004-10-05 14:05:31$
   $Author: Darko$
 
   Test network byte order conversions
@@ -165,13 +165,13 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2004-10-05 13:05:31  Darko           fixed Unicode
+ *  5    Biblioteka1.4         2004-10-05 14:05:31  Darko           fixed Unicode
  *       build
- *  4    Biblioteka1.3         2004-07-07 16:42:40  Darko           returns bool
+ *  4    Biblioteka1.3         2004-07-07 17:42:40  Darko           returns bool
  *       instead void
- *  3    Biblioteka1.2         2002-08-03 18:27:41  Darko           
- *  2    Biblioteka1.1         2002-03-05 01:23:47  Darko           added operator
+ *  3    Biblioteka1.2         2002-08-03 19:27:41  Darko           
+ *  2    Biblioteka1.1         2002-03-05 02:23:47  Darko           added operator
  *       BYTE*()
- *  1    Biblioteka1.0         2002-03-04 18:11:57  Darko           
+ *  1    Biblioteka1.0         2002-03-04 19:11:57  Darko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
-/*$Workfile: TestDate.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-06 22:43:10$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\DateTime\Src\TestDate.cpp$: implementation file
+  $Revision: 5$ $Date: 2004-10-06 23:43:10$
   $Author: Darko$
 
   Test Date conversions
@@ -115,12 +115,12 @@ return bRes;
 
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2004-10-06 22:43:10  Darko           Unicode fixes
- *  4    Biblioteka1.3         2004-06-01 17:14:16  Darko           StdAfx changed
+ *  5    Biblioteka1.4         2004-10-06 23:43:10  Darko           Unicode fixes
+ *  4    Biblioteka1.3         2004-06-01 18:14:16  Darko           StdAfx changed
  *       to stdafx
- *  3    Biblioteka1.2         2003-09-30 08:14:24  Darko           Test reading
+ *  3    Biblioteka1.2         2003-09-30 09:14:24  Darko           Test reading
  *       ISO 8601
- *  2    Biblioteka1.1         2003-09-25 00:25:19  Darko           ISO 8601
- *  1    Biblioteka1.0         2003-09-24 17:42:12  Darko           
+ *  2    Biblioteka1.1         2003-09-25 01:25:19  Darko           ISO 8601
+ *  1    Biblioteka1.0         2003-09-24 18:42:12  Darko           
  * $
  *****************************************************************************/

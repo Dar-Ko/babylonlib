@@ -1,5 +1,5 @@
 /*$Workfile: TestEndian.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-10-05 13:05:29$
+  $Revision: 8$ $Date: 2004-10-05 14:05:29$
   $Author: Darko$
 
   Test machine architecture

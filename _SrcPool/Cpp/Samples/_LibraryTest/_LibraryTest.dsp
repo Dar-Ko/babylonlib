@@ -238,6 +238,10 @@ SOURCE=..\Assert\Src\TestCommonAssert.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\Console\Src\TestCommonConsole.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\DateTime\Src\TestCommonDateTime.cpp
 # End Source File
 # Begin Source File

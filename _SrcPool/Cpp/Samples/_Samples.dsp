@@ -89,5 +89,9 @@ MTL=midl.exe
 # Name "_Samples - Win32 Release_SBCS"
 # Name "_Samples - Win32 Debug_Unicode"
 # Name "_Samples - Win32 Release_Unicode"
+# Begin Source File
+
+SOURCE=.\_Samples.txt
+# End Source File
 # End Target
 # End Project

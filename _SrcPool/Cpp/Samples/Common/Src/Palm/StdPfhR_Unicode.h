@@ -1,5 +1,5 @@
-/*$Workfile: StdPfhR_Unicode.h$: header file
-  $Revision: 4$  $Date: 2004-11-04 16:44:11$
+/*$Workfile: StdPfhR.h$: header file
+  $Revision: 3$  $Date: 2004-10-27 18:16:57$
 
   Codewarrior standard prefix header file included before each source code
   Release Mode
@@ -22,7 +22,7 @@
   #endif //__MWERKS__ >= 0x3000
 
   #if !defined(_STDPFHR_H_)
-    //$Workfile: StdPfhR_Unicode.h$ sentry
+    //$Workfile: StdPfhR.h$ sentry
     #define _STDPFHR_H_
 
   #if (__dest_os == __palm_os)

@@ -1,5 +1,5 @@
 /*$Workfile: TestNewtonRaphson.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-06 15:01:42$
+  $Revision: 7$ $Date: 2004-10-06 16:01:42$
   $Author: Darko$
 
   Test of solving equations

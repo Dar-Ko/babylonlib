@@ -1,5 +1,5 @@
 /*$Workfile: TestStringHandler.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-06-06 21:55:28$
+  $Revision: 2$ $Date: 2004-06-06 22:55:28$
   $Author: Darko$
 
   Test basic string class
@@ -243,8 +243,8 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-06-06 21:55:28  Darko           Added new test
+ *  2    Biblioteka1.1         2004-06-06 22:55:28  Darko           Added new test
  *       cases
- *  1    Biblioteka1.0         2004-06-04 16:47:10  Darko           
+ *  1    Biblioteka1.0         2004-06-04 17:47:10  Darko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KStdRes.h$: header file
-  $Revision: 2$ $Date: 2004-10-08 11:35:00$
+  $Revision: 2$ $Date: 2004-10-08 12:35:00$
   $Author: Darko$
 
   Common headre files required for resource files
@@ -21,7 +21,7 @@
 //       file included in a resource (.rc) ends with an empty line (CRLF)! 
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-08 11:35:00  Darko           SDK/MFC headers
- *  1    Biblioteka1.0         2004-10-05 13:04:39  Darko           
+ *  2    Biblioteka1.1         2004-10-08 12:35:00  Darko           SDK/MFC headers
+ *  1    Biblioteka1.0         2004-10-05 14:04:39  Darko           
  * $
  *****************************************************************************/

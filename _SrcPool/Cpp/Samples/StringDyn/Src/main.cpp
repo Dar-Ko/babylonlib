@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-08 11:36:13$
+  $Revision: 7$ $Date: 2004-10-08 12:36:13$
   $Author: Darko$
 
   Console application used to test dynamic string classes.
@@ -46,16 +46,16 @@ return nRetCode;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-10-08 11:36:13  Darko           comment
- *  6    Biblioteka1.5         2004-10-04 12:15:58  Darko           moved to
+ *  7    Biblioteka1.6         2004-10-08 12:36:13  Darko           comment
+ *  6    Biblioteka1.5         2004-10-04 13:15:58  Darko           moved to
  *       TestCommonnStringDyn
- *  5    Biblioteka1.4         2004-10-01 21:59:44  Darko           deleted pragma
- *  4    Biblioteka1.3         2004-06-08 15:37:21  Darko          
+ *  5    Biblioteka1.4         2004-10-01 22:59:44  Darko           deleted pragma
+ *  4    Biblioteka1.3         2004-06-08 16:37:21  Darko          
  *       TestIsPalindrome()
- *  3    Biblioteka1.2         2004-06-08 15:36:40  Darko          
+ *  3    Biblioteka1.2         2004-06-08 16:36:40  Darko          
  *       TestIsPalindrome()
- *  2    Biblioteka1.1         2004-06-04 23:40:51  Darko          
+ *  2    Biblioteka1.1         2004-06-05 00:40:51  Darko          
  *       TestStringHandler()
- *  1    Biblioteka1.0         2004-06-03 13:31:37  Darko           
+ *  1    Biblioteka1.0         2004-06-03 14:31:37  Darko           
  * $
  *****************************************************************************/

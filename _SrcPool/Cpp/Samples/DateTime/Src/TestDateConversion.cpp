@@ -1,5 +1,5 @@
 /*$Workfile: TestDateConversion.cpp$: implementation file
-  $Revision: 11$ $Date: 2004-10-08 11:33:23$
+  $Revision: 11$ $Date: 2004-10-08 12:33:23$
   $Author: Darko$
 
   Test Date conversions

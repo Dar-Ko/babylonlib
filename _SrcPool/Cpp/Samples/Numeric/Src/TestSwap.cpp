@@ -1,5 +1,5 @@
 /*$Workfile: TestSwap.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-05 13:05:40$
+  $Revision: 5$ $Date: 2004-10-05 14:05:40$
   $Author: Darko$
 
   Test byte flipping
@@ -148,12 +148,12 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2004-10-05 13:05:40  Darko           fixed Unicode
+ *  5    Biblioteka1.4         2004-10-05 14:05:40  Darko           fixed Unicode
  *       build
- *  4    Biblioteka1.3         2004-07-07 16:41:02  Darko           replaced
+ *  4    Biblioteka1.3         2004-07-07 17:41:02  Darko           replaced
  *       iomainp.h with stdafx.h
- *  3    Biblioteka1.2         2002-08-03 18:27:52  Darko           
- *  2    Biblioteka1.1         2002-02-03 17:11:14  Darko           
- *  1    Biblioteka1.0         2001-07-26 20:31:37  Darko           
+ *  3    Biblioteka1.2         2002-08-03 19:27:52  Darko           
+ *  2    Biblioteka1.1         2002-02-03 18:11:14  Darko           
+ *  1    Biblioteka1.0         2001-07-26 21:31:37  Darko           
  * $
  *****************************************************************************/

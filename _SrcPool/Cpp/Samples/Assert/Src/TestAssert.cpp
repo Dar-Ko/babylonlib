@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\TestAssert.cpp$: implementation file
+/*$Workfile: TestAssert.cpp$: implementation file
   $Revision: 4$ $Date: 2004-10-22 12:46:43$
   $Author: Darko Kolakovic$
 

@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\Palm\TestDumpMemHeap.cpp$: implementation file
+/*$Workfile: TestDumpMemHeap.cpp$: implementation file
   $Revision: 2$ $Date: 2004-11-09 18:46:08$
   $Author: Darko Kolakovic$
 

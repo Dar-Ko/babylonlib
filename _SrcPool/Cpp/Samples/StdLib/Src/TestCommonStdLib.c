@@ -1,4 +1,4 @@
-/*$Workfile: TestCommonStdLib.c$: implementation file
+/*$Workfile: S:\_SrcPool\Cpp\Samples\StdLib\Src\TestCommonStdLib.c$: implementation file
   $Revision: 4$ $Date: 2004-11-25 20:57:40$
   $Author: Darko$
 

@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonStreamIO.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-10-06 15:01:34$
+  $Revision: 6$ $Date: 2004-10-06 16:01:34$
   $Author: Darko$
 
   Testing routines using standard stream I/O.
@@ -134,13 +134,13 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2004-10-06 15:01:34  Darko           Unicode mapping
- *  5    Biblioteka1.4         2004-10-04 11:49:12  Darko           Renamed  test
+ *  6    Biblioteka1.5         2004-10-06 16:01:34  Darko           Unicode mapping
+ *  5    Biblioteka1.4         2004-10-04 12:49:12  Darko           Renamed  test
  *       script to TestCommonStreamIO
- *  4    Biblioteka1.3         2004-10-04 11:47:39  Darko           
- *  3    Biblioteka1.2         2004-09-30 14:47:54  Darko           inserted global
+ *  4    Biblioteka1.3         2004-10-04 12:47:39  Darko           
+ *  3    Biblioteka1.2         2004-09-30 15:47:54  Darko           inserted global
  *       CTestLog
- *  2    Biblioteka1.1         2004-09-29 12:23:29  Darko           improved tests
- *  1    Biblioteka1.0         2004-09-28 12:59:58  Darko           
+ *  2    Biblioteka1.1         2004-09-29 13:23:29  Darko           improved tests
+ *  1    Biblioteka1.0         2004-09-28 13:59:58  Darko           
  * $
  *****************************************************************************/

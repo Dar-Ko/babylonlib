@@ -1,5 +1,5 @@
 /*$Workfile: TestGetLines.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-06 15:01:37$
+  $Revision: 4$ $Date: 2004-10-06 16:01:37$
   $Author: Darko$
 
   Test of the counting of the text lines.
@@ -126,11 +126,11 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2004-10-06 15:01:37  Darko           Unicode mapping
- *  3    Biblioteka1.2         2004-09-30 14:47:52  Darko           inserted global
+ *  4    Biblioteka1.3         2004-10-06 16:01:37  Darko           Unicode mapping
+ *  3    Biblioteka1.2         2004-09-30 15:47:52  Darko           inserted global
  *       CTestLog
- *  2    Biblioteka1.1         2004-09-29 12:23:27  Darko           improved tests
- *  1    Biblioteka1.0         2004-09-28 12:59:56  Darko           
+ *  2    Biblioteka1.1         2004-09-29 13:23:27  Darko           improved tests
+ *  1    Biblioteka1.0         2004-09-28 13:59:56  Darko           
  * $
  *****************************************************************************/
 

@@ -1,6 +1,6 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Console\Src\TestCommonConsole.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-03-11 02:13:52$
-  $Author: Darko$
+/*$Workfile: TestCommonConsole.cpp$: implementation file
+  $Revision: 2$ $Date: 2005-03-11 16:17:25$
+  $Author: Darko Kolakovic$
 
   Test console helper.
   Copyright: CommonSoft Inc.
@@ -16,6 +16,19 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TestCmdLineParser(int argc, TCHAR* argv[]);
 
 int TestCommonConsole(int argc, TCHAR* argv[]);
+int TestCommonConsole();
+
+//-----------------------------------------------------------------------------
+/*Validates different console helper routines.
+  Defines the entry point for the test.
+
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  a non-zero error code is returned.
+ */
+int TestCommonConsole()
+{
+return TestCommonConsole(0, NULL);
+}
 
 //-----------------------------------------------------------------------------
 /*Validates different console helper routines.
@@ -81,6 +94,8 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2005-03-11 16:17:25  Darko Kolakovic Added Console
+ *       project
  *  1    Biblioteka1.0         2005-03-11 02:13:52  Darko           
  * $
  *****************************************************************************/

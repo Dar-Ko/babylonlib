@@ -3,7 +3,7 @@
   <channel>
     <title>HTML Test Files List</title>
     <language>en-ca</language>
-    <workfile>$Workfile: TestIndex.xml$</workfile>
+    <workfile>$Workfile: S:\_SrcPool\Cpp\Samples\HtmlIO\Res\TestIndex.xml$</workfile>
     <editor>$Author: Darko Kolakovic$</editor>
     <revision>$Revision: 1$ $Date: 2004-11-25 12:52:11$</revision>
     <description>List of simple HTML documents used to validate various software components</description>

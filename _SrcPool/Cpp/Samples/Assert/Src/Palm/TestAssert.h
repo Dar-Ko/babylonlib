@@ -1,5 +1,5 @@
 /*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\Palm\TestAssert.h$: header file
-  $Revision: 2$ $Date: 2004-10-28 01:19:19$
+  $Revision: 2$ $Date: 2004-10-28 02:19:19$
   $Author: Darko$
 
   Test debugging and tracing routines.

@@ -1,5 +1,5 @@
 /*$Workfile: stdafx.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-09-30 14:47:58$
+  $Revision: 7$ $Date: 2004-09-30 15:47:58$
   $Author: Darko$
 
   Source file that includes just the standard header files.

@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\TestPredefinedMacros.cpp$: implementation file
+/*$Workfile: TestPredefinedMacros.cpp$: implementation file
   $Revision: 4$ $Date: 2004-10-22 12:46:50$
   $Author: Darko Kolakovic$
 

@@ -1,5 +1,5 @@
-/*$Workfile: TestLeapYear.cpp$: implementation file
-  $Revision: 10$ $Date: 2004-10-06 22:43:13$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\DateTime\Src\TestLeapYear.cpp$: implementation file
+  $Revision: 10$ $Date: 2004-10-06 23:43:13$
   $Author: Darko$
 
   Test leap year validation
@@ -132,19 +132,19 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  10   Biblioteka1.9         2004-10-06 22:43:13  Darko           Unicode fixes
- *  9    Biblioteka1.8         2004-10-01 14:49:07  Darko           fixed MSVC6
+ *  10   Biblioteka1.9         2004-10-06 23:43:13  Darko           Unicode fixes
+ *  9    Biblioteka1.8         2004-10-01 15:49:07  Darko           fixed MSVC6
  *       SBCS build
- *  8    Biblioteka1.7         2004-06-03 09:02:30  Darko           comment
- *  7    Biblioteka1.6         2004-06-01 17:14:20  Darko           StdAfx changed
+ *  8    Biblioteka1.7         2004-06-03 10:02:30  Darko           comment
+ *  7    Biblioteka1.6         2004-06-01 18:14:20  Darko           StdAfx changed
  *       to stdafx
- *  6    Biblioteka1.5         2003-09-22 21:06:06  Darko           
- *  5    Biblioteka1.4         2003-09-22 20:57:59  Darko           Unicode
- *  4    Biblioteka1.3         2003-01-30 21:47:38  Darko           Write results
+ *  6    Biblioteka1.5         2003-09-22 22:06:06  Darko           
+ *  5    Biblioteka1.4         2003-09-22 21:57:59  Darko           Unicode
+ *  4    Biblioteka1.3         2003-01-30 22:47:38  Darko           Write results
  *       to the test log
- *  3    Biblioteka1.2         2003-01-22 22:23:23  Darko           Unicode
- *  2    Biblioteka1.1         2003-01-20 03:15:36  Darko           Replaced BOOL
+ *  3    Biblioteka1.2         2003-01-22 23:23:23  Darko           Unicode
+ *  2    Biblioteka1.1         2003-01-20 04:15:36  Darko           Replaced BOOL
  *       with bool
- *  1    Biblioteka1.0         2003-01-15 00:29:45  Darko           
+ *  1    Biblioteka1.0         2003-01-15 01:29:45  Darko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: TestPrimes.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-05 13:05:37$
+  $Revision: 4$ $Date: 2004-10-05 14:05:37$
   $Author: Darko$
 
   Test validation of prime numbers

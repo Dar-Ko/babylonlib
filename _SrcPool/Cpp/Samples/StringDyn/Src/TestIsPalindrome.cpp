@@ -1,5 +1,5 @@
 /*$Workfile: TestIsPalindrome.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-12 10:49:04$
+  $Revision: 4$ $Date: 2004-10-12 11:49:04$
   $Author: Darko$
 
   Test IsPalindrome methods

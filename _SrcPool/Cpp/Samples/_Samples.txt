@@ -1,3 +1,13 @@
+$Workfile: main.cpp$: implementation file
+$Revision: 4$ $Date: 2005-03-11 02:11:29$
+$Author: Darko$
+
+Samples and test suites for the various functions, classes and algorithms using Babylon Library
+
+Copyright: CommonSoft Inc.
+1993-06-07 Darko Kolakovic
+
+
 \	_Samples.dsw	Microsoft Developer Studio Workspace (DSW) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	_Samples.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
@@ -8,8 +18,31 @@
 \	_Samples.FNG	Falch.net DevloperStudio Workspace Group (FNG) file is a generated build file, format version 2.0 (CW9).	PalmOS
 \	_Samples.FNP	Falch.net DevloperStudio Project (FNP) file is a generated build file, format version 2.0 (CW9).	PalmOS
 
-_Samples
-Samples and test suites for the various functions, classes and algorithms using Babylon Library
+_Samples Workspace Project components
 
+                dsw  sln  CVS
+_LibraryTest    OK        OK
+  Common        NA        OK
+Doc                       OK
+_Samples        OK        OK
+  Assert        OK        OK
+  Console       OK   OK   OK
+  DateTime      OK        OK
+  HtmlIO                  OK
+  Numeric       OK        OK
+  StdLib        OK        OK
+  StreamIO      OK        OK
+  StringDyn     OK        OK
+  
+To Be Moved:
+    Calc
+    Complex
+    HTTPUtils
+    Resizable
+    Strings
+    Timer
+    Utilities
+    VerInfoTest
+    WinOSVer
 
 

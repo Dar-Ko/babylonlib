@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "../Resource.h"
 
@@ -22,7 +22,6 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 #pragma code_page(1252)
 #endif //_WIN32
 
-#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -46,18 +45,17 @@ BEGIN
     BEGIN
         BLOCK "000004e4"
         BEGIN
-            VALUE "Comments", "Babylon Library Test Cases\0"
-            VALUE "CompanyName", "CommonSoft Inc.\0"
-            VALUE "FileDescription", "Babylon Library , Console, Win32\0"
-            VALUE "FileVersion", "1.0.0.3\0"
-            VALUE "InternalName", "Test\0"
-            VALUE "LegalCopyright", "© Copyright 2000 by CommonSoft Inc. All rights reserved.\0"
-            VALUE "LegalTrademarks", "BabylonLib\0"
-            VALUE "OriginalFilename", "Test.exe\0"
-            VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "BabylonTest Win32\0"
-            VALUE "ProductVersion", "1.0.0.0\0"
-            VALUE "SpecialBuild", "Darko Kolakovic\0"
+            VALUE "Comments", "Babylon Library Test Cases"
+            VALUE "CompanyName", "CommonSoft Inc."
+            VALUE "FileDescription", "Babylon Library , Console, Win32"
+            VALUE "FileVersion", "1.0.0.3"
+            VALUE "InternalName", "Test"
+            VALUE "LegalCopyright", "© Copyright 2000 by CommonSoft Inc. All rights reserved."
+            VALUE "LegalTrademarks", "BabylonLib"
+            VALUE "OriginalFilename", "Test.exe"
+            VALUE "ProductName", "BabylonTest Win32"
+            VALUE "ProductVersion", "1.0.0.0"
+            VALUE "SpecialBuild", "Darko Kolakovic"
         END
     END
     BLOCK "VarFileInfo"
@@ -73,7 +71,7 @@ VS_VERSION_INFO$(_UNICODE) VERSIONINFO
 #else
 VS_VERSION_INFO VERSIONINFO
 #endif
- FILEVERSION 1,0,0,3
+ FILEVERSION 1,2005,3,11
  PRODUCTVERSION 1,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
@@ -89,18 +87,17 @@ BEGIN
     BEGIN
         BLOCK "000004e4"
         BEGIN
-            VALUE "Comments", "Babylon Library Test Cases Unicode\0"
-            VALUE "CompanyName", "CommonSoft Inc.\0"
-            VALUE "FileDescription", "Babylon Library , Console, Unicode, Win32\0"
-            VALUE "FileVersion", "1.0.0.3\0"
-            VALUE "InternalName", "Test\0"
-            VALUE "LegalCopyright", "© Copyright 2000 by CommonSoft Inc. All rights reserved.\0"
-            VALUE "LegalTrademarks", "BabylonLib\0"
-            VALUE "OriginalFilename", "Test.exe\0"
-            VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "BabylonTest Win32\0"
-            VALUE "ProductVersion", "1.0.0.0\0"
-            VALUE "SpecialBuild", "Darko Kolakovic\0"
+            VALUE "Comments", "Babylon Library Test Cases Unicode"
+            VALUE "CompanyName", "CommonSoft Inc."
+            VALUE "FileDescription", "Babylon Library , Console, Unicode, Win32"
+            VALUE "FileVersion", "1.2005.3.11"
+            VALUE "InternalName", "Test"
+            VALUE "LegalCopyright", "© Copyright 2000 by CommonSoft Inc. All rights reserved."
+            VALUE "LegalTrademarks", "BabylonLib"
+            VALUE "OriginalFilename", "Test.exe"
+            VALUE "ProductName", "BabylonTest Win32"
+            VALUE "ProductVersion", "1.0.0.0"
+            VALUE "SpecialBuild", "Darko Kolakovic"
         END
     END
     BLOCK "VarFileInfo"
@@ -109,8 +106,6 @@ BEGIN
     END
 END
 #endif
-
-#endif    // !_MAC
 
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
@@ -132,7 +127,7 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_DEFAULT
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON    DISCARDABLE     "../SrcPool.ico"
+IDR_MAINFRAME           ICON                    "../SrcPool.ico"
 #endif    // Neutral (Default) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -152,19 +147,19 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_CAN
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE MOVEABLE PURE 
+1 TEXTINCLUDE 
 BEGIN
     "../Resource.h\0"
 END
 
-2 TEXTINCLUDE MOVEABLE PURE 
+2 TEXTINCLUDE 
 BEGIN
     "#include ""winres.h""\r\n"
     "#include ""..\\KStdRes.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE MOVEABLE PURE 
+3 TEXTINCLUDE 
 BEGIN
     "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
     "#define _AFX_NO_OLE_RESOURCES\r\n"

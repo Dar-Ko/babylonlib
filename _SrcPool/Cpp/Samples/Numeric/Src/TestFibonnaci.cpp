@@ -1,4 +1,4 @@
-/*$Workfile: TestFibonnaci.cpp$: implementation file
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Numeric\Src\TestFibonnaci.cpp$: implementation file
   $Revision: 1$ $Date: 2005-01-21 14:43:07$
   $Author: Darko Kolakovic$
 

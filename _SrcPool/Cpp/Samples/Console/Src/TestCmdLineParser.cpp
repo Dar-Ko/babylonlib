@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Console\Src\TestCmdLineParser.cpp$: implementation file
+/*$Workfile: TestCmdLineParser.cpp$: implementation file
   $Revision: 1$ $Date: 2005-03-11 02:13:51$
   $Author: Darko$
 

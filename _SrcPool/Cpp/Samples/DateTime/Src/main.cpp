@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 10$ $Date: 2004-10-08 11:33:25$
+  $Revision: 10$ $Date: 2004-10-08 12:33:25$
   $Author: Darko$
 
   Console application used to test various operations with date and time.
