@@ -1,0 +1,40 @@
+<FNProject VERSION="2.0" NAME="_Samples">
+    <CONFIGURATIONS DEFAULT="0">
+        <CONFIGURATION NAME="Debug_Unicode">
+            <SETTING MULTIPLESEGMENTS="0"></SETTING>
+            <SETTING IsLibrary="0"></SETTING>
+            <SETTING SNAPIN="Falch.Net PalmPilot SnapIn"></SETTING>
+            <SETTING AUTOBUILDDEFFILE="1"></SETTING>
+            <SETTING AUTOBUILDRCPHEADER="1"></SETTING>
+            <SETTING rgrMakeJobType="0"></SETTING>
+            <SETTING txtMakeJobCount="1"></SETTING>
+            <SETTING cbxMakeKeepGoing="0"></SETTING>
+            <SETTING CbxCopyPrevention="0"></SETTING>
+            <SETTING TARGETOS="3"></SETTING>
+            <SETTING STDAPP="1"></SETTING>
+            <SETTING cboProfile="-1"></SETTING>
+            <SETTING AUTOBUILDMAKEFILE="1"></SETTING>
+            <SETTING ICONTEXT="_Samples"></SETTING>
+            <SETTING APPID="Dark"></SETTING>
+            <SETTING PRCFILENAME="./bin/Debug_Unicode/PalmOS/_Samples.prc"></SETTING>
+            </CONFIGURATION>
+        <CONFIGURATION NAME="Release_Unicode">
+            <SETTING MULTIPLESEGMENTS="0"></SETTING>
+            <SETTING IsLibrary="0"></SETTING>
+            <SETTING SNAPIN="Falch.Net PalmPilot SnapIn"></SETTING>
+            <SETTING AUTOBUILDDEFFILE="1"></SETTING>
+            <SETTING AUTOBUILDRCPHEADER="1"></SETTING>
+            <SETTING rgrMakeJobType="0"></SETTING>
+            <SETTING txtMakeJobCount="1"></SETTING>
+            <SETTING cbxMakeKeepGoing="0"></SETTING>
+            <SETTING CbxCopyPrevention="0"></SETTING>
+            <SETTING TARGETOS="3"></SETTING>
+            <SETTING STDAPP="1"></SETTING>
+            <SETTING cboProfile="-1"></SETTING>
+            <SETTING AUTOBUILDMAKEFILE="1"></SETTING>
+            <SETTING ICONTEXT="_Samples"></SETTING>
+            <SETTING APPID="Dark"></SETTING>
+            <SETTING PRCFILENAME="./bin/Release_Unicode/PalmOS/_Samples.prc"></SETTING>
+            </CONFIGURATION>
+        </CONFIGURATIONS>
+    </FNProject>

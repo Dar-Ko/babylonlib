@@ -1,0 +1,155 @@
+Microsoft eMbedded Visual Tools Workspace File, Format Version 4.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "Assert"=.\Assert\Assert.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "DateTime"=.\DateTime\DateTime.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "Doc"=..\Documentation\Doc.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "Numeric"=.\Numeric\Numeric.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "StdLib"=.\StdLib\StdLib.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "StreamIO"=.\StreamIO\StreamIO.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "StringDyn"=.\StringDyn\StringDyn.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "_LibraryTest"=.\_LibraryTest\_LibraryTest.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "_Samples"=.\_Samples.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name Assert
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name DateTime
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Numeric
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name StdLib
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name StreamIO
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name StringDyn
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "_SrcPool"=..\..\_SrcPool.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+
