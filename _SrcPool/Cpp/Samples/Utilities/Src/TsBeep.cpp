@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Utilities\Src\TsBeep.cpp$: implementation file
-  $Revision: 2$ $Date: 9/19/02 1:14:40 AM$
+/*$Workfile: TsBeep.cpp$: implementation file
+  $Revision: 2$ $Date: 19/09/2002 12:14:40 AM$
   $Author: Darko$
 
   Test PC beeping
@@ -44,7 +44,7 @@ return bRes;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         9/19/02 1:14:40 AM   Darko           
- * 1    Biblioteka1.0         9/16/02 5:58:56 PM   Darko Kolakovic 
+ * 2    Biblioteka1.1         19/09/2002 12:14:40 AMDarko           
+ * 1    Biblioteka1.0         16/09/2002 4:58:56 PMDarko Kolakovic 
  *$
  *****************************************************************************/

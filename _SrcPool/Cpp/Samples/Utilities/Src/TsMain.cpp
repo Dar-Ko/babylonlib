@@ -1,5 +1,5 @@
 /*$Workfile: TsMain.cpp$: implementation file
-  $Revision: 3$ $Date: 10/11/02 2:33:41 PM$
+  $Revision: 3$ $Date: 11/10/2002 1:33:41 PM$
   $Author: Darko Kolakovic$
 
   Console application used to test various helper functions
@@ -100,9 +100,9 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         10/11/02 2:33:41 PM  Darko Kolakovic 
- *  2    Biblioteka1.1         10/10/02 8:37:16 PM  Darko Kolakovic Fixed 16-bit
+ *  3    Biblioteka1.2         11/10/2002 1:33:41 PMDarko Kolakovic 
+ *  2    Biblioteka1.1         10/10/2002 7:37:16 PMDarko Kolakovic Fixed 16-bit
  *       version
- *  1    Biblioteka1.0         9/16/02 5:58:59 PM   Darko Kolakovic 
+ *  1    Biblioteka1.0         16/09/2002 4:58:59 PMDarko Kolakovic 
  * $
  *****************************************************************************/
