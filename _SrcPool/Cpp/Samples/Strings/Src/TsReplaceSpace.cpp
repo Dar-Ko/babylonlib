@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Strings\Src\TsReplaceSpace.cpp$: implementation file
-  $Revision: 1$ $Date: 9/10/02 6:51:14 PM$
+/*$Workfile: TsReplaceSpace.cpp$: implementation file
+  $Revision: 2$ $Date: 9/11/02 4:26:38 PM$
   $Author: Darko Kolakovic$
 
   Test string trimming 
@@ -16,7 +16,6 @@
 #include <iomanip.h>  //std::endl
 
 extern BOOL TsWriteToView(LPCTSTR lszText);
-extern TCHAR* ByteToHex(BYTE cValue, TCHAR* szResult);
 
 //TestReplaceSpace()----------------------------------------------------------
 /*Test reducing the number of whitespace characters in a string.
@@ -33,42 +32,70 @@ LPCTSTR szText = _T("\n\n\r\n\t  \
 THE harder Tom tried to fasten his mind on his book, the more his ideas wandered.\r\n \
 \t\t\t  \t\n  So at last, with a sigh and a yawn, he gave it up.\r\n  \
    \t \v");
-int iTextLen =  _tcslen(szText);
+int iTextLen = _tcslen(szText);
 
-  //Test triming leading and trailing spaces
+  //Test trimming leading and trailing spaces
 cout << szText << endl << "<EOT>" << endl 
-     << "Text lenght = " << iTextLen << endl
+     << "Text length = " << iTextLen << endl
      << "Trim leading and trailing spaces:" << endl;
 
 LPTSTR szBuffer = new TCHAR[iTextLen + 1];
 _tcscpy(szBuffer, szText);
 StrTrim(szBuffer);
-int iResultLen =  _tcslen(szBuffer);
+int iResultLen = _tcslen(szBuffer);
 if (szBuffer[0] != _T('C'))
   bRes = false;
 else if (szBuffer[iResultLen - 1] != _T('.'))
   bRes = false;
 cout << szBuffer << endl << "<EOT>" << endl 
-     << "Text lenght = " << iResultLen << endl;
+     << "Text length = " << iResultLen << endl;
+
+  //Test trimming on text without leading or trailing spaces
+if (bRes)
+  {
+  StrTrim(szBuffer);
+  if (iResultLen != _tcslen(szBuffer))
+    bRes = false;
+  else if (szBuffer[0] != _T('C'))
+    bRes = false;
+  else if (szBuffer[iResultLen - 1] != _T('.'))
+    bRes = false;
+  }
 
   //Test replacing multiple spaces with single character
 if (bRes)
   {
   cout << "Replace multiple spaces:" << endl;
-  _tcscpy(szBuffer, szText);
+
+    //Test replacing on text without leading or trailing spaces
   if (ReplaceSpaces(szBuffer) == NULL)
     bRes = false;
   else
     {
-    iResultLen =  _tcslen(szBuffer);
+    iResultLen = _tcslen(szBuffer);
     if (szBuffer[0] != _T('C'))
       bRes = false;
     else if (szBuffer[iResultLen] != _T('.'))
       bRes = false;
 
     cout << szBuffer << endl << "<EOT>" << endl 
-         << "Text lenght = " << iResultLen << endl;
-
+         << "Text length = " << iResultLen << endl;
+    }
+    //Test replacing on text with leading and trailing spaces
+  if (bRes)
+    {
+    _tcscpy(szBuffer, szText);
+    if (ReplaceSpaces(szBuffer) == NULL)
+      bRes = false;
+    else
+      {
+      if (iResultLen != _tcslen(szBuffer))
+        bRes = false;
+      else if (szBuffer[0] != _T('C'))
+        bRes = false;
+      else if (szBuffer[iResultLen] != _T('.'))
+        bRes = false;
+      }
     }
   }
 
@@ -80,6 +107,8 @@ return bRes;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
+ * 2    Biblioteka1.1         9/11/02 4:26:38 PM   Darko Kolakovic Added
+ *      TestStrDup()
  * 1    Biblioteka1.0         9/10/02 6:51:14 PM   Darko Kolakovic 
  *$
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 7$ $Date: 9/10/02 6:55:46 PM$
+  $Revision: 8$ $Date: 9/11/02 4:26:42 PM$
   $Author: Darko Kolakovic$
 
   Console application used to test various string operations
@@ -48,6 +48,7 @@ extern bool TestGetLine(LPCTSTR szFileName, int iNoofLines);
 extern bool TestStringConversion();
 extern bool TestCharConversion();
 extern bool TestReplaceSpace();
+extern bool TestStrDup();
 
 extern std::string g_strTestFile;
 
@@ -95,7 +96,7 @@ else
   return EXIT_FAILURE + 3;
   }
 
-if(TestGetLine(g_strTestFile.c_str(), iNoofLines))
+if(TestStrDup())
   cout << "Succeeded." << endl << endl;
 else
   {
@@ -103,12 +104,20 @@ else
   return EXIT_FAILURE + 4;
   }
 
-if(TestReplaceSpace())
+if(TestGetLine(g_strTestFile.c_str(), iNoofLines))
   cout << "Succeeded." << endl << endl;
 else
   {
   cout << "Failed!" << endl;
   return EXIT_FAILURE + 5;
+  }
+
+if(TestReplaceSpace())
+  cout << "Succeeded." << endl << endl;
+else
+  {
+  cout << "Failed!" << endl;
+  return EXIT_FAILURE + 6;
   }
 
 return EXIT_SUCCESS;
@@ -117,6 +126,8 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  8    Biblioteka1.7         9/11/02 4:26:42 PM   Darko Kolakovic Added
+ *       TestStrDup()
  *  7    Biblioteka1.6         9/10/02 6:55:46 PM   Darko Kolakovic 
  *  6    Biblioteka1.5         8/19/02 10:32:53 AM  Darko Kolakovic
  *       TestCharConversion()

@@ -176,6 +176,10 @@ SOURCE=.\Src\TsGetLine.cpp
 
 SOURCE=.\Src\TsReplaceSpace.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\Src\TsStrDup.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
