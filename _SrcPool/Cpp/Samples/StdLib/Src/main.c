@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\StdLib\Src\main.c$: implementation file
+/*$Workfile: main.c$: implementation file
   $Revision: 2$ $Date: 2004-10-04 12:51:19$
   $Author: Darko$
 
