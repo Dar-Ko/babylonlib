@@ -1,5 +1,5 @@
-/*$Workfile: TestPredefinedMacros.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-22 11:46:50$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\TestPredefinedMacros.cpp$: implementation file
+  $Revision: 4$ $Date: 2004-10-22 12:46:50$
   $Author: Darko Kolakovic$
 
   Test compiler defined macros.
@@ -224,10 +224,10 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2004-10-22 11:46:50  Darko Kolakovic CodeWarrior
- *  3    Biblioteka1.2         2004-10-20 12:23:00  Darko Kolakovic Metrowerks
+ *  4    Biblioteka1.3         2004-10-22 12:46:50  Darko Kolakovic CodeWarrior
+ *  3    Biblioteka1.2         2004-10-20 13:23:00  Darko Kolakovic Metrowerks
  *       CodeWarrior
- *  2    Biblioteka1.1         2004-09-13 14:28:46  Darko           comments
- *  1    Biblioteka1.0         2004-08-31 12:03:40  Darko           
+ *  2    Biblioteka1.1         2004-09-13 15:28:46  Darko           comments
+ *  1    Biblioteka1.0         2004-08-31 13:03:40  Darko           
  * $
  *****************************************************************************/

@@ -1,13 +1,14 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\_LibraryTest\Src\main.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-12 11:50:47$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Console\Src\main.cpp$: implementation file
+  $Revision: 1$ $Date: 2005-03-11 02:13:54$
   $Author: Darko$
 
-  Defines the entry point for the console application used to test library 
-  functionality.
-  2003-01 Darko Kolakovic
+  Test console I/O helper routines.
+  Copyright: CommonSoft Inc.
+  2005-03-01 Darko Kolakovic
 */
 
 // Group=Examples
+
 
 #ifdef _MSC_VER     /*Microsoft Visual Studio C/C++ compiler                 */
   #ifndef _CONSOLE
@@ -24,38 +25,35 @@
 #include "stdafx.h"
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
-extern int TestCommonLibrary();
+extern int TestCommonConsole(int argc, TCHAR* argv[]);
 
 //-----------------------------------------------------------------------------
-/*Invokes different test routines used to validate functionality of the library.
+/*Validates different debugging and tracing routines.
+  Defines the entry point for the console application.
 
   Returns: EXIT_SUCCESS, which represents a value of 0, if successful. Otherwise
   a non-zero error code is returned.
-
-  Note: Microsoft Windows specific (Win).
-
  */
 int _tmain(int argc,      //[in] specifies how many arguments are passed to the
                           //program from the command line. The value of argc is
                           //at least one: the program name.
-           TCHAR* argv[]  //[in] the program arguments as an array of pointers
+           TCHAR* argv[] //[in] the program arguments as an array of pointers
                           //to null-terminated strings. The first string 
                           //(argv[0]) is the program name. The end of the array
                           //(argv[argc]) is indicated by a NULL pointer.
-          )
+           )
 {
-TsWriteToViewLn(_T("Library validation"));
+TsWriteToViewLn(_T("Start Console Tests"));
+TsWriteToViewLn(_T(""));
 int nRetCode = EXIT_SUCCESS;
 
-nRetCode = TestCommonLibrary();
-
+nRetCode = TestCommonConsole(argc, argv);
 return nRetCode;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-12 11:50:47  Darko           formatting
- *  1    Biblioteka1.0         2004-10-04 13:10:53  Darko           
+ *  1    Biblioteka1.0         2005-03-11 02:13:54  Darko           
  * $
  *****************************************************************************/

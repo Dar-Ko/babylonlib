@@ -1,5 +1,5 @@
-/*$Workfile: TestCommonLibrary.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-08 11:36:43$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\_LibraryTest\Src\TestCommonLibrary.cpp$: implementation file
+  $Revision: 7$ $Date: 2004-10-08 12:36:43$
   $Author: Darko$
 
   Defines the entry point for the console application used to test libray 
@@ -82,18 +82,18 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-10-08 11:36:43  Darko           added
+ *  7    Biblioteka1.6         2004-10-08 12:36:43  Darko           added
  *       TestDateTime 
- *  6    Biblioteka1.5         2004-10-04 22:42:12  Darko           Added numeric
+ *  6    Biblioteka1.5         2004-10-04 23:42:12  Darko           Added numeric
  *       test script
- *  5    Biblioteka1.4         2004-10-04 12:11:07  Darko           Renamed test
+ *  5    Biblioteka1.4         2004-10-04 13:11:07  Darko           Renamed test
  *       script to TestCommonLibrary
- *  4    Biblioteka1.3         2004-10-04 12:10:25  Darko           
- *  3    Biblioteka1.2         2004-09-30 14:47:56  Darko           inserted global
+ *  4    Biblioteka1.3         2004-10-04 13:10:25  Darko           
+ *  3    Biblioteka1.2         2004-09-30 15:47:56  Darko           inserted global
  *       CTestLog
- *  2    Biblioteka1.1         2004-09-28 13:03:27  Darko           replaced cout
+ *  2    Biblioteka1.1         2004-09-28 14:03:27  Darko           replaced cout
  *       with _tcout
- *  1    Biblioteka1.0         2004-06-03 13:29:38  Darko           
+ *  1    Biblioteka1.0         2004-06-03 14:29:38  Darko           
  * $
  *****************************************************************************/
 

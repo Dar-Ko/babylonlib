@@ -2,3 +2,4 @@
 \	Assert.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
 \	Assert.vcp	Microsoft eMbedded Visual Tools Project (VCP) file is a generated build file, format version 6.02 (eVC6).	WinCE
 \	Assert.FNP	Falch.net DevloperStudio Project (FNP) file is a generated build file, format version 2.0 (CW9).	PalmOS
+\	Assert.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32

@@ -1,6 +1,6 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-11-23 15:51:46$
-  $Author: Darko Kolakovic$
+  $Revision: 4$ $Date: 2005-03-11 02:11:29$
+  $Author: Darko$
 
   Test debugging and tracing routines.
   Copyright: CommonSoft Inc.
@@ -36,7 +36,7 @@ extern int TestCppConformance();
  */
 int main()
 {
-int nRetCode = nRetCode = TestCppConformance();
+int nRetCode = TestCppConformance();
 if (nRetCode == EXIT_SUCCESS)
   nRetCode = TestCommonAssert();
 return nRetCode;
@@ -45,6 +45,7 @@ return nRetCode;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  4    Biblioteka1.3         2005-03-11 02:11:29  Darko           fixed typo
  *  3    Biblioteka1.2         2004-11-23 15:51:46  Darko Kolakovic fixed MSVC
  *       build
  *  2    Biblioteka1.1         2004-10-04 11:52:45  Darko           Renamed test

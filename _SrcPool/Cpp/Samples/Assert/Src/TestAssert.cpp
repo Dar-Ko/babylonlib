@@ -1,5 +1,5 @@
-/*$Workfile: TestAssert.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-22 11:46:43$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\TestAssert.cpp$: implementation file
+  $Revision: 4$ $Date: 2004-10-22 12:46:43$
   $Author: Darko Kolakovic$
 
   Test validation of the assertation
@@ -38,9 +38,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2004-10-22 11:46:43  Darko Kolakovic CodeWarrior
- *  3    Biblioteka1.2         2004-09-28 12:59:18  Darko           comments
- *  2    Biblioteka1.1         2004-09-13 14:28:42  Darko           comments
- *  1    Biblioteka1.0         2004-08-23 16:58:05  Darko           
+ *  4    Biblioteka1.3         2004-10-22 12:46:43  Darko Kolakovic CodeWarrior
+ *  3    Biblioteka1.2         2004-09-28 13:59:18  Darko           comments
+ *  2    Biblioteka1.1         2004-09-13 15:28:42  Darko           comments
+ *  1    Biblioteka1.0         2004-08-23 17:58:05  Darko           
  * $
  *****************************************************************************/

@@ -1,4 +1,4 @@
-/*$Workfile: TestTraceC.c$: implementation file
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\TestTraceC.c$: implementation file
   $Revision: 7$ $Date: 2004-11-09 18:46:13$
   $Author: Darko Kolakovic$
 
