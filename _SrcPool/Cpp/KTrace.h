@@ -1,5 +1,5 @@
 /*$Workfile: KTrace.h$: implementation file
-  $Revision: 9$ $Date: 8/19/02 10:37:45 AM$
+  $Revision: 10$ $Date: 10/10/02 8:35:55 PM$
   $Author: Darko Kolakovic$
 
   Debugging helpers
@@ -28,7 +28,7 @@
       #endif
       #include <Assert.h>
     #else /*!__INCvxWorksh*/
-	  #ifdef _GNU_H_WINDOWS32_DEFINES  /*Included \host\x86-win32\i386-pc-mingw32\sys-include\Windows32\Defines.h*/
+    #ifdef _GNU_H_WINDOWS32_DEFINES  /*Included \host\x86-win32\i386-pc-mingw32\sys-include\Windows32\Defines.h*/
         #warning "_GNU_H_WINDOWS32_DEFINES"
         #define __INCntcontexth /*Exclude \target\h\arch\simnt\NTContext.h */
         #define __INCstddefh    /*Exclude \target\h\StdDef.h               */
@@ -106,7 +106,6 @@
     #ifdef _MSC_VER /*Microsoft Visual Studio*/
       //D.K. 12.2.2k2 #ifdef __cplusplus
         #ifndef __AFX_H__ /*MFC not included and all TRACE macros are undefined*/
-          #include <CrtDbg.h> /*_CrtDbgReport()*/
           #define THIS_FILE          __FILE__
           
           #include <stdio.h> /*fprintf()*/
@@ -141,15 +140,26 @@
              #define TRACE3(format, p1, p2, p3) fprintf(stderr,format, p1, p2, p3);fflush(stderr)
           #endif
 
+            /*Only Mac or Win32 targets are supported*/
+          #if defined(_WIN32) || defined(_MAC)
+            #include <CrtDbg.h> /*_CrtDbgReport()*/
+
             /*Evaluates an expression when the _DEBUG flag has been defined and
               if the result is FALSE, prints a diagnostic message and aborts 
               the program.
              */
-          #define ASSERT(expr) \
-              do{ if (!(expr) && \
-                  (1 == _CrtDbgReport(_CRT_ASSERT, THIS_FILE, __LINE__, NULL, NULL))) \
-                   _CrtDbgBreak(); \
-                } while (0)
+            #define ASSERT(expr) \
+                do{ if (!(expr) && \
+                    (1 == _CrtDbgReport(_CRT_ASSERT, THIS_FILE, __LINE__, NULL, NULL))) \
+                     _CrtDbgBreak(); \
+                  } while (0)         
+          #endif  /*Mac or Win32*/
+          
+          #ifdef _DOS    
+            #include <assert.h>
+            #define ASSERT(expr) ( (expr) ? (void) 0 : _assert(expr, __FILE__, __LINE__) )
+          #endif /*_DOS*/
+
         #endif /*!__AFX_H__ */
      //D.K. 12.2.2k2 #endif /*__cplusplus*/
 

@@ -1,5 +1,5 @@
 /*$Workfile: KTypedef.h$: header file
-  $Revision: 15$ $Date: 9/18/02 6:14:14 PM$
+  $Revision: 16$ $Date: 10/10/02 8:36:00 PM$
   $Author: Darko Kolakovic$
 
   Type definitions
@@ -8,11 +8,33 @@
  */
 
 
+#if ( defined(_DOS) || defined(WIN) )
+  #if _MSC_VER <= 850 /*Microsoft Visual C/C++ 1.52 or less            */
+    /* /////////////////////////////////////////////////////////////////////// */
+    /* // MS Windows 16-bit, DOS 16-bit                                        */
+    #ifndef __NATIVE_16_BIT__
+      #define __NATIVE_16_BIT__
+    #endif
+    typedef int bool;
+    #define bool bool
+    #ifndef true
+       /*Boolean <B>true</B> is one of the two values that a Boolean can have. */
+      #define true 1
+    #endif
+    #ifndef false
+       /*Boolean <B>false</B> is one of the two values that a Boolean can have.*/
+      #define false 0
+    #endif
+  #endif /*Microsoft Visual C/C++ 1.52 or less            */
+#endif /* _DOS || WIN */
+
 #ifdef _WIN32            /*32-bit Windows OS                                 */
 
   /* /////////////////////////////////////////////////////////////////////// */
   /* // MS Windows 32-bit                                                    */
   #ifdef _MSC_VER        /*Microsoft Visual Studio C/C++ compiler            */
+    #define __NATIVE_32_BIT__
+
     #ifndef __KMS_WTYPES_H__
          /*Included wtypes.h header                                          */
       #define __KMS_WTYPES_H__ 1
@@ -21,8 +43,6 @@
       #endif
       #include <wtypes.h> /*Microsoft Windows type definitions               */
     #endif /*__KMS_WTYPES_H__*/
-
-    #define __NATIVE_32_BIT__
 
     #ifndef int64
       /*Declares 64-bit integer                                              */
@@ -42,23 +62,23 @@
 
     /*_MESSAGE preprocessor directive ---------------------------------------*/
     /*reserved: preprocessor needs two indirections to replace __LINE__ with
-	  actual string                                                          */
+    actual string                                                          */
     #define __MESSAGE0(Msg)     #Msg
     /*Preprocessor needs two indirections to replace __LINE__ or __FILE__ with
-	  actual string.
+    actual string.
 
-	  Note: Microsoft Visual Studio (MSVC) specific.                         */
+    Note: Microsoft Visual Studio (MSVC) specific.                         */
     #define _MESSAGE1(Msg)    __MESSAGE0(Msg)
     /*Adds the name of the source file and the line number where a preprocessor
       message has been inserted.
 
-	  Note: Microsoft Visual Studio (MSVC) specific.
+    Note: Microsoft Visual Studio (MSVC) specific.
 
-	  Example:
-	     #pragma _MESSAGE(Your message)
-	     Output:
-	     C:\MyCode.cpp(111):Your message
-	 */
+    Example:
+       #pragma _MESSAGE(Your message)
+       Output:
+       C:\MyCode.cpp(111):Your message
+   */
     #define _MESSAGE(Msg)  message(__FILE__ "(" _MESSAGE1(__LINE__) "):" #Msg)
 
   #endif /*_MSC_VER                                                          */
@@ -69,6 +89,7 @@
 
   #ifdef VXWORKS /*32-bit VxWorks OS */
     #include <vxTypesOld.h> /*BOOL typedef */
+    #define __NATIVE_32_BIT__
   #endif
 
   #ifndef __KTYPEDEF_H__
@@ -77,7 +98,7 @@
     becomes a synonym for the type given by the decl-specifiers portion of the
     declaration. In contrast to the class, struct, union, and enum declarations,
     <B>typedef</B> declarations do not introduce new types — they introduce new
-	  names for existing types.
+    names for existing types.
    */
     #define __KTYPEDEF_H__
 
@@ -94,8 +115,6 @@
 
   /* /////////////////////////////////////////////////////////////////////// */
   /* Macros                                                                  */
-
-  #define __NATIVE_32_BIT__
 
   #ifndef TRUE
      /*Boolean <B>true</B> is one of the two values that a Boolean can have. */
@@ -131,7 +150,7 @@
   #endif /*__INCvxTypesOldh*/
 
   #ifndef UINT64
-    #ifndef VXWORKS /*VxWorks has not int64*/
+    #if !defined(VXWORKS) && !defined(_DOS) /*VxWorks, DOS have not int64*/
         /*A 64-bit unsigned integer                                          */
       typedef unsigned int64 UINT64;
       #ifndef uint64
@@ -206,51 +225,51 @@
   #undef __NATIVE_16_BIT__
 
     /*Converts a constant to signed 64-bit integer                           */
-  #define __INT64_T__(x)	x ## L
+  #define __INT64_T__(x)  x ## L
     /*Converts a constant to unsigned 64-bit integer                         */
-  #define __UINT64_T__(x)	x ## UL
+  #define __UINT64_T__(x) x ## UL
 
   #ifndef int8
       /*signed 8-bit integer                                                 */
     typedef signed char          int8;
-    #define  int8	 int8
+    #define  int8  int8
   #endif
   #ifndef uint8
       /*unsigned 8-bit integer                                               */
     typedef unsigned char       uint8;
-    #define  uint8	 uint8
+    #define  uint8   uint8
   #endif
   #ifndef int16
       /*signed 16-bit integer                                                */
     typedef signed short        int16;
-    #define  int16	 int16
+    #define  int16   int16
   #endif
   #ifndef uint16
       /*unsigned 16-bit integer                                              */
     typedef unsigned short     uint16;
-    #define  uint16	 uint16
+    #define  uint16  uint16
   #endif
 
 
   #ifndef int32
       /*signed 32-bit integer                                                */
     typedef signed int           int32;
-    #define  int32	 int32
+    #define  int32   int32
   #endif
   #ifndef uint32
       /*unsigned 32-bit integer                                              */
   typedef unsigned int        uint32;
-    #define  uint32	 uint32
+    #define  uint32  uint32
   #endif
   #ifndef int64
       /*signed 64-bit integer                                                */
     typedef signed long          int64;
-    #define  int64	 int64
+    #define  int64   int64
   #endif
   #ifndef uint64
       /*unsigned 64-bit integer                                              */
   typedef unsigned long       uint64;
-    #define  uint64	 uint64
+    #define  uint64  uint64
   #endif
 
 #endif /*__NATIVE_64_BIT__*/
@@ -261,41 +280,41 @@
   #undef __NATIVE_16_BIT__
 
     /*Converts a constant to signed 64-bit integer                           */
-  #define __INT64_T__(x)	x ## LL
+  #define __INT64_T__(x)  x ## LL
     /*Converts a constant to unsigned 64-bit integer                         */
-  #define __UINT64_T__(x)	x ## ULL
+  #define __UINT64_T__(x) x ## ULL
 
   #ifndef int8
       /*signed 8-bit integer                                                 */
     typedef signed char          int8;
-    #define  int8	 int8
+    #define  int8  int8
   #endif
   #ifndef uint8
       /*unsigned 8-bit integer                                               */
     typedef unsigned char       uint8;
-    #define  uint8	 uint8
+    #define  uint8   uint8
   #endif
   #ifndef int16
       /*signed 16-bit integer                                                */
     typedef signed short        int16;
-    #define  int16	 int16
+    #define  int16   int16
   #endif
   #ifndef uint16
       /*unsigned 16-bit integer                                              */
     typedef unsigned short     uint16;
-    #define  uint16	 uint16
+    #define  uint16  uint16
   #endif
 
 
   #ifndef int32
       /*signed 32-bit integer                                                */
     typedef signed long          int32;
-    #define  int32	 int32
+    #define  int32   int32
   #endif
   #ifndef uint32
       /*unsigned 32-bit integer                                              */
     typedef unsigned long       uint32;
-    #define  uint32	 uint32
+    #define  uint32  uint32
   #endif
 
   typedef float               real32;
@@ -315,22 +334,33 @@
   #ifndef int8
       /*signed 8-bit integer                                                 */
     typedef signed char          int8;
-    #define  int8	 int8
+    #define  int8  int8
   #endif
   #ifndef uint8
       /*unsigned 8-bit integer                                               */
     typedef unsigned char       uint8;
-    #define  uint8	 uint8
+    #define  uint8   uint8
   #endif
   #ifndef int16
       /*signed 16-bit integer                                                */
     typedef signed int        int16;
-    #define  int16	 int16
+    #define  int16   int16
   #endif
   #ifndef uint16
       /*unsigned 16-bit integer                                              */
     typedef unsigned int     uint16;
-    #define  uint16	 uint16
+    #define  uint16  uint16
+  #endif
+
+  #ifndef int32
+      /*signed 32-bit integer                                                */
+    typedef signed long          int32;
+    #define  int32   int32
+  #endif
+  #ifndef uint32
+      /*unsigned 32-bit integer                                              */
+    typedef unsigned long       uint32;
+    #define  uint32  uint32
   #endif
 
   #ifndef bool
@@ -356,74 +386,74 @@
 
 #ifndef INT8_MAX
     /*Maximum value of 8-bit integer is 0x7F (127)                           */
-  #define INT8_MAX	0x7F /*127 */
+  #define INT8_MAX  0x7F /*127 */
 #endif
 #ifndef INT8_MIN
     /*Minimum value of 8-bit integer is -128                                 */
-  #define INT8_MIN	(- INT8_MAX - 1)
+  #define INT8_MIN  (- INT8_MAX - 1)
 #endif
 #ifndef UINT8_MAX
     /*Maximum value of 8-bit unsigned integer is 0xFF (255)                  */
-  #define UINT8_MAX	(2U * INT8_MAX + 1)
+  #define UINT8_MAX (2U * INT8_MAX + 1)
 #endif
 #ifndef UINT8_MIN
     /*Minimum value of 8-bit unsigned integer is 0                           */
-  #define UINT8_MIN	0
+  #define UINT8_MIN 0
 #endif
 
 
 
 #ifndef INT16_MAX
     /*Maximum value of 16-bit integer is 0x7FFF (32 767)                     */
-  #define INT16_MAX	0x7FFF  /*32767 */
+  #define INT16_MAX 0x7FFF  /*32767 */
 #endif
 #ifndef INT16_MIN
     /*Minimum value of 16-bit integer is –32 768                             */
-  #define INT16_MIN	(- INT16_MAX - 1)
+  #define INT16_MIN (- INT16_MAX - 1)
 #endif
 #ifndef UINT16_MAX
     /*Maximum value of 16-bit unsigned integer is 0xFFFF (65 535)            */
-  #define UINT16_MAX	(2U * INT16_MAX + 1)
+  #define UINT16_MAX  (2U * INT16_MAX + 1)
 #endif
 #ifndef UINT16_MIN
     /*Minimum value of 16-bit unsigned integer is 0                          */
-  #define UINT16_MIN	0
+  #define UINT16_MIN  0
 #endif
 
 
 #ifndef INT32_MAX
     /*Maximum value of 32-bit integer is 0x7FFF FFFF (2 147 483 647)         */
-  #define INT32_MAX	0x7FFFFFFF  /*2 147 483 647*/
+  #define INT32_MAX 0x7FFFFFFF  /*2 147 483 647*/
 #endif
 #ifndef INT32_MIN
     /*Minimum value of 32-bit integer is –2 147 483 648                      */
-  #define INT32_MIN	(- INT32_MAX - 1)
+  #define INT32_MIN (- INT32_MAX - 1)
 #endif
 #ifndef UINT32_MAX
     /*Maximum value of 32-bit unsigned integer is 0xFFFF FFFF (4 294 967 295)*/
-  #define UINT32_MAX	(2U * INT32_MAX + 1)
+  #define UINT32_MAX  (2U * INT32_MAX + 1)
 #endif
 #ifndef UINT32_MIN
     /*Minimum value of 32-bit unsigned integer is 0                          */
-  #define UINT32_MIN	0
+  #define UINT32_MIN  0
 #endif
 
 
 #ifndef INT64_MAX
     /*Maximum value of 64-bit integer is 0x7FFF FFFF FFFF FFFF (9 223 372 036 854 775 807)*/
-  #define INT64_MAX	__INT64_T__(0x7FFFFFFFFFFFFFFF)  /*9 223 372 036 854 775 807*/
+  #define INT64_MAX __INT64_T__(0x7FFFFFFFFFFFFFFF)  /*9 223 372 036 854 775 807*/
 #endif
 #ifndef INT64_MIN
     /*Minimum value of 64-bit integer is –9 223 372 036 854 775 808          */
-  #define INT64_MIN	(- INT64_MAX - 1)
+  #define INT64_MIN (- INT64_MAX - 1)
 #endif
 #ifndef UINT64_MAX
     /*Maximum value of 64-bit unsigned integer is 0xFFFF FFFF FFFF FFFF (18 446 744 073 709 551 615)*/
-  #define UINT64_MAX	(__UINT64_C(2) * INT64_MAX + 1)
+  #define UINT64_MAX  (__UINT64_C(2) * INT64_MAX + 1)
 #endif
 #ifndef UINT64_MIN
     /*Minimum value of 64-bit unsigned integer is 0                          */
-  #define UINT64_MIN	0
+  #define UINT64_MIN  0
 #endif
 
 
