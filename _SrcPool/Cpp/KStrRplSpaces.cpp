@@ -1,6 +1,6 @@
 /*$Workfile: KStrRplSpaces.cpp$: implementation file
-  $Revision: 1$ $Date: 9/9/02 11:16:48 PM$
-  $Author: Darko$
+  $Revision: 2$ $Date: 9/10/02 6:54:18 PM$
+  $Author: Darko Kolakovic$
 
   Replace consecutive white spaces with single character
   Copyright: CommonSoft Inc.
@@ -11,6 +11,7 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
 #include "KTChar.h"  /*TCHAR*/
+#include "KStrings.h" //Declaration
 
 #ifdef _DEBUG
   static char THIS_FILE[] = __FILE__;
@@ -32,7 +33,7 @@ LPTSTR ReplaceSpaces(LPTSTR szSource //[in/out] zero-terminated string to be com
 if ( (szSource == NULL) || (szSource[0] == _T('/0')) )
     return szSource; //Nothing to do
 
-LPTSTR szTemp = new TCHAR[_tcslen(szSource) + 1] ;
+LPTSTR szTemp = new TCHAR[_tcslen(szSource) + 1];
 if (szTemp == NULL)
   return NULL; //Failed to allocate memory
 
@@ -44,11 +45,13 @@ while ( szSource[i] != _T('\0') )
     {
     szTemp[j] = szSource[i];
     j++;
+    i++;
     }
   else
     {
     if ( j > 0) //Trim leading white space
       {
+      //TODO: in MSDOS firt char is \r 0xD
       if(szSource[i] != _T('\n')) //If character is not LF (0xA), replace whit space
         szTemp[j] = _T(' ');
       else
@@ -58,9 +61,10 @@ while ( szSource[i] != _T('\0') )
       while(_istspace(szSource[i])) //Skip consecutive white spaces
         i++;
       }
+    else
+      i++;
     }
 
-  i++;
   }
 szTemp[j] = _T('\0');
 _tcscpy(szSource, szTemp); //Copy back the result
@@ -71,6 +75,8 @@ return szSource;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         9/10/02 6:54:18 PM   Darko Kolakovic Fixed 1 byte
+ *       offset
  *  1    Biblioteka1.0         9/9/02 11:16:48 PM   Darko           
  * $
  *****************************************************************************/

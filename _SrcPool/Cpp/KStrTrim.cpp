@@ -1,6 +1,6 @@
 /*$Workfile: KStrTrim.cpp$: implementation file
-  $Revision: 1$ $Date: 9/9/02 11:16:54 PM$
-  $Author: Darko$
+  $Revision: 2$ $Date: 9/10/02 6:55:04 PM$
+  $Author: Darko Kolakovic$
 
   Trims leading and trailing whitespace characters
   Copyright: CommonSoft Inc.
@@ -11,6 +11,7 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
 #include "KTChar.h"  /*TCHAR*/
+#include "KStrings.h" //Declaration
 
 #ifdef _DEBUG
   static char THIS_FILE[] = __FILE__;
@@ -34,26 +35,28 @@ while(_istspace(szSource[iHead]))
   iHead++;
 
   //Count trailing white spaces
-unsigned int iTail = _tcslen(szSource);
+unsigned int iTail = _tcslen(szSource)-1;
 while(_istspace(szSource[iTail]))
   iTail--;
   //Move valid portion of the string to the begining
 if (iHead > 0)
   {
   unsigned int i = 0;
-  while ( i < (iTail - iHead) )
+  while ( i <= (iTail - iHead) )
     {
     szSource[i] = szSource[iHead + i];
     i++;
     }
   }
-szSource[iTail] = _T('\0'); //Cout of trailing white spaces
+szSource[iTail - iHead + 1] = _T('\0'); //Cout of trailing white spaces
 return szSource;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         9/10/02 6:55:04 PM   Darko Kolakovic Fixed tail
+ *       trimming
  *  1    Biblioteka1.0         9/9/02 11:16:54 PM   Darko           
  * $
  *****************************************************************************/

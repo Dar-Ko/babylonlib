@@ -1,5 +1,5 @@
 /*$Workfile: KStrings.h$: implementation file
-  $Revision: 17$ $Date: 8/27/02 5:08:13 PM$
+  $Revision: 18$ $Date: 9/10/02 6:55:24 PM$
   $Author: Darko Kolakovic$
 
   String manipulation
@@ -37,6 +37,7 @@ extern "C"
   _K_EXTRNDECL_ TCHAR* StrCatV(   TCHAR* szDestination, const TCHAR* szSource, ...);
   _K_EXTRNDECL_ TCHAR* StrDup(LPCTSTR pszSource);
   _K_EXTRNDECL_ int    StrICmp(LPCTSTR szStr1,LPCTSTR szStr2);
+  _K_EXTRNDECL_ LPTSTR StrTrim(LPTSTR szSource);
   _K_EXTRNDECL_ DWORD  BintoU(TCHAR* lpszValue);
   _K_EXTRNDECL_ TCHAR* BintoA(TCHAR* szResult,DWORD dwValue,int iMsBit,int iLsBit,
                               TCHAR iTrueChar,TCHAR iFalseChar);
@@ -51,6 +52,7 @@ extern "C"
   _K_EXTRNDECL_ TCHAR* GetWord(TCHAR* lpszResult, TCHAR* lpszSource);
   _K_EXTRNDECL_ TCHAR* GetFirstSpace(TCHAR* lpszSource);
   _K_EXTRNDECL_ LPTSTR ReplaceEscapeSeq(LPTSTR szFormat);
+  _K_EXTRNDECL_ LPTSTR ReplaceSpaces(LPTSTR szSource);
   _K_EXTRNDECL_ char*  ItoA(int iValue, char* szResult, int iRadix);
 #ifdef __cplusplus
   }
