@@ -1,5 +1,5 @@
 /*$Workfile: KGifImageDescriptor.h$: header file
-  $Revision: 4$ $Date: 8/19/02 10:43:54 AM$
+  $Revision: 5$ $Date: 10/10/02 8:33:41 PM$
   $Author: Darko Kolakovic$
 
   Describes an image enbedded in GIF(c) Data Stream.
@@ -88,18 +88,17 @@ public:
   static unsigned int GetColorTableSize(BYTE* pBlockData);
   unsigned int GetColorTableSize() const;
   void GetImageSize(unsigned int& nWidth, unsigned int& nHeight) const;
+  void GetImagePos(unsigned int& nLeft, unsigned int& nTop) const;
   unsigned int GetImageWidth() const;
   unsigned int GetImageHeight() const;
-  void GetImagePos(unsigned int& nLeft, unsigned int& nTop) const;
   CGifColorTable GetColorTable() const;
   CGifColorTable& GetColorTable();
   CGifImageDescriptor& operator=(
                  const CGifImageDescriptor& gifSource);
-//  int GetBlockLength(BYTE* pBlockData);
 
 protected:
    //Turn byte alignment on
-  #pragma pack(push, 1)
+  #pragma pack(1)
     WORD m_wLeftPos;      //image left position on the logical screen
     WORD m_wTopPos;       //image top position on the logical screen
     WORD m_wWidth;        //image width
@@ -107,7 +106,7 @@ protected:
     BYTE m_cControlFlags; //image control flags
 
   //Turn byte alignment off
-  #pragma pack(pop)
+  #pragma pack()
 
   CGifColorTable m_gifLocalColorTable; //optional local color palette
 };
@@ -147,6 +146,8 @@ protected:
 
 /*****************************************************************************
  * $Log: 
+ *  5    Biblioteka1.4         10/10/02 8:33:41 PM  Darko Kolakovic Replaced push
+ *       and pack pragmas
  *  4    Biblioteka1.3         8/19/02 10:43:54 AM  Darko Kolakovic Added
  *       GetImageWidth()
  *  3    Biblioteka1.2         8/1/02 1:23:59 AM    Darko           CGifImageData
@@ -159,4 +160,6 @@ protected:
  * 1987 v.87a Graphics Interchange Format (GIF) devised by the UNISYS Corp. and 
  *  Compuserve
  *****************************************************************************/
+
+
 
