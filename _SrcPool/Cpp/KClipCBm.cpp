@@ -1,5 +1,5 @@
 /*$Workfile: KClipCBm.cpp$: implementation file
-  $Revision: 1.3 $ $Date: 2003/01/28 04:15:24 $
+  $Revision: 1.4 $ $Date: 2003/01/28 05:29:46 $
   $Author: ddarko $
 
   Copy a bitamp to Clipboard
