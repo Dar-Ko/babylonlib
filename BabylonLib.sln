@@ -1,0 +1,51 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SrcPoolWin32", "_SrcPool\Cpp\Win\SrcPoolWin32.vcproj", "{E4804099-DAA2-4333-A0E9-739E59B40790}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_SrcPool", "_SrcPool\_SrcPool.vcproj", "{36497428-ED6B-4061-ABCD-D1FADF09B5BF}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Debug_SBCS = Debug_SBCS
+		Debug_Unicode = Debug_Unicode
+		Release = Release
+		Release_SBCS = Release_SBCS
+		Release_Unicode = Release_Unicode
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug.ActiveCfg = Debug_Unicode|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug.Build.0 = Debug_Unicode|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug_SBCS.ActiveCfg = Debug_SBCS|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug_SBCS.Build.0 = Debug_SBCS|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug_Unicode.ActiveCfg = Debug_Unicode|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug_Unicode.Build.0 = Debug_Unicode|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Release.ActiveCfg = Release_Unicode|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Release.Build.0 = Release_Unicode|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Release_SBCS.ActiveCfg = Release_SBCS|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Release_SBCS.Build.0 = Release_SBCS|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Release_Unicode.ActiveCfg = Release_Unicode|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Release_Unicode.Build.0 = Release_Unicode|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Debug.ActiveCfg = Debug_SBCS|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Debug.Build.0 = Debug_SBCS|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Debug_SBCS.ActiveCfg = Debug_SBCS|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Debug_SBCS.Build.0 = Debug_SBCS|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Debug_Unicode.ActiveCfg = Debug_Unicode|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Debug_Unicode.Build.0 = Debug_Unicode|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Release.ActiveCfg = Release_SBCS|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Release.Build.0 = Release_SBCS|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Release_SBCS.ActiveCfg = Release_SBCS|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Release_SBCS.Build.0 = Release_SBCS|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Release_Unicode.ActiveCfg = Release_Unicode|Win32
+		{36497428-ED6B-4061-ABCD-D1FADF09B5BF}.Release_Unicode.Build.0 = Release_Unicode|Win32
+	EndGlobalSection
+	GlobalSection(SolutionItems) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
