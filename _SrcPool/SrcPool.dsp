@@ -114,6 +114,10 @@ SOURCE=.\Cpp\KDateStr.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KDateTm.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KDbgBtnS.cpp
 # End Source File
 # Begin Source File
@@ -463,6 +467,10 @@ SOURCE=.\Cpp\KStrRplT.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KStrRTab.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KStrStream.cpp
 # End Source File
 # Begin Source File
@@ -513,6 +521,10 @@ SOURCE=.\Cpp\KTipBox.cpp
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KTmCmp.c
 # End Source File
 # Begin Source File
 
@@ -808,6 +820,10 @@ SOURCE=.\Cpp\KTChar.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KTime.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KTimer.h
 # End Source File
 # Begin Source File
@@ -821,6 +837,10 @@ SOURCE=.\Cpp\KTipBox.h
 # Begin Source File
 
 SOURCE=.\Cpp\KTrace.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KType32.h
 # End Source File
 # Begin Source File
 

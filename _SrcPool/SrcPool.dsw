@@ -27,6 +27,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "DateTime"=.\CPP\SAMPLES\DateTime\DateTime.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "Doc"=.\Cpp\Samples\Doc.dsp - Package Owner=<4>
 
 Package=<5>
