@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Numeric\TestNewtonRaphson.cpp$: implementation file
-  $Revision: 4$ $Date: 8/3/02 7:27:44 PM$
+/*$Workfile: TestNewtonRaphson.cpp$: implementation file
+  $Revision: 7$ $Date: 2004-10-06 15:01:42$
   $Author: Darko$
 
   Test of solving equations
@@ -8,12 +8,7 @@
 */
 // Group=Examples
 
-#include <IOStream>   //std::cout
-#include <IOManip.h>  //std::endl
-
-#define BOOL int
-//#define FALSE false
-//#define TRUE true
+#include "stdafx.h"
 #include "KProgCst.inl" //IsNaN()
 
  //type definition of function y = f(x) used in numerical analyses
@@ -118,14 +113,14 @@ return 2*x;
 ///////////////////////////////////////////////////////////////////////////////
 
 
-extern BOOL funcNewtonRaphson(PFUNC_Y_OF_X funcX,     //[in] function y = f(x) 
+extern bool funcNewtonRaphson(PFUNC_Y_OF_X funcX,     //[in] function y = f(x) 
                        PFUNC_Y_OF_X funcdy_dx, //[in] first derivative function y' = f(dy/dx); y = f(x).
                        double dEstimate,       //[in] initial approximation x(0)
                        const double dError,    //[in] allowed absolute error
                        int iMaxIter,   //[in] maximum number of iterations
                        double& dResult //[out] an approximate value of the root f(x) = 0
                        );
-BOOL funcNewtonRaphson(PFUNC_Y_OF_X funcX,     //[in] function y = f(x) 
+bool funcNewtonRaphson(PFUNC_Y_OF_X funcX,     //[in] function y = f(x) 
                        const double Dx,        //[in] estimate increment Dx = x[n+1] - x[n].
                        double dEstimate,       //[in] initial approximation x(0)
                        const double dError,    //[in] allowed absolute error
@@ -133,7 +128,7 @@ BOOL funcNewtonRaphson(PFUNC_Y_OF_X funcX,     //[in] function y = f(x)
                        double& dResult //[out] an approximate value of the root f(x) = 0
                        );
 
-extern BOOL funcQuadratic(double a,   //[in] coefficient 2
+extern bool funcQuadratic(double a,   //[in] coefficient 2
                    double b,   //[in] coefficient 1
                    double c,   //[in] coefficient 0
                    double& x1, //[out] first root or real part of the complex root
@@ -146,9 +141,12 @@ extern BOOL funcQuadratic(double a,   //[in] coefficient 2
 /*Use the Newton-Raphson method to find solutions. For quadratic equations roots
   found are comapred with results of funcQuadratic function.
  */
-void TestNewtonRaphson()
+bool TestNewtonRaphson()
 {
-cout << "\nTestNewtonRaphson()" << endl;
+std::_tcout << "\nTestNewtonRaphson()" << std::endl;
+TESTENTRY logEntry =
+  {_T("funcNewtonRaphson()"), _T("KfNewtRp.cpp"), false};
+
 double dEstimate;//[in] initial approximation x(0)
 double dError;   //[in] allowed absolute error
 int    iMaxIter; //[in] maximum number of iterations
@@ -160,98 +158,107 @@ dError    = 0.00001;
 iMaxIter  = 20; 
 
 //f(x-A1)=0 -------------------------------------------------------------------
-cout << "f(x - "<< A1 << ") = 0 ";
+std::_tcout << _T("f(x - ") << A1 << _T(") = 0 ");
 if (funcNewtonRaphson(eqtLin, eqtDerivativeLin, dEstimate, dError, iMaxIter, dResult))
-  cout << "for x = " << dResult << endl;   
+  std::_tcout << _T("for x = ") << dResult << std::endl;   
 else
-  cout << "Failed to find root" << endl;
+  std::_tcout << _T("Failed to find root") << std::endl;
 
 //f(x^3+A*exp(x)+B)=0 ---------------------------------------------------------
-cout << "f(x^3 + " << A << "*exp(x) + " << B << ") = 0 ";
+std::_tcout << _T("f(x^3 + ") << A << _T("*exp(x) + ") << B << _T(") = 0 ");
 if (funcNewtonRaphson(eqtCube, eqtDerivativeCube, dEstimate, dError, iMaxIter, dResult))
-  cout << "for x = " << dResult << endl;   
+  std::_tcout << _T("for x = ") << dResult << std::endl;   
 else
-  cout << "Failed to find root" << endl;
+  std::_tcout << _T("Failed to find root") << std::endl;
 
 //f(cos(x)-x) = 0 -------------------------------------------------------------
-cout << "f(cos(x) - x) = 0 ";
+std::_tcout << _T("f(cos(x) - x) = 0 ");
 dEstimate = 0.7;
 if (funcNewtonRaphson(eqtCos, eqtDerivativeCos, dEstimate, dError, iMaxIter, dResult))
-  cout << "for x = " << dResult << endl;   
+  std::_tcout << _T("for x = ") << dResult << std::endl;   
 else
-  cout << "Failed to find root" << endl;
+  std::_tcout << _T("Failed to find root") << std::endl;
 
 //f(x*x - A1) = 0 -------------------------------------------------------------
-cout << "f(x*x - " << A1 << ") = 0 ";
+std::_tcout << _T("f(x*x - " << A1 << ") = 0 ");
 if (funcNewtonRaphson(eqtSqrt, eqtDerivativeSqrt, dEstimate, dError, iMaxIter, dResult))
   {
-  cout << "for x = " << dResult << endl;   
-  cout << "sqrt(" << A1 << ") = " << sqrt(A1) << endl;
+  std::_tcout << _T("for x = ") << dResult << std::endl;   
+  std::_tcout << _T("sqrt(" << A1 << ") = ") << sqrt(A1) << std::endl;
   }
 else
-  cout << "Failed to find root" << endl;
+  std::_tcout << _T("Failed to find root") << std::endl;
 
 //f(x*x + C) = 0 --------------------------------------------------------------
 do
   {
-  cout << "f(x*x + " << C << ") = 0" << endl;
+  std::_tcout << _T("f(x*x + " << C << ") = 0") << std::endl;
   if (funcNewtonRaphson(eqtSquare, eqtDerivativeSquare, dEstimate, 
-	                    dError, iMaxIter, dResult))
-    cout << "for x = " << dResult << " (Newton-Raphson)" << endl;   
+                      dError, iMaxIter, dResult))
+    std::_tcout << _T("for x = ") << dResult << _T(" (Newton-Raphson)") << std::endl;   
   else
-    cout << "Failed to find root (Newton-Raphson)" << endl;
+    std::_tcout << _T("Failed to find root (Newton-Raphson)") << std::endl;
 
   double x1,x2;
   if (funcQuadratic(1.0, 0.0, C, x1, x2))
-    cout << "for x1 = " << x1 << ", x2 = " << x2 << " (Square Eq)" << endl;
+    std::_tcout << _T("for x1 = ") << x1 << _T(", x2 = ") << x2 
+                << _T(" (Square Eq)") << std::endl;
   else
     {
     if (IsNaN(x1))
-      cout << "Failed to find roots (Square Eq)" << endl;
+      std::_tcout << _T("Failed to find roots (Square Eq)") << std::endl;
     else //Solutions are complex numbers
-      cout << "f(z*z + "<< C << ") = 0 for z = " << x1 << " +/- i(" << x2 << ")" 
-	       << " (Square Eq)" << endl;
+      std::_tcout << _T("f(z*z + ") << C << _T(") = 0 for z = ") 
+                  << x1 << _T(" +/- i(") 
+                  << x2 << _T(")")
+                  << _T(" (Square Eq)") << std::endl;
     }
 
   C *= -1.0; //Get complex roots
   if ( C > 0)
-    cout << endl << "Get complex roots" << endl;
+    std::_tcout << std::endl << _T("Get complex roots") << std::endl;
   } while (C > 0);
 
-cout << "============================" << endl;
+std::_tcout << _T("============================") << std::endl;
 
 //Incremental method ==========================================================
-cout << "Newton-Raphson with increments method" << endl;
+std::_tcout << "Newton-Raphson with increments method" << std::endl;
 
 //f(x-A1)=0 -------------------------------------------------------------------
-cout << "f(x - "<< A1 << ") = 0 ";
+std::_tcout << _T("f(x - ") << A1 << _T(") = 0 ");
 const double dIncrement = 0.1;
 if (funcNewtonRaphson(eqtLin, dIncrement, dEstimate, dError, iMaxIter, dResult))
-  cout << "x = " << dResult << endl;   
+  std::_tcout << _T("x = ") << dResult << std::endl;   
 else
-  cout << "Failed to find root" << endl;
+  std::_tcout << _T("Failed to find root") << std::endl;
 
 //f(x^3+A*exp(x)+B)=0 ---------------------------------------------------------
-cout << "f(x^3 + " << A << "*exp(x) + " << B << ") = 0 ";
+std::_tcout << _T("f(x^3 + ") << A << _T("*exp(x) + ") << B << _T(") = 0 ");
 if (funcNewtonRaphson(eqtCube, dIncrement, dEstimate, dError, iMaxIter, dResult))
-  cout << "for x = " << dResult << endl;   
+  std::_tcout << _T("for x = ") << dResult << std::endl;   
 else
-  cout << "Failed to find root" << endl;  
+  std::_tcout << _T("Failed to find root") << std::endl;  
 
 //f(cos(x)-x) = 0 -------------------------------------------------------------
-cout << "f(cos(x) - x) = 0 ";
+std::_tcout << _T("f(cos(x) - x) = 0 ");
 dEstimate = 0.7;
 if (funcNewtonRaphson(eqtCos, dIncrement, dEstimate, dError, iMaxIter, dResult))
-  cout << "for x = " << dResult << endl;   
+  std::_tcout << _T("for x = ") << dResult << std::endl;   
 else
-  cout << "Failed to find root" << endl;  
+  std::_tcout << _T("Failed to find root") << std::endl;  
 
 //f(x*x - A1) = 0 -------------------------------------------------------------
-cout << "f(x*x - " << A1 << ") = 0 ";
+std::_tcout << _T("f(x*x - ") << A1 << _T(") = 0 ");
 if (funcNewtonRaphson(eqtSqrt, dIncrement, dEstimate, dError, iMaxIter, dResult))
-  cout << "for x = " << dResult << endl;
+  std::_tcout << _T("for x = ") << dResult << std::endl;
 else
-  cout << "Failed to find root" << endl;  
+  std::_tcout << _T("Failed to find root") << std::endl;  
 
-cout << "============================" << endl;
+std::_tcout << _T("============================") << std::endl;
+
+  //Write test log
+logEntry.m_bResult = true;//bRes; Fixme!
+LogTest(&logEntry);
+
+return true; //Fixme! return bRes;
 }

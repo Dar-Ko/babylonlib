@@ -1,5 +1,5 @@
 /*$Workfile: TestSwapRows.cpp$: implementation file
-  $Revision: 1$ $Date: 8/3/02 7:26:32 PM$
+  $Revision: 3$ $Date: 2004-10-05 13:05:43$
   $Author: Darko$
 
   Test reordering of matrix rows
@@ -8,11 +8,10 @@
 */
 // Group=Examples
 
-#include <iostream>
-#include <iomanip.h>
+#include "stdafx.h"
 #include "KTrace.h"    //ASSERT macro
 #include "KTypedef.h"  //DWORD typedef
-#include "KSwpRows.h"
+#include "KRvrRows.h"  //ReverseRows()
 
 void DumpMatrix(int Array[],  //[in]
                 uint32 nRows, //[in]
@@ -23,17 +22,19 @@ unsigned int x, y;
 y = 0;
 while (y < nRows)
   {
-  cout << setw(3) << setfill(' ') << dec << y << ". ";
+  std::_tcout << std::setw(3) << std::setfill(_T(' ')) << std::dec 
+              << y << _T(". ");
   x = 0;
   while (x < nCols)
     {
-    cout << setw(6) << setfill('0') << hex << Array[y * nCols + x] << ' ';
+    std::_tcout << std::setw(6) << std::setfill(_T('0')) << std::hex 
+                << Array[y * nCols + x] << _T(' ');
     x++;
     }
-  cout << endl;
+  std::_tcout << std::endl;
   y++;
   }
-cout << dec << setw(0);
+std::_tcout << std::dec << std::setw(0);
 }
 
 //TestByteSwap()---------------------------------------------------------------
@@ -41,7 +42,7 @@ cout << dec << setw(0);
  */
 bool TestSwapRows()
 {
-cout << "\nTestSwapRows()" << endl;
+std::_tcout << _T("\nTestSwapRows()") << std::endl;
 bool bRes = true;
 const unsigned int ROWS = 5;
 const unsigned int COLS = 6;
@@ -67,8 +68,8 @@ int Result[ROWS*COLS] = //Expected result
 DumpMatrix((int*)Matrix, ROWS, COLS);
 
  //Test reversing matrix rows
-cout << endl << "Swap..." << endl;
-SwapRows<int>((int*)Matrix, ROWS, COLS);
+std::_tcout << std::endl << _T("Swap...") << std::endl;
+ReverseRows<int>((int*)Matrix, ROWS, COLS);
 DumpMatrix((int*)Matrix, ROWS, COLS);
 
 int i = 0;
@@ -76,14 +77,15 @@ while (i < ROWS*COLS)
   {
   if (((int*)Matrix)[i] != Result[i])
     {
-    cout << "Failure: element Matrix[" << i << "] = " << Matrix[i] <<" is not valid" << endl;
+    std::_tcout << _T("Failure: element Matrix[") << i << _T("] = ") 
+                << Matrix[i] << _T(" is not valid") << std::endl;
     bRes = false;
     break;
     }
   i++;
   }
 
-cout << endl << "======================" << endl;
+std::_tcout << std::endl << _T("======================") << std::endl;
 
 return bRes;
 }
@@ -91,6 +93,10 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         8/3/02 7:26:32 PM    Darko           
+ *  3    Biblioteka1.2         2004-10-05 13:05:43  Darko           fixed Unicode
+ *       build
+ *  2    Biblioteka1.1         2004-07-07 16:43:37  Darko           replaced
+ *       SwapRows() with ReverseRows()
+ *  1    Biblioteka1.0         2002-08-03 18:26:32  Darko           
  * $
  *****************************************************************************/

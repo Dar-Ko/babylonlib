@@ -213,6 +213,10 @@ SOURCE=.\Src\TestEndian.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Src\TestFibonnaci.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\TestNetByteOrder.cpp
 # End Source File
 # Begin Source File

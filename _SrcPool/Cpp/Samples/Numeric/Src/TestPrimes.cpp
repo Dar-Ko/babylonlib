@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Numeric\TestPrimes.cpp$: implementation file
-  $Revision: 2$ $Date: 8/3/02 7:27:48 PM$
+/*$Workfile: TestPrimes.cpp$: implementation file
+  $Revision: 4$ $Date: 2004-10-05 13:05:37$
   $Author: Darko$
 
   Test validation of prime numbers
@@ -9,17 +9,20 @@
 
 // Group=Examples
 
-#include <iostream>
-#include <iomanip.h>  //std::endl
+#include "stdafx.h"
 
- //Include test counters (define _DEBUG_TEST in the project)
-#define _DEBUG_TEST
+#ifdef _DEBUG
+  //Include test counters (define _DEBUG_TEST in the project)
+  //See also: KIsPrimeNo.cpp
+  #define _DEBUG_TEST
+#endif
 
 #define BOOL bool
 extern bool IsPrimeNo(const unsigned long nValue);
 
 #ifdef _DEBUG_TEST
   //Iteration counter
+  //See also: KIsPrimeNo.cpp
   extern unsigned long g_nDbgIterationCount0;
   //Iteration counter
   extern unsigned long g_nDbgIterationCount1;
@@ -1057,7 +1060,7 @@ bool g_testPrimeResult[] =
  */
 bool TestPrimes()
 {
-cout << "TestPrimes()" << endl;
+std::_tcout << _T("TestPrimes()") << std::endl;
 
 #ifdef _DEBUG_TEST
   bool bResult0 = true;
@@ -1074,20 +1077,20 @@ while (bResult && (i < sizeof(g_testPrimeNo)/sizeof(unsigned long)) )
     bResult0 = _IsPrime0(lTemp);
   #endif
 
-  cout  << lTemp << " is prime: "
-        << (bResult1 ? "T " : "F ")
+  std::_tcout  << lTemp << _T(" is prime: ")
+        << (bResult1 ? _T("T ") : _T("F "))
         #ifdef _DEBUG_TEST
-          << '(' << g_nDbgIterationCount1 << " iterations)"
-          << " _IsPrime0 " << (bResult0 ? "T " : "F ")
-          << '(' << g_nDbgIterationCount0 << ')'
+          << _T('(') << g_nDbgIterationCount1 << _T(" iterations)")
+          << _T(" _IsPrime0 ") << (bResult0 ? _T("T ") : _T("F "))
+          << _T('(') << g_nDbgIterationCount0 << _T(')')
         #endif
-        << endl;
+        << std::endl;
 
    //Test result value
   bResult = (bResult1 ==  g_testPrimeResult[i++]);
   }
 
-cout << endl << "======================" << endl;
+std::_tcout << std::endl << _T("======================") << std::endl;
 
 if (bResult)
   {
@@ -1101,21 +1104,21 @@ if (bResult)
       bResult0 = _IsPrime0(lTemp);
     #endif
 
-    cout  << lTemp << " is prime: "
-        << (bResult1 ? "T" : "F")
+    std::_tcout  << lTemp << _T(" is prime: ")
+        << (bResult1 ? _T("T") : _T("F"))
         #ifdef _DEBUG_TEST
-          << (bResult0 ? "T" : "F")
-          << '(' << g_nDbgIterationCount1 
-          << ',' << g_nDbgIterationCount0 << ')'
+          << (bResult0 ? _T("T") : _T("F"))
+          << _T('(') << g_nDbgIterationCount1 
+          << _T(',') << g_nDbgIterationCount0 << _T(')')
         #endif
-        << endl;
+        << std::endl;
 
     //Test result value
     bResult = bResult1;
     }
   }
 
-cout << endl << "======================" << endl;
+std::_tcout << std::endl << _T("======================") << std::endl;
 return bResult;
 }
 

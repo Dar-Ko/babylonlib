@@ -1,6 +1,6 @@
-/*$Workfile: TsLeapYear.cpp$: implementation file
-  $Revision: 1.3 $ $Date: 2003/01/31 03:09:03 $
-  $Author: ddarko $
+/*$Workfile: TestLeapYear.cpp$: implementation file
+  $Revision: 10$ $Date: 2004-10-06 22:43:13$
+  $Author: Darko$
 
   Test leap year validation
   Copyright: CommonSoft Inc.
@@ -9,13 +9,13 @@
 
 // Group=Examples
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
+#include "KTChar.h"    //TCHAR typedef
 #include "KTypedef.h"  //LPCTSTR typedef
 #include "KTrace.h"    //ASSERT macro
 #include "KTime.h"     //IsLeapYear()
-#include "KTChar.h"    //TCHAR typedef
-#include "KTestLog.h" //TESTENTRY struct
+#include "KTestLog.h"  //TESTENTRY struct
 
 extern bool TsWriteToView(LPCTSTR lszText);
 
@@ -63,7 +63,7 @@ int iYear[TESTCOUNT] =
   };
 bool bLeapYear[TESTCOUNT][2] = 
   {
-//Hist,  Prlp
+//Hist,  Proleptic
   true,  true, //00 1996,
   false, false,//01 1609,
   true,  false,//02 1500, < YEAR_GREGORIAN
@@ -90,7 +90,7 @@ int i = 0;
 while ((i < TESTCOUNT) && bRes)
   {
     
-  bRes = (IsLeapYear(iYear[i]) == bLeapYear[i][ID_HYSTORIC]); //Test inline
+  bRes = (IsLeapYear((int_least16_t)iYear[i]) == bLeapYear[i][ID_HYSTORIC]); //Test inline
   if (bRes)
     {
       //Test proleptic macro
@@ -105,7 +105,7 @@ while ((i < TESTCOUNT) && bRes)
     TsWriteToView(_T(". is "));
     if (iYear[i] > 0 )
       {
-    //Note: (year&3) is faster (year%4), but vaild only for years > 0
+    //Note: (year&3) is faster than (year%4), but vaild only for years > 0
       if(!((iYear[i] & 3) == 0 && iYear[i] % 100 != 0 || iYear[i] % 400 == 0))
         TsWriteToView(_T("not"));
       }
@@ -124,18 +124,27 @@ logEntry.m_bResult = bRes;
 LogTest(&logEntry);
 logEntry.m_szObjectName = _T("IS_LEAP_YEAR()");
 LogTest(&logEntry);
-TsWriteToView(_T("======================\r\n"));
+TsWriteToView(LOG_EOT);
+TsWriteToView(_T("\r\n"));
 return bRes;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         30/01/2003 9:47:38 PMDarko           Write results
+ *  10   Biblioteka1.9         2004-10-06 22:43:13  Darko           Unicode fixes
+ *  9    Biblioteka1.8         2004-10-01 14:49:07  Darko           fixed MSVC6
+ *       SBCS build
+ *  8    Biblioteka1.7         2004-06-03 09:02:30  Darko           comment
+ *  7    Biblioteka1.6         2004-06-01 17:14:20  Darko           StdAfx changed
+ *       to stdafx
+ *  6    Biblioteka1.5         2003-09-22 21:06:06  Darko           
+ *  5    Biblioteka1.4         2003-09-22 20:57:59  Darko           Unicode
+ *  4    Biblioteka1.3         2003-01-30 21:47:38  Darko           Write results
  *       to the test log
- *  3    Biblioteka1.2         22/01/2003 10:23:23 PMDarko           Unicode
- *  2    Biblioteka1.1         20/01/2003 3:15:36 AMDarko           Replaced BOOL
+ *  3    Biblioteka1.2         2003-01-22 22:23:23  Darko           Unicode
+ *  2    Biblioteka1.1         2003-01-20 03:15:36  Darko           Replaced BOOL
  *       with bool
- *  1    Biblioteka1.0         15/01/2003 12:29:45 AMDarko           
+ *  1    Biblioteka1.0         2003-01-15 00:29:45  Darko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Numeric\TestEndian.cpp$: implementation file
-  $Revision: 5$ $Date: 8/3/02 7:27:38 PM$
+/*$Workfile: TestEndian.cpp$: implementation file
+  $Revision: 8$ $Date: 2004-10-05 13:05:29$
   $Author: Darko$
 
   Test machine architecture
@@ -9,10 +9,8 @@
 
 // Group=Examples
 
-#include <IOStream>
-#include <IOManip.h>  //std::endl
+#include "stdafx.h"
 
-#define BOOL bool
 #include "KProgCst.inl" //IsLittleEndian()
 
 union Conversion32
@@ -22,18 +20,18 @@ union Conversion32
  char   m_cData[8];
  };
 
-ostream& operator<<(ostream& cOutput,     //[in] output stream
-                    const Conversion32& c32Source //[in] value output
+tostream& operator<<(tostream& coutput, //[in] output stream
+                     const Conversion32& c32Source //[in] value output
                     )
 {
-cOutput << " [ ";
+coutput << _T(" [ ");
 for(int i = 0; i < sizeof(c32Source.m_Long); i++)
   {
-  cOutput << (int)(unsigned char)c32Source.m_cData[i] << ' ';
+  coutput << (int)(unsigned char)c32Source.m_cData[i] << _T(" ");
   }
-cOutput << ']';
+coutput << _T("]");
 
-return cOutput;
+return coutput;
 }
 
 
@@ -42,30 +40,30 @@ return cOutput;
  */
 bool TestEndian()
 {
-cout << "\nTestEndian()" << endl;
+std::_tcout << _T("\nTestEndian()") << std::endl;
 bool bResult = true;
 
 #ifdef _M_IX86 /*Intel x86 CPU has little endian archtecture */
-  cout << "Intel x86 CPU." << endl; 
+  std::_tcout << _T("Intel x86 CPU.") << std::endl; 
 #endif
 
   /*Desired architecture                 */
 #if _ENDIAN_ORDER_ == _ENDIAN_LITTLE_ 
-  cout << "Declared Little Endian architecture." << endl; 
+  std::_tcout << _T("Declared Little Endian architecture.") << std::endl; 
 #endif
 #if _ENDIAN_ORDER_ == _ENDIAN_BIG_
-  cout << "Declared Big Endian architecture." << endl; 
+  std::_tcout << _T("Declared Big Endian architecture.") << std::endl; 
 #endif
 #if _ENDIAN_ORDER_ == _ENDIAN_PDP_
-  cout << "Declared PDP Endian architecture." << endl; 
+  std::_tcout << _T("Declared PDP Endian architecture.") << std::endl; 
 #endif
  
   //Test architecture
 if (IsLittleEndian())
-  cout << "Found Little Endian architecture OK." << endl;   
+  std::_tcout << _T("Found Little Endian architecture OK.") << std::endl;   
 else
   {
-  cout << "Found Big Endian architecture." << endl;
+  std::_tcout << _T("Found Big Endian architecture.") << std::endl;
   #ifdef _M_IX86 /*Intel x86 CPU has little endian archtecture */
     bResult = false;
   #endif
@@ -76,8 +74,8 @@ else
 
 Conversion32 Test;
 Test.m_Long = 0x01020304;
-cout << "Order of bytes in 32-bit integer: " << Test << endl;
-cout << "============================" << endl;
+std::_tcout << _T("Order of bytes in 32-bit integer: ") << Test << std::endl;
+std::_tcout << _T("============================") << std::endl;
 
 return bResult;
 }
