@@ -1,5 +1,5 @@
 /*$Workfile: KDirName.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:33:20 $
   $Author: ddarko $
 
   Get file directory from the full file path
@@ -69,12 +69,12 @@ return nPos; //Return length of the directory string
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         8/27/02 11:37:03 PM  Darko           Fixed Unicode
+ *  6    Biblioteka1.5         27/08/2002 10:37:03 PMDarko           Fixed Unicode
  *       version
- *  5    Biblioteka1.4         1/29/02 3:39:17 PM   Darko           Tag update
- *  4    Biblioteka1.3         8/19/01 11:53:08 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:50:51 PM  Darko           
- *  2    Biblioteka1.1         6/8/01 11:50:13 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:56:05 PM   Darko           
+ *  5    Biblioteka1.4         29/01/2002 2:39:17 PMDarko           Tag update
+ *  4    Biblioteka1.3         19/08/2001 10:53:08 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:50:51 PMDarko           
+ *  2    Biblioteka1.1         08/06/2001 10:50:13 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:56:05 PMDarko           
  * $
  *****************************************************************************/

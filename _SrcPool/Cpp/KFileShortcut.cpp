@@ -1,5 +1,5 @@
 /*$Workfile: KFileShortcut.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:33:20 $
   $Author: ddarko $
 
   Windows Shortcut (.Lnk) files helper
@@ -156,8 +156,8 @@ return bResult;
 #endif //WIN32
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         7/16/02 1:41:03 AM   Darko           Fixed VSS Log 
+ * 2    Biblioteka1.1         16/07/2002 12:41:03 AMDarko           Fixed VSS Log 
  *      tag
- * 1    Biblioteka1.0         3/12/02 11:01:06 PM  Darko           
+ * 1    Biblioteka1.0         12/03/2002 10:01:06 PMDarko           
  *$
  *****************************************************************************/

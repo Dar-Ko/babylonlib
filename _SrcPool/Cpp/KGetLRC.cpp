@@ -1,5 +1,5 @@
 /*$Workfile: KGetLRC.cpp$: implementation file
-  $Revision: 3$ $Date: 1/29/02 3:40:00 PM$
+  $Revision: 3$ $Date: 29/01/2002 2:40:00 PM$
   $Author: Darko$
 
   Longitudinal Redundancy Checksum (LRC)
@@ -70,9 +70,9 @@ return chLRC;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         1/29/02 3:40:00 PM   Darko           Tag update
- *  2    Biblioteka1.1         10/5/01 10:16:55 AM  Darko           Comments
- *  1    Biblioteka1.0         8/11/01 1:07:03 AM   Darko           
+ *  3    Biblioteka1.2         29/01/2002 2:40:00 PMDarko           Tag update
+ *  2    Biblioteka1.1         05/10/2001 9:16:55 AMDarko           Comments
+ *  1    Biblioteka1.0         11/08/2001 12:07:03 AMDarko           
  * $
  *
  * Revision 0  1989 D.K.  Created

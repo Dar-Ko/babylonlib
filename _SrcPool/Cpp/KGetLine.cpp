@@ -1,5 +1,5 @@
 /*$Workfile: KGetLine.cpp$: implementation file
-  $Revision: 3$ $Date: 2/17/02 3:17:08 AM$
+  $Revision: 3$ $Date: 17/02/2002 2:17:08 AM$
   $Author: Darko$
 
   Read a line of text from a stream
@@ -51,8 +51,8 @@ return iRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2/17/02 3:17:08 AM   Darko           Comment updated
- *  2    Biblioteka1.1         1/29/02 3:40:04 PM   Darko           Tag update
- *  1    Biblioteka1.0         12/23/01 12:19:02 AM Darko           
+ *  3    Biblioteka1.2         17/02/2002 2:17:08 AMDarko           Comment updated
+ *  2    Biblioteka1.1         29/01/2002 2:40:04 PMDarko           Tag update
+ *  1    Biblioteka1.0         22/12/2001 11:19:02 PMDarko           
  * $
  *****************************************************************************/

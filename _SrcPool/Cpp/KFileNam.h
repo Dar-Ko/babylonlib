@@ -1,5 +1,5 @@
 /*$Workfile: KFileNam.h$: header file
-  $Revision: 1$ $Date: 8/27/02 5:04:52 PM$
+  $Revision: 1$ $Date: 27/08/2002 4:04:52 PM$
   $Author: Darko Kolakovic$
 
   File Name handler
@@ -220,7 +220,7 @@ return m_FindData;
 #endif  //_KFILENAME_H_
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         8/27/02 5:04:52 PM   Darko Kolakovic 
+ *  1    Biblioteka1.0         27/08/2002 4:04:52 PMDarko Kolakovic 
  * $
  *****************************************************************************/
 

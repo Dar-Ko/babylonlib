@@ -1,5 +1,5 @@
 /*$Workfile: KDbgPrpS.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:35:50 $
   $Author: ddarko $
 
   Dumps property sheet header
@@ -215,7 +215,7 @@ return dc;
 /*****************************************************************************
  * $Log:
  *  4    Biblioteka1.3         17/08/2001 12:37:26 AMDarko           Update
- *  3    Biblioteka1.2         08/07/2001 12:10:23 AMDarko           $Revision: 1.2 $
+ *  3    Biblioteka1.2         08/07/2001 12:10:23 AMDarko           $Revision: 1.3 $
  *       inserted
  *  2    Biblioteka1.1         08/06/2001 11:50:07 PMDarko           VSS
  *  1    Biblioteka1.0         13/08/2000 3:56:00 PMDarko

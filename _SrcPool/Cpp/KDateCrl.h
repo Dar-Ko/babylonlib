@@ -1,12 +1,13 @@
 /*$Workfile: KDateCrl.h$: header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:35:07 $
   $Author: ddarko $
 
   Date Control
   Copyright: CommonSoft Inc.
   Dec. 97 Darko Kolakovic
   Mar. 2K GetModify() D.K.
- */ 
+ */
+/* Group=Time                                                                */
 
 #ifndef _KDATECRL_H_
     //KDateCrl.h sentry
@@ -98,7 +99,6 @@ public:
 
   CFont* GetFont()     //Gets the current font for this control.
     {return &m_Font;};
-  BOOL IsLeapYear(const int& iYear); //Check leap year
   BOOL GetModify() const;
 
 private:
@@ -149,14 +149,14 @@ protected:
 /////////////////////////////////////////////////////////////////////////////
 #endif //_KDATECRL_H_
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  6    Biblioteka1.5         1/29/02 11:20:01 PM  Darko           Used lbraries
- *       notes 
+ *       notes
  *  5    Biblioteka1.4         1/25/02 4:56:32 PM   Darko           Updated
  *       comments
  *  4    Biblioteka1.3         8/19/01 11:52:30 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:50:22 PM  Darko           
+ *  3    Biblioteka1.2         7/11/01 10:50:22 PM  Darko
  *  2    Biblioteka1.1         6/8/01 11:49:24 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:55:46 PM   Darko           
+ *  1    Biblioteka1.0         8/13/00 3:55:46 PM   Darko
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KFileNmB.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:33:20 $
   $Author: ddarko $
 
   File Name Browser
@@ -83,9 +83,9 @@ return  FindData().cFileName;
 #endif //WIN32
 /******************************************************************************
  *$Log: 
- * 3    Biblioteka1.2         7/16/02 1:40:59 AM   Darko           Fixed VSS Log 
+ * 3    Biblioteka1.2         16/07/2002 12:40:59 AMDarko           Fixed VSS Log 
  *      tag
- * 2    Biblioteka1.1         3/13/02 12:38:14 AM  Darko           
- * 1    Biblioteka1.0         3/12/02 11:00:49 PM  Darko           
+ * 2    Biblioteka1.1         12/03/2002 11:38:14 PMDarko           
+ * 1    Biblioteka1.0         12/03/2002 10:00:49 PMDarko           
  *$
  *****************************************************************************/

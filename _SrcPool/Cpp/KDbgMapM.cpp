@@ -1,5 +1,5 @@
 /*$Workfile: KDbgMapM.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:35:50 $
   $Author: ddarko $
 
   Dumps the current mapping mode

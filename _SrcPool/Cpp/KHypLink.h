@@ -1,5 +1,5 @@
 /*$Workfile: KHypLink.h$: header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:36:55 $
   $Author: ddarko $
 
   HyperLink static control
@@ -204,11 +204,11 @@ if (::IsWindow(GetSafeHwnd()))
 #endif // _KHYPLINK_H_
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         1/25/02 4:57:10 PM   Darko           Updated
+ *  5    Biblioteka1.4         25/01/2002 3:57:10 PMDarko           Updated
  *       comments
- *  4    Biblioteka1.3         8/17/01 12:37:37 AM  Darko           Update
- *  3    Biblioteka1.2         7/7/01 1:09:59 AM    Darko           Example
- *  2    Biblioteka1.1         6/8/01 11:50:56 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:56:40 PM   Darko           
+ *  4    Biblioteka1.3         16/08/2001 11:37:37 PMDarko           Update
+ *  3    Biblioteka1.2         07/07/2001 12:09:59 AMDarko           Example
+ *  2    Biblioteka1.1         08/06/2001 10:50:56 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:56:40 PMDarko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KIsLRC.cpp$: implementation file
-  $Revision: 3$ $Date: 3/8/02 3:04:37 PM$
+  $Revision: 3$ $Date: 08/03/2002 2:04:37 PM$
   $Author: Darko Kolakovic$
 
   Validates Longitudinal Redundancy Checksum (LRC)

@@ -1,5 +1,5 @@
 /*$Workfile: KDbgMacr.h$: header file
-  $Revision: 14$ $Date: 10/11/02 2:33:35 PM$
+  $Revision: 14$ $Date: 11/10/2002 1:33:35 PM$
   $Author: Darko Kolakovic$
 
   Dumps values of some compiler-specific predefined macros

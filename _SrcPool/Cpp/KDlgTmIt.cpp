@@ -1,5 +1,5 @@
 /*$Workfile: KDlgTmIt.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:33:20 $
   $Author: ddarko $
 
   Encapsulates DLGITEMTEMPLATE structure
@@ -658,10 +658,10 @@ if (m_nInitDataLength)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         1/29/02 3:39:36 PM   Darko           Tag update
- *  4    Biblioteka1.3         8/19/01 11:53:14 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:51:14 PM  Darko           
- *  2    Biblioteka1.1         6/8/01 11:50:31 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:56:20 PM   Darko           
+ *  5    Biblioteka1.4         29/01/2002 2:39:36 PMDarko           Tag update
+ *  4    Biblioteka1.3         19/08/2001 10:53:14 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:51:14 PMDarko           
+ *  2    Biblioteka1.1         08/06/2001 10:50:31 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:56:20 PMDarko           
  * $
  *****************************************************************************/

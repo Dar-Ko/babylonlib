@@ -1,5 +1,5 @@
 /*$Workfile: KDlgTmIt.h$: header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:33:20 $
   $Author: ddarko $
   
   Encapsulates DLGITEMTEMPLATE structure
@@ -451,13 +451,13 @@ the following conditions:
 
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         1/29/02 11:20:50 PM  Darko           Used lbraries
+ *  6    Biblioteka1.5         29/01/2002 10:20:50 PMDarko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         1/25/02 4:56:59 PM   Darko           Updated
+ *  5    Biblioteka1.4         25/01/2002 3:56:59 PMDarko           Updated
  *       comments
- *  4    Biblioteka1.3         8/19/01 11:53:22 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:51:17 PM  Darko           
- *  2    Biblioteka1.1         6/8/01 11:50:33 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:56:21 PM   Darko           
+ *  4    Biblioteka1.3         19/08/2001 10:53:22 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:51:17 PMDarko           
+ *  2    Biblioteka1.1         08/06/2001 10:50:33 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:56:21 PMDarko           
  * $
  *****************************************************************************/

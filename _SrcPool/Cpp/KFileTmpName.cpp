@@ -1,5 +1,5 @@
 /*$Workfile: KFileTmpName.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:33:21 $
   $Author: ddarko $
 
   Creates unique file name
@@ -88,8 +88,8 @@ return strResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         7/16/02 1:41:09 AM   Darko           Fixed VSS Log 
+ * 2    Biblioteka1.1         16/07/2002 12:41:09 AMDarko           Fixed VSS Log 
  *      tag
- * 1    Biblioteka1.0         4/5/02 12:50:09 AM   Darko           
+ * 1    Biblioteka1.0         04/04/2002 11:50:09 PMDarko           
  *$
  *****************************************************************************/

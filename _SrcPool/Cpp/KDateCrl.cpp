@@ -1,13 +1,15 @@
 /*$Workfile: KDateCrl.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:35:06 $
   $Author: ddarko $
 
   Date Edit Control
   Copyright: CommonSoft Inc.
   Darko Kolakovic Dec '97
  */
- 
+ /* Group=Time                                                                */
+
 #include "KDateCrl.h" //CDateCtrl class
+#include "KTime.h"    //IsLeapYear()
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -16,7 +18,7 @@
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
-const int CST_YEARSTART = 1600;
+const int CST_YEARSTART = YEAR_EPOCH_WINFILETIME;
 const int CST_YEAREND   = 2137;
 
 /////////////////////////////////////////////////////////////////////////////
@@ -44,8 +46,11 @@ BOOL CDateCtrl::m_bRegistered = FALSE;
   template calls ::CreateWindow() with the class name for the control which
   sends messages to control's procedure and first message is WM_NCCREATE.
  */
-LRESULT CALLBACK CDateCtrl::DCtrlWndProc(HWND hWnd, UINT uiMsg,
-                                           WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK CDateCtrl::DCtrlWndProc(HWND hWnd,
+                                         UINT uiMsg,
+                                         WPARAM wParam,
+                                         LPARAM LPARAM
+                                         )
 {
 switch (uiMsg)
   {
@@ -249,16 +254,6 @@ if (m_iMonth == 2)  //In February check leap year
   if (IsLeapYear(m_iYear))
     m_nLastDay++;
   }
-}
-
-//::IsLeapYear()---------------------------------------------------------------
-/*Check if the year is leap year
- */
-BOOL CDateCtrl::IsLeapYear(const int& iYear)
-{
-TRACE2("CDateCtrl::IsLeapYear(%d) %s\n",iYear,
-       ((iYear&3) == 0 && iYear%100 != 0 || iYear % 400 == 0)?"TRUE":"FALSE");
-return (iYear&3) == 0 && iYear%100 != 0 || iYear % 400 == 0;
 }
 
 BEGIN_MESSAGE_MAP(CDateCtrl, CWnd)
@@ -766,11 +761,11 @@ DestroyWindow();
 }
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  4    Biblioteka1.3         8/16/01 11:37:22 PM  Darko           Update
- *  3    Biblioteka1.2         7/7/01 11:10:15 PM   Darko           $Revision: 1.2 $
+ *  3    Biblioteka1.2         7/7/01 11:10:15 PM   Darko           $Revision: 1.3 $
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:49:22 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:55:44 PM   Darko           
+ *  1    Biblioteka1.0         8/13/00 2:55:44 PM   Darko
  * $
  *****************************************************************************/
