@@ -1,0 +1,161 @@
+/*$Workfile: KFindRes.h$: header file
+  $Revision: 1.1 $ $Date: 2002/09/06 22:16:05 $
+  $Author: ddarko $
+
+  Find resources inline helpers
+  Copyright: CommonSoft Inc.
+  Nov. 95 Darko Kolakovic
+ */
+
+#ifndef _KFINDRES_H_ 
+    //KFindRes.h sentry
+  #define _KFINDRES_H_ 
+
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #pragma message ("   #include " __FILE__ )
+#endif
+
+#ifndef __AFXWIN_H__
+  #include <AfxWin.h>
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+#ifdef _AFXDLL
+  // Use FindResourceHandle to find resource in chain of extension DLLs
+  //
+  // Note: AfxFindResourceHandle() is undocumented function declared as
+  //       HINSTANCE AFXAPI AfxFindResourceHandle(LPCTSTR lpszName, LPCTSTR lpszType);
+  //       (see \MSDev\MFC\Src\DLLInit.cpp and AfxWin.h)
+  // Note: uses Microsoft Fundation Library (MFC).
+  //       Microsoft Windows specific (Win). 
+  #define FindResourceHandle(lpszResource, lpszType)  AfxFindResourceHandle(lpszResource, lpszType)
+#else
+  #define FindResourceHandle(lpszResource, lpszType)  AfxGetResourceHandle()
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+//Inline functions
+
+//FindResourceString()---------------------------------------------------------
+/*The function determines the location of a string resource in the application
+  module. If the function succeeds, the return value is a handle to the specified 
+  resource's info block. To obtain a handle to the resource, pass this handle 
+  to the LoadResource function.
+
+  Returns: a handle where the resource is loaded if the function succeeds. If 
+  the function fails, the return value is NULL. To get extended error 
+  information, call GetLastError().
+
+  Note: uses Microsoft Fundation Library (MFC).
+        Microsoft Windows specific (Win). 
+ */
+inline HRSRC FindResourceString(const UINT IDS_STRING //String resource ID
+                                )
+{
+LPCTSTR lpszResource = (LPCTSTR)MAKEINTRESOURCE((IDS_STRING >> 4)+1);
+HINSTANCE hInst = FindResourceHandle(lpszResource, RT_STRING);
+return ::FindResource(hInst,        //resource-module handle 
+                      lpszResource, //address of resource name 
+                      RT_STRING);   //address of resource type 
+}
+
+//IsResourceString()-----------------------------------------------------------
+/*Returns: TRUE if string with specified resource ID exist in the
+  application module, otherwise result is FALSE.
+
+  Note: uses Microsoft Fundation Library (MFC).
+        Microsoft Windows specific (Win). 
+  */
+inline BOOL IsResourceString(const UINT IDS_STRING //String resource ID
+                             )
+{
+return (FindResourceString(IDS_STRING) != NULL);
+}
+
+//FindResourceHandleBMP()-----------------------------------------------------
+/*The function determines the location of a bitmap resource in the application
+  module.
+
+  Returns: a handle where the resource is loaded if the function succeeds. If 
+  the function fails, the return value is NULL. To get extended error 
+  information, call GetLastError().
+
+  Note: uses Microsoft Fundation Library (MFC).
+        Microsoft Windows specific (Win). 
+ */
+inline HINSTANCE FindResourceHandleBMP(UINT ID_BMP //bitmap resource ID
+                                )
+{
+return FindResourceHandle((LPCTSTR)MAKEINTRESOURCE(ID_BMP), RT_BITMAP);
+}
+
+//FindResourceHandleDLG()-----------------------------------------------------
+/*The function determines the location of a dialog template in the application
+  module.
+
+  Returns: a handle where the resource is loaded if the function succeeds. If 
+  the function fails, the return value is NULL. To get extended error 
+  information, call GetLastError().
+
+  Note: uses Microsoft Fundation Library (MFC).
+        Microsoft Windows specific (Win). 
+ */
+inline HINSTANCE FindResourceHandleDLG(UINT ID_DLG //dialog template ID
+                                )
+{
+return FindResourceHandle((LPCTSTR)MAKEINTRESOURCE(ID_DLG), RT_DIALOG);
+}
+
+//FindResourceHandleWAVE()-----------------------------------------------------
+/*The function determines the location of a sound wave resource in
+  the application module.
+
+  Returns: a handle where the resource is loaded if the function succeeds. If 
+  the function fails, the return value is NULL. To get extended error 
+  information, call GetLastError().
+
+  Note: uses Microsoft Fundation Library (MFC).
+        Microsoft Windows specific (Win). 
+ */
+inline HINSTANCE FindResourceHandleWAVE(UINT ID_WAVE //Wave resource ID
+                                )
+{
+return FindResourceHandle((LPCTSTR)MAKEINTRESOURCE(ID_WAVE), _T("WAVE"));
+}
+
+//FindResourceHandleAVI()------------------------------------------------------
+/*The function determines the location of an animated resource in 
+  the application module.
+
+  Returns: a handle where the resource is loaded if the function succeeds. If 
+  the function fails, the return value is NULL. To get extended error 
+  information, call GetLastError().
+
+  Note: uses Microsoft Fundation Library (MFC).
+        Microsoft Windows specific (Win). 
+ */
+inline HINSTANCE FindResourceHandleAVI(UINT ID_AVI //Avi resource ID
+                                )
+{
+return FindResourceHandle((LPCTSTR)MAKEINTRESOURCE(ID_AVI), _T("AVI"));
+}
+
+//FindResourceHandleDIB()-----------------------------------------------------
+/*The function determines the location of a bitmap resource in the application
+  module. 
+  
+  Returns: a handle where the resource is loaded if the function succeeds. If 
+  the function fails, the return value is NULL. To get extended error 
+  information, call GetLastError().
+
+  Note: uses Microsoft Fundation Library (MFC).
+        Microsoft Windows specific (Win). 
+ */
+inline HINSTANCE FindResourceHandleDIB(UINT ID_DIB //Dib resource ID
+                                )
+{
+return FindResourceHandle((LPCTSTR)MAKEINTRESOURCE(ID_DIB), _T("DIB"));
+}
+
+///////////////////////////////////////////////////////////////////////////////
+#endif  //_KFINDRES_H_
