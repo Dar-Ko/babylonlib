@@ -7,7 +7,7 @@
   Jan 93 Darko Kolakovic
  */
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #include "KFileNam.h" //CFileName class
 
