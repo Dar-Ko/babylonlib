@@ -1,5 +1,5 @@
 /*$Workfile: KTypedef.h$: header file
-  $Revision: 14$ $Date: 8/19/02 10:37:20 AM$
+  $Revision: 15$ $Date: 9/18/02 6:14:14 PM$
   $Author: Darko Kolakovic$
 
   Type definitions
@@ -215,7 +215,7 @@
     typedef signed char          int8;
     #define  int8	 int8
   #endif
-  #ifndef int8
+  #ifndef uint8
       /*unsigned 8-bit integer                                               */
     typedef unsigned char       uint8;
     #define  uint8	 uint8
@@ -270,7 +270,7 @@
     typedef signed char          int8;
     #define  int8	 int8
   #endif
-  #ifndef int8
+  #ifndef uint8
       /*unsigned 8-bit integer                                               */
     typedef unsigned char       uint8;
     #define  uint8	 uint8
@@ -317,7 +317,7 @@
     typedef signed char          int8;
     #define  int8	 int8
   #endif
-  #ifndef int8
+  #ifndef uint8
       /*unsigned 8-bit integer                                               */
     typedef unsigned char       uint8;
     #define  uint8	 uint8
