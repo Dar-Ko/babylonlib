@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KPair.h$: header file
+/*$Workfile: KPair.h$: header file
   $Revision: 6$ $Date: 4/4/02 1:12:57 AM$
   $Author: Darko$
 

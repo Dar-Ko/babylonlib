@@ -1,6 +1,6 @@
 /*$Workfile: KTChar.h$: header file
-  $Revision: 7$ $Date: 8/19/02 10:38:17 AM$ 
-  $Author: Darko Kolakovic$
+  $Revision: 8$ $Date: 8/27/02 11:36:18 PM$ 
+  $Author: Darko$
 
   Unicode mapping layer for the standard C library with definitions for generic
   international text functions.
@@ -216,7 +216,8 @@ extern "C"
   #define _trename    rename      //Rename a file or directory.
   #define _tsopen     _sopen      //Open a file for sharing.
   #define _tunlink    _unlink     //Delete a file.
-
+  #define _tcsinc(pChar)     ((TCHAR*)((TCHAR*)(pChar)+1)) /*Incremets a pointer to a character for one*/
+                                                           /*Added for compatiblity with MS multibyte _mbsinc()*/
 
 /* //////////////////////////////////////////////////////////////////////////
   Unicode mapping layer for the standard C library (wide-character).
@@ -336,6 +337,7 @@ extern "C"
   #define _trename    _wrename
   #define _tsopen     _wsopen
   #define _tunlink    _wunlink
+  #define _tcsinc(pChar)     ((TCHAR*)((TCHAR*)(pChar)+1))
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -363,6 +365,7 @@ extern "C"
 #endif //__KTCHAR_H__
 /*****************************************************************************
  * $Log: 
+ *  8    Biblioteka1.7         8/27/02 11:36:18 PM  Darko           _tcsinc()
  *  7    Biblioteka1.6         8/19/02 10:38:17 AM  Darko Kolakovic 
  *  6    Biblioteka1.5         2/12/02 5:42:35 PM   Darko           GNU issues
  *  5    Biblioteka1.4         2/12/02 10:55:32 AM  Darko           itoa()

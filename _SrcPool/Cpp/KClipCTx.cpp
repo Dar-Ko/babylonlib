@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KClipCTx.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:09:08 $
+/*$Workfile: KClipCTx.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
   $Author: ddarko $
 
   Copy text to Clipboard

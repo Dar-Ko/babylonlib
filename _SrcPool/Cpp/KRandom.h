@@ -1,5 +1,5 @@
 /*$Workfile: KRandom.h$: header file
-  $Revision: 7$ $Date: 4/3/02 3:29:10 PM$
+  $Revision: 7$ $Date: 4/3/02 4:29:10 PM$
   $Author: Darko Kolakovic$
 
   Random number generator base class

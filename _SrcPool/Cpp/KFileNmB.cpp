@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KFileNmB.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:14:10 $
+/*$Workfile: KFileNmB.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   File Name Browser

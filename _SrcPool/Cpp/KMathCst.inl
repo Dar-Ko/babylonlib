@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KMathCst.inl$: header file
+/*$Workfile: KMathCst.inl$: header file
   $Revision: 12$ $Date: 7/14/02 8:22:34 AM$
   $Author: Darko$
 

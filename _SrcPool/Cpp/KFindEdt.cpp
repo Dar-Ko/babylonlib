@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KFindEdt.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:16:05 $
+/*$Workfile: KFindEdt.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
  
   Find child Edit control

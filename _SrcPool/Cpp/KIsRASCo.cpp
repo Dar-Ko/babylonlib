@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KIsRASCo.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:16:05 $
+/*$Workfile: KIsRASCo.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Check RAS connection has been successfully established.

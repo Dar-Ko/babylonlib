@@ -1,5 +1,5 @@
 /*$Workfile: KTimer.h$: header file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:22:42 $
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
   
   Simple Timer with callback function for Windows applications
@@ -156,11 +156,11 @@ return m_nTimerID;
 
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         1/24/02 6:19:45 PM   Darko           Updated
+ *  4    Biblioteka1.3         1/24/02 7:19:45 PM   Darko           Updated
  *       comments
- *  3    Biblioteka1.2         8/16/01 11:38:18 PM  Darko           Update
- *  2    Biblioteka1.1         6/25/01 10:44:04 PM  Darko           Simpilfied
+ *  3    Biblioteka1.2         8/17/01 12:38:18 AM  Darko           Update
+ *  2    Biblioteka1.1         6/25/01 11:44:04 PM  Darko           Simpilfied
  *       version
- *  1    Biblioteka1.0         6/8/01 11:01:48 PM   Darko           
+ *  1    Biblioteka1.0         6/9/01 12:01:48 AM   Darko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KStrExC.cpp$: implementation file
-  $Revision: 4$ $Date: 1/29/02 10:21:55 PM$
+/*$Workfile: KStrExC.cpp$: implementation file
+  $Revision: 4$ $Date: 1/29/02 11:21:55 PM$
   $Author: Darko$
 
   Extract number of characters from CString

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KStrRplT.cpp$: implementation file
-  $Revision: 3$ $Date: 1/29/02 10:22:05 PM$
+/*$Workfile: KStrRplT.cpp$: implementation file
+  $Revision: 3$ $Date: 1/29/02 11:22:05 PM$
   $Author: Darko$
 
   Replace TAB characterts in CString with spaces

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KWinVers.inl$: header file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:22:42 $
+/*$Workfile: KWinVers.inl$: header file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Detect operating system and Windows platform version
@@ -168,7 +168,7 @@ inline UINT GetOSBuild()
 /*****************************************************************************
  * $Log: 
  *  4    Biblioteka1.3         8/16/01 11:38:29 PM  Darko           Update
- *  3    Biblioteka1.2         7/7/01 11:10:38 PM   Darko           $Revision: 1.1 $
+ *  3    Biblioteka1.2         7/7/01 11:10:38 PM   Darko           $Revision: 1.2 $
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:52:42 PM   Darko           VSS
  *  1    Biblioteka1.0         8/13/00 3:04:28 PM   Darko           

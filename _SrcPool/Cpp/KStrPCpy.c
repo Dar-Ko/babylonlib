@@ -1,5 +1,5 @@
 /*$Workfile: KStrPCpy.c$: implementation file
-  $Revision: 6$ $Date: 2/12/02 4:39:25 PM$
+  $Revision: 6$ $Date: 2/12/02 5:39:25 PM$
   $Author: Darko$
 
   Copies source string to the target

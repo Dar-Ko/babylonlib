@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KDateCrl.h$: header file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:09:08 $
+/*$Workfile: KDateCrl.h$: header file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
   $Author: ddarko $
 
   Date Control
@@ -150,13 +150,13 @@ protected:
 #endif //_KDATECRL_H_
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         1/29/02 10:20:01 PM  Darko           Used lbraries
+ *  6    Biblioteka1.5         1/29/02 11:20:01 PM  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         1/25/02 3:56:32 PM   Darko           Updated
+ *  5    Biblioteka1.4         1/25/02 4:56:32 PM   Darko           Updated
  *       comments
- *  4    Biblioteka1.3         8/19/01 10:52:30 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 9:50:22 PM   Darko           
- *  2    Biblioteka1.1         6/8/01 10:49:24 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:55:46 PM   Darko           
+ *  4    Biblioteka1.3         8/19/01 11:52:30 PM  Darko           Butyfier
+ *  3    Biblioteka1.2         7/11/01 10:50:22 PM  Darko           
+ *  2    Biblioteka1.1         6/8/01 11:49:24 PM   Darko           VSS
+ *  1    Biblioteka1.0         8/13/00 3:55:46 PM   Darko           
  * $
  *****************************************************************************/

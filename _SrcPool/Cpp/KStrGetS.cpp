@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KStrGetS.cpp$: implementation file
-  $Revision: 4$ $Date: 2/4/02 6:56:22 PM$
+/*$Workfile: KStrGetS.cpp$: implementation file
+  $Revision: 4$ $Date: 2/4/02 7:56:22 PM$
   $Author: Darko$
 
   Retreive substrings

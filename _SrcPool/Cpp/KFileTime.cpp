@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KFileTime.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:14:10 $
+/*$Workfile: KFileTime.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   FILETIME creation time conversion helper

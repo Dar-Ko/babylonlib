@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KDlgItem.h$: header file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:10:21 $
+/*$Workfile: KDlgItem.h$: header file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Description of a resizable dialog control

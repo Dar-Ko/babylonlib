@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KSwpByte.h$: header file
+/*$Workfile: KSwpByte.h$: header file
   $Revision: 9$ $Date: 8/3/02 7:27:15 PM$
   $Author: Darko$
 

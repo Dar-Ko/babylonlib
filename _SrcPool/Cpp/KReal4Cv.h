@@ -1,5 +1,5 @@
 /*$Workfile: KReal4Cv.h$: header file
-  $Revision: 4$ $Date: 1/24/02 6:19:06 PM$
+  $Revision: 4$ $Date: 1/24/02 7:19:06 PM$
   $Author: Darko$
 
   Conversion helper for 4 bytes real numbers (float)

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KDockBar.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:10:21 $
+/*$Workfile: KDockBar.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Control bar helper functions
@@ -80,12 +80,12 @@ Frame.DockControlBar(pBar,AFX_IDW_DOCKBAR_TOP | AFX_IDW_DOCKBAR_RIGHT,&rect);
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         1/29/02 10:20:56 PM  Darko           Used lbraries
+ *  6    Biblioteka1.5         1/29/02 11:20:56 PM  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         1/29/02 2:39:46 PM   Darko           Tag update
- *  4    Biblioteka1.3         8/19/01 10:53:44 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 9:51:28 PM   Darko           
- *  2    Biblioteka1.1         6/8/01 10:50:42 PM   Darko           VSS
- *  1    Biblioteka1.0         8/17/00 1:41:26 AM   Darko           
+ *  5    Biblioteka1.4         1/29/02 3:39:46 PM   Darko           Tag update
+ *  4    Biblioteka1.3         8/19/01 11:53:44 PM  Darko           Butyfier
+ *  3    Biblioteka1.2         7/11/01 10:51:28 PM  Darko           
+ *  2    Biblioteka1.1         6/8/01 11:50:42 PM   Darko           VSS
+ *  1    Biblioteka1.0         8/17/00 2:41:26 AM   Darko           
  * $
  *****************************************************************************/

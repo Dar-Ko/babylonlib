@@ -1,5 +1,5 @@
 /*$Workfile: KSwpElements.h$: header file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:22:42 $
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Reverses order of array elements

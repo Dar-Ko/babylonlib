@@ -1,5 +1,5 @@
 /*$Workfile: KRandomCongr.h$: header file
-  $Revision: 2$ $Date: 3/18/02 4:35:04 PM$
+  $Revision: 2$ $Date: 3/18/02 5:35:04 PM$
   $Author: Darko Kolakovic$
 
   Congruential random number generator

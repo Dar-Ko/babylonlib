@@ -1,5 +1,5 @@
 /*$Workfile: KDlgTmpl.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:10:21 $
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
   
   Copyright (c) 1996 Microsoft Corporation. All rights reserved.
@@ -1201,10 +1201,10 @@ dc << _T("\n");
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         1/29/02 2:39:41 PM   Darko           Tag update
- *  4    Biblioteka1.3         8/19/01 10:53:28 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 9:51:21 PM   Darko           
- *  2    Biblioteka1.1         6/8/01 10:50:37 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:56:25 PM   Darko           
+ *  5    Biblioteka1.4         1/29/02 3:39:41 PM   Darko           Tag update
+ *  4    Biblioteka1.3         8/19/01 11:53:28 PM  Darko           Butyfier
+ *  3    Biblioteka1.2         7/11/01 10:51:21 PM  Darko           
+ *  2    Biblioteka1.1         6/8/01 11:50:37 PM   Darko           VSS
+ *  1    Biblioteka1.0         8/13/00 3:56:25 PM   Darko           
  * $
  *****************************************************************************/

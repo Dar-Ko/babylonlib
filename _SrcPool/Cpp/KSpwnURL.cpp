@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KSpwnURL.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:19:04 $
+/*$Workfile: KSpwnURL.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Opens a hyperlink
@@ -92,13 +92,13 @@ return hInst;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         1/29/02 10:21:52 PM  Darko           Used lbraries
+ *  6    Biblioteka1.5         1/29/02 11:21:52 PM  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         1/25/02 3:57:54 PM   Darko           Updated
+ *  5    Biblioteka1.4         1/25/02 4:57:54 PM   Darko           Updated
  *       comments
- *  4    Biblioteka1.3         8/16/01 11:38:03 PM  Darko           Update
- *  3    Biblioteka1.2         7/7/01 12:11:45 AM   Darko           Note
- *  2    Biblioteka1.1         6/8/01 10:51:43 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:59:02 PM   Darko           
+ *  4    Biblioteka1.3         8/17/01 12:38:03 AM  Darko           Update
+ *  3    Biblioteka1.2         7/7/01 1:11:45 AM    Darko           Note
+ *  2    Biblioteka1.1         6/8/01 11:51:43 PM   Darko           VSS
+ *  1    Biblioteka1.0         8/13/00 3:59:02 PM   Darko           
  * $
  *****************************************************************************/

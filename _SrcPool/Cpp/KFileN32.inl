@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KFileN32.inl$: header file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:14:10 $
+/*$Workfile: KFileN32.inl$: header file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   File Name handler (Win32)
@@ -19,10 +19,6 @@
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
 #endif
-
-  //Test if a character is one of Windows file name delimiters: 
-  //'\', '/' or ':'.
-#define IS_FILENAME_DELIM(c)    ( (c) == '\\' || (c) == '/' || (c) == ':' )
 
 /////////////////////////////////////////////////////////////////////////////
 // CFileName Inlines
@@ -115,6 +111,8 @@ if (!::DeleteFile(Canonical()))
 #endif  //_KFILEN32_INL_
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         8/27/02 11:35:32 PM  Darko           Deleted
+ *       IS_FILENAME_DELIM
  *  1    Biblioteka1.0         8/27/02 5:04:45 PM   Darko Kolakovic 
  * $
  * May 98 Win32 version D.K.

@@ -1,5 +1,5 @@
 /*$Workfile: KStrRpl.cpp$: implementation file
-  $Revision: 4$ $Date: 1/29/02 10:21:58 PM$
+  $Revision: 4$ $Date: 1/29/02 11:21:58 PM$
   $Author: Darko$
 
   Replace characters in CString

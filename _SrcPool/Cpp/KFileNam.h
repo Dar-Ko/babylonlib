@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KFileNam.h$: header file
+/*$Workfile: KFileNam.h$: header file
   $Revision: 1$ $Date: 8/27/02 5:04:52 PM$
   $Author: Darko Kolakovic$
 

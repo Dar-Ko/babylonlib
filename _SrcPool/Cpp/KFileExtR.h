@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KFileExtR.h$: header file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:14:10 $
+/*$Workfile: KFileExtR.h$: header file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   CStdioFile class extension: I/O operators

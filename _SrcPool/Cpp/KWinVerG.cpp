@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KWinVerG.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:22:42 $
+/*$Workfile: KWinVerG.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Retrieve more detailed information about Windows platform using GetVersion() function

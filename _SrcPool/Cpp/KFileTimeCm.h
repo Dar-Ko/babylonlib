@@ -1,5 +1,5 @@
 /*$Workfile: KFileTimeCm.h$: header file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:16:05 $
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   FILETIME comparasion operators

@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KStrICmp.c$: implementation file
+/*$Workfile: KStrICmp.c$: implementation file
   $Revision: 1$ $Date: 8/27/02 5:05:02 PM$
   $Author: Darko Kolakovic$
 

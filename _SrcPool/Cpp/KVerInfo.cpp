@@ -1,5 +1,5 @@
 /*$Workfile: KVerInfo.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:22:42 $
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Obtains version information about a specified module.
@@ -694,12 +694,12 @@ return FALSE;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         1/25/02 3:59:22 PM   Darko           Updated
+ *  5    Biblioteka1.4         1/25/02 4:59:22 PM   Darko           Updated
  *       comments
- *  4    Biblioteka1.3         8/19/01 10:56:00 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 9:53:20 PM   Darko           
- *  2    Biblioteka1.1         6/8/01 10:52:19 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:02:53 PM   Darko           
+ *  4    Biblioteka1.3         8/19/01 11:56:00 PM  Darko           Butyfier
+ *  3    Biblioteka1.2         7/11/01 10:53:20 PM  Darko           
+ *  2    Biblioteka1.1         6/8/01 11:52:19 PM   Darko           VSS
+ *  1    Biblioteka1.0         8/13/00 4:02:53 PM   Darko           
  * $
  *****************************************************************************/
  

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KDateStr.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:09:08 $
+/*$Workfile: KDateStr.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
   $Author: ddarko $
 
   Format a date and time string
@@ -83,9 +83,9 @@ return szBuf;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         1/29/02 10:20:04 PM  Darko           Used lbraries
+ *  3    Biblioteka1.2         1/29/02 11:20:04 PM  Darko           Used lbraries
  *       notes 
- *  2    Biblioteka1.1         1/29/02 2:38:28 PM   Darko           Tag update
- *  1    Biblioteka1.0         7/18/01 10:32:08 PM  Darko           
+ *  2    Biblioteka1.1         1/29/02 3:38:28 PM   Darko           Tag update
+ *  1    Biblioteka1.0         7/18/01 11:32:08 PM  Darko           
  * $
  *****************************************************************************/

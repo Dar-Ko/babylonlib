@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KStrRplEOL.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:22:42 $
+/*$Workfile: KStrRplEOL.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Replaces Unix EOL with DOS End-of-Line markers

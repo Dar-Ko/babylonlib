@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KLogoOut.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:16:05 $
+/*$Workfile: KLogoOut.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Display a logo in the window client area
@@ -158,12 +158,12 @@ return TRUE;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         1/29/02 10:21:26 PM  Darko           Used lbraries
+ *  6    Biblioteka1.5         1/29/02 11:21:26 PM  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         1/29/02 2:40:41 PM   Darko           Tag update
- *  4    Biblioteka1.3         8/19/01 10:54:05 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 9:51:50 PM   Darko           
- *  2    Biblioteka1.1         6/8/01 10:51:01 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:56:45 PM   Darko           
+ *  5    Biblioteka1.4         1/29/02 3:40:41 PM   Darko           Tag update
+ *  4    Biblioteka1.3         8/19/01 11:54:05 PM  Darko           Butyfier
+ *  3    Biblioteka1.2         7/11/01 10:51:50 PM  Darko           
+ *  2    Biblioteka1.1         6/8/01 11:51:01 PM   Darko           VSS
+ *  1    Biblioteka1.0         8/13/00 3:56:45 PM   Darko           
  * $
  *****************************************************************************/

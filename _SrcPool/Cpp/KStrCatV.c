@@ -1,5 +1,5 @@
 /*$Workfile: KStrCatV.c$: implementation file
-  $Revision: 4$ $Date: 2/12/02 4:39:12 PM$
+  $Revision: 4$ $Date: 2/12/02 5:39:12 PM$
   $Author: Darko$
 
   Appends multiple strings

@@ -1,5 +1,5 @@
 /*$Workfile: KStrGSu.cpp$: implementation file
-  $Revision: 3$ $Date: 1/25/02 3:58:13 PM$
+  $Revision: 3$ $Date: 1/25/02 4:58:13 PM$
   $Author: Darko$
 
   String helpers and CString extension

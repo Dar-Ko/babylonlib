@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KItoOct.c$: implementation file
+/*$Workfile: KItoOct.c$: implementation file
   $Revision: 2$ $Date: 7/16/02 1:41:15 AM$
   $Author: Darko$
  

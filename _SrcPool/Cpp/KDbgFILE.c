@@ -1,5 +1,5 @@
 /*$Workfile: KDbgFILE.c$: implementation file
-  $Revision: 3$ $Date: 1/29/02 10:20:13 PM$
+  $Revision: 3$ $Date: 1/29/02 11:20:13 PM$
   $Author: Darko$
 
   Dumps the current device-context attributes

@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KRandomGauss.h$: implementation file
+/*$Workfile: KRandomGauss.h$: implementation file
   $Revision: 6$ $Date: 7/16/02 1:41:21 AM$
   $Author: Darko$
 

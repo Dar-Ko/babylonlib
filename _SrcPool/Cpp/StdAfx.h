@@ -1,7 +1,7 @@
 // StdAfx.h : include file for standard system include files,
 //  or project specific include files that are used frequently, but
 //      are changed infrequently
-// $Revision: 1.1 $	$Date: 2002/09/06 22:22:42 $
+// $Revision: 1.2 $	$Date: 2002/09/10 15:22:21 $
 
 
 #ifndef AFX_STDAFX_H__383E4A3F_64E2_11D5_AB38_000103BE4653__INCLUDED_

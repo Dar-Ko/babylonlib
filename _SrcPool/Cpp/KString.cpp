@@ -1,5 +1,5 @@
 /*$Workfile: KString.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:22:42 $
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Implementation of the CString class. This is a STL port of MFC CString class

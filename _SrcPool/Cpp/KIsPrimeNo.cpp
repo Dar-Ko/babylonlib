@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KIsPrimeNo.cpp$: header file
+/*$Workfile: KIsPrimeNo.cpp$: header file
   $Revision: 3$ $Date: 7/16/02 1:41:12 AM$
   $Author: Darko$
 

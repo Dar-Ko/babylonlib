@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KString.h$: header file
-  $Revision: 7$ $Date: 1/29/02 10:22:18 PM$ 
+/*$Workfile: KString.h$: header file
+  $Revision: 7$ $Date: 1/29/02 11:22:18 PM$ 
   $Author: Darko$
 
   Interface for the CString class
@@ -8,7 +8,7 @@
 /* Group=Strings                                                             */
 
 #ifndef _KSTRING_H__
-    //$Workfile: H:\_SrcPool\Cpp\KString.h$ sentry
+    //$Workfile: KString.h$ sentry
   #define _KSTRING_H__
 
 #ifdef  _MSC_VER    //Microsoft Visual C/C++
@@ -357,15 +357,15 @@ return s2.Compare(s1) != 0;
 #endif // _KSTRING_H__
 /******************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         1/29/02 10:22:18 PM  Darko           Used lbraries
+ *  7    Biblioteka1.6         1/29/02 11:22:18 PM  Darko           Used lbraries
  *       notes 
- *  6    Biblioteka1.5         1/24/02 6:19:32 PM   Darko           Updated
+ *  6    Biblioteka1.5         1/24/02 7:19:32 PM   Darko           Updated
  *       comments
- *  5    Biblioteka1.4         1/23/02 6:23:25 PM   Darko           
- *  4    Biblioteka1.3         1/6/02 12:47:37 AM   Darko           
- *  3    Biblioteka1.2         12/30/01 7:20:25 PM  Darko           
- *  2    Biblioteka1.1         11/6/01 2:52:08 PM   Darko           pointer to data
+ *  5    Biblioteka1.4         1/23/02 7:23:25 PM   Darko           
+ *  4    Biblioteka1.3         1/6/02 1:47:37 AM    Darko           
+ *  3    Biblioteka1.2         12/30/01 8:20:25 PM  Darko           
+ *  2    Biblioteka1.1         11/6/01 3:52:08 PM   Darko           pointer to data
  *       holder
- *  1    Biblioteka1.0         11/5/01 2:13:04 PM   Darko           
+ *  1    Biblioteka1.0         11/5/01 3:13:04 PM   Darko           
  * $
  *****************************************************************************/

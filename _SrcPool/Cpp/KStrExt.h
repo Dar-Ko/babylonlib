@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KStrExt.h$: header file
+/*$Workfile: KStrExt.h$: header file
   $Revision: 4$ $Date: 4/4/02 1:13:14 AM$
   $Author: Darko$
 

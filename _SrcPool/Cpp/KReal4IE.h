@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KReal4IE.h$: header file
+/*$Workfile: KReal4IE.h$: header file
   $Revision: 5$ $Date: 4/4/02 1:13:11 AM$
   $Author: Darko$
 

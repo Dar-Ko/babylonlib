@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KIsFileNameValid.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:16:05 $
+/*$Workfile: KIsFileNameValid.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Validates Windows filename. TODO:

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KIsProdS.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:16:05 $
+/*$Workfile: KIsProdS.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Verifies if specific product is present on system with Windows NT/2k

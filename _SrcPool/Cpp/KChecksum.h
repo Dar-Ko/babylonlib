@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KChecksum.h$: header file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:09:08 $
+/*$Workfile: KChecksum.h$: header file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
   $Author: ddarko $
 
   Calculates a checksum

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KDbgDCAt.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:10:21 $
+/*$Workfile: KDbgDCAt.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
   $Author: ddarko $
 
   Dumps the current device-context attributes

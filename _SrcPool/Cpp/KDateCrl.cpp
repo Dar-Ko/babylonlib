@@ -1,5 +1,5 @@
 /*$Workfile: KDateCrl.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:09:08 $
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
   $Author: ddarko $
 
   Date Edit Control
@@ -768,7 +768,7 @@ DestroyWindow();
 /*****************************************************************************
  * $Log: 
  *  4    Biblioteka1.3         8/16/01 11:37:22 PM  Darko           Update
- *  3    Biblioteka1.2         7/7/01 11:10:15 PM   Darko           $Revision: 1.1 $
+ *  3    Biblioteka1.2         7/7/01 11:10:15 PM   Darko           $Revision: 1.2 $
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:49:22 PM   Darko           VSS
  *  1    Biblioteka1.0         8/13/00 2:55:44 PM   Darko           

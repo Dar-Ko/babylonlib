@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KColorCt.h$: header file
-  $Revision: 9$ $Date: 1/29/02 10:19:54 PM$
+/*$Workfile: KColorCt.h$: header file
+  $Revision: 9$ $Date: 1/29/02 11:19:54 PM$
   $Author: Darko$
 
   Predefined Color Codes

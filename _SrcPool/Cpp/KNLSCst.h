@@ -1,5 +1,5 @@
 /*$Workfile: KNLSCst.h$: header file
-  $Revision: 2$ $Date: 1/25/02 3:57:19 PM$
+  $Revision: 2$ $Date: 1/25/02 4:57:19 PM$
   $Author: Darko$
 
   National language support constants.
@@ -190,9 +190,9 @@
 #endif //__KNLSCST_H__
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         1/25/02 3:57:19 PM   Darko           Updated
+ *  2    Biblioteka1.1         1/25/02 4:57:19 PM   Darko           Updated
  *       comments
- *  1    Biblioteka1.0         10/15/01 10:38:03 AM Darko           
+ *  1    Biblioteka1.0         10/15/01 11:38:03 AM Darko           
  * $
  * D.K. 2k This files is largely ported from the Win32 header WinNLS.h.
  *****************************************************************************/

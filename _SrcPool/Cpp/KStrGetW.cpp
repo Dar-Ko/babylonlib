@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KStrGetW.cpp$: implementation file
-  $Revision: 4$ $Date: 2/4/02 6:56:58 PM$
+/*$Workfile: KStrGetW.cpp$: implementation file
+  $Revision: 4$ $Date: 2/4/02 7:56:58 PM$
   $Author: Darko$
 
   Retreive words

@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KStrBtoH.cpp$: implementation file
+/*$Workfile: KStrBtoH.cpp$: implementation file
   $Revision: 1$ $Date: 8/13/02 6:53:10 PM$
   $Author: Darko Kolakovic$
 

@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KPoint.h$: header file
+/*$Workfile: KPoint.h$: header file
   $Revision: 7$ $Date: 4/4/02 1:13:01 AM$
   $Author: Darko$
 

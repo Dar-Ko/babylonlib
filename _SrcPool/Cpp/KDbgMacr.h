@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KDbgMacr.h$: header file
-  $Revision: 11$ $Date: 1/29/02 7:30:46 PM$
+/*$Workfile: KDbgMacr.h$: header file
+  $Revision: 11$ $Date: 1/29/02 8:30:46 PM$
   $Author: Darko$
 
   Dumps values of some compiler-specific predefined macros

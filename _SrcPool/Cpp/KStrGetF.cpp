@@ -1,5 +1,5 @@
 /*$Workfile: KStrGetF.cpp$: implementation file
-  $Revision: 3$ $Date: 1/25/02 3:58:18 PM$
+  $Revision: 3$ $Date: 1/25/02 4:58:18 PM$
   $Author: Darko$
 
   Retreive postion of first white character

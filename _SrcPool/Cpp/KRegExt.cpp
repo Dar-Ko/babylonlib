@@ -1,5 +1,5 @@
 /*$Workfile: KRegExt.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:19:04 $
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
   $Author: ddarko $
 
   Windows Registry Extended handler
@@ -176,11 +176,11 @@ return FALSE;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         1/25/02 3:57:44 PM   Darko           Updated
+ *  5    Biblioteka1.4         1/25/02 4:57:44 PM   Darko           Updated
  *       comments
- *  4    Biblioteka1.3         8/16/01 11:37:51 PM  Darko           Update
- *  3    Biblioteka1.2         7/7/01 12:10:52 AM   Darko           
- *  2    Biblioteka1.1         6/8/01 10:51:37 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:57:23 PM   Darko           
+ *  4    Biblioteka1.3         8/17/01 12:37:51 AM  Darko           Update
+ *  3    Biblioteka1.2         7/7/01 1:10:52 AM    Darko           
+ *  2    Biblioteka1.1         6/8/01 11:51:37 PM   Darko           VSS
+ *  1    Biblioteka1.0         8/13/00 3:57:23 PM   Darko           
  * $
  *****************************************************************************/

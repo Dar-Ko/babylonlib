@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KComplxB.h$: header file
+/*$Workfile: KComplxB.h$: header file
   $Revision: 7$ $Date: 4/4/02 1:12:46 AM$
   $Author: Darko$
 

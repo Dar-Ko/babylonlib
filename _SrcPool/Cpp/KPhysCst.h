@@ -1,5 +1,5 @@
 /*$Workfile: KPhysCst.h$: header file
-  $Revision: 5$ $Date: 1/25/02 3:57:29 PM$
+  $Revision: 6$ $Date: 9/9/02 11:19:03 PM$
   $Author: Darko$
 
   Physics Constants
@@ -25,7 +25,54 @@
   //Acceleration due to gravity at sea level, 45° latitude [m/s2]
 #define CST_g        9.806194
 
+//Astronomical constants
+
+  //Radius of Earth [km]
+#define CST_TERRADIAMETER        6378.16
+  //Eccentricity of Earth's orbit
+#define CST_TERRAECC             0.016718
+  //Semi-major axis of Earth's orbit [km]
+#define CST_TERRAORBITSEMIMAX    1.495985e8
+  //Sun's angular size from Earth at semi-major axis distance[o]
+#define CST_TERRASUNANGULARSIZE  0.533128
+  //Moon's angular size from Earth
+#define CST_TERRALUNAANGULARSIZE     0.5181
+  //Moon's parallax from Earth
+#define CST_TERALUNAPARALLAX      0.950700
+
+  //Inclination of the Moon's orbit
+#define CST_LUNAORBITINCLINATION  5.145396
+  //Eccentricity of the Moon's orbit
+#define CST_LUNAECC               0.054900
+  //Semi-major axis of Moon's orbit [km]
+#define CST_LUNAORBITSEMIMAX      384401.0
+  //Synodic month (new Moon to new Moon) [days]
+#define CST_SYNODISMONTH          29.53058868
+
 //Conversion factors-----------------------------------------------------------
+
+  //Metric prefixes
+#define CST_yotta 	1.0e+24
+#define CST_zetta 	1.0e+21
+#define CST_exa 		1.0e+18
+#define CST_peta 		1.0e+15
+#define CST_tera 		1.0e+12
+#define CST_giga 		1.0e+09
+#define CST_mega 		1.0e+06
+#define CST_kilo 		1000
+#define CST_hecto 	 100
+#define CST_deka 		  10
+#define CST_deci 		1.0e-01
+#define CST_centi 	1.0e-02
+#define CST_milli 	1.0e-03
+#define CST_micro 	1.0e-06
+#define CST_nano 		1.0e-09
+#define CST_pico 		1.0e-12
+#define CST_femto 	1.0e-15
+#define CST_atto 		1.0e-18
+#define CST_zepto 	1.0e-21
+#define CST_yocto 	1.0e-24
+
 
   //decibel per neper
   //      [dB]/[Np] = 20*log(e) = 20/ln(10).
@@ -96,12 +143,12 @@ template <class TYPE> inline TYPE dB2Np (const TYPE& fdB //attenuation [dB]
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KPHYSCST_H_
 /*****************************************************************************
- * $Log: 
- *  5    Biblioteka1.4         1/25/02 3:57:29 PM   Darko           Updated
+ * $Log:
+ *  5    Biblioteka1.4         25/01/2002 3:57:29 PMDarko           Updated
  *       comments
- *  4    Biblioteka1.3         8/19/01 10:54:11 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 9:51:59 PM   Darko           
- *  2    Biblioteka1.1         6/8/01 10:51:12 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:56:55 PM   Darko           
+ *  4    Biblioteka1.3         19/08/2001 10:54:11 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:51:59 PMDarko
+ *  2    Biblioteka1.1         08/06/2001 10:51:12 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:56:55 PMDarko
  * $
  *****************************************************************************/

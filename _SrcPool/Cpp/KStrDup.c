@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\KStrDup.c$: implementation file
+/*$Workfile: KStrDup.c$: implementation file
   $Revision: 1$ $Date: 8/27/02 5:04:59 PM$
   $Author: Darko Kolakovic$
 

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KDbgFVSI.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:10:21 $
+/*$Workfile: KDbgFVSI.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
   $Author: ddarko $
   
   Dumps the current device-context attributes
@@ -16,7 +16,9 @@
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 
-#include <ShlObj.h> //FVSHOWINFO struct
+#include <ShlObj.h>   //FVSHOWINFO struct
+#include "KDbgDump.h" //Declarations
+
 ///////////////////////////////////////////////////////////////////////////////
 
 //DumpFVSHOWINFO()------------------------------------------------------------
@@ -24,7 +26,8 @@
 /*Dumps the contents of FVSHOWINFO structure that the quick file viewer uses to
   display a file.
 
-  Note: Microsoft Windows specific (Win). 
+  Note: uses Microsoft Fundation Library (MFC),
+        Microsoft Windows specific (Win).
 */
 void DumpFVSHOWINFO(LPFVSHOWINFO lpfvSI)
 {
@@ -71,12 +74,15 @@ TRACE("\tstrNewFile = %s\n\t}\n", (LPCSTR)(CString(lpfvSI->strNewFile)));
 #endif  //_DEBUG
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         1/29/02 10:20:17 PM  Darko           Used lbraries
+ *  7    Biblioteka1.6         8/27/02 11:37:13 PM  Darko           
+ *  6    Biblioteka1.5         1/29/02 11:20:17 PM  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         1/29/02 2:38:41 PM   Darko           Tag update
- *  4    Biblioteka1.3         8/19/01 10:52:39 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 9:50:35 PM   Darko           
- *  2    Biblioteka1.1         6/8/01 10:49:58 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:55:53 PM   Darko           
+ *  5    Biblioteka1.4         1/29/02 3:38:41 PM   Darko           Tag update
+ *  4    Biblioteka1.3         8/19/01 11:52:39 PM  Darko           Butyfier
+ *  3    Biblioteka1.2         7/11/01 10:50:35 PM  Darko           
+ *  2    Biblioteka1.1         6/8/01 11:49:58 PM   Darko           VSS
+ *  1    Biblioteka1.0         8/13/00 3:55:53 PM   Darko           
  * $
+ * Jul. 97 cosmetic changes D.K.
+ * Paul DiLascia, MSJ 6/96
  *****************************************************************************/

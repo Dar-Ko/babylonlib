@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\KDbgLDLL.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2002/09/06 22:10:21 $
+/*$Workfile: KDbgLDLL.cpp$: implementation file
+  $Revision: 1.2 $ $Date: 2002/09/10 15:22:20 $
   $Author: ddarko $
   
   Dumps DLL names used by active process
@@ -77,12 +77,12 @@ TRACE0("\n");
 #endif  //_DEBUG
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         1/29/02 10:20:20 PM  Darko           Used lbraries
+ *  6    Biblioteka1.5         1/29/02 11:20:20 PM  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         1/29/02 2:38:46 PM   Darko           Tag update
- *  4    Biblioteka1.3         8/19/01 10:52:45 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 9:50:38 PM   Darko           
- *  2    Biblioteka1.1         6/8/01 10:50:00 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:55:54 PM   Darko           
+ *  5    Biblioteka1.4         1/29/02 3:38:46 PM   Darko           Tag update
+ *  4    Biblioteka1.3         8/19/01 11:52:45 PM  Darko           Butyfier
+ *  3    Biblioteka1.2         7/11/01 10:50:38 PM  Darko           
+ *  2    Biblioteka1.1         6/8/01 11:50:00 PM   Darko           VSS
+ *  1    Biblioteka1.0         8/13/00 3:55:54 PM   Darko           
  * $
  *****************************************************************************/
