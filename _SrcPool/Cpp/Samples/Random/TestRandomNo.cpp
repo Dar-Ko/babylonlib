@@ -1,4 +1,4 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Random\TestRandomNo.cpp$: implementation file
+/*$Workfile: TestRandomNo.cpp$: implementation file
   $Revision: 2$ $Date: 7/16/02 1:41:46 AM$
   $Author: Darko$
 

@@ -1,6 +1,6 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\StreamIO\main.cpp$: implementation file
-  $Revision: 3$ $Date: 7/16/02 1:39:21 AM$
-  $Author: Darko$
+/*$Workfile: main.cpp$: implementation file
+  $Revision: 4$ $Date: 9/16/02 5:57:53 PM$
+  $Author: Darko Kolakovic$
 
   Illustrates how to use the getline function to read a line of text from the stream.
   Compile options needed: /GX
@@ -29,7 +29,7 @@
 
 bool TestGetLines(LPCTSTR szFileName);
 //main()-----------------------------------------------------------------------
-/*Test to read lins from a stream.
+/*Test to read text lines from a stream.
 
   Returns: EXIT_SUCCESS if succesfull, otherwise returns EXIT_FAILURE.
  */
@@ -421,6 +421,7 @@ istream & getline( istream & in, string & str )
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  4    Biblioteka1.3         9/16/02 5:57:53 PM   Darko Kolakovic 
  *  3    Biblioteka1.2         7/16/02 1:39:21 AM   Darko           Updated comment
  *  2    Biblioteka1.1         2/17/02 3:17:41 AM   Darko           GetLines()
  *  1    Biblioteka1.0         2/4/02 7:46:46 PM    Darko           
