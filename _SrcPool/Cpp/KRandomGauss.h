@@ -1,5 +1,5 @@
 /*$Workfile: KRandomGauss.h$: implementation file
-  $Revision: 7$ $Date: 2003-09-22 22:26:33$
+  $Revision: 7$ $Date: 2003-09-22 21:26:33$
   $Author: Darko$
 
   Random number generator with Gaussian distribution
@@ -77,17 +77,17 @@ m_dUniform.SetSeed(ulSeed1,ulSeed2);
 #endif // _KRANDOMGAUSS_H_
 /******************************************************************************
  *$Log: 
- * 7    Biblioteka1.6         2003-09-22 22:26:33  Darko           formatting
- * 6    Biblioteka1.5         2002-07-16 01:41:21  Darko           Fixed VSS Log 
+ * 7    Biblioteka1.6         2003-09-22 21:26:33  Darko           formatting
+ * 6    Biblioteka1.5         2002-07-16 00:41:21  Darko           Fixed VSS Log 
  *      tag
- * 5    Biblioteka1.4         2002-04-04 01:13:08  Darko           Documenation
+ * 5    Biblioteka1.4         2002-04-04 00:13:08  Darko           Documenation
  *      update
- * 4    Biblioteka1.3         2002-04-02 19:06:17  Darko Kolakovic 
- * 3    Biblioteka1.2         2002-03-19 16:39:39  Darko Kolakovic Updated
+ * 4    Biblioteka1.3         2002-04-02 18:06:17  Darko Kolakovic 
+ * 3    Biblioteka1.2         2002-03-19 15:39:39  Darko Kolakovic Updated
  *      comments
- * 2    Biblioteka1.1         2002-03-18 17:33:41  Darko Kolakovic Added Gaussian
+ * 2    Biblioteka1.1         2002-03-18 16:33:41  Darko Kolakovic Added Gaussian
  *      Rand No
- * 1    Biblioteka1.0         2002-03-14 22:49:25  Darko           
+ * 1    Biblioteka1.0         2002-03-14 21:49:25  Darko           
  *$
  * Algorithm 712, from ACM. Published in Transactions on Mathematical Software,
  * vol. 18, no. 4, XII 1992, pp. 434-435.

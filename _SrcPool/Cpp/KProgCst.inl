@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KProgCst.inl$: header file
-  $Revision: 17$ $Date: 2004-10-06 16:01:24$
+/*$Workfile: KProgCst.inl$: header file
+  $Revision: 17$ $Date: 2004-10-06 15:01:24$
   $Author: Darko$
 
   Constants
@@ -8,7 +8,7 @@
 */
 
 #ifndef _KPROGCST_INL_
-    //$Workfile: S:\_SrcPool\Cpp\KProgCst.inl$ sentry
+    //$Workfile: KProgCst.inl$ sentry
   #define _KPROGCST_INL_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files

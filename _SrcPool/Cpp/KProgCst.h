@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KProgCst.h$: header file
+/*$Workfile: KProgCst.h$: header file
   $Revision: 22$ $Date: 2004-11-23 15:48:31$
   $Author: Darko Kolakovic$
 
@@ -8,7 +8,7 @@
  */
 
 #ifndef __KPROGCST_H__
-    /*$Workfile: S:\_SrcPool\Cpp\KProgCst.h$ sentry */
+    /*$Workfile: KProgCst.h$ sentry */
   #define __KPROGCST_H__
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */

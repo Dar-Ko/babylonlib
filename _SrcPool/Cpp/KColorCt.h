@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KColorCt.h$: header file
+/*$Workfile: KColorCt.h$: header file
   $Revision: 15$ $Date: 2004-11-12 16:55:29$
   $Author: Darko Kolakovic$
 
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KCOLORCT_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KColorCt.h$ sentry                                                      */
+    /*$Workfile: KColorCt.h$ sentry                                                      */
   #define _KCOLORCT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files

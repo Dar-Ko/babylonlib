@@ -1,5 +1,5 @@
 /*$Workfile: KPoint.h$: header file
-  $Revision: 7$ $Date: 4/4/2002 1:13:01 AM$
+  $Revision: 7$ $Date: 2002-04-04 00:13:01$
   $Author: Darko$
 
   TPoint represents points in orthogonal coordinate system
@@ -479,15 +479,15 @@ return  (Angle ==  (TYPE)0) ?
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         4/4/2002 1:13:01 AM  Darko           Documenation
+ *  7    Biblioteka1.6         2002-04-04 00:13:01  Darko           Documenation
  *       update
- *  6    Biblioteka1.5         1/29/2002 11:21:33 PMDarko           Used lbraries
+ *  6    Biblioteka1.5         2002-01-29 22:21:33  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         1/25/2002 4:57:34 PM Darko           Updated
+ *  5    Biblioteka1.4         2002-01-25 15:57:34  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         7/20/2001 12:58:35 AMDarko           VSS tags
- *  3    Biblioteka1.2         7/11/2001 10:52:03 PMDarko           
- *  2    Biblioteka1.1         6/8/2001 11:51:14 PM Darko           VSS
- *  1    Biblioteka1.0         8/13/2000 3:56:57 PM Darko           
+ *  4    Biblioteka1.3         2001-07-19 23:58:35  Darko           VSS tags
+ *  3    Biblioteka1.2         2001-07-11 21:52:03  Darko           
+ *  2    Biblioteka1.1         2001-06-08 22:51:14  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 14:56:57  Darko           
  * $
  *****************************************************************************/

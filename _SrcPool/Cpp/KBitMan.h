@@ -1,14 +1,14 @@
 /*$Workfile: KBitMan.h$: header file
-  $Revision: 6$ $Date: 2003-09-30 10:15:56$
-  $Author: Darko$
-  
+  $Revision: 7$ $Date: 2004-12-06 16:23:28$
+  $Author: Darko Kolakovic$
+
   Manipulation with bits.
   Jun 88 Darko Kolakovic
   Jan 98 inlines and cpp D.K.
  */
- 
+
 #ifndef _KBITMAN_H_
-    /*KBitMan.h sentry                                                       */
+    /*$Workfile: KBitMan.h$ sentry */
   #define _KBITMAN_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -301,13 +301,13 @@ template <class T> T ResetNthBit (T& Status,const unsigned int& nPos)
 /*///////////////////////////////////////////////////////////////////////////*/
 #endif /*_KBITMAN_H_                                                         */
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  6    Biblioteka1.5         2003-09-30 10:15:56  Darko           formatting
  *  5    Biblioteka1.4         2002-01-25 16:56:07  Darko           Updated
  *       comments
  *  4    Biblioteka1.3         2001-08-19 23:51:30  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 22:50:12  Darko           
+ *  3    Biblioteka1.2         2001-07-11 22:50:12  Darko
  *  2    Biblioteka1.1         2001-06-08 23:49:08  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:55:31  Darko           
+ *  1    Biblioteka1.0         2000-08-13 15:55:31  Darko
  * $
  *****************************************************************************/

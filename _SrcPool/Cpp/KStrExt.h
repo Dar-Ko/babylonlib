@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrExt.h$: header file
-  $Revision: 9$ $Date: 2004-10-06 23:43:08$
+/*$Workfile: KStrExt.h$: header file
+  $Revision: 9$ $Date: 2004-10-06 22:43:08$
   $Author: Darko$
 
   CString Extensions declarations
@@ -10,7 +10,7 @@
 /* Group=Strings                                                             */
 
 #ifndef _KSTRINGEXT_H_
-    //$Workfile: S:\_SrcPool\Cpp\KStrExt.h$ sentry
+    //$Workfile: KStrExt.h$ sentry
   #define _KSTRINGEXT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files

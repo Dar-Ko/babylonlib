@@ -1,5 +1,5 @@
 /*$Workfile: KStrGetLine.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-06-01 17:53:18$
+  $Revision: 8$ $Date: 2004-06-01 16:53:18$
   $Author: Darko$
 
   Read a line of text from a string buffer
@@ -116,15 +116,15 @@ return iRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         2004-06-01 17:53:18  Darko           time sync
- *  7    Biblioteka1.6         2003-09-04 11:22:40  Darko           comment
- *  6    Biblioteka1.5         2002-08-19 10:40:47  Darko Kolakovic Updated
+ *  8    Biblioteka1.7         2004-06-01 16:53:18  Darko           time sync
+ *  7    Biblioteka1.6         2003-09-04 10:22:40  Darko           comment
+ *  6    Biblioteka1.5         2002-08-19 09:40:47  Darko Kolakovic Updated
  *       comments
- *  5    Biblioteka1.4         2002-02-12 10:53:46  Darko           fixed /n/r case
- *  4    Biblioteka1.3         2002-02-05 19:46:49  Darko           LPTSTR&
+ *  5    Biblioteka1.4         2002-02-12 09:53:46  Darko           fixed /n/r case
+ *  4    Biblioteka1.3         2002-02-05 18:46:49  Darko           LPTSTR&
  *       szSource
- *  3    Biblioteka1.2         2002-02-04 18:36:58  Darko           
- *  2    Biblioteka1.1         2002-02-04 14:33:37  Darko           Added LF
- *  1    Biblioteka1.0         2002-02-01 18:31:21  Darko           
+ *  3    Biblioteka1.2         2002-02-04 17:36:58  Darko           
+ *  2    Biblioteka1.1         2002-02-04 13:33:37  Darko           Added LF
+ *  1    Biblioteka1.0         2002-02-01 17:31:21  Darko           
  * $
  *****************************************************************************/

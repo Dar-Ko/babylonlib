@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KCharCst.h$: header file
+/*$Workfile: KCharCst.h$: header file
   $Revision: 8$ $Date: 2004-11-22 16:47:33$
   $Author: Darko Kolakovic$
 
@@ -9,7 +9,7 @@
 /* Group=Strings                                                             */
 
 #ifndef _KCHARCST_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KCharCst.h$ sentry */
+    /*$Workfile: KCharCst.h$ sentry */
   #define _KCHARCST_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files

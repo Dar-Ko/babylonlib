@@ -1,6 +1,6 @@
 /*$Workfile: KMathCst.h$: header file
-  $Revision: 13$ $Date: 2004-07-09 02:41:59$
-  $Author: Darko$
+  $Revision: 14$ $Date: 2004-12-06 16:22:40$
+  $Author: Darko Kolakovic$
 
   Constants
   Copyright: CommonSoft Inc
@@ -23,7 +23,7 @@
   //log(e)
 #define CST_LOG10E    0.434294481903251827651128918916605
   //The Natural Logarithmic Base, e  = 10**(1/ln(10))
-  //   {html:<br /><img src="Res/eqNaturalLogarithmicBase.gif" 
+  //   {html:<br /><img src="Res/eqNaturalLogarithmicBase.gif"
   //    alt="x-&gt;0; lim((1+x)exp(1/x))-&gt;e" border="0">}
 #define CST_E         2.71828182845904523536028747135266
   //ln(10)
@@ -58,27 +58,27 @@
   //e^gamma
 #define CST_E_GAMMA   1.7810724179901979852
   /*Golden Mean {html:&Phi;} is the positive solution to the quadratic equation:
-     {html:<br /><img src="Images/eqGoldenMean.gif" 
+     {html:<br /><img src="Images/eqGoldenMean.gif"
       alt="Phi^2 - Phi - 1 = 0; Phi > 0" border="0">}
      which is
-     {html:<br /><img src="Images/eqGoldenRatio.gif" 
+     {html:<br /><img src="Images/eqGoldenRatio.gif"
       alt="Phi = (1+sqrt(5))/2;" border="0"><br />}
 
-     Euclid, in "The Elements", says that the line AC is divided in extreme 
+     Euclid, in "The Elements", says that the line AC is divided in extreme
      and mean ratio by B if AC/AB = AB/BC.
-     {html:<br /><img src="Images/eqSectioAurea.gif" 
+     {html:<br /><img src="Images/eqSectioAurea.gif"
       alt="AC/AB = AB/BC = Phi" border="0"><br />}
     This definition is equivalent to the dimensions of a rectangle such that
     dividing it into a square creates a new rectangle having the same proportions.
-    Such a rectangle is known as a golden rectangle. 
-     {html:<br /><img src="Images/graphGoldenRect.gif" 
+    Such a rectangle is known as a golden rectangle.
+     {html:<br /><img src="Images/graphGoldenRect.gif"
       alt="AC/AB = AB/BC = Phi" border="0"><br />}
-     {html:<br /><img src="Images/eqGoldenRect.gif" 
+     {html:<br /><img src="Images/eqGoldenRect.gif"
       alt="AC/AB = AB/BC = Phi" border="0"><br />}
      Ratio of two consecutive Fibonacci numbers converges to Golden Mean:
-     {html:<br /><img src="Images/eqFibonacciLim.gif" 
+     {html:<br /><img src="Images/eqFibonacciLim.gif"
       alt="AC/AB = AB/BC = Phi" border="0"><br />}
-     Golden Mean is also known as golden section (sectio aurea), divine 
+     Golden Mean is also known as golden section (sectio aurea), divine
      proportion (proportio divina), golden ratio and golden number.
    */
 #define CST_PHI       1.6180339887498948482045868343656381177203091798057
@@ -98,8 +98,20 @@
     #define CUBE(x) (x*x*x)
   #endif
   #ifndef max
-    /*Returns the larger of two values                                       */
-    #define max(a,b) ((a)>(b)?(a):(b))
+    /*Compares two values. The data type can be any numeric data type, signed or
+      unsigned. The data type of the arguments and the return value is the same.
+      Returns the larger of two values.
+      See also: KStdLib.h
+     */
+    #define max(a,b) (((a) > (b)) ? (a) : (b))
+  #endif
+  #ifndef min
+    /*Compares two values. The data type can be any numeric data type, signed or
+      unsigned. The data type of the arguments and the return value is the same.
+      Returns the smaller of two values.
+      See also: KStdLib.h
+     */
+    #define min(a,b) (((a) < (b)) ? (a) : (b))
   #endif
   #ifndef SWAP
     /*Exchanges contents of two integers.                                    */

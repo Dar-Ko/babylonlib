@@ -1,5 +1,5 @@
 /*$Workfile: KReal4IE.h$: header file
-  $Revision: 8$ $Date: 2004-06-01 17:52:48$
+  $Revision: 8$ $Date: 2004-06-01 16:52:48$
   $Author: Darko$
 
   Decompose 32-bit float number (IEEE 754)
@@ -312,15 +312,15 @@ return (double)urcResult;
 */
 /*****************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         2004-06-01 17:52:48  Darko           time sync
- *  7    Biblioteka1.6         2003-09-30 10:44:35  Darko           formatting
- *  6    Biblioteka1.5         2003-01-30 22:42:12  Darko           
- *  5    Biblioteka1.4         2002-04-04 01:13:11  Darko           Documenation
+ *  8    Biblioteka1.7         2004-06-01 16:52:48  Darko           time sync
+ *  7    Biblioteka1.6         2003-09-30 09:44:35  Darko           formatting
+ *  6    Biblioteka1.5         2003-01-30 21:42:12  Darko           
+ *  5    Biblioteka1.4         2002-04-04 00:13:11  Darko           Documenation
  *       update
- *  4    Biblioteka1.3         2002-01-24 19:19:10  Darko           Updated
+ *  4    Biblioteka1.3         2002-01-24 18:19:10  Darko           Updated
  *       comments
- *  3    Biblioteka1.2         2001-07-11 22:52:26  Darko           
- *  2    Biblioteka1.1         2001-06-08 23:51:32  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:57:15  Darko           
+ *  3    Biblioteka1.2         2001-07-11 21:52:26  Darko           
+ *  2    Biblioteka1.1         2001-06-08 22:51:32  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 14:57:15  Darko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KStrFit.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-06-01 17:53:12$
+  $Revision: 7$ $Date: 2004-06-01 16:53:12$
   $Author: Darko$
 
   Fit a string

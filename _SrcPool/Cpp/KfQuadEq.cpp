@@ -1,5 +1,5 @@
 /*$Workfile: KfQuadEq.cpp$: implementation file
-  $Revision: 10$ $Date: 2004-06-01 16:55:13$
+  $Revision: 10$ $Date: 2004-06-01 15:55:13$
   $Author: Darko$
 
   Solves a quadratic equation

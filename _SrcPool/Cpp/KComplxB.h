@@ -1,5 +1,5 @@
 /*$Workfile: KComplxB.h$: header file
-  $Revision: 9$ $Date: 2003-09-22 22:25:37$
+  $Revision: 9$ $Date: 2003-09-22 21:25:37$
   $Author: Darko$
 
   Base class for complex numbers

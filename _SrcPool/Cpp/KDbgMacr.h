@@ -1,6 +1,6 @@
 /*$Workfile: KDbgMacr.h$: header file
-  $Revision: 39$ $Date: 2004-11-25 20:56:32$
-  $Author: Darko$
+  $Revision: 40$ $Date: 2004-12-06 16:23:09$
+  $Author: Darko Kolakovic$
 
   Dumps values of some compiler-specific predefined macros
   Copyright: CommonSoft Inc.
@@ -2056,7 +2056,7 @@ M_I86HM, __HUGE__
   Defined per the C99 Standard 6.10.8 when compiling C programs.
  */
 
-/*__STDC__ If defined, ANSI C (C98+,C99) conformance enbaled
+/*__STDC__ If defined, ANSI C (C98+,C99) conformance enabled
   __DATE__ Always defined. Set to compilation date in the form "Mmm dd yyyy".
   __FILE__ Always defined. Set to name of file being compiled enclosed in "".
   __LINE__Always defined. Set to current line of source file.

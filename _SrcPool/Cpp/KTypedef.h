@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KTypedef.h$: header file
+/*$Workfile: KTypedef.h$: header file
   $Revision: 31$ $Date: 2004-11-23 15:50:37$
   $Author: Darko Kolakovic$
 
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KTYPEDEF_H_
-  /*$Workfile: S:\_SrcPool\Cpp\KTypedef.h$ sentry*/
+  /*$Workfile: KTypedef.h$ sentry*/
   #define _KTYPEDEF_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */

@@ -1,5 +1,5 @@
 /*$Workfile: KFileSys.h$: header file
-  $Revision: 3$ $Date: 2003-08-25 01:27:02$
+  $Revision: 3$ $Date: 2003-08-25 00:27:02$
   $Author: Darko$
 
   File System helpers
@@ -71,10 +71,10 @@
 #endif //_KFILESYS_H_
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2003-08-25 01:27:02  Darko           Renamed
+ *  3    Biblioteka1.2         2003-08-25 00:27:02  Darko           Renamed
  *       IS_FILENAME_DELIM
- *  2    Biblioteka1.1         2002-08-27 23:34:54  Darko          
+ *  2    Biblioteka1.1         2002-08-27 22:34:54  Darko          
  *       IS_FILENAME_DELIM
- *  1    Biblioteka1.0         2002-07-18 21:57:46  Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-07-18 20:57:46  Darko Kolakovic 
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KSwpByte.h$: header file
-  $Revision: 11$ $Date: 2004-07-07 17:49:26$
+  $Revision: 11$ $Date: 2004-07-07 16:49:26$
   $Author: Darko$
 
   Flip bytes of built-in types

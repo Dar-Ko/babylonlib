@@ -1,5 +1,5 @@
 /*$Workfile: KStrUtDJ.c$: implementation file
-  $Revision: 7$ $Date: 2004-06-01 17:53:44$
+  $Revision: 7$ $Date: 2004-06-01 16:53:44$
   $Author: Darko$
 
   Converts unsigned integer to a right justfied decimal number.
@@ -71,15 +71,15 @@ return szDestination;
 }
 /*****************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-06-01 17:53:44  Darko           time sync
- *  6    Biblioteka1.5         2003-09-25 01:27:14  Darko           Replaced BOOL
+ *  7    Biblioteka1.6         2004-06-01 16:53:44  Darko           time sync
+ *  6    Biblioteka1.5         2003-09-25 00:27:14  Darko           Replaced BOOL
  *       with bool
- *  5    Biblioteka1.4         2002-02-12 17:39:29  Darko           Replaced
+ *  5    Biblioteka1.4         2002-02-12 16:39:29  Darko           Replaced
  *       tchar.h with KTChar.h
- *  4    Biblioteka1.3         2001-12-23 01:23:04  Darko           BOOL
- *  3    Biblioteka1.2         2001-07-11 22:52:59  Darko           
- *  2    Biblioteka1.1         2001-06-08 23:52:01  Darko           VSS
- *  1    Biblioteka1.0         2000-09-21 01:13:49  Darko           
+ *  4    Biblioteka1.3         2001-12-23 00:23:04  Darko           BOOL
+ *  3    Biblioteka1.2         2001-07-11 21:52:59  Darko           
+ *  2    Biblioteka1.1         2001-06-08 22:52:01  Darko           VSS
+ *  1    Biblioteka1.0         2000-09-21 00:13:49  Darko           
  * $
  *****************************************************************************/
 

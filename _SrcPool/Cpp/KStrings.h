@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrings.h$: implementation file
-  $Revision: 28$ $Date: 2004-10-22 17:51:42$
+/*$Workfile: KStrings.h$: implementation file
+  $Revision: 28$ $Date: 2004-10-22 16:51:42$
   $Author: Darko Kolakovic$
 
   String manipulation
@@ -9,7 +9,7 @@
 /* Group=Strings                                                             */
 
 #ifndef __KSTRINGS_H__
-    /*$Workfile: S:\_SrcPool\Cpp\KStrings.h$ sentry */
+    /*$Workfile: KStrings.h$ sentry */
   #define __KSTRINGS_H__
 
 

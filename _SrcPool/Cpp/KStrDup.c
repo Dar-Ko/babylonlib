@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrDup.c$: implementation file
-  $Revision: 5$ $Date: 2004-10-22 17:51:19$
+/*$Workfile: KStrDup.c$: implementation file
+  $Revision: 5$ $Date: 2004-10-22 16:51:19$
   $Author: Darko Kolakovic$
 
   Duplicates a string
@@ -80,12 +80,12 @@ return pszResult;
 #endif
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2004-10-22 17:51:19  Darko Kolakovic comments
- *  4    Biblioteka1.3         2004-10-01 21:08:39  Darko           fixed MSVC7
+ *  5    Biblioteka1.4         2004-10-22 16:51:19  Darko Kolakovic comments
+ *  4    Biblioteka1.3         2004-10-01 20:08:39  Darko           fixed MSVC7
  *       wchar dependancy
- *  3    Biblioteka1.2         2003-08-14 05:02:34  Darko           comment
- *  2    Biblioteka1.1         2002-09-11 16:26:12  Darko Kolakovic Added example
- *  1    Biblioteka1.0         2002-08-27 17:04:59  Darko Kolakovic 
+ *  3    Biblioteka1.2         2003-08-14 04:02:34  Darko           comment
+ *  2    Biblioteka1.1         2002-09-11 15:26:12  Darko Kolakovic Added example
+ *  1    Biblioteka1.0         2002-08-27 16:04:59  Darko Kolakovic 
  * $
  *  0    Biblioteka1.0           Mar 1989 Darko Kolakovic
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KStrBtoU.c$: implementation file
-  $Revision: 6$ $Date: 8/14/2003 5:01:18 AM$
+  $Revision: 6$ $Date: 2003-08-14 04:01:18$
   $Author: Darko$
 
   Converts a binary string to DWORD value

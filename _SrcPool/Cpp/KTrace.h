@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KTrace.h$: implementation file
+/*$Workfile: KTrace.h$: implementation file
   $Revision: 35$ $Date: 2004-11-24 13:10:52$
   $Author: Darko Kolakovic$
 
@@ -8,7 +8,7 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef _KTRACE_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KTrace.h$ sentry*/
+    /*$Workfile: KTrace.h$ sentry*/
   #define _KTRACE_H_
 
 #ifndef WIDECHAR
