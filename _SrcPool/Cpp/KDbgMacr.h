@@ -1,6 +1,6 @@
 /*$Workfile: KDbgMacr.h$: header file
-  $Revision: 14$ $Date: 11/10/2002 1:33:35 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 15$ $Date: 30/01/2003 9:40:40 PM$
+  $Author: Darko$
 
   Dumps values of some compiler-specific predefined macros
   Copyright: CommonSoft Inc.
@@ -41,7 +41,7 @@
     /*Macro expands to the constant 1, to signify that this is
       ANSI Standard C. (Whether that is actually true depends on what
       C compiler will operate on the output from the preprocessor.)          */
-    #warning "ANSI C complience"
+    #warning "ANSI C compliance"
   #endif
   #ifdef __STDC_VERSION__
     /*C Standard's version number is a long integer in form: yyyymm where
@@ -423,7 +423,7 @@
   #endif
   #ifdef __STDC__
     /*Indicates full conformance with the ANSI C standard.                   */
-    #pragma message ("ANSI C complience")
+    #pragma message ("ANSI C compliance")
   #endif
   #ifdef __STDC_VERSION__
     /*C Standard's version number                                            */
@@ -436,14 +436,19 @@
     #else
       #pragma message ("Release version")
     #endif
-    #if _MSC_VER >= 800
-      #pragma message ("Microsoft Visual C/C++ compiler")
+
+    #if _MSC_VER >= 1300
+      #pragma message ("Microsoft Visual C++.NET compiler")
     #else
-     #if _MSC_VER > 600
-       #pragma message ("Microsoft C/C++ compiler")
-     #else
-       #pragma message ("Microsoft C compiler")
-     #endif
+      #if _MSC_VER >= 800
+        #pragma message ("Microsoft Visual C/C++ compiler")
+      #else
+        #if _MSC_VER > 600
+         #pragma message ("Microsoft C/C++ compiler")
+        #else
+          #pragma message ("Microsoft C compiler")
+        #endif
+      #endif
     #endif
 
    /*Current version of Microsoft compiler.
@@ -497,7 +502,13 @@
     #if _MSC_VER == 1200
       #pragma message ("ver. 6.0")
     #endif
-    #if _MSC_VER > 1200
+    #if _MSC_VER == 1210
+      #pragma message ("ver. 6.1")
+    #endif
+    #if _MSC_VER == 1300
+      #pragma message ("ver. 7.0")
+    #endif
+    #if _MSC_VER > 1300
       #pragma message ("ver. unknown")
     #endif
   #endif

@@ -1,5 +1,5 @@
 /*$Workfile: KZLineIn.cpp$: implementation file
-  $Revision: 4$ $Date: 25/01/2002 3:59:57 PM$
+  $Revision: 5$ $Date: 30/01/2003 9:43:43 PM$
   $Author: Darko$
 
   Line impedance calculation
@@ -28,7 +28,11 @@
   #endif
   Feb 2k D.K.
  */
-#include "StdAfx.h"
+#if (_MSC_VER >= 1200) //VC++ 6.0
+  #if (_MSC_VER < 1300) //VC++.Net 7.0
+    #include "stdafx.h"
+  #endif
+#endif
 
 #include "KComplex.h"   //CComplex class
 #include "KPhysCst.h"   //constants
@@ -64,13 +68,13 @@
      |      |         |
      |      +---------+
  */
-CComplex GetLineZin(CComplex        Zt,          //terminating impedance
-                    const CComplex& Zline,       //line characteristic impedance
-                    double          dAttenuation,//line attenuation per unit of
+CComplex GetLineZin(CComplex        Zt,          //[in] terminating impedance
+                    const CComplex& Zline,       //[in] line characteristic impedance
+                    double          dAttenuation,//[in] line attenuation per unit of
                                                  //length  [dB/length_unit]
-                    double          dPhaseShift, //phase shift per unit of
+                    double          dPhaseShift, //[in] phase shift per unit of
                                                  //length [rad/length_unit]
-                    const double&   dLineLength  //line length [length_unit]
+                    const double&   dLineLength  //[in] line length [length_unit]
                     )
 {
 CComplex Zin(0,0); //Result

@@ -1,5 +1,5 @@
 /*$Workfile: KComplex.h$: header file
-  $Revision: 8$ $Date: 04/04/2002 12:12:41 AM$
+  $Revision: 9$ $Date: 30/01/2003 9:40:08 PM$
   $Author: Darko$
 
   TComplex Numbers: extension to the template std::complex
@@ -29,8 +29,17 @@
     //_Re and _Im are defined in the <complex> header file (1994 by P.J. Plauger)
     //To allow direct access to the members of complex class, _Re and _Im are
     //redefined as _ccR and _ccI
-  #define _ccR  _Re
-  #define _ccI  _Im
+  #if _MSC_VER < 1300
+    #define _ccR  _Re
+    #define _ccI  _Im
+  #endif
+
+    //_Real and _Imag are defined in the <complex> header file (VC++.Net v7.0)
+  #if _MSC_VER >= 1300
+    #define _ccR  _Real
+    #define _ccI  _Imag
+  #endif
+
   using namespace std;
 #endif  //_MSC_VER
 

@@ -1,6 +1,6 @@
 /*$Workfile: KfQuadEq.cpp$: implementation file
-  $Revision: 7$ $Date: 08/03/2002 2:05:03 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 8$ $Date: 30/01/2003 9:44:24 PM$
+  $Author: Darko$
 
   Solves a quadratic equation
   CommonSoft Inc.
@@ -14,8 +14,8 @@
 #pragma warning( disable : 4514 )  //Disable warning messages 2 level 4:
                                    //unreferenced inline function has been removed
 #include <Math.h>
-#ifndef BOOL
-  #include "KTypedef.h" //BOOL
+#ifndef bool
+  #include "KTypedef.h" //bool
 #endif
 #include "KMathCst.inl"
 #include "KProgCst.inl" //NaN constants
@@ -61,7 +61,7 @@
         unreliable solutions due limited precision, overflow and underflow,
         and some boundary conditions.
 
-  Returns TRUE if equation solutions are real numbers. If solutions are complex
+  Returns true if equation solutions are real numbers. If solutions are complex
   numbers returns FALSE and real part as x1 , absolute value of imaginary part
   as x2 :
 
@@ -94,7 +94,7 @@
       }
 
  */
-BOOL funcQuadratic(double a,   //[in] coefficient 2
+bool funcQuadratic(double a,   //[in] coefficient 2
                    double b,   //[in] coefficient 1
                    double c,   //[in] coefficient 0
                    double& x1, //[out] first root or real part of the complex root

@@ -1,5 +1,5 @@
 /*$Workfile: KPair.h$: header file
-  $Revision: 6$ $Date: 04/04/2002 12:12:57 AM$
+  $Revision: 7$ $Date: 30/01/2003 9:41:17 PM$
   $Author: Darko$
 
   Ordered number pairs
@@ -30,10 +30,10 @@ public:
 
     //Operations
 public:
-  BOOL operator < (const TPair<TYPE>& Point) const;
-  BOOL operator <=(const TPair<TYPE>& Point) const;
-  BOOL operator >=(const TPair<TYPE>& Point) const;
-  BOOL operator > (const TPair<TYPE>& Point) const;
+  bool operator < (const TPair<TYPE>& Point) const;
+  bool operator <=(const TPair<TYPE>& Point) const;
+  bool operator >=(const TPair<TYPE>& Point) const;
+  bool operator > (const TPair<TYPE>& Point) const;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -75,7 +75,7 @@ inline TPair<TYPE>::TPair(const TPoint<TYPE>& tptPoint):
    {html:<BR><IMG SRC="Res/PltA.gif" ALT="P(x,y) &lt A" BORDER="0">}
  */
 template <class TYPE>
-BOOL TPair<TYPE>::operator < (const TPair<TYPE>& tptPoint) const
+bool TPair<TYPE>::operator < (const TPair<TYPE>& tptPoint) const
 {
 return ((x <  tptPoint.x) || (x == tptPoint.x && y < tptPoint.y));
 }
@@ -86,7 +86,7 @@ return ((x <  tptPoint.x) || (x == tptPoint.x && y < tptPoint.y));
    {html:<BR><IMG SRC="Res/PleA.gif" ALT="P(x,y) =&lt; A" BORDER="0">}
  */
 template <class TYPE>
-BOOL TPair<TYPE>::operator <= (const TPair<TYPE>& tptPoint) const
+bool TPair<TYPE>::operator <= (const TPair<TYPE>& tptPoint) const
 {
 return ((x <  tptPoint.x) || (x == tptPoint.x && y <= tptPoint.y));
 }
@@ -97,7 +97,7 @@ return ((x <  tptPoint.x) || (x == tptPoint.x && y <= tptPoint.y));
    {html:<BR><IMG SRC="Res/PgtA.gif" ALT="P(x,y) &gt; A" BORDER="0">}
  */
 template <class TYPE>
-BOOL TPair<TYPE>::operator > (const TPair<TYPE>& tptPoint) const
+bool TPair<TYPE>::operator > (const TPair<TYPE>& tptPoint) const
 {
 return ((x >  tptPoint.x) || (x == tptPoint.x && y > tptPoint.y));
 }
@@ -108,7 +108,7 @@ return ((x >  tptPoint.x) || (x == tptPoint.x && y > tptPoint.y));
    {html:<BR><IMG SRC="Res/PgeA.gif" ALT="P(x,y) &gt;= A" BORDER="0">}
  */
 template <class TYPE>
-BOOL TPair<TYPE>::operator >= (const TPair<TYPE>& tptPoint) const
+bool TPair<TYPE>::operator >= (const TPair<TYPE>& tptPoint) const
 {
 return ((x >  tptPoint.x) || (x == tptPoint.x && y >= tptPoint.y));
 }
@@ -120,7 +120,7 @@ return ((x >  tptPoint.x) || (x == tptPoint.x && y >= tptPoint.y));
 /******************************************************************************
  * $Log: 
  *  4    Biblioteka1.3         7/19/01 11:58:32 PM  Darko           VSS tags
- *  3    Biblioteka1.2         7/7/01 11:10:30 PM   Darko           $Revision: 6$
+ *  3    Biblioteka1.2         7/7/01 11:10:30 PM   Darko           $Revision: 7$
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:51:09 PM   Darko           VSS
  *  1    Biblioteka1.0         8/13/00 2:56:52 PM   Darko           

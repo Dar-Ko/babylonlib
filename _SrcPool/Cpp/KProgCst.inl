@@ -1,5 +1,5 @@
 /*$Workfile: KProgCst.inl$: header file
-  $Revision: 11$ $Date: 28/07/2002 11:46:17 PM$
+  $Revision: 12$ $Date: 30/01/2003 9:41:46 PM$
   $Author: Darko$
 
   Constants
@@ -114,7 +114,7 @@ inline bool IsEqual(const double& a, const double& b)
 //IsNaN()----------------------------------------------------------------------
 #ifdef _MSC_VER     //Microsoft VC++
   #include <Float.h>
-  #define IsNaN(dvalue)   (BOOL)_isnan(dvalue)
+  #define IsNaN(dvalue)   (bool)_isnan(dvalue)
 #else
   #define _KEXAMIN_NAN_FUNC 1
   //Reason of using _KEXAMIN_NAN_FUNC instead #elif is to include comment of

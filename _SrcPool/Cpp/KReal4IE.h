@@ -1,5 +1,5 @@
 /*$Workfile: KReal4IE.h$: header file
-  $Revision: 5$ $Date: 04/04/2002 12:13:11 AM$
+  $Revision: 6$ $Date: 30/01/2003 9:42:12 PM$
   $Author: Darko$
 
   Decompose 32-bit float number (IEEE 754)
@@ -123,7 +123,7 @@ return (float)urcResult;
 
 //::operator double()-----------------------------------------------------------
 #include "KReal8Cv.h" //UReal8Conversion union
-/*TODO: Next time
+/*TODO: finsh implementation
  */
 inline CFloatIEEE::operator double()
 {

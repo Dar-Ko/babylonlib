@@ -1,6 +1,6 @@
 /*$Workfile: KTrace.h$: implementation file
-  $Revision: 10$ $Date: 10/10/2002 7:35:55 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 11$ $Date: 30/01/2003 9:43:05 PM$
+  $Author: Darko$
 
   Debugging helpers
  */
@@ -17,7 +17,7 @@
 
   /*Compile-time assertion produces compiler error if expression is false.
    */
-  #define ASSERT_C(expr) typedef char __AssertCompiler__[(expr) ? 1 : -1]
+  #define ASSERT_CL(expr) typedef char __AssertCompiler__[(expr) ? 1 : -1]
 
   /* ======================================================================= */
   #ifdef __GNUC__
@@ -89,14 +89,16 @@
     #ifndef _DEBUGTOLOGFILE
       extern FILE* DbgStdOut;
     #endif
+    #undef TRACE
     #undef TRACE0
     #undef TRACE1
     #undef TRACE2
     #undef TRACE3
-    #define TRACE0(format)              fprintf(DbgStdOut,format);fflush(DbgStdOut)
-    #define TRACE1(format, p1)          fprintf(DbgStdOut,format, p1);fflush(DbgStdOut)
-    #define TRACE2(format, p1, p2)      fprintf(DbgStdOut,format, p1, p2);fflush(DbgStdOut)
-    #define TRACE3(format, p1, p2, p3)  fprintf(DbgStdOut,format, p1, p2, p3);fflush(DbgStdOut)
+    #define TRACE fprintf
+    #define TRACE0(format)              TRACE(DbgStdOut,format);fflush(DbgStdOut)
+    #define TRACE1(format, p1)          TRACE(DbgStdOut,format, p1);fflush(DbgStdOut)
+    #define TRACE2(format, p1, p2)      TRACE(DbgStdOut,format, p1, p2);fflush(DbgStdOut)
+    #define TRACE3(format, p1, p2, p3)  TRACE(DbgStdOut,format, p1, p2, p3);fflush(DbgStdOut)
 
   /* ----------------------------------------------------------------------- */
   /* Dump Traces to a standard I/O stream                                    */
@@ -105,9 +107,34 @@
     /* --------------------------------------------------------------------- */
     #ifdef _MSC_VER /*Microsoft Visual Studio*/
       //D.K. 12.2.2k2 #ifdef __cplusplus
+      //TODO: separate C and C++ traces (replace fprintf with a class Trace)
         #ifndef __AFX_H__ /*MFC not included and all TRACE macros are undefined*/
           #define THIS_FILE          __FILE__
+
+            /*Only if Mac or Win32 targets are supported*/
+          #if defined(_WIN32) || defined(_MAC)
+            #include <CrtDbg.h> /*_CrtDbgReport()*/
+
+            /*Evaluates an expression when the _DEBUG flag has been defined and
+              if the result is FALSE, prints a diagnostic message and aborts 
+              the program.
+             */
+            #define ASSERT(expr) \
+                do{ if (!(expr) && \
+                    (1 == _CrtDbgReport(_CRT_ASSERT, THIS_FILE, __LINE__, NULL, NULL))) \
+                     _CrtDbgBreak(); \
+                  } while (0)         
+
+            #define TRACE0( szMsg) \
+                _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, "%s\n", szMsg)
+
+          #endif  /*Mac or Win32*/
           
+          #ifdef _DOS    
+            #include <assert.h>
+            #define ASSERT(expr) ( (expr) ? (void) 0 : _assert(expr, __FILE__, __LINE__) )
+          #endif /*_DOS*/
+
           #include <stdio.h> /*fprintf()*/
           /*In the Debug environment, the TRACE macro output goes to Standard 
             Error Stream stderr. In the Release environment, it does nothing.
@@ -139,26 +166,6 @@
           #ifndef TRACE3
              #define TRACE3(format, p1, p2, p3) fprintf(stderr,format, p1, p2, p3);fflush(stderr)
           #endif
-
-            /*Only Mac or Win32 targets are supported*/
-          #if defined(_WIN32) || defined(_MAC)
-            #include <CrtDbg.h> /*_CrtDbgReport()*/
-
-            /*Evaluates an expression when the _DEBUG flag has been defined and
-              if the result is FALSE, prints a diagnostic message and aborts 
-              the program.
-             */
-            #define ASSERT(expr) \
-                do{ if (!(expr) && \
-                    (1 == _CrtDbgReport(_CRT_ASSERT, THIS_FILE, __LINE__, NULL, NULL))) \
-                     _CrtDbgBreak(); \
-                  } while (0)         
-          #endif  /*Mac or Win32*/
-          
-          #ifdef _DOS    
-            #include <assert.h>
-            #define ASSERT(expr) ( (expr) ? (void) 0 : _assert(expr, __FILE__, __LINE__) )
-          #endif /*_DOS*/
 
         #endif /*!__AFX_H__ */
      //D.K. 12.2.2k2 #endif /*__cplusplus*/
@@ -251,7 +258,7 @@
 
   #endif /*_MSC_VER */
 
- #define ASSERT_C ASSERT
+ #define ASSERT_CL ASSERT
 
 #endif  /*!_DEBUG */
 /* ////////////////////////////////////////////////////////////////////////// */
