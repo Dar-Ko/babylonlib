@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding = "Windows-1252"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.00"
+	Version="7.10"
 	Name="_LibraryTest"
 	ProjectGUID="{5462D664-95DE-47E9-A9EB-92BEA93AB198}"
+	RootNamespace="_LibraryTest"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
@@ -11,19 +12,20 @@
 	</Platforms>
 	<Configurations>
 		<Configuration
-			Name="Debug|Win32"
-			OutputDirectory="Debug\Win32"
-			IntermediateDirectory="Obj\Win32\Debug"
+			Name="Debug_SBCS|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			CharacterSet="2">
+			CharacterSet="0">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\_LibraryTest\Src;..\.."
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="..\Common\Src\Win;..\..;..\..\STL\STLport\stlport"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STLP_DEBUG=1"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
+				TreatWChar_tAsBuiltInType="TRUE"
 				UsePrecompiledHeader="3"
 				BrowseInformation="1"
 				WarningLevel="3"
@@ -34,7 +36,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/_LibraryTest.exe"
+				Version="1.1"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/_LibraryTest.pdb"
 				SubSystem="1"
@@ -52,20 +56,26 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="Release\Win32"
-			IntermediateDirectory="Obj\Win32\Release"
+			Name="Release_SBCS|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			CharacterSet="2">
+			CharacterSet="0">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="..\_LibraryTest\Src;..\.."
+				AdditionalIncludeDirectories="..\Common\Src\Win;..\..;..\..\STL\STLport\stlport"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -79,7 +89,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/_LibraryTest.exe"
+				Version="1.1"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -98,19 +110,25 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="DbgUnicode|Win32"
-			OutputDirectory="Debug\Win32\Unicode"
-			IntermediateDirectory="Obj\Win32\Unicode"
+			Name="Debug_Unicode|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\_LibraryTest\Src;..\.."
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE"
+				AdditionalIncludeDirectories="..\Common\Src\Win;..\..;..\..\STL\STLport\stlport"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;_STLP_DEBUG=1"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -124,7 +142,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/_LibraryTest.exe"
+				Version="1.1"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/_LibraryTest.pdb"
 				SubSystem="1"
@@ -142,12 +162,19 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"
+				ExcludedFromBuild="FALSE"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="RelUnicode|Win32"
-			OutputDirectory="Release\Win32\Unicode"
-			IntermediateDirectory="Obj\Win32\Unicode"
+			Name="Release_Unicode|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			CharacterSet="1">
 			<Tool
@@ -155,7 +182,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="..\_LibraryTest\Src;..\.."
+				AdditionalIncludeDirectories="..\Common\Src\Win;..\..;..\..\STL\STLport\stlport"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -169,7 +196,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/_LibraryTest.exe"
+				Version="1.1"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -188,17 +217,70 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
+	<References>
+	</References>
 	<Files>
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="Src\KTestLog.cpp">
+				RelativePath="..\..\KfQuadEq.cpp">
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\KTestLog.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -207,173 +289,66 @@
 			<File
 				RelativePath="..\..\KZLineIn.cpp">
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DbgUnicode|Win32">
+					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="RelUnicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\KfQuadEq.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DbgUnicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="RelUnicode|Win32">
+					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Calc\Src\TsCalc.cpp">
+				RelativePath=".\Src\main.cpp">
+			</File>
+			<File
+				RelativePath="..\Common\Src\Win\stdafx.cpp">
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="3"/>
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="3"/>
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="DbgUnicode|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="3"/>
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="RelUnicode|Win32">
+					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="3"/>
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Complex\Src\TsComplex.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DbgUnicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="RelUnicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\DateTime\Src\TsLeapYear.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DbgUnicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="RelUnicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="Src\TsWriteTxt.cpp">
-				<FileConfiguration
-					Name="DbgUnicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="3"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="Src\_TestMain.cpp">
-			</File>
-			<File
-				RelativePath="Src\stdafx.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="DbgUnicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="RelUnicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"/>
-				</FileConfiguration>
+				RelativePath=".\Src\TestCommonLibrary.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -383,10 +358,13 @@
 				RelativePath="..\..\KProgCst.inl">
 			</File>
 			<File
+				RelativePath="..\..\KString.h">
+			</File>
+			<File
 				RelativePath="..\..\KTChar.h">
 			</File>
 			<File
-				RelativePath="Src\KTestLog.h">
+				RelativePath="..\..\KTestLog.h">
 			</File>
 			<File
 				RelativePath="..\..\KTrace.h">
@@ -395,15 +373,29 @@
 				RelativePath="..\..\KTypedef.h">
 			</File>
 			<File
-				RelativePath="Src\stdafx.h">
+				RelativePath="..\Common\Src\Win\stdafx.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			<File
+				RelativePath="..\Common\Res\Win\32\Test.rc">
+			</File>
+		</Filter>
+		<Filter
+			Name="Logs">
+			<File
+				RelativePath="LibraryTest.log">
+			</File>
 		</Filter>
 		<File
-			RelativePath="LibraryTest.log">
+			RelativePath="..\..\Documentation\KCopyright.htm"
+			DeploymentContent="TRUE">
+		</File>
+		<File
+			RelativePath="..\..\Documentation\KDirTree.htm"
+			DeploymentContent="TRUE">
 		</File>
 	</Files>
 	<Globals>
