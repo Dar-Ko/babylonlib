@@ -1,5 +1,5 @@
 /*$Workfile: TsComplex.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2003/01/28 05:46:55 $
+  $Revision: 1.2 $ $Date: 2003/01/30 03:39:44 $
   $Author: ddarko $
 
   Complex number arithmetics test
