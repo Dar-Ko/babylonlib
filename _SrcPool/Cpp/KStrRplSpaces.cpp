@@ -20,12 +20,12 @@
 //ReplaceSpaces()--------------------------------------------------------------
 /*Replaces all consecutive white space characters (TAB, VT, FF, CR and SPACE)
   whit a single SPACE character. Consecutive new line characters (LF, 0xA) are
-  replaced whit single new line character, eliminating  empty lins from the text
+  replaced with single new line character, eliminating  empty lins from the text
   string.
 
   TODO: DOS version (\n\r = EOL)
 
-  Returns: source string whit compressed white spaces, or NULL in case of a failure
+  Returns: source string with compressed white spaces, or NULL in case of a failure
  */
 LPTSTR ReplaceSpaces(LPTSTR szSource //[in/out] zero-terminated string to be compressed
                      )
@@ -51,7 +51,7 @@ while ( szSource[i] != _T('\0') )
     {
     if ( j > 0) //Trim leading white space
       {
-      //TODO: in MSDOS firt char is \r 0xD
+      //TODO: in MSDOS first char is \r 0xD
       if(szSource[i] != _T('\n')) //If character is not LF (0xA), replace whit space
         szTemp[j] = _T(' ');
       else
@@ -66,6 +66,10 @@ while ( szSource[i] != _T('\0') )
     }
 
   }
+
+while(_istspace(szTemp[j-1])) //Cut-off trailing whitespace
+  j--;
+
 szTemp[j] = _T('\0');
 _tcscpy(szSource, szTemp); //Copy back the result
 delete[] szTemp;
