@@ -38,6 +38,7 @@ extern "C"
   _K_EXTRNDECL_ TCHAR* StrDup(LPCTSTR pszSource);
   _K_EXTRNDECL_ int    StrICmp(LPCTSTR szStr1,LPCTSTR szStr2);
   _K_EXTRNDECL_ LPTSTR StrTrim(LPTSTR szSource);
+  _K_EXTRNDECL_ LPTSTR StrTrimSlash(LPTSTR szSource);
   _K_EXTRNDECL_ DWORD  BintoU(TCHAR* lpszValue);
   _K_EXTRNDECL_ TCHAR* BintoA(TCHAR* szResult,DWORD dwValue,int iMsBit,int iLsBit,
                               TCHAR iTrueChar,TCHAR iFalseChar);
