@@ -1,0 +1,403 @@
+<FNProject VERSION="2.0" NAME="Assert">
+    <FILE FILENAME="Assert.FN.mak">
+        <CONFIGURATIONS DEFAULT="-1">
+            <CONFIGURATION NAME="Debug_Unicode">
+                <SETTING ExcludeFromBuild="1"></SETTING>
+                <SETTING UseCustomBuildStep="1"></SETTING>
+                <SETTING cbOptimalization="-1"></SETTING>
+                <SETTING chkDebugInfo="1"></SETTING>
+                <SETTING WarningLevel="-1"></SETTING>
+                <SETTING chkWarningsAsErrors="0"></SETTING>
+                <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;"></SETTING>
+                <SETTING txtGCCOptions="-frepo"></SETTING>
+                </CONFIGURATION>
+            <CONFIGURATION NAME="Release_Unicode">
+                <SETTING ExcludeFromBuild="1"></SETTING>
+                <SETTING UseCustomBuildStep="1"></SETTING>
+                <SETTING cbOptimalization="-1"></SETTING>
+                <SETTING chkDebugInfo="1"></SETTING>
+                <SETTING WarningLevel="-1"></SETTING>
+                <SETTING chkWarningsAsErrors="0"></SETTING>
+                <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                <SETTING memoGCCIncludeSearchPaths=""></SETTING>
+                </CONFIGURATION>
+            </CONFIGURATIONS>
+        </FILE>
+    <FOLDER NAME="Source">
+        <FILE FILENAME="Src\Palm\main.cpp">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="5"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="4"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING Dependencies=""></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING ResWidth="160"></SETTING>
+                    <SETTING ResHeight="160"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    <SETTING txtDefines="_DEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING Dependencies="TestAssert.h&#xD;&#xA;Test_Rsc.h&#xD;&#xA;"></SETTING>
+                    <SETTING txtDefines="NDEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="Src\TestTraceC.c">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="_DEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="NDEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="Src\TestAssert.cpp">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="_DEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="NDEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="Src\TestAssertC.c">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="_DEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="NDEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="Src\TestCommonAssert.cpp">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="_DEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="NDEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="Src\TestPredefinedMacros.cpp">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="_DEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="NDEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="Src\TestPredefinedMacrosC.c">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="_DEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="NDEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="Src\TestTrace.cpp">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="1"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="_DEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    <SETTING txtDefines="NDEBUG, _UNICODE, _CONSOLE, __PALMOS__"></SETTING>
+                    <SETTING memoGCCIncludeSearchPaths="E:/Metrowerks/CodeWarrior/Palm OS Support/Incs&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/Hardware&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/System&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Core/UI&#xD;&#xA;E:/Metrowerks/CodeWarrior/Palm OS Support/Incs/Libraries/PalmOSGlue&#xD;&#xA;./Src/Palm&#xD;&#xA;../Common/Res/Palm&#xD;&#xA;../Common/Src/Palm&#xD;&#xA;../..&#xD;&#xA;"></SETTING>
+                    <SETTING txtGCCOptions="-frepo"></SETTING>
+                    </CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        </FOLDER>
+    <FOLDER NAME="Headers">
+        <FILE FILENAME="Src\Palm\TestAssert.h">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode"></CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode"></CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\Test_Rsc.h">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Src\Palm\stdafx.h">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode"></CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        </FOLDER>
+    <FOLDER NAME="Resources">
+        <FILE FILENAME="..\Common\Res\Palm\Test_Rsc.rcp">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode">
+                    <SETTING ExcludeFromBuild="1"></SETTING>
+                    <SETTING UseCustomBuildStep="1"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    </CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-sm-8-d144.bmp">
+            <CONFIGURATIONS DEFAULT="-1">
+                <CONFIGURATION NAME="Debug_Unicode">
+                    <SETTING ExcludeFromBuild="0"></SETTING>
+                    <SETTING UseCustomBuildStep="0"></SETTING>
+                    <SETTING cbOptimalization="-1"></SETTING>
+                    <SETTING chkDebugInfo="1"></SETTING>
+                    <SETTING WarningLevel="-1"></SETTING>
+                    <SETTING chkWarningsAsErrors="0"></SETTING>
+                    <SETTING CbxCustomBuildIncludeInBuildPRC="0"></SETTING>
+                    </CONFIGURATION>
+                <CONFIGURATION NAME="Release_Unicode"></CONFIGURATION>
+                </CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-lg-1.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-lg-1-d144.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-lg-2.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-lg-2-d144.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-lg-8.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-lg-8-d144.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-sm-1.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-sm-1-d144.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-sm-2.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-sm-2-d144.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        <FILE FILENAME="..\Common\Res\Palm\icon-sm-8.bmp">
+            <CONFIGURATIONS DEFAULT="-1"></CONFIGURATIONS>
+            </FILE>
+        </FOLDER>
+    <CONFIGURATIONS DEFAULT="0">
+        <CONFIGURATION NAME="Debug_Unicode">
+            <SETTING SNAPIN="Falch.Net PalmPilot SnapIn"></SETTING>
+            <SETTING ICONTEXT="Assert"></SETTING>
+            <SETTING APPID="Dark"></SETTING>
+            <SETTING AUTOBUILDMAKEFILE="1"></SETTING>
+            <SETTING CPP="pp"></SETTING>
+            <SETTING TARGETOS="4"></SETTING>
+            <SETTING PRCTOOLS="1"></SETTING>
+            <SETTING IsLibrary="0"></SETTING>
+            <SETTING MULTIPLESEGMENTS="0"></SETTING>
+            <SETTING STDAPP="1"></SETTING>
+            <SETTING HACK="0"></SETTING>
+            <SETTING AUTOBUILDRCPHEADER="1"></SETTING>
+            <SETTING AUTOBUILDDEFFILE="1"></SETTING>
+            <SETTING PRCFILENAME="../bin/Debug_Unicode/Palm/Assert.prc"></SETTING>
+            <SETTING rgrMakeJobType="0"></SETTING>
+            <SETTING txtMakeJobCount="1"></SETTING>
+            <SETTING cbxMakeKeepGoing="0"></SETTING>
+            <SETTING CbxCopyPrevention="0"></SETTING>
+            <SETTING LINKER_TYPE="0"></SETTING>
+            <SETTING cboProfile="-1"></SETTING>
+            <SETTING NO_POSE="0"></SETTING>
+            <SETTING txtMakeFilename="Assert.FN.mak"></SETTING>
+            </CONFIGURATION>
+        <CONFIGURATION NAME="Release_Unicode">
+            <SETTING SNAPIN="Falch.Net PalmPilot SnapIn"></SETTING>
+            <SETTING ICONTEXT="Assert"></SETTING>
+            <SETTING APPID="Dark"></SETTING>
+            <SETTING AUTOBUILDMAKEFILE="1"></SETTING>
+            <SETTING CPP="pp"></SETTING>
+            <SETTING TARGETOS="4"></SETTING>
+            <SETTING PRCTOOLS="1"></SETTING>
+            <SETTING IsLibrary="0"></SETTING>
+            <SETTING MULTIPLESEGMENTS="0"></SETTING>
+            <SETTING STDAPP="1"></SETTING>
+            <SETTING HACK="0"></SETTING>
+            <SETTING AUTOBUILDRCPHEADER="1"></SETTING>
+            <SETTING AUTOBUILDDEFFILE="1"></SETTING>
+            <SETTING PRCFILENAME="../bin/Release_Unicode/Palm/Assert.prc"></SETTING>
+            <SETTING rgrMakeJobType="0"></SETTING>
+            <SETTING txtMakeJobCount="1"></SETTING>
+            <SETTING cbxMakeKeepGoing="0"></SETTING>
+            <SETTING CbxCopyPrevention="0"></SETTING>
+            <SETTING LINKER_TYPE="0"></SETTING>
+            <SETTING cboProfile="-1"></SETTING>
+            <SETTING NO_POSE="0"></SETTING>
+            <SETTING txtMakeFilename="Assert.FN.mak"></SETTING>
+            </CONFIGURATION>
+        </CONFIGURATIONS>
+    </FNProject>

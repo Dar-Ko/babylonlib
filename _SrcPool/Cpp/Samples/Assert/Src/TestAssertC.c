@@ -1,0 +1,47 @@
+/*$Workfile: TestAssertC.c$: implementation file
+  $Revision: 5$ $Date: 2004-11-09 18:46:06$
+  $Author: Darko Kolakovic$
+
+  Test validation of the assertation in C functions
+  Copyright: CommonSoft Inc.
+  2004-08-12 Darko Kolakovic
+*/
+
+/* Group=Examples                                                            */
+#include "stdafx.h"
+
+extern bool TsWriteToViewLn(LPCTSTR lszText);
+bool TestAssertC();
+
+/*---------------------------------------------------------------------------*/
+/*Test assertation. An assertion statement specifies a condition that you expect
+  to hold true at some particular point in your program. If that condition does
+  not hold true, the assertion fails and execution of your program is
+  interrupted.
+
+  Returns true if test is successful; otherwise returns false.
+ */
+bool TestAssertC()
+{
+bool bResult = true;
+TsWriteToViewLn(_T("TestAssertC()"));
+
+
+
+TsWriteToViewLn(LOG_EOT);
+
+return bResult;
+}
+
+/* ////////////////////////////////////////////////////////////////////////// */
+/******************************************************************************
+ * $Log: 
+ *  5    Biblioteka1.4         2004-11-09 18:46:06  Darko Kolakovic implemented
+ *       TsWriteToViewLn
+ *  4    Biblioteka1.3         2004-10-22 11:46:45  Darko Kolakovic CodeWarrior
+ *  3    Biblioteka1.2         2004-09-13 14:28:44  Darko           comments
+ *  2    Biblioteka1.1         2004-08-31 12:07:52  Darko           Removed
+ *       KDbgMacr.h
+ *  1    Biblioteka1.0         2004-08-26 12:18:33  Darko           
+ * $
+ *****************************************************************************/

@@ -1,0 +1,184 @@
+/*$Workfile: S:\_SrcPool\Cpp\Palm\KAppMain.cpp$: resource file
+  $Revision: 1$ $Date: 2004-10-28 13:10:08$
+  $Author: Darko Kolakovic$
+
+  PilRC-format resources.
+  Copyright: CommonSoft Inc.
+  2004-10-21 Darko Kolakovic
+ */
+
+GENERATEHEADER "Test_Rsc.h"
+RESETAUTOID 1000
+
+/*Application Version String. The Application Launcher displays in the
+  Info dialog a version string from application's tver (ID = 1000) resource.
+  A version string should have the format:
+
+      major.minor.[stage.change]
+
+  where major is the major version number, minor is a minor version number,
+  stage is a letter denoting a development stage (a for alpha b for beta or d
+  for developer release) and change is the build number. Remove the stage and
+  change numbers for the final release.
+
+  The Application Launcher is the screen from which most applications are
+  launched.
+  Pilot Resource Compiler PilRC reserved keyword VERSION for the tver resource.
+ */
+VERSION "1.0.d.1"
+
+/*Default Application Category. The Application Launcher sorts applications
+  into one of 16 possible groups, according to taic (ID = 1000) resource.
+  Predefined categories are:
+
+    "Games"    Any game.
+    "Main"     Applications that would be used on a daily basis, such as
+               Date Book or Address Book.
+    "System"   Applications that control how the system behaves, such as the
+               Preferences, HotSync, and Security.
+    "Utilities Applications that help the user with system management.
+    "Unfiled"  The default category.
+
+  Feature is available for Palm OS version 3.5 or higher.
+  Pilot Resource Compiler PilRC reserved keyword LAUNCHERCATEGORY for the taic
+  resource.
+ */
+LAUNCHERCATEGORY "Development"
+
+/*Application's creator ID represents the creator's identificationn,
+  which can be registered at http://www.palm.com/ .
+  ID must be 4 characters long.
+ */
+APPLICATION ID 1 "DAKO"
+
+MENU ID MainMenuBar
+BEGIN
+    PULLDOWN "Edit"
+    BEGIN
+        MENUITEM "Undo"             ID 10000 "U"
+        MENUITEM "Cut"              ID 10001 "X"
+        MENUITEM "Copy"             ID 10002 "C"
+        MENUITEM "Paste"            ID 10003 "P"
+        MENUITEM "Select All"       ID 10004 "S"
+        MENUITEM SEPARATOR          ID 10005
+        MENUITEM "Keyboard"         ID 10006 "K"
+        MENUITEM "Graffiti Help"    ID 10007 "G"
+    END
+
+    PULLDOWN "Options"
+    BEGIN
+        MENUITEM "About Assert" ID OptionsAboutAssert
+    END
+
+END
+
+MENU ID EditOnlyMenuBar
+BEGIN
+    PULLDOWN "Edit"
+    BEGIN
+        MENUITEM "Undo"             ID 10000 "U"
+        MENUITEM "Cut"              ID 10001 "X"
+        MENUITEM "Copy"             ID 10002 "C"
+        MENUITEM "Paste"            ID 10003 "P"
+        MENUITEM "Select All"       ID 10004 "S"
+        MENUITEM SEPARATOR          ID 10005
+        MENUITEM "Keyboard"         ID 10006 "K"
+        MENUITEM "Graffiti Help"    ID 10007 "G"
+    END
+END
+
+ALERT ID IDA_ROMINCOMPATIBILE
+    DEFAULTBUTTON 0
+    ERROR
+BEGIN
+    TITLE "System Incompatible Error"
+    MESSAGE "System Version 3.0 or greater is required to run this application."
+    BUTTONS "OK"
+END
+
+FORM ID IDR_MAINFORM AT (0 0 160 160)
+    NOSAVEBEHIND NOFRAME
+    MENUID IDR_MAINFORM
+BEGIN
+    TITLE "Assert"
+    GRAFFITISTATEINDICATOR AT (149 148)
+    FIELD ID IDR_MAINFIELD AT (0 16 160 126)
+        USABLE               //show or hide field; Not usable doesn't draw
+                             //and doesn't respond to the pen. See FldSetUsable().
+        MULTIPLELINES
+        EDITABLE
+        HASSCROLLBAR
+        DYNAMICSIZE          //if set, a fldHeightChangedEvent is generated
+                             //whenever the number of lines needs to increase or
+                             //decrease. Your application needs to respond to
+                             //this event by adjusting the size of the field's
+                             //bounding box.
+        MAXCHARS 1024        //maximum number of bytes the field accepts;
+                             //required for FIELD tag to work properly.
+                             //See FldSetMaxChars().
+    BUTTON "Clear Text" ID MainClearTextButton AT (1 147 AUTO 12)
+END
+
+FORM ID AboutForm AT (2 2 156 156)
+    SAVEBEHIND FRAME MODAL
+    DEFAULTBTNID AboutOKButton
+BEGIN
+    TITLE "About Assert"
+    LABEL "Assert"
+        AUTOID AT (CENTER 23)
+        FONT 2
+    LABEL
+        "Use this application as a\r" \
+        "starting point for your own\r" \
+        "exciting Palm applications!"
+        AUTOID AT (23 54)
+    FIELD ID AboutVersionField AT (50 100 60 12)
+        NONEDITABLE
+        MAXCHARS 80
+        FONT 1
+    BUTTON "OK" ID AboutOKButton AT (58 133 40 12)
+END
+
+/*Application Icons. The Application Launcher displays an application icon and
+  an application name automatically, if the application is installed on
+  the Palm Powered handheld (resource databases of type 'appl').
+  The Application Launcher requires two icons: a large icon of type tAIB
+  (ID = 1000) and a smaller icon, also of type tAIB, with an ID of 1001.
+  The large icons appears if Luancher's Viewing Preferences are set to "Icon".
+  The large icon sholud be 22 x 22 pixels or 22 x 32 pixels for Palm OS 2.0.
+  Pilot Resource Compiler PilRC reserved keywords ICON and ICONFAMILYEX for
+  the tAIB  resource.
+
+  Note: TRANSPARENTINDEX is the index of a color from the current PalmOS palette,
+        not the bitmap file palette. The color from the PalmOS palete will become
+        transparent. For 8 bpp (256 colors) bitmaps, index range is [0, 255].
+ */
+ICON
+BEGIN
+    BITMAP "icoSrcPool2L.bmp"       BPP 1
+    BITMAP "icoSrcPool4L.bmp"       BPP 2
+    BITMAP "icoSrcPool256L.bmp"     BPP 8 TRANSPARENT 255 000 255 COMPRESS
+    BITMAP "icoSrcPoold2L.bmp"      BPP 1 DENSITY 2
+    BITMAP "icoSrcPoold4L.bmp"      BPP 2 DENSITY 2
+    BITMAP "icoSrcPoold256L.bmp"    BPP 8 DENSITY 2 TRANSPARENT 255 000 255 COMPRESS
+END
+
+/*Application Small Icons. The Application Launcher displays an icon
+  representing the application with tAIB (ID = 1001) resource if
+  Luancher's Viewing Preferences are set to "List".
+. Small icons should be 15 x 9 pixels.
+  The large icon sholud be 22 x 22 pixels or 22 x 32 pixels for Palm OS 2.0.
+
+  Pilot Resource Compiler PilRC reserved keywords SMALLICON and
+  SMALLICONFAMILYEX for the tAIB  resource.
+ */
+SMALLICON
+BEGIN
+    BITMAP "icoSrcPool2S.bmp"       BPP 1
+    BITMAP "icoSrcPool4S.bmp"       BPP 2
+    BITMAP "icoSrcPool256S.bmp"     BPP 8 TRANSPARENT 255 000 255 COMPRESS
+    BITMAP "icoSrcPoold2S.bmp"      BPP 1 DENSITY 2
+    BITMAP "icoSrcPoold4S.bmp"      BPP 2 DENSITY 2
+    BITMAP "icoSrcPoold256S.bmp"    BPP 8 DENSITY 2 TRANSPARENT 255 000 255 COMPRESS
+END
+
