@@ -150,6 +150,10 @@ SOURCE=..\..\KStrTrim.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KStrTrSl.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\main.cpp
 # End Source File
 # Begin Source File
