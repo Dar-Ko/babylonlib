@@ -1,5 +1,5 @@
 /*$Workfile: KStrCatV.c$: implementation file
-  $Revision: 4$ $Date: 12/02/2002 4:39:12 PM$
+  $Revision: 5$ $Date: 8/14/2003 5:01:56 AM$
   $Author: Darko$
 
   Appends multiple strings
@@ -40,6 +40,8 @@
                         0 );
       wprintf(szOutput);
       }
+
+  See also: KStrings.h
  */
 TCHAR* StrCatV(TCHAR* szDestination  /*result                                       */, 
                const TCHAR* szSource /*pointer to a null-terminated string to append*/, 

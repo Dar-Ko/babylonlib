@@ -1,5 +1,5 @@
 /*$Workfile: KfQuadEq.cpp$: implementation file
-  $Revision: 8$ $Date: 30/01/2003 9:44:24 PM$
+  $Revision: 10$ $Date: 2004-06-01 16:55:13$
   $Author: Darko$
 
   Solves a quadratic equation
@@ -9,11 +9,16 @@
 
 /* Group=Mathematics                                                         */
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#pragma warning( disable : 4514 )  //Disable warning messages 2 level 4:
-                                   //unreferenced inline function has been removed
-#include <Math.h>
+#ifdef _MSC_VER //Microsoft C/C++ compiler
+  #pragma warning( push, 3 )
+    //warning C4514: unreferenced inline function has been removed
+    //unreferenced inline function are in <math.h> 
+  #pragma warning(disable: 4514)
+#endif
+
+#include <math.h>
 #ifndef bool
   #include "KTypedef.h" //bool
 #endif
@@ -62,13 +67,13 @@
         and some boundary conditions.
 
   Returns true if equation solutions are real numbers. If solutions are complex
-  numbers returns FALSE and real part as x1 , absolute value of imaginary part
+  numbers returns false and real part as x1 , absolute value of imaginary part
   as x2 :
 
        X1 = R + iI = x1 + i*x2
        X1 = R - iI = x1 - i*x2
 
-  Returns: FALSE and signaling NaN as solution if failed to divide by zero.
+  Returns: false and signaling NaN as solution if failed to divide by zero.
 
   Example:
 
@@ -107,12 +112,12 @@ if(a == 0) //Linear equation
   if (b != 0)
     {
     x1 = x2 = - (c/b);
-    return TRUE;
+    return true;
     }
   else
     {
     x1 = x2 = NaN_DSIGNAL; //signaling NaN (not a number) -1.#INF
-    return FALSE;
+    return false;
     }
   }
 else
@@ -121,7 +126,7 @@ else
     {
     x1 = 0.0;
     x2 = - (b/a);
-    return TRUE;
+    return true;
     }
   if (b == 0)
     {
@@ -130,13 +135,13 @@ else
       {
       x1 = sqrt(-x1);
       x2 = - x1;
-      return TRUE;
+      return true;
       }
     else //Solutions are complex numbers
       {
       x2 = sqrt(x1);  //Absolute value of imaginary part
       x1 = 0.0;       //Real part
-      return FALSE;
+      return false;
       }
     }
 
@@ -151,27 +156,31 @@ else
     x2 = (Sign(b)*sqrt(x1)+b)*(-0.5);
     x1 = x2/a;
     x2 = c/x2;
-    return TRUE;
+    return true;
     }
   else if (x1 == 0) //Roots are equal real numbers
     {
     x1 = x2 = -b/(a*2);
-    return TRUE;
+    return true;
     }
   else     //Roots are complex numbers
     {
     a *= 2;
     x2 = sqrt(-x1)/a;   //Absolute value of imaginary part
     x1 =  -b/a;         //Real part
-    return FALSE;
+    return false;
     }
   }
 
 }
 
-#pragma warning( default : 4514 )
-
 ///////////////////////////////////////////////////////////////////////////////
+#ifdef _MSC_VER //Microsoft C/C++ compiler
+    //warning C4514: unreferenced inline function has been removed
+    //unreferenced inline function are in <math.h> 
+  #pragma warning(default: 4514)
+  #pragma warning( pop )
+#endif
 /******************************************************************************
  *$Log:
  * 3    Biblioteka1.2         18/07/2001 11:33:03 PMDarko           VSS tags

@@ -4,7 +4,7 @@
 // Darko Kolakovic
 // Jan. 2k
 
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "KVerInfo.h" //CVersionInfo classs
 
 #ifdef _DEBUG

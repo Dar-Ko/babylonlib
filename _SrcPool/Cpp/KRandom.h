@@ -1,6 +1,6 @@
 /*$Workfile: KRandom.h$: header file
-  $Revision: 7$ $Date: 03/04/2002 3:29:10 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 8$ $Date: 2003-08-22 16:31:12$
+  $Author: Darko$
 
   Random number generator base class
   Copyright: CommonSoft Inc
@@ -26,7 +26,7 @@
 
   See also: srand() and rand()
 
-  Note: is required to include stdlib.h before KRandom.h header file.
+  Note: include stdlib.h before KRandom.h header file.
  */
 class CRandomNo
 {

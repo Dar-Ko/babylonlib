@@ -1,5 +1,5 @@
 /*$Workfile: TsFileHanling.cpp$: implementation file
-  $Revision: 3$ $Date: 16/07/2002 12:41:55 AM$
+  $Revision: 3$ $Date: 16/07/2002 1:41:55 AM$
   $Author: Darko$
 
   Test file handling
@@ -9,7 +9,7 @@
 
 // Group=Examples
 
-#include "StdAfx.h"
+#include "stdafx.h"
 
 #ifdef _DEBUG
   #undef THIS_FILE
@@ -74,10 +74,10 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 3    Biblioteka1.2         16/07/2002 12:41:55 AMDarko           Fixed VSS Log 
+ * 3    Biblioteka1.2         16/07/2002 1:41:55 AMDarko           Fixed VSS Log 
  *      tag
- * 2    Biblioteka1.1         04/04/2002 11:49:18 PMDarko          
+ * 2    Biblioteka1.1         05/04/2002 12:49:18 AMDarko          
  *      CreateTmpFileName()
- * 1    Biblioteka1.0         12/03/2002 10:01:17 PMDarko           
+ * 1    Biblioteka1.0         12/03/2002 11:01:17 PMDarko           
  *$
  *****************************************************************************/

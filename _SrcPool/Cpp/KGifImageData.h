@@ -1,6 +1,6 @@
 /*$Workfile: KGifImageData.h$: header file
-  $Revision: 2$ $Date: 8/1/02 2:58:41 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 3$ $Date: 2003-09-30 11:09:58$
+  $Author: Darko$
 
   Container for GIF(c) image raster data.
   GIF and 'Graphics Interchange Format' are trademarks of CompuServe, 
@@ -10,14 +10,14 @@
 /* Group=Images                                                              */
 
 #ifndef _KGIFIMAGEDATA_H_
-    //KGifImageData.h sentry
+    //*$Workfile: KGifImageData.h$ sentry
   #define _KGIFIMAGEDATA_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#include "KTypedef.h" //BYTE definition
+#include "KTypedef.h" //uint8 definition
 #include "KGif.h"     //CGifBlock class
 ///////////////////////////////////////////////////////////////////////////////
 /*The image data consists of a sequence of sub-blocks containing an index into 
@@ -51,11 +51,11 @@ class CGifImageData
 public:
   CGifImageData();
   virtual ~CGifImageData();
-  bool Copy(BYTE* pImageData);
-  bool CopyAll(BYTE* pImageData);
+  bool Copy(uint8* pImageData);
+  bool CopyAll(uint8* pImageData);
 
 //protected:
-  BYTE m_cLzwSize; //initial number of bits used for the compression codes
+  uint8 m_cLzwSize; //initial number of bits used for the compression codes
   CGifDataSubblock m_gifImage;
 };
 
@@ -94,12 +94,13 @@ public:
 
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         8/1/02 2:58:41 PM    Darko Kolakovic 
- *  1    Biblioteka1.0         8/1/02 1:23:05 AM    Darko           
+ *  3    Biblioteka1.2         2003-09-30 11:09:58  Darko           Replaced DWORD,
+ *       WORD with uint32, uint16
+ *  2    Biblioteka1.1         2002-08-01 14:58:41  Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-08-01 01:23:05  Darko           
  * $
  * 2001 Initial version in Babylon Lib
  * 1990 v.89a enhanced GIF CompuServe Incorporated
  * 1987 v.87a Graphics Interchange Format (GIF) devised by the UNISYS Corp. and 
  *  Compuserve
  *****************************************************************************/
-

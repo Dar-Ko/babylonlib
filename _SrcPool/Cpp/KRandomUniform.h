@@ -1,6 +1,6 @@
-/*$Workfile: KRandomUniform.h$: implementation file
-  $Revision: 4$ $Date: 03/04/2002 3:30:23 PM$
-  $Author: Darko Kolakovic$
+/*$Workfile: KRandomUniform.h$: header file
+  $Revision: 6$ $Date: 2003-09-05 14:17:36$
+  $Author: Borislav Lukovic$
 
   Uniform random number generator
   1987 G. Marsaglia, A. Zaman
@@ -11,7 +11,8 @@
   //KRandomUniform.h sentry
   #define _KRANDOMUNIFORM_H_
 
-#include "KRandom.h"	//CRandomNo class
+#include "KTypedef.h"
+#include "KRandom.h"  //CRandomNo class
 
 ///////////////////////////////////////////////////////////////////////////////
 /*The Uniform Random Number Generator is based on the algorithm first 
@@ -29,8 +30,8 @@ class CRandomUniform : public CRandomNo
 // Construction
 public:
   CRandomUniform();
-  CRandomUniform(unsigned long ulSeed);
-  CRandomUniform(unsigned short ulSeed1, unsigned short ulSeed2);
+  CRandomUniform(uint32 ulSeed);
+  CRandomUniform(uint16 ulSeed1, uint16 ulSeed2);
   virtual ~CRandomUniform ();
 
 // Attributes
@@ -43,14 +44,14 @@ private:
 
 // Operations
 public:
-  virtual void SetSeed(unsigned long ulSeed = GetTimeSeed());
-  void SetSeed (unsigned short ulSeed1, unsigned short ulSeed2);
+  virtual void SetSeed(uint32 ulSeed = GetTimeSeed());
+  void SetSeed (uint16 ulSeed1, uint16 ulSeed2);
   virtual int Get(unsigned int nLimes);
   virtual double Get();
   int Get(int iLower, int iUpper);
   double Get(double dLower, double dUpper);
 
-}; // class CRandomUniform
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 // Inlines
@@ -59,18 +60,20 @@ public:
 /*Set new seed value. By default the system time is used for the seed.
   Note: Uses 32 bit integers.
  */
-inline void CRandomUniform::SetSeed(unsigned long ulSeed//[in] = GetTimeSeed()
+inline void CRandomUniform::SetSeed(uint32 ulSeed//[in] = GetTimeSeed()
                                    //the starting point for generated numbers
                                    )
 {
  //Use high word and low word of the given 32 bit integer as a seeds
-SetSeed((unsigned short)(ulSeed << 16), (unsigned short)ulSeed);
+SetSeed((uint16)(ulSeed << 16), (uint16)ulSeed);
 }
 
 //::Get()----------------------------------------------------------------------
 /*Returns: random float point value within a range [dLower, dUpper]
  */
-inline double CRandomUniform::Get(double dLower, double dUpper)
+inline double CRandomUniform::Get(double dLower,//[in] lower limit
+                                  double dUpper //[in] upper limit
+                                  )
 {
 return ((Get() * (dUpper - dLower)) + dLower);
 }

@@ -1,5 +1,5 @@
 /*$Workfile: KStrFit.cpp$: implementation file
-  $Revision: 4$ $Date: 25/01/2002 3:58:09 PM$
+  $Revision: 7$ $Date: 2004-06-01 17:53:12$
   $Author: Darko$
 
   Fit a string
@@ -8,7 +8,8 @@
  */ 
 /* Group=Strings                                                             */
 
-#include "StdAfx.h"
+//#include "stdafx.h"
+#include <afxwin.h>
 #include "KStrExt.h" //FitString()
 
 //A mark to indicate an ommission of letters or words
@@ -36,6 +37,7 @@ LPCTSTR g_szEllipsis = _T("...");
     ...
     }
 
+  TODO: replace MFC D.K.
  */
 CString FitString(CDC* pDC, //[in] device context in which the text will be outputed
                   CString strText, //[out] buffer holding the text to fit
@@ -58,7 +60,7 @@ if (!strText.IsEmpty())
       //Subtract the width of the suffix, if any
     if ((szSuffix != NULL) && (szSuffix[0] != _T('\0')) )
       {
-    	GetTextExtentPoint32(pDC->GetSafeHdc(), szSuffix, _tcsclen(szSuffix), &sizeText);
+      GetTextExtentPoint32(pDC->GetSafeHdc(), szSuffix, (int)_tcsclen(szSuffix), &sizeText);
       iWidth -= sizeText.cx;
       if (iWidth < 0)
         {

@@ -3,7 +3,7 @@
 // Darko Kolakovic
 // Jan. 2k
 
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "TestApp.h"
 
 #include "MainFrm.h"
@@ -20,8 +20,8 @@
 IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
 
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
-	//{{AFX_MSG_MAP(CMainFrame)
-	//}}AFX_MSG_MAP
+  //{{AFX_MSG_MAP(CMainFrame)
+  //}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -37,7 +37,7 @@ CMainFrame::~CMainFrame()
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
-	return CFrameWnd::PreCreateWindow(cs);
+  return CFrameWnd::PreCreateWindow(cs);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -46,12 +46,12 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 #ifdef _DEBUG
 void CMainFrame::AssertValid() const
 {
-	CFrameWnd::AssertValid();
+  CFrameWnd::AssertValid();
 }
 
 void CMainFrame::Dump(CDumpContext& dc) const
 {
-	CFrameWnd::Dump(dc);
+  CFrameWnd::Dump(dc);
 }
 
 #endif //_DEBUG

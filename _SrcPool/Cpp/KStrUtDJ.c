@@ -1,5 +1,5 @@
 /*$Workfile: KStrUtDJ.c$: implementation file
-  $Revision: 5$ $Date: 12/02/2002 4:39:29 PM$
+  $Revision: 7$ $Date: 2004-06-01 17:53:44$
   $Author: Darko$
 
   Converts unsigned integer to a right justfied decimal number.
@@ -15,8 +15,8 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
-#ifndef BOOL
-  #include "KTypedef.h" //BOOL
+#ifndef bool
+  #include "KTypedef.h" //bool
 #endif
 
 //UtoDecJust()-----------------------------------------------------------------
@@ -48,7 +48,7 @@ LPTSTR UtoDecJust(unsigned long nValue,  //number to be converted
                   TCHAR cPad   )         //pad character
 {
 register int iDigit;
-BOOL bFill = FALSE;
+bool bFill = false;
 
 iSize--;  //Index of the last character
 szDestination[iSize--] = _T('\0');    //Terminating null
@@ -69,4 +69,17 @@ while (iSize >= 0)
   }
 return szDestination;
 }
+/*****************************************************************************
+ * $Log: 
+ *  7    Biblioteka1.6         2004-06-01 17:53:44  Darko           time sync
+ *  6    Biblioteka1.5         2003-09-25 01:27:14  Darko           Replaced BOOL
+ *       with bool
+ *  5    Biblioteka1.4         2002-02-12 17:39:29  Darko           Replaced
+ *       tchar.h with KTChar.h
+ *  4    Biblioteka1.3         2001-12-23 01:23:04  Darko           BOOL
+ *  3    Biblioteka1.2         2001-07-11 22:52:59  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:52:01  Darko           VSS
+ *  1    Biblioteka1.0         2000-09-21 01:13:49  Darko           
+ * $
+ *****************************************************************************/
 

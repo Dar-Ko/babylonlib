@@ -9,7 +9,7 @@
 
 
 #ifndef __AFXWIN_H__
-	#error include 'StdAfx.h' before including this file for PCH
+  #error include 'stdafx.h' before including this file for PCH
 #endif
 
 #include "Resource.h"       // main symbols
@@ -23,23 +23,23 @@
 class CTestApp : public CWinApp
 {
 public:
-	CTestApp();
+  CTestApp();
 // Operations
 public:
   virtual BOOL DoTestInit();
 // Overrides
-	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(CTestApp)
-	public:
-	virtual BOOL InitInstance();
-	//}}AFX_VIRTUAL
+  // ClassWizard generated virtual function overrides
+  //{{AFX_VIRTUAL(CTestApp)
+  public:
+  virtual BOOL InitInstance();
+  //}}AFX_VIRTUAL
 
 // Implementation
 
-	//{{AFX_MSG(CTestApp)
-	afx_msg void OnAppAbout();
-	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
+  //{{AFX_MSG(CTestApp)
+  afx_msg void OnAppAbout();
+  //}}AFX_MSG
+  DECLARE_MESSAGE_MAP()
 };
 
 

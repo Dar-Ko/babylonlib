@@ -1,14 +1,14 @@
 /*$Workfile: KPhysCst.h$: header file
-  $Revision: 6$ $Date: 09/09/2002 10:19:03 PM$
+  $Revision: 7$ $Date: 2003-09-11 16:58:02$
   $Author: Darko$
 
-  Physics Constants
+  Physics - Constants
   Copyright: CommonSoft Inc
   Jan. 96  D. Kolakovic
  */
 
 #ifndef _KPHYSCST_H_
-    //KPhysCst.h sentry
+    //$Workfile: KPhysCst.h$ sentry
   #define _KPHYSCST_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -18,8 +18,8 @@
 //-----------------------------------------------------------------------------
 // Group=Constants
 
-  //Temperature of 0°C in [K]
-#define CST_0C_TO_K  273.15
+  //Temperature of 0°Celsius in [K]
+#define CST_0C2K  273.15
   //Speed of light in vacuum [m/s]
 #define CST_c        299792458.
   //Acceleration due to gravity at sea level, 45° latitude [m/s2]
@@ -28,58 +28,71 @@
 //Astronomical constants
 
   //Radius of Earth [km]
-#define CST_TERRADIAMETER        6378.16
+#define CST_TERRADIAMETER           6378.16
   //Eccentricity of Earth's orbit
-#define CST_TERRAECC             0.016718
+#define CST_TERRAECC                0.016718
   //Semi-major axis of Earth's orbit [km]
-#define CST_TERRAORBITSEMIMAX    1.495985e8
+#define CST_TERRAORBITSEMIMAX       1.495985e8
   //Sun's angular size from Earth at semi-major axis distance[o]
-#define CST_TERRASUNANGULARSIZE  0.533128
+#define CST_TERRASUNANGULARSIZE     0.533128
   //Moon's angular size from Earth
-#define CST_TERRALUNAANGULARSIZE     0.5181
+#define CST_TERRALUNAANGULARSIZE    0.5181
   //Moon's parallax from Earth
-#define CST_TERALUNAPARALLAX      0.950700
+#define CST_TERALUNAPARALLAX        0.950700
 
   //Inclination of the Moon's orbit
-#define CST_LUNAORBITINCLINATION  5.145396
+#define CST_LUNAORBITINCLINATION    5.145396
   //Eccentricity of the Moon's orbit
-#define CST_LUNAECC               0.054900
+#define CST_LUNAECC                 0.054900
   //Semi-major axis of Moon's orbit [km]
-#define CST_LUNAORBITSEMIMAX      384401.0
+#define CST_LUNAORBITSEMIMAX        384401.0
   //Synodic month (new Moon to new Moon) [days]
-#define CST_SYNODISMONTH          29.53058868
+#define CST_SYNODISMONTH            29.53058868
 
 //Conversion factors-----------------------------------------------------------
 
-  //Metric prefixes
-#define CST_yotta 	1.0e+24
-#define CST_zetta 	1.0e+21
-#define CST_exa 		1.0e+18
-#define CST_peta 		1.0e+15
-#define CST_tera 		1.0e+12
-#define CST_giga 		1.0e+09
-#define CST_mega 		1.0e+06
-#define CST_kilo 		1000
-#define CST_hecto 	 100
-#define CST_deka 		  10
-#define CST_deci 		1.0e-01
-#define CST_centi 	1.0e-02
-#define CST_milli 	1.0e-03
-#define CST_micro 	1.0e-06
-#define CST_nano 		1.0e-09
-#define CST_pico 		1.0e-12
-#define CST_femto 	1.0e-15
-#define CST_atto 		1.0e-18
-#define CST_zepto 	1.0e-21
-#define CST_yocto 	1.0e-24
+  //Decimal multiples
+
+#define CST_yotta   1.0e+24
+#define CST_zetta   1.0e+21
+#define CST_exa     1.0e+18
+#define CST_peta    1.0e+15
+#define CST_tera    1.0e+12
+#define CST_giga    1.0e+09
+#define CST_mega    1.0e+06
+#define CST_kilo    1000
+#define CST_hecto    100
+#define CST_deka      10
+#define CST_deci    1.0e-01
+#define CST_centi   1.0e-02
+#define CST_milli   1.0e-03
+#define CST_micro   1.0e-06
+#define CST_nano    1.0e-09
+#define CST_pico    1.0e-12
+#define CST_femto   1.0e-15
+#define CST_atto    1.0e-18
+#define CST_zepto   1.0e-21
+#define CST_yocto   1.0e-24
+
+  //No name units
+
+#define CST_PERCENT = 1.0/100.0; //one one-hundredth part [%]
+#define CST_PERMILL = 1.0/1000.0;//one one-thousandth part[‰]=ANSI(TTF)137
+
+  //Time
+
+const double CST_SpMIN = 60.0; //second per minute
+const double CST_MINpH = 60.0; //minute per hour
+const double CST_HpDAY = 24.0; //hours per day
 
 
-  //decibel per neper
-  //      [dB]/[Np] = 20*log(e) = 20/ln(10).
-  //Neper is a unit for comparing of two amplitudes, equal to the logarithm
-  //of the ratio of the two amplitudes
-  //      A[Np] = ln(V/Vref).
-  //[named after John Napier(1550-1617)]
+  /*decibel per neper
+          [dB]/[Np] = 20*log(e) = 20/ln(10).
+    Neper is a unit for comparing of two amplitudes, equal to the logarithm
+    of the ratio of the two amplitudes
+          A[Np] = ln(V/Vref).
+    [named after John Napier(1550-1617)]
+   */
 #define CST_dBpNp  8.6858896380650365530225783783321
 ///////////////////////////////////////////////////////////////////////////////
 // Template functions

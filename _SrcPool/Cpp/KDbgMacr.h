@@ -1,5 +1,5 @@
 /*$Workfile: KDbgMacr.h$: header file
-  $Revision: 15$ $Date: 30/01/2003 9:40:40 PM$
+  $Revision: 39$ $Date: 2004-11-25 20:56:32$
   $Author: Darko$
 
   Dumps values of some compiler-specific predefined macros
@@ -8,13 +8,17 @@
 */
 /* Group=Diagnostic                                                          */
 
-#ifndef __KDBGMACR_H__
-    /*KDbgMacr.h sentry                                                      */
-  #define __KDBGMACR_H__
+#ifndef _KDBGMACR_H_
+    /*$Workfile: KDbgMacr.h$ sentry */
+  #define _KDBGMACR_H_
 
 #if _MSC_VER > 1000
   #pragma once
 #endif // _MSC_VER > 1000
+
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #pragma message ("   #include " __FILE__ )
+#endif
 
 /* ========================================================================= */
 #ifdef GCCx86 /*GNU C Compiler on Intel x86                                  */
@@ -27,7 +31,7 @@
   /*ANSI C macros ---------------------------------------------------------- */
   #ifdef __DATE__
     /*Macro expands to a string constant that describes the date on which
-      the preprocessor is being run. The formati is as following:
+      the preprocessor is being run. The format is as following:
       "Mon dd yyyy".                                                         */
     //#pragma message ("Date: " __DATE__)
   #endif
@@ -36,6 +40,11 @@
       the preprocessor is being run. The format is 24 hour clock and looks
       like "hh:mm:ss".                                                       */
     //#pragma message ("Time: " __TIME__)
+  #endif
+  #ifdef __FILE__
+    /*Always defined. Set to name of file being compiled enclosed in "".
+     */
+    #pragma message ("File: " __FILE__)
   #endif
   #ifdef __STDC__
     /*Macro expands to the constant 1, to signify that this is
@@ -57,6 +66,17 @@
   #else
     #warning "GNU C Compiler"
   #endif
+    /*Preprocessor Directives for Generic-Text Mappings                      */
+   #if defined(_UNICODE)
+      /*Unicode character (16-bit)
+        ISO 10646-1 Universal Multiple Octet Coded Character Set (UCS).
+       */
+      #warning "Unicode (wide-character) text mapping"
+    #endif
+    #if !defined (_UNICODE)
+      /*ASCII character (8-bit)*/
+      #warning "Singlebyte-character (SBCS or ASCII) text mapping"
+    #endif
 
   #ifdef __GNUC_MINOR__
    /*Current version of GNU compiler. Version number is a long integer in form:
@@ -108,6 +128,12 @@
   #endif
   #if __GNUC_MINOR__ > 8
     #warning  "minor ver. unknown"
+  #endif
+
+  #ifdef __cplusplus
+    #warning "C++ compilation."
+  #else
+    #warning "C compilation."
   #endif
 
   #ifdef __STRICT_ANSI__
@@ -421,6 +447,9 @@
   #ifdef __TIME__
     #pragma message ("Time: " __TIME__)
   #endif
+  #ifdef __FILE__
+    #pragma message ("File: " __FILE__)
+  #endif
   #ifdef __STDC__
     /*Indicates full conformance with the ANSI C standard.                   */
     #pragma message ("ANSI C compliance")
@@ -435,6 +464,20 @@
        #pragma message ("Debug version")
     #else
       #pragma message ("Release version")
+    #endif
+    /*Preprocessor Directives for Generic-Text Mappings                      */
+    #if defined UNICODE || defined _UNICODE
+      /*Unicode character (16-bit)
+        ISO 10646-1 Universal Multiple Octet Coded Character Set (UCS).
+       */
+      #pragma message ("Unicode (wide-character) text mapping")
+    #endif
+    #if defined _MBCS && !defined _UNICODE
+      #pragma message ("Multibyte-character text mapping")
+    #endif
+    #if !defined _MBCS && !defined _UNICODE
+      /*ASCII character (8-bit)*/
+      #pragma message ("Singlebyte-character (SBCS or ASCII) text mapping")
     #endif
 
     #if _MSC_VER >= 1300
@@ -455,61 +498,65 @@
      The _MSC_VER macro will have one of the following values depending upon
      the particular Microsoft compiler:
 
-        Compiler                           _MSC_VER value
+        Compiler                             _MSC_VER value
 
-        C Compiler version 6.0                  600
-        C/C++ compiler version 7.0              700
-        Visual C++, Windows, version 1.0        800
-        Visual C++, 32-bit, version 1.0         800
-        Visual C++, Windows, version 1.5        850
-        Visual C++, Windows, version 2.0        900
-        Visual C++, 32-bit, version 2.x         900
-        Visual C++, 32-bit, version 4.0         1000
-        Visual C++, 32-bit, version 4.2         1020
-        Visual C++, 32-bit, version 5.0         1100
-        Visual C++, 32-bit, version 6.0         1200
-
+        C Compiler version 6.0                     600
+        C/C++ compiler version 7.0                 700
+        Visual C++, Windows, version 1.0           800
+        Visual C++, 32-bit, version 1.0            800
+        Visual C++, Windows, version 1.5           850
+        Visual C++, Windows, version 2.0           900
+        Visual C++, 32-bit, version 2.x            900
+        Visual C++, 32-bit, version 4.0           1000
+        Visual C++, 32-bit, version 4.2           1020
+        Visual C++, 32-bit, version 5.0           1100
+        Visual C++, 32-bit, version 6.0           1200
+        Visual C++ .Net 2002, 32-bit, version 7.0 1300
+        Visual C++ .Net 2003, 32-bit, version 7.1 1310
      See also: Q65472
     */
     const int g__MSC_VER = _MSC_VER;
     #if _MSC_VER < 600
-      #pragma message ("ver. unknown)
+      #pragma message ("  ver. unknown)
     #endif
     #if _MSC_VER == 600
-      #pragma message ("ver. 6.0")
+      #pragma message ("  ver. 6.0")
     #endif
     #if _MSC_VER == 700
-      #pragma message ("ver. 7.0")
+      #pragma message ("  ver. 7.0")
     #endif
     #if _MSC_VER == 800
-      #pragma message ("ver. 1.0")
+      #pragma message ("  ver. 1.0")
     #endif
     #if _MSC_VER == 850
-      #pragma message ("ver. 1.5")
+      #pragma message ("  ver. 1.5")
     #endif
     #if _MSC_VER == 900
-      #pragma message ("ver. 2.0")
+      #pragma message ("  ver. 2.0")
     #endif
     #if _MSC_VER == 1000
-      #pragma message ("ver. 4.0")
+      #pragma message ("  ver. 4.0")
     #endif
     #if _MSC_VER == 1020
-      #pragma message ("ver. 4.2")
+      #pragma message ("  ver. 4.2")
     #endif
     #if _MSC_VER == 1100
-      #pragma message ("ver. 5.0")
+      #pragma message ("  ver. 5.0")
     #endif
     #if _MSC_VER == 1200
-      #pragma message ("ver. 6.0")
+      #pragma message ("  ver. 6.0")
     #endif
     #if _MSC_VER == 1210
-      #pragma message ("ver. 6.1")
+      #pragma message ("  ver. 6.1")
     #endif
     #if _MSC_VER == 1300
-      #pragma message ("ver. 7.0")
+      #pragma message ("  2002 ver. 7.0")
     #endif
-    #if _MSC_VER > 1300
-      #pragma message ("ver. unknown")
+    #if _MSC_VER == 1310
+      #pragma message ("  2003 ver. 7.1")
+    #endif
+    #if _MSC_VER > 1310
+      #pragma message ("  ver. unknown")
     #endif
   #endif
   #ifdef _MFC_VER
@@ -518,33 +565,88 @@
       */
     const int g__MFC_VER = _MFC_VER;
     #if _MFC_VER < 300
-      #pragma message ("ver. unknown")
+      #pragma message ("  ver. unknown")
     #endif
     #if _MFC_VER == 0x0320
-      #pragma message ("ver. 3.2")
+      #pragma message ("  ver. 3.2")
     #endif
     #if _MFC_VER == 0x0400
-      #pragma message ("ver. 4.0")
+      #pragma message ("  ver. 4.0")
     #endif
     #if _MFC_VER == 0x0410
-      #pragma message ("ver. 4.10")
+      #pragma message ("  ver. 4.10")
     #endif
     #if _MFC_VER == 0x420
-      #pragma message ("ver. 4.20")
+      #pragma message ("  ver. 4.20")
     #endif
     #if _MFC_VER == 0x0421
-      #pragma message ("ver. 4.21")
+      #pragma message ("  ver. 4.21")
     #endif
     #if _MFC_VER == 0x0600
-      #pragma message ("ver. 6.00")
+      #pragma message ("  ver. 6.00")
     #endif
     #if _MFC_VER == 0x0601
-      #pragma message ("ver. 6.01")
+      #pragma message ("  ver. 6.01")
     #endif
-    #if _MFC_VER > 0x0601
-      #pragma message ("ver. unknown")
+    #if _MFC_VER == 0x0700
+      #pragma message ("  ver. 7.00")
+    #endif
+    #if _MFC_VER == 0x0710
+      #pragma message ("  ver. 7.10")
+    #endif
+    #if _MFC_VER > 0x0710
+      #pragma message ("  ver. unknown")
     #endif
   #endif
+
+  #ifdef _AFXDLL
+    #ifdef __cplusplus
+      #pragma message ("Use MFC in a Shared DLL.")
+    #else
+      #pragma message (__FILE__ " : warning: Specified use of MFC in a C code.")
+    #endif
+  #endif
+
+  #ifdef _ATL_VER
+    #ifdef __cplusplus
+      #pragma message ("Included Active Template Library (ATL).")
+    #else
+      #pragma message (__FILE__ " : warning: Specified use of ATL in a C code.")
+    #endif
+
+     /*Current version of Active Template Library (ATL).
+      */
+    const int g__ATL_VER = _ATL_VER;
+    #if _ATL_VER < 0x0100
+      #pragma message ("  ver. unknown")
+    #endif
+    #if _ATL_VER == 0x0100 /*Active Template Library version 1.0*/
+      #pragma message ("  ver. 1.00")
+    #endif
+    #if _ATL_VER == 0x0200 /*Active Template Library version 2.0*/
+      #pragma message ("  ver. 2.00")
+    #endif
+    #if _ATL_VER == 0x0300 /*Active Template Library version 3.0*/
+      #pragma message ("  ver. 3.00")
+    #endif
+    #if _ATL_VER == 0x0700
+      #pragma message ("  ver. 7.00")
+    #endif
+    #if _ATL_VER == 0x0710
+      #pragma message ("  ver. 7.10")
+    #endif
+    #if _ATL_VER > 0x0710
+      #pragma message ("  ver. unknown")
+    #endif
+  #endif
+
+  #ifdef _ATL_DLL
+    #pragma message ("Dynamic Link to ATL.")
+  #endif
+  #ifdef _ATL_STATIC_REGISTRY
+    #pragma message ("Static Link to ATL.")
+  #endif
+
   #ifdef _MSC_EXTENSIONS
     #pragma message ("Enabled compiler extensions.")
   #endif
@@ -553,6 +655,8 @@
   #endif
   #ifdef __cplusplus
     #pragma message ("C++ compilation.")
+  #else
+    #pragma message ("C compilation.")
   #endif
   #ifdef _CPPUNWIND
     #pragma message ("Enabled Exception Handling.")
@@ -608,6 +712,9 @@
     #pragma message ("CPU: 80286")
     const int g__M_IX86 = 200;
   #endif
+  #ifdef _M_IA64
+    #pragma message ("Compiling for for 64-bit platform.")
+  #endif
   #ifdef _M_MPPC
     #pragma message ("Compiling for for Power Macintosh platform.")
   #endif
@@ -617,6 +724,9 @@
   #ifdef _M_PPC
     #pragma message ("Compiling for for PowerPC platform.")
   #endif
+  #ifdef _WIN64
+    #pragma message ("Target OS is Win64.")
+  #endif
   #ifdef _WIN32
     #pragma message ("Target OS is Win32.")
   #endif
@@ -624,7 +734,7 @@
     #pragma message ("Target OS is Win16.")
   #endif
   #ifdef _WINDOWS
-    #pragma message ("Target OS is Win16.")
+    #pragma message ("Target OS is Windows.")
   #endif
   #ifdef MSDOS
     #pragma message ("Target OS is MS-DOS.")
@@ -720,6 +830,8 @@
      |                     |                                 |
      |_WIN32_WINNT=0x0501  |Windows XP                       |
      |WINVER=0x0501        |                                 |
+     |                     |                                 |
+     |_WIN32_WINNT=0x0502  |Windows Server 2003 family       |
      +---------------------+---------------------------------+
      |_WIN32_IE=0x0300     |Internet Explorer 3.0, 3.01, 3.02|
      |                     |                                 |
@@ -730,10 +842,12 @@
      |_WIN32_IE=0x0500     |Internet Explorer 5.0, 5.0a, 5.0b|
      |                     |                                 |
      |_WIN32_IE=0x0501     |Internet Explorer 5.01, 5.5      |
+     |                     |                                 |
+     |_WIN32_IE=0x0600     |Internet Explorer 6.00           |
      +---------------------+---------------------------------+
- 
+
     Note: Setting WINVER to 0x0500 implies _WIN32_IE=0x0400
- 
+
 
      */
     const WORD g__WINVER = WINVER;
@@ -779,6 +893,8 @@
       #pragma message ("Target OS is MS Windows 2000 (WINNT).")
     #elif _WIN32_WINNT == 0x0501
       #pragma message ("Target OS is MS Windows XP (WINNT).")
+    #elif _WIN32_WINNT == 0x0502
+      #pragma message ("Target OS is MS Windows Server 2003 family.")
     #else
       #pragma message ("Target OS is MS Windows ?? (WINNT).")
     #endif
@@ -786,6 +902,9 @@
 
   #ifdef _CONSOLE
     #pragma message ("Target is an console application.")
+  #endif
+  #ifdef _MANAGED
+    #pragma message ("Target is a managed Windows application.")
   #endif
 
     /* 16-bit OS mode; see stdlib.h 1985-1992, Microsoft Corporation*/
@@ -820,6 +939,7 @@
         Internet Explorer 4.0                   0x0400
         Internet Explorer 5.0, 5.0a, 5.0b       0x0500
         Internet Explorer 5.01, 5.5             0x0501
+        Internet Explorer 6.0                   0x0600
 
         _WIN32_IE value    Description
          0x0200            The application will be compatible with Comctl32.dll
@@ -851,28 +971,146 @@
                            Comctl32.dll or version 5.0 of Shell32.dll and Shlwapi.dll.
      */
     const int g__WIN32_IE = _WIN32_IE;
-    #if _WIN32_IE >= 0x0500
-      #pragma message ("5.00 and later.")
+    #if _WIN32_IE >= 0x0600
+      #pragma message ("  6.00 and later.")
     #else
-      #if _WIN32_IE >= 0x0400
-          #pragma message ("4.0 and later.")
+      #if _WIN32_IE >= 0x0500
+        #pragma message ("  5.00 and later.")
       #else
-        #if _WIN32_IE >= 0x0300
-          #pragma message ("3.0 and later.")
-         #else
-           #if _WIN32_IE >= 0x0200
-             #pragma message ("2.0 and later.")
+        #if _WIN32_IE >= 0x0400
+            #pragma message ("  4.0 and later.")
+        #else
+          #if _WIN32_IE >= 0x0300
+            #pragma message ("  3.0 and later.")
            #else
-             #pragma message ("unknown.")
+             #if _WIN32_IE >= 0x0200
+               #pragma message ("  2.0 and later.")
+             #else
+               #pragma message ("  unknown.")
+            #endif
           #endif
         #endif
       #endif
     #endif
   #endif
 
-
 /* ========================================================================= */
 #endif /*_MSC_VER                                                            */
+
+/* ========================================================================= */
+#ifdef _MSC_VER    /*Microsoft eMbedded Visual C++ Compiler TODO:             */
+  #if (_MSC_VER == 1200)
+    #pragma message ("Microsoft eMbedded Visual C++ compiler 4.00")
+  #else
+    #pragma message ("Microsoft eMbedded Visual C++ compiler ??")
+  #endif
+
+  #if defined (_WIN32_WCE) || defined (UNDER_CE)
+    #ifdef _WIN32_WCE
+    /*Microsoft eMbedded Visual C++ Compiler defines OS version as
+      variable $(CEVersion) value:
+         \D _WIN32_WCE=$(CEVersion), \D  UNDER_CE=$(CEVersion), ...
+     */
+      const unsigned int g__WIN32_WCE = _WIN32_WCE;
+    #else
+      const unsigned int g__WIN32_WCE = UNDER_CE;
+    #endif //_WIN32_WCE
+
+    #if (_WIN32_WCE == 201) || (UNDER_CE == 201) /*Windows CE 2.01*/
+      #pragma message ("Target OS is MS Windows CE 2.01.")
+    #elif (_WIN32_WCE == 211) || (UNDER_CE == 211) /*Windows CE 2.11*/
+      #pragma message ("Target OS is MS Windows CE 2.11.")
+    #elif (_WIN32_WCE == 300) || (UNDER_CE == 300) /* Windows CE 3.0*/
+      #pragma message ("Target OS is MS Windows CE 3.0.")
+    #elif (_WIN32_WCE == 400) || (UNDER_CE == 400) /*Windows CE 4.0*/
+      #pragma message ("Target OS is MS Windows CE 4.0.")
+    #elif (_WIN32_WCE == 410) || (UNDER_CE == 410) /*Windows CE 4.10*/
+      #pragma message ("Target OS is MS Windows CE 4.10.")
+    #elif (_WIN32_WCE == 420) || (UNDER_CE == 420) /*Windows CE 4.20*/
+      #pragma message ("Target OS is MS Windows CE 4.20.")
+    #else
+      #pragma message ("Target OS is MS Windows CE ?.??.")
+    #endif
+
+  #endif /*_WIN32_WCE*/
+
+    /*Microsoft eMbedded Visual C++ Compiler variable $(CePlatform) values:
+
+        Platform                CePlatform value
+        H/PC 2000               WIN32_PLATFORM_HPC2000
+        H/PC Pro 2.11           WIN32_PLATFORM_HPCPRO
+        Pocket PC               WIN32_PLATFORM_PSPC
+        Pocket PC 2002          WIN32_PLATFORM_PSPC=310
+        Smartphone 2002         WIN32_PLATFORM_WFSP=100
+     */
+  #ifdef WIN32_PLATFORM_HPC2000 //H/PC 2000 (Galileo)
+    #pragma message ("Compiling for Handheld PC 2000 platform.")
+  #endif
+
+  #ifdef WIN32_PLATFORM_HPCPRO /*H/PC Professional*/
+    #if (WIN32_PLATFORM_HPCPRO == 211)
+      #pragma message ("Compiling for Handheld PC Professional 2.11 platform.")
+    #elif (WIN32_PLATFORM_HPCPRO == 300) /*H/PC Professional Version 3.0 (Jupiter)*/
+      #pragma message ("Compiling for Handheld PC Professional 3.0 platform.")
+    #else
+      #pragma message ("Compiling for Handheld PC Professional platform.")
+    #endif
+  #endif
+
+  #ifdef WIN32_PLATFORM_PSPC /*Pocket PC*/
+    #if (WIN32_PLATFORM_PSPC == 1) /*Pocket PC 2000*/
+      #pragma message ("Compiling for Pocket PC 2000 platform.")
+    #elif (WIN32_PLATFORM_PSPC == 310) /*Pocket PC 2002*/
+      #pragma message ("Compiling for Pocket PC 2002 platform.")
+    #else
+      #pragma message ("Compiling for Pocket PC platform.")
+    #endif
+  #endif
+
+  #ifdef WIN32_PLATFORM_WFSP /*Smartphone*/
+    #if (WIN32_PLATFORM_WFSP == 100) /*Smartphone 2002*/
+      #pragma message ("Compiling for Smartphone 2002 platform.")
+    #else
+      #pragma message ("Compiling for Smartphone platform.")
+    #endif
+  #endif
+
+  #ifdef _WIN32_WCE_EMULATION /*PC emulator*/
+    #pragma message ("Compiling for PC (emulator) platform.")
+  #endif
+
+  #ifdef _WIN32_WCE_PSPC /*Palm Size PC*/
+    #if (_WIN32_WCE == 211) // for Palm-size PC 2.11 (Wyvern)
+      #pragma message ("Compiling for Palm-size PC 2.11 platform.")
+    #elif (_WIN32_WCE == 201) // for Palm-size PC 2.01 (Gryphon)
+      #pragma message ("Compiling for Palm-size PC 2.01 platform.")
+    #else
+      #pragma message ("Compiling for Palm Size PC platform.")
+    #endif
+  #endif
+
+  #if defined (_WIN32_WCE) || defined (UNDER_CE)
+    #if defined(ARM) || defined (_ARM_)
+      #pragma message ("CPU: ARM Risc CPU family")
+    #endif
+    #if defined(THUMB) || defined (_THUMB_) || defined ( ARMV4T)
+      #pragma message ("CPU: ARM V4T Risc CPU")
+    #endif
+    #if defined (MIPS)
+      #pragma message ("CPU: MIPS")
+    #endif
+    #if defined (SH3)
+      #pragma message ("CPU: Hitachi SH3")
+    #endif
+    #if defined (SH4)
+      #pragma message ("CPU: Hitachi SH4")
+    #endif
+    #if defined (x86) || defined (_i386_) || defined (i_386_) || defined (_X86_)
+      #pragma message ("CPU: Intel x86 (emulator)")
+    #endif
+  #endif
+/* ========================================================================= */
+#endif
 
 #if defined(__BORLANDC__) || defined(__TURBOC__) /*Borland C++ Compiler      */
 /* ========================================================================= */
@@ -1083,13 +1321,25 @@ M_I86HM, __HUGE__
 /*Note:   __IBMCPP__ is the version of the C++ compiler in decimal notation
                      and it is not defined on older compilers like C Set 3.1
  */
-#if defined(__IBMCPP__)/* IBM C++ Compiler                                       */
+#if defined(__IBMCPP__)/* IBM C++ Compiler                                   */
   #pragma message ("IBM C++ Compiler")
 
 /* ========================================================================= */
 #endif /*__IBMCPP__                                                          */
 
-
+/*IBM ILE C++ for AS/400                                                     */
+/* ========================================================================= */
+#if defined(__OS400_TGTVRM__)
+/*Note: A macro defined only by the C++ compiler, as an integral value that
+  maps to the version/release/modification of the OS/400 that the module or
+  program being compiled is intended to run on. The target release, VxRyMz,
+  translates to an __OS400_TGTVRM__ value of xyz, where x, y, and z areinteger
+  values. For example, a target release of V4R4M0 will cause the macro to have
+  an integral value of 440.
+ */
+  #pragma message ("IBM ILE C++ for AS/400")
+/* ========================================================================= */
+#endif
 
 #if defined(__SUNPRO_CC) /*Sun C++ Compiler */
 /* ========================================================================= */
@@ -1157,8 +1407,281 @@ M_I86HM, __HUGE__
 /* ========================================================================= */
 #if defined(__MWERKS__)/* Metrowerks CodeWarrior Compiler                    */
   #pragma message ("Metrowerks CodeWarrior Compiler")
-  #if defined(__INTEL__) /*Werks for Windows */
-    #warning "Target OS is MS Windows 32b"
+
+   /*Current version of Metrowerks compiler.
+     The __MWERKS__ macro will have one of the following values depending upon
+     the particular Metrowerks compiler:
+
+        Compiler                             __MWERKS__ value
+        before Codewarrior 7 1995                   1
+        CodeWarrior 8                            0x2000
+        CodeWarrior 8 v2.2                       0x2200
+        CodeWarrior 8 v2.4                       0x2400
+        CodeWarrior 8 v2.5                       0x2500
+        CodeWarrior 9                            0x3000
+        CodeWarrior 9.3                          0x3004
+
+     To determine what version of the CodeWarrior C/C++ compiler you are using,
+     follow the steps below.
+
+     1. Create a new source file that contains this header file, and add the
+        file to the new project, if CodeWarrior IDE is used.
+     2. Select the source file in the project window and from the Project menu,
+        choose Preprocess. If you are using the command-line version of the
+        CodeWarrior C/C++ type:
+        "mwcc -EP source.c" if host is Microsoft Windows
+        "mwccppc -e source.c" if host is PowerPC with Apple MPW
+     3. Browse the preprocessor output for the value of the variable g__MWERKS__.
+
+    */
+  const long g__MWERKS__ = __MWERKS__;
+  #if __MWERKS__ < 0x2000
+    #pragma message ("  -ver. unknown")
+  #endif
+  #if __MWERKS__ == 0x2000
+    #pragma message ("  ver. 8")
+  #endif
+  #if __MWERKS__ == 0x2200
+    #pragma message ("  ver. 8.2.2")
+  #endif
+  #if __MWERKS__ == 0x2400
+    #pragma message ("  ver. 8.2.4")
+  #endif
+  #if __MWERKS__ == 0x2500
+    #pragma message ("  ver. 8.2.5")
+  #endif
+  #if __MWERKS__ == 0x3000
+    #pragma message ("  ver. 9")
+  #endif
+  #if __MWERKS__ == 0x3003
+    #pragma message ("  ver. 9.2")
+  #endif
+  #if __MWERKS__ == 0x3004
+    #pragma message ("  ver. 9.3")
+  #endif
+  #if __MWERKS__ > 0x3304
+    #pragma message ("  +ver. unknown")
+  #endif
+
+  #ifdef __embedded_cplusplus
+    #pragma message ("Embedded C++ compilation.")
+  #endif
+
+  #if defined(__PALMOS__) || defined (__PALMTYPES_H__) || defined (__PALMOS_H__) || defined(_PALMOS)
+     #pragma message ("Target OS is PalmOS.")
+  #endif
+  #if defined(__ARMLET__) /*Metrowerks armlet */
+     #pragma message ("Target OS is an armlet.")
+  #endif
+  #if defined(macintosh) /*Metrowerks 68K or PowerPC on MacOS */
+     #pragma message ("Target OS is MacOS.")
+  #endif
+
+ /*Targeted OS systems defined in
+   .../MSL/MSL_C/MSL_Common/Include/os_enum.h
+
+        __undef_os       0
+        __mac_os         1
+        __win32_os       3
+        __wince_os       5
+        __ppc_eabi       6
+        __nec_eabi_bare  7
+        __nec_eabi_os    8
+        __mips_bare      9
+        __m56800_os     10
+        __n64_os        11
+        __mcore_bare    12
+        __emb_68k       13
+        __m56300_os     14
+        __sh_bare       15
+        __m56800E_os    16
+        __mac_os_x      17
+        __dolphin_os    18
+        __palm_os       19
+        __arm_bare      20
+  */
+  #ifdef __dest_os
+
+    #if (__dest_os == __arm_bare)
+      #pragma message ("Target OS ARM compliant OS.")
+    #elif (__dest_os == __dolphin_os)
+      #pragma message ("Target is Dolphin OS.")
+    #elif (__dest_os == __emb_68k)
+      #pragma message ("Target is Motorla 68k compliant OS.")
+    #elif (__dest_os == __m56300_os)
+      #pragma message ("Target is Motorla 56300 compliant OS.")
+    #elif (__dest_os == __m56800E_os)
+      #pragma message ("Target is Motorla 56800E compliant OS.")
+    #elif (__dest_os == __m56800_os)
+      #pragma message ("Target is Motorla 56800 compliant OS.")
+    #elif (__dest_os == __mac_os)
+      #pragma message ("Target is MacOS.")
+    #elif (__dest_os == __mac_os_x)
+      #pragma message ("Target is MacOS X.")
+    #elif (__dest_os == __mcore_bare)
+      #pragma message ("Target is Motorla compliant OS.")
+    #elif (__dest_os == __mips_bare)
+      #pragma message ("Target is MIPS compliant OS.")
+    #elif (__dest_os == __n64_os)
+      #pragma message ("Target is Nintendo 64.")
+    #elif (__dest_os == __nec_eabi_bare)
+      #pragma message ("Target is NEC compliant OS.")
+    #elif (__dest_os == __nec_eabi_os)
+      #pragma message ("Target is NEC EABI compliant OS.")
+    #elif (__dest_os == __no_os)
+      #pragma message ("Target is bare board embedded system.")
+    #elif (__dest_os == __palm_os)
+      #pragma message ("Target is Palm OS.")
+    #elif (__dest_os == __ppc_eabi)
+      #pragma message ("Target is PowerPC EABI compliant OS.")
+    #elif (__dest_os == __ppc_eabi_bare) /*changed to __ppc_eabi*/
+      #pragma message ("Target is PowerPC (Motorola 821) compliant OS.")
+    #elif (__dest_os == __sh_bare)
+      #pragma message ("Target is Hitachi SH compliant OS.")
+    #elif (__dest_os == __undef_os)
+      #pragma message ("Target is not defined (__undef_os).")
+    #elif (__dest_os == __win32_os)
+      #pragma message ("Target is Windows 32b compliant OS.")
+    #elif (__dest_os == __wince_os)
+      #pragma message ("Target is Windows CE.")
+    #else
+      #pragma message ("Target is unknown OS (__dest_os).")
+      /*Target OS brand.
+        Note: Browse the preprocessor output for the value of
+              the variable __dest_os.
+       */
+      long g___dest_os = __dest_os;
+    #endif
+  #endif
+
+  #ifdef __embedded__
+    #pragma message ("Target is an embedded OS.")
+  #endif
+
+  #if defined(__INTEL__) || defined(__i386__)
+    #pragma message ("Compiling for for Intel x86 platform.")
+  #endif
+  #ifdef __MC68K__
+    #pragma message ("Compiling for Motorola 68k platform.")
+  #endif
+  #ifdef __MC68020__
+    #pragma message ("Compiling for Motorola 68020 platform.")
+  #endif
+  #ifdef __MC68881__
+    #pragma message ("Compiling for Motorola 68881 platform.")
+  #endif
+  #ifdef __A5__
+    /*Defined for 68k targets*/
+    #if (__A5__ == 1)
+      #pragma message ("  data are A5-relative")
+    #else
+      #pragma message ("  data are A4-relative")
+    #endif
+  #endif
+  #ifdef __MIPS__
+    #pragma message ("Compiling for MIPS platform.")
+  #endif
+  #ifdef __MIPS_ISA2__
+    #pragma message ("Compiling for MIPS ISA II platform.")
+  #endif
+  #ifdef __MIPS_ISA3__
+    #pragma message ("Compiling for MIPS ISA III platform.")
+  #endif
+  #ifdef __MIPS_ISA4__
+    #pragma message ("Compiling for MIPS ISA IV platform.")
+  #endif
+  #ifdef __MIPS__
+    #pragma message ("Compiling for MIPS platform.")
+  #endif
+  #ifdef __VEC__
+    #pragma message ("Compiling for Motorola's AltiVec Technology.")
+  #endif
+  #ifdef __ALTIVEC__
+     /*Note: currently defined as 100000000 */
+    #pragma message ("Compiling for PowerPC AltiVec Technology.")
+  #endif
+  #if defined(__arm__) || defined(__arm)
+    #pragma message ("Compiling for ARM Risc platform.")
+  #endif
+  #ifdef __ARMCC_VERSION
+    #pragma message ("Compiling for ARM ADS platform.")
+  #endif
+  #if defined(__POWERPC__) || defined(__powerpc__)
+    #pragma message ("Compiling for Power PC platform.")
+  #endif
+
+  #ifdef EMULATION_LEVEL
+    #if (EMULATION_LEVEL == EMULATION_WINDOWS)
+      #pragma message ("  Windows 32b emulation.")
+    #elif (EMULATION_LEVEL == EMULATION_MAC)
+      #pragma message ("  MacOS emulation.")
+    #elif (EMULATION_LEVEL == EMULATION_DOS)
+      #pragma message ("  DOS emulation.")
+    #elif (EMULATION_LEVEL == EMULATION_UNIX)
+      #pragma message ("  Unix emulation.")
+    #elif (EMULATION_LEVEL == EMULATION_NONE)
+      #pragma message ("  no OS emulation.")
+    #else
+      #pragma message ("  unknown emulation.")
+      /*OS emulator type */
+      long g_EMULATION_LEVEL = EMULATION_LEVEL;
+    #endif
+  #endif
+
+  #ifdef PALMOS_SDK_VERSION
+    #if (PALMOS_SDK_VERSION == 0x0510)
+      #pragma message ("  Palm OS 5 SDK (68K) R2.")
+    #else
+      #pragma message ("  unknown PalmOS SDK.")
+      /*Palm OS SDK version.
+        See also: BuildDefines.h
+       */
+      long g_PALMOS_SDK_VERSION = PALMOS_SDK_VERSION;
+    #endif
+  #endif
+
+  #if (__IEEEdoubles__ == 1)
+    #pragma message ("Real numbers are 8 bytes long.")
+  #endif
+  #if (__fourbyteints__ == 1)
+    #pragma message ("Integer numbers are 4 bytes long.")
+  #endif
+  #if __option (little_endian)
+    #pragma message ("Little Endian byte order.")
+  #else
+    #pragma message ("Big Endian byte order.")
+  #endif
+
+  #ifdef _MSL_LITTLE_ENDIAN
+    #if (_MSL_LITTLE_ENDIAN == 1)
+      #pragma message ("_MSL_: Little Endian byte order.")
+    #elif (_MSL_LITTLE_ENDIAN == 0)
+      #pragma message ("_MSL_: Big Endian byte order.")
+    #else
+      #pragma message ("_MSL_: Unknown Endian byte order.")
+    #endif
+  #endif /*_MSL_LITTLE_ENDIAN*/
+
+  #ifdef CPU_TYPE
+    #if (CPU_TYPE == CPU_68K)
+      #pragma message ("CPU: Motorola 68xxx family.")
+    #elif (CPU_TYPE == CPU_PPC)
+      #pragma message ("CPU: Power PC family.")
+    #elif (CPU_TYPE == CPU_ARM)
+      #pragma message ("CPU: ARM Risc family.")
+    #elif (CPU_TYPE == CPU_x86)
+      #pragma message ("CPU: Intel x86 family.")
+    #else
+      #pragma message ("CPU: unknown.")
+    #endif
+  #endif
+
+  #if __option(bool)
+    /*Corresponds to the  #pragma bool on | off | reset.
+      If pragma bool is off, CodeWarrior C++ compiler equates the bool type
+      with the unsigned char data type.
+     */
+    #pragma message ("ISO C++ Standard bool data type enabled.")
   #endif
 
 #endif /*__MWERKS__                                                          */
@@ -1175,6 +1698,94 @@ M_I86HM, __HUGE__
   #warning "Comeau C++ Compiler"
 #endif
 
+#if defined(__ZTC__) /*Digital Mars C/C++ Compiler */
+  /*Always defined. Set to same value as __DMC__. Obsolete(use __DMC__ instead).*/
+  #pragma message "Digital Mars C/C++ Compiler"
+  #ifdef __NT__
+    /*Obsolete - use _WIN32 instead*/
+    #pragma message "Target OS is Windows NT or Win32s."
+  #endif
+#endif
+
+#if defined(__SC__) /*Digital Mars C/C++ Compiler */
+  /*Always defined. Set to same value as __DMC__. Obsolete(use __DMC__ instead).*/
+  #pragma message "Digital Mars C/C++ Compiler"
+#endif
+
+#if defined(__DMC__) /*Digital Mars C/C++ Compiler */
+
+  /*#pragma message "text"
+    Causes the compiler to print text as an informational message while
+    compiling.
+   */
+  #pragma message "Digital Mars C/C++ Compiler"
+    /*Digital Mars C/C++ Compiler version number:
+        0x700  v7.0,
+        0x720  v7.2,
+        0x800  v8.0.
+     */
+  const long g__DMC__VER = __DMC__;
+
+  #ifdef __DMC_VERSION_STRING__
+    /*Expands to a string identifying the compiler
+      in form such as "Digital Mars C/C++ x.xx.x".
+     */
+    #pragma message (__DMC_VERSION_STRING__)
+  #endif
+
+  #if defined(DOS386)
+    #pragma message "Target OS is extended DOS 32-bit."
+  #endif
+  #if defined(DOS16RM)
+    #pragma message "Target OS is extended DOS 16-bit."
+  #endif
+
+  /* _WINDOWS Generating Windows program.
+    _WINDLL Generating Windows DLL
+    __INLINE_8087 Defined if generating inline math coprocessor code.
+    __I86__ Always defined. Set to target CPU (0 == 8088, 2 == 286, 3 == 386,
+           4 == 486, 5 == P5, 6 == P6).
+    __SMALL__
+    __MEDIUM__
+    __COMPACT__
+    __LARGE__
+    __VCM__
+    __FPCE__  Always defined. Indicates NCEG conformance.
+    __FPCE__IEEE__ Indicates IEEE 754 conformance.
+    DEBUG
+    __FUNCTION__  Same as __FUNC__. Provided for Gnu CC compatibility.
+    __PRETTY_FUNCTION__ Same as __FUNC__, but pretty-printed (
+          C++ functions become more readable). Provided for Gnu CC compatibility.
+    __TIMESTAMP__ Always defined. Set to compilation time in
+          the form "Ddd Mmm dd hh:mm:ss yyyy".
+    _BOOL_DEFINED Set to 1 (enable bool keyword).
+    _WCHAR_T_DEFINED Set to 1 (enable wchar_t keyword).
+    _CPPRTTI  Set to 1 (enable RTTI).
+    _CPPUNWIND  Set to 1 (enable C++ exception handling).
+    _CHAR_UNSIGNED Chars are unsigned.
+    _CHAR_EQ_UCHAR  chars and unsigned chars are same type.
+    _DEBUG_TRACE  Set to 1 when -gt is set.
+    _DLL DLL RTL will be used rather than the statically linked in RTL.
+    _MSDOS, MSDOS MSDOS target. Defined for all cases where __OS2__ or
+          _WIN32 are not defined.
+    __OS2__ OS/2 target.
+    WIN32,_WIN32  WIN32 target (NT, Windows 95 or Win32s).
+    DOS386  32 bit extended DOS target.
+    DOS16RM 16 bit extended DOS target.
+    M_I86, _M_I86 Always defined.
+    _M_I86TM, M_I86TM Tiny memory model.
+    _M_I86SM, M_I86SM Small memory model.
+    _M_I86MM, M_I86MM Medium memory model.
+    _M_I86CM, M_I86CM Compact memory model.
+    _M_I86LM, M_I86LM Large memory model.
+    _M_I86VM, M_I86VM VCM memory model.
+    _M_I8086, M_I8086 8088 is target.
+    _M_I286, M_I286 80286 or better is target.
+    _M_IX86 Defined for 32 bit targets. Set to: 300 for 386 targets, 400 for 486,
+          500 for Pentium, 600 for P6.
+   */
+#endif
+
 #if defined(__KCC)/*KAI C++ Compiler */
   #warning "KAI C++ Compiler"
 #endif
@@ -1187,7 +1798,7 @@ M_I86HM, __HUGE__
   #warning "SCO UnixWare C++ Compiler"
 #endif
 
-#if defined(CENTERLINE_CLPP) || defined(OBJECTCENTER)/*CenterLine C++ Compiler */
+#if defined(CENTERLINE_CLPP) || defined(OBJECTCENTER)/*CenterLine C++ Compiler*/
   #warning      "CenterLine C++ Compiler"
 #endif
 
@@ -1244,13 +1855,18 @@ M_I86HM, __HUGE__
 #endif /*UFST_ALPHA_UNIX                                                     */
 
 
+#if defined(DOS386)
+  #warning "Target OS is extended DOS."
+#endif
 
 #if defined(__MACOSX__)
   #warning "Target OS is MacOS."
 #endif
 
-#if defined(macintosh)
-  #warning "Target OS is MacOS 9."
+#ifndef __MWERKS__ /*Not a Metrowerks CodeWarrior Compiler */
+  #if defined(macintosh)
+    #warning "Target OS is MacOS 9."
+  #endif
 #endif
 
 #ifndef _MSC_VER /*Not a Microsoft VC compiler */
@@ -1376,26 +1992,295 @@ M_I86HM, __HUGE__
   #warning "defined __svr4__"
 #endif
 
+/* ////////////////////////////////////////////////////////////////////////// */
+/* C++98 Predefined Macros
+   Defined per the C++98 Standard 16.8-1 when compiling C++ programs          */
+
+#ifdef __STDC__
+  /*C++98 conformance.
+   */
+  #pragma message ("__STDC__: C98, C99 or newer conformance.")
+#else
+  #pragma message ("Non-ANSI C conformance.")
+#endif
+
+#ifdef __DATE__
+  /*Always defined. Set to compilation date in the form "Mmm dd yyyy".
+   */
+  // #pragma message ("Date: " __DATE__) TODO: compiler idenpendent warning D.K.
+#endif
+#ifdef  __TIME__
+  /*Always defined. Set to compilation time in the form "hh:mm:ss".
+   */
+#endif
+
+#ifdef __FILE__
+  /*Always defined. Set to name of file being compiled enclosed in "".
+   */
+#endif
+
+#ifdef __LINE__
+  /*Always defined. Set to current line of source file.
+   */
+#endif
+
+#ifdef __cplusplus
+  /*Always defined and set to 199711L.
+   */
+  const long g__cplusplus_VER = __cplusplus;
+  #if __cplusplus < 199711L
+    #pragma message ("C++: non-standard conformance.")
+  #endif
+  #if __cplusplus == 199711L
+    #pragma message ("C++: ISO 199711 conformance.")
+  #endif
+  #if __cplusplus > 199711L
+    #pragma message ("C++: unknown conformance.")
+  #endif
+#endif
+
+#ifdef __STDC_IEC_559__
+  /*IEC 60559 floating point arithmetic conformance.
+   */
+  #pragma message ("IEC 60559 floating point arithmetic conformance.")
+#endif
+
+#ifdef __STDC_IEC_559_COMPLEX__
+  /*IEC 60559 complex floating point arithmetic conformance.
+   */
+  #pragma message ("IEC 60559 complex floating point arithmetic conformance.")
+#endif
+
+/*---------------------------------------------------------------------------*/
+/*C99 Predefined Macros
+  Defined per the C99 Standard 6.10.8 when compiling C programs.
+ */
+
+/*__STDC__ If defined, ANSI C (C98+,C99) conformance enbaled
+  __DATE__ Always defined. Set to compilation date in the form "Mmm dd yyyy".
+  __FILE__ Always defined. Set to name of file being compiled enclosed in "".
+  __LINE__Always defined. Set to current line of source file.
+  __STDC_HOSTED__ Always defined and set to 0.
+  __TIME__  Always defined. Set to compilation time in the form "hh:mm:ss".
+  __STDC_IEC_559__  IEC 60559 floating point arithmetic conformance.
+  __STDC_IEC_559_COMPLEX__ IEC 60559 complex floating point arithmetic conformance.
+  For ANSI C99 __STDC_VERSION__ is 199901L
+  For ANSI C95 __STDC_VERSION__ is 199409L.
+ */
+
+#ifdef __STDC_VERSION__
+  /*Always defined and set to 19990L.
+   */
+  const long g__STDC_VERSION__ = __STDC_VERSION__;
+
+  #if __STDC_VERSION__ > 199900
+    #pragma message ("C99: 19990 conformance.")
+  #else
+    #if __STDC_VERSION__ > 199400
+      #pragma message ("C95: 19940 conformance.")
+    #else
+      #pragma message ("C??: 19??0 conformance.")
+    #endif
+  #endif
+
+#endif
+#ifdef __STDC_ISO_10646__
+  /*ISO 10646 conformance.
+   */
+  #pragma message ("ISO 10646 conformance.")
+#endif
+
+/*---------------------------------------------------------------------------*/
+/*Portable Operating System Interface for Computer Environments (POSIX)
+  is an IEEE standard that defines the open systems environment standards
+  for system interfaces, shells, tools, testing, verification, real-time
+  processing, security, system administration, networking, and transaction
+  processing.
+  The standard is based on UNIX system services, but it allows implementation
+  on other operating systems.
+ */
+
+#ifdef _POSIX_
+  /*Portable Operating System Interface for Computer Environments (POSIX)
+   */
+  #pragma message ("POSIX conformance.")
+#endif
+
+#ifdef _POSIX_VERSION
+  /*Portable Operating System Interface for Computer Environments (POSIX) version.
+    POSIX is an IEEE standard that defines the open systems environment standards
+    for system interfaces, shells, tools, testing, verification, real-time
+    processing, security, system administration, networking, and transaction
+    processing.
+    The standard is based on UNIX system services, but it allows implementation
+    on other operating systems.
+   */
+    const long g__POSIX_VERSION = _POSIX_VERSION;
+#endif
+
+/*----------------------------------------------------------------------------*/
+/*Preprocessor Directives forUnicode character (16-bit)
+  ISO 10646-1 Universal Multiple Octet Coded Character Set (UCS).
+ */
+#if !defined UNICODE && !defined _UNICODE
+  #pragma message ("(0) Non-Unicode text mapping")
+#endif
+#if defined UNICODE
+  #pragma message ("(1: UNICODE) Unicode (wide-character) text mapping")
+#endif
+#if defined _UNICODE
+  #pragma message ("(2: _UNICODE) Unicode (wide-character) text mapping")
+#endif
+
+/*----------------------------------------------------------------------------*/
+/*Boolen type definitions                                                     */
+#if defined (__bool_true_false_are_defined)
+  /*ISO/IEC 9899:1999 (ISO C99) standard boolean type*/
+  #if (__bool_true_false_are_defined == 0)
+    #pragma message ("(0) ISO/IEC 9899:1999 (ISO C99) standard boolean type unavailable.")
+  #endif
+  #if (__bool_true_false_are_defined == 1)
+    #pragma message ("(1) ISO/IEC 9899:1999 (ISO C99) standard boolean type available.")
+  #endif
+#else
+  #pragma message ("(2) ISO/IEC 9899:1999 (ISO C99) standard boolean type not defined.")
+#endif
+
+
+#if defined (true) || defined (false)
+  #pragma message ("Boolean true/false is defined.")
+#else
+  #pragma message ("Boolean true, false are not defined.")
+#endif /*true/false*/
+
+#if defined (TRUE) || defined (FALSE)
+  #pragma message ("Boolean TRUE/FALSE is defined.")
+#else
+  #pragma message ("Boolean TRUE, FALSE are not defined.")
+#endif /*TRUE/FALSE*/
+
+#ifdef bool
+  #pragma message ("bool type defined.")
+#else
+    /*Validate bool typedef*/
+    #if defined(_VALIDATE_BOOLEN_TYPE) && (_VALIDATE_BOOLEN_TYPE > 0)
+      /*'ISO/IEC 9899:1999 (ISO C99) standard boolean type is defined' flag */
+      bool g_bool = true;
+      #pragma message ("bool typedef.")
+    #endif
+#endif /*bool*/
+
+#ifdef _Bool
+  #pragma message ("_Bool type defined.")
+#else
+    /*Validate bool typedef*/
+    #if defined(_VALIDATE_BOOLEN_TYPE) && (_VALIDATE_BOOLEN_TYPE > 0)
+      /*'Boolean type alias _Bool is defined' flag */
+      _Bool g__Bool = 1;
+      #pragma message ("_Bool typedef.")
+    #endif
+#endif /*bool*/
+
+#ifdef BOOL
+  #pragma message ("BOOL type defined.")
+#else
+    /*Validate bool typedef*/
+    #if defined(_VALIDATE_BOOLEN_TYPE) && (_VALIDATE_BOOLEN_TYPE > 0)
+      /*'Boolean type alias BOOL is defined' flag */
+      BOOL g_BOOL = 1;
+      #pragma message ("BOOL typedef.")
+    #endif
+#endif /*_Bool*/
+
+#ifdef Boolean
+  #pragma message ("Boolean type defined.")
+#else
+    /*Validate bool typedef*/
+    #if defined(_VALIDATE_BOOLEN_TYPE) && (_VALIDATE_BOOLEN_TYPE > 0)
+      /*'Boolean type alias Boolean is defined' flag */
+      Boolean g_Boolean = 1;
+      #pragma message ("Boolean typedef.")
+    #endif
+#endif /*Boolean*/
+
+/*---------------------------------------------------------------------------*/
+/*Third Party Libraries                                                      */
+
+  /*STLPort Standard Template Library port.                                  */
+#ifdef _STLP_DEBUG
+  #pragma message ("STLport debug mode.")
+#endif
+
+  /*C++  Boost Library.
+    See also: "boost/version.hpp"
+   */
+#ifdef BOOST_VERSION
+  #pragma message ("C++  Boost Library included.")
+  /*C++  Boost Library version.
+
+      BOOST_VERSION % 100 is the sub-minor version
+      BOOST_VERSION / 100 % 1000 is the minor version
+      BOOST_VERSION / 100000 is the major version
+   */
+  const long g__BOOST_VERSION = BOOST_VERSION;
+#endif
+
 /* ///////////////////////////////////////////////////////////////////////// */
-#endif /*__KDBGMACR_H__                                                      */
-/******************************************************************************
+#endif /*_KDBGMACR_H_                                                        */
+/*****************************************************************************
  * $Log:
- *  10   Biblioteka1.9         25/01/2002 3:56:38 PMDarko           Updated
+ *  35   Biblioteka1.34        2004-10-21 13:18:40  Darko Kolakovic Boolean types
+ *  34   Biblioteka1.33        2004-10-20 13:22:46  Darko Kolakovic Metrowerks
+ *       CodeWarrior
+ *  33   Biblioteka1.32        2004-10-13 13:48:52  Darko           g__WIN32_WCE
+ *  32   Biblioteka1.31        2004-10-13 12:31:43  Darko           _WIN32_WCE
+ *  31   Biblioteka1.30        2004-09-08 14:16:30  Darko           WinCE
+ *       implementation
+ *  30   Biblioteka1.29        2004-09-07 15:47:59  Darko           Metrowerks
+ *  29   Biblioteka1.28        2004-08-31 13:02:26  Darko           C++
+ *       non-standard conformance
+ *  28   Biblioteka1.27        2004-08-26 13:13:58  Darko           Added POSIX
+ *  27   Biblioteka1.26        2004-06-03 11:25:17  Darko           _AFXDLL,
+ *       _ATL_DLL
+ *  26   Biblioteka1.25        2004-06-01 17:50:22  Darko           time sync
+ *  25   Biblioteka1.24        2003-09-30 09:09:30  Darko           __LINE__
+ *  24   Biblioteka1.23        2003-09-28 01:41:29  Darko           __DMC__
+ *  23   Biblioteka1.22        2003-09-22 22:25:55  Darko           formatting
+ *  22   Biblioteka1.21        2003-08-26 01:40:44  Darko           Sentry changed
+ *  21   Biblioteka1.20        2003-08-14 11:35:23  Darko
+ *       __OS400_TGTVRM__
+ *  20   Biblioteka1.19        2003-08-07 17:19:15  Darko           debug
+ *       preprocessor directive
+ *  19   Biblioteka1.18        2003-08-06 22:49:54  Darko           Added GNU
+ *       _UNICODE
+ *  18   Biblioteka1.17        2003-08-05 22:02:35  Darko           Updated
+ *       _MFC_VER
+ *  17   Biblioteka1.16        2003-08-05 21:45:48  Darko           comment
+ *  16   Biblioteka1.15        2003-08-05 21:24:19  Darko           Added VS .Net
+ *       2003
+ *  15   Biblioteka1.14        2003-01-30 22:40:40  Darko           Added VC++.Net
+ *       dependencies
+ *  14   Biblioteka1.13        2002-10-11 14:33:35  Darko Kolakovic
+ *  13   Biblioteka1.12        2002-10-10 20:29:24  Darko Kolakovic Fixed _M_I286
+ *       test
+ *  12   Biblioteka1.11        2002-09-19 17:37:42  Darko Kolakovic
+ *  11   Biblioteka1.10        2002-01-29 20:30:46  Darko           Watcom macros
+ *  10   Biblioteka1.9         2002-01-25 16:56:38  Darko           Updated
  *       comments
- *  9    Biblioteka1.8         24/01/2002 6:18:46 PMDarko           Updated
+ *  9    Biblioteka1.8         2002-01-24 19:18:46  Darko           Updated
  *       comments
- *  8    Biblioteka1.7         10/01/2002 12:09:44 AMDarko           Same as 1.4
- *  7    Biblioteka1.6         09/01/2002 11:59:16 AMDarko           Added Borland
+ *  8    Biblioteka1.7         2002-01-10 01:09:44  Darko           Same as 1.4
+ *  7    Biblioteka1.6         2002-01-09 12:59:16  Darko           Added Borland
  *       macros
- *  6    Biblioteka1.5         09/01/2002 11:52:32 AMDarko           Added Borland
+ *  6    Biblioteka1.5         2002-01-09 12:52:32  Darko           Added Borland
  *       macros
- *  5    Biblioteka1.4         09/01/2002 11:50:30 AMDarko           Added Borland
+ *  5    Biblioteka1.4         2002-01-09 12:50:30  Darko           Added Borland
  *       macros
- *  4    Biblioteka1.3         07/01/2002 10:23:57 PMDarko           Added new
- *       GNUcc macros
- *  3    Biblioteka1.2         01/01/2002 2:59:35 PMDarko           GNU compiler
+ *  4    Biblioteka1.3         2002-01-07 23:23:57  Darko           Added new GNUcc
  *       macros
- *  2    Biblioteka1.1         23/12/2001 12:02:07 AMDarko           GNU compiler
- *  1    Biblioteka1.0         19/08/2001 10:36:54 PMDarko
+ *  3    Biblioteka1.2         2002-01-01 15:59:35  Darko           GNU compiler
+ *       macros
+ *  2    Biblioteka1.1         2001-12-23 01:02:07  Darko           GNU compiler
+ *  1    Biblioteka1.0         2001-08-19 23:36:54  Darko
  * $
  *****************************************************************************/

@@ -1,6 +1,6 @@
 /*$Workfile: KGifImageDescriptor.cpp$: implementation file
-  $Revision: 4$ $Date: 8/19/02 10:43:26 AM$
-  $Author: Darko Kolakovic$
+  $Revision: 6$ $Date: 2003-11-03 12:10:09$
+  $Author: Darko$
   
   Describes an image enbedded in GIF(c) Data Stream.
   GIF and 'Graphics Interchange Format' are trademarks of CompuServe, 
@@ -17,11 +17,16 @@
   #define _ENDIAN_LITTLE_ 0x1234
     /*Byte order, according to significance of bytes                         */
   #define _ENDIAN_ORDER_ _ENDIAN_LITTLE_
-   /*Swaps tailing bytes with bytes from the beginning of the two-bytes WORD  */
-  #define SWAP_WORD_ENDIAN(w)  (WORD) ((WORD) ((w)<<8)|((w)>>8))
+   /*Swaps tailing bytes with bytes from the beginning of the two-bytes uint16  */
+  #define SWAP_WORD_ENDIAN(w)  (uint16) ((uint16) ((w)<<8)|((w)>>8))
 #endif
 
 #include "KGifImageDescriptor.h"  //CGifImageDescriptor class
+
+#if _MSC_VER >= 1300 /*Microsoft Visual Studio C++.Net v7.0*/
+    //Disable warning C4127: conditional expression is constant
+  #pragma warning(disable: 4127)
+#endif
 
 #ifdef _DEBUG
   #undef THIS_FILE
@@ -88,16 +93,16 @@ char* CGifImageDescriptor::Dump(char* szOutput
 if (szOutput != NULL)
   {
   sprintf(szOutput,
-            "{\nm_wLeftPos = %d,\nm_wTopPos = %d,\n"
-            "m_wWidth = %d,\nm_wHeight = %d,\n"
-            "m_cControlFlags = 0x%x (has%s Local Color Table,\n"
-            "%Sintrelaced image,\n"
-            "Table is%s sorted,\n"
-            "Local Color Table Size %d),\n",
-            m_wLeftPos, //SWAP
-            m_wTopPos,
-            m_wWidth,
-            m_wHeight,
+          "{\nm_wLeftPos = %d,\nm_wTopPos = %d,\n"
+          "m_wWidth = %d,\nm_wHeight = %d,\n"
+          "m_cControlFlags = 0x%x (has%s Local Color Table,\n"
+          "%Sintrelaced image,\n"
+          "Table is%s sorted,\n"
+          "Local Color Table Size %d),\n",
+          m_wLeftPos, //SWAP
+          m_wTopPos,
+          m_wWidth,
+          m_wHeight,
           m_cControlFlags,
           HasColorTable() ? "" : " not",
           IsInterlaced() ? "" : "un",
@@ -117,7 +122,7 @@ return NULL;
   Returns: true if successful, or false if Block Data does not start with 
   image separator (0x2C) as a block label.
  */
-bool CGifImageDescriptor::Copy(BYTE* pBlockData //[in] image
+bool CGifImageDescriptor::Copy(uint8* pBlockData //[in] image
           //descriptor block in Graphics Interchange Format (GIF)
           )
 {
@@ -164,7 +169,7 @@ const unsigned int CGifImageDescriptor::GetLength()
 {
   //Note: calculating block size as a sum of fields prescribed by GIF allows
   //developers to add some custom members if necessary.
-return (sizeof(BYTE) + sizeof(WORD)*4 + sizeof(BYTE));
+return (sizeof(uint8) + sizeof(uint16)*4 + sizeof(uint8));
 }
 
 //::GetBlockLength()-----------------------------------------------------------
@@ -187,7 +192,7 @@ else
 
   Returns: size of the GIF header's fixed and optional parts in bytes.
  */
-unsigned int CGifImageDescriptor::GetBlockLength(BYTE* pBlockData //[in]
+unsigned int CGifImageDescriptor::GetBlockLength(uint8* pBlockData //[in]
                                                  )
 {
 if (pBlockData[0] == GIF_IMAGE_SEPARATOR) 
@@ -316,12 +321,12 @@ unsigned int CGifImageDescriptor::GetColorTableSize() const
 return 1 << ((m_cControlFlags & 0x07) + 1);
 }
 
-unsigned int CGifImageDescriptor::GetColorTableSize(BYTE* pBlockData//[in]
+unsigned int CGifImageDescriptor::GetColorTableSize(uint8* pBlockData//[in]
                                                     )
 {
 ASSERT(pBlockData != NULL);
-const int BLOCK_SIZE = sizeof(BYTE) + sizeof(WORD)*4;
-BYTE& cControlFlags = pBlockData[BLOCK_SIZE];
+const int BLOCK_SIZE = sizeof(uint8) + sizeof(uint16)*4;
+uint8& cControlFlags = pBlockData[BLOCK_SIZE];
 if ((cControlFlags & 0x80) == 0x80)
   return 1 << ((cControlFlags & 0x07) + 1);
 return 0;
@@ -418,14 +423,22 @@ return m_gifLocalColorTable;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+#if _MSC_VER >= 1300 /*Microsoft Visual Studio C++.Net v7.0*/
+  #pragma warning(default: 4127)
+#endif
+
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         8/19/02 10:43:26 AM  Darko Kolakovic Added
+ *  6    Biblioteka1.5         2003-11-03 12:10:09  Darko           MSVC 7.0
+ *       pragmas
+ *  5    Biblioteka1.4         2003-09-30 10:10:00  Darko           Replaced DWORD,
+ *       WORD with uint32, uint16
+ *  4    Biblioteka1.3         2002-08-19 09:43:26  Darko Kolakovic Added
  *       GetImageWidth()
- *  3    Biblioteka1.2         8/1/02 1:23:56 AM    Darko           CGifImageData
- *  2    Biblioteka1.1         7/31/02 4:44:04 AM   Darko           Read block
+ *  3    Biblioteka1.2         2002-08-01 00:23:56  Darko           CGifImageData
+ *  2    Biblioteka1.1         2002-07-31 03:44:04  Darko           Read block
  *       sizes from a stream
- *  1    Biblioteka1.0         7/30/02 5:11:24 PM   Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-07-30 16:11:24  Darko Kolakovic 
  * $
  * 2001 Initial version in Babylon Lib
  * 1990 v.89a enhanced GIF CompuServe Incorporated

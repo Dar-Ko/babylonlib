@@ -1,6 +1,6 @@
 /*$Workfile: KStrBtoA.c$: implementation file
-  $Revision: 6$ $Date: 19/08/2002 9:42:05 AM$
-  $Author: Darko Kolakovic$
+  $Revision: 7$ $Date: 8/14/2003 5:01:38 AM$
+  $Author: Darko$
 
   Converts a range of bits to a binary string
   Apr. 95 Darko Kolakovic
@@ -16,7 +16,7 @@
 #endif
 
 #ifndef DWORD
-  typedef  unsigned long DWORD;
+  #include "KTypedef.h"
 #endif
 
 /*BintoA()---------------------------------------------------------------------*/
@@ -37,6 +37,8 @@
       printf ( "Convert a word 0x0A0A into binary string: %s\n",
                 BintoA(buffer, (DWORD)wTest, STRING_SIZE, 0, 'H', 'L' ));
       }
+
+  See also: KStrings.h
 */
 TCHAR* BintoA(TCHAR* szResult,/*string result         */
              DWORD dwValue,   /*number to be converted*/
@@ -68,12 +70,13 @@ return lpszRes;          /*Result          */
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         19/08/2002 9:42:05 AMDarko Kolakovic 
- *  5    Biblioteka1.4         12/02/2002 4:39:03 PMDarko           Replaced
+ *  7    Biblioteka1.6         8/14/2003 5:01:38 AM Darko           KTypedef.h
+ *  6    Biblioteka1.5         8/19/2002 10:42:05 AMDarko Kolakovic 
+ *  5    Biblioteka1.4         2/12/2002 5:39:03 PM Darko           Replaced
  *       tchar.h with KTChar.h
- *  4    Biblioteka1.3         19/08/2001 10:55:00 PMDarko           Butyfier
- *  3    Biblioteka1.2         11/07/2001 9:52:36 PMDarko           
- *  2    Biblioteka1.1         08/06/2001 10:51:45 PMDarko           VSS
- *  1    Biblioteka1.0         13/08/2000 2:59:17 PMDarko           
+ *  4    Biblioteka1.3         8/19/2001 11:55:00 PMDarko           Butyfier
+ *  3    Biblioteka1.2         7/11/2001 10:52:36 PMDarko           
+ *  2    Biblioteka1.1         6/8/2001 11:51:45 PM Darko           VSS
+ *  1    Biblioteka1.0         8/13/2000 3:59:17 PM Darko           
  * $
  *****************************************************************************/

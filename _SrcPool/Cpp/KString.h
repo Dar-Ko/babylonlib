@@ -1,5 +1,5 @@
 /*$Workfile: KString.h$: header file
-  $Revision: 8$ $Date: 20/01/2003 3:10:14 AM$ 
+  $Revision: 11$ $Date: 2004-06-01 16:52:17$ 
   $Author: Darko$
 
   Interface for the CString class
@@ -7,14 +7,21 @@
  */
 /* Group=Strings                                                             */
 
-#ifndef _KSTRING_H__
+#ifndef _KSTRING_H_
     //$Workfile: KString.h$ sentry
-  #define _KSTRING_H__
+  #define _KSTRING_H_
 
 #ifdef  _MSC_VER    //Microsoft Visual C/C++
   #if _MSC_VER > 1000
     #pragma once
   #endif // _MSC_VER > 1000
+#endif
+
+#ifdef _STLP_STRING
+  #if !definded _STLP_USE_NATIVE_STRING
+    //included STLport std::string
+    #define _STRING_ 14
+  #endif
 #endif
 
 #ifdef __STRING__
@@ -32,6 +39,11 @@
 
 #include "KTrace.h" //ASSERT
 #include "KTChar.h" //TCHAR
+
+#ifdef __BORLANDC__
+  #pragma option push -w-inl
+//  #pragma warn -inl   // Turn off inline function warnings
+#endif
 
 /*
 #define TCHAR char
@@ -87,7 +99,7 @@ public:
   CString(const unsigned char* pszSource);
   CString(LPCWSTR szString);
   CString(LPCSTR  szString);
-	virtual ~CString();
+  virtual ~CString();
 
 //Attributes
 protected:
@@ -187,17 +199,17 @@ public:
   LPTSTR LockBuffer();
   void UnlockBuffer();
 
-	bool LoadString(UINT nID);
+  bool LoadString(UINT nID);
   #ifndef _UNICODE
-	//ANSI and OEM conversion in place
+  //ANSI and OEM conversion in place
 
-	  void AnsiToOem();
-	  void OemToAnsi();
+    void AnsiToOem();
+    void OemToAnsi();
   #endif
 
   //Operators
 
-  friend CString operator+(const CString& string1,	const CString& string2);
+  friend CString operator+(const CString& string1,  const CString& string2);
   friend CString operator+(const CString& string, TCHAR ch);
   friend CString operator+(TCHAR ch, const CString& string); 
   #ifdef _UNICODE
@@ -219,24 +231,24 @@ private:
   void SetLength( long new_length );
 
   //II
-	//LPTSTR m_pchData;   // pointer to ref counted string data
+  //LPTSTR m_pchData;   // pointer to ref counted string data
 
-	// implementation helpers
+  // implementation helpers
   /*
-	int GetAllocLength() const;
-	CStringData* GetData() const;
-	void Init();
-	void AllocCopy(CString& dest, int nCopyLen, int nCopyIndex, int nExtraLen) const;
-	void AllocBuffer(int nLen);
-	void AssignCopy(int nSrcLen, LPCTSTR lpszSrcData);
-	void ConcatCopy(int nSrc1Len, LPCTSTR lpszSrc1Data, int nSrc2Len, LPCTSTR lpszSrc2Data);
-	void ConcatInPlace(int nSrcLen, LPCTSTR lpszSrcData);
-	void CopyBeforeWrite();
-	void AllocBeforeWrite(int nLen);
-	void Release();
-	static void PASCAL Release(CStringData* pData);
-	static int PASCAL SafeStrlen(LPCTSTR lpsz);
-	static void FASTCALL FreeData(CStringData* pData);
+  int GetAllocLength() const;
+  CStringData* GetData() const;
+  void Init();
+  void AllocCopy(CString& dest, int nCopyLen, int nCopyIndex, int nExtraLen) const;
+  void AllocBuffer(int nLen);
+  void AssignCopy(int nSrcLen, LPCTSTR lpszSrcData);
+  void ConcatCopy(int nSrc1Len, LPCTSTR lpszSrc1Data, int nSrc2Len, LPCTSTR lpszSrc2Data);
+  void ConcatInPlace(int nSrcLen, LPCTSTR lpszSrcData);
+  void CopyBeforeWrite();
+  void AllocBeforeWrite(int nLen);
+  void Release();
+  static void PASCAL Release(CStringData* pData);
+  static int PASCAL SafeStrlen(LPCTSTR lpsz);
+  static void FASTCALL FreeData(CStringData* pData);
 */
 };
 
@@ -364,20 +376,29 @@ return s2.Compare(s1) != 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-#endif // _KSTRING_H__
+#ifdef __BORLANDC__
+  #pragma option pop  // Turn back on inline function warnings
+  //#pragma warn +inl   // Turn back on inline function warnings
+#endif
+
+#endif // _KSTRING_H_
 /******************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         20/01/2003 3:10:14 AMDarko           Added ASSERT
+ *  11   Biblioteka1.10        2004-06-01 16:52:17  Darko           STLport
+ *       included
+ *  10   Biblioteka1.9         2003-11-03 13:13:22  Darko           Borland pragmas
+ *  9    Biblioteka1.8         2003-09-05 12:54:11  Darko           formatting
+ *  8    Biblioteka1.7         2003-01-20 04:10:14  Darko           Added ASSERT
  *       and TCHAR header files
- *  7    Biblioteka1.6         29/01/2002 10:22:18 PMDarko           Used lbraries
+ *  7    Biblioteka1.6         2002-01-29 23:22:18  Darko           Used lbraries
  *       notes 
- *  6    Biblioteka1.5         24/01/2002 6:19:32 PMDarko           Updated
+ *  6    Biblioteka1.5         2002-01-24 19:19:32  Darko           Updated
  *       comments
- *  5    Biblioteka1.4         23/01/2002 6:23:25 PMDarko           
- *  4    Biblioteka1.3         06/01/2002 12:47:37 AMDarko           
- *  3    Biblioteka1.2         30/12/2001 7:20:25 PMDarko           
- *  2    Biblioteka1.1         06/11/2001 2:52:08 PMDarko           pointer to data
+ *  5    Biblioteka1.4         2002-01-23 19:23:25  Darko           
+ *  4    Biblioteka1.3         2002-01-06 01:47:37  Darko           
+ *  3    Biblioteka1.2         2001-12-30 20:20:25  Darko           
+ *  2    Biblioteka1.1         2001-11-06 15:52:08  Darko           pointer to data
  *       holder
- *  1    Biblioteka1.0         05/11/2001 2:13:04 PMDarko           
+ *  1    Biblioteka1.0         2001-11-05 15:13:04  Darko           
  * $
  *****************************************************************************/

@@ -12,60 +12,44 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CTimerDlg dialog
-//##ModelId=3ECE708901B0
 class CTimerDlg : public CDialog
 {
 // Construction
 public:
-	//##ModelId=3ECE708901CD
-	CTimerDlg(CWnd* pParent = NULL);	// standard constructor
+  CTimerDlg(CWnd* pParent = NULL);  // standard constructor
 
 // Dialog Data
-	//{{AFX_DATA(CTimerDlg)
-	enum { IDD = IDD_TIMER_DIALOG };
-		// NOTE: the ClassWizard will add data members here
-	//}}AFX_DATA
+  //{{AFX_DATA(CTimerDlg)
+  enum { IDD = IDD_TIMER_DIALOG };
+    // NOTE: the ClassWizard will add data members here
+  //}}AFX_DATA
 
-	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(CTimerDlg)
-	protected:
-	//##ModelId=3ECE708901D7
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
-	//}}AFX_VIRTUAL
+  // ClassWizard generated virtual function overrides
+  //{{AFX_VIRTUAL(CTimerDlg)
+  protected:
+  virtual void DoDataExchange(CDataExchange* pDX);  // DDX/DDV support
+  //}}AFX_VIRTUAL
 
 // Implementation
 protected:
-	//##ModelId=3ECE708901EB
-	HICON m_hIcon;
-	//##ModelId=3ECE70890200
+  HICON m_hIcon;
     CTimerW m_ctwTimer1; //first timer with private message loop
-	//##ModelId=3ECE7089021E
     CTimerW m_ctwTimer2; //second timer
-	//##ModelId=3ECE70890231
     void CreateCallbackTimer();
 
-	// Generated message map functions
-	//{{AFX_MSG(CTimerDlg)
-	//##ModelId=3ECE7089023B
-	virtual BOOL OnInitDialog();
-	//##ModelId=3ECE70890250
-	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
-	//##ModelId=3ECE70890265
-	afx_msg void OnPaint();
-	//##ModelId=3ECE70890278
-	afx_msg HCURSOR OnQueryDragIcon();
-	//##ModelId=3ECE70890282
-	virtual void OnOK();
-	//##ModelId=3ECE7089028D
-	virtual void OnCancel();
-	//##ModelId=3ECE708902A0
-	afx_msg void OnTimer1();
-	//##ModelId=3ECE708902AA
-	afx_msg void OnTimer2();
-	//##ModelId=3ECE708902B5
-	afx_msg void OnTimer(UINT nIDEvent);
-	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
+  // Generated message map functions
+  //{{AFX_MSG(CTimerDlg)
+  virtual BOOL OnInitDialog();
+  afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
+  afx_msg void OnPaint();
+  afx_msg HCURSOR OnQueryDragIcon();
+  virtual void OnOK();
+  virtual void OnCancel();
+  afx_msg void OnTimer1();
+  afx_msg void OnTimer2();
+  afx_msg void OnTimer(UINT nIDEvent);
+  //}}AFX_MSG
+  DECLARE_MESSAGE_MAP()
 };
 
 //{{AFX_INSERT_LOCATION}}

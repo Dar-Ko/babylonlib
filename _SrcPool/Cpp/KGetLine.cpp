@@ -1,5 +1,5 @@
 /*$Workfile: KGetLine.cpp$: implementation file
-  $Revision: 3$ $Date: 17/02/2002 2:17:08 AM$
+  $Revision: 5$ $Date: 2004-06-01 17:50:33$
   $Author: Darko$
 
   Read a line of text from a stream
@@ -8,9 +8,11 @@
 */
 
 /* Group=Strings                                                             */
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#include "StdAfx.h"
+//#include "stdafx.h"
+#include <afxwin.h>
+
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -31,6 +33,8 @@
   TODO: CR-LF pair>).
   Returns: number of characters in the scanned line less
   end of line characters.
+
+  TODO: replace MFC D.K.
  */
 int GetLine(FILE* fpSource,   //[in] file stream to parse
             CString& strLine  //[out] resulting line of text
@@ -51,8 +55,11 @@ return iRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         17/02/2002 2:17:08 AMDarko           Comment updated
- *  2    Biblioteka1.1         29/01/2002 2:40:04 PMDarko           Tag update
- *  1    Biblioteka1.0         22/12/2001 11:19:02 PMDarko           
+ *  5    Biblioteka1.4         2004-06-01 17:50:33  Darko           time sync
+ *  4    Biblioteka1.3         2003-09-05 13:15:54  Darko           excluded
+ *       StdAfx.h
+ *  3    Biblioteka1.2         2002-02-17 03:17:08  Darko           Comment updated
+ *  2    Biblioteka1.1         2002-01-29 15:40:04  Darko           Tag update
+ *  1    Biblioteka1.0         2001-12-23 00:19:02  Darko           
  * $
  *****************************************************************************/

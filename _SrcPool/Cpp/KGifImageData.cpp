@@ -1,6 +1,6 @@
 /*$Workfile: KGifImageData.cpp$: implementation file
-  $Revision: 4$ $Date: 8/2/02 10:26:50 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 5$ $Date: 2003-09-30 11:09:56$
+  $Author: Darko$
   
   Container for GIF(c) image raster data.
   GIF and 'Graphics Interchange Format' are trademarks of CompuServe, 
@@ -41,7 +41,7 @@ CGifImageData::~CGifImageData()
 
   Returns: true if successful, or false if failed.
  */
-bool CGifImageData::CopyAll(BYTE* pImageData //[in] image
+bool CGifImageData::CopyAll(uint8* pImageData //[in] image
           //data
           )
 {
@@ -61,7 +61,7 @@ return (m_gifImage.CopyAll(&pImageData[sizeof(m_cLzwSize)]));
 
   Returns: true if successful, or false if failed.
  */
-bool CGifImageData::Copy(BYTE* pImageData //[in] image
+bool CGifImageData::Copy(uint8* pImageData //[in] image
           //data
           )
 {
@@ -79,11 +79,13 @@ return true;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         8/2/02 10:26:50 PM   Darko Kolakovic 
- *  3    Biblioteka1.2         8/2/02 12:36:05 AM   Darko           CopyAll()
+ *  5    Biblioteka1.4         2003-09-30 11:09:56  Darko           Replaced DWORD,
+ *       WORD with uint32, uint16
+ *  4    Biblioteka1.3         2002-08-02 22:26:50  Darko Kolakovic 
+ *  3    Biblioteka1.2         2002-08-02 00:36:05  Darko           CopyAll()
  *       sub-blocks
- *  2    Biblioteka1.1         8/1/02 2:58:37 PM    Darko Kolakovic 
- *  1    Biblioteka1.0         8/1/02 1:23:00 AM    Darko           
+ *  2    Biblioteka1.1         2002-08-01 14:58:37  Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-08-01 01:23:00  Darko           
  * $
  * 2001 Initial version in Babylon Lib
  * 1990 v.89a enhanced GIF CompuServe Incorporated

@@ -1,5 +1,5 @@
 /*$Workfile: KStrRplEscSeq.cpp$: implementation file
-  $Revision: 6$ $Date: 04/02/2002 6:57:28 PM$
+  $Revision: 7$ $Date: 2003-09-22 22:26:50$
   $Author: Darko$
 
   Replace "C" escape sequences with characters
@@ -28,7 +28,7 @@
   a backslash (\) followed by a letter or by a combination of digits are
   called “escape sequences”.
 
-        Table of Escape Sequences
+      Table of Escape Sequences
       Escape   Hex    Sequence Represents
         \a     007       Bell (alert)
         \b     008       Backspace
@@ -49,6 +49,8 @@
   Note: If a backslash precedes a character that does not appear in Escape
   Sequences Table, the undefined character will be represented as the character
   itself (without backslash).
+
+  See also: CharToEsc()
  */
 LPTSTR ReplaceEscapeSeq(LPTSTR szFormat //[in] zero-terminated format string
                         //consisting of characters and escape sequences
@@ -165,15 +167,16 @@ return szFormat;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         04/02/2002 6:57:28 PMDarko           include
+ *  7    Biblioteka1.6         2003-09-22 22:26:50  Darko           formatting
+ *  6    Biblioteka1.5         2002-02-04 19:57:28  Darko           include
  *       KTChar.h
- *  5    Biblioteka1.4         29/01/2002 10:22:01 PMDarko           Used lbraries
+ *  5    Biblioteka1.4         2002-01-29 23:22:01  Darko           Used lbraries
  *       notes 
- *  4    Biblioteka1.3         30/12/2001 7:19:55 PMDarko           Find first
+ *  4    Biblioteka1.3         2001-12-30 20:19:55  Darko           Find first
  *       escape delimiter; fix missing termminating zero
- *  3    Biblioteka1.2         23/12/2001 5:08:14 PMDarko           declaration
+ *  3    Biblioteka1.2         2001-12-23 18:08:14  Darko           declaration
  *       header file
- *  2    Biblioteka1.1         22/12/2001 11:25:24 PMDarko           changed header
- *  1    Biblioteka1.0         22/12/2001 11:12:50 PMDarko           
+ *  2    Biblioteka1.1         2001-12-23 00:25:24  Darko           changed header
+ *  1    Biblioteka1.0         2001-12-23 00:12:50  Darko           
  * $
  *****************************************************************************/

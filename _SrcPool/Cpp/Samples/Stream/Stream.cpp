@@ -3,7 +3,7 @@
 
 // Group=Examples
 
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "Stream.h"
 
 #ifdef _DEBUG
@@ -30,20 +30,20 @@ int nRetCode = EXIT_SUCCESS;
   //Initialize MFC and print and error on failure
 if (!AfxWinInit(::GetModuleHandle(NULL), NULL, ::GetCommandLine(), 0))
   {
-	cerr << _T("Fatal Error: MFC initialization failed") << endl;
-	nRetCode = EXIT_FAILURE;
+  cerr << _T("Fatal Error: MFC initialization failed") << endl;
+  nRetCode = EXIT_FAILURE;
   }
 else
   {
-	// TODO: code your application's behavior here.
-	CString strHello;
-	strHello.LoadString(IDS_HELLO);
-	cout << (LPCTSTR)strHello << endl;
+  // TODO: code your application's behavior here.
+  CString strHello;
+  strHello.LoadString(IDS_HELLO);
+  cout << (LPCTSTR)strHello << endl;
 
   if (!TestFileHandling())
     {
     cout << _T("  Failed!") << endl;
-   	nRetCode = EXIT_FAILURE;
+     nRetCode = EXIT_FAILURE;
     }
   }
 

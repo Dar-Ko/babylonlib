@@ -1,5 +1,5 @@
 /*$Workfile: KStrExC.cpp$: implementation file
-  $Revision: 4$ $Date: 29/01/2002 10:21:55 PM$
+  $Revision: 7$ $Date: 2004-06-01 17:53:06$
   $Author: Darko$
 
   Extract number of characters from CString
@@ -7,7 +7,8 @@
 */
 /* Group=Strings                                                             */
 
-#include "StdAfx.h"
+//#include "stdafx.h"
+#include <afxwin.h>
 #include "KStrExt.h"  //Declarations
 
 #ifdef _DEBUG
@@ -24,7 +25,9 @@
   postion of extraction is validated against legth of source string.
   Returns: an extracted string and source string less exctracted part.
 
-  Note: uses Microsoft Fundation Library (MFC). 
+  Note: uses Microsoft Fundation Library (MFC).
+
+  TODO: replace MFC D.K.
  */
 CString Extract(CString& strSrc, //[in/out] source string
                 const int iStart,//[in] starting postion to extract from
@@ -45,7 +48,17 @@ return strRes;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log:
- *  0    Biblioteka0           Darko Kolakovic  May '97
+ * $Log: 
+ *  7    Biblioteka1.6         2004-06-01 17:53:06  Darko           time sync
+ *  6    Biblioteka1.5         2003-09-04 09:19:52  Darko           commented out
+ *       StdAfx.h
+ *  5    Biblioteka1.4         2003-09-04 09:10:48  Darko           comment
+ *  4    Biblioteka1.3         2002-01-29 23:21:55  Darko           Used library
+ *       notes 
+ *  3    Biblioteka1.2         2002-01-25 16:58:04  Darko           Updated
+ *       comments
+ *  2    Biblioteka1.1         2001-12-23 01:12:23  Darko           Comments
+ *  1    Biblioteka1.0         2001-08-18 16:04:07  Darko           
  * $
+ *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/

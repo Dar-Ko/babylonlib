@@ -1,5 +1,5 @@
 /*$Workfile: KStrPCpy.c$: implementation file
-  $Revision: 6$ $Date: 12/02/2002 4:39:25 PM$
+  $Revision: 8$ $Date: 2004-06-01 17:53:27$
   $Author: Darko$
 
   Copies source string to the target
@@ -22,7 +22,7 @@
   is undefined if the source and destination strings overlap.
   This function replicates behavior of GNU C Library function stpcpy().
 
-  Returns a pointer to the end (terminating null) of the converted string.
+  Returns: a pointer to the end (terminating null) of the converted string.
 
   Example:
     #include <StdLib.h>
@@ -37,8 +37,8 @@
       }
 
  */
-TCHAR* StrPCpy(TCHAR* szDestination  /*result                                   */,
-               const TCHAR* szSource /*pointer to a null-terminated string      */
+TCHAR* StrPCpy(TCHAR* szDestination,  /*[out] resulting copy*/
+               const TCHAR* szSource /*[in] zero-terminated string to be copyied*/
                )
 {
 while ((*szDestination++ = *szSource++) != '\0')
@@ -48,7 +48,16 @@ return (szDestination - 1);
 
 /* ////////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
- * $Log:
- *  0    Biblioteka1.0           Mar 1989 Darko Kolakovic
+ * $Log: 
+ *  8    Biblioteka1.7         2004-06-01 17:53:27  Darko           time sync
+ *  7    Biblioteka1.6         2003-09-22 22:26:47  Darko           formatting
+ *  6    Biblioteka1.5         2002-02-12 17:39:25  Darko           Replaced
+ *       tchar.h with KTChar.h
+ *  5    Biblioteka1.4         2001-08-19 23:55:28  Darko           Butyfier
+ *  4    Biblioteka1.3         2001-07-11 22:52:56  Darko           
+ *  3    Biblioteka1.2         2001-06-08 23:51:59  Darko           VSS
+ *  2    Biblioteka1.1         2000-09-21 01:16:15  Darko           
+ *  1    Biblioteka1.0         2000-08-13 16:00:18  Darko           
  * $
+ *  0    Biblioteka1.0           Mar 1989 Darko Kolakovic
  *****************************************************************************/

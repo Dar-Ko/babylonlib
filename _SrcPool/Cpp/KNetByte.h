@@ -1,6 +1,6 @@
 /*$Workfile: KNetByte.h$: header file
-  $Revision: 4$ $Date: 09/04/2002 12:24:01 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 5$ $Date: 2004-07-07 17:46:33$
+  $Author: Darko$
 
   Network type definitions
   Copyright: CommonSoft Inc
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KNETBYTE_H_
-    /*KNetByte.h sentry                                                      */
+    /*$Workfile: KNetByte.h$ sentry                                                  */
   #define _KNETBYTE_H_
 
 #if _MSC_VER > 1000
@@ -325,11 +325,12 @@ return (BYTE*)(&m_netValue);
 #endif /* _KNETBYTE_H_                                                       */
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         09/04/2002 12:24:01 PMDarko Kolakovic 
- *  3    Biblioteka1.2         07/03/2002 4:08:30 PMDarko           Added pointer
+ *  5    Biblioteka1.4         2004-07-07 17:46:33  Darko           sentry
+ *  4    Biblioteka1.3         2002-04-09 13:24:01  Darko Kolakovic 
+ *  3    Biblioteka1.2         2002-03-07 17:08:30  Darko           Added pointer
  *       aligment macro
- *  2    Biblioteka1.1         05/03/2002 1:23:28 AMDarko           added operator
+ *  2    Biblioteka1.1         2002-03-05 02:23:28  Darko           added operator
  *       BYTE*()
- *  1    Biblioteka1.0         04/03/2002 6:11:39 PMDarko           
+ *  1    Biblioteka1.0         2002-03-04 19:11:39  Darko           
  * $
  *****************************************************************************/

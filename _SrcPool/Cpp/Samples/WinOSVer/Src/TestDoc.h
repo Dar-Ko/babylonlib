@@ -5,8 +5,8 @@
 class CTestDoc : public CDocument
 {
 protected: // create from serialization only
-	CTestDoc();
-	DECLARE_DYNCREATE(CTestDoc)
+  CTestDoc();
+  DECLARE_DYNCREATE(CTestDoc)
 
 // Attributes
 public:
@@ -17,28 +17,28 @@ public:
   BOOL AppendText(LPCTSTR lpszText);
 
 // Overrides
-	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(CTestDoc)
-	public:
-	virtual BOOL OnNewDocument();
-	virtual void Serialize(CArchive& ar);
-	//}}AFX_VIRTUAL
+  // ClassWizard generated virtual function overrides
+  //{{AFX_VIRTUAL(CTestDoc)
+  public:
+  virtual BOOL OnNewDocument();
+  virtual void Serialize(CArchive& ar);
+  //}}AFX_VIRTUAL
 
 // Implementation
 public:
-	virtual ~CTestDoc();
+  virtual ~CTestDoc();
 #ifdef _DEBUG
-	virtual void AssertValid() const;
-	virtual void Dump(CDumpContext& dc) const;
+  virtual void AssertValid() const;
+  virtual void Dump(CDumpContext& dc) const;
 #endif
 
 protected:
 
 // Generated message map functions
 protected:
-	//{{AFX_MSG(CTestDoc)
-	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
+  //{{AFX_MSG(CTestDoc)
+  //}}AFX_MSG
+  DECLARE_MESSAGE_MAP()
 };
 
 /////////////////////////////////////////////////////////////////////////////

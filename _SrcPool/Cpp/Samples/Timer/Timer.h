@@ -9,38 +9,35 @@
 #endif // _MSC_VER > 1000
 
 #ifndef __AFXWIN_H__
-	#error include 'stdafx.h' before including this file for PCH
+  #error include 'stdafx.h' before including this file for PCH
 #endif
 
-#include "resource.h"		// main symbols
+#include "resource.h"    // main symbols
 
 /////////////////////////////////////////////////////////////////////////////
 // CTimerApp:
 // See Timer.cpp for the implementation of this class
 //
 
-//##ModelId=3ECE708902E6
 class CTimerApp : public CWinApp
 {
 public:
-	//##ModelId=3ECE70890304
-	CTimerApp();
+  CTimerApp();
 
 // Overrides
-	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(CTimerApp)
-	public:
-	//##ModelId=3ECE70890305
-	virtual BOOL InitInstance();
-	//}}AFX_VIRTUAL
+  // ClassWizard generated virtual function overrides
+  //{{AFX_VIRTUAL(CTimerApp)
+  public:
+  virtual BOOL InitInstance();
+  //}}AFX_VIRTUAL
 
 // Implementation
 
-	//{{AFX_MSG(CTimerApp)
-		// NOTE - the ClassWizard will add and remove member functions here.
-		//    DO NOT EDIT what you see in these blocks of generated code !
-	//}}AFX_MSG
-	DECLARE_MESSAGE_MAP()
+  //{{AFX_MSG(CTimerApp)
+    // NOTE - the ClassWizard will add and remove member functions here.
+    //    DO NOT EDIT what you see in these blocks of generated code !
+  //}}AFX_MSG
+  DECLARE_MESSAGE_MAP()
 };
 
 

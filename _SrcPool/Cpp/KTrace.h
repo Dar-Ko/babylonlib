@@ -1,6 +1,6 @@
-/*$Workfile: KTrace.h$: implementation file
-  $Revision: 11$ $Date: 30/01/2003 9:43:05 PM$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KTrace.h$: implementation file
+  $Revision: 35$ $Date: 2004-11-24 13:10:52$
+  $Author: Darko Kolakovic$
 
   Debugging helpers
  */
@@ -8,41 +8,107 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef _KTRACE_H_
-    /*KTrace.h sentry                                                        */
+    /*$Workfile: S:\_SrcPool\Cpp\KTrace.h$ sentry*/
   #define _KTRACE_H_
 
+#ifndef WIDECHAR
+  #define _WIDECHAR_(x) L ## x
+  /*Specify a wide-character string literal (wchar_t[])
+
+    See also: KTypedef.h
+   */
+  #define WIDECHAR(x) _WIDECHAR_(x)
+#endif /*WIDECHAR*/
+
+#if (defined _UNICODE) || (defined UNICODE) || (defined _MBCS)
+  #ifndef __TFILE__
+    /*Wide string version of __FILE__ */
+    #define __TFILE__ WIDECHAR(__FILE__)
+  #endif /*__TFILE__*/
+
+  #ifndef _TSFORMAT_
+    /*Format string for tracing text*/
+    #define _TSFORMAT_ "%ws"
+  #endif /*_TSFORMAT_*/
+
+#else /*!_UNICODE == Singlebyte-character (SBCS or ASCII) text mapping*/
+  #ifndef __TFILE__
+    #define __TFILE__ __FILE__
+  #endif /*__TFILE__*/
+
+  #ifndef _TSFORMAT_
+    /*Format string for tracing text*/
+    #define _TSFORMAT_ "%s"
+  #endif /*_TSFORMAT_*/
+
+#endif /*_UNICODE*/
+
+
+
+#ifndef KMESSAGE
+  /*KMESSAGE preprocessor directive*/
+  #include "KTraceFx.h"
+#endif /*KMESSAGE*/
+
 /* ///////////////////////////////////////////////////////////////////////// */
-/* DEBUG Macros */
+/* Debuging validation and text dump macros                                  */
+
+/* ========================================================================= */
+/* Debug build version                                                       */
 #ifdef _DEBUG
 
   /*Compile-time assertion produces compiler error if expression is false.
    */
   #define ASSERT_CL(expr) typedef char __AssertCompiler__[(expr) ? 1 : -1]
 
-  /* ======================================================================= */
+  /* ----------------------------------------------------------------------- */
+  /* GNU C/C++ compiler                                                      */
   #ifdef __GNUC__
-    #ifdef __INCvxWorksh /*VxWorks.h*/
+
+    /* ...................................................................... */
+    /* Platform: WindRiver VxWorks                                            */
+    /*Include required header files before KTrace.h */
+    #ifdef __INCvxWorksh /*vxworks.h*/
+      #ifndef _VXWORKS
+        #define _VXWORKS  71
+      #endif
       #ifndef __INCstdioh
         #warning "__INCvxWorksh"
-        #include <StdIO.h>
+        #include <stdio.h>
       #endif
-      #include <Assert.h>
+      #include <assert.h>
+
+    /* ...................................................................... */
+    /* Platform: Other than WindRiver's VxWorks                               */
     #else /*!__INCvxWorksh*/
-    #ifdef _GNU_H_WINDOWS32_DEFINES  /*Included \host\x86-win32\i386-pc-mingw32\sys-include\Windows32\Defines.h*/
+
+      /* .................................................................... */
+      /* Platform: WindRiver VxWorks (emulator) on Microsoft Windows 32b host */
+      /*Included \host\x86-win32\i386-pc-mingw32\sys-include\windows32\defines.h*/
+      #ifdef _GNU_H_WINDOWS32_DEFINES
         #warning "_GNU_H_WINDOWS32_DEFINES"
-        #define __INCntcontexth /*Exclude \target\h\arch\simnt\NTContext.h */
-        #define __INCstddefh    /*Exclude \target\h\StdDef.h               */
-        #include <sys-include/StdDef.h> /*wint_t typedef*/
-        #include <sys-include/StdIO.h>
-        #include <sys-include/Assert.h>
+        #define __INCntcontexth /*Exclude \target\h\arch\simnt\ntcontext.h */
+        #define __INCstddefh    /*Exclude \target\h\stddef.h               */
+        #include <sys-include/stddef.h> /*wint_t typedef*/
+        #include <sys-include/stdio.h>
+        #include <sys-include/assert.h>
+
+      /* .......................................................  ........... */
+      /* Platform: Other than WindRiver's VxWorks emulator                    */
       #else /*!_GNU_H_WINDOWS32_DEFINES*/
-        #warning "default path/StdIO.h "
-        #include <StdIO.h>
-        #include <Assert.h>
+
+        #warning "default path/stdio.h "
+        #include <stdio.h>
+        #include <assert.h>
       #endif /*_GNU_H_WINDOWS32_DEFINES*/
+
+    /* ...................................................................... */
     #endif  /*__INCvxWorksh*/
+  /* ----------------------------------------------------------------------- */
   #endif   /*__GNUC__*/
 
+
+  /* ----------------------------------------------------------------------- */
   #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files*/
     #ifdef _MSC_VER
       #pragma message ("   #include " __FILE__ )
@@ -50,15 +116,18 @@
     #ifdef __GNUC__
       #warning "   #include KTrace.h"
     #endif
+  /* ----------------------------------------------------------------------- */
   #endif
 
+
   /* ----------------------------------------------------------------------- */
-  /* Dump Traces to a log file. Declare  DbgStdOut as global and initialize it
+  /* Dump Traces to a log file. Declare DbgStdOut as global and initialize it
      with file stream or standard output stream.
 
      Example:
        #ifdef _DEBUGTOLOG
          #pragma message (__FILE__ " _DEBUGTOLOG defined")
+         #include <stdio.h>  //FILE struct
          FILE* DbgStdOut = stderr;
          #define _DEBUGTOLOGFILE //global DbgStdOut is defined here
          #include "KTrace.h"  //TRACE0 macro
@@ -83,163 +152,410 @@
              }
          #endif
          }
-
-     TODO: Redirect default TRACE to stdout - delete printfs D.K.*/
+  */
   #ifdef _DEBUGTOLOG
+
     #ifndef _DEBUGTOLOGFILE
-      extern FILE* DbgStdOut;
+      extern FILE* DbgStdOut; /*Log file is used dump debugging messages*/
     #endif
+
+  /* ----------------------------------------------------------------------- */
+  /* Dump Traces to a standard I/O stream                                    */
+  #else /*!_DEBUGTOLOG */
+    /*Standard error I/O stream is used to dump debugging messages*/
+    #define DbgStdOut  stderr
+
+  /* ----------------------------------------------------------------------- */
+  #endif /*_DEBUGTOLOG */
+
+
+  /* ----------------------------------------------------------------------- */
+  /* Microsoft C/C++ compilers are using own debugging API.
+   */
+  #ifdef _MSC_VER /*Microsoft Visual C/C++*/
+    //D.K. 12.2.2k2 #ifdef __cplusplus
+    //TODO: separate C and C++ traces (replace fprintf with a class Trace)
+
+    #ifndef _DBG_WARN
+      #define _DBG_WARN   _CRT_WARN    /*Warning report type*/
+    #endif
+    #ifndef _DBG_ERROR
+      #define _DBG_ERROR  _CRT_ERROR   /*Erroneous Condition report type*/
+    #endif
+    #ifndef _DBG_ASSERT
+      #define _DBG_ASSERT _CRT_ASSERT  /*Assertation Failure report type*/
+    #endif
+
+    #ifdef _DEBUGTOLOG
+     //#include <io.h> //_get_osfhandle()
+     //_CrtSetReportMode(_CRT_WARN,   _CRTDBG_MODE_FILE);
+     //_CrtSetReportFile(_CRT_WARN,   (void*)_get_osfhandle(_fileno(DbgStdOut)));
+     //_CrtSetReportMode(_CRT_ERROR,  _CRTDBG_MODE_FILE);
+     //_CrtSetReportFile(_CRT_ERROR,  (void*)_get_osfhandle(_fileno(DbgStdOut)));
+     //_CrtSetReportMode(_CRT_ASSERT, _CRTDBG_MODE_FILE);
+     //_CrtSetReportFile(_CRT_ASSERT, (void*)_get_osfhandle(_fileno(DbgStdOut)));
+    #endif
+
+    /* ...................................................................... */
+    /* Windows SDK version                                                    */
+    #ifndef __AFX_H__ /*MFC not included and all TRACE macros are undefined*/
+      #define THIS_FILE          __FILE__
+
+     #ifdef _MFC_VER
+       #error Use MFC debugging macros
+     #endif
+
+      /*  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . */
+      #if _MSC_VER >= 1300 /*_MSC_VER >= 1300 MS Visual C++.Net v7.0; 7.1     */
+        /*Disable warning C4127: conditional expression in ASSERT is constant
+         in included header files; #pragma(warning(disable: 4127)) in source
+         is still required to suppress the warning*/
+        #define _VALIDATE_( expr ) \
+            __pragma(warning(push)) \
+            __pragma(warning(disable: 4127)) \
+            if( expr ) \
+              __pragma(warning(pop))
+
+      #else /*_MSC_VER < 1300*/
+        #define _VALIDATE_( expr ) if( expr )
+      /*  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  */
+      #endif /*_MSC_VER < 1300*/
+
+
+      /*  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  */
+      /*Only if Mac or Win32 targets are supported*/
+      #if (defined(_WIN32) || defined(_MAC)) && !defined(_WIN32_WCE)
+
+        #include <crtdbg.h> /*_CrtDbgReport()*/
+
+        /*Evaluates an expression when the _DEBUG flag has been defined and
+          if the result is false, prints a diagnostic message and aborts
+          the program.
+         */
+        #define ASSERT(expr) \
+            do{ _VALIDATE_ (!(expr) && \
+                (1 == _CrtDbgReport(_CRT_ASSERT, THIS_FILE, __LINE__, NULL, NULL))) \
+                 _CrtDbgBreak(); \
+              } while (0)
+
+        #define TRACE( szMsg) \
+            _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, _TSFORMAT_, szMsg)
+        #define TRACE0( szMsg) \
+            _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, _TSFORMAT_, szMsg)
+        #define TRACE1( szMsg, p1) \
+            _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, szMsg, p1)
+        #define TRACE2( szMsg, p1, p2) \
+            _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, szMsg, p1, p2)
+        #define TRACE3( szMsg, p1, p2, p3) \
+            _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, szMsg, p1, p2, p3)
+        #define TRACEINFO( szMsg) \
+            _CrtDbgReport(_CRT_WARN, THIS_FILE, __LINE__, NULL, _TSFORMAT_, szMsg)
+      /*  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  */
+      #endif  /*_WIN32 || _MAC */
+
+      /*WinCE*/
+      #ifdef _WIN32_WCE
+        #include <dbgapi.h> /*ASSERT macro definition*/
+
+        #define TRACE( szMsg) \
+            NKDbgPrintfW( _T("%s"), szMsg)
+        #define TRACE0( szMsg) \
+            NKDbgPrintfW( szMsg)
+        #define TRACE1( szMsg, p1) \
+            NKDbgPrintfW( szMsg, p1)
+        #define TRACE2( szMsg, p1, p2) \
+            NKDbgPrintfW( szMsg, p1, p2)
+        #define TRACE3( szMsg, p1, p2, p3) \
+            NKDbgPrintfW( szMsg, p1, p2, p3)
+        #define TRACEINFO NKDbgPrintfW("%s(%i): ",__TFILE__, __LINE__); \
+            NKDbgPrintfW
+      #endif /*_WIN32_WCE*/
+
+      #ifdef _DOS
+        #include <assert.h>
+        #define ASSERT(expr) ( (expr) ? (void) 0 : _assert(expr, __FILE__, __LINE__) )
+
+        #include <stdio.h> /*fprintf()*/
+
+        /*In the Debug environment, the TRACE macro output goes to Standard
+          Error Stream stderr. In the Release environment, it does nothing.
+         */
+        #define _TRACE_OUTPUT 1224
+
+      #endif /*_DOS*/
+
+
+    /*.......................................................................*/
+    /*Windows MFC version                                                    */
+    #else
+      #ifndef __cplusplus
+        #error Requires C++ compilation
+      #endif
+      #ifndef _MFC_VER
+        #error Requires MFC library
+      #endif
+
+      /*Dumps a formatted string and the line position of the tracing
+        macro. The macro is a convenient way to navigating the code quickly
+        while debugging.
+        Requires Debug build (_DEBUG have to be defined).
+        In the Release environment, it does nothing.
+
+        TODO: Unicode version
+       */
+      #define TRACEINFO ::AfxTrace(_T("%s(%i): "), __TFILE__, __LINE__); ::AfxTrace
+
+       /* TODO: MS MFC version for log file */
+       /*
+        ...
+        */
+
+    /* ....................................................................*/
+    #endif /*!__AFX_H__ */
+  //D.K. 12.2.2k2 #endif /*__cplusplus*/
+
+  /* --------------------------------------------------------------------- */
+  #endif /*_MSC_VER Microsoft C/C++ compiler*/
+
+  /* ----------------------------------------------------------------------- */
+  /*PalmOS
+   */
+  #ifndef __palm_os
+    /*Defined because expressions in the
+        #if constant-expression
+        #endif
+      directives must have integral type and can include only integer constants,
+      character constants and the defined operator.
+     */
+    #define __palm_os 0XFFFF
+  #endif
+  #if defined(__PALMOS__) || (__dest_os == __palm_os)
+    #include "Palm/KTracePalm.h"
+  #endif /*__PALMOS__ */
+
+  /* ----------------------------------------------------------------------- */
+  /* Dump debugging messages to an I/O stream                                */
+  #ifdef _TRACE_OUTPUT
+
+    #ifndef _TRACE_HANDLER
+      #define _TRACE_HANDLER fprintf
+    #endif
+
+    #ifndef ASSERT
+
+      #ifdef __GNUC__
+        #ifdef assert
+          /*The ANSI assert macro is typically used to identify logic errors
+            during program development, by implementing the expression
+            argument to evaluate to false only when the program is operating
+            incorrectly.
+           */
+          #define ASSERT assert
+        #else
+          /*Evaluates an expression when the _DEBUG flag has been defined and
+            if the result is FALSE, aborts the program.
+           */
+          #define ASSERT(expr) \
+               if (!(expr) )   \
+                 {            \
+                 fflush  (DbgStdOut);   \
+                 fprintf (DbgStdOut, "\n%s(%d): Assertion failed\n",  \
+                     __FILE__, __LINE__);   \
+                 fflush  (DbgStdOut);  \
+                 abort();  \
+                 }
+        #endif /* assert */
+      #endif /*__GNUC__*/
+    #endif  /* ASSERT */
+
     #undef TRACE
     #undef TRACE0
     #undef TRACE1
     #undef TRACE2
     #undef TRACE3
-    #define TRACE fprintf
-    #define TRACE0(format)              TRACE(DbgStdOut,format);fflush(DbgStdOut)
-    #define TRACE1(format, p1)          TRACE(DbgStdOut,format, p1);fflush(DbgStdOut)
-    #define TRACE2(format, p1, p2)      TRACE(DbgStdOut,format, p1, p2);fflush(DbgStdOut)
-    #define TRACE3(format, p1, p2, p3)  TRACE(DbgStdOut,format, p1, p2, p3);fflush(DbgStdOut)
 
-  /* ----------------------------------------------------------------------- */
-  /* Dump Traces to a standard I/O stream                                    */
-  #else /*!_DEBUGTOLOG */
+    /*ISO 1999 C99 compliant compiler*/
+    #if defined __STDC_VERSION__ && __STDC_VERSION__ >=199901L
+    /*Dumps formatted string to a output device such as a file or debug monitor.
+      Requires Debug build (_DEBUG have to be defined).
+      In the Release environment, it does nothing.
 
-    /* --------------------------------------------------------------------- */
-    #ifdef _MSC_VER /*Microsoft Visual Studio*/
-      //D.K. 12.2.2k2 #ifdef __cplusplus
-      //TODO: separate C and C++ traces (replace fprintf with a class Trace)
-        #ifndef __AFX_H__ /*MFC not included and all TRACE macros are undefined*/
-          #define THIS_FILE          __FILE__
+      TODO: Unicode version
+     */
+      #define TRACE(...)  \
+                _TRACE_HANDLER(DbgStdOut,__VA_ARGS__);fflush(DbgStdOut)
 
-            /*Only if Mac or Win32 targets are supported*/
-          #if defined(_WIN32) || defined(_MAC)
-            #include <CrtDbg.h> /*_CrtDbgReport()*/
+    #elif defined __GNUC__ /*GNU C/C++ compiler*/
+      /*Note: requires variable-argument preprocessor support*/
+      #define TRACE(param...)  \
+                _TRACE_HANDLER(DbgStdOut,param);fflush(DbgStdOut)
+    #else
+      #define TRACE(format)  \
+                _TRACE_HANDLER(DbgStdOut,format);fflush(DbgStdOut)
+    #endif /*__STDC_VERSION__*/
 
-            /*Evaluates an expression when the _DEBUG flag has been defined and
-              if the result is FALSE, prints a diagnostic message and aborts 
-              the program.
-             */
-            #define ASSERT(expr) \
-                do{ if (!(expr) && \
-                    (1 == _CrtDbgReport(_CRT_ASSERT, THIS_FILE, __LINE__, NULL, NULL))) \
-                     _CrtDbgBreak(); \
-                  } while (0)         
+    /*Dumps a message to a output device such as a file or debug monitor.
+      Requires Debug build (_DEBUG have to be defined).
+      In the Release environment, it does nothing.
 
-            #define TRACE0( szMsg) \
-                _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, "%s\n", szMsg)
+      Note: if used in statement block, enclose a macro with brackets
 
-          #endif  /*Mac or Win32*/
-          
-          #ifdef _DOS    
-            #include <assert.h>
-            #define ASSERT(expr) ( (expr) ? (void) 0 : _assert(expr, __FILE__, __LINE__) )
-          #endif /*_DOS*/
+      Example:
 
-          #include <stdio.h> /*fprintf()*/
-          /*In the Debug environment, the TRACE macro output goes to Standard 
-            Error Stream stderr. In the Release environment, it does nothing.
-            
-            Note: if used in statement block, enclose a macro with brackets
-            
-            Example: 
-            
-              if( p == NULL)
-                {
-                TRACE0("NULL pointer\n");
-                }
-              else
-                {
-                TRACE1("p = %p\n", p);
-                }
-            
-            TODO: MS SDK version 
-           */ 
-          #ifndef TRACE0
-            #define TRACE0(format)              fprintf(stderr,format);fflush(stderr)
-          #endif
-          #ifndef TRACE1
-            #define TRACE1(format, p1)          fprintf(stderr,format, p1);fflush(stderr)
-          #endif
-          #ifndef TRACE2
-            #define TRACE2(format, p1, p2)      fprintf(stderr,format, p1, p2);fflush(stderr)
-          #endif
-          #ifndef TRACE3
-             #define TRACE3(format, p1, p2, p3) fprintf(stderr,format, p1, p2, p3);fflush(stderr)
-          #endif
+        if( p == NULL)
+          {
+          TRACE0("NULL pointer\n");
+          }
+        else
+          {
+          TRACE1("p = %p\n", p);
+          }
 
-        #endif /*!__AFX_H__ */
-     //D.K. 12.2.2k2 #endif /*__cplusplus*/
+      TODO: Unicode version
+     */
+    #define TRACE0(format)  \
+            _TRACE_HANDLER(DbgStdOut,format);fflush(DbgStdOut)
+    /*Dumps a formatted string and one variable to a output device such as
+      a file or debug monitor. The macro is a convenient way to track the value
+      of variables as your program executes.
+      Requires Debug build (_DEBUG have to be defined).
+      In the Release environment, it does nothing.
 
-      //D.K. 12.2.2k2 #ifndef _MFC_VER
-        //D.K. 12.2.2k2 #include <StdIO.h> /*printf()*/
-      //D.K. 12.2.2k2 #endif
+      TODO: Unicode version
+     */
+    #define TRACE1(format, p1)  \
+            _TRACE_HANDLER(DbgStdOut,format, p1);fflush(DbgStdOut)
 
+    /*Dumps a formatted string and two variables to a output device such as
+      a file or debug monitor. The macro is a convenient way to track the value
+      of variables as your program executes.
+      Requires Debug build (_DEBUG have to be defined).
+      In the Release environment, it does nothing.
 
-    /* --------------------------------------------------------------------- */
-    #else /* !_MSC_VER Microsoft Visual Studio*/
+      TODO: Unicode version
+     */
+    #define TRACE2(format, p1, p2)  \
+        _TRACE_HANDLER(DbgStdOut,format, p1, p2);fflush(DbgStdOut)
 
-      #ifndef TRACE0
-        #define TRACE0(format) printf(format)
-      #endif
-      #ifndef TRACE1
-        #define TRACE1(format,param1)  printf(format,param1)
-      #endif
-      #ifndef TRACE2
-        #define TRACE2(format,param1,param2)  printf(format,param1,param2)
-      #endif
-      #ifndef TRACE3
-        #define TRACE3(format,p1, p2, p3)  printf(format,p1, p2, p3)
-      #endif
+    /*Dumps a formatted string and three variables to a output device such as
+      a file or debug monitor. The macro is a convenient way to track the value
+      of variables as your program executes.
+      Requires Debug build (_DEBUG have to be defined).
+      In the Release environment, it does nothing.
 
-      #ifndef ASSERT
-        #ifdef __GNUC__
-          #ifdef assert
-            /*The ANSI assert macro is typically used to identify logic errors
-              during program development, by implementing the expression
-              argument to evaluate to false only when the program is operating
-              incorrectly.
-             */
-            #define ASSERT assert
-          #else
-            /*Evaluates an expression when the _DEBUG flag has been defined and
-              if the result is FALSE, aborts the program.
-             */
-            #define ASSERT(expr) \
-                 if (!(expr) )   \
-                   {            \
-                   fflush  (stdout);   \
-                   fprintf (stderr, "\nAssertion failed: %s, line %u\n",  \
-                       __FILE__, __LINE__);   \
-                   fflush  (stderr);  \
-                   abort();  \
-                   }
-          #endif /* assert */
-        #endif
-      #endif  /* ASSERT */
-    #endif /*_MSC_VER*/
-  #endif /*_DEBUGTOLOG */
+      TODO: Unicode version
+     */
+    #define TRACE3(format, p1, p2, p3)  \
+        _TRACE_HANDLER(DbgStdOut,format, p1, p2, p3); fflush(DbgStdOut)
+
+    /*Dumps a formatted string and the line position of the tracing
+      macro. The macro is a convenient way to navigating the code quickly while
+      debugging.
+      Requires Debug build (_DEBUG have to be defined).
+      In the Release environment, it does nothing.
+
+      TODO: Unicode version
+     */
+    #define TRACEINFO TRACE2(_T("%s(%i): "),__TFILE__,__LINE__); _TRACE_HANDLER
+
+  #endif ./*_TRACE_OUTPUT*/
 
 /* ========================================================================= */
+/* Release (non-debug) build version                                         */
 #else /* NDEBUG */
+
+  #define ASSERT_CL ASSERT
+
+  /* ----------------------------------------------------------------------- */
+  /* Microsoft C/C++ Compiler                                                */
   #ifdef _MSC_VER
-    #ifndef TRACE0
-      #define TRACE0(format) (void(0))
-    #endif
-    #ifndef TRACE1
-      #define TRACE1(format,param1) (void(0,0))
-    #endif
-    #ifndef TRACE2
-      #define TRACE2(format,param1,param2) (void(0,0,0))
-    #endif
-    #ifndef TRACE3
-      #define TRACE3(format,p1, p2, p3) (void(0,0,0))
-    #endif
+    #if _MSC_VER > 1200
+      #ifndef TRACE
+        #define TRACE(format) __noop
+      #endif
+      #ifndef TRACE0
+        #define TRACE0(format) __noop
+      #endif
+      #ifndef TRACE1
+        #define TRACE1(format,param1) __noop
+      #endif
+      #ifndef TRACE2
+        #define TRACE2(format,param1,param2) __noop
+      #endif
+      #ifndef TRACE3
+        #define TRACE3(format,p1, p2, p3) __noop
+      #endif
+        #ifndef TRACEINFO
+          #define TRACEINFO(format) __noop
+        #endif
 
-    #ifndef ASSERT
-      #define ASSERT(exp) ((void)0)
-    #endif
+      #ifndef ASSERT
+        #define ASSERT(exp) __noop
+      #endif
 
+    #else /*_MSC_VER <= 1200 MS Visual Studio C/C++ v6.0 or less*/
+      #ifdef __cplusplus
+        #ifndef TRACE
+          #define TRACE(format) (void(0))
+        #endif
+        #ifndef TRACE0
+          #define TRACE0(format) (void(0))
+        #endif
+        #ifndef TRACE1
+          #define TRACE1(format,param1) (void(0))
+        #endif
+        #ifndef TRACE2
+          #define TRACE2(format,param1,param2) (void(0))
+        #endif
+        #ifndef TRACE3
+          #define TRACE3(format,p1, p2, p3) (void(0))
+        #endif
+        #ifndef TRACEINFO
+          #define TRACEINFO(format)
+        #endif
+        #ifndef ASSERT
+          #define ASSERT(exp) ((void)0)
+        #endif
+      #else /*__c*/
+        #ifndef TRACE
+          #define TRACE(format)
+        #endif
+        #ifndef TRACE0
+          #define TRACE0(format)
+        #endif
+        #ifndef TRACE1
+          #define TRACE1(format,param1)
+        #endif
+        #ifndef TRACE2
+          #define TRACE2(format,param1,param2)
+        #endif
+        #ifndef TRACE3
+          #define TRACE3(format,p1, p2, p3)
+        #endif
+        #ifndef TRACEINFO
+          #define TRACEINFO(format)
+        #endif
+        #ifndef ASSERT
+          #define ASSERT(exp)
+        #endif
+      #endif /*__cplusplus*/
+    #endif /*_MSC_VER <= 1200 */
+
+  /* ----------------------------------------------------------------------- */
+  /* Other than Microsoft's compilers                                        */
   #else /* !_MSC_VER*/
+    #if defined(__MWERKS__)/* Metrowerks CodeWarrior Compiler                */
+       #ifndef TRACEINFO
+        #define TRACEINFO(...) do{}while(0) //Won't generate any code
+      #endif
+      #ifndef TRACE
+        #define TRACE(...)     do{}while(0) //Won't generate any code
+      #endif
+    #endif
+
+    #ifndef TRACE
+      #define TRACE(format)
+    #endif
     #ifndef TRACE0
       #define TRACE0(format)
     #endif
@@ -252,18 +568,20 @@
     #ifndef TRACE3
       #define TRACE3(format,p1, p2, p3)
     #endif
+    #ifndef TRACEINFO
+      #define TRACEINFO(format)
+    #endif
     #ifndef ASSERT
       #define ASSERT(exp)
     #endif
 
+  /* ----------------------------------------------------------------------- */
   #endif /*_MSC_VER */
 
- #define ASSERT_CL ASSERT
-
+/* ========================================================================= */
 #endif  /*!_DEBUG */
 /* ////////////////////////////////////////////////////////////////////////// */
 #endif  /*_KTRACE_H_ */
-
 /******************************************************************************
  * $Log:
  *  3    Biblioteka1.2         20/07/2001 1:00:38 AMDarko           MSC ASSERT
@@ -274,7 +592,7 @@
  *  2    User: Dkolakovic   4/18/01 5:33p  wint_t typedef
  *  1    User: Dkolakovic   4/18/01 3:46p  ASSERT
  *  2    User: Dkolakovic   4/17/01 2:18p  Replaced output with stdio printf (VxWorks)
+ * $
  * Aug. 96 renamed macroes to be MFC-like (source-level compatibility) D.K.
  * Oct. 94 created D.K.
- * $
  *****************************************************************************/

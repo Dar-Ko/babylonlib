@@ -3,7 +3,7 @@
 // Darko Kolakovic
 // Jan. 2k
 
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "TestApp.h"
 
 #include "MainFrm.h"
@@ -39,10 +39,10 @@
 // CTestApp
 
 BEGIN_MESSAGE_MAP(CTestApp, CWinApp)
-	//{{AFX_MSG_MAP(CTestApp)
-	ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
-	//}}AFX_MSG_MAP
-	// Standard file based document commands
+  //{{AFX_MSG_MAP(CTestApp)
+  ON_COMMAND(ID_APP_ABOUT, OnAppAbout)
+  //}}AFX_MSG_MAP
+  // Standard file based document commands
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -90,9 +90,9 @@ LoadStdProfileSettings(0);  // Load standard INI file options (including MRU)
 
 CSingleDocTemplate* pDocTemplate;
 pDocTemplate = new CSingleDocTemplate(IDR_MAINFRAME,
-	                                    RUNTIME_CLASS(CTestDoc),
-	                                    RUNTIME_CLASS(CMainFrame), // main SDI frame window
-	                                    RUNTIME_CLASS(CTestView));
+                                      RUNTIME_CLASS(CTestDoc),
+                                      RUNTIME_CLASS(CMainFrame), // main SDI frame window
+                                      RUNTIME_CLASS(CTestView));
 AddDocTemplate(pDocTemplate);
 EnableShellOpen();                        //Enable DDE Execute open
 // Parse command line for standard shell commands, DDE, file open
@@ -102,7 +102,7 @@ ParseCommandLine(cmdInfo);
 // Dispatch commands specified on the command line
 // Create new document, main frame and view object, initialize m_pMainWnd 
 if (!ProcessShellCommand(cmdInfo))
-	return FALSE;
+  return FALSE;
   //Execute initial testing
 if (!DoTestInit())
   return FALSE;

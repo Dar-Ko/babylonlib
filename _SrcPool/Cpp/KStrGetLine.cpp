@@ -1,6 +1,6 @@
 /*$Workfile: KStrGetLine.cpp$: implementation file
-  $Revision: 6$ $Date: 19/08/2002 9:40:47 AM$
-  $Author: Darko Kolakovic$
+  $Revision: 8$ $Date: 2004-06-01 17:53:18$
+  $Author: Darko$
 
   Read a line of text from a string buffer
   CommonSoft Inc.
@@ -8,7 +8,7 @@
 */
 
 /* Group=Strings                                                             */
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #ifndef _TCHAR_DEFINED
   #include "KTChar.h" //TCHAR typedef
@@ -59,7 +59,7 @@
  */
 int GetLine(LPTSTR& szSource,//[in/out] zero-terminated text buffer to parse
             LPTSTR& szLine   //[out] resulting line of text or NULL is szSource
-			                 //is an empty string
+                             //is an empty string
            )
 {
 int iRes = 0;
@@ -116,13 +116,15 @@ return iRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         19/08/2002 9:40:47 AMDarko Kolakovic Updated
+ *  8    Biblioteka1.7         2004-06-01 17:53:18  Darko           time sync
+ *  7    Biblioteka1.6         2003-09-04 11:22:40  Darko           comment
+ *  6    Biblioteka1.5         2002-08-19 10:40:47  Darko Kolakovic Updated
  *       comments
- *  5    Biblioteka1.4         12/02/2002 9:53:46 AMDarko           fixed /n/r case
- *  4    Biblioteka1.3         05/02/2002 6:46:49 PMDarko           LPTSTR&
+ *  5    Biblioteka1.4         2002-02-12 10:53:46  Darko           fixed /n/r case
+ *  4    Biblioteka1.3         2002-02-05 19:46:49  Darko           LPTSTR&
  *       szSource
- *  3    Biblioteka1.2         04/02/2002 5:36:58 PMDarko           
- *  2    Biblioteka1.1         04/02/2002 1:33:37 PMDarko           Added LF
- *  1    Biblioteka1.0         01/02/2002 5:31:21 PMDarko           
+ *  3    Biblioteka1.2         2002-02-04 18:36:58  Darko           
+ *  2    Biblioteka1.1         2002-02-04 14:33:37  Darko           Added LF
+ *  1    Biblioteka1.0         2002-02-01 18:31:21  Darko           
  * $
  *****************************************************************************/

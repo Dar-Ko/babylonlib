@@ -1,11 +1,11 @@
 // TestView.cpp : implementation of the CTestView class
-// $Revision: 2$	$Date: 09/07/2001 11:43:29 PM$
+// $Revision: 2$  $Date: 09/07/2001 11:43:29 PM$
 //
 // Darko Kolakovic
 // Jan. 2k
 
 
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "TestApp.h"
 
 #include "TestDoc.h"
@@ -53,9 +53,9 @@ return FALSE;
 IMPLEMENT_DYNCREATE(CTestView, CEditView)
 
 BEGIN_MESSAGE_MAP(CTestView, CEditView)
-	//{{AFX_MSG_MAP(CTestView)
-	ON_WM_LBUTTONDBLCLK()
-	//}}AFX_MSG_MAP
+  //{{AFX_MSG_MAP(CTestView)
+  ON_WM_LBUTTONDBLCLK()
+  //}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -95,7 +95,7 @@ BOOL bRes = CEditView::PreCreateWindow(cs);
 cs.style = AFX_WS_DEFAULT_VIEW | 
            WS_VSCROLL     | 
            ES_AUTOHSCROLL |
-		       ES_AUTOVSCROLL | 
+           ES_AUTOVSCROLL | 
            ES_MULTILINE   | 
            ES_READONLY    |
            ES_NOHIDESEL;
@@ -124,18 +124,18 @@ ASSERT_VALID(pDoc);
 #ifdef _DEBUG
 void CTestView::AssertValid() const
 {
-	CEditView::AssertValid();
+  CEditView::AssertValid();
 }
 
 void CTestView::Dump(CDumpContext& dc) const
 {
-	CEditView::Dump(dc);
+  CEditView::Dump(dc);
 }
 
 CTestDoc* CTestView::GetDocument() // non-debug version is inline
 {
-	ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CTestDoc)));
-	return (CTestDoc*)m_pDocument;
+  ASSERT(m_pDocument->IsKindOf(RUNTIME_CLASS(CTestDoc)));
+  return (CTestDoc*)m_pDocument;
 }
 #endif //_DEBUG
 

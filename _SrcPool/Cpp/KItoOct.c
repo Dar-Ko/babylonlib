@@ -1,7 +1,7 @@
 /*$Workfile: KItoOct.c$: implementation file
-  $Revision: 2$ $Date: 16/07/2002 12:41:15 AM$
+  $Revision: 4$ $Date: 2004-10-01 21:43:59$
   $Author: Darko$
- 
+
   Convert an integer to octal string.
   Jan. 96 Darko Kolakovic
 */
@@ -19,11 +19,11 @@
 
 /*ItoOct()-------------------------------------------------------------------*/
 
-/*Convert the given iValue argument to a zero-terminated string.
+/*Converts the given iValue argument to a zero-terminated string.
   Returns: a pointer to zero-terminated string. There is no error return.
  */
 LPTSTR ItoOct(int iValue,     /*[in] number to be converted                   */
-              LPTSTR szResult /*[in] pointer to string buffer                 */ 
+              LPTSTR szResult /*[in] pointer to string buffer                 */
              )
 {
 //ASSERT(szResult != NULL);
@@ -33,7 +33,7 @@ unsigned nDigit;    /*single nDigit value      */
 pTemp = pBuffer = szResult;            /*Store buffer's start point*/
 
 
-do 
+do
   {
   nDigit = iValue & 7;
   iValue = (iValue >> 3) & 0x1FFF;
@@ -45,11 +45,11 @@ do
 
 /*Reverse string in place*/
 pTemp--; /*Pointer to the last character*/
-while(pBuffer < pTemp) 
+while(pBuffer < pTemp)
   {
   int cTemp = *pBuffer;
   *pBuffer++ = *pTemp;
-  *pTemp-- = cTemp;
+  *pTemp-- = (TCHAR)cTemp;
   }
 
 return szResult;
@@ -57,9 +57,10 @@ return szResult;
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
- *$Log: 
- * 2    Biblioteka1.1         16/07/2002 12:41:15 AMDarko           Fixed VSS Log 
+ *$Log:
+ * 3    Biblioteka1.2         8/14/2003 5:00:54 AM Darko           Unicode
+ * 2    Biblioteka1.1         7/16/2002 1:41:15 AM Darko           Fixed VSS Log
  *      tag
- * 1    Biblioteka1.0         07/03/2002 4:03:38 PMDarko           
+ * 1    Biblioteka1.0         3/7/2002 5:03:38 PM  Darko
  *$
  *****************************************************************************/

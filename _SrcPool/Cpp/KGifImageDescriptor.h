@@ -1,6 +1,6 @@
 /*$Workfile: KGifImageDescriptor.h$: header file
-  $Revision: 5$ $Date: 10/10/02 8:33:41 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 6$ $Date: 2003-09-30 11:10:04$
+  $Author: Darko$
 
   Describes an image enbedded in GIF(c) Data Stream.
   GIF and 'Graphics Interchange Format' are trademarks of CompuServe, 
@@ -10,14 +10,14 @@
 /* Group=Images                                                              */
 
 #ifndef _KGIFIMAGEDESCRIPTOR_H_
-    //KGifImageDescriptor.h sentry
+    //*$Workfile: KGifImageDescriptor.h$ sentry
   #define _KGIFIMAGEDESCRIPTOR_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#include "KTypedef.h" //BYTE definition
+#include "KTypedef.h" //uint8 definition
 #include "KGif.h"     //CGifBlock class
 ///////////////////////////////////////////////////////////////////////////////
 /*The Image Descriptor contains the parameters necessary to process a image 
@@ -78,14 +78,14 @@ public:
     virtual void Dump() const;
     virtual char* Dump(char* szOutput) const;
   #endif
-  bool Copy(BYTE* pBlockData);
+  bool Copy(uint8* pBlockData);
   static const unsigned int GetLength();
   unsigned int GetBlockLength() const;
-  static unsigned int GetBlockLength(BYTE* pBlockData);
+  static unsigned int GetBlockLength(uint8* pBlockData);
   bool HasColorTable() const;
   bool IsInterlaced() const;
   bool IsColorTableSorted() const;
-  static unsigned int GetColorTableSize(BYTE* pBlockData);
+  static unsigned int GetColorTableSize(uint8* pBlockData);
   unsigned int GetColorTableSize() const;
   void GetImageSize(unsigned int& nWidth, unsigned int& nHeight) const;
   void GetImagePos(unsigned int& nLeft, unsigned int& nTop) const;
@@ -99,11 +99,11 @@ public:
 protected:
    //Turn byte alignment on
   #pragma pack(1)
-    WORD m_wLeftPos;      //image left position on the logical screen
-    WORD m_wTopPos;       //image top position on the logical screen
-    WORD m_wWidth;        //image width
-    WORD m_wHeight;       //image height
-    BYTE m_cControlFlags; //image control flags
+    uint16 m_wLeftPos;      //image left position on the logical screen
+    uint16 m_wTopPos;       //image top position on the logical screen
+    uint16 m_wWidth;        //image width
+    uint16 m_wHeight;       //image height
+    uint8 m_cControlFlags; //image control flags
 
   //Turn byte alignment off
   #pragma pack()
@@ -146,20 +146,19 @@ protected:
 
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         10/10/02 8:33:41 PM  Darko Kolakovic Replaced push
+ *  6    Biblioteka1.5         2003-09-30 11:10:04  Darko           Replaced DWORD,
+ *       WORD with uint32, uint16
+ *  5    Biblioteka1.4         2002-10-10 20:33:41  Darko Kolakovic Replaced push
  *       and pack pragmas
- *  4    Biblioteka1.3         8/19/02 10:43:54 AM  Darko Kolakovic Added
+ *  4    Biblioteka1.3         2002-08-19 10:43:54  Darko Kolakovic Added
  *       GetImageWidth()
- *  3    Biblioteka1.2         8/1/02 1:23:59 AM    Darko           CGifImageData
- *  2    Biblioteka1.1         7/31/02 4:44:07 AM   Darko           Read block
+ *  3    Biblioteka1.2         2002-08-01 01:23:59  Darko           CGifImageData
+ *  2    Biblioteka1.1         2002-07-31 04:44:07  Darko           Read block
  *       sizes from a stream
- *  1    Biblioteka1.0         7/30/02 5:11:30 PM   Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-07-30 17:11:30  Darko Kolakovic 
  * $
  * 2001 Initial version in Babylon Lib
  * 1990 v.89a enhanced GIF CompuServe Incorporated
  * 1987 v.87a Graphics Interchange Format (GIF) devised by the UNISYS Corp. and 
  *  Compuserve
  *****************************************************************************/
-
-
-

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Images\TestGifConversion.cpp$: implementation file
-  $Revision: 2$ $Date: 8/5/02 11:33:43 AM$
+/*$Workfile: TestGifConversion.cpp$: implementation file
+  $Revision: 2$ $Date: 05/08/2002 10:33:43 AM$
   $Author: Darko$
 
   Test GIF primitive conversons
@@ -60,8 +60,8 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         8/5/02 11:33:43 AM   Darko           Fixed bug in
+ * 2    Biblioteka1.1         05/08/2002 10:33:43 AMDarko           Fixed bug in
  *      SeekImagePos
- * 1    Biblioteka1.0         8/2/02 10:25:18 PM   Darko Kolakovic 
+ * 1    Biblioteka1.0         02/08/2002 9:25:18 PMDarko Kolakovic 
  *$
  *****************************************************************************/

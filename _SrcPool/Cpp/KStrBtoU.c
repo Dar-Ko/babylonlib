@@ -1,6 +1,6 @@
 /*$Workfile: KStrBtoU.c$: implementation file
-  $Revision: 5$ $Date: 13/08/2002 5:51:02 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 6$ $Date: 8/14/2003 5:01:18 AM$
+  $Author: Darko$
 
   Converts a binary string to DWORD value
   May 96 Darko Kolakovic
@@ -40,6 +40,8 @@
       printf ( "Convert a binary string %s to unsigned integer: %u\n", 
                buffer, dwNumber);
       }
+
+  See also: KStrings.h
  */
 DWORD BintoU(TCHAR* lpszValue /*zero-terminated source string*/
              )

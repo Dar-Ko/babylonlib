@@ -1,5 +1,5 @@
 /*$Workfile: KBitMan.h$: header file
-  $Revision: 5$ $Date: 25/01/2002 3:56:07 PM$
+  $Revision: 6$ $Date: 2003-09-30 10:15:56$
   $Author: Darko$
   
   Manipulation with bits.
@@ -67,14 +67,14 @@
     x = 0;
     p = 6;
     n = 3;
-	   7 6 5 4	 3 2 1 0   <-bits
-	   1 1 1 1	 1 1 1 1   <- ~0
+     7 6 5 4   3 2 1 0   <-bits
+     1 1 1 1   1 1 1 1   <- ~0
 
-	   1 1 1 1	 0 0 0 0   <- (~0 << (p + 1 - n))
-	   1 0 0 0	 0 0 0 0   <- (~0 << (p + 1))
-	   0 1 1 1	 0 0 0 0   <- ()^() :Mask
-	   x x x x	 x x x x   <- x
-	   x 1 1 1	 x x x x   <- x | Mask
+     1 1 1 1   0 0 0 0   <- (~0 << (p + 1 - n))
+     1 0 0 0   0 0 0 0   <- (~0 << (p + 1))
+     0 1 1 1   0 0 0 0   <- ()^() :Mask
+     x x x x   x x x x   <- x
+     x 1 1 1   x x x x   <- x | Mask
     n bits right of p are set to one
 */
 inline BYTE& SetNbitsR(BYTE& x,/*the field of bits to be set (result) */
@@ -94,19 +94,19 @@ inline BYTE& SetNbitsR(BYTE& x,/*the field of bits to be set (result) */
     p = 4;
     n = 3;
 
-	   7 6 5 4	 3 2 1 0   <-bits
-	   1 1 1 1	 1 1 1 1   <- ~0
+     7 6 5 4   3 2 1 0   <-bits
+     1 1 1 1   1 1 1 1   <- ~0
 
-	   1 0 0 0	 0 0 0 0   <- (~0 << (p + n))
-	   1 1 1 1	 0 0 0 0   <- (~0 << p)
-	   1 0 0 0	 1 1 1 1   <- ~(()^()) :Mask
-	   x x x x	 x x x x   <- x
-	   x 0 0 0	 x x x x   <- x & Mask
+     1 0 0 0   0 0 0 0   <- (~0 << (p + n))
+     1 1 1 1   0 0 0 0   <- (~0 << p)
+     1 0 0 0   1 1 1 1   <- ~(()^()) :Mask
+     x x x x   x x x x   <- x
+     x 0 0 0   x x x x   <- x & Mask
     n bits left from p are set to zero
 */
 inline BYTE& ResetNbitsL(BYTE& x,/*the field of bits to be reset (result) */
                          BYTE p, /*the start position of the area to reset*/
-                         BYTE n  /*the number of bits to reset           	*/
+                         BYTE n  /*the number of bits to reset             */
                          )
   {
   x = RESET_NBITSL( x, p, n);
@@ -160,11 +160,11 @@ inline BYTE GetNbitsR(BYTE x, /*the source field of bits                   */
         7 6 5 4   3 2 1 0   <-bits
         1 1 1 1   1 1 1 1   <- ~0
 
-	   1 1 1 1	 1 0 0 0   <- (~0 << n)
-	   0 0 0 0	 0 1 1 1   <- ~(~0 << n) :Mask
-	   h g f e	 d c b a   <- x
-	   0 0 0 0	 h g f e   <- x >> p
-	   0 0 0 0	 0 g f e   <- x & Mask
+     1 1 1 1   1 0 0 0   <- (~0 << n)
+     0 0 0 0   0 1 1 1   <- ~(~0 << n) :Mask
+     h g f e   d c b a   <- x
+     0 0 0 0   h g f e   <- x >> p
+     0 0 0 0   0 g f e   <- x & Mask
      result is n bits right from p
 */
 inline BYTE GetNBitsL(BYTE x, /*the source field of bits                   */
@@ -186,13 +186,13 @@ inline BYTE GetNBitsL(BYTE x, /*the source field of bits                   */
     ~(~0<<n) creates a mask with ones, and mask is moved left p times.
 
      7 6 5 4   3 2 1 0   <-bits
-	   1 1 1 1	 1 1 1 1   <- ~0
+     1 1 1 1   1 1 1 1   <- ~0
     #
-	   1 1 1 1	 1 0 0 0   <- (~0 << n)
-	   0 0 0 0	 0 1 1 1   <- ~(~0 << n)
-	   0 1 1 1	 0 0 0 0   <- ~(~0 << n) << p
-	   h g f e	 d c b a   <- x
-	   0 g f e	 0 0 0 0   <- x & Mask
+     1 1 1 1   1 0 0 0   <- (~0 << n)
+     0 0 0 0   0 1 1 1   <- ~(~0 << n)
+     0 1 1 1   0 0 0 0   <- ~(~0 << n) << p
+     h g f e   d c b a   <- x
+     0 g f e   0 0 0 0   <- x & Mask
     result is n bits right from p
 */
 inline BYTE ExtNbitsL(BYTE x, /*the source field of bits                   */
@@ -214,21 +214,21 @@ inline BYTE ExtNbitsL(BYTE x, /*the source field of bits                   */
     p = 4;
     n = 3;
      7 6 5 4   3 2 1 0   <-bits
-	   1 1 1 1	 1 1 1 1   <- ~0
-	   Extract n bits
-	   1 1 1 1	 1 0 0 0   <- (~0 << n)
-	   0 0 0 0	 0 1 1 1   <- ~(~0 << n)
-	   0 1 1 1	 0 0 0 0   <- ~(~0 << n) << p
-	   x x x x	 x x x x   <- x
-	   0 x x x	 0 0 0 0   <- x & Mask
-	   Reset n bits
-	   1 0 0 0	 0 0 0 0   <- (~0 << (p + n))
-	   1 1 1 1	 0 0 0 0   <- (~0 << p)
-	   1 0 0 0	 1 1 1 1   <- ~(()^()) :Mask
-	   y y y y	 y y y y   <- y
-	   y 0 0 0	 y y y y   <- y & Mask
+     1 1 1 1   1 1 1 1   <- ~0
+     Extract n bits
+     1 1 1 1   1 0 0 0   <- (~0 << n)
+     0 0 0 0   0 1 1 1   <- ~(~0 << n)
+     0 1 1 1   0 0 0 0   <- ~(~0 << n) << p
+     x x x x   x x x x   <- x
+     0 x x x   0 0 0 0   <- x & Mask
+     Reset n bits
+     1 0 0 0   0 0 0 0   <- (~0 << (p + n))
+     1 1 1 1   0 0 0 0   <- (~0 << p)
+     1 0 0 0   1 1 1 1   <- ~(()^()) :Mask
+     y y y y   y y y y   <- y
+     y 0 0 0   y y y y   <- y & Mask
 
-	   y x x x	 y y y y   <- y | x
+     y x x x   y y y y   <- y | x
     result is n bits right from p
 */
 inline BYTE& CpyNbitsL(BYTE& y,/*the result                                 */
@@ -302,11 +302,12 @@ template <class T> T ResetNthBit (T& Status,const unsigned int& nPos)
 #endif /*_KBITMAN_H_                                                         */
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         25/01/2002 3:56:07 PMDarko           Updated
+ *  6    Biblioteka1.5         2003-09-30 10:15:56  Darko           formatting
+ *  5    Biblioteka1.4         2002-01-25 16:56:07  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         19/08/2001 10:51:30 PMDarko           Butyfier
- *  3    Biblioteka1.2         11/07/2001 9:50:12 PMDarko           
- *  2    Biblioteka1.1         08/06/2001 10:49:08 PMDarko           VSS
- *  1    Biblioteka1.0         13/08/2000 2:55:31 PMDarko           
+ *  4    Biblioteka1.3         2001-08-19 23:51:30  Darko           Butyfier
+ *  3    Biblioteka1.2         2001-07-11 22:50:12  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:49:08  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:55:31  Darko           
  * $
  *****************************************************************************/

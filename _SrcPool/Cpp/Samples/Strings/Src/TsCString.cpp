@@ -1,5 +1,5 @@
 /*$Workfile: TsCString.cpp$: implementation file
-  $Revision: 4$ $Date: 8/19/02 10:36:43 AM$
+  $Revision: 4$ $Date: 19/08/2002 9:36:43 AM$
   $Author: Darko Kolakovic$
 
   Test for CString class (STL port)
@@ -9,7 +9,7 @@
 // Group=Examples
 
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #ifndef _MFC_VER //Microsoft MFC library
   //include STL implementation for CString

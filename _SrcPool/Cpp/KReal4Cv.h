@@ -1,5 +1,5 @@
 /*$Workfile: KReal4Cv.h$: header file
-  $Revision: 4$ $Date: 24/01/2002 6:19:06 PM$
+  $Revision: 6$ $Date: 2004-06-01 17:52:46$
   $Author: Darko$
 
   Conversion helper for 4 bytes real numbers (float)
@@ -7,9 +7,9 @@
   Mar 2k. D.Kolakovic  
 */
 
-#ifndef __KREAL4CV_H__
-  /*KReal4Cv.h sentry                                                       */
-  #define __KREAL4CV_H__
+#ifndef _KREAL4CV_H_
+  /*$Workfile: KReal4Cv.h$ sentry                                                      */
+  #define _KREAL4CV_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
   #pragma message ("   #include " __FILE__ )
@@ -98,4 +98,15 @@ return lDWord;
 
 #endif  /*__cplusplus                                                        */
 /*///////////////////////////////////////////////////////////////////////////*/
-#endif  /*__KREAL4CV_H__                                                     */
+#endif  /*_KREAL4CV_H_                                                       */
+/*****************************************************************************
+ * $Log: 
+ *  6    Biblioteka1.5         2004-06-01 17:52:46  Darko           time sync
+ *  5    Biblioteka1.4         2003-09-30 10:44:33  Darko           formatting
+ *  4    Biblioteka1.3         2002-01-24 19:19:06  Darko           Updated
+ *       comments
+ *  3    Biblioteka1.2         2001-07-11 22:52:23  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:51:30  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:57:13  Darko           
+ * $
+ *****************************************************************************/

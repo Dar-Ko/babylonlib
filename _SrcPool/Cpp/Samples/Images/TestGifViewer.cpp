@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Images\TestGifViewer.cpp$: implementation file
-  $Revision: 4$ $Date: 8/5/02 11:33:46 AM$
+/*$Workfile: TestGifViewer.cpp$: implementation file
+  $Revision: 4$ $Date: 05/08/2002 10:33:46 AM$
   $Author: Darko$
 
   Test of GIF image decoder
@@ -54,7 +54,7 @@ return bRes;
 
  // Get File Size
 long GetFileSize(char* pszFile) 
-{	
+{  
 long lRes = 0;
 FILE* fileStream; 
 
@@ -134,12 +134,12 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 4    Biblioteka1.3         8/5/02 11:33:46 AM   Darko           Fixed bug in
+ * 4    Biblioteka1.3         05/08/2002 10:33:46 AMDarko           Fixed bug in
  *      SeekImagePos
- * 3    Biblioteka1.2         7/31/02 5:30:21 PM   Darko Kolakovic
+ * 3    Biblioteka1.2         31/07/2002 4:30:21 PMDarko Kolakovic
  *      SeekImageDescriptor inserted
- * 2    Biblioteka1.1         7/16/02 8:57:08 PM   Darko Kolakovic Added
+ * 2    Biblioteka1.1         16/07/2002 7:57:08 PMDarko Kolakovic Added
  *      TestGifCreate()
- * 1    Biblioteka1.0         7/16/02 1:48:21 AM   Darko           
+ * 1    Biblioteka1.0         16/07/2002 12:48:21 AMDarko           
  *$
  *****************************************************************************/

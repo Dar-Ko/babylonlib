@@ -1,13 +1,13 @@
 /*$Workfile: KIsLRC.cpp$: implementation file
-  $Revision: 3$ $Date: 08/03/2002 2:04:37 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 4$ $Date: 2004-06-01 17:50:35$
+  $Author: Darko$
 
   Validates Longitudinal Redundancy Checksum (LRC)
   CommonSoft Inc.
   Jan. 2k Darko Kolakovic
 */
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #ifndef _KCHARCST_H_
   #include "KCharCst.h" //ETX

@@ -1,5 +1,5 @@
 /*$Workfile: KComplxB.h$: header file
-  $Revision: 7$ $Date: 04/04/2002 12:12:46 AM$
+  $Revision: 9$ $Date: 2003-09-22 22:25:37$
   $Author: Darko$
 
   Base class for complex numbers
@@ -9,7 +9,7 @@
 // Group=Mathematics
 
 #ifndef _KCOMPLXB_H_
-    //KComplxB.h sentry
+    //$Workfile: KComplxB.h$ sentry
   #define _KCOMPLXB_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -57,28 +57,28 @@ public:
   TYPE Rho()  const;
 
 public:
-  friend TYPE  abs(const TComplexBase<TYPE>& complexNo);	                  // magnitude of vector
-  friend TYPE  arg(const TComplexBase<TYPE>& complexNo);	                  // angle of vector
+  friend TYPE  abs(const TComplexBase<TYPE>& complexNo);                    // magnitude of vector
+  friend TYPE  arg(const TComplexBase<TYPE>& complexNo);                    // angle of vector
   friend TYPE norm(const TComplexBase<TYPE>& complexNo);
   friend TComplexBase<TYPE> conj (const TComplexBase<TYPE>& complexNo);
   friend TComplexBase<TYPE> polar(const TYPE& Rho,const TYPE Angle);   
   friend TComplexBase<TYPE> polar(const TYPE& Rho);   
-  friend TComplexBase<TYPE> cos  (const TComplexBase<TYPE>& complexNo);	    // cosine
-  friend TComplexBase<TYPE> cosh (const TComplexBase<TYPE>& complexNo);	    // hyperbolic cosine
-  friend TComplexBase<TYPE> exp  (const TComplexBase<TYPE>& complexNo);	    // e raised to a power
-  friend TComplexBase<TYPE> log  (const TComplexBase<TYPE>& complexNo);	    // log base e
-  friend TComplexBase<TYPE> log10(const TComplexBase<TYPE>& complexNo);	    // log base 10
-  friend TComplexBase<TYPE> pow  (const TComplexBase<TYPE>& complexNo,	    // Z**Y
+  friend TComplexBase<TYPE> cos  (const TComplexBase<TYPE>& complexNo);     // cosine
+  friend TComplexBase<TYPE> cosh (const TComplexBase<TYPE>& complexNo);     // hyperbolic cosine
+  friend TComplexBase<TYPE> exp  (const TComplexBase<TYPE>& complexNo);     // e raised to a power
+  friend TComplexBase<TYPE> log  (const TComplexBase<TYPE>& complexNo);     // log base e
+  friend TComplexBase<TYPE> log10(const TComplexBase<TYPE>& complexNo);     // log base 10
+  friend TComplexBase<TYPE> pow  (const TComplexBase<TYPE>& complexNo,      // Z**Y
                                   const TComplexBase<TYPE>& Power);
-  friend TComplexBase<TYPE> pow  (const TComplexBase<TYPE>& complexNo,	    // Z**a
-         	                        const TYPE& Power);
-  friend TComplexBase<TYPE> pow  (const TYPE& dReal,	                      // a**Z
-         	                        const TComplexBase<TYPE> &Power );
-  friend TComplexBase<TYPE> pow  (const TComplexBase<TYPE>& complexNo,	    // Z**int
-         	                        const int& Power);
-  friend TComplexBase<TYPE> sin  (const TComplexBase<TYPE>& complexNo);	    // sin
-  friend TComplexBase<TYPE> sinh (const TComplexBase<TYPE>& complexNo);	    // hyperbolic sin
-  friend TComplexBase<TYPE> sqrt (const TComplexBase<TYPE>& complexNo);	    // square root
+  friend TComplexBase<TYPE> pow  (const TComplexBase<TYPE>& complexNo,      // Z**a
+                                  const TYPE& Power);
+  friend TComplexBase<TYPE> pow  (const TYPE& dReal,                        // a**Z
+                                  const TComplexBase<TYPE> &Power );
+  friend TComplexBase<TYPE> pow  (const TComplexBase<TYPE>& complexNo,      // Z**int
+                                  const int& Power);
+  friend TComplexBase<TYPE> sin  (const TComplexBase<TYPE>& complexNo);     // sin
+  friend TComplexBase<TYPE> sinh (const TComplexBase<TYPE>& complexNo);     // hyperbolic sin
+  friend TComplexBase<TYPE> sqrt (const TComplexBase<TYPE>& complexNo);     // square root
 
   friend TComplexBase<TYPE> operator+(const TComplexBase<TYPE>&, const TComplexBase<TYPE>&);
   friend TComplexBase<TYPE> operator+(const TYPE&,               const TComplexBase<TYPE>&);
@@ -761,55 +761,63 @@ return(complexNo.imag() != (TYPE)0  ||  dReal!=complexNo.real());
 ///////////////////////////////////////////////////////////////////////////////
 // Stream I/O operators
 
-#include <iostream.h>
+#ifdef _STL_ //Use Standard Template Library (STL)
 
-//operator<<()-----------------------------------------------------------------
-/*Inserts the complexNo into the output stream.
+  #include "KOStream.h"  //ostream template
 
-  Note: uses Standard Template Library (STL).
- */
-template<class TYPE>
-ostream & operator<<(ostream & Stream, TComplexBase<TYPE>& complexNo)
-{
-return Stream << "(" << complexNo.real() << ", " << complexNo.imag() << ")";
-}
+  //operator<<()---------------------------------------------------------------
+  /*Writes the complexNo to the output stream.
 
-//operator>>()-----------------------------------------------------------------
-/*Extract a complexNo from the input stream. Expected format of the complex number
-  is: 
-  
-    (real_part,imaginary_part).
+    Note: uses Standard Template Library (STL).
+  */
+  template<class TYPE>
+  ostream & operator<<(ostream& outStream, //[out] output stream
+                      TComplexBase<TYPE>& complexNo //[in] value to write
+                      )
+  {
+  return Stream << "(" << complexNo.real() << ", " << complexNo.imag() << ")";
+  }
+
+  //operator>>()---------------------------------------------------------------
+  /*Reads a complexNo from the input stream. Expected format of the complex
+    number is: 
     
-  Note: uses Standard Template Library (STL).  
- */
-template<class TYPE>
-istream & operator>>(istream & Stream, TComplexBase<TYPE>& complexNo)
-{
-TYPE dReal = 0, dImag = 0;
-char ch = 0;
-
-Stream >> ch;
-if (ch == '(') 
+      (real_part,imaginary_part).
+      
+    Note: uses Standard Template Library (STL).  
+  */
+  template<class TYPE>
+  istream& operator>>(istream& Stream, //[in] input stream
+                      TComplexBase<TYPE>& complexNo //[out] extracted value
+                      )
   {
-  Stream >> dReal >> ch;
-  if (ch == ',') 
-    Stream >> dImag >> ch;
-  if (ch != ')') 
-    Stream.clear(ios::badbit | Stream.rdstate());
-  }
-else 
-  {
-  Stream.putback(ch);
-  Stream >> dReal;
+  TYPE dReal = 0, dImag = 0;
+  char ch = 0;
+
+  Stream >> ch;
+  if (ch == '(') 
+    {
+    Stream >> dReal >> ch;
+    if (ch == ',') 
+      Stream >> dImag >> ch;
+    if (ch != ')') 
+      Stream.clear(ios::badbit | Stream.rdstate());
+    }
+  else 
+    {
+    Stream.putback(ch);
+    Stream >> dReal;
+    }
+
+  if (Stream)
+    { 
+    complexNo.real(dReal);
+    complexNo.imag(dImag);
+    }
+  return Stream;
   }
 
-if (Stream)
-  { 
-  complexNo.real(dReal);
-  complexNo.imag(dImag);
-  }
-return Stream;
-}
+#endif //_STL_
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KCOMPLXB_H_
 
@@ -817,7 +825,7 @@ return Stream;
 /******************************************************************************
  * $Log: 
  *  4    Biblioteka1.3         7/19/01 11:52:57 PM  Darko           VSS tags
- *  3    Biblioteka1.2         7/7/01 11:10:11 PM   Darko           $Revision: 7$
+ *  3    Biblioteka1.2         7/7/01 11:10:11 PM   Darko           $Revision: 9$
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:49:19 PM   Darko           VSS
  *  1    Biblioteka1.0         8/13/00 2:55:42 PM   Darko           

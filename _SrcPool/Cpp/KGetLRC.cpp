@@ -1,5 +1,5 @@
 /*$Workfile: KGetLRC.cpp$: implementation file
-  $Revision: 3$ $Date: 29/01/2002 2:40:00 PM$
+  $Revision: 4$ $Date: 2004-06-01 17:50:31$
   $Author: Darko$
 
   Longitudinal Redundancy Checksum (LRC)
@@ -7,7 +7,7 @@
   4.5.1989 Darko Kolakovic (original C version)
  */
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #ifndef _KCHARCST_H_
   #include "KCharCst.h" //ETX
@@ -70,9 +70,10 @@ return chLRC;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         29/01/2002 2:40:00 PMDarko           Tag update
- *  2    Biblioteka1.1         05/10/2001 9:16:55 AMDarko           Comments
- *  1    Biblioteka1.0         11/08/2001 12:07:03 AMDarko           
+ *  4    Biblioteka1.3         2004-06-01 17:50:31  Darko           time sync
+ *  3    Biblioteka1.2         2002-01-29 15:40:00  Darko           Tag update
+ *  2    Biblioteka1.1         2001-10-05 10:16:55  Darko           Comments
+ *  1    Biblioteka1.0         2001-08-11 01:07:03  Darko           
  * $
  *
  * Revision 0  1989 D.K.  Created

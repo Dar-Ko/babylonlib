@@ -1,9 +1,10 @@
-<?xml version="1.0" encoding = "Windows-1252"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.00"
+	Version="7.10"
 	Name="DateTime"
 	ProjectGUID="{849FF09B-03E9-47D7-AEA1-46489C415A2E}"
+	RootNamespace="DateTime"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -12,27 +13,24 @@
 	</Platforms>
 	<Configurations>
 		<Configuration
-			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
+			Name="Debug_SBCS|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			UseOfMFC="0"
+			UseOfMFC="2"
+			UseOfATL="2"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			CharacterSet="0">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\.."
-				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win"
+				PreprocessorDefinitions="WIN32;_CONSOLE;_DEBUG;LANG_CURRENT=LANG_ENGLISH"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
+				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Debug/DateTime.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
 				BrowseInformation="1"
-				WarningLevel="3"
+				WarningLevel="4"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
 				CompileAs="0"/>
@@ -41,12 +39,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib"
-				OutputFile=".\Debug/DateTime.exe"
+				Version="2.0"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Debug/DateTime.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -64,29 +61,33 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Release|Win32"
-			OutputDirectory=".\Release"
-			IntermediateDirectory=".\Release"
+			Name="Release_SBCS|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			UseOfMFC="0"
+			UseOfMFC="2"
+			UseOfATL="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			CharacterSet="0">
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\.."
-				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win"
+				PreprocessorDefinitions="WIN32;_CONSOLE;NDEBUG;LANG_CURRENT=LANG_ENGLISH"
 				StringPooling="TRUE"
-				RuntimeLibrary="4"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Release/DateTime.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
+				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="0"/>
@@ -95,11 +96,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib"
-				OutputFile=".\Release/DateTime.exe"
+				Version="2.0"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release/DateTime.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -117,30 +117,34 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="DbgUniCode|Win32"
-			OutputDirectory="DbgUniCode"
-			IntermediateDirectory="DbgUniCode"
+			Name="Debug_Unicode|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			UseOfMFC="0"
+			UseOfMFC="2"
+			UseOfATL="2"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\.."
-				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win"
+				PreprocessorDefinitions="WIN32;_CONSOLE;_DEBUG;_UNICODE;LANG_CURRENT=LANG_ENGLISH"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
+				RuntimeLibrary="3"
+				TreatWChar_tAsBuiltInType="TRUE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Debug/DateTime.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
 				BrowseInformation="1"
-				WarningLevel="3"
+				WarningLevel="4"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
 				CompileAs="0"/>
@@ -149,12 +153,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib"
-				OutputFile=".\Debug/DateTime.exe"
+				Version="2.0"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Debug/DateTime.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -172,29 +175,34 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="RelUnicode|Win32"
-			OutputDirectory="RelUnicode"
-			IntermediateDirectory="RelUnicode"
+			Name="Release_Unicode|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			UseOfMFC="0"
+			UseOfMFC="2"
+			UseOfATL="2"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\.."
-				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win"
+				PreprocessorDefinitions="WIN32;_CONSOLE;NDEBUG;_UNICODE;LANG_CURRENT=LANG_ENGLISH"
 				StringPooling="TRUE"
-				RuntimeLibrary="4"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
+				TreatWChar_tAsBuiltInType="TRUE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Release/DateTime.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
+				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="0"/>
@@ -203,11 +211,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib"
-				OutputFile=".\Release/DateTime.exe"
+				Version="2.0"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release/DateTime.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -225,31 +232,126 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
 				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
+	<References>
+	</References>
 	<Files>
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
+				RelativePath="..\..\KDate.cpp">
+			</File>
+			<File
+				RelativePath="..\..\KDateConv.cpp">
+			</File>
+			<File
+				RelativePath="..\..\KDateCst.c">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KDateTime.cpp">
+			</File>
+			<File
 				RelativePath="..\..\KDateTm.c">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KFileTime.cpp">
+			</File>
+			<File
+				RelativePath="..\..\Stl\KIntStream.cpp">
+			</File>
+			<File
+				RelativePath="..\..\KStrAtoI.cpp">
+			</File>
+			<File
+				RelativePath="..\..\KTestLog.cpp">
 			</File>
 			<File
 				RelativePath="..\..\KTmCmp.c">
 			</File>
 			<File
-				RelativePath=".\Src\TsLeapYear.cpp">
+				RelativePath=".\Src\main.cpp">
 			</File>
 			<File
-				RelativePath=".\Src\main.cpp">
+				RelativePath="..\Common\Res\Win\32\Test.rc">
+			</File>
+			<File
+				RelativePath=".\Src\TestDate.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestDateConversion.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\..\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\..\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\..\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\..\Win\32"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\TestLeapYear.cpp">
+			</File>
+			<File
+				RelativePath="..\Common\Src\TsWriteTxt.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
+				RelativePath="..\..\KDate.h">
+			</File>
+			<File
+				RelativePath="..\..\KDateConv.h">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KDateTime.h">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KFileTime.h">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KFileTimeCm.h">
+			</File>
+			<File
+				RelativePath="..\..\Stl\KOStream.h">
+			</File>
+			<File
+				RelativePath="..\..\KTestLog.h">
+			</File>
+			<File
 				RelativePath="..\..\KTime.h">
+			</File>
+			<File
+				RelativePath="..\..\Win\16\KTime16.h">
+			</File>
+			<File
+				RelativePath="..\..\KTmConv.h">
 			</File>
 			<File
 				RelativePath="..\..\KTrace.h">
@@ -260,10 +362,23 @@
 			<File
 				RelativePath="..\..\KTypedef.h">
 			</File>
+			<File
+				RelativePath="..\_LibraryTest\Src\stdafx.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+		</Filter>
+		<Filter
+			Name="Logs"
+			Filter="">
+			<File
+				RelativePath=".\LibraryTest.log">
+			</File>
+			<File
+				RelativePath=".\LibraryTestUni.log">
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

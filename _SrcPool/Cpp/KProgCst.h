@@ -1,16 +1,14 @@
-/*$Workfile: KProgCst.h$: header file
-  $Revision: 13$ $Date: 12/07/2002 5:19:05 PM$
+/*$Workfile: S:\_SrcPool\Cpp\KProgCst.h$: header file
+  $Revision: 22$ $Date: 2004-11-23 15:48:31$
   $Author: Darko Kolakovic$
 
   Constants
   Copyright: CommonSoft Inc.
   Nov. 93 D. Kolakovic
-  Jan. 96 IS_EQUAL D.K.
-  Dec. 99 NaN constants D.K.
  */
 
 #ifndef __KPROGCST_H__
-    /*KProgCst.h sentry                                                      */
+    /*$Workfile: S:\_SrcPool\Cpp\KProgCst.h$ sentry */
   #define __KPROGCST_H__
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
@@ -32,21 +30,126 @@
             PDP-11        12       3412       78563412
               VAX         12       1234       78563412
 
-      The origin term "endian" can be traced to Jonathan Swift's novel 
-      "Gulliver's Travels". In one of Gulliver's adventures, he encounters 
+      The origin term "endian" can be traced to Jonathan Swift's novel
+      "Gulliver's Travels". In one of Gulliver's adventures, he encounters
       an island whose inhabitants bitterly argue over the correct way to open
-      soft-boiled eggs - the little end or the big end. Little endians and 
-      big endians are each convinced that their method is the only correct 
-      method for opening an egg. 
+      soft-boiled eggs - the little end or the big end. Little endians and
+      big endians are each convinced that their method is the only correct
+      method for opening an egg.
      */
 #define _ENDIAN_LITTLE_ 0x1234
-    /*"Big Endian" means that most significant or high byte is stored first 
-      at low address and low byte stored last at high address. This 
+    /*"Big Endian" means that most significant or high byte is stored first
+      at low address and low byte stored last at high address. This
       architecture is used with MC680X0, SPARC, HPPA, MIPS, M88000, RS6000,
       etc.                                                                   */
 #define _ENDIAN_BIG_    0x4321
     /*Byte order in PDP architecture.                                        */
 #define _ENDIAN_PDP_    0x3412
+
+  /*/////////////////////////////////////////////////////////////////////////*/
+  /*Unicode-specific characters                                              */
+#ifndef __cplusplus /*C compilation                                          */
+  #pragma message ("   C compilation " __FILE__ )
+
+  /*Byte Order Mark indicates a Unicode file. The value FFFE is not a character
+    at all. If an Unicode a file begins with this mark, byte order (big or
+    little endian) may be detected comparing it with with FEFF which is
+    a character zero width no-break space.
+
+  Unicode noncharacters are guaranteed not to be a Unicode character at all.
+  These codes are intended for process internal uses, but are not permitted for
+  interchange.
+
+      FFFE - not a character, Byte Order Mark (BOM)
+      FFFF - not a character, private-use-zone (PUZ) sentinel
+
+    Note: in case of the little endian architecture, number 0xFEFF will be
+    stored as 0xFF, 0xFE. If file begins with 0xFE, 0xFF, all Unicode
+    characters are stored in big endian order.
+
+    See also: {HTML: <A HREF =http://www.unicode.org/charts/PDF/UFFF0.pdf</A>}
+
+
+   */
+#define UCBYTEORDERMARK 0xFEFF
+  /*Private-use-zone mark is used as a sentinel separating Unicode text and
+    custom data. The value FFFF is not a character at all.
+
+  Unicode noncharacters are guaranteed not to be a Unicode character at all.
+  These codes are intended for process internal uses, but are not permitted for
+  interchange.
+
+      FFFE - not a character, Byte Order Mark (BOM)
+      FFFF - not a character, private-use-zone (PUZ) sentinel
+
+    See also: {HTML: <A HREF =http://www.unicode.org/charts/PDF/UFFF0.pdf</A>}
+   */
+#define UCPRIVATEUSEZONE 0xFFFF
+
+  /*-------------------------------------------------------------------------*/
+#else /*_cplusplus  C++ compilation                                          */
+  #pragma message ("   C++ compilation " __FILE__ )
+  /*Byte Order Mark indicates a Unicode file. The value FFFE is not a character
+    at all. If an Unicode a file begins with this mark, byte order (big or
+    little endian) may be detected comparing it with with FEFF which is
+    a character zero width no-break space.
+
+  Unicode noncharacters are guaranteed not to be a Unicode character at all.
+  These codes are intended for process internal uses, but are not permitted for
+  interchange.
+
+      FFFE - not a character, Byte Order Mark (BOM)
+      FFFF - not a character, private-use-zone (PUZ) sentinel
+
+    Note: in case of the little endian architecture, number 0xFEFF will be
+    stored as 0xFF, 0xFE. If file begins with 0xFE, 0xFF, all Unicode
+    characters are stored in big endian order.
+
+    See also: {HTML: <A HREF =http://www.unicode.org/charts/PDF/UFFF0.pdf</A>}
+   */
+const wchar_t UCBYTEORDERMARK = 0xFEFF;
+  /*Private-use-zone mark is used as a sentinel separating Unicode text and
+    custom data. The value FFFF is not a character at all.
+
+  Unicode noncharacters are guaranteed not to be a Unicode character at all.
+  These codes are intended for process internal uses, but are not permitted for
+  interchange.
+
+      FFFE - not a character, Byte Order Mark (BOM)
+      FFFF - not a character, private-use-zone (PUZ) sentinel
+
+    See also: {HTML: <A HREF =http://www.unicode.org/charts/PDF/UFFF0.pdf</A>}
+   */
+const wchar_t UCNIPRIVATEUSEZONE = 0xFFFF;
+
+#endif /*!_cplusplus                                                         */
+
+#ifndef NaN_NUMBER
+ #pragma message ("   8 byte double " __FILE__ )
+  //TODO: FixMe! valid for 8 byte long doubles D.K.
+  /*Contains NaN constants.
+    Presentation of NaNs according to IEC 559:
+
+      quiet NaN         -1.#IND,
+      signaling NaN     -1.#INF,
+      positive infinity  1.#INF                                              */
+  typedef union tagNaN_NUMBER
+    {
+    unsigned long llValue[2]; /*Low and high-order integers of NaN           */
+    double dValue;            /*value of 'Not a Number'                      */
+
+    #ifdef __cplusplus
+        //Conversion function to modify the value
+      operator  double&()
+        { return  dValue;};
+        //Conversion function to use the value
+      operator double() const
+        { return dValue;};
+    #endif  /*__cplusplus                                                    */
+    } NaN_NUMBER;
+
+    #define NaN_NUMBER NaN_NUMBER
+ #endif /*NaN_NUMBER*/
 
 /*///////////////////////////////////////////////////////////////////////////*/
 /* CPU specific                                                              */
@@ -55,7 +158,7 @@
 #if _M_IX86
   #ifdef _ENDIAN_ORDER_
     #undef _ENDIAN_ORDER_
-  #endif 
+  #endif
     /*Byte order, according to significance of bytes                         */
   #define _ENDIAN_ORDER_ _ENDIAN_LITTLE_
 
@@ -91,27 +194,6 @@
     /*High-order long for float positive infinity                            */
   #define NaN_FPOSINFINITY 0x7F800000
 
-  /*Contains NaN constants.
-    Presentation of NaNs according to IEC 559:
-
-      quiet NaN         -1.#IND,
-      signaling NaN     -1.#INF,
-      positive infinity  1.#INF                                              */
-  typedef union tagNaN_NUMBER
-    {
-    unsigned long llValue[2]; /*Low and high-order integers of NaN           */
-    double dValue;            /*value of 'Not a Number'                      */
-
-    #ifdef __cplusplus
-        //Conversion function to modify the value
-      operator  double&()
-        { return  dValue;};
-        //Conversion function to use the value
-      operator double() const
-        { return dValue;};
-    #endif  /*__cplusplus                                                    */
-    } NaN_NUMBER;
-
 #endif  /*_M_IX86   Intel x86 CPU                                            */
 
 /*---------------------------------------------------------------------------*/
@@ -120,7 +202,7 @@
 
   #ifdef _ENDIAN_ORDER_
     #undef _ENDIAN_ORDER_
-  #endif 
+  #endif
     /*Byte order, according to significance of bytes                         */
   #define _ENDIAN_ORDER_ _ENDIAN_LITTLE_
 
@@ -137,8 +219,8 @@
 
   #ifndef _GET_WORD_ALIGNP
   //Copy a WORD value byte by byte, becouse on some architectures (WORD*)pcHostValue
-  //will round pointer to match WORD increments giving a result equal to 
-  //*(WORD*)(pcHostValue/sizeof(WORD)) 
+  //will round pointer to match WORD increments giving a result equal to
+  //*(WORD*)(pcHostValue/sizeof(WORD))
     #define _GET_WORD_ALIGNP(pBYTE) \
       ((WORD)pBYTE[0]       |  \
        (WORD)pBYTE[1] <<  8 )
@@ -146,8 +228,8 @@
 
   #ifndef _GET_DWORD_ALIGNP
   //Copy a DWORD value byte by byte, becouse on some architectures (DWORD*)pcHostValue
-  //will round pointer to match DWORD increments giving a result equal to 
-  //*(DWORD*)(pcHostValue/sizeof(DWORD)) 
+  //will round pointer to match DWORD increments giving a result equal to
+  //*(DWORD*)(pcHostValue/sizeof(DWORD))
     #define _GET_DWORD_ALIGNP(pBYTE) \
       ((DWORD)pBYTE[0]       |   \
        (DWORD)pBYTE[1] <<  8 |   \
@@ -157,8 +239,63 @@
 
 #endif
 
+/*---------------------------------------------------------------------------*/
+/*Metrowerks CodeWarrior Compiler                                            */
+#if defined(__MWERKS__)/* Metrowerks CodeWarrior Compiler                    */
+  #if __option (little_endian)
+    /*Byte order, according to significance of bytes                         */
+    #define _ENDIAN_ORDER_ _ENDIAN_LITTLE_
+  #else
+    /*Byte order, according to significance of bytes                         */
+    #define _ENDIAN_ORDER_ _ENDIAN_BIG_
+  #endif
+
+  #ifndef _ENDIAN_ORDER_
+    #ifdef _MSL_LITTLE_ENDIAN
+      #if (_MSL_LITTLE_ENDIAN == 1)
+        #define _ENDIAN_ORDER_ _ENDIAN_LITTLE_
+      #elif (_MSL_LITTLE_ENDIAN == 0)
+        #define _ENDIAN_ORDER_ _ENDIAN_BIG_
+      #else
+        #pragma message ("_MSL_: Unknown Endian byte order.")
+      #endif
+    #endif /*_MSL_LITTLE_ENDIAN*/
+  #endif /*_ENDIAN_ORDER_*/
+
+#endif /*__MWERKS__                                                          */
+
 /*///////////////////////////////////////////////////////////////////////////*/
 /* Global macros                                                             */
+  /*Aligns to DWORD boundary                                                 */
+#define ALIGNLONG(x) (((x)+3) & ~(3))
+  /*Swaps tailing bytes with bytes from the beginning of the two-bytes WORD  */
+#define SWAP_WORD_ENDIAN(w)  (WORD) ((WORD) ((w)<<8)|((w)>>8))
+  /*Set of ASCII letters, digits and specal characters '_', ' '              */
+#define ALPHANUMERICSET1 "ABCDEFGHIJKLMNOPQRSTUVWXYZ" \
+                         "abcdefghijklmnopqrstuvwxyz" \
+                         "_" "0123456789"
+  /*Returns number of elements in an array                                   */
+#define SIZEOFARR(x)  (sizeof (x) / sizeof ((x)[0]))
+
+
+#ifndef UNUSED_ARG
+  #if defined(__GNUC__)
+    /*GNU C/C++ */
+    #if !defined(__cplusplus)
+      /*Attribute of unused function arguments */
+      #define UNUSED_ARG(param) param __attribute__((__unused__))
+    #else
+      //GNU C++ doesn't support this attribute
+      #define UNUSED_ARG
+    #endif
+  #endif /*__GNUC__*/
+//  #define UNUSED_ARG(param) do {/* null */} while (&param == 0)
+//  #define UNUSED_ARG(param) param = *(&param);
+  #if defined(__MWERKS__)
+    /*Metrowerks Code Warrior*/
+    #define UNUSED_ARG(param)    &(param)
+  #endif
+#endif /* UNUSED_ARG */
 
 #ifdef _ENDIAN_LITTLE_
  /*Returns 32-bit value with high word initialized with given constant.
@@ -174,17 +311,14 @@
   #define MAKEHIWORD(x) ((DWORD)((WORD)(x)))
   #define MAKELOWORD(x) ( ((DWORD)((WORD)(x))) << 16 )
 #endif /*_ENDIAN_LITTLE_                                                     */
-  /*Aligns to DWORD boundary                                                 */
-#define ALIGNLONG(x) (((x)+3) & ~(3))
-  /*Swaps tailing bytes with bytes from the beginning of the two-bytes WORD  */
-#define SWAP_WORD_ENDIAN(w)  (WORD) ((WORD) ((w)<<8)|((w)>>8))
+
 
 #ifndef __cplusplus
 /* ///////////////////////////////////////////////////////////////////////// */
-    /*Note: include in a project KProgCst.c to get NaN globals               */
-  extern const NaN_NUMBER CST_dNaN;
-  extern const NaN_NUMBER CST_dSNaN;
-  extern const NaN_NUMBER CST_dINF;
+    /*Note: include in a project KProgCst.inl to get NaN globals               */
+ // extern const NaN_NUMBER CST_dNaN;
+ // extern const NaN_NUMBER CST_dSNaN;
+ // extern const NaN_NUMBER CST_dINF;
 
   /* /////////////////////////////////////////////////////////////////////// */
   /* //Macros                                                                */
@@ -224,4 +358,7 @@
  *  2    Biblioteka1.1         08/06/2001 11:51:16 PMDarko           VSS
  *  1    Biblioteka1.0         13/08/2000 3:56:59 PMDarko
  * $
+ * Dec. 99 NaN constants D.K.
+ * Jan. 96 IS_EQUAL D.K.
+ * Nov. 93 D. Kolakovic
  *****************************************************************************/

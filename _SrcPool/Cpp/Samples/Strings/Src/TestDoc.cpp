@@ -3,7 +3,7 @@
 // Darko KOlakovic
 // Jan. 2k
 
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "TestApp.h"
 
 #include "TestDoc.h"
@@ -20,8 +20,8 @@
 IMPLEMENT_DYNCREATE(CTestDoc, CDocument)
 
 BEGIN_MESSAGE_MAP(CTestDoc, CDocument)
-	//{{AFX_MSG_MAP(CTestDoc)
-	//}}AFX_MSG_MAP
+  //{{AFX_MSG_MAP(CTestDoc)
+  //}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -56,12 +56,12 @@ pView->SerializeRaw(ar);
 #ifdef _DEBUG
 void CTestDoc::AssertValid() const
 {
-	CDocument::AssertValid();
+  CDocument::AssertValid();
 }
 
 void CTestDoc::Dump(CDumpContext& dc) const
 {
-	CDocument::Dump(dc);
+  CDocument::Dump(dc);
 }
 #endif //_DEBUG
 

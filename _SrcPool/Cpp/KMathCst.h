@@ -1,5 +1,5 @@
 /*$Workfile: KMathCst.h$: header file
-  $Revision: 10$ $Date: 20/01/2003 3:09:28 AM$
+  $Revision: 13$ $Date: 2004-07-09 02:41:59$
   $Author: Darko$
 
   Constants
@@ -9,7 +9,7 @@
 /* Group=Mathematics                                                          */
 
 #ifndef _KMATHCST_H_
-    /*KMathCst.h sentry                                                      */
+    /*$Workfile: KMathCst.h$ sentry                                                 */
   #define _KMATHCST_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -23,7 +23,8 @@
   //log(e)
 #define CST_LOG10E    0.434294481903251827651128918916605
   //The Natural Logarithmic Base, e  = 10**(1/ln(10))
-  //   {html:<BR><IMG SRC="Res/eqNaturalLogarithmicBase.gif" ALT="x-&gt;0; lim((1+x)exp(1/x))-&gt;e" BORDER="0">}
+  //   {html:<br /><img src="Res/eqNaturalLogarithmicBase.gif" 
+  //    alt="x-&gt;0; lim((1+x)exp(1/x))-&gt;e" border="0">}
 #define CST_E         2.71828182845904523536028747135266
   //ln(10)
 #define CST_LN10      2.30258509299404568401799145468436
@@ -34,12 +35,12 @@
   //Archimedes' Constant PI is the area enclosed by a circle of radius 1.
 #define CST_PI        3.1415926535897932384626433832795028841971693993751058209749445923078164
   //PI/2
-#define CST_PI_2		  1.570796326794896619231322
+#define CST_PI_2      1.570796326794896619231322
   //PI/4
-#define CST_PI_4		  0.7853981633974483096156608
+#define CST_PI_4      0.7853981633974483096156608
 
   //1/sqrt(PI)
-#define CST_INVSQRTPI	0.5641895835477562869480795
+#define CST_INVSQRTPI  0.5641895835477562869480795
   //1/sqrt(2)
 #define CST_INVSQRT2  0.70710678118654752440
   //1/sqrt(3)
@@ -56,7 +57,31 @@
 #define CST_LNGAMMA  -0.549539312981644822337662
   //e^gamma
 #define CST_E_GAMMA   1.7810724179901979852
+  /*Golden Mean {html:&Phi;} is the positive solution to the quadratic equation:
+     {html:<br /><img src="Images/eqGoldenMean.gif" 
+      alt="Phi^2 - Phi - 1 = 0; Phi > 0" border="0">}
+     which is
+     {html:<br /><img src="Images/eqGoldenRatio.gif" 
+      alt="Phi = (1+sqrt(5))/2;" border="0"><br />}
 
+     Euclid, in "The Elements", says that the line AC is divided in extreme 
+     and mean ratio by B if AC/AB = AB/BC.
+     {html:<br /><img src="Images/eqSectioAurea.gif" 
+      alt="AC/AB = AB/BC = Phi" border="0"><br />}
+    This definition is equivalent to the dimensions of a rectangle such that
+    dividing it into a square creates a new rectangle having the same proportions.
+    Such a rectangle is known as a golden rectangle. 
+     {html:<br /><img src="Images/graphGoldenRect.gif" 
+      alt="AC/AB = AB/BC = Phi" border="0"><br />}
+     {html:<br /><img src="Images/eqGoldenRect.gif" 
+      alt="AC/AB = AB/BC = Phi" border="0"><br />}
+     Ratio of two consecutive Fibonacci numbers converges to Golden Mean:
+     {html:<br /><img src="Images/eqFibonacciLim.gif" 
+      alt="AC/AB = AB/BC = Phi" border="0"><br />}
+     Golden Mean is also known as golden section (sectio aurea), divine 
+     proportion (proportio divina), golden ratio and golden number.
+   */
+#define CST_PHI       1.6180339887498948482045868343656381177203091798057
   //Laplace limit constant
 #define CST_LAPLACE_LIM 0.6627434193
 

@@ -1,6 +1,6 @@
 /*$Workfile: KStrRTab.c$: implementation file
-  $Revision: 1$ $Date: 18/12/2002 3:40:57 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 2$ $Date: 2004-06-01 17:53:30$
+  $Author: Darko$
 
   Replace TAB characters with space characters
   Copyright: CommonSoft Inc.
@@ -79,6 +79,7 @@ return szDestination;
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         18/12/2002 3:40:57 PMDarko Kolakovic 
+ *  2    Biblioteka1.1         2004-06-01 17:53:30  Darko           time sync
+ *  1    Biblioteka1.0         2002-12-18 16:40:57  Darko Kolakovic 
  * $
  *****************************************************************************/

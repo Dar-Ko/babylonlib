@@ -1,5 +1,5 @@
 /*$Workfile: KfKepler.cpp$: implementation file
-  $Revision: 1$ $Date: 05/09/2002 8:22:28 PM$
+  $Revision: 2$ $Date: 2004-06-01 16:55:01$
   $Author: Darko$
 
   Solves a quadratic equation
@@ -9,7 +9,7 @@
 
 /* Group=Mathematics                                                         */
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #include  "KProgCst.inl"  //IsZero()
 
@@ -47,6 +47,8 @@ return dEccentricAnomaly;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         05/09/2002 8:22:28 PMDarko           
+ *  2    Biblioteka1.1         2004-06-01 16:55:01  Darko           StdAfx changed
+ *       to stdafx
+ *  1    Biblioteka1.0         2002-09-05 21:22:28  Darko           
  * $
  *****************************************************************************/

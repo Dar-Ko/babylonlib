@@ -1,5 +1,5 @@
 /*$Workfile: TestRandomCongr.cpp$: implementation file
-  $Revision: 3$ $Date: 7/16/02 1:41:40 AM$
+  $Revision: 3$ $Date: 16/07/2002 1:41:40 AM$
   $Author: Darko$
 
   Test congruential random number generator
@@ -44,10 +44,10 @@ cout << "============================" << endl;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 3    Biblioteka1.2         7/16/02 1:41:40 AM   Darko           Fixed VSS Log 
+ * 3    Biblioteka1.2         16/07/2002 1:41:40 AMDarko           Fixed VSS Log 
  *      tag
- * 2    Biblioteka1.1         3/18/02 5:34:30 PM   Darko Kolakovic Updated
+ * 2    Biblioteka1.1         18/03/2002 5:34:30 PMDarko Kolakovic Updated
  *      comments
- * 1    Biblioteka1.0         3/14/02 4:44:31 PM   Darko Kolakovic 
+ * 1    Biblioteka1.0         14/03/2002 4:44:31 PMDarko Kolakovic 
  *$
  *****************************************************************************/

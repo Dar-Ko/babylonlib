@@ -1,5 +1,5 @@
 /*$Workfile: KStrEnum.cpp$: implementation file
-  $Revision: 3$ $Date: 25/01/2002 3:57:59 PM$
+  $Revision: 5$ $Date: 2004-06-01 17:53:01$
   $Author: Darko$
 
   Retreive substrings
@@ -7,15 +7,19 @@
   May '97 Darko Kolakovic
 */
 /* Group=Strings                                                             */
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#include <TChar.h>  /*TCHAR*/
+#include "KTChar.h"  /*TCHAR*/
 #include "KStrings.h" //Declarations
 
 //EnumSubstring()--------------------------------------------------------------
-/*Determine the number of substrings delimited with separator character
+/*Determines the number of substrings delimited with separator character.
+
+  Returns: number of delimited text parts.
  */
-int EnumSubstring(const TCHAR* strSource,TCHAR chDelimiter/* = '\n'*/)
+int EnumSubstring(const TCHAR* strSource, //[in] zero-terminated string to search
+                  TCHAR chDelimiter//[in]= '\n' text separator
+                  )
 {
 int iSubstringIndex = 0;    //Substring count
 
@@ -30,17 +34,25 @@ if (strSource != NULL)
 return iSubstringIndex;
 }
 
-int EnumSubstring(const TCHAR* strSource,const TCHAR* Delimiters)
+/*Determine the number of substrings delimited with separator word.
+
+  Returns: number of delimited text parts or 0 if separator word is an empty
+  string.
+ */
+int EnumSubstring(const TCHAR* strSource, //[in] zero-terminated string to search
+                  const TCHAR* szDelimiter //[in] a zero-terminated word used as 
+                                           //text separator
+                  )
 {
 int iSubstringIndex = 0;    //Substring count
-const int iDelimSize = strlen(Delimiters);
-if ((strSource != NULL) || (iDelimSize > 0))
+const unsigned int nDelimSize = (unsigned int)_tcslen(szDelimiter);
+if ((strSource != NULL) || (nDelimSize > 0))
   {
   TCHAR* lpsz = const_cast<TCHAR*>(strSource);
   TCHAR* lpszNew;
-  while ((lpszNew =_tcsstr(lpsz, Delimiters)) != NULL)
+  while ((lpszNew =_tcsstr(lpsz, szDelimiter)) != NULL)
     {
-    lpsz = lpszNew + iDelimSize;
+    lpsz = lpszNew + nDelimSize;
     iSubstringIndex++;
     }
   }
@@ -49,7 +61,13 @@ return iSubstringIndex;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log:
- *  0    Biblioteka0           Darko Kolakovic  May '97
+ * $Log: 
+ *  5    Biblioteka1.4         2004-06-01 17:53:01  Darko           time sync
+ *  4    Biblioteka1.3         2003-08-25 02:53:39  Darko           Unicode
+ *  3    Biblioteka1.2         2002-01-25 16:57:59  Darko           Updated
+ *       comments
+ *  2    Biblioteka1.1         2001-08-19 23:55:06  Darko           Butyfier
+ *  1    Biblioteka1.0         2001-08-18 16:04:03  Darko           
  * $
+ *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Images\TestGifCreate.cpp$: implementation file
-  $Revision: 1$ $Date: 7/16/02 8:55:57 PM$
+/*$Workfile: TestGifCreate.cpp$: implementation file
+  $Revision: 1$ $Date: 16/07/2002 7:55:57 PM$
   $Author: Darko Kolakovic$
 
   Test GIF object initialization
@@ -48,6 +48,6 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 1    Biblioteka1.0         7/16/02 8:55:57 PM   Darko Kolakovic 
+ * 1    Biblioteka1.0         16/07/2002 7:55:57 PMDarko Kolakovic 
  *$
  *****************************************************************************/

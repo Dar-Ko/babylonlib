@@ -1,5 +1,5 @@
 /*$Workfile: TestGifViewer.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2003/01/31 03:14:23 $
+  $Revision: 1.2 $ $Date: 2005/03/08 06:27:44 $
   $Author: ddarko $
 
   Test of GIF image decoder
@@ -54,7 +54,7 @@ return bRes;
 
  // Get File Size
 long GetFileSize(char* pszFile) 
-{	
+{  
 long lRes = 0;
 FILE* fileStream; 
 

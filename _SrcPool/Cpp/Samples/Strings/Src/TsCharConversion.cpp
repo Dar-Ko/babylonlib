@@ -1,5 +1,5 @@
 /*$Workfile: TsCharConversion.cpp$: implementation file
-  $Revision: 2$ $Date: 9/10/02 6:55:38 PM$
+  $Revision: 2$ $Date: 10/09/2002 5:55:38 PM$
   $Author: Darko Kolakovic$
 
   Test different character conversions
@@ -9,9 +9,9 @@
 
 // Group=Examples
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#include "KStrings.h"	//ChtoAscii()
+#include "KStrings.h"  //ChtoAscii()
 #include <iostream>
 #include <iomanip.h>  //std::endl
 
@@ -77,7 +77,7 @@ return bRes;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         9/10/02 6:55:38 PM   Darko Kolakovic 
- * 1    Biblioteka1.0         8/19/02 10:16:44 AM  Darko Kolakovic 
+ * 2    Biblioteka1.1         10/09/2002 5:55:38 PMDarko Kolakovic 
+ * 1    Biblioteka1.0         19/08/2002 9:16:44 AMDarko Kolakovic 
  *$
  *****************************************************************************/

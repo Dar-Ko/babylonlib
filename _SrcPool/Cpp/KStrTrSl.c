@@ -1,6 +1,6 @@
 /*$Workfile: KStrTrSl.c$: implementation file
-  $Revision: 1$ $Date: 25/10/2002 2:20:47 AM$
-  $Author: Darko Kolakovic$
+  $Revision: 2$ $Date: 8/14/2003 5:05:39 AM$
+  $Author: Darko$
 
   Remove trailing slashes from a string
   Copyright: CommonSoft Inc.
@@ -36,14 +36,16 @@
 
       Output:
         /Dir/SubDir
+
+  See also: KStrings.h
  */
 LPTSTR StrTrimSlash(LPTSTR szSource /*[in/out] zero-terminated string to be 
                                       trimmed
                                      */
               )
 {
-unsigned int nTail;
-if ( (szSource == NULL) || (szSource[0] == _T('/0')) )
+size_t nTail;
+if ( (szSource == NULL) || (szSource[0] == _T('\0')) )
   return szSource; /*Nothing to do */
 
   /*Count trailing white spaces */
@@ -57,6 +59,8 @@ return szSource;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         25/10/2002 2:20:47 AMDarko Kolakovic 
+ *  2    Biblioteka1.1         8/14/2003 5:05:39 AM Darko           Fixed empty
+ *       string validation
+ *  1    Biblioteka1.0         10/25/2002 3:20:47 AMDarko Kolakovic 
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: TestRandomUniform.cpp$: implementation file
-  $Revision: 6$ $Date: 7/16/02 1:41:49 AM$
+  $Revision: 6$ $Date: 16/07/2002 1:41:49 AM$
   $Author: Darko$
 
   Test uniform random number generator
@@ -49,8 +49,8 @@ for(int i = 0; i < NO_COUNT; i++)
     dRange[MIN] = dResult;
   if (dResult > dRange[MAX])
     dRange[MAX] = dResult;
- 	dSum += dResult;
-	dSum2 += (dResult*dResult);
+   dSum += dResult;
+  dSum2 += (dResult*dResult);
   }
 cout << "Range (" << dRange[MIN]<< ',' << dRange[MAX] << ')' << endl;
 cout << "Mean: " << dSum/NO_COUNT << endl;
@@ -89,14 +89,14 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 6    Biblioteka1.5         7/16/02 1:41:49 AM   Darko           Fixed VSS Log 
+ * 6    Biblioteka1.5         16/07/2002 1:41:49 AMDarko           Fixed VSS Log 
  *      tag
- * 5    Biblioteka1.4         4/3/02 4:31:42 PM    Darko Kolakovic Added stdev and
+ * 5    Biblioteka1.4         03/04/2002 4:31:42 PMDarko Kolakovic Added stdev and
  *      mean results
- * 4    Biblioteka1.3         4/2/02 7:29:31 PM    Darko Kolakovic Updated test
+ * 4    Biblioteka1.3         02/04/2002 7:29:31 PMDarko Kolakovic Updated test
  *      cases
- * 3    Biblioteka1.2         4/2/02 7:06:34 PM    Darko Kolakovic 
- * 2    Biblioteka1.1         3/14/02 10:51:11 PM  Darko           
- * 1    Biblioteka1.0         3/14/02 6:56:23 PM   Aleksandar Janicijevic 
+ * 3    Biblioteka1.2         02/04/2002 7:06:34 PMDarko Kolakovic 
+ * 2    Biblioteka1.1         14/03/2002 10:51:11 PMDarko           
+ * 1    Biblioteka1.0         14/03/2002 6:56:23 PMAleksandar Janicijevic 
  *$
  *****************************************************************************/

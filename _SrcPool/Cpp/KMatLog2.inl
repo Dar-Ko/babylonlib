@@ -1,5 +1,5 @@
 /*$Workfile: KMatLog2.inl$: header file
-  $Revision: 5$ $Date: 29/01/2002 2:40:46 PM$
+  $Revision: 6$ $Date: 2003-08-22 16:59:00$
   $Author: Darko$
 
   Base 2 Logarithm
@@ -21,7 +21,8 @@
   infinite (INF). 
  */
 template <class TYPE> 
-inline TYPE log2(TYPE n //argument can be any valid numeric expression greater than 0
+inline TYPE log2(TYPE n //[in] argument can be any valid numeric expression
+                        //greater than 0
                  )
 {
 return log((double)n) / CST_LN2;
@@ -29,17 +30,18 @@ return log((double)n) / CST_LN2;
 
 /*If n is  negative, the function returns -1.
  */
-inline int log2(int n //argument can be any valid numeric expression greater than 0
+inline int log2(int n //[in] argument can be any valid numeric expression
+                      //greater than 0
                 )
 {
 int iLog = -1;
-while(TRUE)
-	{
-	if (n == 0)
+while(true)
+  {
+  if (n == 0)
     break;
-	n = n >> 1;
-	iLog++;
-	}
+  n = n >> 1;
+  iLog++;
+  }
 return iLog;
 }
 
@@ -49,10 +51,11 @@ return iLog;
 /*///////////////////////////////////////////////////////////////////////////*/
 /******************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         29/01/2002 2:40:46 PMDarko           Tag update
- *  4    Biblioteka1.3         19/07/2001 11:58:20 PMDarko           VSS tags
- *  3    Biblioteka1.2         11/07/2001 9:51:53 PMDarko           
- *  2    Biblioteka1.1         08/06/2001 10:51:03 PMDarko           VSS
- *  1    Biblioteka1.0         13/08/2000 2:56:47 PMDarko           
+ *  6    Biblioteka1.5         2003-08-22 16:59:00  Darko           comment
+ *  5    Biblioteka1.4         2002-01-29 15:40:46  Darko           Tag update
+ *  4    Biblioteka1.3         2001-07-20 00:58:20  Darko           VSS tags
+ *  3    Biblioteka1.2         2001-07-11 22:51:53  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:51:03  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:56:47  Darko           
  * $
  *****************************************************************************/

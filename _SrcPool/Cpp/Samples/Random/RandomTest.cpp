@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Random\RandomTest.cpp$: implementation file
-  $Revision: 5$ $Date: 7/16/02 1:41:37 AM$
+/*$Workfile: RandomTest.cpp$: implementation file
+  $Revision: 5$ $Date: 16/07/2002 12:41:37 AM$
   $Author: Darko$
 
   Test random number generators
@@ -8,7 +8,7 @@
 
 // Group=Examples
 
-#include "StdAfx.h"
+#include "stdafx.h"
 #include <iostream>
 #include <iomanip.h>
 
@@ -37,13 +37,13 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /****************************************************************************** 
  *$Log: 
- * 5    Biblioteka1.4         7/16/02 1:41:37 AM   Darko           Fixed VSS Log 
+ * 5    Biblioteka1.4         16/07/2002 12:41:37 AMDarko           Fixed VSS Log 
  *      tag
- * 4    Biblioteka1.3         4/3/02 4:31:33 PM    Darko Kolakovic Added stdev and
+ * 4    Biblioteka1.3         03/04/2002 3:31:33 PMDarko Kolakovic Added stdev and
  *      mean results
- * 3    Biblioteka1.2         3/18/02 5:33:45 PM   Darko Kolakovic Added Gaussian
+ * 3    Biblioteka1.2         18/03/2002 4:33:45 PMDarko Kolakovic Added Gaussian
  *      Rand No
- * 2    Biblioteka1.1         3/14/02 4:47:33 PM   Darko Kolakovic Added srand()
- * 1    Biblioteka1.0         3/13/02 8:26:21 PM   Aleksandar Janicijevic 
+ * 2    Biblioteka1.1         14/03/2002 3:47:33 PMDarko Kolakovic Added srand()
+ * 1    Biblioteka1.0         13/03/2002 7:26:21 PMAleksandar Janicijevic 
  *$
  *****************************************************************************/

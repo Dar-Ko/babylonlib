@@ -1,5 +1,5 @@
 /*$Workfile: KIsPrimeNo.cpp$: header file
-  $Revision: 3$ $Date: 16/07/2002 12:41:12 AM$
+  $Revision: 4$ $Date: 2003-08-23 15:39:51$
   $Author: Darko$
 
   Simple mathematical functions
@@ -39,16 +39,16 @@ if (nValue > 3) //Skip trivial cases and 0 or 1
   if( nValue & 1 ) //Validate only odd numbers (same as  (nValue % 2 != 0) )
     {
     //If nValue = a*b, then either a or b must be < nLim = sqrt(nValue) + 1
-    unsigned long nLim = (unsigned long)sqrt(nValue) + 1;
-	  unsigned long nDivisor;
-	  for (nDivisor = 3; nDivisor < nLim; nDivisor += 2)
+    unsigned long nLim = (unsigned long)sqrt((double)nValue) + 1;
+    unsigned long nDivisor;
+    for (nDivisor = 3; nDivisor < nLim; nDivisor += 2)
       {
       #ifdef _DEBUG_TEST
         g_nDbgIterationCount1++;
       #endif
 
       if( nValue % nDivisor == 0 )
-		    return false; //Number is a composite
+        return false; //Number is a composite
       }
     }
   else //Number is even
@@ -79,23 +79,23 @@ bool bResult = true;
 if (nValue > 3) //Skip trivial cases and 0 or 1
   {
   //Need to check only odd integers
-	if (nValue & 1) 
+  if (nValue & 1) 
     {
     //If nValue = a*b, then either a or b must be < nLim = nValue/2
-		unsigned long nLim = nValue / 2;
+    unsigned long nLim = nValue / 2;
     unsigned long nDivisor = 0;
-		for (nDivisor = 3; nDivisor < nLim; nDivisor += 2)
+    for (nDivisor = 3; nDivisor < nLim; nDivisor += 2)
       {
       g_nDbgIterationCount0++; 
-			if (nValue % nDivisor == 0) 
+      if (nValue % nDivisor == 0) 
         {
-				bResult = false; //Number is a composite
-				break;
-			  }
+        bResult = false; //Number is a composite
+        break;
+        }
       }
-	  } 
+    } 
   else //Number is even
-		bResult = false;
+    bResult = false;
   }
 
 return bResult;
@@ -106,10 +106,11 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 3    Biblioteka1.2         16/07/2002 12:41:12 AMDarko           Fixed VSS Log 
+ * 4    Biblioteka1.3         2003-08-23 15:39:51  Darko           typecast double
+ * 3    Biblioteka1.2         2002-07-16 01:41:12  Darko           Fixed VSS Log 
  *      tag
- * 2    Biblioteka1.1         11/03/2002 6:29:47 PMDarko           Improved
+ * 2    Biblioteka1.1         2002-03-11 19:29:47  Darko           Improved
  *      algorithm
- * 1    Biblioteka1.0         08/03/2002 2:04:11 PMDarko Kolakovic 
+ * 1    Biblioteka1.0         2002-03-08 15:04:11  Darko Kolakovic 
  *$
  *****************************************************************************/

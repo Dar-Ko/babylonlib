@@ -1,5 +1,5 @@
-/*$Workfile: KStrings.h$: implementation file
-  $Revision: 20$ $Date: 18/12/2002 3:40:34 PM$
+/*$Workfile: S:\_SrcPool\Cpp\KStrings.h$: implementation file
+  $Revision: 28$ $Date: 2004-10-22 17:51:42$
   $Author: Darko Kolakovic$
 
   String manipulation
@@ -9,13 +9,27 @@
 /* Group=Strings                                                             */
 
 #ifndef __KSTRINGS_H__
-    /*KStrings.h sentry                                                      */
+    /*$Workfile: S:\_SrcPool\Cpp\KStrings.h$ sentry */
   #define __KSTRINGS_H__
 
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
   #pragma message ("   #include " __FILE__ )
 #endif
+
+#ifdef _MSC_VER
+  #ifdef _UNICODE
+    #ifndef UNICODE
+      //To enable Unicode for some Microsoft Visual C/C++ header files,
+      //the UNICODE definition is required
+      #define UNICODE
+    #endif
+  #endif
+
+  //Microsoft Visual C/C++ compilers: replace custom header files With
+  //vendor's files
+  #pragma include_alias( "KTChar.h", "tchar.h" )
+#endif //_MSC_VER
 
 #include "KTypedef.h"  //DWORD
 
@@ -36,9 +50,13 @@ extern "C"
   _K_EXTRNDECL_ TCHAR* StrPCpy(   TCHAR* szDestination, const TCHAR* szSource);
   _K_EXTRNDECL_ TCHAR* StrCatV(   TCHAR* szDestination, const TCHAR* szSource, ...);
   _K_EXTRNDECL_ TCHAR* StrDup(LPCTSTR pszSource);
+  _K_EXTRNDECL_ TCHAR* StrNDup(LPCTSTR pszSource, const unsigned int nCount);
   _K_EXTRNDECL_ int    StrICmp(LPCTSTR szStr1,LPCTSTR szStr2);
+  _K_EXTRNDECL_ LPTSTR StrIStr(LPCTSTR szSource, LPCTSTR szToken);
+  _K_EXTRNDECL_ double StrToD(LPTSTR pSource, unsigned nLen);
   _K_EXTRNDECL_ LPTSTR StrTrim(LPTSTR szSource);
   _K_EXTRNDECL_ LPTSTR StrTrimSlash(LPTSTR szSource);
+  _K_EXTRNDECL_ LPTSTR CharToEsc(TCHAR cEsc);
   _K_EXTRNDECL_ DWORD  BintoU(TCHAR* lpszValue);
   _K_EXTRNDECL_ TCHAR* BintoA(TCHAR* szResult,DWORD dwValue,int iMsBit,int iLsBit,
                               TCHAR iTrueChar,TCHAR iFalseChar);
@@ -58,7 +76,7 @@ extern "C"
   _K_EXTRNDECL_ LPTSTR ReplaceTabs(LPTSTR szDestination, LPTSTR szSource,
                                     unsigned int nTabPos,
                                     unsigned int nCount);
-  _K_EXTRNDECL_ char*  ItoA(int iValue, char* szResult, int iRadix);
+  _K_EXTRNDECL_ LPTSTR ItoA(int iValue, LPTSTR szResult, int iRadix);
 #ifdef __cplusplus
   }
 #endif
@@ -70,8 +88,10 @@ extern "C"
 /* Overloaded functions                                                      */
 #include "KTChar.h"  //_T() macro
 int EnumSubstring(const TCHAR* strSource,TCHAR chDelimiter = _T('\n'));
-int EnumSubstring(const TCHAR* strSource,const TCHAR* Delimiters);
+int EnumSubstring(const TCHAR* strSource,const TCHAR* szDelimiter);
 int GetLine(LPTSTR& szSource, LPTSTR& szLine);
+bool IsPalindrome(LPCTSTR szSource);
+bool IsPalindrome(LPCTSTR strSource, unsigned int);
 /* ///////////////////////////////////////////////////////////////////////// */
 /* STL functions                                                             */
   #ifdef _STRING_ //string standard header (STL)

@@ -1,6 +1,6 @@
-/*$Workfile: KColorCt.h$: header file
-  $Revision: 9$ $Date: 29/01/2002 10:19:54 PM$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KColorCt.h$: header file
+  $Revision: 15$ $Date: 2004-11-12 16:55:29$
+  $Author: Darko Kolakovic$
 
   Predefined Color Codes
   Copyright: CommonSoft Inc.
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KCOLORCT_H_
-    /*KColorCt.h sentry                                                      */
+    /*$Workfile: S:\_SrcPool\Cpp\KColorCt.h$ sentry                                                      */
   #define _KCOLORCT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -16,9 +16,9 @@
 #endif
 
 /*---------------------------------------------------------------------------*/
-/*{html:<A HREF="Res/KColorCt.htm">}
-  Index table for the  16 colors palette
-  {html:</A>}
+/*{html:<a href="Documentation/KColorCt.htm">}
+  Index table for the 16 colors palette
+  {html:</a>}
  */
 enum COLOR
   {
@@ -29,23 +29,23 @@ enum COLOR
   red         =0x4,
   magenta     =0x5,
   brown       =0x6,
-  white       =0x7,
-  grey        =0x8,
+  white       =0x7, /*a.k.a lightgray*/
+  grey        =0x8, /*a.k.a darkgray*/
   lightblue   =0x9,
   lightgreen  =0xA,
   lightcyan   =0xB,
   lightred    =0xC,
   lightmagenta=0xD,
   yellow      =0xE,
-  brightwhite =0xF,
-  error       =0xFFFF
+  brightwhite =0xF,   /*a.k.a white*/
+  error       =0xFFFF /*color is not from basic 4-bit palette*/
   };
 
 /* Group=Color Constants                                                     */
 
-/* {html:<A HREF="Res/KColorCt.htm">}            */
+/* {html:<a href="Documentation/KColorCt.htm">}  */
 /* 16 Colors Palette                             */
-/* {html:</A>}                                   */
+/* {html:</a>}                                   */
 /*      Color Name             Red Green Blue    */
 #define BLACK               RGB(  0,  0,  0) /*0*/
 #define BLUE                RGB(  0,  0,128) /*1*/
@@ -80,6 +80,7 @@ enum COLOR
 #define BLANCHEDALMOND        RGB(255,235,205)
 //      BLUE
 #define BLUEVIOLET            RGB(138, 43,226)
+#define BRIGHTGREEN           RGB(128,255,  0)
 #define BURLYWOOD             RGB(255,211,155)
 #define CADETBLUE             RGB(152,245,255)
 #define CHARTREUSE            RGB(127,255,  0)
@@ -89,6 +90,8 @@ enum COLOR
 #define CORNFLOWERBLUE        RGB(100,149,237)
 #define CORNSILK              RGB(255,248,220)
 //      CYAN
+#define DARKBEIGE             RGB(255,128,  0)
+#define DARKCORAL             RGB(255,  0,128)
 #define DARKGOLDENROD         RGB(255,185, 15)
 #define DARKGREEN             RGB(  0,100,  0)
 #define DARKKHAKI             RGB(189,183,107)
@@ -115,6 +118,15 @@ enum COLOR
 #define GOLD                  RGB(255,215,  0)
 #define GOLDENROD             RGB(255,193, 37)
 //      GREY
+#define GRAY10                RGB(230,230,230)
+#define GRAY20                RGB(205,205,205)
+#define GRAY30                RGB(179,179,179)
+#define GRAY40                RGB(152,152,152)
+#define GRAY50                RGB(128,128,128)
+#define GRAY60                RGB(102,102,102)
+#define GRAY70                RGB( 76, 76, 76)
+#define GRAY80                RGB( 51, 51, 51)
+#define GRAY90                RGB( 25, 25, 25)
 //      GREEN
 #define GREENYELLOW           RGB(173,255, 47)
 #define HONEYDEW              RGB(240,255,240)
@@ -136,9 +148,9 @@ enum COLOR
 #define LIGHTSKYBLUE          RGB(176,226,255)
 #define LIGHTSLATEBLUE        RGB(132,112,255)
 #define LIGHTSLATEGRAY        RGB(119,136,153)
-#define LIGHTSLATEGREY        RGB(119,136,153)
 #define LIGHTSTEELBLUE        RGB(202,225,255)
 #define LIGHTYELLOW           RGB(255,255,224)
+#define LIME                  LIGHTGREEN
 #define LIMECYAN              RGB(224,255,255)
 #define LIMEGREEN             RGB( 50,205, 50)
 #define LINEN                 RGB(250,240,230)
@@ -153,19 +165,23 @@ enum COLOR
 #define MEDIUMSPRINGGREEN     RGB(  0,250,154)
 #define MEDIUMTURQUOISE       RGB( 72,209,204)
 #define MEDIUMVIOLETRED       RGB(199, 21,133)
+#define MIDNIGHT              RGB(  5,  5,112)
 #define MIDNIGHTBLUE          RGB( 25, 25,112)
 #define MINTCREAM             RGB(245,255,250)
 #define MISTYROSE             RGB(255,228,225)
 #define MOCCASIN              RGB(255,228,181)
 #define NAVAJOWHITE           RGB(255,222,173)
 #define NAVY                  BLUE
+#define NIGHTVIOLET           RGB(128,  0,255)
 #define OLDLACE               RGB(253,245,230)
+#define OLIVE                 BROWN
 #define OLIVEDRAB             RGB(192,255, 62)
 #define ORANGE                RGB(255,165,  0)
 #define ORANGERED             RGB(255, 69,  0)
 #define ORCHID                RGB(255,131,250)
 #define PALEGOLDENROD         RGB(238,232,170)
 #define PALEGREEN             RGB(154,255,154)
+#define PALERED               RGB(255, 92, 92)
 #define PALETURQUOISE         RGB(187,255,255)
 #define PALEVIOLETRED         RGB(255,130,171)
 #define PAPAYAWHIP            RGB(255,239,213)
@@ -185,14 +201,16 @@ enum COLOR
 #define SEAGREEN              RGB( 84,255,159)
 #define SEASHELL              RGB(255,245,238)
 #define SIENNA                RGB(255,130, 71)
+#define SKY                   RGB(  0,128,255)
 #define SKYBLUE               RGB(135,206,255)
 #define SLATEBLUE             RGB(131,111,255)
 #define SLATEGREY             RGB(198,226,255)
 #define SNOW                  RGB(255,250,250)
 #define STORMGREY             RGB(211,211,211)
-#define SPRINGGREEN           RGB(  0,255,127)
+#define SPRINGGREEN           RGB(  0,255,128)
 #define STEELBLUE             RGB( 99,184,255)
 #define TAN                   RGB(255,165, 79)
+#define TEAL                  CYAN
 #define THISTLE               RGB(238,210,238)
 #define TOMATO                RGB(255, 99, 71)
 #define TURQUOISE             RGB(  0,245,255)
@@ -208,14 +226,13 @@ enum COLOR
 /*----------------------------------------------------------------------------*/
 /* Helpers                                                                    */
 
-/* Group=External Functions                                                   */
-
-#ifdef _AFXDLL
-  #include <AfxWin.h>
-#else
-  #include <Windows.h>
+#ifdef _WIN32
+  #ifdef _AFXDLL
+    #include <AfxWin.h>
+  #else
+    #include <windows.h>
+  #endif
 #endif
-
 
 #ifdef __cplusplus
   #ifdef __AFXWIN_H__           //Microsoft's MFC
@@ -226,11 +243,12 @@ enum COLOR
       The COLORREF value is a 32-bit value used to specify an RGB color.
       When specifying an explicit RGB color, the COLORREF value has the
       following hexadecimal form: 0x00BBGGRR
-      
-      Note: uses Microsoft Fundation Library (MFC).
+
+      Note: uses Microsoft Fundation Library (MFC);
+            Microsoft Windows specific (Win).
 
       See also: {html:<A HREF="Res/KColorCt_256_colors_palette.htm">}
-      256 Colors Palette{html:</A>}  
+      256 Colors Palette{html:</A>}
       */
     inline CDumpContext& AFXAPI operator<<(CDumpContext& dc, const LPCOLORREF pclrData)
       {

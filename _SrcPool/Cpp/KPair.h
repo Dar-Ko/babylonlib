@@ -1,5 +1,5 @@
 /*$Workfile: KPair.h$: header file
-  $Revision: 7$ $Date: 30/01/2003 9:41:17 PM$
+  $Revision: 8$ $Date: 2003-08-22 15:59:17$
   $Author: Darko$
 
   Ordered number pairs
@@ -39,7 +39,7 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 // Inlines
 
-//::TPoint()-----------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /*Default constructor
   P = (x,y)
 
@@ -69,7 +69,7 @@ inline TPair<TYPE>::TPair(const TPoint<TYPE>& tptPoint):
 {
 }
 
-//operator<()------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /*Orders two points along x-axis. Returns TRUE if P(x) < A(x) or point P is on
   semi-segment  P(y) < A(y) and P(x) = A(x).
    {html:<BR><IMG SRC="Res/PltA.gif" ALT="P(x,y) &lt A" BORDER="0">}
@@ -80,7 +80,7 @@ bool TPair<TYPE>::operator < (const TPair<TYPE>& tptPoint) const
 return ((x <  tptPoint.x) || (x == tptPoint.x && y < tptPoint.y));
 }
 
-//operator<=()-----------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /*Orders two points along x-axis. Returns TRUE if P(x) < A(x) or point P is on
   semi-segment  P(y) <= A(y) and P(x) = A(x).
    {html:<BR><IMG SRC="Res/PleA.gif" ALT="P(x,y) =&lt; A" BORDER="0">}
@@ -91,7 +91,7 @@ bool TPair<TYPE>::operator <= (const TPair<TYPE>& tptPoint) const
 return ((x <  tptPoint.x) || (x == tptPoint.x && y <= tptPoint.y));
 }
 
-//operator>()------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /*Orders two points along x-axis. Returns TRUE if P(x) > A(x) or point P is on
   semi-segment  P(y) > A(y) and P(x) = A(x).
    {html:<BR><IMG SRC="Res/PgtA.gif" ALT="P(x,y) &gt; A" BORDER="0">}
@@ -102,7 +102,7 @@ bool TPair<TYPE>::operator > (const TPair<TYPE>& tptPoint) const
 return ((x >  tptPoint.x) || (x == tptPoint.x && y > tptPoint.y));
 }
 
-//operator>=()-----------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /*Orders two points along x-axis. Returns TRUE if P(x) > A(x) or point P is on
   semi-segment  P(y) >= A(y) and P(x) = A(x).
    {html:<BR><IMG SRC="Res/PgeA.gif" ALT="P(x,y) &gt;= A" BORDER="0">}
@@ -120,7 +120,7 @@ return ((x >  tptPoint.x) || (x == tptPoint.x && y >= tptPoint.y));
 /******************************************************************************
  * $Log: 
  *  4    Biblioteka1.3         7/19/01 11:58:32 PM  Darko           VSS tags
- *  3    Biblioteka1.2         7/7/01 11:10:30 PM   Darko           $Revision: 7$
+ *  3    Biblioteka1.2         7/7/01 11:10:30 PM   Darko           $Revision: 8$
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:51:09 PM   Darko           VSS
  *  1    Biblioteka1.0         8/13/00 2:56:52 PM   Darko           

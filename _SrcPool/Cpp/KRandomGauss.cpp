@@ -1,5 +1,5 @@
 /*$Workfile: KRandomGauss.cpp$: implementation file
-  $Revision: 3$ $Date: 16/07/2002 12:41:18 AM$
+  $Revision: 4$ $Date: 2004-06-01 17:52:45$
   $Author: Darko$
 
   Random number generator with Gauss distribution
@@ -95,9 +95,10 @@ return (m_dMean + m_dStdDev * v / u);
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 3    Biblioteka1.2         16/07/2002 12:41:18 AMDarko           Fixed VSS Log 
+ * 4    Biblioteka1.3         2004-06-01 17:52:45  Darko           time sync
+ * 3    Biblioteka1.2         2002-07-16 01:41:18  Darko           Fixed VSS Log 
  *      tag
- * 2    Biblioteka1.1         02/04/2002 6:06:11 PMDarko Kolakovic 
- * 1    Biblioteka1.0         14/03/2002 9:49:23 PMDarko           
+ * 2    Biblioteka1.1         2002-04-02 19:06:11  Darko Kolakovic 
+ * 1    Biblioteka1.0         2002-03-14 22:49:23  Darko           
  *$
  *****************************************************************************/

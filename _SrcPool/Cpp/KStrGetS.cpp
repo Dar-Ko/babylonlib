@@ -1,5 +1,5 @@
 /*$Workfile: KStrGetS.cpp$: implementation file
-  $Revision: 4$ $Date: 04/02/2002 6:56:22 PM$
+  $Revision: 6$ $Date: 2004-06-01 17:53:20$
   $Author: Darko$
 
   Retreive substrings
@@ -8,7 +8,7 @@
 */
 
 /* Group=Strings                                                             */
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #ifndef _TCHAR_DEFINED
   #include "KTChar.h" //TCHAR typedef
@@ -26,12 +26,12 @@
   If the null terminator is found before requested token, function returns
   a pointer to the null terminator.
 */
-TCHAR* GetSubstring(TCHAR* szSource,         //null-terminated string to parse
-                    TCHAR  chDelimiter,      //delimiter
-                    int    iSubstringIndex   //token to return starting index of
+TCHAR* GetSubstring(TCHAR* szSource,         //[in] null-terminated string to parse
+                    TCHAR  chDelimiter,      //[in] delimiter
+                    int    iSubstringIndex   //[in] token to return starting index of
                     )
 {
-LPSTR strToken = szSource;
+LPTSTR strToken = szSource;
 int   nCount = 0;
   //return string itself
 if (iSubstringIndex == 0)
@@ -43,8 +43,8 @@ while (*strToken != _T('\0'))
     {
     nCount++;
 
-	  if (iSubstringIndex == nCount)
-		  return strToken;
+    if (iSubstringIndex == nCount)
+      return strToken;
     }
   }
 
@@ -52,7 +52,15 @@ return strToken;
 }
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log:
- *  0    Biblioteka0           Darko Kolakovic  May '97
+ * $Log: 
+ *  6    Biblioteka1.5         2004-06-01 17:53:20  Darko           time sync
+ *  5    Biblioteka1.4         2003-09-04 11:23:01  Darko           Unicode
+ *  4    Biblioteka1.3         2002-02-04 19:56:22  Darko           include
+ *       KTChar.h
+ *  3    Biblioteka1.2         2002-01-25 16:58:23  Darko           Updated
+ *       comments
+ *  2    Biblioteka1.1         2001-12-23 01:21:01  Darko           _DEBUG
+ *  1    Biblioteka1.0         2001-08-18 16:04:21  Darko           
  * $
+ *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/

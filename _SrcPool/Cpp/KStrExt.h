@@ -1,5 +1,5 @@
-/*$Workfile: KStrExt.h$: header file
-  $Revision: 4$ $Date: 04/04/2002 12:13:14 AM$
+/*$Workfile: S:\_SrcPool\Cpp\KStrExt.h$: header file
+  $Revision: 9$ $Date: 2004-10-06 23:43:08$
   $Author: Darko$
 
   CString Extensions declarations
@@ -9,9 +9,9 @@
  */
 /* Group=Strings                                                             */
 
-#ifndef __KSTRINGEXT_H__
-    //KStrExt.h sentry
-  #define __KSTRINGEXT_H__
+#ifndef _KSTRINGEXT_H_
+    //$Workfile: S:\_SrcPool\Cpp\KStrExt.h$ sentry
+  #define _KSTRINGEXT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
@@ -23,13 +23,15 @@
 
   #ifdef _DOCBROwSER //Dummy elif
   #else
-
+//TODO: Replace MFC with STL D.K.
 #include <string.h> //TCHAR macro
 
 ///////////////////////////////////////////////////////////////////////////////
 // Helper class RESOURCESTRINGID
 /*String resource ID type
   Used to distinguish UINT from resource UINT for overloaded operators
+
+  Note: Microsoft Windows specific (Win).
 
   Example:
     CString strTitle;
@@ -61,17 +63,20 @@ typedef void (*EmptyString)();
 
 ///////////////////////////////////////////////////////////////////////////////
 //Functions using MFC
+//  TODO: replace MFC D.K.
+
 #ifdef __AFXWIN_H__
-  CString GetSubstring(CString& strSource,LPCSTR Delimiters,int iSubstringIndex);
-  CString FitString(CDC* pDC,CString strText, int iWidth,LPCTSTR szSuffix);
-  CString Extract(CString& strSrc, const int iStart, const int iEnd );
+  CString  GetSubstring(CString& strSource,LPCSTR Delimiters,int iSubstringIndex);
+  CString  FitString(CDC* pDC,CString strText, int iWidth,LPCTSTR szSuffix);
+  CString  Extract(CString& strSrc, const int iStart, const int iEnd );
   CString& ReplaceChar(CString& strSource, TCHAR chOld, TCHAR chNew);
   CString& ReplaceTabs(CString& strSource, const int iTabPos);
+  int      FindNoCase(const CString& strSource, LPCTSTR szToken, const unsigned nStart = 0);
 
   ///////////////////////////////////////////////////////////////////////////////
   //Functions using STL and MFC
-  #ifdef _INC_IOSTREAM
-    //Note: include IOstream.h
+  #ifdef _STL_  //Use Standard Template Library (STL)
+    //Note: include <strstrea.h> or <iostream.h> or <iostream>
     istream& operator>>(istream& cInput,CString& strTarget);
     ostream& operator<<(ostream& cOutput,const CString& strSource);
   #endif
@@ -104,7 +109,7 @@ return strSrc;
     operator--(strText, 4);
 
  */
-inline CString&	operator --(CString& strSrc, int n)
+inline CString& operator --(CString& strSrc, int n)
 {
 if (strSrc.GetLength() <= n)
   strSrc.Empty();
@@ -180,26 +185,46 @@ return strDestination << _itot(iSource,szTemp,10);
 }
 
 //operator<<()-----------------------------------------------------------------
-/*Inserts a floating-point number to a CString object.
- */
-inline
-CString& AFXAPI operator<<(CString& strDestination, double dSource)
-{
-const NOOFDIGITS = 25;
-TCHAR szTemp[NOOFDIGITS];
-return strDestination << _gcvt(dSource,NOOFDIGITS-1,szTemp);
-}
+#if !defined _MBCS && !defined _UNICODE
+  /*Inserts a floating-point number to a CString object.
 
-inline
-CString& AFXAPI operator<<(CString& strDestination, float fSource)
-{
-return strDestination << (double)fSource;
-}
+    Note: MSDN KB119504: Result Differs Between 16-bit and 32-bit _gcvt() 
+    (rounding differs).
 
+  TODO: Test Unicode D.K.
+  TODO: replace MFC D.K.
+  */
+  inline
+  CString& AFXAPI operator<<(CString& strDestination, double dSource)
+  {
+  const NOOFDIGITS = 25;
+  TCHAR szTemp[NOOFDIGITS];
+  #if defined _MSC_VER || defined __OS400_TGTVRM__
+    //Microsoft C/C++ C Run-Time (CRT),
+    //IBM ILE C++ for AS/400
+    //supports char *_gcvt(double value, int digits,char *buffer);
+    #if !defined _MBCS && !defined _UNICODE
+      return strDestination << _gcvt(dSource,NOOFDIGITS-1,szTemp);
+    #endif
+  #endif
+  }
+
+  inline
+  CString& AFXAPI operator<<(CString& strDestination, float fSource)
+  {
+  return strDestination << (double)fSource;
+  }
+#else
+  #ifdef _DEBUG
+    #include "KDbgMacr.h" //Dump compiler's environment
+  #endif
+#endif
 
 //operator<<()-----------------------------------------------------------------
 /*Inserts a character to a CString object. Throws the memory exceptions in case
   of insuficient memory space.
+
+  TODO: replace MFC D.K.
  */
 inline
 CString& operator<<(CString& strDestination, TCHAR chSource)
@@ -217,6 +242,7 @@ return strDestination;
     EmptyString Erase;
     strBuffer << Erase << _T("new value") << '\n';
 
+      TODO: replace MFC D.K.
  */
 inline
 CString& operator<<(CString& strDestination, EmptyString )
@@ -230,7 +256,7 @@ return strDestination;
 #endif //__AFXWIN_H__
 
 //////////////////////////////////////////////////////////////////////////////
-#endif  //__KSTRINGEXT_H__
+#endif  //_KSTRINGEXT_H_
 /*****************************************************************************
  * $Log:
  *  1    Biblioteka1.0         18/08/2001 2:47:04 PMDarko

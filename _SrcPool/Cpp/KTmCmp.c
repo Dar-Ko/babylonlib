@@ -1,6 +1,6 @@
 /*$Workfile: KTmCmp.c$: implementation file
-  $Revision: 2$ $Date: 10/01/2003 9:53:03 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 3$ $Date: 2003-09-22 22:27:20$
+  $Author: Darko$
  
   Compares two date/time values
   Copyright: CommonSoft Inc
@@ -62,7 +62,7 @@ if (ptmTime1->tm_year != ptmTime2->tm_year)
   return ptmTime1->tm_year - ptmTime2->tm_year;
 
 if (ptmTime1->tm_mon != ptmTime2->tm_mon)
-	return ptmTime1->tm_mon - ptmTime2->tm_mon;
+  return ptmTime1->tm_mon - ptmTime2->tm_mon;
 
 if (ptmTime1->tm_mday != ptmTime2->tm_mday)
   return ptmTime1->tm_mday - ptmTime2->tm_mday;
@@ -82,8 +82,9 @@ return 0;
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         10/01/2003 9:53:03 PMDarko Kolakovic replaced tm*
+ *  3    Biblioteka1.2         2003-09-22 22:27:20  Darko           formatting
+ *  2    Biblioteka1.1         2003-01-10 22:53:03  Darko Kolakovic replaced tm*
  *       with PTM
- *  1    Biblioteka1.0         08/01/2003 3:26:22 PMDarko Kolakovic 
+ *  1    Biblioteka1.0         2003-01-08 16:26:22  Darko Kolakovic 
  * $
  *****************************************************************************/

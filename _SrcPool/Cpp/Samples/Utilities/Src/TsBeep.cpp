@@ -9,7 +9,7 @@
 
 // Group=Examples
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #include "KTypedef.h" //LPCTSTR typedef
 #include "KBeep.h"    //CBeep class

@@ -1,5 +1,5 @@
 /*$Workfile: TestBasicBarsBmp.c$: implementation file
-  $Revision: 3$ $Date: 8/13/02 9:14:46 AM$
+  $Revision: 3$ $Date: 13/08/2002 8:14:46 AM$
   $Author: Darko Kolakovic$
 
   Microsoft DIB bitmap example

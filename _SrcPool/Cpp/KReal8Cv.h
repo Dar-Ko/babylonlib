@@ -1,5 +1,5 @@
 /*$Workfile: KReal8Cv.h$: header file
-  $Revision: 4$ $Date: 24/01/2002 6:19:15 PM$
+  $Revision: 6$ $Date: 2004-06-01 17:52:51$
   $Author: Darko$
 
   Conversion helper for 8 bytes real numbers (double)
@@ -7,9 +7,9 @@
   Mar 2k. D.Kolakovic  
 */
 
-#ifndef __KREAL8CV_H__
-  /*KReal8Cv.h sentry                                                       */
-  #define __KREAL8CV_H__
+#ifndef _KREAL8CV_H_
+  /*$Workfile: KReal8Cv.h$ sentry                                                       */
+  #define _KREAL8CV_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
   #pragma message ("   #include " __FILE__ )
@@ -91,7 +91,8 @@ return dReal;
   inline int IsFinite(const double& dValue)
     {
     const UReal8Conversion& real = dValue;
-    return  (int)((DWORD)((real[_ENDIAN_HIGH_INDEX]&0x7fffffff)-NaN_DPOSINFINITY)>>REAL8_IE_ExpLEN);
+    return (int)((DWORD)((real[_ENDIAN_HIGH_INDEX]&0x7fffffff) - 
+                          NaN_DPOSINFINITY) >> REAL8_IE_ExpLEN);
     }
 
 #else //_MSC_VER
@@ -106,4 +107,15 @@ return dReal;
 
 
 /*///////////////////////////////////////////////////////////////////////////*/
-#endif  /*__KREAL8CV_H__                                                     */
+#endif  /*_KREAL8CV_H_                                                       */
+/*****************************************************************************
+ * $Log: 
+ *  6    Biblioteka1.5         2004-06-01 17:52:51  Darko           time sync
+ *  5    Biblioteka1.4         2003-09-30 10:44:37  Darko           formatting
+ *  4    Biblioteka1.3         2002-01-24 19:19:15  Darko           Updated
+ *       comments
+ *  3    Biblioteka1.2         2001-07-10 00:46:13  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:51:34  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:57:17  Darko           
+ * $
+ *****************************************************************************/

@@ -1,7 +1,7 @@
 // TimerProc.cpp : implementation file
 //
 
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "KTimer.h"    //CTimer class
 #include "Resource.h" 
 #include "TimerDlg.h" //CTimerDlg class
@@ -25,7 +25,7 @@ VOID CALLBACK MyTimerProc(HWND hWnd, //handle of window processing timer message
                            UINT uMsg,         //WM_TIMER message
                            UINT nTimerID,     //timer identifier
                            DWORD dwTime       //number of milliseconds that have 
-						                      //elapsed since the system was started 
+                                  //elapsed since the system was started 
                           )
 {
 TRACE2("MyTimerProc(hWnd = %x, ID = %d, elapsed time = ",hWnd,nTimerID);

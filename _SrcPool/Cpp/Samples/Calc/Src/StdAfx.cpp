@@ -1,8 +1,8 @@
 // StdAfx.cpp : source file that includes just the standard includes
-//	Calc.pch will be the pre-compiled header
-//	StdAfx.obj will contain the pre-compiled type information
+//  Calc.pch will be the pre-compiled header
+//  StdAfx.obj will contain the pre-compiled type information
 
-#include "StdAfx.h"
+#include "stdafx.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 // Globals

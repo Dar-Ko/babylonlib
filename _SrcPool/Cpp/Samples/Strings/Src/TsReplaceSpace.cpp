@@ -1,5 +1,5 @@
 /*$Workfile: TsReplaceSpace.cpp$: implementation file
-  $Revision: 2$ $Date: 9/11/02 4:26:38 PM$
+  $Revision: 3$ $Date: 25/10/2002 2:31:25 AM$
   $Author: Darko Kolakovic$
 
   Test string trimming 
@@ -9,9 +9,9 @@
 
 // Group=Examples
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#include "KStrings.h"	//ChtoAscii()
+#include "KStrings.h"  //ChtoAscii()
 #include <iostream>
 #include <iomanip.h>  //std::endl
 
@@ -183,8 +183,10 @@ return bRes;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         9/11/02 4:26:38 PM   Darko Kolakovic Added
+ * 3    Biblioteka1.2         25/10/2002 2:31:25 AMDarko Kolakovic Added
+ *      TestTrim()
+ * 2    Biblioteka1.1         11/09/2002 3:26:38 PMDarko Kolakovic Added
  *      TestStrDup()
- * 1    Biblioteka1.0         9/10/02 6:51:14 PM   Darko Kolakovic 
+ * 1    Biblioteka1.0         10/09/2002 5:51:14 PMDarko Kolakovic 
  *$
  *****************************************************************************/

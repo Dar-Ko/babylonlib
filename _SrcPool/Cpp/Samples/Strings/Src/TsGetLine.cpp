@@ -1,5 +1,5 @@
 /*$Workfile: TsGetLine.cpp$: implementation file
-  $Revision: 6$ $Date: 9/10/02 6:55:42 PM$
+  $Revision: 6$ $Date: 10/09/2002 5:55:42 PM$
   $Author: Darko Kolakovic$
 
   Test for obtaining a text line
@@ -10,15 +10,15 @@
 // Group=Examples
 
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #include "KTypedef.h"  //LPCTSTR typedef
 #include "KTrace.h"    //ASSERT macro
 #include "KStrings.h"  //GetLine()
 extern BOOL TsWriteToView(LPCTSTR lszText);
 extern LPTSTR FileRead(LPCTSTR szFileName, 
-					   LPTSTR szBuffer = NULL, 
-					   int iCount = -1);
+             LPTSTR szBuffer = NULL, 
+             int iCount = -1);
 
 //TestGetLine()------------------------------------------------------------
 /*Function shows how to use GetLine().

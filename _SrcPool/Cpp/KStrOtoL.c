@@ -1,5 +1,5 @@
 /*$Workfile: KStrOtoL.c$: implementation file
-  $Revision: 3$ $Date: 19/08/2002 9:39:43 AM$
+  $Revision: 3$ $Date: 8/19/2002 10:39:43 AM$
   $Author: Darko Kolakovic$
  
   Converts octal string to long integer
@@ -44,9 +44,9 @@ return lResult;
 /* ///////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  *$Log: 
- * 3    Biblioteka1.2         19/08/2002 9:39:43 AMDarko Kolakovic 
- * 2    Biblioteka1.1         16/07/2002 12:41:27 AMDarko           Fixed VSS Log 
+ * 3    Biblioteka1.2         8/19/2002 10:39:43 AMDarko Kolakovic 
+ * 2    Biblioteka1.1         7/16/2002 1:41:27 AM Darko           Fixed VSS Log 
  *      tag
- * 1    Biblioteka1.0         07/03/2002 4:03:47 PMDarko           
+ * 1    Biblioteka1.0         3/7/2002 5:03:47 PM  Darko           
  *$
  *****************************************************************************/

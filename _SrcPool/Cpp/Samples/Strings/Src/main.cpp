@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 8$ $Date: 9/11/02 4:26:42 PM$
+  $Revision: 9$ $Date: 25/10/2002 2:31:29 AM$
   $Author: Darko Kolakovic$
 
   Console application used to test various string operations
@@ -135,17 +135,19 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         9/11/02 4:26:42 PM   Darko Kolakovic Added
+ *  9    Biblioteka1.8         25/10/2002 2:31:29 AMDarko Kolakovic Added
+ *       TestTrim()
+ *  8    Biblioteka1.7         11/09/2002 3:26:42 PMDarko Kolakovic Added
  *       TestStrDup()
- *  7    Biblioteka1.6         9/10/02 6:55:46 PM   Darko Kolakovic 
- *  6    Biblioteka1.5         8/19/02 10:32:53 AM  Darko Kolakovic
+ *  7    Biblioteka1.6         10/09/2002 5:55:46 PMDarko Kolakovic 
+ *  6    Biblioteka1.5         19/08/2002 9:32:53 AMDarko Kolakovic
  *       TestCharConversion()
- *  5    Biblioteka1.4         3/7/02 5:12:55 PM    Darko          
+ *  5    Biblioteka1.4         07/03/2002 4:12:55 PMDarko          
  *       TestStringConversion()
- *  4    Biblioteka1.3         2/12/02 10:58:52 AM  Darko           GNU compiler
+ *  4    Biblioteka1.3         12/02/2002 9:58:52 AMDarko           GNU compiler
  *       issues
- *  3    Biblioteka1.2         2/4/02 6:37:35 PM    Darko           
- *  2    Biblioteka1.1         2/3/02 9:49:52 PM    Darko           added new tests
- *  1    Biblioteka1.0         1/23/02 7:17:12 PM   Darko           
+ *  3    Biblioteka1.2         04/02/2002 5:37:35 PMDarko           
+ *  2    Biblioteka1.1         03/02/2002 8:49:52 PMDarko           added new tests
+ *  1    Biblioteka1.0         23/01/2002 6:17:12 PMDarko           
  * $
  *****************************************************************************/

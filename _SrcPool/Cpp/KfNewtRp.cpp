@@ -1,6 +1,6 @@
 /*$Workfile: KfNewtRp.cpp$: implementation file
-  $Revision: 5$ $Date: 08/03/2002 2:04:58 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 7$ $Date: 2004-06-01 16:55:06$
+  $Author: Darko$
 
   Solve an equation using Newton-Raphson iteration method
   Jul 99 Darko Kolakovic
@@ -8,10 +8,10 @@
 
 /* Group=Mathematics                                                         */
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #ifndef __cplusplus
-	#error requires C++ compilation (use a .cpp suffix)
+  #error requires C++ compilation (use a .cpp suffix)
 #endif
 
 #ifndef ASSERT
@@ -20,17 +20,15 @@
 
 
 #include <Math.h>       //fabs()
-#ifndef BOOL
-  #include "KTypedef.h" //BOOL
+#ifndef bool
+  #include "KTypedef.h" //bool
 #endif
 #include "KProgCst.inl" //IsZero()
 
-#ifdef _DEBUG
-  #ifdef __AFX_H__ //MFC defined
-//    #define new DEBUG_NEW
-  #endif
-//  #undef THIS_FILE
-//  static char THIS_FILE[] = __FILE__;
+#ifdef _MSC_VER //Microsoft C/C++ compiler
+  #pragma warning( push, 3 )
+    //warning C4127: conditional expression is constant
+  #pragma warning(disable: 4217)
 #endif
 
  //type definition of function y = f(x) used in numerical analyses
@@ -57,10 +55,10 @@ typedef double (*PFUNC_Y_OF_X) (double);
 
   The Newton-Raphson method converge quadratically to the root r.
 
-  Returns: TRUE and approximation of the function's root or FALSE if the root
+  Returns: true and approximation of the function's root or false if the root
   could not be found in iMaxIter iterations.
  */
-BOOL funcNewtonRaphson(PFUNC_Y_OF_X funcX,     //[in] function y = f(x)
+bool funcNewtonRaphson(PFUNC_Y_OF_X funcX,     //[in] function y = f(x)
                        PFUNC_Y_OF_X funcdy_dx, //[in] first derivative function y' = f(dy/dx); y = f(x).
                        double dEstimate,       //[in] initial approximation x(0)
                        const double dError,    //[in] allowed absolute error
@@ -81,7 +79,7 @@ while(iMaxIter > 0)
   if(fabs(dResult) <= dError)
       {
       dResult = dEstimate;
-      return TRUE;
+      return true;
       }
 
   double dy = funcdy_dx(dEstimate); //Get y' = f'(x) = dy/dx
@@ -96,14 +94,14 @@ while(iMaxIter > 0)
   iMaxIter--;
   }
 
-return FALSE; //failed after iMaxIter iterations
+return false; //failed after iMaxIter iterations
 }
 
 /*The derivative dy/dx is aproximated with:
 
      (y[n+1] - y[n])/(x[n+1] - x[n]) = (y[n+1] - y[n])/Dx
  */
-BOOL funcNewtonRaphson(PFUNC_Y_OF_X funcX,     //[in] function y = f(x)
+bool funcNewtonRaphson(PFUNC_Y_OF_X funcX,     //[in] function y = f(x)
                        const double Dx,        //[in] estimate increment Dx = x[n+1] - x[n].
                        double dEstimate,       //[in] initial approximation x(0)
                        const double dError,    //[in] allowed absolute error
@@ -124,7 +122,7 @@ while(iMaxIter > 0)
   if(fabs(dResult) <= dError)
       {
       dResult = dEstimate;
-      return TRUE;
+      return true;
       }
 
   double dy = dResult - funcX(dEstimate-Dx); //Get y[n+1] = f(x[n+1]) = f(x[n] - Dx)
@@ -139,10 +137,16 @@ while(iMaxIter > 0)
   iMaxIter--;
   }
 
-return FALSE; //failed after iMaxIter iterations
+return false; //failed after iMaxIter iterations
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+#ifdef _MSC_VER //Microsoft C/C++ compiler
+    //warning C4127: conditional expression is constant
+  #pragma warning(default: 4217)
+  #pragma warning( pop )
+#endif
+
 /******************************************************************************
  * $Log:
  *  2    Biblioteka1.1         26/07/2001 9:34:39 PMDarko           Comment

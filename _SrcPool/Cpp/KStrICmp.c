@@ -1,6 +1,6 @@
 /*$Workfile: KStrICmp.c$: implementation file
-  $Revision: 1$ $Date: 27/08/2002 4:05:02 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 2$ $Date: 8/14/2003 5:12:33 AM$
+  $Author: Darko$
 
   Case-insensitive string comparision
   Copyright: CommonSoft Inc.
@@ -77,7 +77,10 @@ return (int)( _tolower((int)*s1) - (int)_tolower((int)*s2) );
   }
 #endif
 /*****************************************************************************
- * $Log:
- *  0    Biblioteka1.0           Mar 1989 Darko Kolakovic
+ * $Log: 
+ *  2    Biblioteka1.1         8/14/2003 5:12:33 AM Darko           Renamed source
+ *       file
+ *  1    Biblioteka1.0         8/27/2002 5:05:02 PM Darko Kolakovic 
  * $
+ *  0    Biblioteka1.0           Mar 1989 Darko Kolakovic
  *****************************************************************************/

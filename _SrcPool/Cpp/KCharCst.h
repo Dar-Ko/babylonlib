@@ -1,15 +1,15 @@
-/*$Workfile: KCharCst.h$: header file
-  $Revision: 6$ $Date: 19/08/2002 9:45:01 AM$
+/*$Workfile: S:\_SrcPool\Cpp\KCharCst.h$: header file
+  $Revision: 8$ $Date: 2004-11-22 16:47:33$
   $Author: Darko Kolakovic$
 
   ASCII Character Table
-  CommonSoft Inc.
+  Copyright: CommonSoft Inc.
   D. Kolakovic 4.6.92
 */
 /* Group=Strings                                                             */
 
 #ifndef _KCHARCST_H_
-    /*KCharCst.h sentry */
+    /*$Workfile: S:\_SrcPool\Cpp\KCharCst.h$ sentry */
   #define _KCHARCST_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -134,8 +134,17 @@
    */
   const int EOLMAC  = CR;//end of line in MacOS
   const int EOLUNIX = LF;//end of line in Unix, Linux, QNX
-  const char * const EOLDOS = "\r\n"; //CR LF pair is end of line in DOS, MS Windows
-  const char * const EOLWIN = "\r\n"; //CR LF pair is end of line in DOS, MS Windows
+  const char * const EOLDOSA = "\r\n"; //CR LF pair is end of line in DOS, MS Windows
+  const char * const EOLWINA = "\r\n"; //CR LF pair is end of line in DOS, MS Windows
+  #ifdef _UNICODE
+    const wchar_t* const EOLDOSW = L"\r\n"; //CR LF pair is end of line in DOS, MS Windows
+    const wchar_t* const EOLWINW = L"\r\n"; //CR LF pair is end of line in DOS, MS Windows
+    #define EOLDOS EOLDOSW
+    #define EOLWIN EOLWINW
+  #else
+    #define EOLDOS EOLDOSA
+    #define EOLWIN EOLWINA
+  #endif
 
   #ifdef _WIN32
     const int EOL = LF; //end of line (previous character is CR)

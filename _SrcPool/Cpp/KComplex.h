@@ -1,5 +1,5 @@
 /*$Workfile: KComplex.h$: header file
-  $Revision: 9$ $Date: 30/01/2003 9:40:08 PM$
+  $Revision: 11$ $Date: 2003-08-23 15:04:14$
   $Author: Darko$
 
   TComplex Numbers: extension to the template std::complex
@@ -23,7 +23,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //Define base class for TComplex<TYPE>
 #if _MSC_VER >= 1100 //if Visual C++ 5.0 (or bigger), include std::complex D.K.
-  #include <Complex>
+  #include <complex>
     //Use complex template
   #define TComplexBase std::complex
     //_Re and _Im are defined in the <complex> header file (1994 by P.J. Plauger)
@@ -35,9 +35,14 @@
   #endif
 
     //_Real and _Imag are defined in the <complex> header file (VC++.Net v7.0)
-  #if _MSC_VER >= 1300
+  #if _MSC_VER == 1300
     #define _ccR  _Real
     #define _ccI  _Imag
+  #endif
+
+  #if _MSC_VER == 1310
+    #define _ccR  _Val[0]
+    #define _ccI  _Val[1]
   #endif
 
   using namespace std;
@@ -442,14 +447,14 @@ return (log((complexNo+(TYPE)1) / (complexNo-(TYPE)1))/(TYPE)2);
 
 //operator<<()-----------------------------------------------------------------
 #ifdef __STD_COMPLEX
-/*Assigns value of real and imaginary part of _complex structure (defined in
-  Math.h) to std::complex class (defined in complex).
- */
-template<class TYPE>
-inline std::complex<TYPE>& operator <<(std::complex<TYPE>& Z,_complex Y)
-		{
-    return (Z = std::complex<TYPE>((TYPE)Y.x,(TYPE)Y.y));
-    }
+  /*Assigns value of real and imaginary part of _complex structure (defined in
+    Math.h) to std::complex class (defined in complex).
+  */
+  template<class TYPE>
+  inline std::complex<TYPE>& operator <<(std::complex<TYPE>& Z,_complex Y)
+  {
+  return (Z = std::complex<TYPE>((TYPE)Y.x,(TYPE)Y.y));
+  }
 #endif  //__STD_COMPLEX
 
 ///////////////////////////////////////////////////////////////////////////////

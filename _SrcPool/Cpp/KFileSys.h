@@ -1,5 +1,5 @@
 /*$Workfile: KFileSys.h$: header file
-  $Revision: 2$ $Date: 27/08/2002 10:34:54 PM$
+  $Revision: 3$ $Date: 2003-08-25 01:27:02$
   $Author: Darko$
 
   File System helpers
@@ -65,14 +65,16 @@
 
   Returns: true if a character is a file name delimiter; otherwise reurns false
  */
-#define IS_FILENAME_DELIM(c)    ( (c) == _T('\\') || (c) == _T('/') || (c) == _T(':') )
+#define IS_FILENAME_DELIM_WIN(c)    ( (c) == _T('\\') || (c) == _T('/') || (c) == _T(':') )
 
 /* ///////////////////////////////////////////////////////////////////////// */
 #endif //_KFILESYS_H_
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         27/08/2002 10:34:54 PMDarko          
+ *  3    Biblioteka1.2         2003-08-25 01:27:02  Darko           Renamed
  *       IS_FILENAME_DELIM
- *  1    Biblioteka1.0         18/07/2002 8:57:46 PMDarko Kolakovic 
+ *  2    Biblioteka1.1         2002-08-27 23:34:54  Darko          
+ *       IS_FILENAME_DELIM
+ *  1    Biblioteka1.0         2002-07-18 21:57:46  Darko Kolakovic 
  * $
  *****************************************************************************/

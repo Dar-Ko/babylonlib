@@ -1,5 +1,5 @@
 /*$Workfile: ImagesTest.cpp$: implementation file
-  $Revision: 8$ $Date: 8/19/02 10:45:15 AM$
+  $Revision: 8$ $Date: 19/08/2002 10:45:15 AM$
   $Author: Darko Kolakovic$
 
   Test of image decoders and viewers
@@ -145,17 +145,17 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 8    Biblioteka1.7         8/19/02 10:45:15 AM  Darko Kolakovic 
- * 7    Biblioteka1.6         8/13/02 9:12:42 AM   Darko Kolakovic 
- * 6    Biblioteka1.5         8/6/02 4:36:10 PM    Darko Kolakovic Added more
+ * 8    Biblioteka1.7         19/08/2002 10:45:15 AMDarko Kolakovic 
+ * 7    Biblioteka1.6         13/08/2002 9:12:42 AMDarko Kolakovic 
+ * 6    Biblioteka1.5         06/08/2002 4:36:10 PMDarko Kolakovic Added more
  *      diagnostic information
- * 5    Biblioteka1.4         8/5/02 11:33:30 AM   Darko           Fixed bug in
+ * 5    Biblioteka1.4         05/08/2002 11:33:30 AMDarko           Fixed bug in
  *      SeekImagePos
- * 4    Biblioteka1.3         8/2/02 10:26:14 PM   Darko Kolakovic 
- * 3    Biblioteka1.2         7/31/02 5:30:02 PM   Darko Kolakovic
+ * 4    Biblioteka1.3         02/08/2002 10:26:14 PMDarko Kolakovic 
+ * 3    Biblioteka1.2         31/07/2002 5:30:02 PMDarko Kolakovic
  *      SeekImageDescriptor inserted
- * 2    Biblioteka1.1         7/16/02 8:57:04 PM   Darko Kolakovic Added
+ * 2    Biblioteka1.1         16/07/2002 8:57:04 PMDarko Kolakovic Added
  *      TestGifCreate()
- * 1    Biblioteka1.0         7/16/02 1:48:19 AM   Darko           
+ * 1    Biblioteka1.0         16/07/2002 1:48:19 AMDarko           
  *$
  *****************************************************************************/

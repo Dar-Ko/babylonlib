@@ -1,6 +1,6 @@
-/*$Workfile: KTChar.h$: header file
-  $Revision: 8$ $Date: 27/08/2002 10:36:18 PM$ 
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KTChar.h$: header file
+  $Revision: 21$ $Date: 2004-11-23 15:49:35$
+  $Author: Darko Kolakovic$
 
   Unicode mapping layer for the standard C library with definitions for generic
   international text functions.
@@ -8,22 +8,67 @@
  */
 /* Group=Strings                                                             */
 
-#ifdef  _MSC_VER
-  /*Use Microsoft header file instead of this custom file                    */
-  #ifdef WIN32
-    #include <windows.h> //Basic Windows type Definitions
-    #include <tchar.h>   //TCHAR typedef
-    #define __KTCHAR_H__ 1
+#ifdef __MWERKS__
+  //Metrowerks CodeWarrior Compiler
+  #if (__MWERKS__ >= 0x3000)
+    #pragma once
   #endif
+  //.../MSL/MSL_C/MSL_Common/Include
+  #include <wchar_t.h>
+  #define wchar_t wchar_t
 #endif
 
-#if _MSC_VER > 1000
-  #pragma once
+#ifdef  _MSC_VER
+  //Microsoft Visual C/C++ Studio
+  #if _MSC_VER > 1000
+    #pragma once
+  #endif
+
+  #ifdef _UNICODE
+    #ifndef UNICODE
+      //To enable Unicode for some Microsoft Visual C/C++ header files,
+      //the UNICODE definition is required
+      #define UNICODE
+    #endif
+  #endif
+
+  /*Use Microsoft header file instead of this custom file                    */
+  #ifdef WIN32
+    #include <wtypes.h>  //Basic Windows type Definitions
+    #include <tchar.h>   //TCHAR typedef
+  #endif
+
+  #if (_MSC_VER < 1300)
+    //Microsoft Visual Studio 6.0 or less
+    //Include only parts of the header file
+    #define __KTCHAR_H__ 1200
+  #else
+    #define __KTCHAR_H__ 1300
+  #endif
+
+#endif
+
+#ifndef __palm_os
+  /*Defined because expressions in the 
+      #if constant-expression
+      #endif
+    directives must have integral type and can include only integer constants,
+    character constants and the defined operator.
+   */
+  #define __palm_os 0XFFFF
+#endif
+
+#if defined (__PALMOS__) || (__dest_os == __palm_os)
+  #include "Palm/KTCharPalm.h"
 #endif
 
 #ifndef __KTCHAR_H__
-  /*KTChar.h sentry  */
-  #define __KTCHAR_H__ 2
+  /*$Workfile: S:\_SrcPool\Cpp\KTChar.h$ sentry  */
+  #define __KTCHAR_H__ 1000
+#endif
+
+/* ////////////////////////////////////////////////////////////////////////// */
+#if (__KTCHAR_H__ < 1300)
 
   #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files   */
     #ifdef  _MSC_VER  //Microsoft C/C++
@@ -34,7 +79,7 @@
     #endif
   #endif
 
-#include <String.h>
+#include <string.h>
 
 #ifdef  __cplusplus
 extern "C"
@@ -42,10 +87,13 @@ extern "C"
 #endif
 
 /* ///////////////////////////////////////////////////////////////////////// */
+#if (__KTCHAR_H__ <= 1000)
+
+/* ========================================================================== */
 /* Single byte Character Set SBCS (ASCII)                                     */
 #ifndef _UNICODE /* !_UNICODE */
   #ifdef _DEBUG_INCL_PREPROCESS   /* Preprocessor: debugging included files  */
-    #ifdef  _MSC_VER  //Microsoft C/C++
+    #if defined _MSC_VER || defined __MWERKS__
       #pragma message ("   Single byte Character Set SBCS (ASCII)" )
     #endif
     #ifdef __GNUC__   //GNU C/C++
@@ -53,7 +101,7 @@ extern "C"
     #endif
   #endif
 
-  #ifndef _TCHAR_DEFINED
+  #ifndef TCHAR
     /*-------------------------------------------------------------------------
       "Generic-text" mappings for many data types, routines, and other objects
       has been provided to simplify code development for various international
@@ -61,14 +109,27 @@ extern "C"
 
          Generic-Text Data Type Mappings
 
-        Type      	SBCS         	MBCS         	_UNICODE
-        TCHAR     	char         	char         	wchar_t
-        _TINT      	int          	int          	wint_t
-        _TSCHAR    	signed char  	signed char  	wchar_t
-        _TUCHAR    	unsigned char	unsigned char	wchar_t
-        _TXCHAR    	char         	unsigned char	wchar_t
-        _T or _TEXT	No effect    	No effect    	L()
-        _TEOF      	EOF          	EOF          	WEOF
+        Type        SBCS           MBCS           _UNICODE
+        TCHAR       char           char           wchar_t
+        _TINT        int            int            wint_t
+        _TSCHAR      signed char    signed char    wchar_t
+        _TUCHAR      unsigned char  unsigned char  wchar_t
+        _TXCHAR      char           unsigned char  wchar_t
+        _T or _TEXT  No effect      No effect      L()
+        _TEOF        EOF            EOF            WEOF
+
+        Note: Depending on the platform, wchar_t and L"String literals" may or
+              may not be Unicode, and if they are Unicode, they could be
+              UTF-16 or UCS-4. Non-Unicode forms can crop up on some platforms
+              in some Asian locales, and sometimes on EBCDIC based mainframes.
+              Portable Unicode based applications need to stay away from any
+              use of wchar_t and the wwhatever() family of functions that
+              support wchar_t. Setting up Unicode string constants in portable
+              C or C++ has no language support at all, and is a complete pain.
+              The usual approach is to define a series of individual numeric
+              constants for each character needed, then use a C array initializer
+              to put together the string.
+              2004-03-12 Andy Heninger, heninger@us.ibm.com, ICU Project
     */
     typedef char            TCHAR;
 
@@ -76,15 +137,24 @@ extern "C"
     typedef unsigned char   _TUCHAR;
     typedef char            _TXCHAR;
     typedef int             _TINT;
-    #define _TCHAR_DEFINED 1
+    #define TCHAR TCHAR
   #endif
 
-  /*_TEXT macro converts constant strings and characters to its Unicode 
+  /*_TEXT macro converts constant strings and characters to its Unicode
    counterpart if _UNICODE is defined
    */
   #define _TEXT(t)  t
-  #define _T(t)     t             //See also: _TEXT
-  #define _TEOF     EOF           //End of File
+  #ifndef _T
+    /*Generic text literals
+
+      Example:
+        TRACE0(_T("This is a message\n"));
+
+      See also: _TEXT
+     */
+    #define _T(t)     t
+  #endif
+  #define _TEOF     EOF           //End of File as generic text literal
 
   /*The following rules apply in determining what symbols are reserved for
     any standard.  These symbols are reserved for the standard and for use
@@ -100,129 +170,346 @@ extern "C"
 
     Note: symbols with preceding underscore are not part of the standard
           library. According to the ANSI C standard, external identifiers
-		  beginning with an underscore are reserved for library usage.
+          beginning with an underscore are reserved for library usage.
    */
-  
+
   /*Formatted I/O                                                            */
 
-  #define _tprintf    printf      //Print formatted output to the standard output stream.
-  #define _ftprintf   fprintf     //Print formatted data to a stream.
-  #define _stprintf   sprintf     //Write formatted data to a string.
-  #define _sntprintf  _snprintf   //Write formatted data to a string.
-  #define _vtprintf   vprintf     //Write formatted output using a pointer to a list of arguments.
-  #define _vftprintf  vfprintf    //Write formatted output using a pointer to a list of arguments.
-  #define _vstprintf  vsprintf    //Write formatted output using a pointer to a list of arguments.
-  #define _vsntprintf _vsnprintf  //Write formatted output using a pointer to a list of arguments.
-  #define _tscanf     scanf       //Read formatted data from the standard input stream.
-  #define _ftscanf    fscanf      //Read formatted data from a stream.
-  #define _stscanf    sscanf      //Read formatted data from a stream.
+  #ifndef _tprintf
+    #define _tprintf    printf      //Print formatted output to the standard
+                                    //output stream.
+  #endif
+  #ifndef _ftprintf
+    #define _ftprintf   fprintf     //Print formatted data to a stream.
+  #endif
+  #ifndef _stprintf
+    #define _stprintf   sprintf     //Write formatted data to a string.
+  #endif
+  #ifndef _sntprintf
+    #define _sntprintf  _snprintf   //Write formatted data to a string.
+  #endif
+  #ifndef _vtprintf
+    #define _vtprintf   vprintf     //Write formatted output using a pointer to
+                                    //a list of arguments.
+  #endif
+  #ifndef _vftprintf
+    #define _vftprintf  vfprintf    //Write formatted output using a pointer to
+                                    //a list of arguments.
+  #endif
+  #ifndef _vstprintf
+    #define _vstprintf  vsprintf    //Write formatted output using a pointer to
+                                    //a list of arguments.
+  #endif
+  #ifndef _vsntprintf
+    #define _vsntprintf _vsnprintf  //Write formatted output using a pointer to
+                                    //a list of arguments.
+  #endif
+  #ifndef _tscanf
+    #define _tscanf     scanf       //Read formatted data from the standard
+                                    //input stream.
+  #endif
+  #ifndef _ftscanf
+    #define _ftscanf    fscanf      //Read formatted data from a stream.
+  #endif
+  #ifndef _stscanf
+    #define _stscanf    sscanf      //Read formatted data from a stream.
+  #endif
 
   /*Unformatted I/O                                                          */
 
-  #define _fgettc     fgetc       //Read a character from a stream.
-  #define _fgettchar  _fgetchar   //Read a character from the standard input stream.
-  #define _fgetts     fgets       //Get a string from a stream.
-  #define _fputtc     fputc       //Writes a character to a stream.
-  #define _fputtchar  _fputchar   //Writes a character to the standard output stream.
-  #define _fputts     fputs       //Write a string to a stream.
-  #define _gettc      getc        //Read a character from a stream.
-  #define _getts      gets        //Get a line from the stdin stream.
-  #define _puttc      putc        //Writes a character to a stream.
-  #define _putts      puts        //Write a string to the standard output stream.
-  #define _ungettc    ungetc      //Pushes a character back onto the stream.
+  #ifndef _fgettc
+    #define _fgettc     fgetc       //Read a character from a stream.
+  #endif
+  #ifndef _fgettchar
+    #define _fgettchar  _fgetchar   //Read a character from the standard input
+                                    //stream.
+  #endif
+  #ifndef _fgetts
+    #define _fgetts     fgets       //Get a string from a stream.
+  #endif
+  #ifndef _fputtc
+    #define _fputtc     fputc       //Writes a character to a stream.
+  #endif
+  #ifndef _fputtchar
+    #define _fputtchar  _fputchar   //Writes a character to the standard output
+                                    //stream.
+  #endif
+  #ifndef _fputts
+    #define _fputts     fputs       //Write a string to a stream.
+  #endif
+  #ifndef _gettc
+    #define _gettc      getc        //Read a character from a stream.
+  #endif
+  #ifndef _getts
+    #define _getts      gets        //Get a line from the stdin stream.
+  #endif
+  #ifndef _puttc
+    #define _puttc      putc        //Writes a character to a stream.
+  #endif
+  #ifndef _putts
+    #define _putts      puts        //Write a string to the standard output stream.
+  #endif
+  #ifndef _ungettc
+    #define _ungettc    ungetc      //Pushes a character back onto the stream.
+  #endif
 
   /*String conversion                                                        */
 
-  #define _tcstod     strtod      //Convert strings to a double-precision value.
-  #define _tcstol     strtol      //Convert strings to a long-integer value.
-  #define _tcstoul    strtoul     //Convert strings to an unsigned long-integer value.
-  #define _itoa       ItoA        //Convert an integer to a string (non-ANSI declaration).
-  #define _itot       _itoa       //Convert an integer to a string.
+  #ifndef _tcstod
+    #define _tcstod     strtod      //Convert strings to a double-precision value.
+  #endif
+  #ifndef _tcstol
+    #define _tcstol     strtol      //Convert strings to a long-integer value.
+  #endif
+  #ifndef _tcstoul
+    #define _tcstoul    strtoul     //Convert strings to an unsigned
+                                    //long-integer value.
+  #endif
+  #ifndef _itoa
+    #define _itoa       ItoA        //Convert an integer to a string
+                                    //(non-ANSI declaration).
+  #endif
+  #ifndef _itot
+    #define _itot       _itoa       //Convert an integer to a string.
+  #endif
 
   /*String manipulators                                                      */
 
-  #define _tcscat     strcat      //Append a string.
-  #define _tcschr     strchr      //Find a character in a string.
-  #define _tcscmp     strcmp      //Compare strings.
-  #define _tcscpy     strcpy      //Copy a string.
-  #define _tcscspn    strcspn     //Find a substring in a string.
-  #define _tcslen     strlen      //Get the length of a string.
-  #define _tcsncat    strncat     //Append characters of a string.
-  #define _tcsncmp    strncmp     //Compare characters of two strings.
-  #define _tcsncpy    strncpy     //Copy characters of one string to another.
-  #define _tcspbrk    strpbrk     //Scan strings for characters in specified character sets.
-  #define _tcsrchr    strrchr     //Scan a string for the last occurrence of a character.
-  #define _tcsspn     strspn      //Find the first substring.
-  #define _tcsstr     strstr      //Find a substring.
-  #define _tcstok     strtok      //Find the next token in a string.
-  #define _tcsdup     _strdup     //Duplicate strings.
-  #define _tcsicmp    _stricmp    //Perform a lowercase comparison of strings.
-  #define _tcsnicmp   _strnicmp   //Compare characters of two strings without regard to case.
-  #define _tcsnset    _strnset    //Initialize characters of a string to a given format.
-  #define _tcsrev     _strrev     //Reverse characters of a string.
-  #define _tcsset     _strset     //Set characters of a string to a character.
+  #ifndef _tcscat
+    #define _tcscat     strcat      //Append a string.
+  #endif
+  #ifndef _tcschr
+    #define _tcschr     strchr      //Find a character in a string.
+  #endif
+  #ifndef _tcscmp
+    #define _tcscmp     strcmp      //Compare strings.
+  #endif
+  #ifndef _tcscpy
+    #define _tcscpy     strcpy      //Copy a string.
+  #endif
+  #ifndef _tcscspn
+    #define _tcscspn    strcspn     //Find a substring in a string.
+  #endif
+  #ifndef _tcslen
+    #define _tcslen     strlen      //Get the length of a string.
+  #endif
+  #ifndef _tcsncat
+    #define _tcsncat    strncat     //Append characters of a string.
+  #endif
+  #ifndef _tcsncmp
+    #define _tcsncmp    strncmp     //Compare characters of two strings.
+  #endif
+  #ifndef _tcsncpy
+    #define _tcsncpy    strncpy     //Copy characters of one string to another.
+  #endif
+  #ifndef _tcspbrk
+    #define _tcspbrk    strpbrk     //Scan strings for characters in specified
+                                    //character sets.
+  #endif
+  #ifndef _tcsrchr
+    #define _tcsrchr    strrchr     //Scan a string for the last occurrence of
+                                    //a character.
+  #endif
+  #ifndef _tcsspn
+    #define _tcsspn     strspn      //Find the first substring.
+  #endif
+  #ifndef _tcsstr
+    #define _tcsstr     strstr      //Find a substring.
+  #endif
+  #ifndef _tcstok
+    #define _tcstok     strtok      //Find the next token in a string.
+  #endif
+  #ifndef _tcsdup
+    #define _tcsdup     _strdup     //Duplicate strings.
+  #endif
+  #ifndef _tcsicmp
+    #define _tcsicmp    _stricmp    //Perform a lowercase comparison of strings.
+  #endif
+  #ifndef _tcsnicmp
+    #define _tcsnicmp   _strnicmp   //Compare characters of two strings without
+                                    //regard to case.
+  #endif
+  #ifndef _tcsnset
+    #define _tcsnset    _strnset    //Initialize characters of a string to
+                                    //a given format.
+  #endif
+  #ifndef _tcsrev
+    #define _tcsrev     _strrev     //Reverse characters of a string.
+  #endif
+  #ifndef _tcsset
+    #define _tcsset     _strset     //Set characters of a string to a character.
+  #endif
 
-  #define _tcslwr     _strlwr     //Convert a string to lowercase.
-  #define _tcsupr     _strupr     //Convert a string to uppercase.
-  #define _tcsxfrm    strxfrm     //Transform a string based on locale-specific information.
-  #define _tcscoll    strcoll     //Compare strings using locale-specific information.
-  #define _tcsicoll   _stricoll   //Compare strings using locale-specific information.
+  #ifndef _tcslwr
+    #define _tcslwr     _strlwr     //Convert a string to lowercase.
+  #endif
+  #ifndef _tcsupr
+    #define _tcsupr     _strupr     //Convert a string to uppercase.
+  #endif
+  #ifndef _tcsxfrm
+    #define _tcsxfrm    strxfrm     //Transform a string based on
+                                    //locale-specific information.
+  #endif
+  #ifndef _tcscoll
+    #define _tcscoll    strcoll     //Compare strings using locale-specific
+                                    //information.
+  #endif
+  #ifndef _tcsicoll
+    #define _tcsicoll   _stricoll   //Compare strings using locale-specific
+                                    //information.
+  #endif
 
   /*ctype functions                                                          */
 
-  #define _istalpha   isalpha     //Query if character is within the ranges A – Z or a – z.
-  #define _istupper   isupper     //Query if character is an uppercase character (A – Z). 
-  #define _istlower   islower     //Query if character is a lowercase character (a – z).
-  #define _istdigit   isdigit     //Query if character is a decimal digit (0 – 9).
-  #define _istxdigit  isxdigit    //Query if character is a hexadecimal digit (A – F, a – f, or 0 – 9).
-  #define _istspace   isspace     //Query if character is a white-space character (0x09 – 0x0D or 0x20).
-  #define _istpunct   ispunct     //Query if character is any printable character that is not a space character or a letter or a digit.
-  #define _istalnum   isalnum     //Query if character is within the ranges A – Z, a – z, or 0 – 9.
-  #define _istprint   isprint     //Query if character is a printable character, including the space character (0x20 – 0x7E).
-  #define _istgraph   isgraph     //Query if character is a printable character other than a space.
-  #define _istcntrl   iscntrl     //Query if character is a control character (0x00 – 0x1F or 0x7F).
-  #define _istascii   isascii     //Query if character is an ASCII character (in the range 0x00 – 0x7F).
-  #define _totupper   toupper     //Convert character to uppercase.
-  #define _totlower   tolower     //Convert character to lowercase.
+  #ifndef _istalpha
+    #define _istalpha   isalpha     //Query if character is within the ranges
+                                    //[A, Z] or [a, z].
+  #endif
+  #ifndef _istupper
+    #define _istupper   isupper     //Query if character is an uppercase
+                                    //character [A, Z].
+  #endif
+  #ifndef _istlower
+    #define _istlower   islower     //Query if character is a lowercase
+                                    //character [a, z].
+  #endif
+  #ifndef _istdigit
+    #define _istdigit   isdigit     //Query if character is a decimal
+                                    //digit [0, 9].
+  #endif
+  #ifndef _istxdigit
+    #define _istxdigit  isxdigit    //Query if character is a hexadecimal digit
+                                    //(A – F, a – f, or 0 – 9).
+  #endif
+  #ifndef _istspace
+    #define _istspace   isspace     //Query if character is a white-space
+                                    //character (0x09 – 0x0D or 0x20).
+  #endif
+  #ifndef _istpunct
+    #define _istpunct   ispunct     //Query if character is any printable
+                                    //character that is not a space character or
+                                    //a letter or a digit.
+  #endif
+  #ifndef _istalnum
+    #define _istalnum   isalnum     //Query if character is within the ranges
+                                    //[A, Z], [a, z], or [0, 9].
+  #endif
+  #ifndef _istprint
+    #define _istprint   isprint     //Query if character is a printable character,
+                                    //including the space character (0x20 – 0x7E).
+  #endif
+  #ifndef _istgraph
+    #define _istgraph   isgraph     //Query if character is a printable character
+                                    //other than a space.
+  #endif
+  #ifndef _istcntrl
+    #define _istcntrl   iscntrl     //Query if character is a control character
+                                    //(0x00 – 0x1F or 0x7F).
+  #endif
+  #ifndef _istascii
+    #define _istascii   isascii     //Query if character is an ASCII character
+                                    //(in the range 0x00 – 0x7F).
+  #endif
+  #ifndef _totupper
+    #define _totupper   toupper     //Convert character to uppercase.
+  #endif
+  #ifndef _totlower
+    #define _totlower   tolower     //Convert character to lowercase.
+  #endif
 
   /*Time functions                                                           */
 
-  #define _tasctime   asctime     //Converts a tm time structure to a character string.
-  #define _tctime     ctime       //Convert a time value to a string and adjust for local time zone settings.
-  #define _tstrdate   _strdate    //Copy a date to a buffer.
-  #define _tstrtime   _strtime    //Copy the time to a buffer.
-  #define _tutime     _utime      //Set the file modification time.
-  #define _tcsftime   strftime    //Format a time string.
+  #ifndef _tasctime
+    #define _tasctime   asctime     //Converts a tm time structure to
+                                    //a character string.
+  #endif
+  #ifndef _tctime
+    #define _tctime     ctime       //Convert a time value to a string and
+                                    //adjust for local time zone settings.
+  #endif
+  #ifndef _tstrdate
+    #define _tstrdate   _strdate    //Copy a date to a buffer.
+  #endif
+  #ifndef _tstrtime
+    #define _tstrtime   _strtime    //Copy the time to a buffer.
+  #endif
+  #ifndef _tutime
+    #define _tutime     _utime      //Set the file modification time.
+  #endif
+  #ifndef _tcsftime
+    #define _tcsftime   strftime    //Format a time string.
+  #endif
 
   /*StdIO functions                                                          */
 
-  #define _tfdopen    fdopen      //POSIX Assign a stream to a file that was previously opened for low-level I/O
-  #define _tfsopen    _fsopen     //Open a stream with file sharing.
-  #define _tfopen     fopen       //Open a file.
-  #define _tfreopen   freopen     //Reassign a file pointer.
-  #define _tperror    perror      //Print an error message.
-  #define _tpopen     _popen      //Creates a pipe and executes a command.
-  #define _ttempnam   _tempnam    //Create temporary filenames.
-  #define _ttmpnam    tmpnam      //Create temporary filenames.
+  #ifndef _tfdopen
+    #define _tfdopen    fdopen      //POSIX Assign a stream to a file that was
+                                    //previously opened for low-level I/O
+  #endif
+  #ifndef _tfsopen
+    #define _tfsopen    _fsopen     //Open a stream with file sharing.
+  #endif
+  #ifndef _tfopen
+    #define _tfopen     fopen       //Open a file.
+  #endif
+  #ifndef _tfreopen
+    #define _tfreopen   freopen     //Reassign a file pointer.
+  #endif
+  #ifndef _tperror
+    #define _tperror    perror      //Print an error message.
+  #endif
+  #ifndef _tpopen
+    #define _tpopen     _popen      //Creates a pipe and executes a command.
+  #endif
+  #ifndef _ttempnam
+    #define _ttempnam   _tempnam    //Create temporary filenames.
+  #endif
+  #ifndef _ttmpnam
+    #define _ttmpnam    tmpnam      //Create temporary filenames.
+  #endif
 
   /* I/O functions                                                           */
 
-  #define _tchmod     _chmod      //Change the file-permission settings.
-  #define _tcreat     _creat      //Creates a new file.
-  #define _tmktemp    _mktemp     //Create a unique filename.
-  #define _topen      open        //POSIX Open a file.
-  #define _taccess    access      //POSIX Determine file-access permission.
-  #define _tremove    remove      //Delete a file.
-  #define _trename    rename      //Rename a file or directory.
-  #define _tsopen     _sopen      //Open a file for sharing.
-  #define _tunlink    _unlink     //Delete a file.
-  #define _tcsinc(pChar)     ((TCHAR*)((TCHAR*)(pChar)+1)) /*Incremets a pointer to a character for one*/
-                                                           /*Added for compatiblity with MS multibyte _mbsinc()*/
+  #ifndef _tchmod
+    #define _tchmod     _chmod      //Change the file-permission settings.
+  #endif
+  #ifndef _tcreat
+    #define _tcreat     _creat      //Creates a new file.
+  #endif
+  #ifndef _tmktemp
+    #define _tmktemp    _mktemp     //Create a unique filename.
+  #endif
+  #ifndef _topen
+    #define _topen      open        //POSIX Open a file.
+  #endif
+  #ifndef _taccess
+    #define _taccess    access      //POSIX Determine file-access permission.
+  #endif
+  #ifndef _tremove
+    #define _tremove    remove      //Delete a file.
+  #endif
+  #ifndef _trename
+    #define _trename    rename      //Rename a file or directory.
+  #endif
+  #ifndef _tsopen
+    #define _tsopen     _sopen      //Open a file for sharing.
+  #endif
+  #ifndef _tunlink
+    #define _tunlink    _unlink     //Delete a file.
+  #endif
+  #ifndef _tcsinc
+    #define _tcsinc(pChar)     ((TCHAR*)((TCHAR*)(pChar)+1)) /*Incremets a pointer
+                                                  to a character for one.
+                                                  Added for compatiblity with MS
+                                                  multibyte _mbsinc().
+                                                  */
+  #endif
 
-/* //////////////////////////////////////////////////////////////////////////
+
+/* =========================================================================
   Unicode mapping layer for the standard C library (wide-character).
-  To enable Unicode compiling define _UNICODE before including KTChar.h, 
-  otherwise the standard non-unicode library functions will be used.        */
+  To enable Unicode compiling define _UNICODE before including KTChar.h,
+  otherwise the standard non-unicode library functions will be used.         */
 #else  //_UNICODE
   #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
     #ifdef  _MSC_VER  //Microsoft C/C++
@@ -233,147 +520,438 @@ extern "C"
     #endif
   #endif
 
-  #include <WChar.h>
+  #include <wchar.h>
 
-  #ifndef __TCHAR_DEFINED
+  #ifndef TCHAR
     typedef wchar_t     TCHAR;
     typedef wchar_t     _TSCHAR;
     typedef wchar_t     _TUCHAR;
     typedef wchar_t     _TXCHAR;
-    typedef wint_t      _TINT;
-    typedef const unsigned short* LPCTSTR;
-    #define __TCHAR_DEFINED
+    #ifdef WIN32
+      typedef wint_t      _TINT;
+    #endif
+    #define TCHAR TCHAR
   #endif
 
   #define _TEXT(t)    L ## t
-  #define _T(t)       L ## t
-  #define _TEOF       WEOF
+  #ifndef _T
+    #define _T(t)       L ## t
+  #endif
+  #ifndef _TEOF
+    #define _TEOF       WEOF
+  #endif
 
-  #define  _tprintf    wprintf
-  #define  _ftprintf   fwprintf
-  #define  _stprintf   swprintf
-  #define  _sntprintf  _snwprintf
-  #define  _vtprintf   vwprintf
-  #define  _vftprintf  vfwprintf
-  #define _vstprintf   vswprintf
-  #define  _vsntprintf _vsnwprintf
-  #define  _tscanf    wscanf
-  #define  _ftscanf   fwscanf
-  #define  _stscanf   swscanf
-  #define  _fgettc    fgetwc
-  #define  _fgettchar _fgetwchar
-  #define  _fgetts    fgetws
-  #define  _fputtc    fputwc
-  #define  _fputtchar _fputwchar
-  #define  _fputts    fputws
-  #define  _gettc     getwc
-  #define  _getts     getws
-  #define  _puttc     putwc
-  #define  _putts     putws
-  #define  _ungettc   ungetwc
-  #define  _tcstod    wcstod
-  #define  _tcstol    wcstol
-  #define _tcstoul    wcstoul
-  #define _itot       _itow       //Convert an integer to a string.
-  #define  _tcscat    wcscat
-  #define _tcschr     wcschr
-  #define _tcscmp     wcscmp
-  #define _tcscpy     wcscpy
-  #define _tcscspn    wcscspn
-  #define  _tcslen    wcslen
-  #define  _tcsncat   wcsncat
-  #define  _tcsncmp   wcsncmp
-  #define  _tcsncpy   wcsncpy
-  #define  _tcspbrk   wcspbrk
-  #define  _tcsrchr   wcsrchr
-  #define _tcsspn     wcsspn
-  #define  _tcsstr    wcsstr
-  #define _tcstok     wcstok
-  #define  _tcsdup    _wcsdup
-  #define  _tcsicmp   _wcsicmp
-  #define  _tcsnicmp  _wcsnicmp
-  #define  _tcsnset   _wcsnset
-  #define  _tcsrev    _wcsrev
-  #define _tcsset     _wcsset
-  #define  _tcslwr    _wcslwr
-  #define  _tcsupr    _wcsupr
-  #define  _tcsxfrm   wcsxfrm
-  #define  _tcscoll   wcscoll
-  #define  _tcsicoll  _wcsicoll
-  #define  _istalpha  iswalpha
-  #define  _istupper  iswupper
-  #define  _istlower  iswlower
-  #define  _istdigit  iswdigit
-  #define  _istxdigit iswxdigit
-  #define  _istspace  iswspace
-  #define  _istpunct  iswpunct
-  #define  _istalnum  iswalnum
-  #define  _istprint  iswprint
-  #define  _istgraph  iswgraph
-  #define  _istcntrl  iswcntrl
-  #define  _istascii  iswascii
-  #define _totupper   towupper
-  #define  _totlower  towlower
-  #define _tasctime   _wasctime
-  #define _tctime     _wctime
-  #define _tstrdate   _wstrdate
-  #define _tstrtime   _wstrtime
-  #define _tutime     _wutime
-  #define _tcsftime   wcsftime
-  #define _tfdopen    _wfdopen
-  #define _tfsopen    _wfsopen
-  #define _tfopen     _wfopen
-  #define _tfreopen   _wfreopen
-  #define _tperror    _wperror
-  #define _tpopen     _wpopen
-  #define _ttempnam   _wtempnam
-  #define _ttmpnam    _wtmpnam
-  #define _tchmod     _wchmod
-  #define _tcreat     _wcreat
-  #define _tmktemp    _wmktemp
-  #define _topen      _wopen
-  #define _taccess    _waccess
-  #define _tremove    _wremove
-  #define _trename    _wrename
-  #define _tsopen     _wsopen
-  #define _tunlink    _wunlink
-  #define _tcsinc(pChar)     ((TCHAR*)((TCHAR*)(pChar)+1))
+  #ifndef  _tprintf
+    #define  _tprintf    wprintf
+  #endif
+  #ifndef  _ftprintf
+    #define  _ftprintf   fwprintf
+  #endif
+  #ifndef  _stprintf
+    #define  _stprintf   swprintf
+  #endif
+  #ifndef  _sntprintf
+    #define  _sntprintf  _snwprintf
+  #endif
+  #ifndef  _vtprintf
+    #define  _vtprintf   vwprintf
+  #endif
+  #ifndef  _vftprintf
+    #define  _vftprintf  vfwprintf
+  #endif
+  #ifndef _vstprintf
+    #define _vstprintf   vswprintf
+  #endif
+  #ifndef  _vsntprintf
+    #define  _vsntprintf _vsnwprintf
+  #endif
+  #ifndef  _tscanf
+    #define  _tscanf    wscanf
+  #endif
+  #ifndef  _ftscanf
+    #define  _ftscanf   fwscanf
+  #endif
+  #ifndef  _stscanf
+    #define  _stscanf   swscanf
+  #endif
+  #ifndef  _fgettc
+    #define  _fgettc    fgetwc
+  #endif
+  #ifndef  _fgettchar
+    #define  _fgettchar _fgetwchar
+  #endif
+  #ifndef  _fgetts
+    #define  _fgetts    fgetws
+  #endif
+  #ifndef  _fputtc
+    #define  _fputtc    fputwc
+  #endif
+  #ifndef  _fputtchar
+    #define  _fputtchar _fputwchar
+  #endif
+  #ifndef  _fputts
+    #define  _fputts    fputws
+  #endif
+  #ifndef  _gettc
+    #define  _gettc     getwc
+  #endif
+  #ifndef  _getts
+    #define  _getts     getws
+  #endif
+  #ifndef  _puttc
+    #define  _puttc     putwc
+  #endif
+  #ifndef  _putts
+    #define  _putts     putws
+  #endif
+  #ifndef  _ungettc
+    #define  _ungettc   ungetwc
+  #endif
+  #ifndef  _tcstod
+    #define  _tcstod    wcstod
+  #endif
+  #ifndef  _tcstol
+    #define  _tcstol    wcstol
+  #endif
+  #ifndef _tcstoul
+    #define _tcstoul    wcstoul
+  #endif
+  #ifndef _itot
+    #define _itot       _itow       //Convert an integer to a string.
+  #endif
+  #ifndef  _tcscat
+    #define  _tcscat    wcscat
+  #endif
+  #ifndef _tcschr
+    #define _tcschr     wcschr
+  #endif
+  #ifndef _tcscmp
+    #define _tcscmp     wcscmp
+  #endif
+  #ifndef _tcscpy
+    #define _tcscpy     wcscpy
+  #endif
+  #ifndef _tcscspn
+    #define _tcscspn    wcscspn
+  #endif
+  #ifndef  _tcslen
+    #define  _tcslen    wcslen
+  #endif
+  #ifndef  _tcsncat
+    #define  _tcsncat   wcsncat
+  #endif
+  #ifndef  _tcsncmp
+    #define  _tcsncmp   wcsncmp
+  #endif
+  #ifndef  _tcsncpy
+    #define  _tcsncpy   wcsncpy
+  #endif
+  #ifndef  _tcspbrk
+    #define  _tcspbrk   wcspbrk
+  #endif
+  #ifndef  _tcsrchr
+    #define  _tcsrchr   wcsrchr
+  #endif
+  #ifndef _tcsspn
+    #define _tcsspn     wcsspn
+  #endif
+  #ifndef  _tcsstr
+    #define  _tcsstr    wcsstr
+  #endif
+  #ifndef _tcstok
+    #define _tcstok     wcstok
+  #endif
+  #ifndef  _tcsdup
+    #define  _tcsdup    _wcsdup
+  #endif
+  #ifndef  _tcsicmp
+    #define  _tcsicmp   _wcsicmp
+  #endif
+  #ifndef  _tcsnicmp
+    #define  _tcsnicmp  _wcsnicmp
+  #endif
+  #ifndef  _tcsnset
+    #define  _tcsnset   _wcsnset
+  #endif
+  #ifndef  _tcsrev
+    #define  _tcsrev    _wcsrev
+  #endif
+  #ifndef _tcsset
+    #define _tcsset     _wcsset
+  #endif
+  #ifndef  _tcslwr
+    #define  _tcslwr    _wcslwr
+  #endif
+  #ifndef  _tcsupr
+    #define  _tcsupr    _wcsupr
+  #endif
+  #ifndef  _tcsxfrm
+    #define  _tcsxfrm   wcsxfrm
+  #endif
+  #ifndef  _tcscoll
+    #define  _tcscoll   wcscoll
+  #endif
+  #ifndef  _tcsicoll
+    #define  _tcsicoll  _wcsicoll
+  #endif
+  #ifndef  _istalpha
+    #define  _istalpha  iswalpha
+  #endif
+  #ifndef  _istupper
+    #define  _istupper  iswupper
+  #endif
+  #ifndef  _istlower
+    #define  _istlower  iswlower
+  #endif
+  #ifndef  _istdigit
+    #define  _istdigit  iswdigit
+  #endif
+  #ifndef  _istxdigit
+    #define  _istxdigit iswxdigit
+  #endif
+  #ifndef  _istspace
+    #define  _istspace  iswspace
+  #endif
+  #ifndef  _istpunct
+    #define  _istpunct  iswpunct
+  #endif
+  #ifndef  _istalnum
+    #define  _istalnum  iswalnum
+  #endif
+  #ifndef  _istprint
+    #define  _istprint  iswprint
+  #endif
+  #ifndef  _istgraph
+    #define  _istgraph  iswgraph
+  #endif
+  #ifndef  _istcntrl
+    #define  _istcntrl  iswcntrl
+  #endif
+  #ifndef  _istascii
+    #define  _istascii  iswascii
+  #endif
+  #ifndef _totupper
+    #define _totupper   towupper
+  #endif
+  #ifndef  _totlower
+    #define  _totlower  towlower
+  #endif
+  #ifndef _tasctime
+    #define _tasctime   _wasctime
+  #endif
+  #ifndef _tctime
+    #define _tctime     _wctime
+  #endif
+  #ifndef _tstrdate
+    #define _tstrdate   _wstrdate
+  #endif
+  #ifndef _tstrtime
+    #define _tstrtime   _wstrtime
+  #endif
+  #ifndef _tutime
+    #define _tutime     _wutime
+  #endif
+  #ifndef _tcsftime
+    #define _tcsftime   wcsftime
+  #endif
+  #ifndef _tfdopen
+    #define _tfdopen    _wfdopen
+  #endif
+  #ifndef _tfsopen
+    #define _tfsopen    _wfsopen
+  #endif
+  #ifndef _tfopen
+    #define _tfopen     _wfopen
+  #endif
+  #ifndef _tfreopen
+    #define _tfreopen   _wfreopen
+  #endif
+  #ifndef _tperror
+    #define _tperror    _wperror
+  #endif
+  #ifndef _tpopen
+    #define _tpopen     _wpopen
+  #endif
+  #ifndef _ttempnam
+    #define _ttempnam   _wtempnam
+  #endif
+  #ifndef _ttmpnam
+    #define _ttmpnam    _wtmpnam
+  #endif
+  #ifndef _tchmod
+    #define _tchmod     _wchmod
+  #endif
+  #ifndef _tcreat
+    #define _tcreat     _wcreat
+  #endif
+  #ifndef _tmktemp
+    #define _tmktemp    _wmktemp
+  #endif
+  #ifndef _topen
+    #define _topen      _wopen
+  #endif
+  #ifndef _taccess
+    #define _taccess    _waccess
+  #endif
+  #ifndef _tremove
+    #define _tremove    _wremove
+  #endif
+  #ifndef _trename
+    #define _trename    _wrename
+  #endif
+  #ifndef _tsopen
+    #define _tsopen     _wsopen
+  #endif
+  #ifndef _tunlink
+    #define _tunlink    _wunlink
+  #endif
+  #ifndef _tcsinc
+    #define _tcsinc(pChar)     ((TCHAR*)((TCHAR*)(pChar)+1))
+  #endif
 
 
-///////////////////////////////////////////////////////////////////////////////
+/* ========================================================================= */
 #endif // _UNICODE
 
 /* ////////////////////////////////////////////////////////////////////////// */
 /* Common types                                                               */
 
-#ifndef _LPCTSTR_DEFINED
+#ifdef __cplusplus
+  //wide-character is build-in type
+  #define wchar_t wchar_t
+#endif
+
+#ifndef wchar_t
+  typedef unsigned short wchar_t;
+  #define wchar_t wchar_t
+#endif
+
+#ifndef LPCTSTR
   typedef const TCHAR*     LPCTSTR;
-  #define _LPCTSTR_DEFINED 1
+  #define LPCTSTR LPCTSTR
 #endif
 
-#ifndef _LPTSTR_DEFINED
+#ifndef LPTSTR
   typedef       TCHAR*     LPTSTR;
-  #define _LPTSTR_DEFINED 1
+  #define LPTSTR LPTSTR
 #endif
 
+#ifndef _WIN32
+  #ifndef PCSTR
+    typedef const char*    PCSTR; /*Pointer to character string constant*/
+    #define PCSTR PCSTR
+  #endif
+
+  #ifndef PSTR
+    typedef       char*    PSTR; /*Pointer to character string*/
+    #define PSTR PSTR
+  #endif
+
+  #ifndef PCWSTR
+    typedef const wchar_t* PCWSTR; /*Pointer to wide-character string constant*/
+    #define PCWSTR PCWSTR
+  #endif
+
+  #ifndef PWSTR
+    typedef       wchar_t* PWSTR; /*Pointer to wide-character string*/
+    #define PWSTR PWSTR
+  #endif
+
+  #ifndef OLECHAR
+     /*OLE (Microsoft's Object Linking and Embedding) character type used in
+       Distributed Component Object Model (DCOM) interfaces*/
+    typedef       wchar_t  OLECHAR;
+    #define OLECHAR OLECHAR
+  #endif
+
+#endif /*!_WIN32*/
+
+/* ///////////////////////////////////////////////////////////////////////// */
+#endif  //__KTCHAR_H__ <= 1000
+
+/* ///////////////////////////////////////////////////////////////////////// */
+#if (__KTCHAR_H__ <= 1200)
+
+  /* ======================================================================= */
+  /* Single byte Character Set SBCS (ASCII)                                  */
+  #ifndef _UNICODE /* !_UNICODE */
+    /*String conversion                                                      */
+
+    #ifndef _tstof
+      #define _tstof    atof          /*Convert strings a double-precision,
+                                        floating-point value.*/
+    #endif
+    #ifndef _tstoi
+      #define _tstoi    atoi          //Convert strings an integer value
+    #endif
+    #ifndef _tstoi64
+      #define _tstoi64  _atoi64       //Convert strings an integer value
+    #endif
+    #ifndef _tstol
+      #define _tstol    atol          //Convert strings a long integer value
+    #endif
+    #ifndef _ttoi
+      #define _ttoi     atoi          //Convert strings an integer value
+    #endif
+    #ifndef _ttoi64
+      #define _ttoi64   _atoi64       //Convert strings an integer value
+    #endif
+    #ifndef _ttol
+      #define _ttol     atol          //Convert strings a long integer value
+    #endif
+
+  /* ======================================================================= */
+  #else  //_UNICODE
+
+    #ifndef _tstof
+      #define _tstof      _wtof
+    #endif
+    #ifndef _tstoi
+      #define _tstoi      _wtoi
+    #endif
+    #ifndef _tstoi64
+      #define _tstoi64    _wtoi64
+    #endif
+    #ifndef _tstol
+      #define _tstol      _wtol
+    #endif
+    #ifndef _ttoi
+      #define _ttoi       _wtoi
+    #endif
+    #ifndef _ttoi64
+      #define _ttoi64     _wtoi64
+    #endif
+    #ifndef _ttol
+      #define _ttol       _wtol
+    #endif
+
+  /* ======================================================================= */
+  #endif // _UNICODE
+
+/* ///////////////////////////////////////////////////////////////////////// */
+#endif  //__KTCHAR_H__ <= 1200
 
 /* ////////////////////////////////////////////////////////////////////////// */
 #ifdef  __cplusplus
   } //extern "C"
 #endif
-
-#endif //__KTCHAR_H__
+/* ////////////////////////////////////////////////////////////////////////// */
+#endif //__KTCHAR_H__ < 1300
 /*****************************************************************************
- * $Log: 
- *  8    Biblioteka1.7         27/08/2002 10:36:18 PMDarko           _tcsinc()
- *  7    Biblioteka1.6         19/08/2002 9:38:17 AMDarko Kolakovic 
- *  6    Biblioteka1.5         12/02/2002 4:42:35 PMDarko           GNU issues
- *  5    Biblioteka1.4         12/02/2002 9:55:32 AMDarko           itoa()
- *  4    Biblioteka1.3         04/02/2002 6:58:44 PMDarko           ifdef  _MSC_VER
+ * $Log:
+ *  11   Biblioteka1.10        2004-06-08 16:43:24  Darko           Note UTF-8
+ *  10   Biblioteka1.9         2003-11-03 13:14:14  Darko           Replaced
+ *       windows.h with wtypes.h
+ *  9    Biblioteka1.8         2003-09-22 22:26:58  Darko           formatting
+ *  8    Biblioteka1.7         2002-08-27 23:36:18  Darko           _tcsinc()
+ *  7    Biblioteka1.6         2002-08-19 10:38:17  Darko Kolakovic
+ *  6    Biblioteka1.5         2002-02-12 17:42:35  Darko           GNU issues
+ *  5    Biblioteka1.4         2002-02-12 10:55:32  Darko           itoa()
+ *  4    Biblioteka1.3         2002-02-04 19:58:44  Darko           ifdef  _MSC_VER
  *       include windows.h
- *  3    Biblioteka1.2         06/01/2002 12:48:03 AMDarko           
- *  2    Biblioteka1.1         13/10/2001 1:07:49 PMDarko           GNU tags
- *  1    Biblioteka1.0         05/10/2001 2:34:19 PMDarko           
+ *  3    Biblioteka1.2         2002-01-06 01:48:03  Darko
+ *  2    Biblioteka1.1         2001-10-13 14:07:49  Darko           GNU tags
+ *  1    Biblioteka1.0         2001-10-05 15:34:19  Darko
  * $
  * Revision 1.1  2001/10/13 17:50:36  dkolaCVS StdIO functions
  *  1    Biblioteka1.0         10/5/01 3:34:19 PM   Darko

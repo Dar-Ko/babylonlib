@@ -1,15 +1,15 @@
 /*$Workfile: KBeep.h$: header file
-  $Revision: 2$ $Date: 16/09/2002 4:57:42 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 3$ $Date: 2003-09-30 10:21:57$
+  $Author: Darko$
 
   Generates beep sounds
   Copyright: CommonSoft Inc
   Sep. 2k2 D.Kolakovic
  */
 
-#ifndef __KBEEP_H__
-  //KBeep.h sentry
-  #define __KBEEP_H__
+#ifndef _KBEEP_H_
+  //$Workfile: KBeep.h$ sentry
+  #define _KBEEP_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
@@ -33,7 +33,7 @@ public:
   #endif
 
 public:
-  int16  m_iFrequency;  //sound frequency in range [0, 32767] [Hz] 
+  int16  m_iFrequency;  //sound frequency in range [0, 32767] [Hz]
   uint32 m_nDuration;   //sound duration  [ms]
   uint32 m_nDelay;      //delay between sounds [ms]
   uint32 m_nCount;      //number of repetitions
@@ -53,7 +53,7 @@ inline CBeep::CBeep() :
   {
   }
 
-inline CBeep::CBeep(int16 iFrequency, //[in] sound frequency in range [0, 32767] [Hz] 
+inline CBeep::CBeep(int16 iFrequency, //[in] sound frequency in range [0, 32767] [Hz]
                     uint32 nDuration  //[in] = 800 ms
                     ) :
   m_iFrequency(800),
@@ -73,7 +73,7 @@ inline CBeep::~CBeep()
 //::Dump()---------------------------------------------------------------------
 #ifdef _DEBUG
 #include "KTrace.h" //TRACE2 macro
-/*Dumps the contents of the object 
+/*Dumps the contents of the object
  */
 inline void CBeep::Dump()
   {
@@ -87,10 +87,10 @@ inline void CBeep::Dump()
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
-#endif  //__KBEEP_H__
+#endif  //_KBEEP_H_
 /******************************************************************************
- *$Log: 
- * 2    Biblioteka1.1         16/09/2002 4:57:42 PMDarko Kolakovic 
- * 1    Biblioteka1.0         13/09/2002 2:39:14 PMDarko Kolakovic 
+ *$Log:
+ * 2    Biblioteka1.1         9/16/2002 5:57:42 PM Darko Kolakovic
+ * 1    Biblioteka1.0         9/13/2002 3:39:14 PM Darko Kolakovic
  *$
  *****************************************************************************/

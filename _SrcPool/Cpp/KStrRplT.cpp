@@ -1,5 +1,5 @@
 /*$Workfile: KStrRplT.cpp$: implementation file
-  $Revision: 3$ $Date: 29/01/2002 10:22:05 PM$
+  $Revision: 6$ $Date: 2004-06-01 17:53:37$
   $Author: Darko$
 
   Replace TAB characterts in CString with spaces
@@ -7,8 +7,9 @@
 */
 /* Group=Strings                                                             */
 
-#include "StdAfx.h"
-//#include "KStrExt.h"  //Declarations
+//#include "stdafx.h"
+#include <afxwin.h>
+#include "KStrExt.h"  //Declarations
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -35,6 +36,8 @@
      Output:
      Summer  time    is the  best
      ^   ^   ^   ^   ^   ^   ^    - automatic stops
+
+  TODO: replace MFC D.K.
  */
 CString& ReplaceTabs(CString& strSource, //[in/out] string to be replaced
                      const int iTabPos   //[in] Tabulator position in characters
@@ -48,7 +51,7 @@ while ((iPos = strSource.Find(_T('\t'))) >= 0)
   szSeparation[i] = _T('\0');
   while (i > 0)
     szSeparation[i--] = _T(' ');
-	strSource = strSource.Left(iPos) + szSeparation + strSource.Mid(iPos + 1);
+  strSource = strSource.Left(iPos) + szSeparation + strSource.Mid(iPos + 1);
   }
 
 delete[] szSeparation;
@@ -60,7 +63,16 @@ return strSource;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log:
- *  0    Biblioteka0           Darko Kolakovic  May '97
+ * $Log: 
+ *  6    Biblioteka1.5         2004-06-01 17:53:37  Darko           time sync
+ *  5    Biblioteka1.4         2003-09-04 11:18:55  Darko           StdAfx.h
+ *       excluded
+ *  4    Biblioteka1.3         2003-08-14 04:56:49  Darko           header file
+ *  3    Biblioteka1.2         2002-01-29 23:22:05  Darko           Used lbraries
+ *       notes 
+ *  2    Biblioteka1.1         2002-01-25 16:58:37  Darko           Updated
+ *       comments
+ *  1    Biblioteka1.0         2001-12-23 00:21:04  Darko           
  * $
+ *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/

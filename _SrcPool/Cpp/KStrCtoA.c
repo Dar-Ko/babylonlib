@@ -1,6 +1,6 @@
 /*$Workfile: KStrCtoA.c$: implementation file
-  $Revision: 9$ $Date: 19/08/2002 9:41:58 AM$
-  $Author: Darko Kolakovic$
+  $Revision: 10$ $Date: 8/14/2003 5:02:18 AM$
+  $Author: Darko$
 
   Converts a character to descriptive string
   Jun 1990 Darko Kolakovic
@@ -15,7 +15,7 @@
 #endif
 
 #ifndef UINT
-  typedef  unsigned int UINT;
+  #include "KTypedef.h"
 #endif
 /* ///////////////////////////////////////////////////////////////////////// */
 /* Group=Strings                                                             */
@@ -39,7 +39,8 @@
         }
       }
 
-  See also: {HTML: <A HREF ="Res/ASCIICharTable.htm"> ASCII Character Table </A>}
+  See also: {HTML: <A HREF ="Res/ASCIICharTable.htm"> ASCII Character Table </A>},
+           KStrings.h
 
   Returns: zero-terminated string containing ASCII representation of 
   a character.

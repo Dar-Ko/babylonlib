@@ -1,6 +1,6 @@
 /*$Workfile: KStrRplSpaces.cpp$: implementation file
-  $Revision: 3$ $Date: 25/10/2002 2:26:29 AM$
-  $Author: Darko Kolakovic$
+  $Revision: 6$ $Date: 2004-06-01 17:53:35$
+  $Author: Darko$
 
   Replace consecutive white spaces with single character
   Copyright: CommonSoft Inc.
@@ -8,7 +8,7 @@
 */
 
 /* Group=Strings                                                             */
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #include "KTChar.h"  /*TCHAR*/
 #include "KStrings.h" //Declaration
@@ -19,18 +19,19 @@
 
 //ReplaceSpaces()--------------------------------------------------------------
 /*Replaces all consecutive white space characters (TAB, VT, FF, CR and SPACE)
-  whit a single SPACE character. Consecutive new line characters (LF, 0xA) are
-  replaced with single new line character, eliminating  empty lins from the text
+  with a single SPACE character. Consecutive new line characters (LF, 0xA) are
+  replaced with single new line character, eliminating empty lines from the text
   string.
 
   TODO: DOS version (\n\r = EOL)
 
-  Returns: source string with compressed white spaces, or NULL in case of a failure
+  Returns: source string with compressed white spaces, or NULL in case of 
+  a failure.
  */
 LPTSTR ReplaceSpaces(LPTSTR szSource //[in/out] zero-terminated string to be compressed
                      )
 {
-if ( (szSource == NULL) || (szSource[0] == _T('/0')) )
+if ( (szSource == NULL) || (szSource[0] == 0) )
     return szSource; //Nothing to do
 
 LPTSTR szTemp = new TCHAR[_tcslen(szSource) + 1];
@@ -39,7 +40,7 @@ if (szTemp == NULL)
 
 unsigned int i = 0;
 unsigned int j = 0;
-while ( szSource[i] != _T('\0') )
+while ( szSource[i] != 0 )
   {
   if ( !_istspace(szSource[i]) ) //If character is not [0x09, 0x0D] or 0x20
     {
@@ -79,10 +80,13 @@ return szSource;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         25/10/2002 2:26:29 AMDarko Kolakovic Cut-off
+ *  6    Biblioteka1.5         2004-06-01 17:53:35  Darko           time sync
+ *  5    Biblioteka1.4         2003-11-03 13:12:11  Darko           Unicode fix
+ *  4    Biblioteka1.3         2003-08-06 22:52:31  Darko           Comment
+ *  3    Biblioteka1.2         2002-10-25 03:26:29  Darko Kolakovic Cut-off
  *       trailing whitespace
- *  2    Biblioteka1.1         10/09/2002 5:54:18 PMDarko Kolakovic Fixed 1 byte
+ *  2    Biblioteka1.1         2002-09-10 18:54:18  Darko Kolakovic Fixed 1 byte
  *       offset
- *  1    Biblioteka1.0         09/09/2002 10:16:48 PMDarko           
+ *  1    Biblioteka1.0         2002-09-09 23:16:48  Darko           
  * $
  *****************************************************************************/

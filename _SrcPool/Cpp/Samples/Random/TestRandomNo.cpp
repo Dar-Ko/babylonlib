@@ -1,5 +1,5 @@
 /*$Workfile: TestRandomNo.cpp$: implementation file
-  $Revision: 2$ $Date: 7/16/02 1:41:46 AM$
+  $Revision: 2$ $Date: 16/07/2002 1:41:46 AM$
   $Author: Darko$
 
   Test rand() random number generator
@@ -13,7 +13,7 @@
 #include <iomanip.h>
 
 //TestRandomNo()---------------------------------------------------------------
-#include <Limits.h>	  //UINT_MAX
+#include <Limits.h>    //UINT_MAX
 #include <stdlib.h>   //srand() and rand()
 #include "KRandom.h"  //CRandomNo class
 /*Test of random number generator (standard library)
@@ -45,8 +45,8 @@ cout << "============================" << endl;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         7/16/02 1:41:46 AM   Darko           Fixed VSS Log 
+ * 2    Biblioteka1.1         16/07/2002 1:41:46 AMDarko           Fixed VSS Log 
  *      tag
- * 1    Biblioteka1.0         3/14/02 4:44:41 PM   Darko Kolakovic 
+ * 1    Biblioteka1.0         14/03/2002 4:44:41 PMDarko Kolakovic 
  *$
  *****************************************************************************/

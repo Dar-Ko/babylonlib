@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\Samples\Strings\Src\TsStrDup.cpp$: implementation file
-  $Revision: 1$ $Date: 9/11/02 4:25:48 PM$
+/*$Workfile: TsStrDup.cpp$: implementation file
+  $Revision: 1$ $Date: 11/09/2002 3:25:48 PM$
   $Author: Darko Kolakovic$
 
   Test string trimming 
@@ -9,9 +9,9 @@
 
 // Group=Examples
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#include "KStrings.h"	//StrDup()
+#include "KStrings.h"  //StrDup()
 #include <iostream>
 #include <iomanip.h>  //std::endl
 
@@ -66,6 +66,6 @@ return bRes;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 1    Biblioteka1.0         9/11/02 4:25:48 PM   Darko Kolakovic 
+ * 1    Biblioteka1.0         11/09/2002 3:25:48 PMDarko Kolakovic 
  *$
  *****************************************************************************/

@@ -1,14 +1,14 @@
-/*$Workfile: KProgCst.inl$: header file
-  $Revision: 12$ $Date: 30/01/2003 9:41:46 PM$
+/*$Workfile: S:\_SrcPool\Cpp\KProgCst.inl$: header file
+  $Revision: 17$ $Date: 2004-10-06 16:01:24$
   $Author: Darko$
 
   Constants
-  CommonSoft Inc.
+  Copyright: CommonSoft Inc.
   Nov. 95 D. Kolakovic
 */
 
 #ifndef _KPROGCST_INL_
-    //KProgCst.inl sentry
+    //$Workfile: S:\_SrcPool\Cpp\KProgCst.inl$ sentry
   #define _KPROGCST_INL_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -19,30 +19,8 @@
   #include "KProgCst.h" //Basic constants and macros
 #endif
 
-#ifdef __cplusplus
-/////////////////////////////////////////////////////////////////////////////
-//Constants
-#ifdef _M_IX86    //Intel x86 CPU
-  #ifndef _ROUNDOFF_INC_ //define different roundoff than it is in <Float.h>
-
-    #include <Float.h>   //float point limits
-      //Rounding error constant (for x86  2**(-53) = DBL_EPSILON/2)
-    #define CST_ROUNDOFF 1.11022302462515654042e-16
-      //Rounding error constant (include <Float.h>)
-    #define CST_fROUNDOFF FLT_EPSILON
-  #endif  //_ROUNDOFF_INC_
-
-         //double quiet NaN (not a number) -1.#IND according to IEC 559
-  const NaN_NUMBER CST_dNaN  = {0x0,NaN_DQUIET};
-         //double signaling NaN (not a number) -1.#INF
-  const NaN_NUMBER CST_dSNaN = {0x0,NaN_DSIGNAL};
-         //double positive infinity 1.#INF
-  const NaN_NUMBER CST_dINF  = {0x0,NaN_DPOSINFINITY};
-
-#endif    //_M_IX86 Intel x86 CPU
-
-/////////////////////////////////////////////////////////////////////////////
-//Macros
+/* //////////////////////////////////////////////////////////////////////// */
+/* Macros                                                                   */
 
 #ifndef DELETE_POBJECT
   /*The macro deletes the memory object that was pointed to if differs from
@@ -57,11 +35,58 @@
     }
 #endif
 
+#ifndef _UNUSED
+  /*Resolves the compiler warning about unused arguments
+
+    Example:
+        void main (int x, int y)
+        {
+        _UNUSED(y);
+        x = 3;
+        ...
+        }
+   */
+  #define _UNUSED(x) ((void)x)
+#endif
+
+
 /////////////////////////////////////////////////////////////////////////////
+//Constants
+#ifdef _M_IX86    //Intel x86 CPU
+  #ifndef _ROUNDOFF_INC_ //define different roundoff than it is in <float.h>
+
+    #include <float.h>   //float point limits
+      //Rounding error constant (for x86  2**(-53) = DBL_EPSILON/2)
+    #define CST_ROUNDOFF 1.11022302462515654042e-16
+      //Rounding error constant (include <float.h>)
+    #define CST_fROUNDOFF FLT_EPSILON
+  #endif  //_ROUNDOFF_INC_
+
+  #ifndef CST_dNaN
+           //double quiet NaN (not a number) -1.#IND according to IEC 559
+    const NaN_NUMBER CST_dNaN  = {0x0,NaN_DQUIET};
+    #define CST_dNaN CST_dNaN
+  #endif
+  #ifndef CST_dSNaN
+           //double signaling NaN (not a number) -1.#INF
+    const NaN_NUMBER CST_dSNaN = {0x0,NaN_DSIGNAL};
+           //double positive infinity 1.#INF
+    #define CST_dSNaN CST_dSNaN
+  #endif
+  #ifndef CST_dINF
+    const NaN_NUMBER CST_dINF  = {0x0,NaN_DPOSINFINITY};
+    #define CST_dINF CST_dINF
+  #endif
+
+#endif    //_M_IX86 Intel x86 CPU
+
+///////////////////////////////////////////////////////////////////////////////
 //Template functions
+#ifdef __cplusplus
+///////////////////////////////////////////////////////////////////////////////
 #include <Math.h>
 
-#ifndef _ROUNDOFF_INC_ //define different roundoff than it is in <Float.h>
+#ifndef _ROUNDOFF_INC_ //define different roundoff than it is in <float.h>
  #ifndef IsZero
   //IsZero()-----------------------------------------------------------------
   /*Returns: TRUE if expression is zero
@@ -96,13 +121,13 @@ template <class TYPE> inline bool IsEqual(const TYPE& a, const TYPE& b)
 
   Epsilon is defined as as the smallest positive number x, such that x+1.0
   is not equal to 1.0.
-  FLT_EPSILON is defined in <Float.h> as 1.192092896e-07F
+  FLT_EPSILON is defined in <float.h> as 1.192092896e-07F
  */
 inline bool IsEqual(const float& a, const float& b)
   {
   return ((((b - FLT_EPSILON) < a) && (a <( b + FLT_EPSILON))));
   }
-/*DBL_EPSILON is defined in <Float.h> as 2.2204460492503131e-016
+/*DBL_EPSILON is defined in <float.h> as 2.2204460492503131e-016
  */
 inline bool IsEqual(const double& a, const double& b)
   {
@@ -114,7 +139,7 @@ inline bool IsEqual(const double& a, const double& b)
 //IsNaN()----------------------------------------------------------------------
 #ifdef _MSC_VER     //Microsoft VC++
   #include <Float.h>
-  #define IsNaN(dvalue)   (bool)_isnan(dvalue)
+  #define IsNaN(dvalue)   (_isnan(dvalue) != 0)
 #else
   #define _KEXAMIN_NAN_FUNC 1
   //Reason of using _KEXAMIN_NAN_FUNC instead #elif is to include comment of
@@ -171,6 +196,30 @@ const int iOne = 1;
   //The low byte is examined and if it is zero then the machine is big-endian.
   //If the low byte is one then the machine is little-endian.
 return ((*(char *)&iOne) != 0);
+}
+
+//-----------------------------------------------------------------------------
+/*Returns number of elements contained in an array.
+
+  Example:
+      void main()
+      {
+      int iTest;
+      int iArray[255];
+      int* pTest;
+      std::vector<int> iVector(255);
+
+      //SizeOfArray(iTest); Generates compile-time error as desired
+      SizeOfArray(iArray);
+      SizeOfArray(pTest);
+      SizeOfArray(iVector);
+      return 0;
+      }
+ */
+template<typename ARRAY> size_t SizeOfArray(ARRAY &x)
+{
+size_t const SIZE(sizeof(x) / sizeof(x[0]));
+return SIZE;
 }
 
 #endif //__cplusplus

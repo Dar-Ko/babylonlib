@@ -1,5 +1,5 @@
 /*$Workfile: TsStrings.cpp$: implementation file
-  $Revision: 7$ $Date: 8/19/02 10:33:29 AM$
+  $Revision: 7$ $Date: 19/08/2002 9:33:29 AM$
   $Author: Darko Kolakovic$
 
   Test for different string functions
@@ -9,7 +9,7 @@
 
 // Group=Examples
 
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "KStrings.h"
 #include "KCharCst.h" //ASCII table
 

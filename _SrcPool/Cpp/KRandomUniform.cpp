@@ -1,6 +1,6 @@
 /*$Workfile: KRandomUniform.cpp$: implementation file
-  $Revision: 6$ $Date: 12/07/2002 5:23:44 PM$
-  $Author: Darko Kolakovic$
+  $Revision: 7$ $Date: 2003-08-22 16:32:09$
+  $Author: Darko$
 
   Uniform random number generator
   1987 G. Marsaglia, A. Zaman
@@ -22,12 +22,18 @@ m_nIndexB  = LAG_B - 1;
 SetSeed(); //Use current time as a seed(s)
 }
 
-CRandomUniform::CRandomUniform(unsigned long ulSeed)
+CRandomUniform::CRandomUniform(uint32 ulSeed //[in] random
+                                  //number seed
+                               )
 {
 SetSeed(ulSeed);
 }
 
-CRandomUniform::CRandomUniform (unsigned short ulSeed1, unsigned short ulSeed2)
+CRandomUniform::CRandomUniform (uint16 ulSeed1, //[in] first random
+                                  //number seed must be in range [0, 31328]
+                                uint16 ulSeed2 //[in] second random
+                                  //number seed must be in range [0, 30081]
+                               )
 {
 m_dDecrement    = 362436.0 / 16777216.0;
 m_nIndexA  = LAG_A - 1;
@@ -50,9 +56,9 @@ CRandomUniform::~CRandomUniform ()
   number generator can create 900 million different subsequences - with
   each subsequence having a length of approximately 10^30.
  */
-void CRandomUniform::SetSeed(unsigned short ulSeed1, //[in] first random
+void CRandomUniform::SetSeed(uint16 ulSeed1, //[in] first random
                                   //number seed must be in range [0, 31328]
-                             unsigned short ulSeed2 //[in] second random
+                             uint16 ulSeed2 //[in] second random
                                   //number seed must be in range [0, 30081]
                             )
 {
@@ -99,45 +105,45 @@ for (ii = 0; ii < LAG_A; ii++)
  */
 double CRandomUniform::Get()
 {
-  double dResult;
-  const double cd   = 7654321.0 / 16777216.0;
-  const double cm   = 16777213.0 / 16777216.0;
+double dResult;
+const double cd   = 7654321.0 / 16777216.0;
+const double cm   = 16777213.0 / 16777216.0;
 
-  dResult = m_dTable[m_nIndexA] - m_dTable[m_nIndexB];
-  if (dResult <= 0.0)
-    dResult++;
+dResult = m_dTable[m_nIndexA] - m_dTable[m_nIndexB];
+if (dResult <= 0.0)
+  dResult++;
 
-  m_dTable[m_nIndexA] = dResult;
-  if (m_nIndexA == 0)
-    m_nIndexA = LAG_A - 1;
-  else
-    m_nIndexA--;
+m_dTable[m_nIndexA] = dResult;
+if (m_nIndexA == 0)
+  m_nIndexA = LAG_A - 1;
+else
+  m_nIndexA--;
 
-  if (m_nIndexB == 0)
-    m_nIndexB = LAG_A - 1;
-  else
-    m_nIndexB--;
+if (m_nIndexB == 0)
+  m_nIndexB = LAG_A - 1;
+else
+  m_nIndexB--;
 
-  m_dDecrement -= cd;
-  if (m_dDecrement < 0.0)
-    m_dDecrement += cm;
+m_dDecrement -= cd;
+if (m_dDecrement < 0.0)
+  m_dDecrement += cm;
 
-  dResult -= m_dDecrement;
-  if (dResult < 0.0)
-    dResult++;
+dResult -= m_dDecrement;
+if (dResult < 0.0)
+  dResult++;
 
-  return dResult;
+return dResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-/* 
- *$Log: 
- * 6    Biblioteka1.5         12/07/2002 5:23:44 PMDarko Kolakovic Log added
- * 5    Biblioteka1.4         12/07/2002 5:21:59 PMDarko Kolakovic VSS tag
- * 4    Biblioteka1.3         03/04/2002 3:30:19 PMDarko Kolakovic Fixed bug in
+/*****************************************************************************
+ * $Log: 
+ * 6    Biblioteka1.5         7/12/2002 6:23:44 PM Darko Kolakovic Log added
+ * 5    Biblioteka1.4         7/12/2002 6:21:59 PM Darko Kolakovic VSS tag
+ * 4    Biblioteka1.3         4/3/2002 4:30:19 PM  Darko Kolakovic Fixed bug in
  *      Get(): wrong index of m_dTable
- * 3    Biblioteka1.2         02/04/2002 6:06:21 PMDarko Kolakovic 
- * 2    Biblioteka1.1         14/03/2002 9:50:20 PMDarko           Comments
- * 1    Biblioteka1.0         14/03/2002 5:55:08 PMAleksandar Janicijevic 
+ * 3    Biblioteka1.2         4/2/2002 7:06:21 PM  Darko Kolakovic 
+ * 2    Biblioteka1.1         3/14/2002 10:50:20 PMDarko           Comments
+ * 1    Biblioteka1.0         3/14/2002 6:55:08 PM Aleksandar Janicijevic 
  *$
  *****************************************************************************/
