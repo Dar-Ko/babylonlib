@@ -16,5 +16,5 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //Function declarations
-BOOL TestComplex();
+bool TestComplex();
 void TestPointToComplex(CPoint& ptPos);

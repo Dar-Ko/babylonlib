@@ -31,6 +31,13 @@
   #endif
 #endif
 
+#if _MSC_VER == 1300
+  #pragma message ("Microsoft Visual C++.Net 7.0")
+  #if _MFC_VER == 0x600
+    #pragma message ("MFC 4.2")
+  #endif
+#endif
+
 /////////////////////////////////////////////////////////////////////////////
 // CTestApp
 
@@ -58,23 +65,23 @@ CTestApp theApp;
 // CTestApp initialization
 
 //::InitInstance()-------------------------------------------------------------
-/*Instance initialization that runs each time a copy of the program runs, 
+/*Instance initialization that runs each time a copy of the program runs,
   including the first time. The framework’s implementation of WinMain calls
   this function.
 
   Note: The following Win32 features are not currently supported for Win32s
 
-        MAPI 
-        RPC 
-        Console APIs 
-        Unicode APIs (Win32s does support Code Page/Unicode translation APIs) 
-        Security APIs 
-        Comm APIs 
-        Asynchronous File I/O 
-        Threads 
-        Paths (graphics object) 
-        Enhanced Metafiles 
-        Bezier curves 
+        MAPI
+        RPC
+        Console APIs
+        Unicode APIs (Win32s does support Code Page/Unicode translation APIs)
+        Security APIs
+        Comm APIs
+        Asynchronous File I/O
+        Threads
+        Paths (graphics object)
+        Enhanced Metafiles
+        Bezier curves
  */
 BOOL CTestApp::InitInstance()
 {
@@ -96,7 +103,7 @@ CCommandLineInfo cmdInfo;
 ParseCommandLine(cmdInfo);
 
 // Dispatch commands specified on the command line
-// Create new document, main frame and view object, initialize m_pMainWnd 
+// Create new document, main frame and view object, initialize m_pMainWnd
 if (!ProcessShellCommand(cmdInfo))
 	return FALSE;
   //Execute initial testing
