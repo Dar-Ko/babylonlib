@@ -48,6 +48,7 @@ extern bool TestGetLine(LPCTSTR szFileName, int iNoofLines);
 extern bool TestStringConversion();
 extern bool TestCharConversion();
 extern bool TestReplaceSpace();
+extern bool TestTrim();
 extern bool TestStrDup();
 
 extern std::string g_strTestFile;
@@ -118,6 +119,14 @@ else
   {
   cout << "Failed!" << endl;
   return EXIT_FAILURE + 6;
+  }
+
+if(TestTrim())
+  cout << "Succeeded." << endl << endl;
+else
+  {
+  cout << "Failed!" << endl;
+  return EXIT_FAILURE + 7;
   }
 
 return EXIT_SUCCESS;
