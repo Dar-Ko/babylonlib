@@ -1,81 +1,90 @@
-/*$Workfile: main.cpp$: implementation file
-  $Revision: 4$ $Date: 16/09/2002 4:57:53 PM$
-  $Author: Darko Kolakovic$
+/*$Workfile: TestGetLines.cpp$: implementation file
+  $Revision: 4$ $Date: 2004-10-06 15:01:37$
+  $Author: Darko$
 
-  Illustrates how to use the getline function to read a line of text from the stream.
-  Compile options needed: /GX
-  Copyright: CommonSoft Inc
-  May '97 Darko Kolakovic
+  Test of the counting of the text lines.
+  Copyright: CommonSoft Inc.
+  2004-08-12 Darko Kolakovic
 */
 
 // Group=Examples
 
-#ifdef _DEBUG
-  #undef THIS_FILE
-  static char THIS_FILE[] = __FILE__;
+#include "stdafx.h"
 
-  #ifdef _MSC_VER /*MS VC/C++ - Disable warning */
-    //Fix for the warning(4786) cannot debug code with symbols longer 
-    //than 255 characters
-  #pragma warning (disable: 4786)
-  #endif
-#endif
-
-#include <string>
+#pragma warning (disable : 4786) //Warning: identifier was truncated to '255' 
+                                 //characters in the browser information
 #include <vector>
-#include <iostream>
 #include <fstream>
-#include "KTypedef.h" //LPCTSTR typedef
 
-bool TestGetLines(LPCTSTR szFileName);
-//main()-----------------------------------------------------------------------
-/*Test to read text lines from a stream.
+extern CTestLog g_logTest;   //general test logger
+extern bool TsWriteToViewLn(LPCTSTR lszText);
+#if (defined _UNICODE)
+  extern std::string WtoChar(const wchar_t* lpWideCharStr, int iLen = -1);
+#endif
+//-----------------------------------------------------------------------------
+/*Validates GetLines() function. The function count number of the text lines in
+  the given file.
 
-  Returns: EXIT_SUCCESS if succesfull, otherwise returns EXIT_FAILURE.
+  Returns true if test is successful; otherwise returns false.
+
+  Note: uses Standard Template Library (STL).
  */
-int main(int   argc,   //[in]
-         char* argv[]  //[in] 1: file name
-         )
-{
-std::string strFileName;
-
-if(argc == 2) //Get file name from command line
-  strFileName = argv[1];
-else
-  {
-  std::cout << "Enter File Name: ";
-  std::cin  >> strFileName;
-  }
-
-if(!TestGetLines(strFileName.c_str()))
-  return EXIT_FAILURE; //Failed test
-
-return EXIT_SUCCESS;
-}
-
-//TestGetLines()---------------------------------------------------------------
 bool TestGetLines(LPCTSTR szFileName //[in] file name
                   )
 {
-bool GetLines(std::ifstream& fileSource, 
-              std::vector<std::string>& arrayLine,
+TsWriteToViewLn(_T("TestGetLines()"));
+
+bool GetLines(tifstream& fileSource, 
+              std::vector<tstring>& arrayLine,
               int iCount = -1);
 
-std::vector<std::string> arrayLine;
+bool bResult = false; //test result
+
+  //Test log  creation
+g_logTest.m_szObjectName = _T("GetLines(tifstream, std::vector)");
+g_logTest.m_szFileName   = _T("KGetLines.cpp");//function or object file name
+g_logTest.m_bResult      = false;              //result of the test
+
+std::vector<tstring> arrayLine;
   //Open source file
-std::ifstream fileSource(szFileName);
+#ifdef _UNICODE
+  #if (_MSC_VER < 1300) && (KSTL_IO <= 1201)
+    /*Note: STL MSVC v6.0 implementation of wifstream uses char* for file names:
+            wifstream::wifstream(const char* filename);
+            The reason is that wchar_t id defined as unsigned short and could not
+            be overloaded in as other primitive types.
+            For KSTL_IO values see KOStream.h
+     */
+    std::string strFileName = WtoChar(szFileName);
+    LPCSTR szaFileName = strFileName.c_str(); //SBCS (ASCII) file name
+  #endif
+#else   //SBCS text mapping
+  LPCSTR& szaFileName = szFileName; //SBCS (ASCII) alias
+#endif
+
+tifstream fileSource(szaFileName);
 if(fileSource != NULL)
   {
+  //Test text line counting
   GetLines(fileSource, arrayLine);
+  const int iLineCount = arrayLine.size();
+
+  std::_tcout << _T("File ") << szFileName << _T(" has ")
+    << iLineCount << ((iLineCount != 1) ? _T(" lines.") : _T(" line.")) 
+    << std::endl;
+
+  //Print first few lines
+  const int OUTPUT_LIMIT = 10;
   int iCount = 0;
-  while (iCount < arrayLine.size())
+  while ((iCount < iLineCount) && (iCount < OUTPUT_LIMIT) )
     {
-    std::cout << arrayLine[iCount++] <<  std::endl;
+    std::_tcout << arrayLine[iCount++] <<  std::endl;
     }
-  std::cout << "File " << szFileName << " has " 
-            << iCount << " lines." << std::endl;
-            /*
-  while(GetLines(fileSource, arrayLine,7))
+
+  //Test reading predefined number of lines
+  
+/*            
+  while(GetLines(fileSource, arrayLine, 7))
     {
     std::string strOutFile = arrayLine[2].substr(7);
     strOutFile = strOutFile.substr(0,strOutFile.length()-8);
@@ -87,7 +96,7 @@ if(fileSource != NULL)
       i++;
       }
     strOutFile += ".htm";
-    std::cout << strOutFile << std::endl;
+    std::_tcout << strOutFile << std::endl;
     std::ofstream fileOut(strOutFile.c_str());
     if(fileOut != NULL)
       {
@@ -103,12 +112,27 @@ if(fileSource != NULL)
     }
 */
   fileSource.close();
-  return true;
+  bResult = true;
   }
+else
+  std::_tcout << _T("Cannot open file ") << szFileName << std::endl;
 
-std::cout << "Cannot open file " << szFileName << std::endl;
-return false;
+g_logTest.LogResult(bResult);
+return bResult;
 }
+
+#pragma warning (default  : 4786)
+
+///////////////////////////////////////////////////////////////////////////////
+/******************************************************************************
+ * $Log: 
+ *  4    Biblioteka1.3         2004-10-06 15:01:37  Darko           Unicode mapping
+ *  3    Biblioteka1.2         2004-09-30 14:47:52  Darko           inserted global
+ *       CTestLog
+ *  2    Biblioteka1.1         2004-09-29 12:23:27  Darko           improved tests
+ *  1    Biblioteka1.0         2004-09-28 12:59:56  Darko           
+ * $
+ *****************************************************************************/
 
 /*-------------------------- functions ------------------------------*/
 /** getline
@@ -219,7 +243,7 @@ getline (char **lineptr, size_t *n, FILE *stream)
 
 #else /* ! have getdelim */
 
-# define NDEBUG
+//# define NDEBUG
 # include <assert.h>
 
 # if STDC_HEADERS
@@ -367,7 +391,7 @@ The function getline is standard fare in C++ progrmming.
 It returns the length of the line read, and places the characters in the line 
 into the array s. The variable lim is the line length of the longest allowable line. 
 #include "stsearch.h"
-extern ifstream inFile;
+extern tifstream inFile;
 
 int getline(char s[], int lim) {
   int i = 0; 
@@ -418,13 +442,3 @@ istream & getline( istream & in, string & str )
 #endif
 */
 
-///////////////////////////////////////////////////////////////////////////////
-/*****************************************************************************
- * $Log: 
- *  4    Biblioteka1.3         16/09/2002 4:57:53 PMDarko Kolakovic 
- *  3    Biblioteka1.2         16/07/2002 12:39:21 AMDarko           Updated
- *       comment
- *  2    Biblioteka1.1         17/02/2002 2:17:41 AMDarko           GetLines()
- *  1    Biblioteka1.0         04/02/2002 6:46:46 PMDarko           
- * $
- *****************************************************************************/

@@ -1,0 +1,50 @@
+\	StreamIO.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+TODO: \	StreamIO.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
+TODO: \	StreamIO.vcp	Microsoft eMbedded Visual Tools Project (VCP) file is a generated build file, format version 6.02 (eVC6).	WinCE
+
+Stream I/O
+Samples and test suite for various functions using Standard Template Library (STL) streams
+Requires predefined macro _STL
+
+Test files:
+
+  Res/Test0b.txt
+    zero-length test file
+    EOL:  1 line
+    length: 0 bytes
+
+  Res/Test26ch.txt
+    File with 26 capital letters: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    EOL:  1 line
+    length: 26 bytes
+
+  Res/TomSawyer.txt
+    Text file containg book The Adventures of Tom Sawyer by Mark Twain
+    EOL:  8859 lines, DOS (CR, LF), Encoding US-ASCII
+    length: 416145 bytes
+
+  Res/Voyage au Centre de la Terre.txt
+    Text file containg book Voyage au Centre de la Terre by Jules Verne
+    EOL:  4921 lines, Unix (LF), Encoding ISO-8859-1
+    length: 433640 bytes
+
+  Res/Test Incredibly Long File Name With All Allowed Characters Like {}[]()!.@#$%^&,.`~ AndSoOnAllLettersAlsoABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz numbers 0123456789.txt
+    Long file name test
+    file name size: 174 bytes
+    length: 174 bytes
+
+  Res/TestCanc.bin
+    Non-printable characters ( < 32 and > 126) test
+    EOL:  2 lines
+    length: 128 bytes
+
+  Res/TestEOBach.bin
+    Empty file containing all zeroes, but one 0xFF
+    EOL:  1 line
+    length: 133 bytes
+
+  Res/Test1kTest.bin
+    One KB file
+    EOL:  2 lines
+    length: 1024 bytes
+
