@@ -130,6 +130,10 @@ SOURCE=.\Cpp\KDbgFVSI.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KDbgGUID.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KDbgLDLL.cpp
 # End Source File
 # Begin Source File
@@ -147,6 +151,10 @@ SOURCE=.\Cpp\KDbgPrpS.cpp
 # Begin Source File
 
 SOURCE=.\Cpp\KDbgRASS.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KDbgREFIID.cpp
 # End Source File
 # Begin Source File
 
@@ -447,11 +455,19 @@ SOURCE=.\Cpp\KStrRplEscSeq.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KStrRplSpaces.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KStrRplT.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\Cpp\KStrStream.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KStrTrim.cpp
 # End Source File
 # Begin Source File
 
@@ -564,6 +580,10 @@ SOURCE=.\Cpp\KDateCrl.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KDbgDump.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KDbgMacr.h
 # End Source File
 # Begin Source File
@@ -609,6 +629,10 @@ SOURCE=.\Cpp\KFileNmB.h
 # Begin Source File
 
 SOURCE=.\Cpp\KFileShortcut.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KFileSys.h
 # End Source File
 # Begin Source File
 
