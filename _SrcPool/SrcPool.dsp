@@ -471,6 +471,10 @@ SOURCE=.\Cpp\KStrTrim.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KStrTrSl.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KStrUppr.cpp
 # End Source File
 # Begin Source File
@@ -542,6 +546,10 @@ SOURCE=.\Cpp\SrcPool.rc
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\Cpp\KBeep.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\Cpp\KBitMan.h
@@ -661,6 +669,14 @@ SOURCE=.\CPP\KGifViewer.h
 # Begin Source File
 
 SOURCE=.\Cpp\KHypLink.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\16\KioPIT.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\16\KioPPI.h
 # End Source File
 # Begin Source File
 
