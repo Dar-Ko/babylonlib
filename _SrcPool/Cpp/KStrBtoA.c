@@ -1,5 +1,5 @@
 /*$Workfile: KStrBtoA.c$: implementation file
-  $Revision: 6$ $Date: 8/19/02 10:42:05 AM$
+  $Revision: 6$ $Date: 19/08/2002 9:42:05 AM$
   $Author: Darko Kolakovic$
 
   Converts a range of bits to a binary string
@@ -68,12 +68,12 @@ return lpszRes;          /*Result          */
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         8/19/02 10:42:05 AM  Darko Kolakovic 
- *  5    Biblioteka1.4         2/12/02 5:39:03 PM   Darko           Replaced
+ *  6    Biblioteka1.5         19/08/2002 9:42:05 AMDarko Kolakovic 
+ *  5    Biblioteka1.4         12/02/2002 4:39:03 PMDarko           Replaced
  *       tchar.h with KTChar.h
- *  4    Biblioteka1.3         8/19/01 11:55:00 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:52:36 PM  Darko           
- *  2    Biblioteka1.1         6/8/01 11:51:45 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:59:17 PM   Darko           
+ *  4    Biblioteka1.3         19/08/2001 10:55:00 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:52:36 PMDarko           
+ *  2    Biblioteka1.1         08/06/2001 10:51:45 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:59:17 PMDarko           
  * $
  *****************************************************************************/

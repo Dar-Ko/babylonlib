@@ -1,5 +1,5 @@
 /*$Workfile: KNetByte.h$: header file
-  $Revision: 4$ $Date: 4/9/02 1:24:01 PM$
+  $Revision: 4$ $Date: 09/04/2002 12:24:01 PM$
   $Author: Darko Kolakovic$
 
   Network type definitions
@@ -325,11 +325,11 @@ return (BYTE*)(&m_netValue);
 #endif /* _KNETBYTE_H_                                                       */
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         4/9/02 1:24:01 PM    Darko Kolakovic 
- *  3    Biblioteka1.2         3/7/02 5:08:30 PM    Darko           Added pointer
+ *  4    Biblioteka1.3         09/04/2002 12:24:01 PMDarko Kolakovic 
+ *  3    Biblioteka1.2         07/03/2002 4:08:30 PMDarko           Added pointer
  *       aligment macro
- *  2    Biblioteka1.1         3/5/02 2:23:28 AM    Darko           added operator
+ *  2    Biblioteka1.1         05/03/2002 1:23:28 AMDarko           added operator
  *       BYTE*()
- *  1    Biblioteka1.0         3/4/02 7:11:39 PM    Darko           
+ *  1    Biblioteka1.0         04/03/2002 6:11:39 PMDarko           
  * $
  *****************************************************************************/

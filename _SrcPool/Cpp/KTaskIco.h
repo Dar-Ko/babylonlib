@@ -1,5 +1,5 @@
 /*$Workfile: KTaskIco.h$: header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:39:16 $
   $Author: ddarko $
 
   Adds icons to the Windows system taskbar
@@ -53,9 +53,9 @@ public:
 #endif  //_KTASKICO_H_
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         7/16/02 1:41:34 AM   Darko           Fixed VSS Log 
+ * 2    Biblioteka1.1         16/07/2002 12:41:34 AMDarko           Fixed VSS Log 
  *      tag
- * 1    Biblioteka1.0         4/5/02 12:50:16 AM   Darko           
+ * 1    Biblioteka1.0         04/04/2002 11:50:16 PMDarko           
  *$
  *****************************************************************************/
 	//This makes the ClassWizard very happy

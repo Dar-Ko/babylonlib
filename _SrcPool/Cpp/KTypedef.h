@@ -1,5 +1,5 @@
 /*$Workfile: KTypedef.h$: header file
-  $Revision: 16$ $Date: 10/10/02 8:36:00 PM$
+  $Revision: 18$ $Date: 10/01/2003 9:51:40 PM$
   $Author: Darko Kolakovic$
 
   Type definitions
@@ -7,13 +7,32 @@
   Feb 95 Darko Kolakovic
  */
 
+#ifndef __KTYPEDEF_H__
+  /*KTypedef.h sentry*/
+  #define __KTYPEDEF_H__
+
+#ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
+  #pragma message ("   #include " __FILE__ )
+#endif
+
+#if defined(__GNUC__)
+  #include <stdint.h> /*ISO C99: 7.18 Integer types*/
+  #ifndef _STDINT_H
+    /*ISO C99: 7.18 Integer types included*/
+    #define _STDINT_H_   99718
+  #endif
+  #ifndef _STDINT_H_
+    /*ISO C99: 7.18 Integer types included*/
+    #define _STDINT_H_   99718
+  #endif
+#endif
 
 #if ( defined(_DOS) || defined(WIN) )
   #if _MSC_VER <= 850 /*Microsoft Visual C/C++ 1.52 or less            */
     /* /////////////////////////////////////////////////////////////////////// */
     /* // MS Windows 16-bit, DOS 16-bit                                        */
     #ifndef __NATIVE_16_BIT__
-      #define __NATIVE_16_BIT__
+      #define __NATIVE_16_BIT__ 16
     #endif
     typedef int bool;
     #define bool bool
@@ -33,7 +52,8 @@
   /* /////////////////////////////////////////////////////////////////////// */
   /* // MS Windows 32-bit                                                    */
   #ifdef _MSC_VER        /*Microsoft Visual Studio C/C++ compiler            */
-    #define __NATIVE_32_BIT__
+    #define __NATIVE_32_BIT__ 32
+	#include "KType32.h" /*ISO C99: 7.18 Integer types included              */
 
     #ifndef __KMS_WTYPES_H__
          /*Included wtypes.h header                                          */
@@ -89,7 +109,15 @@
 
   #ifdef VXWORKS /*32-bit VxWorks OS */
     #include <vxTypesOld.h> /*BOOL typedef */
-    #define __NATIVE_32_BIT__
+    #if (CPU_FAMILY!=ARM)
+      #define __NATIVE_32_BIT__
+    #endif
+    #if (CPU_FAMILY!=SIMNT)
+      #define __NATIVE_32_BIT__
+    #endif
+    #if (CPU_FAMILY!=ARM && CPU_FAMILY!=SIMNT)
+      #error Not a 32-bit system, update stdint.h
+    #endif
   #endif
 
   #ifndef __KTYPEDEF_H__
@@ -486,6 +514,8 @@
   #define _UNUSED(x) ((void)x)
 #endif
 
+/* ///////////////////////////////////////////////////////////////////////// */
+#endif /*__KTYPEDEF_H__*/
 /*****************************************************************************
  * $Log:
  *  0 Created   Feb 95 Darko Kolakovic

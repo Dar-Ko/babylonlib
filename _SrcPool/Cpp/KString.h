@@ -1,5 +1,5 @@
 /*$Workfile: KString.h$: header file
-  $Revision: 7$ $Date: 1/29/02 11:22:18 PM$ 
+  $Revision: 8$ $Date: 20/01/2003 3:10:14 AM$ 
   $Author: Darko$
 
   Interface for the CString class
@@ -15,14 +15,11 @@
   #if _MSC_VER > 1000
     #pragma once
   #endif // _MSC_VER > 1000
-
-  //#include <tchar.h> //Unicode mapping
-#else
-  //#include "KTChar.h" //Unicode mapping
 #endif
 
 #ifdef __STRING__
-  #define _STRING_
+  //included STL std::string
+  #define _STRING_ 12
 #endif
 
 #ifdef __GNUG__ //GNU C++ compiler
@@ -33,22 +30,35 @@
   #define _cdecl
 #endif
 
+#include "KTrace.h" //ASSERT
+#include "KTChar.h" //TCHAR
+
+/*
 #define TCHAR char
 #define _T(t)     t             //See also: _TEXT
+  //TODO: exlude TCHAR( import KTChar.h)
 
 typedef const TCHAR*    LPCTSTR;
 typedef const wchar_t*  LPCWSTR;
 typedef const char*     LPCSTR;
 typedef unsigned int    UINT;
 typedef TCHAR*          LPTSTR;
-
-#include <assert.h>
-#define ASSERT assert
-
 #define _tcsicmp    _stricmp    //Perform a lowercase comparison of strings.
 #define _tcscoll    strcoll     //Compare strings using locale-specific information.
 #define _tcsicoll   _stricoll   //Compare strings using locale-specific information.
 #define _istspace   isspace     //Query if character is a white-space character (0x09 – 0x0D or 0x20).
+
+*/
+#ifdef _DEBUG
+  //TODO: exlude ASSERT( import KTrace.h)
+/*
+  #ifndef ASSERT
+    #include <assert.h>
+    #define ASSERT assert
+  #endif
+  */
+#endif
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // If the symbol _UNICODE is defined, CString uses type
@@ -357,15 +367,17 @@ return s2.Compare(s1) != 0;
 #endif // _KSTRING_H__
 /******************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         1/29/02 11:22:18 PM  Darko           Used lbraries
+ *  8    Biblioteka1.7         20/01/2003 3:10:14 AMDarko           Added ASSERT
+ *       and TCHAR header files
+ *  7    Biblioteka1.6         29/01/2002 10:22:18 PMDarko           Used lbraries
  *       notes 
- *  6    Biblioteka1.5         1/24/02 7:19:32 PM   Darko           Updated
+ *  6    Biblioteka1.5         24/01/2002 6:19:32 PMDarko           Updated
  *       comments
- *  5    Biblioteka1.4         1/23/02 7:23:25 PM   Darko           
- *  4    Biblioteka1.3         1/6/02 1:47:37 AM    Darko           
- *  3    Biblioteka1.2         12/30/01 8:20:25 PM  Darko           
- *  2    Biblioteka1.1         11/6/01 3:52:08 PM   Darko           pointer to data
+ *  5    Biblioteka1.4         23/01/2002 6:23:25 PMDarko           
+ *  4    Biblioteka1.3         06/01/2002 12:47:37 AMDarko           
+ *  3    Biblioteka1.2         30/12/2001 7:20:25 PMDarko           
+ *  2    Biblioteka1.1         06/11/2001 2:52:08 PMDarko           pointer to data
  *       holder
- *  1    Biblioteka1.0         11/5/01 3:13:04 PM   Darko           
+ *  1    Biblioteka1.0         05/11/2001 2:13:04 PMDarko           
  * $
  *****************************************************************************/

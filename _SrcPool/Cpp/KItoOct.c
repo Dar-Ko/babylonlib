@@ -1,5 +1,5 @@
 /*$Workfile: KItoOct.c$: implementation file
-  $Revision: 2$ $Date: 7/16/02 1:41:15 AM$
+  $Revision: 2$ $Date: 16/07/2002 12:41:15 AM$
   $Author: Darko$
  
   Convert an integer to octal string.
@@ -58,8 +58,8 @@ return szResult;
 /* ///////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         7/16/02 1:41:15 AM   Darko           Fixed VSS Log 
+ * 2    Biblioteka1.1         16/07/2002 12:41:15 AMDarko           Fixed VSS Log 
  *      tag
- * 1    Biblioteka1.0         3/7/02 5:03:38 PM    Darko           
+ * 1    Biblioteka1.0         07/03/2002 4:03:38 PMDarko           
  *$
  *****************************************************************************/

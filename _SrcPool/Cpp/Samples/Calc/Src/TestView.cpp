@@ -1,5 +1,5 @@
 // TestView.cpp : implementation of the CTestView class
-// $Revision: 2$	$Date: 7/9/01 11:43:29 PM$
+// $Revision: 2$	$Date: 09/07/2001 11:43:29 PM$
 //
 // Darko Kolakovic
 // Jan. 2k

@@ -1,5 +1,5 @@
 /*$Workfile: KStrEnum.cpp$: implementation file
-  $Revision: 3$ $Date: 1/25/02 4:57:59 PM$
+  $Revision: 3$ $Date: 25/01/2002 3:57:59 PM$
   $Author: Darko$
 
   Retreive substrings

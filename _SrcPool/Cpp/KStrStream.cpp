@@ -1,5 +1,5 @@
 /*$Workfile: KStrStream.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:38:42 $
   $Author: ddarko $
 
   String helpers and CString extension with STL operators
@@ -65,13 +65,13 @@ return cOutput;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2/12/02 5:41:45 PM   Darko           comment update
- *  5    Biblioteka1.4         2/1/02 6:32:21 PM    Darko           Updated comment
- *  4    Biblioteka1.3         1/29/02 11:22:08 PM  Darko           Used lbraries
+ *  6    Biblioteka1.5         12/02/2002 4:41:45 PMDarko           comment update
+ *  5    Biblioteka1.4         01/02/2002 5:32:21 PMDarko           Updated comment
+ *  4    Biblioteka1.3         29/01/2002 10:22:08 PMDarko           Used lbraries
  *       notes 
- *  3    Biblioteka1.2         1/25/02 4:58:42 PM   Darko           Updated
+ *  3    Biblioteka1.2         25/01/2002 3:58:42 PMDarko           Updated
  *       comments
- *  2    Biblioteka1.1         12/23/01 12:26:17 AM Darko           changed header
- *  1    Biblioteka1.0         12/23/01 12:23:03 AM Darko           
+ *  2    Biblioteka1.1         22/12/2001 11:26:17 PMDarko           changed header
+ *  1    Biblioteka1.0         22/12/2001 11:23:03 PMDarko           
  * $
  *****************************************************************************/

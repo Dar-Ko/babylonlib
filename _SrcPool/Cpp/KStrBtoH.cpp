@@ -1,5 +1,5 @@
 /*$Workfile: KStrBtoH.cpp$: implementation file
-  $Revision: 1$ $Date: 8/13/02 6:53:10 PM$
+  $Revision: 1$ $Date: 13/08/2002 5:53:10 PM$
   $Author: Darko Kolakovic$
 
   Converts a character to descriptive string

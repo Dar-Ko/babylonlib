@@ -1,5 +1,5 @@
 /*$Workfile: KRegKey.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:37:44 $
   $Author: ddarko $
 
   Copyright: CommonSoft Inc.
@@ -409,12 +409,12 @@ return strDestination;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         1/29/02 11:21:42 PM  Darko           Used lbraries
+ *  4    Biblioteka1.3         29/01/2002 10:21:42 PMDarko           Used lbraries
  *       notes 
- *  3    Biblioteka1.2         1/25/02 4:57:49 PM   Darko           Updated
+ *  3    Biblioteka1.2         25/01/2002 3:57:49 PMDarko           Updated
  *       comments
- *  2    Biblioteka1.1         8/17/01 12:37:56 AM  Darko           Update
- *  1    Biblioteka1.0         7/7/01 1:13:45 AM    Darko           
+ *  2    Biblioteka1.1         16/08/2001 11:37:56 PMDarko           Update
+ *  1    Biblioteka1.0         07/07/2001 12:13:45 AMDarko           
  * $
  *****************************************************************************/
 

@@ -1,5 +1,5 @@
 /*$Workfile: KPropPgR.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:37:44 $
   $Author: ddarko $
 
   Handles resizing of the property page
@@ -135,10 +135,10 @@ return TRUE;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         1/29/02 3:41:00 PM   Darko           Tag update
- *  4    Biblioteka1.3         8/19/01 11:54:24 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:52:09 PM  Darko           
- *  2    Biblioteka1.1         6/8/01 11:51:21 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:57:03 PM   Darko           
+ *  5    Biblioteka1.4         29/01/2002 2:41:00 PMDarko           Tag update
+ *  4    Biblioteka1.3         19/08/2001 10:54:24 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:52:09 PMDarko           
+ *  2    Biblioteka1.1         08/06/2001 10:51:21 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:57:03 PMDarko           
  * $
  *****************************************************************************/

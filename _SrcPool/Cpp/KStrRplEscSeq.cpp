@@ -1,5 +1,5 @@
 /*$Workfile: KStrRplEscSeq.cpp$: implementation file
-  $Revision: 6$ $Date: 2/4/02 7:57:28 PM$
+  $Revision: 6$ $Date: 04/02/2002 6:57:28 PM$
   $Author: Darko$
 
   Replace "C" escape sequences with characters
@@ -165,15 +165,15 @@ return szFormat;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2/4/02 7:57:28 PM    Darko           include
+ *  6    Biblioteka1.5         04/02/2002 6:57:28 PMDarko           include
  *       KTChar.h
- *  5    Biblioteka1.4         1/29/02 11:22:01 PM  Darko           Used lbraries
+ *  5    Biblioteka1.4         29/01/2002 10:22:01 PMDarko           Used lbraries
  *       notes 
- *  4    Biblioteka1.3         12/30/01 8:19:55 PM  Darko           Find first
+ *  4    Biblioteka1.3         30/12/2001 7:19:55 PMDarko           Find first
  *       escape delimiter; fix missing termminating zero
- *  3    Biblioteka1.2         12/23/01 6:08:14 PM  Darko           declaration
+ *  3    Biblioteka1.2         23/12/2001 5:08:14 PMDarko           declaration
  *       header file
- *  2    Biblioteka1.1         12/23/01 12:25:24 AM Darko           changed header
- *  1    Biblioteka1.0         12/23/01 12:12:50 AM Darko           
+ *  2    Biblioteka1.1         22/12/2001 11:25:24 PMDarko           changed header
+ *  1    Biblioteka1.0         22/12/2001 11:12:50 PMDarko           
  * $
  *****************************************************************************/

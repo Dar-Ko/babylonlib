@@ -1,5 +1,5 @@
 /*$Workfile: KMathCst.h$: header file
-  $Revision: 9$ $Date: 9/9/02 11:18:23 PM$
+  $Revision: 10$ $Date: 20/01/2003 3:09:28 AM$
   $Author: Darko$
 
   Constants
@@ -43,7 +43,7 @@
   //1/sqrt(2)
 #define CST_INVSQRT2  0.70710678118654752440
   //1/sqrt(3)
-#define CST_INVSQRT2  0.57735026918962576451
+#define CST_INVSQRT3  0.57735026918962576451
   //sin(PI/4)
 #define CST_SINPI_4   CST_INVSQRT2
   //cos(PI/4)

@@ -1,5 +1,5 @@
 /*$Workfile: KFileN32.inl$: header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:38:05 $
   $Author: ddarko $
 
   File Name handler (Win32)
@@ -111,9 +111,9 @@ if (!::DeleteFile(Canonical()))
 #endif  //_KFILEN32_INL_
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         8/27/02 11:35:32 PM  Darko           Deleted
+ *  2    Biblioteka1.1         27/08/2002 10:35:32 PMDarko           Deleted
  *       IS_FILENAME_DELIM
- *  1    Biblioteka1.0         8/27/02 5:04:45 PM   Darko Kolakovic 
+ *  1    Biblioteka1.0         27/08/2002 4:04:45 PMDarko Kolakovic 
  * $
  * May 98 Win32 version D.K.
  * Jan 93 Win3.1 D.K.

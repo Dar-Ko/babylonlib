@@ -1,5 +1,5 @@
 /*$Workfile: KRegExt.h$: header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:37:44 $
   $Author: ddarko $
 
   Windows Registry Extended handler
@@ -44,19 +44,19 @@ protected:
 #endif  //_KREGEXT_H_
 /*****************************************************************************
  * $Log: 
- *  11   Biblioteka1.10        1/29/02 11:21:39 PM  Darko           Used lbraries
+ *  11   Biblioteka1.10        29/01/2002 10:21:39 PMDarko           Used lbraries
  *       notes 
- *  10   Biblioteka1.9         1/24/02 7:19:19 PM   Darko           Updated
+ *  10   Biblioteka1.9         24/01/2002 6:19:19 PMDarko           Updated
  *       comments
- *  9    Biblioteka1.8         8/19/01 11:54:52 PM  Darko           Butyfier
- *  8    Biblioteka1.7         7/7/01 1:02:18 AM    Darko           
- *  7    Biblioteka1.6         7/7/01 12:57:49 AM   Darko           
- *  6    Biblioteka1.5         7/7/01 12:57:26 AM   Darko           
- *  5    Biblioteka1.4         7/7/01 12:57:06 AM   Darko           
- *  4    Biblioteka1.3         7/7/01 12:56:30 AM   Darko           
- *  3    Biblioteka1.2         7/7/01 12:55:38 AM   Darko           include header
+ *  9    Biblioteka1.8         19/08/2001 10:54:52 PMDarko           Butyfier
+ *  8    Biblioteka1.7         07/07/2001 12:02:18 AMDarko           
+ *  7    Biblioteka1.6         06/07/2001 11:57:49 PMDarko           
+ *  6    Biblioteka1.5         06/07/2001 11:57:26 PMDarko           
+ *  5    Biblioteka1.4         06/07/2001 11:57:06 PMDarko           
+ *  4    Biblioteka1.3         06/07/2001 11:56:30 PMDarko           
+ *  3    Biblioteka1.2         06/07/2001 11:55:38 PMDarko           include header
  *       file
- *  2    Biblioteka1.1         6/8/01 11:51:39 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:57:39 PM   Darko           
+ *  2    Biblioteka1.1         08/06/2001 10:51:39 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:57:39 PMDarko           
  * $
  *****************************************************************************/

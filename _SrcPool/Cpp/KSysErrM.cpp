@@ -1,5 +1,5 @@
 /*$Workfile: KSysErrM.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:39:16 $
   $Author: ddarko $
 
   System Error Display helper function
@@ -925,12 +925,12 @@ return;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         8/19/02 10:38:40 AM  Darko Kolakovic 
- *  5    Biblioteka1.4         1/25/02 4:59:00 PM   Darko           Updated
+ *  6    Biblioteka1.5         19/08/2002 9:38:40 AMDarko Kolakovic 
+ *  5    Biblioteka1.4         25/01/2002 3:59:00 PMDarko           Updated
  *       comments
- *  4    Biblioteka1.3         8/19/01 11:55:51 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:53:09 PM  Darko           
- *  2    Biblioteka1.1         6/8/01 11:52:09 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 4:01:13 PM   Darko           
+ *  4    Biblioteka1.3         19/08/2001 10:55:51 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:53:09 PMDarko           
+ *  2    Biblioteka1.1         08/06/2001 10:52:09 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 3:01:13 PMDarko           
  * $
  *****************************************************************************/

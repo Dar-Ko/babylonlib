@@ -1,5 +1,5 @@
 /*$Workfile: KTChar.h$: header file
-  $Revision: 8$ $Date: 8/27/02 11:36:18 PM$ 
+  $Revision: 8$ $Date: 27/08/2002 10:36:18 PM$ 
   $Author: Darko$
 
   Unicode mapping layer for the standard C library with definitions for generic
@@ -365,15 +365,15 @@ extern "C"
 #endif //__KTCHAR_H__
 /*****************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         8/27/02 11:36:18 PM  Darko           _tcsinc()
- *  7    Biblioteka1.6         8/19/02 10:38:17 AM  Darko Kolakovic 
- *  6    Biblioteka1.5         2/12/02 5:42:35 PM   Darko           GNU issues
- *  5    Biblioteka1.4         2/12/02 10:55:32 AM  Darko           itoa()
- *  4    Biblioteka1.3         2/4/02 7:58:44 PM    Darko           ifdef  _MSC_VER
+ *  8    Biblioteka1.7         27/08/2002 10:36:18 PMDarko           _tcsinc()
+ *  7    Biblioteka1.6         19/08/2002 9:38:17 AMDarko Kolakovic 
+ *  6    Biblioteka1.5         12/02/2002 4:42:35 PMDarko           GNU issues
+ *  5    Biblioteka1.4         12/02/2002 9:55:32 AMDarko           itoa()
+ *  4    Biblioteka1.3         04/02/2002 6:58:44 PMDarko           ifdef  _MSC_VER
  *       include windows.h
- *  3    Biblioteka1.2         1/6/02 1:48:03 AM    Darko           
- *  2    Biblioteka1.1         10/13/01 2:07:49 PM  Darko           GNU tags
- *  1    Biblioteka1.0         10/5/01 3:34:19 PM   Darko           
+ *  3    Biblioteka1.2         06/01/2002 12:48:03 AMDarko           
+ *  2    Biblioteka1.1         13/10/2001 1:07:49 PMDarko           GNU tags
+ *  1    Biblioteka1.0         05/10/2001 2:34:19 PMDarko           
  * $
  * Revision 1.1  2001/10/13 17:50:36  dkolaCVS StdIO functions
  *  1    Biblioteka1.0         10/5/01 3:34:19 PM   Darko

@@ -1,5 +1,5 @@
 /*$Workfile: KPhysCst.h$: header file
-  $Revision: 6$ $Date: 9/9/02 11:19:03 PM$
+  $Revision: 6$ $Date: 09/09/2002 10:19:03 PM$
   $Author: Darko$
 
   Physics Constants

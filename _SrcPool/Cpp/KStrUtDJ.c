@@ -1,5 +1,5 @@
 /*$Workfile: KStrUtDJ.c$: implementation file
-  $Revision: 5$ $Date: 2/12/02 5:39:29 PM$
+  $Revision: 5$ $Date: 12/02/2002 4:39:29 PM$
   $Author: Darko$
 
   Converts unsigned integer to a right justfied decimal number.

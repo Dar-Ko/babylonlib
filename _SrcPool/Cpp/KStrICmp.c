@@ -1,5 +1,5 @@
 /*$Workfile: KStrICmp.c$: implementation file
-  $Revision: 1$ $Date: 8/27/02 5:05:02 PM$
+  $Revision: 1$ $Date: 27/08/2002 4:05:02 PM$
   $Author: Darko Kolakovic$
 
   Case-insensitive string comparision

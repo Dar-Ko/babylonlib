@@ -1,5 +1,5 @@
 /*$Workfile: KRandomUniform.h$: implementation file
-  $Revision: 4$ $Date: 4/3/02 4:30:23 PM$
+  $Revision: 4$ $Date: 03/04/2002 3:30:23 PM$
   $Author: Darko Kolakovic$
 
   Uniform random number generator

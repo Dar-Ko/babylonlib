@@ -1,5 +1,5 @@
 /*$Workfile: KRandomUniform.cpp$: implementation file
-  $Revision: 6$ $Date: 7/12/02 6:23:44 PM$
+  $Revision: 6$ $Date: 12/07/2002 5:23:44 PM$
   $Author: Darko Kolakovic$
 
   Uniform random number generator
@@ -132,12 +132,12 @@ double CRandomUniform::Get()
 ///////////////////////////////////////////////////////////////////////////////
 /* 
  *$Log: 
- * 6    Biblioteka1.5         7/12/02 6:23:44 PM   Darko Kolakovic Log added
- * 5    Biblioteka1.4         7/12/02 6:21:59 PM   Darko Kolakovic VSS tag
- * 4    Biblioteka1.3         4/3/02 4:30:19 PM    Darko Kolakovic Fixed bug in
+ * 6    Biblioteka1.5         12/07/2002 5:23:44 PMDarko Kolakovic Log added
+ * 5    Biblioteka1.4         12/07/2002 5:21:59 PMDarko Kolakovic VSS tag
+ * 4    Biblioteka1.3         03/04/2002 3:30:19 PMDarko Kolakovic Fixed bug in
  *      Get(): wrong index of m_dTable
- * 3    Biblioteka1.2         4/2/02 7:06:21 PM    Darko Kolakovic 
- * 2    Biblioteka1.1         3/14/02 10:50:20 PM  Darko           Comments
- * 1    Biblioteka1.0         3/14/02 6:55:08 PM   Aleksandar Janicijevic 
+ * 3    Biblioteka1.2         02/04/2002 6:06:21 PMDarko Kolakovic 
+ * 2    Biblioteka1.1         14/03/2002 9:50:20 PMDarko           Comments
+ * 1    Biblioteka1.0         14/03/2002 5:55:08 PMAleksandar Janicijevic 
  *$
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KMathCst.inl$: header file
-  $Revision: 12$ $Date: 7/14/02 8:22:34 AM$
+  $Revision: 12$ $Date: 14/07/2002 7:22:34 AM$
   $Author: Darko$
 
   Simple mathematical functions

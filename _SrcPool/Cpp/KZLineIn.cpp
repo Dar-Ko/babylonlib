@@ -1,5 +1,5 @@
 /*$Workfile: KZLineIn.cpp$: implementation file
-  $Revision: 4$ $Date: 1/25/02 4:59:57 PM$
+  $Revision: 4$ $Date: 25/01/2002 3:59:57 PM$
   $Author: Darko$
 
   Line impedance calculation

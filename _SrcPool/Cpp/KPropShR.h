@@ -1,5 +1,5 @@
 /*KPropShR.h : header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:37:44 $
   $Author: ddarko $
   
   Handles resizing of the property sheet
@@ -191,13 +191,13 @@ return ((cpSheet.m_psh.dwFlags & (PSH_WIZARD | PSH_WIZARD97)) != 0);
 #endif // _KPROPSHR_H_
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         4/4/02 1:13:04 AM    Darko           Documenation
+ *  6    Biblioteka1.5         04/04/2002 12:13:04 AMDarko           Documenation
  *       update
- *  5    Biblioteka1.4         1/24/02 7:19:01 PM   Darko           Updated
+ *  5    Biblioteka1.4         24/01/2002 6:19:01 PMDarko           Updated
  *       comments
- *  4    Biblioteka1.3         8/19/01 11:54:47 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:52:19 PM  Darko           
- *  2    Biblioteka1.1         6/8/01 11:51:28 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:57:10 PM   Darko           
+ *  4    Biblioteka1.3         19/08/2001 10:54:47 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:52:19 PMDarko           
+ *  2    Biblioteka1.1         08/06/2001 10:51:28 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 2:57:10 PMDarko           
  * $
  *****************************************************************************/

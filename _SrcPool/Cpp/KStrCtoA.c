@@ -1,5 +1,5 @@
 /*$Workfile: KStrCtoA.c$: implementation file
-  $Revision: 9$ $Date: 8/19/02 10:41:58 AM$
+  $Revision: 9$ $Date: 19/08/2002 9:41:58 AM$
   $Author: Darko Kolakovic$
 
   Converts a character to descriptive string

@@ -1,5 +1,5 @@
 /*$Workfile: KWinPlac.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:39:56 $
   $Author: ddarko $
 
   Encapsulates the WINDOWPLACEMENT structure
@@ -273,11 +273,11 @@ catch (...)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         1/25/02 4:59:32 PM   Darko           Updated
+ *  5    Biblioteka1.4         25/01/2002 3:59:32 PMDarko           Updated
  *       comments
- *  4    Biblioteka1.3         8/19/01 11:56:14 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:53:30 PM  Darko           
- *  2    Biblioteka1.1         6/8/01 11:52:27 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 4:04:11 PM   Darko           
+ *  4    Biblioteka1.3         19/08/2001 10:56:14 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:53:30 PMDarko           
+ *  2    Biblioteka1.1         08/06/2001 10:52:27 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 3:04:11 PMDarko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KWinFWIs.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:39:56 $
   $Author: ddarko $
 
   Inquire Windows platform version

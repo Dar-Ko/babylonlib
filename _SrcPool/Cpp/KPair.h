@@ -1,5 +1,5 @@
 /*$Workfile: KPair.h$: header file
-  $Revision: 6$ $Date: 4/4/02 1:12:57 AM$
+  $Revision: 6$ $Date: 04/04/2002 12:12:57 AM$
   $Author: Darko$
 
   Ordered number pairs

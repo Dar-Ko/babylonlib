@@ -1,12 +1,17 @@
-// TsCalc.cpp
-// $Revision: 2$	$Date: 7/9/01 11:43:08 PM$
-// Calculus
-//
-// Darko Kolakovic
-// Feb. 2k
+/*$Workfile: TsCalc.cpp$: implementation file
+  $Revision: 3$ $Date: 20/01/2003 3:15:29 AM$
+  $Author: Darko$
+
+  Calculus test
+  Copyright: CommonSoft Inc.
+  Feb. 2k Darko Kolakovic
+*/
+
+// Group=Examples
 
 #include "StdAfx.h"
 #include "KProgCst.h"
+#include "KString.h"  //CString
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -14,7 +19,8 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
-extern BOOL TsWriteToView(LPCTSTR lszText);
+void TestRealConversion();
+extern bool TsWriteToView(LPCTSTR lszText);
 
 #pragma message ("Compiler option:")
 #if _M_IX86 == 600
@@ -30,16 +36,16 @@ extern BOOL TsWriteToView(LPCTSTR lszText);
 #endif
 
 //TestStrings()--------------------------------------------------------------
-#include <Math.h>       //log()
+#include <math.h>       //log()
 #include "KProgCst.inl" //IsNan()
 /*Function testing various arithmetic expressions
  */
-BOOL TestCalculus()
+bool TestCalculus()
 {
 TsWriteToView(_T("\tTestCalculus:\r\n"));
 CString strText; 
 double dTest = log(0);
-BOOL bRes = IsNaN(dTest);
+bool bRes = IsNaN(dTest);
 strText.Format(_T("Is log(0) undefined? %s\r\n"),bRes ? _T("Yes"):_T("No"));
 TsWriteToView((LPCTSTR)strText);
 
@@ -95,7 +101,7 @@ TsWriteToView((LPCTSTR)strText);
 ptOldPos = ptPos; //Save current position
   //Compare points
 TPair<LONG> P(point.x, point.y);
-BOOL bRes = P > TPair<LONG>(40,120);
+bool bRes = P > TPair<LONG>(40,120);
 strText.Format("P(%d,%d) %s x(40,120)\r\n",P.x,P.y,bRes?">":"<=");
 TsWriteToView((LPCTSTR)strText);
 }
@@ -129,7 +135,7 @@ CString strText;
 double dA, dB, dC; //coeficients
 double dX1, dX2;   //roots
 
-extern BOOL funcQuadratic(double a,double b,double c,double& x1,double& x2);
+extern bool funcQuadratic(double a,double b,double c,double& x1,double& x2);
 dA = 1.;
 dB = 5.;
 dC = 0.;
@@ -155,3 +161,14 @@ else //Roots are complex numbers
 
 TsWriteToView((LPCTSTR)strText);
 }
+
+///////////////////////////////////////////////////////////////////////////////
+/*****************************************************************************
+ * $Log: 
+ *  3    Biblioteka1.2         20/01/2003 3:15:29 AMDarko           Replaced BOOL
+ *       with bool
+ *  2    Biblioteka1.1         09/07/2001 11:43:08 PMDarko          
+ *       TestQuadraticEquation()
+ *  1    Biblioteka1.0         08/06/2001 9:43:58 PMDarko           
+ * $
+ *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KString.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:38:42 $
   $Author: ddarko $
 
   Implementation of the CString class. This is a STL port of MFC CString class
@@ -1268,20 +1268,20 @@ void CString::OemToAnsi()
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  9    Biblioteka1.8         5/6/02 4:09:19 PM    Darko           TrimLeft() If
+ *  9    Biblioteka1.8         06/05/2002 3:09:19 PMDarko           TrimLeft() If
  *       exception out_of_range is not handled, lenght exits the loop
- *  8    Biblioteka1.7         1/29/02 11:22:14 PM  Darko           Used lbraries
+ *  8    Biblioteka1.7         29/01/2002 10:22:14 PMDarko           Used lbraries
  *       notes 
- *  7    Biblioteka1.6         1/25/02 4:58:54 PM   Darko           Updated
+ *  7    Biblioteka1.6         25/01/2002 3:58:54 PMDarko           Updated
  *       comments
- *  6    Biblioteka1.5         1/6/02 1:47:33 AM    Darko           
- *  5    Biblioteka1.4         1/3/02 1:58:57 AM    Darko           TrimLeft();
+ *  6    Biblioteka1.5         06/01/2002 12:47:33 AMDarko           
+ *  5    Biblioteka1.4         03/01/2002 12:58:57 AMDarko           TrimLeft();
  *       TrimRight()
- *  4    Biblioteka1.3         12/30/01 8:20:21 PM  Darko           
- *  3    Biblioteka1.2         12/24/01 12:37:36 AM Darko           operators [],
+ *  4    Biblioteka1.3         30/12/2001 7:20:21 PMDarko           
+ *  3    Biblioteka1.2         23/12/2001 11:37:36 PMDarko           operators [],
  *       LPCTSR
- *  2    Biblioteka1.1         11/6/01 3:52:36 PM   Darko           constructors
- *  1    Biblioteka1.0         11/5/01 3:12:59 PM   Darko           
+ *  2    Biblioteka1.1         06/11/2001 2:52:36 PMDarko           constructors
+ *  1    Biblioteka1.0         05/11/2001 2:12:59 PMDarko           
  * $
  *****************************************************************************/
 

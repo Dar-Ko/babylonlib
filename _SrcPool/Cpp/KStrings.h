@@ -1,5 +1,5 @@
 /*$Workfile: KStrings.h$: implementation file
-  $Revision: 18$ $Date: 9/10/02 6:55:24 PM$
+  $Revision: 20$ $Date: 18/12/2002 3:40:34 PM$
   $Author: Darko Kolakovic$
 
   String manipulation
@@ -49,11 +49,15 @@ extern "C"
   _K_EXTRNDECL_ TCHAR* UtoDecJust(unsigned long nValue, TCHAR* szDestination,
                                   int iSize, TCHAR cPad);
 
-  _K_EXTRNDECL_ TCHAR* GetSubstring(TCHAR* szSource,TCHAR chDelimiter,int iSubstringIndex);
+  _K_EXTRNDECL_ TCHAR* GetSubstring(TCHAR* szSource,TCHAR chDelimiter,
+                                    int iSubstringIndex);
   _K_EXTRNDECL_ TCHAR* GetWord(TCHAR* lpszResult, TCHAR* lpszSource);
   _K_EXTRNDECL_ TCHAR* GetFirstSpace(TCHAR* lpszSource);
   _K_EXTRNDECL_ LPTSTR ReplaceEscapeSeq(LPTSTR szFormat);
   _K_EXTRNDECL_ LPTSTR ReplaceSpaces(LPTSTR szSource);
+  _K_EXTRNDECL_ LPTSTR ReplaceTabs(LPTSTR szDestination, LPTSTR szSource,
+                                    unsigned int nTabPos,
+                                    unsigned int nCount);
   _K_EXTRNDECL_ char*  ItoA(int iValue, char* szResult, int iRadix);
 #ifdef __cplusplus
   }

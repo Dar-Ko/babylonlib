@@ -1,5 +1,5 @@
 /*$Workfile: KVerInfo.h$: header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:39:56 $
   $Author: ddarko $
   
   Obtains version information about a specified module
@@ -141,11 +141,11 @@ return m_nTranslationTableSize;
 #endif //__KVERINFO_H__
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         1/24/02 7:22:29 PM   Darko           Updated
+ *  5    Biblioteka1.4         24/01/2002 6:22:29 PMDarko           Updated
  *       comments
- *  4    Biblioteka1.3         8/19/01 11:56:07 PM  Darko           Butyfier
- *  3    Biblioteka1.2         7/11/01 10:53:23 PM  Darko           
- *  2    Biblioteka1.1         6/8/01 11:52:22 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 4:03:19 PM   Darko           
+ *  4    Biblioteka1.3         19/08/2001 10:56:07 PMDarko           Butyfier
+ *  3    Biblioteka1.2         11/07/2001 9:53:23 PMDarko           
+ *  2    Biblioteka1.1         08/06/2001 10:52:22 PMDarko           VSS
+ *  1    Biblioteka1.0         13/08/2000 3:03:19 PMDarko           
  * $
  *****************************************************************************/

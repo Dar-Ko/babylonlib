@@ -1,5 +1,5 @@
 /*$Workfile: KProgCst.h$: header file
-  $Revision: 13$ $Date: 7/12/02 6:19:05 PM$
+  $Revision: 13$ $Date: 12/07/2002 5:19:05 PM$
   $Author: Darko Kolakovic$
 
   Constants

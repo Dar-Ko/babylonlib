@@ -1,5 +1,5 @@
 /*$Workfile: KSwpByteOrder.h$: header file
-  $Revision: 1$ $Date: 8/3/02 7:26:10 PM$
+  $Revision: 1$ $Date: 03/08/2002 6:26:10 PM$
   $Author: Darko$
 
   Template to swap byte order of primitive types

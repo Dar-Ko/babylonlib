@@ -1,5 +1,5 @@
 /*$Workfile: KRegKey.h$: header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:37:44 $
   $Author: ddarko $
 
   Windows Registry handler
@@ -93,11 +93,11 @@ return dc;
 #endif  //_KREGKEY_H_
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         1/29/02 11:21:46 PM  Darko           Used lbraries
+ *  4    Biblioteka1.3         29/01/2002 10:21:46 PMDarko           Used lbraries
  *       notes 
- *  3    Biblioteka1.2         1/24/02 7:19:23 PM   Darko           Updated
+ *  3    Biblioteka1.2         24/01/2002 6:19:23 PMDarko           Updated
  *       comments
- *  2    Biblioteka1.1         8/17/01 12:38:00 AM  Darko           Update
- *  1    Biblioteka1.0         7/7/01 1:13:47 AM    Darko           
+ *  2    Biblioteka1.1         16/08/2001 11:38:00 PMDarko           Update
+ *  1    Biblioteka1.0         07/07/2001 12:13:47 AMDarko           
  * $
  *****************************************************************************/

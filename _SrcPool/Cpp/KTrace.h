@@ -1,5 +1,5 @@
 /*$Workfile: KTrace.h$: implementation file
-  $Revision: 10$ $Date: 10/10/02 8:35:55 PM$
+  $Revision: 10$ $Date: 10/10/2002 7:35:55 PM$
   $Author: Darko Kolakovic$
 
   Debugging helpers

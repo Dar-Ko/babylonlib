@@ -1,5 +1,5 @@
 /*$Workfile: KStrExt.h$: header file
-  $Revision: 4$ $Date: 4/4/02 1:13:14 AM$
+  $Revision: 4$ $Date: 04/04/2002 12:13:14 AM$
   $Author: Darko$
 
   CString Extensions declarations

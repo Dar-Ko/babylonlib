@@ -1,5 +1,5 @@
 /*$Workfile: KStrDup.c$: implementation file
-  $Revision: 1$ $Date: 8/27/02 5:04:59 PM$
+  $Revision: 2$ $Date: 11/09/2002 3:26:12 PM$
   $Author: Darko Kolakovic$
 
   Duplicates a string

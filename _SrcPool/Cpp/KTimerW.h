@@ -1,5 +1,5 @@
 /*$Workfile: KTimerW.h$: header file
-  $Revision: 1.2 $ $Date: 2002/09/10 15:22:21 $
+  $Revision: 1.3 $ $Date: 2003/01/28 05:39:16 $
   $Author: ddarko $
 
   Simple Timer for Windows applications with WM_TIMER message
@@ -103,9 +103,9 @@ public:
 #endif  //_KTIMERW_H_
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         1/24/02 7:19:49 PM   Darko           Updated
+ *  3    Biblioteka1.2         24/01/2002 6:19:49 PMDarko           Updated
  *       comments
- *  2    Biblioteka1.1         7/18/01 11:33:00 PM  Darko           VSS tags
- *  1    Biblioteka1.0         6/25/01 11:44:58 PM  Darko           
+ *  2    Biblioteka1.1         18/07/2001 10:33:00 PMDarko           VSS tags
+ *  1    Biblioteka1.0         25/06/2001 10:44:58 PMDarko           
  * $
  *****************************************************************************/
