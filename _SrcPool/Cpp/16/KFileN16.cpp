@@ -1,5 +1,5 @@
 /*$Workfile: KFileN16.cpp$: implementation file
-  $Revision: 1$ $Date: 8/27/02 5:04:37 PM$
+  $Revision: 1$ $Date: 27/08/2002 4:04:37 PM$
   $Author: Darko Kolakovic$
 
   File Name handler (Win16)
@@ -70,7 +70,7 @@ fclose(fileTarget);
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         8/27/02 5:04:37 PM   Darko Kolakovic 
+ *  1    Biblioteka1.0         27/08/2002 4:04:37 PMDarko Kolakovic 
  * $
  * May 98 Created Win32 version D.K.
  * Jan 93 Darko Kolakovic

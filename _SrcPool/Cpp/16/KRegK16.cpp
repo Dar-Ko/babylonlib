@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\16\KRegK16.cpp$: implementation file
-  $Revision: 4$ $Date: 3/8/02 1:47:22 AM$
+/*$Workfile: KRegK16.cpp$: implementation file
+  $Revision: 4$ $Date: 08/03/2002 1:47:22 AM$
   $Author: Darko Kolakovic$
 
   Registry Key helper

@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\16\KWn32s16.cpp$: implementation file
-  $Revision: 4$ $Date: 3/8/02 1:50:32 AM$
+/*$Workfile: KWn32s16.cpp$: implementation file
+  $Revision: 4$ $Date: 08/03/2002 1:50:32 AM$
   $Author: Darko Kolakovic$
 
   Get the version number information for Win32s

@@ -96,7 +96,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "SrcPool"=..\SrcPool.dsp - Package Owner=<4>
+Project: "SrcPool"=..\..\SrcPool.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -109,18 +109,6 @@ Package=<4>
 ###############################################################################
 
 Project: "Strings"=.\Strings\Strings.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "TechDoc"=.\TechDoc\TechDoc.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

@@ -1,5 +1,5 @@
 /*$Workfile: KFileGetF.cpp$: implementation file
-  $Revision: 1$ $Date: 8/27/02 5:04:31 PM$
+  $Revision: 1$ $Date: 27/08/2002 4:04:31 PM$
   $Author: Darko Kolakovic$
 
   File Name handler (Win16)
@@ -114,7 +114,7 @@ _EXIT:
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         8/27/02 5:04:31 PM   Darko Kolakovic 
+ *  1    Biblioteka1.0         27/08/2002 4:04:31 PMDarko Kolakovic 
  * $
  * Jan 93 Darko Kolakovic
  *****************************************************************************/

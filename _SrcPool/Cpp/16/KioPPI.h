@@ -1,5 +1,5 @@
 /*$Workfile: KioPPI.h$: header file
-  $Revision: 1$ $Date: 9/18/02 6:12:32 PM$
+  $Revision: 1$ $Date: 18/09/2002 5:12:32 PM$
   $Author: Darko Kolakovic$
 
   Programmable Peripheral Interface (PPI) IBM-PC 8255 constants
@@ -212,6 +212,6 @@ inline bool HAS_PPI_FDD(const uint8 cStatusA //[in] PPI Port A Status
 #endif  //__KIOPPI_H__
 /******************************************************************************
  *$Log: 
- * 1    Biblioteka1.0         9/18/02 6:12:32 PM   Darko Kolakovic 
+ * 1    Biblioteka1.0         18/09/2002 5:12:32 PMDarko Kolakovic 
  *$
  *****************************************************************************/

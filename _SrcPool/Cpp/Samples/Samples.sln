@@ -1,0 +1,51 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_LibraryTest", "_LibraryTest\_LibraryTest.vcproj", "{5462D664-95DE-47E9-A9EB-92BEA93AB198}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Calc", "Calc\Calc.vcproj", "{4E372AE9-21FD-4367-B61A-5C9A2251F79A}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Complex", "Complex\Complex.vcproj", "{CC01EF8F-65A5-4C8A-8ADE-422167064029}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DateTime", "DateTime\DateTime.vcproj", "{849FF09B-03E9-47D7-AEA1-46489C415A2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = DbgUnicode
+		ConfigName.1 = Debug
+		ConfigName.2 = Release
+		ConfigName.3 = RelUnicode
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{5462D664-95DE-47E9-A9EB-92BEA93AB198}.DbgUnicode.ActiveCfg = DbgUnicode|Win32
+		{5462D664-95DE-47E9-A9EB-92BEA93AB198}.DbgUnicode.Build.0 = DbgUnicode|Win32
+		{5462D664-95DE-47E9-A9EB-92BEA93AB198}.Debug.ActiveCfg = Debug|Win32
+		{5462D664-95DE-47E9-A9EB-92BEA93AB198}.Debug.Build.0 = Debug|Win32
+		{5462D664-95DE-47E9-A9EB-92BEA93AB198}.Release.ActiveCfg = Release|Win32
+		{5462D664-95DE-47E9-A9EB-92BEA93AB198}.Release.Build.0 = Release|Win32
+		{5462D664-95DE-47E9-A9EB-92BEA93AB198}.RelUnicode.ActiveCfg = RelUnicode|Win32
+		{5462D664-95DE-47E9-A9EB-92BEA93AB198}.RelUnicode.Build.0 = RelUnicode|Win32
+		{4E372AE9-21FD-4367-B61A-5C9A2251F79A}.DbgUnicode.ActiveCfg = DbgUniCode|Win32
+		{4E372AE9-21FD-4367-B61A-5C9A2251F79A}.Debug.ActiveCfg = Debug|Win32
+		{4E372AE9-21FD-4367-B61A-5C9A2251F79A}.Release.ActiveCfg = Debug|Win32
+		{4E372AE9-21FD-4367-B61A-5C9A2251F79A}.Release.Build.0 = Debug|Win32
+		{4E372AE9-21FD-4367-B61A-5C9A2251F79A}.RelUnicode.ActiveCfg = RelUnicode|Win32
+		{4E372AE9-21FD-4367-B61A-5C9A2251F79A}.RelUnicode.Build.0 = RelUnicode|Win32
+		{CC01EF8F-65A5-4C8A-8ADE-422167064029}.DbgUnicode.ActiveCfg = DbgUniCode|Win32
+		{CC01EF8F-65A5-4C8A-8ADE-422167064029}.Debug.ActiveCfg = Debug|Win32
+		{CC01EF8F-65A5-4C8A-8ADE-422167064029}.Release.ActiveCfg = Debug|Win32
+		{CC01EF8F-65A5-4C8A-8ADE-422167064029}.Release.Build.0 = Debug|Win32
+		{CC01EF8F-65A5-4C8A-8ADE-422167064029}.RelUnicode.ActiveCfg = RelUnicode|Win32
+		{CC01EF8F-65A5-4C8A-8ADE-422167064029}.RelUnicode.Build.0 = RelUnicode|Win32
+		{849FF09B-03E9-47D7-AEA1-46489C415A2E}.DbgUnicode.ActiveCfg = DbgUniCode|Win32
+		{849FF09B-03E9-47D7-AEA1-46489C415A2E}.Debug.ActiveCfg = Debug|Win32
+		{849FF09B-03E9-47D7-AEA1-46489C415A2E}.Release.ActiveCfg = Release|Win32
+		{849FF09B-03E9-47D7-AEA1-46489C415A2E}.Release.Build.0 = Release|Win32
+		{849FF09B-03E9-47D7-AEA1-46489C415A2E}.RelUnicode.ActiveCfg = RelUnicode|Win32
+		{849FF09B-03E9-47D7-AEA1-46489C415A2E}.RelUnicode.Build.0 = RelUnicode|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

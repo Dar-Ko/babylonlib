@@ -1,5 +1,5 @@
-/*$Workfile: H:\_SrcPool\Cpp\16\KWinVe16.cpp$: implementation file
-  $Revision: 4$ $Date: 3/8/02 1:49:28 AM$
+/*$Workfile: KWinVe16.cpp$: implementation file
+  $Revision: 4$ $Date: 08/03/2002 1:49:28 AM$
   $Author: Darko Kolakovic$
 
   Retrieve more detailed information about Windows platform
