@@ -1,4 +1,4 @@
-$Workfile: main.cpp$: implementation file
+$Workfile: _Samples.txt$
 $Revision: 4$ $Date: 2005-03-11 02:11:29$
 $Author: Darko$
 
