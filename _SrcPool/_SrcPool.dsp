@@ -1,24 +1,26 @@
-# Microsoft Developer Studio Project File - Name="SrcPool" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="_SrcPool" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
-CFG=SrcPool - Win32 Debug
+CFG=_SrcPool - Win32 Debug_Unicode
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "SrcPool.mak".
+!MESSAGE NMAKE /f "_SrcPool.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "SrcPool.mak" CFG="SrcPool - Win32 Debug"
+!MESSAGE NMAKE /f "_SrcPool.mak" CFG="_SrcPool - Win32 Debug_Unicode"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "SrcPool - Win32 Release" (based on "Win32 (x86) Static Library")
-!MESSAGE "SrcPool - Win32 Debug" (based on "Win32 (x86) Static Library")
+!MESSAGE "_SrcPool - Win32 Release_SBCS" (based on "Win32 (x86) Static Library")
+!MESSAGE "_SrcPool - Win32 Debug_SBCS" (based on "Win32 (x86) Static Library")
+!MESSAGE "_SrcPool - Win32 Debug_Unicode" (based on "Win32 (x86) Static Library")
+!MESSAGE "_SrcPool - Win32 Release_Unicode" (based on "Win32 (x86) Static Library")
 !MESSAGE 
 
 # Begin Project
@@ -28,7 +30,7 @@ CFG=SrcPool - Win32 Debug
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "SrcPool - Win32 Release"
+!IF  "$(CFG)" == "_SrcPool - Win32 Release_SBCS"
 
 # PROP BASE Use_MFC 2
 # PROP BASE Use_Debug_Libraries 0
@@ -37,11 +39,12 @@ RSC=rc.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 2
 # PROP Use_Debug_Libraries 0
-# PROP Output_Dir "Win32\Release"
-# PROP Intermediate_Dir "Obj\Release"
+# PROP Output_Dir ".\Cpp\Samples\bin\Release_SBCS\Win32"
+# PROP Intermediate_Dir ".\Cpp\SamplesObj\Release_SBCS\_SrcPool\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /FD /c
+# SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG" /d "_AFXDLL"
 # ADD RSC /l 0x409 /d "NDEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
@@ -51,22 +54,71 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ELSEIF  "$(CFG)" == "SrcPool - Win32 Debug"
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_SBCS"
 
 # PROP BASE Use_MFC 2
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "SrcPool___Win32_Debug"
-# PROP BASE Intermediate_Dir "SrcPool___Win32_Debug"
+# PROP BASE Output_Dir "_SrcPool___Win32_Debug"
+# PROP BASE Intermediate_Dir "_SrcPool___Win32_Debug"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 2
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "Win32\Debug"
-# PROP Intermediate_Dir "Obj\Debug"
+# PROP Output_Dir ".\Cpp\Samples\bin\Debug_SBCS\Win32"
+# PROP Intermediate_Dir ".\Cpp\Samples\Obj\Debug_SBCS\_SrcPool\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /FR /FD /GZ /c
+# SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG" /d "_AFXDLL"
 # ADD RSC /l 0x409 /d "_DEBUG" /d "_AFXDLL"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LIB32=link.exe -lib
+# ADD BASE LIB32 /nologo
+# ADD LIB32 /nologo
+
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_Unicode"
+
+# PROP BASE Use_MFC 2
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir "_SrcPool___Win32_Debug_Unicode"
+# PROP BASE Intermediate_Dir "_SrcPool___Win32_Debug_Unicode"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 2
+# PROP Use_Debug_Libraries 1
+# PROP Output_Dir ".\Cpp\Samples\bin\Debug_Unicode\Win32"
+# PROP Intermediate_Dir ".\Cpp\Samples\Obj\Debug_Unicode\_SrcPool\Win32"
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_UNICODE" /FR /FD /GZ /c
+# SUBTRACT CPP /YX
+# ADD BASE RSC /l 0x409 /d "_DEBUG" /d "_AFXDLL"
+# ADD RSC /l 0x409 /d "_DEBUG" /d "_AFXDLL" /d "_UNICODE"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LIB32=link.exe -lib
+# ADD BASE LIB32 /nologo
+# ADD LIB32 /nologo
+
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Release_Unicode"
+
+# PROP BASE Use_MFC 2
+# PROP BASE Use_Debug_Libraries 0
+# PROP BASE Output_Dir "_SrcPool___Win32_Release_Unicode"
+# PROP BASE Intermediate_Dir "_SrcPool___Win32_Release_Unicode"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 2
+# PROP Use_Debug_Libraries 0
+# PROP Output_Dir ".\Cpp\Samples\bin\Release_Unicode\Win32"
+# PROP Intermediate_Dir ".\Cpp\Samples\Obj\Release_Unicode\_SrcPool\Win32"
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_UNICODE" /FD /c
+# SUBTRACT CPP /YX
+# ADD BASE RSC /l 0x409 /d "NDEBUG" /d "_AFXDLL"
+# ADD RSC /l 0x409 /d "NDEBUG" /d "_AFXDLL" /d "_UNICODE"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
@@ -78,8 +130,10 @@ LIB32=link.exe -lib
 
 # Begin Target
 
-# Name "SrcPool - Win32 Release"
-# Name "SrcPool - Win32 Debug"
+# Name "_SrcPool - Win32 Release_SBCS"
+# Name "_SrcPool - Win32 Debug_SBCS"
+# Name "_SrcPool - Win32 Debug_Unicode"
+# Name "_SrcPool - Win32 Release_Unicode"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
@@ -99,11 +153,18 @@ SOURCE=.\Cpp\KClipCTx.cpp
 
 SOURCE=.\Cpp\KDateCrl.cpp
 
-!IF  "$(CFG)" == "SrcPool - Win32 Release"
+!IF  "$(CFG)" == "_SrcPool - Win32 Release_SBCS"
 
-!ELSEIF  "$(CFG)" == "SrcPool - Win32 Debug"
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_SBCS"
 
 # PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_Unicode"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Release_Unicode"
 
 !ENDIF 
 
@@ -170,7 +231,7 @@ SOURCE=.\Cpp\KDbgVerI.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KDirName.cpp
+SOURCE=.\Cpp.pp\KDirName.cpp
 # End Source File
 # Begin Source File
 
@@ -250,7 +311,7 @@ SOURCE=.\Cpp\KGetLine.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KGetLines.cpp
+SOURCE=.\Cpp\STL\KGetLines.cpp
 # End Source File
 # Begin Source File
 
@@ -331,7 +392,27 @@ SOURCE=.\Cpp\KItoOct.c
 # Begin Source File
 
 SOURCE=.\Cpp\KLogoOut.cpp
+
+!IF  "$(CFG)" == "_SrcPool - Win32 Release_SBCS"
+
 # PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_SBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_Unicode"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Release_Unicode"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -364,6 +445,10 @@ SOURCE=.\Cpp\KSkipWSp.cpp
 # Begin Source File
 
 SOURCE=.\Cpp\KSpwnURL.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\Res\Win\32\KSrcPool.rc
 # End Source File
 # Begin Source File
 
@@ -436,6 +521,10 @@ SOURCE=.\Cpp\KString.cpp
 # Begin Source File
 
 SOURCE=.\Cpp\KStrLowC.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KStrNDup.c
 # End Source File
 # Begin Source File
 
@@ -513,11 +602,18 @@ SOURCE=.\Cpp\KTimerW.cpp
 
 SOURCE=.\Cpp\KTipBox.cpp
 
-!IF  "$(CFG)" == "SrcPool - Win32 Release"
+!IF  "$(CFG)" == "_SrcPool - Win32 Release_SBCS"
 
-!ELSEIF  "$(CFG)" == "SrcPool - Win32 Debug"
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_SBCS"
 
 # PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_Unicode"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Release_Unicode"
 
 !ENDIF 
 
@@ -549,10 +645,6 @@ SOURCE=.\Cpp\KWinVers.cpp
 # Begin Source File
 
 SOURCE=.\Cpp\KZLineIn.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\SrcPool.rc
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -784,6 +876,10 @@ SOURCE=.\Cpp\KSound.inl
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\Win\Res\Win\KStdRes.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KStrExt.h
 # End Source File
 # Begin Source File
@@ -868,8 +964,20 @@ SOURCE=.\Cpp\KWinVers.inl
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\Win\Res\Win\Resource.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\StdAfx.h
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\Cpp\Samples\Common\Src\Win\32\ReadMe.txt
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\Res\Win\SrcPool.ico
+# End Source File
 # End Target
 # End Project

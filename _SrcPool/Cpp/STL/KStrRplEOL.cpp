@@ -1,0 +1,94 @@
+/*$Workfile: KStrRplEOL.cpp$: implementation file
+  $Revision: 5$ $Date: 2004-10-07 11:56:31$
+  $Author: Darko$
+
+  Replaces Unix EOL with DOS End-of-Line markers
+  Copyright: CommonSoft Inc.
+  Jun 2001 Darko Kolakovic
+*/
+
+/* Group=Strings                                                             */
+
+#ifdef _DEBUG
+  #ifndef _STLP_DEBUG
+    #define _STLP_DEBUG 1    //Debug STLPort library
+  #endif
+#else
+  #ifdef _STLP_DEBUG
+    #undef _STLP_DEBUG
+  #endif
+#endif
+
+#include <string> //std::string
+#ifndef _TCHAR_DEFINED
+  #include "KTChar.h" //TCHAR typedef
+#endif
+
+//::ReplaceEOL()---------------------------------------------------------------
+/*Replaces one character End-of-Line markers (CR) with two characters (CR,LF).
+
+  Returns: STL string with new End-of-Line markers.
+
+  Note: uses Standard Template Library (STL).
+ */
+std::string& ReplaceEOL(LPCTSTR szText, //[in] zero-teminated text
+                        std::string& strResult //[out] text with new End-of-Line
+                                               //markers
+                       )
+{
+const TCHAR CR = _T('\r');
+const TCHAR LF = _T('\n');
+
+  //Count CR characters that are not in CRLF pairs
+UINT nIndex = 0;
+UINT nCount = 0;
+while(szText[nIndex] != _T('\0'))
+  {
+  if((szText[nIndex] == CR) && (szText[nIndex+1] != LF))
+    nCount++;
+  if((szText[nIndex] == LF) && ((nIndex == 0) || (szText[nIndex-1] != CR)))
+    nCount++;
+
+  nIndex++;
+  }
+
+strResult.empty();
+if(nCount > 0)
+  {
+  strResult.resize(nIndex + nCount + 1);
+
+  nIndex = 0;
+  nCount = 0;
+  while(szText[nIndex] != _T('\0'))
+    {
+    strResult.at(nCount) = szText[nIndex];
+    if((szText[nIndex] == LF) && ((nIndex == 0) || (szText[nIndex-1] != CR)))
+      {
+      strResult.at(nCount) = CR;
+      nCount++;
+      strResult.at(nCount) = LF;
+      }
+
+    if((szText[nIndex] == CR) && (szText[nIndex+1] != LF))
+      {
+      nCount++;
+      strResult.at(nCount) = LF;
+      }
+    nIndex++;
+    nCount++;
+    }
+  }
+else
+  strResult = szText;
+
+return strResult;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+/*****************************************************************************
+ * $Log:
+ *  3    Biblioteka1.2         2003-09-04 11:16:54  Darko           comment
+ *  2    Biblioteka1.1         2002-03-08 02:48:46  Darko Kolakovic updated comment
+ *  1    Biblioteka1.0         2002-02-04 14:31:59  Darko
+ * $
+ *****************************************************************************/
