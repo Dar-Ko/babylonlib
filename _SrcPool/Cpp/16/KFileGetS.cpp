@@ -1,5 +1,5 @@
 /*$Workfile: KFileGetS.cpp$: implementation file
-  $Revision: 1$ $Date: 27/08/2002 4:04:34 PM$
+  $Revision: 1$ $Date: 27/08/2002 5:04:34 PM$
   $Author: Darko Kolakovic$
 
   Obtain the short file path (Win16)
@@ -60,7 +60,7 @@ _EXIT:
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         27/08/2002 4:04:34 PMDarko Kolakovic 
+ *  1    Biblioteka1.0         27/08/2002 5:04:34 PMDarko Kolakovic 
  * $
  * Jan 93 Darko Kolakovic
  *****************************************************************************/

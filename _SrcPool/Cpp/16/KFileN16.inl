@@ -1,5 +1,5 @@
 /*$Workfile: KFileN16.inl$: header file
-  $Revision: 1$ $Date: 27/08/2002 4:04:41 PM$
+  $Revision: 1$ $Date: 27/08/2002 5:04:41 PM$
   $Author: Darko Kolakovic$
 
   File Name handler (Win16)
@@ -54,7 +54,7 @@ if (remove(Canonical()) != 0)
 #endif  //_KUFILENAME16_INL_
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         27/08/2002 4:04:41 PMDarko Kolakovic 
+ *  1    Biblioteka1.0         27/08/2002 5:04:41 PMDarko Kolakovic 
  * $
  * May 98 Created Win32 version D.K.
  * Jan 93 Darko Kolakovic

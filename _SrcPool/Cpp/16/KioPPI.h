@@ -1,5 +1,5 @@
 /*$Workfile: KioPPI.h$: header file
-  $Revision: 1$ $Date: 18/09/2002 5:12:32 PM$
+  $Revision: 1$ $Date: 18/09/2002 6:12:32 PM$
   $Author: Darko Kolakovic$
 
   Programmable Peripheral Interface (PPI) IBM-PC 8255 constants
@@ -32,15 +32,15 @@
         +------- Number of Disk Drives
 
     Bits 7,6 Number of Disk Drives Bits
-	    00  1 disk drive
-	    01  2 disk drives
-	    10  3 disk drives
-	    11  4 disk drives
+      00  1 disk drive
+      01  2 disk drives
+      10  3 disk drives
+      11  4 disk drives
 
     Bits 4,5 Video Mode Bits
-	    01  Color (40 rows x 25 columns)
-	    10  Color (80 rows x 25 columns)
-	    11  Monochrome (80 row x 25 col)
+      01  Color (40 rows x 25 columns)
+      10  Color (80 rows x 25 columns)
+      11  Monochrome (80 row x 25 col)
    */
 const int IOC_PPI_PORT_A = 0x60;
 /*PPI Port C Configuration Switches Values and System Configuration Status.
@@ -81,18 +81,18 @@ const int IOC_PPI_MODECTRL = 0x61;
   /*PPI Port A Disk Drives Count flags: 1100 0000.
     Bits 7,6 Number of Disk Drives Bits
 
-	    00  1 disk drive
-	    01  2 disk drives
-	    10  3 disk drives
-	    11  4 disk drives
+      00  1 disk drive
+      01  2 disk drives
+      10  3 disk drives
+      11  4 disk drives
    */
 const uint8 IOC_PPI_PORT_A_DISKCNT = 0xC0;
   /*PPI Port A Video Mode flags: 0011 0000.
     Bits 4,5 Video Mode Bits
 
-	    01  Color (40 rows x 25 columns)
-	    10  Color (80 rows x 25 columns)
-	    11  Monochrome (80 row x 25 col)
+      01  Color (40 rows x 25 columns)
+      10  Color (80 rows x 25 columns)
+      11  Monochrome (80 row x 25 col)
    */
 const uint8 IOC_PPI_PORT_A_VIDEO = 0x30;
   /*PPI Port A Floppy Disk Drive flag: 0000 0001.                            */
@@ -124,15 +124,15 @@ const uint8 IOC_PPI_PC_SPEAKER = 0x02;
         +------- Number of Disk Drives
 
     Bits 7,6 Number of Disk Drives Bits
-	    00  1 disk drive
-	    01  2 disk drives
-	    10  3 disk drives
-	    11  4 disk drives
+      00  1 disk drive
+      01  2 disk drives
+      10  3 disk drives
+      11  4 disk drives
 
     Bits 4,5 Video Mode Bits
-	    01  Color (40 rows x 25 columns)
-	    10  Color (80 rows x 25 columns)
-	    11  Monochrome (80 row x 25 col)
+      01  Color (40 rows x 25 columns)
+      10  Color (80 rows x 25 columns)
+      11  Monochrome (80 row x 25 col)
 
   Port B Mode Control Register:
 
@@ -171,19 +171,19 @@ const uint8 IOC_PPI_PC_SPEAKER = 0x02;
   Bits 1,0 Video Mode Bits (XT)
   If bit 3 of Port B (Port C Mode - XT) is set to 1, returns Video Mode Status:
 
-	  01  Color (40 rows x 25 columns)
-	  10  Color (80 rows x 25 columns)
-	  11  Monochrome (80 row x 25 col)
+    01  Color (40 rows x 25 columns)
+    10  Color (80 rows x 25 columns)
+    11  Monochrome (80 row x 25 col)
   If bit 3 of Port B (Port C Mode - XT) is set to 0, returns values of 
   Configuration Jumpers (Switches) 2 and 1.
 
   Bits 3,2 Number of Disk Drives Bits (XT)
   If bit 3 of Port B (Port C Mode - XT) is set to 1, returns Number of Disk Drives:
 
-	  00  1 disk drive
-	  01  2 disk drives
-	  10  3 disk drives
-	  11  4 disk drives
+    00  1 disk drive
+    01  2 disk drives
+    10  3 disk drives
+    11  4 disk drives
   If bit 3 of Port B (Port C Mode - XT) is set to 0, returns values of 
   Configuration Jumpers (Switches) 4 and 3.
 
@@ -212,6 +212,6 @@ inline bool HAS_PPI_FDD(const uint8 cStatusA //[in] PPI Port A Status
 #endif  //__KIOPPI_H__
 /******************************************************************************
  *$Log: 
- * 1    Biblioteka1.0         18/09/2002 5:12:32 PMDarko Kolakovic 
+ * 1    Biblioteka1.0         18/09/2002 6:12:32 PMDarko Kolakovic 
  *$
  *****************************************************************************/

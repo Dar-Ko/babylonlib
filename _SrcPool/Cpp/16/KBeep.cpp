@@ -1,5 +1,5 @@
 /*$Workfile: KBeep.cpp$: implementation file
-  $Revision: 7$ $Date: 11/10/2002 1:33:30 PM$
+  $Revision: 7$ $Date: 11/10/2002 2:33:30 PM$
   $Author: Darko Kolakovic$
 
   Generates beep sounds on PC speaker
@@ -204,13 +204,13 @@ const uint32 g_nScale[13] =
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         11/10/2002 1:33:30 PMDarko Kolakovic 
- *  6    Biblioteka1.5         10/10/2002 7:26:06 PMDarko Kolakovic Fixed x86
+ *  7    Biblioteka1.6         11/10/2002 2:33:30 PMDarko Kolakovic 
+ *  6    Biblioteka1.5         10/10/2002 8:26:06 PMDarko Kolakovic Fixed x86
  *       version (16-bit)
- *  5    Biblioteka1.4         19/09/2002 4:37:37 PMDarko Kolakovic 
- *  4    Biblioteka1.3         19/09/2002 12:14:36 AMDarko           
- *  3    Biblioteka1.2         18/09/2002 5:13:35 PMDarko Kolakovic Start() /Win9x
- *  2    Biblioteka1.1         17/09/2002 1:36:45 PMDarko Kolakovic Added KioPIT.h
- *  1    Biblioteka1.0         16/09/2002 4:57:06 PMDarko Kolakovic 
+ *  5    Biblioteka1.4         19/09/2002 5:37:37 PMDarko Kolakovic 
+ *  4    Biblioteka1.3         19/09/2002 1:14:36 AMDarko           
+ *  3    Biblioteka1.2         18/09/2002 6:13:35 PMDarko Kolakovic Start() /Win9x
+ *  2    Biblioteka1.1         17/09/2002 2:36:45 PMDarko Kolakovic Added KioPIT.h
+ *  1    Biblioteka1.0         16/09/2002 5:57:06 PMDarko Kolakovic 
  * $
  *****************************************************************************/

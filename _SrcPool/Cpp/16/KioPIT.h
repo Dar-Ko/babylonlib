@@ -60,16 +60,16 @@ const uint32 IOC_PIT_FREQ = 4772720 / 4;
         +------------- counter select bits (also 8254 read back command)
  
     Bits 7,6 Counter Select Bits
-	    00  select Counter 0
-	    01  select Counter 1
-	    10  select Counter 2
-	    11  read back command (8254 only, illegal on 8253, see below)
+      00  select Counter 0
+      01  select Counter 1
+      10  select Counter 2
+      11  read back command (8254 only, illegal on 8253, see below)
 
     Bits 5,4 Read/Write/Latch Format Bits
-	    00  latch present counter value
-	    01  read/write of Most Significant Bit (MSB) only
-	    10  read/write of Least Significant Bit (LSB) only
-	    11  read/write LSB, followed by write of MSB
+      00  latch present counter value
+      01  read/write of Most Significant Bit (MSB) only
+      10  read/write of Least Significant Bit (LSB) only
+      11  read/write LSB, followed by write of MSB
 
     Bits 3,2,1 Counter Mode Bits
       000 mode 0, interrupt on terminal count;  
