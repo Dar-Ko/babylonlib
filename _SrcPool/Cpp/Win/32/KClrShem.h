@@ -1,6 +1,6 @@
-/*$Workfile: KClrShem.h$: header file
-  $Revision: 3$ $Date: 2003-09-04 14:51:28$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KClrShem.h$: header file
+  $Revision: 4$ $Date: 2005-04-26 11:28:29$
+  $Author: Darko Kolakovic$
 
   Serialization of a color array
   Copyright: CommonSoft Inc
@@ -31,7 +31,7 @@
 //    HKEY_CURRENT_USER\Software\<AppName>\<Scheme>\.Current=<Scheme>
 //
 //Note: Microsoft Windows specific (Win) 
-//      and uses Microsoft Fundation Library (MFC).
+//      and uses Microsoft Foundation Library (MFC).
 class CColorScheme : public CObject
 {
 // Construction
@@ -123,7 +123,7 @@ return (int)m_Color.GetSize();
   multiple insertions on a single line of source code.
 
   Note: Microsoft Windows specific (Win) 
-        and uses Microsoft Fundation Library (MFC).
+        and uses Microsoft Foundation Library (MFC).
  */
 inline CString& AFXAPI operator<<(CString& strDestination, //[out] string object
                                   CColorScheme& cclrsSource//[in] color array
@@ -151,7 +151,7 @@ return strDestination;
   multiple insertions on a single line of source code.
 
   Note: Microsoft Windows specific (Win) 
-        and uses Microsoft Fundation Library (MFC).
+        and uses Microsoft Foundation Library (MFC).
 */
 inline CDumpContext& AFXAPI operator<<(CDumpContext& dc, //[out] dump context
                                        const CColorScheme& cclrsSource //[in] color array
@@ -172,10 +172,12 @@ return dc;
 #endif //_KCLRSCHEM_H_
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2003-09-04 14:51:28  Darko           Assigment
+ *  4    Biblioteka1.3         2005-04-26 11:28:29  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  3    Biblioteka1.2         2003-09-04 15:51:28  Darko           Assigment
  *       operators added
- *  2    Biblioteka1.1         2003-09-03 22:35:57  Darko           Prepared for
+ *  2    Biblioteka1.1         2003-09-03 23:35:57  Darko           Prepared for
  *       VC++ v7.1
- *  1    Biblioteka1.0         2003-09-03 19:10:02  Darko           
+ *  1    Biblioteka1.0         2003-09-03 20:10:02  Darko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KDlgItem.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-01 21:34:40$
+  $Revision: 5$ $Date: 2004-10-01 22:34:40$
   $Author: Darko$
 
   Resizable dialog control

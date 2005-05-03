@@ -1,6 +1,6 @@
-/*$Workfile: KDbgGUID.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-01 21:34:19$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgGUID.cpp$: implementation file
+  $Revision: 5$ $Date: 2005-04-26 11:29:10$
+  $Author: Darko Kolakovic$
 
   Dumps GUID
   Copyright: CommonSoft Inc.
@@ -29,7 +29,7 @@
    Example:
      5EFC7975-14BC-11CF-9B2B-00AA00573819
 
-    Note: uses Microsoft Fundation Library (MFC),
+    Note: uses Microsoft Foundation Library (MFC),
           Microsoft Windows specific (Win).
    */
   void DumpGUID(CDumpContext& dc, //[in] diagnostic output stream

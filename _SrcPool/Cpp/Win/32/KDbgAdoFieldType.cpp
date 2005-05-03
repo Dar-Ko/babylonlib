@@ -1,6 +1,6 @@
-/*$Workfile: KDbgAdoFieldType.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-10-01 21:33:58$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgAdoFieldType.cpp$: implementation file
+  $Revision: 4$ $Date: 2005-04-26 11:28:36$
+  $Author: Darko Kolakovic$
 
   Dumps data type of a Field, Parameter, or Property
   Copyright: CommonSoft Inc.
@@ -31,7 +31,7 @@
 
   Returns: null-termeinated string describing data type
 
-  Note: uses Microsoft Fundation Library (MFC);
+  Note: uses Microsoft Foundation Library (MFC);
         Microsoft ActiveX Data Objects (ADO).
         Microsoft Windows specific (Win).
  */
@@ -86,8 +86,10 @@ switch(iType)
 
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2004-10-01 21:33:58  Darko           stdafx.h
- *  2    Biblioteka1.1         2003-08-17 01:10:48  Darko           fixed typo
- *  1    Biblioteka1.0         2003-08-13 16:36:16  Darko           
+ *  4    Biblioteka1.3         2005-04-26 11:28:36  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  3    Biblioteka1.2         2004-10-01 22:33:58  Darko           stdafx.h
+ *  2    Biblioteka1.1         2003-08-17 02:10:48  Darko           fixed typo
+ *  1    Biblioteka1.0         2003-08-13 17:36:16  Darko           
  * $
  *****************************************************************************/

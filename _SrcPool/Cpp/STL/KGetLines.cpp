@@ -1,5 +1,5 @@
-/*$Workfile: KGetLines.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-07 11:56:23$
+/*$Workfile: S:\_SrcPool\Cpp\STL\KGetLines.cpp$: implementation file
+  $Revision: 7$ $Date: 2004-10-07 12:56:23$
   $Author: Darko$
 
   Read a line of text from a stream

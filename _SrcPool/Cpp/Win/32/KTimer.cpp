@@ -1,5 +1,5 @@
 /*$Workfile: KTimer.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-10-01 21:35:37$
+  $Revision: 6$ $Date: 2004-10-01 22:35:37$
   $Author: Darko$
 
   Copyright: CommonSoft Inc.
@@ -180,13 +180,13 @@ MessageBeep(MB_ICONEXCLAMATION);
 
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2004-10-01 21:35:37  Darko           stdafx.h
- *  5    Biblioteka1.4         2003-09-22 21:27:08  Darko           formatting
- *  4    Biblioteka1.3         2002-01-25 15:59:05  Darko           Updated
+ *  6    Biblioteka1.5         2004-10-01 22:35:37  Darko           stdafx.h
+ *  5    Biblioteka1.4         2003-09-22 22:27:08  Darko           formatting
+ *  4    Biblioteka1.3         2002-01-25 16:59:05  Darko           Updated
  *       comments
- *  3    Biblioteka1.2         2001-07-18 22:32:57  Darko           VSS tags
- *  2    Biblioteka1.1         2001-06-25 22:44:00  Darko           Simpilfied
+ *  3    Biblioteka1.2         2001-07-18 23:32:57  Darko           VSS tags
+ *  2    Biblioteka1.1         2001-06-25 23:44:00  Darko           Simpilfied
  *       version
- *  1    Biblioteka1.0         2001-06-08 23:01:46  Darko           
+ *  1    Biblioteka1.0         2001-06-09 00:01:46  Darko           
  * $
  *****************************************************************************/

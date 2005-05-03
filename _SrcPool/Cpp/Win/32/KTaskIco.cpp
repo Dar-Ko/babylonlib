@@ -1,5 +1,5 @@
 /*$Workfile: KTaskIco.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-01 21:35:34$
+  $Revision: 4$ $Date: 2004-10-01 22:35:34$
   $Author: Darko$
 
   Adds icons to the Windows system taskbar
@@ -299,11 +299,11 @@ return 1; // handled
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 4    Biblioteka1.3         2004-10-01 21:35:34  Darko           stdafx.h
- * 3    Biblioteka1.2         2003-08-13 13:38:23  Darko           Unicode
- * 2    Biblioteka1.1         2002-07-16 00:41:30  Darko           Fixed VSS Log 
+ * 4    Biblioteka1.3         2004-10-01 22:35:34  Darko           stdafx.h
+ * 3    Biblioteka1.2         2003-08-13 14:38:23  Darko           Unicode
+ * 2    Biblioteka1.1         2002-07-16 01:41:30  Darko           Fixed VSS Log 
  *      tag
- * 1    Biblioteka1.0         2002-04-04 23:50:13  Darko           
+ * 1    Biblioteka1.0         2002-04-05 00:50:13  Darko           
  *$
  * 1996 Microsoft Systems Journal Paul DiLascia
  *****************************************************************************/

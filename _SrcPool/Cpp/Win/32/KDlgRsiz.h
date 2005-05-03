@@ -1,14 +1,15 @@
-/*$Workfile: KDlgRsiz.h$: header file
-  $Revision: 7$ $Date: 2003-09-22 21:26:03$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgRsiz.h$: header file
+  $Revision: 8$ $Date: 2005-04-26 11:29:37$
+  $Author: Darko Kolakovic$
 
   Handles resizing of the dialog box
   Copyright: CommonSoft Inc
   Mar. 2k Darko Kolakovic
  */ 
+// Group=Windows
 
 #ifndef _KDLGRSIZ_H_
-    //KDlgRsiz.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgRsiz.h$ sentry
   #define _KDLGRSIZ_H_
 
 #if _MSC_VER > 1000
@@ -24,7 +25,7 @@
 // CDialogResizable class handles the resizing of the dialog box and embedded
 // controls.
 //
-// Note: uses Microsoft Fundation Library (MFC).
+// Note: uses Microsoft Foundation Library (MFC).
 class CDialogResizable : public CDialog
 {
 // Construction
@@ -238,14 +239,16 @@ m_ptMinTrackSize.y = nHeight;
 #endif // _KDLGRSIZ_H_
 /*****************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2003-09-22 21:26:03  Darko           formatting
- *  6    Biblioteka1.5         2002-01-29 22:20:46  Darko           Used lbraries
+ *  8    Biblioteka1.7         2005-04-26 11:29:37  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  7    Biblioteka1.6         2003-09-22 22:26:03  Darko           formatting
+ *  6    Biblioteka1.5         2002-01-29 23:20:46  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         2002-01-25 15:56:54  Darko           Updated
+ *  5    Biblioteka1.4         2002-01-25 16:56:54  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-07-19 23:53:32  Darko           Comments
- *  3    Biblioteka1.2         2001-07-11 21:51:10  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:50:29  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:56:16  Darko           
+ *  4    Biblioteka1.3         2001-07-20 00:53:32  Darko           Comments
+ *  3    Biblioteka1.2         2001-07-11 22:51:10  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:50:29  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:56:16  Darko           
  * $
  *****************************************************************************/

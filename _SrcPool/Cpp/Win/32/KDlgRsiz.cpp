@@ -1,5 +1,5 @@
 /*$Workfile: KDlgRsiz.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-01 21:34:43$
+  $Revision: 7$ $Date: 2004-10-01 22:34:43$
   $Author: Darko$
 
   Handles resizing of the dialog box

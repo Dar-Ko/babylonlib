@@ -1,5 +1,5 @@
 /*$Workfile: KStatusBarEx.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-01 21:35:29$
+  $Revision: 2$ $Date: 2004-10-01 22:35:29$
   $Author: Darko$
 
   Defines the class behaviors for the application.
@@ -105,7 +105,7 @@ return 0;  // Same as CStatusBar::OnSetText success
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-01 21:35:29  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-13 13:35:30  Darko           
+ *  2    Biblioteka1.1         2004-10-01 22:35:29  Darko           stdafx.h
+ *  1    Biblioteka1.0         2003-08-13 14:35:30  Darko           
  * $
  *****************************************************************************/

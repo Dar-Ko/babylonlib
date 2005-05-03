@@ -1,5 +1,5 @@
 /*$Workfile: KSound.inl$: header file
-  $Revision: 3$ $Date: 2003-08-25 01:55:14$
+  $Revision: 3$ $Date: 2003-08-25 02:55:14$
   $Author: Darko$
 
   Sound helper

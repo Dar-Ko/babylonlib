@@ -1,5 +1,5 @@
 /*$Workfile: KRegCtrl.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-01 21:35:11$
+  $Revision: 2$ $Date: 2004-10-01 22:35:11$
   $Author: Darko$
 
   Defines the class behaviors for the application.
@@ -108,7 +108,7 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-01 21:35:11  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-13 16:36:41  Darko           
+ *  2    Biblioteka1.1         2004-10-01 22:35:11  Darko           stdafx.h
+ *  1    Biblioteka1.0         2003-08-13 17:36:41  Darko           
  * $
  *****************************************************************************/

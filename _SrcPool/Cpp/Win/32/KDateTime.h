@@ -1,5 +1,5 @@
 /*$Workfile: KDateTime.h$: implementation file
-  $Revision: 5$ $Date: 2004-10-01 21:52:18$
+  $Revision: 5$ $Date: 2004-10-01 22:52:18$
   $Author: Darko$
 
   Date and time conversions
@@ -359,12 +359,12 @@ return ((m_dateValue >= DATE_MIN) &&
 #endif  //_KDATETIME_H_
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2004-10-01 21:52:18  Darko           Added _USE_ATL
+ *  5    Biblioteka1.4         2004-10-01 22:52:18  Darko           Added _USE_ATL
  *       guard
- *  4    Biblioteka1.3         2004-10-01 14:46:28  Darko           excluded
+ *  4    Biblioteka1.3         2004-10-01 15:46:28  Darko           excluded
  *       __time64_t for MSVC6
- *  3    Biblioteka1.2         2003-09-30 08:06:23  Darko           DATE_ERROR
- *  2    Biblioteka1.1         2003-09-28 00:40:57  Darko           SetDate()
- *  1    Biblioteka1.0         2003-09-27 10:53:10  Darko           
+ *  3    Biblioteka1.2         2003-09-30 09:06:23  Darko           DATE_ERROR
+ *  2    Biblioteka1.1         2003-09-28 01:40:57  Darko           SetDate()
+ *  1    Biblioteka1.0         2003-09-27 11:53:10  Darko           
  * $
  *****************************************************************************/

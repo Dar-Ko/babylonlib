@@ -1,14 +1,15 @@
-/*$Workfile: KRegKey.h$: header file
-  $Revision: 5$ $Date: 2003-09-22 21:26:43$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KRegKey.h$: header file
+  $Revision: 7$ $Date: 2005-04-26 11:35:27$
+  $Author: Darko Kolakovic$
 
   Windows Registry handler
   Copyright: CommonSoft Inc
   Darko Kolakovic May 94
  */
+// Group=Windows
  
 #ifndef _KREGKEY_H_
-    //KRegKey.h sentry
+    //$Workfile: S:\_SrcPool\Cpp\Win\32\KRegKey.h$ sentry
   #define _KREGKEY_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -71,7 +72,7 @@ CString& operator<<(CString& strDestination, CRegistryKey& regSource);
 //operator<<()-----------------------------------------------------------------
 /*Outputs the CRegistryKey object to the dump context.
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
 
   Group=Diagnostic
  */
@@ -93,12 +94,15 @@ return dc;
 #endif  //_KREGKEY_H_
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2003-09-22 21:26:43  Darko           formatting
- *  4    Biblioteka1.3         2002-01-29 22:21:46  Darko           Used lbraries
+ *  7    Biblioteka1.6         2005-04-26 11:35:27  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  6    Biblioteka1.5         2005-03-21 03:16:53  Darko           comments
+ *  5    Biblioteka1.4         2003-09-22 22:26:43  Darko           formatting
+ *  4    Biblioteka1.3         2002-01-29 23:21:46  Darko           Used lbraries
  *       notes 
- *  3    Biblioteka1.2         2002-01-24 18:19:23  Darko           Updated
+ *  3    Biblioteka1.2         2002-01-24 19:19:23  Darko           Updated
  *       comments
- *  2    Biblioteka1.1         2001-08-16 23:38:00  Darko           Update
- *  1    Biblioteka1.0         2001-07-07 00:13:47  Darko           
+ *  2    Biblioteka1.1         2001-08-17 00:38:00  Darko           Update
+ *  1    Biblioteka1.0         2001-07-07 01:13:47  Darko           
  * $
  *****************************************************************************/

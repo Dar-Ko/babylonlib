@@ -1,14 +1,15 @@
-/*$Workfile: KDlgItem.h$: header file
-  $Revision: 8$ $Date: 2003-09-22 21:26:01$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgItem.h$: header file
+  $Revision: 9$ $Date: 2005-04-26 11:29:35$
+  $Author: Darko Kolakovic$
 
   Description of a resizable dialog control
   Copyright: CommonSoft Inc.
   Mar. 2k Darko Kolakovic
  */
+// Group=Windows
 
 #ifndef _KDLGITEM_H_
-    //KDlgItem.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgItem.h$ sentry
   #define _KDLGITEM_H_
 
 #if _MSC_VER > 1000
@@ -23,7 +24,7 @@ class CDlgItemResizableList;
 //
 // See also: diagnostic operator<<()
 //
-//Note: uses Microsoft Fundation Library (MFC).
+//Note: uses Microsoft Foundation Library (MFC).
 //      Microsoft Windows specific (Win).
 class CDlgItemResizable
 {
@@ -180,7 +181,7 @@ return ((m_dwStyle & dwFlags) == dwFlags);
   /*Outputs the CDlgItemResizable object to the dump context. In case of failure throws 
     CFileException;
 
-    Note: uses Microsoft Fundation Library (MFC).
+    Note: uses Microsoft Foundation Library (MFC).
    */
   inline CDumpContext& AFXAPI operator<<(CDumpContext& dc, const CDlgItemResizable& Data)
     {

@@ -1,15 +1,16 @@
-/*$Workfile: KTipBox.h$: header file
-  $Revision: 6$ $Date: 2002-03-07 16:12:01$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KTipBox.h$: header file
+  $Revision: 7$ $Date: 2005-04-26 11:35:45$
+  $Author: Darko Kolakovic$
 
   Simple Text Tip Window
   Copyright: CommonSoft Inc
   Jun '97 Darko Kolakovic
   Apr 2k overloading of operator new (exercise) D.K.
  */ 
+// Group=Windows
 
 #ifndef _KTIPTEXT_H_
-    //KTipBox.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KTipBox.h$ sentry
   #define _KTIPTEXT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -36,7 +37,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //CTipBox window shows a small box with a single text line called a tip.
 //
-//Note: Microsoft Windows specific (Win) and uses Microsoft Fundation Library (MFC).
+//Note: Microsoft Windows specific (Win) and uses Microsoft Foundation Library (MFC).
 class CTipBox : public CWnd
 {
 // Construction

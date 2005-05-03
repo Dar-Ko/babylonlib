@@ -1,6 +1,6 @@
-/*$Workfile: KDbgMapM.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-10-01 21:34:24$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgMapM.cpp$: implementation file
+  $Revision: 7$ $Date: 2005-04-26 11:29:15$
+  $Author: Darko Kolakovic$
 
   Dumps the current mapping mode
   Copyright: CommonSoft Inc.
@@ -45,7 +45,7 @@
                     a point is 1/72 inch, a twip is 1/1440 inch.) Positive x is
                     to the right; positive y is up.
     
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
         Microsoft Windows specific (Win).   
  */
 void DumpMapMode(CDC* pDC //pointer to the current device-context

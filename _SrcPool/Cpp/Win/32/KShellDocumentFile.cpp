@@ -1,5 +1,5 @@
 /*$Workfile: KShellDocumentFile.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-01 21:35:20$
+  $Revision: 2$ $Date: 2004-10-01 22:35:20$
   $Author: Darko$
 
   Opens a document file using Shell
@@ -39,7 +39,7 @@ return false;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-01 21:35:20  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-14 12:54:44  Darko           
+ *  2    Biblioteka1.1         2004-10-01 22:35:20  Darko           stdafx.h
+ *  1    Biblioteka1.0         2003-08-14 13:54:44  Darko           
  * $
  *****************************************************************************/

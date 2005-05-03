@@ -1,6 +1,6 @@
-/*$Workfile: KDbgFVSI.cpp$: implementation file
-  $Revision: 10$ $Date: 2004-10-01 21:34:14$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgFVSI.cpp$: implementation file
+  $Revision: 11$ $Date: 2005-04-26 11:29:05$
+  $Author: Darko Kolakovic$
   
   Dumps the current device-context attributes
   Paul DiLascia, MSJ 6/96
@@ -39,7 +39,7 @@
 
   See also: shlobj.h
 
-  Note: uses Microsoft Fundation Library (MFC),
+  Note: uses Microsoft Foundation Library (MFC),
         Microsoft Windows specific (Win).
 */
 void DumpFVSHOWINFO(LPFVSHOWINFO lpfvSI //[in] pointer to file viewer FVSHOWINFO
@@ -89,18 +89,20 @@ TRACE(_T("\tstrNewFile = %s\n\t}\n"), (LPCTSTR)(CString(lpfvSI->strNewFile)));
 #endif  //_DEBUG
 /*****************************************************************************
  * $Log: 
- *  10   Biblioteka1.9         2004-10-01 21:34:14  Darko           stdafx.h
- *  9    Biblioteka1.8         2003-08-17 01:12:34  Darko           replaced LPCSTR
+ *  11   Biblioteka1.10        2005-04-26 11:29:05  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  10   Biblioteka1.9         2004-10-01 22:34:14  Darko           stdafx.h
+ *  9    Biblioteka1.8         2003-08-17 02:12:34  Darko           replaced LPCSTR
  *       with LPTCTSTR
- *  8    Biblioteka1.7         2003-08-13 09:51:27  Darko           Unicode
- *  7    Biblioteka1.6         2002-08-27 22:37:13  Darko           
- *  6    Biblioteka1.5         2002-01-29 22:20:17  Darko           Used lbraries
+ *  8    Biblioteka1.7         2003-08-13 10:51:27  Darko           Unicode
+ *  7    Biblioteka1.6         2002-08-27 23:37:13  Darko           
+ *  6    Biblioteka1.5         2002-01-29 23:20:17  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         2002-01-29 14:38:41  Darko           Tag update
- *  4    Biblioteka1.3         2001-08-19 22:52:39  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 21:50:35  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:49:58  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:55:53  Darko           
+ *  5    Biblioteka1.4         2002-01-29 15:38:41  Darko           Tag update
+ *  4    Biblioteka1.3         2001-08-19 23:52:39  Darko           Butyfier
+ *  3    Biblioteka1.2         2001-07-11 22:50:35  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:49:58  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:55:53  Darko           
  * $
  * Jul. 97 cosmetic changes D.K.
  * Paul DiLascia, MSJ 6/96

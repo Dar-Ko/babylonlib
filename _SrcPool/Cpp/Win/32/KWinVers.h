@@ -1,6 +1,6 @@
-/*$Workfile: KWinVers.h$: header file
-  $Revision: 10$ $Date: 2004-10-01 21:35:52$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KWinVers.h$: header file
+  $Revision: 11$ $Date: 2005-04-26 11:35:56$
+  $Author: Darko Kolakovic$
 
   Constants related to Windows platform version
   Note: Microsoft Windows specific (Win). 
@@ -9,8 +9,10 @@
   Jan 2k  Updated with Win2k functions D.K.
   Jul 2k1 (check for WinNT.h/build 0087) 
  */
+// Group=Windows
+
 #ifndef _KWINVERS_H_
-    //$Workfile: KWinVers.h$ sentry
+    //$Workfile: S:\_SrcPool\Cpp\Win\32\KWinVers.h$ sentry
   #define _KWINVERS_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -158,19 +160,21 @@ BOOL IsProductSuiteInstalled(LPCTSTR szProductSuite);
 #endif  //_KWINVERS_H_
 /*****************************************************************************
  * $Log: 
- *  10   Biblioteka1.9         2004-10-01 21:35:52  Darko           stdafx.h
- *  9    Biblioteka1.8         2003-09-15 00:52:08  Darko           added WinXP
- *  8    Biblioteka1.7         2003-09-12 15:12:54  Darko           sentry
- *  7    Biblioteka1.6         2003-08-27 08:14:54  Darko           windows.h in
+ *  11   Biblioteka1.10        2005-04-26 11:35:56  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  10   Biblioteka1.9         2004-10-01 22:35:52  Darko           stdafx.h
+ *  9    Biblioteka1.8         2003-09-15 01:52:08  Darko           added WinXP
+ *  8    Biblioteka1.7         2003-09-12 16:12:54  Darko           sentry
+ *  7    Biblioteka1.6         2003-08-27 09:14:54  Darko           windows.h in
  *       small case
- *  6    Biblioteka1.5         2002-01-29 22:22:35  Darko           Used lbraries
+ *  6    Biblioteka1.5         2002-01-29 23:22:35  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         2002-01-24 18:22:38  Darko           Updated
+ *  5    Biblioteka1.4         2002-01-24 19:22:38  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-08-16 23:38:26  Darko           Update
- *  3    Biblioteka1.2         2001-07-07 23:06:04  Darko           WinNT.h/build
+ *  4    Biblioteka1.3         2001-08-17 00:38:26  Darko           Update
+ *  3    Biblioteka1.2         2001-07-08 00:06:04  Darko           WinNT.h/build
  *       0087
- *  2    Biblioteka1.1         2001-06-08 22:52:40  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:04:26  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:52:40  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 16:04:26  Darko           
  * $
  *****************************************************************************/

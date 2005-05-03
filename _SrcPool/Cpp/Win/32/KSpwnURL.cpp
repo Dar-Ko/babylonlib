@@ -1,5 +1,5 @@
 /*$Workfile: KSpwnURL.cpp$: implementation file
-  $Revision: 9$ $Date: 2004-10-01 21:35:27$
+  $Revision: 9$ $Date: 2004-10-01 22:35:27$
   $Author: Darko$
 
   Opens a hyperlink
@@ -185,18 +185,18 @@ return iErr;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  9    Biblioteka1.8         2004-10-01 21:35:27  Darko           stdafx.h
- *  8    Biblioteka1.7         2003-11-03 12:22:28  Darko           Returns
+ *  9    Biblioteka1.8         2004-10-01 22:35:27  Darko           stdafx.h
+ *  8    Biblioteka1.7         2003-11-03 13:22:28  Darko           Returns
  *       GetLasteError() code in sae of a failure
- *  7    Biblioteka1.6         2003-08-06 02:46:42  Darko           Prepared for
+ *  7    Biblioteka1.6         2003-08-06 03:46:42  Darko           Prepared for
  *       Unicode 
- *  6    Biblioteka1.5         2002-01-29 22:21:52  Darko           Used library
+ *  6    Biblioteka1.5         2002-01-29 23:21:52  Darko           Used library
  *       notes 
- *  5    Biblioteka1.4         2002-01-25 15:57:54  Darko           Updated
+ *  5    Biblioteka1.4         2002-01-25 16:57:54  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-08-16 23:38:03  Darko           Update
- *  3    Biblioteka1.2         2001-07-07 00:11:45  Darko           Note
- *  2    Biblioteka1.1         2001-06-08 22:51:43  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:59:02  Darko           
+ *  4    Biblioteka1.3         2001-08-17 00:38:03  Darko           Update
+ *  3    Biblioteka1.2         2001-07-07 01:11:45  Darko           Note
+ *  2    Biblioteka1.1         2001-06-08 23:51:43  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:59:02  Darko           
  * $
  *****************************************************************************/

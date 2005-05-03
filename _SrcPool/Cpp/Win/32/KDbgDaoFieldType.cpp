@@ -1,6 +1,6 @@
-/*$Workfile: KDbgDaoFieldType.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-01 21:34:08$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgDaoFieldType.cpp$: implementation file
+  $Revision: 3$ $Date: 2005-04-26 11:28:52$
+  $Author: Darko Kolakovic$
 
   Dumps data access objects (DAO) properties
   Copyright: CommonSoft Inc.
@@ -33,7 +33,7 @@
 
   See also: struct CDaoFieldInfo
 
-  Note: uses Microsoft Fundation Library (MFC);
+  Note: uses Microsoft Foundation Library (MFC);
         Microsoft Windows specific (Win).
  */
 LPCTSTR DumpDaoFieldType(const short sType //[in] type of data access objects
@@ -59,7 +59,9 @@ return _T("<unknown>");
 
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-01 21:34:08  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-13 16:36:30  Darko           
+ *  3    Biblioteka1.2         2005-04-26 11:28:52  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  2    Biblioteka1.1         2004-10-01 22:34:08  Darko           stdafx.h
+ *  1    Biblioteka1.0         2003-08-13 17:36:30  Darko           
  * $
  *****************************************************************************/

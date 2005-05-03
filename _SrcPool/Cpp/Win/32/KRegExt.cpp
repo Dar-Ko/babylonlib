@@ -1,5 +1,5 @@
 /*$Workfile: KRegExt.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-10-01 21:35:15$
+  $Revision: 8$ $Date: 2004-10-01 22:35:15$
   $Author: Darko$
 
   Windows Registry Extended handler
@@ -196,15 +196,15 @@ return FALSE;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         2004-10-01 21:35:15  Darko           stdafx.h
- *  7    Biblioteka1.6         2003-11-03 12:21:01  Darko           Fixed long file
+ *  8    Biblioteka1.7         2004-10-01 22:35:15  Darko           stdafx.h
+ *  7    Biblioteka1.6         2003-11-03 13:21:01  Darko           Fixed long file
  *       names parsing in GetAssociatedExecutable()
- *  6    Biblioteka1.5         2003-09-22 21:26:36  Darko           formatting
- *  5    Biblioteka1.4         2002-01-25 15:57:44  Darko           Updated
+ *  6    Biblioteka1.5         2003-09-22 22:26:36  Darko           formatting
+ *  5    Biblioteka1.4         2002-01-25 16:57:44  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-08-16 23:37:51  Darko           Update
- *  3    Biblioteka1.2         2001-07-07 00:10:52  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:51:37  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:57:23  Darko           
+ *  4    Biblioteka1.3         2001-08-17 00:37:51  Darko           Update
+ *  3    Biblioteka1.2         2001-07-07 01:10:52  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:51:37  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:57:23  Darko           
  * $
  *****************************************************************************/

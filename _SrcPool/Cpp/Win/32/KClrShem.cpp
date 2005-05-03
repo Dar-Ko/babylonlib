@@ -1,5 +1,5 @@
 /*$Workfile: KClrShem.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-01 21:33:47$
+  $Revision: 4$ $Date: 2004-10-01 22:33:47$
   $Author: Darko$
 
   Implementation of the CColorScheme class
@@ -289,11 +289,11 @@ return true;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2004-10-01 21:33:47  Darko           stdafx.h
- *  3    Biblioteka1.2         2003-09-04 14:51:25  Darko           Assigment
+ *  4    Biblioteka1.3         2004-10-01 22:33:47  Darko           stdafx.h
+ *  3    Biblioteka1.2         2003-09-04 15:51:25  Darko           Assigment
  *       operators added
- *  2    Biblioteka1.1         2003-09-03 22:35:55  Darko           Prepared for
+ *  2    Biblioteka1.1         2003-09-03 23:35:55  Darko           Prepared for
  *       VC++ v7.1
- *  1    Biblioteka1.0         2003-09-03 19:10:00  Darko           
+ *  1    Biblioteka1.0         2003-09-03 20:10:00  Darko           
  * $
  *****************************************************************************/

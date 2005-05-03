@@ -1,6 +1,6 @@
-/*$Workfile: KDbgPrpS.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-10-01 21:34:28$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgPrpS.cpp$: implementation file
+  $Revision: 9$ $Date: 2005-04-26 11:29:20$
+  $Author: Darko Kolakovic$
 
   Dumps property sheet header
   Copyright: CommonSoft Inc.
@@ -76,7 +76,7 @@
 
   See Also: \include\PrSht.h Interface for the Windows Property Sheet Pages
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
   Note: Microsoft Windows specific (Win).
 
   Bug fix: PropertySheet Fails When Changing from VC++ 5.0 to VC++ 6.0 ID: Q197631
@@ -216,7 +216,7 @@ return dc;
 /*****************************************************************************
  * $Log:
  *  4    Biblioteka1.3         17/08/2001 12:37:26 AMDarko           Update
- *  3    Biblioteka1.2         08/07/2001 12:10:23 AMDarko           $Revision: 8$
+ *  3    Biblioteka1.2         08/07/2001 12:10:23 AMDarko           $Revision: 9$
  *       inserted
  *  2    Biblioteka1.1         08/06/2001 11:50:07 PMDarko           VSS
  *  1    Biblioteka1.0         13/08/2000 3:56:00 PMDarko

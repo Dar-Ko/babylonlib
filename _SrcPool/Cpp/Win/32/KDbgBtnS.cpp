@@ -1,5 +1,5 @@
 /*$Workfile: KDbgBtnS.cpp$: implementation file
-  $Revision: 11$ $Date: 2004-10-01 21:34:05$
+  $Revision: 11$ $Date: 2004-10-01 22:34:05$
   $Author: Darko$
 
   Dumps the style of the button control
@@ -283,21 +283,21 @@ DumpButtonStyle((UINT)GetWindowLong(hButton, GWL_STYLE));
  */
 /*****************************************************************************
  * $Log: 
- *  11   Biblioteka1.10        2004-10-01 21:34:05  Darko           stdafx.h
- *  10   Biblioteka1.9         2003-08-29 07:50:02  Darko           comment
- *  9    Biblioteka1.8         2003-08-27 14:30:34  Darko           fixed new
+ *  11   Biblioteka1.10        2004-10-01 22:34:05  Darko           stdafx.h
+ *  10   Biblioteka1.9         2003-08-29 08:50:02  Darko           comment
+ *  9    Biblioteka1.8         2003-08-27 15:30:34  Darko           fixed new
  *       _MSC_VER =1310 styles 
- *  8    Biblioteka1.7         2003-08-27 10:50:02  Darko           Replaced
+ *  8    Biblioteka1.7         2003-08-27 11:50:02  Darko           Replaced
  *       else-if with switch
- *  7    Biblioteka1.6         2003-08-25 00:17:14  Darko           excluded
+ *  7    Biblioteka1.6         2003-08-25 01:17:14  Darko           excluded
  *       BS_FLAT  for MSVC 5.0
- *  6    Biblioteka1.5         2003-08-21 14:27:07  Darko           formatting
- *  5    Biblioteka1.4         2002-01-29 22:20:07  Darko           Used libraries
+ *  6    Biblioteka1.5         2003-08-21 15:27:07  Darko           formatting
+ *  5    Biblioteka1.4         2002-01-29 23:20:07  Darko           Used libraries
  *       notes 
- *  4    Biblioteka1.3         2002-01-29 14:38:32  Darko           Tag update
- *  3    Biblioteka1.2         2001-07-11 21:50:25  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:49:26  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:55:49  Darko           
+ *  4    Biblioteka1.3         2002-01-29 15:38:32  Darko           Tag update
+ *  3    Biblioteka1.2         2001-07-11 22:50:25  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:49:26  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:55:49  Darko           
  * $
  *  0                          Aug. 97 Darko Kolakovic
  *****************************************************************************/

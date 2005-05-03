@@ -1,5 +1,5 @@
 /*$Workfile: KAbout.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-10-01 21:33:26$
+  $Revision: 6$ $Date: 2004-10-01 22:33:26$
   $Author: Darko$
 
   Defines the class behaviors for the application.
@@ -223,14 +223,14 @@ void CAboutDlg::OnPaint()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2004-10-01 21:33:26  Darko           stdafx.h
- *  5    Biblioteka1.4         2003-11-03 12:14:58  Darko           Added SetUrl()
- *  4    Biblioteka1.3         2003-08-13 16:38:21  Darko           formatting
- *  3    Biblioteka1.2         2003-08-06 21:47:42  Darko           Modified
+ *  6    Biblioteka1.5         2004-10-01 22:33:26  Darko           stdafx.h
+ *  5    Biblioteka1.4         2003-11-03 13:14:58  Darko           Added SetUrl()
+ *  4    Biblioteka1.3         2003-08-13 17:38:21  Darko           formatting
+ *  3    Biblioteka1.2         2003-08-06 22:47:42  Darko           Modified
  *       dialog's resource ID
- *  2    Biblioteka1.1         2003-08-06 02:46:34  Darko           Prepared for
+ *  2    Biblioteka1.1         2003-08-06 03:46:34  Darko           Prepared for
  *       Unicode 
- *  1    Biblioteka1.0         2003-08-05 22:17:27  Darko           
+ *  1    Biblioteka1.0         2003-08-05 23:17:27  Darko           
  * $
  *****************************************************************************/
 

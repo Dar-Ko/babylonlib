@@ -1,6 +1,6 @@
-/*$Workfile: KStrStream.cpp$: implementation file
-  $Revision: 9$ $Date: 2004-06-01 17:03:50$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\STL\KStrStream.cpp$: implementation file
+  $Revision: 10$ $Date: 2005-04-26 16:46:11$
+  $Author: Darko Kolakovic$
 
   String helpers and CString extension with STL operators
   Copyright: CommonSoft Inc.
@@ -38,7 +38,7 @@
 /*The operator>> is used to populate a string with the contents of an input
   stream. Input buffer is limited to MINIMUMLENGHT characters.
 
-  Note: uses Microsoft Fundation Library (MFC) and Standard Template Library
+  Note: uses Microsoft Foundation Library (MFC) and Standard Template Library
        (STL).
 
   TODO: replace MFC D.K.
@@ -58,7 +58,7 @@ return cInput;
 //operator<<()-----------------------------------------------------------------
 /*The operator<< is used to insert a string into an output stream.
 
-  Note: uses Microsoft Fundation Library (MFC) and Standard Template Library
+  Note: uses Microsoft Foundation Library (MFC) and Standard Template Library
        (STL).
 
   TODO: replace MFC D.K.

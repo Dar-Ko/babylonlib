@@ -1,5 +1,5 @@
 /*$Workfile: KWinPlac.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-01 21:35:44$
+  $Revision: 8$ $Date: 2005-04-04 21:57:22$
   $Author: Darko$
 
   Encapsulates the WINDOWPLACEMENT structure
@@ -11,7 +11,7 @@
 #include "stdafx.h"
 
 #ifndef __AFXWIN_H__
-  #include <AfxWin.h>
+  #include <afxwin.h>
 #endif
 
 #include "KWinPlac.h" //CWindowPlacement class
@@ -154,6 +154,20 @@ dc << TEXT( ")\n\tptMinPosition.x         = " ) << ptMinPosition.x
 
   Example:
     #include "KWinPlac.h" //CWindowPlacement class
+
+    BOOL CMyWinApp::InitInstance()
+      {
+      ...
+      //The one and only window has been initialized, so show and update it
+      if (m_pMainWnd->IsKindOf( RUNTIME_CLASS( CMainFrame ))
+        ((CMainFrame*)m_pMainWnd)->InitialShowWindow(SW_SHOW);
+      else
+        m_pMainWnd->ShowWindow(SW_SHOW);
+
+      m_pMainWnd->UpdateWindow();
+      ...
+      }
+
     void CMainFrame::InitialShowWindow(UINT nCmdShow //[in] parameter passed by 
                                                      //Windows to WinMain()
                                        )
@@ -297,13 +311,14 @@ catch (...)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-10-01 21:35:44  Darko           stdafx.h
- *  6    Biblioteka1.5         2003-09-03 14:02:35  Darko           Unicode
- *  5    Biblioteka1.4         2002-01-25 15:59:32  Darko           Updated
+ *  8    Biblioteka1.7         2005-04-04 21:57:22  Darko           comments
+ *  7    Biblioteka1.6         2004-10-01 22:35:44  Darko           stdafx.h
+ *  6    Biblioteka1.5         2003-09-03 15:02:35  Darko           Unicode
+ *  5    Biblioteka1.4         2002-01-25 16:59:32  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-08-19 22:56:14  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 21:53:30  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:52:27  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:04:11  Darko           
+ *  4    Biblioteka1.3         2001-08-19 23:56:14  Darko           Butyfier
+ *  3    Biblioteka1.2         2001-07-11 22:53:30  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:52:27  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 16:04:11  Darko           
  * $
  *****************************************************************************/

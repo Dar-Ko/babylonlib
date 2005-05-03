@@ -1,5 +1,5 @@
-/*$Workfile: KDateTime.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-08 11:35:47$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDateTime.cpp$: implementation file
+  $Revision: 7$ $Date: 2004-10-08 12:35:47$
   $Author: Darko$
 
   Defines the class behavior.
@@ -600,15 +600,15 @@ SYSTEMTIME stCurrentTime;
 #pragma warning (default: 4127)
 /*****************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-10-08 11:35:47  Darko           fixed MSVC
+ *  7    Biblioteka1.6         2004-10-08 12:35:47  Darko           fixed MSVC
  *       UNICODE and header aliases
- *  6    Biblioteka1.5         2004-10-06 22:14:24  Darko           Unicode
- *  5    Biblioteka1.4         2004-10-01 21:52:16  Darko           Added _USE_ATL
+ *  6    Biblioteka1.5         2004-10-06 23:14:24  Darko           Unicode
+ *  5    Biblioteka1.4         2004-10-01 22:52:16  Darko           Added _USE_ATL
  *       guard
- *  4    Biblioteka1.3         2004-10-01 14:45:43  Darko           fixed VARIANT
+ *  4    Biblioteka1.3         2004-10-01 15:45:43  Darko           fixed VARIANT
  *       support in MSVC6
- *  3    Biblioteka1.2         2003-09-30 08:06:20  Darko           DATE_ERROR
- *  2    Biblioteka1.1         2003-09-28 00:40:55  Darko           SetDate()
- *  1    Biblioteka1.0         2003-09-27 10:53:07  Darko           
+ *  3    Biblioteka1.2         2003-09-30 09:06:20  Darko           DATE_ERROR
+ *  2    Biblioteka1.1         2003-09-28 01:40:55  Darko           SetDate()
+ *  1    Biblioteka1.0         2003-09-27 11:53:07  Darko           
  * $
  *****************************************************************************/

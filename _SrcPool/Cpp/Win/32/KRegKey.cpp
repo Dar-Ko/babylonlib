@@ -1,6 +1,6 @@
-/*$Workfile: KRegKey.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-01 21:35:17$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KRegKey.cpp$: implementation file
+  $Revision: 10$ $Date: 2005-04-26 11:35:24$
+  $Author: Darko Kolakovic$
 
   Copyright: CommonSoft Inc.
   Darko Kolakovic
@@ -17,7 +17,7 @@
 #include <AfxWin.h>
 #ifndef __AFXWIN_H__
   #pragma message (__FILE__ " #include <Windows.h>")
-  #include <Windows.h>
+  #include <windows.h>
 #endif
 #pragma hdrstop
 #include "KRegKey.h"  //CRegistryKey class
@@ -28,7 +28,7 @@
   #ifdef __AFXWIN_H__
     static char BASED_CODE THIS_FILE[] = __FILE__;
   #else
-    #include <Assert.h>
+    #include <assert.h>
     #ifndef ASSERT
       #define ASSERT(expression) assert(expression)
     #endif
@@ -381,7 +381,7 @@ return FALSE;
 //operator<<()-----------------------------------------------------------------
 /*Translates predefined HKEY to readable text.
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
  */
 CString& operator<<(CString& strDestination, CRegistryKey& regSource)
 {
@@ -413,16 +413,21 @@ return strDestination;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-10-01 21:35:17  Darko           stdafx.h
- *  6    Biblioteka1.5         2003-09-03 19:09:01  Darko           defined NDEBUG
+ *  10   Biblioteka1.9         2005-04-26 11:35:24  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  9    Biblioteka1.8         2005-04-18 15:20:40  Darko Kolakovic header file
+ *       name
+ *  8    Biblioteka1.7         2005-03-21 03:16:51  Darko           comments
+ *  7    Biblioteka1.6         2004-10-01 22:35:17  Darko           stdafx.h
+ *  6    Biblioteka1.5         2003-09-03 20:09:01  Darko           defined NDEBUG
  *       ASSERT
- *  5    Biblioteka1.4         2003-08-09 13:11:16  Darko           formatting
- *  4    Biblioteka1.3         2002-01-29 22:21:42  Darko           Used lbraries
+ *  5    Biblioteka1.4         2003-08-09 14:11:16  Darko           formatting
+ *  4    Biblioteka1.3         2002-01-29 23:21:42  Darko           Used lbraries
  *       notes 
- *  3    Biblioteka1.2         2002-01-25 15:57:49  Darko           Updated
+ *  3    Biblioteka1.2         2002-01-25 16:57:49  Darko           Updated
  *       comments
- *  2    Biblioteka1.1         2001-08-16 23:37:56  Darko           Update
- *  1    Biblioteka1.0         2001-07-07 00:13:45  Darko           
+ *  2    Biblioteka1.1         2001-08-17 00:37:56  Darko           Update
+ *  1    Biblioteka1.0         2001-07-07 01:13:45  Darko           
  * $
  *****************************************************************************/
 

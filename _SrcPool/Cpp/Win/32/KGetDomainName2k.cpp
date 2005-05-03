@@ -1,5 +1,5 @@
 /*$Workfile: KGetDomainName2k.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-01 21:34:55$
+  $Revision: 2$ $Date: 2004-10-01 22:34:55$
   $Author: Darko$
 
   Dumps CFileException cause
@@ -49,8 +49,8 @@ return false;
 
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-01 21:34:55  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-17 01:16:42  Darko           
+ *  2    Biblioteka1.1         2004-10-01 22:34:55  Darko           stdafx.h
+ *  1    Biblioteka1.0         2003-08-17 02:16:42  Darko           
  * $
  *****************************************************************************/
 

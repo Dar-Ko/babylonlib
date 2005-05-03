@@ -1,5 +1,5 @@
 /*$Workfile: KAdoField.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-10-01 21:33:30$
+  $Revision: 6$ $Date: 2004-10-01 22:33:30$
   $Author: Darko$
 
   Defines the class behaviors for the application.

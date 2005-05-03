@@ -1,5 +1,5 @@
 /*$Workfile: KGetPrSu.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-10-01 21:34:57$
+  $Revision: 8$ $Date: 2004-10-01 22:34:57$
   $Author: Darko$
 
   Retrieve a list of installed products on WinNT
@@ -94,15 +94,15 @@ return FALSE;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         2004-10-01 21:34:57  Darko           stdafx.h
- *  7    Biblioteka1.6         2003-09-05 12:14:24  Darko           Unicode
- *  6    Biblioteka1.5         2002-01-29 22:21:06  Darko           Used lbraries
+ *  8    Biblioteka1.7         2004-10-01 22:34:57  Darko           stdafx.h
+ *  7    Biblioteka1.6         2003-09-05 13:14:24  Darko           Unicode
+ *  6    Biblioteka1.5         2002-01-29 23:21:06  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         2002-01-29 14:40:08  Darko           Tag update
- *  4    Biblioteka1.3         2001-08-11 00:04:00  Darko           version tags
- *  3    Biblioteka1.2         2001-07-11 21:51:37  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:50:47  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:56:33  Darko           
+ *  5    Biblioteka1.4         2002-01-29 15:40:08  Darko           Tag update
+ *  4    Biblioteka1.3         2001-08-11 01:04:00  Darko           version tags
+ *  3    Biblioteka1.2         2001-07-11 22:51:37  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:50:47  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:56:33  Darko           
  * $
  *
  * Revision 0  1999/08/07 MSDN

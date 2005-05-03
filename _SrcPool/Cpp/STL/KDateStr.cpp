@@ -1,5 +1,5 @@
 /*$Workfile: KDateStr.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-06-01 17:03:31$
+  $Revision: 7$ $Date: 2004-06-01 18:03:31$
   $Author: Darko$
 
   Format a date and time string

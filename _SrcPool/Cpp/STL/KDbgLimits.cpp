@@ -1,4 +1,4 @@
-/*$Workfile: KDbgLimits.cpp$: header file
+/*$Workfile: S:\_SrcPool\Cpp\STL\KDbgLimits.cpp$: header file
   $Revision: 2$ $Date: 2004-11-05 12:26:41$
   $Author: Darko Kolakovic$
 

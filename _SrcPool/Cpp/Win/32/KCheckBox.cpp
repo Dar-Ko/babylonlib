@@ -1,6 +1,6 @@
-/*$Workfile: KCheckBox.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-01 21:33:44$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KCheckBox.cpp$: implementation file
+  $Revision: 5$ $Date: 2005-05-02 17:20:27$
+  $Author: Darko Kolakovic$
 
   Defines the class behaviors for the application.
   Copyright: CommonSoft Inc.
@@ -46,7 +46,8 @@ void CCheckBox::OnDraw(const UINT itemState //[in] visual state of
 {
 if(((m_iStyle & BS_PUSHLIKE) == BS_PUSHLIKE) || !(IsCheckbox() || IsTristate()))
   {
-  return CButtonEx::OnDraw(itemState);
+  CButtonEx::OnDraw(itemState);
+  return;
   }
 
 CClientDC dc(this);
@@ -54,7 +55,14 @@ UINT nStyle = (UINT)GetWindowLong(m_hWnd, GWL_STYLE);
 
 CRect rect(0,0,BOX_SIZE,BOX_SIZE);
 if ((nStyle & BS_LEFTTEXT) == BS_LEFTTEXT) //Draw check box on the right side
-  rect.MoveToX(m_rtSize.right - BOX_SIZE);
+  {
+  #if (_MFC_VER < 0x0700)
+    rect.left  -= (m_rtSize.right - BOX_SIZE);
+    rect.right -= (m_rtSize.right - BOX_SIZE);
+  #else
+    rect.MoveToX(m_rtSize.right - BOX_SIZE);
+  #endif
+  }
 
 const COLORREF clrBtnShadow   = GetSysColor(COLOR_3DSHADOW);
 const COLORREF clrBtnDkShadow = GetSysColor(COLOR_3DDKSHADOW);
@@ -302,11 +310,13 @@ switch (m_nState)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2004-10-01 21:33:44  Darko           stdafx.h
- *  3    Biblioteka1.2         2003-09-04 14:50:18  Darko           Handling of
+ *  5    Biblioteka1.4         2005-05-02 17:20:27  Darko Kolakovic fixed MSVC6
+ *       build
+ *  4    Biblioteka1.3         2004-10-01 22:33:44  Darko           stdafx.h
+ *  3    Biblioteka1.2         2003-09-04 15:50:18  Darko           Handling of
  *       errorneus states in OnSetCheck()
- *  2    Biblioteka1.1         2003-09-02 16:20:08  Darko           Horizontal
+ *  2    Biblioteka1.1         2003-09-02 17:20:08  Darko           Horizontal
  *       aligment
- *  1    Biblioteka1.0         2003-09-02 00:05:10  Darko           
+ *  1    Biblioteka1.0         2003-09-02 01:05:10  Darko           
  * $
  *****************************************************************************/

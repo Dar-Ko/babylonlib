@@ -1,5 +1,5 @@
 /*$Workfile: KOStream.h$: header file
-  $Revision: 13$ $Date: 2004-10-06 23:58:13$
+  $Revision: 14$ $Date: 2005-03-21 02:15:10$
   $Author: Darko$
 
   STL header file
@@ -21,10 +21,12 @@
 
 #ifdef _DEBUG
   #ifndef _STLP_DEBUG
-    #define _STLP_DEBUG 1    //Debug STLPort library
-                             //Note: have to be defined before STL header
-                             //files
-  #endif
+    #ifdef _STLP_IOSTREAM  //included stlport/iostream header file
+      #define _STLP_DEBUG 1    //Debug STLPort library
+                               //Note: have to be defined before STL header
+                               //files
+    #endif //_STLP_IOSTREAM
+  #endif  //_STLP_DEBUG
 #else
   #ifdef _STLP_DEBUG
     #undef _STLP_DEBUG
@@ -80,7 +82,7 @@
       UTF-16 or UCS-4. Non-Unicode forms can crop up on some platforms
       in some Asian locales, and sometimes on EBCDIC based mainframes.
       Portable Unicode based applications need to stay away from any
-      use of wchar_t and the wwhatever() family of functions that
+      use of wchar_t and the whatever family of functions that
       support wchar_t. Setting up Unicode string constants in portable
       C or C++ has no language support at all, and is a complete pain.
       The usual approach is to define a series of individual numeric
@@ -138,6 +140,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  14   Biblioteka1.13        2005-03-21 02:15:10  Darko           Fixed STLport
+ *       query
  *  13   Biblioteka1.12        2004-10-06 23:58:13  Darko           new value for
  *       KSTL_VER / MSVC7
  *  12   Biblioteka1.11        2004-10-06 15:01:22  Darko           Unicode mapping

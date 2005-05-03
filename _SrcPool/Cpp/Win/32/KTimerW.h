@@ -1,14 +1,15 @@
-/*$Workfile: KTimerW.h$: header file
-  $Revision: 4$ $Date: 2003-09-22 21:27:15$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KTimerW.h$: header file
+  $Revision: 5$ $Date: 2005-04-26 11:35:43$
+  $Author: Darko Kolakovic$
 
   Simple Timer for Windows applications with WM_TIMER message
   Copyright: CommonSoft Inc
   Darko Kolakovic  May '98
 */
+// Group=Windows
 
 #ifndef _KTIMERW_H_
-    //KTimerW.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KTimerW.h$ sentry
   #define _KTIMERW_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -103,10 +104,12 @@ public:
 #endif  //_KTIMERW_H_
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2003-09-22 21:27:15  Darko           formatting
- *  3    Biblioteka1.2         2002-01-24 18:19:49  Darko           Updated
+ *  5    Biblioteka1.4         2005-04-26 11:35:43  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  4    Biblioteka1.3         2003-09-22 22:27:15  Darko           formatting
+ *  3    Biblioteka1.2         2002-01-24 19:19:49  Darko           Updated
  *       comments
- *  2    Biblioteka1.1         2001-07-18 22:33:00  Darko           VSS tags
- *  1    Biblioteka1.0         2001-06-25 22:44:58  Darko           
+ *  2    Biblioteka1.1         2001-07-18 23:33:00  Darko           VSS tags
+ *  1    Biblioteka1.0         2001-06-25 23:44:58  Darko           
  * $
  *****************************************************************************/

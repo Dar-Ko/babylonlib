@@ -1,5 +1,5 @@
 /*$Workfile: KWinVerG.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-10-01 21:35:47$
+  $Revision: 8$ $Date: 2004-10-01 22:35:47$
   $Author: Darko$
 
   Retrieve more detailed information about Windows platform using GetVersion() function
@@ -188,16 +188,16 @@ return dwEnviron;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         2004-10-01 21:35:47  Darko           stdafx.h
- *  7    Biblioteka1.6         2003-09-15 00:52:02  Darko           added WinXP
- *  6    Biblioteka1.5         2003-08-13 12:53:58  Darko           comment
- *  5    Biblioteka1.4         2002-01-29 22:22:25  Darko           Used lbraries
+ *  8    Biblioteka1.7         2004-10-01 22:35:47  Darko           stdafx.h
+ *  7    Biblioteka1.6         2003-09-15 01:52:02  Darko           added WinXP
+ *  6    Biblioteka1.5         2003-08-13 13:53:58  Darko           comment
+ *  5    Biblioteka1.4         2002-01-29 23:22:25  Darko           Used lbraries
  *       notes 
- *  4    Biblioteka1.3         2002-01-25 15:59:38  Darko           Updated
+ *  4    Biblioteka1.3         2002-01-25 16:59:38  Darko           Updated
  *       comments
- *  3    Biblioteka1.2         2001-07-11 21:53:40  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:52:33  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:04:18  Darko           
+ *  3    Biblioteka1.2         2001-07-11 22:53:40  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:52:33  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 16:04:18  Darko           
  * $
  *  0    1997-05 Darko Kolakovic
  *****************************************************************************/

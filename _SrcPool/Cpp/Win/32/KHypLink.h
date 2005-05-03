@@ -1,13 +1,13 @@
-/*$Workfile: KHypLink.h$: header file
-  $Revision: 9$ $Date: 2003-11-03 12:20:07$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KHypLink.h$: header file
+  $Revision: 11$ $Date: 2005-04-26 11:29:53$
+  $Author: Darko Kolakovic$
 
   HyperLink static control
   Chris Maunder, 1997
   D. Kolakovic  May 98 improved
  */
 #ifndef _KHYPLINK_H_
-    //KHypLink.k sentry
+    //$Workfile: S:\_SrcPool\Cpp\Win\32\KHypLink.h$ sentry
   #define _KHYPLINK_H_
 
 #if _MSC_VER > 1000
@@ -54,7 +54,7 @@ enum HLNK_STYLE
 //
 //History: Chris Maunder, 1997
 //
-//Note: uses Microsoft Fundation Library (MFC); 
+//Note: uses Microsoft Foundation Library (MFC); 
 //      Microsoft Windows specific (Win).
 class CHyperLink : public CStatic
 {
@@ -208,17 +208,20 @@ if (::IsWindow(GetSafeHwnd()))
 #endif // _KHYPLINK_H_
 /*****************************************************************************
  * $Log: 
- *  9    Biblioteka1.8         2003-11-03 12:20:07  Darko           Replaced BOOL
+ *  11   Biblioteka1.10        2005-04-26 11:29:53  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  10   Biblioteka1.9         2005-03-21 03:16:47  Darko           comments
+ *  9    Biblioteka1.8         2003-11-03 13:20:07  Darko           Replaced BOOL
  *       with bool
- *  8    Biblioteka1.7         2003-08-13 16:40:49  Darko           formatting
- *  7    Biblioteka1.6         2003-08-06 02:46:39  Darko           Prepared for
+ *  8    Biblioteka1.7         2003-08-13 17:40:49  Darko           formatting
+ *  7    Biblioteka1.6         2003-08-06 03:46:39  Darko           Prepared for
  *       Unicode 
- *  6    Biblioteka1.5         2003-08-05 22:16:40  Darko           Added notes
- *  5    Biblioteka1.4         2002-01-25 15:57:10  Darko           Updated
+ *  6    Biblioteka1.5         2003-08-05 23:16:40  Darko           Added notes
+ *  5    Biblioteka1.4         2002-01-25 16:57:10  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-08-16 23:37:37  Darko           Update
- *  3    Biblioteka1.2         2001-07-07 00:09:59  Darko           Example
- *  2    Biblioteka1.1         2001-06-08 22:50:56  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:56:40  Darko           
+ *  4    Biblioteka1.3         2001-08-17 00:37:37  Darko           Update
+ *  3    Biblioteka1.2         2001-07-07 01:09:59  Darko           Example
+ *  2    Biblioteka1.1         2001-06-08 23:50:56  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:56:40  Darko           
  * $
  *****************************************************************************/

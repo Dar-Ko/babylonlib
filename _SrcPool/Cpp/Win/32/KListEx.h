@@ -1,13 +1,15 @@
-/*$Workfile: KListEx.h$: header file
-  $Revision: 4$ $Date: 2004-10-01 21:35:08$
-  $Author: Darko$
-  
-  Interface of the CListEx class 
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KListEx.h$: header file
+  $Revision: 5$ $Date: 2005-04-27 12:54:30$
+  $Author: Darko Kolakovic$
+
+  Interface of the CListEx class
   Copyright: CommonSoft Inc
   Jan.97 Darko Kolakovic
  */
+// Group=Windows
+
 #ifndef _KLISTEX_H_
-  //KListEx.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KListEx.h$ sentry
   #define _KLISTEX_H_
 
 #if _MSC_VER > 1000
@@ -35,7 +37,7 @@ const int DIAG_TABSTOP = 4;     //The default number of characters per tab
 /////////////////////////////////////////////////////////////////////////////
 //CListEx extends functionality of the MFC List Control class.
 //
-//Note: uses Microsoft Fundation Library (MFC);
+//Note: uses Microsoft Foundation Library (MFC);
 //      Microsoft Windows specific (Win).
 class CListEx
 {
@@ -62,10 +64,10 @@ public:
   BOOL AdjustColumnWidths(int iCol,BOOL bUseHeaderText = FALSE);
   int  SelectRow(const int nRow);
   int  SetTitle(int nRow,LPTSTR strText);  //Set record's title
-  int  SetImage(int iRow,int iImageIndex = -1);//Set record's image 
+  int  SetImage(int iRow,int iImageIndex = -1);//Set record's image
   int  GetNextSelection(BOOL bNext =FALSE);//Retreive selected items
      //Get application-specific value
-  DWORD GetItemData ( int nItem ) const 
+  DWORD GetItemData ( int nItem ) const
     {ASSERT_VALID(m_pListControl);return m_pListControl->GetItemData(nItem); };
   BOOL SelectAll(BOOL bAll = TRUE); //Select all items
   CHeaderCtrl* GetHeaderCtrl();
@@ -90,9 +92,11 @@ public:
   //}}AFX_MSG_MAP
 
 /////////////////////////////////////////////////////////////////////////////
-
-// This class provedes a full row selection mode for the report
-// mode list view control.
+//This class provides a full row selection mode for the report
+//mode list view control.
+//
+//Note: uses Microsoft Foundation Library (MFC);
+//      Microsoft Windows specific (Win).
 class CListCtrlEx : public CListCtrl
 {
   DECLARE_DYNCREATE(CListCtrlEx)
@@ -179,7 +183,7 @@ public:
 
 //////////////////////////////////////////////////////////////////////
 // CSortItemInt
-  
+
 class CSortItemInt
 {
 public:
@@ -209,7 +213,7 @@ public:
 
   static int CALLBACK CompareAscText(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
   static int CALLBACK CompareDesText(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
-  
+
   static int CALLBACK CompareAscInt(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
   static int CALLBACK CompareDesInt(LPARAM lParam1, LPARAM lParam2, LPARAM lParamSort);
 };
@@ -217,10 +221,10 @@ public:
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KLISTEX_H_
 /*****************************************************************************
- * $Log: 
- *  4    Biblioteka1.3         2004-10-01 21:35:08  Darko           stdafx.h
- *  3    Biblioteka1.2         2003-08-25 00:15:59  Darko           comment
- *  2    Biblioteka1.1         2003-08-14 13:19:16  Darko           draft methods
- *  1    Biblioteka1.0         2003-08-13 12:51:38  Darko           
+ * $Log:
+ *  4    Biblioteka1.3         2004-10-01 22:35:08  Darko           stdafx.h
+ *  3    Biblioteka1.2         2003-08-25 01:15:59  Darko           comment
+ *  2    Biblioteka1.1         2003-08-14 14:19:16  Darko           draft methods
+ *  1    Biblioteka1.0         2003-08-13 13:51:38  Darko
  * $
  *****************************************************************************/

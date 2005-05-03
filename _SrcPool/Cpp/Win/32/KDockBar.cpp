@@ -1,6 +1,6 @@
-/*$Workfile: KDockBar.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-10-01 21:34:47$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDockBar.cpp$: implementation file
+  $Revision: 9$ $Date: 2005-04-26 11:29:45$
+  $Author: Darko Kolakovic$
 
   Control bar helper functions
   Copyright: CommonSoft Inc.
@@ -12,7 +12,7 @@
 //DockControlBarLeftOf()-------------------------------------------------------
 /*Dock tool bar pointed with Bar left of tool bar pointed with nPosition value.
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
  */
 void DockControlBarLeftOf(CFrameWnd& Frame, //[in] toolbar owner frame
                           CToolBar* Bar,    //[in] toolbar to be docked
@@ -44,7 +44,7 @@ Frame.DockControlBar(Bar,n,&rect);
 //DockControlTopRight()--------------------------------------------------------
 /*Dock tool bar pointed with Bar at frame's top right corner.
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
 
   Example:
 
@@ -80,14 +80,16 @@ Frame.DockControlBar(pBar,AFX_IDW_DOCKBAR_TOP | AFX_IDW_DOCKBAR_RIGHT,&rect);
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         2004-10-01 21:34:47  Darko           stdafx.h
- *  7    Biblioteka1.6         2003-09-22 21:26:13  Darko           formatting
- *  6    Biblioteka1.5         2002-01-29 22:20:56  Darko           Used lbraries
+ *  9    Biblioteka1.8         2005-04-26 11:29:45  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  8    Biblioteka1.7         2004-10-01 22:34:47  Darko           stdafx.h
+ *  7    Biblioteka1.6         2003-09-22 22:26:13  Darko           formatting
+ *  6    Biblioteka1.5         2002-01-29 23:20:56  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         2002-01-29 14:39:46  Darko           Tag update
- *  4    Biblioteka1.3         2001-08-19 22:53:44  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 21:51:28  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:50:42  Darko           VSS
- *  1    Biblioteka1.0         2000-08-17 01:41:26  Darko           
+ *  5    Biblioteka1.4         2002-01-29 15:39:46  Darko           Tag update
+ *  4    Biblioteka1.3         2001-08-19 23:53:44  Darko           Butyfier
+ *  3    Biblioteka1.2         2001-07-11 22:51:28  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:50:42  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-17 02:41:26  Darko           
  * $
  *****************************************************************************/

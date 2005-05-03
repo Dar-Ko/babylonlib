@@ -1,5 +1,5 @@
 /*$Workfile: KFileTimeCm.h$: header file
-  $Revision: 3$ $Date: 2004-10-01 21:34:53$
+  $Revision: 3$ $Date: 2004-10-01 22:34:53$
   $Author: Darko$
 
   FILETIME comparasion operators
@@ -52,8 +52,8 @@ return FALSE;
 #endif //_KFILETIMECM_H_
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2004-10-01 21:34:53  Darko           stdafx.h
- *  2    Biblioteka1.1         2003-09-24 11:27:51  Darko           formatting
- *  1    Biblioteka1.0         2002-03-12 23:40:44  Darko           
+ *  3    Biblioteka1.2         2004-10-01 22:34:53  Darko           stdafx.h
+ *  2    Biblioteka1.1         2003-09-24 12:27:51  Darko           formatting
+ *  1    Biblioteka1.0         2002-03-13 00:40:44  Darko           
  * $
  *****************************************************************************/

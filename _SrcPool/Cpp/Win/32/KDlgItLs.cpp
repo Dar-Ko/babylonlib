@@ -1,5 +1,5 @@
 /*$Workfile: KDlgItLs.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-01 21:34:38$
+  $Revision: 5$ $Date: 2004-10-01 22:34:38$
   $Author: Darko$
 
   A list with resizable controls

@@ -1,6 +1,6 @@
-/*$Workfile: KSysErrM.cpp$: implementation file
-  $Revision: 9$ $Date: 2004-10-01 21:35:32$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KSysErrM.cpp$: implementation file
+  $Revision: 10$ $Date: 2005-04-26 11:35:35$
+  $Author: Darko Kolakovic$
 
   System Error Display helper function
   Copyright: CommonSoft Inc.
@@ -27,7 +27,7 @@
   is on WinNT. If a function in this module fails because an unsupported feature
   was requested, no error is returned.
 
-  Note: uses Microsoft Fundation Library (MFC);
+  Note: uses Microsoft Foundation Library (MFC);
         Microsoft Windows specific (Win).
 
   Example:
@@ -926,16 +926,18 @@ return;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  9    Biblioteka1.8         2004-10-01 21:35:32  Darko           stdafx.h
- *  8    Biblioteka1.7         2003-08-06 02:46:44  Darko           Prepared for
+ *  10   Biblioteka1.9         2005-04-26 11:35:35  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  9    Biblioteka1.8         2004-10-01 22:35:32  Darko           stdafx.h
+ *  8    Biblioteka1.7         2003-08-06 03:46:44  Darko           Prepared for
  *       Unicode 
- *  7    Biblioteka1.6         2003-08-06 02:21:22  Darko           Added  a note
- *  6    Biblioteka1.5         2002-08-19 09:38:40  Darko Kolakovic 
- *  5    Biblioteka1.4         2002-01-25 15:59:00  Darko           Updated
+ *  7    Biblioteka1.6         2003-08-06 03:21:22  Darko           Added  a note
+ *  6    Biblioteka1.5         2002-08-19 10:38:40  Darko Kolakovic 
+ *  5    Biblioteka1.4         2002-01-25 16:59:00  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-08-19 22:55:51  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 21:53:09  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:52:09  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:01:13  Darko           
+ *  4    Biblioteka1.3         2001-08-19 23:55:51  Darko           Butyfier
+ *  3    Biblioteka1.2         2001-07-11 22:53:09  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:52:09  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 16:01:13  Darko           
  * $
  *****************************************************************************/

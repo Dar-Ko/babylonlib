@@ -1,6 +1,6 @@
-/*$Workfile: KDbgDaoQueryDefType.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-01 21:34:10$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgDaoQueryDefType.cpp$: implementation file
+  $Revision: 3$ $Date: 2005-04-26 11:28:57$
+  $Author: Darko Kolakovic$
 
   Dumps data access objects (DAO) properties
   Copyright: CommonSoft Inc.
@@ -31,7 +31,7 @@
 
   See also: CDaoQueryDefInfo structure
 
-  Note: uses Microsoft Fundation Library (MFC);
+  Note: uses Microsoft Foundation Library (MFC);
         Microsoft Windows specific (Win).
  */
 LPCTSTR DumpDaoQueryDefType(short sType //[in] operational type of a querydef object.
@@ -56,7 +56,9 @@ return _T("<unknown>");
 
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-01 21:34:10  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-13 16:36:32  Darko           
+ *  3    Biblioteka1.2         2005-04-26 11:28:57  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  2    Biblioteka1.1         2004-10-01 22:34:10  Darko           stdafx.h
+ *  1    Biblioteka1.0         2003-08-13 17:36:32  Darko           
  * $
  *****************************************************************************/

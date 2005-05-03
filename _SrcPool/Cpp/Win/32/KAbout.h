@@ -1,13 +1,15 @@
-/*$Workfile: KAbout.h$: header file
-  $Revision: 6$ $Date: 2004-10-26 13:52:20$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KAbout.h$: header file
+  $Revision: 7$ $Date: 2005-04-26 11:28:08$
   $Author: Darko Kolakovic$
 
   Interface of the CAboutDlg class
   Copyright: CommonSoft Inc
   Jan.96 Darko Kolakovic
  */
+// Group=Windows
+
 #ifndef __KABOUT_H__
-  //$Workfile: KAbout.h$ sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KAbout.h$ sentry
   #define __KABOUT_H__
 
 #if _MSC_VER > 1000
@@ -44,7 +46,7 @@
 //        }
 //      }
 //
-//Note: uses Microsoft Fundation Library (MFC);
+//Note: uses Microsoft Foundation Library (MFC);
 //      Microsoft Windows specific (Win).
 class CAboutDlg : public CDialog
 {

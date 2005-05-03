@@ -1,6 +1,6 @@
-/*$Workfile: KDbgOSVI.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-10-01 21:34:26$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgOSVI.cpp$: implementation file
+  $Revision: 9$ $Date: 2005-04-26 11:29:17$
+  $Author: Darko Kolakovic$
 
   Dumps operating system version information
   Copyright: CommonSoft Inc.
@@ -141,7 +141,7 @@
           1.30a        1.2.166
           1.30c        1.2.172
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
         Microsoft Windows specific (Win).
  */
 void DumpOsviInfo()

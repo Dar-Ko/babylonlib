@@ -1,5 +1,5 @@
 /*$Workfile: KGetShel.cpp$: implementation file
-  $Revision: 9$ $Date: 2004-10-01 21:35:01$
+  $Revision: 9$ $Date: 2004-10-01 22:35:01$
   $Author: Darko$
 
   Get version of Shell or Common Controls DLL

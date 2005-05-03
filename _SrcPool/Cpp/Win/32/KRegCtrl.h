@@ -1,13 +1,15 @@
-/*$Workfile: KRegCtrl.h$: header file
-  $Revision: 2$ $Date: 2004-10-01 21:35:13$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KRegCtrl.h$: header file
+  $Revision: 3$ $Date: 2005-04-26 11:35:19$
+  $Author: Darko Kolakovic$
   
   Interface of the CRegisterCtrl class 
   Copyright: CommonSoft Inc
   May. 94 Darko Kolakovic
  */
+// Group=Windows
+
 #ifndef __KREGCTRL_H__
-  //KRegCtrl.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KRegCtrl.h$ sentry
   #define __KREGCTRL_H__
 
 #if _MSC_VER > 1000
@@ -21,7 +23,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //CRegisterCtrl helper class TODO: description.
 
-//Note: uses Microsoft Fundation Library (MFC); 
+//Note: uses Microsoft Foundation Library (MFC); 
 //      Microsoft Windows specific (Win).
 class CRegisterCtrl
 {
@@ -39,7 +41,9 @@ public:
 #endif  //__KREGCTRL_H__
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-01 21:35:13  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-13 16:36:42  Darko           
+ *  3    Biblioteka1.2         2005-04-26 11:35:19  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  2    Biblioteka1.1         2004-10-01 22:35:13  Darko           stdafx.h
+ *  1    Biblioteka1.0         2003-08-13 17:36:42  Darko           
  * $
  *****************************************************************************/

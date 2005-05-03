@@ -1,5 +1,5 @@
 /*$Workfile: KGetPrTy.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-10-01 21:34:59$
+  $Revision: 8$ $Date: 2004-10-01 22:34:59$
   $Author: Darko$
 
   Retrieve a type of WinNT platform

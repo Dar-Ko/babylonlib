@@ -1,5 +1,5 @@
 /*$Workfile: KHypLink.cpp$: implementation file
-  $Revision: 9$ $Date: 2004-10-01 21:35:03$
+  $Revision: 9$ $Date: 2004-10-01 22:35:03$
   $Author: Darko$
 
   HyperLink static control.
@@ -525,16 +525,16 @@ if (m_bAutoDelete)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  9    Biblioteka1.8         2004-10-01 21:35:03  Darko           stdafx.h
- *  8    Biblioteka1.7         2003-11-03 12:20:04  Darko           Replaced BOOL
+ *  9    Biblioteka1.8         2004-10-01 22:35:03  Darko           stdafx.h
+ *  8    Biblioteka1.7         2003-11-03 13:20:04  Darko           Replaced BOOL
  *       with bool
- *  7    Biblioteka1.6         2003-09-22 21:26:15  Darko           formatting
- *  6    Biblioteka1.5         2003-08-06 02:46:37  Darko           Prepared for
+ *  7    Biblioteka1.6         2003-09-22 22:26:15  Darko           formatting
+ *  6    Biblioteka1.5         2003-08-06 03:46:37  Darko           Prepared for
  *       Unicode 
- *  5    Biblioteka1.4         2002-01-29 14:40:23  Darko           Tag update
- *  4    Biblioteka1.3         2001-08-16 23:37:33  Darko           Update
- *  3    Biblioteka1.2         2001-07-07 00:09:29  Darko           Example
- *  2    Biblioteka1.1         2001-06-08 22:50:54  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:56:38  Darko           
+ *  5    Biblioteka1.4         2002-01-29 15:40:23  Darko           Tag update
+ *  4    Biblioteka1.3         2001-08-17 00:37:33  Darko           Update
+ *  3    Biblioteka1.2         2001-07-07 01:09:29  Darko           Example
+ *  2    Biblioteka1.1         2001-06-08 23:50:54  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:56:38  Darko           
  * $
  *****************************************************************************/

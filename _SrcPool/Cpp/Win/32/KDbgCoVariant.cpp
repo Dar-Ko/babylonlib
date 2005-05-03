@@ -1,6 +1,6 @@
-/*$Workfile: KDbgCoVariant.cpp$: implementation file
-  $Revision: 4$ $Date: 2003-09-22 21:25:52$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgCoVariant.cpp$: implementation file
+  $Revision: 5$ $Date: 2005-04-26 11:28:48$
+  $Author: Darko Kolakovic$
 
   Dumps variant data type
   Copyright: CommonSoft Inc.
@@ -17,7 +17,7 @@
   and VariantClear as appropriate.
   Requires comutil.h and  comsupp.lib.
 
-  Note: uses Microsoft Fundation Library (MFC),
+  Note: uses Microsoft Foundation Library (MFC),
         Microsoft Windows specific (Win).
  */
 void DumpComVariant(CDumpContext& dc, //[in] dump context
@@ -148,7 +148,7 @@ dc << _T("\n");
   A COleVariant object encapsulates the VARIANT data type. This data type is 
   used in OLE automation.
 
-  Note: uses Microsoft Fundation Library (MFC),
+  Note: uses Microsoft Foundation Library (MFC),
         Microsoft Windows specific (Win).
  */
 void DumpComVariant(CDumpContext& dc, //[in] dump context
@@ -165,7 +165,7 @@ DumpComVariant(dc, (VARIANT) comVariant);
 /*Dumps variant data type of the _variant_t class.
   A _variant_t object encapsulates the VARIANT data type.
 
-  Note: uses Microsoft Fundation Library (MFC),
+  Note: uses Microsoft Foundation Library (MFC),
         Microsoft Windows specific (Win).
  */
 void DumpComVariant(CDumpContext& dc, //[in] dump context
@@ -320,10 +320,12 @@ DumpComVariant(dc, (VARIANT) comVariant);
 */
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2003-09-22 21:25:52  Darko           formatting
- *  3    Biblioteka1.2         2003-08-17 01:11:41  Darko           fixed type cast
+ *  5    Biblioteka1.4         2005-04-26 11:28:48  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  4    Biblioteka1.3         2003-09-22 22:25:52  Darko           formatting
+ *  3    Biblioteka1.2         2003-08-17 02:11:41  Darko           fixed type cast
  *       warning
- *  2    Biblioteka1.1         2003-08-13 13:39:29  Darko           formatting
- *  1    Biblioteka1.0         2003-08-12 12:56:53  Darko           
+ *  2    Biblioteka1.1         2003-08-13 14:39:29  Darko           formatting
+ *  1    Biblioteka1.0         2003-08-12 13:56:53  Darko           
  * $
  *****************************************************************************/

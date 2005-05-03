@@ -1,5 +1,5 @@
 /*$Workfile: KBtnEx.cpp$: implementation file
-  $Revision: 10$ $Date: 2004-10-01 21:33:41$
+  $Revision: 10$ $Date: 2004-10-01 22:33:41$
   $Author: Darko$
 
   Defines the class behaviors for the application.
@@ -478,18 +478,18 @@ return DefWindowProc(BM_SETSTYLE,
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  10   Biblioteka1.9         2004-10-01 21:33:41  Darko           stdafx.h
- *  9    Biblioteka1.8         2003-09-02 16:20:06  Darko           Horizontal
+ *  10   Biblioteka1.9         2004-10-01 22:33:41  Darko           stdafx.h
+ *  9    Biblioteka1.8         2003-09-02 17:20:06  Darko           Horizontal
  *       aligment
- *  8    Biblioteka1.7         2003-09-02 00:06:17  Darko           pushlike
+ *  8    Biblioteka1.7         2003-09-02 01:06:17  Darko           pushlike
  *       checkbox handling
- *  7    Biblioteka1.6         2003-08-29 14:50:08  Darko           Fixed BTN_HOVER
- *  6    Biblioteka1.5         2003-08-29 07:51:07  Darko           focus handling
- *  5    Biblioteka1.4         2003-08-26 00:34:05  Darko          
+ *  7    Biblioteka1.6         2003-08-29 15:50:08  Darko           Fixed BTN_HOVER
+ *  6    Biblioteka1.5         2003-08-29 08:51:07  Darko           focus handling
+ *  5    Biblioteka1.4         2003-08-26 01:34:05  Darko          
  *       IMPLEMENT_DYNAMIC
- *  4    Biblioteka1.3         2003-08-25 00:17:32  Darko           formatting
- *  3    Biblioteka1.2         2003-08-25 00:13:57  Darko           formatting
- *  2    Biblioteka1.1         2003-08-24 13:17:27  Darko           
- *  1    Biblioteka1.0         2003-08-24 13:02:43  Darko           
+ *  4    Biblioteka1.3         2003-08-25 01:17:32  Darko           formatting
+ *  3    Biblioteka1.2         2003-08-25 01:13:57  Darko           formatting
+ *  2    Biblioteka1.1         2003-08-24 14:17:27  Darko           
+ *  1    Biblioteka1.0         2003-08-24 14:02:43  Darko           
  * $
  *****************************************************************************/

@@ -1,6 +1,6 @@
-/*$Workfile: KStringStl.cpp$: implementation file
-  $Revision: 13$ $Date: 2004-10-01 21:15:04$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\STL\KStringStl.cpp$: implementation file
+  $Revision: 14$ $Date: 2005-04-27 12:51:01$
+  $Author: Darko Kolakovic$
 
   Implementation of the CString class. This is a STL port of MFC CString class
   Copyright: CommonSoft Inc.
@@ -1301,7 +1301,7 @@ void CString::OemToAnsi()
 // Diagnostic support
 /*
 #ifdef _DEBUG
-//Note: uses Microsoft Fundation Library (MFC).
+//Note: uses Microsoft Foundation Library (MFC).
 CDumpContext& AFXAPI operator<<(CDumpContext& dc, const CString& string)
 {
   dc << string.m_pchData;

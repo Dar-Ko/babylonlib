@@ -1,5 +1,5 @@
 /*$Workfile: KCoGetThreadModel.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-10-01 21:33:52$
+  $Revision: 3$ $Date: 2004-10-01 22:33:52$
   $Author: Darko$
 
   Retreives.COM threading model.
@@ -230,8 +230,8 @@ typedef enum tagCOINIT
  */
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2004-10-01 21:33:52  Darko           stdafx.h
- *  2    Biblioteka1.1         2003-08-13 13:39:27  Darko           formatting
- *  1    Biblioteka1.0         2003-08-09 13:06:20  Darko           
+ *  3    Biblioteka1.2         2004-10-01 22:33:52  Darko           stdafx.h
+ *  2    Biblioteka1.1         2003-08-13 14:39:27  Darko           formatting
+ *  1    Biblioteka1.0         2003-08-09 14:06:20  Darko           
  * $
  *****************************************************************************/

@@ -1,6 +1,6 @@
-/*$Workfile: KDbgFileExceptionError.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-01 21:34:17$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgFileExceptionError.cpp$: implementation file
+  $Revision: 3$ $Date: 2005-04-26 11:29:07$
+  $Author: Darko Kolakovic$
 
   Dumps CFileException cause
   Copyright: CommonSoft Inc.
@@ -41,7 +41,7 @@
         e->Delete();
         }
 
-  Note: uses Microsoft Fundation Library (MFC); 
+  Note: uses Microsoft Foundation Library (MFC); 
         Microsoft Windows specific (Win).
  */
 LPCTSTR DumpFileExceptionError(const int& iCause //[in] value defined by a CFileException enumerated type.
@@ -83,7 +83,9 @@ return _T("uknown");
 
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-01 21:34:17  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-13 16:36:37  Darko           
+ *  3    Biblioteka1.2         2005-04-26 11:29:07  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  2    Biblioteka1.1         2004-10-01 22:34:17  Darko           stdafx.h
+ *  1    Biblioteka1.0         2003-08-13 17:36:37  Darko           
  * $
  *****************************************************************************/

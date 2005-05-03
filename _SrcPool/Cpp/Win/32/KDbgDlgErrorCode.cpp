@@ -1,6 +1,6 @@
-/*$Workfile: KDbgDlgErrorCode.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-10-01 21:34:12$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgDlgErrorCode.cpp$: implementation file
+  $Revision: 4$ $Date: 2005-04-26 11:29:01$
+  $Author: Darko Kolakovic$
 
   Dumps dialog error return codes
   Copyright: CommonSoft Inc.
@@ -82,7 +82,7 @@
 
   See also: CommDlgExtendedError(), cderr.h - Common dialog error return codes
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
         Microsoft Windows specific (Win).   
  */
 void DumpDlgErrorCode()
@@ -141,8 +141,10 @@ switch (CommDlgExtendedError())
 #endif  //_DEBUG
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2004-10-01 21:34:12  Darko           stdafx.h
- *  2    Biblioteka1.1         2003-08-13 13:39:32  Darko           formatting
- *  1    Biblioteka1.0         2003-08-06 13:58:58  Darko           
+ *  4    Biblioteka1.3         2005-04-26 11:29:01  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  3    Biblioteka1.2         2004-10-01 22:34:12  Darko           stdafx.h
+ *  2    Biblioteka1.1         2003-08-13 14:39:32  Darko           formatting
+ *  1    Biblioteka1.0         2003-08-06 14:58:58  Darko           
  * $
  *****************************************************************************/

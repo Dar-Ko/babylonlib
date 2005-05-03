@@ -1,15 +1,16 @@
-/*$Workfile: KTimer.h$: header file
-  $Revision: 5$ $Date: 2003-09-22 21:27:11$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KTimer.h$: header file
+  $Revision: 6$ $Date: 2005-04-26 11:35:40$
+  $Author: Darko Kolakovic$
   
   Simple Timer with callback function for Windows applications
   Darko Kolakovic
   June 2k1 simplified version; CWnd moved
   May '98
 */
+// Group=Windows
 
 #ifndef _KTIMER_H_
-    //KTimer.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KTimer.h$ sentry
   #define _KTIMER_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -156,12 +157,14 @@ return m_nTimerID;
 
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2003-09-22 21:27:11  Darko           formatting
- *  4    Biblioteka1.3         2002-01-24 18:19:45  Darko           Updated
+ *  6    Biblioteka1.5         2005-04-26 11:35:40  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  5    Biblioteka1.4         2003-09-22 22:27:11  Darko           formatting
+ *  4    Biblioteka1.3         2002-01-24 19:19:45  Darko           Updated
  *       comments
- *  3    Biblioteka1.2         2001-08-16 23:38:18  Darko           Update
- *  2    Biblioteka1.1         2001-06-25 22:44:04  Darko           Simpilfied
+ *  3    Biblioteka1.2         2001-08-17 00:38:18  Darko           Update
+ *  2    Biblioteka1.1         2001-06-25 23:44:04  Darko           Simpilfied
  *       version
- *  1    Biblioteka1.0         2001-06-08 23:01:48  Darko           
+ *  1    Biblioteka1.0         2001-06-09 00:01:48  Darko           
  * $
  *****************************************************************************/

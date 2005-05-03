@@ -1,6 +1,6 @@
-/*$Workfile: KDbgDump.h$: header file
-  $Revision: 2$ $Date: 2003-08-06 13:45:46$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgDump.h$: header file
+  $Revision: 3$ $Date: 2005-04-28 18:11:47$
+  $Author: Darko Kolakovic$
 
   Dumps values of some Windows-specific IDs
   Copyright: CommonSoft Inc.
@@ -9,7 +9,7 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef __KDBGDUMP_H__
-    /*KDbgDump.h sentry                                                      */
+    /*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgDump.h$ sentry*/
   #define __KDBGDUMP_H__
 
 #if _MSC_VER > 1000
@@ -17,7 +17,7 @@
 #endif // _MSC_VER > 1000
 
 #if _MFC_VER == 0x600
-  #pragma message ( "MFC version 4.2") 
+  #pragma message ( "MFC version 4.2")
 #endif
 
 /* ///////////////////////////////////////////////////////////////////////// */
@@ -45,9 +45,9 @@
 /* ///////////////////////////////////////////////////////////////////////// */
 #endif /*__KDBGDUMP_H__                                                      */
 /******************************************************************************
- * $Log: 
- *  2    Biblioteka1.1         2003-08-06 13:45:46  Darko           Updated comment
- *  1    Biblioteka1.0         2002-08-27 22:33:56  Darko           
+ * $Log:
+ *  2    Biblioteka1.1         2003-08-06 14:45:46  Darko           Updated comment
+ *  1    Biblioteka1.0         2002-08-27 23:33:56  Darko
  * $
  *****************************************************************************/
 

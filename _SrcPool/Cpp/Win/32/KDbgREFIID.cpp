@@ -1,6 +1,6 @@
-/*$Workfile: KDbgREFIID.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-10-01 21:34:33$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgREFIID.cpp$: implementation file
+  $Revision: 4$ $Date: 2005-04-26 11:29:22$
+  $Author: Darko Kolakovic$
 
   Dumps OLE interface name
   Copyright: CommonSoft Inc.
@@ -25,7 +25,7 @@
   //DumpREFIID()---------------------------------------------------------------
   /*Dump OLE interface name.
 
-    Note: uses Microsoft Fundation Library (MFC),
+    Note: uses Microsoft Foundation Library (MFC),
           Microsoft Windows specific (Win).
    */
   void DumpREFIID(CDumpContext& dc,  //[in] dump context

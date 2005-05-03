@@ -1,5 +1,5 @@
-/*$Workfile: KWinVers.inl$: header file
-  $Revision: 7$ $Date: 2002-03-08 01:50:00$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KWinVers.inl$: header file
+  $Revision: 8$ $Date: 2005-04-26 11:35:58$
   $Author: Darko Kolakovic$
 
   Detect operating system and Windows platform version
@@ -7,9 +7,10 @@
   Jan 97  1st Version D.Kolakovic
   Jan 2k  Updated with Win2k functions D.K.
  */
- 
+// Group=Windows
+
 #ifndef _KWINVERS_INL_
-    //KWinVers.inl sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KWinVers.inl$ sentry
   #define _KWINVERS_INL_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -168,7 +169,7 @@ inline UINT GetOSBuild()
 /*****************************************************************************
  * $Log: 
  *  4    Biblioteka1.3         8/16/01 11:38:29 PM  Darko           Update
- *  3    Biblioteka1.2         7/7/01 11:10:38 PM   Darko           $Revision: 7$
+ *  3    Biblioteka1.2         7/7/01 11:10:38 PM   Darko           $Revision: 8$
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:52:42 PM   Darko           VSS
  *  1    Biblioteka1.0         8/13/00 3:04:28 PM   Darko           

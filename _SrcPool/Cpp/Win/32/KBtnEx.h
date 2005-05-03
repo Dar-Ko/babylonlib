@@ -1,13 +1,15 @@
-/*$Workfile: KBtnEx.h$: header file
-  $Revision: 7$ $Date: 2003-09-02 00:06:20$
-  $Author: Darko$
-  
-  Interface of the CButtonEx class 
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KBtnEx.h$: header file
+  $Revision: 8$ $Date: 2005-04-26 11:28:24$
+  $Author: Darko Kolakovic$
+
+  Interface of the CButtonEx class
   Copyright: CommonSoft Inc
   Jan.97 Darko Kolakovic
  */
+// Group=Windows
+
 #ifndef _KBTNEXT_H_
-  //KBtnExt.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KBtnEx.h$ sentry
   #define _KBTNEXT_H_
 
 #if _MSC_VER > 1000
@@ -18,7 +20,7 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
-  
+
 #if _MSC_VER < 1310 //Compilers older than Microsoft Visual C/C++ .Net v7.1
                     //See also: winuser.h
   #ifndef BS_PUSHBOX
@@ -49,14 +51,14 @@
 //      /*IDC_BTN_CUSTOM is the ID for a button on the dialog template used
 //        for CAboutDlg.*/
 //      m_myButton.SubclassDlgItem(IDC_BTN_CUSTOM, this);
-//      /*When a button is dynamically subclassed, windows messages will route 
-//        through the CButtonEx's message map and call message handlers in 
+//      /*When a button is dynamically subclassed, windows messages will route
+//        through the CButtonEx's message map and call message handlers in
 //        the CButtonEx's class first.*/
 //      ...
 //      return TRUE;
 //      }
 //
-//Note: uses Microsoft Fundation Library (MFC);
+//Note: uses Microsoft Foundation Library (MFC);
 //      Microsoft Windows specific (Win).
 class CButtonEx : public CButton
 {
@@ -126,7 +128,7 @@ protected:
 /*Set button's backround and text color.
  */
 inline void CButtonEx::SetTextColor(COLORREF clrForeground, //[in] text color
-                                    COLORREF clrBackground  //[in] background 
+                                    COLORREF clrBackground  //[in] background
                                                             //color
                                     )
 {
@@ -169,7 +171,7 @@ return ((m_iStyle & BTN_HOVER) == BTN_HOVER);
 }
 
 //-----------------------------------------------------------------------------
-/*Verifies if the button's status is selected. 
+/*Verifies if the button's status is selected.
   To validate visual state of the button control pass DRAWITEMSTRUCT::itemState
   structure member as the itemState parameter.
 
@@ -241,15 +243,15 @@ return (m_iStyle & BS_TYPEMASK);
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KBTNEXT_H_
 /*****************************************************************************
- * $Log: 
- *  7    Biblioteka1.6         2003-09-02 00:06:20  Darko           pushlike
+ * $Log:
+ *  7    Biblioteka1.6         2003-09-02 01:06:20  Darko           pushlike
  *       checkbox handling
- *  6    Biblioteka1.5         2003-08-29 14:50:10  Darko           Fixed BTN_HOVER
- *  5    Biblioteka1.4         2003-08-29 07:51:09  Darko           focus handling
- *  4    Biblioteka1.3         2003-08-26 00:34:07  Darko          
+ *  6    Biblioteka1.5         2003-08-29 15:50:10  Darko           Fixed BTN_HOVER
+ *  5    Biblioteka1.4         2003-08-29 08:51:09  Darko           focus handling
+ *  4    Biblioteka1.3         2003-08-26 01:34:07  Darko
  *       IMPLEMENT_DYNAMIC
- *  3    Biblioteka1.2         2003-08-25 00:12:39  Darko           comments
- *  2    Biblioteka1.1         2003-08-24 13:17:42  Darko           
- *  1    Biblioteka1.0         2003-08-24 13:02:45  Darko           
+ *  3    Biblioteka1.2         2003-08-25 01:12:39  Darko           comments
+ *  2    Biblioteka1.1         2003-08-24 14:17:42  Darko
+ *  1    Biblioteka1.0         2003-08-24 14:02:45  Darko
  * $
  *****************************************************************************/

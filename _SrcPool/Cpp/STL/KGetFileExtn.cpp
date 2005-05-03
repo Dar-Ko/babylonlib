@@ -1,5 +1,5 @@
 /*$Workfile: KGetFileExtn.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-06-01 17:03:33$
+  $Revision: 2$ $Date: 2004-06-01 18:03:33$
   $Author: Darko$
 
   Copyright: CommonSoft Inc.

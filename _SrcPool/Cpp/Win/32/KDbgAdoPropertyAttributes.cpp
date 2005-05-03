@@ -1,6 +1,6 @@
-/*$Workfile: KDbgAdoPropertyAttributes.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-01 21:34:00$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgAdoPropertyAttributes.cpp$: implementation file
+  $Revision: 3$ $Date: 2005-04-26 11:28:39$
+  $Author: Darko Kolakovic$
 
   Dumps Attributes property
   Copyright: CommonSoft Inc.
@@ -48,7 +48,7 @@
     ...
     TRACE(DumpPropertyAttributes(ptrProperties->GetAttributes()));
 
-  Note: uses Microsoft Fundation Library (MFC);
+  Note: uses Microsoft Foundation Library (MFC);
         Microsoft ActiveX Data Objects (ADO).
         Microsoft Windows specific (Win).
  */
@@ -76,7 +76,9 @@ return strTmp;
 
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-10-01 21:34:00  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-13 16:36:18  Darko           
+ *  3    Biblioteka1.2         2005-04-26 11:28:39  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  2    Biblioteka1.1         2004-10-01 22:34:00  Darko           stdafx.h
+ *  1    Biblioteka1.0         2003-08-13 17:36:18  Darko           
  * $
  *****************************************************************************/

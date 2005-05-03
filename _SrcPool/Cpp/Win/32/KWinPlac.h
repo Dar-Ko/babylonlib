@@ -1,5 +1,5 @@
 /*$Workfile: KWinPlac.h$: header file
-  $Revision: 6$ $Date: 2003-09-03 14:02:39$
+  $Revision: 9$ $Date: 2005-05-01 00:35:21$
   $Author: Darko$
 
   Encapsulates the WINDOWPLACEMENT structure
@@ -9,9 +9,10 @@
   Dec. '97 Encapsulated in class  D.K.
   Apr. 2k  Get/SetWindowPlacement D.K.
  */
+// Group=Windows
 
 #ifndef _KWINPLAC_H_
-    //KWinPlac.h sentry
+    //$Workfile: KWinPlac.h$ sentry
   #define _KWINPLAC_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -26,8 +27,8 @@
 //CWinApp::SetRegistryKey(<UserKey>). The key have following form:
 //    HKEY_CURRENT_USER\Software\<UserKey>\<ApplicationName>\<section>\<key>
 //
-//Note: Microsoft Windows specific (Win) 
-//      and uses Microsoft Fundation Library (MFC).
+//Note: Microsoft Windows specific (Win32) 
+//      and uses Microsoft Foundation Library (MFC).
 class CWindowPlacement : public tagWINDOWPLACEMENT
 {
 // Construction
@@ -103,9 +104,9 @@ inline void CWindowPlacement::Empty()
 length                 =sizeof(tagWINDOWPLACEMENT);
 flags                  =0;//flags that control the position
 showCmd                =0;//current show state of the window
-ptMinPosition.x        =0;//the position of the windows
+ptMinPosition.x        =0;//the position of the window's
 ptMinPosition.y        =0;//top-left corner when the window is minimized
-ptMaxPosition.x        =0;//the position of the windows
+ptMaxPosition.x        =0;//the position of the window's
 ptMaxPosition.y        =0;//top-left corner when the window is maximized
 rcNormalPosition.left  =0;//the window’s coordinates when
 rcNormalPosition.top   =0;//the window is in the normal position.
@@ -197,12 +198,16 @@ return pWnd->SetWindowPlacement((WINDOWPLACEMENT*)this);
 
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2003-09-03 14:02:39  Darko           Unicode
- *  5    Biblioteka1.4         2002-01-24 18:22:33  Darko           Updated
+ *  9    Biblioteka1.8         2005-05-01 00:35:21  Darko           Comment
+ *  8    Biblioteka1.7         2005-04-26 11:35:51  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  7    Biblioteka1.6         2005-04-04 21:57:25  Darko           comments
+ *  6    Biblioteka1.5         2003-09-03 15:02:39  Darko           Unicode
+ *  5    Biblioteka1.4         2002-01-24 19:22:33  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-08-19 22:56:20  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 21:53:33  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:52:31  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:04:13  Darko           
+ *  4    Biblioteka1.3         2001-08-19 23:56:20  Darko           Butyfier
+ *  3    Biblioteka1.2         2001-07-11 22:53:33  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:52:31  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 16:04:13  Darko           
  * $
  *****************************************************************************/

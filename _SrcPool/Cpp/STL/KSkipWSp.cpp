@@ -1,5 +1,5 @@
 /*$Workfile: KSkipWSp.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-06-01 17:03:46$
+  $Revision: 7$ $Date: 2004-06-01 18:03:46$
   $Author: Darko$
 
   Skip white spaces from the stream

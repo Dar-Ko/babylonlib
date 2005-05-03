@@ -1,5 +1,5 @@
 /*$Workfile: KTipBox.cpp$: implementation file
-  $Revision: 5$ $Date: 2003-09-22 21:27:17$
+  $Revision: 5$ $Date: 2003-09-22 22:27:17$
   $Author: Darko$
 
   Simple Text Tip Window

@@ -1,5 +1,5 @@
 /*$Workfile: KStrWtoChar.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-07 11:56:34$
+  $Revision: 3$ $Date: 2005-03-21 03:16:00$
   $Author: Darko$
 
   Convert wide-character string to ASCII string
@@ -9,24 +9,16 @@
 
 /* Group=Strings                                                             */
 
-#ifdef _WIN32
-  //Standard Microsoft Windows header files
-  #include "stdafx.h"
-#endif
-
 #include <string>
 
 std::string WtoChar(const wchar_t* lpWideCharStr, int iLen = -1);
 
 //-----------------------------------------------------------------------------
-#ifdef _WIN32
 /*Converts wide-character string to single-byte character (ASCII) string.
 
   Returns STL string with SBCS mapping.
 
   Note: uses Standard Template Library (STL).
-
-  TODO: non-Microsoft version
 
   See also: SBCS, _UNICODE
  */
@@ -42,72 +34,24 @@ ASSERT(lpWideCharStr != NULL);
 std::string strResult;
 if ( lpWideCharStr != NULL)
   {
-    //Calculate size of the new string
-  int iSize = WideCharToMultiByte(CP_ACP, // ANSI code page
-                                  0     ,   // performance and mapping flags
-                                  lpWideCharStr, // wide-character string
-                                  iLen , // number of chars in string
-                                  NULL , // buffer for new string
-                                  0 ,    // size of buffer
-                                  NULL , // default for unmappable chars
-                                  NULL   // set when default char used
-                                  );
-  if (iSize > 0)
-    {
-    char* szTemp = new char[iSize];
-
-    #ifdef _DEBUG
-      int iRes = WideCharToMultiByte(CP_ACP, // ANSI code page
-                        0     ,// performance and mapping flags
-                        lpWideCharStr, // wide-character string
-                        iLen,  // number of chars in string
-                        szTemp,// buffer for new string
-                        iSize, // size of buffer
-                        NULL , // default for unmappable chars
-                        NULL   // set when default char used
-                        );
-      if ( iRes == 0)
-        {
-        iRes = (int)GetLastError();
-        switch((DWORD)iRes)
-          {
-          case ERROR_INSUFFICIENT_BUFFER:
-            TRACE0(_T("  ERROR_INSUFFICIENT_BUFFER\n"));
-            break;
-          case ERROR_INVALID_FLAGS:
-            TRACE0(_T("  ERROR_INVALID_FLAGS\n"));
-            break;
-          case ERROR_INVALID_PARAMETER:
-            TRACE0(_T("  ERROR_INVALID_PARAMETER\n"));
-            break;
-          default:
-            TRACE1("  unknown error (%d)\n", (DWORD)iRes);
-          }
-        }
-    #else //NDEBUG
-      WideCharToMultiByte(CP_ACP, // ANSI code page
-               0     ,// performance and mapping flags
-               lpWideCharStr, // wide-character string
-               iLen,  // number of chars in string
-               szTemp,// buffer for new string
-               iSize, // size of buffer
-               NULL , // default for unmappable chars
-               NULL   // set when default char used
-               );
-
-    #endif //_DEBUG
-
-    szTemp[iSize -1] = '\0';
-    strResult = szTemp;
-    delete [] szTemp;
-    }
+  if (iLen == -1)
+    iLen = wcslen(lpWideCharStr);
+  size_t nSize;
+  char* szTemp = new char[nSize = (size_t)iLen + 1];
+  wcstombs(szTemp, lpWideCharStr, iLen);
+  szTemp[iLen] = '\0';
+  strResult = szTemp;
+  delete [] szTemp;
  }
 return strResult;
 }
-#endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log:
- *  1    Biblioteka1.0         2004-10-06 16:00:48  Darko
+ * $Log: 
+ *  3    Biblioteka1.2         2005-03-21 03:16:00  Darko           Replaced
+ *       Microsoft version with ANSI
+ *  2    Biblioteka1.1         2004-10-07 12:56:34  Darko           documentation
+ *       group
+ *  1    Biblioteka1.0         2004-10-06 16:00:48  Darko           
  * $
  *****************************************************************************/

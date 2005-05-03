@@ -1,5 +1,5 @@
 /*$Workfile: KWinVers.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-10-01 21:35:49$
+  $Revision: 8$ $Date: 2004-10-01 22:35:49$
   $Author: Darko$
 
   Obtains extended information about the 32-bit Windows platform that is
@@ -275,16 +275,16 @@ return TRUE;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         2004-10-01 21:35:49  Darko           stdafx.h
- *  7    Biblioteka1.6         2003-09-15 00:52:05  Darko           added WinXP
- *  6    Biblioteka1.5         2002-01-29 22:22:32  Darko           Used lbraries
+ *  8    Biblioteka1.7         2004-10-01 22:35:49  Darko           stdafx.h
+ *  7    Biblioteka1.6         2003-09-15 01:52:05  Darko           added WinXP
+ *  6    Biblioteka1.5         2002-01-29 23:22:32  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         2002-01-25 15:59:48  Darko           Updated
+ *  5    Biblioteka1.4         2002-01-25 16:59:48  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-08-16 23:38:22  Darko           Update
- *  3    Biblioteka1.2         2001-07-07 23:06:15  Darko           WinNT.h/build
+ *  4    Biblioteka1.3         2001-08-17 00:38:22  Darko           Update
+ *  3    Biblioteka1.2         2001-07-08 00:06:15  Darko           WinNT.h/build
  *       0087
- *  2    Biblioteka1.1         2001-06-08 22:52:37  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:04:23  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:52:37  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 16:04:23  Darko           
  * $
  *****************************************************************************/

@@ -1,15 +1,16 @@
-/*$Workfile: KVerInfo.h$: header file
-  $Revision: 7$ $Date: 2003-08-06 21:48:59$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KVerInfo.h$: header file
+  $Revision: 9$ $Date: 2005-04-26 11:35:48$
+  $Author: Darko Kolakovic$
   
   Obtains version information about a specified module
   Copyright: CommonSoft Inc
   May 97 Darko Kolakovic
   Jan 2k MSVC++ 6 revision D.K.
  */
+// Group=Windows
 
 #ifndef __KVERINFO_H__
-  //KVerInfo.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KVerInfo.h$ sentry
   #define __KVERINFO_H__
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -43,7 +44,7 @@
 //Note: The version information functions work only with Win32 file images.
 //      They do not work with 16-bit Windows file images.
 //      Microsoft Windows specific (Win);
-//      uses Microsoft Fundation Library (MFC).
+//      uses Microsoft Foundation Library (MFC).
 class CVersionInfo : public CObject
 {
 // Construction
@@ -142,14 +143,17 @@ return m_nTranslationTableSize;
 #endif //__KVERINFO_H__
 /*****************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2003-08-06 21:48:59  Darko           Unicode fix
- *  6    Biblioteka1.5         2003-08-06 02:46:49  Darko           Prepared for
+ *  9    Biblioteka1.8         2005-04-26 11:35:48  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  8    Biblioteka1.7         2005-03-21 03:16:56  Darko           comments
+ *  7    Biblioteka1.6         2003-08-06 22:48:59  Darko           Unicode fix
+ *  6    Biblioteka1.5         2003-08-06 03:46:49  Darko           Prepared for
  *       Unicode 
- *  5    Biblioteka1.4         2002-01-24 18:22:29  Darko           Updated
+ *  5    Biblioteka1.4         2002-01-24 19:22:29  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-08-19 22:56:07  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 21:53:23  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:52:22  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:03:19  Darko           
+ *  4    Biblioteka1.3         2001-08-19 23:56:07  Darko           Butyfier
+ *  3    Biblioteka1.2         2001-07-11 22:53:23  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:52:22  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 16:03:19  Darko           
  * $
  *****************************************************************************/

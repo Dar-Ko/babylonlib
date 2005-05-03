@@ -1,6 +1,6 @@
-/*$Workfile: KFileTime.h$: header file
-  $Revision: 4$ $Date: 2003-09-24 17:40:36$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KFileTime.h$: header file
+  $Revision: 5$ $Date: 2005-04-26 11:29:50$
+  $Author: Darko Kolakovic$
 
   FILETIME creation time conversion helper
   Copyright: CommonSoft Inc.
@@ -9,7 +9,7 @@
 /* Group=Time                                                                */
 
 #ifndef _KFILETIME_H_
-    //$Workfile: KFileTime.h$ sentry
+    //$Workfile: S:\_SrcPool\Cpp\Win\32\KFileTime.h$ sentry
   #define _KFILETIME_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -42,7 +42,7 @@
       DWORD dwHighDateTime;  //Specifies the high 32 bits of the file time.
       } FILETIME, *PFILETIME, *LPFILETIME;
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
         Microsoft Windows specific (Win).
 
   See also: YEAR_EPOCH_WINFILETIME, PTM, date, time, DATE
@@ -263,11 +263,13 @@ return fileSource;
 #endif //_KFILETIME_H_
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2003-09-24 17:40:36  Darko           Fixed VC++ .Net
+ *  5    Biblioteka1.4         2005-04-26 11:29:50  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  4    Biblioteka1.3         2003-09-24 18:40:36  Darko           Fixed VC++ .Net
  *       7.1 (2003) compilation
- *  3    Biblioteka1.2         2003-09-24 11:27:48  Darko           formatting
- *  2    Biblioteka1.1         2002-08-02 21:26:23  Darko Kolakovic 
- *  1    Biblioteka1.0         2002-03-12 23:40:42  Darko           
+ *  3    Biblioteka1.2         2003-09-24 12:27:48  Darko           formatting
+ *  2    Biblioteka1.1         2002-08-02 22:26:23  Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-03-13 00:40:42  Darko           
  * $
  *  0 Dec 98 Darko Kolakovic
  *****************************************************************************/

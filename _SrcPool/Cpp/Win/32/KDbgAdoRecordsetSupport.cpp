@@ -1,6 +1,6 @@
-/*$Workfile: KDbgAdoRecordsetSupport.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-10-01 21:34:02$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgAdoRecordsetSupport.cpp$: implementation file
+  $Revision: 7$ $Date: 2005-04-26 11:28:43$
+  $Author: Darko Kolakovic$
 
   Dumps Recordset functionality
   Copyright: CommonSoft Inc.
@@ -57,7 +57,7 @@
                                 methods) to transmit groups of changes to
                                 the provider.
 
-  Note: uses Microsoft Fundation Library (MFC);
+  Note: uses Microsoft Foundation Library (MFC);
         Microsoft ActiveX Data Objects (ADO).
         Microsoft Windows specific (Win).
  */
@@ -100,12 +100,14 @@ if(ptrRecordset)
 
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2004-10-01 21:34:02  Darko           stdafx.h
- *  5    Biblioteka1.4         2003-08-21 14:26:43  Darko           afxDump is not
+ *  7    Biblioteka1.6         2005-04-26 11:28:43  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  6    Biblioteka1.5         2004-10-01 22:34:02  Darko           stdafx.h
+ *  5    Biblioteka1.4         2003-08-21 15:26:43  Darko           afxDump is not
  *       defined in release version
- *  4    Biblioteka1.3         2003-08-13 16:35:54  Darko           import Ado15
- *  3    Biblioteka1.2         2003-08-13 16:35:12  Darko           
- *  2    Biblioteka1.1         2003-08-13 13:39:34  Darko           formatting
- *  1    Biblioteka1.0         2003-08-12 12:56:55  Darko           
+ *  4    Biblioteka1.3         2003-08-13 17:35:54  Darko           import Ado15
+ *  3    Biblioteka1.2         2003-08-13 17:35:12  Darko           
+ *  2    Biblioteka1.1         2003-08-13 14:39:34  Darko           formatting
+ *  1    Biblioteka1.0         2003-08-12 13:56:55  Darko           
  * $
  *****************************************************************************/

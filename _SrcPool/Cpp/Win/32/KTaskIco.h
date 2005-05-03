@@ -1,14 +1,15 @@
-/*$Workfile: KTaskIco.h$: header file
-  $Revision: 4$ $Date: 2003-08-13 16:40:08$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KTaskIco.h$: header file
+  $Revision: 5$ $Date: 2005-04-26 11:35:38$
+  $Author: Darko Kolakovic$
 
   Adds icons to the Windows system taskbar
   Copyright: CommonSoft Inc.
   Sep. 97 Darko Kolakovic
  */
+// Group=Windows
 
 #ifndef _KTASKICO_H_
-  //KTaskIco.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KTaskIco.h$ sentry
   #define _KTASKICO_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -19,7 +20,7 @@
 //CTaskBarIcon class encapsulates NOTIFYICONDATA structure used to add icons to
 //the system taskbar notification area.
 //
-//Note: uses Microsoft Fundation Library (MFC); 
+//Note: uses Microsoft Foundation Library (MFC); 
 //      Microsoft Windows specific (Win9x, WinNT).
 class CTaskBarIcon : public CCmdTarget
 {
@@ -54,11 +55,13 @@ public:
 #endif  //_KTASKICO_H_
 /******************************************************************************
  *$Log: 
- * 4    Biblioteka1.3         2003-08-13 16:40:08  Darko           comment
- * 3    Biblioteka1.2         2003-08-13 13:38:26  Darko           Unicode
- * 2    Biblioteka1.1         2002-07-16 00:41:34  Darko           Fixed VSS Log 
+ * 5    Biblioteka1.4         2005-04-26 11:35:38  Darko Kolakovic Document groups
+ *      and typo fixes
+ * 4    Biblioteka1.3         2003-08-13 17:40:08  Darko           comment
+ * 3    Biblioteka1.2         2003-08-13 14:38:26  Darko           Unicode
+ * 2    Biblioteka1.1         2002-07-16 01:41:34  Darko           Fixed VSS Log 
  *      tag
- * 1    Biblioteka1.0         2002-04-04 23:50:16  Darko           
+ * 1    Biblioteka1.0         2002-04-05 00:50:16  Darko           
  *$
  *****************************************************************************/
   //This makes the ClassWizard very happy

@@ -1,5 +1,5 @@
 /*$Workfile: KTimerW.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-01 21:35:39$
+  $Revision: 4$ $Date: 2004-10-01 22:35:39$
   $Author: Darko$
 
   Copyright: CommonSoft Inc.

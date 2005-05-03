@@ -1,5 +1,5 @@
-/*$Workfile: StdAfx.h$: header file
-  $Revision: 1.1 $  $Date: 2005/03/09 07:24:28 $
+/*$Workfile: stdafx.h$: header file
+  $Revision: 1.2 $  $Date: 2005/05/03 00:10:00 $
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -7,8 +7,8 @@
 */
 
 #ifndef _STDAFX_H_
-  /*$Workfile: StdAfx.h$ sentry */
-  #define _STDAFX_H_
+  /*$Workfile: stdafx.h$ sentry */
+  #define _STDAFX_H_ 1432
 
 #if _MSC_VER > 1000
   #pragma once
@@ -47,6 +47,9 @@
       //library (DLL). The library is an aggregatation of C++ classes used in
       //building software programs for the Microsoft Windows OS.
       #define _USE_MFC 201
+      #ifndef _USE_AFX
+        #define _USE_AFX _USE_MFC
+      #endif
     #endif
   #endif
 
@@ -142,23 +145,30 @@
 //Project specific header files
 #include "KTrace.h"   /*ASSERT_CL macro                         */
 #include "KTestLog.h" /*CTestLog class                          */
+#if !defined(UNUSED)
+  #include "KProgCst.h"
+#endif
 
 // TODO: reference additional headers your program requires here
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif // !defined(_STDAFX_H_)
 /*****************************************************************************
- * $Log: 
- *  7    Biblioteka1.6         2004-11-02 14:32:35  Darko Kolakovic generalized for
+ * $Log:
+ *  10   Biblioteka1.9         2005-04-28 18:11:36  Darko Kolakovic _STDAFX_H_
+ *  9    Biblioteka1.8         2005-04-28 10:57:00  Darko Kolakovic
+ *  8    Biblioteka1.7         2005-04-13 15:07:19  Darko Kolakovic defined
+ *       _USE_AFX
+ *  7    Biblioteka1.6         2004-11-02 15:32:35  Darko Kolakovic generalized for
  *       SDK
- *  6    Biblioteka1.5         2004-10-01 21:35:56  Darko           stdafx.h
- *  5    Biblioteka1.4         2003-09-24 17:40:39  Darko           Fixed VC++ .Net
+ *  6    Biblioteka1.5         2004-10-01 22:35:56  Darko           stdafx.h
+ *  5    Biblioteka1.4         2003-09-24 18:40:39  Darko           Fixed VC++ .Net
  *       7.1 (2003) compilation
- *  4    Biblioteka1.3         2003-08-14 13:18:51  Darko           deleted
- *       afxdao.h 
- *  3    Biblioteka1.2         2003-08-13 16:39:55  Darko           DAO Database
+ *  4    Biblioteka1.3         2003-08-14 14:18:51  Darko           deleted
+ *       afxdao.h
+ *  3    Biblioteka1.2         2003-08-13 17:39:55  Darko           DAO Database
  *       support
- *  2    Biblioteka1.1         2003-08-13 12:55:32  Darko           Q314963
- *  1    Biblioteka1.0         2001-07-07 00:13:52  Darko           
+ *  2    Biblioteka1.1         2003-08-13 13:55:32  Darko           Q314963
+ *  1    Biblioteka1.0         2001-07-07 01:13:52  Darko
  * $
  *****************************************************************************/

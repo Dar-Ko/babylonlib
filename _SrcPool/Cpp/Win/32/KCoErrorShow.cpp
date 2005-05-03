@@ -1,11 +1,13 @@
-/*$Workfile: KCoErrorShow.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-01 21:33:50$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KCoErrorShow.cpp$: implementation file
+  $Revision: 8$ $Date: 2005-04-26 11:28:31$
+  $Author: Darko Kolakovic$
 
   Displays COM Error description
   Copyright: CommonSoft Inc.
   2003-08-09 Darko Kolakovic
  */
+// Group=Diagnostic
+
 #include "stdafx.h"
 #include "Resource.h" //IDS_FILENOTFOUND
 #ifndef _INC_COMDEF
@@ -27,19 +29,22 @@
 #define __FILENOTFOUNDSTR__ _T("%s: File Not Found.")
 #endif
 
-void ComErrorShow(_com_error& cee, 
+void ComErrorShow(_com_error& cee,
                   LPCTSTR szHelpFile = NULL, UINT nHelpContext = 0);
 extern CString GetFileExt(CString& strFileName);
 
 //-----------------------------------------------------------------------------
 /*Displays an error message box with captured COM error description.
-  A _com_error object represents an exception condition detected by the 
+  A _com_error object represents an exception condition detected by the
   error-handling wrapper functions in the header files generated from the type
-  library or by one of the COM support classes. The _com_error class 
+  library or by one of the COM support classes. The _com_error class
   encapsulates the HRESULT error code and any associated IErrorInfo object.
 
-  Note: uses Microsoft Fundation Library (MFC); 
+  Note: uses Microsoft Foundation Library (MFC);
+        Active Template Library (ATL)
         Microsoft Windows specific (Win).
+
+  See also: DisplayError(), ComProviderErrors()
  */
 void ComErrorShow(_com_error& cee, //[in] COM Error exception
                   LPCTSTR szHelpFile, //[in]=NULL fully qualified path
@@ -55,8 +60,8 @@ CString strMessage;
 if (((LPCTSTR)cee.HelpFile() != NULL ) || (szHelpFile != NULL))
   {
   strMessage.Format( _T("%s\nError 0x%08lx %s\n%s\nMore Help?"), //TODO: Localization D.K.
-                    (((LPTSTR)cee.Source() != NULL) ? (LPTSTR)cee.Source() : _T("")), 
-                    cee.Error(), 
+                    (((LPTSTR)cee.Source() != NULL) ? (LPTSTR)cee.Source() : _T("")),
+                    cee.Error(),
                     (LPTSTR)cee.ErrorMessage(),
                     (((LPTSTR)cee.Description() != NULL) ? (LPTSTR)cee.Description() : _T(""))
                     );
@@ -153,8 +158,8 @@ if (((LPCTSTR)cee.HelpFile() != NULL ) || (szHelpFile != NULL))
 else
   {
   strMessage.Format( _T("%s\nError 0x%08lx %s\n%s"), //TODO: Localization D.K.
-                    (((LPTSTR)cee.Source() != NULL) ? (LPTSTR)cee.Source() : _T("")), 
-                    cee.Error(), 
+                    (((LPTSTR)cee.Source() != NULL) ? (LPTSTR)cee.Source() : _T("")),
+                    cee.Error(),
                     (LPTSTR)cee.ErrorMessage(),
                     (((LPTSTR)cee.Description() != NULL) ? (LPTSTR)cee.Description() : _T(""))
                     );
@@ -164,18 +169,18 @@ else
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
- *  7    Biblioteka1.6         2004-10-01 21:33:50  Darko           stdafx.h
- *  6    Biblioteka1.5         2003-08-19 15:16:34  Darko           Text help file
+ * $Log:
+ *  7    Biblioteka1.6         2004-10-01 22:33:50  Darko           stdafx.h
+ *  6    Biblioteka1.5         2003-08-19 16:16:34  Darko           Text help file
  *       for exyension .chm
- *  5    Biblioteka1.4         2003-08-14 13:18:00  Darko           removed
+ *  5    Biblioteka1.4         2003-08-14 14:18:00  Darko           removed
  *       OpenHelpChm
- *  4    Biblioteka1.3         2003-08-13 09:53:08  Darko           HtmlHelp()
- *  3    Biblioteka1.2         2003-08-12 12:59:05  Darko           WinHelp for Jet
+ *  4    Biblioteka1.3         2003-08-13 10:53:08  Darko           HtmlHelp()
+ *  3    Biblioteka1.2         2003-08-12 13:59:05  Darko           WinHelp for Jet
  *       errors
- *  2    Biblioteka1.1         2003-08-10 04:02:21  Darko           Added
+ *  2    Biblioteka1.1         2003-08-10 05:02:21  Darko           Added
  *       ComProviderErrors()
- *  1    Biblioteka1.0         2003-08-09 16:42:05  Darko           
+ *  1    Biblioteka1.0         2003-08-09 17:42:05  Darko
  * $
  *****************************************************************************/
 

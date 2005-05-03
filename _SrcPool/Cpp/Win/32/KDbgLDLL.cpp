@@ -1,6 +1,6 @@
-/*$Workfile: KDbgLDLL.cpp$: implementation file
-  $Revision: 9$ $Date: 2004-10-01 21:34:21$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgLDLL.cpp$: implementation file
+  $Revision: 10$ $Date: 2005-04-26 11:29:12$
+  $Author: Darko Kolakovic$
   
   Dumps DLL names used by active process
   Copyright: CommonSoft Inc.
@@ -25,7 +25,7 @@
 #endif
 /*Dumps DLL names used by active process.
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
         Microsoft Windows specific (Win).
 
   Header file:
@@ -77,15 +77,17 @@ TRACE0("\n");
 #endif  //_DEBUG
 /*****************************************************************************
  * $Log: 
- *  9    Biblioteka1.8         2004-10-01 21:34:21  Darko           stdafx.h
- *  8    Biblioteka1.7         2003-08-17 01:13:33  Darko           Unicode
- *  7    Biblioteka1.6         2003-08-13 09:52:33  Darko           formatting
- *  6    Biblioteka1.5         2002-01-29 22:20:20  Darko           Used lbraries
+ *  10   Biblioteka1.9         2005-04-26 11:29:12  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  9    Biblioteka1.8         2004-10-01 22:34:21  Darko           stdafx.h
+ *  8    Biblioteka1.7         2003-08-17 02:13:33  Darko           Unicode
+ *  7    Biblioteka1.6         2003-08-13 10:52:33  Darko           formatting
+ *  6    Biblioteka1.5         2002-01-29 23:20:20  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         2002-01-29 14:38:46  Darko           Tag update
- *  4    Biblioteka1.3         2001-08-19 22:52:45  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 21:50:38  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:50:00  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:55:54  Darko           
+ *  5    Biblioteka1.4         2002-01-29 15:38:46  Darko           Tag update
+ *  4    Biblioteka1.3         2001-08-19 23:52:45  Darko           Butyfier
+ *  3    Biblioteka1.2         2001-07-11 22:50:38  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:50:00  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:55:54  Darko           
  * $
  *****************************************************************************/

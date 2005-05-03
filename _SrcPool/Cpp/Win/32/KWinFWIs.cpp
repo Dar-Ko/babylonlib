@@ -1,5 +1,5 @@
 /*$Workfile: KWinFWIs.cpp$: implementation file
-  $Revision: 5$ $Date: 2002-01-29 22:22:21$
+  $Revision: 6$ $Date: 2005-04-29 01:13:05$
   $Author: Darko$
 
   Inquire Windows platform version
@@ -31,7 +31,7 @@
 
   //Command to linker to search for Version.lib
 #pragma comment( lib, "Version" )
-#include <WinVer.h>     //GetFileVersionInfoSize()
+#include <winver.h>     //GetFileVersionInfoSize()
 #include "KFileHnd.inl" //IsFileInPath()
 
 //IsWinForWgp()----------------------------------------------------------------

@@ -1,6 +1,6 @@
-/*$Workfile: KDlgTmIt.h$: header file
-  $Revision: 6$ $Date: 2002-01-29 22:20:50$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgTmIt.h$: header file
+  $Revision: 7$ $Date: 2005-04-26 11:29:40$
+  $Author: Darko Kolakovic$
   
   Encapsulates DLGITEMTEMPLATE structure
   Copyright (c) 1996 Microsoft Corporation. All rights reserved.
@@ -9,9 +9,10 @@
   Mar. 98 Cosmetic changes D.K.
   Mar. 2k Separate class D.K.
  */ 
+// Group=Windows
 
 #ifndef _KDLGTMIT_H_
-    //KDlgTmIt.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgTmIt.h$ sentry
   #define _KDLGTMIT_H_
 
 #if _MSC_VER > 1000
@@ -393,7 +394,7 @@ inline ULONG CDlgItemTempl::AlignDWord(ULONG uLong)
 //operator>>()-----------------------------------------------------------------
 /*Loads the CDlgTempl object from the archive.
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
  */
 inline CArchive& AFXAPI operator>>(CArchive& ar, CDlgItemTempl* &pOb)
 {
@@ -451,13 +452,15 @@ the following conditions:
 
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2002-01-29 22:20:50  Darko           Used lbraries
+ *  7    Biblioteka1.6         2005-04-26 11:29:40  Darko Kolakovic Document groups
+ *       and typo fixes
+ *  6    Biblioteka1.5         2002-01-29 23:20:50  Darko           Used lbraries
  *       notes 
- *  5    Biblioteka1.4         2002-01-25 15:56:59  Darko           Updated
+ *  5    Biblioteka1.4         2002-01-25 16:56:59  Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-08-19 22:53:22  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 21:51:17  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:50:33  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:56:21  Darko           
+ *  4    Biblioteka1.3         2001-08-19 23:53:22  Darko           Butyfier
+ *  3    Biblioteka1.2         2001-07-11 22:51:17  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:50:33  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:56:21  Darko           
  * $
  *****************************************************************************/

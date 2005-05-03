@@ -1,15 +1,16 @@
-/*$Workfile: KWinVerG.inl$: header file
-  $Revision: 5$ $Date: 2002-01-29 22:22:28$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KWinVerG.inl$: header file
+  $Revision: 6$ $Date: 2005-04-26 11:35:53$
+  $Author: Darko Kolakovic$
 
   Detect operating system and Windows platform version using GetVersion()
   function.
   Copyright: CommonSoft Inc.
   Jan 97 D.Kolakovic
  */
+// Group=Windows
 
 #ifndef __KWINVERG_INL__
-  //KWinVerG.inl sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KWinVerG.inl$ sentry
   #define __KWINVERG_INL__
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files

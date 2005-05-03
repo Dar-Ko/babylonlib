@@ -1,5 +1,5 @@
 /*$Workfile: KFileTime.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-01 21:34:50$
+  $Revision: 5$ $Date: 2004-10-01 22:34:50$
   $Author: Darko$
 
   FILETIME creation time conversion helper
@@ -386,12 +386,12 @@ return (*this = ftFileTime);
 #endif //WIN32
 /******************************************************************************
  *$Log: 
- * 5    Biblioteka1.4         2004-10-01 21:34:50  Darko           stdafx.h
- * 4    Biblioteka1.3         2003-09-24 17:40:34  Darko           Fixed VC++ .Net
+ * 5    Biblioteka1.4         2004-10-01 22:34:50  Darko           stdafx.h
+ * 4    Biblioteka1.3         2003-09-24 18:40:34  Darko           Fixed VC++ .Net
  *      7.1 (2003) compilation
- * 3    Biblioteka1.2         2003-09-24 11:27:45  Darko           formatting
- * 2    Biblioteka1.1         2002-07-16 00:41:06  Darko           Fixed VSS Log 
+ * 3    Biblioteka1.2         2003-09-24 12:27:45  Darko           formatting
+ * 2    Biblioteka1.1         2002-07-16 01:41:06  Darko           Fixed VSS Log 
  *      tag
- * 1    Biblioteka1.0         2002-03-12 23:40:40  Darko           
+ * 1    Biblioteka1.0         2002-03-13 00:40:40  Darko           
  *$
  *****************************************************************************/

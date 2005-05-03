@@ -1,14 +1,15 @@
-/*$Workfile: KDlgItLs.h$: header file
-  $Revision: 7$ $Date: 2003-09-22 21:25:58$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgItLs.h$: header file
+  $Revision: 8$ $Date: 2005-04-26 11:29:32$
+  $Author: Darko Kolakovic$
 
   A list with resizable controls
   Copyright: CommonSoft Inc
   Apr. 2k Darko Kolakovic
  */ 
+// Group=Windows
 
 #ifndef _KDLGITLS_H_
-    //KDlgItLs.h sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgItLs.h$ sentry
   #define _KDLGITLS_H_
 
 #if _MSC_VER > 1000
@@ -21,7 +22,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //CDlgItemResizableList class handles a list of the resizable dialog controls
 //
-//Note: uses Microsoft Fundation Library (MFC).
+//Note: uses Microsoft Foundation Library (MFC).
 //      Microsoft Windows specific (Win).
 class CDlgItemResizableList
 {

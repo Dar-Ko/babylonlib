@@ -1,6 +1,6 @@
-/*$Workfile: KDbgVerI.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-10-01 21:34:36$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgVerI.cpp$: implementation file
+  $Revision: 7$ $Date: 2005-04-26 11:29:27$
+  $Author: Darko Kolakovic$
 
   Dumps fixed file information from version resource
   Copyright: CommonSoft Inc.
@@ -42,7 +42,7 @@
                                 //creation date and time stamp
       };
       
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
         Microsoft Windows specific (Win).
 
 Group=Diagnostic 

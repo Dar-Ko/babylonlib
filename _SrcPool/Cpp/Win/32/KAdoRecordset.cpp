@@ -1,5 +1,5 @@
 /*$Workfile: KAdoRecordset.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-01 21:33:32$
+  $Revision: 6$ $Date: 2005-04-29 01:13:01$
   $Author: Darko$
 
   Defines the class behaviors for the application.
@@ -9,7 +9,7 @@
 
 #include "stdafx.h"
 #include "KAdoRecordset.h" //class CAdoRecordset
-#include "KAdoConnection.h" //TESTHR macro
+#include "KAtlExt.h" //TESTHR macro
 extern void ComErrorShow(_com_error& cee, 
                          LPCTSTR szHelpFile = NULL, 
                          UINT nHelpContext = 0);
@@ -472,13 +472,14 @@ return lRows;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2004-10-01 21:33:32  Darko           stdafx.h
- *  4    Biblioteka1.3         2003-08-19 15:17:13  Darko           Execute(),
+ *  6    Biblioteka1.5         2005-04-29 01:13:01  Darko           Fixed warnings
+ *  5    Biblioteka1.4         2004-10-01 22:33:32  Darko           stdafx.h
+ *  4    Biblioteka1.3         2003-08-19 16:17:13  Darko           Execute(),
  *       Open()
- *  3    Biblioteka1.2         2003-08-17 01:16:25  Darko           Moved Field
+ *  3    Biblioteka1.2         2003-08-17 02:16:25  Darko           Moved Field
  *       functions out
- *  2    Biblioteka1.1         2003-08-14 13:17:23  Darko           GetField
+ *  2    Biblioteka1.1         2003-08-14 14:17:23  Darko           GetField
  *       methods
- *  1    Biblioteka1.0         2003-08-12 12:56:49  Darko           
+ *  1    Biblioteka1.0         2003-08-12 13:56:49  Darko           
  * $
  *****************************************************************************/

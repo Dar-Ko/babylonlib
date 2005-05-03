@@ -1,5 +1,5 @@
 /*$Workfile: KStrUppr.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-06-01 17:03:52$
+  $Revision: 5$ $Date: 2004-06-01 18:03:52$
   $Author: Darko$
 
   Converts lower case characters to upper case

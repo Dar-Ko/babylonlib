@@ -1,7 +1,7 @@
 // StdAfx.cpp : source file that includes just the standard includes
 // SrcPool.pch will be the pre-compiled header
 // stdafx.obj will contain the pre-compiled type information
-// $Revision: 1.1 $  $Date: 2005/03/09 07:24:28 $
+// $Revision: 1.2 $  $Date: 2005/05/03 00:10:00 $
 
 #include "stdafx.h"
 
