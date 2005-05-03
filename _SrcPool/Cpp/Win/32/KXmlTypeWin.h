@@ -6,6 +6,7 @@
   Copyright: CommonSoft Inc
   2005-04-01 Darko Kolakovic
  */
+// Group=Windows
 
 #ifndef _KXMLTYPEDEFWIN32_H_
     //$Workfile: KXmlTypeWin.h$ sentry
