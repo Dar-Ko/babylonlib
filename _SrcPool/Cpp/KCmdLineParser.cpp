@@ -1,13 +1,12 @@
-/*$Workfile: S:\_SrcPool\Cpp\KCmdLineParser.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-03-11 17:05:36$
-  $Author: Darko Kolakovic$
+/*$Workfile: KCmdLineParser.cpp$: implementation file
+  $Revision: 2$ $Date: 2005-03-14 00:09:18$
+  $Author: Darko$
 
   Defines the class behavior.
   Copyright: CommonSoft Inc.
-  <date> Darko Kolakovic
+  2004-09-14 Darko Kolakovic
  */
 
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #ifdef _MSC_VER //Micorsoft Visual Studio C++ compiler
   #ifdef _UNICODE
@@ -19,11 +18,11 @@
   #endif
 #endif  //_MSC_VER
 
+#include "KTChar.h"          //TCHAR typedef
 #include "KCmdLineParser.h"  //CCmdLineParser class
 #ifndef ASSERT
   #include "KTrace.h"
 #endif
-//#include "KTChar.h"    //TCHAR typedef
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -37,10 +36,31 @@
 //-----------------------------------------------------------------------------
 /*Default constructor
  */
-CCmdLineParser::CCmdLineParser()
+  CCmdLineParser::CCmdLineParser() :  
+    m_pcmdOptions(NULL),
+    m_nOptionsCount(0)
 {
 }
 
+CCmdLineParser::CCmdLineParser(int argc, //[in] specifies how many arguments are
+                          //passed to the  program from the command line. 
+                          //The value of argc is at least one: the program name.
+                              TCHAR* argv[] //[in] the program arguments as 
+                          //an array of pointers to null-terminated strings. 
+                          //The first string (argv[0]) is the program name. 
+                          //The end of the array (argv[argc]) is indicated by 
+                          //a NULL pointer.
+                               )  :  
+    m_pcmdOptions(NULL),
+    m_nOptionsCount(0)
+{
+}
+
+CCmdLineParser::CCmdLineParser(const CCmdLineParser& cmdLine) :
+    m_pcmdOptions(cmdLine.m_pcmdOptions),
+    m_nOptionsCount(cmdLine.m_nOptionsCount)
+{
+}
 
 //-----------------------------------------------------------------------------
 /*Destructor
@@ -49,9 +69,31 @@ CCmdLineParser::~CCmdLineParser()
 {
 }
 
+//-----------------------------------------------------------------------------
+/*Set the list of the options or switches used to validate a comand input.
+ */
+void CCmdLineParser::SetOptions(const PCMDLINEOPTION pcmdOptions,//[in] list of
+                                  //the allowed command options and option arguments
+                                  //or NULL
+                                const unsigned int nCount //[in] number of options
+                                  //in the list of allowed command options
+                               )
+{
+TRACE2(_T("CCmdLineParser::SetOptions(pcmdOptions = %p, nCount = %d"), 
+       pcmdOptions, 
+       nCount);
+m_pcmdOptions = pcmdOptions;
+if ( pcmdOptions == NULL)
+  m_nOptionsCount = 0;
+else
+  m_nOptionsCount = nCount;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2005-03-14 00:09:18  Darko           Added
+ *       SetOptions()
  *  1    Biblioteka1.0         2005-03-11 17:05:36  Darko Kolakovic 
  * $
  *****************************************************************************/
