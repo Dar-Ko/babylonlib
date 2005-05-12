@@ -1,5 +1,5 @@
 /*$Workfile: KDateStr.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-06-01 18:03:31$
+  $Revision: 8$ $Date: 2005-05-11 22:33:33$
   $Author: Darko$
 
   Format a date and time string
@@ -23,11 +23,12 @@
 
 #ifndef _STRING_
   #include <string> //std::string
+  #include "KTString.h" //tstring typedef
 #endif
 #include <time.h> //time()
 
   //Declaration
-std::string LocalDateToStr(TCHAR* szFormat = _T("%a %b %d %Y, %X %z"));
+tstring LocalDateToStr(TCHAR* szFormat = _T("%a %b %d %Y, %X %z"));
 
 //LocalDateToStr()-------------------------------------------------------------
 /*The function formats a date and time string.
@@ -75,7 +76,7 @@ std::string LocalDateToStr(TCHAR* szFormat = _T("%a %b %d %Y, %X %z"));
       return 0;
       }
  */
-std::string LocalDateToStr(TCHAR* szFormat //[in]= "%a %b %d %Y, %X %z"
+tstring LocalDateToStr(TCHAR* szFormat //[in]= "%a %b %d %Y, %X %z"
                                           //format-control string
                            )
 {

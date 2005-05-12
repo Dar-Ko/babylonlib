@@ -1,5 +1,5 @@
-/*$Workfile: TestButtonDlg.cpp$: implementation file
-  $Revision: 7$ $Date: 2005-05-02 17:08:29$
+/*$Workfile: S:\_SrcPool\Cpp\Win\Samples\TestButton\Src\TestButtonDlg.cpp$: implementation file
+  $Revision: 8$ $Date: 2005-05-05 17:28:50$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -63,7 +63,13 @@ END_MESSAGE_MAP()
 // CTestButtonDlg message handlers
 
 //-----------------------------------------------------------------------------
-/*
+/*This method is called by the framework in response to the
+  WM_INITDIALOG message. This message is sent to the dialog box during the
+  Create(), CreateIndirect() or DoModal() calls, which occur immediately before
+  the dialog box is displayed.
+
+  Returns: FALSE if the input focus to a control is set by this method or TRUE
+  if Windows should set the focus to the first control in the dialog box.
  */
 BOOL CTestButtonDlg::OnInitDialog()
 {
@@ -264,7 +270,13 @@ return static_cast<HCURSOR>(m_hIcon);
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*This function destroys the specified dialog box.
+  The function sends a WM_DESTROY message to the dialog to deactivate it and
+  removes the keyboard focus from it. It does not delete or destroy the dialog
+  object itself, but Windows window attached to this object.
+
+  Returns: TRUE to indicate success or FALSE in case of indicates failure.
+  To get extended error information, call GetLastError().
  */
 BOOL CTestButtonDlg::DestroyWindow()
 {

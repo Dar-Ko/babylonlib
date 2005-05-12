@@ -1,5 +1,5 @@
 /*$Workfile: KStrUppr.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-06-01 18:03:52$
+  $Revision: 6$ $Date: 2005-05-11 22:33:34$
   $Author: Darko$
 
   Converts lower case characters to upper case
@@ -22,6 +22,7 @@
 
 #ifndef _STRING_
   #include <string> //std::string
+  #include "KTString.h" //tstring typedef
 #endif
 
 #ifdef _DEBUG
@@ -38,10 +39,10 @@
 
   Note: uses Standard Template Library (STL).
  */
-std::string StrToUpper(const std::string& strSource)
+tstring StrToUpper(const tstring& strSource)
 {
 using namespace std;
-char cChar;
+TCHAR cChar;
 string strResult = strSource;
 
 string::iterator i = strResult.begin();

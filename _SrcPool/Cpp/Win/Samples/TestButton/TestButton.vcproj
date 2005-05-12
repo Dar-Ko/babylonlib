@@ -11,7 +11,7 @@
 	</Platforms>
 	<Configurations>
 		<Configuration
-			Name="Debug_SBCS|Win32"
+			Name="Debug_SBCS_MFC|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
@@ -67,7 +67,7 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Release_SBCS|Win32"
+			Name="Release_SBCS_MFC|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
@@ -121,7 +121,7 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Debug_Unicode|Win32"
+			Name="Debug_Unicode_MFC|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
@@ -177,7 +177,7 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Release_Unicode|Win32"
+			Name="Release_Unicode_MFC|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
@@ -250,59 +250,63 @@
 			<File
 				RelativePath="..\..\32\KDbgBtnS.cpp">
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\32\StdAfx.cpp">
+				RelativePath="..\..\32\stdafx.cpp">
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"/>
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"/>
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"/>
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"/>
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Generic\TestAboutDlg.cpp">
+				RelativePath="..\Generic\Src\TestAboutDlg.cpp">
 			</File>
 			<File
 				RelativePath=".\Src\TestButtonApp.cpp">
@@ -311,7 +315,7 @@
 				RelativePath=".\Src\TestButtonDlg.cpp">
 			</File>
 			<File
-				RelativePath="..\Generic\TestDialogApp.cpp">
+				RelativePath="..\Generic\Src\TestDialogApp.cpp">
 			</File>
 			<File
 				RelativePath=".\Src\TestDumpButtonStyle.cpp">
@@ -337,19 +341,25 @@
 				RelativePath="..\..\..\KProgCst.inl">
 			</File>
 			<File
-				RelativePath=".\Src\Resource.h">
+				RelativePath=".\Res\Resource.h">
 			</File>
 			<File
-				RelativePath="..\..\32\StdAfx.h">
+				RelativePath="..\..\32\stdafx.h">
 			</File>
 			<File
-				RelativePath="..\Generic\TestAboutDlg.h">
+				RelativePath="..\Generic\Src\TestAboutDlg.h">
 			</File>
 			<File
 				RelativePath=".\Src\TestButtonDlg.h">
 			</File>
 			<File
-				RelativePath="..\Generic\TestDialogApp.h">
+				RelativePath="..\Generic\Src\TestDialogApp.h">
+			</File>
+			<File
+				RelativePath="..\Generic\Res\TestResource.h">
+			</File>
+			<File
+				RelativePath="..\Generic\Res\TestWinRes.h">
 			</File>
 		</Filter>
 		<Filter
@@ -357,14 +367,18 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 			<File
-				RelativePath="..\..\32\SrcPool.ico">
-			</File>
-			<File
-				RelativePath=".\Src\TestButton.rc">
+				RelativePath=".\Res\TestButton.rc">
 			</File>
 			<File
 				RelativePath=".\res\TestButton.rc2">
 			</File>
+			<File
+				RelativePath="..\Generic\Res\TestWin.rc">
+			</File>
+		</Filter>
+		<Filter
+			Name="Log Files"
+			Filter="*.log">
 		</Filter>
 		<File
 			RelativePath=".\res\TestButton.manifest">

@@ -1,6 +1,6 @@
 /*$Workfile: TestDialogApp.cpp$: implementation file
-  $Revision: 4$ $Date: 2005-05-02 17:09:46$
-  $Author: Darko Kolakovic$
+  $Revision: 5$ $Date: 2005-05-03 01:43:42$
+  $Author: Darko$
 
   Defines the class behaviors for the application.
   Copyright: CommonSoft Inc.
@@ -9,6 +9,7 @@
 
 #include "stdafx.h"
 #include "TestDialogApp.h"     //CTestDialogApp class
+#include "Res/TestResource.h"
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -93,7 +94,7 @@ if(SetMainWnd())
   switch ( nResponse )
     {
     case -1:
-      AfxMessageBox("Dialog box could not be created!");
+      AfxMessageBox(IDS_DLGBOXEXITERR2); //Dialog box could not be created!
       break;
     case IDABORT:
   	    // TODO: Place code here to handle when the dialog is
@@ -111,7 +112,7 @@ if(SetMainWnd())
       break;
     default:
       // Unhandled dialog closing.
-      AfxMessageBox("Unhandled Dialog box exit code!");
+      AfxMessageBox(IDS_DLGBOXEXITERR1); //Unhandled Dialog box exit code!
       break;
     };
 
@@ -126,6 +127,7 @@ return FALSE;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  5    Biblioteka1.4         2005-05-03 01:43:42  Darko            
  *  4    Biblioteka1.3         2005-05-02 17:09:46  Darko Kolakovic Changed class
  *       name
  *  3    Biblioteka1.2         2004-10-01 22:22:46  Darko           stdafx.h
