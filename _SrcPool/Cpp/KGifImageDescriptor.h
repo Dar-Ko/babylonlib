@@ -1,5 +1,5 @@
 /*$Workfile: KGifImageDescriptor.h$: header file
-  $Revision: 6$ $Date: 2003-09-30 10:10:04$
+  $Revision: 6$ $Date: 2003-09-30 11:10:04$
   $Author: Darko$
 
   Describes an image enbedded in GIF(c) Data Stream.
@@ -146,16 +146,16 @@ protected:
 
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2003-09-30 10:10:04  Darko           Replaced DWORD,
+ *  6    Biblioteka1.5         2003-09-30 11:10:04  Darko           Replaced DWORD,
  *       WORD with uint32, uint16
- *  5    Biblioteka1.4         2002-10-10 19:33:41  Darko Kolakovic Replaced push
+ *  5    Biblioteka1.4         2002-10-10 20:33:41  Darko Kolakovic Replaced push
  *       and pack pragmas
- *  4    Biblioteka1.3         2002-08-19 09:43:54  Darko Kolakovic Added
+ *  4    Biblioteka1.3         2002-08-19 10:43:54  Darko Kolakovic Added
  *       GetImageWidth()
- *  3    Biblioteka1.2         2002-08-01 00:23:59  Darko           CGifImageData
- *  2    Biblioteka1.1         2002-07-31 03:44:07  Darko           Read block
+ *  3    Biblioteka1.2         2002-08-01 01:23:59  Darko           CGifImageData
+ *  2    Biblioteka1.1         2002-07-31 04:44:07  Darko           Read block
  *       sizes from a stream
- *  1    Biblioteka1.0         2002-07-30 16:11:30  Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-07-30 17:11:30  Darko Kolakovic 
  * $
  * 2001 Initial version in Babylon Lib
  * 1990 v.89a enhanced GIF CompuServe Incorporated

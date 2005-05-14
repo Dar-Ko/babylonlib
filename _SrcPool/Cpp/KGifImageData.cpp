@@ -1,5 +1,5 @@
 /*$Workfile: KGifImageData.cpp$: implementation file
-  $Revision: 5$ $Date: 2003-09-30 10:09:56$
+  $Revision: 5$ $Date: 2003-09-30 11:09:56$
   $Author: Darko$
   
   Container for GIF(c) image raster data.
@@ -79,13 +79,13 @@ return true;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2003-09-30 10:09:56  Darko           Replaced DWORD,
+ *  5    Biblioteka1.4         2003-09-30 11:09:56  Darko           Replaced DWORD,
  *       WORD with uint32, uint16
- *  4    Biblioteka1.3         2002-08-02 21:26:50  Darko Kolakovic 
- *  3    Biblioteka1.2         2002-08-01 23:36:05  Darko           CopyAll()
+ *  4    Biblioteka1.3         2002-08-02 22:26:50  Darko Kolakovic 
+ *  3    Biblioteka1.2         2002-08-02 00:36:05  Darko           CopyAll()
  *       sub-blocks
- *  2    Biblioteka1.1         2002-08-01 13:58:37  Darko Kolakovic 
- *  1    Biblioteka1.0         2002-08-01 00:23:00  Darko           
+ *  2    Biblioteka1.1         2002-08-01 14:58:37  Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-08-01 01:23:00  Darko           
  * $
  * 2001 Initial version in Babylon Lib
  * 1990 v.89a enhanced GIF CompuServe Incorporated

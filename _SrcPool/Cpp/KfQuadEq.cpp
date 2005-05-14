@@ -1,6 +1,6 @@
-/*$Workfile: KfQuadEq.cpp$: implementation file
-  $Revision: 10$ $Date: 2004-06-01 15:55:13$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KfQuadEq.cpp$: implementation file
+  $Revision: 11$ $Date: 2005-04-21 12:51:54$
+  $Author: Darko Kolakovic$
 
   Solves a quadratic equation
   CommonSoft Inc.
@@ -14,7 +14,7 @@
 #ifdef _MSC_VER //Microsoft C/C++ compiler
   #pragma warning( push, 3 )
     //warning C4514: unreferenced inline function has been removed
-    //unreferenced inline function are in <math.h> 
+    //unreferenced inline function are in <math.h>
   #pragma warning(disable: 4514)
 #endif
 
@@ -26,41 +26,55 @@
 #include "KProgCst.inl" //NaN constants
 
 //funcQuadratic()--------------------------------------------------------------
-/*Calculates solutions of a quadratic equation.
+/*{html:
+  Calculates solutions of a quadratic equation.
+
+  <img src="Images/graphParabolas.gif" border="0"
+            alt="Parabolas"><br />}
 
   For the second-order polynomial equation:
-  {html:<BR><IMG SRC="Res/eqQuadratic.gif"
-    ALT="a*(X**2) + b*X + c = 0" BORDER="0">}
-
+  {html:<img src="Images/eqQuadratic.gif"
+    alt="a*(X**2) + b*X + c = 0" border="0">}
 
   Solutions are:
 
-    1. a != 0; b != 0; c != 0
+  1. {html:a &ne; 0; b &ne; 0; c &ne; 0}
 
-  {html:<BR><IMG SRC="Res/eqQuadraticRoots.gif"
-    ALT="x*0.5 = (-b +\- sqrt(D))\(2*a)" BORDER="0"><BR>}
+  {html:<img src="Images/eqQuadraticRoots.gif"
+    alt="x*0.5 = (-b +\- sqrt(D))\(2*a)" border="0"><br />
   where D is discriminant:
-
-      D = b**2  - 4*a*c
-      if D < 0 solutions are complex numbers:
-       X1 = R + iI = -b/(2*a) + i(sqrt(-D))/(2*a)
-       X2 = R - iI = -b/(2*a) - i(sqrt(-D))/(2*a)
-
-    2. a != 0; b != 0; c = 0
+  <pre>
+      D = b<sup>2</sup> - 4ac
+  </pre>
+  if D < 0 solutions are complex numbers:
+      <pre>
+       X1 = R + iI = -b/(2*a) + i(&radic;(-D))/(2*a)
+       X2 = R - iI = -b/(2*a) - i(&radic;(-D))/(2*a)
+      </pre>
+  2. a &ne; 0; b &ne; 0; c = 0
+      <pre>
        x1 = 0
        x2 = -b/a
+      </pre>
 
-    3. a != 0; b = 0; c != 0
-       x1 =  sqrt(-c/a)
-       x2 = -sqrt(-c/a)
+  3. a != 0; b = 0; c != 0
+      <pre>
+       x1 =  &radic;(-c/a)
+       x2 = -&radic;(-c/a)
+      </pre>
       if D < 0 solutions are complex numbers:
-       X1 =  iI = i(sqrt(c/a))
-       X2 = -iI = -i(sqrt(c/a))
+      <pre>
+       X1 =  iI = i(&radic;(c/a))
+       X2 = -iI = -i(&radic;(c/a))
+      </pre>
 
-    4. a = 0; b != 0; c != 0
+  4. a = 0; b &ne; 0; c &ne; 0
+      <pre>
        x1 = -c/b
        x2 = -c/b
+      </pre>
       (becomes linear equation)
+  }
 
   Note: Numerical method implemented gives in some circumstances somewhat
         unreliable solutions due limited precision, overflow and underflow,
@@ -177,7 +191,7 @@ else
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef _MSC_VER //Microsoft C/C++ compiler
     //warning C4514: unreferenced inline function has been removed
-    //unreferenced inline function are in <math.h> 
+    //unreferenced inline function are in <math.h>
   #pragma warning(default: 4514)
   #pragma warning( pop )
 #endif

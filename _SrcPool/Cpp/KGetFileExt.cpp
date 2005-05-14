@@ -1,5 +1,5 @@
 /*$Workfile: KGetFileExt.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-06-01 16:50:26$
+  $Revision: 3$ $Date: 2004-06-01 17:50:26$
   $Author: Darko$
 
   Copyright: CommonSoft Inc.
@@ -48,8 +48,8 @@ return szFileExt;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2004-06-01 16:50:26  Darko           time sync
- *  2    Biblioteka1.1         2003-08-23 14:05:42  Darko           comment
- *  1    Biblioteka1.0         2003-08-19 15:13:20  Darko           
+ *  3    Biblioteka1.2         2004-06-01 17:50:26  Darko           time sync
+ *  2    Biblioteka1.1         2003-08-23 15:05:42  Darko           comment
+ *  1    Biblioteka1.0         2003-08-19 16:13:20  Darko           
  * $
  *****************************************************************************/

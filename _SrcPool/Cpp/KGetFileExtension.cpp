@@ -1,6 +1,6 @@
-/*$Workfile: KGetFileExtension.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-06-01 16:50:28$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KGetFileExtension.cpp$: implementation file
+  $Revision: 4$ $Date: 2005-04-26 16:39:13$
+  $Author: Darko Kolakovic$
 
   Copyright: CommonSoft Inc.
   2003-08 Darko Kolakovic
@@ -24,7 +24,7 @@
 
   Returns: extension of the filename.
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
 
   TODO: Replace CString form afxwin.h with CString form KString.h D.K.
  */
@@ -48,9 +48,10 @@ return strExtension;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2004-06-01 16:50:28  Darko           time sync
- *  2    Biblioteka1.1         2003-09-04 08:01:45  Darko           MSVC++ 7.1
+ *  4    Biblioteka1.3         2005-04-26 16:39:13  Darko Kolakovic fixed typo
+ *  3    Biblioteka1.2         2004-06-01 17:50:28  Darko           time sync
+ *  2    Biblioteka1.1         2003-09-04 09:01:45  Darko           MSVC++ 7.1
  *       WINVER
- *  1    Biblioteka1.0         2003-08-19 15:13:34  Darko           
+ *  1    Biblioteka1.0         2003-08-19 16:13:34  Darko           
  * $
  *****************************************************************************/

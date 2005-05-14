@@ -1,5 +1,5 @@
 /*$Workfile: KGifImageData.h$: header file
-  $Revision: 3$ $Date: 2003-09-30 10:09:58$
+  $Revision: 3$ $Date: 2003-09-30 11:09:58$
   $Author: Darko$
 
   Container for GIF(c) image raster data.
@@ -94,10 +94,10 @@ public:
 
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2003-09-30 10:09:58  Darko           Replaced DWORD,
+ *  3    Biblioteka1.2         2003-09-30 11:09:58  Darko           Replaced DWORD,
  *       WORD with uint32, uint16
- *  2    Biblioteka1.1         2002-08-01 13:58:41  Darko Kolakovic 
- *  1    Biblioteka1.0         2002-08-01 00:23:05  Darko           
+ *  2    Biblioteka1.1         2002-08-01 14:58:41  Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-08-01 01:23:05  Darko           
  * $
  * 2001 Initial version in Babylon Lib
  * 1990 v.89a enhanced GIF CompuServe Incorporated

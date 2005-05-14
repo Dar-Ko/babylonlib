@@ -1,5 +1,5 @@
 /*$Workfile: KGif.h$: header file
-  $Revision: 17$ $Date: 2003-09-30 10:00:28$
+  $Revision: 17$ $Date: 2003-09-30 11:00:28$
   $Author: Darko$
 
   Encapsulation of images in Graphics Interchange Format(c) GIF v89a.
@@ -706,36 +706,36 @@ private:
 
 /*****************************************************************************
  * $Log: 
- *  17   Biblioteka1.16        2003-09-30 10:00:28  Darko           Replaced DWORD,
+ *  17   Biblioteka1.16        2003-09-30 11:00:28  Darko           Replaced DWORD,
  *       WORD with uint32, uint16
- *  16   Biblioteka1.15        2002-10-10 19:30:31  Darko Kolakovic Replaced push
+ *  16   Biblioteka1.15        2002-10-10 20:30:31  Darko Kolakovic Replaced push
  *       and pack pragmas
- *  15   Biblioteka1.14        2002-08-02 21:26:40  Darko Kolakovic 
- *  14   Biblioteka1.13        2002-08-01 23:35:57  Darko           CopyAll()
+ *  15   Biblioteka1.14        2002-08-02 22:26:40  Darko Kolakovic 
+ *  14   Biblioteka1.13        2002-08-02 00:35:57  Darko           CopyAll()
  *       sub-blocks
- *  13   Biblioteka1.12        2002-08-01 16:47:33  Darko Kolakovic delete virtual
+ *  13   Biblioteka1.12        2002-08-01 17:47:33  Darko Kolakovic delete virtual
  *       CGifBlock:GetLength() 
- *  12   Biblioteka1.11        2002-08-01 13:58:32  Darko Kolakovic 
- *  11   Biblioteka1.10        2002-08-01 00:23:52  Darko           CGifImageData
- *  10   Biblioteka1.9         2002-07-31 16:30:12  Darko Kolakovic
+ *  12   Biblioteka1.11        2002-08-01 14:58:32  Darko Kolakovic 
+ *  11   Biblioteka1.10        2002-08-01 01:23:52  Darko           CGifImageData
+ *  10   Biblioteka1.9         2002-07-31 17:30:12  Darko Kolakovic
  *       SeekImageDescriptor inserted
- *  9    Biblioteka1.8         2002-07-31 03:44:00  Darko           Read block
+ *  9    Biblioteka1.8         2002-07-31 04:44:00  Darko           Read block
  *       sizes from a stream
- *  8    Biblioteka1.7         2002-07-30 16:12:26  Darko Kolakovic
+ *  8    Biblioteka1.7         2002-07-30 17:12:26  Darko Kolakovic
  *       CGifImageDescriptor
- *  7    Biblioteka1.6         2002-07-29 13:09:42  Darko Kolakovic
+ *  7    Biblioteka1.6         2002-07-29 14:09:42  Darko Kolakovic
  *       CGifLabel::IsValid() added
- *  6    Biblioteka1.5         2002-07-28 23:45:24  Darko           Added Gif Data
+ *  6    Biblioteka1.5         2002-07-29 00:45:24  Darko           Added Gif Data
  *       Sub-block
- *  5    Biblioteka1.4         2002-07-17 18:30:07  Darko Kolakovic Added
+ *  5    Biblioteka1.4         2002-07-17 19:30:07  Darko Kolakovic Added
  *       CGifExtension
- *  4    Biblioteka1.3         2002-07-16 19:53:38  Darko Kolakovic Added
+ *  4    Biblioteka1.3         2002-07-16 20:53:38  Darko Kolakovic Added
  *       CGifHeader::Copy()
- *  3    Biblioteka1.2         2002-07-16 00:43:29  Darko           Added operator
+ *  3    Biblioteka1.2         2002-07-16 01:43:29  Darko           Added operator
  *       =()
- *  2    Biblioteka1.1         2002-07-15 18:45:09  Darko           Color Table
+ *  2    Biblioteka1.1         2002-07-15 19:45:09  Darko           Color Table
  *       added
- *  1    Biblioteka1.0         2002-07-12 17:17:15  Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-07-12 18:17:15  Darko Kolakovic 
  * $
  * 2001 Initial version in Babylon Lib
  * 1990 v.89a enhanced GIF CompuServe Incorporated
