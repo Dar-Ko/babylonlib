@@ -1,5 +1,5 @@
 /*$Workfile: KRegExt.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-10-01 22:35:15$
+  $Revision: 9$ $Date: 2005-05-03 01:46:22$
   $Author: Darko$
 
   Windows Registry Extended handler
@@ -9,7 +9,7 @@
 
 #include "stdafx.h"
 #ifndef _WINREG_
-  #include <WinReg.h>
+  #include <winreg.h>
 #endif
 #include "KRegExt.h"  //CRegExt class
 
@@ -196,6 +196,8 @@ return FALSE;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  9    Biblioteka1.8         2005-05-03 01:46:22  Darko           comments, case
+ *       of included files
  *  8    Biblioteka1.7         2004-10-01 22:35:15  Darko           stdafx.h
  *  7    Biblioteka1.6         2003-11-03 13:21:01  Darko           Fixed long file
  *       names parsing in GetAssociatedExecutable()

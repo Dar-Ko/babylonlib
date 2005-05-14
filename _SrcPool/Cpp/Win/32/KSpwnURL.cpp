@@ -1,19 +1,14 @@
 /*$Workfile: KSpwnURL.cpp$: implementation file
-  $Revision: 9$ $Date: 2004-10-01 22:35:27$
+  $Revision: 11$ $Date: 2005-05-05 22:56:20$
   $Author: Darko$
 
   Opens a hyperlink
   Copyright: CommonSoft Inc.
   Mar 99 Darko Kolakovic
  */ 
+// Group=Windows
 
-#ifndef __AFXWIN_H__
-  #include <AfxWin.h>
-#endif
-#pragma hdrstop
-
-/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
-
+#include "stdafx.h"
 #include "KRegExt.h"  //CRegExt class
 
 #ifdef _DEBUG
@@ -25,7 +20,7 @@
   //File extension for the HTML (HyperText Markup Language) documents
 TCHAR g_szExtHTM[] = _T(".htm");
 
-#ifdef _WIN32
+#if defined(_WIN32) || defined(WIN32)
     //Validates result of ShellExecute. Returns false if result is an error code.
   #define _FAILED_SHELLEXECUTE(x) (x <= ((HINSTANCE)SE_ERR_DLLNOTFOUND))
 #else //Win 16-bit
@@ -185,6 +180,9 @@ return iErr;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  11   Biblioteka1.10        2005-05-05 22:56:20  Darko            
+ *  10   Biblioteka1.9         2005-05-03 01:46:23  Darko           comments, case
+ *       of included files
  *  9    Biblioteka1.8         2004-10-01 22:35:27  Darko           stdafx.h
  *  8    Biblioteka1.7         2003-11-03 13:22:28  Darko           Returns
  *       GetLasteError() code in sae of a failure

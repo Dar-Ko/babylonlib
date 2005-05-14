@@ -1,6 +1,6 @@
-/*$Workfile: KStatusBarEx.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-01 22:35:29$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KStatusBarEx.cpp$: implementation file
+  $Revision: 3$ $Date: 2005-05-04 17:50:23$
+  $Author: Darko Kolakovic$
 
   Defines the class behaviors for the application.
   Copyright: CommonSoft Inc.
@@ -19,7 +19,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // CStatusBarEx
 
-CStatusBarEx::CStatusBarEx() : 
+CStatusBarEx::CStatusBarEx() :
   m_bDisableSetText(FALSE)
 {
 }
@@ -63,10 +63,10 @@ END_MESSAGE_MAP()
       }
  */
 int CStatusBarEx::GetTextExtent(CStatusBar* pStatusBar, //[in] status bar object to validate
-                                 const int& iPaneId, //[in] index of the pane whose information is to be retrieved. 
+                                 const int& iPaneId, //[in] index of the pane whose information is to be retrieved.
                                  const CString& strPaneText, //[in] text to be measured
                                  UINT& nID, //[out] Reference to a UINT that is set to the ID of the pane.
-                                 UINT& nStyle //[out] Reference to a UINT that is set to the style of the pane. 
+                                 UINT& nStyle //[out] Reference to a UINT that is set to the style of the pane.
                                  )
 
 {
@@ -75,9 +75,9 @@ if(pStatusBar != NULL)
   HGDIOBJ hOldFont = NULL;
   HFONT hFont = (HFONT)pStatusBar->SendMessage(WM_GETFONT);
   CClientDC dc(NULL);
-  if(hFont != NULL) 
+  if(hFont != NULL)
     hOldFont = dc.SelectObject(hFont);
-      
+
   int iWidth;
   pStatusBar->GetPaneInfo(iPaneId, nID, nStyle, iWidth);
 
@@ -89,11 +89,11 @@ return 0;
 
 /////////////////////////////////////////////////////////////////////////////
 // CStatusBarEx message handlers
-/*
- Response at a WM_SETTEXT message to set the text of a window.
- The frameworks WM_SETTEXT messages will be blocked when you m_bEnableSetText
- flag set to a non-zero value and  the first pane of the status bar will
- be updated only when user update it with SetPaneText()
+/*Response at a WM_SETTEXT message to set the text of a window.
+
+  The frameworks WM_SETTEXT messages will be blocked when you set
+  m_bEnableSetText flag to a non-zero value. The first pane of the status bar
+  will be updated only when user update it with SetPaneText().
  */
 LRESULT CStatusBarEx::OnSetText(WPARAM wParam, LPARAM lParam)
 {
@@ -104,8 +104,8 @@ return 0;  // Same as CStatusBar::OnSetText success
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  2    Biblioteka1.1         2004-10-01 22:35:29  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-13 14:35:30  Darko           
+ *  1    Biblioteka1.0         2003-08-13 14:35:30  Darko
  * $
  *****************************************************************************/

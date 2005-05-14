@@ -1,5 +1,5 @@
 /*$Workfile: S:\_SrcPool\Cpp\Win\32\KDisplayComError.cpp$: implementation file
-  $Revision: 5$ $Date: 2005-04-26 11:29:30$
+  $Revision: 6$ $Date: 2005-05-10 16:08:17$
   $Author: Darko Kolakovic$
 
   Outputs COM exception.
@@ -19,7 +19,7 @@
   #include <atlstr.h> //Non-MFC string objects
   //<cstringt.h> MFC-only string objects
 #else
-  #if !defined(_AFXDLL)
+  #if !defined(_AFXDLL) && !defined(_AFX)
       //Windows Template Library (WTL) is required for the CString
       #include <atlbase.h>
       #include <atlapp.h>

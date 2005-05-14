@@ -1,5 +1,5 @@
-/*$Workfile: KStatusBarEx.h$: header file
-  $Revision: 4$ $Date: 2005-04-26 11:35:32$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KStatusBarEx.h$: header file
+  $Revision: 5$ $Date: 2005-05-04 17:50:25$
   $Author: Darko Kolakovic$
 
   Interface of the CStatusBarEx class
@@ -9,7 +9,7 @@
 // Group=Windows
 
 #ifndef _KSTATUSBAREX_H_
-  //$Workfile: KStatusBarEx.h$ sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KStatusBarEx.h$ sentry
   #define _KSTATUSBAREX_H_
 
 #if _MSC_VER > 1000
@@ -21,10 +21,12 @@
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-//CStatusBarEx extends functionality of the MFC Status Bar class
-//
-//Note: uses Microsoft Foundation Library (MFC);
-//      Microsoft Windows specific (Win).
+/*CStatusBarEx extends functionality of the MFC Status Bar class:
+  - calculates size of a pane according to text enetered
+
+  Note: uses Microsoft Foundation Library (MFC);
+        Microsoft Windows specific (Win).
+ */
 class CStatusBarEx : public CStatusBar
 {
 // Construction

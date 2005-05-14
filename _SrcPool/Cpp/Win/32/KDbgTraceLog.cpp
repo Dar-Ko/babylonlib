@@ -1,6 +1,6 @@
 /*$Workfile: KDbgTraceLog.cpp$: implementation file
-  $Revision: 9$ $Date: 2005-04-26 11:29:25$
-  $Author: Darko Kolakovic$
+  $Revision: 10$ $Date: 2005-05-04 01:26:40$
+  $Author: Darko$
 
   Set dump or trace output
   Copyright: CommonSoft Inc.
@@ -84,7 +84,7 @@ if (szLogFileName != NULL) //Open a log file
                         CFile::modeCreate |
                         CFile::modeReadWrite ))
     {
-    afxDump << "Unable to open file" << szLogFileName << "\n";
+    dc << "Unable to open file" << szLogFileName << "\n";
     exit(EXIT_FAILURE);
     }
   else

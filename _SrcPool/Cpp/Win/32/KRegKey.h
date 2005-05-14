@@ -1,6 +1,6 @@
 /*$Workfile: KRegKey.h$: header file
-  $Revision: 7$ $Date: 2005-04-26 11:35:27$
-  $Author: Darko Kolakovic$
+  $Revision: 8$ $Date: 2005-05-04 01:27:19$
+  $Author: Darko$
 
   Windows Registry handler
   Copyright: CommonSoft Inc
@@ -17,7 +17,7 @@
 #endif
 
 #ifndef _WINREG_
-  #include <WinReg.h>
+  #include <winreg.h>
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
@@ -94,6 +94,8 @@ return dc;
 #endif  //_KREGKEY_H_
 /*****************************************************************************
  * $Log: 
+ *  8    Biblioteka1.7         2005-05-04 01:27:19  Darko           path character
+ *       case
  *  7    Biblioteka1.6         2005-04-26 11:35:27  Darko Kolakovic Document groups
  *       and typo fixes
  *  6    Biblioteka1.5         2005-03-21 03:16:53  Darko           comments

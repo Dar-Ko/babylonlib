@@ -1,5 +1,5 @@
-/*$Workfile: KDlgTmpl.h$: header file
-  $Revision: 9$ $Date: 2005-04-26 11:29:42$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgTmpl.h$: header file
+  $Revision: 10$ $Date: 2005-05-12 11:05:28$
   $Author: Darko Kolakovic$
 
   Copyright (c) 1996 Microsoft Corporation. All rights reserved.
@@ -8,11 +8,11 @@
   Written by Sridhar Madhugiri
   of Microsoft Product Support Services, Languages Developer Support
   Mar. 98 Cosmetic changes D.K.
- */ 
+ */
 // Group=Windows
 
 #ifndef _KDLGTMPL_H_
-  //$Workfile: KDlgTmpl.h$ sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgTmpl.h$ sentry
   #define _KDLGTMPL_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -20,7 +20,7 @@
 #endif
 
 #ifndef __AFXWIN_H__
-  #include <AfxWin.h>
+  #include <afxwin.h>
 #endif
 
 #include "KDlgTmIt.h" //CDlgItemTempl class
@@ -262,7 +262,7 @@ return FromResource(MAKEINTRESOURCE(nIDTemplate));
 
 /*The DLGTEMPLATEEX structure is not defined in any standard header file.
 
-    typedef struct 
+    typedef struct
       {
       WORD      dlgVer;          //the version number of the extended dialog box template. This member must be 1.
       WORD      signature;       //specifies type of a template; if it is 0xFFFF, this is an extended dialog box template.
@@ -383,18 +383,18 @@ the following conditions:
 */
 
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  9    Biblioteka1.8         2005-04-26 11:29:42  Darko Kolakovic Document groups
  *       and typo fixes
  *  8    Biblioteka1.7         2003-09-22 22:26:11  Darko           formatting
- *  7    Biblioteka1.6         2002-03-12 23:03:19  Darko           
+ *  7    Biblioteka1.6         2002-03-12 23:03:19  Darko
  *  6    Biblioteka1.5         2002-01-29 23:20:53  Darko           Used lbraries
- *       notes 
+ *       notes
  *  5    Biblioteka1.4         2002-01-25 16:57:05  Darko           Updated
  *       comments
  *  4    Biblioteka1.3         2001-08-19 23:53:38  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 22:51:24  Darko           
+ *  3    Biblioteka1.2         2001-07-11 22:51:24  Darko
  *  2    Biblioteka1.1         2001-06-08 23:50:39  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:56:27  Darko           
+ *  1    Biblioteka1.0         2000-08-13 15:56:27  Darko
  * $
  *****************************************************************************/

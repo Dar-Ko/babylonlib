@@ -1,11 +1,13 @@
 /*$Workfile: KHypLink.h$: header file
-  $Revision: 11$ $Date: 2005-04-26 11:29:53$
-  $Author: Darko Kolakovic$
+  $Revision: 12$ $Date: 2005-05-03 01:46:18$
+  $Author: Darko$
 
   HyperLink static control
   Chris Maunder, 1997
   D. Kolakovic  May 98 improved
  */
+// Group=Windows
+
 #ifndef _KHYPLINK_H_
     //$Workfile: KHypLink.h$ sentry
   #define _KHYPLINK_H_
@@ -208,6 +210,8 @@ if (::IsWindow(GetSafeHwnd()))
 #endif // _KHYPLINK_H_
 /*****************************************************************************
  * $Log: 
+ *  12   Biblioteka1.11        2005-05-03 01:46:18  Darko           comments, case
+ *       of included files
  *  11   Biblioteka1.10        2005-04-26 11:29:53  Darko Kolakovic Document groups
  *       and typo fixes
  *  10   Biblioteka1.9         2005-03-21 03:16:47  Darko           comments

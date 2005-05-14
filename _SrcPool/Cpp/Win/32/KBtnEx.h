@@ -1,5 +1,5 @@
-/*$Workfile: KBtnEx.h$: header file
-  $Revision: 8$ $Date: 2005-04-26 11:28:24$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KBtnEx.h$: header file
+  $Revision: 9$ $Date: 2005-05-05 17:22:14$
   $Author: Darko Kolakovic$
 
   Interface of the CButtonEx class
@@ -9,7 +9,7 @@
 // Group=Windows
 
 #ifndef _KBTNEXT_H_
-  //$Workfile: KBtnEx.h$ sentry
+  //$Workfile: S:\_SrcPool\Cpp\Win\32\KBtnEx.h$ sentry
   #define _KBTNEXT_H_
 
 #if _MSC_VER > 1000
@@ -163,7 +163,7 @@ return ((m_iStyle & BS_FLAT) == BS_FLAT);
 //-----------------------------------------------------------------------------
 /*Verifies if the button has the hover style.
 
-  Returns: true if the button has BS_FLAT style; otherwise returns false.
+  Returns: true if the button has BTN_HOVER style; otherwise returns false.
  */
 inline bool CButtonEx::IsHoverStyle() const
 {

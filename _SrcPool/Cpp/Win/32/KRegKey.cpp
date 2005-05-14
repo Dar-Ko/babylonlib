@@ -1,6 +1,6 @@
 /*$Workfile: KRegKey.cpp$: implementation file
-  $Revision: 10$ $Date: 2005-04-26 11:35:24$
-  $Author: Darko Kolakovic$
+  $Revision: 12$ $Date: 2005-05-04 01:27:33$
+  $Author: Darko$
 
   Copyright: CommonSoft Inc.
   Darko Kolakovic
@@ -8,15 +8,16 @@
   Nov 98 (NT ver)
  */ 
 
-#ifdef _WIN32
-///////////////////////////////////////////////////////////////////////////////
-//Win 32b
-
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#include <AfxWin.h>
+#include "stdafx.h"
+
+///////////////////////////////////////////////////////////////////////////////
+//Win 32b
+#ifdef _WIN32
+
 #ifndef __AFXWIN_H__
-  #pragma message (__FILE__ " #include <Windows.h>")
+  #pragma message (__FILE__ " #include <windows.h>")
   #include <windows.h>
 #endif
 #pragma hdrstop
@@ -413,6 +414,8 @@ return strDestination;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  12   Biblioteka1.11        2005-05-04 01:27:33  Darko           stdafx
+ *  11   Biblioteka1.10        2005-05-03 11:16:09  Darko Kolakovic Unicode build
  *  10   Biblioteka1.9         2005-04-26 11:35:24  Darko Kolakovic Document groups
  *       and typo fixes
  *  9    Biblioteka1.8         2005-04-18 15:20:40  Darko Kolakovic header file

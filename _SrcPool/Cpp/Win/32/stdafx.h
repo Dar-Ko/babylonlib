@@ -1,5 +1,5 @@
 /*$Workfile: stdafx.h$: header file
-  $Revision: 11$  $Date: 2005-05-01 00:33:26$
+  $Revision: 15$  $Date: 2005-05-05 22:56:40$
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -25,18 +25,12 @@
 //Microsoft Windows 32b platforms
 #ifdef _WIN32
 
-  #ifdef _UNICODE
-    #ifndef UNICODE
-      //To enable Unicode character mapping for some Microsoft Visual C/C++
-      //header files, the UNICODE definition is required.
-      #define UNICODE
-    #endif
-  #endif
-
   #if _MSC_VER == 1310
+    #if !defined(WINVER)
       //Warning fix Q314963: WINVER not defined. Visual C++ .Net 2003 v7.1
       //Defaulting to 0x0501 (Windows XP and Windows .NET Server)
       #define WINVER 0x0501
+    #endif
   #endif // _MSC_VER > 1000
 
   #define VC_EXTRALEAN        // Exclude rarely-used stuff from Windows headers
@@ -56,7 +50,7 @@
   //---------------------------------------------------------------------------
   //For build dependant of the MFC dynamic library (DLL), include
   //following header files
-  #ifdef _USE_MFC
+  #if defined (_USE_MFC) || defined (_USE_AFX)
     #include <afx.h>
     #include <afxwin.h>         // MFC core and standard components
     #include <afxext.h>         // MFC extensions
@@ -98,6 +92,16 @@
       #define YEAR_EPOCH_TM  1900
     #endif
   #endif //_MSC_VER
+
+ #ifdef _UNICODE
+    #if defined (_ATL_VER) && (_ATL_VER < 0x0700)
+      #if !defined (UNICODE)
+        //To enable Unicode character mapping for some Microsoft Visual C/C++
+        //header files, the UNICODE definition is required.
+        #define UNICODE
+      #endif
+    #endif //_ATL_VER
+  #endif
 
 //-----------------------------------------------------------------------------
 #endif //_WIN32

@@ -1,6 +1,6 @@
-/*$Workfile: KXmlTypeWin.h$: header file
-  $Revision: 14$ $Date: 2005-05-01 00:34:03$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\32\KXmlTypeWin.h$: header file
+  $Revision: 16$ $Date: 2005-05-10 16:08:19$
+  $Author: Darko Kolakovic$
 
   Type definitions for the XML content handler
   Copyright: CommonSoft Inc
@@ -9,7 +9,7 @@
 // Group=Windows
 
 #ifndef _KXMLTYPEDEFWIN32_H_
-    //$Workfile: KXmlTypeWin.h$ sentry
+    //$Workfile: S:\_SrcPool\Cpp\Win\32\KXmlTypeWin.h$ sentry
   #define _KXMLTYPEDEFWIN32_H_
 
 #if !defined(_WIN32)
@@ -55,7 +55,7 @@
     //!todo: CStringT can't convert to LPCTSTR under build with Multi-Byte Character Set (MCBS) (MSVC.Net)
   #else
     //Visual C++, 32-bit, version 6.0-
-    #if defined (_AFXDLL) || defined (USE_MFC)
+    #if defined (_AFXDLL) || defined (_AFX) || defined (USE_MFC)
       //Microsoft Foundation Class Library (MFC) is required for the CString
       #include <afxwin.h>
     #else
@@ -146,7 +146,7 @@
     public:
       virtual bool Find(const CXmlString& strElementName) = 0;
       //bool GetItem(const CXmlString& strElementName, XMLNODE& xmlResult) = 0;
-      virtual XMLNODE& GetItem(const CXmlString& strElementName, 
+      virtual XMLNODE& GetItem(const CXmlString& strElementName,
                         unsigned int nIndex = 0) = 0;
       virtual void RemoveItem(const CXmlString& strElementName,
                       unsigned int nIndex = 0) = 0;

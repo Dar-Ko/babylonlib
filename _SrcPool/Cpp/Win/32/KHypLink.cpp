@@ -1,5 +1,5 @@
 /*$Workfile: KHypLink.cpp$: implementation file
-  $Revision: 9$ $Date: 2004-10-01 22:35:03$
+  $Revision: 10$ $Date: 2005-05-03 01:46:16$
   $Author: Darko$
 
   HyperLink static control.
@@ -10,7 +10,7 @@
 #include "stdafx.h"
 
 #ifndef __AFXCMN_H__
-  #include <AfxCmn.h> //CToolTipCtrl class
+  #include <afxcmn.h> //CToolTipCtrl class
 #endif
 
 #include "KHypLink.h" //CHyperLink class
@@ -525,6 +525,8 @@ if (m_bAutoDelete)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  10   Biblioteka1.9         2005-05-03 01:46:16  Darko           comments, case
+ *       of included files
  *  9    Biblioteka1.8         2004-10-01 22:35:03  Darko           stdafx.h
  *  8    Biblioteka1.7         2003-11-03 13:20:04  Darko           Replaced BOOL
  *       with bool
