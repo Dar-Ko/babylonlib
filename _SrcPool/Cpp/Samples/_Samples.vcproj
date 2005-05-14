@@ -89,6 +89,9 @@
 	<References>
 	</References>
 	<Files>
+		<File
+			RelativePath=".\_Samples.txt">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
