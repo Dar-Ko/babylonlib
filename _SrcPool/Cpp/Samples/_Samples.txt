@@ -1,5 +1,5 @@
-$Workfile: _Samples.txt$
-$Revision: 4$ $Date: 2005-03-11 02:11:29$
+$Workfile: _Samples.txt$: implementation file
+$Revision: 6$ $Date: 2005-03-17 00:43:23$
 $Author: Darko$
 
 Samples and test suites for the various functions, classes and algorithms using Babylon Library
@@ -23,16 +23,16 @@ _Samples Workspace Project components
                 dsw  sln  CVS
 _LibraryTest    OK        OK
   Common        NA        OK
-Doc                       OK
-_Samples        OK        OK
-  Assert        OK        OK
+Doc                  OK   OK
+_Samples        OK   OK   OK
+  Assert        OK   OK   OK
   Console       OK   OK   OK
-  DateTime      OK        OK
-  HtmlIO                  OK
-  Numeric       OK        OK
-  StdLib        OK        OK
-  StreamIO      OK        OK
-  StringDyn     OK        OK
+  DateTime      OK   OK   OK
+  HtmlIO        OK   OK   OK
+  Numeric       OK   OK   OK
+  StdLib        OK   OK   OK
+  StreamIO      OK   OK   OK
+  StringDyn     OK   OK   OK
   
 To Be Moved:
     Calc

@@ -1,6 +1,6 @@
 /*$Workfile: TsWriteTxt.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-11-09 18:44:21$
-  $Author: Darko Kolakovic$
+  $Revision: 9$ $Date: 2005-03-22 01:20:01$
+  $Author: Darko$
 
   Outputs text to stdout stream
   Copyright: CommonSoft Inc.
@@ -70,9 +70,8 @@ return true;
 bool TsWriteToViewLn(LPCTSTR lszText //[in] line of text to output
                      )
 {
-if (lszText[0] != _T('\0'))
-  if(!TsWriteToView(lszText))
-    return false;
+if(!TsWriteToView(lszText))
+  return false;
 
 std::_tcout << std::endl;
 return true;

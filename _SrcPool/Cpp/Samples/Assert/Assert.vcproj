@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="Assert"
+	ProjectGUID="{E54659AE-01CE-4979-BB1E-043E9E61CB91}"
 	SccProjectName=""
 	SccLocalPath=""
 	Keyword="MFCProj">
@@ -40,7 +41,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile=".\..\bin\Release_SBCS_MFC\Win32/Assert.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\..\bin\Release_SBCS_MFC\Win32/Assert.pdb"
 				SubSystem="1"
@@ -98,7 +99,8 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile=".\..\bin\Debug_SBCS_MFC\Win32/Assert.exe"
-				LinkIncremental="1"
+				Version="2005.0316"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\..\bin\Debug_SBCS_MFC\Win32/Assert.pdb"
@@ -159,7 +161,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
 				OutputFile=".\..\bin\Release_SBCS\Win32/Assert.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\..\bin\Release_SBCS\Win32/Assert.pdb"
 				SubSystem="1"
@@ -218,7 +220,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
 				OutputFile=".\..\bin\Debug_SBCS\Win32/Assert.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/Assert.pdb"
@@ -278,7 +280,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile=".\..\bin\Debug_Unicode_MFC\Win32/Assert.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\..\bin\Debug_Unicode_MFC\Win32/Assert.pdb"
@@ -339,7 +341,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile=".\..\bin\Release_Unicode_MFC\Win32/Assert.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\..\bin\Release_Unicode_MFC\Win32/Assert.pdb"
 				SubSystem="1"
@@ -399,7 +401,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
 				OutputFile=".\..\bin\Debug_Unicode\Win32/Assert.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\..\bin\Debug_Unicode\Win32/Assert.pdb"
@@ -461,7 +463,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
 				OutputFile=".\..\bin\Release_Unicode\Win32/Assert.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\..\bin\Release_Unicode\Win32/Assert.pdb"
 				SubSystem="1"
@@ -574,105 +576,6 @@
 						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="Src\main.cpp">
-				<FileConfiguration
-					Name="Release_SBCS_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_SBCS_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="_DEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
-						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
-						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
@@ -910,6 +813,21 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Src\TestCastConst.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestCastDynamic.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestCastOverload.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestCastReinterpret.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestCastStatic.cpp">
+			</File>
+			<File
 				RelativePath="Src\TestCommonAssert.cpp">
 				<FileConfiguration
 					Name="Release_SBCS_MFC|Win32">
@@ -1003,6 +921,24 @@
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\TestConformance.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestEndian.c">
+			</File>
+			<File
+				RelativePath=".\Src\TestKeywordExplicit.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestKeywordMutable.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestKeywordNamespace.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestKeywordTypename.cpp">
 			</File>
 			<File
 				RelativePath="Src\TestPredefinedMacros.cpp">
@@ -1321,6 +1257,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\Common\Src\TsWriteT.c">
+			</File>
+			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
 				<FileConfiguration
 					Name="Release_SBCS_MFC|Win32">
@@ -1518,6 +1457,109 @@
 					</FileConfiguration>
 				</File>
 			</Filter>
+			<Filter
+				Name="STD"
+				Filter="">
+				<File
+					RelativePath="Src\main.cpp">
+					<FileConfiguration
+						Name="Release_SBCS_MFC|Win32"
+						ExcludedFromBuild="TRUE">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+							UsePrecompiledHeader="3"
+							PrecompiledHeaderThrough="stdafx.h"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_SBCS_MFC|Win32"
+						ExcludedFromBuild="TRUE">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							UsePrecompiledHeader="3"
+							PrecompiledHeaderThrough="stdafx.h"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_SBCS|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+							UsePrecompiledHeader="3"
+							PrecompiledHeaderThrough="stdafx.h"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_SBCS|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							UsePrecompiledHeader="3"
+							PrecompiledHeaderThrough="stdafx.h"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Unicode_MFC|Win32"
+						ExcludedFromBuild="TRUE">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions="_DEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
+							BasicRuntimeChecks="3"
+							UsePrecompiledHeader="3"
+							PrecompiledHeaderThrough="stdafx.h"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Unicode_MFC|Win32"
+						ExcludedFromBuild="TRUE">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions="NDEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
+							UsePrecompiledHeader="3"
+							PrecompiledHeaderThrough="stdafx.h"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_Unicode|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+							BasicRuntimeChecks="3"
+							UsePrecompiledHeader="3"
+							PrecompiledHeaderThrough="stdafx.h"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release_Unicode|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="2"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+							UsePrecompiledHeader="3"
+							PrecompiledHeaderThrough="stdafx.h"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1536,6 +1578,9 @@
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.h">
+			</File>
+			<File
+				RelativePath=".\Src\TestConformance.h">
 			</File>
 		</Filter>
 		<Filter

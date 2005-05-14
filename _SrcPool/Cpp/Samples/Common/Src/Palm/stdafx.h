@@ -1,5 +1,5 @@
 /*$Workfile: stdafx.h$: header file
-  $Revision: 13$  $Date: 2004-11-22 18:50:55$
+  $Revision: 14$  $Date: 2005-05-01 00:32:52$
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -9,7 +9,7 @@
 
 #if !defined(_STDAFX_H_)
   /*$Workfile: stdafx.h$ sentry */
-  #define _STDAFX_H_
+  #define _STDAFX_H_ 1544
 
 #if __MWERKS__ >= 0x3000
   #pragma once

@@ -182,6 +182,10 @@ SOURCE=..\..\KIsPrimeNo.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KLinkedListS.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KTestLog.cpp
 # End Source File
 # Begin Source File
@@ -217,6 +221,10 @@ SOURCE=.\Src\TestFibonnaci.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Src\TestLinkedList.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\TestNetByteOrder.cpp
 # End Source File
 # Begin Source File
@@ -247,6 +255,10 @@ SOURCE=..\Common\Src\TsWriteTxt.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\KLinkedListS.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\KMathCst.h

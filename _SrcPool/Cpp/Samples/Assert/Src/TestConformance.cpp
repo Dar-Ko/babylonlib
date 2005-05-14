@@ -1,5 +1,5 @@
-/*$Workfile: TestConformance.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-11-23 13:05:18$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\TestConformance.cpp$: implementation file
+  $Revision: 4$ $Date: 2005-03-21 14:01:00$
   $Author: Darko Kolakovic$
 
   Validates the conformance of a C++ compiler.
@@ -17,6 +17,7 @@ extern bool TestCastConst();
 extern bool TestCastStatic();
 extern bool TestCastDynamic();
 extern bool TestCastReinterpret();
+extern bool TestCastOverload();
 extern bool TestKeywordNamespace();
 extern bool TestKeywordTypename();
 extern bool TestKeywordExplicit();
@@ -42,6 +43,7 @@ PFUNC_TEST funcTest[] =
   TestCastStatic,
   TestCastDynamic,
   TestCastReinterpret,
+  TestCastOverload,
   TestKeywordNamespace,
   TestKeywordTypename,
   TestKeywordExplicit,

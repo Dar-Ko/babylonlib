@@ -1,5 +1,5 @@
 /*$Workfile: stdafx.h$: header file
-  $Revision: 11$  $Date: 2004-11-02 14:33:05$
+  $Revision: 16$  $Date: 2005-05-01 00:30:58$
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -9,7 +9,7 @@
 
 #if !defined(_STDAFX_H_)
   /*$Workfile: stdafx.h$ sentry */
-  #define _STDAFX_H_
+  #define _STDAFX_H_ 1532
 
 #if _MSC_VER > 1000
   #pragma once
@@ -48,13 +48,16 @@
       //library (DLL). The library is an aggregatation of C++ classes used in
       //building software programs for the Microsoft Windows OS.
       #define _USE_MFC 201
+      #ifndef _USE_AFX
+        #define _USE_AFX _USE_MFC
+      #endif
     #endif
   #endif
 
   //---------------------------------------------------------------------------
   //For build dependant of the MFC dynamic library (DLL), include
   //following header files
-  #ifdef _USE_MFC
+  #if defined (_USE_MFC) || defined (_USE_AFX)
     #include <afx.h>
     #include <afxwin.h>         // MFC core and standard components
     #include <afxext.h>         // MFC extensions
@@ -107,7 +110,7 @@
   #ifdef _STL
     #ifdef _DEBUG
       #ifndef _STLP_DEBUG
-        #define _STLP_DEBUG 1    //Debug STLPort library
+        //#define _STLP_DEBUG 1  //Debug STLPort library
                                  //Note: have to be defined before STL header
                                  //files
       #endif
@@ -143,7 +146,9 @@
 //Project specific header files
 #include "KTrace.h"   /*ASSERT_CL macro                         */
 #include "KTestLog.h" /*CTestLog class                          */
-
+#if !defined(UNUSED)
+  #include "KProgCst.h"
+#endif
 // TODO: reference additional headers your program requires here
 
 ///////////////////////////////////////////////////////////////////////////////

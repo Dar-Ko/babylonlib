@@ -1,8 +1,8 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-03-11 03:13:54$
+  $Revision: 2$ $Date: 2005-03-21 02:19:38$
   $Author: Darko$
 
-  Test console I/O helper routines.
+  Test HTML and XML streams.
   Copyright: CommonSoft Inc.
   2005-03-01 Darko Kolakovic
 */
@@ -25,10 +25,10 @@
 #include "stdafx.h"
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
-extern int TestCommonConsole(int argc, TCHAR* argv[]);
+extern int TestCommonHtmlIO(int argc, TCHAR* argv[]);
 
 //-----------------------------------------------------------------------------
-/*Validates different debugging and tracing routines.
+/*Validates HTML and XML handling routines.
   Defines the entry point for the console application.
 
   Returns: EXIT_SUCCESS, which represents a value of 0, if successful. Otherwise
@@ -38,22 +38,22 @@ int _tmain(int argc,      //[in] specifies how many arguments are passed to the
                           //program from the command line. The value of argc is
                           //at least one: the program name.
            TCHAR* argv[] //[in] the program arguments as an array of pointers
-                          //to null-terminated strings. The first string 
+                          //to null-terminated strings. The first string
                           //(argv[0]) is the program name. The end of the array
                           //(argv[argc]) is indicated by a NULL pointer.
            )
 {
-TsWriteToViewLn(_T("Start Console Tests"));
+TsWriteToViewLn(_T("Start HTML and XML Tests"));
 TsWriteToViewLn(_T(""));
 int nRetCode = EXIT_SUCCESS;
 
-nRetCode = TestCommonConsole(argc, argv);
+nRetCode = TestCommonHtmlIO(argc, argv);
 return nRetCode;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2005-03-11 03:13:54  Darko           
+ * $Log:
+ *  1    Biblioteka1.0         2005-03-11 02:13:54  Darko
  * $
  *****************************************************************************/

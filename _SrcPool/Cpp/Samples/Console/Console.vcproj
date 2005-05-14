@@ -24,7 +24,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
-				PreprocessorDefinitions="NDEBUG;_STL;WIN32;_CONSOLE"
+				PreprocessorDefinitions="NDEBUG;_STL;WIN32;_CONSOLE;_AFXDLL"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile=".\..\bin\Release_SBCS_MFC\Win32/Console.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\..\bin\Release_SBCS_MFC\Win32/Console.pdb"
 				SubSystem="1"
@@ -82,7 +82,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
-				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE"
+				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_AFXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS_MFC\Console\Win32/Console.pch"
@@ -98,8 +98,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				ShowProgress="0"
 				OutputFile=".\..\bin\Debug_SBCS_MFC\Win32/Console.exe"
-				LinkIncremental="1"
+				Version="2005.0316"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\..\bin\Debug_SBCS_MFC\Win32/Console.pdb"
@@ -160,7 +162,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
 				OutputFile=".\..\bin\Release_SBCS\Win32/Console.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\..\bin\Release_SBCS\Win32/Console.pdb"
 				SubSystem="1"
@@ -219,7 +221,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
 				OutputFile=".\..\bin\Debug_SBCS\Win32/Console.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/Console.pdb"
@@ -279,7 +281,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile=".\..\bin\Debug_Unicode_MFC\Win32/Console.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\..\bin\Debug_Unicode_MFC\Win32/Console.pdb"
@@ -340,7 +342,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				OutputFile=".\..\bin\Release_Unicode_MFC\Win32/Console.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\..\bin\Release_Unicode_MFC\Win32/Console.pdb"
 				SubSystem="1"
@@ -400,7 +402,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
 				OutputFile=".\..\bin\Debug_Unicode\Win32/Console.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\..\bin\Debug_Unicode\Win32/Console.pdb"
@@ -462,7 +464,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
 				OutputFile=".\..\bin\Release_Unicode\Win32/Console.exe"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\..\bin\Release_Unicode\Win32/Console.pdb"
 				SubSystem="1"
@@ -551,6 +553,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\KCmdLineParser.cpp">
+			</File>
+			<File
 				RelativePath="..\..\KTestLog.cpp">
 				<FileConfiguration
 					Name="Release_SBCS_MFC|Win32">
@@ -626,105 +631,6 @@
 						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="Src\main.cpp">
-				<FileConfiguration
-					Name="Release_SBCS_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_SBCS_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="_DEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
-						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
-						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
-						UsePrecompiledHeader="3"
-						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
@@ -955,6 +861,9 @@
 				RelativePath=".\Src\cmdline.h">
 			</File>
 			<File
+				RelativePath="..\..\KCmdLineParser.h">
+			</File>
+			<File
 				RelativePath="..\..\KDbgMacr.h">
 			</File>
 			<File
@@ -962,9 +871,6 @@
 			</File>
 			<File
 				RelativePath="..\..\KTrace.h">
-			</File>
-			<File
-				RelativePath="..\Common\Res\Win32\Resource.h">
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.h">
@@ -983,12 +889,170 @@
 			<File
 				RelativePath=".\LibraryTest.log">
 			</File>
+			<File
+				RelativePath=".\LibraryTestUni.log">
+			</File>
+		</Filter>
+		<Filter
+			Name="MFC"
+			Filter="">
+			<File
+				RelativePath=".\Src\Win\32\main.cpp">
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+		</Filter>
+		<Filter
+			Name="STD"
+			Filter="">
+			<File
+				RelativePath="Src\main.cpp">
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						UsePrecompiledHeader="3"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="3"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						UsePrecompiledHeader="3"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="3"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="_DEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="3"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="NDEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
+						UsePrecompiledHeader="3"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="3"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+						UsePrecompiledHeader="3"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+			</File>
 		</Filter>
 		<File
 			RelativePath="Console.txt">
-		</File>
-		<File
-			RelativePath="..\Common\Src\Win\32\ReadMe.txt">
 		</File>
 	</Files>
 	<Globals>
