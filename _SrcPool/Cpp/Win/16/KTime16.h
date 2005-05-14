@@ -1,6 +1,6 @@
-/*$Workfile: KTime16.h$: implementation file
-  $Revision: 1$ $Date: 2003-09-30 08:04:46$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\16\KTime16.h$: implementation file
+  $Revision: 2$ $Date: 2005-04-26 11:37:45$
+  $Author: Darko Kolakovic$
 
   Date and time manipulation
   Copyright: CommonSoft Inc
@@ -9,7 +9,7 @@
 /* Group=Time                                                                */
 
 #ifndef _KTIME16_H_
-    /*$Workfile: KTime16.h$ sentry                                           */
+    /*$Workfile: S:\_SrcPool\Cpp\Win\16\KTime16.h$ sentry */
   #define _KTIME16_H_
 
 
@@ -51,35 +51,35 @@
 
     Example:
         #include <dos.h>
-        #include <stdio.h> 
+        #include <stdio.h>
         #include <stdlib.h>
 
         void main()
-          { 
+          {
           struct _dosdate_t dateNew;
-          unsigned int iYear; 
+          unsigned int iYear;
 
           _dos_getdate (& dateNew);
-          printf("Date : %02d-%02d-%0d\n", 
+          printf("Date : %02d-%02d-%0d\n",
                   dateNew.month, dateNew.day, dateNew.year);
 
           iYear = dateNew.year;
-          dateNew.year = 1988; 
+          dateNew.year = 1988;
           _dos_setdate (&dateNew);
-          _dos_getdate (&dateNew); 
+          _dos_getdate (&dateNew);
 
           printf("Date : %02d-%02d-%0d\n",
-                  dateNew.month,dateNew.day, dateNew.year); 
+                  dateNew.month,dateNew.day, dateNew.year);
           dateNew.year = iYear;
-          _dos_setdate (&dateNew); 
-          _dos_getdate (&dateNew); 
+          _dos_setdate (&dateNew);
+          _dos_getdate (&dateNew);
           printf("Date : %02d-%02d-%0d\n",
-                  dateNew.month, dateNew.day, dateNew.year); 
+                  dateNew.month, dateNew.day, dateNew.year);
           }
 
     See also: date, FILEDATEDOS, PTM, time_t, tm, KTime.h
    */
-  struct _dosdate_t 
+  struct _dosdate_t
     {
     uint8  day;       /*day of the month [1, 31]           */
     uint8  month;     /*month [1,12] January = 1           */
@@ -134,7 +134,7 @@ typedef struct _dostime_t* PDOSTIME; /*Pointer to time structure             */
 
   See also: FILETIMEDOS
  */
-struct tagFILETIMEDOS 
+struct tagFILETIMEDOS
   {
   uint16 m_nSecH: 5; /*number of two-seconds [0,29] [2s]*/
   uint16 m_nMin : 6; /*number of minutes [0,59] [min]   */
@@ -190,8 +190,8 @@ typedef tagFILEDATEDOS* PFILEDATEDOS; /*pointer to DOS file date structure*/
 #endif  /*_KTIME16_H_                                                        */
 
 /*****************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2003-09-30 08:04:46  Darko           
+ * $Log:
+ *  1    Biblioteka1.0         2003-09-30 09:04:46  Darko
  * $
  * 0  1988 Darko Kolakovic
  *****************************************************************************/

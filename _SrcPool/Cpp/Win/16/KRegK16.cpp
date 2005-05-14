@@ -1,12 +1,13 @@
-/*$Workfile: KRegK16.cpp$: implementation file
-  $Revision: 5$ $Date: 2003-09-22 21:26:39$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Win\16\KRegK16.cpp$: implementation file
+  $Revision: 6$ $Date: 2005-04-26 11:37:40$
+  $Author: Darko Kolakovic$
 
   Registry Key helper
   Copyright: CommonSoft Inc
   May 94 (16b) Darko Kolakovic
   Nov 98 (NT ver) D.K.
 */
+// Group=Windows
 
 #include "AfxWin.h"
 #ifndef __AFXWIN_H__
@@ -29,7 +30,7 @@
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CRegistryKey 
+// CRegistryKey
 
 void CRegistryKey::Close()
 {
@@ -46,7 +47,7 @@ if (m_hKey != NULL)
 //Win 16b
 
 //::Create()-------------------------------------------------------------------
-/*The function creates the specified key and if the key already exists in the 
+/*The function creates the specified key and if the key already exists in the
   registry opens it.
   Predefined reserved key handle values are:
 
@@ -55,9 +56,9 @@ if (m_hKey != NULL)
     HKEY_LOCAL_MACHINE
     HKEY_USERS
 
-  Note: Microsoft Windows 16b specific (Win16). 
+  Note: Microsoft Windows 16b specific (Win16).
  */
-BOOL CRegistryKey::Create(HKEY hKey,        //Identifies a currently open key 
+BOOL CRegistryKey::Create(HKEY hKey,        //Identifies a currently open key
                                             //or any of the predefined
                                             //reserved handle values
                         LPCTSTR lpszKeyName //name of subkey to open or NULL
@@ -68,55 +69,55 @@ return (RegCreateKey(hKey, lpszKeyName, &m_hKey) == ERROR_SUCCESS);
 }
 
 //::Open()----------------------------------------------------------------------
-/*The function opens the specified key. If lpszKeyName parameter is NULL or a 
-  pointer to an empty string, the function initializes m_hKey member to the same 
-  handle that was passed in. 
+/*The function opens the specified key. If lpszKeyName parameter is NULL or a
+  pointer to an empty string, the function initializes m_hKey member to the same
+  handle that was passed in.
   Predefined reserved key handle values are:
 
     HKEY_CLASSES_ROOT
     HKEY_CURRENT_USER
     HKEY_LOCAL_MACHINE
     HKEY_USERS
-    
-  Note: Microsoft Windows 16b specific (Win16). 
+
+  Note: Microsoft Windows 16b specific (Win16).
  */
-BOOL CRegistryKey::Open(HKEY hKey,          //Identifies a currently open key 
+BOOL CRegistryKey::Open(HKEY hKey,          //Identifies a currently open key
                                             //or any of the predefined
                                             //reserved handle values
-                        LPCTSTR lpszKeyName //name of subkey to open or NULL. 
-                        )
+                        LPCTSTR lpszKeyName //name of subkey to open or NULL.
+                       )
 {
 ASSERT(hKey != NULL);
 return (RegOpenKey(hKey, lpszKeyName, &m_hKey) == ERROR_SUCCESS);
 }
 
 //::SetStringValue()-----------------------------------------------------------
-/*The function associates a text string with a specified key. This value must 
+/*The function associates a text string with a specified key. This value must
   be a text string and cannot have a name.
 
-  Note: Microsoft Windows 16b specific (Win16). 
+  Note: Microsoft Windows 16b specific (Win16).
  */
 BOOL CRegistryKey::SetStringValue(LPCTSTR lpszValue,
                                   LPCTSTR lpszValueName //NULL
                                   )
 {
 ASSERT(m_hKey != NULL);
-return (RegSetValue(m_hKey, lpszValueName, REG_SZ, 
+return (RegSetValue(m_hKey, lpszValueName, REG_SZ,
                       lpszValue,
                       _tcslen(lpszValue)) == ERROR_SUCCESS);
 }
 
 //::GetStringValue()-----------------------------------------------------------
 #ifdef __AFXWIN_H__         //Include MFC library
-/*The function retrieves the value associated with the unnamed value for 
+/*The function retrieves the value associated with the unnamed value for
   a specified key in the registry.
 
-  Note: uses Microsoft Fundation Library (MFC).
-        Microsoft Windows 16b specific (Win16). 
+  Note: uses Microsoft Foundation Library (MFC).
+        Microsoft Windows 16b specific (Win16).
  */
-BOOL CRegistryKey::GetStringValue(CString& strResult, 
-                                  LPCTSTR lpszValueName //=NULL The key name of 
-                                                        //the string to be queried 
+BOOL CRegistryKey::GetStringValue(CString& strResult,
+                                  LPCTSTR lpszValueName //=NULL The key name of
+                                                        //the string to be queried
                                   )
 {
 ASSERT(m_hKey != NULL);
@@ -143,10 +144,10 @@ return FALSE;
 #else //__AFXWIN_H__
 //::GetStringValue()-----------------------------------------------------------
 /*
-  Note: Microsoft Windows 16b specific (Win16). 
+  Note: Microsoft Windows 16b specific (Win16).
  */
-BOOL CRegistryKey::GetStringValue(LPTSTR szResult, 
-                                  size_t* pnBufferSize, //buffer size 
+BOOL CRegistryKey::GetStringValue(LPTSTR szResult,
+                                  size_t* pnBufferSize, //buffer size
                                   LPCTSTR lpszValueName// = NULL
                                   )
 {

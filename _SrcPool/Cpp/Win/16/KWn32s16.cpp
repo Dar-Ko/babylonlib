@@ -1,5 +1,5 @@
-/*$Workfile: KWn32s16.cpp$: implementation file
-  $Revision: 4$ $Date: 2002-03-08 01:50:32$
+/*$Workfile: S:\_SrcPool\Cpp\Win\16\KWn32s16.cpp$: implementation file
+  $Revision: 5$ $Date: 2005-04-26 11:37:50$
   $Author: Darko Kolakovic$
 
   Get the version number information for Win32s
@@ -7,6 +7,8 @@
   Microsoft KB Q125014
   Jan 94 Darko Kolakovic
 */
+
+// Group=Windows
 
 #ifndef __AFX_H__
   #include <Windows.h>
@@ -20,9 +22,9 @@
 // The WIN32SINFO data structure contains operating system version information.
 //
 // Note: There is no header file in the SDK which has a definition
-// for the WIN32SINFO structure.  
+// for the WIN32SINFO structure.
 typedef struct _tagWIN32SINFO
-  { 
+  {
   BYTE bMajor;
   BYTE bMinor;
   WORD wBuildNumber;
@@ -32,7 +34,7 @@ typedef struct _tagWIN32SINFO
 
 //BOOL GetWin32sVersion()------------------------------------------------------
 /*Get version number information for Win32s installed on a 16-bit Windows OS.
-  Win32s Release versions and corresponding build numbers: 
+  Win32s Release versions and corresponding build numbers:
 
      Win32s version    Build
           1.1          1.1.88
@@ -46,9 +48,9 @@ typedef struct _tagWIN32SINFO
           1.30a        1.2.166
           1.30c        1.2.172
 
-  Note: Microsoft Windows 16b specific (Win16). 
+  Note: Microsoft Windows 16b specific (Win16).
 
-  History:  
+  History:
             KB Q125014
             Jan 94 D.K.
   Example:
@@ -70,7 +72,7 @@ BOOL FAR PASCAL GetWin32sVersion(int* piMajor, //resulting major version number
                                  int* piBuild  //resulting build number
                                  )
 
-{ 
+{
 
 BOOL       bRes = FALSE;
 FARPROC    lpfnGetWin32sInfo;
@@ -82,15 +84,15 @@ WIN32SINFO Info;
 
 hDLL = LoadLibrary("W32SYS.DLL");
 
-if (hDLL > HINSTANCE_ERROR) 
+if (hDLL > HINSTANCE_ERROR)
   {
   lpfnGetWin32sInfo = GetProcAddress(hDLL, "GETWIN32SINFO");
-  if (lpfnGetWin32sInfo) 
+  if (lpfnGetWin32sInfo)
     {
         // Win32s version 1.1 is installed
-    if ((*lpfnGetWin32sInfo)((LPWIN32SINFO) &Info) == 0) 
+    if ((*lpfnGetWin32sInfo)((LPWIN32SINFO) &Info) == 0)
       {
-      //Indicates whether Win32s is loaded and Win32s VxD is functional. 
+      //Indicates whether Win32s is loaded and Win32s VxD is functional.
       bRes = TRUE;
       *piMajor = Info.bMajor;
       *piMinor = Info.bMinor;
@@ -99,7 +101,7 @@ if (hDLL > HINSTANCE_ERROR)
     else
       bRes = FALSE;    //Win32s VxD not loaded.
     }
-  else 
+  else
     {
         //Win32s version 1.0 is installed.
     *piMajor = 1;
@@ -108,7 +110,7 @@ if (hDLL > HINSTANCE_ERROR)
     bRes = TRUE;
     }
   FreeLibrary(hDLL);
-  } 
+  }
 else   //Win32s not installed.
   bRes = FALSE;
 

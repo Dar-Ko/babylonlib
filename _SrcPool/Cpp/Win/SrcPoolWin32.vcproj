@@ -12,7 +12,7 @@
 	</Platforms>
 	<Configurations>
 		<Configuration
-			Name="Debug_Unicode|Win32"
+			Name="Debug_Unicode_MFC|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="4"
@@ -60,7 +60,7 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Release_Unicode|Win32"
+			Name="Release_Unicode_MFC|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="4"
@@ -101,7 +101,7 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Release_SBCS|Win32"
+			Name="Release_SBCS_MFC|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="4"
@@ -142,7 +142,7 @@
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
-			Name="Debug_SBCS|Win32"
+			Name="Debug_SBCS_MFC|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="4"
@@ -233,25 +233,25 @@
 			<File
 				RelativePath=".\32\KDateTime.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -269,25 +269,25 @@
 			<File
 				RelativePath=".\32\KDbgBtnS.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -311,25 +311,25 @@
 			<File
 				RelativePath=".\32\KDbgFVSI.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -338,25 +338,25 @@
 			<File
 				RelativePath=".\32\KDbgGUID.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -365,25 +365,25 @@
 			<File
 				RelativePath=".\32\KDbgLDLL.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -392,25 +392,25 @@
 			<File
 				RelativePath=".\32\KDbgMapM.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -419,25 +419,25 @@
 			<File
 				RelativePath=".\32\KDbgOSVI.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -446,25 +446,25 @@
 			<File
 				RelativePath=".\32\KDbgPrpS.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -473,25 +473,25 @@
 			<File
 				RelativePath=".\32\KDbgRASS.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -500,59 +500,98 @@
 			<File
 				RelativePath=".\32\KDbgREFIID.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\32\KDbgTraceLog.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KDbgVerI.cpp">
 			</File>
 			<File
+				RelativePath=".\32\KDbgWsaError.c">
+			</File>
+			<File
+				RelativePath=".\32\KDbgXmlWin.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KDirGetExe.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KDisplayComError.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KDlgItem.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KDlgItLs.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KDlgRsiz.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KDlgTmIt.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KDlgTmpl.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KDockBar.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KFileGetDirectory.cpp">
+			</File>
+			<File
 				RelativePath=".\32\KFileTime.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\32\KFileTmpName.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KGetDomainName2k.cpp">
@@ -566,25 +605,25 @@
 			<File
 				RelativePath=".\32\KGetShel.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -594,7 +633,25 @@
 				RelativePath=".\32\KHypLink.cpp">
 			</File>
 			<File
+				RelativePath=".\32\KIsProdS.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KIsRASCo.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KIsTerm.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KListEx.cpp">
+			</File>
+			<File
 				RelativePath=".\32\KRegCtrl.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KRegExt.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KRegKey.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KShellDocumentFile.cpp">
@@ -603,30 +660,90 @@
 				RelativePath=".\32\KSingleInstanceApp.cpp">
 			</File>
 			<File
+				RelativePath=".\32\KSpwnURL.cpp">
+			</File>
+			<File
 				RelativePath=".\32\KStatusBarEx.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KStrAtoWChar.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\32\KStrGuidWin.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KStrWtoChar.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\32\KSysErrM.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -636,30 +753,165 @@
 				RelativePath=".\32\KTaskIco.cpp">
 			</File>
 			<File
+				RelativePath=".\32\KTimer.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\32\KTimerW.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\32\KTipBox.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\32\KVerInfo.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\32\KWinFWIs.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\32\KWinPlac.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KWinVerG.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -669,27 +921,33 @@
 				RelativePath=".\32\KWinVers.cpp">
 			</File>
 			<File
+				RelativePath=".\32\KXmlProcessorSax.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KXmlSaxErrorHandler.cpp">
+			</File>
+			<File
 				RelativePath=".\32\StdAfx.cpp">
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"/>
@@ -700,6 +958,9 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			<File
+				RelativePath=".\32\ATL30Conv.inl">
+			</File>
 			<File
 				RelativePath=".\32\KAbout.h">
 			</File>
@@ -714,6 +975,9 @@
 			</File>
 			<File
 				RelativePath=".\32\KAdoRecordset.h">
+			</File>
+			<File
+				RelativePath=".\32\KAtlExt.h">
 			</File>
 			<File
 				RelativePath=".\32\KBtnEx.h">
@@ -731,10 +995,31 @@
 				RelativePath=".\32\KDbgDump.h">
 			</File>
 			<File
+				RelativePath=".\32\KDbgXmlWin.h">
+			</File>
+			<File
+				RelativePath=".\32\KDlgItem.h">
+			</File>
+			<File
+				RelativePath=".\32\KDlgItLs.h">
+			</File>
+			<File
+				RelativePath=".\32\KDlgRsiz.h">
+			</File>
+			<File
+				RelativePath=".\32\KDlgTmIt.h">
+			</File>
+			<File
+				RelativePath=".\32\KDlgTmpl.h">
+			</File>
+			<File
 				RelativePath=".\32\KFileTime.h">
 			</File>
 			<File
 				RelativePath=".\32\KFileTimeCm.h">
+			</File>
+			<File
+				RelativePath=".\32\KFindRes.h">
 			</File>
 			<File
 				RelativePath=".\32\KHypLink.h">
@@ -744,6 +1029,12 @@
 			</File>
 			<File
 				RelativePath=".\32\KRegCtrl.h">
+			</File>
+			<File
+				RelativePath=".\32\KRegExt.h">
+			</File>
+			<File
+				RelativePath=".\32\KRegKey.h">
 			</File>
 			<File
 				RelativePath=".\32\KSingleInstanceApp.h">
@@ -758,6 +1049,18 @@
 				RelativePath=".\32\KTaskIco.h">
 			</File>
 			<File
+				RelativePath=".\32\KTimer.h">
+			</File>
+			<File
+				RelativePath=".\32\KTimerW.h">
+			</File>
+			<File
+				RelativePath=".\32\KTipBox.h">
+			</File>
+			<File
+				RelativePath=".\32\KVerInfo.h">
+			</File>
+			<File
 				RelativePath=".\32\KWinPlac.h">
 			</File>
 			<File
@@ -770,6 +1073,24 @@
 				RelativePath=".\32\KWinVers.inl">
 			</File>
 			<File
+				RelativePath=".\32\KXmlProcessorSax.h">
+			</File>
+			<File
+				RelativePath=".\32\KXmlSaxErrorHandler.h">
+			</File>
+			<File
+				RelativePath=".\32\KXmlSaxHandler.h">
+			</File>
+			<File
+				RelativePath=".\32\KXmlTypeWin.h">
+			</File>
+			<File
+				RelativePath=".\32\MFC40Hlp.inl">
+			</File>
+			<File
+				RelativePath=".\32\SrcPoolR.h">
+			</File>
+			<File
 				RelativePath=".\32\StdAfx.h">
 			</File>
 		</Filter>
@@ -779,6 +1100,13 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 			<File
 				RelativePath=".\32\KAbtRes.rc">
+			</File>
+		</Filter>
+		<Filter
+			Name="ToDo Files"
+			Filter="">
+			<File
+				RelativePath=".\32\KIsSrvce.cpp">
 			</File>
 		</Filter>
 	</Files>

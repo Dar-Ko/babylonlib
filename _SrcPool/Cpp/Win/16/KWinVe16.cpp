@@ -1,11 +1,13 @@
-/*$Workfile: KWinVe16.cpp$: implementation file
-  $Revision: 4$ $Date: 2002-03-08 01:49:28$
+/*$Workfile: S:\_SrcPool\Cpp\Win\16\KWinVe16.cpp$: implementation file
+  $Revision: 5$ $Date: 2005-04-26 11:37:47$
   $Author: Darko Kolakovic$
 
   Retrieve more detailed information about Windows platform
   Copyright: CommonSoft Inc
   May 94 Darko Kolakovic
 */
+// Group=Windows
+
 #ifndef _WIN32  //~Win32 16-bit platform
 #ifndef _WINDOWS_
   #include <Windows.h>
@@ -14,17 +16,17 @@
 #include "KWinVers.h"
 
 //GetWinVersion()--------------------------------------------------------------
-/*Returns the code specifying the operating system platform and current major 
+/*Returns the code specifying the operating system platform and current major
   and minor version numbers of Windows.
 
-  Note: Microsoft Windows 16b specific (Win16). 
+  Note: Microsoft Windows 16b specific (Win16).
  */
 DWORD WINAPI GetWinVersion(int* piMajor, //resulting major version number
                            int* piMinor  //resulting minor version number
                            )
 {
   //Check if the WOW (16-bit) layer of NT/NTAS is running now
-  if (GetWinFlags() & 0x4000) 
+  if (GetWinFlags() & 0x4000)
     dwEnviron = ENV_WINNT; //WinNT or WinNT Advanced Server
   else //Win 3.x or Win95
     {
@@ -38,13 +40,13 @@ DWORD WINAPI GetWinVersion(int* piMajor, //resulting major version number
        //Determine if Win 3.x or WFW
       if (IsWinForWgp())
         dwEnviron = ENV_WFW;
-      else 
+      else
         dwEnviron = ENV_WIN3X;
       }
     }
 
 *pMajor = LOBYTE(LOWORD(dwVersion));
-*pMinor = HIBYTE(LOWORD(dwVersion));   
+*pMinor = HIBYTE(LOWORD(dwVersion));
 
 return dwEnviron;
 

@@ -1,13 +1,14 @@
-/*$Workfile: KRegK16.h$: header file
-  $Revision: 5$ $Date: 2003-09-22 21:26:41$
-  $Author: Darko$
-  
+/*$Workfile: S:\_SrcPool\Cpp\Win\16\KRegK16.h$: header file
+  $Revision: 6$ $Date: 2005-04-26 11:37:42$
+  $Author: Darko Kolakovic$
+
   Windows Registry handler
   May 94 Darko Kolakovic
  */
+// Group=Windows
 
 #ifndef _KREGKEY_H_
-    //KRegKey.h sentry
+    //$Workfile: S:\_SrcPool\Cpp\Win\16\KRegK16.h$ sentry
   #define _KREGKEY_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -17,7 +18,7 @@
 /////////////////////////////////////////////////////////////////////////////
 //CRegistryKey handles operations with registry file.
 //
-//Note: Microsoft Windows 16b specific (Win16). 
+//Note: Microsoft Windows 16b specific (Win16).
 class CRegistryKey
 {
 public:
