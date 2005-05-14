@@ -1,5 +1,5 @@
-/*$Workfile: KTrace.h$: implementation file
-  $Revision: 35$ $Date: 2004-11-24 13:10:52$
+/*$Workfile: S:\_SrcPool\Cpp\KTrace.h$: implementation file
+  $Revision: 40$ $Date: 2005-04-13 15:05:00$
   $Author: Darko Kolakovic$
 
   Debugging helpers
@@ -8,8 +8,20 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef _KTRACE_H_
-    /*$Workfile: KTrace.h$ sentry*/
+    /*$Workfile: S:\_SrcPool\Cpp\KTrace.h$ sentry*/
   #define _KTRACE_H_
+
+/* ------------------------------------------------------------------------- */
+#ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files*/
+  #ifdef _MSC_VER
+    #pragma message ("   #include " __FILE__ )
+  #endif
+  #ifdef __GNUC__
+    #warning "   #include KTrace.h"
+  #endif
+
+/* ------------------------------------------------------------------------- */
+#endif /*_DEBUG_INCL_PREPROCESS*/
 
 #ifndef WIDECHAR
   #define _WIDECHAR_(x) L ## x
@@ -20,6 +32,7 @@
   #define WIDECHAR(x) _WIDECHAR_(x)
 #endif /*WIDECHAR*/
 
+/* ------------------------------------------------------------------------- */
 #if (defined _UNICODE) || (defined UNICODE) || (defined _MBCS)
   #ifndef __TFILE__
     /*Wide string version of __FILE__ */
@@ -41,6 +54,7 @@
     #define _TSFORMAT_ "%s"
   #endif /*_TSFORMAT_*/
 
+/* ------------------------------------------------------------------------- */
 #endif /*_UNICODE*/
 
 
@@ -52,6 +66,20 @@
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /* Debuging validation and text dump macros                                  */
+
+#ifdef _WIN32
+  #ifdef __cplusplus
+    #if defined (_USE_MFC) || defined (_USE_AFX) || defined (_AFXDLL)
+       //Build dependant of the Microsoft Foundation Class (MFC) library
+      #include <afx.h> //TRACE, ASSSERT macros
+    #else
+      #pragma todo(Move MSVC macros to Win/32/KTraceWin32.h) //TODO:
+      //#include "Win/32/KTraceWin32.h" //TRACE, ASSSERT macros
+    #endif /*USE_MFC*/
+  #else /*C compilation*/
+    /*#include "Win/32/KTraceWin32.h"*/
+  #endif /*__cplusplus*/
+#endif /*_WIN32*/
 
 /* ========================================================================= */
 /* Debug build version                                                       */
@@ -107,17 +135,6 @@
   /* ----------------------------------------------------------------------- */
   #endif   /*__GNUC__*/
 
-
-  /* ----------------------------------------------------------------------- */
-  #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files*/
-    #ifdef _MSC_VER
-      #pragma message ("   #include " __FILE__ )
-    #endif
-    #ifdef __GNUC__
-      #warning "   #include KTrace.h"
-    #endif
-  /* ----------------------------------------------------------------------- */
-  #endif
 
 
   /* ----------------------------------------------------------------------- */
@@ -201,9 +218,9 @@
     #ifndef __AFX_H__ /*MFC not included and all TRACE macros are undefined*/
       #define THIS_FILE          __FILE__
 
-     #ifdef _MFC_VER
-       #error Use MFC debugging macros
-     #endif
+      #ifdef _MFC_VER
+        #error Use MFC debugging macros
+      #endif
 
       /*  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . */
       #if _MSC_VER >= 1300 /*_MSC_VER >= 1300 MS Visual C++.Net v7.0; 7.1     */
@@ -237,6 +254,13 @@
                 (1 == _CrtDbgReport(_CRT_ASSERT, THIS_FILE, __LINE__, NULL, NULL))) \
                  _CrtDbgBreak(); \
               } while (0)
+
+        /*Evaluates an expression when the _DEBUG flag has been defined and
+          if the result is false, prints a diagnostic message and aborts
+          the program. In the release version evaluates the expression but 
+          does not print or interrupt the program.
+         */
+        #define VERIFY(exp)  ASSERT(exp)
 
         #define TRACE( szMsg) \
             _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, _TSFORMAT_, szMsg)
@@ -368,6 +392,13 @@
       #endif /*__GNUC__*/
     #endif  /* ASSERT */
 
+    /*Evaluates an expression when the _DEBUG flag has been defined and
+      if the result is false, prints a diagnostic message and aborts
+      the program. In the release version evaluates the expression but 
+      does not print or interrupt the program.
+     */
+    #define VERIFY(exp)  ASSERT(exp)
+
     #undef TRACE
     #undef TRACE0
     #undef TRACE1
@@ -493,6 +524,10 @@
         #define ASSERT(exp) __noop
       #endif
 
+      #ifndef VERIFY
+        #define VERIFY(exp)          ((void)(exp))
+      #endif
+
     #else /*_MSC_VER <= 1200 MS Visual Studio C/C++ v6.0 or less*/
       #ifdef __cplusplus
         #ifndef TRACE
@@ -516,6 +551,10 @@
         #ifndef ASSERT
           #define ASSERT(exp) ((void)0)
         #endif
+        #ifndef VERIFY
+          #define VERIFY(exp)          ((void)(exp))
+        #endif
+
       #else /*__c*/
         #ifndef TRACE
           #define TRACE(format)
@@ -537,6 +576,9 @@
         #endif
         #ifndef ASSERT
           #define ASSERT(exp)
+        #endif
+        #ifndef VERIFY
+          #define VERIFY(exp)          (exp)
         #endif
       #endif /*__cplusplus*/
     #endif /*_MSC_VER <= 1200 */
@@ -573,6 +615,9 @@
     #endif
     #ifndef ASSERT
       #define ASSERT(exp)
+    #endif
+    #ifndef VERIFY
+      #define VERIFY(exp)          (exp)
     #endif
 
   /* ----------------------------------------------------------------------- */

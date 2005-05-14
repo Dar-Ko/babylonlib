@@ -1,5 +1,5 @@
 /*$Workfile: KReal8Cv.h$: header file
-  $Revision: 6$ $Date: 2004-06-01 16:52:51$
+  $Revision: 6$ $Date: 2004-06-01 17:52:51$
   $Author: Darko$
 
   Conversion helper for 8 bytes real numbers (double)
@@ -110,12 +110,12 @@ return dReal;
 #endif  /*_KREAL8CV_H_                                                       */
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2004-06-01 16:52:51  Darko           time sync
- *  5    Biblioteka1.4         2003-09-30 09:44:37  Darko           formatting
- *  4    Biblioteka1.3         2002-01-24 18:19:15  Darko           Updated
+ *  6    Biblioteka1.5         2004-06-01 17:52:51  Darko           time sync
+ *  5    Biblioteka1.4         2003-09-30 10:44:37  Darko           formatting
+ *  4    Biblioteka1.3         2002-01-24 19:19:15  Darko           Updated
  *       comments
- *  3    Biblioteka1.2         2001-07-09 23:46:13  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:51:34  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:57:17  Darko           
+ *  3    Biblioteka1.2         2001-07-10 00:46:13  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:51:34  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:57:17  Darko           
  * $
  *****************************************************************************/

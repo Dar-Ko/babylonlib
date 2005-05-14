@@ -1,6 +1,6 @@
-/*$Workfile: KStringHandler.h$: header file
-  $Revision: 3$ $Date: 2004-06-08 15:42:28$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KStringHandler.h$: header file
+  $Revision: 4$ $Date: 2005-04-26 16:39:31$
+  $Author: Darko Kolakovic$
 
   Dynamic string class
   Copyright: CommonSoft Inc.
@@ -10,12 +10,11 @@
 /* Group=Strings                                                             */
 #pragma once
 
-#include "STL/KOStream.h" //Stream helpers
 
 ///////////////////////////////////////////////////////////////////////////////
 //The CStringHandler manages a variable-length sequence of characters.
-//CStringHandler objects can grow as a result of concatenation operations. 
-//The CStringHandler does not throw any exceptions and creates objects to be used 
+//CStringHandler objects can grow as a result of concatenation operations.
+//The CStringHandler does not throw any exceptions and creates objects to be used
 //in the same thread were created.
 class CStringHandler
 {
@@ -186,11 +185,11 @@ return s2.Compare(s1) != 0;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
- *  3    Biblioteka1.2         2004-06-08 15:42:28  Darko           Deleted friend
+ * $Log:
+ *  3    Biblioteka1.2         2004-06-08 16:42:28  Darko           Deleted friend
  *       operator<<()
- *  2    Biblioteka1.1         2004-06-06 21:50:54  Darko           added operator=
+ *  2    Biblioteka1.1         2004-06-06 22:50:54  Darko           added operator=
  *       (LPCTSTR szSource)
- *  1    Biblioteka1.0         2004-06-04 15:57:24  Darko           
+ *  1    Biblioteka1.0         2004-06-04 16:57:24  Darko
  * $
  *****************************************************************************/

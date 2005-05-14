@@ -1,11 +1,11 @@
 /*$Workfile: KPair.h$: header file
-  $Revision: 8$ $Date: 2003-08-22 14:59:17$
+  $Revision: 9$ $Date: 2005-04-21 03:20:41$
   $Author: Darko$
 
   Ordered number pairs
   Copyright: CommonSoft Inc
   Mar 2k TPair template class created Darko Kolakovic
- */ 
+ */
 // Group=Mathematics
 
 #ifndef _KPAIR_H_
@@ -19,13 +19,17 @@
 #include "KPoint.h" //TPoint template
 
 ///////////////////////////////////////////////////////////////////////////////
-//The TPair class is used to compare ordered pair of numbers (x,y).
-//Comparison is along x-axis.
+/*The TPair class is used to compare ordered pair of numbers (x,y)={x, {x,y}}.
+  An ordered pair is a set of a pair of objects with an order associated with
+  them.
+
+  Note: Comparison is along x-axis.
+ */
 template<class TYPE> class TPair: public TPoint<TYPE>
 {
 //Construction
 public:
-  TPair(const TYPE& x = 0, const TYPE& y = 0);
+  TPair(const TYPE& a = 0, const TYPE& b = 0);
   TPair(const TPoint<TYPE>& tptPoint);
 
     //Operations
@@ -42,21 +46,12 @@ public:
 //-----------------------------------------------------------------------------
 /*Default constructor
   P = (x,y)
-
-      Y
-     y|___.P(x,y)
-      |  /|
-      | / |
-      |/  |
-      +------- X
-          x
-
  */
 template<class TYPE>
-inline TPair<TYPE>::TPair(const TYPE& x, //= 0 the x-coordinate of the point
-                          const TYPE& y  //= 0 the y-coordinate of the point
+inline TPair<TYPE>::TPair(const TYPE& a, //[in]= 0 first element of the setr
+                          const TYPE& b  //[in]= 0 second element of the set
                          ):
-  TPoint<TYPE>(x,y)
+  TPoint<TYPE>(a,b)
 {
 }
 
@@ -64,51 +59,60 @@ inline TPair<TYPE>::TPair(const TYPE& x, //= 0 the x-coordinate of the point
     A(xa,ya) = B(xb,yb) => xa = xb and ya = yb
  */
 template<class TYPE>
-inline TPair<TYPE>::TPair(const TPoint<TYPE>& tptPoint):
+inline TPair<TYPE>::TPair(const TPoint<TYPE>& tptPoint//[in] point to convert
+                         ):
   TPoint<class TYPE>(tptPoint)
 {
 }
 
 //-----------------------------------------------------------------------------
-/*Orders two points along x-axis. Returns TRUE if P(x) < A(x) or point P is on
+/*Orders two points along x-axis.
+  Returns: true if P(x) < A(x) or point P is on
   semi-segment  P(y) < A(y) and P(x) = A(x).
-   {html:<BR><IMG SRC="Res/PltA.gif" ALT="P(x,y) &lt A" BORDER="0">}
+   {html:<br /><img src="Images/graphPltA.gif" alt="P(x,y) &lt A" border="0">}
  */
 template <class TYPE>
-bool TPair<TYPE>::operator < (const TPair<TYPE>& tptPoint) const
+bool TPair<TYPE>::operator < (const TPair<TYPE>& tptPoint //[in] value to compare
+                             ) const
 {
 return ((x <  tptPoint.x) || (x == tptPoint.x && y < tptPoint.y));
 }
 
 //-----------------------------------------------------------------------------
-/*Orders two points along x-axis. Returns TRUE if P(x) < A(x) or point P is on
-  semi-segment  P(y) <= A(y) and P(x) = A(x).
-   {html:<BR><IMG SRC="Res/PleA.gif" ALT="P(x,y) =&lt; A" BORDER="0">}
+/*Orders two points along x-axis.
+  Returns: true if P(x) < A(x) or point P is on semi-segment
+      P(y) <= A(y) and P(x) = A(x).
+  {html:<br /><img src="Images/graphPleA.gif" alt="P(x,y) =&lt; A" border="0">}
  */
 template <class TYPE>
-bool TPair<TYPE>::operator <= (const TPair<TYPE>& tptPoint) const
+bool TPair<TYPE>::operator <= (const TPair<TYPE>& tptPoint//[in] value to compare
+                              ) const
 {
 return ((x <  tptPoint.x) || (x == tptPoint.x && y <= tptPoint.y));
 }
 
 //-----------------------------------------------------------------------------
-/*Orders two points along x-axis. Returns TRUE if P(x) > A(x) or point P is on
+/*Orders two points along x-axis.
+  Returns: true if P(x) > A(x) or point P is on
   semi-segment  P(y) > A(y) and P(x) = A(x).
-   {html:<BR><IMG SRC="Res/PgtA.gif" ALT="P(x,y) &gt; A" BORDER="0">}
+   {html:<br /><img src="Images/graphPgtA.gif" alt="P(x,y) &gt; A" border="0">}
  */
 template <class TYPE>
-bool TPair<TYPE>::operator > (const TPair<TYPE>& tptPoint) const
+bool TPair<TYPE>::operator > (const TPair<TYPE>& tptPoint//[in] value to compare
+                             ) const
 {
 return ((x >  tptPoint.x) || (x == tptPoint.x && y > tptPoint.y));
 }
 
 //-----------------------------------------------------------------------------
-/*Orders two points along x-axis. Returns TRUE if P(x) > A(x) or point P is on
+/*Orders two points along x-axis.
+  Returns: true if P(x) > A(x) or point P is on
   semi-segment  P(y) >= A(y) and P(x) = A(x).
-   {html:<BR><IMG SRC="Res/PgeA.gif" ALT="P(x,y) &gt;= A" BORDER="0">}
+   {html:<br /><img src="Images/graphPgeA.gif" alt="P(x,y) &gt;= A" border="0">}
  */
 template <class TYPE>
-bool TPair<TYPE>::operator >= (const TPair<TYPE>& tptPoint) const
+bool TPair<TYPE>::operator >= (const TPair<TYPE>& tptPoint//[in] value to compare
+                              ) const
 {
 return ((x >  tptPoint.x) || (x == tptPoint.x && y >= tptPoint.y));
 }
@@ -118,11 +122,11 @@ return ((x >  tptPoint.x) || (x == tptPoint.x && y >= tptPoint.y));
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  4    Biblioteka1.3         7/19/01 11:58:32 PM  Darko           VSS tags
- *  3    Biblioteka1.2         7/7/01 11:10:30 PM   Darko           $Revision: 8$
+ *  3    Biblioteka1.2         7/7/01 11:10:30 PM   Darko           $Revision: 9$
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:51:09 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:56:52 PM   Darko           
+ *  1    Biblioteka1.0         8/13/00 2:56:52 PM   Darko
  * $
  *****************************************************************************/

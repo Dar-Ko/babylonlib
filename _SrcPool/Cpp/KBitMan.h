@@ -1,5 +1,5 @@
-/*$Workfile: KBitMan.h$: header file
-  $Revision: 7$ $Date: 2004-12-06 16:23:28$
+/*$Workfile: S:\_SrcPool\Cpp\KBitMan.h$: header file
+  $Revision: 8$ $Date: 2005-05-12 17:34:53$
   $Author: Darko Kolakovic$
 
   Manipulation with bits.
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KBITMAN_H_
-    /*$Workfile: KBitMan.h$ sentry */
+    /*$Workfile: S:\_SrcPool\Cpp\KBitMan.h$ sentry */
   #define _KBITMAN_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -55,10 +55,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 //Inlines
 
-#ifndef _WINDOWS
-  typedef unsigned char BYTE;
+#ifdef _MSC_VER
+  #pragma warning( disable : 4244 )//Warning :conversion from 'int' to 'uint8_t'
 #endif
-#pragma warning( disable : 4244 )//Warning :conversion from 'int' to 'BYTE'
 
 //SetNbitsR()-----------------------------------------------------------------
 /*Set n right bits of position p to TRUE (one); n must be smaller than p + 1.
@@ -77,9 +76,9 @@
      x 1 1 1   x x x x   <- x | Mask
     n bits right of p are set to one
 */
-inline BYTE& SetNbitsR(BYTE& x,/*the field of bits to be set (result) */
-                       BYTE p, /*the start position of the area to set*/
-                       BYTE n  /*the number of bits to set            */
+inline uint8_t& SetNbitsR(uint8_t& x,/*the field of bits to be set (result) */
+                       uint8_t p, /*the start position of the area to set*/
+                       uint8_t n  /*the number of bits to set            */
                        )
   {
   x = x | (( ~0 << (p + 1) ) ^ ( ~0 << (p + 1 - n)));
@@ -104,9 +103,9 @@ inline BYTE& SetNbitsR(BYTE& x,/*the field of bits to be set (result) */
      x 0 0 0   x x x x   <- x & Mask
     n bits left from p are set to zero
 */
-inline BYTE& ResetNbitsL(BYTE& x,/*the field of bits to be reset (result) */
-                         BYTE p, /*the start position of the area to reset*/
-                         BYTE n  /*the number of bits to reset             */
+inline uint8_t& ResetNbitsL(uint8_t& x,/*the field of bits to be reset (result) */
+                         uint8_t p, /*the start position of the area to reset*/
+                         uint8_t n  /*the number of bits to reset             */
                          )
   {
   x = RESET_NBITSL( x, p, n);
@@ -137,9 +136,9 @@ inline BYTE& ResetNbitsL(BYTE& x,/*the field of bits to be reset (result) */
       0 0 0 0    0 g f e   <- x & Mask
     result is n bits right from p
 */
-inline BYTE GetNbitsR(BYTE x, /*the source field of bits                   */
-                      BYTE p, /*the start position of the area to retrieve */
-                      BYTE n  /*the number of bits to retrieve             */
+inline uint8_t GetNbitsR(uint8_t x, /*the source field of bits                   */
+                      uint8_t p, /*the start position of the area to retrieve */
+                      uint8_t n  /*the number of bits to retrieve             */
                       )
   {
   x = x >> (p + 1 - n) & ~(~0 << n);
@@ -167,9 +166,9 @@ inline BYTE GetNbitsR(BYTE x, /*the source field of bits                   */
      0 0 0 0   0 g f e   <- x & Mask
      result is n bits right from p
 */
-inline BYTE GetNBitsL(BYTE x, /*the source field of bits                   */
-                      BYTE p, /*the start position of the area to retrieve */
-                      BYTE n  /*the number of bits to retrieve             */
+inline uint8_t GetNBitsL(uint8_t x, /*the source field of bits                   */
+                      uint8_t p, /*the start position of the area to retrieve */
+                      uint8_t n  /*the number of bits to retrieve             */
                       )
   {
   x = x >> p & ~(~0 << n);
@@ -195,9 +194,9 @@ inline BYTE GetNBitsL(BYTE x, /*the source field of bits                   */
      0 g f e   0 0 0 0   <- x & Mask
     result is n bits right from p
 */
-inline BYTE ExtNbitsL(BYTE x, /*the source field of bits                   */
-                      BYTE p, /*the start position of the area to retrieve */
-                      BYTE n  /*the number of bits to retrieve             */
+inline uint8_t ExtNbitsL(uint8_t x, /*the source field of bits                   */
+                      uint8_t p, /*the start position of the area to retrieve */
+                      uint8_t n  /*the number of bits to retrieve             */
                       )
   {
   x =  EXT_NBITSL( x, p, n);
@@ -231,10 +230,10 @@ inline BYTE ExtNbitsL(BYTE x, /*the source field of bits                   */
      y x x x   y y y y   <- y | x
     result is n bits right from p
 */
-inline BYTE& CpyNbitsL(BYTE& y,/*the result                                 */
-                       BYTE x, /*the source field of bits                   */
-                       BYTE p, /*the start position of the area to retrieve */
-                       BYTE n  /*the number of bits to retrieve             */
+inline uint8_t& CpyNbitsL(uint8_t& y,/*the result                                 */
+                       uint8_t x, /*the source field of bits                   */
+                       uint8_t p, /*the start position of the area to retrieve */
+                       uint8_t n  /*the number of bits to retrieve             */
                        )
   {
   x =  ExtNbitsL(x,p,n);
@@ -242,7 +241,7 @@ inline BYTE& CpyNbitsL(BYTE& y,/*the result                                 */
   y = y | x;
   return y;
   }
-#pragma warning( default : 4244 )//Warning :conversion from 'int' to 'BYTE'
+#pragma warning( default : 4244 )//Warning :conversion from 'int' to 'uint8_t'
 
 //GetFlag()--------------------------------------------------------------------
 /*Gets a flag value.

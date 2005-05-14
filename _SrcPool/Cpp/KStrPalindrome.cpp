@@ -1,5 +1,5 @@
 /*$Workfile: KStrPalindrome.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-07-07 16:48:59$
+  $Revision: 2$ $Date: 2004-07-07 17:48:59$
   $Author: Darko$
 
   Verifies if a string is a palindrome.

@@ -1,5 +1,5 @@
 /*$Workfile: KStrToD.c$: implementation file
-  $Revision: 4$ $Date: 2004-10-01 20:40:02$
+  $Revision: 4$ $Date: 2004-10-01 21:40:02$
   $Author: Darko$
 
   Converts a string to the real number

@@ -1,5 +1,5 @@
-/*$Workfile: KStrAtoI.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-08 11:34:32$
+/*$Workfile: S:\_SrcPool\Cpp\KStrAtoI.cpp$: implementation file
+  $Revision: 5$ $Date: 2004-10-08 12:34:32$
   $Author: Darko$
 
   Converts a string to integer

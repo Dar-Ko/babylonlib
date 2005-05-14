@@ -1,6 +1,6 @@
-/*$Workfile: KStrGSu.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-06-01 16:53:14$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KStrGSu.cpp$: implementation file
+  $Revision: 6$ $Date: 2005-04-26 16:39:24$
+  $Author: Darko Kolakovic$
 
   String helpers and CString extension
   Copyright: CommonSoft Inc.
@@ -30,7 +30,7 @@
   strSource. If token is not found, strSource is returned.
   iSubstringIndex is the zero-based index of substring to be found.
   
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
 
   Example:
     #include "KStrExt.h"
@@ -73,12 +73,13 @@ return strToken;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2004-06-01 16:53:14  Darko           time sync
- *  4    Biblioteka1.3         2003-09-04 10:21:19  Darko           Unicode
- *  3    Biblioteka1.2         2002-01-25 15:58:13  Darko           Updated
+ *  6    Biblioteka1.5         2005-04-26 16:39:24  Darko Kolakovic fixed typo
+ *  5    Biblioteka1.4         2004-06-01 17:53:14  Darko           time sync
+ *  4    Biblioteka1.3         2003-09-04 11:21:19  Darko           Unicode
+ *  3    Biblioteka1.2         2002-01-25 16:58:13  Darko           Updated
  *       comments
- *  2    Biblioteka1.1         2001-12-23 00:20:05  Darko           
- *  1    Biblioteka1.0         2001-08-18 15:04:12  Darko           
+ *  2    Biblioteka1.1         2001-12-23 01:20:05  Darko           
+ *  1    Biblioteka1.0         2001-08-18 16:04:12  Darko           
  * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
   ****************************************************************************/

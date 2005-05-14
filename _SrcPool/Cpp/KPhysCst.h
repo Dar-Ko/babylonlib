@@ -1,6 +1,6 @@
-/*$Workfile: KPhysCst.h$: header file
-  $Revision: 7$ $Date: 2003-09-11 15:58:02$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KPhysCst.h$: header file
+  $Revision: 8$ $Date: 2005-04-19 20:56:51$
+  $Author: Darko Kolakovic$
 
   Physics - Constants
   Copyright: CommonSoft Inc
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KPHYSCST_H_
-    //$Workfile: KPhysCst.h$ sentry
+    //$Workfile: S:\_SrcPool\Cpp\KPhysCst.h$ sentry
   #define _KPHYSCST_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -76,8 +76,10 @@
 
   //No name units
 
-#define CST_PERCENT = 1.0/100.0; //one one-hundredth part [%]
-#define CST_PERMILL = 1.0/1000.0;//one one-thousandth part[‰]=ANSI(TTF)137
+  //One one-hundredth part [%] See also: percent()
+#define CST_PERCENT = 1.0/100.0;
+  //One one-thousandth part[‰]=ANSI(TTF)137
+#define CST_PERMILL = 1.0/1000.0;
 
   //Time
 
@@ -116,7 +118,7 @@ template <class TYPE> inline TYPE VpV2dB(const TYPE& fV,const TYPE& fVref)
   One dB is equal to ten times the logarithm of the ratio of the power
   (or sound intensity) measured after and before attenuator.
 
-  A[B] = 10*A[dB] = 10*log(P/Pref)[dB]
+    A[B] = 10*A[dB] = 10*log(P/Pref)[dB]
  */
 template <class TYPE> inline TYPE WpW2dB(const TYPE& fP,const TYPE& fPref)
   {
@@ -142,7 +144,7 @@ template <class TYPE> inline TYPE dB2Wratio (const TYPE& fdB)
 /*Converts signal attenuation given in decibels to signal ratio in nepers.
   Usually  used in conjunction with hyperbolic trigonometric functions.
 
-  A[Np] = A[dB]/CST_dBpNp = A[dB]/(20* log(e))
+    A[Np] = A[dB]/CST_dBpNp = A[dB]/(20* log(e))
  */
 template <class TYPE> inline TYPE dB2Np (const TYPE& fdB //attenuation [dB]
                                         )

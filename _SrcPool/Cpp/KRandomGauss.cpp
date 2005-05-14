@@ -1,6 +1,6 @@
-/*$Workfile: KRandomGauss.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-06-01 16:52:45$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KRandomGauss.cpp$: implementation file
+  $Revision: 5$ $Date: 2005-04-20 13:09:51$
+  $Author: Darko Kolakovic$
 
   Random number generator with Gauss distribution
   1992 ALGORITHM 712, ACM
@@ -12,13 +12,18 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 //::CRandomGauss()-------------------------------------------------------------
-/*Default constructor creates a standard normal distribution.
+/*{html:
+  Default constructor creates a standard normal distribution.
   Standard normal random process is defined as:
-
+  <pre>
           z = (x - m(x))/D(x)
-
-  with mean{html: <IMG SRC="Res/muon.gif" ALT="m" BORDER="0">} equal to zero 
-  and variance equal to 1.( D(z)^2 = 1)
+  </pre>
+  with mean &muon; equal to zero and variance equal to 1.
+  <pre>
+          &muon; = 0
+          D(z)<sup>2</sup> = 1
+  </pre>
+  }
  */
 CRandomGauss::CRandomGauss()
 {
@@ -95,10 +100,11 @@ return (m_dMean + m_dStdDev * v / u);
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 4    Biblioteka1.3         2004-06-01 16:52:45  Darko           time sync
- * 3    Biblioteka1.2         2002-07-16 00:41:18  Darko           Fixed VSS Log 
+ * 5    Biblioteka1.4         2005-04-20 13:09:51  Darko Kolakovic comments
+ * 4    Biblioteka1.3         2004-06-01 17:52:45  Darko           time sync
+ * 3    Biblioteka1.2         2002-07-16 01:41:18  Darko           Fixed VSS Log 
  *      tag
- * 2    Biblioteka1.1         2002-04-02 18:06:11  Darko Kolakovic 
- * 1    Biblioteka1.0         2002-03-14 21:49:23  Darko           
+ * 2    Biblioteka1.1         2002-04-02 19:06:11  Darko Kolakovic 
+ * 1    Biblioteka1.0         2002-03-14 22:49:23  Darko           
  *$
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KStrBtoH.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-06-01 16:52:59$
+  $Revision: 4$ $Date: 2004-06-01 17:52:59$
   $Author: Darko$
 
   Converts a character to descriptive string
@@ -73,11 +73,11 @@ return szResult;
 
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2004-06-01 16:52:59  Darko           time sync
- *  3    Biblioteka1.2         2003-09-02 00:04:13  Darko           fixed release
+ *  4    Biblioteka1.3         2004-06-01 17:52:59  Darko           time sync
+ *  3    Biblioteka1.2         2003-09-02 01:04:13  Darko           fixed release
  *       version
- *  2    Biblioteka1.1         2003-08-25 01:53:30  Darko           VSS tags
- *  1    Biblioteka1.0         2002-08-13 17:53:10  Darko Kolakovic 
+ *  2    Biblioteka1.1         2003-08-25 02:53:30  Darko           VSS tags
+ *  1    Biblioteka1.0         2002-08-13 18:53:10  Darko Kolakovic 
  * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/

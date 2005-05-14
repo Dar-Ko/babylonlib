@@ -1,5 +1,5 @@
 /*$Workfile: KRandomUniform.h$: header file
-  $Revision: 6$ $Date: 2003-09-05 13:17:36$
+  $Revision: 6$ $Date: 2003-09-05 14:17:36$
   $Author: Borislav Lukovic$
 
   Uniform random number generator

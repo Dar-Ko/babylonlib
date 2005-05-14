@@ -1,5 +1,5 @@
 /*$Workfile: KZLineIn.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-06-01 15:54:56$
+  $Revision: 7$ $Date: 2004-06-01 16:54:56$
   $Author: Darko$
 
   Line impedance calculation
@@ -107,15 +107,15 @@ return Zin;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-06-01 15:54:56  Darko           StdAfx changed
+ *  7    Biblioteka1.6         2004-06-01 16:54:56  Darko           StdAfx changed
  *       to stdafx
- *  6    Biblioteka1.5         2003-08-22 15:59:47  Darko           comment
- *  5    Biblioteka1.4         2003-01-30 21:43:43  Darko           Excluded
+ *  6    Biblioteka1.5         2003-08-22 16:59:47  Darko           comment
+ *  5    Biblioteka1.4         2003-01-30 22:43:43  Darko           Excluded
  *       stdafx.h
- *  4    Biblioteka1.3         2002-01-25 15:59:57  Darko           Updated
+ *  4    Biblioteka1.3         2002-01-25 16:59:57  Darko           Updated
  *       comments
- *  3    Biblioteka1.2         2001-07-11 21:53:49  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:52:44  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:04:31  Darko           
+ *  3    Biblioteka1.2         2001-07-11 22:53:49  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:52:44  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 16:04:31  Darko           
  * $
  *****************************************************************************/

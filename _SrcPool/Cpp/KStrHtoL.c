@@ -1,5 +1,5 @@
 /*$Workfile: KStrHtoL.c$: implementation file
-  $Revision: 8$ $Date: 2003-08-14 04:04:22$
+  $Revision: 8$ $Date: 8/14/2003 5:04:22 AM$
   $Author: Darko$
 
   Converts hexadecimal string to long integer
@@ -44,16 +44,16 @@ return lResult;
 /*///////////////////////////////////////////////////////////////////////////*/
 /******************************************************************************
  *$Log: 
- * 8    Biblioteka1.7         2003-08-14 04:04:22  Darko           comment
- * 7    Biblioteka1.6         2002-08-19 09:40:09  Darko Kolakovic 
- * 6    Biblioteka1.5         2002-07-16 00:41:24  Darko           Fixed VSS Log 
+ * 8    Biblioteka1.7         8/14/2003 5:04:22 AM Darko           comment
+ * 7    Biblioteka1.6         8/19/2002 10:40:09 AMDarko Kolakovic 
+ * 6    Biblioteka1.5         7/16/2002 1:41:24 AM Darko           Fixed VSS Log 
  *      tag
- * 5    Biblioteka1.4         2002-03-07 16:10:33  Darko           updated
+ * 5    Biblioteka1.4         3/7/2002 5:10:33 PM  Darko           updated
  *      comments
- * 4    Biblioteka1.3         2001-12-22 23:12:11  Darko           Unicode
+ * 4    Biblioteka1.3         12/23/2001 12:12:11 AMDarko           Unicode
  *      mappings
- * 3    Biblioteka1.2         2001-07-11 21:52:50  Darko           
- * 2    Biblioteka1.1         2001-06-08 22:51:55  Darko           VSS
- * 1    Biblioteka1.0         2000-09-21 00:13:34  Darko           
+ * 3    Biblioteka1.2         7/11/2001 10:52:50 PMDarko           
+ * 2    Biblioteka1.1         6/8/2001 11:51:55 PM Darko           VSS
+ * 1    Biblioteka1.0         9/21/2000 1:13:34 AM Darko           
  *$
  *****************************************************************************/

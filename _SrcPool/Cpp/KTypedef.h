@@ -1,6 +1,6 @@
 /*$Workfile: KTypedef.h$: header file
-  $Revision: 31$ $Date: 2004-11-23 15:50:37$
-  $Author: Darko Kolakovic$
+  $Revision: 33$ $Date: 2005-04-27 02:15:13$
+  $Author: Darko$
 
   Type definitions
   Copyright: CommonSoft Inc
@@ -29,6 +29,13 @@
 
 /*---------------------------------------------------------------------------*/
 /*C compiler Boolean type                                                    */
+#if defined (_MSC_VER) && defined (__BOOL_DEFINED)
+  /*Microsoft Visual C++ 5.0 and later; built-in type. sizeof(bool) = 1*/
+  #if !defined(__bool_true_false_are_defined)
+    #define __bool_true_false_are_defined        1
+  #endif
+#endif
+
 #ifndef __cplusplus
   #ifdef __STDC__
     //ANSI C conformance (C99)
@@ -72,16 +79,18 @@
 #else /*__cplusplus*/
 
   #if defined (_MSC_VER) /*Microsoft VisualStudio C++ compiler*/
+    //*Microsoft Visual C++ 4.2 and before; FixMe! Does 4.2 have 'bool'; what for 2.0 ?
     #if !defined (__bool_true_false_are_defined)
-      /*The bool keyword is a built-in type. 
-        Note: In Visual C++ 4.2, the Standard C++ header files contained 
-        a typedef that equated bool with int. In Visual C++ 5.0 and later, 
-        bool is implemented as a built-in type with a size of 1 byte. 
+      /*The bool keyword is a built-in type.
+
+        Note: In Visual C++ 4.2, the Standard C++ header files contained
+        a typedef that equated bool with int. In Visual C++ 5.0 and later,
+        bool is implemented as a built-in type with a size of 1 byte.
         That means that for Visual C++ 4.2, a call of sizeof(bool) yields 4,
-        while in Visual C++ 5.0 and later, the same call yields 1. 
+        while in Visual C++ 5.0 and later, the same call yields 1.
         This can cause memory corruption problems if you have defined structure
-        members of type bool in Visual C++ 4.2 and are mixing object files 
-        (OBJ) and/or DLLs built with the 4.2 and 5.0 or later compilers. 
+        members of type bool in Visual C++ 4.2 and are mixing object files
+        (OBJ) and/or DLLs built with the 4.2 and 5.0 or later compilers.
        */
       #define bool bool
       #define true true
@@ -295,6 +304,7 @@
     #ifndef UINT
       /*An unsigned integer                                                  */
       typedef unsigned int UINT;
+      #define UINT UINT
     #endif
 
   #else
@@ -331,21 +341,25 @@
   #endif
 
   #ifndef BYTE
-    /*An 8-bit unsigned integer                                            */
+    /*An 8-bit unsigned integer                                             */
     typedef unsigned char BYTE;
     #define BYTE BYTE
   #endif
 
   #ifndef WORD
-    /*A 16-bit unsigned integer                                            */
-    typedef unsigned short WORD;
-    #define WORD WORD
+    #ifdef __NATIVE_32_BIT__
+      /*Machine word is a 16-bit unsigned integer                            */
+      typedef unsigned short WORD;
+      #define WORD WORD
+    #endif
   #endif
 
   #ifndef DWORD
-    /*A 32-bit unsigned integer                                            */
-    typedef unsigned long DWORD;
-    #define DWORD DWORD
+    #ifdef __NATIVE_32_BIT__
+      /*Machine double word is a 32-bit unsigned integer                     */
+      typedef unsigned long DWORD;
+      #define DWORD DWORD
+    #endif
   #endif
 
   #ifndef LPCSTR

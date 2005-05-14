@@ -1,6 +1,6 @@
 /*$Workfile: KProgCst.h$: header file
-  $Revision: 22$ $Date: 2004-11-23 15:48:31$
-  $Author: Darko Kolakovic$
+  $Revision: 23$ $Date: 2005-05-01 00:28:10$
+  $Author: Darko$
 
   Constants
   Copyright: CommonSoft Inc.
@@ -278,6 +278,24 @@ const wchar_t UCNIPRIVATEUSEZONE = 0xFFFF;
 #define SIZEOFARR(x)  (sizeof (x) / sizeof ((x)[0]))
 
 
+#ifndef _UNUSED
+  /*Resolves the compiler warning about unused arguments
+
+    Example:
+        void main (int x, int y)
+        {
+        _UNUSED(y);
+        x = 3;
+        ...
+        }
+   */
+  #define _UNUSED(x) ((void)x)
+#endif
+
+#ifndef UNUSED
+  #define UNUSED _UNUSED
+#endif
+
 #ifndef UNUSED_ARG
   #if defined(__GNUC__)
     /*GNU C/C++ */
@@ -295,7 +313,14 @@ const wchar_t UCNIPRIVATEUSEZONE = 0xFFFF;
     /*Metrowerks Code Warrior*/
     #define UNUSED_ARG(param)    &(param)
   #endif
+
+  #if defined(_MSC_VER)
+    /*Microsoft Visual C/C++*/
+    #define UNUSED_ARG _UNUSED
+  #endif
+
 #endif /* UNUSED_ARG */
+
 
 #ifdef _ENDIAN_LITTLE_
  /*Returns 32-bit value with high word initialized with given constant.

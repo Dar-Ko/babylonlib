@@ -1,4 +1,4 @@
-/*$Workfile: KTChar.h$: header file
+/*$Workfile: S:\_SrcPool\Cpp\KTChar.h$: header file
   $Revision: 21$ $Date: 2004-11-23 15:49:35$
   $Author: Darko Kolakovic$
 
@@ -63,7 +63,7 @@
 #endif
 
 #ifndef __KTCHAR_H__
-  /*$Workfile: KTChar.h$ sentry  */
+  /*$Workfile: S:\_SrcPool\Cpp\KTChar.h$ sentry  */
   #define __KTCHAR_H__ 1000
 #endif
 

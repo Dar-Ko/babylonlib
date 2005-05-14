@@ -1,6 +1,6 @@
-/*$Workfile: KPoint.h$: header file
-  $Revision: 7$ $Date: 2002-04-04 00:13:01$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KPoint.h$: header file
+  $Revision: 10$ $Date: 2005-04-26 16:39:15$
+  $Author: Darko Kolakovic$
 
   TPoint represents points in orthogonal coordinate system
   Copyright: CommonSoft Inc
@@ -8,11 +8,11 @@
   Jul 95 class replaced with template TPoint D.K.
   Mar 2k added comparison operators D.K.
  */
-  
+
 // Group=Mathematics
 
 #ifndef _KPOINT_H_
-    //KPoint.h sentry
+    //$Workfile: S:\_SrcPool\Cpp\KPoint.h$ sentry
   #define _KPOINT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -22,7 +22,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 //The TPoint class represents a location in a two-dimensional Cartesian
 //coordinate system.
-//    {html:<BR><IMG SRC="Res/OrthoCoordinateSystem.gif" BORDER="0">}
+//    {html:<br /><img src="Images/graph2DPointInOrthoSystem.gif"
+//     alt="2D point in orthogonal coordinate system" border="0">}
 //
 //This class could be used as a base class whenever an ordered pair
 //of numbers is needed.
@@ -42,8 +43,8 @@ public:
 
       //Data
 public:
-  TYPE x; //Specifies the x-coordinate of the point.
-  TYPE y; //Specifies the y-coordinate of the point.
+  TYPE x; //specifies the x-coordinate of the point.
+  TYPE y; //specifies the y-coordinate of the point.
 
     //Operations
 public:
@@ -63,19 +64,19 @@ public:
   #else
   TPoint  operator -() const;
   #endif
-  BOOL    operator ==(const TPoint<TYPE>& Point) const;
-  BOOL    operator !=(const TPoint<TYPE>& Point) const;
-  
+  bool    operator ==(const TPoint<TYPE>& Point) const;
+  bool    operator !=(const TPoint<TYPE>& Point) const;
+
   double  Distance() const;
   double  Angle() const;
   TPoint  polar(const TYPE& Rho, const TYPE  Angle);
 
 // Overrides
 public:
-  virtual BOOL operator < (const TPoint<TYPE>& Point) const;
-  virtual BOOL operator <=(const TPoint<TYPE>& Point) const;
-  virtual BOOL operator >=(const TPoint<TYPE>& Point) const;
-  virtual BOOL operator > (const TPoint<TYPE>& Point) const;
+  virtual bool operator < (const TPoint<TYPE>& Point) const;
+  virtual bool operator <=(const TPoint<TYPE>& Point) const;
+  virtual bool operator >=(const TPoint<TYPE>& Point) const;
+  virtual bool operator > (const TPoint<TYPE>& Point) const;
 
 };
 
@@ -91,8 +92,18 @@ typedef TPoint<float> fPOINT;
 
 //::TPoint()-----------------------------------------------------------------
 /*Default constructor
-  P = (x,y)
 
+     P = (x,y)
+    {html:<br /><img src="Images/graph2DPointInOrthoSystem.gif"
+     alt="2D point in orthogonal coordinate system" border="0">}
+ */
+template<class TYPE>
+inline TPoint<TYPE>::TPoint(const TYPE& x, //[in]= 0 the x-coordinate of the point
+                            const TYPE& y  //[in]= 0 the y-coordinate of the point
+                           ):
+  x(x),y(y)
+  {
+   /*
       Y
      y|___.P(x,y)
       |  /|
@@ -100,14 +111,7 @@ typedef TPoint<float> fPOINT;
       |/  |
       +------- X
           x
-
- */
-template<class TYPE>
-inline TPoint<TYPE>::TPoint(const TYPE& x, //= 0 the x-coordinate of the point
-                            const TYPE& y  //= 0 the y-coordinate of the point
-                           ):
-  x(x),y(y)
-  {
+   */
   }
 
 /*Assignment constructor
@@ -115,7 +119,8 @@ inline TPoint<TYPE>::TPoint(const TYPE& x, //= 0 the x-coordinate of the point
     A(xa,ya) = B(xb,yb) => xa = xb and ya = yb
  */
 template<class TYPE>
-inline TPoint<TYPE>::TPoint(const TPoint<TYPE>& tptPoint):
+inline TPoint<TYPE>::TPoint(const TPoint<TYPE>& tptPoint //[in] value to copy
+                           ):
   x(tptPoint.x),y(tptPoint.y)
   {
   }
@@ -125,11 +130,12 @@ inline TPoint<TYPE>::TPoint(const TPoint<TYPE>& tptPoint):
   /*Assignment constructor P(x,y) = C(x,y)
     x   specifies the x-coordinate of the point.
     y   specifies the y-coordinate of the point.
-    
-    Note: uses Microsoft Fundation Library (MFC).
+
+    Note: uses Microsoft Foundation Library (MFC).
    */
   template<class TYPE>
-  inline TPoint<TYPE>::TPoint(CPoint const& tptPoint) :
+  inline TPoint<TYPE>::TPoint(CPoint const& tptPoint //[in] point to convert
+                              ) :
   x((TYPE)tptPoint.x),y((TYPE)tptPoint.y)
     {
     }
@@ -137,11 +143,12 @@ inline TPoint<TYPE>::TPoint(const TPoint<TYPE>& tptPoint):
   /*Assignment constructor  P(x,y) = C(cx,cy)
     cx   specifies the x-extent.
     cy   specifies the y-extent.
-    
-    Note: uses Microsoft Fundation Library (MFC).
+
+    Note: uses Microsoft Foundation Library (MFC).
    */
   template<class TYPE>
-  inline TPoint<TYPE>::TPoint(CSize const& tptPoint) :
+  inline TPoint<TYPE>::TPoint(CSize const& tptPoint //[in] dimension to convert
+                             ) :
   x((TYPE)tptPoint.cx),y((TYPE)tptPoint.cy)
     {
     }
@@ -163,7 +170,9 @@ inline TPoint<TYPE>::TPoint(const TPoint<TYPE>& tptPoint):
     A(xa,ya) = B(xb,yb) => xa = xb and ya = yb
  */
 template<class TYPE>
-inline TPoint<TYPE>& TPoint<TYPE>::operator =(const TPoint<TYPE>& Point)
+inline TPoint<TYPE>& TPoint<TYPE>::operator =(const TPoint<TYPE>& Point//[in]
+                                              //new value to assign
+                                             )
 {
 x = Point.x;
 y = Point.y;
@@ -175,7 +184,9 @@ return (*this);
      P(x,y) = C(a,a) => x = a and y = a
  */
 template<class TYPE>
-inline TPoint<TYPE>& TPoint<TYPE>::operator =(const TYPE& ptConst)
+inline TPoint<TYPE>& TPoint<TYPE>::operator =(const TYPE& ptConst //[in]
+                                              //new value to assign
+                                             )
 {
 x = ptConst;
 y =(TYPE)0;
@@ -184,7 +195,8 @@ return (*this);
 
 //::operator+=()---------------------------------------------------------------
 /* Translates point P by adding value of the vector V. Vector have same format
-   as point, but members x and y represents intensity of the vector in X and Y direction.
+   as point, but members x and y represents intensity of the vector in X and Y
+   direction.
 
      V = X + Y;
      P(x,y)
@@ -201,10 +213,12 @@ return (*this);
 
  */
 template<class TYPE>
-inline TPoint<TYPE>& TPoint<TYPE>::operator +=(const TPoint<TYPE>& Vector)
+inline TPoint<TYPE>& TPoint<TYPE>::operator +=(const TPoint<TYPE>& Vector //[in]
+                                              //translating vector
+                                              )
 {
-x +=Point.x;
-y +=Point.y;
+x +=Vector.x;
+y +=Vector.y;
 return(*this);
 }
 
@@ -213,7 +227,9 @@ return(*this);
       P + C = P(x+c,y+c)
  */
 template<class TYPE>
-inline TPoint<TYPE>& TPoint<TYPE>::operator +=(const TYPE& ptConst)
+inline TPoint<TYPE>& TPoint<TYPE>::operator +=(const TYPE& ptConst//[in]
+                       //translating vector with equal components C(x=c, y=c)
+                                              )
 {
 x += ptConst;
 return( *this );
@@ -228,7 +244,9 @@ return( *this );
     P - V = P(x-X,y-Y)  => x = x - X and  y = y - Y
  */
 template<class TYPE>
-inline TPoint<TYPE>& TPoint<TYPE>::operator -=(const TPoint<TYPE>& Vector)
+inline TPoint<TYPE>& TPoint<TYPE>::operator -=(const TPoint<TYPE>& Vector//[in]
+                                              //translating vector
+                                              )
 {
 x -=Point.x;
 y -=Point.y;
@@ -240,7 +258,9 @@ return( *this );
       P - C = P(x-c,y-c)
  */
 template<class TYPE>
-inline TPoint<TYPE>& TPoint<TYPE>::operator -=(const TYPE& ptConst)
+inline TPoint<TYPE>& TPoint<TYPE>::operator -=(const TYPE& ptConst//[in]
+                       //translating vector with equal components C(x=c, y=c)
+                                              )
 {
 x -= ptConst;
 return( *this );
@@ -254,7 +274,9 @@ return( *this );
     P * F = P(x*fx,y*fy)  => x = x * fx and  y = y * fy
  */
 template<class TYPE>
-inline TPoint<TYPE>& TPoint<TYPE>::operator *=(const TPoint<TYPE>& Coeff)
+inline TPoint<TYPE>& TPoint<TYPE>::operator *=(const TPoint<TYPE>& Coeff//[in]
+                                              //translating vector
+                                              )
 {
 
 x *= Coeff.x;
@@ -265,7 +287,9 @@ return *this;
 /*Translates point P by scaling each coordinate with translation constant.
  */
 template<class TYPE>
-inline TPoint<TYPE>& TPoint<TYPE>::operator *=(const TYPE& ptConst)
+inline TPoint<TYPE>& TPoint<TYPE>::operator *=(const TYPE& ptConst //[in]
+                       //translating vector with equal components C(x=c, y=c)
+                                              )
 {
 x *= ptConst;
 y *= ptConst;
@@ -280,7 +304,9 @@ return(*this);
     P / F = P(x/fx,y/fy)  => x = x / fx and  y = y / fy
  */
 template<class TYPE>
-inline TPoint<TYPE>& TPoint<TYPE>::operator /=(const TPoint<TYPE>& Point)
+inline TPoint<TYPE>& TPoint<TYPE>::operator /=(const TPoint<TYPE>& Point//[in]
+                                              //translating vector
+                                              )
 {
 x /= ptConst;
 y /= ptConst;
@@ -290,7 +316,9 @@ return *this;
 /*Translates point P by scaling each coordinate with translation constant.
  */
 template<class TYPE>
-inline TPoint<TYPE>& TPoint<TYPE>::operator /=(const TYPE& ptConst)
+inline TPoint<TYPE>& TPoint<TYPE>::operator /=(const TYPE& ptConst//[in]
+                       //translating vector with equal components C(x=c, y=c)
+                                              )
 {
 x /= ptConst;
 y /= ptConst;
@@ -300,10 +328,17 @@ return (*this);
 //::operator+()----------------------------------------------------------------
 /*Returns new point P1 at distance D from first point P.
 
-   P1 = P + D = P1(x + dx, y + dy)
+  We defined addition as,
+     {x, {x,y}}+{c, {c,d}}={x+c, {x+c, y+d}},
+          (x,y) +(c,d) =(x+c, y+d) .
+
+ The later could, for a particular representation, be written as
+      P1 = P + D = P1(x + dx, y + dy)
  */
 template<class TYPE>
-inline TPoint<TYPE>  TPoint<TYPE>::operator +(const TPoint<TYPE>& Distance) const
+inline TPoint<TYPE> TPoint<TYPE>::operator +(const TPoint<TYPE>& Distance//[in]
+                                             //translation distance
+                                            ) const
 {
 return TPoint<TYPE>(x + Distance.x, y + Distance.y);
 }
@@ -314,7 +349,9 @@ return TPoint<TYPE>(x + Distance.x, y + Distance.y);
    P1 = P - D = P1(x - dx, y - dy)
  */
 template<class TYPE>
-inline TPoint<TYPE>  TPoint<TYPE>::operator -(const TPoint<TYPE>& Distance) const
+inline TPoint<TYPE> TPoint<TYPE>::operator -(const TPoint<TYPE>& Distance//[in]
+                                             //translation distance
+                                            ) const
 {
 return TPoint<TYPE>(x - Distance.x, y - Distance.y);
 }
@@ -331,79 +368,95 @@ return TPoint<TYPE>(-x,-y);
 }
 
 //operator==()-----------------------------------------------------------------
-/*Determines whether two points are equal. Returns TRUE if points represents
-  same location in two dimensional space.
+/*Determines whether two points are equal.
+  Two ordered pairs  representing points(x, y) and (a, b) are equal if
+  and only if x = a and y = b.
+  Returns: true if the points represents same location in two dimensional space.
  */
 template<class TYPE>
-inline BOOL TPoint<TYPE>::operator ==(const TPoint<TYPE>& Point) const
+inline bool TPoint<TYPE>::operator ==(const TPoint<TYPE>& Point //[in] point to
+                                     //compare with
+                                     ) const
 {
 return ((x == Point.x) && (y == Point.y));
 }
 
 //operator!=()-----------------------------------------------------------------
-/*Determines whether two points are not equal. Returns TRUE if points are
+/*Determines whether two points are not equal.
+  Returns: true if points are
   different locations in two-dimensional space.
  */
 template<class TYPE>
-inline BOOL TPoint<TYPE>::operator !=(const TPoint<TYPE>& Point) const
+inline bool TPoint<TYPE>::operator !=(const TPoint<TYPE>& Point//[in] point to
+                                     //compare with
+                                     ) const
 {
 return ((x != Point.x) || (y != Point.y));
 }
 
 //operator<()------------------------------------------------------------------
-/*Compares two points. Returns TRUE if P(x) < A(x) and P(y) < A(y).
-   {html:<BR><IMG SRC="Res/PTltA.gif" ALT="P(x,y) &lt A" BORDER="0">}
+/*Compares two points.
+  Returns: true if P(x) < A(x) and P(y) < A(y).
+   {html:<br /><img src="Images/graphPTltA.gif" alt="P(x,y) &lt A" border="0">}
  */
 template <class TYPE>
-BOOL TPoint<TYPE>::operator < (const TPoint<TYPE>& tptPoint) const
+bool TPoint<TYPE>::operator < (const TPoint<TYPE>& tptPoint//[in] point to
+                                     //compare with
+                               ) const
 {
 return ((x < tptPoint.x) && (y < tptPoint.y));
 };
 
 //operator<=()-----------------------------------------------------------------
-/*Compares two points. Returns TRUE if P(x) <= A(x) and P(y) <= A(y).
-   {html:<BR><IMG SRC="Res/PTleA.gif" ALT="P(x,y) =&lt; A" BORDER="0">}
+/*Compares two points.
+  Returns: true if P(x) <= A(x) and P(y) <= A(y).
+   {html:<br /><img src="Images/graphPTleA.gif" alt="P(x,y) =&lt; A" border="0">}
  */
 template <class TYPE>
-BOOL TPoint<TYPE>::operator <= (const TPoint<TYPE>& tptPoint) const
+bool TPoint<TYPE>::operator <= (const TPoint<TYPE>& tptPoint//[in] point to
+                                     //compare with
+                                ) const
 {
 return ((x <= tptPoint.x) && (y <= tptPoint.y));
 }
 
 //operator>()------------------------------------------------------------------
-/*Compares two points. Returns TRUE if P(x) > A(x) and P(y) > A(y).
-   {html:<BR><IMG SRC="Res/PTgtA.gif" ALT="P(x,y) &gt; A" BORDER="0">}
+/*Compares two points.
+  Returns: true if P(x) > A(x) and P(y) > A(y).
+   {html:<br /><img src="Images/graphPTgtA.gif" alt="P(x,y) &gt; A" border="0">}
  */
 template <class TYPE>
-BOOL TPoint<TYPE>::operator > (const TPoint<TYPE>& tptPoint) const
+bool TPoint<TYPE>::operator > (const TPoint<TYPE>& tptPoint//[in] point to
+                                     //compare with
+                              ) const
 {
 return ((x >  tptPoint.x) && (y > tptPoint.y));
 }
 
 //operator>=()-----------------------------------------------------------------
-/*Compares two points. Returns TRUE if P(x) >= A(x) and P(y) >= A(y)
-   {html:<BR><IMG SRC="Res/PTgeA.gif" ALT="P(x,y) &gt;= A" BORDER="0">}
+/*Compares two points.
+  Returns: true if P(x) >= A(x) and P(y) >= A(y)
+   {html:<br /><img src="Images/graphPTgeA.gif" alt="P(x,y) &gt;= A" border="0">}
  */
 template <class TYPE>
-BOOL TPoint<TYPE>::operator >= (const TPoint<TYPE>& tptPoint) const
+bool TPoint<TYPE>::operator >= (const TPoint<TYPE>& tptPoint//[in] point to
+                                     //compare with
+                                ) const
 {
 return ((x >=  tptPoint.x) && (y >= tptPoint.y));
 }
 
 //::Distance()-----------------------------------------------------------------
 #include "KMathCst.h" //Absolute
-/*Returns distance between point P(x2,y2) and origin O(x1=0, y1=0).
-  {html:<BR><IMG SRC="Res/eqDistance2Pt2D.gif" BORDER="0">}
+/*{html:
+   Returns distance between point P(x2,y2) and origin O(x1=0, y1=0).
 
-      Y
-      |___.P(x2,y2)
-      |  /|
-      |d/ |
-      |/  |
-      +-------X
-     0(x1,y1)
-
-    d = sqrt(x2**2+y2**2)
+  <br />
+  <img src="Images/eqDistance2Pt2D.gif"    alt="d = sqrt((x2-x1)**2+(y2-y1)**2)">
+  <br />
+  <img src="Images/graphDistance0Pt2D.gif" alt="Distance to 2D point"> <br />
+  <img src="Images/eqDistance0Pt2D.gif"    alt="d = sqrt(x2**2+y2**2)">
+  }
 
   Example:
       #include "KPoint.h"  //TPoint template
@@ -425,29 +478,43 @@ if (x == (TYPE)0)
 if (y == (TYPE)0)
   return Absolute(x);
 
+/*   Y
+      |___.P(x2,y2)
+      |  /|
+      |d/ |
+      |/  |
+      +-------X
+     0(x1,y1)
+ */
 return sqrt(SQUARE((double)x) + SQUARE((double)y));
 }
 
 //::Angle()--------------------------------------------------------------------
-/*Return: angle in radians between the line from the origin to the point and
+/*Returns: angle in radians between the line from the origin to the point and
   the x-axis.
-  {html:<BR><IMG SRC="Res/eqOrtho2Polar.gif" BORDER="0">}
+  {html:<br /><img src="Images/eqOrtho2Polar.gif" border="0"
+              alt="&rho;^2=x^2+y^d, tan(&theta;)=y/x">
 
-     theta = atan(y/x);
+     <img src="Images/eqPolarAngle.gif" border="0"
+             alt="&theta; = atan(y/x)">;
+  }
 
  See also: polar().
 
  Note: If x coordinate is 0, function returns 0.
 
  Example:
+    {html: <pre><code>
+
     #include "KPoint.h"  //TPoint template
     //Convert Cartesian coordinates to polar system
     TPoint<double> GetPolar(const TPoint<double>& Point)
       {
-        //Return ordered pair (rho, theta)
+        //Return ordered pair (&rho;, &theta;)
       return TPoint<double>(Point.Distance(),Point.Angle());
       }
 
+   </code></pre>}
 */
 template<class TYPE>
 inline double TPoint<TYPE>::Angle() const
@@ -456,10 +523,15 @@ return atan2((double)y, (double)x);
 }
 
 //polar()----------------------------------------------------------------------
-/*Converts a point in polar coordinate system represented by an ordered pair
- (rho,theta) into Cartesian coordinates.
-     {html:<BR><IMG SRC="Res/PolarCoordinateSystem.gif" BORDER="0">}
-     {html:<BR><IMG SRC="Res/eqPolar2Ortho.gif" ALT= "x = r cos(t), y = r sin(t)" BORDER="0">}
+/*{html:
+  Converts a point in polar coordinate system represented by an ordered pair
+  (&rho;,&theta;) into Cartesian coordinates.
+
+       <br /><img src="Images/graph2DPointInPolarSystem.gif" border="0"
+               alt="Polar Coordinate system">
+       <br /><img src="Images/eqPolar2Ortho.gif"  border="0"
+               alt="x = r cos(t), y = r sin(t)">
+  }
  */
 template <class TYPE>
 inline TPoint<TYPE> TPoint<TYPE>::polar(const TYPE& Rho,   //distance from the origin
@@ -478,16 +550,16 @@ return  (Angle ==  (TYPE)0) ?
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
- *  7    Biblioteka1.6         2002-04-04 00:13:01  Darko           Documenation
+ * $Log:
+ *  7    Biblioteka1.6         4/4/2002 1:13:01 AM  Darko           Documenation
  *       update
- *  6    Biblioteka1.5         2002-01-29 22:21:33  Darko           Used lbraries
- *       notes 
- *  5    Biblioteka1.4         2002-01-25 15:57:34  Darko           Updated
+ *  6    Biblioteka1.5         1/29/2002 11:21:33 PMDarko           Used lbraries
+ *       notes
+ *  5    Biblioteka1.4         1/25/2002 4:57:34 PM Darko           Updated
  *       comments
- *  4    Biblioteka1.3         2001-07-19 23:58:35  Darko           VSS tags
- *  3    Biblioteka1.2         2001-07-11 21:52:03  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:51:14  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:56:57  Darko           
+ *  4    Biblioteka1.3         7/20/2001 12:58:35 AMDarko           VSS tags
+ *  3    Biblioteka1.2         7/11/2001 10:52:03 PMDarko
+ *  2    Biblioteka1.1         6/8/2001 11:51:14 PM Darko           VSS
+ *  1    Biblioteka1.0         8/13/2000 3:56:57 PM Darko
  * $
  *****************************************************************************/

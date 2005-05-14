@@ -1,28 +1,48 @@
 /*$Workfile: KStringStd.cpp$: implementation file
-  $Revision: 1$ $Date: 2003-09-05 13:20:08$
-  $Author: Borislav Lukovic$
+  $Revision: 2$ $Date: 2005-04-25 21:26:59$
+  $Author: Darko$
 
   Dynamic string class
   Copyright: B. Lukovic
-  Borislav Lukovic 
+  Borislav Lukovic
  */
 
-#include <memory.h> //memset()
+// Group=Strings
 
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+/*Replaces library header file names with the compiler's aliases*/
+#ifdef _USE_STD_HEADERS
+  #ifdef _WIN32
+    #ifdef _MSC_VER //Micorsoft C++ compiler
+      #ifdef _UNICODE
+        #ifndef UNICODE
+          //To enable Unicode for some Microsoft Visual C/C++ header files,
+          //the UNICODE definition is required
+          #define UNICODE
+        #endif
+      #endif
+      #pragma include_alias("KTChar.h", "wtypes.h")
+    #endif  //_MSC_VER
+  #endif  //_WIN32
+
+#endif  //_USE_STD_HEADERS
+
+
+#include <memory.h> //memset()
+#include "KTChar.h" /*LPCTSTR typedef*/
 #include "KStringStd.h" //CStringStd class
 
+//-------------------------------------------------------------
+//
+const int BSTRING_GROW_BY 2
 
 //-------------------------------------------------------------
 //
-#define BSTRING_GROW_BY 2
-
-//-------------------------------------------------------------
-//
-const tSize CStringStd::npos = (tSize)(-1);
+const UINT CStringStd::npos = (UINT)(-1);
 
 //-------------------------------------------------------------
 // Initialize member variables to default values
-void CStringStd::Init(const tChar* psz, tSize len)
+void CStringStd::Init(const TCHAR* psz, UINT len)
 {
    m_psz      = NULL;
    m_len      = 0;
@@ -39,14 +59,14 @@ void CStringStd::Init(const tChar* psz, tSize len)
 /**
  * Ensures that capacity() henceforth returns at least n.
  */
-void CStringStd::reserve(tSize n)
+void CStringStd::reserve(UINT n)
 {
    assert(n != 0);
-  clear(); 
+  clear();
 
-   tSize newCapacity = n+1;
+   UINT newCapacity = n+1;
 
-   tChar* pNewSZ = new tChar[newCapacity];
+   TCHAR* pNewSZ = new TCHAR[newCapacity];
   if (!pNewSZ)
     return; //! couldn't allocate more memory
 
@@ -63,23 +83,23 @@ memset(pNewSZ, 0, m_capacity);
  * Realloc so capacity is big enough to receive string of length n
  * Does not shorten the buffer!
  */
-void CStringStd::Realloc(tSize n)
+void CStringStd::Realloc(UINT n)
 {
    if (n <= m_len)
       return; // already big enough
 
-   // extend 
+   // extend
    if (m_capacity < n+1)
    {
-      tSize newCapacity = m_capacity;
+      UINT newCapacity = m_capacity;
 
     if (newCapacity==0)
-      newCapacity = BSTRING_GROW_BY; 
+      newCapacity = BSTRING_GROW_BY;
 
       while (newCapacity < n + 1)
          newCapacity *= BSTRING_GROW_BY;
 
-      tChar* pNewSZ = new tChar[newCapacity];
+      TCHAR* pNewSZ = new TCHAR[newCapacity];
     if (!pNewSZ)
       return; //! couldn't allocate more memory
 
@@ -104,10 +124,10 @@ void CStringStd::Realloc(tSize n)
 
 //-------------------------------------------------------------
 /**
- * Ensures that size() henceforth returns n. 
+ * Ensures that size() henceforth returns n.
  * If it must lengthen the controlled sequence, it appends elements with value ch (MUST NOT BE '0').
  */
-void CStringStd::resize(tSize n, tChar ch)
+void CStringStd::resize(UINT n, TCHAR ch)
 {
    if (n == m_len)
       return;
@@ -115,7 +135,7 @@ void CStringStd::resize(tSize n, tChar ch)
    if (n < m_len)
    {
       // shorten the string, no reallocation
-      m_psz[n] = '\0';
+      m_psz[n] = _T('\0');
       m_len = n;
    }
    else
@@ -125,11 +145,11 @@ void CStringStd::resize(tSize n, tChar ch)
       return; // reallocation did not succeed
 
      // fill with ch
-     for (tSize i=0; i<n; i++)
+     for (UINT i=0; i<n; i++)
        m_psz[m_len+i] = ch;
 
       // adjust length
-     m_psz[m_len+n] = '\0';
+     m_psz[m_len+n] = _T('\0');
       m_len += n + 1;
    }
 }
@@ -137,14 +157,14 @@ void CStringStd::resize(tSize n, tChar ch)
 
 //-------------------------------------------------------------
 /**
- * Compare n0 elements of the controlled sequence beginning with position p0   
- * Case sensitive comparison. 
- * @return 
- *   zero if the strings are identical; 
- *     -1 if this object is less than psz;  
- *      1 if this object is greater than psz. 
+ * Compare n0 elements of the controlled sequence beginning with position p0
+ * Case sensitive comparison.
+ * @return
+ *   zero if the strings are identical;
+ *     -1 if this object is less than psz;
+ *      1 if this object is greater than psz.
  */
-tInt32 CStringStd::compare(tSize p0, tSize n0, const tChar* psz, tSize n) const
+int CStringStd::compare(UINT p0, UINT n0, const TCHAR* psz, UINT n) const
 {
   if ( !m_psz || m_psz==_Nullstr() || !psz || psz==_Nullstr() ) // at least one string is NULL
   {
@@ -161,13 +181,13 @@ tInt32 CStringStd::compare(tSize p0, tSize n0, const tChar* psz, tSize n) const
   if (m_len - p0 < n0)
     n0 = m_len - p0;
 
-   tSize comparisonLen = n0 < n ? n0 : n;
-  tInt32 answer = 0; // assume both are equeal
-   for (tSize i=0; i<comparisonLen; i++)
+   UINT comparisonLen = n0 < n ? n0 : n;
+  int answer = 0; // assume both are equeal
+   for (UINT i=0; i<comparisonLen; i++)
    {
       if (m_psz[i+p0] != psz[i])
     {
-      answer = ((m_psz[i+p0] < psz[i]) ? -1 : +1); 
+      answer = ((m_psz[i+p0] < psz[i]) ? -1 : +1);
       break;
     }
    }
@@ -187,13 +207,13 @@ tInt32 CStringStd::compare(tSize p0, tSize n0, const tChar* psz, tSize n) const
 
 //-------------------------------------------------------------
 // Set a pointer to an externally allocated C style string (allocated
-// with new/malloc) into object. 
+// with new/malloc) into object.
 // This class will assumes ownership of the buffer, deleting it as needed.
 // If you are attaching to tASN_OCTET_STR you should call detach
 // to take over the buffer before destructor of this object is called
 // The length of the allocated memory could be given (if known).
 // if zero M-capacity will be set to len.
-CStringStd& CStringStd::AttachBuffer(const tChar* psz, tSize len, tSize allocatedMemorySize)
+CStringStd& CStringStd::AttachBuffer(const TCHAR* psz, UINT len, UINT allocatedMemorySize)
 {
   // Free current string.
   clear();
@@ -202,7 +222,7 @@ CStringStd& CStringStd::AttachBuffer(const tChar* psz, tSize len, tSize allocate
   if ( psz )
   {
     // Set member variables
-    m_psz = const_cast<tChar *>(psz);
+    m_psz = const_cast<TCHAR *>(psz);
       m_len = (len == 0) ? Strlen(psz) : len;
     m_capacity = (allocatedMemorySize == 0) ? len : allocatedMemorySize;;
   }
@@ -211,11 +231,11 @@ CStringStd& CStringStd::AttachBuffer(const tChar* psz, tSize len, tSize allocate
 
 //-------------------------------------------------------------
 // take over ownership of the internal buffer
-tChar* CStringStd::DetachBuffer(tSize& len, tSize& capacity)
+TCHAR* CStringStd::DetachBuffer(UINT& len, UINT& capacity)
 {
    len = m_len;
    capacity = m_capacity;
-   tChar* pszDetach = m_psz;
+   TCHAR* pszDetach = m_psz;
 
    // reset members
    m_psz = NULL;
@@ -229,8 +249,8 @@ tChar* CStringStd::DetachBuffer(tSize& len, tSize& capacity)
 
 //-------------------------------------------------------------
 // Internal version of Assign()
-CStringStd& CStringStd::Assign(const tChar* psz, tSize len)
-{  
+CStringStd& CStringStd::Assign(const TCHAR* psz, UINT len)
+{
   // Anything to do?
   if ( psz==NULL || psz==_Nullstr() || len==0)
    {
@@ -238,24 +258,24 @@ CStringStd& CStringStd::Assign(const tChar* psz, tSize len)
       return *this;
    }
 
-  // Check overlapping 
+  // Check overlapping
    if ( IsOverlapped(psz) )
    {
       // make copy of psz pointed buffer
       CStringStd strToAppend(psz, len);
-      return Assign(strToAppend.c_str(), strToAppend.length()); 
+      return Assign(strToAppend.c_str(), strToAppend.length());
    }
    else
    {
     Realloc(len+1);
     if (m_capacity >= len+1)
     {
-      tSize i;
+      UINT i;
 
       for (i=0; i<len; i++)
         m_psz[i] = psz[i];
 
-      m_psz[i] = '\0';
+      m_psz[i] = _T('\0');
 
       // adjust length, (confirm that there is no NULL char in the string
       i = 0;
@@ -263,7 +283,7 @@ CStringStd& CStringStd::Assign(const tChar* psz, tSize len)
         i++;
 
       m_len = i;
-      m_psz[m_len] = '\0';
+      m_psz[m_len] = _T('\0');
     }
    }
   return *this;
@@ -272,20 +292,20 @@ CStringStd& CStringStd::Assign(const tChar* psz, tSize len)
 
 //-------------------------------------------------------------
 // Internal version of append()
-// Appending overlapping string (i.e psz points somewhere 
+// Appending overlapping string (i.e psz points somewhere
 // in the m_psz buffer) is not hanlded!! be careful
-CStringStd& CStringStd::Append(const tChar* psz, tSize len)
+CStringStd& CStringStd::Append(const TCHAR* psz, UINT len)
 {
   // Anything to do?
   if ( psz==NULL || psz==_Nullstr() )
       return *this;
 
-  // Check overlapping 
+  // Check overlapping
    if ( IsOverlapped(psz) )
    {
       // make copy of psz pointed buffer
       CStringStd strToAppend(psz, len);
-      return Append(strToAppend.c_str(), strToAppend.length()); 
+      return Append(strToAppend.c_str(), strToAppend.length());
    }
    else
    {
@@ -294,13 +314,13 @@ CStringStd& CStringStd::Append(const tChar* psz, tSize len)
     if (m_capacity >= m_len+len+1)
       {
       // append psz
-      for (tSize i=0; i<len; i++)
+      for (UINT i=0; i<len; i++)
         m_psz[m_len+i] = psz[i];
 
       // adjust length
       m_len += len;
       // and terminate string
-      m_psz[m_len] = '\0';
+      m_psz[m_len] = _T('\0');
       }
    }
 
@@ -310,9 +330,9 @@ CStringStd& CStringStd::Append(const tChar* psz, tSize len)
 
 
 // calculate length of the NULL terminated string
-tSize CStringStd::Strlen(const tChar* psz) 
+UINT CStringStd::Strlen(const TCHAR* psz)
 {
-   tSize len = 0;
+   UINT len = 0;
    while (psz && *(psz+len) != 0)
       len++;
    return len;
@@ -322,8 +342,8 @@ tSize CStringStd::Strlen(const tChar* psz)
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2003-09-05 13:20:08  Borislav Lukovic 
+ * $Log:
+ *  1    Biblioteka1.0         2003-09-05 13:20:08  Borislav Lukovic
  * $
- *  0  Borislav Lukovic 
+ *  0  Borislav Lukovic
  *****************************************************************************/

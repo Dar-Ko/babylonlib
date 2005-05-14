@@ -1,5 +1,5 @@
 /*$Workfile: KProgCst.inl$: header file
-  $Revision: 17$ $Date: 2004-10-06 15:01:24$
+  $Revision: 18$ $Date: 2005-05-01 00:28:12$
   $Author: Darko$
 
   Constants
@@ -34,21 +34,6 @@
       }\
     }
 #endif
-
-#ifndef _UNUSED
-  /*Resolves the compiler warning about unused arguments
-
-    Example:
-        void main (int x, int y)
-        {
-        _UNUSED(y);
-        x = 3;
-        ...
-        }
-   */
-  #define _UNUSED(x) ((void)x)
-#endif
-
 
 /////////////////////////////////////////////////////////////////////////////
 //Constants

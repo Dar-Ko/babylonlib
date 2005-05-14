@@ -1,5 +1,5 @@
 /*$Workfile: KStrEscC.c$: implementation file
-  $Revision: 2$ $Date: 2004-06-01 16:53:04$
+  $Revision: 2$ $Date: 2004-06-01 17:53:04$
   $Author: Darko$
 
   Convert escape characters to printable strings
@@ -64,8 +64,8 @@ return szResult;
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-06-01 16:53:04  Darko           time sync
- *  1    Biblioteka1.0         2003-09-22 21:22:18  Darko           
+ *  2    Biblioteka1.1         2004-06-01 17:53:04  Darko           time sync
+ *  1    Biblioteka1.0         2003-09-22 22:22:18  Darko           
  * $
  *  0 1990-06   Darko Kolakovic
  *****************************************************************************/

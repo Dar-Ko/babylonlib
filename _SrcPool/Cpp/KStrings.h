@@ -1,6 +1,6 @@
 /*$Workfile: KStrings.h$: implementation file
-  $Revision: 28$ $Date: 2004-10-22 16:51:42$
-  $Author: Darko Kolakovic$
+  $Revision: 29$ $Date: 2005-05-11 22:11:27$
+  $Author: Darko$
 
   String manipulation
   Copyright: CommonSoft Inc
@@ -96,8 +96,8 @@ bool IsPalindrome(LPCTSTR strSource, unsigned int);
 /* STL functions                                                             */
   #ifdef _STRING_ //string standard header (STL)
 
-    _K_EXTRNDECL_ std::string StrToUpper(const std::string& strSource);
-    _K_EXTRNDECL_ std::string LocalDateToStr(char* szFormat = "%a %b %d %Y, %X %z");
+    _K_EXTRNDECL_ tstring StrToUpper(const tstring& strSource);
+    _K_EXTRNDECL_ tstring LocalDateToStr(TCHAR* szFormat = _T("%a %b %d %Y, %X %z"));
   #endif //_STRING_
 
 ///////////////////////////////////////////////////////////////////////////////

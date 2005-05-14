@@ -1,5 +1,5 @@
 /*$Workfile: KTmConv.h$: implementation file
-  $Revision: 6$ $Date: 2004-10-01 14:48:13$
+  $Revision: 6$ $Date: 2004-10-01 15:48:13$
   $Author: Darko$
 
   struct tm conversions
@@ -288,13 +288,13 @@ printDate(szTarget, tm_mday, tm_mon+1, tm_year +1900);
 #endif  //_KTMCONV_H_
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2004-10-01 14:48:13  Darko           excluded
+ *  6    Biblioteka1.5         2004-10-01 15:48:13  Darko           excluded
  *       __time64_t for MSVC6
- *  5    Biblioteka1.4         2003-09-30 08:13:52  Darko           YEAR_EPOCH_TM
- *  4    Biblioteka1.3         2003-09-28 00:42:40  Darko           comment
- *  3    Biblioteka1.2         2003-09-27 11:17:00  Darko           Constructor
+ *  5    Biblioteka1.4         2003-09-30 09:13:52  Darko           YEAR_EPOCH_TM
+ *  4    Biblioteka1.3         2003-09-28 01:42:40  Darko           comment
+ *  3    Biblioteka1.2         2003-09-27 12:17:00  Darko           Constructor
  *       does not set local time
- *  2    Biblioteka1.1         2003-09-23 16:12:00  Darko           _DATE_EPOCH_TM
- *  1    Biblioteka1.0         2003-09-22 21:21:20  Darko           
+ *  2    Biblioteka1.1         2003-09-23 17:12:00  Darko           _DATE_EPOCH_TM
+ *  1    Biblioteka1.0         2003-09-22 22:21:20  Darko           
  * $
  *****************************************************************************/

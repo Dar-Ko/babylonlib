@@ -1,5 +1,5 @@
 /*$Workfile: KTestLog.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-08-23 16:59:31$
+  $Revision: 9$ $Date: 2005-03-21 02:10:56$
   $Author: Darko$
 
   Outputs test data to file
@@ -56,7 +56,7 @@ if (!s_bTestLogInitalized) //Initialize only once
       fwrite(szEOL, sizeof(TCHAR), 1, s_fileTestLog);
     #else
       //Byte order mark indicates a Unicode file
-      const TCHAR UCBYTEORDERMARK = 0xFEFF;
+      const TCHAR UCBYTEORDERMARK = 0xFEFF; //TODO: FixMe! Check big/little endian D.K.
       TCHAR szBuffer[32];
       int i = 0;
       unsigned int nLen = 0;
@@ -86,7 +86,12 @@ if (!s_bTestLogInitalized) //Initialize only once
       szEntry = _T("Use MFC in a Shared DLL");
       fwrite(szEntry, sizeof(TCHAR), _tcslen(szEntry), s_fileTestLog);
       fwrite(szEOL, sizeof(TCHAR), 1, s_fileTestLog);
+    #elif defined( __AFXWIN_H__)
+      szEntry = _T("Use MFC Library");
+      fwrite(szEntry, sizeof(TCHAR), _tcslen(szEntry), s_fileTestLog);
+      fwrite(szEOL, sizeof(TCHAR), 1, s_fileTestLog);
     #endif
+
     #ifdef _ATL_DLL
       szEntry = _T("Dynamic Link to ATL");
       fwrite(szEntry, sizeof(TCHAR), _tcslen(szEntry), s_fileTestLog);
@@ -98,6 +103,16 @@ if (!s_bTestLogInitalized) //Initialize only once
       fwrite(szEOL, sizeof(TCHAR), 1, s_fileTestLog);
     #endif
 
+    #ifdef BOOST_VERSION
+      szEntry = _T("Use C++  Boost Library");
+      fwrite(szEntry, sizeof(TCHAR), _tcslen(szEntry), s_fileTestLog);
+      fwrite(szEOL, sizeof(TCHAR), 1, s_fileTestLog);
+    #endif
+    #ifdef _STLP_DEBUG
+      szEntry = _T("Use STLport (debug) Library");
+      fwrite(szEntry, sizeof(TCHAR), _tcslen(szEntry), s_fileTestLog);
+      fwrite(szEOL, sizeof(TCHAR), 1, s_fileTestLog);
+    #endif
 
       /*Write text mapping compiler configuration*/
     #if defined UNICODE || defined _UNICODE
@@ -210,6 +225,8 @@ if (s_fileTestLog != NULL)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  9    Biblioteka1.8         2005-03-21 02:10:56  Darko           Query
+ *       __AFXWIN_H_
  *  8    Biblioteka1.7         2004-08-23 16:59:31  Darko           Unicode build
  *  7    Biblioteka1.6         2004-06-03 10:25:25  Darko           _AFXDLL,
  *       _ATL_DLL

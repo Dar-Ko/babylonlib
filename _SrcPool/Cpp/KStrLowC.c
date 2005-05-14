@@ -1,4 +1,4 @@
-/*$Workfile: KStrLowC.c$: implementation file
+/*$Workfile: S:\_SrcPool\Cpp\KStrLowC.c$: implementation file
   $Revision: 8$ $Date: 2004-11-12 16:55:13$
   $Author: Darko Kolakovic$
 

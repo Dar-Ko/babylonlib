@@ -1,5 +1,5 @@
 /*$Workfile: KReal4Cv.h$: header file
-  $Revision: 6$ $Date: 2004-06-01 16:52:46$
+  $Revision: 6$ $Date: 2004-06-01 17:52:46$
   $Author: Darko$
 
   Conversion helper for 4 bytes real numbers (float)
@@ -101,12 +101,12 @@ return lDWord;
 #endif  /*_KREAL4CV_H_                                                       */
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2004-06-01 16:52:46  Darko           time sync
- *  5    Biblioteka1.4         2003-09-30 09:44:33  Darko           formatting
- *  4    Biblioteka1.3         2002-01-24 18:19:06  Darko           Updated
+ *  6    Biblioteka1.5         2004-06-01 17:52:46  Darko           time sync
+ *  5    Biblioteka1.4         2003-09-30 10:44:33  Darko           formatting
+ *  4    Biblioteka1.3         2002-01-24 19:19:06  Darko           Updated
  *       comments
- *  3    Biblioteka1.2         2001-07-11 21:52:23  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:51:30  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:57:13  Darko           
+ *  3    Biblioteka1.2         2001-07-11 22:52:23  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:51:30  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:57:13  Darko           
  * $
  *****************************************************************************/

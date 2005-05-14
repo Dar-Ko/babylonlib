@@ -1,6 +1,6 @@
-/*$Workfile: KStrFit.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-06-01 16:53:12$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KStrFit.cpp$: implementation file
+  $Revision: 8$ $Date: 2005-04-26 16:39:22$
+  $Author: Darko Kolakovic$
 
   Fit a string
   Copyright: CommonSoft Inc.
@@ -22,7 +22,7 @@ LPCTSTR g_szEllipsis = _T("...");
   Returns: pointer to the fitted string or empty string if the given width is
   too small even for the szSuffix only.
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
 
   Example:
     #include "KStrExt.h" //FitString()

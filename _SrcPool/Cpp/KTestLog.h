@@ -1,5 +1,5 @@
-/*$Workfile: KTestLog.h$: header file
-  $Revision: 7$ $Date: 2004-10-21 12:18:47$
+/*$Workfile: S:\_SrcPool\Cpp\KTestLog.h$: header file
+  $Revision: 7$ $Date: 2004-10-21 13:18:47$
   $Author: Darko Kolakovic$
 
   Collect some information about code testing
@@ -9,7 +9,7 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef _KTESTLOG_H_
-    /*$Workfile: KTestLog.h$ sentry*/
+    /*$Workfile: S:\_SrcPool\Cpp\KTestLog.h$ sentry*/
   #define _KTESTLOG_H_
 
   #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files   */
@@ -142,13 +142,13 @@ class CTestLog : public tagTestEntry
 #endif /*_KTESTLOG_H_                                                        */
 /******************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-10-21 12:18:47  Darko Kolakovic Boolean types
- *  6    Biblioteka1.5         2004-09-30 14:48:59  Darko           LogResult()
- *  5    Biblioteka1.4         2004-06-03 13:33:51  Darko           PFUNC_TEST
+ *  7    Biblioteka1.6         2004-10-21 13:18:47  Darko Kolakovic Boolean types
+ *  6    Biblioteka1.5         2004-09-30 15:48:59  Darko           LogResult()
+ *  5    Biblioteka1.4         2004-06-03 14:33:51  Darko           PFUNC_TEST
  *       typedef
- *  4    Biblioteka1.3         2003-09-22 21:27:03  Darko           formatting
- *  3    Biblioteka1.2         2003-08-29 07:48:38  Darko           localization
- *  2    Biblioteka1.1         2003-02-10 14:48:50  Darko           
- *  1    Biblioteka1.0         2003-01-30 21:45:02  Darko           
+ *  4    Biblioteka1.3         2003-09-22 22:27:03  Darko           formatting
+ *  3    Biblioteka1.2         2003-08-29 08:48:38  Darko           localization
+ *  2    Biblioteka1.1         2003-02-10 15:48:50  Darko           
+ *  1    Biblioteka1.0         2003-01-30 22:45:02  Darko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KStrAtoU.c$: implementation file
-  $Revision: 2$ $Date: 2004-06-01 16:52:56$
+  $Revision: 2$ $Date: 2004-06-01 17:52:56$
   $Author: Darko$
 
   Converts a string to unsigned integer
@@ -45,7 +45,7 @@ return nResult;
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-06-01 16:52:56  Darko           time sync
- *  1    Biblioteka1.0         2003-09-24 17:41:34  Darko           
+ *  2    Biblioteka1.1         2004-06-01 17:52:56  Darko           time sync
+ *  1    Biblioteka1.0         2003-09-24 18:41:34  Darko           
  * $
  *****************************************************************************/

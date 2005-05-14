@@ -1,5 +1,5 @@
 /*$Workfile: KStrNDup.c$: implementation file
-  $Revision: 1$ $Date: 2004-10-22 16:51:02$
+  $Revision: 1$ $Date: 2004-10-22 17:51:02$
   $Author: Darko Kolakovic$
 
   Duplicates a n characters from a string
@@ -88,7 +88,7 @@ return pszResult;
 
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2004-10-22 16:51:02  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-10-22 17:51:02  Darko Kolakovic 
  * $
  *  0    Biblioteka1.0           Mar 1989 Darko Kolakovic
  *****************************************************************************/

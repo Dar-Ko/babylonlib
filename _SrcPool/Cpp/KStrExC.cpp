@@ -1,6 +1,6 @@
-/*$Workfile: KStrExC.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-06-01 16:53:06$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\KStrExC.cpp$: implementation file
+  $Revision: 8$ $Date: 2005-04-26 16:39:18$
+  $Author: Darko Kolakovic$
 
   Extract number of characters from CString
   May '97 Darko Kolakovic
@@ -25,7 +25,7 @@
   postion of extraction is validated against legth of source string.
   Returns: an extracted string and source string less exctracted part.
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
 
   TODO: replace MFC D.K.
  */
@@ -49,16 +49,17 @@ return strRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-06-01 16:53:06  Darko           time sync
- *  6    Biblioteka1.5         2003-09-04 08:19:52  Darko           commented out
+ *  8    Biblioteka1.7         2005-04-26 16:39:18  Darko Kolakovic fixed typo
+ *  7    Biblioteka1.6         2004-06-01 17:53:06  Darko           time sync
+ *  6    Biblioteka1.5         2003-09-04 09:19:52  Darko           commented out
  *       StdAfx.h
- *  5    Biblioteka1.4         2003-09-04 08:10:48  Darko           comment
- *  4    Biblioteka1.3         2002-01-29 22:21:55  Darko           Used library
+ *  5    Biblioteka1.4         2003-09-04 09:10:48  Darko           comment
+ *  4    Biblioteka1.3         2002-01-29 23:21:55  Darko           Used library
  *       notes 
- *  3    Biblioteka1.2         2002-01-25 15:58:04  Darko           Updated
+ *  3    Biblioteka1.2         2002-01-25 16:58:04  Darko           Updated
  *       comments
- *  2    Biblioteka1.1         2001-12-23 00:12:23  Darko           Comments
- *  1    Biblioteka1.0         2001-08-18 15:04:07  Darko           
+ *  2    Biblioteka1.1         2001-12-23 01:12:23  Darko           Comments
+ *  1    Biblioteka1.0         2001-08-18 16:04:07  Darko           
  * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/

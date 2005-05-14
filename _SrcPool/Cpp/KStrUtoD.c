@@ -1,5 +1,5 @@
 /*$Workfile: KStrUtoD.c$: implementation file
-  $Revision: 5$ $Date: 2002-02-12 16:39:33$
+  $Revision: 5$ $Date: 2/12/2002 5:39:33 PM$
   $Author: Darko$
 
   Converts unsigned integer to decimal string.
