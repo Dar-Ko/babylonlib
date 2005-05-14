@@ -205,6 +205,9 @@
 				RelativePath=".\Cpp\KDateTm.c">
 			</File>
 			<File
+				RelativePath=".\Cpp\KDbgFILE.c">
+			</File>
+			<File
 				RelativePath=".\Cpp\KfFibonacci.cpp">
 			</File>
 			<File
@@ -319,9 +322,6 @@
 				RelativePath=".\Cpp\KStrICmp.c">
 			</File>
 			<File
-				RelativePath=".\Cpp\KStringStd.cpp">
-			</File>
-			<File
 				RelativePath=".\Cpp\KStrIStr.c">
 			</File>
 			<File
@@ -372,6 +372,10 @@
 			<File
 				RelativePath=".\Cpp\KZLineIn.cpp">
 			</File>
+			<Filter
+				Name="STL"
+				Filter="">
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -429,6 +433,9 @@
 				RelativePath=".\Cpp\KMatLog2.inl">
 			</File>
 			<File
+				RelativePath=".\Cpp\KNLSCst.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\KPair.h">
 			</File>
 			<File
@@ -477,9 +484,6 @@
 				RelativePath=".\Cpp\KStrings.h">
 			</File>
 			<File
-				RelativePath=".\Cpp\KStringStd.h">
-			</File>
-			<File
 				RelativePath=".\Cpp\KSwpByte.h">
 			</File>
 			<File
@@ -518,6 +522,10 @@
 			<File
 				RelativePath=".\Cpp\Win\Res\Win\Resource.h">
 			</File>
+			<Filter
+				Name="STL Header Files"
+				Filter="">
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -528,6 +536,43 @@
 			</File>
 			<File
 				RelativePath=".\Cpp\Win\Res\Win\SrcPool.ico">
+			</File>
+		</Filter>
+		<Filter
+			Name="ToDo Files"
+			Filter="">
+			<File
+				RelativePath=".\Cpp\KChecksum.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\Win\32\KClrShem.cpp">
+			</File>
+			<File
+				RelativePath=".\Cpp\Win\32\KClrShem.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KCmdLineParser.cpp">
+			</File>
+			<File
+				RelativePath=".\Cpp\KCmdLineParser.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KCrc32.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KIpAddress.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KMatGcd.c">
+			</File>
+			<File
+				RelativePath=".\Cpp\KNetByte.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KStringStd.cpp">
+			</File>
+			<File
+				RelativePath=".\Cpp\KStringStd.h">
 			</File>
 		</Filter>
 	</Files>

@@ -137,41 +137,345 @@ LIB32=link.exe -lib
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Group "STL"
+
+# PROP Default_Filter "cpp;"
 # Begin Source File
 
-SOURCE=.\Cpp\KApnSyMn.cpp
+SOURCE=.\Cpp\STL\KDateStr.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KClipCBm.cpp
+SOURCE=.\Cpp\STL\KDbgLimits.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KClipCTx.cpp
+SOURCE=.\Cpp\STL\KGetFileExtn.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KDateCrl.cpp
-
-!IF  "$(CFG)" == "_SrcPool - Win32 Release_SBCS"
-
-!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_SBCS"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_Unicode"
-
-# PROP BASE Exclude_From_Build 1
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Release_Unicode"
-
-!ENDIF 
-
+SOURCE=.\Cpp\STL\KGetFileName.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KDateStr.cpp
+SOURCE=.\Cpp\STL\KGetLines.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KIntStream.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KSkipWSp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KStrAtoWChar.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KStringStl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KStrRplEOL.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KStrStream.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KStrUppr.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KStrWtoChar.cpp
+# End Source File
+# End Group
+# Begin Group "Win"
+
+# PROP Default_Filter "cpp;c;rc;def;r;odl;idl"
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KAbout.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KAdoConnection.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KAdoField.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KAdoRecordset.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KApnSyMn.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KBtnEx.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KCheckBox.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KCoErrorShow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KCoGetThreadModel.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KCoProviderErrors.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDateTime.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgAdoFieldType.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgAdoPropertyAttributes.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgAdoRecordsetSupport.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgBtnS.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgCoVariant.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgDaoFieldType.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgDaoQueryDefType.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgDlgErrorCode.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgFileExceptionError.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgFVSI.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgGUID.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgLDLL.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgMapM.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgOSVI.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgPrpS.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgRASS.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgREFIID.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgVerI.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgWsaError.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDlgItem.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDlgItLs.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDlgRsiz.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDlgTmIt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDlgTmpl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDockBar.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KFileGetDirectory.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KFileTime.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KGetDomainName2k.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KGetPrSu.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KGetPrTy.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KGetShel.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KHypLink.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KRegCtrl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KRegExt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KRegKey.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KShellDocumentFile.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KSingleInstanceApp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KSpwnURL.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KStatusBarEx.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KStrAtoWChar.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KStrWtoChar.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KSysErrM.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KTaskIco.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KTimer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KTimerW.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KTipBox.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KVerInfo.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KWinFWIs.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KWinPlac.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KWinVerG.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KWinVers.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KXmlProcessorSax.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KXmlSaxErrorHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\stdafx.cpp
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=.\Cpp\KColorShade.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KColorSt.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KDate.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KDateConv.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KDateCst.c
 # End Source File
 # Begin Source File
 
@@ -179,123 +483,15 @@ SOURCE=.\Cpp\KDateTm.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KDbgBtnS.cpp
+SOURCE=.\Cpp\KDtoA.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KDbgDCAt.cpp
+SOURCE=.\Cpp\KfFibonacci.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KDbgFILE.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDbgFVSI.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDbgGUID.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDbgLDLL.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDbgMapM.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDbgOSVI.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDbgPrpS.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDbgRASS.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDbgREFIID.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDbgTLog.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDbgVerI.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp.pp\KDirName.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDlgItem.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDlgItLs.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDlgRsiz.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDlgTmIt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDlgTmpl.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDockBar.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileExtR.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileFindOld.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileNam.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileNmB.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileNmF.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileRead.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileSetTime.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileShortcut.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileTmpName.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFindEdt.cpp
+SOURCE=.\Cpp\KfKepler.cpp
 # End Source File
 # Begin Source File
 
@@ -307,27 +503,19 @@ SOURCE=.\Cpp\KfQuadEq.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KGetFileExt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KGetFileExtension.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KGetLine.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\STL\KGetLines.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\Cpp\KGetLRC.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KGetPrSu.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KGetPrTy.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KGetShel.cpp
 # End Source File
 # Begin Source File
 
@@ -343,43 +531,11 @@ SOURCE=.\Cpp\KGifImageDescriptor.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KGifLzw.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KGifViewer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KHypLink.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KIsFileNameValid.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\Cpp\KIsLRC.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\Cpp\KIsPrimeNo.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KIsProdS.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KIsRASCo.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KIsSrvce.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KIsTerm.cpp
 # End Source File
 # Begin Source File
 
@@ -391,36 +547,7 @@ SOURCE=.\Cpp\KItoOct.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KLogoOut.cpp
-
-!IF  "$(CFG)" == "_SrcPool - Win32 Release_SBCS"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_SBCS"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_Unicode"
-
-# PROP BASE Exclude_From_Build 1
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Release_Unicode"
-
-# PROP BASE Exclude_From_Build 1
-# PROP Exclude_From_Build 1
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KPropPgR.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KPropShR.cpp
+SOURCE=.\Cpp\KMatFact.cpp
 # End Source File
 # Begin Source File
 
@@ -432,23 +559,15 @@ SOURCE=.\Cpp\KRandomUniform.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KRegExt.cpp
+SOURCE=.\Cpp\KStColor.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KRegKey.cpp
+SOURCE=.\Cpp\KStrAtoI.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KSkipWSp.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KSpwnURL.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\Res\Win\32\KSrcPool.rc
+SOURCE=.\Cpp\KStrAtoU.c
 # End Source File
 # Begin Source File
 
@@ -480,7 +599,15 @@ SOURCE=.\Cpp\KStrEnum.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KStrEscC.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KStrExC.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KStrFindNoCase.cpp
 # End Source File
 # Begin Source File
 
@@ -516,7 +643,11 @@ SOURCE=.\Cpp\KStrICmp.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KString.cpp
+SOURCE=.\Cpp\KStringHandler.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KStrIStr.c
 # End Source File
 # Begin Source File
 
@@ -532,15 +663,15 @@ SOURCE=.\Cpp\KStrOtoL.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KStrPalindrome.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KStrPCpy.c
 # End Source File
 # Begin Source File
 
 SOURCE=.\Cpp\KStrRpl.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KStrRplEOL.cpp
 # End Source File
 # Begin Source File
 
@@ -560,7 +691,7 @@ SOURCE=.\Cpp\KStrRTab.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KStrStream.cpp
+SOURCE=.\Cpp\KStrToD.c
 # End Source File
 # Begin Source File
 
@@ -572,10 +703,6 @@ SOURCE=.\Cpp\KStrTrSl.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KStrUppr.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\Cpp\KStrUtDJ.c
 # End Source File
 # Begin Source File
@@ -584,39 +711,7 @@ SOURCE=.\Cpp\KStrUtoD.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KSysErrM.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KTaskIco.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KTimer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KTimerW.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KTipBox.cpp
-
-!IF  "$(CFG)" == "_SrcPool - Win32 Release_SBCS"
-
-!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_SBCS"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Debug_Unicode"
-
-# PROP BASE Exclude_From_Build 1
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "_SrcPool - Win32 Release_Unicode"
-
-!ENDIF 
-
+SOURCE=.\Cpp\KTestLog.cpp
 # End Source File
 # Begin Source File
 
@@ -624,23 +719,19 @@ SOURCE=.\Cpp\KTmCmp.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KVerInfo.cpp
+SOURCE=.\Cpp\KXmlAttribute.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KWinFWIs.cpp
+SOURCE=.\Cpp\KXmlNode.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KWinPlac.cpp
+SOURCE=.\Cpp\KXmlParserI.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KWinVerG.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KWinVers.cpp
+SOURCE=.\Cpp\KXmlStringData.cpp
 # End Source File
 # Begin Source File
 
@@ -650,6 +741,198 @@ SOURCE=.\Cpp\KZLineIn.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Group "STL Header Files"
+
+# PROP Default_Filter "h;hpp"
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KBoolStream.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KOStream.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KTString.h
+# End Source File
+# End Group
+# Begin Group "Win Header Files"
+
+# PROP Default_Filter "h;hpp;hm;inl"
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\ATL30Conv.inl
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KAbout.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KAbtRes.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KAdoConnection.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KAdoField.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KAdoRecordset.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KBtnEx.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KCheckBox.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDateTime.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDbgDump.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDlgItem.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDlgItLs.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDlgRsiz.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDlgTmIt.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KDlgTmpl.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KFileTime.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KFileTimeCm.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KHypLink.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KRegCtrl.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KRegExt.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KRegKey.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KSingleInstanceApp.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KSound.inl
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KStatusBarEx.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KTaskIco.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KTimer.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KTimerW.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KTipBox.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KVerInfo.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KWinPlac.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KWinVerG.inl
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KWinVers.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KWinVers.inl
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KXmlProcessorSax.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KXmlSaxErrorHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KXmlSaxHandler.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KXmlTypedef.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\MFC40Hlp.inl
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\SrcPoolR.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\stdafx.h
+# End Source File
+# End Group
+# Begin Group "Platform Header Files"
+
+# PROP Default_Filter "*.h;*.inl"
+# Begin Source File
+
+SOURCE=.\Cpp\Platform\KioPIT.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Platform\KioPPI.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\Cpp\KBeep.h
@@ -660,15 +943,7 @@ SOURCE=.\Cpp\KBitMan.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KBitmap.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\Cpp\KCharCst.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KChecksum.h
 # End Source File
 # Begin Source File
 
@@ -684,15 +959,15 @@ SOURCE=.\Cpp\KComplxB.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KCrc32.h
+SOURCE=.\Cpp\KConvCst.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KDateCrl.h
+SOURCE=.\Cpp\KDate.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KDbgDump.h
+SOURCE=.\Cpp\KDateConv.h
 # End Source File
 # Begin Source File
 
@@ -700,55 +975,7 @@ SOURCE=.\Cpp\KDbgMacr.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KDlgItem.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDlgItLs.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDlgRsiz.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDlgTmIt.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KDlgTmpl.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileExtR.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileHnd.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileN32.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileNam.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileNmB.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileShortcut.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\Cpp\KFileSys.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFindRes.h
 # End Source File
 # Begin Source File
 
@@ -764,30 +991,6 @@ SOURCE=.\CPP\KGifImageDescriptor.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\CPP\KGifLzw.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\CPP\KGifViewer.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KHypLink.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\16\KioPIT.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\16\KioPPI.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KIPAddress.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\Cpp\KMathCst.h
 # End Source File
 # Begin Source File
@@ -797,14 +1000,6 @@ SOURCE=.\Cpp\KMathCst.inl
 # Begin Source File
 
 SOURCE=.\Cpp\KMatLog2.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KNetByte.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KNLSCst.h
 # End Source File
 # Begin Source File
 
@@ -825,14 +1020,6 @@ SOURCE=.\Cpp\KProgCst.h
 # Begin Source File
 
 SOURCE=.\Cpp\KProgCst.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KPropPgR.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KPropShR.h
 # End Source File
 # Begin Source File
 
@@ -864,19 +1051,19 @@ SOURCE=.\Cpp\KReal8Cv.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KRegExt.h
+SOURCE=.\Cpp\KRvrElements.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KRegKey.h
+SOURCE=.\Cpp\KRvrRows.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KSound.inl
+SOURCE=.\Cpp\KStdLib.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\Win\Res\Win\KStdRes.h
+SOURCE=.\Cpp\KStrConvert.h
 # End Source File
 # Begin Source File
 
@@ -885,6 +1072,10 @@ SOURCE=.\Cpp\KStrExt.h
 # Begin Source File
 
 SOURCE=.\Cpp\KString.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KStringHandler.h
 # End Source File
 # Begin Source File
 
@@ -900,19 +1091,11 @@ SOURCE=.\Cpp\KSwpByteOrder.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KSwpElements.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KSwpRows.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KTaskIco.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\Cpp\KTChar.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KTestLog.h
 # End Source File
 # Begin Source File
 
@@ -920,19 +1103,15 @@ SOURCE=.\Cpp\KTime.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KTimer.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KTimerW.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KTipBox.h
+SOURCE=.\Cpp\KTmConv.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\Cpp\KTrace.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KTraceFx.h
 # End Source File
 # Begin Source File
 
@@ -944,40 +1123,80 @@ SOURCE=.\Cpp\KTypedef.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KVerInfo.h
+SOURCE=.\Cpp\KXmlAttribute.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KWinPlac.h
+SOURCE=.\Cpp\KXmlBinding.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KWinVerG.inl
+SOURCE=.\Cpp\KXmlNode.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KWinVers.h
+SOURCE=.\Cpp\KXmlParserI.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KWinVers.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\Res\Win\Resource.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\StdAfx.h
+SOURCE=.\Cpp\KXmlStringData.h
 # End Source File
 # End Group
-# Begin Source File
+# Begin Group "Resource Files"
 
-SOURCE=.\Cpp\Samples\Common\Src\Win\32\ReadMe.txt
-# End Source File
+# PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;png;xml;htm"
 # Begin Source File
 
 SOURCE=.\Cpp\Win\Res\Win\SrcPool.ico
 # End Source File
+# End Group
+# Begin Group "ToDo Files"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KClrShem.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KClrShem.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KCmdLineParser.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KCmdLineParser.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KIpAddress.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KListEx.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\Win\32\KListEx.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KMatGcd.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KNetByte.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KStringStd.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KStringStd.h
+# End Source File
+# End Group
 # End Target
 # End Project
