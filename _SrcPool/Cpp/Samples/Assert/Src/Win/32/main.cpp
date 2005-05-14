@@ -1,8 +1,8 @@
-/*$Workfile: main.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-11-23 15:51:48$
-  $Author: Darko Kolakovic$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\Win\32\main.cpp$: implementation file
+  $Revision: 7$ $Date: 2005-03-21 03:21:36$
+  $Author: Darko$
 
-  Test debugging and tracing routines.
+  Test debugging and tracing routines with MFC.
   Copyright: CommonSoft Inc.
   2004-08-12 Darko Kolakovic
 */
@@ -11,6 +11,10 @@
 
 #include "stdafx.h"
 #include "Resource.h"
+
+#ifndef __AFXWIN_H__
+  #error include required MFC header files in 'stdafx.h'
+#endif
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -57,10 +61,23 @@ int _tmain(int argc,      //[in] specifies how many arguments are passed to the
 {
 int nRetCode = EXIT_SUCCESS;
 
-//Initialize MFC and print and error on failure
+/*Note: GetModuleHandle(lpModuleName) 
+   - lpModuleName [in] Pointer to a null-terminated string that contains the 
+     name of the module (either a .dll or .exe file). If the file name extension 
+     is omitted, the default library extension .dll is appended. The file name 
+     string can include a trailing point character (.) to indicate that the 
+     module name has no extension. The string does not have to specify a path. 
+     When specifying a path, be sure to use backslashes (\), not forward 
+     slashes (/). The name is compared (case independently) to the names of 
+     modules currently mapped into the address space of the calling process. 
+     If this parameter is NULL, GetModuleHandle returns a handle to the file used 
+     to create the calling process.
+ */
+
+//Initialize theApp object and print and error on failure
 if (!AfxWinInit(::GetModuleHandle(NULL), NULL, ::GetCommandLine(), 0))
   {
-  TsWriteToViewLn(_T("Fatal Error: MFC initialization failed"));
+  TsWriteToViewLn(_T("Fatal Error: MFC initialization failed!"));
   nRetCode = EXIT_FAILURE;
   }
 else
@@ -82,4 +99,3 @@ return nRetCode;
  *  1    Biblioteka1.0         17/08/2004 6:31:37 PMDarko
  * $
  *****************************************************************************/
-

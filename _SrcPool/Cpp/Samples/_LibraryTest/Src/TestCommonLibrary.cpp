@@ -1,6 +1,6 @@
-/*$Workfile: TestCommonLibrary.cpp$: implementation file
-  $Revision: 8$ $Date: 2005-03-11 16:17:28$
-  $Author: Darko Kolakovic$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\_LibraryTest\Src\TestCommonLibrary.cpp$: implementation file
+  $Revision: 9$ $Date: 2005-03-17 00:44:58$
+  $Author: Darko$
 
   Defines the entry point for the console application used to test libray 
   functionality.
@@ -31,6 +31,7 @@ extern int TestCommonConsole();
 extern int TestCommonStringDyn();
 extern int TestCommonNumeric();
 extern int TestCommonDateTime();
+extern int TestCommonHtmlIO();
 
 //-----------------------------------------------------------------------------
 /*Invokes different test routines used to validate functionality of the library.
@@ -50,7 +51,8 @@ int (* funcTest[])(void) =
   TestCommonConsole,  //validates different console helper routines.
   TestCommonStringDyn,//validates a string class
   TestCommonNumeric,  //Validates different numerical methods
-  TestCommonDateTime  //validates Date and Time conversions
+  TestCommonDateTime, //validates Date and Time conversions
+  TestCommonHtmlIO,   //validates HTML and XML parsing
   };
 
   //Run all test scripts
@@ -84,20 +86,21 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         2005-03-11 16:17:28  Darko Kolakovic Added Console
+ *  9    Biblioteka1.8         2005-03-17 00:44:58  Darko           Test HTML IO
+ *  8    Biblioteka1.7         2005-03-11 17:17:28  Darko Kolakovic Added Console
  *       project
- *  7    Biblioteka1.6         2004-10-08 11:36:43  Darko           added
+ *  7    Biblioteka1.6         2004-10-08 12:36:43  Darko           added
  *       TestDateTime 
- *  6    Biblioteka1.5         2004-10-04 22:42:12  Darko           Added numeric
+ *  6    Biblioteka1.5         2004-10-04 23:42:12  Darko           Added numeric
  *       test script
- *  5    Biblioteka1.4         2004-10-04 12:11:07  Darko           Renamed test
+ *  5    Biblioteka1.4         2004-10-04 13:11:07  Darko           Renamed test
  *       script to TestCommonLibrary
- *  4    Biblioteka1.3         2004-10-04 12:10:25  Darko           
- *  3    Biblioteka1.2         2004-09-30 14:47:56  Darko           inserted global
+ *  4    Biblioteka1.3         2004-10-04 13:10:25  Darko           
+ *  3    Biblioteka1.2         2004-09-30 15:47:56  Darko           inserted global
  *       CTestLog
- *  2    Biblioteka1.1         2004-09-28 13:03:27  Darko           replaced cout
+ *  2    Biblioteka1.1         2004-09-28 14:03:27  Darko           replaced cout
  *       with _tcout
- *  1    Biblioteka1.0         2004-06-03 13:29:38  Darko           
+ *  1    Biblioteka1.0         2004-06-03 14:29:38  Darko           
  * $
  *****************************************************************************/
 

@@ -1,5 +1,5 @@
 $Workfile: _Samples.txt$: developer's note
-$Revision: 8$ $Date: 2005-05-14 13:49:46$
+$Revision: 9$ $Date: 2005-05-14 13:53:45$
 $Author: Darko$
 
 Samples and test suites for the various functions, classes and algorithms using Babylon Library
@@ -60,3 +60,4 @@ Strings
 Timer
 VerInfoTest
 WinOSVer
+Utilities

@@ -1,5 +1,5 @@
 /*$Workfile: S:\_SrcPool\Cpp\Samples\StdLib\Src\TestCommonStdLib.c$: implementation file
-  $Revision: 4$ $Date: 2004-11-25 20:57:40$
+  $Revision: 5$ $Date: 2005-03-12 17:19:24$
   $Author: Darko$
 
   Source file that includes the standard includes and globals used in various
@@ -28,18 +28,19 @@ extern bool TestLimits();
   Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
   a non-zero error code is returned.
  */
-int TestCommonStdLib()
+_Bool TestCommonStdLib()
 {
-TsWriteToViewLn(_T("Validation of standard C routines"));
-TsWriteToViewLn(_T(""));
-
-PFUNC_TEST funcTest[] = {NULL};
+bool (*funcTest[])() =
   {
   TestLimits//,
   //TestTraceC
   };
 
 int iTestCount = 0;
+
+TsWriteToViewLn(_T("Validation of standard C routines"));
+TsWriteToViewLn(_T(""));
+
 while (iTestCount < (sizeof(funcTest)/sizeof(PFUNC_TEST)) )
   {
   if ((funcTest[iTestCount] != NULL) && funcTest[iTestCount]())
@@ -61,11 +62,13 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2004-11-25 20:57:40  Darko           TestLimits
+ *  5    Biblioteka1.4         2005-03-12 17:19:24  Darko           fixed C4225
+ *       error
+ *  4    Biblioteka1.3         2004-11-25 21:57:40  Darko           TestLimits
  *       added
- *  3    Biblioteka1.2         2004-10-04 11:51:17  Darko           Renamed test
+ *  3    Biblioteka1.2         2004-10-04 12:51:17  Darko           Renamed test
  *       script to TestCommonStdLib
- *  2    Biblioteka1.1         2004-10-04 11:50:55  Darko           
- *  1    Biblioteka1.0         2004-09-14 11:54:50  Darko           
+ *  2    Biblioteka1.1         2004-10-04 12:50:55  Darko           
+ *  1    Biblioteka1.0         2004-09-14 12:54:50  Darko           
  * $
  *****************************************************************************/

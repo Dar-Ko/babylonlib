@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="TestIndex.xsl"?>
+<?xml-stylesheet type="text/css" href="TestIndex.css"?>
 <rss version="2.0">
   <channel>
     <title>HTML Test Files List</title>
     <language>en-ca</language>
     <workfile>$Workfile: S:\_SrcPool\Cpp\Samples\HtmlIO\Res\TestIndex.xml$</workfile>
     <editor>$Author: Darko Kolakovic$</editor>
-    <revision>$Revision: 1$ $Date: 2004-11-25 12:52:11$</revision>
+    <revision>$Revision: 2$ $Date: 2005-04-07 18:10:06$</revision>
     <description>List of simple HTML documents used to validate various software components</description>
     <copyright>&#xA9; CommonSoft Inc, 1996-2004</copyright>
     <copyright>&#xA9; Darko Kolakovi&#x0107;, 1985-2032, All Rights Reserved.</copyright>

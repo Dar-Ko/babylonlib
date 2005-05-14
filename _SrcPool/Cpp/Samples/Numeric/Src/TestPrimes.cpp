@@ -1,6 +1,6 @@
-/*$Workfile: TestPrimes.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-05 14:05:37$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Numeric\Src\TestPrimes.cpp$: implementation file
+  $Revision: 5$ $Date: 2005-04-14 16:17:12$
+  $Author: Darko Kolakovic$
 
   Test validation of prime numbers
   Copyright: CommonSoft Inc.
@@ -1057,6 +1057,8 @@ bool g_testPrimeResult[] =
 
 //TestPrimes()-----------------------------------------------------------------
 /*Test validation of prime numbers.
+
+  Returns: true if successful, otherwise returns false.
  */
 bool TestPrimes()
 {
@@ -1108,7 +1110,7 @@ if (bResult)
         << (bResult1 ? _T("T") : _T("F"))
         #ifdef _DEBUG_TEST
           << (bResult0 ? _T("T") : _T("F"))
-          << _T('(') << g_nDbgIterationCount1 
+          << _T('(') << g_nDbgIterationCount1
           << _T(',') << g_nDbgIterationCount0 << _T(')')
         #endif
         << std::endl;

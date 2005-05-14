@@ -1,5 +1,5 @@
 /*$Workfile: S:\_SrcPool\Cpp\Samples\StdLib\Src\Win\32\main.cpp$: implementation file
-  $Revision: 1$ $Date: 2004-11-08 16:38:21$
+  $Revision: 2$ $Date: 2005-04-26 16:44:08$
   $Author: Darko Kolakovic$
 
   Test debugging and tracing routines.
@@ -38,7 +38,7 @@ extern int TestAssertMain();
   Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
   a non-zero error code is returned.
 
-  Note: uses Microsoft Fundation Library (MFC);
+  Note: uses Microsoft Foundation Library (MFC);
         Microsoft Windows specific (Win).
  */
 int _tmain(int argc, TCHAR* argv[], TCHAR* envp[])

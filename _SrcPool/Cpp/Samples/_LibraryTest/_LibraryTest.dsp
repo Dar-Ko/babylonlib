@@ -246,6 +246,10 @@ SOURCE=..\DateTime\Src\TestCommonDateTime.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\HtmlIO\Src\TestCommonHtmlIO.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\TestCommonLibrary.cpp
 # End Source File
 # Begin Source File
@@ -290,6 +294,10 @@ SOURCE=..\DateTime\Src\TestLeapYear.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\HtmlIO\Src\Win\32\TestMsSaxParser.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\Numeric\Src\TestNetByteOrder.cpp
 # End Source File
 # Begin Source File
@@ -331,6 +339,14 @@ SOURCE=..\Assert\Src\TestTrace.cpp
 # Begin Source File
 
 SOURCE=..\Assert\Src\TestTraceC.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\HtmlIO\Src\TestXmlParser.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\HtmlIO\Src\TestXmlString.cpp
 # End Source File
 # Begin Source File
 

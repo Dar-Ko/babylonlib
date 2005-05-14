@@ -367,6 +367,10 @@ SOURCE=.\Src\TestCastDynamic.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Src\TestCastOverload.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\TestCastReinterpret.cpp
 # End Source File
 # Begin Source File

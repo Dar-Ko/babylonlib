@@ -1,5 +1,5 @@
-/*$Workfile: TestPredefinedMacros.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-22 12:46:50$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\TestPredefinedMacros.cpp$: implementation file
+  $Revision: 5$ $Date: 2005-04-26 16:44:05$
   $Author: Darko Kolakovic$
 
   Test compiler defined macros.
@@ -181,8 +181,8 @@ TsWriteToViewLn(_T("TestPredefinedMacros()"));
     */
     const int g__MSC_VER = _MSC_VER;
   #ifdef _MFC_VER
-    #pragma message ("Included Microsoft Fundation Class (MFC) library.")
-     /*Current version of Microsoft Fundation Class (MFC) library.
+    #pragma message ("Included Microsoft Foundation Class (MFC) library.")
+     /*Current version of Microsoft Foundation Class (MFC) library.
       */
     const int g__MFC_VER = _MFC_VER;
   #endif //_MFC_VER
@@ -224,6 +224,7 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  5    Biblioteka1.4         2005-04-26 16:44:05  Darko Kolakovic comment
  *  4    Biblioteka1.3         2004-10-22 12:46:50  Darko Kolakovic CodeWarrior
  *  3    Biblioteka1.2         2004-10-20 13:23:00  Darko Kolakovic Metrowerks
  *       CodeWarrior
