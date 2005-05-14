@@ -1,5 +1,5 @@
 REM // $Workfile: KRegHxSHelp.bat$: batch command file
-REM // $Revision: 2$ $Date: 2003-08-13 09:48:53$
+REM // $Revision: 2$ $Date: 8/13/2003 10:48:53 AM$
 REM // $Author: Darko$
 REM //
 REM // Register a help file to the help collection
@@ -30,8 +30,8 @@ SET HXTOOLSPATH=
 REM ///////////////////////////////////////////////////////////////////////////
 REM /*************************************************************************
 REM  * $Log: 
-REM  *  2    Biblioteka1.1         2003-08-13 09:48:53  Darko           comment
-REM  *  1    Biblioteka1.0         2003-08-12 12:56:11  Darko           
+REM  *  2    Biblioteka1.1         8/13/2003 10:48:53 AMDarko           comment
+REM  *  1    Biblioteka1.0         8/12/2003 1:56:11 PM Darko           
 REM  * $
 REM  *************************************************************************/
 
