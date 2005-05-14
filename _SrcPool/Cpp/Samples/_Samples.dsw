@@ -87,6 +87,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "HtmlIO"=.\HtmlIO\HtmlIO.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "Numeric"=.\Numeric\Numeric.dsp - Package Owner=<4>
 
 Package=<5>
@@ -247,6 +259,9 @@ Package=<4>
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name Console
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name HtmlIO
     End Project Dependency
 }}}
 

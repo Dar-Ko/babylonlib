@@ -28,3 +28,16 @@ bin
  Thumbs.db
 *.vcl
 *.dump
+Calc
+Complex
+Documentation
+HTTPUtils
+Images
+Random
+Resizable
+Stream
+StlTools
+Strings
+Timer
+VerInfoTest
+WinOSVer
