@@ -1,5 +1,5 @@
 /*$Workfile: KNetByte.h$: header file
-  $Revision: 5$ $Date: 2004-07-07 16:46:33$
+  $Revision: 6$ $Date: 2005-04-25 21:20:21$
   $Author: Darko$
 
   Network type definitions
@@ -25,7 +25,7 @@
   /*A 16-bit unsigned integer in network byte order                          */
   typedef unsigned short NETWORD;
   /*Network byte order for the 16-bit unsigned integer.
-    The network byte order is order in which the bytes of a two-byte number 
+    The network byte order is order in which the bytes of a two-byte number
     are transmitted on a network. The order is same as big-endian byte order.
     This order may be different then the order in which numbers are stored in
     memory for a particular architecture (CPU). Diverse machine architectures
@@ -52,16 +52,16 @@
 #if _M_IX86
   #ifdef _GET_WORD_ALIGNP
     #undef _GET_WORD_ALIGNP
-  #endif 
+  #endif
   #ifndef _GET_WORD_ALIGNP
-    #define _GET_WORD_ALIGNP(pBYTE) (*((WORD*)pBYTE))
+    #define _GET_WORD_ALIGNP(pBYTE) (*((uint16*)pBYTE))
   #endif
 
   #ifdef _GET_DWORD_ALIGNP
     #undef _GET_DWORD_ALIGNP
-  #endif 
+  #endif
   #ifndef _GET_DWORD_ALIGNP
-    #define _GET_DWORD_ALIGNP(pBYTE) (*((DWORD*)pBYTE))
+    #define _GET_DWORD_ALIGNP(pBYTE) (*((uint32*)pBYTE))
   #endif
 #endif
 
@@ -69,28 +69,30 @@
 #if (defined(__arm__) || defined(__ARMEL__))
   #ifdef _GET_WORD_ALIGNP
     #undef _GET_WORD_ALIGNP
-  #endif 
+  #endif
   #ifndef _GET_WORD_ALIGNP
-  //Copy a WORD value byte by byte, becouse on some architectures (WORD*)pcHostValue
-  //will round pointer to match WORD increments giving a result equal to 
-  //*(WORD*)(pcHostValue/sizeof(WORD)) 
+  /*Copy a uint16 value byte by byte, becouse on some architectures (uint16*)
+    pcHostValue
+    will round pointer to match uint16 increments giving a result equal to
+              *(uint16*)(pcHostValue/sizeof(uint16))
+   */
     #define _GET_WORD_ALIGNP(pBYTE) \
-      ((WORD)pBYTE[0]       |  \
-       (WORD)pBYTE[1] <<  8 )
+      ((uint16)pBYTE[0]       |  \
+       (uint16)pBYTE[1] <<  8 )
   #endif
 
   #ifdef _GET_DWORD_ALIGNP
     #undef _GET_DWORD_ALIGNP
-  #endif 
+  #endif
   #ifndef _GET_DWORD_ALIGNP
-  //Copy a DWORD value byte by byte, becouse on some architectures (DWORD*)pcHostValue
-  //will round pointer to match DWORD increments giving a result equal to 
-  //*(DWORD*)(pcHostValue/sizeof(DWORD)) 
+  //Copy a uint32 value byte by byte, becouse on some architectures (uint32*)pcHostValue
+  //will round pointer to match uint32 increments giving a result equal to
+  //*(uint32*)(pcHostValue/sizeof(uint32))
     #define _GET_DWORD_ALIGNP(pBYTE) \
-      ((DWORD)pBYTE[0]       |   \
-       (DWORD)pBYTE[1] <<  8 |   \
-       (DWORD)pBYTE[2] << 16 |   \
-       (DWORD)pBYTE[3] << 24 )
+      ((uint32)pBYTE[0]       |   \
+       (uint32)pBYTE[1] <<  8 |   \
+       (uint32)pBYTE[2] << 16 |   \
+       (uint32)pBYTE[3] << 24 )
   #endif
 #endif
 
@@ -102,7 +104,7 @@
 #endif
 
 #ifdef WIN32
-  /*Windows Sockets htonl() function requires Windows Sockets 1.1 or later. 
+  /*Windows Sockets htonl() function requires Windows Sockets 1.1 or later.
     Library used is Ws2_32.lib
    */
   #include <winsock.h>  //htonl(), htons()
@@ -110,20 +112,20 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// The class NetWord converts a WORD value from host byte order to network byte
-// order and coverts given network DWORD value to host byte ordered value.
+// The class NetWord converts a uint16 value from host byte order to network byte
+// order and coverts given network uint32 value to host byte ordered value.
 // The network byte order is same as big-endian byte order.
 // See also: NetDWord, _ENDIAN_BIG_, htonl(), ntohl()
 class NetWord
 {
 public:
   NetWord();
-  NetWord(const WORD& wHostValue);
+  NetWord(const uint16& wHostValue);
   NetWord(const BYTE* pcHostValue);
   NetWord(const NetWord& wNetworkValue);
   NetWord(const NetWord* pcNetworkValue);
   ~NetWord();
-  operator WORD() const;
+  operator uint16() const;
   operator BYTE*() const;
 private:
   NETWORD m_netValue;
@@ -159,11 +161,11 @@ m_netValue = htons(_GET_WORD_ALIGNP(pcHostValue));
 }
 
 /*Conversion constructor takes a 16-bit number in host byte order and stores it
-  in the network byte order. The network byte order is same as big-endian byte 
+  in the network byte order. The network byte order is same as big-endian byte
   order.
   See also: htons(), NETWORD
  */
-inline NetWord::NetWord(const WORD& wHostValue)
+inline NetWord::NetWord(const uint16& wHostValue)
 {
 m_netValue = htons(wHostValue);
 }
@@ -175,13 +177,13 @@ inline NetWord::~NetWord()
 {
 }
 
-//::operator WORD()------------------------------------------------------------
-/*Type conversion operator converts a 16-bit number from network order to 
-  host byte order. Depending of architecture, host byte order could be 
+//::operator uint16()------------------------------------------------------------
+/*Type conversion operator converts a 16-bit number from network order to
+  host byte order. Depending of architecture, host byte order could be
   big-endian, little-endian or PDP-endian.
   See also: ntohs(), NETWORD, _ENDIAN_LITTLE_, _ENDIAN_BIG_
  */
-inline NetWord::operator WORD() const
+inline NetWord::operator uint16() const
 {
 return ntohs(m_netValue);
 }
@@ -195,20 +197,20 @@ return (BYTE*)(&m_netValue);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// The class NetDWord converts a DWORD value from host byte order to network byte
-// order and coverts given network DWORD value to host byte ordered value.
+// The class NetDWord converts a uint32 value from host byte order to network byte
+// order and coverts given network uint32 value to host byte ordered value.
 // The network byte order is same as big-endian byte order.
 // See also: NETWORD, _ENDIAN_BIG_, htonl(), ntohl()
 class NetDWord
 {
 public:
   NetDWord();
-  NetDWord(const DWORD& dwHostValue);
+  NetDWord(const uint32& dwHostValue);
   NetDWord(const BYTE* pcHostValue);
   NetDWord(const NetDWord& dwNetworkValue);
   NetDWord(const NetDWord* pcNetworkValue);
   ~NetDWord();
-  operator DWORD() const;
+  operator uint32() const;
   operator BYTE*() const;
 private:
   NETDWORD m_netValue;
@@ -246,7 +248,7 @@ inline NetDWord::NetDWord(const NetDWord& dwNetworkValue) :
     netdwValue = *(NetDWord*)nInput;
 
     Memory Dump:
-    nInput[4] = {08 07 06 05}; 
+    nInput[4] = {08 07 06 05};
     netdwValue =  (NetDWord*)nInput = {08 07 06 05}
     netdwValue =  *(NetDWord*)nInput = {08 07 06 05}
  */
@@ -272,11 +274,11 @@ m_netValue = htonl(_GET_DWORD_ALIGNP(pcHostValue));
 
 
 /*Conversion constructor takes a 32-bit number in host byte order and stores it
-  as a number in the network byte order. The network byte order is same as 
+  as a number in the network byte order. The network byte order is same as
   big-endian byte order.
   See also: htonl(), NETDWORD
  */
-inline NetDWord::NetDWord(const DWORD& dwHostValue)
+inline NetDWord::NetDWord(const uint32& dwHostValue)
 {
 m_netValue = htonl(dwHostValue);
 }
@@ -288,9 +290,9 @@ inline NetDWord::~NetDWord()
 {
 }
 
-//::operator DWORD()-----------------------------------------------------------
-/*Type conversion operator converts a 32-bit number from network order to 
-  host byte order. Depending of architecture, host byte order could be 
+//::operator uint32()-----------------------------------------------------------
+/*Type conversion operator converts a 32-bit number from network order to
+  host byte order. Depending of architecture, host byte order could be
   big-endian, little-endian or PDP-endian.
 
   See also: ntohl(), NETDWORD, _ENDIAN_LITTLE_, _ENDIAN_BIG_
@@ -304,7 +306,7 @@ inline NetDWord::~NetDWord()
     netdwValue =  (NetDWord)0x0D0C0B0A = {0D 0C 0B 0A}
     long lInput = {0A 0B 0C 0D}
  */
-inline NetDWord::operator DWORD() const
+inline NetDWord::operator uint32() const
 {
 return ntohl(m_netValue);
 }
@@ -324,13 +326,13 @@ return (BYTE*)(&m_netValue);
 /* ///////////////////////////////////////////////////////////////////////// */
 #endif /* _KNETBYTE_H_                                                       */
 /*****************************************************************************
- * $Log: 
- *  5    Biblioteka1.4         2004-07-07 16:46:33  Darko           sentry
- *  4    Biblioteka1.3         2002-04-09 12:24:01  Darko Kolakovic 
- *  3    Biblioteka1.2         2002-03-07 16:08:30  Darko           Added pointer
+ * $Log:
+ *  5    Biblioteka1.4         2004-07-07 17:46:33  Darko           sentry
+ *  4    Biblioteka1.3         2002-04-09 13:24:01  Darko Kolakovic
+ *  3    Biblioteka1.2         2002-03-07 17:08:30  Darko           Added pointer
  *       aligment macro
- *  2    Biblioteka1.1         2002-03-05 01:23:28  Darko           added operator
+ *  2    Biblioteka1.1         2002-03-05 02:23:28  Darko           added operator
  *       BYTE*()
- *  1    Biblioteka1.0         2002-03-04 18:11:39  Darko           
+ *  1    Biblioteka1.0         2002-03-04 19:11:39  Darko
  * $
  *****************************************************************************/

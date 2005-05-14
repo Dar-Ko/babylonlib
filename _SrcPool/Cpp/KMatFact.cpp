@@ -1,5 +1,5 @@
 /*$Workfile: KMatFact.cpp$: header file
-  $Revision: 2$ $Date: 2003-08-23 14:34:38$
+  $Revision: 2$ $Date: 2003-08-23 15:34:38$
   $Author: Darko$
 
   factorial
@@ -55,9 +55,9 @@ return nResult;
 #endif
 /******************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2003-08-23 14:34:38  Darko           disabled
+ *  2    Biblioteka1.1         2003-08-23 15:34:38  Darko           disabled
  *       warning C4127
- *  1    Biblioteka1.0         2002-08-21 02:38:52  Darko           
+ *  1    Biblioteka1.0         2002-08-21 03:38:52  Darko           
  * $
  *****************************************************************************/
 

@@ -1,5 +1,5 @@
 /*$Workfile: KMatLog2.inl$: header file
-  $Revision: 6$ $Date: 2003-08-22 15:59:00$
+  $Revision: 6$ $Date: 2003-08-22 16:59:00$
   $Author: Darko$
 
   Base 2 Logarithm
@@ -51,11 +51,11 @@ return iLog;
 /*///////////////////////////////////////////////////////////////////////////*/
 /******************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2003-08-22 15:59:00  Darko           comment
- *  5    Biblioteka1.4         2002-01-29 14:40:46  Darko           Tag update
- *  4    Biblioteka1.3         2001-07-19 23:58:20  Darko           VSS tags
- *  3    Biblioteka1.2         2001-07-11 21:51:53  Darko           
- *  2    Biblioteka1.1         2001-06-08 22:51:03  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 14:56:47  Darko           
+ *  6    Biblioteka1.5         2003-08-22 16:59:00  Darko           comment
+ *  5    Biblioteka1.4         2002-01-29 15:40:46  Darko           Tag update
+ *  4    Biblioteka1.3         2001-07-20 00:58:20  Darko           VSS tags
+ *  3    Biblioteka1.2         2001-07-11 22:51:53  Darko           
+ *  2    Biblioteka1.1         2001-06-08 23:51:03  Darko           VSS
+ *  1    Biblioteka1.0         2000-08-13 15:56:47  Darko           
  * $
  *****************************************************************************/

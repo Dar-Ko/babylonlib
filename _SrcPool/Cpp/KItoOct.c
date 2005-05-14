@@ -1,5 +1,5 @@
 /*$Workfile: KItoOct.c$: implementation file
-  $Revision: 4$ $Date: 2004-10-01 20:43:59$
+  $Revision: 4$ $Date: 2004-10-01 21:43:59$
   $Author: Darko$
 
   Convert an integer to octal string.

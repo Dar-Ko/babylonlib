@@ -1,5 +1,5 @@
 /*$Workfile: KItoA.c$: implementation file
-  $Revision: 5$ $Date: 2004-10-01 20:26:25$
+  $Revision: 5$ $Date: 2004-10-01 21:26:25$
   $Author: Darko$
 
   Convert a signed decimal integers to ASCII string.

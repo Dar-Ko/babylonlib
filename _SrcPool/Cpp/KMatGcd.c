@@ -1,3 +1,5 @@
+//TODO: !todo: GreatestCommonDivisor
+#pragma TODO
 /*
 In mathematics Mathematics is commonly defined as the study of patterns of structure, change, and space; more informally, one might say it is the study of "figures and numbers". In the formalist view, it is the investigation of axiomatically defined abstract structures using symbolic logic and mathematical notation; other views are described in Philosophy of mathematics. Mathematics might be seen as a simple extension of spoken and written languages, with an extremely precisely defined vocabulary and grammar, for the purpose of describing and exploring physical and conceptual relationships.
 ..... Click the link for more information. , the greatest common divisor (gcd) or highest common factor (hcf) of two integers The integers consist of the positive natural numbers (1, 2, 3, …) the negative natural numbers (-1, -2, -3, ...) and the number zero. The set of all integers is usually denoted in mathematics by Z (or Z in blackboard bold, ), which stands for Zahlen (German for "numbers"). They are also known as the whole numbers, although that term is also used to refer only to the positive integers (with or without zero). Like the natural numbers, the integers form a countably infinite set. The branch of mathematics which includes the study of the integers is called number theory.
@@ -144,6 +146,7 @@ B4:
 }
 // <B style="color:black;background-color:#A0FFFF">Function</B> Name:<B style="color:black;background-color:#ffff66">Greatest Common Divisor </B><B style="color:black;background-color:#A0FFFF">Function</B>
 // Description: Finds the <B style="color:black;background-color:#ffff66">greatest common divisor</B> of the solution fraction
+/*
 In mathematics, a divisor of an integer n, also called a factor of n, is an integer which evenly divides n without leaving a remainder.
 
 In mathematics Mathematics is commonly defined as the study of patterns of structure, change, and space; more informally, one might say it is the study of "figures and numbers". In the formalist view, it is the investigation of axiomatically defined abstract structures using symbolic logic and mathematical notation; other views are described in Philosophy of mathematics. Mathematics might be seen as a simple extension of spoken and written languages, with an extremely precisely defined vocabulary and grammar, for the purpose of describing and exploring physical and conceptual relationships.
@@ -151,7 +154,7 @@ In mathematics Mathematics is commonly defined as the study of patterns of struc
 ..... Click the link for more information.  which are not both zero is the largest integer that divides In mathematics, a divisor of an integer n, also called a factor of n, is an integer which evenly divides n without leaving a remainder. For example, 7 is a divisor of 42 because 42/7 = 6. We also say 42 is divisible by 7 or 7 divides 42 and we usually write 7 | 42. Divisors can be positive or negative. The positive divisors of 42 are .
 ..... Click the link for more information.  both numbers.
 
-
+*/
     int GreatestCommonDivisor(int a, int b){
 
 

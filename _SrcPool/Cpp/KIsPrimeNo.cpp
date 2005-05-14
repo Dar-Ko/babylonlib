@@ -1,5 +1,5 @@
 /*$Workfile: KIsPrimeNo.cpp$: header file
-  $Revision: 4$ $Date: 2003-08-23 14:39:51$
+  $Revision: 4$ $Date: 2003-08-23 15:39:51$
   $Author: Darko$
 
   Simple mathematical functions
@@ -106,11 +106,11 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 4    Biblioteka1.3         2003-08-23 14:39:51  Darko           typecast double
- * 3    Biblioteka1.2         2002-07-16 00:41:12  Darko           Fixed VSS Log 
+ * 4    Biblioteka1.3         2003-08-23 15:39:51  Darko           typecast double
+ * 3    Biblioteka1.2         2002-07-16 01:41:12  Darko           Fixed VSS Log 
  *      tag
- * 2    Biblioteka1.1         2002-03-11 18:29:47  Darko           Improved
+ * 2    Biblioteka1.1         2002-03-11 19:29:47  Darko           Improved
  *      algorithm
- * 1    Biblioteka1.0         2002-03-08 14:04:11  Darko Kolakovic 
+ * 1    Biblioteka1.0         2002-03-08 15:04:11  Darko Kolakovic 
  *$
  *****************************************************************************/
