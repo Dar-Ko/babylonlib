@@ -1,6 +1,6 @@
 /*$Workfile: KFileShortcut.cpp$: implementation file
-  $Revision: 2$ $Date: 2002-07-16 01:41:03$
-  $Author: Darko$
+  $Revision: 3$ $Date: 2005-05-11 17:39:09$
+  $Author: Darko Kolakovic$
 
   Windows Shortcut (.lnk) files helper
   Copyright: CommonSoft Inc.

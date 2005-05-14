@@ -1,6 +1,6 @@
 /*$Workfile: KFileShortcut.h$: header file
-  $Revision: 1$ $Date: 2002-03-12 23:01:12$
-  $Author: Darko$
+  $Revision: 2$ $Date: 2005-05-11 17:39:32$
+  $Author: Darko Kolakovic$
 
   Windows Shortcut (.Lnk) files helpers
   Copyright: CommonSoft Inc.
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KFILESHORTCUT_H_
-  //$Workfile: $ sentry
+  //$Workfile: KFileShortcut.h$ sentry
   #define _KFILESHORTCUT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -52,6 +52,10 @@ return false;
 #endif //_KFILESHORTCUT_H_
 
 /******************************************************************************
- *$Log: $
+ *$Log: 
+ * 2    Biblioteka1.1         2005-05-11 17:39:32  Darko Kolakovic Replaced BOOL
+ *      with bool
+ * 1    Biblioteka1.0         2002-03-12 23:01:12  Darko           
+ *$
  * 0    Dec 98 Darko Kolakovic
  *****************************************************************************/
