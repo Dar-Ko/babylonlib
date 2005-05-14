@@ -1,6 +1,6 @@
 /*$Workfile: KStrGuidWin.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-05-13 16:40:35$
-  $Author: Darko Kolakovic$
+  $Revision: 2$ $Date: 2005-05-14 01:33:00$
+  $Author: Darko$
 
   Converts  Universally Unique Identifier (UUID) to a string.
   Copyright: CommonSoft Inc.
@@ -30,14 +30,20 @@
 
   See also: tagGUID, tagUUID
  */
-CString GuidToStr(const UUID& iid //[in] 128-bit number representing UUID
+CString GuidToStr( UUID& iid //[in] 128-bit number representing UUID
                  )
 {
 CString strGUID;
-LPTSTR szGUID;
+
+#ifdef _UNICODE
+  unsigned short* szGUID;
+#else //SBCS
+  unsigned char* szGUID;
+#endif //_UNICODE
+
 if ( ::UuidToString( &iid, &szGUID ) == RPC_S_OK )
   {
-  strGUID = szGUID;
+  strGUID = (TCHAR*)(szGUID);
   RpcStringFree( &szGUID );
   }
 else  //RPC_S_OUT_OF_MEMORY The system is out of memory.
@@ -49,6 +55,8 @@ return strGUID;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2005-05-14 01:33:00  Darko           Fixed Unicode
+ *       build
  *  1    Biblioteka1.0         2005-05-13 16:40:35  Darko Kolakovic 
  * $
   ****************************************************************************/
