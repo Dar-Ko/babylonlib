@@ -1,5 +1,5 @@
 /*$Workfile: KDateConv.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-01 14:44:57$
+  $Revision: 5$ $Date: 2004-10-01 15:44:57$
   $Author: Darko$
 
   Defines the class behavior.
@@ -283,12 +283,12 @@ return false; //TODO: SetDate convert to JD
 #pragma warning (default: 4127)
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2004-10-01 14:44:57  Darko           fixed KMESSAGE
+ *  5    Biblioteka1.4         2004-10-01 15:44:57  Darko           fixed KMESSAGE
  *       format
- *  4    Biblioteka1.3         2004-06-01 16:50:18  Darko           time sync
- *  3    Biblioteka1.2         2003-09-28 00:38:35  Darko           CDateConv(const
+ *  4    Biblioteka1.3         2004-06-01 17:50:18  Darko           time sync
+ *  3    Biblioteka1.2         2003-09-28 01:38:35  Darko           CDateConv(const
  *       double dValue)
- *  2    Biblioteka1.1         2003-09-27 11:13:06  Darko           SetDate()
- *  1    Biblioteka1.0         2003-09-23 16:08:12  Darko           
+ *  2    Biblioteka1.1         2003-09-27 12:13:06  Darko           SetDate()
+ *  1    Biblioteka1.0         2003-09-23 17:08:12  Darko           
  * $
  *****************************************************************************/

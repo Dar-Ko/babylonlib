@@ -1,6 +1,6 @@
-/*$Workfile: KDateConv.h$: implementation file
-  $Revision: 4$ $Date: 2003-09-28 00:39:22$
-  $Author: Darko$
+/*$Workfile: KDateConv.h$: header file
+  $Revision: 5$ $Date: 2005-03-11 17:06:26$
+  $Author: Darko Kolakovic$
 
   DATE conversions
   Copyright: CommonSoft Inc
@@ -44,7 +44,7 @@ class CDateConv
 {
 public:
   CDateConv();
-  CDateConv(int iYear, int iMonth, int iDay, 
+  CDateConv(int iYear, int iMonth, int iDay,
             int iHour = 0, int iMinute = 0, int iSecond = 0);
   CDateConv(const CDateConv& dateValue);
   CDateConv(const double dValue);
@@ -63,7 +63,7 @@ public:
   virtual operator tm() const = 0;
 
 public:
-  virtual bool SetDate(int iYear, int iMonth, int iDay, 
+  virtual bool SetDate(int iYear, int iMonth, int iDay,
                        int iHour = 0, int iMinute = 0, int iSecond = 0) = 0;
   virtual bool SetDate(LPCTSTR strValue) =0;
   virtual bool IsValid() const = 0;
@@ -104,7 +104,7 @@ return DateToD(m_dateValue);
 }
 
 //-----------------------------------------------------------------------------
-/*Assigns double or DATA type after validation of negative values, since 
+/*Assigns double or DATA type after validation of negative values, since
   negative dates are not continuous.
 
   History: Microsoft COleDateTime::DateFromDouble, ATLComTime.inl
@@ -129,10 +129,10 @@ return *this;
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KDATECONV_H_
 /*****************************************************************************
- * $Log: 
- *  4    Biblioteka1.3         2003-09-28 00:39:22  Darko           operator=()
- *  3    Biblioteka1.2         2003-09-27 11:13:16  Darko           SetDate()
- *  2    Biblioteka1.1         2003-09-22 21:25:47  Darko           formatting
- *  1    Biblioteka1.0         2003-09-22 21:23:17  Darko           
+ * $Log:
+ *  4    Biblioteka1.3         2003-09-28 01:39:22  Darko           operator=()
+ *  3    Biblioteka1.2         2003-09-27 12:13:16  Darko           SetDate()
+ *  2    Biblioteka1.1         2003-09-22 22:25:47  Darko           formatting
+ *  1    Biblioteka1.0         2003-09-22 22:23:17  Darko
  * $
  *****************************************************************************/

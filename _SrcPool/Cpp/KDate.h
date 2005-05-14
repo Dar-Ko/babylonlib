@@ -1,6 +1,6 @@
-/*$Workfile: KDate.h$: implementation file
-  $Revision: 2$ $Date: 2003-09-25 00:29:34$
-  $Author: Darko$
+/*$Workfile: KDate.h$: header file
+  $Revision: 3$ $Date: 2005-03-11 17:06:12$
+  $Author: Darko Kolakovic$
 
   date struct encapsulation
   Copyright: CommonSoft Inc
@@ -25,7 +25,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 //CDate encapsulates date structure used to represented calendar date.
 //
-//Note: da_year represents number of years since epoch beginning. m_iEpoch 
+//Note: da_year represents number of years since epoch beginning. m_iEpoch
 //      represents the first year of an epoch. To avoid overflow condition,
 //      sum of da_year and m_iEpoch have to be less than INT_LEAST16_MAX.
 //
@@ -39,12 +39,14 @@ public:
   CDate(const tm& tmtValue);
   CDate(LPCTSTR strValue, const int_least16_t iEpoch = YEAR_EPOCH_CAL);
 
+  virtual ~CDate();
+
 public:
   int_least16_t m_iEpoch; /*first year in an epoch used in year calculation.
                             date.da_year member contains number of years since
                             epoch beginnig. If epoch year is 1, date.da_year
                             is a calendar year.
-                             
+
                             Note: calendar years begins with the year 01.
 
                             See also: date.da_year
@@ -96,7 +98,7 @@ da_mon  = dtValue.da_mon ;
 
 //-----------------------------------------------------------------------------
 /*
-  Note: because assignment operator for date is not provided, therefore this 
+  Note: because assignment operator for date is not provided, therefore this
   conversion constructor will be invoked. Default YEAR_EPOCH_DOS epoch will be
   set without converting year from previous epoch. This behavior is by design.
 
@@ -175,10 +177,10 @@ return (int_fast16_t)(da_year + m_iEpoch);
 }
 
 //-----------------------------------------------------------------------------
-/*Sets new epoch. The number of years since epoch beginning will mirror new 
+/*Sets new epoch. The number of years since epoch beginning will mirror new
   epoch.
 
-  Note: To avoid overflow condition, sum of da_year and m_iEpoch members have 
+  Note: To avoid overflow condition, sum of da_year and m_iEpoch members have
   to be less than INT_LEAST16_MAX.
 
   Returns: beginnig of previous epoch.
@@ -194,8 +196,8 @@ return iOldEpoch;
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KDATE_H_
 /*****************************************************************************
- * $Log: 
- *  2    Biblioteka1.1         2003-09-25 00:29:34  Darko           toString()
- *  1    Biblioteka1.0         2003-09-24 17:41:32  Darko           
+ * $Log:
+ *  2    Biblioteka1.1         2003-09-25 01:29:34  Darko           toString()
+ *  1    Biblioteka1.0         2003-09-24 18:41:32  Darko
  * $
  *****************************************************************************/

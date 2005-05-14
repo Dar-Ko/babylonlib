@@ -1,5 +1,5 @@
 /*$Workfile: KfNewtRp.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-06-01 15:55:06$
+  $Revision: 9$ $Date: 2005-04-21 03:20:45$
   $Author: Darko$
 
   Solve an equation using Newton-Raphson iteration method
@@ -35,25 +35,36 @@
 typedef double (*PFUNC_Y_OF_X) (double);
 
 //funcNewtonRaphson()----------------------------------------------------------
-/*Calculates the root of a differentiable function
-  {html: <IMG SRC="Res/eqFuncXis0.gif" ALT="f(x) = 0" BORDER="0"> <BR>}
-  The method requires the evaluation of both the function f(x), and the
-  derivative y' = f'(x), at arbitrary points x.
-  The Newton-Rahson method approximates the function f(x) with the tangent line
-  at arbitrary point x[n]. By extending the line until it crosses the abscissa,
-  we are getting an approximation of the root r = f(x) = 0.
-  {html: <BR><IMG SRC="Res/graphdYdX.gif" ALT="f'(x[n]) = dy/dx[n] = 0" BORDER="0"> <BR>}
+/*{html:
+  Calculates the root of a differentiable function
+  <img src="Images/eqFuncXis0.gif"
+        alt="f(x) = 0" border="0"> <br />
 
-  Assuming that {html: <BR><IMG SRC="Res/eqFuncRdiff0.gif" ALT="f'(r) != 0" BORDER="0">,<BR>}
+  (1) The method requires the evaluation of both the function <i>f(x)</i> and the
+  derivative <i>y' = f'(x)</i>, at arbitrary points <i>x</i>.
+  The Newton-Rahson method approximates the function <i>f(x)</i> with the tangent
+  line at arbitrary point x[n]. By extending the line until it crosses the
+  abscissa, we are getting an approximation of the root <i>r = f(x) = 0</i>.
+
+  <br /><img src="Images/graphdYdX.gif"
+    alt="f'(x[n]) = dy/dx[n] = 0" border="0"> <br />
+
+  Assuming that <br /><img src="Images/eqFuncRdiff0.gif"
+                        alt="f'(r) != 0" border="0">,<br />
   The better approximation of the root is the zero of the tangent line at the
   first approximation x[1].
-  {html: <BR><IMG SRC="Res/eqFuncx2isx1-y.gif" ALT="x[2] = x[1] - f(x[1]) / f'(x[1])" BORDER="0">,<BR>}
-  In n successive approximations we will get the root
-  {html: <BR><IMG SRC="Res/eqFuncXis0.gif" ALT="f(x) = 0" BORDER="0"> <BR>}
-  The general iterative formula for this method would be:
-  {html: <BR><IMG SRC="Res/eqFuncxN1isxN-y.gif" ALT="x[n+1] = x[n] - f(x[n]) / f'(x[n])" BORDER="0">,<BR>}
 
-  The Newton-Raphson method converge quadratically to the root r.
+  <br /><img src="Images/eqFuncx2isx1-y.gif"
+            alt="x[2] = x[1] - f(x[1]) / f'(x[1])" border="0">,<br />
+
+  In n successive approximations we will get the root
+  <br /><img src="Images/eqFuncXis0.gif" alt="f(x) = 0" border="0"> <br />
+
+  The general iterative formula for this method would be:
+  <br /><img src="Images/eqFuncxN1isxN-y.gif"
+        alt="x[n+1] = x[n] - f(x[n]) / f'(x[n])" border="0">,<br />
+
+  The Newton-Raphson method converge quadratically to the root <i>r</i>.
 
   Returns: true and approximation of the function's root or false if the root
   could not be found in iMaxIter iterations.
@@ -97,9 +108,11 @@ while(iMaxIter > 0)
 return false; //failed after iMaxIter iterations
 }
 
-/*The derivative dy/dx is aproximated with:
-
-     (y[n+1] - y[n])/(x[n+1] - x[n]) = (y[n+1] - y[n])/Dx
+/*(2) The derivative dy/dx is aproximated with:
+  {html:
+   <br /><img src="Images/eqApproxDerivative.gif" border="0"
+          alt="(y[n+1] - y[n])/(x[n+1] - x[n]) = (y[n+1] - y[n])/Dx">
+  }
  */
 bool funcNewtonRaphson(PFUNC_Y_OF_X funcX,     //[in] function y = f(x)
                        const double Dx,        //[in] estimate increment Dx = x[n+1] - x[n].

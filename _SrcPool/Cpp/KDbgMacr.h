@@ -1,5 +1,5 @@
-/*$Workfile: KDbgMacr.h$: header file
-  $Revision: 40$ $Date: 2004-12-06 16:23:09$
+/*$Workfile: S:\_SrcPool\Cpp\KDbgMacr.h$: header file
+  $Revision: 45$ $Date: 2005-04-27 12:55:24$
   $Author: Darko Kolakovic$
 
   Dumps values of some compiler-specific predefined macros
@@ -9,7 +9,7 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef _KDBGMACR_H_
-    /*$Workfile: KDbgMacr.h$ sentry */
+    /*$Workfile: S:\_SrcPool\Cpp\KDbgMacr.h$ sentry */
   #define _KDBGMACR_H_
 
 #if _MSC_VER > 1000
@@ -240,24 +240,30 @@
     #ifdef WIN32
       #warning "Target OS is Windows 32b."
     #endif
+    #ifdef _WIN64
+      #warning "Target OS is Windows 64b."
+    #endif
     #ifdef VMS
       #warning "Target OS is VMS."
     #endif
     #ifdef __NeXT__
       #warning "Target OS is NeXTStep."
     #endif
+
     #ifdef VXWORKS_VERSION
       #warning "Target OS is WindRiver VxWorks (ver)."
       /*Note: version.h - VxWorks version information have to be included    */
       const char* g_VXWORKS_VERSION = VXWORKS_VERSION;
     #endif
+
     #ifdef VXWORKS
       #warning "Target OS is WindRiver VxWorks."
     #endif
+
     #ifdef __INCvxWorksh
       #warning "Target OS is WindRiver VxWorks (vxWorks.h included)."
       #ifdef BSD
-        #if BSD == 44
+        #if (BSD == 44)
           #warning BSD 4.4 like OS
         #endif
       #endif
@@ -285,10 +291,11 @@
           #warning  "Host OS is rs6000-aix4"
         #elif (defined(_M_IX86) && defined(_WIN32))
           #warning  "Host OS is x86-win32"
+        #elif (defined(_M_X64) && defined(_WIN64))
+          #warning  "Host OS is I64-win64"
         #endif
       #endif /*HOST_TYPE                                                     */
     #endif /*__INCvxWorksh                                                   */
-
 
     /*Current version of CPU                                                 */
     #ifdef mc68000
@@ -315,6 +322,12 @@
     #endif
     #ifdef _M_IX86
       #warning "CPU: Intel x86 CPU family."
+    #endif
+    #ifdef _M_X64
+      #warning "CPU: 64b CPU family."
+    #endif
+    #ifdef _M_IA64
+      #warning "CPU: Intel Itanium CPU family."
     #endif
     #if defined (__i386__)
       #warning "CPU: Intel 80386."
@@ -517,7 +530,7 @@
     */
     const int g__MSC_VER = _MSC_VER;
     #if _MSC_VER < 600
-      #pragma message ("  ver. unknown)
+      #pragma message ("  ver. unknown")
     #endif
     #if _MSC_VER == 600
       #pragma message ("  ver. 6.0")
@@ -696,7 +709,7 @@
     #if _M_IX86 > 600
       #pragma message ("CPU: unknown")
     #endif
-  #endif
+  #endif /*_M_IX86*/
   #ifdef M_I8086
     #pragma message ("Compiling for for Intel x86 platform.")
     #pragma message ("CPU: 8088 or 8086")
@@ -713,6 +726,9 @@
     const int g__M_IX86 = 200;
   #endif
   #ifdef _M_IA64
+    #pragma message ("Compiling for for	Intel Itanium platform.")
+  #endif
+  #ifdef _M_X64
     #pragma message ("Compiling for for 64-bit platform.")
   #endif
   #ifdef _M_MPPC
@@ -832,6 +848,8 @@
      |WINVER=0x0501        |                                 |
      |                     |                                 |
      |_WIN32_WINNT=0x0502  |Windows Server 2003 family       |
+     |                     |                                 |
+     |_WIN64               |                                 |
      +---------------------+---------------------------------+
      |_WIN32_IE=0x0300     |Internet Explorer 3.0, 3.01, 3.02|
      |                     |                                 |
@@ -1783,6 +1801,8 @@ M_I86HM, __HUGE__
     _M_I286, M_I286 80286 or better is target.
     _M_IX86 Defined for 32 bit targets. Set to: 300 for 386 targets, 400 for 486,
           500 for Pentium, 600 for P6.
+    _M_X64  Defined for 64 bit targets.
+    _M_IA64	Intel Itanium
    */
 #endif
 
@@ -2146,6 +2166,13 @@ M_I86HM, __HUGE__
   #pragma message ("(2) ISO/IEC 9899:1999 (ISO C99) standard boolean type not defined.")
 #endif
 
+#if defined(__BOOL_DEFINED)
+  /*Microsoft Visual C++ 5.0 and later; built-in type. sizeof(bool) = 1*/
+  #pragma message ("bool type is supported as a built-in type.")
+#else
+  /*Microsoft Visual C++ 4.2; typedef as int32. sizeof(bool) = 4 */
+  #pragma message ("bool type is not supported.")
+#endif
 
 #if defined (true) || defined (false)
   #pragma message ("Boolean true/false is defined.")

@@ -1,5 +1,5 @@
-/*$Workfile: KfFibonacci.cpp$: header file
-  $Revision: 2$ $Date: 2005-01-21 14:44:36$
+/*$Workfile: S:\_SrcPool\Cpp\KfFibonacci.cpp$: header file
+  $Revision: 3$ $Date: 2005-04-20 13:09:55$
   $Author: Darko Kolakovic$
 
   Fibonacci sequence
@@ -13,17 +13,20 @@
 #include "KMathCst.h" //Golden Mean
 
 //-----------------------------------------------------------------------------
-/*Computes the n-th Fibonacci number. Fibonacci numbers form a sequence defined
+/*{html:
+  Computes the n-th Fibonacci number. Fibonacci numbers form a sequence defined
   recursively by:
 
-    {html: <br /><img src="Images/eqFibonacci.gif"
-     alt="F(n) = F(n-2) + F(n-1); F(0) = 0; F(1) = F(2) = 1;" border="0">,<br/>}
+    <br /><img src="Images/eqFibonacci.gif"
+     alt="F(n) = F(n-2) + F(n-1); F(0) = 0; F(1) = F(2) = 1;" border="0">,<br/>
   The size of the sequence is limited with with the biggest representable number.
 
   The simplified de Moivre's (aka Binet's) formula is used to calculate the
   n-th Fibonacci number:
-    {html: F(n) = round( &Phi;<sup>n</sup> / &radic;5 ) <i>provided</i> n &ge; 0}
-
+  <pre>
+        F(n) = round( &Phi;<sup>n</sup> / &radic;5 )
+        provided n &ge; 0.
+  </pre>
 
   The first few Fibonacci numbers for n = 0, 1, 2, 3,... are
     0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597,
@@ -34,9 +37,10 @@
   Returns: F(n) = F(n-1) + F(n-2), F(0) = 0, F(1) = 1, F(2) = 1, ...
 
   See also: Golden Mean, CST_PHI, Abraham de Moivre (1667-1754)
+  }
  */
 double funcFibonnaci(unsigned int nValue //[in] positive integer in range[0, M]
-                    )
+                   )
 {
 double dResult;
 const double PHI = CST_PHI;             /*Golden Mean PHI = (1+sqrt(5))/2 */

@@ -1,5 +1,5 @@
-/*$Workfile: KColorCt.h$: header file
-  $Revision: 15$ $Date: 2004-11-12 16:55:29$
+/*$Workfile: S:\_SrcPool\Cpp\KColorCt.h$: header file
+  $Revision: 17$ $Date: 2005-04-26 16:39:10$
   $Author: Darko Kolakovic$
 
   Predefined Color Codes
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KCOLORCT_H_
-    /*$Workfile: KColorCt.h$ sentry                                                      */
+    /*$Workfile: S:\_SrcPool\Cpp\KColorCt.h$ sentry                                                      */
   #define _KCOLORCT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -16,9 +16,8 @@
 #endif
 
 /*---------------------------------------------------------------------------*/
-/*{html:<a href="Documentation/KColorCt.htm">}
-  Index table for the 16 colors palette
-  {html:</a>}
+/*{html:<a href="Documentation/KColorCt.htm">
+  Index table for the 16 colors palette </a>}
  */
 enum COLOR
   {
@@ -43,9 +42,9 @@ enum COLOR
 
 /* Group=Color Constants                                                     */
 
-/* {html:<a href="Documentation/KColorCt.htm">}  */
-/* 16 Colors Palette                             */
-/* {html:</a>}                                   */
+/* {html:<a href="Documentation/KColorCt.htm">   */
+/* 16 Colors Palette </a>}                       */
+/*                                               */
 /*      Color Name             Red Green Blue    */
 #define BLACK               RGB(  0,  0,  0) /*0*/
 #define BLUE                RGB(  0,  0,128) /*1*/
@@ -65,9 +64,9 @@ enum COLOR
 #define BRIGHTWHITE         RGB(255,255,255) /*F*/
 
 /* -------------------------------------------------------------------------- */
-/*{html:<A HREF="Res/KColorCt_256_colors_palette.htm">}                                          */
-/*  256 Colors Palette                                                        */
-/*{html:</A>}                                                                 */
+/*{html:<a href="Res/KColorCt_256_colors_palette.htm">                        */
+/*  256 Colors Palette </a>}                                                  */
+/*                                                                            */
 /*      Color Name               Red Green Blue                               */
 #define ALICEBLUE             RGB(240,248,255)
 #define ANTIQUEWHITE          RGB(255,239,219)
@@ -244,7 +243,7 @@ enum COLOR
       When specifying an explicit RGB color, the COLORREF value has the
       following hexadecimal form: 0x00BBGGRR
 
-      Note: uses Microsoft Fundation Library (MFC);
+      Note: uses Microsoft Foundation Library (MFC);
             Microsoft Windows specific (Win).
 
       See also: {html:<A HREF="Res/KColorCt_256_colors_palette.htm">}

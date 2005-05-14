@@ -1,5 +1,5 @@
 /*$Workfile: KDate.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-10-08 11:35:45$
+  $Revision: 7$ $Date: 2005-03-14 00:08:02$
   $Author: Darko$
 
   Defines the class behavior.
@@ -60,6 +60,10 @@ CDate::CDate(LPCTSTR strValue,  //[in] string with date
   m_iEpoch(iEpoch)
 {
 *this = strValue;
+}
+
+CDate::~CDate()
+{
 }
 
 //-----------------------------------------------------------------------------

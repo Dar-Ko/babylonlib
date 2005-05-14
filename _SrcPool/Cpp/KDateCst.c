@@ -1,5 +1,5 @@
-/*$Workfile: KDateCst.c$: implementation file
-  $Revision: 5$ $Date: 2004-10-06 22:43:03$
+/*$Workfile: S:\_SrcPool\Cpp\KDateCst.c$: implementation file
+  $Revision: 5$ $Date: 2004-10-06 23:43:03$
   $Author: Darko$
 
   Date global constants
@@ -253,11 +253,11 @@ TimeSpan::Age(const zDate &birthday) const
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2004-10-06 22:43:03  Darko           Unicode fixes
- *  4    Biblioteka1.3         2003-09-27 11:06:41  Darko           draft v2
- *  3    Biblioteka1.2         2003-09-27 11:05:21  Darko           draft v2
- *  2    Biblioteka1.1         2003-09-23 16:09:02  Darko           draft
- *  1    Biblioteka1.0         2003-09-18 16:48:35  Darko           
+ *  5    Biblioteka1.4         2004-10-06 23:43:03  Darko           Unicode fixes
+ *  4    Biblioteka1.3         2003-09-27 12:06:41  Darko           draft v2
+ *  3    Biblioteka1.2         2003-09-27 12:05:21  Darko           draft v2
+ *  2    Biblioteka1.1         2003-09-23 17:09:02  Darko           draft
+ *  1    Biblioteka1.0         2003-09-18 17:48:35  Darko           
  * $
  *****************************************************************************/
 
@@ -4463,7 +4463,7 @@ struct tm
 // Maintainer: Doug Sauder <dwsauder@fwb.gulf.net>
 // WWW:        http://www.fwb.gulf.net/~dwsauder/mimepp.html
 // $Revision: 5$
-// $Date: 2004-10-06 22:43:03$
+// $Date: 2004-10-06 23:43:03$
 //
 // Copyright (c) 1996, 1997 Douglas W. Sauder
 // All rights reserved.
@@ -4815,7 +4815,7 @@ inline void DwDateTime::SetZone(int aZone)
 // Maintainer: Doug Sauder <dwsauder@fwb.gulf.net>
 // WWW:        http://www.fwb.gulf.net/~dwsauder/mimepp.html
 // $Revision: 5$
-// $Date: 2004-10-06 22:43:03$
+// $Date: 2004-10-06 23:43:03$
 //
 // Copyright (c) 1996, 1997 Douglas W. Sauder
 // All rights reserved.
