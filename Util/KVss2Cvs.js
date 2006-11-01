@@ -1,61 +1,34 @@
-/*
- * vss2rcs.js - Convert files from MS Visual SourceSafe into RCS format
- *
- * Requires Windows Scripting Host.
- * Requires ci.exe, rcs.exe and diff.exe compiled for NT.
- *
- * This script uses the Automation interface to Visual SourceSafe.
- * As a result, VSS must be installed on the machine where this is
- * run.  This has been tested with Visual Studio 6.0 SP3 under
- * Windows 2000.
- *
- * Copyright (C) 1999-2001 Curt Hagenlocher <curt@hagenlocher.org>
- * You may distribute under the terms of the GNU General Public License.
- *
- * Branching in VSS is completely ignored.  It's not really clear
- * how a VSS branch could map onto a CVS branch.
- *
- * The "shared-ness" of a VSS file is also ignored.  You'll have to
- * manually set up modules for sharing, as this doesn't seem to be
- * something that could be automated.
- *
- * There's no way to tell when in VSS a file was deleted.  As a result,
- * deleted files are put in the Attic, but may be labeled incorrectly.
- *
- * CHANGELOG:
- *
- * 1999-11-30  Initial Release
- * 2000-02-26  Added support for deleted files
- * 2000-04-29  Fixed handling of files which were deleted and recreated
- * 2000-05-18  Added special handling for out-of-order dates
- * 2001-02-01  Forced the revision numbers in the RCS file to match the
- *             VSS version numbers -- VSS version 23 becomes RCS rev 1.23
- * 2001-02-02  Created the repository before the first checkin so that
- *             binary files work correctly.  Previously, the initial add
- *             of the binary file would be truncated.
- * 2001-02-02  Fixed out-of-order date handling.  When the dates in VSS
- *             are somehow disordered, the corresponding dates in RCS
- *             will be wrong, but will at least be checked in correctly.
- *             (Previously, it aborted the file conversion.)
- * 2001-02-02  No longer requires administrator rights under NT/2000.
- * 2001-04-02  Added enhanced logging features (thanks to "ghoz").
- * 2001-07-09  fixed bug in addlog()
- * 2001-07-09  changed parameter '-n' in label_exec() to '-N' to allow
- *             re-labeling
- * 2003-04-03  Improved logging of RCS output to file and other cleanups
- *             (thanks to Nat Goodspeed)
- *
- * TODO:
- *
- * Add error handling
- * Support "Store only latest version" (why?)
- *
+/*$Workfile: KVss2Cvs.js$: script file
+  $Revision: 2$ $Date: 2006-11-01 16:11:50$
+  $Author: Darko Kolakovic$
+
+  Converts  Microsoft Visual SourceSafe repository to CVS format.
+  Copyright: 1999-2001 Curt Hagenlocher
+  1999-11-30 Curt Hagenlocher
  */
 
-///////////////////////////////////////////////////////////////////////
-// Configuration information
-//
-// The only things you should have to change are in this section
+////////////////////////////////////////////////////////////////////////////////
+/*Note: Microsoft Windows specific (Win32).
+
+  Note: Requires Windows Scripting Host, Microsoft Visual SourceSafe (VSS),
+  32-bit versions of Revision Control System  tools ci.exe, rcs.exe and diff.exe.
+  On systems with Win9x or WinNT, Windows Scripting Host have to be installed.
+
+  See also: http://www.cs.purdue.edu/homes/trinkle/RCS/
+
+  The script uses the Automation interface to Visual SourceSafe (VSS). VSS does
+  not store date when in VSS a file was deleted, therefore such files are not
+  labeled correctly after moving to CVS Attic. Branching is ignored becouse of
+  different meaning of a branch in to systems.
+  'Shared file' flag is also ignored.
+ */
+//-----------------------------------------------------------------------------
+/*Configuration information.
+  Initialize following  configuration variables:
+     vss_project          specifies the VSS project to use
+     rcs_repository       describes the destination path and
+     rcs_path             the directory containing RCS/CVS tools.
+ */
 
 // The VSS project directory to convert
 var vss_project     = "$/";
@@ -657,5 +630,34 @@ if (log)
 if (!quiet)
   WScript.echo ("Done.");
 
-
+///////////////////////////////////////////////////////////////////////////////
+/* Copyright (C) 1999-2001 Curt Hagenlocher <curt@hagenlocher.org>
+   You may distribute under the terms of the GNU General Public License.
+ */
+/******************************************************************************
+ *1999-11-30  Curt Hagenlocher curth@motek.com Initial Release
+ *2000-02-26  Added support for deleted files
+ *2000-04-29  Fixed handling of files which were deleted and recreated
+ *2000-05-18  Added special handling for out-of-order dates
+ *2001-02-01  Forced the revision numbers in the RCS file to match the  VSS
+ *            version numbers -- VSS version 23 becomes RCS rev 1.23
+ *2001-02-02  Created the repository before the first checkin so that
+ *            binary files work correctly.  Previously, the initial add
+ *            of the binary file would be truncated.
+ *2001-02-02  Fixed out-of-order date handling.  When the dates in VSS
+ *            are somehow disordered, the corresponding dates in RCS
+ *            will be wrong, but will at least be checked in correctly.
+ *            (Previously, it aborted the file conversion.)
+ *2001-02-02  No longer requires administrator rights under NT/2000.
+ *2001-04-02  Added enhanced logging features (thanks to "ghoz").
+ *2001-07-09  fixed bug in addlog()
+ *2001-07-09  changed parameter '-n' in label_exec() to '-N' to allow
+ *            re-labeling
+ *2003-04-03  Improved logging of RCS output to file and other cleanups
+ *$Log: 
+ * 2    Biblioteka1.1         2006-11-01 16:11:50  Darko Kolakovic Comments
+ * 1    Biblioteka1.0         2006-11-01 15:21:31  Darko Kolakovic 
+ *$
+ * 1    Biblioteka1.0         2004-11-12 17:55:51  Darko Kolakovic
+ *****************************************************************************/
 
