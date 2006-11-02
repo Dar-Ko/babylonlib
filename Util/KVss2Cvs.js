@@ -1,5 +1,5 @@
 /*$Workfile: KVss2Cvs.js$: script file
-  $Revision: 3$ $Date: 2006-11-02 10:36:10$
+  $Revision: 4$ $Date: 2006-11-02 18:41:01$
   $Author: Darko Kolakovic$
 
   Converts  Microsoft Visual SourceSafe repository to CVS format.
@@ -11,7 +11,7 @@
 /*Note: Microsoft Windows specific (Win32).
 
   Note: Requires Windows Scripting Host, Microsoft Visual SourceSafe (VSS),
-  32-bit versions of Revision Control System  tools ci.exe, rcs.exe and diff.exe.
+  32-bit versions of Revision Control System tools ci.exe, rcs.exe and diff.exe.
   On systems with Win9x or WinNT, Windows Scripting Host have to be installed.
 
   See also: http://www.cs.purdue.edu/homes/trinkle/RCS/
@@ -32,7 +32,7 @@
 
 // The VSS project directory to convert
 //var vss_project     = "\\\\TPDC01\\VSS\\$/Build Versions/2002 06 10/Catapult_RAD";
-var vss_project     = "$/Build Versions/";//2002 06 10/Catapult_RAD";
+var vss_project     = "$/Build Versions/2002 06 10/Catapult_RAD";
 //var vss_project     = "$/";
 var vss_usedeleted  = true;
 
@@ -55,7 +55,7 @@ var vss_username    = "DKolakovic";
 var vss_password    = "a";
 
 // Destination directory
-var rcs_repository  = "C:\\Development\\catapult3";
+var rcs_repository  = "C:\\Development\\catapult3.a";
 //var rcs_repository  = "c:\\cvsroot";
 
 // Directory containing ci.exe, diff.exe and rcs.exe.  This can be
@@ -82,7 +82,7 @@ var debug           = true;
 // Enable Logging by setting log to true and logfile to the filename
 // full_log set to true will log every RCS command
 
-var log         = true
+var bEnableLog         = true
 var full_log    = true;
 var logfile     = "_VssCvs.log"
 
@@ -98,10 +98,78 @@ var lowercase_users = false;
 
 // Normalize some options
 if (quiet)
-{
+  {
   verbose = false;
   debug   = false;
-}
+  }
+
+//Definition of the argument values for the exit() function 
+/*const*/ var EXIT_SUCCESS = 0;
+/*const*/ var EXIT_FAILURE = 1;
+//Definition of the successful results
+/*const*/ var S_OK         = 0;
+/*const*/ var S_FALSE      = 1;
+/*const*/ var NO_ERROR     = 0;
+//Error codes
+/*const*/ var ERROR_SUCCESS = 0; //no errors
+/*const*/ var EOF = (-1); //'End of File' tags end of a stream
+
+//COM type library constants
+var ForReading   = 1;//open a file for reading only. You can't write to this file.
+var ForWriting   = 2;//open a file for writing
+var ForAppending = 8;//open a file and write to the end of the file
+
+var TristateFalse      =  0;//opens the file as ASCII
+var TristateTrue       = -1;//opens the file as Unicode
+var TristateUseDefault = -2;//opens the file using the system default
+var TristateMixed      = -2;
+
+//------------------------------------------------------------------------------
+//Main
+try
+  {
+  var fs = new ActiveXObject("Scripting.FileSystemObject");
+    //Create log file
+  if(bEnableLog)
+    {
+    var lf = fs.OpenTextFile(logfile, ForWriting, true, TristateUseDefault);
+    } 
+  }
+catch(error)
+  {
+  WScript.echo(error.message + ": " + logfile);
+  bEnableLog = false; //Proceed without logging
+  }
+
+try
+  {
+  var db  = new ActiveXObject("SourceSafe");
+  if (vss_ini_file.length > 0)
+    db.Open(vss_ini_file, vss_username, vss_password);
+  else
+    db.Open();
+
+  if (vss_project.charAt(vss_project.length - 1) != '/')
+    vss_project    += '/';
+  if (rcs_repository.charAt(rcs_repository.length - 1) != '\\')
+    rcs_repository += '\\';
+  if (rcs_path.length > 0 && rcs_path.charAt(rcs_path.length - 1) != '\\')
+    rcs_path       += '\\';
+
+  var shell = new ActiveXObject("WScript.Shell");
+  ConvertDir(vss_project, rcs_repository);
+
+  }
+catch(error)
+  {
+  addlog(verbose, bEnableLog, error.description);
+  WScript.echo(error.message);
+  }
+
+if (lf != undefined)
+  lf.close();
+if (!quiet)
+  WScript.echo ("Done.");
 
 ///////////////////////////////////////////////////////////////////////
 // Stack object definition
@@ -223,172 +291,182 @@ function FixupUsername(username)
     return username;
 }
 
-function FixupRCSPath(filename, deleted)
+function FixupRCSPath(szFilename, deleted)
 {
   if (deleted)
   {
-    var re = filename.match(/^(.*)([\\/])([^\\/]+)$/);
+    var re = szFilename.match(/^(.*)([\\/])([^\\/]+)$/);
     if (re)
-      filename = re[1] + re[2] + "Attic" + re[2] + re[3];
+      szFilename = re[1] + re[2] + "Attic" + re[2] + re[3];
     else
-      filename = "Attic\\" + filename;
+      szFilename = "Attic\\" + szFilename;
   }
   if (lowercase_paths)
-    return filename.toLowerCase();
+    return szFilename.toLowerCase();
   else if (lowercase_files)
   {
-    var re = filename.match(/^(.*)([\\/])([^\\/]+)$/);
+    var re = szFilename.match(/^(.*)([\\/])([^\\/]+)$/);
     if (re)
       return re[1] + re[2] + re[3].toLowerCase();
     else
-      return filename;
+      return szFilename;
   }
   else if (lowercase_exts)
   {
-    var re = filename.match(/^(.*)\.([^\\/.]+)$/);
+    var re = szFilename.match(/^(.*)\.([^\\/.]+)$/);
     if (re)
       return re[1] + "." + re[2].toLowerCase();
     else
-      return filename;
+      return szFilename;
   }
   else
-    return filename;
+    return szFilename;
 }
 
-///////////////////////////////////////////////////////////////////////
-// MatchFilename - inspired by the fnmatch module of Python
+//-----------------------------------------------------------------------------
+/*Filename pattern matching. Matches a filename with a pattern consiting of 
+  charaters and wildcards. The special characters used as wildcards are:
 
-function MatchFilename(filespec, filename)
+     Wildcard    Description
+       *        matches everything
+       ?        matches any single character
+     [list]     matches any character in list
+     [!list]    matches any character not in list
+
+  Returns: true or false as result of the pattern match.
+ */
+function FnMatch(szFilename, //[in] filename to match
+                 szPattern , //[in] pattern to match
+                 bCaseInsensitive //[in] true or false for case-insensitive 
+                                  //comparison
+                 )
 {
-  return filename.match(TranslateFilespec(filespec));
-}
+var cachedFilespecs;
+if (cachedFilespecs == undefined)
+  cachedFilespecs = new Object();
+  
+ //Convert filename pattern to regular expression pattern
+if (cachedFilespecs[szPattern])
+  return szFilename.match( cachedFilespecs[szPattern] );
 
-var cachedFilespecs = new Object();
-
-function TranslateFilespec(spec)
-{
-  if (cachedFilespecs[spec])
-    return cachedFilespecs[spec];
-
-  var i = 0;
-  var result = "";
-  while (i < spec.length)
+var i = 0;
+var result = "";
+while (i < szPattern.length)
   {
-    var c = spec.charAt(i++);
-    if (c == '*')
-      result += ".*";
-    else if (c == '?')
-      result += '.';
-    else if (c == '[')
+  var c = szPattern.charAt(i++);
+  if (c == '*')
+    result += ".*";
+  else if (c == '?')
+    result += '.';
+  else if (c == '[')
     {
-      var j = i;
-      if (j < spec.length && spec.charAt(j) == '!')
-        j++;
-      if (j < spec.length && spec.charAt(j) == ']')
-        j++;
-      while (j < spec.length && spec.charAt(j) != ']')
-        j++;
-      if (j >= spec.length)
-        result += "\\[";
-      else
+    var j = i;
+    if (j < szPattern.length && szPattern.charAt(j) == '!')
+      j++;
+    if (j < szPattern.length && szPattern.charAt(j) == ']')
+      j++;
+    while (j < szPattern.length && szPattern.charAt(j) != ']')
+      j++;
+    if (j >= szPattern.length)
+      result += "\\[";
+    else
       {
-        var stuff = spec.slice(i, j);
-        i = j + 1;
-        if (stuff.charAt(0) == '!')
-          stuff = "[^" + stuff.slice(1) + ']';
-        else if (stuff == substring("^^^^^^^^^^^^^^^^", 0, stuff.length))
-          stuff = '\\^';
-        else
+      var stuff = szPattern.slice(i, j);
+      i = j + 1;
+      if (stuff.charAt(0) == '!')
+        stuff = "[^" + stuff.slice(1) + ']';
+      else if (stuff == substring("^^^^^^^^^^^^^^^^", 0, stuff.length))
+        stuff = '\\^';
+      else
         {
-          while (stuff.charAt(0) == '^')
-            stuff = stuff.slice(1) + stuff.charAt(0);
-          stuff = '[' + stuff + ']';
+        while (stuff.charAt(0) == '^')
+          stuff = stuff.slice(1) + stuff.charAt(0);
+        stuff = '[' + stuff + ']';
         }
-        res += stuff;
+      res += stuff;
       }
     }
-    else if (c.match(/\W/))
-      result += "\\" + c;
-    else
-      result += c;
+  else if (c.match(/\W/))
+    result += "\\" + c;
+  else
+    result += c;
   }
 
-  var attribute = fnmatch_case ? "" : "i";
-  cachedFilespecs[spec] = new RegExp(result + '$', attribute);
-  return cachedFilespecs[spec];
+cachedFilespecs[szPattern] = new RegExp(result + '$', bCaseInsensitive ? "" : "i");
+return szFilename.match(cachedFilespecs[szPattern]);
 }
 
-///////////////////////////////////////////////////////////////////////
-
-function ReadAllStdOutStdErr(oExec)
+//------------------------------------------------------------------------------
+/*Get a text output sent by Windows Script Shell to the standard streams.
+  Returns the Windows Script Shell output or EOF if streams are empty.
+ */
+function ReadAllStdOutStdErr(oExec //[in] WshScriptExec object
+                            )
 {
-     if (!oExec.StdOut.AtEndOfStream)
-          return oExec.StdOut.ReadAll();
+//The StdOut property contains a read-only copy of any information the 
+//script may have sent to the standard output.
+if (!oExec.StdOut.AtEndOfStream)
+  return oExec.StdOut.ReadAll();
+//Get data sent to the stderr stream
+if (!oExec.StdErr.AtEndOfStream)
+  return oExec.StdErr.ReadAll();
 
-     if (!oExec.StdErr.AtEndOfStream)
-          return oExec.StdErr.ReadAll();
-
-     return -1;
+return EOF;
 }
 
-///////////////////////////////////////////////////////////////////////
-
-function ExecRCSCmd(cmd, options, filename)
+//------------------------------------------------------------------------------
+//
+function ExecRCSCmd(cmd,     //[in] a command to be executed
+                    options, //[in] the command arguments
+                    szFilename //[in] file name to proccess
+                   )
 {
-  var cmdline = "\"" + rcs_path + cmd + "\" " + options + " \"" + filename + "\"";
-  addlog(verbose, log && full_log, cmdline);
+var cmdline = "\"" + rcs_path + cmd + "\" " + options + " \"" + szFilename + "\"";
+addlog(verbose, bEnableLog && full_log, cmdline);
 
-//  var type = (debug ? 1 : 0);
-//
-// 0 : hidden
-// 1 : active restored
-// 7 : minimized, active stays active
-// 8 : restored, active stays active
-//
-//  if (shell.Run(cmdline, type, true) != 0)
-//  {
-//    throw cmdline;
-//  }
+// The logic that follows is loosely derived from
+// http://msdn.microsoft.com/library/default.asp?url=/library/en-us/script56/html/wslrfexitcodeproperty.asp
 
-    // The logic that follows is loosely derived from
-    // http://msdn.microsoft.com/library/default.asp?url=/library/en-us/script56/html/wslrfexitcodeproperty.asp
+var oExec = shell.Exec(cmdline);
 
-    var oExec = shell.Exec(cmdline);
+var allOutput = "";
+var tryCount = 0;
 
-    var allOutput = "";
-    var tryCount = 0;
-
-    while (true)
-    {
-         var input = ReadAllStdOutStdErr(oExec);
-         if (-1 == input)
-         {
-              if (tryCount++ > 10 && oExec.Status == 1)
-                   break;
-              WScript.Sleep(100);
-         }
-         else
+while (true)
   {
-              allOutput += input;
-              tryCount = 0;
-  }
-}
-
-    if (oExec.ExitCode != 0)
+  var input = ReadAllStdOutStdErr(oExec);
+  if (EOF == input)
     {
-        throw cmdline + "\n" + allOutput;
+    if (tryCount++ > 10 && oExec.Status == 1)
+      break;
+    WScript.Sleep(100);
     }
+  else
+    {
+    allOutput += input;
+    tryCount = 0;
+    }
+  }
 
-    addlog(verbose, log && full_log, allOutput);
+/*Check the exit code set by a program run using the Exec() method.
+  If the process has not finished, the ExitCode property returns 0.
+  The values returned from ExitCode depend on the application that was called.
+ */
+if (oExec.ExitCode != EXIT_SUCCESS) //Warning: Non-zero exit code
+  {
+  //It is assumed that the command executed returns non-zero in case of failure
+  throw cmdline + "\n" + allOutput;
+  }
+
+addlog(verbose, bEnableLog && full_log, allOutput);
 }
 
-///////////////////////////////////////////////////////////////////////
-// checkin object definition
-
-function checkin(filename, version, created, binary, lastDate)
+//------------------------------------------------------------------------------
+//Checkin object definition
+function checkin(szFilename, version, created, binary, lastDate)
 {
   this.version  = version;
-  this.filename = filename;
+  this.filename = szFilename;
   this.exec     = checkin_exec;
   this.first    = created;
   this.binary   = binary;
@@ -433,10 +511,10 @@ function checkin_exec()
 ///////////////////////////////////////////////////////////////////////
 // label object definition
 
-function label(filename, text)
+function label(szFilename, text)
 {
   this.text     = FixupLabel(text);
-  this.filename = filename
+  this.filename = szFilename
   this.exec     = label_exec;
 }
 
@@ -449,15 +527,15 @@ function label_exec()
 ///////////////////////////////////////////////////////////////////////
 // command object definition
 
-function command(filename, cmd, options)
+function command(szFilename, cmd, options)
 {
   this.cmd      = cmd;
   this.options  = options;
-  this.filename = filename
+  this.filename = szFilename
   this.exec     = command_exec;
 }
 
-//------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 function command_exec()
 {
   ExecRCSCmd(this.cmd, this.options, this.filename);
@@ -465,23 +543,25 @@ function command_exec()
 
 ///////////////////////////////////////////////////////////////////////
 
-var duplicatefiles = new Array();
 
-//------------------------------------------------------------------------------
-function ConvertFile(project, localdir, filename)
+
+//-----------------------------------------------------------------------------
+/*
+ */
+function ConvertFile(project, localdir, szFilename)
 {
-  addlog(verbose, log, project + filename);
+  addlog(verbose, bEnableLog, project + szFilename);
   var item = null, delitem = null;
   try
   {
-    item      = db.VSSItem(project + filename, 0);
+    item      = db.VSSItem(project + szFilename, 0);
   }
   catch (x)
   {
   }
   try
   {
-    delitem   = db.VSSItem(project + filename, vss_usedeleted);
+    delitem   = db.VSSItem(project + szFilename, vss_usedeleted);
   }
   catch (x)
   {
@@ -490,18 +570,21 @@ function ConvertFile(project, localdir, filename)
   if (vss_usedeleted)
   {
     if (item != null && delitem != null)
-    {
-      // This file has both a deleted and an undeleted version
-      if (duplicatefiles[project + filename] == "done")
+      {
+      var duplicatefiles;
+      if(duplicatefiles == undefied)
+        duplicatefiles = new Array();
+      //This file has both a deleted and an undeleted version
+      if (duplicatefiles[project + szFilename] == "done")
         return; // Already processed
-      duplicatefiles[project + filename] = "done";
-    }
+      duplicatefiles[project + szFilename] = "done";
+      }
 
     if (item == null)
       item = delitem;
   }
 
-  var localfile = FixupRCSPath(localdir + filename, item.Deleted);
+  var localfile = FixupRCSPath(localdir + szFilename, item.Deleted);
   var versions  = new Enumerator(item.Versions);
   var cmds      = new stack();
   var created   = false;
@@ -543,14 +626,14 @@ function ConvertFile(project, localdir, filename)
     }
     else
     {
-      addlog(quiet, log, "Unknown action : " + version.Action);
+      addlog(quiet, bEnableLog, "Unknown action : " + version.Action);
     }
     versions.moveNext();
   }
 
   if (!created)
   {
-    addlog(quiet, log, project + filename +
+    addlog(quiet, bEnableLog, project + szFilename +
       " was never created.  Is there both a deleted and a non-deleted version?");
   }
 
@@ -565,21 +648,23 @@ function ConvertFile(project, localdir, filename)
   }
   catch (err)
   {
-    addlog(quiet, log, "Error in cmd: " + err);
+    addlog(quiet, bEnableLog, "Error in cmd: " + err);
   }
 }
 
 //------------------------------------------------------------------------------
+/*
+ */
 function ConvertDir(project, localdir)
 {
 try
   {
-  addlog(verbose, log, "Creating " + localdir + "...");
+  addlog(verbose, bEnableLog, "Creating " + localdir + "...");
   fs.CreateFolder(FixupRCSPath(localdir, false));
   }
 catch (err)
   {
-  addlog(verbose, log, err.description + ": " + localdir );
+  addlog(verbose, bEnableLog, err.description + ": " + localdir );
   }
     
   try
@@ -606,24 +691,25 @@ catch (err)
         "type WIN as a shorthand for $/Code/Win, Test.C for $/Code/Test.C\r\n"+
         "and .. for the root.");
     }
-    addlog(verbose, log, err.description + ": " + project);
+    addlog(verbose, bEnableLog, err.description + ": " + project);
     return;
   }
   if (items.atEnd())
     {
     WScript.Echo("Nothing to do with " + project);
-    addlog(verbose, log, project + " has no items!");
+    addlog(verbose, bEnableLog, project + " has no items!");
     return;
     }
   else while (!items.atEnd())
   {
     var item = items.item();
-    if (item.Type == 0 && vss_subdirspec.length > 0 &&
-      MatchFilename(vss_subdirspec, item.Name))
+    if( (item.Type == 0) && 
+        (vss_subdirspec.length > 0) &&
+        FnMatch(item.Name, vss_subdirspec, fnmatch_case) )
     {
       ConvertDir(project + item.Name + "/", localdir + item.Name + "\\");
     }
-    else if (item.Type == 1 && MatchFilename(vss_filespec, item.Name))
+    else if ( (item.Type == 1) && FnMatch(item.Name, vss_filespec, fnmatch_case))
     {
       ConvertFile(project, localdir, item.Name);
     }
@@ -632,49 +718,28 @@ catch (err)
 }
 
 //------------------------------------------------------------------------------
-function addlog(toscreen, tofile, logline)
+/*Display and log event messages.
+ */
+function addlog(bDisplayMessage,//[in]true if the message is to be displayed 
+                bWriteMessage, //[in] true if the message is to be written in the log
+                szMessage      //[in] text do be displayed
+               )
 {
-  if (toscreen)
-    WScript.Echo(logline);
-  if (tofile)
-    lf.WriteLine(logline);
-}
-
-//------------------------------------------------------------------------------
-var db    = new ActiveXObject("SourceSafe");
-var fs    = new ActiveXObject("Scripting.FileSystemObject");
-var shell = new ActiveXObject("WScript.Shell");
-
-if (log)
-  var lf = fs.OpenTextFile(logfile,2,true);
-
 try
   {
-  if (vss_ini_file.length > 0)
-    db.Open(vss_ini_file, vss_username, vss_password);
-  else
-    db.Open();
-
-  if (vss_project.charAt(vss_project.length - 1) != '/')
-    vss_project    += '/';
-  if (rcs_repository.charAt(rcs_repository.length - 1) != '\\')
-    rcs_repository += '\\';
-  if (rcs_path.length > 0 && rcs_path.charAt(rcs_path.length - 1) != '\\')
-    rcs_path       += '\\';
-
-  ConvertDir(vss_project, rcs_repository);
-
+  if (bDisplayMessage)
+    WScript.Echo(szMessage);
+  if (bWriteMessage && (lf != undefined))
+    lf.WriteLine(szMessage);
   }
-catch(err)
+catch (err)
   {
-  addlog(verbose, log, err.description);
   WScript.echo(err.message);
+  if (lf != undefined)
+    lf.WriteLine(err.description);
   }
+}
 
-if (log)
-  lf.close();
-if (!quiet)
-  WScript.echo ("Done.");
 
 ///////////////////////////////////////////////////////////////////////////////
 /* Copyright (C) 1999-2001 Curt Hagenlocher <curt@hagenlocher.org>
@@ -682,6 +747,8 @@ if (!quiet)
  */
 /******************************************************************************
  *$Log: 
+ * 4    Biblioteka1.3         2006-11-02 18:41:01  Darko Kolakovic Replaced
+ *      FnMatch()
  * 3    Biblioteka1.2         2006-11-02 10:36:10  Darko Kolakovic Error handling
  * 2    Biblioteka1.1         2006-11-01 16:11:50  Darko Kolakovic Comments
  * 1    Biblioteka1.0         2006-11-01 15:21:31  Darko Kolakovic 
