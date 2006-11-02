@@ -1,5 +1,5 @@
 /*$Workfile: KVss2Cvs.js$: script file
-  $Revision: 2$ $Date: 2006-11-01 16:11:50$
+  $Revision: 3$ $Date: 2006-11-02 10:36:10$
   $Author: Darko Kolakovic$
 
   Converts  Microsoft Visual SourceSafe repository to CVS format.
@@ -31,7 +31,9 @@
  */
 
 // The VSS project directory to convert
-var vss_project     = "$/";
+//var vss_project     = "\\\\TPDC01\\VSS\\$/Build Versions/2002 06 10/Catapult_RAD";
+var vss_project     = "$/Build Versions/";//2002 06 10/Catapult_RAD";
+//var vss_project     = "$/";
 var vss_usedeleted  = true;
 
 // File specifications for the conversion
@@ -48,12 +50,13 @@ var max_comment_len = 400;   // depends on various path lengths
 // VSS repositories, you may have to specify the one you
 // want by setting the environmental variable SSDIR *before*
 // running this script.
-var vss_ini_file    = "";
-var vss_username    = "";
-var vss_password    = "";
+var vss_ini_file    = "\\\\tpdc01\\VSS\\srcsafe.ini";
+var vss_username    = "DKolakovic";
+var vss_password    = "a";
 
 // Destination directory
-var rcs_repository  = "c:\\cvsroot";
+var rcs_repository  = "C:\\Development\\catapult3";
+//var rcs_repository  = "c:\\cvsroot";
 
 // Directory containing ci.exe, diff.exe and rcs.exe.  This can be
 // left blank if these are in current directory.  The versions of
@@ -74,14 +77,14 @@ var rcs_path        = "";
 // With debug set to true, you'll get more popups than you'll ever need
 var quiet           = false;
 var verbose         = false;
-var debug           = false;
+var debug           = true;
 
 // Enable Logging by setting log to true and logfile to the filename
 // full_log set to true will log every RCS command
 
-var log             = false
-var full_log      = false;
-var logfile         = ""
+var log         = true
+var full_log    = true;
+var logfile     = "_VssCvs.log"
 
 // Convert filenames to a standard case
 // These form a hierarchy -- each (if true) implies that
@@ -402,6 +405,7 @@ function checkin(filename, version, created, binary, lastDate)
   }
 }
 
+//------------------------------------------------------------------------------
 function checkin_exec()
 {
   var username  = FixupUsername(this.version.Username);
@@ -453,6 +457,7 @@ function command(filename, cmd, options)
   this.exec     = command_exec;
 }
 
+//------------------------------------------------------------------------------
 function command_exec()
 {
   ExecRCSCmd(this.cmd, this.options, this.filename);
@@ -462,6 +467,7 @@ function command_exec()
 
 var duplicatefiles = new Array();
 
+//------------------------------------------------------------------------------
 function ConvertFile(project, localdir, filename)
 {
   addlog(verbose, log, project + filename);
@@ -563,25 +569,53 @@ function ConvertFile(project, localdir, filename)
   }
 }
 
+//------------------------------------------------------------------------------
 function ConvertDir(project, localdir)
 {
-  try
+try
   {
-    addlog(verbose, log, "Creating " + localdir + "...");
-    fs.CreateFolder(FixupRCSPath(localdir, false));
+  addlog(verbose, log, "Creating " + localdir + "...");
+  fs.CreateFolder(FixupRCSPath(localdir, false));
   }
-  catch (err)
+catch (err)
   {
+  addlog(verbose, log, err.description + ": " + localdir );
   }
+    
   try
   {
     var items = new Enumerator(db.VSSItem(project).Items(vss_usedeleted));
   }
   catch (err)
   {
+    if (err.number == -2147166483)
+    {
+      WScript.echo("Invalid VSS syntax: <syntax>\r\n" +
+        "The syntax you entered is invalid in VSS.\r\n" +
+        "This error has the following cause and solution:\r\n" +
+        "You have entered a VSS file or project path that does not use valid syntax.\r\n"+
+        "In VSS syntax, every path starts with a dollar sign followed by a series of\r\n"+
+        "project names, which are separated by slashes and optionally\r\n"+
+        "followed by a file name. For example:\r\n" +
+        "  - $/ is the root project.\r\n" +
+        "  - $/Code is a subproject of $/.\r\n" +
+        "  - $/Code/Win/Test.C is a file in the $/Code/Win project.\r\n" +
+        "Many parts of this syntax are optional. You can omit the dollar sign\r\n"+
+        "in most circumstances. You can also shorten the path by basing it\r\n"+
+        "on your current project; for example, if you are in $/Code, you can\r\n"+
+        "type WIN as a shorthand for $/Code/Win, Test.C for $/Code/Test.C\r\n"+
+        "and .. for the root.");
+    }
+    addlog(verbose, log, err.description + ": " + project);
     return;
   }
-  while (!items.atEnd())
+  if (items.atEnd())
+    {
+    WScript.Echo("Nothing to do with " + project);
+    addlog(verbose, log, project + " has no items!");
+    return;
+    }
+  else while (!items.atEnd())
   {
     var item = items.item();
     if (item.Type == 0 && vss_subdirspec.length > 0 &&
@@ -597,6 +631,7 @@ function ConvertDir(project, localdir)
   }
 }
 
+//------------------------------------------------------------------------------
 function addlog(toscreen, tofile, logline)
 {
   if (toscreen)
@@ -605,6 +640,7 @@ function addlog(toscreen, tofile, logline)
     lf.WriteLine(logline);
 }
 
+//------------------------------------------------------------------------------
 var db    = new ActiveXObject("SourceSafe");
 var fs    = new ActiveXObject("Scripting.FileSystemObject");
 var shell = new ActiveXObject("WScript.Shell");
@@ -612,19 +648,29 @@ var shell = new ActiveXObject("WScript.Shell");
 if (log)
   var lf = fs.OpenTextFile(logfile,2,true);
 
-if (vss_ini_file.length > 0)
-  db.Open(vss_ini_file, vss_username, vss_password);
-else
-  db.Open();
+try
+  {
+  if (vss_ini_file.length > 0)
+    db.Open(vss_ini_file, vss_username, vss_password);
+  else
+    db.Open();
 
-if (vss_project.charAt(vss_project.length - 1) != '/')
-  vss_project    += '/';
-if (rcs_repository.charAt(rcs_repository.length - 1) != '\\')
-  rcs_repository += '\\';
-if (rcs_path.length > 0 && rcs_path.charAt(rcs_path.length - 1) != '\\')
-  rcs_path       += '\\';
+  if (vss_project.charAt(vss_project.length - 1) != '/')
+    vss_project    += '/';
+  if (rcs_repository.charAt(rcs_repository.length - 1) != '\\')
+    rcs_repository += '\\';
+  if (rcs_path.length > 0 && rcs_path.charAt(rcs_path.length - 1) != '\\')
+    rcs_path       += '\\';
 
-ConvertDir(vss_project, rcs_repository);
+  ConvertDir(vss_project, rcs_repository);
+
+  }
+catch(err)
+  {
+  addlog(verbose, log, err.description);
+  WScript.echo(err.message);
+  }
+
 if (log)
   lf.close();
 if (!quiet)
@@ -635,29 +681,30 @@ if (!quiet)
    You may distribute under the terms of the GNU General Public License.
  */
 /******************************************************************************
- *1999-11-30  Curt Hagenlocher curth@motek.com Initial Release
- *2000-02-26  Added support for deleted files
- *2000-04-29  Fixed handling of files which were deleted and recreated
- *2000-05-18  Added special handling for out-of-order dates
- *2001-02-01  Forced the revision numbers in the RCS file to match the  VSS
- *            version numbers -- VSS version 23 becomes RCS rev 1.23
- *2001-02-02  Created the repository before the first checkin so that
- *            binary files work correctly.  Previously, the initial add
- *            of the binary file would be truncated.
- *2001-02-02  Fixed out-of-order date handling.  When the dates in VSS
- *            are somehow disordered, the corresponding dates in RCS
- *            will be wrong, but will at least be checked in correctly.
- *            (Previously, it aborted the file conversion.)
- *2001-02-02  No longer requires administrator rights under NT/2000.
- *2001-04-02  Added enhanced logging features (thanks to "ghoz").
- *2001-07-09  fixed bug in addlog()
- *2001-07-09  changed parameter '-n' in label_exec() to '-N' to allow
- *            re-labeling
- *2003-04-03  Improved logging of RCS output to file and other cleanups
  *$Log: 
+ * 3    Biblioteka1.2         2006-11-02 10:36:10  Darko Kolakovic Error handling
  * 2    Biblioteka1.1         2006-11-01 16:11:50  Darko Kolakovic Comments
  * 1    Biblioteka1.0         2006-11-01 15:21:31  Darko Kolakovic 
  *$
  * 1    Biblioteka1.0         2004-11-12 17:55:51  Darko Kolakovic
+ *2003-04-03  Improved logging of RCS output to file and other cleanups
+ *2001-07-09  changed parameter '-n' in label_exec() to '-N' to allow
+ *            re-labeling
+ *2001-07-09  fixed bug in addlog()
+ *2001-04-02  Added enhanced logging features (thanks to "ghoz").
+ *2001-02-02  No longer requires administrator rights under NT/2000.
+ *2001-02-02  Fixed out-of-order date handling.  When the dates in VSS
+ *            are somehow disordered, the corresponding dates in RCS
+ *            will be wrong, but will at least be checked in correctly.
+ *            (Previously, it aborted the file conversion.)
+ *2001-02-02  Created the repository before the first checkin so that
+ *            binary files work correctly.  Previously, the initial add
+ *            of the binary file would be truncated.
+ *2001-02-01  Forced the revision numbers in the RCS file to match the  VSS
+ *            version numbers -- VSS version 23 becomes RCS rev 1.23
+ *2000-05-18  Added special handling for out-of-order dates
+ *2000-04-29  Fixed handling of files which were deleted and recreated
+ *2000-02-26  Added support for deleted files
+ *1999-11-30  Curt Hagenlocher curth@motek.com Initial Release
  *****************************************************************************/
 
