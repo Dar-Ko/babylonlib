@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Js\Samples\Validation\main.js$: script file
-  $Revision: 1$ $Date: 2006-11-08 15:46:59$
+/*$Workfile: main.js$: script file
+  $Revision: 2$ $Date: 2006-11-08 17:52:56$
   $Author: Darko Kolakovic$
 
   Script used to test various validation operations.
@@ -100,17 +100,37 @@ try
 catch(error)
   {
   if (error instanceof Error)
+    {
+    if((error.number & 0xFFFF) == 76) //Path not found
+      {
+      SetWorkingDirectory(); //TODO: Change current directory
+      }
     TsWriteToView("Include '" + szFileName +  "' " +
                  error.name + " " + (error.number & 0xFFFF) + ": " +
                  error.message );
+    }
   else
     TsWriteToView("Error: " + error);
   }
 }
 
+//-----------------------------------------------------------------------------
+/*Changes the current active directory if the new direcrory is specfied, 
+  otherwise only displays the current active directory.
+  Requires Microsoft Windows Script Host (WSH) 5.6.
+ */
+function SetWorkingDirectory(szWorkingDirectory //[in] new active directory
+                            )
+{
+var objShell = WScript.CreateObject ("WScript.Shell");
+TsWriteToView(objShell.CurrentDirectory); //Displays the current active directory
+if ((szWorkingDirectory != undefined) && (szWorkingDirectory.length >0) )
+  objShell.CurrentDirectory = szWorkingDirectory;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2006-11-08 15:46:59  Darko Kolakovic 
+ * $Log:
+ *  1    Biblioteka1.0         2006-11-08 15:46:59  Darko Kolakovic
  * $
  *****************************************************************************/
