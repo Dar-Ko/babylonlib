@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Numeric\Src\TestPrimes.cpp$: implementation file
+/*$Workfile: TestPrimes.cpp$: implementation file
   $Revision: 5$ $Date: 2005-04-14 16:17:12$
   $Author: Darko Kolakovic$
 
