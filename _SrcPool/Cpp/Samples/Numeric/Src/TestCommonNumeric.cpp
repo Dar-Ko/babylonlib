@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Numeric\Src\TestCommonNumeric.cpp$: implementation file
-  $Revision: 3$ $Date: 2005-04-14 16:17:41$
+/*$Workfile: TestCommonNumeric.cpp$: implementation file
+  $Revision: 6$ $Date: 2005-06-20 10:44:29$
   $Author: Darko Kolakovic$
 
   Test numerical and machine dependent routines.
@@ -34,6 +34,9 @@ extern bool TestSwapRows();
 extern bool TestRound();
 extern bool TestFibonnaci();
 extern bool TestSinglyLinkedList();
+extern bool TestGcd();
+extern bool TestFactorial();
+extern bool TestLcm();
 
 
 //-----------------------------------------------------------------------------
@@ -50,6 +53,9 @@ TsWriteToViewLn(_T(""));
 PFUNC_TEST funcTest[] =
   {
   TestEndian,
+  TestGcd,
+  TestLcm,
+  TestFactorial,
   TestSinglyLinkedList,
   TestByteSwap,
   TestSwapRows,
