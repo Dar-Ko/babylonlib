@@ -1,0 +1,79 @@
+rss
+  {
+  display: block;
+  background-color: white
+  }
+
+bookcategory
+  {
+  display: block;
+  font-size: 20pt
+  }
+
+book
+  {
+  display: block;
+  font-size: 12pt; font-weight: normal
+  }
+
+title
+  {
+  display: block;
+  font-weight: bold
+  }
+
+author
+  {display: block;
+  font-style: italic;
+  text-indent: 2em
+  }
+
+revision
+  {
+  display: none;
+  }
+
+language
+  {
+  display: none;
+  }
+
+workfile
+  {
+  display: none;
+  }
+
+ttl
+  {
+  display: none;
+  }
+
+editor
+  {
+  display: none;
+  }
+
+copyright
+  {
+  display: block;
+  text-indent: 2em
+  }
+
+link
+  {
+  display: block;
+  color: blue;
+  text-indent: 2em
+  }
+
+description
+  {
+  display: block;
+  text-indent: 2em
+  }
+
+item
+  {
+  display: block;
+  text-indent: 2em
+  }

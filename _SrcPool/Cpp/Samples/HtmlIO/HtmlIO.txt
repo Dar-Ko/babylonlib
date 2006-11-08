@@ -1,0 +1,48 @@
+$Workfile: HtmlIO.txt$: developer's note
+$Revision: 7$ $Date: 2005-05-05 23:03:25$
+$Author: Darko$
+
+\	HtmlIO.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
+\	HtmlIO.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	HtmlIO.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
+
+Template class CStringT requires header file <atlstr.h> for non-MFC versions. <cstringt.h> is required for MFC-only string objects.
+Microsoft Visual C++ 6.0 reports <atlstr.h> is missing. It is replaced with <atlmisc.h> found in Windows Template Library (WTL).
+WTL 7.1 is used in this example requires global CAppModule _Module to be defined in the project;
+
+Reference:
+  [1] <a href="http://www.w3.org/TR/xmlschema-2/#built-in-datatypes">
+         W3C Recommendation; XML Schema Part 2: Datatypes; 3. Built-in datatypes</a>
+
+
+If compiler generates the following error
+    error C1083: Cannot open include file: 'msxml2.h': No such file or directory
+
+Download and install MSXML SDK 4.0 SP2 (msxmlsdk.exe)
+http://www.microsoft.com/downloads/details.aspx?FamilyID=3144b72b-b4f2-46da-b4b6-c5d7485f2b42&DisplayLang=en#filelist
+and add new /lib/ and /inc/ directories to tool serach path:
+ Tools | Options | Directories | Include Files , Libary Files
+
+Minimum requirement is MSXML SDK 3.0 SP5
+http://www.microsoft.com/downloads/details.aspx?FamilyID=2cf40ae6-368c-4b6b-a185-2dfa92fb7993&DisplayLang=en
+ Drive:\...\MSXMLSDK.3\LIB
+ Drive:\...\MSXMLSDK.3\INC
+
+
+If linker generates the following error, when you build an MFC application with UNICODE:
+	Microsoft Visual C++ 6.0 or less: 
+	error LNK2001: unresolved external symbol "_WinMain@16"
+
+change Project Settings | Link | Output category | Entry Point Symbol to wWinMainCRTStartup.
+
+	Microsoft Visual C++ .NET
+	error LNK2019: unresolved external symbol _WinMain@16 referenced in function _WinMainCRTStartup
+
+change Project Properties | Linker | Advanced | Entry Point to wWinMainCRTStartup.
+
+Reference:: [2] MSDN Article Q125750
+
+warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+  Microsoft Visual C++ 6.0 or more
+feature can be enabled/disabled by Tools | Options | Debug | "Debug commands invoke Edit and Continue" check box.
+
