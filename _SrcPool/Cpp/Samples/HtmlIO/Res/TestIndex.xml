@@ -5,9 +5,9 @@
   <channel>
     <title>HTML Test Files List</title>
     <language>en-ca</language>
-    <workfile>$Workfile: S:\_SrcPool\Cpp\Samples\HtmlIO\Res\TestIndex.xml$</workfile>
+    <workfile>$Workfile: TestIndex.xml$</workfile>
     <editor>$Author: Darko Kolakovic$</editor>
-    <revision>$Revision: 2$ $Date: 2005-04-07 18:10:06$</revision>
+    <revision>$Revision: 3$ $Date: 2005-10-19 17:06:12$</revision>
     <description>List of simple HTML documents used to validate various software components</description>
     <copyright>&#xA9; CommonSoft Inc, 1996-2004</copyright>
     <copyright>&#xA9; Darko Kolakovi&#x0107;, 1985-2032, All Rights Reserved.</copyright>
@@ -102,6 +102,12 @@
       <title>Test Complex Table</title>
       <link>TestTableComplex.htm</link>
       <description>Combined table test</description>
+    </item>
+
+    <item>
+      <title>Test Overflow Style</title>
+      <link>TestOverflow.htm</link>
+      <description>CSS overflow test</description>
     </item>
 
   </channel>

@@ -1,5 +1,5 @@
 /*$Workfile: stdafx.h$: header file
-  $Revision: 14$  $Date: 2005-05-01 00:32:52$
+  $Revision: 15$  $Date: 2005-07-07 17:51:53$
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -101,7 +101,7 @@
   //===========================================================================
   //Standard Template Library header files
   //For build dependant of the Standard Template Library (STL)
-  #ifdef _STL
+  #if defined(_STL) || defined (_USE_STL)
     #ifdef _DEBUG
       #ifndef _STLP_DEBUG
         #define _STLP_DEBUG 1    //Debug STLPort library

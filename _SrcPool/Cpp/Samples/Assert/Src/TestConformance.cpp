@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\TestConformance.cpp$: implementation file
-  $Revision: 4$ $Date: 2005-03-21 14:01:00$
+/*$Workfile: TestConformance.cpp$: implementation file
+  $Revision: 4$ $Date: 2005-03-21 15:01:00$
   $Author: Darko Kolakovic$
 
   Validates the conformance of a C++ compiler.

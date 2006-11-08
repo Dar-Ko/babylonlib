@@ -1,5 +1,5 @@
 /*$Workfile: TestPredefinedMacrosC.c$: implementation file
-  $Revision: 4$ $Date: 2004-11-09 18:46:11$
+  $Revision: 4$ $Date: 2004-11-09 19:46:11$
   $Author: Darko Kolakovic$
 
   Test compiler defined macros.
@@ -116,10 +116,10 @@ return bResult;
 /* ////////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2004-11-09 18:46:11  Darko Kolakovic implemented
+ *  4    Biblioteka1.3         2004-11-09 19:46:11  Darko Kolakovic implemented
  *       TsWriteToViewLn
- *  3    Biblioteka1.2         2004-10-22 11:46:52  Darko Kolakovic CodeWarrior
- *  2    Biblioteka1.1         2004-09-13 14:28:48  Darko           comments
- *  1    Biblioteka1.0         2004-08-31 12:03:43  Darko           
+ *  3    Biblioteka1.2         2004-10-22 12:46:52  Darko Kolakovic CodeWarrior
+ *  2    Biblioteka1.1         2004-09-13 15:28:48  Darko           comments
+ *  1    Biblioteka1.0         2004-08-31 13:03:43  Darko           
  * $
  *****************************************************************************/

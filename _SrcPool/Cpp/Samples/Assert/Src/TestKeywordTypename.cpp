@@ -1,5 +1,5 @@
 /*$Workfile: TestKeywordTypename.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-11-23 15:51:43$
+  $Revision: 2$ $Date: 2004-11-23 16:51:43$
   $Author: Darko Kolakovic$
 
   Test C++ compiler conformance.
@@ -67,9 +67,9 @@ bool TestKeywordTypename()
 /* ////////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-11-23 15:51:43  Darko Kolakovic fixed MSVC
+ *  2    Biblioteka1.1         2004-11-23 16:51:43  Darko Kolakovic fixed MSVC
  *       build
- *  1    Biblioteka1.0         2004-11-23 13:04:19  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-11-23 14:04:19  Darko Kolakovic 
  * $
  *****************************************************************************/
 

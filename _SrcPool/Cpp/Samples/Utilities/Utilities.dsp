@@ -46,7 +46,7 @@ RSC=rc.exe
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "../.." /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FD /GZ /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "../.." /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "../.." /I "./Src" /I ".." /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_USE_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG"
@@ -73,7 +73,7 @@ LINK32=link.exe
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "../.." /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FD /GZ /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "../.." /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /FR /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "../.." /I "./Src" /I ".." /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG" /d "_UNICODE"
@@ -100,7 +100,7 @@ LINK32=link.exe
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /I ".." /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /FD /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /W3 /GX /O2 /I ".." /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "./Src" /I ".." /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x1009 /d "NDEBUG"
@@ -127,7 +127,7 @@ LINK32=link.exe
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /I ".." /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /FD /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /W3 /GX /O2 /I ".." /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "./Src" /I ".." /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x1009 /d "NDEBUG" /d "_UNICODE"
@@ -172,11 +172,58 @@ SOURCE=..\..\KGuid.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KOctave.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KStrGuid.cpp
 
 !IF  "$(CFG)" == "Utilities - Win32 Debug_SBCS"
 
 # PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Utilities - Win32 Debug_Unicode"
+
+# PROP Exclude_From_Build 1
+# ADD CPP /D "_USE_STL"
+
+!ELSEIF  "$(CFG)" == "Utilities - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Utilities - Win32 Release_Unicode"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win\32\KStrGuidWin.cpp
+
+!IF  "$(CFG)" == "Utilities - Win32 Debug_SBCS"
+
+# ADD CPP /D "_DEBUG_INCL_PREPROCESS"
+
+!ELSEIF  "$(CFG)" == "Utilities - Win32 Debug_Unicode"
+
+# ADD CPP /D "_USE_STL"
+
+!ELSEIF  "$(CFG)" == "Utilities - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Utilities - Win32 Release_Unicode"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win\32\KSysErrM.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\main.cpp
+
+!IF  "$(CFG)" == "Utilities - Win32 Debug_SBCS"
+
+# ADD CPP /D "_DEBUG_INCL_PREPROCESS"
 
 !ELSEIF  "$(CFG)" == "Utilities - Win32 Debug_Unicode"
 
@@ -189,10 +236,6 @@ SOURCE=..\..\KStrGuid.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Src\main.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\Src\TestBeep.cpp
 # End Source File
 # Begin Source File
@@ -202,6 +245,21 @@ SOURCE=.\Src\TestCommonUtilities.cpp
 # Begin Source File
 
 SOURCE=.\Src\TestGuid.cpp
+
+!IF  "$(CFG)" == "Utilities - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "Utilities - Win32 Debug_Unicode"
+
+# ADD CPP /D "_USE_STL"
+
+!ELSEIF  "$(CFG)" == "Utilities - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Utilities - Win32 Release_Unicode"
+
+# ADD CPP /D "UNICODE"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -225,6 +283,10 @@ SOURCE=..\..\KGuid.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KOctave.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KPoint.h
 # End Source File
 # Begin Source File
@@ -240,5 +302,13 @@ SOURCE=..\Common\Src\Win\stdafx.h
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # End Group
+# Begin Group "Logs"
+
+# PROP Default_Filter "*.log"
+# End Group
+# Begin Source File
+
+SOURCE=.\Utilities.txt
+# End Source File
 # End Target
 # End Project

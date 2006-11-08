@@ -1,5 +1,5 @@
 /*$Workfile: TsWriteT.c$: implementation file
-  $Revision: 2$ $Date: 2004-11-23 15:57:35$
+  $Revision: 2$ $Date: 2004-11-23 16:57:35$
   $Author: Darko Kolakovic$
 
   Outputs text to active form

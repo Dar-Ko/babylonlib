@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonConsole.cpp$: implementation file
-  $Revision: 2$ $Date: 2005-03-11 16:17:25$
+  $Revision: 3$ $Date: 2005-07-07 17:52:27$
   $Author: Darko Kolakovic$
 
   Test console helper.
@@ -14,6 +14,8 @@
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 extern bool TestCmdLineParser(int argc, TCHAR* argv[]);
+extern "C" bool TestAscii();
+
 
 int TestCommonConsole(int argc, TCHAR* argv[]);
 int TestCommonConsole();
@@ -41,7 +43,7 @@ int TestCommonConsole(int argc, //[in] specifies how many arguments are passed
                           // to the program from the command line. The value of
                           // argc is at least one: the program name.
                       TCHAR* argv[] //[in] the program arguments as an array of
-                          //pointers to null-terminated strings. The first string 
+                          //pointers to null-terminated strings. The first string
                           //(argv[0]) is the program name. The end of the array
                           //(argv[argc]) is indicated by a NULL pointer.
                       )
@@ -60,16 +62,11 @@ else
   return EXIT_FAILURE + 1;
   }
 
-/*
+
 PFUNC_TEST funcTest[] =
   {
-  TestPredefinedMacrosC,
-  TestPredefinedMacros,
-  TestAssert,
-  TestAssertC,
-  TestTrace,
-  TestTraceC,
-  TestEndian
+//  TestTraceC,
+  TestAscii
   };
 
 int iTestCount = 0;
@@ -87,15 +84,15 @@ while (iTestCount < (sizeof(funcTest)/sizeof(PFUNC_TEST)) )
     }
   iTestCount++;
   }
-*/
+
 return EXIT_SUCCESS;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  2    Biblioteka1.1         2005-03-11 16:17:25  Darko Kolakovic Added Console
  *       project
- *  1    Biblioteka1.0         2005-03-11 02:13:52  Darko           
+ *  1    Biblioteka1.0         2005-03-11 02:13:52  Darko
  * $
  *****************************************************************************/

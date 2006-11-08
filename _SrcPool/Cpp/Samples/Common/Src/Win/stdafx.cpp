@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Common\Src\Win\stdafx.cpp$: implementation file
+/*$Workfile: stdafx.cpp$: implementation file
   $Revision: 8$ $Date: 2005-03-12 17:18:25$
   $Author: Darko$
 

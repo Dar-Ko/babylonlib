@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonAssert.cpp$: implementation file
-  $Revision: 10$ $Date: 2004-11-22 16:47:56$
+  $Revision: 10$ $Date: 2004-11-22 17:47:56$
   $Author: Darko Kolakovic$
 
   Test debugging and tracing routines.

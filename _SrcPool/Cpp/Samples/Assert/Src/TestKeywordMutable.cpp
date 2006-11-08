@@ -1,5 +1,5 @@
 /*$Workfile: TestKeywordMutable.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-11-23 15:51:39$
+  $Revision: 2$ $Date: 2004-11-23 16:51:39$
   $Author: Darko Kolakovic$
 
   Test C++ compiler conformance.
@@ -62,9 +62,9 @@ bool TestKeywordMutable()
 /* ////////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-11-23 15:51:39  Darko Kolakovic fixed MSVC
+ *  2    Biblioteka1.1         2004-11-23 16:51:39  Darko Kolakovic fixed MSVC
  *       build
- *  1    Biblioteka1.0         2004-11-23 13:04:15  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-11-23 14:04:15  Darko Kolakovic 
  * $
  *****************************************************************************/
 

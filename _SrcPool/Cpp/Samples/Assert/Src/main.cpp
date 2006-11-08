@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 4$ $Date: 2005-03-11 02:11:29$
+  $Revision: 4$ $Date: 2005-03-11 03:11:29$
   $Author: Darko$
 
   Test debugging and tracing routines.
@@ -45,11 +45,11 @@ return nRetCode;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2005-03-11 02:11:29  Darko           fixed typo
- *  3    Biblioteka1.2         2004-11-23 15:51:46  Darko Kolakovic fixed MSVC
+ *  4    Biblioteka1.3         2005-03-11 03:11:29  Darko           fixed typo
+ *  3    Biblioteka1.2         2004-11-23 16:51:46  Darko Kolakovic fixed MSVC
  *       build
- *  2    Biblioteka1.1         2004-10-04 11:52:45  Darko           Renamed test
+ *  2    Biblioteka1.1         2004-10-04 12:52:45  Darko           Renamed test
  *       script to TestCommonAssert
- *  1    Biblioteka1.0         2004-08-23 16:57:45  Darko           
+ *  1    Biblioteka1.0         2004-08-23 17:57:45  Darko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: TestCastConst.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-11-23 15:51:24$
+  $Revision: 4$ $Date: 2004-11-23 16:51:24$
   $Author: Darko Kolakovic$
 
   Test C++ compiler conformance.

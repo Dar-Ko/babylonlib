@@ -1,5 +1,5 @@
 /*$Workfile: TestDumpMemHeap.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-11-09 18:46:08$
+  $Revision: 2$ $Date: 2004-11-09 19:46:08$
   $Author: Darko Kolakovic$
 
   Test tracing memeory heap information.
@@ -43,8 +43,8 @@ return bResult;
 /* ////////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-11-09 18:46:08  Darko Kolakovic implemented
+ *  2    Biblioteka1.1         2004-11-09 19:46:08  Darko Kolakovic implemented
  *       TsWriteToViewLn
- *  1    Biblioteka1.0         2004-11-05 12:25:14  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-11-05 13:25:14  Darko Kolakovic 
  * $
  ******************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: TestCastDynamic.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-11-23 15:51:26$
+  $Revision: 4$ $Date: 2004-11-23 16:51:26$
   $Author: Darko Kolakovic$
 
   Test C++ compiler conformance.

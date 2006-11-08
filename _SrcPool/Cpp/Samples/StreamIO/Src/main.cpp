@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\StreamIO\Src\main.cpp$: implementation file
+/*$Workfile: main.cpp$: implementation file
   $Revision: 10$ $Date: 2004-10-06 23:42:43$
   $Author: Darko$
 

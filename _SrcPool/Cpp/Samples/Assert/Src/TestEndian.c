@@ -1,5 +1,5 @@
 /*$Workfile: TestEndian.c$: implementation file
-  $Revision: 3$ $Date: 2004-11-23 15:51:34$
+  $Revision: 3$ $Date: 2004-11-23 16:51:34$
   $Author: Darko Kolakovic$
 
   Test machine architecture.

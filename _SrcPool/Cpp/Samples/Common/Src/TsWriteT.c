@@ -1,5 +1,5 @@
 /*$Workfile: TsWriteT.c$: implementation file
-  $Revision: 2$ $Date: 2004-11-23 15:57:37$
+  $Revision: 3$ $Date: 2005-05-16 14:28:55$
   $Author: Darko Kolakovic$
 
   Outputs text to standard output stream.
@@ -9,6 +9,12 @@
 
 // Group=Examples
 
+#ifdef _USE_AFX
+  #ifdef _MSC_VER
+    #warning AFX/MFC requires C++ compilation
+  #endif
+  #undef _USE_AFX
+#endif
 #include "stdafx.h"
 #include <stdio.h>
 

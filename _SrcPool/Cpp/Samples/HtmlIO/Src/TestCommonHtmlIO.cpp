@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\HtmlIO\Src\TestCommonHtmlIO.cpp$: implementation file
+/*$Workfile: TestCommonHtmlIO.cpp$: implementation file
   $Revision: 4$ $Date: 2005-04-05 14:05:52$
   $Author: Darko Kolakovic$
 

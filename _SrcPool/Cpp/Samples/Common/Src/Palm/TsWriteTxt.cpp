@@ -1,5 +1,5 @@
 /*$Workfile: TsWriteTxt.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-11-12 14:02:54$
+  $Revision: 3$ $Date: 2004-11-12 15:02:54$
   $Author: Darko Kolakovic$
 
   Outputs text to the PalmOS window

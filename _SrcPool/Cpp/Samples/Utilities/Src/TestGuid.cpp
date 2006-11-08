@@ -1,5 +1,5 @@
 /*$Workfile: TestGuid.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-05-16 14:21:34$
+  $Revision: 2$ $Date: 2005-05-16 14:28:55$
   $Author: Darko Kolakovic$
 
   Test Universally Unique Identifier (UUID) handling
@@ -11,13 +11,20 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
+// Each dll/exe must initialize the GUIDs once.  This is done in one of
+// two ways.  If you are not using precompiled headers for the file(s) which
+// initializes the GUIDs, define INITGUID before including <objbase.h>.
+// Microsoft's DEFINE_GUID uses C linkage and therfore generated numbers are global.
+#define INITGUID
+
 #include "stdafx.h"
 #include "KTypedef.h"
 #include "KGuid.h" //CGuid class
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
+extern CString GuidToStr( const UUID& iid );
 
-DEFINE_GUID(testGUID,
+DEFINE_GUID(g_testGUID,
             0x340BC870, 0xA012, 37819, 0x20, 57, 132, 189, 0x73, 0x4D, 0x76, 0xE7);
 
 //-----------------------------------------------------------------------------
@@ -30,13 +37,14 @@ bool TestGuid()
 TsWriteToViewLn(_T("TestGuid()"));
 
 bool bRes = true;
-//TRACE((LPCTSTR)GuidToStr(testGUID);
-//TODO: Non-MFC CString TsWriteToViewLn((LPCTSTR)GuidToStr(testGUID);
+
+TRACE1(("UUID = %ws\n"), (LPCTSTR)GuidToStr(g_testGUID));
+TsWriteToViewLn((LPCTSTR)GuidToStr(g_testGUID));
 
   //Test construction
 CGuid TestA; //null Uuid
 CGuid TestB(_T("{340BC870-A012-93BB-2039-84BD734D76E7}"));
-//CGuid TestC(testGUID);
+CGuid TestC(g_testGUID);
 
 bRes = TestA.IsNull();
 if (bRes)
@@ -52,6 +60,11 @@ if (bRes)
   {
   }
 
+ //Test generating UUID
+TestC.Create();
+TRACE1(("new UUID = %ws\n"), (LPCTSTR)GuidToStr(TestC));
+TsWriteToViewLn((LPCTSTR)GuidToStr(TestC));
+
 
 TsWriteToViewLn(LOG_EOT);
 return bRes;
@@ -60,6 +73,7 @@ return bRes;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
+ * 2    Biblioteka1.1         2005-05-16 14:28:55  Darko Kolakovic Create()
  * 1    Biblioteka1.0         2005-05-16 14:21:34  Darko Kolakovic 
  *$
  *****************************************************************************/

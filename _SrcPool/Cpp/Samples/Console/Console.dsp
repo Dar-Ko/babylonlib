@@ -255,6 +255,10 @@ SOURCE=..\..\KCmdLineParser.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KStrCtoA.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KTestLog.cpp
 # End Source File
 # Begin Source File
@@ -311,6 +315,10 @@ SOURCE=..\Common\Res\Win\32\Test.rc
 # End Source File
 # Begin Source File
 
+SOURCE=.\Src\TestAscii.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\TestCmdLineParser.cpp
 # End Source File
 # Begin Source File
@@ -330,6 +338,10 @@ SOURCE=..\Common\Src\TsWriteTxt.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\KCharCst.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\KCmdLineParser.h
@@ -374,14 +386,14 @@ SOURCE=..\Common\Res\Win\SrcPool.ico
 
 SOURCE=.\LibraryTest.log
 # End Source File
+# Begin Source File
+
+SOURCE=.\LibraryTestUni.log
+# End Source File
 # End Group
 # Begin Source File
 
 SOURCE=.\Console.txt
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Src\Win\32\ReadMe.txt
 # End Source File
 # End Target
 # End Project

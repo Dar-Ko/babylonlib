@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\TestConformance.h$: header file
-  $Revision: 3$ $Date: 2005-03-21 14:01:03$
+/*$Workfile: TestConformance.h$: header file
+  $Revision: 3$ $Date: 2005-03-21 15:01:03$
   $Author: Darko Kolakovic$
 
   Validates the conformance of a C++ compiler
@@ -9,7 +9,7 @@
 /* Group=Examples                                                            */
 
 #ifndef _TESTCONFORMANCE_H_
-    /*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\TestConformance.h$ sentry */
+    /*$Workfile: TestConformance.h$ sentry */
   #define _TESTCONFORMANCE_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files

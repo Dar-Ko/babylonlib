@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Assert\Src\Palm\TestAssert.h$: header file
+/*$Workfile: TestAssert.h$: header file
   $Revision: 2$ $Date: 2004-10-28 02:19:19$
   $Author: Darko$
 

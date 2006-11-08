@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 12$ $Date: 2004-11-24 13:11:42$
+  $Revision: 12$ $Date: 2004-11-24 14:11:42$
   $Author: Darko Kolakovic$
 
   Entry point for the application.

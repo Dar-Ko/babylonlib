@@ -1,5 +1,5 @@
 /*$Workfile: stdafx.h$: header file
-  $Revision: 16$  $Date: 2005-05-01 00:30:58$
+  $Revision: 18$  $Date: 2005-05-16 14:28:55$
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -52,7 +52,11 @@
         #define _USE_AFX _USE_MFC
       #endif
     #endif
-  #endif
+  #else  //C compilation
+     //MFC/AFX Library requires C++ compilation
+    #undef _USE_AFX
+    #undef _USE_MFC
+  #endif //__cplusplus
 
   //---------------------------------------------------------------------------
   //For build dependant of the MFC dynamic library (DLL), include
@@ -107,7 +111,7 @@
   //===========================================================================
   //Standard Template Library header files
   //For build dependant of the Standard Template Library (STL)
-  #ifdef _STL
+  #if defined (_STL) || defined (_USE_STL)
     #ifdef _DEBUG
       #ifndef _STLP_DEBUG
         //#define _STLP_DEBUG 1  //Debug STLPort library

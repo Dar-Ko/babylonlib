@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 2$ $Date: 2005-03-21 02:19:38$
+  $Revision: 2$ $Date: 2005-03-21 03:19:38$
   $Author: Darko$
 
   Test HTML and XML streams.

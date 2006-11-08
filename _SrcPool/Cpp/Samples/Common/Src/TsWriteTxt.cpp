@@ -1,5 +1,5 @@
 /*$Workfile: TsWriteTxt.cpp$: implementation file
-  $Revision: 9$ $Date: 2005-03-22 01:20:01$
+  $Revision: 9$ $Date: 2005-03-22 02:20:01$
   $Author: Darko$
 
   Outputs text to stdout stream

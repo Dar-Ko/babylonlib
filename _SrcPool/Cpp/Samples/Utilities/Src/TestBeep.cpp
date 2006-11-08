@@ -1,5 +1,5 @@
 /*$Workfile: TestBeep.cpp$: implementation file
-  $Revision: 4$ $Date: 2005-05-16 14:23:03$
+  $Revision: 5$ $Date: 2005-05-18 18:34:11$
   $Author: Darko Kolakovic$
 
   Test PC beeping
@@ -15,6 +15,8 @@
 
 #include "KTypedef.h" //LPCTSTR typedef
 #include "KBeep.h"    //CBeep class
+#include "KOctave.h" //note Ids
+
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 //TestBeep()-------------------------------------------------------------------
@@ -36,7 +38,7 @@ if (bRes)
   beepDefault.Start();
   }
 CBeep A;
-A.m_iFrequency =440;
+A.m_iFrequency = (int16)(g_iOctave3[ID_NOTE_A]/1000); //note A3 [Hz]
 A.Start();
 
 TsWriteToViewLn(LOG_EOT);

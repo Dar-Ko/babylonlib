@@ -1,6 +1,6 @@
 /*$Workfile: TestCmdLineParser.cpp$: implementation file
-  $Revision: 3$ $Date: 2005-03-21 03:23:18$
-  $Author: Darko$
+  $Revision: 4$ $Date: 2005-07-07 17:52:51$
+  $Author: Darko Kolakovic$
 
   Test command line parser
   Copyright: CommonSoft Inc.
@@ -10,6 +10,17 @@
 // Group=Examples
 
 #include "stdafx.h"
+#if defined(_MSC_VER)  /*Microsoft Visual studio*/
+
+  #if defined(_UNICODE)
+    #if !defined(UNICODE)
+      #define UNICODE
+    #endif
+  #endif
+
+  #include <tchar.h>
+#endif
+
 #include "KCmdLineParser.h" //CmdLineParser class
 
 extern bool TsWriteToView(LPCTSTR lszText);
@@ -78,6 +89,7 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  4    Biblioteka1.3         2005-07-07 17:52:51  Darko Kolakovic UNICODE
  *  3    Biblioteka1.2         2005-03-21 03:23:18  Darko           fixed
  *       SetOptions()
  *  2    Biblioteka1.1         2005-03-14 01:10:33  Darko           Created test

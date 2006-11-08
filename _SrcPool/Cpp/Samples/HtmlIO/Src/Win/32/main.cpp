@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\HtmlIO\Src\Win\32\main.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-03-21 02:25:07$
+/*$Workfile: main.cpp$: implementation file
+  $Revision: 1$ $Date: 2005-03-21 03:25:07$
   $Author: Darko$
 
   Test HTML and XML streams with MFC.

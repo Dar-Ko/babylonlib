@@ -1,5 +1,5 @@
 /*$Workfile: TestKeywordExplicit.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-11-23 15:51:36$
+  $Revision: 2$ $Date: 2004-11-23 16:51:36$
   $Author: Darko Kolakovic$
 
   Test C++ compiler conformance.
@@ -61,9 +61,9 @@ bool TestKeywordExplicit()
 /* ////////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-11-23 15:51:36  Darko Kolakovic fixed MSVC
+ *  2    Biblioteka1.1         2004-11-23 16:51:36  Darko Kolakovic fixed MSVC
  *       build
- *  1    Biblioteka1.0         2004-11-23 13:04:13  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-11-23 14:04:13  Darko Kolakovic 
  * $
  *****************************************************************************/
 

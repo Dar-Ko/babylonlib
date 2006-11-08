@@ -41,6 +41,7 @@ RSC=rc.exe
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "..\bin\Debug_SBCS\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS\_LibraryTest\Win32"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
@@ -65,6 +66,7 @@ LINK32=link.exe
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "..\bin\Debug_Unicode\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode\_LibraryTest\Win32"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "_DEBUG" /D "_UNICODE" /D "WIN32" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
@@ -267,6 +269,10 @@ SOURCE=..\StreamIO\Src\TestCommonStreamIO.cpp
 # Begin Source File
 
 SOURCE=..\StringDyn\Src\TestCommonStringDyn.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\Utilities\Src\TestCommonUtilities.cpp
 # End Source File
 # Begin Source File
 

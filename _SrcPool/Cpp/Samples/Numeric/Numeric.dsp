@@ -186,6 +186,14 @@ SOURCE=..\..\KLinkedListS.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KMatFact.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KMatGcd.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KTestLog.cpp
 # End Source File
 # Begin Source File
@@ -217,7 +225,19 @@ SOURCE=.\Src\TestEndian.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Src\TestFactorial.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\TestFibonnaci.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestGcd.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestLcm.cpp
 # End Source File
 # Begin Source File
 
@@ -261,11 +281,19 @@ SOURCE=..\..\KLinkedListS.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KMatGcd.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KMathCst.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\KMathCst.inl
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KMatLcm.h
 # End Source File
 # Begin Source File
 

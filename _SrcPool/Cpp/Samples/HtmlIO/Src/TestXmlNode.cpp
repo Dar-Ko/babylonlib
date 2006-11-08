@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\HtmlIO\Src\TestXmlNode.cpp$: implementation file
+/*$Workfile: TestXmlNode.cpp$: implementation file
   $Revision: 11$ $Date: 2005-04-27 12:57:50$
   $Author: Darko Kolakovic$
 

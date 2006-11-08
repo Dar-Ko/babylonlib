@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\DateTime\Src\TestLeapYear.cpp$: implementation file
+/*$Workfile: TestLeapYear.cpp$: implementation file
   $Revision: 10$ $Date: 2004-10-06 23:43:13$
   $Author: Darko$
 

@@ -1,5 +1,5 @@
 /*$Workfile: TestTraceC.c$: implementation file
-  $Revision: 7$ $Date: 2004-11-09 18:46:13$
+  $Revision: 7$ $Date: 2004-11-09 19:46:13$
   $Author: Darko Kolakovic$
 
   Test tracing in C functions
@@ -61,17 +61,17 @@ return bResult;
 /* ////////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-11-09 18:46:13  Darko Kolakovic implemented
+ *  7    Biblioteka1.6         2004-11-09 19:46:13  Darko Kolakovic implemented
  *       TsWriteToViewLn
- *  6    Biblioteka1.5         2004-11-05 12:27:11  Darko Kolakovic Moved Palm
+ *  6    Biblioteka1.5         2004-11-05 13:27:11  Darko Kolakovic Moved Palm
  *       specifics to separate header files
- *  5    Biblioteka1.4         2004-11-01 11:07:24  Darko Kolakovic CodeWarrior
+ *  5    Biblioteka1.4         2004-11-01 12:07:24  Darko Kolakovic CodeWarrior
  *       KMESSAGE
- *  4    Biblioteka1.3         2004-10-28 01:19:22  Darko           Unicode build
+ *  4    Biblioteka1.3         2004-10-28 02:19:22  Darko           Unicode build
  *       PalmOS
- *  3    Biblioteka1.2         2004-10-25 16:58:15  Darko Kolakovic CodeWarrior 9
+ *  3    Biblioteka1.2         2004-10-25 17:58:15  Darko Kolakovic CodeWarrior 9
  *       fixes
- *  2    Biblioteka1.1         2004-10-22 11:46:57  Darko Kolakovic CodeWarrior
- *  1    Biblioteka1.0         2004-09-13 14:30:10  Darko           
+ *  2    Biblioteka1.1         2004-10-22 12:46:57  Darko Kolakovic CodeWarrior
+ *  1    Biblioteka1.0         2004-09-13 15:30:10  Darko           
  * $
  *****************************************************************************/
