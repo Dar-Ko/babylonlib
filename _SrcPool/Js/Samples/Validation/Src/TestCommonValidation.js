@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Js\Samples\Validation\Src\TestCommonValidation.js$: implementation file
-  $Revision: 1$ $Date: 2006-11-08 17:52:25$
+/*$Workfile: TestCommonValidation.js$: implementation file
+  $Revision: 2$ $Date: 2006-11-09 16:58:56$
   $Author: Darko Kolakovic$
 
   Console application used to test various validation operations.
@@ -11,14 +11,16 @@
 
 try
  {
-  eval(Include("TestBasicTypes.js"));
-    WScript.echo("eval(Include('TestStrContent.js'));");
+  //Include files in the  main
+  eval(Include("Src/TestBasicTypes.js"));
+  eval(Include("Src/TestStrContent.js"));
   }
 catch(err)
   {
   TsWriteToView(err.name + " " +
                 (err.number & 0xFFFF) + ": " +
                 err.message);
+  throw err;
   }
 
 //-----------------------------------------------------------------------------
@@ -30,19 +32,16 @@ catch(err)
  */
 function TestCommonValidation()
 {
-	if (TsWriteToView == undefined)
-	 WScript.echo("TsWriteToView");
-	else
 TsWriteToView("Validation Tests");
 
 var funcTest = new Array(TestBasicTypes,
-                         "TestStrContent" //TODO:
+                         TestStrContent
                         );
 
 var iTestCount = 0;
 while (iTestCount < funcTest.length)
   {
-  if ((funcTest[iTestCount] != undefined) && funcTest[iTestCount])
+  if ((funcTest[iTestCount] != undefined) && funcTest[iTestCount]() )
     /* TODO: log << LOG_SUCCESS*/ TsWriteToView("LOG_SUCCESS");
   else
     {
@@ -57,7 +56,7 @@ return EXIT_SUCCESS;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2006-11-08 17:52:25  Darko Kolakovic 
+ * $Log:
+ *  1    Biblioteka1.0         2006-11-08 17:52:25  Darko Kolakovic
  * $
  *****************************************************************************/

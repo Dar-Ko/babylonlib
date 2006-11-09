@@ -1,5 +1,5 @@
 /*$Workfile: main.js$: script file
-  $Revision: 2$ $Date: 2006-11-08 17:52:56$
+  $Revision: 3$ $Date: 2006-11-09 16:58:59$
   $Author: Darko Kolakovic$
 
   Script used to test various validation operations.
@@ -101,13 +101,33 @@ catch(error)
   {
   if (error instanceof Error)
     {
+    if((error.number & 0xFFFF) == 53) //File not found
+      {
+      //Note: all file operations are refered to the directory where script
+      //begun execution.
+      if( !((szFileName.charAt(0) == '\\') &&
+            (szFileName.charAt(1) == '\\')) && //Not UNC path '\\name\...'
+          !((szFileName.charAt(1) == ':') &&
+            ((szFileName.charAt(2) == '\\') ||
+             (szFileName.charAt(2) == '/')) ) //Not abs path 'x:\path\...'
+        )
+        {
+        //Check if the path is not the absolute path
+        //Get working directory and try again to open the file
+        var objShell = WScript.CreateObject ("WScript.Shell");
+        return Include(objShell.CurrentDirectory + szFileName);
+        }
+      }
+
     if((error.number & 0xFFFF) == 76) //Path not found
       {
       SetWorkingDirectory(); //TODO: Change current directory
       }
-    TsWriteToView("Include '" + szFileName +  "' " +
-                 error.name + " " + (error.number & 0xFFFF) + ": " +
-                 error.message );
+    error.message = error.message + " '" + szFileName +  "' ";
+    error.name = error.name + " Include ";
+    TsWriteToView(error.name + " " + (error.number & 0xFFFF) + ": " +
+                  error.message );
+    throw error;
     }
   else
     TsWriteToView("Error: " + error);
@@ -115,7 +135,7 @@ catch(error)
 }
 
 //-----------------------------------------------------------------------------
-/*Changes the current active directory if the new direcrory is specfied, 
+/*Changes the current active directory if the new direcrory is specfied,
   otherwise only displays the current active directory.
   Requires Microsoft Windows Script Host (WSH) 5.6.
  */
