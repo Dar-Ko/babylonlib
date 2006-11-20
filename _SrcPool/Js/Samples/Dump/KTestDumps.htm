@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile"
+  content="$Workfile: S:\_SrcPool\Js\Samples\Dump\KTestDumps.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 1$ $Date: 2006-11-20 18:07:31$" />
+  <meta name="Editor" content="$Author: Darko Kolakovic$" />
+  <meta name="Copyright"
+  content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="author" content="Darko Kolakovi&#263;" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="JavaScript, test, Dump, Debug" />
+  <meta name="description" content="Test of the TreeView control" />
+
+  <title>Test Variable Dump</title>
+  <link rel="stylesheet" type="text/css" href="../../../Cpp/Documentation/Res/KDocument.css" />
+  <link rel="icon" href="../../../Cpp/Documentation/Res/icoJavaScript.ico" type="image/ico" />
+  <base target="_self" />
+  <style type="text/css" media="all">
+  /*<![CDATA[*/
+  /*]]>*/
+  </style>
+  <script language="javascript" name="dbgDump">
+    //Write result of the validation
+    function writeResult(fVerifier, //[in] validating functions
+                         oValue,    //[in] value to validate
+                         oElement   //[in] the output element
+                        )
+    {
+    alert(fVerifier(oValue));
+    }
+
+    //Display result of the validation
+    function onClick(fVerifier, //[in] validating functions
+                     oValue      //[in] value to validate
+                    )
+    {
+    alert(fVerifier(oValue));
+    }
+  </script>
+  <!-- Test objects -->
+  <script language="JavaScript" src="../../KDbgObj.js"
+  type="text/javascript"> </script>
+</head>
+
+<body>
+  <h1>Dump variable value</h1>
+  <p class="codeJs">
+    <a href="../../KDbgObj.js" title="Script">
+      <img src="../../../Cpp/Documentation/Res/S/icoJavaScript.gif"
+           alt="JavaScript" border="0" />
+      Source Code</a>
+  </p>
+
+  <dl>
+   <script type="text/javascript" language="JavaScript">
+     var aVariable; //undefined
+     var strVariable = "Text";
+     var iVariable = 299792458;
+     var arrVariable = new Array();
+     arrVariable[0] = aVariable;
+     arrVariable[1] = strVariable;
+     arrVariable[2] = iVariable;
+     arrVariable[3] = new Array("abc", 123);
+     document.writeln("<dt>aVariable</dt><dd>"   + dbgObj(aVariable)   + "</dd>");
+     document.writeln("<dt>strVariable</dt><dd>" + dbgObj(strVariable) + "</dd>");
+     document.writeln("<dt>iVariable</dt><dd>"   + dbgObj(iVariable)   + "</dd>");
+     document.writeln("<dt>arrVariable</dt><dd>" + dbgObj(arrVariable) + "</dd>");
+     document.writeln("<dt>writeResult</dt><dd>" + dbgObj(writeResult) + "</dd>");
+     var oVariable = new ActiveXObject("Scripting.FileSystemObject");
+     //if(oVariable =- undefined) Firefox throws exception D.K. fixme
+       document.writeln("<dt>oVariable</dt><dd>"   + dbgObj(oVariable)   + "</dd>");
+
+   </script>
+   <noscript><p style="color:red">JavaScript seems to be disabled!</p></noscript>
+  </dl>
+  <!-- References -->
+  <dl title=Reference" class="Reference">
+    <dt>References</dt>
+    <dd>ECMA-262, 3rd Edition, 1999</dd>
+  </dl>
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="text-align: right">
+    <hr />
+    <a href="../../../Cpp/Documentation/index.html" title="Go to home&hellip;"
+       class="Plain" target="_main">
+    &#x2302;</a>
+  </div>
+
+</body>
+</html>
