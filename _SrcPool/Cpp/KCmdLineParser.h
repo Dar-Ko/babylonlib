@@ -1,6 +1,6 @@
 /*$Workfile: KCmdLineParser.h$: header file
-  $Revision: 2$ $Date: 2005-03-14 00:09:19$
-  $Author: Darko$
+  $Revision: 3$ $Date: 2005-07-07 17:50:12$
+  $Author: Darko Kolakovic$
 
   Command line parser
   Copyright: CommonSoft Inc
@@ -42,7 +42,7 @@ typedef enum tagCmdLineOptionArgType
 //Description of the command line option
 union CmdLineDescription     
   {
-  char* m_szDescription;       //description of the option or NULL
+  TCHAR* m_szDescription;       //description of the option or NULL
   unsigned int m_nDescriptionId;//string resource ID of option's description or 0 
   };
 

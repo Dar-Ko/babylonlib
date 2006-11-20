@@ -1,6 +1,6 @@
 /*$Workfile: KDate.cpp$: implementation file
-  $Revision: 7$ $Date: 2005-03-14 00:08:02$
-  $Author: Darko$
+  $Revision: 8$ $Date: 2005-06-28 13:37:53$
+  $Author: Darko Kolakovic$
 
   Defines the class behavior.
   Copyright: CommonSoft Inc.
@@ -49,9 +49,9 @@
         c    number separator.
 
   See also: _DATE_FORMAT_STD_BASIC, CDate::opertor=(), International Standard
-  {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+  {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
   Data elements and interchange formats,
-  {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+  {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
   Date and Time on the Internet: Timestamps
  */
 CDate::CDate(LPCTSTR strValue,  //[in] string with date
@@ -128,9 +128,9 @@ tmtValue.tm_yday = GetDayOfYear();
   Returns: pointer to szTarget containing date in basic format.
 
   See also: _DATE_FORMAT_STD_BASIC, International Standard
-  {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+  {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
   Data elements and interchange formats,
-  {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+  {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
   Date and Time on the Internet: Timestamps
  */
 LPTSTR CDate::toString(LPTSTR szTarget //[out] zero-terminated date string
@@ -191,9 +191,9 @@ return szTarget;
 
 
   See also: _DATE_FORMAT_STD_BASIC, International Standard
-  {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+  {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
   Data elements and interchange formats,
-  {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+  {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
   Date and Time on the Internet: Timestamps
  */
 CDate& CDate::operator=(LPCTSTR strValue //[in] string with date to assign

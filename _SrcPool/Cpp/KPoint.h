@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KPoint.h$: header file
-  $Revision: 10$ $Date: 2005-04-26 16:39:15$
+/*$Workfile: KPoint.h$: header file
+  $Revision: 11$ $Date: 2005-06-07 14:51:10$
   $Author: Darko Kolakovic$
 
   TPoint represents points in orthogonal coordinate system
@@ -12,7 +12,7 @@
 // Group=Mathematics
 
 #ifndef _KPOINT_H_
-    //$Workfile: S:\_SrcPool\Cpp\KPoint.h$ sentry
+    //$Workfile: KPoint.h$ sentry
   #define _KPOINT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -409,6 +409,7 @@ return ((x < tptPoint.x) && (y < tptPoint.y));
 
 //operator<=()-----------------------------------------------------------------
 /*Compares two points.
+
   Returns: true if P(x) <= A(x) and P(y) <= A(y).
    {html:<br /><img src="Images/graphPTleA.gif" alt="P(x,y) =&lt; A" border="0">}
  */
@@ -451,6 +452,8 @@ return ((x >=  tptPoint.x) && (y >= tptPoint.y));
 /*{html:
    Returns distance between point P(x2,y2) and origin O(x1=0, y1=0).
 
+  <br />
+  <img src="Images/eqDistance2PtNdim.gif"    alt="d = sqrt(&Sigma;|a-b|**2)">
   <br />
   <img src="Images/eqDistance2Pt2D.gif"    alt="d = sqrt((x2-x1)**2+(y2-y1)**2)">
   <br />

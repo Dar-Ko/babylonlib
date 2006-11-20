@@ -1,15 +1,15 @@
-/*$Workfile: S:\_SrcPool\Cpp\KCharCst.h$: header file
-  $Revision: 8$ $Date: 2004-11-22 16:47:33$
+/*$Workfile: KCharCst.h$: header file
+  $Revision: 10$ $Date: 2005-07-07 16:49:15$
   $Author: Darko Kolakovic$
 
-  ASCII Character Table
+  ASCII Control Characters Table
   Copyright: CommonSoft Inc.
   D. Kolakovic 4.6.92
 */
 /* Group=Strings                                                             */
 
 #ifndef _KCHARCST_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KCharCst.h$ sentry */
+    /*$Workfile: KCharCst.h$ sentry */
   #define _KCHARCST_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -24,7 +24,9 @@
 
 #ifndef __cplusplus /*C compilation                                           */
   #pragma message ("   C compilation " __FILE__ )
-  /*See also: {HTML: <A HREF ="Res/ASCIICharTable.htm"> ASCII Character Table </A>} */
+  /*See also: {html: <a href="Documentation/KASCIICharTable.htm">
+    ASCII Character Table</a>}
+   */
   #define SOH  0x01 /*start of heading                                       */
   #define STX  0x02 /*start of text                                          */
   #define ETX  0x03 /*end of text                                            */
@@ -63,8 +65,8 @@
   #define US   0x1F /*unit separator                                         */
   #define DEL  0x7F /*delete                                                 */
 
-  /*See also: {HTML: <A HREF ="Res/ASCIICharTable.htm#End-of-line_Characters">
-    ASCII Character Table </A>}
+  /*See also: {html: <a href="Documentation/KASCIICharTable.htm#End-of-line_Characters">
+    ASCII Character Table</a>}
    */
   #define EOLMAC  CR /*end of line in MacOS                                  */
   #define EOLUNIX LF /*end of line in Unix, Linux, QNX                       */
@@ -90,7 +92,9 @@
 
 #else /*_cplusplus  C++ compilation                                           */
   #pragma message ("   C++ compilation " __FILE__ )
-  /*See also: {HTML: <A HREF ="Res/ASCIICharTable.htm"> ASCII Character Table </A>} */
+  /*See also: {html: <a href="Documentation/KASCIICharTable.htm">
+    ASCII Character Table</a>}
+   */
   const int SOH  = 0x01; //start of heading
   const int STX  = 0x02; //start of text
   const int ETX  = 0x03; //end of text
@@ -129,8 +133,8 @@
   const int US   = 0x1F; //unit separator
   const int DEL  = 0x7F; //delete
 
-  /*See also: {HTML: <A HREF ="Res/ASCIICharTable.htm#End-of-line_Characters">
-    ASCII Character Table </A>}
+  /*See also: {html: <a href="Documentation/KASCIICharTable.htm#End-of-line_Characters">
+    ASCII Character Table</a>}
    */
   const int EOLMAC  = CR;//end of line in MacOS
   const int EOLUNIX = LF;//end of line in Unix, Linux, QNX

@@ -1,6 +1,6 @@
 /*$Workfile: KCmdLineParser.cpp$: implementation file
-  $Revision: 2$ $Date: 2005-03-14 00:09:18$
-  $Author: Darko$
+  $Revision: 3$ $Date: 2005-07-07 17:49:41$
+  $Author: Darko Kolakovic$
 
   Defines the class behavior.
   Copyright: CommonSoft Inc.
@@ -79,9 +79,11 @@ void CCmdLineParser::SetOptions(const PCMDLINEOPTION pcmdOptions,//[in] list of
                                   //in the list of allowed command options
                                )
 {
+#ifndef _UNICODE //!fixme: TRACE unicode macro 
 TRACE2(_T("CCmdLineParser::SetOptions(pcmdOptions = %p, nCount = %d"), 
        pcmdOptions, 
        nCount);
+#endif
 m_pcmdOptions = pcmdOptions;
 if ( pcmdOptions == NULL)
   m_nOptionsCount = 0;
@@ -92,8 +94,10 @@ else
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2005-03-14 00:09:18  Darko           Added
+ *  3    Biblioteka1.2         2005-07-07 17:49:41  Darko Kolakovic fixme: TRACE
+ *       unicode macro
+ *  2    Biblioteka1.1         2005-03-14 01:09:18  Darko           Added
  *       SetOptions()
- *  1    Biblioteka1.0         2005-03-11 17:05:36  Darko Kolakovic 
+ *  1    Biblioteka1.0         2005-03-11 18:05:36  Darko Kolakovic 
  * $
  *****************************************************************************/
