@@ -1,6 +1,6 @@
 /*$Workfile: KDbgFILE.c$: implementation file
-  $Revision: 4$ $Date: 2005-04-29 01:11:26$
-  $Author: Darko$
+  $Revision: 5$ $Date: 2005-06-21 11:11:26$
+  $Author: Darko Kolakovic$
 
   Dumps the current device-context attributes
   Copyright: CommonSoft Inc.
@@ -46,27 +46,27 @@
 /* ////////////////////////////////////////////////////////////////////////// */
 
 /*DumpFILE()----------------------------------------------------------------- */
-/*Dumps the contents of FILE structure. 
-  FILE structure stores information about current state of stream. It is used 
+/*Dumps the contents of FILE structure.
+  FILE structure stores information about current state of stream. It is used
   in all stream I/O operations.
 
-  ANSI C Note: FILE is an object type capable of recording all the information
+  Note: (ANSI C) FILE is an object type capable of recording all the information
   needed to control a stream, including its file position indicator, a pointer
   to its associated buffer (if any), an error indicator that records whether a
   read/write error has occured, and an end-of-file indicator that records
   whether the end of file has been reached.
 
   Win OS
-  typedef struct _iobuf
-    {
-    char*   _ptr;
-    int     _cnt;
-    char*   _base;
-    int     _flag;
-    int     _file;
-    int     _charbuf;
-    int     _bufsiz;
-    char*   _tmpfname;
+    typedef struct _iobuf
+      {
+      char*   _ptr;
+      int     _cnt;
+      char*   _base;
+      int     _flag;
+      int     _file;
+      int     _charbuf;
+      int     _bufsiz;
+      char*   _tmpfname;
     } FILE;
  */
 void DumpFILE(FILE* fileStream /*[in] pointer to FILE structure*/)
@@ -109,32 +109,32 @@ void DumpFILE(FILE* fileStream /*[in] pointer to FILE structure*/)
 /*DumpFILEOrigin()----------------------------------------------------------------- */
 
 /*Dumps textual presentation of different origin flags used by fseek().
-  The argument origin must be one of the following constants, defined in StdIO.h: 
+  The argument origin must be one of the following constants, defined in StdIO.h:
 
-    SEEK_CUR  Current position of file pointer 
-    SEEK_END  End of file 
-    SEEK_SET  Beginning of file 
+    SEEK_CUR  Current position of file pointer
+    SEEK_END  End of file
+    SEEK_SET  Beginning of file
 
   Remarks
-  The fseek function moves the file pointer (if any) associated with stream to a new 
-  location that is offset bytes from origin. The next operation on the stream takes 
-  place at the new location. On a stream open for update, the next operation can be 
-  either a read or a write. 
-  You can use fseek to reposition the pointer anywhere in a file. The pointer can also 
-  be positioned beyond the end of the file. fseek clears the end-of-file indicator and 
+  The fseek function moves the file pointer (if any) associated with stream to a new
+  location that is offset bytes from origin. The next operation on the stream takes
+  place at the new location. On a stream open for update, the next operation can be
+  either a read or a write.
+  You can use fseek to reposition the pointer anywhere in a file. The pointer can also
+  be positioned beyond the end of the file. fseek clears the end-of-file indicator and
   negates the effect of any prior ungetc calls against stream.
-  
-  When a file is opened for appending data, the current file position is determined by 
-  the last I/O operation, not by where the next write would occur. If no I/O operation 
-  has yet occurred on a file opened for appending, the file position is the start of 
-  the file. 
-    
-  For streams opened in text mode, fseek has limited use, because carriage 
-  return—linefeed translations can cause fseek to produce unexpected results. The only 
-  fseek operations guaranteed to work on streams opened in text mode are: 
-  
-  Seeking with an offset of 0 relative to any of the origin values. 
-  Seeking from the beginning of the file with an offset value returned from 
+
+  When a file is opened for appending data, the current file position is determined by
+  the last I/O operation, not by where the next write would occur. If no I/O operation
+  has yet occurred on a file opened for appending, the file position is the start of
+  the file.
+
+  For streams opened in text mode, fseek has limited use, because carriage
+  return—linefeed translations can cause fseek to produce unexpected results. The only
+  fseek operations guaranteed to work on streams opened in text mode are:
+
+  Seeking with an offset of 0 relative to any of the origin values.
+  Seeking from the beginning of the file with an offset value returned from
   a call to ftell.
 
   A binary stream does not meaningfully support fseek( ) calls with a <I>whence</I>
@@ -142,10 +142,10 @@ void DumpFILE(FILE* fileStream /*[in] pointer to FILE structure*/)
   of a file.
 
   Also in text mode, CTRL+Z is interpreted as an end-of-file character on input.
-  In files opened for reading/writing, fopen and all related routines check for 
-  a CTRL+Z at the end of the file and remove it if possible. This is done because 
-  using fseek and ftell to move within a file that ends with a CTRL+Z may cause 
-  fseek to behave improperly near the end of the file. 
+  In files opened for reading/writing, fopen and all related routines check for
+  a CTRL+Z at the end of the file and remove it if possible. This is done because
+  using fseek and ftell to move within a file that ends with a CTRL+Z may cause
+  fseek to behave improperly near the end of the file.
  */
 void DumpFILEOrigin(long offset, /*[in] number of bytes from origin*/
                     int  origin  /*[in] initial position           */
@@ -182,7 +182,7 @@ switch (origin)
         #define SEEK_CUR    1
         #define SEEK_END    2
         #ifndef _FILE_DEFINED
-          struct _iobuf 
+          struct _iobuf
             {
             char *_ptr;
             int   _cnt;
@@ -203,7 +203,7 @@ switch (origin)
   GNU Mingw32 package (source file mingw32\sys-include\StdIO.h)
   #ifdef __GNUC__
     #ifndef _STDIO_H_
-       struct _iobuf 
+       struct _iobuf
          {
          char *_ptr;
          int   _cnt;
@@ -254,23 +254,17 @@ switch (origin)
 
  */
 
-/*$Log: 
-/* 4    Biblioteka1.3         2005-04-29 01:11:26  Darko           Comment
-/* 3    Biblioteka1.2         2002-01-29 23:20:13  Darko           Used lbraries
-/*      notes 
-/* 2    Biblioteka1.1         2001-07-11 22:50:31  Darko           
-/* 1    Biblioteka1.0         2001-06-09 00:01:43  Darko           
-/*$
- * 
- * *****************  Version 2  *****************
- * User: Dkolakovic   Date: 4/11/01    Time: 6:31p
- * Updated in $/Software/FOS2/F3Simulator/VxWorksSimNT/Samples/TestFileIO
- * Comments
- * 
- * *****************  Version 1  *****************
- * User: Dkolakovic   Date: 4/11/01    Time: 10:55a
- * Created in $/Software/FOS2/F3Simulator/VxWorksSimNT/Samples/TestFileIO
- * Dump VxWorks FILE struct
-  Jan. 95 created D.K.
-  Apr. 2k1 verified with GNU D.K.
-*/
+/*****************************************************************************
+ *$Log: 
+ * 5    Biblioteka1.4         2005-06-21 11:11:26  Darko Kolakovic Example
+ * 4    Biblioteka1.3         2005-04-29 01:11:26  Darko           Comment
+ * 3    Biblioteka1.2         2002-01-29 23:20:13  Darko           Used lbraries
+ *      notes 
+ * 2    Biblioteka1.1         2001-07-11 22:50:31  Darko           
+ * 1    Biblioteka1.0         2001-06-09 00:01:43  Darko           
+ *$$
+ * Version 2 User: Dkolakovic   Date: 4/11/01    Time: 6:31p Comments
+ * Version 1 User: Dkolakovic   Date: 4/11/01    Time: 10:55a  Dump VxWorks FILE struct
+ * Apr. 2k1 verified with GNU D.K.
+ * Jan. 95 created D.K.
+ *****************************************************************************/
