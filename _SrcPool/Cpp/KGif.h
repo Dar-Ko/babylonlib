@@ -1,17 +1,17 @@
 /*$Workfile: KGif.h$: header file
-  $Revision: 17$ $Date: 2003-09-30 11:00:28$
-  $Author: Darko$
+  $Revision: 20$ $Date: 2005-06-28 13:37:56$
+  $Author: Darko Kolakovic$
 
   Encapsulation of images in Graphics Interchange Format(c) GIF v89a.
   GIF and 'Graphics Interchange Format' are trademarks of CompuServe, Incorporated.
- */ 
+ */
 
 /* Group=Images                                                              */
 
 #ifndef _KGIF_H_
     //$Workfile: KGif.h$ sentry
   #define _KGIF_H_
-#define HANDLE_PRAGMA_PACK_PUSH_POP //gcc 2.96.3 
+#define HANDLE_PRAGMA_PACK_PUSH_POP //gcc 2.96.3
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
@@ -21,10 +21,10 @@
 
 const uint8 GIF_EXTENSION_INTRODUCER = 0x21;  //GIF extension introducer identifies a GIF
                               //Extension block  (0x21, '!')
-const uint8 GIF_IMAGE_SEPARATOR = 0x2C; //GIF image separator identifies 
+const uint8 GIF_IMAGE_SEPARATOR = 0x2C; //GIF image separator identifies
                                        //begining of an Image Descriptor block
                                        //(0x2C, ',')
-const uint8 GIF_TERMINATOR      = 0x3B; //GIF Terminator 0x3B (';') used to 
+const uint8 GIF_TERMINATOR      = 0x3B; //GIF Terminator 0x3B (';') used to
                                        //mark end of a GIF data stream
 const uint8 GIF_BLOCKTERMINATOR = 0x00; //GIF Extension Block Terminator marks
                                        //the end of a block
@@ -34,7 +34,7 @@ const uint8 GIF_EXT_COMMENT         = 0xFE; //Comment Extension label (0xFE)
 const uint8 GIF_EXT_APPLICATION     = 0xFF; //Application Extension label (0xFF)
 
 ///////////////////////////////////////////////////////////////////////////////
-/*Collection of labels, tags and keywords used in various sections of 
+/*Collection of labels, tags and keywords used in various sections of
   Graphics Interchange Format(c),
  */
 class CGifLabel
@@ -42,16 +42,16 @@ class CGifLabel
 public:
   CGifLabel();
   static char* m_szSignature; //signature identifying valid GIF format
-  static char* m_szFileExt  ; //common file extension used in 8.3 file 
+  static char* m_szFileExt  ; //common file extension used in 8.3 file
                               //systems
   static char* m_szVersion[2];//= {"87a","89a"}; //supported version numbers
   static bool  IsValid(const uint8* pData);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/* Gif data sub-block
-  The Block Size field in a block, counts the number of bytes remaining in the 
-  block, not counting the Block Size field itself, and not counting the 
+/*Gif data sub-block
+  The Block Size field in a block, counts the number of bytes remaining in the
+  block, not counting the Block Size field itself, and not counting the
   Block Terminator, if one is to follow.
 
                            Bytes
@@ -68,7 +68,7 @@ public:
         +------------------+   |
         |    block data    | n |
         +------------------+   |
-        |    block data    |n+1|  
+        |    block data    |n+1|
         +------------------+---+
  */
 class CGifDataSubblock
@@ -93,12 +93,12 @@ private:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/*Class CGifBlock represents a labeled Gif (Graphics Interchange Format) 
-  data blocks. 
+/*Class CGifBlock represents a labeled Gif (Graphics Interchange Format)
+  data blocks.
   Generally, a Gif file (or a data stream) consists of a sequence of data blocks
   and sub-blocks that contain various information relevant in the reproduction of
   an image.
-  
+
   Some of the data blocks have fixed position in the data structure, like Header or
   Logical Screen Descriptor. Some of the blocks begin with a block separator. This
   class is a base class for the group of Gif data blocks with a block separator.
@@ -126,8 +126,8 @@ private:
     - Special Purpose blocks [0xFA, 0xFF] ([250, 255]).
 
 
-  See also: GIF Graphics Interchange Format 
-  {HTML: <A HREF ="Res/gif87a.htm"> data blocks</A>}
+  See also: GIF Graphics Interchange Format
+  {html: <a href="Documentation/gif87a.htm"> data blocks</a>}
 
  */
 class CGifBlock
@@ -141,7 +141,7 @@ public:
                               //Descriptor block (0x2C, ',')
     TRAILER          = GIF_TERMINATOR,  //trailer identifies GIF stream terminator
                               //block (0x3B, ';')
-    UNKNOWN          = 0x100  //uknown block 
+    UNKNOWN          = 0x100  //uknown block
     };
 
   CGifBlock(const TYPE iBlockType);
@@ -158,7 +158,7 @@ protected:
 ///////////////////////////////////////////////////////////////////////////////
 /*Gif Extension blocks are extensions of the basic GIF 87a definition, adding
   new methods of an image.
-  A GIF Extension block may immediately preceded any Image Descriptor or occur 
+  A GIF Extension block may immediately preceded any Image Descriptor or occur
   before the GIF Trailer.
 
          bits
@@ -177,9 +177,9 @@ protected:
         |   Terminator  |n+1|  Block Terminator (0x00) (1 byte)
         +---------------+---+
 
-  Note: All GIF decoders must be able to recognize the existence of a GIF 
+  Note: All GIF decoders must be able to recognize the existence of a GIF
   Extension Blocks and ignore them if unable to handle the function embedded
-  in the block. 
+  in the block.
  */
 class CGifExtension : protected CGifBlock
 {
@@ -190,7 +190,7 @@ public:
     GRAPHIC_CONTROL = 0xF9, //Graphic Control Extension label (0xF9)
     COMMENT         = 0xFE, //Comment Extension label (0xFE)
     APPLICATION     = 0xFF, //Application Extension label (0xFF)
-    UNKNOWN         = 0x100 //uknown GIF Extension function 
+    UNKNOWN         = 0x100 //uknown GIF Extension function
     };
 
   CGifExtension(const FUNCTION iBlockType);
@@ -203,7 +203,7 @@ protected:
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Plain Text Extension
-  The Plain Text Extension contains textual data and the parameters necessary to render that data as a graphic, in a simple form. The textual data will be encoded with the 7-bit printable ASCII characters. Text data are rendered using a grid of character cells defined by the parameters in the block fields. Each character is rendered in an individual cell. The textual data in this block is to be rendered as mono-spaced characters, one character per cell, with a best fitting font and size. For further information, see the section on Recommendations below. The data characters are taken sequentially from the data portion of the block and rendered within a cell, starting with the upper left cell in the grid and proceeding from left to right and from top to bottom. Text data is rendered until the end of data is reached or the character grid is filled. The Character Grid contains an integral number of cells; in the case that the cell dimensions do not allow for an integral number, fractional cells must be discarded; 
+  The Plain Text Extension contains textual data and the parameters necessary to render that data as a graphic, in a simple form. The textual data will be encoded with the 7-bit printable ASCII characters. Text data are rendered using a grid of character cells defined by the parameters in the block fields. Each character is rendered in an individual cell. The textual data in this block is to be rendered as mono-spaced characters, one character per cell, with a best fitting font and size. For further information, see the section on Recommendations below. The data characters are taken sequentially from the data portion of the block and rendered within a cell, starting with the upper left cell in the grid and proceeding from left to right and from top to bottom. Text data is rendered until the end of data is reached or the character grid is filled. The Character Grid contains an integral number of cells; in the case that the cell dimensions do not allow for an integral number, fractional cells must be discarded;
 an encoder must be careful to specify the grid dimensions accurately so that this does not happen. This block requires a Global Color Table to be available; the colors used by this block reference the Global Color Table in the Stream if there is one, or the Global Color Table from a previous Stream, if one was saved. This block is a graphic rendering block, therefore it may be modified by a Graphic Control Extension. This block is OPTIONAL; any number of them may appear in the Data Stream.
 
 
@@ -234,7 +234,7 @@ protected:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/*Graphic Control Extension 
+/*Graphic Control Extension
  */
 class CGifGraphicControlExt : protected CGifExtension
 {
@@ -257,7 +257,7 @@ protected:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/*Comment Extension 
+/*Comment Extension
  */
 class CGifCommentExt : protected CGifExtension
 {
@@ -276,7 +276,7 @@ protected:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/*Application Extension 
+/*Application Extension
  */
 class CGifApplicationExt : protected CGifExtension
 {
@@ -298,17 +298,17 @@ protected:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/*This structure describes a single color used in a GIF image. 
-  A GIF color consists of three byte values representing the relative 
-  intensities of red, green and blue color component respectively. 
-  A fractional intensity of the color could have any value from none (0) to 
-  full (255).  For display, if the device supports fewer than 8 bits per color 
-  component, the higher order bits of each component are used. In the creation 
-  of a GIF color with hardware supporting fewer than 8 bits per component, the 
-  component values for the hardware should be converted to the 8-bit format with 
+/*This structure describes a single color used in a GIF image.
+  A GIF color consists of three byte values representing the relative
+  intensities of red, green and blue color component respectively.
+  A fractional intensity of the color could have any value from none (0) to
+  full (255).  For display, if the device supports fewer than 8 bits per color
+  component, the higher order bits of each component are used. In the creation
+  of a GIF color with hardware supporting fewer than 8 bits per component, the
+  component values for the hardware should be converted to the 8-bit format with
   the following calculation:
 
-     NewComponentValue = OriginalComponentValue*255/(2**N - 1),  
+     NewComponentValue = OriginalComponentValue*255/(2**N - 1),
           where N is number of bits per color for target device.
 
   This assures accurate translation of colors for all displays.
@@ -326,7 +326,7 @@ protected:
 
   See also: CGifColorTable
  */
-struct CGifColor 
+struct CGifColor
 {
   CGifColor();
   CGifColor(uint8 cRed, uint8 cGreen, uint8 cBlue);
@@ -347,7 +347,7 @@ struct CGifColor
 
 /*Converts color triplets to 32-bit unsigned integer.
 
-  For machines with Little Endian byte order, colors 
+  For machines with Little Endian byte order, colors
   are packed at following way:
 
         3   2   1   0
@@ -367,15 +367,15 @@ return ( ( m_cBlue | ((uint16)(m_cGreen)<< 8) ) |
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
-/*CGifColorTable class contains a color palette used to render raster-based 
+/*CGifColorTable class contains a color palette used to render raster-based
  graphics. A color table can have one of two different scopes: global or local.
- Each color is represented with three bytes giving red, green and  blue color 
- intensity. Each image pixel value received will be displayed according to its 
+ Each color is represented with three bytes giving red, green and  blue color
+ intensity. Each image pixel value received will be displayed according to its
  closest match with an available color of the display based on this color table.
- In the cases of creating GIF images from hardware without color palette 
- capability, a fixed palette should be created based on the available display 
+ In the cases of creating GIF images from hardware without color palette
+ capability, a fixed palette should be created based on the available display
  colors for that hardware.
- 
+
 
   Gif Color Table format:
 
@@ -397,10 +397,10 @@ return ( ( m_cBlue | ((uint16)(m_cGreen)<< 8) ) |
 
   See also: CGifColor, CGifLogicalScreenDescriptor::GetGlobalColorTableSize()
 
-  Note: color tables are optional, making it possible for a Data Stream to 
-  contain numerous graphics without a color table at all. In that case, the 
-  decoder may use a color table with as many colors as its hardware is able 
-  to support; it is recommended that such a table have black and white as 
+  Note: color tables are optional, making it possible for a Data Stream to
+  contain numerous graphics without a color table at all. In that case, the
+  decoder may use a color table with as many colors as its hardware is able
+  to support; it is recommended that such a table have black and white as
   its first two entries, so that monochrome images can be rendered adequately.
  */
 class CGifColorTable
@@ -430,10 +430,10 @@ private:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/*The GIF Logical Screen Descriptor describes the overall parameters for all 
-  GIF images following. It defines the overall dimensions of the image space 
-  or logical screen required, the existence of color mapping information, 
-  background screen color, and color depth information. 
+/*The GIF Logical Screen Descriptor describes the overall parameters for all
+  GIF images following. It defines the overall dimensions of the image space
+  or logical screen required, the existence of color mapping information,
+  background screen color, and color depth information.
 
          bits
          7 6 5 4 3 2 1 0 Bytes
@@ -456,19 +456,19 @@ private:
         |Global Color Table | optional field that follows Descriptor if g = 1
         +-------------------+
 
-  The logical screen width and height can both be larger than the physical 
-  display. How images larger than the physical display are handled is 
+  The logical screen width and height can both be larger than the physical
+  display. How images larger than the physical display are handled is
   implementation dependent.
-  If no Global Color Table is indicated, a default color table should be 
+  If no Global Color Table is indicated, a default color table should be
   generated  internally. The generated table will map each possible incoming
   color index to the same hardware color index modulo n where n is the number
   of available hardware colors.
 
-  Note: The scope of this block is the entire data stream. This block cannot 
-  be modified by any extension. Logical Screen Descriptor data segment is 
+  Note: The scope of this block is the entire data stream. This block cannot
+  be modified by any extension. Logical Screen Descriptor data segment is
   required and only one must be present per data stream.
  */
-class CGifLogicalScreenDescriptor 
+class CGifLogicalScreenDescriptor
 {
 public:
   CGifLogicalScreenDescriptor();
@@ -512,20 +512,20 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 /*CGifHeader class identifies GIF ( Graphics Interchange Format(c) ) data stream
   and general display device parameters. Exactly one header must be present per
-  data stream. The scope of this block is the entire data stream. This block 
-  cannot be modified by any format extension. This data container is compliant 
+  data stream. The scope of this block is the entire data stream. This block
+  cannot be modified by any format extension. This data container is compliant
   with format versions 87a and 89a.
 
   - The GIF Signature identifies the data following as a valid GIF image stream.
-  The Signature field marks the beginning of the data stream and contains the 
+  The Signature field marks the beginning of the data stream and contains the
   fixed value 'GIF'.
-  - The version number in the header of a data stream identifies the minimum set 
-  of capabilities required of a decoder. Version numbers are ordered numerically 
-  increasing on the first two number characters starting with 87 [87,...99) and 
-  alphabetically increasing on the third character [a,z]. An encoder should use 
-  the earliest possible version number that includes all the blocks used in the 
+  - The version number in the header of a data stream identifies the minimum set
+  of capabilities required of a decoder. Version numbers are ordered numerically
+  increasing on the first two number characters starting with 87 [87,...99) and
+  alphabetically increasing on the third character [a,z]. An encoder should use
+  the earliest possible version number that includes all the blocks used in the
   data stream. The unnecessary use of later version numbers will hinder processing
-  by some decoders. Most decoders are compliant with versions '87a' (May 1987) 
+  by some decoders. Most decoders are compliant with versions '87a' (May 1987)
   and '89a' (July 1989).
 
 
@@ -542,8 +542,8 @@ private:
         |Global Color Table | optional field that follows Descriptor
         +-------------------+
 
-  Note: The scope of this block is the entire data stream. This block cannot 
-  be modified by any extension. The Header data segment is required and only 
+  Note: The scope of this block is the entire data stream. This block cannot
+  be modified by any extension. The Header data segment is required and only
   one must be present per data stream.
  */
 class CGifHeader
@@ -564,7 +564,7 @@ public:
   CGifLogicalScreenDescriptor& GetLogicalScreenDescriptor();
   CGifLogicalScreenDescriptor GetLogicalScreenDescriptor() const;
   bool Copy(const uint8* pData);
-  
+
 private:
     //Turn byte alignment on
   // #pragma pack(push, 1)
@@ -582,12 +582,12 @@ public:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-/*This class encapsulates images in Graphics Interchange Format(c) (GIF) devised 
+/*This class encapsulates images in Graphics Interchange Format(c) (GIF) devised
   initially for transmitting graphical images over phone lines via modems.
   Size of an image file is reduced by the Lempel-Ziv Welch (LZW) algorithm,
-  derived from Huffman Coding compression. LZW algorithm is modified to acomodate 
+  derived from Huffman Coding compression. LZW algorithm is modified to acomodate
   image scan line packets.
-  GIF format supports up to 256 (8-bit) colors per color palette and it is most 
+  GIF format supports up to 256 (8-bit) colors per color palette and it is most
   suitable for images with few distinctive colors (e.g., graphics drawing).
   This data container is compliant with image formats versions 87a and 89a.
 
@@ -628,12 +628,13 @@ public:
         +-------------------+
 
 
-  {html:<BR><IMG SRC="Res/GIFFormat.gif" ALT="Graphics Interchange Format" BORDER="0">}
-  See also: GIF Graphics Interchange Format version 
-            {HTML: <A HREF ="Res/gif87a.htm">87a </A>}, 
-            {HTML: <A HREF ="Res/gif89a.htm">89a</A>}.
+  {html:<br><img src="Images/diagGIFFormat.gif" border="0"
+             alt="Graphics Interchange Format">}
+  See also: GIF Graphics Interchange Format version
+            {html: <a href="Documentation/gif87a.htm">87a </a>,
+                   <a href="Documentation/gif89a.htm">89a</a>}.
 
-  Note: default byte order of multi-byte numeric fields is 'Little Endian' 
+  Note: default byte order of multi-byte numeric fields is 'Little Endian'
   (the Least Significant Byte (LSB) first).
  */
 class CGif
@@ -647,15 +648,15 @@ public:
 
   bool IsValid() const;
   bool IsValid(const uint8* pData) const;
-  bool GetSize(const uint8* pData, 
-               unsigned int& nWidth, 
+  bool GetSize(const uint8* pData,
+               unsigned int& nWidth,
                unsigned int& nHeight) const;
-  bool GetSize(unsigned int& nWidth, 
+  bool GetSize(unsigned int& nWidth,
                unsigned int& nHeight) const;
   bool HasGlobalColorTable();
   CGifHeader GetHeader() const;
   CGifHeader& GetHeader();
-  CGifColorTable& GetGlobalColorTable();
+  CGifColorTable&GetGlobalColorTable();
   bool Copy(const uint8* pData);
   #ifdef _DEBUG
     virtual void Dump();
@@ -679,43 +680,43 @@ private:
   GIF format (c) CompuServe Incorporated, 1987 All rights reserved.
   Graphics Interchange Format (GIF) devised by the UNISYS Corp. and Compuserve.
 
-  While this document describing GIF format is copyrighted, the information 
+  While this document describing GIF format is copyrighted, the information
   contained within is made available for use in computer software without
   royalties, or licensing restrictions.
 
-  The Graphics Interchange Format(c) is the copyright property of 
-  CompuServe Incorporated. Only CompuServe Incorporated is authorized to define, 
-  redefine, enhance, alter, modify or change in any way the definition of 
+  The Graphics Interchange Format(c) is the copyright property of
+  CompuServe Incorporated. Only CompuServe Incorporated is authorized to define,
+  redefine, enhance, alter, modify or change in any way the definition of
   the format.
 
-  CompuServe Incorporated hereby grants a limited, non-exclusive, royalty-free 
+  CompuServe Incorporated hereby grants a limited, non-exclusive, royalty-free
   license for the use of the Graphics Interchange Format(sm) in computer software;
-  computer software utilizing GIF(sm) must acknowledge ownership of the Graphics 
+  computer software utilizing GIF(sm) must acknowledge ownership of the Graphics
   Interchange Format and its Service Mark by CompuServe Incorporated, in User and
-  Technical Documentation. Computer software utilizing GIF, which is distributed 
-  or may be distributed without User or Technical Documentation must display to 
-  the screen or printer a message acknowledging ownership of the Graphics 
-  Interchange Format and the Service Mark by CompuServe Incorporated; 
+  Technical Documentation. Computer software utilizing GIF, which is distributed
+  or may be distributed without User or Technical Documentation must display to
+  the screen or printer a message acknowledging ownership of the Graphics
+  Interchange Format and the Service Mark by CompuServe Incorporated;
   in this case, the acknowledgement may be displayed in an opening screen or
-  leading banner, or a closing screen or trailing banner. A message such as the 
-  following may be used: 
-  "The Graphics Interchange Format(c) is the Copyright property of 
-  CompuServe Incorporated. 
-  GIF(sm) is a Service Mark property of CompuServe Incorporated." 
+  leading banner, or a closing screen or trailing banner. A message such as the
+  following may be used:
+  "The Graphics Interchange Format(c) is the Copyright property of
+  CompuServe Incorporated.
+  GIF(sm) is a Service Mark property of CompuServe Incorporated."
  */
 
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  17   Biblioteka1.16        2003-09-30 11:00:28  Darko           Replaced DWORD,
  *       WORD with uint32, uint16
  *  16   Biblioteka1.15        2002-10-10 20:30:31  Darko Kolakovic Replaced push
  *       and pack pragmas
- *  15   Biblioteka1.14        2002-08-02 22:26:40  Darko Kolakovic 
+ *  15   Biblioteka1.14        2002-08-02 22:26:40  Darko Kolakovic
  *  14   Biblioteka1.13        2002-08-02 00:35:57  Darko           CopyAll()
  *       sub-blocks
  *  13   Biblioteka1.12        2002-08-01 17:47:33  Darko Kolakovic delete virtual
- *       CGifBlock:GetLength() 
- *  12   Biblioteka1.11        2002-08-01 14:58:32  Darko Kolakovic 
+ *       CGifBlock:GetLength()
+ *  12   Biblioteka1.11        2002-08-01 14:58:32  Darko Kolakovic
  *  11   Biblioteka1.10        2002-08-01 01:23:52  Darko           CGifImageData
  *  10   Biblioteka1.9         2002-07-31 17:30:12  Darko Kolakovic
  *       SeekImageDescriptor inserted
@@ -735,10 +736,10 @@ private:
  *       =()
  *  2    Biblioteka1.1         2002-07-15 19:45:09  Darko           Color Table
  *       added
- *  1    Biblioteka1.0         2002-07-12 18:17:15  Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-07-12 18:17:15  Darko Kolakovic
  * $
  * 2001 Initial version in Babylon Lib
  * 1990 v.89a enhanced GIF CompuServe Incorporated
- * 1987 v.87a Graphics Interchange Format (GIF) devised by the UNISYS Corp. and 
+ * 1987 v.87a Graphics Interchange Format (GIF) devised by the UNISYS Corp. and
  *  Compuserve
  *****************************************************************************/

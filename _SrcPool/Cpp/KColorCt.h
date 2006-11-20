@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KColorCt.h$: header file
-  $Revision: 17$ $Date: 2005-04-26 16:39:10$
+/*$Workfile: KColorCt.h$: header file
+  $Revision: 20$ $Date: 2005-09-06 15:43:39$
   $Author: Darko Kolakovic$
 
   Predefined Color Codes
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KCOLORCT_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KColorCt.h$ sentry                                                      */
+    /*$Workfile: KColorCt.h$ sentry                                                      */
   #define _KCOLORCT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -64,7 +64,7 @@ enum COLOR
 #define BRIGHTWHITE         RGB(255,255,255) /*F*/
 
 /* -------------------------------------------------------------------------- */
-/*{html:<a href="Res/KColorCt_256_colors_palette.htm">                        */
+/*{html:<a href="Documentation/KColorCt256.htm">                              */
 /*  256 Colors Palette </a>}                                                  */
 /*                                                                            */
 /*      Color Name               Red Green Blue                               */
@@ -101,7 +101,6 @@ enum COLOR
 #define DARKSEAGREEN          RGB(193,255,193)
 #define DARKSLATEBLUE         RGB( 72, 61,139)
 #define DARKSLATEGRAY         RGB(151,255,255)
-#define DARKSLATEGREY         RGB(151,255,255)
 #define DARKTURQUOISE         RGB(  0,206,209)
 #define DARKVIOLET            RGB(148,  0,211)
 #define DEEPPINK              RGB(255, 20,147)
@@ -234,6 +233,52 @@ enum COLOR
 #endif
 
 #ifdef __cplusplus
+
+struct SConsoleColor
+{
+
+public:
+    SConsoleColor(unsigned short clr) :
+        clrConsole(clr) {}
+    unsigned short clrConsole;
+};
+  #ifdef _WIN32
+    const SConsoleColor BLACK        = 0;
+    const SConsoleColor BLUE         = FOREGROUND_BLUE;
+    const SConsoleColor GREEN        = FOREGROUND_GREEN;
+    const SConsoleColor CYAN         = FOREGROUND_BLUE | FOREGROUND_GREEN;
+    const SConsoleColor RED          = FOREGROUND_RED;
+    const SConsoleColor MAGENTA      = FOREGROUND_RED | FOREGROUND_BLUE;
+    const SConsoleColor BROWN        = FOREGROUND_RED | FOREGROUND_GREEN;
+    const SConsoleColor WHITE        = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+    const SConsoleColor GREY         = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+    const SConsoleColor LIGHTBLUE    = BLUE | FOREGROUND_INTENSITY;
+    const SConsoleColor LIGHTGREEN   = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+    const SConsoleColor LIGHTCYAN    = CYAN | FOREGROUND_INTENSITY;
+    const SConsoleColor LIGHTRED     = RED | FOREGROUND_INTENSITY;
+    const SConsoleColor LIGHTMAGENTA = MAGENTA | FOREGROUND_INTENSITY;
+    const SConsoleColor YELLOW       = BROWN | FOREGROUND_INTENSITY;
+    const SConsoleColor BRIGHTWHITE  = GREY | FOREGROUND_INTENSITY;
+
+  #endif
+
+/*
+    Example:
+        cout << RED << "Important" << BLUE << " note.\n";
+ */
+std::ostream& operator<<( std::ostream& stream, //[in/out]
+                          const SConsoleColor& clrValue //[in]
+                        )
+{
+stream.flush();
+#ifdef WIN32
+  SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),clrValue.clrConsole);
+#endif
+stream.flush();
+
+return stream;
+}
+
   #ifdef __AFXWIN_H__           //Microsoft's MFC
   //operator<<()---------------------------------------------------------------
     #ifdef _DEBUG
@@ -246,8 +291,8 @@ enum COLOR
       Note: uses Microsoft Foundation Library (MFC);
             Microsoft Windows specific (Win).
 
-      See also: {html:<A HREF="Res/KColorCt_256_colors_palette.htm">}
-      256 Colors Palette{html:</A>}
+      See also: {html:<a href="Documentation/KColorCt256.htm">
+      256 Colors Palette</A>}
       */
     inline CDumpContext& AFXAPI operator<<(CDumpContext& dc, const LPCOLORREF pclrData)
       {
