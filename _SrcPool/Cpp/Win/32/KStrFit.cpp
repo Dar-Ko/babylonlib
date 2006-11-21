@@ -1,16 +1,15 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrFit.cpp$: implementation file
-  $Revision: 8$ $Date: 2005-04-26 16:39:22$
+/*$Workfile: KStrFit.cpp$: implementation file
+  $Revision: 10$ $Date: 2005-05-26 15:51:22$
   $Author: Darko Kolakovic$
 
   Fit a string
   Copyright: CommonSoft Inc.
   Darko Kolakovic  March 99
- */ 
+ */
 /* Group=Strings                                                             */
 
-//#include "stdafx.h"
-#include <afxwin.h>
-#include "KStrExt.h" //FitString()
+#include "stdafx.h"
+//#include <afxwin.h>
 
 //A mark to indicate an ommission of letters or words
 LPCTSTR g_szEllipsis = _T("...");
@@ -22,28 +21,28 @@ LPCTSTR g_szEllipsis = _T("...");
   Returns: pointer to the fitted string or empty string if the given width is
   too small even for the szSuffix only.
 
-  Note: uses Microsoft Foundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC),
+        Microsoft Windows specific (Win).
 
   Example:
-    #include "KStrExt.h" //FitString()
-    extern LPCTSTR g_szEllipsis;
-    ...
-    {
-    ...
-    CClientDC dc(this);
-    CString strText("This is some text");
-    strText = FitString(&dc,strText,20,g_szEllipsis);
-    TRACE1("Fitted Text = %s\n",strText);
-    ...
-    }
+        #include "KStrExt.h" //FitString()
+        extern LPCTSTR g_szEllipsis;
+        ...
+       {
+        ...
+        CClientDC dc(this);
+        CString strText("This is some text");
+        strText = FitString(&dc,strText,20,g_szEllipsis);
+        TRACE1("Fitted Text = %s\n",strText);
+        ...
+        }
 
-  TODO: replace MFC D.K.
  */
 CString FitString(CDC* pDC, //[in] device context in which the text will be outputed
                   CString strText, //[out] buffer holding the text to fit
                   int iWidth,      //[in] desired text width[device units]
                   LPCTSTR szSuffix //[in] text suffix (like "...") or NULL
-                  )
+                 )
 {
 if (!strText.IsEmpty())
   {
