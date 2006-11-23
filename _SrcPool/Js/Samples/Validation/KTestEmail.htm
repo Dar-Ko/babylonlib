@@ -7,24 +7,22 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Language" content="en-ca" />
   <meta name="Workfile"
-  content="$Workfile: S:\_SrcPool\Js\Samples\Validation\KTestEmail.htm$: documentation" />
-  <meta name="Revision" content="$Revision: 1$ $Date: 2006-11-01 10:38:16$" />
+  content="$Workfile: KTestEmail.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 3$ $Date: 2006-11-23 18:18:53$" />
   <meta name="Editor" content="$Author: Darko Kolakovic$" />
   <meta name="Copyright"
   content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
   <meta name="author" content="Darko Kolakovi&#263;" />
   <meta name="robots" content="index" />
-  <meta name="keywords" content="JavaScript, test, TreeView" />
-  <meta name="description" content="Test of the TreeView control" />
+  <meta name="keywords" content="JavaScript, test, string" />
+  <meta name="description" content="Test of the string validation" />
 
   <title>Test eMail Format</title>
-  <link rel="stylesheet" type="text/css" href="../../../Cpp/Documentation/Res/KDocument.css" />
-  <link rel="icon" href="../../../Cpp/Documentation/Res/icoJavaScript.ico" type="image/ico" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../Cpp/Documentation/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../Cpp/Documentation/Res/icoJavaScript.ico" />
   <base target="_self" />
-  <style type="text/css" media="all">
-  /*<![CDATA[*/
-  /*]]>*/
-  </style>
   <script language="javascript" name="eventHandler">
     //Write result of the validation
     function writeResult(fVerifier, //[in] validating functions
@@ -40,12 +38,12 @@
                      oValue      //[in] value to validate
                     )
     {
-    alert(fVerifier(oValue));
+    writeResult(fVerifier, oValue);
     }
   </script>
   <!-- Test objects -->
-  <script language="JavaScript" src="../../KIsEmail.js"
-  type="text/javascript"> </script>
+  <script language="JavaScript" type="text/javascript" src="../../KIsEmail.js">
+  </script>
 </head>
 
 <body>
@@ -53,7 +51,7 @@
   <p class="codeJs">
     <a href="../../KIsEmail.js" title="Script">
       <img src="../../../Cpp/Documentation/Res/S/icoJavaScript.gif"
-           alt="JavaScript" border="0" />
+          alt="JavaScript" border="0" />
       Source Code</a>
   </p>
   <a href="" title="Empty String" onclick="isEmail('')">Empty String</a>
