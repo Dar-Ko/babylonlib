@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Language" content="en-ca">
+  <meta name="Workfile" content="$Workfile: TestArrayPush.htm$: documentation">
+  <meta name="Revision" content="$Revision: 2$ $Date: 2006-11-24 17:44:22$">
+  <meta name="Editor" content="$Author: Darko Kolakovic$">
+  <meta name="Copyright"
+    content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="author" content="Darko Kolakovi&#263;" />
+  <meta name="robots" content="index">
+  <meta name="keywords" content="JavaScript, test, Dump, Debug">
+  <meta name="description" content="Test of the DOM elements">
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../../Cpp/Documentation/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../../Cpp/Documentation/Res/icoJavaScript.ico" />
+  <title>Test Array push and pop</title>
+
+  <script language="JavaScript">
+    function TRACE(strMessage)
+      {
+      document.write(strMessage + "<br />\n");
+      }
+
+    //Test compliance with ECMA standard.
+    //Microsoft shell requires JScript 5.5+ to support push and pop.
+    function testArrayPush()
+      {
+      var bResult = false;
+      if (!(bResult = (Array.prototype.push != null)))
+        TRACE('Array.push method is not supported');
+      if (!(bResult = (Array.prototype.push != null)))
+        TRACE('Array.pop method is not supported');
+      if(bResult) //Test push and pop methods
+        {
+        var arrTemp = new Array();
+        TRACE('<dl><dt>push</dt>');
+        //Append a new elements to the array, returning the new length of the array.
+        arrTemp.push('Monday');
+        arrTemp.push('Montag');
+        arrTemp.push('lunes');
+        TRACE('<dd>Array has ' + arrTemp.length + ' elements</dd>');
+
+        for(var i in arrTemp)
+          {
+          TRACE('  ' + i + '. ' + arrTemp[i]);
+          }
+        TRACE('<dt>pop</dt>');
+        //Remove the last element from the array and returns the element.
+        var strLast = arrTemp.pop();
+        TRACE('<dd>Retreived: ' + strLast);
+        TRACE('Array has ' + arrTemp.length + ' elements</dd>');
+        for(var i in arrTemp)
+          {
+          TRACE('  ' + i + '. ' + arrTemp[i]);
+          }
+        }
+      TRACE('</dl>');
+      return bResult;
+      }
+  </script>
+</head>
+
+<body>
+  <h2>Test Array.push and pop</h2>
+
+  <script language="JavaScript">
+    //debugger;
+
+    if (typeof ActiveXObject != 'undefined') //Microsoft environment: IE or WSH shell
+      TRACE("Microsoft IE shell");
+    testArrayPush();
+  </script>
+</body>
+
+</html>

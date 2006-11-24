@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Language" content="en-ca">
+  <meta name="Workfile" content="$Workfile: TestGetElementById.htm$: documentation">
+  <meta name="Revision" content="$Revision: 2$ $Date: 2006-11-24 17:44:25$">
+  <meta name="Editor" content="$Author: Darko Kolakovic$">
+  <meta name="Copyright"
+    content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="author" content="Darko Kolakovi&#263;" />
+  <meta name="robots" content="index">
+  <meta name="keywords" content="JavaScript, test, Dump, Debug">
+  <meta name="description" content="Test of the DOM elements">
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../../Cpp/Documentation/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../../Cpp/Documentation/Res/icoJavaScript.ico" />
+  <title>Test getElementById()</title>
+
+  <script language="JavaScript">
+    function TRACE(strMessage)
+      {
+      document.write(strMessage + "<br />\n");
+      }
+
+    function testGetElementById(strId)
+      {
+      var bResult = false;
+      if (document.getElementById != undefined)
+        {
+        var result = document.getElementById(strId);
+        if (result == null)
+          TRACE("Element with ID = " + strId + " not exist! Result = " + result);
+        else
+          TRACE("Element with ID = " + strId + " is found.");
+        bResult = true;
+        }
+      else
+        TRACE("Browser does not support getElementById()");
+      return bResult;
+      }
+  </script>
+</head>
+
+<!-- Install Microsoft Script Debugger
+ To enable it, open IE and go to Tools|'Internet Options'|Advanced and uncheck
+ "Disable Script Debugging (Internet Explorer)".
+-->
+
+<body>
+  <h2>Test getElementById()</h2>
+  <pre><code>
+  <font style="color:darkgreen;">&lt;p id=&quot;<font style="color:blue;">ID_PARAGRAPH</font>&quot;&gt;</font>Some text.<font style="color:darkgreen;">&lt;/p&gt;</font>
+  </code></pre>
+
+  <p id="ID_PARAGRAPH">Some text.</p>
+
+  <script language="JavaScript">
+    //debugger;
+    testGetElementById("ID_PARAGRAPH");
+    testGetElementById("ID_SPAN"); //Should fail
+  </script>
+</body>
+
+</html>

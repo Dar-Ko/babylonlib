@@ -1,0 +1,6 @@
+$Workfile: Dom.txt$: developer's note
+$Revision: 1$ $Date: 24/11/06 4:00:18 EST PM$
+$Author: Darko Kolakovic$
+
+\	Dom.vup	Microsoft Development Environment Project (VUP) file is a generated Visual Utility Project file, format version 6.00 (DEVENV).	Win32
+\ Dom.html  Starting page for testing inside HTML browsers. 
