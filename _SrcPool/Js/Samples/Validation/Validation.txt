@@ -1,0 +1,5 @@
+$Workfile: Validation.txt$: developer's note
+$Revision: 1$ $Date: 2006-11-21 16:54:21$
+$Author: Darko Kolakovic$
+
+\	Validation.vup	Microsoft Development Environment Project (VUP) file is a generated Visual Utility Project file, format version 6.00 (DEVENV).	Win32
