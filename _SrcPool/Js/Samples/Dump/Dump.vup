@@ -79,13 +79,25 @@ CFG=Dump - Generic Debug
 
 # Begin Source File
 
+SOURCE=.\Dump.txt
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KDbgObj.js
 # PROP BASE Deployment_Mode 1
 # PROP Deployment_Mode 1
 # End Source File
 # Begin Source File
 
-SOURCE=.\KTestDumps.htm
+SOURCE=.\Src\TestDbgObj.js
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\TestDumps.htm
 # PROP BASE Deployment_Mode 1
 # PROP Deployment_Mode 1
 # End Source File
