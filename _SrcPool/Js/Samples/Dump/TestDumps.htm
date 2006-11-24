@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Group=Examples -->
+<head>
+  <title>Test Variable Dump</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Language" content="en-ca">
+  <meta name="Workfile" content="$Workfile: KTestDumps.htm$: documentation">
+  <meta name="Revision" content="$Revision: 5$ $Date: 2006-11-24 11:05:21$">
+  <meta name="Editor" content="$Author: Darko Kolakovic$">
+  <meta name="Copyright"
+    content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="author" content="Darko Kolakovi&#263;" />
+  <meta name="robots" content="index">
+  <meta name="keywords" content="JavaScript, test, Dump, Debug">
+  <meta name="description" content="Test of the debug helpers">
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../Cpp/Documentation/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../Cpp/Documentation/Res/icoJavaScript.ico" />
+
+  <script language="javascript" name="dbgDump">
+    //Write result of the validation
+    function writeResult(fVerifier, //[in] validating function
+                         oValue,    //[in] value to validate
+                         iIndex     //[in] the test case
+                        )
+    {
+    if((fVerifier != undefined) && (typeof (fVerifier) == 'function'))
+      {
+      var strOutput = fVerifier(oValue[0]);
+      var bResult = (strOutput.substring(0,oValue[1].length) == oValue[1]);
+      oValue[2] = bResult;
+      document.writeln("<dt>" + iIndex + ". " + oValue[1] + ": <b style=\"color:" +
+                       (bResult? "blue;\">" : "red;\">") +  bResult +
+                       "</b></dt><dd>" + strOutput + "</dd>");
+      }
+    else
+      document.writeln("Invalid parameter: fVerifier.");
+    }
+
+    var g_bDebug = false; //Enable default debugger flag
+    //Handles request for the dubugger
+    function onDebugEnable()
+    {
+    g_bDebug = !g_bDebug;
+    if(g_bDebug)
+      {
+      debugger; //Invoke default debugger
+      }
+    }
+  </script>
+  <!-- Test objects -->
+  <script language="JavaScript" type="text/javascript" src="../../KDbgObj.js">
+  </script>
+  <script language="JavaScript" type="text/javascript" src="Src/TestDbgObj.js">
+  </script>
+</head>
+<body>
+  <h1>Dump variable value</h1>
+  <p class="codeJs">
+    <a href="../../KDbgObj.js" title="Script">
+      <img src="../../../Cpp/Documentation/Res/S/icoJavaScript.gif" alt="JavaScript" border="0">
+      Source Code</a>
+      <div title="Enable debugging">
+      <input id="ID_CHECKBOX_DBG" type="checkbox" name="Debug" onclick="onDebugEnable()">&nbsp;Debug
+      </div>
+  </p>
+  <dl>
+    <script type="text/javascript" language="JavaScript">
+    TestDbgObj();
+    </script>
+    <noscript>
+      <p style="color:red">JavaScript seems to be disabled!</p>
+    </noscript>
+  </dl>
+  <!-- References -->
+  <dl title='Reference"' class="Reference">
+    <dt>References
+      <dd>
+        ISO/IEC 16262, <a href="http://www.ecma-international.org/publications/standards/Ecma-262.htm">
+        ECMA-262</a>, 3rd Edition, 1999</dd>
+  </dl>
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="TEXT-ALIGN: right">
+    <hr>
+    <a href="../../../Cpp/Documentation/index.html" title="Go to home…" class="Plain" target="_main">
+      ⌂</a>
+  </div>
+</body>
+</html>
