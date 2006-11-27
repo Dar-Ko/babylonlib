@@ -1,0 +1,6 @@
+$Workfile: S:\_SrcPool\Js\Samples\String\String.txt$: developer's note
+$Revision: 1$ $Date: 2006-11-27 12:43:20$
+$Author: Darko Kolakovic$
+
+\	String.vup	Microsoft Development Environment Project (VUP) file is a generated Visual Utility Project file, format version 6.00 (DEVENV).	Win32
+\ String.html  Starting page for testing within HTML browser shells. 
