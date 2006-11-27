@@ -97,12 +97,6 @@ SOURCE=..\..\KIsEmail.js
 # End Source File
 # Begin Source File
 
-SOURCE=.\KTestEmail.htm
-# PROP BASE Deployment_Mode 1
-# PROP Deployment_Mode 1
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\KValidate.js
 # PROP BASE Deployment_Mode 1
 # PROP Deployment_Mode 1
@@ -127,7 +121,19 @@ SOURCE=.\Src\TestCommonValidation.js
 # End Source File
 # Begin Source File
 
+SOURCE=.\TestEmail.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\TestStrContent.js
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\Validation.txt
 # PROP BASE Deployment_Mode 1
 # PROP Deployment_Mode 1
 # End Source File

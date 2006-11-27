@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Js\Samples\Validation\Src\TestBasicTypes.js$: script file
+/*$Workfile: TestBasicTypes.js$: script file
   $Revision: 1$ $Date: 2006-11-09 16:58:29$
   $Author: Darko Kolakovic$
 

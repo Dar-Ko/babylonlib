@@ -1,16 +1,18 @@
 /*$Workfile: main.js$: script file
-  $Revision: 3$ $Date: 2006-11-09 16:58:59$
-  $Author: Darko Kolakovic$
+  $Revision: 4$ $Date: 2006-11-22 00:12:12$
+  $Author: Darko$
 
   Script used to test various validation operations.
   Copyright: CommonSoft Inc
   2006-11-08 Darko Kolakovic
 */
 
+// Group=Examples
 try
   {
-  // Group=Examples
-
+  /*Note: the test script uses exceptions and requires a script engine compliant
+    with ECMA-262, 3rd Edition, 1999.
+   */
   //Definition of the argument values for the exit() function
   /*const*/ var EXIT_SUCCESS = 0;
   /*const*/ var EXIT_FAILURE = 1;
@@ -90,12 +92,18 @@ try
     errorObj = new Error(0x800A1391, "undefined or empty!");
     throw errorObj;
     }
-
-  fso = new ActiveXObject("Scripting.FileSystemObject");
-  fileImport = fso.OpenTextFile(szFileName);
-  strImport = fileImport.ReadAll();
-  fileImport.Close();
-  return strImport;
+  if(this.WScript)
+    {
+    fso = new ActiveXObject("Scripting.FileSystemObject");
+    fileImport = fso.OpenTextFile(szFileName);
+    strImport = fileImport.ReadAll();
+    fileImport.Close();
+    return strImport;
+    }
+  else
+    {
+    load(szFileName);
+    }
   }
 catch(error)
   {

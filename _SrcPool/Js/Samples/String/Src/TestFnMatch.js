@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Js\Samples\String\Src\TestFnMatch.js$: script file
-  $Revision: 1$ $Date: 2006-11-27 14:23:03$
+/*$Workfile: TestFnMatch.js$: script file
+  $Revision: 2$ $Date: 2006-11-27 17:43:48$
   $Author: Darko Kolakovic$
 
   Test filename pattern matching
@@ -16,14 +16,14 @@
  */
 function TestFnMatch()
 {
-TsWriteToView("TestFnMatch()");
+TsWriteToViewLn("TestFnMatch()");
 var bRes = true;
 //TESTENTRY logEntry =
-//  {_T("AtoI()"), _T("KStrAtoI.cpp"), bRes};
-
+//  {_T("FnMatch()"), _T("KFnMatch.js"), bRes};
+debugger;//
 try
   {
-  var szFilename = "Darko [Kolakovic].ma"
+  var szFilename = "Dario [Augustus].ma"
   var szPattern = new Array();
   szPattern[ 0] = "D* ].?a";
   szPattern[ 1] = "[xyz]";
@@ -40,17 +40,16 @@ try
   szPattern[12] = "[[]";
   szPattern[13] = "[\\]]";
   szPattern[14] = "D[!xyz]*.ma";
-  //var cachedFilespecs;
-  var i = 0;
-  while (i < szPattern.length)
+
+  for (var i in szPattern)
     {
-    var bRes = FnMatch(szFilename, szPattern[i++], true);
-    WScript.echo(szPattern[i-1] + " match " + bRes);
+    var bRes = FnMatch(szFilename, szPattern[i], true);
+    TsWriteToViewLn("  " + szPattern[i] + " match " + bRes);
     }
   }
 catch(error)
   {
-  WScript.echo(error.name + ": " + error.message +
+  TsWriteToViewLn(error.name + ": " + error.message +
                "; pattern " + i +  ". " + szPattern[i]);
   bRes = false
   }
@@ -58,7 +57,7 @@ catch(error)
 //logEntry.m_bResult = bRes;
 //LogTest(&logEntry);
 
-TsWriteToView("LOG_EOT");
+TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 

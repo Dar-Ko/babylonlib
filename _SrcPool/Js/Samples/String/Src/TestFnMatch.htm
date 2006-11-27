@@ -6,8 +6,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="Content-Language" content="en-ca">
-  <meta name="Workfile" content="$Workfile: S:\_SrcPool\Js\Samples\String\Src\TestFnMatch.htm$: documentation">
-  <meta name="Revision" content="$Revision: 1$ $Date: 2006-11-27 14:23:55$">
+  <meta name="Workfile" content="$Workfile: TestFnMatch.htm$: documentation">
+  <meta name="Revision" content="$Revision: 2$ $Date: 2006-11-27 17:42:57$">
   <meta name="Editor" content="$Author: Darko Kolakovic$">
   <meta name="Copyright"
     content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
@@ -23,11 +23,11 @@
   <!-- Common -->
   <script language="JavaScript" type="text/javascript" src="../../Common/Src/TsWriteTxt.js">
   </script>
-  <!-- Test -->
-  <script language="JavaScript" type="text/javascript" src="TestFnMatch.js">
-  </script>
   <!-- Test objects -->
   <script language="JavaScript" type="text/javascript" src="../../../KFnMatch.js">
+  </script>
+  <!-- Test -->
+  <script language="JavaScript" type="text/javascript" src="TestFnMatch.js">
   </script>
 
 </head>
@@ -46,7 +46,8 @@
   </p>
 
   <script language="JavaScript">
-    //debugger;
+    var bResult = false;
+    bResult = TestFnMatch();
   </script>
   <noscript>
     <p style="color:red">JavaScript seems to be disabled!</p>
