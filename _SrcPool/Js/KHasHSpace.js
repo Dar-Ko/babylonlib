@@ -1,16 +1,22 @@
 //$Workfile: KHasHSpace.js$: script file
-//$Revision: 4$ $Date: 2006-11-08 17:53:27$
+//$Revision: 5$ $Date: 2006-11-29 13:10:02$
 //$Author: Darko Kolakovic$
 //
 //Verify if a string has white spaces
 //Copyright: CommonSoft Inc
 //2006-10 Darko Kolakovic
 
+//Include(KValidate.js);
+
 //------------------------------------------------------------------------------
 /*Verifies if a string has white spaces.
 
-  Returns: true if the string has a 'space' or horizontal tabulator ('\t')
-  characters. If not, returns false.
+  Returns: index of the first 'space' or horizontal tabulator ('\t') character
+  inside the string or -1 if the string has not listed white space characters.
+  
+  Example:
+      var bHasSpace = true; //result of the validation
+      bHasSpace = (hasHSpace("Some text") >= 0);
  */
 function hasHSpace(strValue //[in] string to be evaluated
                   )
@@ -21,9 +27,9 @@ if(!isBlank(strValue))
     {
     if ((strValue.charAt(i) == ' ') || (strValue.charAt(i) == '\t'))
       {
-      return true;
+      return i;
       }
     }
   }
-return false;
+return -1;
 }
