@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Js\Samples\String\Src\TestHasHSpace.js$: script file
-  $Revision: 1$ $Date: 2006-11-29 13:10:36$
+/*$Workfile: TestHasHSpace.js$: script file
+  $Revision: 2$ $Date: 2006-11-29 15:42:29$
   $Author: Darko Kolakovic$
 
   Test string validation
@@ -20,7 +20,7 @@ TsWriteToViewLn("TestHasHSpace()");
 var bRes = true;   //result of the test
 //TESTENTRY logEntry =
 //  {_T("hasHSpace()"), _T("KHasHSpace.js"), bRes};
-debugger;
+//debugger;
 var i = 0;
 try
   {
@@ -78,7 +78,7 @@ return bRes;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2006-11-29 13:10:36  Darko Kolakovic 
+ * $Log:
+ *  1    Biblioteka1.0         2006-11-29 13:10:36  Darko Kolakovic
  * $
  *****************************************************************************/

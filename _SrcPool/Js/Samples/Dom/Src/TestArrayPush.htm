@@ -4,27 +4,40 @@
 <html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
 <!-- Group=Examples -->
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Language" content="en-ca">
-  <meta name="Workfile" content="$Workfile: TestArrayPush.htm$: documentation">
-  <meta name="Revision" content="$Revision: 2$ $Date: 2006-11-24 17:44:22$">
-  <meta name="Editor" content="$Author: Darko Kolakovic$">
-  <meta name="Copyright"
-    content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
-  <meta name="author" content="Darko Kolakovi&#263;" />
-  <meta name="robots" content="index">
-  <meta name="keywords" content="JavaScript, test, Dump, Debug">
-  <meta name="description" content="Test of the DOM elements">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile" content="$Workfile: TestArrayPush.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 3$" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="JavaScript, test, Dump, Debug, DOM, HTML" />
+  <meta name="Editor" content="$Author: Darko Kolakovic$" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="Testing" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Test cases" />
+  <meta name="DC.description.abstract" content="Test of the DOM elements" />
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2006-11-29 15:42:10$" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.ISBN" content="$Isbn$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
   <link rel="stylesheet" type="text/css" media="all"
-    href="../../../../Cpp/Documentation/Res/KDocument.css" />
+    href="../../../Cpp/Documentation/Res/KDocument.css" />
   <link rel="icon" type="image/ico"
-    href="../../../../Cpp/Documentation/Res/icoJavaScript.ico" />
+    href="../../../Cpp/Documentation/Res/icoJavaScript.ico" />
   <title>Test Array push and pop</title>
 
-  <script language="JavaScript">
+  <script language="JavaScript" type="text/javascript">
     function TRACE(strMessage)
       {
-      document.write(strMessage + "<br />\n");
+      document.write(strMessage + "<br \/>\n");
       }
 
     //Test compliance with ECMA standard.
@@ -39,28 +52,28 @@
       if(bResult) //Test push and pop methods
         {
         var arrTemp = new Array();
-        TRACE('<dl><dt>push</dt>');
+        TRACE('<dl><dt>push<\/dt>');
         //Append a new elements to the array, returning the new length of the array.
         arrTemp.push('Monday');
         arrTemp.push('Montag');
         arrTemp.push('lunes');
-        TRACE('<dd>Array has ' + arrTemp.length + ' elements</dd>');
+        TRACE('<dd>Array has ' + arrTemp.length + ' elements<\/dd>');
 
         for(var i in arrTemp)
           {
           TRACE('  ' + i + '. ' + arrTemp[i]);
           }
-        TRACE('<dt>pop</dt>');
+        TRACE('<dt>pop<\/dt>');
         //Remove the last element from the array and returns the element.
         var strLast = arrTemp.pop();
         TRACE('<dd>Retreived: ' + strLast);
-        TRACE('Array has ' + arrTemp.length + ' elements</dd>');
+        TRACE('Array has ' + arrTemp.length + ' elements<\/dd>');
         for(var i in arrTemp)
           {
           TRACE('  ' + i + '. ' + arrTemp[i]);
           }
         }
-      TRACE('</dl>');
+      TRACE('<\/dl>');
       return bResult;
       }
   </script>
@@ -69,7 +82,7 @@
 <body>
   <h2>Test Array.push and pop</h2>
 
-  <script language="JavaScript">
+  <script language="JavaScript" type="text/javascript">
     //debugger;
 
     if (typeof ActiveXObject != 'undefined') //Microsoft environment: IE or WSH shell
@@ -78,4 +91,11 @@
   </script>
 </body>
 
+<!-- ==========================================================================
+  $Log: 
+   3    Biblioteka1.2         2006-11-29 15:42:10  Darko Kolakovic HTML 4.01
+   2    Biblioteka1.1         2006-11-24 17:44:22  Darko Kolakovic Test push()
+   1    Biblioteka1.0         2006-11-24 16:02:23  Darko Kolakovic 
+  $
+-->
 </html>

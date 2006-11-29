@@ -1,6 +1,6 @@
 //$Workfile: KValidate.js$: script file
-//$Revision: 1.1 $ $Date: 2006/11/29 18:14:18 $
-//$Author: ddarko $
+//$Revision: 2$ $Date: 2006-11-29 13:09:32$
+//$Author: Darko Kolakovic$
 //
 //Validate simple data types
 //Copyright: CommonSoft Inc
