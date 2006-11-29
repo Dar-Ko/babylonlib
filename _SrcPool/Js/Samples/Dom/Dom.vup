@@ -7,23 +7,23 @@
 CFG=Dom - Generic Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "Dom.mak".
-!MESSAGE 
+!MESSAGE
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE 
+!MESSAGE
 !MESSAGE NMAKE /f "Dom.mak" CFG="Dom - Generic Debug"
-!MESSAGE 
+!MESSAGE
 !MESSAGE Possible choices for configuration are:
-!MESSAGE 
+!MESSAGE
 !MESSAGE "Dom - Generic Release" (based on "Generic External Target")
 !MESSAGE "Dom - Generic Debug" (based on "Generic External Target")
-!MESSAGE 
+!MESSAGE
 
 # Begin Project
 # PROP VB_Project 5
-# PROP Scc_ProjName "<[Commonsoft1] Biblioteka|Biblioteka>Biblioteka\BabylonLib\_SrcPool\Js\Samples\Dom"
+# PROP Scc_ProjName
 # PROP Scc_LocalPath "."
 
 !IF  "$(CFG)" == "Dom - Generic Release"
@@ -64,7 +64,7 @@ CFG=Dom - Generic Debug
 # PROP Bsc_Name "Dom.bsc"
 # PROP Target_Dir ""
 
-!ENDIF 
+!ENDIF
 
 # Begin Target
 
@@ -75,7 +75,7 @@ CFG=Dom - Generic Debug
 
 !ELSEIF  "$(CFG)" == "Dom - Generic Debug"
 
-!ENDIF 
+!ENDIF
 
 # Begin Source File
 
@@ -104,6 +104,126 @@ SOURCE=.\Src\TestCommonDom.htm
 # Begin Source File
 
 SOURCE=.\Src\TestGetElementById.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestIndex.css
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestIndex.xml
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestIndex.xsd
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestIndex.xsl
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestList.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestOverflow.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTableAllSpan.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTableCellSpacing.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTableColSpan.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTableComplex.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTableJoin.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTableLong.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTableNested.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTableRowspan.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTableSimple.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTableValign.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTemplate.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTextAttributes.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestTextBasic.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\..\Cpp\Samples\HtmlIO\Res\TestWhitespace.htm
 # PROP BASE Deployment_Mode 1
 # PROP Deployment_Mode 1
 # End Source File

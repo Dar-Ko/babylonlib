@@ -7,23 +7,23 @@
 CFG=String - Generic Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "String.mak".
-!MESSAGE
+!MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "String.mak" CFG="String - Generic Debug"
-!MESSAGE
+!MESSAGE 
 !MESSAGE Possible choices for configuration are:
-!MESSAGE
+!MESSAGE 
 !MESSAGE "String - Generic Release" (based on "Generic External Target")
 !MESSAGE "String - Generic Debug" (based on "Generic External Target")
-!MESSAGE
+!MESSAGE 
 
 # Begin Project
 # PROP VB_Project 5
-# PROP Scc_ProjName
+# PROP Scc_ProjName ""
 # PROP Scc_LocalPath "."
 
 !IF  "$(CFG)" == "String - Generic Release"
@@ -64,7 +64,7 @@ CFG=String - Generic Debug
 # PROP Bsc_Name "String.bsc"
 # PROP Target_Dir ""
 
-!ENDIF
+!ENDIF 
 
 # Begin Target
 
@@ -75,7 +75,7 @@ CFG=String - Generic Debug
 
 !ELSEIF  "$(CFG)" == "String - Generic Debug"
 
-!ENDIF
+!ENDIF 
 
 # Begin Source File
 
@@ -98,6 +98,36 @@ SOURCE=.\String.html
 # Begin Source File
 
 SOURCE=.\String.txt
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestCommonString.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestFnMatch.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestFnMatch.js
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestHasHSpace.htm
+# PROP BASE Deployment_Mode 1
+# PROP Deployment_Mode 1
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestHasHSpace.js
 # PROP BASE Deployment_Mode 1
 # PROP Deployment_Mode 1
 # End Source File
