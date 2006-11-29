@@ -4,17 +4,17 @@
 <html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
 <!-- Group=Examples -->
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Language" content="en-ca">
-  <meta name="Workfile" content="$Workfile: TestFnMatch.htm$: documentation">
-  <meta name="Revision" content="$Revision: 2$ $Date: 2006-11-27 17:42:57$">
-  <meta name="Editor" content="$Author: Darko Kolakovic$">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile" content="$Workfile: TestFnMatch.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 3$ $Date: 2006-11-28 17:48:36$" />
+  <meta name="Editor" content="$Author: Darko Kolakovic$" />
   <meta name="Copyright"
     content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
   <meta name="author" content="Darko Kolakovi&#263;" />
-  <meta name="robots" content="index">
-  <meta name="keywords" content="JavaScript, test, String">
-  <meta name="description" content="Test of the String manipultion">
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="JavaScript, test, String" />
+  <meta name="description" content="Test of the String manipultion" />
   <link rel="stylesheet" type="text/css" media="all"
     href="../../../../Cpp/Documentation/Res/KDocument.css" />
   <link rel="icon" type="image/ico"
@@ -41,13 +41,15 @@
   <h2>Test FnMatch()</h2>
   <p class="codeJs">
     <a href="../../../KFnMatch.js" title="Script">
-      <img src="../../../../Cpp/Documentation/Res/S/icoJavaScript.gif" alt="JavaScript" border="0">
+      <img src="../../../../Cpp/Documentation/Res/S/icoJavaScript.gif" alt="JavaScript" border="0" />
       Source Code</a>
   </p>
 
-  <script language="JavaScript">
+  <script language="JavaScript" type="text/javascript">
     var bResult = false;
     bResult = TestFnMatch();
+    if (!bResult)
+      TsWriteToViewLn(LOG_FAILURE);
   </script>
   <noscript>
     <p style="color:red">JavaScript seems to be disabled!</p>
