@@ -193,270 +193,10 @@ SOURCE=.\Cpp\STL\KStrUppr.cpp
 SOURCE=.\Cpp\STL\KStrWtoChar.cpp
 # End Source File
 # End Group
-# Begin Group "Win"
-
-# PROP Default_Filter "cpp;c;rc;def;r;odl;idl"
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KAbout.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KAdoConnection.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KAdoField.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KAdoRecordset.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KApnSyMn.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KBtnEx.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KCheckBox.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KCoErrorShow.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KCoGetThreadModel.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KCoProviderErrors.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDateTime.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgAdoFieldType.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgAdoPropertyAttributes.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgAdoRecordsetSupport.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgBtnS.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgCoVariant.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgDaoFieldType.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgDaoQueryDefType.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgDlgErrorCode.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgFileExceptionError.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgFVSI.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgGUID.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgLDLL.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgMapM.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgOSVI.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgPrpS.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgRASS.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgREFIID.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgVerI.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgWsaError.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDlgItem.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDlgItLs.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDlgRsiz.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDlgTmIt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDlgTmpl.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDockBar.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KFileGetDirectory.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KFileTime.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KGetDomainName2k.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KGetPrSu.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KGetPrTy.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KGetShel.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KHypLink.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KRegCtrl.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KRegExt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KRegKey.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KShellDocumentFile.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KSingleInstanceApp.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KSpwnURL.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KStatusBarEx.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KStrAtoWChar.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KStrWtoChar.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KSysErrM.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KTaskIco.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KTimer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KTimerW.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KTipBox.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KVerInfo.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KWinFWIs.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KWinPlac.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KWinVerG.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KWinVers.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KXmlProcessorSax.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KXmlSaxErrorHandler.cpp
-# End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\Win\32\stdafx.cpp
+SOURCE=.\Cpp\KBitmap.h
 # End Source File
-# End Group
 # Begin Source File
 
 SOURCE=.\Cpp\KColorShade.cpp
@@ -488,6 +228,14 @@ SOURCE=.\Cpp\KDtoA.c
 # Begin Source File
 
 SOURCE=.\Cpp\KfFibonacci.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KFileNam.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KFileNam.h
 # End Source File
 # Begin Source File
 
@@ -531,6 +279,14 @@ SOURCE=.\Cpp\KGifImageDescriptor.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KGuid.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KGuid.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KIsLRC.cpp
 # End Source File
 # Begin Source File
@@ -551,11 +307,23 @@ SOURCE=.\Cpp\KMatFact.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KMatPerc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KOctave.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KRandomGauss.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\Cpp\KRandomUniform.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KRefCounter.h
 # End Source File
 # Begin Source File
 
@@ -611,10 +379,6 @@ SOURCE=.\Cpp\KStrFindNoCase.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KStrFit.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\Cpp\KStrGetF.cpp
 # End Source File
 # Begin Source File
@@ -632,6 +396,10 @@ SOURCE=.\Cpp\KStrGetW.cpp
 # Begin Source File
 
 SOURCE=.\Cpp\KStrGSu.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KStrGuid.cpp
 # End Source File
 # Begin Source File
 
@@ -757,170 +525,6 @@ SOURCE=.\Cpp\STL\KOStream.h
 SOURCE=.\Cpp\STL\KTString.h
 # End Source File
 # End Group
-# Begin Group "Win Header Files"
-
-# PROP Default_Filter "h;hpp;hm;inl"
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\ATL30Conv.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KAbout.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KAbtRes.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KAdoConnection.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KAdoField.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KAdoRecordset.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KBtnEx.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KCheckBox.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDateTime.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDbgDump.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDlgItem.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDlgItLs.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDlgRsiz.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDlgTmIt.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KDlgTmpl.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KFileTime.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KFileTimeCm.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KHypLink.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KRegCtrl.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KRegExt.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KRegKey.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KSingleInstanceApp.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KSound.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KStatusBarEx.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KTaskIco.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KTimer.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KTimerW.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KTipBox.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KVerInfo.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KWinPlac.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KWinVerG.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KWinVers.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KWinVers.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KXmlProcessorSax.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KXmlSaxErrorHandler.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KXmlSaxHandler.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KXmlTypedef.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\MFC40Hlp.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\SrcPoolR.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\stdafx.h
-# End Source File
-# End Group
 # Begin Group "Platform Header Files"
 
 # PROP Default_Filter "*.h;*.inl"
@@ -991,6 +595,10 @@ SOURCE=.\CPP\KGifImageDescriptor.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KMatGcd.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KMathCst.h
 # End Source File
 # Begin Source File
@@ -999,7 +607,15 @@ SOURCE=.\Cpp\KMathCst.inl
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KMatLcm.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KMatLog2.inl
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KOctave.h
 # End Source File
 # Begin Source File
 

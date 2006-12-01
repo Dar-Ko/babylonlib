@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\ATL30Conv.inl$: header file
+/*$Workfile: ATL30Conv.inl$: header file
   $Revision: 3$ $Date: 2005-04-26 11:28:05$
   $Author: Darko Kolakovic$
 

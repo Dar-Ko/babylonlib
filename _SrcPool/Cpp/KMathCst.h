@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KMathCst.h$: header file
-  $Revision: 17$ $Date: 2005-04-19 20:56:49$
+/*$Workfile: KMathCst.h$: header file
+  $Revision: 18$ $Date: 2005-06-14 16:59:50$
   $Author: Darko Kolakovic$
 
   Constants
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KMATHCST_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KMathCst.h$ sentry  */
+    /*$Workfile: KMathCst.h$ sentry  */
   #define _KMATHCST_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -150,6 +150,15 @@
   /*Converts arc degrees, minutes and seconds to radians                     */
   #define DegMinSec2Rad(Degrees,Minutes,Seconds) ( ((Degrees*60.0 + Minutes)*60.0 + Seconds)*CST_SEC2RAD )
 
+  /*Verifies if a number is an odd number.                                   */
+  #define IsOdd(n)         (((n)/2)*2 != (n))
+  /*Verifies if an integer is an odd number.                                 */
+  #define IsOddInt(n)      ((((int)n) & 1) == 1)
+  /*Verifies if a number is an even number.                                  */
+  #define IsEven(n)        (((n)/2)*2 == (n))
+  /*Verifies if an integer is an even number.                                */
+  #define IsEvenInt(n)     ((((int)n) & 1) == 0)
+
 #else /*__cplusplus                                                          */
   /////////////////////////////////////////////////////////////////////////////
   //Templates
@@ -164,7 +173,7 @@
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  17   Biblioteka1.16        2005-04-19 20:56:49  Darko Kolakovic Comments
  *  16   Biblioteka1.15        2005-04-19 19:29:14  Darko Kolakovic Comments
  *  15   Biblioteka1.14        2005-04-19 18:59:51  Darko Kolakovic comments
@@ -182,9 +191,9 @@
  *       comments
  *  5    Biblioteka1.4         2001-08-17 00:37:40  Darko           Update
  *  4    Biblioteka1.3         2001-07-20 00:58:23  Darko           VSS tags
- *  3    Biblioteka1.2         2001-07-11 22:51:56  Darko           
+ *  3    Biblioteka1.2         2001-07-11 22:51:56  Darko
  *  2    Biblioteka1.1         2001-06-08 23:51:05  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:56:48  Darko           
+ *  1    Biblioteka1.0         2000-08-13 15:56:48  Darko
  * $
  * 0 Apr. 94 D. Kolakovic
  *****************************************************************************/

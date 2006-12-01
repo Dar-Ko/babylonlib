@@ -1,5 +1,5 @@
 /*$Workfile: KAppExit.cpp$: implementation file
-  $Revision: 1$ $Date: 2004-11-12 14:55:24$
+  $Revision: 1$ $Date: 2004-11-12 13:55:24$
   $Author: Darko Kolakovic$
 
   Application's default processing on termination.
@@ -33,7 +33,7 @@ return 0;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2004-11-12 14:55:24  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-11-12 13:55:24  Darko Kolakovic 
  * $
  * 0 CodeWarrior 9 wizard-generated code is based on code adapted from the
  * stationery files distributed as part of the Palm OS SDK 4.0.

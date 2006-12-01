@@ -1,6 +1,6 @@
 /*$Workfile: KTime.h$: implementation file
-  $Revision: 17$ $Date: 2004-08-23 17:59:33$
-  $Author: Darko$
+  $Revision: 18$ $Date: 2005-06-28 12:38:09$
+  $Author: Darko Kolakovic$
 
   Date and time manipulation
   Copyright: CommonSoft Inc
@@ -253,9 +253,9 @@ enum eWeekday
         bLeap = true;
 
     See also: International Standard
-    {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
    */
   #define IS_LEAP_YEAR(year)  \
@@ -269,9 +269,9 @@ enum eWeekday
     DD is the day of the month [01,31].
 
     See also: _DATE_FORMAT_STD, International Standard
-    {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
   */
 #define _DATE_FORMAT_STD_BASIC  _T("%04d%02d%02d")
@@ -283,9 +283,9 @@ enum eWeekday
     DD is the day of the month [01,31].
 
     See also: _DATE_FORMAT_STD_BASIC, International Standard
-    {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
   */
 #define _DATE_FORMAT_STD  _T("%04d-%02d-%02d")
@@ -307,9 +307,9 @@ enum eWeekday
     The value 60 for ss is allowed for the occasional leap second.
 
     See also: _TIME_FORMAT_STD, International Standard
-    {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
    */
 #define _TIME_FORMAT_STD_BASIC _T("%02d%02d%02d")
@@ -324,9 +324,9 @@ enum eWeekday
     The value 60 for ss is allowed for the occasional leap second.
 
     See also: _TIME_FORMAT_STD_BASIC, International Standard
-    {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
    */
 #define _TIME_FORMAT_STD  _T("%02d:%02d:%02d")
@@ -343,7 +343,7 @@ enum eWeekday
   #define DATE_FORMAT  _DATE_FORMAT_STD
     /*Default time format  hh:mm:ss  */
   #define TIME_FORMAT  _TIME_FORMAT_STD
-    /*Default date format  YYYY-MM-DD (SAme as DATE_FORMAT)*/
+    /*Default date format  YYYY-MM-DD (Same as DATE_FORMAT)*/
   #define DATE_FORMAT_STR  _DATE_FORMAT_STD
     /*Default date keyword           */
   #define DATE_STR     _DATE_STR
@@ -493,9 +493,9 @@ return false;
   Return: true if a year is a leap year; otherwise returns false.
 
   See also: International Standard
-  {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+  {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
   Data elements and interchange formats,
-  {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+  {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
   Date and Time on the Internet: Timestamps, YEAR_GREGORIAN, YEAR_GREGORIAN4,
   IS_LEAP_YEAR , proleptic calendar
  */
@@ -526,12 +526,12 @@ return (nMonthId / 3 + 1);
 
 //-----------------------------------------------------------------------------
 #include <math.h>
-/*Converts DATE to real number after validation of negative values, since 
+/*Converts DATE to real number after validation of negative values, since
   negative dates are not continuous.
 
   Returns: DATE as real number
 
-  History: Microsoft COleDateTime::DoubleFromDate, ATLComTime.inl
+ History: Microsoft COleDateTime::DoubleFromDate, ATLComTime.inl
  */
 inline double DateToD(const DATE dateValue //[in] date to convert to double
                      )

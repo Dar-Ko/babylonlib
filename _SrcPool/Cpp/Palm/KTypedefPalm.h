@@ -1,5 +1,5 @@
 /*$Workfile: KTypedefPalm.h$: header file
-  $Revision: 4$ $Date: 2004-11-09 13:11:55$
+  $Revision: 4$ $Date: 2004-11-09 14:11:55$
   $Author: Darko Kolakovic$
 
   PalmOS type definitions

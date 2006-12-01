@@ -1,6 +1,6 @@
 /*$Workfile: KIsPrimeNo.cpp$: header file
-  $Revision: 4$ $Date: 2003-08-23 15:39:51$
-  $Author: Darko$
+  $Revision: 5$ $Date: 2005-05-30 08:50:36$
+  $Author: Darko Kolakovic$
 
   Simple mathematical functions
   Copyright: CommonSoft Inc.
@@ -20,9 +20,12 @@
 
 //IsPrimeNo()------------------------------------------------------------------
 /*Validates prime numbers.
-  A prime number nValue is a positive integer having exactly one positive 
-  divisor (itself) other than 1. The number 1 is a special case which is 
-  considered neither prime nor composite number.
+  A prime number nValue or prime for short, is a positive integer having itself
+  as only distinct positive divisor other than 1. All other nubers are called 
+  a composite numbers.
+  The number 1 is a special case which is considered neither prime nor 
+  composite number.
+  The property of being a prime is called primality.
 
   Returns: true if the given value is a prime number, 0 or 1, otherwise returns
   false.
@@ -106,11 +109,12 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 4    Biblioteka1.3         2003-08-23 15:39:51  Darko           typecast double
- * 3    Biblioteka1.2         2002-07-16 01:41:12  Darko           Fixed VSS Log 
+ * 5    Biblioteka1.4         2005-05-30 08:50:36  Darko Kolakovic Comment
+ * 4    Biblioteka1.3         2003-08-23 14:39:51  Darko           typecast double
+ * 3    Biblioteka1.2         2002-07-16 00:41:12  Darko           Fixed VSS Log 
  *      tag
- * 2    Biblioteka1.1         2002-03-11 19:29:47  Darko           Improved
+ * 2    Biblioteka1.1         2002-03-11 18:29:47  Darko           Improved
  *      algorithm
- * 1    Biblioteka1.0         2002-03-08 15:04:11  Darko Kolakovic 
+ * 1    Biblioteka1.0         2002-03-08 14:04:11  Darko Kolakovic 
  *$
  *****************************************************************************/

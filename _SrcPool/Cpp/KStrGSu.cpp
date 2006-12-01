@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrGSu.cpp$: implementation file
-  $Revision: 6$ $Date: 2005-04-26 16:39:24$
+/*$Workfile: KStrGSu.cpp$: implementation file
+  $Revision: 7$ $Date: 2005-06-21 11:11:46$
   $Author: Darko Kolakovic$
 
   String helpers and CString extension
@@ -29,20 +29,20 @@
   Delimiters specifies possible delimiters of the token to be found in
   strSource. If token is not found, strSource is returned.
   iSubstringIndex is the zero-based index of substring to be found.
-  
+
   Note: uses Microsoft Foundation Library (MFC).
 
   Example:
-    #include "KStrExt.h"
-    {
-    ...
-    CString strSource("\\Machine/SharedDir\Subdir/FileName.ext");
-    CString strFileName;
-    strFileName = GetSubstring(strSource,_T("/\\"),4);
-    ASSERT(strFileName = _T("FileName.ext"));
-    strFileName = GetSubstring(strSource,_T("/\\"),3);
-    ASSERT(strFileName = _T("Subdir/FileName.ext"));
-    }
+      #include "KStrExt.h"
+      {
+      ...
+      CString strSource("\\Machine/SharedDir\Subdir/FileName.ext");
+      CString strFileName;
+      strFileName = GetSubstring(strSource,_T("/\\"),4);
+      ASSERT(strFileName = _T("FileName.ext"));
+      strFileName = GetSubstring(strSource,_T("/\\"),3);
+      ASSERT(strFileName = _T("Subdir/FileName.ext"));
+      }
 
   TODO: replace MFC D.K.
 */
@@ -72,14 +72,14 @@ return strToken;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  6    Biblioteka1.5         2005-04-26 16:39:24  Darko Kolakovic fixed typo
  *  5    Biblioteka1.4         2004-06-01 17:53:14  Darko           time sync
  *  4    Biblioteka1.3         2003-09-04 11:21:19  Darko           Unicode
  *  3    Biblioteka1.2         2002-01-25 16:58:13  Darko           Updated
  *       comments
- *  2    Biblioteka1.1         2001-12-23 01:20:05  Darko           
- *  1    Biblioteka1.0         2001-08-18 16:04:12  Darko           
+ *  2    Biblioteka1.1         2001-12-23 01:20:05  Darko
+ *  1    Biblioteka1.0         2001-08-18 16:04:12  Darko
  * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
   ****************************************************************************/

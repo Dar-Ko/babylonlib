@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KBitMan.h$: header file
+/*$Workfile: KBitMan.h$: header file
   $Revision: 8$ $Date: 2005-05-12 17:34:53$
   $Author: Darko Kolakovic$
 
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KBITMAN_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KBitMan.h$ sentry */
+    /*$Workfile: KBitMan.h$ sentry */
   #define _KBITMAN_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files

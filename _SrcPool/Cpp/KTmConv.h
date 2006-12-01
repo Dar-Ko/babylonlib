@@ -1,6 +1,6 @@
 /*$Workfile: KTmConv.h$: implementation file
-  $Revision: 6$ $Date: 2004-10-01 15:48:13$
-  $Author: Darko$
+  $Revision: 8$ $Date: 2005-06-28 13:38:13$
+  $Author: Darko Kolakovic$
 
   struct tm conversions
   Copyright: CommonSoft Inc
@@ -100,8 +100,8 @@ inline CTm::CTm(tm& tmValue //[in] date and time to copy
 }
 
 //-----------------------------------------------------------------------------
-/*Converts a time value and corrects for the local time zone in conformance 
-  with the ANSI C standard. 
+/*Converts a time value and corrects for the local time zone in conformance
+  with the ANSI C standard.
   time_t represents number of seconds elapsed since 1970-01-01T00:00:00Z (UTC).
   Valid range is [1970-01-01 00:00:00, 2038-01-18 19:14:07].
  */
@@ -136,7 +136,7 @@ return *this;
 }
 
 //-----------------------------------------------------------------------------
-/*Converts the local time to a calendar value. time_t represents number of 
+/*Converts the local time to a calendar value. time_t represents number of
   seconds elapsed since 1970-01-01T00:00:00Z (UTC).
   Valid range is [1970-01-01 00:00:00, 2038-01-18 19:14:07] (UTC).
 
@@ -149,7 +149,7 @@ return mktime((tm *)this);
 }
 
 #ifdef _USE_TIME_64
-/*Converts the local time to a calendar value. __time64_t represents number of 
+/*Converts the local time to a calendar value. __time64_t represents number of
   seconds elapsed since 1970-01-01T00:00:00Z (UTC).
   Valid range is [1970-01-01 00:00:00, 3000-12-31 23:59:59] (UTC).
 
@@ -165,20 +165,20 @@ return _mktime64((tm *)this);
 //-----------------------------------------------------------------------------
 /*Convert date and time to coordinated universal time (UTC).
 
-  Returns: The time is represented as seconds elapsed since 1970-01-01 00:00:00, 
-  coordinated universal time (UTC). 
+  Returns: The time is represented as seconds elapsed since 1970-01-01 00:00:00,
+  coordinated universal time (UTC).
 
   See also: Unix time, Greenwich Mean Time (GMT), Coordinated Universal Time (UTC)
  */
 time_t CTm::GmTime() const
 {
 const int_least32_t SpDAY = 60*60*24;     //[s/day]
-const int_least32_t DAY19700101 = 719469; //number of days on 1970-01-01 
+const int_least32_t DAY19700101 = 719469; //number of days on 1970-01-01
                                           //according to Julian Day counting [day]
 const int ID_FEBRUARY = 1;
 const int EPOCH_TM = YEAR_EPOCH_TM;
-//Note: The Julian Day (JD) or Julian Day Number or Astronomical Julian Day (AJD) 
-//is the time that has elapsed since 4713-01-01 12:00 BC (according to 
+//Note: The Julian Day (JD) or Julian Day Number or Astronomical Julian Day (AJD)
+//is the time that has elapsed since 4713-01-01 12:00 BC (according to
 //the proleptic Julian calendar; or 4714-11-24 BC according to the proleptic
 //Gregorian calendar), expressed in days and fractions of a day.
 int iYear = tm_year + EPOCH_TM; //tm_year = years since 1900
@@ -195,7 +195,7 @@ else
   //Get number of days since 1970-01-01, including leap days
 iYear = 365 * iYear + iYear / 4 - iYear / 100 + iYear / 400 - DAY19700101; //[day]
   //Get number of seconds in whole days since 1970-01-01 00:00:00
-time_t timeResult = 
+time_t timeResult =
         SpDAY * (tm_mday + (153 * iMonth - 457) / 5 + iYear);//[s]
   //Add remaining part of the day
 timeResult += 3600 * tm_hour + 60 * tm_min + tm_sec;
@@ -206,7 +206,7 @@ return timeResult;
 extern "C" int g_iMonthLen[];
 /*Validates date and time range.
 
-  Note: the day of the month is valid if it is in [1, 31] range. Leap years or 
+  Note: the day of the month is valid if it is in [1, 31] range. Leap years or
   number of days for the particular month are not accounted into validation.
 
   Returns: true if date and time are in valid range, othervise returns false.
@@ -253,7 +253,7 @@ printDate(szTarget, tm_mday, tm_mon+1, tm_year +1900);
 ///////////////////////////////////////////////////////////////////////////////
 // Inline functions
 
-#ifdef _STL //Use Standard Template Library (STL)
+#if defined(_STL) || defined (_USE_STL) //Use Standard Template Library (STL)
 #pragma message ("  Standard Template Library (STL) used " __FILE__ )
 
 #include "STL/KOstream.h" //tostream typedef
@@ -262,9 +262,9 @@ printDate(szTarget, tm_mday, tm_mon+1, tm_year +1900);
     output stream.
 
     See also: _TIME_FORMAT_STD, International Standard
-    {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
   */
   inline tostream& operator<< (tostream& outStream,//[out] output stream
@@ -287,7 +287,7 @@ printDate(szTarget, tm_mday, tm_mon+1, tm_year +1900);
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KTMCONV_H_
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  6    Biblioteka1.5         2004-10-01 15:48:13  Darko           excluded
  *       __time64_t for MSVC6
  *  5    Biblioteka1.4         2003-09-30 09:13:52  Darko           YEAR_EPOCH_TM
@@ -295,6 +295,6 @@ printDate(szTarget, tm_mday, tm_mon+1, tm_year +1900);
  *  3    Biblioteka1.2         2003-09-27 12:17:00  Darko           Constructor
  *       does not set local time
  *  2    Biblioteka1.1         2003-09-23 17:12:00  Darko           _DATE_EPOCH_TM
- *  1    Biblioteka1.0         2003-09-22 22:21:20  Darko           
+ *  1    Biblioteka1.0         2003-09-22 22:21:20  Darko
  * $
  *****************************************************************************/

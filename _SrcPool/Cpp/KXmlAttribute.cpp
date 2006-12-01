@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KXmlAttribute.cpp$: implementation file
+/*$Workfile: KXmlAttribute.cpp$: implementation file
   $Revision: 7$ $Date: 2005-04-27 12:56:03$
   $Author: Darko Kolakovic$
 

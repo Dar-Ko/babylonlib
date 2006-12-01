@@ -1,5 +1,5 @@
 //$Workfile: KFnMatch.js$: script file
-//$Revision: 2$ $Date: 2006-11-27 17:42:01$
+//$Revision: 3$ $Date: 2006-12-01 13:55:19$
 //$Author: Darko Kolakovic$
 //
 //Filename pattern matching.
@@ -13,7 +13,7 @@
      Wildcard    Description
        *        matches everything
        ?        matches any single character
-    [list]     matches any character in list
+     [list]     matches any character in list
      [!list]    matches any character not in list
 
   Returns: true or false as result of the pattern match.

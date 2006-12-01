@@ -1,6 +1,6 @@
 /*$Workfile: KDateTime.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-08 12:35:47$
-  $Author: Darko$
+  $Revision: 8$ $Date: 2005-06-28 13:39:01$
+  $Author: Darko Kolakovic$
 
   Defines the class behavior.
   Copyright: CommonSoft Inc.
@@ -71,7 +71,7 @@ const int CDateTime::DATE_ERROR = INT_MAX;//CDateTime::DATE_MAX;
 //-----------------------------------------------------------------------------
 /*converts date and time to a system time.
 
-        typedef struct _SYSTEMTIME 
+        typedef struct _SYSTEMTIME
           {
           WORD wYear;     //year (1601, 30827] WinXP
           WORD wMonth;    //month [1, 12] January = 1
@@ -92,7 +92,7 @@ return stResult;
 }
 
 //-----------------------------------------------------------------------------
-/*Converts date and time to a calendar value. time_t represents number of 
+/*Converts date and time to a calendar value. time_t represents number of
   seconds elapsed since 1970-01-01T00:00:00Z (UTC).
 
   Valid range is [1970-01-01T00:00:00Z, 2038-01-18T19:14:07Z] (UTC).
@@ -110,9 +110,9 @@ if(::VariantTimeToSystemTime((real64)m_dateValue, &stTemp) != 0)
   tmResult.tm_min   = stTemp.wMinute;     //minutes after the hour   [0, 59]
   tmResult.tm_hour  = stTemp.wHour;       //hours after 00:00:00     [0, 23]
   tmResult.tm_mday  = stTemp.wDay;        //day of the month         [1, 31]
-  tmResult.tm_mon   = stTemp.wMonth - 1;  //month of the year        [0, 11] 
-  tmResult.tm_year  = stTemp.wYear - YEAR_EPOCH_TM;//years since 1900 
-  tmResult.tm_wday  = stTemp.wDayOfWeek;  //day of the week          [0,  6] 
+  tmResult.tm_mon   = stTemp.wMonth - 1;  //month of the year        [0, 11]
+  tmResult.tm_year  = stTemp.wYear - YEAR_EPOCH_TM;//years since 1900
+  tmResult.tm_wday  = stTemp.wDayOfWeek;  //day of the week          [0,  6]
                                           //Sunday = 0
   tmResult.tm_isdst = -1; //Daylight saving time is unknown
   return mktime(&tmResult); //Convert the incomplete time to a normalized
@@ -122,7 +122,7 @@ return -1;
 }
 
 #ifdef _USE_TIME_64
-/*Converts date and time to a calendar value.__time64_t represents number of 
+/*Converts date and time to a calendar value.__time64_t represents number of
   seconds elapsed since 1970-01-01T00:00:00Z (UTC).
 
   Valid range is [1970-01-01T00:00:00Z, 3000-12-31T23:59:59Z] (UTC).
@@ -140,9 +140,9 @@ if(::VariantTimeToSystemTime((real64)m_dateValue, &stTemp) != 0)
   tmResult.tm_min   = stTemp.wMinute;     //minutes after the hour   [0, 59]
   tmResult.tm_hour  = stTemp.wHour;       //hours after 00:00:00     [0, 23]
   tmResult.tm_mday  = stTemp.wDay;        //day of the month         [1, 31]
-  tmResult.tm_mon   = stTemp.wMonth - 1;  //month of the year        [0, 11] 
-  tmResult.tm_year  = stTemp.wYear - YEAR_EPOCH_TM;//years since 1900 
-  tmResult.tm_wday  = stTemp.wDayOfWeek;  //day of the week          [0,  6] 
+  tmResult.tm_mon   = stTemp.wMonth - 1;  //month of the year        [0, 11]
+  tmResult.tm_year  = stTemp.wYear - YEAR_EPOCH_TM;//years since 1900
+  tmResult.tm_wday  = stTemp.wDayOfWeek;  //day of the week          [0,  6]
                                           //Sunday = 0
   tmResult.tm_isdst = -1; //Daylight saving time is unknown
   return _mktime64(&tmResult); //Convert the incomplete time to a normalized
@@ -181,9 +181,9 @@ if(::VariantTimeToSystemTime((real64)m_dateValue, &stTemp) != 0)
   tmResult.tm_min   = stTemp.wMinute;     //minutes after the hour   [0, 59]
   tmResult.tm_hour  = stTemp.wHour;       //hours after 00:00:00     [0, 23]
   tmResult.tm_mday  = stTemp.wDay;        //day of the month         [1, 31]
-  tmResult.tm_mon   = stTemp.wMonth - 1;  //month of the year        [0, 11] 
-  tmResult.tm_year  = stTemp.wYear - YEAR_EPOCH_TM;//years since 1900 
-  tmResult.tm_wday  = stTemp.wDayOfWeek;  //day of the week          [0,  6] 
+  tmResult.tm_mon   = stTemp.wMonth - 1;  //month of the year        [0, 11]
+  tmResult.tm_year  = stTemp.wYear - YEAR_EPOCH_TM;//years since 1900
+  tmResult.tm_wday  = stTemp.wDayOfWeek;  //day of the week          [0,  6]
                                           //Sunday = 0
   tmResult.tm_isdst = -1; //Daylight saving time is unknown
   #ifdef _USE_TIME_64
@@ -202,7 +202,7 @@ return tmResult;
 
 //-----------------------------------------------------------------------------
 /*Converts date to VARIANT VT_DATE data type used in OLE automation.
-  VARIANT dates are represented as 64-bit real numbers where 
+  VARIANT dates are represented as 64-bit real numbers where
   1900-01-01T00:00:00 is 2.0.
 
   Note: 1899-12-30T00:00:00 is DATE with valie 0.0
@@ -239,7 +239,7 @@ return *this;
 CDateTime& CDateTime::operator=(const SYSTEMTIME& stValue //[in] date to assign
                                 )
 {
-if(!::SystemTimeToVariantTime(const_cast<LPSYSTEMTIME>(&stValue), 
+if(!::SystemTimeToVariantTime(const_cast<LPSYSTEMTIME>(&stValue),
                               (real64*)&m_dateValue))
   ASSERT(FALSE);
 return *this;
@@ -284,7 +284,7 @@ if( varValue.vt == VT_DATE ) //Assign the value
 else //Convert the value
   {
   VARIANT varTemp;
-  if( SUCCEEDED(VariantChangeType(&varTemp, 
+  if( SUCCEEDED(VariantChangeType(&varTemp,
                 const_cast<VARIANT*>(&varValue), 0, VT_DATE)) )
     {
       m_dateValue = varTemp.date;
@@ -310,11 +310,11 @@ return *this;
   valid range
  */
 bool CDateTime::SetDate(int iYear,  //[in] nYear  [100, 9999]
-                        int iMonth, //[in] nMonth [1, 12] 
-                        int iDay,   //[in] nDay   [1, 31] 
-                        int iHour,  //[in]= 0 nHour  [0, 23] 
-                        int iMinute,//[in]= 0 nMin   [0, 59] 
-                        int iSecond //[in]= 0 nSec   [0, 59] 
+                        int iMonth, //[in] nMonth [1, 12]
+                        int iDay,   //[in] nDay   [1, 31]
+                        int iHour,  //[in]= 0 nHour  [0, 23]
+                        int iMinute,//[in]= 0 nMin   [0, 59]
+                        int iSecond //[in]= 0 nSec   [0, 59]
                         )
 {
 SYSTEMTIME stTemp;
@@ -326,7 +326,7 @@ stTemp.wMinute = (WORD)iMinute; //current minute
 stTemp.wSecond = (WORD)iSecond; //current second
 stTemp.wMilliseconds = 0;  //current millisecond
 
-  //Note: variant time is stored as an 8-byte real value (double), representing 
+  //Note: variant time is stored as an 8-byte real value (double), representing
   //a date between 0100-01-01 and 9999-12-31, inclusive, Negative numbers
   //represent dates prior to 1899-12-30.
 
@@ -354,7 +354,7 @@ return (::SystemTimeToVariantTime(&stTemp, (real64*)&m_dateValue) != 0);
   #endif
 /*Parses a string to read a date and time value.
 
-  The szDate parameter can take a variety of formats. For example, the following 
+  The szDate parameter can take a variety of formats. For example, the following
   strings contain acceptable date/time formats:
 
       "25 January 1996"
@@ -376,7 +376,7 @@ bool CDateTime::SetDate(LPCTSTR szDate, //[in] zero-terminated date and time
                         DWORD dwFlags //[in]= LOCALE_NOUSEROVERRIDE  one or more
                         //of the following flags:
                         //
-                        //    Flag                    Description 
+                        //    Flag                    Description
                         //    LOCALE_NOUSEROVERRIDE   system default locale settings,
                         //    VAR_CALENDAR_HJRI       Hijri calendar is used,
                         //    VAR_DATEVALUEONLY       parses only the date,
@@ -393,9 +393,9 @@ LPCTSTR pszDate = ( szDate == NULL ) ? _T("") : szDate;
 
 #else  //ATL 3.0
   USES_CONVERSION;
-  if( SUCCEEDED(VarDateFromStr(T2OLE(const_cast<LPTSTR>(pszDate)), 
-                              lcid, 
-                              dwFlags, 
+  if( SUCCEEDED(VarDateFromStr(T2OLE(const_cast<LPTSTR>(pszDate)),
+                              lcid,
+                              dwFlags,
                               &m_dateValue)) )
     return true;
 #endif
@@ -404,7 +404,7 @@ return false;
 //#endif //_USE_ATL
 
 //-----------------------------------------------------------------------------
-/*Assigns date from the string to this object. The date could be in ISO 8601 
+/*Assigns date from the string to this object. The date could be in ISO 8601
   basic, extended, or similar format:
 
       YYYYMMDD or YYYYcMMcDD
@@ -421,11 +421,11 @@ return false;
 
       +YY/MMDD
 
-  The method also accepts invalid dates and tries to fix them. For example, an 
+  The method also accepts invalid dates and tries to fix them. For example, an
   invalid date such as 2001-02-29 will resolve to 2001-03-01. Only days are
   fixed, so invalid month values result in an error being returned. Days are
   checked to be between 1 and 31. Negative days and days greater than 31
-  results in an error. 
+  results in an error.
   A day less than 31 but greater than the maximum day in that month has the day
   promoted to the appropriate day of the next month. A day equal to zero
   resolves as the last day of the previous month. For example, an invalid dates
@@ -435,9 +435,9 @@ return false;
   Two digit years represent number of years since 1900.
 
   See also: _DATE_FORMAT_STD_BASIC, CDate, International Standard
-  {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+  {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
   Data elements and interchange formats,
-  {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+  {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
   Date and Time on the Internet: Timestamps
  */
 bool CDateTime::SetDate(LPCTSTR strValue //[in] string with date to set
@@ -477,7 +477,7 @@ if (nDigitCount == 0) //Not a single digit found
 stTemp.wHour   = 0; //TODO: parse time as well
 stTemp.wMinute = 0;
 stTemp.wSecond = 0;
-stTemp.wMilliseconds = 0; 
+stTemp.wMilliseconds = 0;
 stTemp.wDayOfWeek = (WORD)(-1);
 return (::SystemTimeToVariantTime(&stTemp, (real64*)&m_dateValue) != 0);
 }
@@ -531,7 +531,7 @@ return dbtsResult;
  */
 CComDATE& CComDATE::operator=(const DBTIMESTAMP& dbtsValue //[in] value to assign
                               )
-{ 
+{
 SYSTEMTIME stTemp;
 stTemp.wYear   = dbtsValue.year;   //current year
 stTemp.wMonth  = dbtsValue.month;  //current month; January is 1
@@ -542,7 +542,7 @@ stTemp.wSecond = dbtsValue.second; //current second
 stTemp.wMilliseconds = 0;  //current millisecond
 //TODO: Convert dbtsValue.fraction D.K.
 
-  //Note: variant time is stored as an 8-byte real value (double), representing 
+  //Note: variant time is stored as an 8-byte real value (double), representing
   //a date between 0100-01-01 and 9999-12-31, inclusive, Negative numbers
   //represent dates prior to 1899-12-30.
 
@@ -564,14 +564,14 @@ return *this;
 #endif  // __oledb_h__
 
 //-----------------------------------------------------------------------------
-/*Converts date and time to a file time. The FILETIME structure is a 
-  64-bit value representing the number of 100-nanosecond intervals since 
+/*Converts date and time to a file time. The FILETIME structure is a
+  64-bit value representing the number of 100-nanosecond intervals since
   1601-01-01T00:00:00Z (UTC).
 
-      typedef struct _FILETIME 
+      typedef struct _FILETIME
         {
         DWORD dwLowDateTime; //low-order part of the file time.
-        DWORD dwHighDateTime;//high-order part of the file time. 
+        DWORD dwHighDateTime;//high-order part of the file time.
 
         } FILETIME, *PFILETIME;
  */
@@ -599,7 +599,7 @@ SYSTEMTIME stCurrentTime;
 ///////////////////////////////////////////////////////////////////////////////
 #pragma warning (default: 4127)
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  7    Biblioteka1.6         2004-10-08 12:35:47  Darko           fixed MSVC
  *       UNICODE and header aliases
  *  6    Biblioteka1.5         2004-10-06 23:14:24  Darko           Unicode
@@ -609,6 +609,6 @@ SYSTEMTIME stCurrentTime;
  *       support in MSVC6
  *  3    Biblioteka1.2         2003-09-30 09:06:20  Darko           DATE_ERROR
  *  2    Biblioteka1.1         2003-09-28 01:40:55  Darko           SetDate()
- *  1    Biblioteka1.0         2003-09-27 11:53:07  Darko           
+ *  1    Biblioteka1.0         2003-09-27 11:53:07  Darko
  * $
  *****************************************************************************/

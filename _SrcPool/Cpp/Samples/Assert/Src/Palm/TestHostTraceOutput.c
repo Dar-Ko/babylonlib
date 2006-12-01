@@ -1,5 +1,5 @@
 /*$Workfile: TestHostTraceOutput.c$: implementation file
-  $Revision: 1$ $Date: 2004-11-02 15:31:43$
+  $Revision: 1$ $Date: 2004-11-02 14:31:43$
   $Author: Darko Kolakovic$
 
   Entry point for the application.
@@ -106,7 +106,7 @@ return bResult;
 /* ////////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2004-11-02 15:31:43  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-11-02 14:31:43  Darko Kolakovic 
  * $
  *
  * Copyright (c) 2001, Falch.net AS

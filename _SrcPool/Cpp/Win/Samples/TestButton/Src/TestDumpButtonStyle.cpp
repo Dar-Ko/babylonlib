@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\Samples\TestButton\Src\TestDumpButtonStyle.cpp$: implementation file
+/*$Workfile: TestDumpButtonStyle.cpp$: implementation file
   $Revision: 5$ $Date: 2005-04-26 12:00:57$
   $Author: Darko Kolakovic$
 

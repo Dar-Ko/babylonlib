@@ -1,5 +1,5 @@
 /*$Workfile: KXmlBinding.h$: header file
-  $Revision: 8$ $Date: 2005-05-14 00:40:28$
+  $Revision: 8$ $Date: 2005-05-13 23:40:28$
   $Author: Darko$
 
   XML Data Binding

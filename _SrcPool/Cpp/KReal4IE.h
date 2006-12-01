@@ -1,6 +1,6 @@
 /*$Workfile: KReal4IE.h$: header file
-  $Revision: 8$ $Date: 2004-06-01 17:52:48$
-  $Author: Darko$
+  $Revision: 10$ $Date: 2005-06-21 16:49:40$
+  $Author: Darko Kolakovic$
 
   Decompose 32-bit float number (IEEE 754)
   Copyright: CommonSoft Inc
@@ -28,24 +28,24 @@ const int REAL4_IE_ExpMAX = 254;
 const int REAL4_IE_SIGNMASK = 0x80000000L;
 
 ///////////////////////////////////////////////////////////////////////////////
-/*CFloatIEEE class contains decomposed 32-bit floating point number given as
-  described with IEEE Standard 754. According to this specification, floating 
-  point numbers are represented in the following form, where exponent is the 
-  binary exponent: 
-
-      f = (-1**sign) * 1.Fraction * 2**(iExponent - bias)
-
-  The mantissa is stored as a binary fraction of the form 1.mmmm... . This fraction
-  has a value greater than or equal to 1 and less than 2. Real numbers are always 
-  stored in normalized form, that is, the mantissa is left-shifted such that the 
-  high-order bit of the mantissa is always 1. 
+/*{html: CFloatIEEE class contains decomposed 32-bit floating point number given as
+  described with IEEE Standard 754. According to this specification, floating
+  point numbers are represented in the following form, where exponent is the
+  binary exponent:
+      <pre><br />
+      f = (-1<sup>sign</sup>) * 1.Fraction * 2<sup>(iExponent - bias)</sup>
+      </pre>
+  The mantissa is stored as a binary fraction of the form <code>1.mmmm...</code> .
+  This fraction has a value greater than or equal to 1 and less than 2.       }
+  Real numbers are always stored in normalized form, that is, the mantissa is
+  left-shifted such that the high-order bit of the mantissa is always 1.
   For single precision floating point values are reserved 32 bits:
-    {html:<BR><IMG SRC="Res/Real4IEEE.gif" BORDER="0">}
+    {html:<br \><img src="Images/graphReal4IEEE.gif" border="0">}
 
       High-order bit of the mantissa is always 1 and is not stored.
       sign bit representation:  0 is positive  and  1 is negative
-      Exponent: Values are biased for 127. Values in range [1, 126] represents 
-      negative exponents for base 2 and values in range [127, 255] are positive 
+      Exponent: Values are biased for 127. Values in range [1, 126] represents
+      negative exponents for base 2 and values in range [127, 255] are positive
       exponents.
 
 
@@ -53,8 +53,8 @@ const int REAL4_IE_SIGNMASK = 0x80000000L;
      4 byte    8.43x10E-37 to 3.37x10E38          6-7
 
   See Also:
-   {html: <A HREF="http://www.research.microsoft.com/~hollasch/cgindex/coding/ieeefloat.html">
-    IEEE Standard 754 </A>}
+   {html: <a href="http://stevehollasch.com/cgindex/coding/ieeefloat.html">
+    IEEE Standard 754 </a>}
  */
 class CFloatIEEE
 {
@@ -89,10 +89,10 @@ iSign(0), iExponent(0), lMantissa(0)
 /*Extract components form real number stored in IEEE 754 format.
   This is format of the number:
 
-                  BYTE 3    BYTE 2    BYTE 1    BYTE 0 
+                  BYTE 3    BYTE 2    BYTE 1    BYTE 0
       real*4    SEEE EEEE XMMM MMMM MMMM MMMM MMMM MMMM
-      where S represents the sign bit, 
-            E are the exponent bits, and 
+      where S represents the sign bit,
+            E are the exponent bits, and
             M are the mantissa bits.
 
   This constructor extracts sign and values of the mantissa and exponent.
@@ -165,54 +165,54 @@ return (double)urcResult;
                               Implied Bit (always 1)
 
 
-  IEEE 754 specification 
+  IEEE 754 specification
   Floating-point numbers are represented in the following form, where exponent
-  is the binary exponent: 
-  X = Fraction * 2^(exponent - bias) 
+  is the binary exponent:
+  X = Fraction * 2^(exponent - bias)
   Fraction is the normalized fractional part of the number, normalized because
   the exponent is adjusted so that the leading bit is always a 1. This way,
   it does not have to be stored, and you get one more bit of precision. This
   is why there is an implied bit. This is similar to scientific notation, where you
   manipulate the exponent to have one digit to the left of the decimal point; except
   in binary, you can always manipulate the exponent so that the first bit is a 1,
-  because there are only 1s and 0s. 
+  because there are only 1s and 0s.
 
-  Bias is the bias value used to avoid having to store negative exponents. 
+  Bias is the bias value used to avoid having to store negative exponents.
   The bias for single-precision numbers is 127 and 1,023 (decimal) for
-  double-precision numbers. Excel stores numbers using double-precision. 
+  double-precision numbers. Excel stores numbers using double-precision.
 
 
-  The exponents are biased as follows: 
+  The exponents are biased as follows:
 
     8-bit  (real*4)  exponents are biased by 127
     11-bit (real*8)  exponents are biased by 1023
-    15-bit (real*10) exponents are biased by 16383 
+    15-bit (real*10) exponents are biased by 16383
   These exponents are not powers of ten; they are powers of two, that is, 8-bit
   stored exponents can be up to 127. 2**127 is roughly equivalent to 10**38,
-  which is the actual limit of real*4. 
+  which is the actual limit of real*4.
 
-  The mantissa is stored as a binary fraction of the form 1.XXX... . 
-  This fraction has a value greater than or equal to 1 and less than 2. 
-  Note that real numbers are always stored in normalized form, that is, 
+  The mantissa is stored as a binary fraction of the form 1.XXX... .
+  This fraction has a value greater than or equal to 1 and less than 2.
+  Note that real numbers are always stored in normalized form, that is,
   the mantissa is left-shifted such that the high-order bit of the mantissa is always 1.
   Because this bit is always 1, it is assumed (not stored) in the real*4 and real*8
   formats. The binary (not decimal) point is assumed to be just to the right of the
-  leading 1. 
+  leading 1.
 
-  The format, then, for the various sizes is as follows: 
+  The format, then, for the various sizes is as follows:
 
                 BYTE 1    BYTE 2    BYTE 3    BYTE 4   ...  BYTE n
     real*4    SXXX XXXX XMMM MMMM MMMM MMMM MMMM MMMM
     real*8    SXXX XXXX XXXX MMMM MMMM MMMM MMMM MMMM ... MMMM MMMM
-    real*10   SXXX XXXX XXXX XXXX 1MMM MMMM MMMM MMMM ... MMMM MMMM 
+    real*10   SXXX XXXX XXXX XXXX 1MMM MMMM MMMM MMMM ... MMMM MMMM
   S represents the sign bit, the X's are the exponent bits, and the M's are the
-  mantissa bits. 
-  Note that the leftmost bit is assumed in real*4 and real*8 formats, 
-  but present as "1" in BYTE 3 of the real*10 format. 
+  mantissa bits.
+  Note that the leftmost bit is assumed in real*4 and real*8 formats,
+  but present as "1" in BYTE 3 of the real*10 format.
 
   To shift the binary point properly, you first un-bias the exponent
-  and then move the binary point 
-  to the right or left the appropriate number of bits. 
+  and then move the binary point
+  to the right or left the appropriate number of bits.
 
 
   :float formats:floating point:real numbers
@@ -311,16 +311,16 @@ return (double)urcResult;
     10 byte real   3.4x10E-4932 to 1.2x10E4932       19
 */
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  8    Biblioteka1.7         2004-06-01 17:52:48  Darko           time sync
  *  7    Biblioteka1.6         2003-09-30 10:44:35  Darko           formatting
- *  6    Biblioteka1.5         2003-01-30 22:42:12  Darko           
+ *  6    Biblioteka1.5         2003-01-30 22:42:12  Darko
  *  5    Biblioteka1.4         2002-04-04 01:13:11  Darko           Documenation
  *       update
  *  4    Biblioteka1.3         2002-01-24 19:19:10  Darko           Updated
  *       comments
- *  3    Biblioteka1.2         2001-07-11 22:52:26  Darko           
+ *  3    Biblioteka1.2         2001-07-11 22:52:26  Darko
  *  2    Biblioteka1.1         2001-06-08 23:51:32  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:57:15  Darko           
+ *  1    Biblioteka1.0         2000-08-13 15:57:15  Darko
  * $
  *****************************************************************************/

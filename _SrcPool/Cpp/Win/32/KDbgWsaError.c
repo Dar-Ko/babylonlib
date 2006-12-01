@@ -1,5 +1,5 @@
 /*$Workfile: KDbgWsaError.c$: implementation file
-  $Revision: 1$ $Date: 2004-10-01 22:17:55$
+  $Revision: 1$ $Date: 2004-10-01 21:17:55$
   $Author: Darko$
 
   Dumps Windows Sockets (WSA) errors
@@ -167,7 +167,7 @@ switch(iWsaError = WSAGetLastError())
 }
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2004-10-01 22:17:55  Darko           
+ *  1    Biblioteka1.0         2004-10-01 21:17:55  Darko           
  * $
  * Revision 1.1  2004/08/01 14:59:19  dkolakovic
  * added DumpWsaError()

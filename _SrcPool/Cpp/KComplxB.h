@@ -1,11 +1,11 @@
 /*$Workfile: KComplxB.h$: header file
-  $Revision: 9$ $Date: 2003-09-22 22:25:37$
-  $Author: Darko$
+  $Revision: 11$ $Date: 2005-06-21 17:50:57$
+  $Author: Darko Kolakovic$
 
   Base class for complex numbers
   Copyright: CommonSoft Inc.
   May 94 Darko Kolakovic
- */ 
+ */
 // Group=Mathematics
 
 #ifndef _KCOMPLXB_H_
@@ -16,7 +16,7 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#include <Math.h>
+#include <math.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 //Base class for complex numbers
@@ -61,8 +61,8 @@ public:
   friend TYPE  arg(const TComplexBase<TYPE>& complexNo);                    // angle of vector
   friend TYPE norm(const TComplexBase<TYPE>& complexNo);
   friend TComplexBase<TYPE> conj (const TComplexBase<TYPE>& complexNo);
-  friend TComplexBase<TYPE> polar(const TYPE& Rho,const TYPE Angle);   
-  friend TComplexBase<TYPE> polar(const TYPE& Rho);   
+  friend TComplexBase<TYPE> polar(const TYPE& Rho,const TYPE Angle);
+  friend TComplexBase<TYPE> polar(const TYPE& Rho);
   friend TComplexBase<TYPE> cos  (const TComplexBase<TYPE>& complexNo);     // cosine
   friend TComplexBase<TYPE> cosh (const TComplexBase<TYPE>& complexNo);     // hyperbolic cosine
   friend TComplexBase<TYPE> exp  (const TComplexBase<TYPE>& complexNo);     // e raised to a power
@@ -103,8 +103,8 @@ public:
 /*Default constructor initializes complex number to 0 |Z| = 0 +j0
  */
 template<class TYPE>
-inline TComplexBase<TYPE>::TComplexBase(const TYPE& dR,//= 0 real part of the complex number       
-                                        const TYPE& dI //= 0 imaginary part of the complex number  
+inline TComplexBase<TYPE>::TComplexBase(const TYPE& dR,//= 0 real part of the complex number
+                                        const TYPE& dI //= 0 imaginary part of the complex number
                                         ) :
    _ccR(dR),_ccI(dI)
 {
@@ -121,7 +121,7 @@ inline TComplexBase<TYPE>::TComplexBase(const TComplexBase<TYPE>& complexNo) :
 //::real()------------------------------------------------------------------------
 /*Returns real part of the complex number.
 
-   |Z| = R +jI   R(Z) = R
+      |Z| = R +jI   R(Z) = R
  */
 template<class TYPE>
 inline TYPE TComplexBase<TYPE>::real() const
@@ -140,7 +140,7 @@ return (_ccR = Re);
 //::imag()------------------------------------------------------------------------
 /*Returns imaginary part of the complex number.
 
-   |Z| = R +jI   I(Z) = I
+      |Z| = R +jI   I(Z) = I
  */
 template<class TYPE>
 inline TYPE TComplexBase<TYPE>::imag() const
@@ -160,19 +160,22 @@ return (_ccI = Im);
 #include "KMathCst.inl" //Absolute()
 /*Returns a radius of complex number in the polar form.
   Radius is equal to the magnitide of the phasor represented by complex number.
-  Phasor is a rotating vector vector representing a periodical quantity. 
+  Phasor is a rotating vector vector representing a periodical quantity.
 
-             Z = x + jy
+  {html:<br /><img src="Images/eqComplexNo.gif" border="0"
+               alt="Z= x +i*y">
+        <br />
+  }
              Rho(Z) = |Z| = sqrt(x**2+y**2)
 
   Example:
-    int main()
-      {
-      CComplex z1(3, 4);
-      cout << '(' << z1.real() << ',' << z1.imag() << ')' << endl;
-      cout << '(' << z1.Rho() << ')' << endl;
-      return 0;
-      }
+      int main()
+        {
+        CComplex z1(3, 4);
+        cout << '(' << z1.real() << ',' << z1.imag() << ')' << endl;
+        cout << '(' << z1.Rho() << ')' << endl;
+        return 0;
+        }
  */
 template<class TYPE>
 inline TYPE TComplexBase<TYPE>::Rho() const
@@ -291,7 +294,7 @@ return (*this);
 }
 
 //::operator+()----------------------------------------------------------------
-/*+ sign operator returns copy of the complex number 
+/*+ sign operator returns copy of the complex number
  */
 template<class TYPE>
 inline TComplexBase<TYPE> TComplexBase<TYPE>::operator + () const
@@ -300,7 +303,7 @@ return (*this);
 }
 
 //::operator-()----------------------------------------------------------------
-/*- sign unary operator returns a value whose real part is -real(Z) and whose 
+/*- sign unary operator returns a value whose real part is -real(Z) and whose
   imaginary part is -imag(Z).
  */
 template<class TYPE>
@@ -317,7 +320,7 @@ return TComplexBase<TYPE>(-_ccR,-_ccI);
 //norm()-----------------------------------------------------------------------
 /*Returns the squared magnitude of the complexNo
 
-    norm(Z) = SQUARE(|Z|) = R^2 +I^2
+      norm(Z) = SQUARE(|Z|) = R^2 +I^2
  */
 template<class TYPE>
 inline TYPE norm(const TComplexBase<TYPE>& complexNo)
@@ -328,8 +331,8 @@ return (SQUARE(complexNo._ccR) + SQUARE(complexNo._ccI));
 //conj()-----------------------------------------------------------------------
 /*Function changes the sign of the imaginary part.
 
-    conj(Z) = R -jI
- */ 
+      conj(Z) = R -jI
+ */
 template<class TYPE>
 inline TComplexBase<TYPE> conj(const TComplexBase<TYPE>& complexNo)
 {
@@ -338,7 +341,8 @@ return TComplexBase<TYPE>(complexNo.real(), -complexNo.imag());
 
 //polar()----------------------------------------------------------------------
 /*Converts polar coordinates into complex domain
-    {html:<BR><IMG SRC="Res/eqComplexArg.gif" BORDER="0">}
+    {html:<br /><img src="Images/eqComplexArg.gif" border="0"
+                  alt="&phi;=atan(y/x)">}
  */
 template <class TYPE>
 inline TComplexBase<TYPE> polar(const TYPE& Rho,   //magnitude
@@ -358,12 +362,20 @@ return  TComplexBase<TYPE>(Rho, (TYPE)0);
 }
 
 //abs()------------------------------------------------------------------------
-/*The function returns the magnitude of the phasor represented by complexNo
-  and it is calulated as Euclidean norm.
-    {html:<BR><IMG SRC="Res/eqVectorNorm.gif" BORDER="0">}
+/*The function calculates complex modulus or the magnitude of the phasor
+  represented by complexNo.
+  Absolute value or magnitude of the phasor is calculated as a vector norm:
+    {html:<br /><img src="Images/eqVectorNorm.gif" border="0"
+                 alt="abs(x)=sqrt(&Sigma;(xi**2))">}
 
-             Z = x + iy
-             Absolute(Z) = |Z| = sqrt(x**2+y**2)
+          <br /><img src="Images/eqComplexNo.gif" border="0"
+                 alt="Z = x + iy">}
+
+          <br /><img src="Images/eqPhasorMod.gif" border="0"
+                 alt="abs(Z) = |Z| = sqrt(x**2+y**2)">}
+
+     }
+  Returns: complex modulus.
  */
 template <class TYPE>
 TYPE abs(const TComplexBase<TYPE>& complexNo)
@@ -373,7 +385,7 @@ return complexNo.Rho();
 
 //arg()------------------------------------------------------------------------
 /*The function returns the phase angle of complexNo
-    {html:<BR><IMG SRC="Res/eqComplexArg.gif" BORDER="0">}
+    {html:<br /><img src="Images/eqComplexArg.gif" border="0" alt="&phi;=atan(y/x)">}
  */
 template <class TYPE>
 TYPE arg(const TComplexBase<TYPE>& complexNo)
@@ -385,40 +397,50 @@ return complexNo == _ccZero ? (TYPE)0 : (TYPE)atan2(complexNo._ccI, complexNo._c
 //cos()------------------------------------------------------------------------
 /*Returns cosine of the complex number.
 
-    Z = x + iy
-    cos(Z) = cos(x) * cosh(y) - i * sin(x) * sinh(y)
+  {html:<br /><img src="Images/eqComplexNo.gif" border="0"
+               alt="Z= x +i*y">
+        <br />
+  }
+      cos(Z) = cos(x) * cosh(y) - i * sin(x) * sinh(y)
  */
 template <class TYPE>
 TComplexBase<TYPE> cos(const TComplexBase<TYPE>& complexNo)
 {
 TYPE eI  = exp(complexNo._ccI);
 TYPE e_negI = 1 / eI;
-return TComplexBase<TYPE>(cos(complexNo._ccR)*(e_negI+eI)/2, 
+return TComplexBase<TYPE>(cos(complexNo._ccR)*(e_negI+eI)/2,
                           sin(complexNo._ccR)*(e_negI-eI)/2);
 }
 
 //cosh()-----------------------------------------------------------------------
 /*Returns hyperbolic cosine of the complex number.
 
-    Z = x + iy
-    cosh(Z) = (e**Z + e**(-Z)) / 2  = cosh(x) * cos(y) + i * sinh(x) * sin(y)
+  {html:<br /><img src="Images/eqComplexNo.gif" border="0"
+               alt="Z= x +i*y">
+        <br />
+  }
+      cosh(Z) = (e**Z + e**(-Z)) / 2  = cosh(x) * cos(y) + i * sinh(x) * sin(y)
  */
 template <class TYPE>
 TComplexBase<TYPE> cosh(const TComplexBase<TYPE>& complexNo)
 {
 TYPE eR = exp(complexNo._ccR);
 TYPE e_negR = 1 / eR;
-return TComplexBase<TYPE>(cos(complexNo._ccI)*(eR + e_negR)/2, 
+return TComplexBase<TYPE>(cos(complexNo._ccI)*(eR + e_negR)/2,
                           sin(complexNo._ccI)*(eR - e_negR)/2);
 }
 
 //exp()------------------------------------------------------------------------
 /*Returns the exponential value of the complex number, if successful.
-    {html:<BR><IMG SRC="Res/eqPhasorCiS.gif" BORDER="0">}
+    {html:<br /><img src="Images/eqPhasorCiS.gif" border="0"
+               alt="z=abs(z)(cos(&phi;)+i*sin(&phi;))">}
 
-    Z = x + iy
-    exp(z) = e**Z
-    exp(Z) = exp(x) * (cos(y) + i * sin(y))
+          <br /><img src="Images/eqComplexNo.gif" border="0"
+               alt="Z= x +i*y">
+          <br />
+  }
+      exp(z) = e**Z
+      exp(Z) = exp(x) * (cos(y) + i * sin(y))
  */
 template <class TYPE>
 TComplexBase<TYPE> exp(const TComplexBase<TYPE>& complexNo)
@@ -427,16 +449,19 @@ return polar(exp(complexNo._ccR),complexNo._ccI);
 }
 
 //log()------------------------------------------------------------------------
-/*Calculates the natural logarithm of complex number. Throws exception if 
+/*Calculates the natural logarithm of complex number. Throws exception if
   complexNo = 0 + j0.
-    {html:<BR><IMG SRC="Res/eqPhasorej.gif" BORDER="0">}
+    {html:<br><img src="Images/eqPhasorej.gif" border="0">
+                   alt="z=abs(z)e**(i&phi;)">
+        <br />
+  }
 
-    Z = r * e**(ia)
-    log(Z) = log(r) + ia
+      Z = r * e**(ia)
+      log(Z) = log(r) + ia
 
   Example:
     #include "KComplxB.h"
-    void main() 
+    void main()
       {
       TComplexBase<double> Z(24, 27);
       cout << "The natural logarithm of" << Z << " = " << log(Z) << endl;
@@ -452,12 +477,12 @@ return TComplexBase<TYPE>(log(abs(complexNo)), arg(complexNo));
 /*Calculates the base 10 logarithm of complex number.
 
   Example:
-    #include "KComplxB.h"
-    void main() 
-      {
-      TComplexBase<double> Z(24, 27);
-      cout << "The base 10 logarithm of " << Z << " = " << log10(Z) << endl;
-      }
+      #include "KComplxB.h"
+      void main()
+        {
+        TComplexBase<double> Z(24, 27);
+        cout << "The base 10 logarithm of " << Z << " = " << log10(Z) << endl;
+        }
  */
 template <class TYPE>
 TComplexBase<TYPE> log10(const TComplexBase<TYPE>& complexNo)
@@ -466,11 +491,11 @@ return log(complexNo) * CST_LOG10E;
 }
 
 //pow()------------------------------------------------------------------------
-/*Returns the complex number X raised to the power of Y. 
+/*Returns the complex number X raised to the power of Y.
 
-    X = r*e**(ia)
-    Y = u + iv
-    X**Y = {(r**u) * exp (-v*a)} * {cos(v*log(r) + u*a) + i*sin(v*log(r) + u*a)}
+      X = r*e**(ia)
+      Y = u + iv
+      X**Y = {(r**u) * exp (-v*a)} * {cos(v*log(r) + u*a) + i*sin(v*log(r) + u*a)}
  */
 template <class TYPE>
 TComplexBase<TYPE> pow(const TComplexBase<TYPE>& complexNo, TComplexBase<TYPE> const& Power)
@@ -488,8 +513,8 @@ return exp(Power * log(complexNo));
 
 /*Complex number raised to a real power
 
-    X = r*e**(ia)
-    X**y = exp(y * log(X))
+      X = r*e**(ia)
+      X**y = exp(y * log(X))
  */
 template <class TYPE>
 TComplexBase<TYPE> pow(const TComplexBase<TYPE>& complexNo, const TYPE& Power)
@@ -507,15 +532,15 @@ return polar(pow(abs(complexNo), Power), Power*arg(complexNo));
 
 /*A number raised to a complex power
 
-    Y = r*e**(ia)
-    x**Y = exp(Y * log(x))
+      Y = r*e**(ia)
+      x**Y = exp(Y * log(x))
  */
 template <class TYPE>
 TComplexBase<TYPE> pow(const TYPE& dReal, TComplexBase<TYPE> const& Power)
 {
 const TComplexBase<TYPE> _ccZero(0,0);
 
-if (dReal == 0 && real(Power) > 0) 
+if (dReal == 0 && real(Power) > 0)
   return _ccZero;
 
 TYPE logX = log(fabs(dReal));
@@ -528,8 +553,8 @@ return exp(Power * TComplexBase<TYPE>(logX,CST_PI));
 
 /*Complex number raised to an integer power
 
-    X = r*e**(ia)
-    X**y = (r**y) * (cos(y*a) + i*sin(y*a))
+      X = r*e**(ia)
+      X**y = (r**y) * (cos(y*a) + i*sin(y*a))
  */
 template <class TYPE>
 TComplexBase<TYPE> pow(const TComplexBase<TYPE>& complexNo,const int& Power)
@@ -555,10 +580,14 @@ return TComplexBase<TYPE>(Rho * ::cos(Angle), Rho * ::sin(Angle));
 
 //sin()------------------------------------------------------------------------
 /*Returns the sine of a complex number.
-    {html:<BR><IMG SRC="Res/eqPhasorCiS.gif" BORDER="0">}
+    {html:<br><img src="Images/eqPhasorCiS.gif" border="0"
+               alt="z=abs(z)(cos(&phi;)+i*sin(&phi;))">}
 
-    Z = x +iy
-    sin(Z) = sin(x)*cosh(y) + i*cos(y)*sinh(x)
+          <br /><img src="Images/eqComplexNo.gif" border="0"
+               alt="Z= x +i*y">
+        <br />
+  }
+      sin(Z) = sin(x)*cosh(y) + i*cos(y)*sinh(x)
  */
 template <class TYPE>
 TComplexBase<TYPE> sin(const TComplexBase<TYPE>& complexNo)
@@ -571,8 +600,11 @@ return TComplexBase<TYPE>(sin(complexNo._ccR)*(e_negI+eI)/2, cos(complexNo._ccR)
 //sinh()-----------------------------------------------------------------------
 /*Returns the hyperbolic sine of a complex number.
 
-    Z = x +iy
-    sinh(Z) = (e**Z - e**(-Z)) / 2  = sinh(x)*cos(y) + i*cosh(x)*sin(y)
+  {html:<br /><img src="Images/eqComplexNo.gif" border="0"
+               alt="Z= x +i*y">
+        <br />
+  }
+      sinh(Z) = (e**Z - e**(-Z)) / 2  = sinh(x)*cos(y) + i*cosh(x)*sin(y)
  */
 template <class TYPE>
 TComplexBase<TYPE> sinh(const TComplexBase<TYPE>& complexNo)
@@ -584,10 +616,12 @@ return TComplexBase<TYPE>(cos(complexNo._ccI)*(eR - e_negR)/2, sin(complexNo._cc
 
 //sqrt()-----------------------------------------------------------------------
 /*Returns the square root of complex number Z
-    {html:<BR><IMG SRC="Res/eqPhasorej.gif" BORDER="0">}
+    {html:<br><img src="Images/eqPhasorej.gif" border="0">
+                   alt="z=abs(z)e**(i&phi;) = |z|*e**(ia)">
+        <br />
+  }
 
-    Z = |Z|*e**(ia) 
-    sqrt(Z) = sqrt(|Z|)*e(ia/2) = sqrt(|Z|) * ( cos(a/2) + i*sin(a/2) )
+      sqrt(Z) = sqrt(|Z|)*e(ia/2) = sqrt(|Z|) * ( cos(a/2) + i*sin(a/2) )
  */
 template <class TYPE>
 TComplexBase<TYPE> sqrt(const TComplexBase<TYPE>& complexNo)
@@ -602,21 +636,21 @@ return polar(sqrt(abs(complexNo)), arg(complexNo) / 2);
 /*Sums two complex numbers
 
   Example:
-    #include "KComplxB.h"
-    #include <IOManip.h>
-    int main()
-      {
-      TComplexBase<int> z1(3, 4);
-      cout << '(' << z1.real() << ',' << z1.imag() << ')' << endl;
-      TComplexBase<int> z2(1, 1);
-      cout << '(' << z2.real() << ',' << z2.imag() << ')' << endl;
-      z1 = z1 + z2;
-      cout << '(' << z1.real() << ',' << z1.imag() << ')' << endl;
-      return 0;
-      }
+      #include "KComplxB.h"
+      #include <IOManip.h>
+      int main()
+        {
+        TComplexBase<int> z1(3, 4);
+        cout << '(' << z1.real() << ',' << z1.imag() << ')' << endl;
+        TComplexBase<int> z2(1, 1);
+        cout << '(' << z2.real() << ',' << z2.imag() << ')' << endl;
+        z1 = z1 + z2;
+        cout << '(' << z1.real() << ',' << z1.imag() << ')' << endl;
+        return 0;
+        }
    */
 template<class TYPE>
-inline TComplexBase<TYPE> operator + (const TComplexBase<TYPE>& X, 
+inline TComplexBase<TYPE> operator + (const TComplexBase<TYPE>& X,
                                       const TComplexBase<TYPE>& Y
                                       )
 {
@@ -624,7 +658,7 @@ return TComplexBase<TYPE>( X._ccR + Y._ccR, X.imag() + Y.imag() );
 }
 
 template<class TYPE>
-inline TComplexBase<TYPE> operator + (const TComplexBase<TYPE>& complexNo, 
+inline TComplexBase<TYPE> operator + (const TComplexBase<TYPE>& complexNo,
                                       const TYPE& dReal)
 {
 return TComplexBase<TYPE>(complexNo._ccR + dReal,complexNo.imag() );
@@ -649,7 +683,7 @@ return TComplexBase<TYPE>(X._ccR - Y._ccR, X.imag() - Y.imag());
 }
 
 template<class TYPE>
-inline TComplexBase<TYPE> operator - (const TComplexBase<TYPE>& complexNo, 
+inline TComplexBase<TYPE> operator - (const TComplexBase<TYPE>& complexNo,
                                       const TYPE& dReal)
 {
 return TComplexBase<TYPE>(complexNo._ccR - dReal,complexNo.imag());
@@ -664,7 +698,9 @@ return TComplexBase<TYPE>( dReal-complexNo._ccR, -complexNo.imag() );
 }
 
 //operator*()------------------------------------------------------------------
-/*Multiplies two complex numbers. Returns Z = X * Y
+/*Multiplies two complex numbers.
+
+  Returns Z = X * Y
  */
 template<class TYPE>
 inline TComplexBase<TYPE> operator * (const TComplexBase<TYPE>& X,
@@ -674,7 +710,7 @@ return TComplexBase<TYPE>( X._ccR*Y._ccR - X.imag()*Y.imag(), X.imag()*Y._ccR + 
 }
 
 template<class TYPE>
-inline TComplexBase<TYPE> operator * (const TComplexBase<TYPE>& complexNo, 
+inline TComplexBase<TYPE> operator * (const TComplexBase<TYPE>& complexNo,
                                       const TYPE& dReal)
 {
 return TComplexBase<TYPE>(complexNo._ccR * dReal,complexNo.imag() * dReal);
@@ -689,17 +725,19 @@ return TComplexBase<TYPE>( dReal*complexNo._ccR, dReal*complexNo.imag() );
 }
 
 //operator/()------------------------------------------------------------------
-/*Divides two complex numbers. Returns Z = X / Y
+/*Divides two complex numbers.
+
+  Returns Z = X / Y
  */
 template<class TYPE>
-TComplexBase<TYPE> operator / (const TComplexBase<TYPE>& X, 
+TComplexBase<TYPE> operator / (const TComplexBase<TYPE>& X,
                                const TComplexBase<TYPE>& Y)
 {
 return TComplexBase<TYPE>(X)/=Y;
 }
 
 template<class TYPE>
-inline TComplexBase<TYPE> operator / (const TComplexBase<TYPE>& complexNo, 
+inline TComplexBase<TYPE> operator / (const TComplexBase<TYPE>& complexNo,
                                       const TYPE& dReal)
 {
 return TComplexBase<TYPE>(complexNo.real() / dReal,complexNo.imag() / dReal);
@@ -761,7 +799,7 @@ return(complexNo.imag() != (TYPE)0  ||  dReal!=complexNo.real());
 ///////////////////////////////////////////////////////////////////////////////
 // Stream I/O operators
 
-#ifdef _STL_ //Use Standard Template Library (STL)
+#if defined(_STL) || defined (_USE_STL) //Use Standard Template Library (STL)
 
   #include "KOStream.h"  //ostream template
 
@@ -780,11 +818,11 @@ return(complexNo.imag() != (TYPE)0  ||  dReal!=complexNo.real());
 
   //operator>>()---------------------------------------------------------------
   /*Reads a complexNo from the input stream. Expected format of the complex
-    number is: 
-    
+    number is:
+
       (real_part,imaginary_part).
-      
-    Note: uses Standard Template Library (STL).  
+
+    Note: uses Standard Template Library (STL).
   */
   template<class TYPE>
   istream& operator>>(istream& Stream, //[in] input stream
@@ -795,39 +833,39 @@ return(complexNo.imag() != (TYPE)0  ||  dReal!=complexNo.real());
   char ch = 0;
 
   Stream >> ch;
-  if (ch == '(') 
+  if (ch == '(')
     {
     Stream >> dReal >> ch;
-    if (ch == ',') 
+    if (ch == ',')
       Stream >> dImag >> ch;
-    if (ch != ')') 
+    if (ch != ')')
       Stream.clear(ios::badbit | Stream.rdstate());
     }
-  else 
+  else
     {
     Stream.putback(ch);
-    Stream >> dReal;
+   Stream >> dReal;
     }
 
   if (Stream)
-    { 
+    {
     complexNo.real(dReal);
     complexNo.imag(dImag);
     }
   return Stream;
   }
 
-#endif //_STL_
+#endif //_STL || _USE_STL
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KCOMPLXB_H_
 
 /*///////////////////////////////////////////////////////////////////////////*/
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  4    Biblioteka1.3         7/19/01 11:52:57 PM  Darko           VSS tags
- *  3    Biblioteka1.2         7/7/01 11:10:11 PM   Darko           $Revision: 9$
+ *  3    Biblioteka1.2         7/7/01 11:10:11 PM   Darko           $Revision: 11$
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:49:19 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 2:55:42 PM   Darko           
+ *  1    Biblioteka1.0         8/13/00 2:55:42 PM   Darko
  * $
  *****************************************************************************/

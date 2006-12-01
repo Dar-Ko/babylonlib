@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\STL\KStrStream.cpp$: implementation file
+/*$Workfile: KStrStream.cpp$: implementation file
   $Revision: 10$ $Date: 2005-04-26 16:46:11$
   $Author: Darko Kolakovic$
 

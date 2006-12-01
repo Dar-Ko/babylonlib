@@ -1,5 +1,5 @@
 /*$Workfile: KfNewtRp.cpp$: implementation file
-  $Revision: 9$ $Date: 2005-04-21 03:20:45$
+  $Revision: 9$ $Date: 2005-04-21 02:20:45$
   $Author: Darko$
 
   Solve an equation using Newton-Raphson iteration method

@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrFindNoCase.cpp$: implementation file
-  $Revision: 4$ $Date: 2005-04-26 16:39:20$
+/*$Workfile: KStrFindNoCase.cpp$: implementation file
+  $Revision: 4$ $Date: 2005-04-26 15:39:20$
   $Author: Darko Kolakovic$
 
   Searches for a substring ignoring case.
@@ -55,9 +55,9 @@ return strLower.Find(strToken, nStart);
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2005-04-26 16:39:20  Darko Kolakovic fixed typo
- *  3    Biblioteka1.2         2004-06-01 17:53:10  Darko           time sync
- *  2    Biblioteka1.1         2003-08-19 16:12:56  Darko           comment
- *  1    Biblioteka1.0         2003-08-14 11:34:34  Darko           
+ *  4    Biblioteka1.3         2005-04-26 15:39:20  Darko Kolakovic fixed typo
+ *  3    Biblioteka1.2         2004-06-01 16:53:10  Darko           time sync
+ *  2    Biblioteka1.1         2003-08-19 15:12:56  Darko           comment
+ *  1    Biblioteka1.0         2003-08-14 10:34:34  Darko           
  * $
  *****************************************************************************/

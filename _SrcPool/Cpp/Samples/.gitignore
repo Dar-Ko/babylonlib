@@ -27,6 +27,7 @@ bin
 *.vco
  Thumbs.db
 *.vcl
+*.vic
 *.dump
 Calc
 Complex

@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KTraceFx.h$: implementation file
-  $Revision: 3$ $Date: 2005-04-13 12:31:46$
+/*$Workfile: KTraceFx.h$: implementation file
+  $Revision: 3$ $Date: 2005-04-13 11:31:46$
   $Author: Darko Kolakovic$
 
   Debugging helpers
@@ -11,7 +11,7 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef _KTRACEFX_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KTraceFx.h$ sentry*/
+    /*$Workfile: KTraceFx.h$ sentry*/
   #define _KTRACEFX_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */

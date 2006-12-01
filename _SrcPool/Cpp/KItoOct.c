@@ -1,6 +1,6 @@
 /*$Workfile: KItoOct.c$: implementation file
-  $Revision: 4$ $Date: 2004-10-01 21:43:59$
-  $Author: Darko$
+  $Revision: 5$ $Date: 2005-06-21 10:11:31$
+  $Author: Darko Kolakovic$
 
   Convert an integer to octal string.
   Jan. 96 Darko Kolakovic
@@ -17,8 +17,7 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
-/*ItoOct()-------------------------------------------------------------------*/
-
+/*---------------------------------------------------------------------------*/
 /*Converts the given iValue argument to a zero-terminated string.
   Returns: a pointer to zero-terminated string. There is no error return.
  */

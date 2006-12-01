@@ -1,6 +1,6 @@
 /*$Workfile: KIsLRC.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-06-01 17:50:35$
-  $Author: Darko$
+  $Revision: 5$ $Date: 2005-06-17 18:10:52$
+  $Author: Darko Kolakovic$
 
   Validates Longitudinal Redundancy Checksum (LRC)
   CommonSoft Inc.
@@ -37,7 +37,7 @@ extern "C" BYTE GetLRC(BYTE* pbData,int iCount);
 
 //IsLRCValid()-----------------------------------------------------------------
 /*Validates Longitudinal Redundancy Checksum (LRC).
-   
+
   Returns: true if given LRC is same as calculated. If checksums are different
   or if the last byte in data array is not termination character (EOT/ETB/ETX)
   or if the length of the data is zero, returned value is false.
@@ -57,7 +57,7 @@ bool IsLRCValid(const BYTE chReceivedLRC, //[in] value to be verified
                 BYTE* pbData,             //[in] data buffer including
                                           //termination character (EOT/ETB/ETX)
                 int iCount    //[in] size of data in bytes including
-                              //termination character (minimm value is 1)
+                              //termination character (minimum value is 1)
                 )
 {
 if ((pbData != NULL) && (iCount > 0) )

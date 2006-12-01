@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStringStd.h$: header file
+/*$Workfile: KStringStd.h$: header file
   $Revision: 3$ $Date: 2005-04-26 16:39:33$
   $Author: Darko Kolakovic$
 
@@ -15,7 +15,7 @@
 
 
 #ifndef _KSTRINGSTD_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KStringStd.h$ sentry */
+    /*$Workfile: KStringStd.h$ sentry */
   #define _KSTRINGSTD_H_
 
 #if _MSC_VER > 1000

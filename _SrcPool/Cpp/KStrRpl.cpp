@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrRpl.cpp$: implementation file
+/*$Workfile: KStrRpl.cpp$: implementation file
   $Revision: 7$ $Date: 2005-04-26 16:39:26$
   $Author: Darko Kolakovic$
 

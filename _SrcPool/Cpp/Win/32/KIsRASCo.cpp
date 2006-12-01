@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KIsRASCo.cpp$: implementation file
+/*$Workfile: KIsRASCo.cpp$: implementation file
   $Revision: 6$ $Date: 2005-05-03 11:16:07$
   $Author: Darko Kolakovic$
 

@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrConvert.h$: header file
+/*$Workfile: KStrConvert.h$: header file
   $Revision: 4$ $Date: 2005-04-12 17:46:39$
   $Author: Darko Kolakovic$
 
@@ -13,7 +13,7 @@
 #endif
 
 #ifndef _KSTRCONVERT_H_
-    //$Workfile: S:\_SrcPool\Cpp\KStrConvert.h$ sentry
+    //$Workfile: KStrConvert.h$ sentry
   #define _KSTRCONVERT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */

@@ -1,5 +1,5 @@
 /*$Workfile: KConvCst.h$: header file
-  $Revision: 2$ $Date: 2003-09-22 22:25:45$
+  $Revision: 2$ $Date: 2003-09-22 21:25:45$
   $Author: Darko$
 
   Physics - Constants
@@ -72,8 +72,8 @@ const double CST_PApINH2O=249.089;//pascal per inch of water at 4°C
 #endif //_KCONVCST_H_
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2003-09-22 22:25:45  Darko           formatting
- *  1    Biblioteka1.0         2003-09-11 16:51:49  Darko           Exctracted from
+ *  2    Biblioteka1.1         2003-09-22 21:25:45  Darko           formatting
+ *  1    Biblioteka1.0         2003-09-11 15:51:49  Darko           Exctracted from
  *       U_Conv.h
  * $
  *  0   Jan. 97 created  D. Kolakovic

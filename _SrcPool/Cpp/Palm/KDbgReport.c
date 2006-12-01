@@ -1,5 +1,5 @@
 /*$Workfile: KDbgReport.c$: implementation file
-  $Revision: 6$ $Date: 2004-11-09 18:46:02$
+  $Revision: 6$ $Date: 2004-11-09 19:46:02$
   $Author: Darko Kolakovic$
 
   Dumps a message to the debugger

@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KDbgMacr.h$: header file
+/*$Workfile: KDbgMacr.h$: header file
   $Revision: 45$ $Date: 2005-04-27 12:55:24$
   $Author: Darko Kolakovic$
 
@@ -9,7 +9,7 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef _KDBGMACR_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KDbgMacr.h$ sentry */
+    /*$Workfile: KDbgMacr.h$ sentry */
   #define _KDBGMACR_H_
 
 #if _MSC_VER > 1000

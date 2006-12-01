@@ -1,5 +1,5 @@
 /*$Workfile: KAppMain.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-11-12 13:56:47$
+  $Revision: 2$ $Date: 2004-11-12 14:56:47$
   $Author: Darko Kolakovic$
 
   Entry point for the application.

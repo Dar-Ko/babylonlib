@@ -1,5 +1,5 @@
 /*$Workfile: KStrTrim.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-06-01 17:53:41$
+  $Revision: 6$ $Date: 2004-06-01 16:53:41$
   $Author: Darko$
 
   Trims leading and trailing whitespace characters
@@ -65,14 +65,14 @@ return szSource;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2004-06-01 17:53:41  Darko           time sync
- *  5    Biblioteka1.4         2003-11-03 13:12:34  Darko           Unicode fix
- *  4    Biblioteka1.3         2003-09-04 11:25:12  Darko           fixed cast to
+ *  6    Biblioteka1.5         2004-06-01 16:53:41  Darko           time sync
+ *  5    Biblioteka1.4         2003-11-03 12:12:34  Darko           Unicode fix
+ *  4    Biblioteka1.3         2003-09-04 10:25:12  Darko           fixed cast to
  *       unsigned int
- *  3    Biblioteka1.2         2002-10-25 03:28:16  Darko Kolakovic Handled strings
+ *  3    Biblioteka1.2         2002-10-25 02:28:16  Darko Kolakovic Handled strings
  *       with spaces only
- *  2    Biblioteka1.1         2002-09-10 18:55:04  Darko Kolakovic Fixed tail
+ *  2    Biblioteka1.1         2002-09-10 17:55:04  Darko Kolakovic Fixed tail
  *       trimming
- *  1    Biblioteka1.0         2002-09-09 23:16:54  Darko           
+ *  1    Biblioteka1.0         2002-09-09 22:16:54  Darko           
  * $
  *****************************************************************************/

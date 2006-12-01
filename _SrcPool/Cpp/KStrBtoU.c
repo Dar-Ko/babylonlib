@@ -1,6 +1,6 @@
 /*$Workfile: KStrBtoU.c$: implementation file
-  $Revision: 6$ $Date: 8/14/2003 5:01:18 AM$
-  $Author: Darko$
+  $Revision: 7$ $Date: 2005-06-21 11:11:40$
+  $Author: Darko Kolakovic$
 
   Converts a binary string to DWORD value
   May 96 Darko Kolakovic
@@ -26,20 +26,20 @@
 
 /*BintoU()-------------------------------------------------------------------*/
 /*Convert a binary string to DWORD value. String is expected to be without any
-  whitespaces. If string has more than 32 binary digits, only last (less 
+  whitespaces. If string has more than 32 binary digits, only last (less
   significant) 32 bits are converted to double word value.
 
   Example:
-    #include "KStrings.h"
-    void main ()
-      {
-      char *buffer = "01111000100";
-      DWORD dwNumber;
-      dwNumber = BintoU(buffer);
+      #include "KStrings.h"
+      void main ()
+        {
+        char *buffer = "01111000100";
+        DWORD dwNumber;
+        dwNumber = BintoU(buffer);
 
-      printf ( "Convert a binary string %s to unsigned integer: %u\n", 
-               buffer, dwNumber);
-      }
+        printf ( "Convert a binary string %s to unsigned integer: %u\n",
+                 buffer, dwNumber);
+        }
 
   See also: KStrings.h
  */

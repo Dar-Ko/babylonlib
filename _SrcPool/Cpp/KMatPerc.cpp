@@ -1,5 +1,5 @@
-/*$Workfile: KMatPerc.cpp$: header file
-  $Revision: 2$ $Date: 2005-04-19 20:56:47$
+/*$Workfile: KMatPerc.cpp$: implementation file
+  $Revision: 3$ $Date: 2005-06-08 16:14:44$
   $Author: Darko Kolakovic$
 
   percent

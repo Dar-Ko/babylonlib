@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KStatusBarEx.h$: header file
+/*$Workfile: KStatusBarEx.h$: header file
   $Revision: 5$ $Date: 2005-05-04 17:50:25$
   $Author: Darko Kolakovic$
 
@@ -9,7 +9,7 @@
 // Group=Windows
 
 #ifndef _KSTATUSBAREX_H_
-  //$Workfile: S:\_SrcPool\Cpp\Win\32\KStatusBarEx.h$ sentry
+  //$Workfile: KStatusBarEx.h$ sentry
   #define _KSTATUSBAREX_H_
 
 #if _MSC_VER > 1000

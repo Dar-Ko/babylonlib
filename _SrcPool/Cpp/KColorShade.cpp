@@ -1,5 +1,5 @@
 /*$Workfile: KColorShade.cpp$: implementation file
-  $Revision: 3$ $Date: 2005-04-25 21:11:52$
+  $Revision: 3$ $Date: 2005-04-25 20:11:52$
   $Author: Darko$
 
   Defines the class behaviors for the application.
@@ -58,9 +58,9 @@ return crColor;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2005-04-25 21:11:52  Darko            
- *  2    Biblioteka1.1         2003-09-02 01:01:43  Darko           Fixed bug for
+ *  3    Biblioteka1.2         2005-04-25 20:11:52  Darko            
+ *  2    Biblioteka1.1         2003-09-02 00:01:43  Darko           Fixed bug for
  *       values >0
- *  1    Biblioteka1.0         2003-08-29 15:49:19  Darko           
+ *  1    Biblioteka1.0         2003-08-29 14:49:19  Darko           
  * $
  *****************************************************************************/

@@ -58,4 +58,5 @@ cvs
 *.vco
  Thumbs.db
 *.vcl
+*.vic
 *.dump

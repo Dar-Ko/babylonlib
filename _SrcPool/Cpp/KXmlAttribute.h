@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KXmlAttribute.h$: header file
-  $Revision: 8$ $Date: 2005-04-28 18:06:36$
+/*$Workfile: KXmlAttribute.h$: header file
+  $Revision: 8$ $Date: 2005-04-28 17:06:36$
   $Author: Darko Kolakovic$
 
   XML element's attribute
@@ -12,7 +12,7 @@
 #endif
 
 #ifndef _KXMLATTRIBUTE_H_
-    //$Workfile: S:\_SrcPool\Cpp\KXmlAttribute.h$ sentry
+    //$Workfile: KXmlAttribute.h$ sentry
   #define _KXMLATTRIBUTE_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */

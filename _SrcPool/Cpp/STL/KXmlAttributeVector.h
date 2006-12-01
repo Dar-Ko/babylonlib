@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\STL\KXmlAttributeVector.h$: header file
+/*$Workfile: KXmlAttributeVector.h$: header file
   $Revision: 3$ $Date: 2005-05-02 09:27:13$
   $Author: Darko Kolakovic$
 
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KXMLATTRIBUTETVECTOR_H_
-    //$Workfile: S:\_SrcPool\Cpp\STL\KXmlAttributeVector.h$ sentry
+    //$Workfile: KXmlAttributeVector.h$ sentry
   #define _KXMLATTRIBUTETVECTOR_H_
 
 //============================================================================

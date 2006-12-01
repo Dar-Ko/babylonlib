@@ -1,12 +1,12 @@
 /*$Workfile: KTipBox.h$: header file
-  $Revision: 7$ $Date: 2005-04-26 11:35:45$
+  $Revision: 8$ $Date: 2005-05-24 16:23:16$
   $Author: Darko Kolakovic$
 
   Simple Text Tip Window
   Copyright: CommonSoft Inc
   Jun '97 Darko Kolakovic
   Apr 2k overloading of operator new (exercise) D.K.
- */ 
+ */
 // Group=Windows
 
 #ifndef _KTIPTEXT_H_
@@ -27,8 +27,10 @@
     #undef DEBUG_NEW
   #endif
     //Note: See KB Q143207 - Common Problems When Using STL with STD Namespace.
-    //Same problem is observed with VC++ 6.0 as well and offered resolution does not work D.K.
-    //In MFC operator new is defined as placement overload with arguments THIS_FILE and __LINE__
+    //Same problem is observed with VC++ 6.0 as well and offered resolution does
+    //not work D.K.
+    //In MFC operator new is defined as placement overload with arguments
+    //THIS_FILE and __LINE__
     //    #define DEBUG_NEW new(THIS_FILE, __LINE__) (see Afx.h)
     //and usually a class does not have overload for operator with those arguments.
   #define DEBUG_NEW new
@@ -42,7 +44,7 @@ class CTipBox : public CWnd
 {
 // Construction
 public:
-  CTipBox(CWnd* pParent = NULL, 
+  CTipBox(CWnd* pParent = NULL,
           BOOL bSelfDestroy = FALSE,
           DWORD dwStyle = WS_POPUP);
   DECLARE_DYNAMIC( CTipBox );
@@ -53,7 +55,7 @@ private:
   static   BOOL m_bRegistered;     //'Wnd class registered' flag
   BOOL     m_bAutoDelete;          //'Delete itself from heap' flag
   COLORREF m_crTextColor;          //Text colors
-  COLORREF m_crBkColor;  
+  COLORREF m_crBkColor;
   HBRUSH   m_hBkBrush;             //Background brush
   HFONT    m_hFont;                //Text tip font
   CFont*   m_pFontContainer;       //Allocated font
@@ -76,7 +78,7 @@ public:
   //void  operator delete(void* pObject)  throw();
   //void* operator new(size_t nSize, BOOL bAutoDelete) throw (CMemoryException);
   //void  operator delete(void* pObject, BOOL bAutoDelete) throw();
-  #if _MSC_VER  >= 1100 
+  #if _MSC_VER  >= 1100
     //void* operator new[](size_t nSize, BOOL bAutoDelete) throw (CMemoryException);
     //void  operator delete[](void* pObject) throw();
   #endif  // _MSC_VER  >= 1100
@@ -117,7 +119,7 @@ protected:
 //::GetTextColor()-------------------------------------------------------------
 /*Return stext color.
  */
-inline COLORREF CTipBox::GetTextColor() const 
+inline COLORREF CTipBox::GetTextColor() const
 {
 return m_crTextColor;
 }
@@ -125,7 +127,7 @@ return m_crTextColor;
 //::GetBkColor()---------------------------------------------------------------
 /*Return background color.
  */
-inline COLORREF CTipBox::GetBkColor() const 
+inline COLORREF CTipBox::GetBkColor() const
 {
 return m_crBkColor;
 }
@@ -211,9 +213,9 @@ ASSERT(pObject != NULL);
 ::delete pObject;
 }
 
-//Beginning with Visual C++ 5.0, the compiler supports member array new and delete 
+//Beginning with Visual C++ 5.0, the compiler supports member array new and delete
 //operators in a class declaration.
-#if _MSC_VER  >= 1100 
+#if _MSC_VER  >= 1100
   inline void* CTipBox::operator new [] (size_t nSize,
                                               BOOL bAutoDelete
                                               )

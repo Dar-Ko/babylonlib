@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgTmpl.h$: header file
+/*$Workfile: KDlgTmpl.h$: header file
   $Revision: 10$ $Date: 2005-05-12 11:05:28$
   $Author: Darko Kolakovic$
 
@@ -12,7 +12,7 @@
 // Group=Windows
 
 #ifndef _KDLGTMPL_H_
-  //$Workfile: S:\_SrcPool\Cpp\Win\32\KDlgTmpl.h$ sentry
+  //$Workfile: KDlgTmpl.h$ sentry
   #define _KDLGTMPL_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files

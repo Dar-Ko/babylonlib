@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KTrace.h$: implementation file
-  $Revision: 40$ $Date: 2005-04-13 15:05:00$
+/*$Workfile: KTrace.h$: implementation file
+  $Revision: 41$ $Date: 2005-09-08 17:15:28$
   $Author: Darko Kolakovic$
 
   Debugging helpers
@@ -8,7 +8,7 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef _KTRACE_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KTrace.h$ sentry*/
+    /*$Workfile: KTrace.h$ sentry*/
   #define _KTRACE_H_
 
 /* ------------------------------------------------------------------------- */
@@ -216,7 +216,6 @@
     /* ...................................................................... */
     /* Windows SDK version                                                    */
     #ifndef __AFX_H__ /*MFC not included and all TRACE macros are undefined*/
-      #define THIS_FILE          __FILE__
 
       #ifdef _MFC_VER
         #error Use MFC debugging macros
@@ -251,7 +250,7 @@
          */
         #define ASSERT(expr) \
             do{ _VALIDATE_ (!(expr) && \
-                (1 == _CrtDbgReport(_CRT_ASSERT, THIS_FILE, __LINE__, NULL, NULL))) \
+                (1 == _CrtDbgReport(_CRT_ASSERT, __FILE__, __LINE__, NULL, NULL))) \
                  _CrtDbgBreak(); \
               } while (0)
 
@@ -273,7 +272,7 @@
         #define TRACE3( szMsg, p1, p2, p3) \
             _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, szMsg, p1, p2, p3)
         #define TRACEINFO( szMsg) \
-            _CrtDbgReport(_CRT_WARN, THIS_FILE, __LINE__, NULL, _TSFORMAT_, szMsg)
+            _CrtDbgReport(_CRT_WARN, __FILE__, __LINE__, NULL, _TSFORMAT_, szMsg)
       /*  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  */
       #endif  /*_WIN32 || _MAC */
 

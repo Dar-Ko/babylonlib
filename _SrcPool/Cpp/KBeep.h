@@ -1,5 +1,5 @@
 /*$Workfile: KBeep.h$: header file
-  $Revision: 3$ $Date: 2003-09-30 10:21:57$
+  $Revision: 3$ $Date: 2003-09-30 09:21:57$
   $Author: Darko$
 
   Generates beep sounds

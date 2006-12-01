@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonDateTime.cpp$: implementation file
-  $Revision: 1$ $Date: 2004-10-08 12:32:32$
+  $Revision: 1$ $Date: 2004-10-08 11:32:32$
   $Author: Darko$
 
   Console application used to test various operations with date and time.

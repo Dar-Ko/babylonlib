@@ -1,5 +1,5 @@
 /*$Workfile: KStringStd.cpp$: implementation file
-  $Revision: 2$ $Date: 2005-04-25 21:26:59$
+  $Revision: 2$ $Date: 2005-04-25 20:26:59$
   $Author: Darko$
 
   Dynamic string class

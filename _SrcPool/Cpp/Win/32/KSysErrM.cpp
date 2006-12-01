@@ -1,5 +1,5 @@
 /*$Workfile: KSysErrM.cpp$: implementation file
-  $Revision: 10$ $Date: 2005-04-26 11:35:35$
+  $Revision: 11$ $Date: 2005-05-18 18:36:08$
   $Author: Darko Kolakovic$
 
   System Error Display helper function
@@ -10,15 +10,16 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#ifndef __AFXWIN_H__
-  #include <AfxWin.h>
-#endif
+#include "stdafx.h"
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
+
+  //Message box title
+#define MSGBOX_SYSERROR_TITLE  _T("System Error")
 
 //SystemErrMessage()-----------------------------------------------------------
 /*Displays the Win32 system's error message.
@@ -62,16 +63,28 @@ if ((FormatMessage(
   #ifdef _DEBUG_SYSERR
     ASSERT(FALSE);
   #endif
-  if( ((AfxGetApp() != NULL) ?
-        AfxMessageBox(szMessage, MB_OK | MB_ICONSTOP) : //MFC application
-        ::MessageBox(NULL,(LPCTSTR)szMessage,           //SDK compiled with C++
-                     _T("System Error"),
-                     MB_OK | MB_ICONSTOP))
-          == 0)
-    {
-    TRACE0 ("Not enough memory to display the message box.\n");
-    SetLastError(ERROR_SUCCESS);
-    }
+
+  #if defined (_AFX)  //MFC application
+    if( ((AfxGetApp() != NULL) ?
+          AfxMessageBox(szMessage, MB_OK | MB_ICONSTOP) : //MFC application
+          ::MessageBox(NULL,(LPCTSTR)szMessage,           //SDK compiled with MFC
+                       MSGBOX_SYSERROR_TITLE,
+                       MB_OK | MB_ICONSTOP))
+            == 0)
+      {
+      TRACE0 ("Not enough memory to display the message box.\n");
+      SetLastError(ERROR_SUCCESS);
+      }
+  #else //SDK application
+    if (::MessageBox(NULL,
+                     (LPCTSTR)szMessage, 
+                     MSGBOX_SYSERROR_TITLE, 
+                     MB_OK | MB_ICONSTOP)    == 0)
+      {
+      TRACE0 ("Not enough memory to display the message box.\n");
+      SetLastError(ERROR_SUCCESS);
+      }
+  #endif //_AFX
   }
 else
   {
@@ -926,6 +939,8 @@ return;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  11   Biblioteka1.10        2005-05-18 18:36:08  Darko Kolakovic replaced
+ *       AfxWin.h
  *  10   Biblioteka1.9         2005-04-26 11:35:35  Darko Kolakovic Document groups
  *       and typo fixes
  *  9    Biblioteka1.8         2004-10-01 22:35:32  Darko           stdafx.h

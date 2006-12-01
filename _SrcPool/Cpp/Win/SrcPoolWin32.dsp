@@ -164,11 +164,23 @@ SOURCE=.\32\KApnSyMn.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KBeepWin.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KBtnEx.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\32\KCheckBox.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KClipCBm.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KClipCTx.cpp
 # End Source File
 # Begin Source File
 
@@ -312,6 +324,14 @@ SOURCE=.\32\KFileGetDirectory.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KFileNameFit.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KFileNmB.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KFileTime.cpp
 # End Source File
 # Begin Source File
@@ -356,6 +376,14 @@ SOURCE=.\32\KListEx.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KPropPgR.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KPropShR.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KRegCtrl.cpp
 # End Source File
 # Begin Source File
@@ -389,6 +417,10 @@ SOURCE=.\32\KStatusBarEx.cpp
 # Begin Source File
 
 SOURCE=.\32\KStrAtoWChar.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KStrFit.cpp
 # End Source File
 # Begin Source File
 
@@ -480,6 +512,10 @@ SOURCE=.\32\KAtlExt.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\KBeep.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KBtnEx.h
 # End Source File
 # Begin Source File
@@ -524,6 +560,14 @@ SOURCE=.\32\KDlgTmpl.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KFileN32.inl
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KFileNmB.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KFileTime.h
 # End Source File
 # Begin Source File
@@ -537,6 +581,14 @@ SOURCE=.\32\KHypLink.h
 # Begin Source File
 
 SOURCE=.\32\KListEx.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KPropPgR.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KPropShR.h
 # End Source File
 # Begin Source File
 

@@ -1,5 +1,5 @@
 /*$Workfile: KDlgItem.h$: header file
-  $Revision: 9$ $Date: 2005-04-26 11:29:35$
+  $Revision: 10$ $Date: 2005-05-30 15:25:22$
   $Author: Darko Kolakovic$
 
   Description of a resizable dialog control
@@ -19,7 +19,7 @@
 class CDlgItemResizableList;
 ///////////////////////////////////////////////////////////////////////////////
 // CDlgItemResizable class contains basic parameters for a dialog control.
-// If a control is based on a resource template, position and size are in 
+// If a control is based on a resource template, position and size are in
 // dialog box units.
 //
 // See also: diagnostic operator<<()
@@ -35,13 +35,13 @@ public:
 // Attributes
 protected:
   DWORD m_dwStyle; //specifies the resizing style of the control
-  short x;     //the upper-left corner position 
+  short x;     //the upper-left corner position
                //relative to the upper-left corner of the dialog box's client area.
-  short y;     //the upper-left corner position 
+  short y;     //the upper-left corner position
                //relative to the upper-left corner of the dialog box's client area.
-  short cx;    //the width of the control 
-  short cy;    //the height of the control 
-  UINT  m_nControlID;   //the control identifier 
+  short cx;    //the width of the control
+  short cy;    //the height of the control
+  UINT  m_nControlID;   //the control identifier
 public:
   HWND  m_hWnd;         //handle of the control
 
@@ -49,24 +49,34 @@ public:
   enum RESIZING_TYPE
     {
     POS_DOCKBOTH     = 0,   //disable repositioning
-    POS_FLOATHOR     = 1,   //translate horizontally {html:<BR><IMG SRC="Res/POS_FLOATHOR.gif" BORDER="0">}
-    POS_FLOATVER     = 2,   //translate vertically {html:<BR><IMG SRC="Res/POS_FLOATVER.gif" BORDER="0">}
+    POS_FLOATHOR     = 1,   //translate horizontally
+                //{html:<br /><img src="Images/guiPOS_FLOATHOR.gif" border="0"
+                //             alt="POS_FLOATHOR">}
+    POS_FLOATVER     = 2,   //translate vertically
+                //{html:<br /><img src="Images/guiPOS_FLOATVER.gif" border="0"
+                //             alt="POS_FLOATVER">}
     POS_FLOATBOTH    = POS_FLOATHOR | POS_FLOATVER, //move in both directions
     SIZE_FIXED       = 0,   //disable resizing
-    SIZE_EXPANDHOR   = 0x10000, //stretch out horizontally {html:<BR><IMG SRC="Res/SIZE_EXPANDHOR.gif" BORDER="0">}
-    SIZE_EXPANDVER   = 0x20000, //stretch out vertically {html:<BR><IMG SRC="Res/SIZE_EXPANDVER.gif" BORDER="0">}
-    SIZE_EXPANDBOTH  = SIZE_EXPANDHOR | SIZE_EXPANDVER, //stretch out both directions
-    SIZE_PROPORTIONAL= 0x40000 | SIZE_EXPANDBOTH,    //stretch out both directions preserving aspect ratio
-    PROPORTIONAL_HOR = POS_FLOATHOR | SIZE_EXPANDHOR,//stretch out in same proportion 
-                                                     //as container window has been 
-                                                     //stretched horizontally and 
-                                                     //preserve relative position
-    PROPORTIONAL_VER = POS_FLOATVER | SIZE_EXPANDVER,//stretch out in same proportion 
-                                                     //as container window has been 
-                                                     //stretched vertically and 
-                                                     //preserve relative position
-    ALL_PROPORTIONAL = PROPORTIONAL_HOR|PROPORTIONAL_VER,//resize proportionally to container window
-    ALL_FIXED        = POS_DOCKBOTH | SIZE_FIXED   //disable resizing and repositioning
+    SIZE_EXPANDHOR   = 0x10000, //stretch out horizontally
+              //{html:<br /><img src="Images/guiSIZE_EXPANDHOR.gif" border="0"
+              //             alt="SIZE_EXPANDHOR">}
+    SIZE_EXPANDVER   = 0x20000, //stretch out vertically
+              //{html:<br /><img src="Images/guiSIZE_EXPANDVER.gif" border="0"
+              //              alt="SIZE_EXPANDVER">}
+    SIZE_EXPANDBOTH  = SIZE_EXPANDHOR | SIZE_EXPANDVER, //stretch out both
+                                                        //directions
+    SIZE_PROPORTIONAL= 0x40000 | SIZE_EXPANDBOTH,    //stretch out both
+                                           //directions preserving aspect ratio
+    PROPORTIONAL_HOR = POS_FLOATHOR | SIZE_EXPANDHOR,//stretch out in same
+                           //proportion as container window has been stretched
+                           //horizontally and preserve relative position
+    PROPORTIONAL_VER = POS_FLOATVER | SIZE_EXPANDVER,//stretch out in same
+                           //proportion as container window has been
+                           //stretched vertically and preserve relative position
+    ALL_PROPORTIONAL = PROPORTIONAL_HOR|PROPORTIONAL_VER,//resize proportionally
+                                                         //to container window
+    ALL_FIXED        = POS_DOCKBOTH | SIZE_FIXED   //disable resizing and
+                                                   //repositioning
     };
 
 // Operations
@@ -86,7 +96,8 @@ public:
 
 friend CDlgItemResizableList; //list of controls
 #ifdef _DEBUG
-  friend CDumpContext& AFXAPI operator<<(CDumpContext& dc, const CDlgItemResizable& Data);
+  friend CDumpContext& AFXAPI operator<<(CDumpContext& dc,
+                                         const CDlgItemResizable& Data);
 #endif
 };
 
@@ -96,7 +107,8 @@ friend CDlgItemResizableList; //list of controls
 //::operator=()----------------------------------------------------------------
 /*Assigns coordinates of the controls corners to position and size members.
  */
-inline CDlgItemResizable& CDlgItemResizable::operator=(const CRect& rtValue //control's dimensions
+inline CDlgItemResizable& CDlgItemResizable::operator=(const CRect& rtValue //[in]
+                                                        //control's dimensions
                                                       )
 {
 x = (short)rtValue.left;
@@ -116,8 +128,10 @@ return m_dwStyle;
 
 //::SetStyle()-----------------------------------------------------------------
 /*Sets a new style for resizable control.
+ Returns: style flags after the change.
  */
-inline DWORD CDlgItemResizable::SetStyle(const DWORD& dwFlags //one or more style flags
+inline DWORD CDlgItemResizable::SetStyle(const DWORD& dwFlags //[in] one or more
+                                                              //style flags
                                          )
 {
 m_dwStyle = dwFlags;
@@ -133,8 +147,11 @@ return m_dwStyle;
 BOOL IsOldCombobox(HWND hCtrl);
 /*Copies dimensions of the given control to this resizable control. Returns TRUE
   in case of success.
+
+  Returns: TRUE if successful; otherwise returns FALSE.
  */
-inline BOOL CDlgItemResizable::SetDimensions(const HWND& hParent //container window
+inline BOOL CDlgItemResizable::SetDimensions(const HWND& hParent //[in] container
+                                                                 //window
                                             )
 {
 ASSERT(::IsWindow(hParent));
@@ -167,7 +184,8 @@ return FALSE;
 //::IsStyle()------------------------------------------------------------------
 /*Returns TRUE if particular style has been set.
  */
-inline BOOL CDlgItemResizable::IsStyle(const DWORD& dwFlags //one or more style flags
+inline BOOL CDlgItemResizable::IsStyle(const DWORD& dwFlags //[in] one or more
+                                                            //style flags
                                        )
 {
 return ((m_dwStyle & dwFlags) == dwFlags);
@@ -178,18 +196,21 @@ return ((m_dwStyle & dwFlags) == dwFlags);
 
 //operator<<()-----------------------------------------------------------------
 #ifdef _DEBUG
-  /*Outputs the CDlgItemResizable object to the dump context. In case of failure throws 
-    CFileException;
+  /*Outputs the CDlgItemResizable object to the dump context. In case of failure
+   throws CFileException;
 
     Note: uses Microsoft Foundation Library (MFC).
    */
-  inline CDumpContext& AFXAPI operator<<(CDumpContext& dc, const CDlgItemResizable& Data)
+  inline CDumpContext& AFXAPI operator<<(CDumpContext& dc, //[in] dump target
+                                         const CDlgItemResizable& Data //[in] object
+                                                                     //to dump
+                                        )
     {
     dc << _T("CDlgItemResizable @ ") << (PVOID)&Data
        << _T("\n\t{\n\tPosition(")
-       << Data.x << _T(",") << Data.y 
+       << Data.x << _T(",") << Data.y
        << _T(")\n\tSize(")
-       << Data.cx << _T(",") << Data.cy 
+       << Data.cx << _T(",") << Data.cy
        << _T(")\n\tstyle = ") << Data.m_dwStyle
        << _T("\n\tID =")      << Data.m_nControlID
        << _T("\n\tHWND =")    << Data.m_hWnd;
@@ -213,7 +234,7 @@ inline BOOL IsOldCombobox(HWND hCtrl //handle of the control
                           )
 {
 ASSERT(::IsWindow(hCtrl));
-DWORD dwVersion = ::GetVersion(); 
+DWORD dwVersion = ::GetVersion();
 if (LOBYTE(LOWORD(dwVersion)) < 4)
   {
   const int BUFFERSIZE = 16;

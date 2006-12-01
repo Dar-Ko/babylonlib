@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDisplayComError.cpp$: implementation file
-  $Revision: 6$ $Date: 2005-05-10 16:08:17$
+/*$Workfile: KDisplayComError.cpp$: implementation file
+  $Revision: 7$ $Date: 2005-06-21 17:51:52$
   $Author: Darko Kolakovic$
 
   Outputs COM exception.
@@ -29,7 +29,7 @@
 #endif
 
 #ifdef _CONSOLE
-  #ifdef _STL
+  #if defined(_STL) || defined (_USE_STL) //Use Standard Template Library (STL)
     #include <iostream> //cerr class
   #endif
 #endif

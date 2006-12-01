@@ -1,5 +1,5 @@
 /*$Workfile: KDateTm.c$: implementation file
-  $Revision: 3$ $Date: 2003-09-23 17:12:51$
+  $Revision: 3$ $Date: 2003-09-23 16:12:51$
   $Author: Darko$
  
   Converts DOS date and time to Unix time
@@ -69,8 +69,8 @@ return ptmTarget;
  */
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2003-09-23 17:12:51  Darko           AtoI()
- *  2    Biblioteka1.1         2003-09-22 22:25:50  Darko           formatting
- *  1    Biblioteka1.0         2003-01-10 22:53:25  Darko Kolakovic 
+ *  3    Biblioteka1.2         2003-09-23 16:12:51  Darko           AtoI()
+ *  2    Biblioteka1.1         2003-09-22 21:25:50  Darko           formatting
+ *  1    Biblioteka1.0         2003-01-10 21:53:25  Darko Kolakovic 
  * $
  *****************************************************************************/

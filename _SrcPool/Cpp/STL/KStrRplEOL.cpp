@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\STL\KStrRplEOL.cpp$: implementation file
+/*$Workfile: KStrRplEOL.cpp$: implementation file
   $Revision: 5$ $Date: 2004-10-07 12:56:31$
   $Author: Darko$
 

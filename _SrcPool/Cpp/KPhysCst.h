@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KPhysCst.h$: header file
-  $Revision: 8$ $Date: 2005-04-19 20:56:51$
+/*$Workfile: KPhysCst.h$: header file
+  $Revision: 9$ $Date: 2005-06-24 19:15:48$
   $Author: Darko Kolakovic$
 
   Physics - Constants
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KPHYSCST_H_
-    //$Workfile: S:\_SrcPool\Cpp\KPhysCst.h$ sentry
+    //$Workfile: KPhysCst.h$ sentry
   #define _KPHYSCST_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -90,12 +90,37 @@ const double CST_HpDAY = 24.0; //hours per day
 
   /*decibel per neper
           [dB]/[Np] = 20*log(e) = 20/ln(10).
+
     Neper is a unit for comparing of two amplitudes, equal to the logarithm
     of the ratio of the two amplitudes
           A[Np] = ln(V/Vref).
-    [named after John Napier(1550-1617)]
+    [named after Napier, John (1550-1617)]
+
+    See also: WpW2dB(), dB2Np()
    */
 #define CST_dBpNp  8.6858896380650365530225783783321
+
+  /*{html: The voltage reference for 0dB with standard line impedance of 600&Omega;
+    0dB is defined as 1mW (P<sub>ref</sub> = 1mW) load on standard line
+    impedance.
+        P[W] = V<sup>2</sup>/R
+        V<sub>ref</sub>=0.77459 ~ 0.775[V].
+
+    See also: VpV2dB()
+    }
+   */
+#define CST_Vref 0.775
+
+  /*{html:
+    Speed of sound in air at 20°C [m/s].
+    Speed of sound in the air depends on the temperature:
+      v<sub>sa</sub>[m/s]=0.6T[°C] + 331.
+    }
+   */
+#define CST_Vsa  343
+  //Speed of sound in water at 20°C [m/s]
+#define CST_Vsw 1525
+
 ///////////////////////////////////////////////////////////////////////////////
 // Template functions
 // Group=
@@ -103,9 +128,20 @@ const double CST_HpDAY = 24.0; //hours per day
 #ifdef __cplusplus
 
 //VpV2dB()---------------------------------------------------------------------
-/*Converts Voltage attenuation [V/V] to decibels.
+/*Converts Voltage attenuation [V/V] to decibels [dB].
 
-    A[B] = 10*A[dB] = 10*log(P/Pref) = 10*log((V/Vref)**2) = 20*log(V/Vref)[dB]
+      P = V<sup>2</sup>/R
+      A[B] = 10A[dB] = 10log(P/P<sub>ref</sub>) = 10log((V/V<sub>ref</sub>)<sup>2</sup>)
+           = 20log(V/V<sub>ref</sub>)[dB]
+
+  0dB is defined as 1mW (P<sub>ref</sub> = 1mW) load on standard line impedance
+  R = 600&Omega; Therefore:
+      V<sub>ref</sub>=0.77459 &cong; 0.775[V].
+  In communication systems where standard line impedance is 50&Omega;,
+  V<sub>ref</sub>=0.2236[V]. In RF/TV cable systems line impedance is 75&Omega;
+  and V<sub>ref</sub>=0.27386[V].
+
+  See also: WpW2dB(), dB2Vratio()
 */
 template <class TYPE> inline TYPE VpV2dB(const TYPE& fV,const TYPE& fVref)
   {
@@ -114,11 +150,23 @@ template <class TYPE> inline TYPE VpV2dB(const TYPE& fV,const TYPE& fVref)
   };
 
 //WpW2dB()---------------------------------------------------------------------
-/*Converts Power attenuation [W/W] to decibels [dB].
-  One dB is equal to ten times the logarithm of the ratio of the power
-  (or sound intensity) measured after and before attenuator.
+/*{html:
+  Converts Power attenuation [W/W] to decibels [dB].
 
-    A[B] = 10*A[dB] = 10*log(P/Pref)[dB]
+  decibel [dB] is relative unit of measurement on logarithimic scale.
+  One dB is equal to ten times the logarithm of the ratio of the measured or
+  calculated power (or sound intensity) and a reference power (for example
+  before attenuation).
+
+      A[B] = 10 A[dB] = 10 log<sub>10</sub>(P/P<sub>ref</sub>)[dB]
+  [named after Bell, Alexander Graham]
+
+  In standard audio systems 0dB is defined as 1mW measured on 600&Omega; load.
+  A 600&Omega; balanced audio line is the standard for professional audio and
+  telecommunication equipment.
+
+  See also: dB2Wratio(), VpV2dB()
+  }
  */
 template <class TYPE> inline TYPE WpW2dB(const TYPE& fP,const TYPE& fPref)
   {
@@ -127,14 +175,20 @@ template <class TYPE> inline TYPE WpW2dB(const TYPE& fP,const TYPE& fPref)
   };
 
 //dB2Vratio()------------------------------------------------------------------
-/*Converts decibels to voltage attenuation*/
+/*{html: Converts decibels [dB] to voltage attenuation V/V<sub>ref</sub>
+  See also: VpV2dB()
+  }
+ */
 template <class TYPE> inline TYPE dB2Vratio (const TYPE& fdB)
   {
   return (TYPE)pow(10.,((double)fdB/20.));
   };
 
 //dB2Wratio()------------------------------------------------------------------
-/*Converts decibels to power attenuation*/
+/*{html: Converts decibels [dB] to power attenuation P/P<sub>ref</sub>.
+  See also: WpW2dB()
+  }
+  */
 template <class TYPE> inline TYPE dB2Wratio (const TYPE& fdB)
   {
   return (TYPE)pow(10.,((double)fdB/10.));
@@ -142,9 +196,11 @@ template <class TYPE> inline TYPE dB2Wratio (const TYPE& fdB)
 
 //dB2Np()----------------------------------------------------------------------
 /*Converts signal attenuation given in decibels to signal ratio in nepers.
-  Usually  used in conjunction with hyperbolic trigonometric functions.
+  Usually used in conjunction with hyperbolic trigonometric functions.
 
-    A[Np] = A[dB]/CST_dBpNp = A[dB]/(20* log(e))
+      A[Np] = A[dB]/CST_dBpNp = A[dB]/(20*log(e))
+
+  See also: WpW2dB(), CST_dBpNp
  */
 template <class TYPE> inline TYPE dB2Np (const TYPE& fdB //attenuation [dB]
                                         )

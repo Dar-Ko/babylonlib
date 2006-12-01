@@ -1,6 +1,6 @@
 /*$Workfile: KRandomUniform.h$: header file
-  $Revision: 6$ $Date: 2003-09-05 14:17:36$
-  $Author: Borislav Lukovic$
+  $Revision: 7$ $Date: 2005-05-16 13:28:55$
+  $Author: Darko Kolakovic$
 
   Uniform random number generator
   1987 G. Marsaglia, A. Zaman
@@ -8,14 +8,14 @@
 */
 
 #ifndef _KRANDOMUNIFORM_H_
-  //KRandomUniform.h sentry
+  //$Workfile: KRandomUniform.h$ sentry
   #define _KRANDOMUNIFORM_H_
 
 #include "KTypedef.h"
 #include "KRandom.h"  //CRandomNo class
 
 ///////////////////////////////////////////////////////////////////////////////
-/*The Uniform Random Number Generator is based on the algorithm first 
+/*The Uniform Random Number Generator is based on the algorithm first
   introduced by George Marsaglia and Arif Zaman in 1987.
   It passes all of the tests for random number generators and has a period
   of 2^144, is completely portable (gives bit identical results on all machines
@@ -90,9 +90,9 @@ return ((int)(Get() * (iUpper - iLower)) + iLower);
 
   Returns: a pseudorandom integer in the range 0 to (nLimes - 1) < UINT_MAX.
  */
-inline int CRandomUniform::Get(unsigned int nLimes //[in] upper limit of 
+inline int CRandomUniform::Get(unsigned int nLimes //[in] upper limit of
                                                  //generated numbers
-                            ) 
+                            )
 {
 //Get next seed value and return value from 0 to iLimes -1
 return ((int)(Get() * nLimes));

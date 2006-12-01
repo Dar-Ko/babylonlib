@@ -1,5 +1,5 @@
 /*$Workfile: KXmlNode.cpp$: implementation file
-  $Revision: 17$ $Date: 2005-05-14 00:21:25$
+  $Revision: 17$ $Date: 2005-05-13 23:21:25$
   $Author: Darko$
 
   Defines the class behavior.

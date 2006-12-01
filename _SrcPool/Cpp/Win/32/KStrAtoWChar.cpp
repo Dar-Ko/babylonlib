@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KStrAtoWChar.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-03-21 02:17:31$
+/*$Workfile: KStrAtoWChar.cpp$: implementation file
+  $Revision: 1$ $Date: 2005-03-21 03:17:31$
   $Author: Darko$
 
   Convert ASCII string to wide-character string

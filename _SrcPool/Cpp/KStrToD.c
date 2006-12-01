@@ -1,6 +1,6 @@
 /*$Workfile: KStrToD.c$: implementation file
-  $Revision: 4$ $Date: 2004-10-01 21:40:02$
-  $Author: Darko$
+  $Revision: 5$ $Date: 2005-06-21 10:11:59$
+  $Author: Darko Kolakovic$
 
   Converts a string to the real number
   Copyright: CommonSoft Inc.
@@ -51,15 +51,15 @@
                E    optional exponential tag e or E
 
   Example:
-    //Valid formats
-    LPCTSR szRealNumber1 = _T("   11");
-    LPCTSR szRealNumber2 = _T("  +11.");
-    LPCTSR szRealNumber3 = _T("  -11.2");
-    LPCTSR szRealNumber4 = _T("     .2");
-    LPCTSR szRealNumber5 = _T("   11e3");
-    LPCTSR szRealNumber6 = _T("  +11.E+3");
-    LPCTSR szRealNumber7 = _T("  -11.2E-3");
-    LPCTSR szRealNumber8 = _T("     .2e3");
+      //Valid formats
+      LPCTSR szRealNumber1 = _T("   11");
+      LPCTSR szRealNumber2 = _T("  +11.");
+      LPCTSR szRealNumber3 = _T("  -11.2");
+      LPCTSR szRealNumber4 = _T("     .2");
+      LPCTSR szRealNumber5 = _T("   11e3");
+      LPCTSR szRealNumber6 = _T("  +11.E+3");
+      LPCTSR szRealNumber7 = _T("  -11.2E-3");
+      LPCTSR szRealNumber8 = _T("     .2e3");
 
   This function ignores leading white space characters and does not validate
   overflow or underflow cases.
@@ -68,9 +68,8 @@
   is not NULL, the pointer to the first character after parsed number is also
   returnded.
 
-  See also: {html:<A HREF="http://www.research.microsoft.com/~hollasch/cgindex/coding/ieeefloat.html">}
-  IEEE Standard 754 {html:</A>}
-
+  See also: {html:<a href="http://stevehollasch.com/cgindex/coding/ieeefloat.html">
+  IEEE Standard 754 </a>}
  */
 double StrToD(LPCTSTR pSource,     /*[in] pointer to string representing real
                                           number*/

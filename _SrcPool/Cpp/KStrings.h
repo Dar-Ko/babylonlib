@@ -1,6 +1,6 @@
 /*$Workfile: KStrings.h$: implementation file
-  $Revision: 29$ $Date: 2005-05-11 22:11:27$
-  $Author: Darko$
+  $Revision: 30$ $Date: 2005-06-21 17:48:03$
+  $Author: Darko Kolakovic$
 
   String manipulation
   Copyright: CommonSoft Inc
@@ -92,6 +92,7 @@ int EnumSubstring(const TCHAR* strSource,const TCHAR* szDelimiter);
 int GetLine(LPTSTR& szSource, LPTSTR& szLine);
 bool IsPalindrome(LPCTSTR szSource);
 bool IsPalindrome(LPCTSTR strSource, unsigned int);
+unsigned int StrPrefix(LPCTSTR szOperand1, LPCTSTR szOperand2);
 /* ///////////////////////////////////////////////////////////////////////// */
 /* STL functions                                                             */
   #ifdef _STRING_ //string standard header (STL)

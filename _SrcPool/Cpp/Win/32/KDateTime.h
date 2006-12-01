@@ -1,6 +1,6 @@
 /*$Workfile: KDateTime.h$: implementation file
-  $Revision: 5$ $Date: 2004-10-01 22:52:18$
-  $Author: Darko$
+  $Revision: 6$ $Date: 2005-06-28 13:39:05$
+  $Author: Darko Kolakovic$
 
   Date and time conversions
   Copyright: CommonSoft Inc
@@ -63,8 +63,8 @@
 //
 //Note:  Microsoft Windows specific (Win32).
 //
-//Note: To avoid the “Year 2038” problem, Microsoft defined a new data type 
-//      __time64_t that supports dates up to 3000-12-31. A new set of CRT 
+//Note: To avoid the “Year 2038” problem, Microsoft defined a new data type
+//      __time64_t that supports dates up to 3000-12-31. A new set of CRT
 //      routines utilizing __time64_t are found in msvcrt.dll v6.1 or higher.
 //      Also is required MFC 7.0  or higher.
 //
@@ -132,7 +132,7 @@ public:
   #ifdef _KTIME16_H_
     bool SetDate(const FILEDATEDOS& dosDate, const FILETIMEDOS& dosTime = 0);
   #endif
-  virtual bool SetDate(int iYear, int iMonth, int iDay, 
+  virtual bool SetDate(int iYear, int iMonth, int iDay,
                        int iHour = 0, int iMinute = 0, int iSecond = 0);
   virtual bool SetDate(LPCTSTR strValue);
   virtual bool IsValid() const;
@@ -148,10 +148,10 @@ inline CDateTime::CDateTime(const CDateTime& dateValue //[in] value to copy
                            )
 {
 m_dateValue = dateValue.m_dateValue;
-} 
+}
 
 //-----------------------------------------------------------------------------
-/*Coverts from double or DATA type after validation of negative values, since 
+/*Coverts from double or DATA type after validation of negative values, since
   negative dates are not continuous.
  */
 inline CDateTime::CDateTime(const double dValue //[in]= 0.0 value to convert
@@ -206,7 +206,7 @@ if(!(SetDate(pTemp->tm_year + YEAR_EPOCH_TM,
  */
 inline CDateTime::CDateTime(const SYSTEMTIME& stValue //[in] date and time
                             )
-{ 
+{
 *this = stValue;
 }
 
@@ -214,7 +214,7 @@ inline CDateTime::CDateTime(const SYSTEMTIME& stValue //[in] date and time
  */
 inline CDateTime::CDateTime(const FILETIME& ftValue //[in] date and time
                             )
-{ 
+{
 *this = ftValue;
 }
 
@@ -222,8 +222,8 @@ inline CDateTime::CDateTime(const FILETIME& ftValue //[in] date and time
  */
 inline CDateTime::CDateTime(const VARIANT& varValue //[in] date and time
                             )
-{ 
-*this = varValue; 
+{
+*this = varValue;
 }
 
 //-----------------------------------------------------------------------------
@@ -240,11 +240,11 @@ inline CDateTime::CDateTime(const VARIANT& varValue //[in] date and time
 
   If the string could not be parsed, date is set to CDateTime::DATE_MAX;
 
-  See also: _DATE_FORMAT_STD_BASIC, CDateTime:: SetDate(), CDate::opertor=(), 
+  See also: _DATE_FORMAT_STD_BASIC, CDateTime:: SetDate(), CDate::opertor=(),
   International Standard
-  {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+  {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
   Data elements and interchange formats,
-  {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+  {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
   Date and Time on the Internet: Timestamps
  */
 inline CDateTime::CDateTime(LPCTSTR strValue //[in] string to parse
@@ -265,7 +265,7 @@ inline CDateTime::~CDateTime()
 }
 
 //-----------------------------------------------------------------------------
-/*Assigns date from the string to this object. The date could be in ISO 8601 
+/*Assigns date from the string to this object. The date could be in ISO 8601
   basic, extended, or similar format:
 
       YYYYMMDD or YYYYcMMcDD
@@ -288,9 +288,9 @@ inline CDateTime::~CDateTime()
 
   See also: _DATE_FORMAT_STD_BASIC, CDateTime:: SetDate(), CDate,
   International Standard
-  {HTML: <A HREF ="Res/ISO8601.htm"> ISO 8601:2000 </A>}
+  {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
   Data elements and interchange formats,
-  {HTML: <A HREF ="Res/RFC3339.htm"> RFC 3339 </A>}
+  {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
   Date and Time on the Internet: Timestamps
  */
 inline CDateTime& CDateTime::operator=(LPCTSTR strValue //[in] string with date
@@ -306,7 +306,7 @@ return *this;
 }
 
 //-----------------------------------------------------------------------------
-/*Assigns double or DATA type after validation of negative values, since 
+/*Assigns double or DATA type after validation of negative values, since
   negative dates are not continuous.
  */
 inline CDateTime& CDateTime::operator=(const double& dValue //[in] value to assign
@@ -336,7 +336,7 @@ return *this;
                           const FILETIMEDOS& dosTime //[in]= 0 new time
                           )
   {
-  if( !::DosDateTimeToVariantTime(dosDate, dosTime, &m_dateValue) ) 
+  if( !::DosDateTimeToVariantTime(dosDate, dosTime, &m_dateValue) )
     return false;
   return true;
   }
@@ -358,13 +358,13 @@ return ((m_dateValue >= DATE_MIN) &&
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KDATETIME_H_
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  5    Biblioteka1.4         2004-10-01 22:52:18  Darko           Added _USE_ATL
  *       guard
  *  4    Biblioteka1.3         2004-10-01 15:46:28  Darko           excluded
  *       __time64_t for MSVC6
  *  3    Biblioteka1.2         2003-09-30 09:06:23  Darko           DATE_ERROR
  *  2    Biblioteka1.1         2003-09-28 01:40:57  Darko           SetDate()
- *  1    Biblioteka1.0         2003-09-27 11:53:10  Darko           
+ *  1    Biblioteka1.0         2003-09-27 11:53:10  Darko
  * $
  *****************************************************************************/

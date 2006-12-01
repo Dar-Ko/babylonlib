@@ -1,6 +1,6 @@
 /*$Workfile: KStrGetLine.cpp$: implementation file
-  $Revision: 8$ $Date: 2004-06-01 17:53:18$
-  $Author: Darko$
+  $Revision: 10$ $Date: 2005-07-07 17:50:43$
+  $Author: Darko Kolakovic$
 
   Read a line of text from a string buffer
   CommonSoft Inc.
@@ -28,16 +28,17 @@
   buffer to the start of the next line.
 
   Returns: number of characters in the scanned line less end of line characters,
-  but including terminating zero. Also returns a pointer to the beginning of 
-  next line and zero-terminated string containing a line of text and pointer 
-  to the beginning of next line. If source is an empty string, function returns 
+  but including terminating zero. Also returns a pointer to the beginning of
+  next line and zero-terminated string containing a line of text and pointer
+  to the beginning of next line. If source is an empty string, function returns
   zero and null pointer in szLine parameter.
 
   Throws: bad_alloc.
 
-  See also: EOL, EOLUNIX, EOLDOS, EOLMAC, {HTML: <A HREF ="Res/ASCIICharTable.htm#End-of-line_Characters">
-    ASCII Character Table </A>}
-  
+  See also: EOL, EOLUNIX, EOLDOS, EOLMAC,
+  {html: <a href="Documentation/KASCIICharTable.htm#End-of-line_Characters">
+  End-of-line Characters</a>}
+
   Example:
 
       #include "KStrings.h"
@@ -115,7 +116,7 @@ return iRes;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  8    Biblioteka1.7         2004-06-01 17:53:18  Darko           time sync
  *  7    Biblioteka1.6         2003-09-04 11:22:40  Darko           comment
  *  6    Biblioteka1.5         2002-08-19 10:40:47  Darko Kolakovic Updated
@@ -123,8 +124,8 @@ return iRes;
  *  5    Biblioteka1.4         2002-02-12 10:53:46  Darko           fixed /n/r case
  *  4    Biblioteka1.3         2002-02-05 19:46:49  Darko           LPTSTR&
  *       szSource
- *  3    Biblioteka1.2         2002-02-04 18:36:58  Darko           
+ *  3    Biblioteka1.2         2002-02-04 18:36:58  Darko
  *  2    Biblioteka1.1         2002-02-04 14:33:37  Darko           Added LF
- *  1    Biblioteka1.0         2002-02-01 18:31:21  Darko           
+ *  1    Biblioteka1.0         2002-02-01 18:31:21  Darko
  * $
  *****************************************************************************/

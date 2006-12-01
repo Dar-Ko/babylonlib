@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\STL\KStringStl.cpp$: implementation file
+/*$Workfile: KStringStl.cpp$: implementation file
   $Revision: 14$ $Date: 2005-04-27 12:51:01$
   $Author: Darko Kolakovic$
 

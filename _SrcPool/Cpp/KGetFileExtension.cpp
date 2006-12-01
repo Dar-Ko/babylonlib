@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KGetFileExtension.cpp$: implementation file
+/*$Workfile: KGetFileExtension.cpp$: implementation file
   $Revision: 4$ $Date: 2005-04-26 16:39:13$
   $Author: Darko Kolakovic$
 

@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KfFibonacci.cpp$: header file
-  $Revision: 3$ $Date: 2005-04-20 13:09:55$
+/*$Workfile: KfFibonacci.cpp$: header file
+  $Revision: 3$ $Date: 2005-04-20 12:09:55$
   $Author: Darko Kolakovic$
 
   Fibonacci sequence

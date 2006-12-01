@@ -1,6 +1,6 @@
 /*$Workfile: KItoA.c$: implementation file
-  $Revision: 5$ $Date: 2004-10-01 21:26:25$
-  $Author: Darko$
+  $Revision: 7$ $Date: 2005-06-21 11:11:29$
+  $Author: Darko Kolakovic$
 
   Convert a signed decimal integers to ASCII string.
   Dec 1988 Darko Kolakovic
@@ -9,7 +9,7 @@
 /* Group=Strings                                                             */
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 #include "KTrace.h"   /*ASSERT macro */
-#include "KTypedef.h" /*BOOL typedef */
+#include "KTypedef.h" /*bool typedef */
 
 #ifdef _MSC_VER
   //warning C4127: conditional expression is constant
@@ -23,8 +23,7 @@
   #endif
 #endif
 
-/*ItoA()---------------------------------------------------------------------*/
-
+/*---------------------------------------------------------------------------*/
 /*Convert the digits of the given iValue argument to a zero-terminated ASCII
   string and stores the result (up to 33 bytes) in given string buffer.
 
@@ -33,45 +32,43 @@
   See also: KStrings.h
 
   Example:
+      #ifdef _MSC_VER
+        / *Microsoft VC/C++ compiler* /
+        #define ItoA _itot /* expands to Microsoft specific _itoa with SBCS
+                              or _itow _UNICODE mapping.
+                            * /
+      #endif
+      #include <stdlib.h>
 
-    #ifdef _MSC_VER
-      / *Microsoft VC/C++ compiler* /
-      #define ItoA _itot /* expands to Microsoft specific _itoa with SBCS
-                            or _itow _UNICODE mapping.
-                          * /
-    #endif
-    #include <stdlib.h>
-
-    void main()
-    {
-    TCHAR szResult[65];
-    int iRadix;
-    for( iRadix=10; iRadix >= 2; --iRadix )
+      void main()
       {
-      ItoA( -1, szResult, iRadix );
-      printf( "base %d: %s (%d chars)\n", iRadix, szResult, strlen(szResult) );
+      TCHAR szResult[65];
+      int iRadix;
+      for( iRadix=10; iRadix >= 2; --iRadix )
+        {
+        ItoA( -1, szResult, iRadix );
+        printf( "base %d: %s (%d chars)\n", iRadix, szResult, strlen(szResult));
+        }
       }
-    }
-
-    Output:
-      base 10: -1 (2 chars)
-      base 9: 12068657453 (11 chars)
-      base 8: 37777777777 (11 chars)
-      base 7: 211301422353 (12 chars)
-      base 6: 1550104015503 (13 chars)
-      base 5: 32244002423140 (14 chars)
-      base 4: 3333333333333333 (16 chars)
-      base 3: 102002022201221111210 (21 chars)
-      base 2: 11111111111111111111111111111111 (32 chars)
+      Output:
+        base 10: -1 (2 chars)
+       base 9: 12068657453 (11 chars)
+        base 8: 37777777777 (11 chars)
+        base 7: 211301422353 (12 chars)
+        base 6: 1550104015503 (13 chars)
+        base 5: 32244002423140 (14 chars)
+        base 4: 3333333333333333 (16 chars)
+        base 3: 102002022201221111210 (21 chars)
+        base 2: 11111111111111111111111111111111 (32 chars)
 */
 LPTSTR ItoA(int iValue,     /*[in] number to be converted                    */
            LPTSTR szResult, /*[in] pointer to string buffer                  */
            int iRadix       /*[in] base of value; must be in the range 2 – 36*/
           )
 {
-BOOL   bIsNegative;
+bool   bIsNegative;
 LPTSTR pTemp;
-LPTSTR pBuffer;      /*pointer to input buffer */
+LPTSTR pBuffer;     /*pointer to input buffer */
 unsigned nDigit;    /*single digit value      */
 
 ASSERT(szResult != NULL);

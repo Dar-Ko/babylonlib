@@ -1,5 +1,5 @@
 /*$Workfile: KBoolStream.h$: header file
-  $Revision: 2$ $Date: 2004-12-20 14:26:18$
+  $Revision: 2$ $Date: 2004-12-20 15:26:18$
   $Author: Darko Kolakovic$
 
   Write bool literal to the stream

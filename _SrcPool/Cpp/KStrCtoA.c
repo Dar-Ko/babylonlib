@@ -1,6 +1,6 @@
 /*$Workfile: KStrCtoA.c$: implementation file
-  $Revision: 10$ $Date: 8/14/2003 5:02:18 AM$
-  $Author: Darko$
+  $Revision: 12$ $Date: 2005-06-28 12:38:04$
+  $Author: Darko Kolakovic$
 
   Converts a character to descriptive string
   Jun 1990 Darko Kolakovic
@@ -21,28 +21,28 @@
 /* Group=Strings                                                             */
 
 /*ChtoAscii()----------------------------------------------------------------*/
-/*The ChtoAscii function converts a character from the American Standard Code 
-  for Information Interchange (ASCII) Table to a descriptive string representing 
-  its value. Characters have to be in range [0,127], if not the Out of Range 
+/*The ChtoAscii function converts a character from the American Standard Code
+  for Information Interchange (ASCII) Table to a descriptive string representing
+  its value. Characters have to be in range [0,127], if not the Out of Range
   string "<?>" is returned.
 
   Example:
-    #include <StdIO.h>
-    #include "KStrings.h"
-    void  main(void)
-      {
-      int cValue = -1;
-      while (cValue < 129)
+      #include <StdIO.h>
+      #include "KStrings.h"
+      void  main(void)
         {
-        printf("%s\n",ChtoAscii(cValue));
-        cValue ++;
+        int cValue = -1;
+        while (cValue < 129)
+          {
+          printf("%s\n",ChtoAscii(cValue));
+          cValue ++;
+          }
         }
-      }
 
-  See also: {HTML: <A HREF ="Res/ASCIICharTable.htm"> ASCII Character Table </A>},
-           KStrings.h
+  See also: {html: <a href="Documentation/KASCIICharTable.htm">
+            ASCII Character Table </a>}, KStrings.h
 
-  Returns: zero-terminated string containing ASCII representation of 
+  Returns: zero-terminated string containing ASCII representation of
   a character.
  */
 TCHAR* ChtoAscii(int cValue /*[in] value of a character to convert [0,127]   */
@@ -55,7 +55,7 @@ TCHAR* ChtoAscii(int cValue /*[in] value of a character to convert [0,127]   */
   /*Table with control characters descriptions (0x00 – 0x1F or 0x7F)   */
 static TCHAR szChar[2] ={_T('!'),_T('\0')};
 static TCHAR* szControlChar[ ] =
-    {
+  {
     /*String    ASCII value   Escape sequence       */
   _T("<NUL>"), /*   0                               */
   _T("<SOH>"), /*   1                               */

@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KBtnEx.h$: header file
+/*$Workfile: KBtnEx.h$: header file
   $Revision: 9$ $Date: 2005-05-05 17:22:14$
   $Author: Darko Kolakovic$
 
@@ -9,7 +9,7 @@
 // Group=Windows
 
 #ifndef _KBTNEXT_H_
-  //$Workfile: S:\_SrcPool\Cpp\Win\32\KBtnEx.h$ sentry
+  //$Workfile: KBtnEx.h$ sentry
   #define _KBTNEXT_H_
 
 #if _MSC_VER > 1000

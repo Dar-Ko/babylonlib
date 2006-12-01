@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KColorSt.c$: implementation file
+/*$Workfile: KColorSt.c$: implementation file
   $Revision: 2$ $Date: 2005-05-11 09:11:54$
   $Author: Darko Kolakovic$
 

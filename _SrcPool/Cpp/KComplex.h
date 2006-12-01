@@ -1,6 +1,6 @@
 /*$Workfile: KComplex.h$: header file
-  $Revision: 11$ $Date: 2003-08-23 15:04:14$
-  $Author: Darko$
+  $Revision: 12$ $Date: 2005-05-25 15:58:06$
+  $Author: Darko Kolakovic$
 
   TComplex Numbers: extension to the template std::complex
   Copyright: CommonSoft Inc.
@@ -55,15 +55,21 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//TComplex template class handles numbers in complex domain |Z| = R + jI.
-//Real and imaginary parts are stored in _Re and _Im members.
-//    {html:<BR><IMG SRC="Res/eqPhasorCiS.gif" BORDER="0">}
-//
-//See also:
-//  I, exp10, asin, acos, tan, atan, tanh, atanh, acosh, asinh, asech, acoth
-//
-//Note: If Standard Template Library (STL) is included, base class for TComplex
-//      is std::complex
+/*TComplex template class handles numbers in complex domain |Z| = R + jI.
+  Real and imaginary parts are stored in _Re and _Im members.
+    {html:<br /><img src="Images/graphComplexNo.gif" border="0"
+               alt="complex number">
+
+          <br /><img src="Images/eqPhasorCiS.gif" border="0"
+               alt="z=abs(z)(cos(&phi;)+i*sin(&phi;))">
+    }
+
+  See also:
+    I, exp10, asin, acos, tan, atan, tanh, atanh, acosh, asinh, asech, acoth
+
+  Note: If Standard Template Library (STL) is included, base class for TComplex
+  is std::complex
+ */
 template<class TYPE> class TComplex : public TComplexBase<TYPE>
 {
 //Construction
@@ -170,7 +176,11 @@ inline TComplex<TYPE>::TComplex(const TComplexBase<TYPE>& complexNo)
 
 //::Angle()--------------------------------------------------------------------
 /*Calculates an phase angle in radians of a complex number in the polar form.
-    {html:<BR><IMG SRC="Res/eqComplexArg.gif" BORDER="0">}
+    {html:<br /><img src="Images/graphComplexNo.gif" border="0"
+               alt="complex number">
+          <br /><img src="Images/eqComplexArg.gif" border="0"
+                  alt="&phi;=atan(y/x)">
+    }
 
  */
 template<class TYPE>
@@ -182,28 +192,25 @@ return (TYPE)atan2((double)_ccI, (double)_ccR);
 //::Rho()----------------------------------------------------------------------
 /*Returns a radius of a complex number in the polar form.
   Radius is equal to the magnitide of the phasor represented by complex number
-  and it is calulated as Euclidean norm.
+  and it is calulated as complex norm (absolute value of the complex number).
   Phasor is a rotating vector vector representing a periodical quantity.
-  {html:<BR><IMG SRC="Res/eqPhasorCiS.gif" BORDER="0">}
+    {html:<br /><img src="Images/graphComplexNo.gif" border="0"
+               alt="complex number">
+          <br /><img src="Images/eqPhasorCiS.gif" border="0"
+               alt="z=abs(z)(cos(&phi;)+i*sin(&phi;))">
+    }
 
              z1 = x + iy
              Rho(z1) = |z1| = sqrt(x**2+y**2)
 
-    Im
-    |   .z1 = x+iY
-    | R/
-    | /
-    |/\< Theta
-    +------- Re
-
   Example:
-    int main()
-      {
-      CComplex z1(3, 4);
-      cout << '(' << z1.real() << ',' << z1.imag() << ')' << endl;
-      cout << '(' << z1.Rho() << ',' << z1.Angle() << ')' << endl;
-      return 0;
-      }
+      int main()
+        {
+        CComplex z1(3, 4);
+        cout << '(' << z1.real() << ',' << z1.imag() << ')' << endl;
+        cout << '(' << z1.Rho() << ',' << z1.Angle() << ')' << endl;
+        return 0;
+        }
 
  */
 template<class TYPE>
@@ -215,8 +222,8 @@ return (abs(*this));
 //::I()------------------------------------------------------------------------
 /*Multiplies complex number with i.
 
-    Z= x +i*y
-    i*Z = -y +i*x
+      Z= x +i*y
+      i*Z = -y +i*x
  */
 template<class TYPE>
 inline TComplex<TYPE> TComplex<TYPE>::I()
@@ -235,8 +242,12 @@ return (*this);
 //::I()------------------------------------------------------------------------
 /*Multiplies complex number with i.
 
-    Z= x +i*y
-    i*Z = -y +i*x
+  {html:<br /><img src="Images/eqComplexNo.gif" border="0"
+               alt="Z= x +i*y">
+        <br />
+  }
+
+      i*Z = -y +i*x
  */
 template<class TYPE>
 inline TComplex<TYPE> I(const TComplex<TYPE>& complexNo)
@@ -270,7 +281,7 @@ inline void _GetAR(const TComplex<TYPE>& complexNo, TYPE& Angle, TYPE&R)
 //acos()-----------------------------------------------------------------------
 /*Returns the arcus cosine of complexNo in radians.
 
-  acos(Z) = -i *ln(Z [+/-] i*sqrt(Z**2 -1))
+      acos(Z) = -i *ln(Z [+/-] i*sqrt(Z**2 -1))
  */
 template<class TYPE>
 TComplex<TYPE> acos(const TComplex<TYPE>& complexNo)
@@ -289,7 +300,7 @@ return TComplex<TYPE>(arg(ccW), -log(abs(ccW)));
 //asin()-----------------------------------------------------------------------
 /*Returns the arcus sine of complexNo in radians.
 
-  asin(Z)=-i*ln(i*Z+sqrt(1-Z**2))
+      asin(Z)=-i*ln(i*Z+sqrt(1-Z**2))
  */
 template<class TYPE>
 TComplex<TYPE> asin(const TComplex<TYPE>& complexNo)
@@ -308,7 +319,7 @@ return TComplex<TYPE>(arg(ccW), -log(abs(ccW)));
 //tan()------------------------------------------------------------------------
 /*Returns the tangent of complexNo.
 
-  tan(Z) = sin(Z)/cos(Z)
+      tan(Z) = sin(Z)/cos(Z)
  */
 template<class TYPE>
 TComplex<TYPE> tan(const TComplex<TYPE>& complexNo)
@@ -326,9 +337,12 @@ return TComplex<TYPE>(4*SinR*CosR, -eDelta*eSigma) /
 //atan()-----------------------------------------------------------------------
 /*Returns arctangent of complexNo.
 
-    Z = x + iy
-    atan(Z)=i/2*ln((1-i*z)/(1+i*z))
-    atan(Z)=atan(2x/(1-x**2-y**2))/2 + i*ln((x**2+(y+1)**2)/(x**2+(y-1)**2))/4 +k*PI
+  {html:<br /><img src="Images/eqComplexNo.gif" border="0"
+               alt="Z= x +i*y">
+        <br />
+  }
+      atan(Z)=i/2*ln((1-i*z)/(1+i*z))
+      atan(Z)=atan(2x/(1-x**2-y**2))/2 + i*ln((x**2+(y+1)**2)/(x**2+(y-1)**2))/4 +k*PI
  */
 template<class TYPE>
 TComplex<TYPE> atan(const TComplex<TYPE>& complexNo)
@@ -351,9 +365,12 @@ return TComplex<TYPE>((TYPE)(arg(ccW)/2),(TYPE)( -log(abs(ccW))/2));
 
 //tanh()-----------------------------------------------------------------------
 /*Returns hyperbolic tangent of complexNo.
-    {html:<BR><IMG SRC="Res/eqPhasorej.gif" BORDER="0">}
+    {html:<br /><img src="Images/eqPhasorej.gif" border="0">
+                   alt="z=abs(z)e**(i&phi;)">
+        <br />
+  }
 
-  tanh(z) = sinh(Z)/cosh(Z)
+      tanh(z) = sinh(Z)/cosh(Z)
  */
 template<class TYPE>
 TComplex<TYPE> tanh(const TComplex<TYPE>& complexNo)
@@ -371,10 +388,13 @@ return TComplex<TYPE>((eDelta/div)*eSigma, (4*SinI*CosI)/div);
 
 //atanh()----------------------------------------------------------------------
 /*Returns the hyperbolic arcus tangent of complexNo.
-    {html:<BR><IMG SRC="Res/eqPhasorej.gif" BORDER="0">}
+    {html:<br /><img src="Images/eqPhasorej.gif" border="0">
+                   alt="z=abs(z)e**(i&phi;)">
+        <br />
+  }
 
-    atanh(Z)=-i*atan(iZ)
-    atanh(Z)=1/2*ln((1+Z)/(1-Z))
+      atanh(Z)=-i*atan(iZ)
+      atanh(Z)=1/2*ln((1+Z)/(1-Z))
  */
 template<class TYPE>
 TComplex<TYPE> atanh(const TComplex<TYPE>& complexNo)
@@ -397,10 +417,13 @@ else
 
 //acosh()----------------------------------------------------------------------
 /*Returns inverse hyperbolic cosine (arccosine).
-    {html:<BR><IMG SRC="Res/eqPhasorej.gif" BORDER="0">}
+    {html:<br /><img src="Images/eqPhasorej.gif" border="0">
+                   alt="z=abs(z)e**(i&phi;)">
+        <br />
+  }
 
-    acosh(Z)=i*acos(Z)
-    acosh(Z)=ln(Z [+/-] sqrt(Z**2-1))
+      acosh(Z)=i*acos(Z)
+      acosh(Z)=ln(Z [+/-] sqrt(Z**2-1))
  */
 template<class TYPE>
 TComplex<TYPE> acosh(const TComplex<TYPE>& complexNo)
@@ -410,10 +433,13 @@ return (log(sqrt (SQUARE(complexNo) - (TYPE)1) + complexNo));
 
 //asinh()----------------------------------------------------------------------
 /*Returns inverse hyperbolic sine (arcsine).
-    {html:<BR><IMG SRC="Res/eqPhasorej.gif" BORDER="0">}
+    {html:<br /><img src="Images/eqPhasorej.gif" border="0">
+                   alt="z=abs(z)e**(i&phi;)">
+        <br />
+  }
 
-    asinh(Z)= -i*asin(i*Z)
-    asinh(Z)= ln(Z+sqrt(Z**2+1))
+      asinh(Z)= -i*asin(i*Z)
+      asinh(Z)= ln(Z+sqrt(Z**2+1))
  */
 template<class TYPE>
 TComplex<TYPE> asinh(const TComplex<TYPE>& complexNo)
@@ -423,9 +449,12 @@ return (log(sqrt (SQUARE(complexNo)+ (TYPE)1) + complexNo));
 
 //asech()----------------------------------------------------------------------
 /*Returns inverse hyperbolic secant (arcsech).
-    {html:<BR><IMG SRC="Res/eqPhasorej.gif" BORDER="0">}
+    {html:<br /><img src="Images/eqPhasorej.gif" border="0">
+                   alt="z=abs(z)e**(i&phi;)">
+        <br />
+  }
 
-    asech(Z) = ln( (1 [+/-] sqrt(1 - Z**2)) / Z)
+        asech(Z) = ln( (1 [+/-] sqrt(1 - Z**2)) / Z)
  */
 template<class TYPE>
 TComplex<TYPE> asech(const TComplex<TYPE>& complexNo)
@@ -435,9 +464,12 @@ return (log((sqrt ((TYPE)1 - SQUARE(complexNo)) + (TYPE)1) / complexNo));
 
 //acoth()----------------------------------------------------------------------
 /*Returns inverse hyperbolic cosecant (arccoth).
-    {html:<BR><IMG SRC="Res/eqPhasorej.gif" BORDER="0">}
+    {html:<br /><img src="Images/eqPhasorej.gif" border="0">
+                   alt="z=abs(z)e**(i&phi;)"
+        <br />
+  }
 
-    acoth(Z) = ln((Z+1)/(Z-1))/2
+      acoth(Z) = ln((Z+1)/(Z-1))/2
  */
 template<class TYPE>
 TComplex<TYPE> acoth(const TComplex<TYPE>& complexNo)
@@ -452,7 +484,7 @@ return (log((complexNo+(TYPE)1) / (complexNo-(TYPE)1))/(TYPE)2);
   */
   template<class TYPE>
   inline std::complex<TYPE>& operator <<(std::complex<TYPE>& Z,_complex Y)
-  {
+ {
   return (Z = std::complex<TYPE>((TYPE)Y.x,(TYPE)Y.y));
   }
 #endif  //__STD_COMPLEX

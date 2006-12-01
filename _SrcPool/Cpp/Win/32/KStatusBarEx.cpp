@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KStatusBarEx.cpp$: implementation file
+/*$Workfile: KStatusBarEx.cpp$: implementation file
   $Revision: 3$ $Date: 2005-05-04 17:50:23$
   $Author: Darko Kolakovic$
 

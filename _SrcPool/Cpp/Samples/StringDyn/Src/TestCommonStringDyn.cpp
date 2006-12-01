@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonStringDyn.cpp$: implementation file
-  $Revision: 1$ $Date: 2004-10-04 13:15:29$
+  $Revision: 1$ $Date: 2004-10-04 12:15:29$
   $Author: Darko$
 
   Test debugging and tracing routines.
@@ -57,6 +57,6 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2004-10-04 13:15:29  Darko           
+ *  1    Biblioteka1.0         2004-10-04 12:15:29  Darko           
  * $
  *****************************************************************************/

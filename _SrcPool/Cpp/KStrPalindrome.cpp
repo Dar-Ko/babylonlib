@@ -1,6 +1,6 @@
 /*$Workfile: KStrPalindrome.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-07-07 17:48:59$
-  $Author: Darko$
+  $Revision: 3$ $Date: 2005-06-21 11:11:55$
+  $Author: Darko Kolakovic$
 
   Verifies if a string is a palindrome.
   Copyright: CommonSoft Inc.
@@ -23,13 +23,13 @@
   the null-pointer or if it is not a palindrome, returns false.
 
   Example:
-    #include "KStrings.h" //Declarations
-    {
-    ...
-    LPCTSTR szPalindrome = _T("Roma tibi subito motibus ibit amor.");
-    ASSERT(IsPalindrome(szPalindrome) == true);
-    ...
-    }
+      #include "KStrings.h" //Declarations
+      {
+      ...
+      LPCTSTR szPalindrome = _T("Roma tibi subito motibus ibit amor.");
+      ASSERT(IsPalindrome(szPalindrome) == true);
+      ...
+      }
 
  */
 bool IsPalindrome(LPCTSTR szSource //[in] zero-terminated string to validate

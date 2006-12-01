@@ -1,5 +1,5 @@
 /*$Workfile: KStrEnum.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-06-01 17:53:01$
+  $Revision: 5$ $Date: 2004-06-01 16:53:01$
   $Author: Darko$
 
   Retreive substrings
@@ -62,12 +62,12 @@ return iSubstringIndex;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         2004-06-01 17:53:01  Darko           time sync
- *  4    Biblioteka1.3         2003-08-25 02:53:39  Darko           Unicode
- *  3    Biblioteka1.2         2002-01-25 16:57:59  Darko           Updated
+ *  5    Biblioteka1.4         2004-06-01 16:53:01  Darko           time sync
+ *  4    Biblioteka1.3         2003-08-25 01:53:39  Darko           Unicode
+ *  3    Biblioteka1.2         2002-01-25 15:57:59  Darko           Updated
  *       comments
- *  2    Biblioteka1.1         2001-08-19 23:55:06  Darko           Butyfier
- *  1    Biblioteka1.0         2001-08-18 16:04:03  Darko           
+ *  2    Biblioteka1.1         2001-08-19 22:55:06  Darko           Butyfier
+ *  1    Biblioteka1.0         2001-08-18 15:04:03  Darko           
  * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/

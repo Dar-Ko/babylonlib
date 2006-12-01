@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KType32.h$: header file
+/*$Workfile: KType32.h$: header file
   $Revision: 9$ $Date: 2004-10-21 13:18:50$
   $Author: Darko Kolakovic$
 
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KTYPE32_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KType32.h$ sentry */
+    /*$Workfile: KType32.h$ sentry */
   #define _KTYPE32_H_
 
   #if (_MSC_VER > 1000) || (__MWERKS__ >= 0x3000)

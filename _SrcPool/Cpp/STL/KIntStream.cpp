@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\STL\KIntStream.cpp$: implementation file
+/*$Workfile: KIntStream.cpp$: implementation file
   $Revision: 7$ $Date: 2004-10-07 12:56:26$
   $Author: Darko$
 

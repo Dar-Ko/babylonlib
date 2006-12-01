@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\STL\KGetLines.cpp$: implementation file
+/*$Workfile: KGetLines.cpp$: implementation file
   $Revision: 7$ $Date: 2004-10-07 12:56:23$
   $Author: Darko$
 

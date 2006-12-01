@@ -1,5 +1,5 @@
 /*$Workfile: KStrIStr.c$: implementation file
-  $Revision: 5$ $Date: 8/14/2003 11:35:36 AM$
+  $Revision: 5$ $Date: 2003-08-14 10:35:36$
   $Author: Darko$
 
   Searches for a substring ignoring case.
@@ -55,13 +55,13 @@ return szTemp;
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  5    Biblioteka1.4         8/14/2003 11:35:36 AMDarko           comment
- *  4    Biblioteka1.3         8/14/2003 5:13:40 AM Darko           Renamed source
+ *  5    Biblioteka1.4         2003-08-14 10:35:36  Darko           comment
+ *  4    Biblioteka1.3         2003-08-14 04:13:40  Darko           Renamed source
  *       file
- *  3    Biblioteka1.2         8/14/2003 5:12:35 AM Darko           Renamed source
+ *  3    Biblioteka1.2         2003-08-14 04:12:35  Darko           Renamed source
  *       file
- *  2    Biblioteka1.1         8/14/2003 5:00:11 AM Darko           comment
- *  1    Biblioteka1.0         8/14/2003 4:57:23 AM Darko           
+ *  2    Biblioteka1.1         2003-08-14 04:00:11  Darko           comment
+ *  1    Biblioteka1.0         2003-08-14 03:57:23  Darko           
  * $
  *  0    Biblioteka1.0           Jan 1990 Darko Kolakovic
  *****************************************************************************/

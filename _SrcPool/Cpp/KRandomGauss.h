@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KRandomGauss.h$: implementation file
-  $Revision: 8$ $Date: 2005-04-20 13:09:53$
+/*$Workfile: KRandomGauss.h$: implementation file
+  $Revision: 8$ $Date: 2005-04-20 12:09:53$
   $Author: Darko Kolakovic$
 
   Random number generator with Gaussian distribution

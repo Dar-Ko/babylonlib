@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KDtoA.c$: implementation file
-  $Revision: 2$ $Date: 2004-10-08 12:35:49$
+/*$Workfile: KDtoA.c$: implementation file
+  $Revision: 2$ $Date: 2004-10-08 11:35:49$
   $Author: Darko$
 
   Converts a real number to the string.

@@ -1,5 +1,5 @@
 /*$Workfile: KProgCst.inl$: header file
-  $Revision: 18$ $Date: 2005-05-01 00:28:12$
+  $Revision: 18$ $Date: 2005-04-30 23:28:12$
   $Author: Darko$
 
   Constants

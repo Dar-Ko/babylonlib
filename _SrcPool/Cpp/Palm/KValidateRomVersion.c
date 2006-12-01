@@ -1,5 +1,5 @@
 /*$Workfile: KValidateRomVersion.c$: implementation file
-  $Revision: 3$ $Date: 2004-11-12 13:57:59$
+  $Revision: 3$ $Date: 2004-11-12 14:57:59$
   $Author: Darko Kolakovic$
 
   Validates requirement for the operarting system version

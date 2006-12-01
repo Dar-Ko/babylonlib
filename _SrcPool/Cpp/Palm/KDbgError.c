@@ -1,5 +1,5 @@
 /*$Workfile: KDbgError.c$: implementation file
-  $Revision: 4$ $Date: 2004-11-09 18:45:08$
+  $Revision: 4$ $Date: 2004-11-09 19:45:08$
   $Author: Darko Kolakovic$
 
   Dumps error code values

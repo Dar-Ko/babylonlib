@@ -1,6 +1,6 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrAtoI.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-08 12:34:32$
-  $Author: Darko$
+/*$Workfile: KStrAtoI.cpp$: implementation file
+  $Revision: 6$ $Date: 2005-06-21 11:11:36$
+  $Author: Darko Kolakovic$
 
   Converts a string to integer
   Copyright: CommonSoft Inc.
@@ -46,9 +46,9 @@
   successfuly parsed. The return value is undefined in case of overflow.
 
   Example:
-    extern int AtoI(LPCTSTR strSource, uint_fast16_t& nLen);
-    LPCTSTR szStr = _T("  -123456789 5555");
-    int iResult = AtoI(szStr, 7); //iResult = -1234
+      extern int AtoI(LPCTSTR strSource, uint_fast16_t& nLen);
+      LPCTSTR szStr = _T("  -123456789 5555");
+      int iResult = AtoI(szStr, 7); //iResult = -1234
 
  */
 int AtoI(LPCTSTR strSource, //[in] pointer to array of digits to be

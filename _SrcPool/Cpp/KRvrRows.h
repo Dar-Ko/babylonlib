@@ -1,5 +1,5 @@
 /*$Workfile: KRvrRows.h$: header file
-  $Revision: 5$ $Date: 2004-07-07 17:47:17$
+  $Revision: 5$ $Date: 2004-07-07 16:47:17$
   $Author: Darko$
 
   Reverse order of matrix rows

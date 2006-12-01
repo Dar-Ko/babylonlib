@@ -1,5 +1,5 @@
 /*$Workfile: KTracePalm.h$: implementation file
-  $Revision: 1$ $Date: 2004-11-05 12:25:12$
+  $Revision: 1$ $Date: 2004-11-05 13:25:12$
   $Author: Darko Kolakovic$
 
   Debugging helpers

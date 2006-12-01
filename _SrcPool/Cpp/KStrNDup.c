@@ -1,5 +1,5 @@
 /*$Workfile: KStrNDup.c$: implementation file
-  $Revision: 1$ $Date: 2004-10-22 17:51:02$
+  $Revision: 2$ $Date: 2005-06-21 10:11:50$
   $Author: Darko Kolakovic$
 
   Duplicates a n characters from a string
@@ -39,21 +39,20 @@
   if storage cannot be allocated or if original string is NULL pointer.
 
   Example:
+      #include <stdio.h>
+      #include <stdlib.h>
+      #include "KStrings.h"   //StrNDup()
+      void MyCopy()
+        {
+        const char* szText = "veni, vidi, vici";
+        char* szCopy = StrNDup(szText, 4);
 
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include "KStrings.h"   //StrNDup()
-    void MyCopy()
-      {
-      const char* szText = "veni, vidi, vici";
-      char* szCopy = StrNDup(szText, 4);
+        printf(szCopy);
 
-      printf(szCopy);
-
-      free(szCopy);
-    }
-    Output:
-        veni
+        free(szCopy);
+      }
+      Output:
+          veni
 
   See also: KStrings.h
  */
@@ -87,8 +86,8 @@ return pszResult;
 }
 
 /*****************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2004-10-22 17:51:02  Darko Kolakovic 
+ * $Log:
+ *  1    Biblioteka1.0         2004-10-22 17:51:02  Darko Kolakovic
  * $
  *  0    Biblioteka1.0           Mar 1989 Darko Kolakovic
  *****************************************************************************/

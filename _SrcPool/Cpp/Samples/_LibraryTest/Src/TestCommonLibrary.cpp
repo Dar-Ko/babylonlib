@@ -1,8 +1,8 @@
 /*$Workfile: TestCommonLibrary.cpp$: implementation file
-  $Revision: 10$ $Date: 2005-05-16 14:24:17$
+  $Revision: 11$ $Date: 2006-11-21 14:50:44$
   $Author: Darko Kolakovic$
 
-  Defines the entry point for the console application used to test libray
+  Defines the entry point for the console application used to test library
   functionality.
   2003-01 Darko Kolakovic
 */

@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KXmlTypeWin.h$: header file
+/*$Workfile: KXmlTypeWin.h$: header file
   $Revision: 16$ $Date: 2005-05-10 16:08:19$
   $Author: Darko Kolakovic$
 
@@ -9,7 +9,7 @@
 // Group=Windows
 
 #ifndef _KXMLTYPEDEFWIN32_H_
-    //$Workfile: S:\_SrcPool\Cpp\Win\32\KXmlTypeWin.h$ sentry
+    //$Workfile: KXmlTypeWin.h$ sentry
   #define _KXMLTYPEDEFWIN32_H_
 
 #if !defined(_WIN32)

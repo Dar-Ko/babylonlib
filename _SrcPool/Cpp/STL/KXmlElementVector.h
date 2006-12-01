@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\STL\KXmlElementVector.h$: header file
+/*$Workfile: KXmlElementVector.h$: header file
   $Revision: 7$ $Date: 2005-05-02 09:46:16$
   $Author: Darko Kolakovic$
 
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KXMLELEMENTVECTOR_H_
-    //$Workfile: S:\_SrcPool\Cpp\STL\KXmlElementVector.h$ sentry
+    //$Workfile: KXmlElementVector.h$ sentry
   #define _KXMLELEMENTVECTOR_H_
 
 //============================================================================

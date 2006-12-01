@@ -1,5 +1,5 @@
 /*$Workfile: KDateConv.h$: header file
-  $Revision: 5$ $Date: 2005-03-11 17:06:26$
+  $Revision: 5$ $Date: 2005-03-11 18:06:26$
   $Author: Darko Kolakovic$
 
   DATE conversions

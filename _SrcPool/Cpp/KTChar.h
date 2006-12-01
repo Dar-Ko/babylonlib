@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\KTChar.h$: header file
-  $Revision: 21$ $Date: 2004-11-23 15:49:35$
+/*$Workfile: KTChar.h$: header file
+  $Revision: 21$ $Date: 2004-11-23 16:49:35$
   $Author: Darko Kolakovic$
 
   Unicode mapping layer for the standard C library with definitions for generic
@@ -63,7 +63,7 @@
 #endif
 
 #ifndef __KTCHAR_H__
-  /*$Workfile: S:\_SrcPool\Cpp\KTChar.h$ sentry  */
+  /*$Workfile: KTChar.h$ sentry  */
   #define __KTCHAR_H__ 1000
 #endif
 

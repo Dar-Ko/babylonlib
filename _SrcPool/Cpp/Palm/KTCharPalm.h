@@ -1,5 +1,5 @@
 /*$Workfile: KTCharPalm.h$: header file
-  $Revision: 2$ $Date: 2004-11-09 18:46:04$
+  $Revision: 2$ $Date: 2004-11-09 19:46:04$
   $Author: Darko Kolakovic$
 
   PalmOS type definitions
@@ -426,8 +426,8 @@
 #endif /*_KTCHARPALM_H_*/
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2004-11-09 18:46:04  Darko Kolakovic implemented
+ *  2    Biblioteka1.1         2004-11-09 19:46:04  Darko Kolakovic implemented
  *       TsWriteToViewLn
- *  1    Biblioteka1.0         2004-11-09 13:11:07  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-11-09 14:11:07  Darko Kolakovic 
  * $
  *****************************************************************************/

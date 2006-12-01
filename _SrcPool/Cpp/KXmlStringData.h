@@ -1,5 +1,5 @@
 /*$Workfile: KXmlStringData.h$: header file
-  $Revision: 4$ $Date: 2005-04-06 14:45:32$
+  $Revision: 4$ $Date: 2005-04-06 13:45:32$
   $Author: Darko Kolakovic$
 
   file description
@@ -52,11 +52,11 @@ private:
 #endif  //_KXMLSTRINGDATA_H_
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2005-04-06 14:45:32  Darko Kolakovic Renamed class
+ *  4    Biblioteka1.3         2005-04-06 13:45:32  Darko Kolakovic Renamed class
  *       to avoid colision with other xml types
- *  3    Biblioteka1.2         2005-04-06 14:44:26  Darko Kolakovic 
- *  2    Biblioteka1.1         2005-03-27 02:17:42  Darko           operator const
+ *  3    Biblioteka1.2         2005-04-06 13:44:26  Darko Kolakovic 
+ *  2    Biblioteka1.1         2005-03-27 01:17:42  Darko           operator const
  *       char*()
- *  1    Biblioteka1.0         2005-03-26 01:10:10  Darko           
+ *  1    Biblioteka1.0         2005-03-26 00:10:10  Darko           
  * $
  *****************************************************************************/

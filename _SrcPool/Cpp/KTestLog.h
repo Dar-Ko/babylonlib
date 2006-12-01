@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KTestLog.h$: header file
+/*$Workfile: KTestLog.h$: header file
   $Revision: 7$ $Date: 2004-10-21 13:18:47$
   $Author: Darko Kolakovic$
 
@@ -9,7 +9,7 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef _KTESTLOG_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KTestLog.h$ sentry*/
+    /*$Workfile: KTestLog.h$ sentry*/
   #define _KTESTLOG_H_
 
   #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files   */

@@ -1,5 +1,5 @@
 /*$Workfile: KioPIT.h$: header file
-  $Revision: 5$ $Date: 2005-04-18 10:35:37$
+  $Revision: 5$ $Date: 2005-04-18 09:35:37$
   $Author: Darko Kolakovic$
 
   Programmable Interval Timer (PIT) IBM-PC 8253/8254 constants
@@ -211,12 +211,12 @@ const uint8 IOC_PIT_MODESELECTBCD      = 0x01;
 #endif  //__KIOPIT_H__
 /******************************************************************************
  *$Log: 
- * 5    Biblioteka1.4         2005-04-18 10:35:37  Darko Kolakovic Comment
- * 4    Biblioteka1.3         2005-04-18 10:27:53  Darko Kolakovic __cplusplus
+ * 5    Biblioteka1.4         2005-04-18 09:35:37  Darko Kolakovic Comment
+ * 4    Biblioteka1.3         2005-04-18 09:27:53  Darko Kolakovic __cplusplus
  *      sentry
- * 3    Biblioteka1.2         2002-09-18 18:15:06  Darko Kolakovic IOC_PIT_FREQ
- * 2    Biblioteka1.1         2002-09-17 14:38:03  Darko Kolakovic
+ * 3    Biblioteka1.2         2002-09-18 17:15:06  Darko Kolakovic IOC_PIT_FREQ
+ * 2    Biblioteka1.1         2002-09-17 13:38:03  Darko Kolakovic
  *      GET_PIT_FREQDIVIDER()
- * 1    Biblioteka1.0         2002-09-16 17:57:10  Darko Kolakovic 
+ * 1    Biblioteka1.0         2002-09-16 16:57:10  Darko Kolakovic 
  *$
  *****************************************************************************/

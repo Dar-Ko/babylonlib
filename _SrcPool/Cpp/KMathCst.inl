@@ -1,6 +1,6 @@
 /*$Workfile: KMathCst.inl$: header file
-  $Revision: 18$ $Date: 2004-10-04 23:40:22$
-  $Author: Darko$
+  $Revision: 21$ $Date: 2005-06-21 10:11:33$
+  $Author: Darko Kolakovic$
 
   Simple mathematical functions
   Copyright: CommonSoft Inc.
@@ -98,8 +98,11 @@ inline double Absolute(double x //[in]
 return fabs(x);
 }
 #ifdef  _COMPLEX_DEFINED  //included <Math.h>
-  //Returns the absolute value as the real part of _complex structure
-  //      {html:<BR><IMG SRC="Res/eqVectorNorm.gif" BORDER="0">}
+  /*Returns the absolute value as the real part of _complex structure
+      {html:<br /><img src="Images/eqVectorNorm.gif" border="0"
+                        alt="abs(x)=sqrt(&Sigma;(xi**2))">
+      }
+   */
   inline _complex Absolute(_complex x //[in]
                           )
   {
@@ -110,12 +113,14 @@ return fabs(x);
   }
 #endif
 #ifdef  __STD_COMPLEX //included <complex>
-  /*Returns the magnitude (or Euclidean norm) of a complex number.
-    {html:<BR><IMG SRC="Res/eqVectorNorm.gif" BORDER="0">}
+  /*Returns the magnitude (or complex norm) of a complex number.
+    {html:<br /><img src="Images/eqComplexNo.gif" border="0"
+               alt="Z= x +i*y">
+          <br /><img src="Images/eqPhasorMod.gif" border="0"
+               alt="Absolute(Z) = |Z| = sqrt(x**2+y**2)">
+          <br />
+    }
 
-
-             Z = x + iy
-             Absolute(Z) = |Z| = sqrt(x**2+y**2)
   */
   template <class TYPE> inline TYPE Absolute(std::complex<TYPE> x //[in]
                                             )
@@ -237,9 +242,38 @@ a ^= b;
   Returns: true if a number is an even number or false if a number is
   an odd number.
  */
-inline bool IsEven(int iNumber)
+template <class TYPE>
+inline bool IsEven(TYPE nNumber)
 {
-return ((iNumber % 2) == 0);
+return ((nNumber % 2) == 0);
+}
+
+template <>
+inline bool IsEven(double nNumber)
+{
+return (fmod(nNumber,2.0) == 0.0);
+}
+
+//-----------------------------------------------------------------------------
+/*Verifies if a number is an odd number.
+  An odd number is an integer of the form n = 2k+1, where k is an integer.
+
+  Example:
+        ..., -3, -1, 1, 3, 5, 7, 9, ...   are odd numbers
+
+  Returns: true if a number is an odd number or false if a number is
+  an even number.
+ */
+template <class TYPE>
+inline bool IsOdd(TYPE nNumber)
+{
+return ((nNumber % 2) == 1);
+}
+
+template <>
+inline bool IsOdd(double nNumber)
+{
+return (fmod(nNumber,2.0) != 0.0);
 }
 
 //GetNoOfDigits()--------------------------------------------------------------
@@ -249,9 +283,9 @@ return ((iNumber % 2) == 0);
         cause the wrong number of digits.
 
   Example:
-    //Returns 1 as number of digits
-    int iResult = GetNoOfDigits(0.345);
-    ASSERT(iResult == 1);
+      //Returns 1 as number of digits
+      int iResult = GetNoOfDigits(0.345);
+      ASSERT(iResult == 1);
 
  */
 template <class T> int GetNoOfDigits(T dNumber //[in]
@@ -340,7 +374,7 @@ return (int)floor(x + 0.5);
  *  6    Biblioteka1.5         29/01/2002 3:40:51 PMDarko           Tag update
  *  5    Biblioteka1.4         17/08/2001 12:37:44 AMDarko           Update
  *  4    Biblioteka1.3         20/07/2001 12:58:28 AMDarko           VSS tags
- *  3    Biblioteka1.2         08/07/2001 12:10:27 AMDarko           $Revision: 18$
+ *  3    Biblioteka1.2         08/07/2001 12:10:27 AMDarko           $Revision: 21$
  *       inserted
  *  2    Biblioteka1.1         08/06/2001 11:51:07 PMDarko           VSS
  *  1    Biblioteka1.0         13/08/2000 3:56:50 PMDarko

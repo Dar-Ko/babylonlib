@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KfQuadEq.cpp$: implementation file
+/*$Workfile: KfQuadEq.cpp$: implementation file
   $Revision: 11$ $Date: 2005-04-21 12:51:54$
   $Author: Darko Kolakovic$
 

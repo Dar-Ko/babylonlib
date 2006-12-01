@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\Samples\TestStatic\Src\TestStaticDlg.h$: header file
+/*$Workfile: TestStaticDlg.h$: header file
   $Revision: 3$ $Date: 2005-05-05 17:28:06$
   $Author: Darko Kolakovic$
 

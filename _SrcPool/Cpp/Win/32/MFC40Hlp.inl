@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\MFC40Hlp.inl$: header file
+/*$Workfile: MFC40Hlp.inl$: header file
   $Revision: 2$ $Date: 2005-04-26 11:36:11$
   $Author: Darko Kolakovic$
 
@@ -11,7 +11,7 @@
 #if (_MFC_VER <  0x0600)
 #if (_MFC_VER >= 0x0400)
 #ifndef _MFC40HLP_INL_
-  //$Workfile: S:\_SrcPool\Cpp\Win\32\MFC40Hlp.inl$ sentry
+  //$Workfile: MFC40Hlp.inl$ sentry
   #define _MFC40HLP_INL_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files

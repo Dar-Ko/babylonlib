@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStdLib.h$: header file
+/*$Workfile: KStdLib.h$: header file
   $Revision: 2$ $Date: 2004-12-06 16:21:55$
   $Author: Darko Kolakovic$
 
@@ -9,7 +9,7 @@
  */
 
 #ifndef _KSTDLIB_H_
-    /*$Workfile: S:\_SrcPool\Cpp\KStdLib.h$ sentry */
+    /*$Workfile: KStdLib.h$ sentry */
   #define _KSTDLIB_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files*/

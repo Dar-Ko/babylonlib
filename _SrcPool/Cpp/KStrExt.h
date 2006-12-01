@@ -1,6 +1,6 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrExt.h$: header file
-  $Revision: 9$ $Date: 2004-10-06 23:43:08$
-  $Author: Darko$
+/*$Workfile: KStrExt.h$: header file
+  $Revision: 10$ $Date: 2005-06-21 17:47:36$
+  $Author: Darko Kolakovic$
 
   CString Extensions declarations
   CommonSoft Inc.
@@ -10,7 +10,7 @@
 /* Group=Strings                                                             */
 
 #ifndef _KSTRINGEXT_H_
-    //$Workfile: S:\_SrcPool\Cpp\KStrExt.h$ sentry
+    //$Workfile: KStrExt.h$ sentry
   #define _KSTRINGEXT_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -75,11 +75,11 @@ typedef void (*EmptyString)();
 
   ///////////////////////////////////////////////////////////////////////////////
   //Functions using STL and MFC
-  #ifdef _STL_  //Use Standard Template Library (STL)
+  #if defined(_STL) || defined (_USE_STL) //Use Standard Template Library (STL)
     //Note: include <strstrea.h> or <iostream.h> or <iostream>
     istream& operator>>(istream& cInput,CString& strTarget);
     ostream& operator<<(ostream& cOutput,const CString& strSource);
-  #endif
+  #endif //_STL || _USE_STL
 ///////////////////////////////////////////////////////////////////////////////
 //inline functions
 
@@ -188,7 +188,7 @@ return strDestination << _itot(iSource,szTemp,10);
 #if !defined _MBCS && !defined _UNICODE
   /*Inserts a floating-point number to a CString object.
 
-    Note: MSDN KB119504: Result Differs Between 16-bit and 32-bit _gcvt() 
+    Note: MSDN KB119504: Result Differs Between 16-bit and 32-bit _gcvt()
     (rounding differs).
 
   TODO: Test Unicode D.K.

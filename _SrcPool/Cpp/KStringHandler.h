@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStringHandler.h$: header file
+/*$Workfile: KStringHandler.h$: header file
   $Revision: 4$ $Date: 2005-04-26 16:39:31$
   $Author: Darko Kolakovic$
 
