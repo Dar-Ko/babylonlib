@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Js\Samples\Log\Src\TestLogger.js$: script file
-  $Revision: 1$ $Date: 2006-12-01 19:25:32$
+/*$Workfile: TestLogger.js$: script file
+  $Revision: 2$ $Date: 2006-12-04 13:34:12$
   $Author: Darko Kolakovic$
 
   Test Logger
@@ -17,55 +17,106 @@
 function TestLogger()
 {
 TsWriteToViewLn("TestLogger()");
-var bRes = true;   //result of the test
-//TESTENTRY logEntry =
-//  {_T("CLogger()"), _T("KLogger.js"), bRes};
-//debugger;
+var bRes = false;   //result of the test
+debugger;
 var i = 0;
 try
   {
   /*Container class for testing string inquisition.
    */
-  function CTestCase (strValue, //="" [in] string to be evaluated
-                     bTestResult //=false [in] expected result of the test
+  function CTestCase (oValue, //[in] object to be evaluated
+                      strValue, //="" [in] expected test object string representation
+                      bTestResult //=false [in] expected result of the test
                      )
     {
+    this.oValue = "<null>";
     this.strValue = "";
     this.bResult = false;
+    if (oValue != undefined)
+      this.oValue = oValue; //object
     if (strValue != undefined)
       this.strValue += strValue; //string by contract
     if (bTestResult != undefined)
       this.bResult = (bTestResult == true); //boolean by contract
     };
 
-  var arrValue = new Array();
-  arrValue[ 0] = new CTestCase("abcdesdfsdh",       false);
-  arrValue[ 1] = new CTestCase("abcd esdfsdh",      true);
-  arrValue[ 2] = new CTestCase("abcde\tsdfsdh",     true);
-  arrValue[ 3] = new CTestCase("abcd\t.esdf sdh",   true );
-  arrValue[ 4] = new CTestCase("   abcdesdfsdh",    true );
-  arrValue[ 5] = new CTestCase("abcdesdfsdh\t",     true ); //horizontal tab
-  arrValue[ 6] = new CTestCase("abcde\asdfsdh",     false); //bell
-  arrValue[ 7] = new CTestCase("",                  false); //empty string
-
-  while(i < arrValue.length)
+  //TESTENTRY logEntry =
+  //  {_T("CLogger()"), _T("KLogger.js"), bRes};
+  var oLog = new CLogger(); //logbook
+  bRes = (oLog != undefined);
+  if (bRes && (oLog.tmStart != undefined))
     {
-    var bHasSpace = true; //result of the validation
-    bHasSpace = "";
-    TsWriteToViewLn("" + i + ". " + arrValue[i].strValue + " has " +
-                     (bHasSpace ? "spaces." : " not spaces."));
-    if (bHasSpace != arrValue[i].bResult)
+    TsWriteToViewLn("Log created after " + oLog.tmStart + "ms since 1970-01-01T00:00:00");
+    }
+  else
+    bRes = false;
+  //logEntry.m_bResult = bRes;
+  //LogTest(&logEntry);
+  if(bRes)
+    {
+    //TESTENTRY logEntry =
+    //  {_T("CLogEntry()"), _T("KLogger.js"), bRes};
+    var oLogEntry = new CLogEntry(); //empty log record
+    bRes = (oLogEntry != undefined);
+    if (bRes && (oLogEntry.m_dateRecord != undefined))
       {
-      bRes = false;
-      break;
+      TsWriteToViewLn("Log entry created at " + oLogEntry.m_dateRecord.toUTCString() + " UTC");
+      if (oLogEntry.m_dateRecord.toISOString != undefined )
+        {
+        TsWriteToViewLn("Log entry created at " + oLogEntry.m_dateRecord.toISOString());
+        }
+      else
+        bRes = false;
       }
-    i++;
+    else
+      bRes = false;
+    //logEntry.m_bResult = bRes;
+    //LogTest(&logEntry);
+    }
+
+    //TESTENTRY logEntry =
+    //  {_T("CLogEntry::toString()"), _T("KLogger.js"), bRes};
+  if (bRes && (oLogEntry.toString != undefined))
+    {
+    TsWriteToViewLn("Log empty entry is: " + oLogEntry.toString());
+    }
+  else
+    bRes = false;
+    //logEntry.m_bResult = bRes;
+    //LogTest(&logEntry);
+
+  if (bRes)
+    {
+    var arrValue = new Array();
+    arrValue[ 0] = new CTestCase(new CLogEntry("Test 0",       0));
+    arrValue[ 1] = new CTestCase(new CLogEntry("Test 1",      1));
+    arrValue[ 2] = new CTestCase(new CLogEntry("Test 20",     2));
+    arrValue[ 3] = new CTestCase(new CLogEntry("Test 30",   3));
+    arrValue[ 4] = new CTestCase(new CLogEntry("Test 40",    4));
+    arrValue[ 5] = new CTestCase(new CLogEntry("Test 50",     5));
+    arrValue[ 6] = new CTestCase(new CLogEntry("Test 60",     6));
+    arrValue[ 7] = new CTestCase(new CLogEntry("",                  7));
+
+    while(i < arrValue.length)
+      {
+      var bLogEntry = true; //result of the validation
+      TsWriteToViewLn("" + i + ". " + arrValue[i].oValue);
+      //if (bHasSpace != arrValue[i].bResult)
+      //  {
+      //  bRes = false;
+      //  break;
+      //  }
+      i++;
+      }
+
     }
   }
 catch(error)
   {
   TsWriteToViewLn(error.name + ": " + error.message +
-               "; value " + i +  ". " + arrValue[i].strValue);
+                  ( ((arrValue == undefined) ||
+                     (arrValue[0] == undefined))  ? "" :
+                  "; value " + i +  ". " + arrValue[i].strValue));
   bRes = false;
   }
 

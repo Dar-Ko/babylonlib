@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile" content="$Workfile: TestDate.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 2$" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="JavaScript, test, Dump, Debug, DOM, HTML" />
+  <meta name="Editor" content="$Author: Darko Kolakovic$" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="Testing" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Test cases" />
+  <meta name="DC.description.abstract" content="Test of the DOM and HTML elements" />
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2006-12-04 13:33:46$" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+ <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.ISBN" content="$Isbn$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../Cpp/Documentation/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../Cpp/Documentation/Res/icoJavaScript.ico" />
+  <title>Test Date()</title>
+
+  <script language="JavaScript" type="text/javascript">
+    function TRACE(strMessage)
+      {
+      document.writeln(strMessage + "<br />");
+      }
+
+    function testDateAvilabileMethods()
+      {
+       var tmResult = new Date();
+        TRACE("<table cellspacing='1' cellpadding='1' border='0'>" +
+              "<tr><th>Method<\/th><th>&nbsp;<\/th><td><b>Result<\/b><\/td><\/tr>" +
+              "<tr><td>getDate<\/td><td>"            + (tmResult.getDate?            ("OK<\/td><td>" + tmResult.getDate())             :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getDay<\/td><td>"             + (tmResult.getDay?             ("OK<\/td><td>" + tmResult.getDay())              :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getFullYear<\/td><td>"        + (tmResult.getFullYear?        ("OK<\/td><td>" + tmResult.getFullYear())         :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getHours<\/td><td>"           + (tmResult.getHours?           ("OK<\/td><td>" + tmResult.getHours())          :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getMilliseconds<\/td><td>"    + (tmResult.getMilliseconds?    ("OK<\/td><td>" + tmResult.getMilliseconds())   :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getMinutes<\/td><td>"         + (tmResult.getMinutes?         ("OK<\/td><td>" + tmResult.getMinutes())        :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getMonth<\/td><td>"           + (tmResult.getMonth?           ("OK<\/td><td>" + tmResult.getMonth())          :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getSeconds<\/td><td>"         + (tmResult.getSeconds?         ("OK<\/td><td>" + tmResult.getSeconds())        :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getTime<\/td><td>"            + (tmResult.getTime?            ("OK<\/td><td>" + tmResult.getTime())           :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getTimezoneOffset<\/td><td>"  + (tmResult.getTimezoneOffset?  ("OK<\/td><td>" + tmResult.getTimezoneOffset()) :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getUTCDate<\/td><td>"         + (tmResult.getUTCDate?         ("OK<\/td><td>" + tmResult.getUTCDate())        :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getUTCDay<\/td><td>"          + (tmResult.getUTCDay?          ("OK<\/td><td>" + tmResult.getUTCDay())         :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getUTCFullYear<\/td><td>"     + (tmResult.getUTCFullYear?     ("OK<\/td><td>" + tmResult.getUTCFullYear())    :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getUTCHours<\/td><td>"        + (tmResult.getUTCHours?        ("OK<\/td><td>" + tmResult.getUTCHours())       :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getUTCMilliseconds<\/td><td>" + (tmResult.getUTCMilliseconds? ("OK<\/td><td>" + tmResult.getUTCMilliseconds()):"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getUTCMinutes<\/td><td>"      + (tmResult.getUTCMinutes?      ("OK<\/td><td>" + tmResult.getUTCMinutes())     :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getUTCMonth<\/td><td>"        + (tmResult.getUTCMonth?        ("OK<\/td><td>" + tmResult.getUTCMonth())       :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getUTCSeconds<\/td><td>"      + (tmResult.getUTCSeconds?      ("OK<\/td><td>" + tmResult.getUTCSeconds())     :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>getYear<\/td><td>"            + (tmResult.getYear?            ("OK<\/td><td>" + tmResult.getYear())             :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setDate<\/td><td>"            + (tmResult.setDate?            ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setFullYear<\/td><td>"        + (tmResult.setFullYear?        ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setHours<\/td><td>"           + (tmResult.setHours?           ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setMilliseconds<\/td><td>"    + (tmResult.setMilliseconds?    ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setMinutes<\/td><td>"         + (tmResult.setMinutes?         ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setMonth<\/td><td>"           + (tmResult.setMonth?           ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setSeconds<\/td><td>"         + (tmResult.setSeconds?         ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setTime<\/td><td>"            + (tmResult.setTime?            ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setUTCDate<\/td><td>"         + (tmResult.setUTCDate?         ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setUTCFullYear<\/td><td>"     + (tmResult.setUTCFullYear?     ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setUTCHours<\/td><td>"        + (tmResult.setUTCHours?        ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setUTCMilliseconds<\/td><td>" + (tmResult.setUTCMilliseconds? ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setUTCMinutes<\/td><td>"      + (tmResult.setUTCMinutes?      ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setUTCMonth<\/td><td>"        + (tmResult.setUTCMonth?        ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setUTCSeconds<\/td><td>"      + (tmResult.setUTCSeconds?      ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>setYear<\/td><td>"            + (tmResult.setYear?            ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>toGMTString<\/td><td>"        + (tmResult.toGMTString?        ("OK<\/td><td>" + tmResult.toGMTString())                :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>toLocaleString<\/td><td>"     + (tmResult.toLocaleString?     ("OK<\/td><td>" + tmResult.toLocaleString())             :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>toString<\/td><td>"           + (tmResult.toString?           ("OK<\/td><td>" + tmResult.toString())                   :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>toUTCString<\/td><td>"        + (tmResult.toUTCString?        ("OK<\/td><td>" + tmResult.toUTCString())                :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>valueOf<\/td><td>"            + (tmResult.valueOf?            ("OK<\/td><td>" + tmResult.valueOf())                    :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+        //NS
+              "<tr><td>toSource<\/td><td>"           + (tmResult.toSource?           ("OK<\/td><td>" + tmResult.toSource())            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+        //JScript.Net
+              "<tr><td>parse<\/td><td>"              + (tmResult.parse?              ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<tr><td>UTC<\/td><td>"                + (tmResult.UTC?                ("OK<\/td><td>" + "-")                            :"undefined<\/td><td>&nbsp;") + "<\/td><\/tr>" +
+              "<\/table>");
+      }
+
+    function testDate()
+      {
+      var bResult = false;
+      if (Date != undefined)
+        {
+        var tmResult = new Date();
+
+       TRACE("date: "      + tmResult);
+        TRACE("toString: " + tmResult.toString());
+        TRACE("GMT:"        + tmResult.toGMTString());
+        TRACE("UTC:"        + tmResult.toUTCString());
+        TRACE("time:"       + tmResult.getTime());
+        //The stored time value in milliseconds since midnight, January 1, 1970 UTC.
+        TRACE("time since 1970-01-01: " + tmResult.valueOf() + " ms");
+        var iYear = tmResult.getFullYear();
+        //The getMonth method returns an integer between 0 and 11
+        var iMonth  = tmResult.getMonth() + 1;
+        var iDay    = tmResult.getDay();
+        //The getHours method returns an integer between 0 and 23
+        var iHour   = tmResult.getHours();
+        var iMinute = tmResult.getMinutes();
+        var iSecond = tmResult.getSeconds();
+        TRACE("ISO: " + iYear +"-" + iMonth +"-" + iDay +"T" + iHour +":" + iMinute +":" + iSecond);
+        bResult = true;
+        }
+      else
+        {
+        TRACE("Browser does not support Date()");
+        }
+      return bResult;
+      }
+  </script>
+</head>
+
+<!-- Install Microsoft Script Debugger
+ To enable it, open IE and go to Tools|'Internet Options'|Advanced and uncheck
+ "Disable Script Debugging (Internet Explorer)".
+-->
+
+<body>
+  <h2>Test Date()</h2>
+
+  <div id="ID_DATE">
+  <script language="JavaScript" type="text/javascript">
+    //debugger;
+    testDateAvilabileMethods();
+    TRACE("Current time is:<br \/>");
+    testDate();
+  </script>
+  </div>
+</body>
+
+<!-- ==========================================================================
+  $Log:
+   3    Biblioteka1.2         2006-11-29 15:42:11  Darko Kolakovic HTML 4.01
+   2    Biblioteka1.1         2006-11-24 17:44:25  Darko Kolakovic Test push()
+   1    Biblioteka1.0         2006-11-24 16:02:52  Darko Kolakovic
+  $
+-->
+</html>
