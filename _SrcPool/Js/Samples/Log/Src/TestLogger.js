@@ -1,5 +1,5 @@
 /*$Workfile: TestLogger.js$: script file
-  $Revision: 3$ $Date: 2006-12-04 17:51:05$
+  $Revision: 4$ $Date: 2006-12-05 19:17:29$
   $Author: Darko Kolakovic$
 
   Test Logger
@@ -53,16 +53,15 @@ try
 
     //TESTENTRY logEntry =
     //  {_T("CLogger::WriteLn()"), _T("KLogger.js"), bRes};
-  if (bRes && (oLog.WriteLn != undefined))
+  if (bRes && (oLog.Append != undefined))
     {
-    if (oLog.WriteLn("Ursus arctos horribilis"));
-    TsWriteToViewLn("New log entry. ");
+    TsWriteToViewLn("New log entry.");
+    bRes = (oLog.Append("Ursus arctos horribilis"));
     }
   else
     bRes = false;
     //logEntry.m_bResult = bRes;
     //LogTest(&logEntry);
-
 
   //logEntry.m_bResult = bRes;
   //LogTest(&logEntry);
@@ -116,7 +115,7 @@ try
       {
       var bLogEntry = true; //result of the validation
       TsWriteToViewLn("" + i + ". " + arrValue[i].oValue);
-      oLogEntry.WriteLn(arrValue[i].oValue);
+      oLog.Append(arrValue[i].oValue);
       //if (bHasSpace != arrValue[i].bResult)
       //  {
       //  bRes = false;
