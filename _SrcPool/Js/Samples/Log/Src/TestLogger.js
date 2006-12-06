@@ -40,6 +40,10 @@ try
       this.bResult = (bTestResult == true); //boolean by contract
     };
 
+  TsWriteToViewLn("Test CLogger");
+  TsWriteToViewLn("Test CLogWnd");
+  TsWriteToViewLn("Test CLogElement");
+
   //TESTENTRY logEntry =
   //  {_T("CLogger()"), _T("KLogger.js"), bRes};
   var oLog = new CLogger(); //logbook
@@ -52,14 +56,17 @@ try
     bRes = false;
 
     //TESTENTRY logEntry =
-    //  {_T("CLogger::WriteLn()"), _T("KLogger.js"), bRes};
+    //  {_T("CLogger::Append()"), _T("KLogger.js"), bRes};
   if (bRes && (oLog.Append != undefined))
     {
-    TsWriteToViewLn("New log entry.");
+    TsWriteToViewLn("New log entry in Logbook window.");
     bRes = (oLog.Append("Ursus arctos horribilis"));
     }
   else
+    {
+    TsWriteToViewLn("Are pop-up windows blocked?");
     bRes = false;
+    }
     //logEntry.m_bResult = bRes;
     //LogTest(&logEntry);
 
@@ -67,6 +74,7 @@ try
   //LogTest(&logEntry);
   if(bRes)
     {
+    TsWriteToViewLn("Test CLogEntry");
     //TESTENTRY logEntry =
     //  {_T("CLogEntry()"), _T("KLogger.js"), bRes};
     var oLogEntry = new CLogEntry(); //empty log record
@@ -102,13 +110,13 @@ try
   if (bRes)
     {
     var arrValue = new Array();
-    arrValue[ 0] = new CTestCase(new CLogEntry("Test 0",       0));
-    arrValue[ 1] = new CTestCase(new CLogEntry("Test 1",      1));
-    arrValue[ 2] = new CTestCase(new CLogEntry("Test 20",     2));
-    arrValue[ 3] = new CTestCase(new CLogEntry("Test 30",   3));
-    arrValue[ 4] = new CTestCase(new CLogEntry("Test 40",    4));
-    arrValue[ 5] = new CTestCase(new CLogEntry("Test 50",     5));
-    arrValue[ 6] = new CTestCase(new CLogEntry("Test 60",     6));
+    arrValue[ 0] = new CTestCase(new CLogEntry("Ursus arctos",       0));
+    arrValue[ 1] = new CTestCase(new CLogEntry("Ursus thibetanus",      1));
+    arrValue[ 2] = new CTestCase(new CLogEntry("Ursus maritimus",     2));
+    arrValue[ 3] = new CTestCase(new CLogEntry("Ursus thibetanus",   3));
+    arrValue[ 4] = new CTestCase(new CLogEntry("Ursus americanus",    4));
+    arrValue[ 5] = new CTestCase(new CLogEntry("Ursus spelaeus",     5));
+    arrValue[ 6] = new CTestCase(new CLogEntry("Ursus malayanus",     6));
     arrValue[ 7] = new CTestCase(new CLogEntry("",                  7));
 
     while(i < arrValue.length)

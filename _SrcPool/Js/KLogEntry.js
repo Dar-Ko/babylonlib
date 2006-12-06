@@ -1,5 +1,5 @@
-//$Workfile: S:\_SrcPool\Js\KLogEntry.js$: script file
-//$Revision: 1$ $Date: 2006-12-06 11:42:37$
+//$Workfile: KLogEntry.js$: script file
+//$Revision: 2$ $Date: 2006-12-06 13:31:26$
 //$Author: Darko Kolakovic$
 //
 //Log Entry formatter
@@ -70,26 +70,26 @@ return this.m_dateRecord.toISOString() + ":\t" +
 //-----------------------------------------------------------------------------
 /*Returns log entry with HTML markup tags:
       <div id="ID_LOGENTRY" class="logEntry" title="Level">
-        <div id="ID_LOGDATE" class="logDate">YYYY-MM-DD</div>
-        <div id="ID_LOGTIME" class="logTime">hh:mm:ss</div>
-        <div id="ID_LOGLVL"  class="Level">Level</div>
-        <div id="ID_LOGNOTE" class="logNote">description<div>
+        <span id="ID_LOGDATE" class="logDate">YYYY-MM-DD</span>
+        <span id="ID_LOGTIME" class="logTime">hh:mm:ss</span>
+        <span id="ID_LOGLVL"  class="Level">Level</span>
+        <span id="ID_LOGNOTE" class="logNote">description<span>
       </div>
  */
 CLogEntry.prototype.toHtml = function()
 {
 var strElement =
    '<div id="ID_LOGENTRY" class="logEntry" title="' + this.m_iLevel + '">\n' +
-   '  <div id="ID_LOGDATE" class="logDate">' + this.m_dateRecord.toISOString() +'<\/div>\n' + //TODO toDate
-   '  <div id="ID_LOGTIME" class="logTime">' + this.m_dateRecord.toISOString() +'<\/div>\n' + //TODO toTime
-   '  <div id="ID_LOGLVL"  class="Level' + this.m_iLevel +'">'+ this.m_iLevel +'<\/div>\n' + //TODO toLvlDescription
-   '  <div id="ID_LOGNOTE" class="logNote">' + this.m_strRecord + '<\/div>\n<\/div>\n';
+   '  <span id="ID_LOGDATE" class="logDate">' + this.m_dateRecord.toISOString() +'<\/span>\n' + //TODO toDate
+   '  <span id="ID_LOGTIME" class="logTime">' + this.m_dateRecord.toISOString() +'<\/span>\n' + //TODO toTime
+   '  <span id="ID_LOGLVL"  class="Level' + this.m_iLevel +'">'+ this.m_iLevel +'<\/span>\n' + //TODO toLvlDescription
+   '  <span id="ID_LOGNOTE" class="logNote">' + this.m_strRecord + '<\/span>\n<\/dic>\n';
 return strElement;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2006-12-06 11:42:37  Darko Kolakovic 
+ * $Log:
+ *  1    Biblioteka1.0         2006-12-06 11:42:37  Darko Kolakovic
  * $
  *****************************************************************************/
