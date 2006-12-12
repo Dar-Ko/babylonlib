@@ -1,84 +1,84 @@
 //$Workfile: KChmExtLnk.js$: script file
-//$Revision: 3$ $Date: 2004-10-01 22:07:31$
-//$Author: Darko$
+//$Revision: 4$ $Date: 2006-12-12 16:22:52$
+//$Author: Darko Kolakovic$
 //
 //Resolve extern links in .chm
 //Copyright: CommonSoft Inc
 //2003-02 Darko Kolakovic
 
-// ChmFilePath() --------------------------------------------------------------
-// This functions resolves absolute path in order to make a link to a file
-// located outside of a compiled help (.chm) file.
-// Function replaces current moniker protocol name in location.href with
-// 'file:///' if it is invoked within HTML browser
-// or with 'ms-its:' if the Microsoft help viewer is used (older version of the
-// help viewer used now depreciated 'mk:@MSITStore:' moniker).
-//
-// Returns: absolute file path of the external file
-//
-// Example:
-//  <head>
-//  <script language="JavaScript" src="Dir/KChmExtLnk.js" type="text/javascript">
-//  </script>
-//  </head>
-//  <script language="JavaScript">
-//    document.writeln('<applet codebase="' + ChmFilePath('AppletDir') +
-//        '" archive="Applet.jar" code="Applet.class" width="200" height="50">')
-//    document.writeln('<param name="input1" value="Some Text">')
-//    document.writeln('</applet>')
-//  </script>
-function ChmFilePath(Filename)
+//-------------- --------------------------------------------------------------
+/* This functions resolves absolute path in order to make a link to a file
+  located outside of a Microsoft Compressed HTML Help (.chm) file.
+  Function replaces a protocol name used in hypertext reference.(href) with
+  'file:///'.
+  Following Info-Tech Storage (its) protocols are used by Microsoft
+  Help Hotkey file browser: 'ms-its:' or 'mk:@MSITStore:' for older version of
+  the help viewer. The browser is using next URI format:
+     ms-its:C:\dir\file.chm::/topic.htm
+
+  Returns: URI of the external file.
+
+  Note: Microsoft Windows specific (Win32)
+  Requires Microsoft Help Hotkey (hh.exe) or any other viewer of
+  Microsoft Compressed HTML Help files.
+
+  Example:
+   <head>
+   <script language="JavaScript" src="Dir/KChmExtLnk.js" type="text/javascript">
+   </script>
+   </head>
+   <script language="JavaScript">
+     document.writeln('<applet codebase="' + ChmFilePath('AppletDir') +
+         '" archive="Applet.jar" code="Applet.class" width="200" height="50">')
+     document.writeln('<param name="input1" value="Some Text">')
+     document.writeln('</applet>')
+   </script>
+ */
+function ChmFilePath(strFilename //[in] file path
+                    )
+{
+if (strFilename == undefined)
+  return ""; //Nothing to do
+
+var strHref = location.href; //current URI
+var strIts = "ms-its:"; //ITS protocol name
+if (strHref.substr(0, strIts.length) != strIts)
   {
-  var nLen, Backslash, nPos, Del, Link;
-  Link = location.href;
+  strIts = "mk:@MSITStore:";
+  if (strHref.substr(0, strIts.length) != strIts)
+    return strFilename; //Return filename if other protocol is used
+  }
+strHref = strHref.replace(/\\/g, '/'); //Replace Windows path delimiters
+strHref = strHref.replace(/[^:\\\/]+\.chm::\//i, ""); //Drop out 'file.chm::/'
+//Replace protocol file name and get file path
+var iPos = strHref.lastIndexOf('/') + 1;
 
-  //Find index of the last backslash
-  Backslash = "\\";
-  nPos = location.href.lastIndexOf(Backslash) + 1;
-  if (nPos > 0)
-   {
-    //Find the index of the first colon
-    Del = /:/;
-    nLen = location.href.search(Del);
-    //Determine moniker protocol name length
-    if (nLen == 2) //Protocol is mk:@MSITStore:
-      nLen = 14;
-    else if (nLen == 6) //Protocol is ms-its:
-      {
-      nLen = 7;
-      }
-    else
-      nLen = 0;
+strHref = "file:///" + strHref.substring(strIts.length, iPos) + strFilename;
+return strHref;
+}
 
-    //Return new external Link
-    Link = 'file:///' + location.href.substring(nLen, nPos) + Filename;
-    return(Link);
-    }
-  else
-    {
-    return(Filename);
-    }
+//-----------------------------------------------------------------------------
+/*This functions resolves absolute path in order to make a link to a file
+  located outside of a Microsoft Compressed HTML Help (.chm) file.
+  The link will be redirected to new location.
+
+  Example:
+  location.href = ms-its:C:\dir\file.chm::/topic.htm
+   ...
+   <head>
+   <script language="JavaScript" src="Dir/KChmExtLnk.js" type="text/javascript">
+   </script>
+   </head>
+   <!-- External link -->
+   <a onclick="ChmExtLnk('Path/strFilename.ext')"
+      style="text-decoration: underline;
+      color: red;
+      cursor: pointer"> Some text</a>
+ */
+function ChmExtLnk(strFilename //[in] external file path
+                  )
+  {
+  location.href = ChmFilePath(strFilename);
   }
 
-// ChmExtLnk() ----------------------------------------------------------------
-// This functions resolves absolute path in order to make a link to a file
-// located outside of a compiled help (.chm) file.
-// The link will be redirected to new location
-//
-// Example:
-// location.href = ms-its:C:\dir\file.chm::/topic.htm
-//  ...
-//  <head>
-//  <script language="JavaScript" src="Dir/KChmExtLnk.js" type="text/javascript">
-//  </script>
-//  </head>
-//  <!-- External link -->
-//  <a onclick="ChmExtLnk('Path/Filename.ext')"
-//     style="text-decoration: underline;
-//     color: red;
-//     cursor: pointer"> Some text</a>
-function ChmExtLnk(Filename)
-  {
-  location.href = ChmFilePath(Filename);
-  }
-
+///////////////////////////////////////////////////////////////////////////////
