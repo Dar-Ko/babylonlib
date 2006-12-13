@@ -1,5 +1,5 @@
 /*$Workfile: TsWriteTxt.js$: script file
-  $Revision: 2$ $Date: 2006-11-27 16:09:01$
+  $Revision: 3$ $Date: 2006-12-13 13:52:07$
   $Author: Darko Kolakovic$
 
   Outputs text to the default output device
@@ -27,12 +27,22 @@ if(this.WScript != null) //Windows Script Host shell
   }
 else if (document != null) //HTML Browser shell
   {
-  g_defOut.Write = document.write; //TODO; Replace HTML escapes <>"
-  g_defOut.WriteLn = //document.writeln(EscapeHTml());
+  g_defOut.Write = //TODO; Replace HTML escapes <>"
+    function (szText //[in] text to output
+             )
+    {
+    //Note: Firefox 1.5 throws NS_ERROR_XPC_BAD_OP_ON_WN_PROTO:
+    //Illegal operation on WrappedNative prototype object; value 0.
+    //prototype is assigned directly: g_defOut.Write = document.write;
+    //Opera 8.0 skips over function call.
+    document.write(szText);
+    };
+  g_defOut.WriteLn =
     function (szText //[in] line of text to output
              )
       {
       if (szText != undefined)
+        //TODO: document.writeln(EscapeHTml());
         //Outputs text to either a message box or the command console window.
         document.writeln(szText + "<br />");
       else
@@ -75,9 +85,9 @@ else
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  2    Biblioteka1.1         2006-11-27 16:09:01  Darko Kolakovic
  *       TsWriteToViewLn()
- *  1    Biblioteka1.0         2006-11-27 14:26:14  Darko Kolakovic 
+ *  1    Biblioteka1.0         2006-11-27 14:26:14  Darko Kolakovic
  * $
  *****************************************************************************/
