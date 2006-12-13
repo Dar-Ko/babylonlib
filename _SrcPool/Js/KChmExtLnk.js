@@ -1,4 +1,4 @@
-//$Workfile: KChmExtLnk.js$: script file
+//$Workfile: S:\_SrcPool\Js\KChmExtLnk.js$: script file
 //$Revision: 4$ $Date: 2006-12-12 16:22:52$
 //$Author: Darko Kolakovic$
 //
