@@ -1,5 +1,5 @@
-//$Workfile: S:\_SrcPool\Js\KChmExtLnk.js$: script file
-//$Revision: 4$ $Date: 2006-12-12 16:22:52$
+//$Workfile: KChmExtLnk.js$: script file
+//$Revision: 5$ $Date: 2006-12-13 13:51:23$
 //$Author: Darko Kolakovic$
 //
 //Resolve extern links in .chm
@@ -16,7 +16,8 @@
   the help viewer. The browser is using next URI format:
      ms-its:C:\dir\file.chm::/topic.htm
 
-  Returns: URI of the external file.
+  Returns: URI of the external file or strFilename if protocol is not an ITS
+  protocol.
 
   Note: Microsoft Windows specific (Win32)
   Requires Microsoft Help Hotkey (hh.exe) or any other viewer of
@@ -34,13 +35,16 @@
      document.writeln('</applet>')
    </script>
  */
-function ChmFilePath(strFilename //[in] file path
+function ChmFilePath(strFilename, //[in] file path
+                    strHref      //optional [in] URL with ITS protocol of the document to display.
+                  //If no URL is specified, current document path will be used.
+                  //If protocol is not an ITS protocol, strFilename is returned.
                     )
 {
 if (strFilename == undefined)
   return ""; //Nothing to do
-
-var strHref = location.href; //current URI
+if (strHref == undefined)
+  strHref = location.href; //current URI
 var strIts = "ms-its:"; //ITS protocol name
 if (strHref.substr(0, strIts.length) != strIts)
   {
