@@ -6,8 +6,8 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Language" content="en-ca" />
-  <meta name="Workfile" content="$Workfile: S:\_SrcPool\Js\Samples\Utilities\Src\TestChmExtLnk.htm$: documentation" />
-  <meta name="Revision" content="$Revision: 1$ $Date: 2006-12-12 17:52:28$" />
+  <meta name="Workfile" content="$Workfile: TestChmExtLnk.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 2$ $Date: 2006-12-13 13:54:32$" />
   <meta name="Editor" content="$Author: Darko Kolakovic$" />
   <meta name="Copyright"
     content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
@@ -44,13 +44,6 @@
       <img src="../../../../Cpp/Documentation/Res/S/icoJavaScript.gif" alt="JavaScript" border="0" />
       Source Code</a>
   </p>
-
-  <script language="JavaScript" type="text/javascript">
-    var bResult = false;
-    //bResult = TestChmExtLnk();
-    if (!bResult)
-      TsWriteToViewLn(LOG_FAILURE);
-  </script>
   <dl>
     <dt>"file:///TestChmExtLnk.js"</dt>
     <dd>
@@ -64,6 +57,13 @@
          title="View TestChmExtLnk.js file">Test href</a>
      </dd>
   </dl>
+  <hr />
+  <script language="JavaScript" type="text/javascript">
+    var bResult = false;
+    bResult = TestChmExtLnk();
+    if (!bResult)
+      TsWriteToViewLn(LOG_FAILURE);
+  </script>
 
   <noscript>
     <p style="color:red">JavaScript seems to be disabled!</p>
