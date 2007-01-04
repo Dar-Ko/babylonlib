@@ -1,5 +1,5 @@
-#$Workfile: KLogger.js$: rule dictionary file
-#$Revision: 5$ $Date: 2006-12-06 17:57:20$
+#$Workfile: txt2html.dict$: rule dictionary file
+#$Revision: 2$ $Date: 2007-01-04 17:08:22$
 #$Author: Darko Kolakovic$
 #
 #Plain URL to HTML REF conversion rules
@@ -168,9 +168,6 @@
 # (see "relative path") as used by Tom Fine
 # /\(see \"([^\"]+)\"\)/  -> $1.html
 
-# RFCs
-/RFC ?(\d+)/ -i-> http://www.cis.ohio-state.edu/rfc/rfc$1.txt
-
 # This would turn "f^H_o^H_o^H_" into "<u>foo</u>".  Gross, isn't it?
 # Thanks to Mark O'Dell <emark@cns.caltech.edu> for fixing this.
 #
@@ -192,5 +189,8 @@
 # based on links dictionary for Seth Golub's txt2html
 # http://www.aigeek.com/txt2html/
 #
-# $Log: $
+# $Log: 
+#  2    Biblioteka1.1         2007-01-04 17:08:22  Darko Kolakovic Moved Rfc rule
+#  1    Biblioteka1.0         2007-01-04 12:31:01  Darko Kolakovic 
+# $
 ###############################################################################

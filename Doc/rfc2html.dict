@@ -1,5 +1,5 @@
-#$Workfile: KLogger.js$: rule dictionary file
-#$Revision: 5$ $Date: 2006-12-06 17:57:20$
+#$Workfile: rfc2html.dict$: rule dictionary file
+#$Revision: 2$ $Date: 2007-01-04 17:08:21$
 #$Author: Darko Kolakovic$
 #
 #RFC to HTML Conversion rules
@@ -7,6 +7,9 @@
 #See also: txt2html.options
 #Copyright: CommonSoft Inc
 #2007-01 Darko Kolakovic
+
+# RFCs
+/RFC ?(\d+)/ -i-> http://asg.web.cmu.edu/rfc/rfc$1.html
 
 #Page footer
 #Berners-Lee & Connolly      Standards Track                     [Page 1]
@@ -17,5 +20,8 @@
 /RFC 1866            Hypertext Markup Language - 2.0        November 1995 -hi-> <header="1995-11" />
 
 ###############################################################################
-# $Log: $
+# $Log: 
+#  2    Biblioteka1.1         2007-01-04 17:08:21  Darko Kolakovic Moved Rfc rule
+#  1    Biblioteka1.0         2007-01-04 12:30:58  Darko Kolakovic 
+# $
 ###############################################################################
