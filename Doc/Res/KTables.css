@@ -1,9 +1,9 @@
 @charset "utf-8";
 /*$Workfile: KTables.css$: Cascading style sheet file
-  $Revision: 2$ $Date: 2005-09-29 15:24:33$
+  $Revision: 3$ $Date: 2007-01-04 13:43:09$
   $Author: Darko Kolakovic$
 
-  HTML Document layout
+  Tables layout
   Copyright: CommonSoft Inc
   2005-09-29 D.Kolakovic
  */
@@ -44,6 +44,18 @@ tr
   margin: .25em;
   vertical-align: top;
   }
+tr.Odd
+  {
+  background-color: #ffffee;
+  }
+tr.Even
+  {
+  background-color: #eeffff;
+  }
+tr.Highlight
+  {
+  background-color: #eeeeee;
+  }
 
 /*Table header cells                                                         */
 th
@@ -72,18 +84,6 @@ td.Odd
 td.Even
   {
   background-color: #eeffff;
-  }
-tr.Odd
-  {
-  background-color: #ffffee;
-  }
-tr.Even
-  {
-  background-color: #eeffff;
-  }
-tr.Highlight
-  {
-  background-color: #eeeeee;
   }
 
 /* ///////////////////////////////////////////////////////////////////////// */
