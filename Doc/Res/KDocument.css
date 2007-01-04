@@ -1,0 +1,369 @@
+@charset "utf-8";
+/*$Workfile: KDocument.css$: Cascading style sheet file
+  $Revision: 24$ $Date: 2005-09-29 16:24:10$
+  $Author: Darko Kolakovic$
+
+  HTML Document layout
+  Copyright: CommonSoft Inc
+  2003-01 D.Kolakovic
+ */
+
+/* Body ---------------------------------------------------------------------*/
+body
+  {
+  background-color: #ffffff;
+  font-size: 80%;
+  font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+  margin-left: 1.25em;
+  margin-right: 1.25em;
+  }
+
+body.DarkShadow
+  {
+  background-color: ThreeDDarkShadow;
+  font-size: 80%;
+  font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+  margin-left: 1.25em;
+  margin-right: 1.25em;
+  }
+
+/* Disable custom collors for scrollbars                                     */
+body, html
+  {
+  scrollbar-face-color: ThreeDFace !important;
+  scrollbar-shadow-color: ThreeDDarkShadow !important;
+  scrollbar-highlight-color: ThreeDHighlight !important;
+  scrollbar-3dlight-color: ThreeDLightShadow !important;
+  scrollbar-darkshadow-color: ThreeDDarkShadow !important;
+  scrollbar-track-color: Scrollbar !important;
+  scrollbar-arrow-color: ButtonText !important;
+  }
+
+/* ---------------------------------------------------------------------------*/
+/*Used to place a note text into reactangle filled with background color
+  Example:
+    <div class="Note">
+      Note: boxed text
+    </div>
+ */
+.Note
+{
+  background: #d0dffd;
+  padding: 0.5em;
+  border: none;
+}
+
+/* Anchor -------------------------------------------------------------------*/
+a:link
+  {
+  background: transparent;
+  color: #000099;
+  }
+
+a:visited
+  {
+  color: #996699;
+  }
+
+a:active
+  {
+  color: #999999;
+  }
+
+/*Plain class has not underlined URL links
+  Example:
+    This is <a class="Plain" href="what.html">not underlined</a>
+ */
+a:link.Plain, a:visited.Plain, a:active.Plain
+  {
+  text-decoration: none
+  }
+
+a:hover.Plain
+  {
+  font-weight: bold;
+  color: blue
+  };
+
+/*Displays new, unvistited links in bright colors only once;
+  The tag is hidden, if the link has been visited recently.
+  Example:
+    <a class="NewsTag" href="TodaysNews.html">New!</a> Today ...
+
+    <a href="NewItems.html">Second example </a>
+    <span class="NewsTag">
+      <a href="NewItems.html">New!</a>
+    </span>
+ */
+/*Note: Hiding visted link that works with Firefox1.0 */
+.NewsTag a:visited
+{
+  display:none;
+}
+
+/*Note: Hiding visted link that works with IE6, Opera7.5 */
+a:visited.NewsTag
+{
+  display: none;
+}
+
+a:link.NewsTag
+{
+  font-weight: bold;
+  font-style: italic;
+  color: #eeee11;
+  background: #dc5555;
+  text-decoration: none;
+}
+
+/* Paragraph ----------------------------------------------------------------*/
+
+/*Caption class used for figures and tables
+  Example:
+    <div class="Figure">
+      <p><img src="MyPict.png"></p>
+      <p class="Caption">Figure MyPict</p>
+    </div>
+ */
+.Caption
+  {
+  font-style: italic;
+  font-size: smaller;
+  text-indent: 0;
+  }
+
+/*Small text notes, descriptions, footnotes
+  Example:
+    <p class="Desc">Some text</p>
+ */
+.Desc
+  {
+  font-size: smaller;
+  }
+
+
+/*Draws a frame around object, usually figure                                */
+.Figure
+  {
+  border: thin gray solid;
+  margin: 0.5em;
+  padding: 0.5em;
+  }
+
+/*Draws red line left of the paragraph                                       */
+.Warning
+  {
+  padding-left: 0.2em;
+  border-left: solid;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  border-left-width: thin;
+  border-color: red;
+  }
+
+/*Writes text with upper case pettters
+  Example:
+    <span class="Capitalize">Big title</span> small text
+ */
+.Capitalize
+  {
+  text-transform: uppercase;
+  /*font-size: 1.1em;*/
+  font-size: 1em;
+  font-weight: bold;
+  }
+
+/* Emphasizes text in <body>, <div>, <span>, <p> elements.
+ */
+.Highlight
+  {
+  background-color: #eeeeee;
+  }
+
+/*Replacement for Netscape specific element <NOBR> used to suppress line
+  wrapping.
+ */
+.NoBr
+  {
+  white-space: nowrap;
+  }
+
+/* Link ---------------------------------------------------------------------*/
+
+/*ChmLink class used to tag extern links used in .chm and .htm files
+  Example:
+    <a class="ChmLnk" onclick="ChmExtLnk('Dir/File.pdf')">Jump to pdf</a><br />
+   Note: Netscape works with this class only if this definition is right here
+   and not few lines above :(
+ */
+.ChmLnk
+  {
+  color: #000099;
+  text-decoration: underline;
+  cursor: pointer;
+  }
+
+/*Cursor that indicates a footnote link
+  Example:
+    <p class="Footnote">Some text<sup>1</sup></p>
+ */
+.Footnote
+ {
+  color: #000099;
+  /*Note: Opera 7.5 works only with single predefind items (like cursor: pointer;)*/
+  cursor: help;
+  /*Note: Works with  IE6, Firefox 1.0*/
+  cursor: url(Resources/KDocument.svg#curFootnote), url(Resources/KFootnote.cur), help;
+  }
+
+a.Footnote
+  {
+  text-decoration: underline;
+  }
+
+/*Cursor that indicates a reference link
+  Example:
+    Book <a class="Ref" href="IDR11">[11]</a>
+    <a class="Ref" name="IDR11" id="IDR11">11.</a> Book Page 12
+ */
+.Ref
+ {
+  color: #119911;
+  /*Note: Opera 7.5 works only with single predefind items (like cursor: pointer;)*/
+  cursor: help;
+  /*Note: Works with  IE6, Firefox 1.0*/
+  cursor: url(Resources/KDocument.svg#curReference), url(Resources/KReference.cur), help;
+  }
+
+.Help
+  {
+  font-size: larger;
+  font-style: bold;
+  /*Note: Opera 7.5 works only with single predefind items (like cursor: pointer;)*/
+  cursor: help;
+  /*Note: Works with  IE6, Firefox 1.0*/
+  cursor: url(Resources/KDocument.svg#curHelp), url(Resources/KHelp.cur), help;
+  }
+
+a:link.Ref, a:visited.Ref, a:active.Ref
+  {
+  color: #119911;
+  text-decoration: underline
+  }
+
+a:hover.Ref
+  {
+  color: #11ff11;
+  };
+
+
+/* Preformatted text --------------------------------------------------------*/
+
+/*Changes text foreground color                                              */
+code
+  {
+  font-family: "Courier New", Courier, mono, monospace, serif;
+  color: #853545;
+  }
+
+pre
+  {
+  font-family: "Courier New", Courier, mono, monospace, serif;
+  white-space: pre;
+  }
+
+pre.Code
+  {
+  font-family: "Courier New", Courier, mono, monospace, serif;
+  white-space: pre;
+  background-color: #cddfff;
+  color: #853545;
+  padding-right: 7pt; padding-top: 7pt; padding-left: 7pt; padding-bottom: 7pt;
+  width: 100%;
+  }
+
+
+/* Headings -----------------------------------------------------------------*/
+
+h5
+  {
+  font-style: italic;
+  }
+
+/*Subtitle                                                                   */
+h5.Sub
+  {
+  margin-bottom: -1.5em;
+  margin-top: 2em;
+  }
+
+/*Topic                                                                      */
+h5.Topic
+  {
+  margin-bottom: -1em;
+  }
+
+h1, h2, h3, h4, h5, h6
+  {
+  color: #0C1C80;
+  }
+
+/*div -----------------------------------------------------------------------*/
+
+/*Used to indent a group of paragraphs                                       */
+div.Indent
+  {
+  margin-left: 1.25em;
+  margin-right: 1.25em;
+  }
+
+
+/*Object's Ids --------------------------------------------------------------*/
+/* Hide object
+  Example:
+  <a href="#Footnote2" onclick="ShowFootnote();">See<sup>2</sup></a>
+  ...
+  <span id="Hide">
+    <p>Hidden footnote 1</p>
+  </span>
+   <p id="Hide"><a name="Footnote2">1) </a>Hidden footnote 2</p>
+ */
+#Hide
+  {
+  display: none;
+  }
+
+/* Inline search form
+ */
+#ID_SEARCH form input
+  {
+  font-size:      95%;
+  vertical-align: middle;
+  }
+
+/*Fix: Microsoft Internet Explorer 6.0 appends an empty line after block elements
+  like <div>, <p>, <h1>, <form>, <ul> and <li>. This remedy promotes a block
+  element to inline element.
+ */
+.FixBlock
+  {
+  display: inline;
+  }
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/*-----------------------------------------------------------------------------
+  $Log:
+   7    Biblioteka1.6         2004-06-02 14:59:38  Darko           Odd and even
+        table rows
+   6    Biblioteka1.5         2004-03-02 14:42:02  Darko           Default body
+        color is nor white
+   5    Biblioteka1.4         2003-07-19 18:14:20  Darko
+   4    Biblioteka1.3         2003-06-23 01:22:51  Darko
+   3    Biblioteka1.2         2003-02-24 10:06:41  Darko
+   2    Biblioteka1.1         2003-01-22 16:02:34  Darko           class
+        DarkShadow
+   1    Biblioteka1.0         2003-01-18 20:54:50  Darko
+  $
+ */
+
