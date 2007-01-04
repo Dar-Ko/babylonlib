@@ -1,0 +1,21 @@
+#$Workfile: KLogger.js$: rule dictionary file
+#$Revision: 5$ $Date: 2006-12-06 17:57:20$
+#$Author: Darko Kolakovic$
+#
+#RFC to HTML Conversion rules
+#Requires Perl module HTML::TextToHTML and txt2html script
+#See also: txt2html.options
+#Copyright: CommonSoft Inc
+#2007-01 Darko Kolakovic
+
+#Page footer
+#Berners-Lee & Connolly      Standards Track                     [Page 1]
+#^([\w\d ]+)\$ -hi-> <footer="$1" />
+/([\w\s\d\-&;])+\s+\[Page (\d+)\] -hi-> <a name="page$2" />
+
+#Page header
+/RFC 1866            Hypertext Markup Language - 2.0        November 1995 -hi-> <header="1995-11" />
+
+###############################################################################
+# $Log: $
+###############################################################################

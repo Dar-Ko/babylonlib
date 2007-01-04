@@ -1,0 +1,196 @@
+#$Workfile: KLogger.js$: rule dictionary file
+#$Revision: 5$ $Date: 2006-12-06 17:57:20$
+#$Author: Darko Kolakovic$
+#
+#Plain URL to HTML REF conversion rules
+#This dictionary contains some patterns for converting obvious URLs, ftp sites,
+#hostnames, email addresses and the like to hrefs.
+#Requires Perl module HTML::TextToHTML and txt2html script
+#See also: txt2html.options
+#
+#Sample links dictionary file for HTML::TextToHTML
+#http://www.katspace.com/tools/text_to_html
+#http://txt2html.sourceforge.net/
+
+# Mark _underlined stuff_ as <u>underlined stuff</u>
+# take account of possible trailing punctuation
+ /([ \t\n])_([a-z][a-z0-9 -]*[a-z])_([ \t\n\.;:,\!\?])/ -hi-> $1<u>$2</u>$3
+/_([a-z0-9])\_ -hi-> <u>$1</u>
+
+# Mark _emphasized stuff_ as <em>emphasized stuff</em>
+#/\B_([a-z][a-z -]*[a-z])_\B/ -hi-> <em>$1</em>
+
+# Use this one instead if you want it to match more aggressively.
+# /_((\w|["'])+(\w|\s|[-!?,:;._\"\'<>#%&=+\/\$]+)+)_/ -hi-> <em>$1</em>
+
+# We also need a special case for _x_
+/\B_([a-z])_\B/ -hi-> <em>$1</em>
+
+# Mark *bolded stuff* as <strong>bolded stuff</strong>
+/\B\*([a-z0-9][a-z0-9 -_,]*[a-z0-9:])\*\B/ -hi-> <strong>$1</strong>
+/\*([a-z0-9])\*/ -hi-> <strong>$1</strong>
+
+# Use this one instead if you want it to match more aggressively.
+# note that this doesn't use \w because we don't want to match numbers
+# since #1 is a common enough usage.
+# /\B\*([a-z-_]([a-z-_]|\s|\!|\?|,|;|:|\'|\.)*([a-z-_]|\.|\'|\"|:|\!|\?))\*\B/ -hi-> <strong>$1</strong>
+
+# We also need a special case for #x#
+#/\B\*([a-z])\*\B/ -hi-> <strong>$1</strong>
+
+# Rule for DOQQs
+|\*([][a-zA-Z.,]+)\*| -hi-> <strong>$1</strong>
+
+# Rule for Ewok's link generation (for mailto)
+|["]([^"]+?)["]:mailto:(\S+)|  -h-> <a href="mailto:$2">$1</A>
+|["]([^"]+?)["]:mailto:(\S+)|  -h-> <a href="mailto:$2">$1</A>
+
+|<(ftp://.*)>| -h-> <a href="$1">$1</A>
+|<(http://.*)>| -h-> <a href="$1">$1</A>
+|<([a-zA-Z.]+\@[a-zA-Z.]+)>| -h-> <a href="mailto:$1">$1</A>
+
+# Rule for Ewok's link generation (default case)
+|"([^"]+?)":([-a-zA-Z0-9_./:?&]+)|  -h-> <a href="$2">$1</A>
+
+# Rule for passing through existing anchor markup
+# |&lt;a href="([^"]+?)"&gt;([^<]+?)&lt;/a&gt;| -hi-> <a href="$1">$2</A>
+
+# Rule for inserting actual image instead
+# |&lt;img| -hi-> $&
+
+# Some people even like to mark the URL label explicitly <URL:foo:label>
+/&lt;URL:([-\w\.\/:~_\@]+):([a-zA-Z0-9'() ]+)&gt;/ -h-> <a href="$1">$2</A>
+
+# Some people like to mark URLs explicitly <URL:foo>
+/&lt;URL:\s*(\S+?)\s*&gt;/ -h-> <a href="$1">$1</A>
+
+#  <http://site>
+/&lt;(http:\S+?)\s*&gt;/ -h-> &lt;<a href="$1">$1</A>&gt;
+
+# Urls: <service>:<rest-of-url>
+
+|snews:[\w\.]+|        -> $&
+|news:[\w\.]+|         -> $&
+|nntp:[\w/\.:+\-]+|    -> $&
+|http:[\w/\.:\@+\-~\%#?=&;,]+[\w/]|  -> $&
+|shttp:[\w/\.:+\-~\%#?=&;,]+| -> $&
+|https:[\w/\.:+\-~\%#?=&;,]+| -> $&
+|file:[\w/\.:+\-]+|     -> $&
+|ftp:[\w/\.:+\-]+|      -> $&
+|wais:[\w/\.:+\-]+|     -> $&
+|gopher:[\w/\.:+\-]+|   -> $&
+|telnet:[\w/\@\.:+\-]+|   -> $&
+
+
+# catch some newsgroups to avoid confusion with sites:
+|([^\w\-/\.:\@>])(alt\.[\w\.+\-]+[\w+\-]+)|    -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(bionet\.[\w\.+\-]+[\w+\-]+)| -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(bit\.[\w\.+\-]+[\w+\-]+)|    -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(biz\.[\w\.+\-]+[\w+\-]+)|    -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(clari\.[\w\.+\-]+[\w+\-]+)|  -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(comp\.[\w\.+\-]+[\w+\-]+)|   -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(gnu\.[\w\.+\-]+[\w+\-]+)|    -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(humanities\.[\w\.+\-]+[\w+\-]+)|
+          -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(k12\.[\w\.+\-]+[\w+\-]+)|    -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(misc\.[\w\.+\-]+[\w+\-]+)|   -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(news\.[\w\.+\-]+[\w+\-]+)|   -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(rec\.[\w\.+\-]+[\w+\-]+)|    -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(soc\.[\w\.+\-]+[\w+\-]+)|    -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(talk\.[\w\.+\-]+[\w+\-]+)|   -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(us\.[\w\.+\-]+[\w+\-]+)|     -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(ch\.[\w\.+\-]+[\w+\-]+)|     -h-> $1<a href="news:$2">$2</A>
+|([^\w\-/\.:\@>])(de\.[\w\.+\-]+[\w+\-]+)|     -h-> $1<a href="news:$2">$2</A>
+
+# FTP locations (with directory):
+# anonymous@<site>:<path>
+|(anonymous\@)([a-zA-Z][\w\.+\-]+\.[a-zA-Z]{2,}):(\s*)([\w\d+\-/\.]+)|
+  -h-> $1<a href="ftp://$2/$4">$2:$4</A>$3
+
+# ftp@<site>:<path>
+|(ftp\@)([a-zA-Z][\w\.+\-]+\.[a-zA-Z]{2,}):(\s*)([\w\d+\-/\.]+)|
+  -h-> $1<a href="ftp://$2/$4">$2:$4</A>$3
+
+# Email address
+|[a-zA-Z0-9_\+\-\.]+\@([a-zA-Z0-9][\w\.+\-]+\.[a-zA-Z]{2,})|
+  -> mailto:$&
+
+# <site>:<path>
+|([^\w\-/\.:\@>])([a-zA-Z][\w\.+\-]+\.[a-zA-Z]{2,}):(\s*)([\w\d+\-/\.]+)|
+  -h-> $1<a href="ftp://$2/$4">$2:$4</A>$3
+
+# NB: don't confuse an http server with a port number for
+# an FTP location!
+# internet number version: <internet-num>:<path>
+|([^\w\-/\.:\@])(\d{2,}\.\d{2,}\.\d+\.\d+):([\w\d+\-/\.]+)|
+  -h-> $1<a href="ftp://$2/$3">$2:$3</A>
+
+# telnet <site> <port>
+|telnet ([a-zA-Z][\w+\-]+(\.[\w\.+\-]+)+\.[a-zA-Z]{2,})\s+(\d{2,4})|
+  -h-> telnet <a href="telnet://$1:$3/">$1 $3</A>
+
+# ftp <site>
+|ftp ([a-zA-Z][\w+\-]+(\.[\w\.+\-]+)+\.[a-zA-Z]{2,})|
+  -h-> ftp <a href="ftp://$1/">$1</A>
+
+# host with "ftp" in the machine name
+|(^|[^\w\d\-/\.:!]|^<P>)(([a-zA-Z][\w+\-]*)?ftp[\w+\-]*\.[\w\.+\-]+\.[a-zA-Z]{2,})([^\w\d\-/\.:!])|
+  -h-> $1ftp <a href="ftp://$2/">$2</A>$4
+
+# ftp.foo.net/blah/
+|ftp(\.[a-zA-Z0-9_\@:-]+)+/\S+| -> ftp://$&
+
+# www.thehouse.org/txt2html/
+|www(\.[a-zA-Z0-9_\@:-]+)+/\S+| -> http://$&
+
+# host with "www" in the machine name
+|(^|[^\w\d\-/\.:!]|^<P>)(([a-zA-Z][\w+\-]*)?www[\w+\-]*\.[\w\.+\-]+\.[a-zA-Z]{2,})([^\w\d\-/\.:!\@])|
+  -h-> $1<a href="http://$2/">$2</A>$4
+
+# <site> <port>
+|([a-zA-Z][\w+\-]+\.[\w+\-]+\.[a-zA-Z]{2,})\s+(\d{2,4})|
+  -h-> <a href="telnet://$1:$2/">$1 $2</A>
+
+# just the site name: <site>
+# But this gets mixed up with things line .tar.gz files!
+# |([^\w\-/\.:\@>])([a-zA-Z][\w+\-]+(\.[\w+\-]+)+\.[a-zA-Z]{2,})|
+#  -h-> $1<a href="http://$2">$2</A>/
+
+# just internet numbers with port:
+|([^\w\-/\.:\@])(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+(\d{1,4})|
+  -h-> $1<a href="telnet://$2:$3">$2 $3</A>
+
+# just internet numbers:
+|([^\w\-/\.:\@])(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})|
+  -h-> $1<a href="telnet://$2">$2</A>
+
+
+# (see "relative path") as used by Tom Fine
+# /\(see \"([^\"]+)\"\)/  -> $1.html
+
+# RFCs
+/RFC ?(\d+)/ -i-> http://www.cis.ohio-state.edu/rfc/rfc$1.txt
+
+# This would turn "f^H_o^H_o^H_" into "<u>foo</u>".  Gross, isn't it?
+# Thanks to Mark O'Dell <emark@cns.caltech.edu> for fixing this.
+#
+# /(.\\010_)+/ -he-> $tmp = $&;$tmp =~ s@\010_@@g;"<u>$tmp</u>"
+# /(_\\010.)+/ -he-> $tmp = $&;$tmp =~ s@_\010@@g;"<u>$tmp</u>"
+# /(.\^H_)+/ -he-> $tmp = $&;$tmp =~ s@\^H_@@g;"<u>$tmp</u>"
+# /(_\^H.)+/ -he-> $tmp = $&;$tmp =~ s@_\^H@@g;"<u>$tmp</u>"
+
+# |<img src="(.*)" usemap="(.*)(#.*)" border="(.*)">| -hie-> print "<img src=\"$1\" usemap=\"$3\" border=\"$4\">\n"; open(F,$2); my $foo=<F>; close(F); $foo;
+# Rule for inserting actual image instead
+# |<img| -hi-> $&
+# |^\#!/usr/bin/txt2html| -hi ->  ''
+
+###############################################################################
+# Original adapted from the html.pl package by Oscar Nierstrasz in
+# the Software Archive of the Software Composition Group
+# http://iamwww.unibe.ch/~scg/Src/
+#
+# based on links dictionary for Seth Golub's txt2html
+# http://www.aigeek.com/txt2html/
+#
+# $Log: $
+###############################################################################
