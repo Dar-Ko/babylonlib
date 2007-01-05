@@ -1,27 +1,43 @@
 #$Workfile: rfc2html.dict$: rule dictionary file
-#$Revision: 2$ $Date: 2007-01-04 17:08:21$
+#$Revision: 3$ $Date: 2007-01-05 18:46:20$
 #$Author: Darko Kolakovic$
 #
-#RFC to HTML Conversion rules
+#RFC to HTML Conversion rules.
+#Rules are applied after system_link_dict and default_link_dict.
 #Requires Perl module HTML::TextToHTML and txt2html script
 #See also: txt2html.options
 #Copyright: CommonSoft Inc
 #2007-01 Darko Kolakovic
 
-# RFCs
-/RFC ?(\d+)/ -i-> http://asg.web.cmu.edu/rfc/rfc$1.html
-
 #Page footer
-#Berners-Lee & Connolly      Standards Track                     [Page 1]
+#[Page 1]
 #^([\w\d ]+)\$ -hi-> <footer="$1" />
-/([\w\s\d\-&;])+\s+\[Page (\d+)\] -hi-> <a name="page$2" />
+/[{\[]Page ?(\d+)[}\]]/ -hi-> <a name="page$1" />
 
 #Page header
 /RFC 1866            Hypertext Markup Language - 2.0        November 1995 -hi-> <header="1995-11" />
 
+#Footnotes, references
+#[MIME], [ANSI-1], [12]
+/[{\[]([A-Z0-9\-]+)[}\]]/ -hi-> [<a class="Ref" href="#$1">$1</a>]
+
+#Notes:
+#NOTE -
+#<p>  NOTE - replace with <p class="Note"><b><i>Note</i></b>:
+/<p>  NOTE -/ -hi-> <p class="Note"><b><i>Note</i></b>\:
+
+#HTML Comments
+#&lt;!--  and  --&gt;
+/(&lt;!--)/ -h-> <i class=\"Rem\">$1
+/(--&gt;)/ -h-> $1</i>
+
+
+# RFCs
+/RFC ?(\d+)/ -i-> http://asg.web.cmu.edu/rfc/rfc$1.html
+
 ###############################################################################
-# $Log: 
+# $Log:
 #  2    Biblioteka1.1         2007-01-04 17:08:21  Darko Kolakovic Moved Rfc rule
-#  1    Biblioteka1.0         2007-01-04 12:30:58  Darko Kolakovic 
+#  1    Biblioteka1.0         2007-01-04 12:30:58  Darko Kolakovic
 # $
 ###############################################################################
