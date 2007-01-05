@@ -1,0 +1,124 @@
+@charset "utf-8";
+/*$Workfile: KASCIIChar.css$: Cascading style sheet file
+  $Revision: 8$ $Date: 2005-09-22 18:02:42$
+  $Author: Darko Kolakovic$
+
+  Character Tables style
+  Copyright: CommonSoft Inc
+  2005-07-10 D.Kolakovic
+ */
+
+/* Table Columns ------------------------------------------------------------*/
+.ColDec
+  {
+  text-align: right;
+  color: white;
+  background: #dc5555;
+  }
+.ColHex
+  {
+  text-align: right;
+  color: white;
+  background: #dc5555;
+  }
+.ColDscrptShrt
+  {
+  font-size: 0.8em;
+  width: 50%
+  }
+.ColDscrptLong
+  {
+  font-size: 0.8em;
+  color: gray;
+  width: 50%
+  }
+.ColChar
+  {
+  color: navy;
+  background: yellow;
+  }
+.ColHtml
+  {
+  color: gray;
+  }
+td.ColUni
+  {
+  width: 30%;
+  }
+
+/* Control Characters legend                                                 */
+.ColSymbPhF         /*Physical Device Controls: Format Effectors*/
+  {
+  background-color:#CCFFFF;
+  }
+.ColSymbLCC         /*Logical Communications Controls*/
+  {
+  background-color:#FFFF99;
+  }
+.ColSymbInS         /*Information Separators*/
+  {
+  background-color:#FFCCFF;
+  }
+.ColSymbPhD         /*Physical Device Controls*/
+  {
+  background-color:#CCFFCC;
+  }
+.ColSymbPhy         /*Physical Communications Controls*/
+  {
+  background-color:#CCCCFF;
+  }
+.ColSymbCtr         /*Controls for Code Extensions*/
+  {
+  background-color:#FFCCCC;
+  }
+.ColSymbCh          /*Printable Characters*/
+  {
+  background-color:#FBFBFB;
+  }
+.ColOem             /*OEM Specific Characters*/
+  {
+  background-color:#D8D8D8;
+  }
+
+/* Glyph cell                                                                */
+/* Note: the trick with em units (standard allows only pixels and %) is used to
+   dynamically resize images if font size increases.
+   Currently only Opera resizes images accurately.
+ */
+td.Glyph
+  {
+  border: solid gray thin;
+  vertical-align: middle;
+  width: .9em;
+  }
+img.Glyph
+  {
+  width: .9em;
+  }
+
+table.Cl
+  {
+  border-spacing: 1px;
+  padding: 0;
+  width: 100%;
+  /*background-color:#DDBBBB; test*/
+  }
+
+table.Cm
+  {
+  /*background-color:#DDBBBB; test*/
+  }
+
+.HtmlEnt /*HTML Entity*/
+  {
+  font-style: italic;
+  color: blue;
+  }
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/*-----------------------------------------------------------------------------
+  $Log:
+   1    Biblioteka1.0         2005-07-13 11:05:02  Darko Kolakovic
+  $
+ */
+
