@@ -1,0 +1,33 @@
+@charset "utf-8";
+/*$Workfile: S:\Doc\Res\KRfcDoc.css$: Cascading style sheet file
+  $Revision: 1.1 $ $Date: 2007/01/09 18:44:58 $
+  $Author: ddarko $
+
+  RFC articles layout
+  Copyright: CommonSoft Inc
+  2007-01-08 D. Kolakovic
+ */
+
+
+/*First page header-----------------------------------------------------------*/
+
+.RfcHead1
+  {
+  font-size: 100%;
+  text-align: left;
+  margin-top: 0em;
+  }
+
+/*Links for printed document */
+.RfcPgLnk
+  {
+  display: none;
+  }
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/*-----------------------------------------------------------------------------
+  $Log: 
+   1    Biblioteka1.0         2007-01-08 11:34:01  Darko Kolakovic 
+  $
+ */
+

@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*$Workfile: KDocument.css$: Cascading style sheet file
-  $Revision: 24$ $Date: 2005-09-29 16:24:10$
+  $Revision: 26$ $Date: 2007-01-09 13:43:43$
   $Author: Darko Kolakovic$
 
   HTML Document layout
@@ -213,8 +213,10 @@ a:link.NewsTag
   color: #000099;
   /*Note: Opera 7.5 works only with single predefind items (like cursor: pointer;)*/
   cursor: help;
-  /*Note: Works with  IE6, Firefox 1.0*/
-  cursor: url(Resources/KDocument.svg#curFootnote), url(Resources/KFootnote.cur), help;
+  /*Note: Works with  IE6, Firefox 1.0;
+    IE uses first 32x32 from the set (even if it is monochrome),
+    Firefox the first image in the set */
+  cursor: url(../Res/KDocument.svg#curFootnote), url(../Res/KFootnote.cur), help;
   }
 
 a.Footnote
@@ -233,8 +235,19 @@ a.Footnote
   /*Note: Opera 7.5 works only with single predefind items (like cursor: pointer;)*/
   cursor: help;
   /*Note: Works with  IE6, Firefox 1.0*/
-  cursor: url(Resources/KDocument.svg#curReference), url(Resources/KReference.cur), help;
+  cursor: url(../Res/KDocument.svg#curReference), url(../Res/KReference.cur), help;
   }
+
+a:link.Ref, a:visited.Ref, a:active.Ref
+  {
+  color: #119911;
+  text-decoration: none
+  }
+
+a:hover.Ref
+  {
+  color: #11ff11;
+  };
 
 .Help
   {
@@ -243,19 +256,8 @@ a.Footnote
   /*Note: Opera 7.5 works only with single predefind items (like cursor: pointer;)*/
   cursor: help;
   /*Note: Works with  IE6, Firefox 1.0*/
-  cursor: url(Resources/KDocument.svg#curHelp), url(Resources/KHelp.cur), help;
+  cursor: url(../Res/KDocument.svg#curHelp), url(../Res/KHelp.cur), help;
   }
-
-a:link.Ref, a:visited.Ref, a:active.Ref
-  {
-  color: #119911;
-  text-decoration: underline
-  }
-
-a:hover.Ref
-  {
-  color: #11ff11;
-  };
 
 
 /* Preformatted text --------------------------------------------------------*/
