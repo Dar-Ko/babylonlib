@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Language" content="en-us" />
   <meta name="Workfile" content="$Workfile: ZModem.htm$: documentation" />
-  <meta name="Revision" content="$Revision: 12$ $Date: 2007-01-04 17:43:30$" />
+  <meta name="Revision" content="$Revision: 13$ $Date: 2007-01-10 17:28:41$" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="ZModem, network, protocol" />
   <!-- Dublin Core Metadata Package -->
@@ -309,7 +309,7 @@
     accommodate traditional mainframe environments limit Kermit&#39;s
     efficiency. Even with completely transparent channels, Kermit control
     character quoting limits the efficiency of binary file transfers to about
-    75 per cent.<a href="#IDR1" class="Ref">[1]</a></li>
+    75 per cent.<a href="#IDR1" class="Footnote">[1]</a></li>
   </ul>
 
   <p>A number of submodes are used in various Kermit programs, including
@@ -334,7 +334,7 @@
   performance and (in some cases) the user interface. They provide useful
   improvements in some applications but not in others. XMODEM&#39;s unprotected
   control messages compromise their reliability. Complex proprietary techniques
-  such as Cybernetic Data Recovery&trade;<a href="#IDR2" class="Ref">[2]</a>
+  such as Cybernetic Data Recovery&trade;<a href="#IDR2" class="Footnote">[2]</a>
   improve reliability, but are not universally available. Some of the XMODEM
   mutant protocols have significant design flaws of their own.</p>
 
@@ -394,7 +394,7 @@
     <li>ZRQINIT frame sent by sending program can trigger automatic
     downloads.</li>
     <li>ZMODEM can optionally step down to YMODEM if the other end does not
-    support ZMODEM.<a href="#IDR3" class="Ref">[3]</a></li>
+    support ZMODEM.<a href="#IDR3" class="Footnote">[3]</a></li>
   </ul>
 
   <h3><a name="ID3_2_Throughput" id="ID3_2_Throughput">3.2 Throughput</a></h3>
@@ -433,9 +433,9 @@
   <h3><a name="ID3_3_" id="ID3_3_">3.3 Integrity and Robustness</a></h3>
 
   <p>Once a ZMODEM session is begun, all transactions are protected with 16 or
-  32 bit CRC.<a href="#IDR4" class="Ref">[4]</a> Complex proprietary techniques
+  32 bit CRC.<a href="#IDR4" class="Footnote">[4]</a> Complex proprietary techniques
   such as Omen Technology&#39;s Cybernetic Data Recovery&trade;<a href="#IDR5"
-  class="Ref">[5]</a> are not needed for reliable transfers. This complete
+  class="Footnote">[5]</a> are not needed for reliable transfers. This complete
   protection of data and supervisory information accounts for most of
   ZMODEM&#39;s high reliability compared to XMODEM derived protocols including
   WXMODEM, SEAlink, MEGAlink, etc.</p>
@@ -468,7 +468,7 @@
   <p>ZMODEM accommodates network and timesharing system delays by continuously
   transmitting data unless the receiver interrupts the sender to request
   retransmission of garbled data. ZMODEM in effect uses the entire file as a
-  window.<a href="#IDR6" class="Ref">[6]</a> Using the entire file as a window
+  window.<a href="#IDR6" class="Footnote">[6]</a> Using the entire file as a window
   simplifies buffer management, avoiding the window overrun failure modes that
   affect MEGAlink, SuperKermit, and others.</p>
 
@@ -505,13 +505,13 @@
   <p>Pure binary was unsuitable for ZMODEM because binary code combinations
   won&#39;t pass bidirectionally through some modems, networks and operating
   systems. Other operating systems may not be able to recognize something
-  coming back<a href="#IDR7" class="Ref">[7]</a> unless a break signal or a
+  coming back<a href="#IDR7" class="Footnote">[7]</a> unless a break signal or a
   system dependent code or sequence is present. By the time all this and other
   problems with the simple ACK/NAK sequences mentioned above were corrected,
   XMODEM&#39;s simple ACK and NACK characters had evolved into a real packet.
   The Frog was riveting.</p>
 
-  <p>Managing the window<a href="#IDR8" class="Ref">[8]</a> was another
+  <p>Managing the window<a href="#IDR8" class="Footnote">[8]</a> was another
   problem. Experience gained in debugging The Source&#39;s SuperKermit protocol
   indicated a window size of about 1000 characters was needed at 1200 bps. High
   speed modems require a window of 20000 or more characters for full
@@ -544,7 +544,7 @@
   must decide which outstanding packet (if any) it &quot;wants most&quot; to
   receive, and asks for that one. In practice, complex software
   &quot;hacks&quot; are needed to attain acceptable robustness.<a href="#IDR9"
-  class="Ref">[9]</a></p>
+  class="Footnote">[9]</a></p>
 
   <p>For ZMODEM, we decided to forgo the complexity of SuperKermit&#39;s packet
   assembly scheme and its associated buffer management logic and memory
@@ -628,17 +628,17 @@
     <dt><b>YMODEM</b></dt>
     <dd>refers to the XMODEM/CRC protocol with batch transmission and optional
     1024 byte blocks as described in YMODEM.DOC.<a href="#IDR10"
-    class="Ref">[10]</a></dd>
+    class="Footnote">[10]</a></dd>
   </dl>
 
   <h2><a name="ID6_" id="ID6_">6. ZMODEM Requirements</a></h2>
 
   <p>ZMODEM requires an 8 bit transfer medium.<a href="#IDR11"
-  class="Ref">[11]</a> ZMODEM escapes network control characters to allow
+  class="Footnote">[11]</a> ZMODEM escapes network control characters to allow
   operation with packet switched networks. In general, ZMODEM operates over any
   path that supports XMODEM, and over many that don&#39;t.</p>
 
-  <p>To support full streaming,<a href="#IDR12" class="Ref">[12]</a> the
+  <p>To support full streaming,<a href="#IDR12" class="Footnote">[12]</a> the
   transmission path should either assert flow control or pass full speed
   transmission without loss of data. Otherwise the ZMODEM sender must manage
   the window size.</p>
@@ -675,7 +675,7 @@
   most important character last to accommodate CRT displays that cannot
   overstrike. The sending program may use the ZCNL bit to force the receiving
   program to convert the received end of line to its local end of line
-  convention.<a href="#IDR13" class="Ref">[13]</a></p>
+  convention.<a href="#IDR13" class="Footnote">[13]</a></p>
 
   <h2><a name="ID7_" id="ID7_">7. ZMODEM Basics</a></h2>
 
@@ -711,7 +711,7 @@
   <p>ZMODEM achieves data transparency by extending the
   <a href="KASCIICharTable.htm">8 bit character set</a> (256 codes) with escape
   sequences based on the ZMODEM data link escape character
-  ZDLE.<a href="#IDR14" class="Ref">[14]</a></p>
+  ZDLE.<a href="#IDR14" class="Footnote">[14]</a></p>
 
   <p>Link Escape coding permits variable length data subpackets without the
   overhead of a separate byte count. It allows the beginning of frames to be
@@ -760,8 +760,8 @@
   Either form of the header contains the same raw information:</p>
 
   <ul>
-    <li>A type byte<a href="#IDR15" class="Ref">[15]</a> <a href="#IDR16"
-    class="Ref">[16]</a></li>
+    <li>A type byte<a href="#IDR15" class="Footnote">[15]</a> <a href="#IDR16"
+    class="Footnote">[16]</a></li>
     <li>Four bytes of data indicating flags and/or numeric quantities depending
     on the frame type</li>
   </ul>
@@ -891,7 +891,7 @@
   packet. A binary data packet contains 0 to 1024 bytes of data. Recommended
   length values are 256 bytes below 2400 bps, 512 at 2400 bps, and 1024 above
   4800 bps or when the data link is known to be relatively error
-  free.<a href="#IDR17" class="Ref">[17]</a></p>
+  free.<a href="#IDR17" class="Footnote">[17]</a></p>
 
   <p>No padding is used with binary data subpackets. The data bytes are ZDLE
   encoded and transmitted. A ZDLE and frameend are then sent, followed by two
@@ -914,7 +914,7 @@
   <p>As with the XMODEM recommendation, ZMODEM timing is receiver driven. The
   transmitter should not time out at all, except to abort the program if no
   headers are received for an extended period of time, say one
-  minute.<a href="#IDR18" class="Ref">[18]</a></p>
+  minute.<a href="#IDR18" class="Footnote">[18]</a></p>
 
   <h3><a name="ID8_1_" id="ID8_1_">8.1 Session Startup</a></h3>
 
@@ -963,7 +963,7 @@
 
   <p>The sender may then send an optional ZSINIT frame to define the receiving
   program&#39;s Attn sequence, or to specify complete control character
-  escaping.<a href="#IDR19" class="Ref">[19]</a></p>
+  escaping.<a href="#IDR19" class="Footnote">[19]</a></p>
 
   <p>If the ZSINIT header specifies ESCCTL or ESC8, a HEX header is used, and
   the receiver activates the specified ESC modes before reading the following
@@ -975,7 +975,7 @@
   <h3><a name="ID8_2_" id="ID8_2_">8.2 File Transmission</a></h3>
 
   <p>The sender then sends a ZFILE header with ZMODEM Conversion, Management,
-  and Transport options<a href="#IDR20" class="Ref">[20]</a> followed by a
+  and Transport options<a href="#IDR20" class="Footnote">[20]</a> followed by a
   ZCRCW data subpacket containing the file name, file length, modification
   date, and other information identical to that used by YMODEM Batch.</p>
 
@@ -991,7 +991,7 @@
   <p>The receiver has a file with the same name and length, may respond with a
   ZCRC header with a byte count, which requires the sender to perform a 32 bit
   CRC on the specified number of bytes in the file and transmit the complement
-  of the CRC in an answering ZCRC header.<a href="#IDR21" class="Ref">[21]</a>
+  of the CRC in an answering ZCRC header.<a href="#IDR21" class="Footnote">[21]</a>
   The receiver uses this information to determine whether to accept the file or
   skip it. This sequence may be triggered by the ZMCRC Management Option.</p>
 
@@ -1001,7 +1001,7 @@
   file. The receiver may start the transfer further down in the file. This
   allows a file transfer interrupted by a loss or carrier or system crash to be
   completed on the next connection without requiring the entire file to be
-  retransmitted.<a href="#IDR22" class="Ref">[22]</a> If downloading a file
+  retransmitted.<a href="#IDR22" class="Footnote">[22]</a> If downloading a file
   from a timesharing system that becomes sluggish, the transfer can be
   interrupted and resumed later with no loss of data.</p>
 
@@ -1011,7 +1011,7 @@
   <p>The receiver compares the file position in the ZDATA header with the
   number of characters successfully received to the file. If they do not agree,
   a ZRPOS error response is generated to force the sender to the right position
-  within the file.<a href="#IDR23" class="Ref">[23]</a></p>
+  within the file.<a href="#IDR23" class="Footnote">[23]</a></p>
 
   <p>A data subpacket terminated by ZCRCG and CRC does not elicit a response
   unless an error is detected; more data subpacket(s) follow immediately.</p>
@@ -1090,7 +1090,7 @@
   <p>At the end of each transmitted data subpacket, the sender checks for the
   presence of an error header from the receiver. To do this, the sender samples
   the reverse data stream for the presence of either a ZPAD or CAN
-  character.<a href="#IDR24" class="Ref">[24]</a> Flow control characters (if
+  character.<a href="#IDR24" class="Footnote">[24]</a> Flow control characters (if
   present) are acted upon.</p>
 
   <p>Other characters (indicating line noise) increment a counter which is
@@ -1105,10 +1105,10 @@
   error header, which will force the sender to resume transmission at a
   different address, or take other action. In the unlikely event the ZPAD or
   CAN character was spurious, the receiver will time out and send a ZRPOS
-  header.<a href="#IDR25" class="Ref">[25]</a></p>
+  header.<a href="#IDR25" class="Footnote">[25]</a></p>
 
   <p>Then the receiver&#39;s response header is read and acted
-  upon.<a href="#IDR26" class="Ref">[26]</a></p>
+  upon.<a href="#IDR26" class="Footnote">[26]</a></p>
 
   <p>A ZRPOS header resets the sender&#39;s file offset to the correct
   position. If possible, the sender should purge its output buffers and/or
@@ -1123,7 +1123,7 @@
   processing of this file.</p>
 
   <p>The reverse channel is then sampled for the presence of another header
-  from the receiver.<a href="#IDR27" class="Ref">[27]</a> if one is detected,
+  from the receiver.<a href="#IDR27" class="Footnote">[27]</a> if one is detected,
   the <code>getinsync()</code> function is again called to read another error
   header. Otherwise, transmission resumes at the (possibly reset) file offset
   with a ZDATA header followed by data subpackets.</p>
@@ -1143,14 +1143,14 @@
   the sender of the receiver&#39;s progress. When the window size (current
   transmitter file offset - last reported receiver file offset) exceeds a
   specified value, the sender waits for a ZACK<a href="#IDR28"
-  class="Ref">[28]</a> packet with a receiver file offset that reduces the
+  class="Footnote">[28]</a> packet with a receiver file offset that reduces the
   window size.</p>
 
   <p>Unix sz versions beginning with May 9 1987 control the window size with
   the &quot;-w N&quot; option, where N is the maximum window size. Pro-YAM,
   ZCOMM and DSZ versions beginning with May 9 1987 control the window size with
   &quot;zmodem pwN&quot;. This is compatible with previous versions of these
-  programs.<a href="#IDR29" class="Ref">[29]</a></p>
+  programs.<a href="#IDR29" class="Footnote">[29]</a></p>
 
   <h3><a name="ID9_2_" id="ID9_2_">9.2 Full Streaming with Reverse
   Interrupt</a></h3>The above method cannot be used if the reverse data stream
@@ -1206,7 +1206,7 @@
   control can send the entire file in one frame without any checking of the
   reverse stream. If this channel is completely transparent, only ZDLE need be
   escaped. The resulting protocol overhead for average long files is less than
-  one per cent.<a href="#IDR30" class="Ref">[30]</a></p>
+  one per cent.<a href="#IDR30" class="Footnote">[30]</a></p>
 
   <h3><a name="ID9_5_" id="ID9_5_">9.5 Segmented Streaming</a></h3>
 
@@ -1321,7 +1321,7 @@
     Return and Line Feed/New Line. Neither the ASCII code nor ZMODEM ZCNL
     encompass lines separated only by carriage returns. Other processing
     appropriate to ASCII text files and the local operating system may also be
-    applied by the receiver.<a href="#IDR31" class="Ref">[31]</a></li>
+    applied by the receiver.<a href="#IDR31" class="Footnote">[31]</a></li>
     <li>ZCRECOV Recover/Resume interrupted file transfer. ZCREVOV is also
     useful for updating a remote copy of a file that grows without resending of
     old data. If the destination file exists and is no longer than the source,
@@ -1401,7 +1401,7 @@
 
   <p>Sent by receiver to terminate batch file transfers when requested by the
   user. Sender responds with a ZFIN sequence.<a href="#IDR32"
-  class="Ref">[32]</a></p>
+  class="Footnote">[32]</a></p>
 
   <h4><a name="ID11_9_ZFIN" id="ID11_9_ZFIN">11.9 ZFIN</a></h4>
 
@@ -1664,7 +1664,7 @@
     <dt><b>Length</b></dt>
     <dd>
       The file length and each of the succeeding fields are
-      optional.<a href="#IDR33" class="Ref">[33]</a> The length field is stored
+      optional.<a href="#IDR33" class="Footnote">[33]</a> The length field is stored
       as a decimal string counting the number of data bytes in the file.
 
       <p>The ZMODEM receiver uses the file length as an estimate only. It may
@@ -3051,85 +3051,85 @@
   <hr />
 
   <ul>
-    <li><a name="IDR1" class="Ref" id="IDR1">1.</a> Some Kermit programs
+    <li><a name="IDR1" class="Footnote" id="IDR1">1.</a> Some Kermit programs
     support run length encoding.</li>
-    <li><a name="IDR2" class="Ref" id="IDR2">2.</a> Unique to DSZ, ZCOMM,
+    <li><a name="IDR2" class="Footnote" id="IDR2">2.</a> Unique to DSZ, ZCOMM,
     Professional-YAM and PowerCom</li>
-    <li><a name="IDR3" class="Ref" id="IDR3">3.</a> Provided the transmission
+    <li><a name="IDR3" class="Footnote" id="IDR3">3.</a> Provided the transmission
     medium accommodates X/YMODEM.</li>
-    <li><a name="IDR4" class="Ref" id="IDR4">4.</a> Except for the
+    <li><a name="IDR4" class="Footnote" id="IDR4">4.</a> Except for the
     CAN-CAN-CAN-CAN-CAN abort sequence which requires five successive CAN
     characters.</li>
-    <li><a name="IDR5" class="Ref" id="IDR5">5.</a> Unique to Professional-YAM,
+    <li><a name="IDR5" class="Footnote" id="IDR5">5.</a> Unique to Professional-YAM,
     ZCOMM, and PowerCom</li>
-    <li><a name="IDR6" class="Ref" id="IDR6">6.</a> Streaming strategies are
+    <li><a name="IDR6" class="Footnote" id="IDR6">6.</a> Streaming strategies are
     discussed in coming chapters.</li>
-    <li><a name="IDR7" class="Ref" id="IDR7">7.</a> Without stopping for a
+    <li><a name="IDR7" class="Footnote" id="IDR7">7.</a> Without stopping for a
     response</li>
-    <li><a name="IDR8" class="Ref" id="IDR8">8.</a> The WINDOW is the data in
+    <li><a name="IDR8" class="Footnote" id="IDR8">8.</a> The WINDOW is the data in
     transit between sender and receiver.</li>
-    <li><a name="IDR9" class="Ref" id="IDR9">9.</a> For example, when
+    <li><a name="IDR9" class="Footnote" id="IDR9">9.</a> For example, when
     SuperKermit encounters certain errors, the wndesr function is called to
     determine the next block to request. A burst of errors generates several
     wasteful requests to retransmit the same block.</li>
-    <li><a name="IDR10" class="Ref" id="IDR10">10.</a> Available on
+    <li><a name="IDR10" class="Footnote" id="IDR10">10.</a> Available on
     TeleGodzilla as part of YZMODEM.ZOO</li>
-    <li><a name="IDR11" class="Ref" id="IDR11">11.</a> The ZMODEM design allows
+    <li><a name="IDR11" class="Footnote" id="IDR11">11.</a> The ZMODEM design allows
     encoded packets for less transparent media.</li>
-    <li><a name="IDR12" class="Ref" id="IDR12">12.</a> With XOFF and XON, or
+    <li><a name="IDR12" class="Footnote" id="IDR12">12.</a> With XOFF and XON, or
     out of band flow control such as X.25 or CTS</li>
-    <li><a name="IDR13" class="Ref" id="IDR13">13.</a> Files that have been
+    <li><a name="IDR13" class="Footnote" id="IDR13">13.</a> Files that have been
     translated in such a way as to modify their length cannot be updated with
     the ZCRECOV Conversion Option.</li>
-    <li><a name="IDR14" class="Ref" id="IDR14">14.</a> This and other constants
+    <li><a name="IDR14" class="Footnote" id="IDR14">14.</a> This and other constants
     are defined in the zmodem.h include file. Please note that constants with a
     leading 0 are octal constants in C.</li>
-    <li><a name="IDR15" class="Ref" id="IDR15">15.</a> The frame types are
+    <li><a name="IDR15" class="Footnote" id="IDR15">15.</a> The frame types are
     cardinal numbers beginning with 0 to minimize state transition table memory
     requirements.</li>
-    <li><a name="IDR16" class="Ref" id="IDR16">16.</a> Future extensions to
+    <li><a name="IDR16" class="Footnote" id="IDR16">16.</a> Future extensions to
     ZMODEM may use the high order bits of the type byte to indicate thread
     selection.</li>
-    <li><a name="IDR17" class="Ref" id="IDR17">17.</a> Strategies for adjusting
+    <li><a name="IDR17" class="Footnote" id="IDR17">17.</a> Strategies for adjusting
     the subpacket length for optimal results based on real time error rates are
     still evolving. Shorter subpackets speed error detection but increase
     protocol overhead slightly.</li>
-    <li><a name="IDR18" class="Ref" id="IDR18">18.</a> Special considerations
+    <li><a name="IDR18" class="Footnote" id="IDR18">18.</a> Special considerations
     apply when sending commands.</li>
-    <li><a name="IDR19" class="Ref" id="IDR19">19.</a> If the receiver
+    <li><a name="IDR19" class="Footnote" id="IDR19">19.</a> If the receiver
     specifies the same or higher level of escaping, the ZSINIT frame need not
     be sent unless an Attn sequence is needed.</li>
-    <li><a name="IDR20" class="Ref" id="IDR20">20.</a> See below, under ZFILE
+    <li><a name="IDR20" class="Footnote" id="IDR20">20.</a> See below, under ZFILE
     header type.</li>
-    <li><a name="IDR21" class="Ref" id="IDR21">21.</a> The crc is initialized
+    <li><a name="IDR21" class="Footnote" id="IDR21">21.</a> The crc is initialized
     to 0xFFFFFFFF. A byte count of 0 implies the entire file.</li>
-    <li><a name="IDR22" class="Ref" id="IDR22">22.</a> This does not apply to
+    <li><a name="IDR22" class="Footnote" id="IDR22">22.</a> This does not apply to
     files that have been translated.</li>
-    <li><a name="IDR23" class="Ref" id="IDR23">23.</a> If the ZMSPARS option is
+    <li><a name="IDR23" class="Footnote" id="IDR23">23.</a> If the ZMSPARS option is
     used, the receiver instead seeks to the position given in the ZDATA
     header.</li>
-    <li><a name="IDR24" class="Ref" id="IDR24">24.</a> The call to rdchk() in
+    <li><a name="IDR24" class="Footnote" id="IDR24">24.</a> The call to rdchk() in
     sz.c performs this function.</li>
-    <li><a name="IDR25" class="Ref" id="IDR25">25.</a> The obvious choice of
+    <li><a name="IDR25" class="Footnote" id="IDR25">25.</a> The obvious choice of
     ZCRCW packet, which would trigger an ZACK from the receiver, is not used
     because multiple in transit frames could result if the channel has a long
     propagation delay.</li>
-    <li><a name="IDR26" class="Ref" id="IDR26">26.</a> The call to getinsync()
+    <li><a name="IDR26" class="Footnote" id="IDR26">26.</a> The call to getinsync()
     in sz.c performs this function.</li>
-    <li><a name="IDR27" class="Ref" id="IDR27">27.</a> If sampling is
+    <li><a name="IDR27" class="Footnote" id="IDR27">27.</a> If sampling is
     possible.</li>
-    <li><a name="IDR28" class="Ref" id="IDR28">28.</a> ZRPOS and other error
+    <li><a name="IDR28" class="Footnote" id="IDR28">28.</a> ZRPOS and other error
     packets are handled normally.</li>
-    <li><a name="IDR29" class="Ref" id="IDR29">29.</a> When used with modems or
+    <li><a name="IDR29" class="Footnote" id="IDR29">29.</a> When used with modems or
     networks that simultaneously assert flow</li>
-    <li><a name="IDR30" class="Ref" id="IDR30">30.</a> One in 256 for escaping
+    <li><a name="IDR30" class="Footnote" id="IDR30">30.</a> One in 256 for escaping
     ZDLE, about two (four if 32 bit CRC is used) in 1024 for data subpacket
     CRC&#39;s</li>
-    <li><a name="IDR31" class="Ref" id="IDR31">31.</a> Filtering RUBOUT, NULL,
+    <li><a name="IDR31" class="Footnote" id="IDR31">31.</a> Filtering RUBOUT, NULL,
     Ctrl-Z, etc.</li>
-    <li><a name="IDR32" class="Ref" id="IDR32">32.</a> Or ZCOMPL in case of
+    <li><a name="IDR32" class="Footnote" id="IDR32">32.</a> Or ZCOMPL in case of
     server mode.</li>
-    <li><a name="IDR33" class="Ref" id="IDR33">33.</a> Fields may not be
+    <li><a name="IDR33" class="Footnote" id="IDR33">33.</a> Fields may not be
     skipped.</li>
   </ul>
   <!-- EOT ================================================================= -->

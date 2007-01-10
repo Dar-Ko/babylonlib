@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Language" content="en-us" />
   <meta name="Workfile" content="$Workfile: YModem.htm$: documentation" />
-  <meta name="Revision" content="$Revision: 13$ $Date: 2007-01-04 17:43:23$" />
+  <meta name="Revision" content="$Revision: 14$ $Date: 2007-01-10 17:28:39$" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="XModem, YModem, network, protocol" />
   <!-- Dublin Core Metadata Package -->
@@ -177,7 +177,7 @@
 
   <p>Jeff Garbers (Crosstalk package development director) said it all:
   &quot;With protocols in the public domain, anyone who wants to dink around
-  with them can go ahead.&quot; <a class="Ref" href="#IDR1">[1]</a></p>
+  with them can go ahead.&quot; <a class="Footnote" href="#IDR1">[1]</a></p>
 
   <p>Documents containing altered examples derived from YMODEM.DOC have added
   to the confusion. In one instance, the heading in YMODEM.DOC's Figure 1
@@ -346,7 +346,7 @@
   <p>YMODEM is supported by the public domain programs YAM (CP/M),
   YAM(CP/M-86), YAM(CCPM-86), IMP (CP/M), KMD (CP/M), rz/sz (Unix, Xenix, VMS,
   Berkeley Unix, Venix, Xenix, Coherent, IDRIS, Regulus). Commercial
-  implementations include MIRROR, and Professional-YAM.<a class="Ref"
+  implementations include MIRROR, and Professional-YAM.<a class="Footnote"
   href="#IDR2">[2]</a> Communications programs supporting these extensions have
   been in use since 1981.</p>
 
@@ -370,10 +370,14 @@
 
   <h3><a name="ID3_1" id="ID3_1">3.1 Some Messages from the Pioneer</a></h3>
 
-  <p>#: 130940 S0/Communications 25-Apr-85 18:38:47 Sb: my protocol Fm: Ward
-  Christensen 76703,302 <a class="Ref" href="#IDR3">[3]</a> To: all</p>
+  <dl>
+  <dt><i>#: 130940 S0/Communications 1985-04-25 18:38:47</i></dt>
+  <dd>Sb: my protocol</dd>
+  <dd>Fm: Ward Christensen 76703,302 <a class="Footnote" href="#IDR3">[3]</a></dd>
+  <dd>To: all</dd>
 
-  <p>Be aware the article<a class="Ref" href="#IDR4">[4]</a> DID quote me
+  <dd>
+  <p>Be aware the article<a class="Footnote" href="#IDR4">[4]</a> DID quote me
   correctly in terms of the phrases like &quot;not robust&quot;, etc.</p>
 
   <p>It was a quick hack I threw together, very unplanned (like everything I
@@ -393,8 +397,8 @@
       propose an &quot;incremental extension&quot; to it, which might take
       &quot;exactly&quot; the form of Chuck Forsberg's YAM protocol. He
       wrote YAM in C for CP/M and put it in the public domain, and wrote a
-      batch protocol for Unix <a class="Ref" href="#IDR5">[5]</a> called
-      <a href="#ID11_">rb</a> and sb (receive batch, send batch), which was
+      batch protocol for Unix <a class="Footnote" href="#IDR5">[5]</a> called
+      <a href="#ID11_RB">rb</a> and sb (receive batch, send batch), which was
       basically XMODEM with&nbsp;
 
       <ol>
@@ -419,15 +423,15 @@
   band - THEY had a protocol, but it was &quot;extremely complex&quot;, because
   it tried to be &quot;all things to all people&quot; - i.e. send binary files
   on a 7-bit system, etc. I was not that &quot;benevolent&quot;. I (emphasize
-  &gt; I &lt; ) had an 8-bit UART, so &quot;my protocol was an 8-bit
+  <em>I</em> ) had an 8-bit UART, so &quot;my protocol was an 8-bit
   protocol&quot;, and I would just say &quot;sorry&quot; to people who were
   held back by 7-bit limitations. ...</p>
 
   <p>Block size: Chuck Forsberg created an extension of my protocol, called
   YAM, which is also supported via his public domain programs for UNIX called
-  rb and sb - receive batch and send batch. They cleverly send a &quot;block
+  <a name="ID11_RB"><i>rb</i></a> and <i>sb</i> - receive batch and send batch. They cleverly send a &quot;block
   0&quot; which contains the filename, date, time, and size. Unfortunately, its
-  UNIX style, and is a bit weird <a class="Ref" href="#IDR6">[6]</a> - octal
+  UNIX style, and is a bit weird <a class="Footnote" href="#IDR6">[6]</a> - octal
   numbers, etc. BUT, it is a nice way to overcome the kludgy &quot;echo the
   chars of the name&quot; introduced with MODEM7. Further, Chuck uses CRC-16
   and optional 1K blocks. Thus the record 0, 1K, and CRC, make it a
@@ -448,6 +452,8 @@
   system - for example when trying a number for CIS it detects the
   &quot;busy&quot; string back from the modem and substitutes a diff phone #
   into the dialing string and branches back to try it.</p>
+  </dd>
+  </dl>
 
   <h2><a name="ID4_" id="ID4_">4. XMODEM Protocol Enhancements</a></h2>
 
@@ -521,7 +527,7 @@
 
   <h3><a name="ID4_3" id="ID4_3">4.3 XMODEM-1k 1024 Byte Block</a></h3>
 
-  <p>Disappointing throughput downloading from Unix with YMODEM <a class="Ref"
+  <p>Disappointing throughput downloading from Unix with YMODEM <a class="Footnote"
   href="#IDR7">[7]</a> lead to the development of 1024 byte blocks in 1982.
   1024 byte blocks reduce the effect of delays from timesharing systems,
   modems, and packet switched networks on throughput by 87.5 per cent in
@@ -529,7 +535,7 @@
   files.</p>
 
   <p>The choice to use 1024 byte blocks is expressed to the sending program on
-  its command line or selection menu.<a class="Ref" href="#IDR8">[8]</a> 1024
+  its command line or selection menu.<a class="Footnote" href="#IDR8">[8]</a> 1024
   byte blocks improve throughput in many applications, but some environments
   cannot accept 1024 byte bursts, especially minicomputers running 19.2kb
   ports.</p>
@@ -626,7 +632,7 @@
   switching methods.</p>
 
   <p>Why was it necessary to design a new batch protocol when one already
-  existed in MODEM7? <a class="Ref" href="#IDR9">[9]</a><br />
+  existed in MODEM7? <a class="Footnote" href="#IDR9">[9]</a><br />
    The batch file mode used by MODEM7 is unsuitable because it does not permit
   full <a href="#IDPathname">pathnames</a>, <a href="#IDLength">file
   length</a>, <a href="#IDModification_Date">file date</a>, or
@@ -641,7 +647,7 @@
   CRC-16).</p>
 
   <p>The sender opens the first file and sends block number 0 with the
-  following information. <a class="Ref" href="#IDR10">[10]</a></p>
+  following information. <a class="Footnote" href="#IDR10">[10]</a></p>
 
   <p>Only the pathname (file name) part is required for batch transfers.</p>
 
@@ -688,7 +694,7 @@ DB 'foo.bar',0
     <dt><b><a name="IDLength" id="IDLength">Length</a></b></dt>
 
     <dd>The file length and each of the succeeding fields are
-    optional.<a class="Ref" href="#IDR11">[11]</a> The length field is stored
+    optional.<a class="Footnote" href="#IDR11">[11]</a> The length field is stored
     in the block as a decimal string counting the number of data bytes in the
     file. The file length does not include any CPMEOF (^Z) or other garbage
     characters used to pad the last block.<br />
@@ -741,7 +747,7 @@ DB 'foo.bar',0
   </dl>
 
   <p>The rest of the block is set to nulls. This is essential to preserve
-  upward compatibility.<a class="Ref" href="#IDR12">[12]</a></p>
+  upward compatibility.<a class="Footnote" href="#IDR12">[12]</a></p>
 
   <p>If the filename block is received with a CRC or other error, a
   retransmission is requested. After the filename block has been received, it
@@ -769,7 +775,7 @@ DB 'foo.bar',0
   <table border="0" width="100%" summary="YMODEM Batch Transmission Session">
     <caption>
       Figure 3a. <a name="IDFigure_3" id="IDFigure_3"
-      href="KYModemProtocol.htm">YMODEM Batch Transmission Session</a> (1 file)
+      href="../Lib/KYModemProtocol.htm">YMODEM Batch Transmission Session</a> (1 file)
     </caption>
 
     <tr>
@@ -959,7 +965,7 @@ DB 'foo.bar',0
   <table border="1" width="100%" summary="YMODEM Batch Transmission Session">
     <caption>
       Figure 3b. <a name="IDFigure_3b" id="IDFigure_3b"
-      href="KYModemProtocol.htm">YMODEM Batch Transmission Session</a> (2
+      href="../Lib/KYModemProtocol.htm">YMODEM Batch Transmission Session</a> (2
       files)
     </caption>
 
@@ -1362,7 +1368,7 @@ DB 'foo.bar',0
 
       <p>The most common technique is for &quot;PURGE&quot; to call the
       character receive subroutine, specifying a 1-second
-      timeout,<a class="Ref" href="#IDR13">[13]</a> and looping back to PURGE
+      timeout,<a class="Footnote" href="#IDR13">[13]</a> and looping back to PURGE
       until a timeout occurs. The <b class="ColSymbLCC">&lt;nak&gt;</b> is then
       sent, ensuring the other end will see it.</p>
     </li>
@@ -1387,7 +1393,7 @@ DB 'foo.bar',0
   S. Tanenbaum says in his book, Computer Networks, that the CRC- CCITT used by
   the Modem Protocol will detect all single and double bit errors, all errors
   with an odd number of bits, all burst errors of length 16 or less, 99.997% of
-  17-bit error bursts, and 99.998% of 18-bit and longer bursts.<a class="Ref"
+  17-bit error bursts, and 99.998% of 18-bit and longer bursts.<a class="Footnote"
   href="#IDR14">[14]</a></p>
 
   <p>The changes to the Modem Protocol to replace the checksum with the CRC are
@@ -1739,37 +1745,37 @@ DB 'foo.bar',0
   <hr />
 
   <ul>
-    <li><a class="Ref" name="IDR1" id="IDR1">1.</a> Page C/12, PC-WEEK July 12,
+    <li><a class="Footnote" name="IDR1" id="IDR1">1.</a> Page C/12, PC-WEEK July 12,
     1987</li>
-    <li><a class="Ref" name="IDR2" id="IDR2">2.</a> Available for IBM PC,XT,AT,
+    <li><a class="Footnote" name="IDR2" id="IDR2">2.</a> Available for IBM PC,XT,AT,
     Unix and Xenix</li>
-    <li><a class="Ref" name="IDR3" id="IDR3">3.</a> Edited for typesetting
+    <li><a class="Footnote" name="IDR3" id="IDR3">3.</a> Edited for typesetting
     appearance</li>
-    <li><a class="Ref" name="IDR4" id="IDR4">4.</a> Infoworld April 29 p.
+    <li><a class="Footnote" name="IDR4" id="IDR4">4.</a> Infoworld April 29 p.
    16</li>
-    <li><a class="Ref" name="IDR5" id="IDR5">5.</a> VAX/VMS versions of these
+    <li><a class="Footnote" name="IDR5" id="IDR5">5.</a> VAX/VMS versions of these
     programs are also available.</li>
-    <li><a class="Ref" name="IDR6" id="IDR6">6.</a> The file length, time, and
+    <li><a class="Footnote" name="IDR6" id="IDR6">6.</a> The file length, time, and
     file mode are optional. The pathname and file length may be sent alone if
     desired.</li>
-    <li><a class="Ref" name="IDR7" id="IDR7">7.</a> The name hadn't been
+    <li><a class="Footnote" name="IDR7" id="IDR7">7.</a> The name hadn't been
     coined yet, but the protocol was the same.</li>
-    <li><a class="Ref" name="IDR8" id="IDR8">8.</a> See &quot;KMD/IMP
+    <li><a class="Footnote" name="IDR8" id="IDR8">8.</a> See &quot;KMD/IMP
     Exceptions to YMODEM&quot; below.</li>
-    <li><a class="Ref" name="IDR9" id="IDR9">9.</a> The MODEM7 batch protocol
+    <li><a class="Footnote" name="IDR9" id="IDR9">9.</a> The MODEM7 batch protocol
     transmitted CP/M FCB bytes f1...f8 and t1...t3 one character at a time. The
     receiver echoed these bytes as received, one at a time.</li>
-    <li><a class="Ref" name="IDR10" id="IDR10">10.</a> Only the data part of
+    <li><a class="Footnote" name="IDR10" id="IDR10">10.</a> Only the data part of
     the block is described here.</li>
-    <li><a class="Ref" name="IDR11" id="IDR11">11.</a> Fields may not be
+    <li><a class="Footnote" name="IDR11" id="IDR11">11.</a> Fields may not be
     skipped.</li>
-    <li><a class="Ref" name="IDR12" id="IDR12">12.</a> If, perchance, this
+    <li><a class="Footnote" name="IDR12" id="IDR12">12.</a> If, perchance, this
     information extends beyond 128 bytes (possible with Unix 4.2 BSD extended
     file names), the block should be sent as a 1k block as described
     above.</li>
-    <li><a class="Ref" name="IDR13" id="IDR13">13.</a> These times should be
+    <li><a class="Footnote" name="IDR13" id="IDR13">13.</a> These times should be
     adjusted for use with timesharing systems.</li>
-    <li><a class="Ref" name="IDR14" id="IDR14">14.</a> This reliability figure
+    <li><a class="Footnote" name="IDR14" id="IDR14">14.</a> This reliability figure
     is misleading because XMODEM's critical supervisory functions are not
     protected by this CRC.</li>
   </ul>
