@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*$Workfile: KDocument.css$: Cascading style sheet file
-  $Revision: 26$ $Date: 2007-01-09 13:43:43$
+  $Revision: 27$ $Date: 2007-01-10 17:29:45$
   $Author: Darko Kolakovic$
 
   HTML Document layout
@@ -219,7 +219,12 @@ a:link.NewsTag
   cursor: url(../Res/KDocument.svg#curFootnote), url(../Res/KFootnote.cur), help;
   }
 
-a.Footnote
+a.Footnote, a:visited.Footnote, a:active.Footnote
+  {
+  text-decoration: none;
+  }
+
+a:hover.Footnote
   {
   text-decoration: underline;
   }
@@ -247,7 +252,7 @@ a:link.Ref, a:visited.Ref, a:active.Ref
 a:hover.Ref
   {
   color: #11ff11;
-  };
+  }
 
 .Help
   {

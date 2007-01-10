@@ -1,6 +1,6 @@
 @charset "utf-8";
-/*$Workfile: S:\Doc\Res\KRfcDoc.css$: Cascading style sheet file
-  $Revision: 1.1 $ $Date: 2007/01/09 18:44:58 $
+/*$Workfile: KRfcDoc.css$: Cascading style sheet file
+  $Revision: 1.2 $ $Date: 2007/01/10 22:31:08 $
   $Author: ddarko $
 
   RFC articles layout
@@ -24,10 +24,17 @@
   display: none;
   }
 
+/*Remarks or code comments */
+.Rem
+  {
+  color: #127712;
+  text-decoration: italic;
+  }
+
 /* ///////////////////////////////////////////////////////////////////////// */
 /*-----------------------------------------------------------------------------
-  $Log: 
-   1    Biblioteka1.0         2007-01-08 11:34:01  Darko Kolakovic 
+  $Log:
+   1    Biblioteka1.0         2007-01-08 11:34:01  Darko Kolakovic
   $
  */
 
