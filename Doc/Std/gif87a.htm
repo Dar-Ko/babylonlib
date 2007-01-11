@@ -1,0 +1,927 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en-us">
+<!--/* Group=Standards*/ -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-us" />
+  <meta name="Workfile" content="$Workfile: gif87a.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 11$" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="GIF, image, format" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="RFC 1866: Hypertext Markup Language - 2.0" />
+  <meta name="DC.creator" content="CompuServe Incorporated, 1987-06-15" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="connolly@w3.org" />
+  <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+  <meta name="DC.Rights" content="Expired" />
+  <meta name="DC.subject" content="Request for Comments" />
+  <meta name="DC.description.abstract" content="GIF 87 image format">
+  <meta name="DC.publisher" content="Internet Society" />
+  <meta name="DC.date" content="$Date: 2007-01-11 17:38:12$" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_us" />
+  <meta name="DC.identifier.RFC" content="1866" />
+  <meta name="DC.relation.HasVersion" content="http://www.rfc-editor.org/rfc-index2.html" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="icon" href="../Res/KBook.ico" type="image/ico" />
+  <title>GIF87a Graphics Interchange Format</title>
+  <base target="_self" />
+  <style type="text/css">
+    dt
+      {
+      font-weight: bold;
+      }
+    table
+      {
+      border-collapse: collapse;
+      }
+  </style>
+<head>
+
+<map name="GifMap">
+  <area shape="rect" coords="209,   0, 377,  24" href="#GENERALFILEFORMAT"                     alt="General File Format"         />
+  <area shape="rect" coords="  1,  75, 172,  97" href="gif89a.htm#Version_Numbers"             alt="Version Numbers"             />
+  <area shape="rect" coords="  1,  53, 171,  74" href="#GIFSIGNATURE"                          alt="GIF Signature"               />
+  <area shape="rect" coords="208, 368, 379, 394" href="gif89a.htm#Trailer"                     alt="Trailer"                     />
+  <area shape="rect" coords="208,  27, 380,  52" href="gif89a.htm#Header"                      alt="Header"                      />
+  <area shape="rect" coords="  0,  30, 171,  52" href="gif89a.htm#Header"                      alt="Header"                      />
+  <area shape="rect" coords="208,  53, 380,  75" href="gif89a.htm#Logical_Screen_Descriptor"   alt="Logical Screen Descriptor"   />
+  <area shape="rect" coords="  0, 110, 172, 133" href="gif89a.htm#Logical_Screen_Descriptor"   alt="Logical Screen Descriptor"   />
+  <area shape="rect" coords="209,  76, 379,  96" href="gif89a.htm#Global_Color_Table"          alt="Global Color Table"          />
+  <area shape="rect" coords="209, 102, 379, 129" href="gif89a.htm#Application_Extension"       alt="Application Extension"       />
+  <area shape="rect" coords="444,  29, 614,  53" href="gif89a.htm#Application_Extension"       alt="Application Extension"       />
+  <area shape="rect" coords="444,  98, 611, 123" href="gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
+  <area shape="rect" coords="443, 212, 612, 234" href="gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
+  <area shape="rect" coords="444, 323, 617, 347" href="gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
+  <area shape="rect" coords="445, 434, 611, 458" href="gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
+  <area shape="rect" coords="235, 128, 407, 150" href="gif89a.htm#Graphic_Control_Extension"   alt="Graphic Control Extension"   />
+  <area shape="rect" coords="234, 151, 404, 174" href="gif89a.htm#Image_Descriptor"            alt="Image Descriptor"            />
+  <area shape="rect" coords="236, 173, 406, 198" href="gif89a.htm#Local_Color_Table"           alt="Local Color Table"           />
+  <area shape="rect" coords="236, 199, 405, 222" href="#RASTERDATA"                            alt="Raster Data"                 />
+  <area shape="rect" coords="236, 222, 403, 245" href="gif89a.htm#Comment_Extension"           alt="Comment Extension"           />
+  <area shape="rect" coords="443, 253, 613, 277" href="gif89a.htm#Comment_Extension"           alt="Comment Extension"           />
+  <area shape="rect" coords="444, 142, 613, 163" href="gif89a.htm#Graphic_Control_Extension"   alt="Graphic Control Extension"   />
+  <area shape="rect" coords="235, 246, 406, 271" href="gif89a.htm#Application_Extension"       alt="Application Extension"       />
+  <area shape="rect" coords="237, 270, 405, 293" href="#GIFEXTENSIONBLOCKS"                    alt="GIF Extension Blocks"        />
+  <area shape="rect" coords="236, 293, 404, 319" href="gif89a.htm#Plain_Text_Extension"        alt="Plain Text Extension"        />
+  <area shape="rect" coords="444, 368, 615, 392" href="gif89a.htm#Plain_Text_Extension"        alt="Plain Text Extension"        />
+  <area shape="rect" coords="236, 339, 404, 362" href="gif89a.htm#Comment_Extension"           alt="Comment Extension"           />
+  <area shape="rect" coords="  0, 260, 170, 287" href="gif89a.htm#Image_Descriptor"            alt="Image Descriptor"            />
+  <area shape="rect" coords="  0, 432, 173, 456" href="gif89a.htm#Data_Sub-blocks"             alt="Data Sub-blocks"             />
+  <area shape="rect" coords="222, 436, 391, 456" href="#GIFEXTENSIONBLOCKS"                    alt="GIF Extension Blocks"        />
+  <area shape="rect" coords="223, 479, 394, 504" href="gif89a.htm#Data_Sub-blocks"             alt="Data Sub-blocks"             />
+  <area shape="rect" coords="  0, 457, 171, 480" href="gif89a.htm#Block_Sizes"                 alt="Block Sizes"                 />
+  <area shape="rect" coords="443,  54, 616,  75" href="gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+  <area shape="rect" coords="444, 162, 613, 185" href="gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+  <area shape="rect" coords="445, 279, 613, 302" href="gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+  <area shape="rect" coords="445, 393, 614, 413" href="gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+  <area shape="rect" coords="  1, 285, 170, 309" href="gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+</map>
+
+<body>
+
+  <h1 align="center">GIF<sup>&trade;</sup> Graphics Interchange
+  Format<sup>&trade;</sup> version 87a</h1>
+
+  <p align="center">A standard defining a mechanism for the storage and
+  transmission of raster-based graphics information</p>
+
+  <p>June 15, 1987<br />
+  &copy; CompuServe Incorporated, 1987 All rights <i>expired</i>.</p>
+
+  <p>While this document is copyrighted, the information contained within is
+  made available for use in computer software without royalties, or licensing
+  restrictions.<br />
+  GIF and 'Graphics Interchange Format' are trademarks of CompuServe,
+  Incorporated. an H&amp;R Block Company<br />
+  5000 Arlington Centre Blvd. Columbus, Ohio 43220 (614) 457-8600</p>
+  <hr />
+
+  <h4>Summary</h4>
+
+  <p><b>GIF (GIF87a, <a href="gif89a.htm">GIF89a</a>)</b></p>
+
+  <ul>
+    <li>Graphics Interchange Format (GIF) devised by the UNISYS Corp. and
+    Compuserve, initially for transmitting graphical images over phone lines
+    via modems</li>
+
+    <li>Uses the Lempel-Ziv Welch algorithm (a form of Huffman Coding),
+    modified slightly for image scan line packets (line grouping of
+    pixels)</li>
+
+    <li>Limited to only 8-bit (256) color images, suitable for images with few
+    distinctive colors (e.g., graphics drawing)</li>
+
+    <li>Supports interlacing</li>
+  </ul>
+  <hr />
+
+  <h3>Table of Contents</h3>
+
+  <ul>
+    <li><a href="#INTRODUCTION">Introduction</a></li>
+    <li><a href="#GENERALFILEFORMAT">General File Format</a></li>
+    <li><a href="#GIFSIGNATURE">GIF Signature</a></li>
+    <li><a href="#SCREENDESCRIPTOR">Screen Descriptor</a></li>
+    <li><a href="#GLOBALCOLORMAP">Global Color Map</a></li>
+    <li><a href="#IMAGEDESCRIPTOR">Image Descriptor</a></li>
+    <li><a href="#LOCALCOLORMAP">Local Color Map</a></li>
+    <li><a href="#RASTERDATA">Raster Data</a></li>
+    <li><a href="#GIFTERMINATOR">GIF Terminator</a></li>
+    <li><a href="#GIFEXTENSIONBLOCKS">GIF Extension Blocks</a></li>
+    <li><a href="#Glossary">Appendix A - Glossary</a></li>
+    <li><a href="#InteractiveSequences">Appendix B - Interactive
+    Sequences</a></li>
+    <li><a href="#ImagePackagingCompression">Appendix C - Image Packaging &amp;
+    Compression</a></li>
+    <li><a href="#MultipleImageProcessing">Appendix D - Multiple Image
+    Processing</a></li>
+  </ul>
+
+  <h3><a name="INTRODUCTION" id="INTRODUCTION">Introduction</a></h3>
+
+  <p>'GIF<sup>&trade;</sup>' is CompuServe's standard for defining
+  generalized color raster images. This 'Graphics Interchange
+  Format<sup>&trade;</sup>' allows high-quality, high-resolution graphics
+  to be displayed on a variety of graphics hardware and is intended as an
+  exchange and display mechanism for graphics images. The image format
+  described in this document is designed to support current and future image
+  technology and will in addition serve as a basis for future CompuServe
+  graphics products.</p>
+
+  <p>The main focus of this document is to provide the technical information
+  necessary for a programmer to implement GIF encoders and decoders. As such,
+  some assumptions are made as to terminology relevant to graphics and
+  programming in general.</p>
+
+  <p>The first section of this document describes the GIF data format and its
+  components and applies to all GIF decoders, either as standalone programs or
+  as part of a communications package. <a href="#InteractiveSequences">Appendix
+  B</a> is a section relevant to decoders that are part of a communications
+  software package and describes the protocol requirements for entering and
+  exiting GIF mode, and responding to host interrogations. A glossary in
+  Appendix A defines some of the terminology used in this document.
+  <a href="#ImagePackagingCompression">Appendix C</a> gives a detailed
+  explanation of how the graphics image itself is packaged as a series of data
+  bytes.</p>
+
+  <h3><a name="GENERALFILEFORMAT" id="GENERALFILEFORMAT">General File
+  Format</a></h3>
+
+  <table summary="General GIF File Format" border="1" width="30%">
+    <tr>
+      <td width="50%" align="center" bgcolor="#FFCC99">
+      <a href="#GIFSIGNATURE">GIF Signature</a></td>
+
+      <td width="50%" rowspan="3">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td width="50%" align="center" bgcolor="#FFCC99">
+      <a href="#SCREENDESCRIPTOR">Screen Descriptor</a></td>
+    </tr>
+
+    <tr>
+      <td width="50%" align="center" bgcolor="#FFCC99">
+      <a href="#GLOBALCOLORMAP">Global Color Map</a></td>
+    </tr>
+
+    <tr>
+      <td width="100%" align="center" colspan="2">...</td>
+    </tr>
+
+    <tr>
+      <td width="50%" align="center" bgcolor="#CCFFCC">
+      <a href="#IMAGEDESCRIPTOR">Image Descriptor</a></td>
+
+      <td width="50%" rowspan="3" valign="middle">
+        <p align="center"><i>Repeated 1 to n times</i></p>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="50%" align="center" bgcolor="#CCFFCC">
+      <a href="#LOCALCOLORMAP">Local Color Map</a></td>
+    </tr>
+
+    <tr>
+      <td width="50%" align="center" bgcolor="#CCFFCC">
+      <a href="#RASTERDATA">Raster Data</a></td>
+    </tr>
+
+    <tr>
+      <td width="100%" align="center" colspan="2">...</td>
+    </tr>
+
+    <tr>
+      <td width="50%" align="center" bgcolor="#FFCC99">
+      <a href="#GIFTERMINATOR">GIF Terminator</a></td>
+      <td width="50%">&nbsp;</td>
+    </tr>
+  </table>
+
+  <p><img border="0" src="../Images/diagGIFFormat.gif"
+  alt="Graphics Interchange Format" width="620" height="511"
+  usemap="#GifMap" /></p>
+
+  <h3><a name="GIFSIGNATURE" id="GIFSIGNATURE">GIF Signature</a></h3>
+
+  <p>The following GIF Signature identifies the data following as a valid GIF
+  image stream. It consists of the following six characters:</p>
+
+  <p><code>G I F 8 7 a</code></p>
+
+  <p>The last three characters '<code>87a</code>' may be viewed as a
+  version number for this particular GIF definition and will be used in general
+  as a reference in documents regarding GIF that address any version
+  dependencies.</p>
+
+  <h3><a name="SCREENDESCRIPTOR" id="SCREENDESCRIPTOR">Screen
+  Descriptor</a></h3>
+
+  <p>The Screen Descriptor describes the overall parameters for all GIF images
+  following. It defines the overall dimensions of the image space or logical
+  screen required, the existence of color mapping information, background
+  screen color, and color depth information. This information is stored in a
+  series of 8-bit bytes as described below.
+  <pre>
+               bits
+         7 6 5 4 3 2 1 0  Byte #
+        +---------------+
+        |               |  1
+        +-Screen Width -+      Raster width in pixels (<a class="Glossary" href="#LSB">LSB</a> first)
+        |               |  2
+        +---------------+
+        |               |  3
+        +-Screen Height-+      Raster height in pixels (LSB first)
+        |               |  4
+        +-+-----+-+-----+      M = 1, Global color map follows Descriptor
+        |M|  cr |0|pixel|  5   cr+1 = # bits of color resolution
+        +-+-----+-+-----+      pixel+1 = # bits/pixel in image
+        |   background  |  6   background=Color index of screen background
+        +---------------+          (color is defined from the Global color
+        |0 0 0 0 0 0 0 0|  7        map or default map if none specified)
+        +---------------+
+
+</pre></p>
+
+  <p>The logical screen width and height can both be larger than the physical
+  display. How images larger than the physical display are handled is
+  implementation dependent and can take advantage of hardware characteristics
+  (e.g. Macintosh scrolling windows). Otherwise images can be clipped to the
+  edges of the display.</p>
+
+  <p>The value of '<a class="Glossary" href="#pixel">pixel</a>' also defines the maximum number of colors
+  within an image. The range of values for 'pixel' is 0 to 7 which
+  represents 1 to 8 bits. This translates to a range of 2 (B &amp; W) to 256
+  colors. Bit 3 of word 5 is reserved for future definition and must be
+  zero.</p>
+
+  <h3><a name="GLOBALCOLORMAP" id="GLOBALCOLORMAP">Global Color Map</a></h3>
+
+  <p>The Global Color Map is optional but recommended for images where accurate
+  color rendition is desired. The existence of this <a class="Glossary" href="#Color_Map">color map</a> is indicated in
+  the 'M' field of byte 5 of the Screen Descriptor. A color map can
+  also be associated with each image in a GIF file as described later. However
+  this global map will normally be used because of hardware restrictions in
+  equipment available today. In the individual Image Descriptors the
+  'M' flag will normally be zero. If the Global Color Map is present,
+  it's definition immediately follows the Screen Descriptor. The number of
+  color map entries following a Screen Descriptor is equal to <code>2<sup>(#
+  bits per pixel)</sup></code>, where each entry consists of three byte values
+  representing the relative intensities of red, green and blue respectively.
+  The structure of the Color Map block is:
+  <pre>
+              bits
+         7 6 5 4 3 2 1 0  Byte #
+        +---------------+
+        | red intensity |  1    Red value for color index 0
+        +---------------+
+        |green intensity|  2    Green value for color index 0
+        +---------------+
+        | blue intensity|  3    Blue value for color index 0
+        +---------------+
+        | red intensity |  4    Red value for color index 1
+        +---------------+
+        |green intensity|  5    Green value for color index 1
+        +---------------+
+        | blue intensity|  6    Blue value for color index 1
+        +---------------+
+        :               :       (Continues for remaining colors)
+</pre></p>
+
+  <p>Each image pixel value received will be displayed according to its closest
+  match with an available color of the display based on this <a class="Glossary" href="#Color_Map">color map</a>. The
+  color components represent a fractional intensity value from none (0) to full
+  (255). White would be represented as (255,255,255), black as (0,0,0) and
+  medium yellow as (180,180,0). For display, if the device supports fewer than
+  8 bits per color component, the higher order bits of each component are used.
+  In the creation of a GIF color map entry with hardware supporting fewer than
+  8 bits per component, the component values for the hardware should be
+  converted to the 8-bit format with the following calculation:<br />
+  <code>&lt;map_value&gt; =
+  &lt;component_value&gt;*255/(2**<sup>&lt;nbits&gt;</sup> -1)</code></p>
+
+  <p>This assures accurate translation of colors for all displays. In the cases
+  of creating GIF images from hardware without color palette capability, a
+  fixed palette should be created based on the available display colors for
+  that hardware. If no Global Color Map is indicated, a default color map is
+  generated internally which maps each possible incoming color index to the
+  same hardware color index modulo <code>&lt;n&gt;</code> where
+  <code>&lt;n&gt;</code> is the number of available hardware colors.</p>
+
+  <h3><a name="IMAGEDESCRIPTOR" id="IMAGEDESCRIPTOR">Image Descriptor</a></h3>
+
+  <p>The Image Descriptor defines the actual placement and extents of the
+  following image within the space defined in the Screen Descriptor. Also
+  defined are flags to indicate the presence of a local color lookup map, and
+  to define the pixel display sequence. Each Image Descriptor is introduced by
+  an image separator character. The role of the Image Separator is simply to
+  provide a synchronization character to introduce an Image Descriptor. This is
+  desirable if a GIF file happens to contain more than one image. This
+  character is defined as 0x2C hex or ',' (comma). When this character
+  is encountered between images, the Image Descriptor will follow
+  immediately.</p>
+
+  <p>Any characters encountered between the end of a previous image and the
+  image separator character are to be ignored. This allows future GIF
+  enhancements to be present in newer image formats and yet ignored safely by
+  older software decoders.
+  <pre>
+              bits
+         7 6 5 4 3 2 1 0  Byte #
+        +---------------+
+        |0 0 1 0 1 1 0 0|  1    ',' - Image separator character
+        +---------------+
+        |               |  2    Start of image in pixels from the
+        +-  Image Left -+       left side of the screen (<a class="Glossary" href="#LSB">LSB</a> first)
+        |               |  3
+        +---------------+
+        |               |  4
+        +-  Image Top  -+       Start of image in pixels from the
+        |               |  5    top of the screen (LSB first)
+        +---------------+
+        |               |  6
+        +- Image Width -+       Width of the image in pixels (LSB first)
+        |               |  7
+        +---------------+
+        |               |  8
+        +- Image Height-+       Height of the image in pixels (LSB first)
+        |               |  9
+        +-+-+-+-+-+-----+       M=0 - Use global color map, ignore 'pixel'
+        |M|I|0|0|0|pixel| 10    M=1 - Local color map follows, use 'pixel'
+        +-+-+-+-+-+-----+       I=0 - Image formatted in Sequential order
+                                I=1 - Image formatted in Interlaced order
+                                pixel+1 - # bits per pixel for this image
+</pre></p>
+
+  <p>The specifications for the image position and size must be confined to the
+  dimensions defined by the Screen Descriptor. On the other hand it is not
+  necessary that the image fill the entire screen defined.</p>
+
+  <h3><a name="LOCALCOLORMAP" id="LOCALCOLORMAP">Local Color Map</a></h3>
+
+  <p>A Local Color Map is optional and defined here for future use. If the
+  'M' bit of byte 10 of the Image Descriptor is set, then a <a class="Glossary" href="#Color_Map">color map</a>
+  follows the Image Descriptor that applies only to the following image. At the
+  end of the image, the color map will revert to that defined after the Screen
+  Descriptor. Note that the '<a class="Glossary" href="#pixel">pixel</a>' field of byte 10 of the Image
+  Descriptor is used only if a Local Color Map is indicated. This defines the
+  parameters not only for the image pixel size, but determines the number of
+  color map entries that follow. The bits per pixel value will also revert to
+  the value specified in the Screen Descriptor when processing of the image is
+  complete.</p>
+
+  <h3><a name="RASTERDATA" id="RASTERDATA">Raster Data</a></h3>
+
+  <p>The format of the actual image is defined as the series of pixel color
+  index values that make up the image. The pixels are stored left to right
+  sequentially for an image row. By default each image row is written
+  sequentially, top to bottom. In the case that the <a class="Glossary" href="#Interlace">Interlace</a> or 'I'
+  bit is set in byte 10 of the Image Descriptor then the row order of the image
+  display follows a four-pass process in which the image is filled in by widely
+  spaced rows. The first pass writes every 8th row, starting with the top row
+  of the image window. The second pass writes every 8th row starting at the
+  fifth row from the top. The third pass writes every 4th row starting at the
+  third row from the top. The fourth pass completes the image, writing every
+  other row, starting at the second row from the top. A graphic description of
+  this process follows:</p>
+  <center>
+  <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="40%">
+    <colgroup>
+      <col align="right"/><col align="center" /><col align="center" /><col align="center" />
+      <col align="center" /><col align="center" />
+      </colgroup>
+      <tr>
+        <th>Image Row</th>
+        <th>Pass 1</th>
+        <th>Pass 2</th>
+        <th>Pass 3</th>
+        <th>Pass 4</th>
+        <th>Result</th>
+      </tr>
+      <tr bgcolor="#FFFF99">
+        <td>0</td>
+        <td>1a</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>1a</td>
+      </tr>
+      <tr bgcolor="#FFCCFF">
+        <td>1</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>4a</td>
+        <td>4a</td>
+      </tr>
+      <tr bgcolor="#99CCFF">
+        <td>2</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>3a</td>
+        <td>&nbsp;</td>
+        <td>3a</td>
+      </tr>
+      <tr bgcolor="#FFCCFF">
+        <td>3</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>4b</td>
+        <td>4b</td>
+      </tr>
+      <tr bgcolor="#CCFF99">
+        <td>4</td>
+        <td>&nbsp;</td>
+        <td>2a</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>2a</td>
+      </tr>
+      <tr bgcolor="#FFCCFF">
+        <td>5</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>4c</td>
+        <td>4c</td>
+      </tr>
+      <tr bgcolor="#99CCFF">
+        <td>6</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>3b</td>
+        <td>&nbsp;</td>
+        <td>3b</td>
+      </tr>
+      <tr bgcolor="#FFCCFF">
+        <td>7</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>4d</td>
+        <td>4d</td>
+      </tr>
+      <tr bgcolor="#FFFF99">
+        <td>8</td>
+        <td>1b</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>1b</td>
+      </tr>
+      <tr bgcolor="#FFCCFF">
+        <td>9</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>4e</td>
+        <td>4e</td>
+      </tr>
+      <tr bgcolor="#99CCFF">
+        <td>10</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>3c</td>
+        <td>&nbsp;</td>
+        <td>3c</td>
+      </tr>
+      <tr bgcolor="#FFCCFF">
+        <td>11</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>4f</td>
+        <td>4f</td>
+      </tr>
+      <tr bgcolor="#CCFF99">
+        <td>12</td>
+        <td>&nbsp;</td>
+        <td>2b</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>3b</td>
+      </tr>
+      <tr>
+        <td>...</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+      </table>
+      </center>
+
+
+  <p>The image pixel values are processed as a series of color indices which
+  map into the existing <a class="Glossary" href="#Color_Map">color map</a>. The resulting color value from the map is
+  what is actually displayed. This series of pixel indices, the number of which
+  is equal to <code>image-width*image-height</code> pixels, are passed to the
+  GIF image data stream one value per pixel, compressed and packaged according
+  to a version of the <a class="Glossary" href="#LZW">LZW</a> compression algorithm as defined in
+  <a href="#ImagePackagingCompression">Appendix C</a>.</p>
+
+  <h3><a name="GIFTERMINATOR" id="GIFTERMINATOR">GIF Terminator</a></h3>
+
+  <p>In order to provide a synchronization for the termination of a GIF image
+  file, a GIF decoder will process the end of GIF mode when the character 0x3B
+  hex or ';' is found after an image has been processed. By convention
+  the decoding software will pause and wait for an action indicating that the
+  user is ready to continue. This may be a carriage return entered at the
+  keyboard or a mouse click. For interactive applications this user action must
+  be passed on to the host as a carriage return character so that the host
+  application can continue. The decoding software will then typically leave
+  graphics mode and resume any previous process.</p>
+
+  <h3><a name="GIFEXTENSIONBLOCKS" id="GIFEXTENSIONBLOCKS">GIF Extension
+  Blocks</a></h3>
+
+  <p>To provide for orderly extension of the GIF definition, a mechanism for
+  defining the packaging of extensions within a GIF data stream is necessary.
+  Specific GIF extensions are to be defined and documented by CompuServe in
+  order to provide a controlled enhancement path.</p>
+
+  <p><a href="KGifFormat.htm">GIF Extension Blocks</a> are packaged in a manner
+  similar to that used by the <a class="Glossary" href="#raster">raster</a> data though not compressed. The basic
+  structure is:
+  <pre>
+         7 6 5 4 3 2 1 0  Byte #
+        +---------------+
+        |0 0 1 0 0 0 0 1|  1       '!' - GIF Extension Block Introducer
+        +---------------+
+        | function code |  2       Extension function code (0 to 255)
+        +---------------+    ---+
+        |  byte count   |       |
+        +---------------+       |
+        :               :       +-- Repeated as many times as necessary
+        |func data bytes|       |
+        :               :       |
+        +---------------+    ---+
+        . . .       . . .
+        +---------------+
+        |0 0 0 0 0 0 0 0|       zero byte count (terminates block)
+        +---------------+
+</pre></p>
+
+  <p>A GIF Extension Block may immediately preceded any Image Descriptor or
+  occur before the GIF Terminator.</p>
+
+  <p>All GIF decoders must be able to recognize the existence of GIF Extension
+  Blocks and read past them if unable to process the function code. This
+  ensures that older decoders will be able to process extended GIF image files
+  in the future, though without the additional functionality.</p>
+
+  <h3><a name="Glossary" id="Glossary">Appendix A - Glossary</a></h3>
+
+  <dl>
+    <dt><a class="Glossary" name="pixel">Pixel</a></dt>
+
+    <dd>The smallest picture element of a graphics image. This usually
+    corresponds to a single dot on a graphics screen. Image resolution is
+    typically given in units of pixels. For example a fairly standard graphics
+    screen format is one 320 pixels across and 200 pixels high. Each pixel can
+    appear as one of several colors depending on the capabilities of the
+    graphics hardware.</dd>
+
+    <dt><a class="Glossary" name="raster">Raster</a></dt>
+
+    <dd>A horizontal row of pixels representing one line of an image. A typical
+    method of working with images since most hardware is oriented to work most
+    efficiently in this manner.</dd>
+
+    <dt><a class="Glossary" name="LSB">LSB</a></dt>
+
+    <dd>Least Significant Byte. Refers to a convention for two byte numeric
+    values in which the less significant byte of the value preceeds the more
+    significant byte. This convention is typical on many microcomputers.</dd>
+
+    <dt><a class="Glossary" name="Color_Map">Color Map</a></dt>
+
+    <dd>The list of definitions of each color used in a GIF image. These
+    desired colors are converted to available colors through a table which is
+    derived by assigning an incoming color index (from the image) to an output
+    color index (of the hardware). While the color map definitons are specified
+    in a GIF image, the output pixel colors will vary based on the hardware
+    used and its ability to match the defined color.</dd>
+
+    <dt><a class="Glossary" name="Interlace">Interlace</a></dt>
+
+    <dd>The method of displaying a GIF image in which multiple passes are made,
+    outputting raster lines spaced apart to provide a way of visualizing the
+    general content of an entire image before all of the data has been
+    processed.</dd>
+
+    <dt><a class="Glossary" name="B_Protocol">B Protocol</a></dt>
+
+    <dd>A CompuServe-developed error-correcting file transfer protocol
+    available in the public domain and implemented in CompuServe VIDTEX
+    products. This error checking mechanism will be used in transfers of GIF
+    images for interactive applications.</dd>
+
+    <dt><a class="Glossary" name="LZW">LZW</a></dt>
+
+    <dd>A sophisticated data compression algorithm based on work done by
+    Lempel-Ziv &amp; Welch which has the feature of very efficient one-pass
+    encoding and decoding. This allows the image to be decompressed and
+    displayed at the same time. The original article from which this technique
+    was adapted is:
+    <blockquote>
+      <p>Terry A. Welch, &quot;A Technique for High Performance Data
+      Compression&quot;, IEEE Computer, vol 17 no 6 (June 1984)</p>
+    </blockquote>
+
+    This basic algorithm is also used in the public domain ARC file
+    compression utilities. The CompuServe adaptation of LZW for GIF is
+    described in <a href="#ImagePackagingCompression">Appendix C</a>.
+    </dd>
+  </dl>
+
+
+  <h3><a name="InteractiveSequences" id="InteractiveSequences">Appendix B -
+  Interactive Sequences</a></h3>
+
+  <p>GIF Sequence Exchanges for an Interactive Environment</p>
+
+  <p>The following sequences are defined for use in mediating control between a
+  GIF sender and GIF receiver over an interactive communications line. These
+  sequences do not apply to applications that involve downloading of static GIF
+  files and are not considered part of a GIF file.</p>
+
+  <h4>GIF Capabilities Enquiry</h4>
+
+  <p>The GCE sequence is issued from a host and requests an interactive GIF
+  decoder to return a response message that defines the graphics parameters for
+  the decoder. This involves returning information about available screen
+  sizes, number of bits/color supported and the amount of color detail
+  supported. The escape sequence for the GCE is defined as:</p>
+
+  <p><code>ESC [ &gt; 0 g</code> (g is lower case, spaces inserted for
+  clarity)  (0x1B 0x5B 0x3E 0x30 0x67)</p>
+
+  <h4>GIF Capabilities Response</h4>
+
+  <p>The GIF Capabilities Response message is returned by an interactive GIF
+  decoder and defines the decoder's display capabilities for all graphics
+  modes that are supported by the software. Note that this can also include
+  graphics printers as well as a monitor screen. The general format of this
+  message is:</p>
+
+  <p><code>#version;protocol{;dev, width, height, color-bits, color-res}...
+  &lt;CR&gt;</code>
+
+  <dl>
+    <dt>'#'</dt>
+
+    <dd>GCR identifier character (Number Sign)</dd>
+
+    <dt>version</dt>
+
+    <dd>GIF format version number; initially '87a'</dd>
+
+    <dt>protocol='0'</dt>
+
+    <dd>No end-to-end protocol supported by decoder Transfer as direct 8-bit
+    data stream.</dd>
+
+    <dt>protocol='1'</dt>
+
+    <dd>Can use an error correction protocol to transfer GIF data interactively
+    from the host directly to the display.</dd>
+
+    <dt>dev = '0'</dt>
+
+    <dd>Screen parameter set follows</dd>
+
+    <dt>dev = '1'</dt>
+
+    <dd>Printer parameter set follows</dd>
+
+    <dt>width</dt>
+
+    <dd>Maximum supported display width in pixels</dd>
+
+    <dt>height</dt>
+
+    <dd>Maximum supported display height in pixels</dd>
+
+    <dt>color-bits</dt>
+
+    <dd>Number of bits per pixel supported. The number of supported colors is
+    therefore 2**<sup>color-bits</sup>.</dd>
+
+    <dt>color-res</dt>
+
+    <dd>Number of bits per color component supported in the hardware color
+    palette. If color-res is '0' then no hardware palette table is
+    available.</dd>
+  </dl></p>
+
+  <p>Note that all values in the GCR are returned as ASCII decimal numbers and
+  the message is terminated by a Carriage Return character.</p>
+
+  <p>The following GCR message describes three standard EGA configurations with
+  no printer; the GIF data stream can be processed within an error correcting
+  protocol:<br />
+  <code>#87a;1 ;0,320,200,4,0 ;0,640,200,2,2
+  ;0,640,350,4,2&lt;CR&gt;</code></p>
+
+  <h4>Enter GIF Graphics Mode</h4>
+
+  <p>Two sequences are currently defined to invoke an interactive GIF decoder
+  into action. The only difference between them is that different output media
+  are selected. These sequences are:</p>
+
+  <ul>
+    <li><code>ESC [ &gt; 1 g</code> Display GIF image on screen (0x1B 0x5B 0x3E
+    0x31 0x67)</li>
+
+    <li><code>ESC [ &gt; 2 g</code> Display image directly to an attached
+    graphics printer. The image may optionally be displayed on the screen as
+    well. (0x1B 0x5B 0x3E 0x32 0x67)</li>
+  </ul>
+
+  <p>Note that the 'g' character terminating each sequence is in lower
+  case.</p>
+
+  <h4>Interactive Environment</h4>
+
+  <p>The assumed environment for the transmission of GIF image data from an
+  interactive application is a full 8-bit data stream from host to micro. All
+  256 character codes must be transferable. The establishing of an 8-bit data
+  path for communications will normally be taken care of by the host
+  application programs. It is however up to the receiving communications
+  programs supporting GIF to be able to receive and pass on all 256 8-bit codes
+  to the GIF decoder software.</p>
+
+  <h3><a name="ImagePackagingCompression"
+  id="ImagePackagingCompression">Appendix C - Image Packaging &amp;
+  Compression</a></h3>
+
+  <p>The Raster Data stream that represents the actual output image can be
+  represented as:
+  <pre>
+         7 6 5 4 3 2 1 0
+        +---------------+
+        |   code size   |
+        +---------------+     ---+
+        |blok byte count|        |
+        +---------------+        |
+        :               :        +-- Repeated as many times as necessary
+        |  data bytes   |        |
+        :               :        |
+        +---------------+     ---+
+        . . .       . . .
+        +---------------+
+        |0 0 0 0 0 0 0 0|       zero byte count (terminates data stream)
+        +---------------+
+</pre></p>
+
+  <p>The conversion of the image from a series of pixel values to a transmitted
+  or stored character stream involves several steps. In brief these steps
+  are:</p>
+
+  <ol>
+    <li><i>Establish the Code Size</i> - Define the number of bits needed to
+    represent the actual data.</li>
+
+    <li><i>Compress the Data</i> - Compress the series of image pixels to a
+    series of compression codes.</li>
+
+    <li><i>Build a Series of Bytes</i> - Take the set of compression codes and
+    convert to a string of 8-bit bytes.</li>
+
+    <li><i>Package the Bytes</i> - Package sets of bytes into blocks preceded
+    by character counts and output.</li>
+  </ol>
+
+  <h4>Establish Code Size</h4>
+
+  <p>The first byte of the GIF Raster Data stream is a value indicating the
+  minimum number of bits required to represent the set of actual pixel values.
+  Normally this will be the same as the number of color bits. Because of some
+  algorithmic constraints however, black &amp; white images which have one
+  color bit must be indicated as having a code size of 2. This code size value
+  also implies that the compression codes must start out one bit longer.</p>
+
+  <h4>Compression</h4>
+
+  <p>The <a class="Glossary" href="#LZW">LZW</a> algorithm converts a series of data values into a series of codes
+  which may be raw values or a code designating a series of values. Using text
+  characters as an analogy, the output code consists of a character or a code
+  representing a string of characters.</p>
+
+  <p>The LZW algorithm used in GIF matches algorithmically with the standard
+  LZW algorithm with the following differences:
+
+  <ol>
+    <li>A special <i>Clear code</i> is defined which resets all
+    compression/decompression parameters and tables to a start-up state. The
+    value of this code is <code>2<sup>&lt;code size&gt;</sup></code>. For
+    example if the code size indicated was 4 (image was 4 bits/pixel) the Clear
+    code value would be 16 (10000 binary). The Clear code can appear at any
+    point in the image data stream and therefore requires the LZW algorithm to
+    process succeeding codes as if a new data stream was starting. Encoders
+    should output a Clear code as the first code of each image data
+    stream.</li>
+
+    <li>An End of Information code is defined that explicitly indicates the end
+    of the image data stream. LZW processing terminates when this code is
+    encountered. It must be the last code output by the encoder for an image.
+    The value of this code is <code>&lt;Clear code&gt;+1</code>.</li>
+
+    <li>The first available compression code value is <code>&lt;Clear
+    code&gt;+2</code>.</li>
+
+    <li>The output codes are of variable length, starting at &lt;code
+    size&gt;+1 bits per code, up to 12 bits per code. This defines a maximum
+    code value of 4095 (hex FFF). Whenever the LZW code value would exceed the
+    current code length, the code length is increased by one. The
+    packing/unpacking of these codes must then be altered to reflect the new
+    code length.</li>
+  </ol></p>
+
+  <h4>Build 8-Bit Bytes</h4>
+
+  <p>Because the LZW compression used for GIF creates a series of variable
+  length codes, of between 3 and 12 bits each, these codes must be reformed
+  into a series of 8-bit bytes that will be the characters actually stored or
+  transmitted. This provides additional compression of the image. The codes are
+  formed into a stream of bits as if they were packed right to left and then
+  picked off 8 bits at a time to be output. Assuming a character array of 8
+  bits per character and using 5 bit codes to be packed, an example layout
+  would be similar to:
+  <pre>
+         byte n       byte 5   byte 4   byte 3   byte 2   byte 1
+        +-.....-----+--------+--------+--------+--------+--------+
+        | and so on |hhhhhggg|ggfffffe|eeeedddd|dcccccbb|bbbaaaaa|
+        +-.....-----+--------+--------+--------+--------+--------+
+
+</pre>
+  Note that the physical packing arrangement will change as the number of bits
+  per compression code change but the concept remains the same.</p>
+
+  <h4>Package the Bytes</h4>
+
+  <p>Once the bytes have been created, they are grouped into blocks for output
+  by preceeding each block of 0 to 255 bytes with a character count byte. A
+  block with a zero byte count terminates the Raster Data stream for a given
+  image. These blocks are what are actually output for the GIF image. This
+  block format has the side effect of allowing a decoding program the ability
+  to read past the actual image data if necessary by reading block counts and
+  then skipping over the data.</p>
+
+  <h3><a name="MultipleImageProcessing" id="MultipleImageProcessing">Appendix D
+  - Multiple Image Processing</a></h3>
+
+  <p>Since a GIF data stream can contain multiple images, it is necessary to
+  describe processing and display of such a file. Because the image descriptor
+  allows for placement of the image within the logical screen, it is possible
+  to define a sequence of images that may each be a partial screen, but in
+  total fill the entire screen. The guidelines for handling the multiple image
+  situation are:
+
+  <ol>
+    <li>There is no pause between images. Each is processed immediately as seen
+    by the decoder.</li>
+
+    <li>Each image explicitly overwrites any image already on the screen inside
+    of its window. The only screen clears are at the beginning and end of the
+    GIF image process. See discussion on the GIF terminator.</li>
+  </ol></p>
+
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="text-align: right">
+    <hr />
+    <a href="index.html" title="Go to home&hellip;" class="Plain" target="_main">
+    &#x2302;</a>
+  </div>
+</body>
+</html>
