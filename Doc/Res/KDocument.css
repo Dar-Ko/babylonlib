@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*$Workfile: KDocument.css$: Cascading style sheet file
-  $Revision: 27$ $Date: 2007-01-10 17:29:45$
+  $Revision: 28$ $Date: 2007-01-11 17:38:24$
   $Author: Darko Kolakovic$
 
   HTML Document layout
@@ -209,7 +209,7 @@ a:link.NewsTag
     <p class="Footnote">Some text<sup>1</sup></p>
  */
 .Footnote
- {
+  {
   color: #000099;
   /*Note: Opera 7.5 works only with single predefind items (like cursor: pointer;)*/
   cursor: help;
@@ -264,6 +264,23 @@ a:hover.Ref
   cursor: url(../Res/KDocument.svg#curHelp), url(../Res/KHelp.cur), help;
   }
 
+.Glossary
+  {
+  color: #000099;
+  /*Note: Opera 7.5 works only with single predefind items (like cursor: pointer;)*/
+  cursor: help;
+  cursor: url(../Res/KDocument.svg#curFootnote), url(../Res/KFootnote.cur), help;
+  }
+
+a.Glossary, a:Glossary.Footnote, a:active.Glossary
+  {
+  text-decoration: none;
+  }
+
+a:hover.Glossary
+  {
+  text-decoration: underline;
+  }
 
 /* Preformatted text --------------------------------------------------------*/
 
