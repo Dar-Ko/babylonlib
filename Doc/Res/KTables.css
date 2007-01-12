@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*$Workfile: KTables.css$: Cascading style sheet file
-  $Revision: 3$ $Date: 2007-01-04 13:43:09$
+  $Revision: 4$ $Date: 2007-01-12 11:00:20$
   $Author: Darko Kolakovic$
 
   Tables layout
@@ -46,15 +46,15 @@ tr
   }
 tr.Odd
   {
-  background-color: #ffffee;
+  background-color: #f0f0e2;
   }
 tr.Even
   {
-  background-color: #eeffff;
+  background-color: #e2f0f0;
   }
 tr.Highlight
   {
-  background-color: #eeeeee;
+  background-color: #e4e4e4;
   }
 
 /*Table header cells                                                         */

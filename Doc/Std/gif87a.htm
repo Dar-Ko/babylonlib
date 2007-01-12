@@ -6,24 +6,24 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Language" content="en-us" />
   <meta name="Workfile" content="$Workfile: gif87a.htm$: documentation" />
-  <meta name="Revision" content="$Revision: 11$" />
+  <meta name="Revision" content="$Revision: 13$" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="GIF, image, format" />
   <!-- Dublin Core Metadata Package -->
-  <meta name="DC.title" content="RFC 1866: Hypertext Markup Language - 2.0" />
+  <meta name="DC.title" content="GIF87a Graphics Interchange Format" />
   <meta name="DC.creator" content="CompuServe Incorporated, 1987-06-15" />
-  <meta name="DC.creator.vCard.EMAIL.internet" content="connolly@w3.org" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="Larry Wood @ PICS CompuServe" />
   <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
   <meta name="DC.Rights" content="Expired" />
-  <meta name="DC.subject" content="Request for Comments" />
+  <meta name="DC.subject" content="Image File Format" />
   <meta name="DC.description.abstract" content="GIF 87 image format">
-  <meta name="DC.publisher" content="Internet Society" />
-  <meta name="DC.date" content="$Date: 2007-01-11 17:38:12$" />
+  <meta name="DC.publisher" content="CompuServe Incorporated" />
+  <meta name="DC.date" content="$Date: 2007-01-12 10:59:28$" />
   <meta name="DC.type" content="Text.Article" />
   <meta name="DC.format" content="application/html" />
   <meta name="DC.language" content="en_us" />
-  <meta name="DC.identifier.RFC" content="1866" />
-  <meta name="DC.relation.HasVersion" content="http://www.rfc-editor.org/rfc-index2.html" />
+  <meta name="DC.identifier.version" content="87" />
+  <meta name="DC.relation.HasVersion" content="" />
   <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
   <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
   <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
@@ -43,43 +43,43 @@
 <head>
 
 <map name="GifMap">
-  <area shape="rect" coords="209,   0, 377,  24" href="#GENERALFILEFORMAT"                     alt="General File Format"         />
-  <area shape="rect" coords="  1,  75, 172,  97" href="gif89a.htm#Version_Numbers"             alt="Version Numbers"             />
-  <area shape="rect" coords="  1,  53, 171,  74" href="#GIFSIGNATURE"                          alt="GIF Signature"               />
-  <area shape="rect" coords="208, 368, 379, 394" href="gif89a.htm#Trailer"                     alt="Trailer"                     />
-  <area shape="rect" coords="208,  27, 380,  52" href="gif89a.htm#Header"                      alt="Header"                      />
-  <area shape="rect" coords="  0,  30, 171,  52" href="gif89a.htm#Header"                      alt="Header"                      />
-  <area shape="rect" coords="208,  53, 380,  75" href="gif89a.htm#Logical_Screen_Descriptor"   alt="Logical Screen Descriptor"   />
-  <area shape="rect" coords="  0, 110, 172, 133" href="gif89a.htm#Logical_Screen_Descriptor"   alt="Logical Screen Descriptor"   />
-  <area shape="rect" coords="209,  76, 379,  96" href="gif89a.htm#Global_Color_Table"          alt="Global Color Table"          />
-  <area shape="rect" coords="209, 102, 379, 129" href="gif89a.htm#Application_Extension"       alt="Application Extension"       />
-  <area shape="rect" coords="444,  29, 614,  53" href="gif89a.htm#Application_Extension"       alt="Application Extension"       />
-  <area shape="rect" coords="444,  98, 611, 123" href="gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
-  <area shape="rect" coords="443, 212, 612, 234" href="gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
-  <area shape="rect" coords="444, 323, 617, 347" href="gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
-  <area shape="rect" coords="445, 434, 611, 458" href="gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
-  <area shape="rect" coords="235, 128, 407, 150" href="gif89a.htm#Graphic_Control_Extension"   alt="Graphic Control Extension"   />
-  <area shape="rect" coords="234, 151, 404, 174" href="gif89a.htm#Image_Descriptor"            alt="Image Descriptor"            />
-  <area shape="rect" coords="236, 173, 406, 198" href="gif89a.htm#Local_Color_Table"           alt="Local Color Table"           />
-  <area shape="rect" coords="236, 199, 405, 222" href="#RASTERDATA"                            alt="Raster Data"                 />
-  <area shape="rect" coords="236, 222, 403, 245" href="gif89a.htm#Comment_Extension"           alt="Comment Extension"           />
-  <area shape="rect" coords="443, 253, 613, 277" href="gif89a.htm#Comment_Extension"           alt="Comment Extension"           />
-  <area shape="rect" coords="444, 142, 613, 163" href="gif89a.htm#Graphic_Control_Extension"   alt="Graphic Control Extension"   />
-  <area shape="rect" coords="235, 246, 406, 271" href="gif89a.htm#Application_Extension"       alt="Application Extension"       />
-  <area shape="rect" coords="237, 270, 405, 293" href="#GIFEXTENSIONBLOCKS"                    alt="GIF Extension Blocks"        />
-  <area shape="rect" coords="236, 293, 404, 319" href="gif89a.htm#Plain_Text_Extension"        alt="Plain Text Extension"        />
-  <area shape="rect" coords="444, 368, 615, 392" href="gif89a.htm#Plain_Text_Extension"        alt="Plain Text Extension"        />
-  <area shape="rect" coords="236, 339, 404, 362" href="gif89a.htm#Comment_Extension"           alt="Comment Extension"           />
-  <area shape="rect" coords="  0, 260, 170, 287" href="gif89a.htm#Image_Descriptor"            alt="Image Descriptor"            />
-  <area shape="rect" coords="  0, 432, 173, 456" href="gif89a.htm#Data_Sub-blocks"             alt="Data Sub-blocks"             />
-  <area shape="rect" coords="222, 436, 391, 456" href="#GIFEXTENSIONBLOCKS"                    alt="GIF Extension Blocks"        />
-  <area shape="rect" coords="223, 479, 394, 504" href="gif89a.htm#Data_Sub-blocks"             alt="Data Sub-blocks"             />
-  <area shape="rect" coords="  0, 457, 171, 480" href="gif89a.htm#Block_Sizes"                 alt="Block Sizes"                 />
-  <area shape="rect" coords="443,  54, 616,  75" href="gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
-  <area shape="rect" coords="444, 162, 613, 185" href="gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
-  <area shape="rect" coords="445, 279, 613, 302" href="gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
-  <area shape="rect" coords="445, 393, 614, 413" href="gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
-  <area shape="rect" coords="  1, 285, 170, 309" href="gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+  <area shape="rect" coords="209,   0, 377,  24" href="#GENERALFILEFORMAT"                     title="General File Format"         />
+  <area shape="rect" coords="  1,  75, 172,  97" href="gif89a.htm#Version_Numbers"             title="Version Numbers"             />
+  <area shape="rect" coords="  1,  53, 171,  74" href="#GIFSIGNATURE"                          title="GIF Signature"               />
+  <area shape="rect" coords="208, 368, 379, 394" href="gif89a.htm#Trailer"                     title="Trailer"                     />
+  <area shape="rect" coords="208,  27, 380,  52" href="gif89a.htm#Header"                      title="Header"                      />
+  <area shape="rect" coords="  0,  30, 171,  52" href="gif89a.htm#Header"                      title="Header"                      />
+  <area shape="rect" coords="208,  53, 380,  75" href="gif89a.htm#Logical_Screen_Descriptor"   title="Logical Screen Descriptor"   />
+  <area shape="rect" coords="  0, 110, 172, 133" href="gif89a.htm#Logical_Screen_Descriptor"   title="Logical Screen Descriptor"   />
+  <area shape="rect" coords="209,  76, 379,  96" href="gif89a.htm#Global_Color_Table"          title="Global Color Table"          />
+  <area shape="rect" coords="209, 102, 379, 129" href="gif89a.htm#Application_Extension"       title="Application Extension"       />
+  <area shape="rect" coords="444,  29, 614,  53" href="gif89a.htm#Application_Extension"       title="Application Extension"       />
+  <area shape="rect" coords="444,  98, 611, 123" href="gif89a.htm#Block_Terminator"            title="Block Terminator"            />
+  <area shape="rect" coords="443, 212, 612, 234" href="gif89a.htm#Block_Terminator"            title="Block Terminator"            />
+  <area shape="rect" coords="444, 323, 617, 347" href="gif89a.htm#Block_Terminator"            title="Block Terminator"            />
+  <area shape="rect" coords="445, 434, 611, 458" href="gif89a.htm#Block_Terminator"            title="Block Terminator"            />
+  <area shape="rect" coords="235, 128, 407, 150" href="gif89a.htm#Graphic_Control_Extension"   title="Graphic Control Extension"   />
+  <area shape="rect" coords="234, 151, 404, 174" href="gif89a.htm#Image_Descriptor"            title="Image Descriptor"            />
+  <area shape="rect" coords="236, 173, 406, 198" href="gif89a.htm#Local_Color_Table"           title="Local Color Table"           />
+  <area shape="rect" coords="236, 199, 405, 222" href="#RASTERDATA"                            title="Raster Data"                 />
+  <area shape="rect" coords="236, 222, 403, 245" href="gif89a.htm#Comment_Extension"           title="Comment Extension"           />
+  <area shape="rect" coords="443, 253, 613, 277" href="gif89a.htm#Comment_Extension"           title="Comment Extension"           />
+  <area shape="rect" coords="444, 142, 613, 163" href="gif89a.htm#Graphic_Control_Extension"   title="Graphic Control Extension"   />
+  <area shape="rect" coords="235, 246, 406, 271" href="gif89a.htm#Application_Extension"       title="Application Extension"       />
+  <area shape="rect" coords="237, 270, 405, 293" href="#GIFEXTENSIONBLOCKS"                    title="GIF Extension Blocks"        />
+  <area shape="rect" coords="236, 293, 404, 319" href="gif89a.htm#Plain_Text_Extension"        title="Plain Text Extension"        />
+  <area shape="rect" coords="444, 368, 615, 392" href="gif89a.htm#Plain_Text_Extension"        title="Plain Text Extension"        />
+  <area shape="rect" coords="236, 339, 404, 362" href="gif89a.htm#Comment_Extension"           title="Comment Extension"           />
+  <area shape="rect" coords="  0, 260, 170, 287" href="gif89a.htm#Image_Descriptor"            title="Image Descriptor"            />
+  <area shape="rect" coords="  0, 432, 173, 456" href="gif89a.htm#Data_Sub-blocks"             title="Data Sub-blocks"             />
+  <area shape="rect" coords="222, 436, 391, 456" href="#GIFEXTENSIONBLOCKS"                    title="GIF Extension Blocks"        />
+  <area shape="rect" coords="223, 479, 394, 504" href="gif89a.htm#Data_Sub-blocks"             title="Data Sub-blocks"             />
+  <area shape="rect" coords="  0, 457, 171, 480" href="gif89a.htm#Block_Sizes"                 title="Block Sizes"                 />
+  <area shape="rect" coords="443,  54, 616,  75" href="gif89a.htm#Blocks_Extensions_and_Scope" title="Blocks Extensions and Scope" />
+  <area shape="rect" coords="444, 162, 613, 185" href="gif89a.htm#Blocks_Extensions_and_Scope" title="Blocks Extensions and Scope" />
+  <area shape="rect" coords="445, 279, 613, 302" href="gif89a.htm#Blocks_Extensions_and_Scope" title="Blocks Extensions and Scope" />
+  <area shape="rect" coords="445, 393, 614, 413" href="gif89a.htm#Blocks_Extensions_and_Scope" title="Blocks Extensions and Scope" />
+  <area shape="rect" coords="  1, 285, 170, 309" href="gif89a.htm#Blocks_Extensions_and_Scope" title="Blocks Extensions and Scope" />
 </map>
 
 <body>
@@ -90,7 +90,7 @@
   <p align="center">A standard defining a mechanism for the storage and
   transmission of raster-based graphics information</p>
 
-  <p>June 15, 1987<br />
+  <p>1987-06-15<br />
   &copy; CompuServe Incorporated, 1987 All rights <i>expired</i>.</p>
 
   <p>While this document is copyrighted, the information contained within is
@@ -920,7 +920,7 @@
   <!-- EOT ================================================================= -->
   <div id="ID_EOT" style="text-align: right">
     <hr />
-    <a href="index.html" title="Go to home&hellip;" class="Plain" target="_main">
+    <a href="../index.html" title="Go to home&hellip;" class="Plain" target="_main">
     &#x2302;</a>
   </div>
 </body>
