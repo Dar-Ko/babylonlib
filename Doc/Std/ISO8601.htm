@@ -1,0 +1,600 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<!--/* Group=Standards*/ -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-us" />
+  <meta name="Workfile" content="$Workfile: ISO8601.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 1.1 $" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="Time, Date, ISO 8601, Internet, Interval, Representation" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="ISO 8601:2000: Representation of dates and times" />
+  <meta name="DC.creator" content="International Organization for Standardization" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="www.iso.ch" />
+  <meta name="DC.Contributor" content="$Author: ddarko $" />
+  <meta name="DC.Rights" content="International Organization for Standardization" />
+  <meta name="DC.subject" content="Standard" />
+  <meta name="DC.description.abstract" content="ISO 8601 Excerpt: Representation of Dates and Times">
+  <meta name="DC.publisher" content="International Organization for Standardization" />
+  <meta name="DC.date" content="$Date: 2007/01/12 16:03:48 $" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_us" />
+  <meta name="DC.identifier.ISO" content="8601:2000" />
+  <meta name="DC.relation.HasVersion" content="http://www.iso.ch/iso/en/CatalogueDetailPage.CatalogueDetail?CSNUMBER=26780&amp;ICS1=1&amp;ICS2=140&amp;ICS3=30" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="icon" href="../Res/KBook.ico" type="image/ico" />
+  <title>ISO 8601:2000: Representation of dates and times</title>
+  <base target="_self" />
+  <style type="text/css">
+    dt
+      {
+      font-weight: bold;
+      }
+  </style>
+<head>
+
+<body>
+  <p><i>International Organization for Standardization</i><br />
+  <i><b><a href="http://www.iso.ch/iso/en/CatalogueDetailPage.CatalogueDetail?CSNUMBER=26780&amp;ICS1=1&amp;ICS2=140&amp;ICS3=30">
+  ISO 8601:2000<br /></a></b></i>Obsoletes: ISO 2014, 2015, 2711, 3307 and
+  4031<br />
+  <b>Technical committee / subcommittee:
+  <a href="http://www.iso.ch/iso/en/stdsdevelopment/tc/tclist/TechnicalCommitteeDetailPage.TechnicalCommitteeDetail?COMMID=3827">
+  TC 154</a></b><br />
+  2000-12-21</p>
+
+  <center>
+    <h1>Data Elements and Interchange Formats</h1>
+
+    <h2>Information interchange</h2>
+  </center>
+  <p><em>The following excerpt from
+  <i><b><a href="http://www.iso.ch/iso/en/CatalogueDetailPage.CatalogueDetail?CSNUMBER=26780&amp;ICS1=1&amp;ICS2=140&amp;ICS3=30">
+  ISO 8601:2000</a></b></i> defines representation of
+  <a href="#Dates">dates</a> and <a href="#TimeofDay">times</a>.</em></p>
+
+  <h2>5. Representation of dates and times</h2>
+
+  <blockquote>
+    <ol>
+      <li><a href="#TermsandDefinitions">Terms and definitions</a></li>
+      <li><a href="#Dates">Dates</a></li>
+      <li><a href="#CalendarMonth">Calendar Month</a></li>
+      <li><a href="#TimeofDay">Time of the Day</a></li>
+      <li><a href="#TimeZone">Time Zone</a></li>
+      <li><a href="#TimeIntervals">Time Intervals</a></li>
+    </ol>
+  </blockquote>
+
+  <h3>5.1. <a name="TermsandDefinitions" id="TermsandDefinitions">Terms and
+  definitions</a></h3>
+
+  <p>The number of days each month has is defined in following table:</p>
+
+  <table border="0" width="45%" summary="CalendarMonth">
+    <caption>
+      <b>Table 3.16</b> <a name="CalendarMonth" id="CalendarMonth">Calendar
+      Month</a>
+    </caption>
+
+    <tr>
+      <th width="7%"><a href="#MM">MM</a></th>
+      <th width="61%">Calendar Month</th>
+      <th width="32%">Number of Calendar Days</th>
+    </tr>
+
+    <tr>
+      <td width="7%">01</td>
+      <td width="61%">&nbsp;January</td>
+      <td width="32%">31</td>
+    </tr>
+
+    <tr>
+      <td width="7%">02</td>
+      <td width="61%">February, common year</td>
+      <td width="32%">28</td>
+    </tr>
+
+    <tr>
+      <td width="7%">02</td>
+      <td width="61%">February, <a href="#LeapYear">leap year</a></td>
+      <td width="32%">29</td>
+    </tr>
+
+    <tr>
+      <td width="7%">03</td>
+      <td width="61%">March</td>
+      <td width="32%">31</td>
+    </tr>
+
+    <tr>
+      <td width="7%">04</td>
+      <td width="61%">April</td>
+      <td width="32%">30</td>
+    </tr>
+
+    <tr>
+      <td width="7%">05</td>
+      <td width="61%">May</td>
+      <td width="32%">31</td>
+    </tr>
+
+    <tr>
+     <td width="7%">06</td>
+      <td width="61%">June</td>
+      <td width="32%">30</td>
+    </tr>
+
+    <tr>
+      <td width="7%">07</td>
+      <td width="61%">July</td>
+      <td width="32%">31</td>
+    </tr>
+
+    <tr>
+      <td width="7%">08</td>
+      <td width="61%">August</td>
+      <td width="32%">31</td>
+    </tr>
+
+    <tr>
+      <td width="7%">09</td>
+      <td width="61%">September</td>
+      <td width="32%">30</td>
+    </tr>
+
+    <tr>
+      <td width="7%">10</td>
+      <td width="61%">October</td>
+      <td width="32%">31</td>
+    </tr>
+
+    <tr>
+      <td width="7%">11</td>
+      <td width="61%">November</td>
+      <td width="32%">30</td>
+    </tr>
+
+    <tr>
+      <td width="7%">12</td>
+      <td width="61%">December</td>
+      <td width="32%">31</td>
+    </tr>
+  </table>
+
+  <p><b><a name="LeapYear" id="LeapYear">Leap years</a></b> are years with an
+  additional day <a href="#YYYY">YYYY</a>-02-29, where the year number is a
+  multiple of four with the following exception: if a year is a multiple of
+  100, then it is only a leap year if it is also a multiple of 400. For
+  example, 1900 was not a leap year, but 2000 is one.</p>
+
+  <p><b><a name="LeapSecond" id="LeapSecond">Leap seconds</a></b> cannot be
+  predicted far into the future. The
+  <a href="http://hpiers.obspm.fr/">International Earth Rotation Service</a>
+  publishes bulletins [IERS] that announce leap seconds with a few weeks&#39;
+  warning. Applications should not generate timestamps involving inserted leap
+  seconds until after the leap seconds are announced.</p>
+
+  <p>All date and time formats are represented with the largest units given
+  first, from right to left.<br />
+  A missing part of the date or time should be replaced with the hyphen
+  character (-) to avoid ambiguity.<br />
+  Unless otherwise stated, all values are fixed width, with leading zeros used
+  when necessary to pad out a value.<br />
+  Some formats require alphabetic letters, which should be upper case, although
+  lower case may be used if upper case is not available.</p>
+
+  <h3>5.2 <a name="Dates" id="Dates">Dates</a></h3>
+
+  <p>The standard specifies only numeric notations and does not cover dates and
+  times where words are used in the representation. A <i>calendar date</i> is
+  identified by a given day in a given month in a given year. An
+  <a name="OrdinalDate" id="OrdinalDate"><i>ordinal date</i></a> is identified
+  by a given day in a given year.<br />
+  Dates can be given in <i>year-month-day,</i> <i>year-week-day</i> or
+  <i>year-day</i> formats.</p>
+
+  <table border="0" width="50%" summary="date representation">
+    <caption>
+      <b>Table 5.2.1</b> Partial list of calendar date representations
+    </caption>
+
+    <tr>
+      <th width="34%"></th>
+      <th width="32%">Format</th>
+      <th width="34%">Example</th>
+    </tr>
+
+    <tr>
+      <td width="34%"><i>Basic format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a><a href="#MM">MM</a><a href="#DD">DD</a></strong></td>
+      <td width="34%">20030114</td>
+    </tr>
+
+    <tr>
+      <td width="34%"><i>Extended format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a>-<a href="#MM">MM</a>-<a href="#DD">DD</a></strong></td>
+      <td width="34%">2003-01-14</td>
+    </tr>
+
+    <tr>
+      <th width="100%" colspan="3"><i><b>Reduced precision</b></i></th>
+    </tr>
+
+    <tr>
+      <td width="34%"><i><b>&nbsp;</b>Month basic format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a>-<a href="#MM">MM</a></strong></td>
+      <td width="34%">2003-01</td>
+    </tr>
+
+    <tr>
+      <td width="34%"><i>Year basic format</i></td>
+      <td width="32%"><strong><a href="#YYYY">YYYY</a></strong></td>
+      <td width="34%">2003</td>
+    </tr>
+
+    <tr>
+      <td width="34%"><i>Century basic format</i></td>
+      <td width="32%"><strong>YY</strong></td>
+      <td width="34%">20</td>
+    </tr>
+
+    <tr>
+      <th width="100%" colspan="3"><i>Ordinal date</i></th>
+    </tr>
+
+    <tr>
+      <td width="34%"><i>Basic format</i></td>
+      <td width="32%"><strong><a href="#ddd">YYYYddd</a></strong></td>
+      <td width="34%">2003102</td>
+    </tr>
+
+    <tr>
+      <td width="34%"><i>Extended format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a>-<a href="#ddd">ddd</a></strong></td>
+      <td width="34%">2003-102</td>
+    </tr>
+
+    <tr>
+      <th width="100%" colspan="3"><i>Week date</i></th>
+    </tr>
+
+    <tr>
+      <td width="34%"><i>Basic format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a>W<a href="#n">wwn</a></strong></td>
+      <td width="34%">2003W012</td>
+    </tr>
+
+    <tr>
+      <td width="34%"><i>Extended format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a>-W<a href="#ww">ww</a>-<a href="#n">n</a></strong></td>
+      <td width="34%">2003-W01-2</td>
+    </tr>
+
+    <tr>
+      <td width="34%"><i>Basic reduced format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a>W<a href="#ww">ww</a></strong></td>
+      <td width="34%">2003W01</td>
+    </tr>
+
+    <tr>
+      <td width="34%"><i>Extended reduced format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a>-W<a href="#ww">ww</a></strong></td>
+      <td width="34%">2003-W01</td>
+    </tr>
+  </table>
+
+  <ul>
+    <li><a name="YYYY" id="YYYY"><b>YYYY</b></a> is the year in the Gregorian
+    Calendar; generally represented by four digits in the range [0000,
+    9999].<br />
+     Meaning of the numbers from [0000, 1582] depends of the
+    implementation.</li>
+    <li><a name="MM" id="MM"><b>MM</b></a> is the month of the year between
+    January and December; represented by two digits in the range [01, 12].</li>
+    <li><a name="DD" id="DD"><b>DD</b></a> is the day of the month; represented
+    by two digits in the range [01, 31].</li>
+    <li><b><a name="ddd" id="ddd">ddd</a></b> is the day of the year;
+    represented by three digits in the range [001, 366].
+    <a href="#LeapYear">Leap years</a> have 366 days.</li>
+    <li><b><a name="ww" id="ww">ww</a></b> is the ordinal number of a calendar
+    week within the year;&nbsp; represented by two digits in the range [01,
+    53].<br />
+     Week 01 of a year is per definition the first week that has the Thursday
+    in this year. If a week contain days from the previous year and the days of
+    the current year it is in same time Week 01 of the current year and Week 52
+    or 53 of the previous year. Any given year has at least 52 weeks. Exception
+    is the year 1582. having only 355 days and therefore less than 52
+    weeks.</li>
+    <li><b><a name="n" id="n">n</a></b> is a day of the week;&nbsp; represented
+    by one digit in the range [1, 7].&nbsp; The day 1 is Monday and the week
+    ends with Sunday which is day 7.</li>
+  </ul>
+
+  <h3>5.3 <a name="TimeofDay" id="TimeofDay">Time of the Day</a></h3>
+
+  <p>The standard specifies only time notation and it is based on 24-hour
+  clock.</p>
+
+  <table border="0" width="60%" summary="time representations">
+    <caption>
+      <b>Table 5.3</b> Partial list of the time of the day representations
+    </caption>
+
+    <tr>
+      <th width="54%"></th>
+      <th width="32%">Format</th>
+      <th width="34%">Example</th>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Basic format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a><a href="#mmin">mm</a><a href="#ss">ss</a></strong></td>
+      <td width="34%">235959</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Extended format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a>:<a href="#mmin">mm</a>:<a href="#ss">ss</a></strong></td>
+      <td width="34%">23:59:59</td>
+    </tr>
+
+    <tr>
+      <th width="100%" colspan="3"><i><b>Reduced precision</b></i></th>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Minute basic format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a><a href="#mmin">mm</a></strong></td>
+      <td width="34%">2359</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Minute extended format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a>:<a href="#mmin">mm</a></strong></td>
+      <td width="34%">23:59</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Hour basic format</i></td>
+      <td width="32%"><strong><a href="#hh">hh</a></strong></td>
+      <td width="34%">23</td>
+    </tr>
+
+    <tr>
+      <th width="100%" colspan="3"><i>Decimal fractions</i></th>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Basic format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a><a href="#mmin">mm</a><a href="#ss">ss</a>,<i>
+      <a href="#ffff">ffff</a></i></strong></td>
+      <td width="34%">2359,9942</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Extended format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a>:<a href="#mmin">mm</a>:<a href="#ss">ss</a>,<i>
+      <a href="#ffff">ffff</a></i></strong></td>
+      <td width="34%">23:59,9942</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Hour reduced format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a>,<i><a href="#ffff">ffff</a></i></strong></td>
+      <td width="34%">23,50</td>
+    </tr>
+
+    <tr>
+      <th width="100%" colspan="3"><i>Time designator</i></th>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Basic format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a><a href="#MM">MM</a><a href="#DD">DD</a>T<a href="#hh">
+      hh</a><a href="#mmin">mm</a><a href="#ss">ss</a></strong></td>
+      <td width="34%">20030114T235959</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Extended format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a>-<a href="#MM">MM</a>-<a href="#DD">DD</a>T<a href="#hh">
+      hh</a>:<a href="#mmin">mm</a>:<a href="#ss">ss</a></strong></td>
+      <td width="34%">2003-01-14T23:59:59</td>
+    </tr>
+  </table>
+
+  <ul>
+    <li><strong><a name="hh" id="hh">hh</a></strong> is the number of complete
+    hours that have passed since midnight; represented by two digits in the
+    range [00, 24].<br />
+     The Hour 00 is the beginning of any given day and the Hour 24 is the end
+    of the day. Midnight will normally be represented as 0000 or 2400. Hour
+    24&nbsp; have the minute and second values zero 24:00:00.</li>
+    <li><b><a name="mmin" id="mmin">mm</a></b> is the number of complete
+    minutes that have passed since the start of the hour; represented by two
+    digits in the range [00, 59].</li>
+    <li><b><a name="ss" id="ss">ss</a></b> is the number of complete seconds
+    since the start of the minute; represented by two digits in the range [00,
+    60]. Value 60 allows to add a <a href="#LeapSecond">leap second</a> to the
+    Coordinated Universal Time (UTC).</li>
+    <li><strong><i><a name="ffff" id="ffff">ffff</a></i></strong> is the
+    decimal fraction of the preceding time unit (hour, minute or second); it is
+    represented by any previously agreed number of digits bigger or equal to
+    one. Decimal sign is comma (,)&nbsp; or dot (.), but comma is
+    preferred.</li>
+    <li>Inserting <a name="TimeDesignator" id="TimeDesignator">time
+    designator</a> T is preferred way to store date and time in a single
+    field.</li>
+  </ul>
+
+  <h3>5.3.4.1<a name="TimeZone" id="TimeZone">Time Zones</a></h3>
+
+  <table border="0" width="60%" summary="zone representation">
+    <caption>
+      <b>Table 5.3.4</b> Partial list of the time zone representations
+    </caption>
+
+    <tr>
+      <th width="54%"></th>
+      <th width="32%">Format</th>
+      <th width="34%">Example</th>
+    </tr>
+
+    <tr>
+      <th width="100%" colspan="3"><i>Coordinated Universal Time UTC</i></th>
+    </tr>
+
+    <tr>
+      <td width="54%"><i><b>&nbsp;</b>Minute basic format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a><a href="#mmin">mm</a><a href="#ss">ss</a>Z</strong></td>
+      <td width="34%">235959Z</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Minute extended format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a>:<a href="#mmin">mm</a>:<a href="#ss">ss</a>Z</strong></td>
+      <td width="34%">23:59:59Z</td>
+    </tr>
+
+    <tr>
+      <th width="100%" colspan="3"><i>Local time</i></th>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Basic format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a><a href="#mmin">mm</a><a href="#ss">ss</a>+<a href="#TZHH">
+      HH</a><a href="#TZNN">NN</a></strong></td>
+      <td width="34%">235959-0500</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Extended format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a>:<a href="#mmin">mm</a>:<a href="#ss">ss</a>+<a href="#TZHH">
+      HH</a>:<a href="#TZNN">NN</a></strong></td>
+      <td width="34%">23:59:59-05:00</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Hour reduced format</i></td>
+      <td width="32%">
+      <strong><a href="#hh">hh</a>:<a href="#mmin">mm</a>:<a href="#ss">ss</a>+<a href="#TZHH">
+      HH</a></strong></td>
+      <td width="34%">23:59:59-05</td>
+    </tr>
+  </table>
+
+  <ul>
+    <li><b><a name="TZHH" id="TZHH">HH</a></b> is the time zone offset in
+    hours;</li>
+    <li><b><a name="TZNN" id="TZNN">NN</a></b> is the time zone offset in
+    minutes;</li>
+    <li>Coordinated Universal Time represented as time followed with letter
+    Z.</li>
+    <li>Sign before time zone value is + if the local time presented is ahead
+    of equal UTC time; if local time is behind of same UTC time, the sign is
+    -.</li>
+    <li>Time zone could be represented only with hours if the minute portion of
+    the difference between the local time and UTC is zero.</li>
+  </ul>
+
+  <h3>5.5 <a name="TimeIntervals" id="TimeIntervals">Time Intervals</a></h3>
+
+  <table border="0" width="60%" summary="interval representation">
+    <caption>
+      <b>Table 5.5</b> Partial list of the time interval representations
+    </caption>
+
+    <tr>
+      <th width="54%"></th>
+      <th width="32%">Format</th>
+      <th width="34%">Example</th>
+    </tr>
+
+    <tr>
+      <th width="100%" colspan="3"><i>Time-intervals identified by start and
+      end</i></th>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Extended format</i></td>
+      <td width="32%">
+      <strong><a href="#YYYY">YYYY</a>-<a href="#MM">MM</a>-<a href="#DD">DD</a>T<a href="#hh">
+      hh</a>:<a href="#mmin">mm</a>:<a href="#ss">ss</a>/<a href="#YYYY">YYYY</a>-<a href="#MM">
+      MM</a>-<a href="#DD">DD</a>T<a href="#hh">hh</a>:<a href="#mmin">mm</a>:<a href="#ss">
+      ss</a></strong></td>
+      <td width="34%">2003-01-14T00:00:00/2003-01-14T23:59:59</td>
+    </tr>
+
+    <tr>
+      <th width="100%" colspan="3"><i>Time-intervals by duration</i></th>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Basic format</i></td>
+      <td width="32%">
+      <strong>P<a href="#YYYY">YYYY</a><a href="#MM">MM</a><a href="#DD">DD</a>T<a href="#hh">
+      hh</a><a href="#mmin">mm</a><a href="#ss">ss</a></strong></td>
+      <td width="34%">P00010215T010000</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Time-unit format</i></td>
+      <td width="32%">
+      <strong>P<i><a href="#NoFFFF">FFFF</a></i>Y<i><a href="#NoFFFF">FFFF</a></i>M<i>
+      <a href="#NoFFFF">FFFF</a></i>DT<i><a href="#NoFFFF">FFFF</a></i>H<a href="#NoFFFF">
+      <i>FFFF</i></a>M<a href="#NoFFFF"><i>FFFF</i></a>S</strong></td>
+      <td width="34%">P00Y01M15DT0033H20M00S</td>
+    </tr>
+
+    <tr>
+      <td width="54%"><i>Week time-unit format</i></td>
+      <td width="32%"><strong>P<i><a href="#NoFFFF">FFFF</a></i>W</strong></td>
+      <td width="34%">P0010W</td>
+    </tr>
+  </table>
+
+  <p><strong><i><a name="NoFFFF" id="NoFFFF">FFFF</a></i></strong> is the
+  number of time units ( years, months, weeks, hours, minutes, seconds ); it is
+  represented by any previously agreed number of digits bigger or equal to
+  one.</p>
+  <hr />
+  </body>
+<!-- ==========================================================================
+  $Log:
+   5    Biblioteka1.4         2005-07-29 13:08:34  Darko Kolakovic xhtml
+   4    Biblioteka1.3         2004-03-02 14:43:33  Darko           robots are
+        allowed
+   3    Biblioteka1.2         2003-01-14 12:51:02  Darko Kolakovic Updated some
+        profiles
+   2    Biblioteka1.1         2003-01-14 00:57:34  Darko           Formated date
+   1    Biblioteka1.0         2003-01-13 19:15:32  Darko Kolakovic
+  $
+-->
+</html>
