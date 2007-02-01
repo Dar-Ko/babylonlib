@@ -1,5 +1,5 @@
 /*$Workfile: KStColor.c$: implementation file
-  $Revision: 1$ $Date: 2004-11-12 17:55:54$
+  $Revision: 1$ $Date: 2004-11-12 16:55:54$
   $Author: Darko Kolakovic$
 
   Converts a string to the color.
@@ -68,6 +68,6 @@ return(error);
 /* ///////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  *$Log: 
- * 1    Biblioteka1.0         2004-11-12 17:55:54  Darko Kolakovic 
+ * 1    Biblioteka1.0         2004-11-12 16:55:54  Darko Kolakovic 
  *$
  *****************************************************************************/

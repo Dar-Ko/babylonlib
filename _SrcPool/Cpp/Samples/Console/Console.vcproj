@@ -264,7 +264,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
-				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL"
+				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL;_DEBUG_INCL_PREPROCESS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode_MFC\Console\Win32/Console.pch"
@@ -556,6 +556,9 @@
 				RelativePath="..\..\KCmdLineParser.cpp">
 			</File>
 			<File
+				RelativePath="..\..\KStrCtoA.c">
+			</File>
+			<File
 				RelativePath="..\..\KTestLog.cpp">
 				<FileConfiguration
 					Name="Release_SBCS_MFC|Win32">
@@ -753,10 +756,16 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Src\TestAscii.c">
+			</File>
+			<File
 				RelativePath=".\Src\TestCmdLineParser.cpp">
 			</File>
 			<File
 				RelativePath=".\Src\TestCommonConsole.cpp">
+			</File>
+			<File
+				RelativePath="..\Common\Src\TsWriteT.c">
 			</File>
 			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
@@ -824,7 +833,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="NDEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
+						PreprocessorDefinitions="NDEBUG;_UNICODE;UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
 						UsePrecompiledHeader="3"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"/>
@@ -835,7 +844,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+						PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;UNICODE;_STL;$(NoInherit)"
 						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="3"
 						PrecompiledHeaderThrough="stdafx.h"
@@ -847,7 +856,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;UNICODE;_STL;$(NoInherit)"
 						UsePrecompiledHeader="3"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"/>
@@ -871,6 +880,9 @@
 			</File>
 			<File
 				RelativePath="..\..\KTrace.h">
+			</File>
+			<File
+				RelativePath="..\..\KTraceFx.h">
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.h">
@@ -911,13 +923,15 @@
 						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
 					<Tool
 						Name="VCCLCompilerTool"
 						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
 					<Tool
 						Name="VCCLCompilerTool"
 						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
@@ -935,13 +949,15 @@
 						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_Unicode|Win32">
+					Name="Debug_Unicode|Win32"
+					ExcludedFromBuild="TRUE">
 					<Tool
 						Name="VCCLCompilerTool"
 						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_Unicode|Win32"
+					ExcludedFromBuild="TRUE">
 					<Tool
 						Name="VCCLCompilerTool"
 						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
@@ -1032,7 +1048,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+						PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;UNICODE;_STL;$(NoInherit)"
 						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="3"
 						PrecompiledHeaderThrough="stdafx.h"
@@ -1044,7 +1060,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;UNICODE;_STL;$(NoInherit)"
 						UsePrecompiledHeader="3"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"/>

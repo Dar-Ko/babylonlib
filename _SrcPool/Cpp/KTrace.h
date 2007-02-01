@@ -1,5 +1,5 @@
 /*$Workfile: KTrace.h$: implementation file
-  $Revision: 41$ $Date: 2005-09-08 17:15:28$
+  $Revision: 42$ $Date: 2007-02-01 17:25:54$
   $Author: Darko Kolakovic$
 
   Debugging helpers
@@ -71,7 +71,10 @@
   #ifdef __cplusplus
     #if defined (_USE_MFC) || defined (_USE_AFX) || defined (_AFXDLL)
        //Build dependant of the Microsoft Foundation Class (MFC) library
-      #include <afx.h> //TRACE, ASSSERT macros
+      #ifndef _WINDOWS_ //if windows.h is already included, skip afx.h.
+        #include <afx.h> //TRACE, ASSSERT macros
+      #endif
+
     #else
       #pragma todo(Move MSVC macros to Win/32/KTraceWin32.h) //TODO:
       //#include "Win/32/KTraceWin32.h" //TRACE, ASSSERT macros
