@@ -2,6 +2,7 @@
 *.pch
 *.obj
 obj
+Obj
 bin
 *.res
 *.ncb
