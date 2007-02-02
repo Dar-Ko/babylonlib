@@ -1,5 +1,5 @@
 /*$Workfile: KAppMain.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-11-12 14:56:47$
+  $Revision: 3$ $Date: 2007-02-02 11:42:26$
   $Author: Darko Kolakovic$
 
   Entry point for the application.
@@ -133,7 +133,7 @@ const UInt32 VER_PALMOS_REQUIRED =
   HostTraceInit();
 #endif
 
- //Validate if minimum requirements are statisfied
+ //Validate if minimum requirements are satisfied
 error = ValidateRomVersion(VER_PALMOS_REQUIRED,  //required OS version number
                            launchFlags,          //launch information
                            IDA_ROMINCOMPATIBILE  //alert box ID

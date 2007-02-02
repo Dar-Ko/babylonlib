@@ -1,5 +1,5 @@
 /*$Workfile: KAppInit.cpp$: implementation file
-  $Revision: 1$ $Date: 2004-11-12 14:55:28$
+  $Revision: 1$ $Date: 2004-11-12 13:55:28$
   $Author: Darko Kolakovic$
 
   Application's default initialization.
@@ -48,6 +48,6 @@ bool AppInit(void)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2004-11-12 14:55:28  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-11-12 13:55:28  Darko Kolakovic 
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KIntStream.cpp$: implementation file
-  $Revision: 8$ $Date: 2007-02-02 11:35:12$
+  $Revision: 9$ $Date: 2007-02-02 11:55:12$
   $Author: Darko Kolakovic$
 
   Write int64 to the stream
@@ -26,7 +26,7 @@
     //      with _UNICODE, which is macro used by the library.
     #ifndef UNICODE
       #define UNICODE
-    #define
+    #endif
   #endif
 #endif
 
