@@ -1,10 +1,10 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Console\Src\Win\32\main.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-02-01 17:14:39$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Service\Src\Win\32\main.cpp$: implementation file
+  $Revision: 1$ $Date: 2007-02-02 13:18:45$
   $Author: Darko Kolakovic$
 
-  Test debugging and tracing routines with MFC.
+  Test system services routines with MFC.
   Copyright: CommonSoft Inc.
-  2004-08-12 Darko Kolakovic
+  2007-02-02 Darko Kolakovic
 */
 
 // Group=Examples
@@ -33,7 +33,7 @@ CWinApp theApp;
 #endif
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
-extern int TestCommonConsole(int argc, TCHAR* argv[]);
+extern int TestCommonService(int argc, TCHAR* argv[]);
 
 //-----------------------------------------------------------------------------
 /*Validates different debugging and tracing routines.
@@ -81,7 +81,10 @@ if (!AfxWinInit(::GetModuleHandle(NULL), NULL, ::GetCommandLine(), 0))
   }
 else
   {
-  nRetCode = TestCommonConsole(argc, argv);
+  TsWriteToViewLn(_T("Start System Services Tests"));
+  TsWriteToViewLn(_T(""));
+
+  nRetCode = TestCommonService(argc, argv);
   //if (nRetCode == EXIT_SUCCESS)
   //  nRetCode = TestTODO-nexttest();
   }

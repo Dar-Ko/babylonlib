@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonHtmlIO.cpp$: implementation file
-  $Revision: 4$ $Date: 2005-04-05 14:05:52$
+  $Revision: 5$ $Date: 2007-02-02 13:23:49$
   $Author: Darko Kolakovic$
 
   Test HTML and XML parsing.
@@ -25,7 +25,7 @@ int TestCommonHtmlIO();
 /*validates HTML and XML parsing.
   Defines the entry point for the test.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int TestCommonHtmlIO()
@@ -37,7 +37,7 @@ return TestCommonHtmlIO(0, NULL);
 /*validates HTML and XML parsing.
   Defines the entry point for the test.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int TestCommonHtmlIO(int argc, //[in] specifies how many arguments are passed

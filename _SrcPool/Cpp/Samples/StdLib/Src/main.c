@@ -1,6 +1,6 @@
 /*$Workfile: main.c$: implementation file
-  $Revision: 2$ $Date: 2004-10-04 12:51:19$
-  $Author: Darko$
+  $Revision: 3$ $Date: 2007-02-02 13:30:42$
+  $Author: Darko Kolakovic$
 
   Test implemented Standard Library routines.
   Copyright: CommonSoft Inc.
@@ -25,10 +25,10 @@
 extern int TestCommonStdLib();
 
 //-----------------------------------------------------------------------------
-/*Validates C Standard Library routines. 
+/*Validates C Standard Library routines.
   Defines the entry point for the console application.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int main()
@@ -38,9 +38,9 @@ return TestCommonStdLib();
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  2    Biblioteka1.1         2004-10-04 12:51:19  Darko           Renamed test
  *       script to TestCommonStdLib
- *  1    Biblioteka1.0         2004-09-14 12:54:51  Darko           
+ *  1    Biblioteka1.0         2004-09-14 12:54:51  Darko
  * $
  *****************************************************************************/

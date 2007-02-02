@@ -1,5 +1,5 @@
 /*$Workfile: stdafx.h$: header file
-  $Revision: 1$  $Date: 2005-05-16 14:28:55$
+  $Revision: 1$  $Date: 2005-05-16 13:28:55$
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -49,6 +49,6 @@
 #endif // !defined(_UTILITIES_STDAFX_H_)
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2005-05-16 14:28:55  Darko Kolakovic 
+ *  1    Biblioteka1.0         2005-05-16 13:28:55  Darko Kolakovic 
  * $
  *****************************************************************************/

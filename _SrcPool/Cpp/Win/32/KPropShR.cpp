@@ -199,7 +199,7 @@ if (GetDlgItem(__IDS_SEPARATORLINE2_) != NULL)
 //::AddActivePage()------------------------------------------------------------
 /*Initializes first item in the list of controls with active property page
   parameters. Function overwrites previous content of the item.
-  Returns TRUE if succesfull.
+  Returns TRUE if succesful.
  */
 BOOL CPropertySheetResizable::AddActivePage()
 {

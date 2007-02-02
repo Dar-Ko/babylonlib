@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonAssert.cpp$: implementation file
-  $Revision: 10$ $Date: 2004-11-22 17:47:56$
+  $Revision: 11$ $Date: 2007-02-02 13:20:13$
   $Author: Darko Kolakovic$
 
   Test debugging and tracing routines.
@@ -27,7 +27,7 @@ int TestCommonAssert(void);
 /*Validates different debugging and tracing routines.
   Defines the entry point for the test.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int TestCommonAssert()

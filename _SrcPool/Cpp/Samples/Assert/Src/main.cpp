@@ -1,6 +1,6 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 4$ $Date: 2005-03-11 03:11:29$
-  $Author: Darko$
+  $Revision: 5$ $Date: 2007-02-02 13:21:06$
+  $Author: Darko Kolakovic$
 
   Test debugging and tracing routines.
   Copyright: CommonSoft Inc.
@@ -28,10 +28,10 @@ extern int TestCommonAssert();
 extern int TestCppConformance();
 
 //-----------------------------------------------------------------------------
-/*Validates different debugging and tracing routines. 
+/*Validates different debugging and tracing routines.
   Defines the entry point for the console application.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int main()
@@ -44,12 +44,12 @@ return nRetCode;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  4    Biblioteka1.3         2005-03-11 03:11:29  Darko           fixed typo
  *  3    Biblioteka1.2         2004-11-23 16:51:46  Darko Kolakovic fixed MSVC
  *       build
  *  2    Biblioteka1.1         2004-10-04 12:52:45  Darko           Renamed test
  *       script to TestCommonAssert
- *  1    Biblioteka1.0         2004-08-23 17:57:45  Darko           
+ *  1    Biblioteka1.0         2004-08-23 17:57:45  Darko
  * $
  *****************************************************************************/

@@ -22,12 +22,12 @@
 
 //CreateTmpFileName()----------------------------------------------------------
 /*Creates unique file name in form X:\TempDir\XXX12345.tmp in the
-  directory desgnated as temporary directory by the TMP or TEMP environment 
+  directory desgnated as temporary directory by the TMP or TEMP environment
   variable.
- 
-  Returns: NULL if function is not succesfull, otherwise returns null-terminated
-  (TODO: ANSI character) string with full default file path. To get extended error 
-  information, call GetLastError() or SystemErrMessage(). 
+
+  Returns: NULL if function is not succesful, otherwise returns null-terminated
+  (TODO: ANSI character) string with full default file path. To get extended error
+  information, call GetLastError() or SystemErrMessage().
 
   TODO: Make function UNICODE comaptible.
 
@@ -70,10 +70,10 @@ if(GetTempPath(MAX_PATH,szTempPath) == 0)
   }
 
 LPTSTR lpszTempName = strResult.GetBuffer(MAX_PATH);
-if(::GetTempFileName(szTempPath,/*dir. for temp. files            */ 
-                    szPrefix,   /*temp. filename prefix           */ 
-                    0,          /*create unique name w/ sys. time */ 
-           lpszTempName) == 0)  /*buffer for the name             */ 
+if(::GetTempFileName(szTempPath,/*dir. for temp. files            */
+                    szPrefix,   /*temp. filename prefix           */
+                    0,          /*create unique name w/ sys. time */
+           lpszTempName) == 0)  /*buffer for the name             */
   {
   TRACE(_T("  Get Temp. name failed!\n"));
   strResult.ReleaseBuffer(0);
@@ -82,15 +82,15 @@ if(::GetTempFileName(szTempPath,/*dir. for temp. files            */
 
 strResult.ReleaseBuffer();
 TRACE(_T("  %s\n",(LPCTSTR)strResult));
-return strResult;       
+return strResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- *$Log: 
+ *$Log:
  * 3    Biblioteka1.2         2005-05-05 20:22:20  Darko           comments
- * 2    Biblioteka1.1         2002-07-16 01:41:09  Darko           Fixed VSS Log 
+ * 2    Biblioteka1.1         2002-07-16 01:41:09  Darko           Fixed VSS Log
  *      tag
- * 1    Biblioteka1.0         2002-04-05 00:50:09  Darko           
+ * 1    Biblioteka1.0         2002-04-05 00:50:09  Darko
  *$
  *****************************************************************************/

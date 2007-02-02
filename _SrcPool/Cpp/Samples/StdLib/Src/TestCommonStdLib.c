@@ -1,6 +1,6 @@
 /*$Workfile: TestCommonStdLib.c$: implementation file
-  $Revision: 5$ $Date: 2005-03-12 17:19:24$
-  $Author: Darko$
+  $Revision: 6$ $Date: 2007-02-02 13:30:39$
+  $Author: Darko Kolakovic$
 
   Source file that includes the standard includes and globals used in various
   builds. Object file will contain the pre-compiled type information.
@@ -22,10 +22,10 @@ extern bool TestLimits();
 //extern bool TestTraceC();
 
 //-----------------------------------------------------------------------------
-/*Validates different C Standard Library routines. 
+/*Validates different C Standard Library routines.
   Defines the entry point for the test.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 _Bool TestCommonStdLib()
@@ -61,14 +61,14 @@ return EXIT_SUCCESS;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  5    Biblioteka1.4         2005-03-12 17:19:24  Darko           fixed C4225
  *       error
  *  4    Biblioteka1.3         2004-11-25 21:57:40  Darko           TestLimits
  *       added
  *  3    Biblioteka1.2         2004-10-04 12:51:17  Darko           Renamed test
  *       script to TestCommonStdLib
- *  2    Biblioteka1.1         2004-10-04 12:50:55  Darko           
- *  1    Biblioteka1.0         2004-09-14 12:54:50  Darko           
+ *  2    Biblioteka1.1         2004-10-04 12:50:55  Darko
+ *  1    Biblioteka1.0         2004-09-14 12:54:50  Darko
  * $
  *****************************************************************************/

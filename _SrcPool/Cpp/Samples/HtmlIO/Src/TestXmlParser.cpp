@@ -1,5 +1,5 @@
 /*$Workfile: TestXmlParser.cpp$: implementation file
-  $Revision: 2$ $Date: 2005-03-21 03:22:22$
+  $Revision: 2$ $Date: 2005-03-21 02:22:22$
   $Author: Darko$
 
   Test XML parsers
@@ -60,8 +60,8 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2005-03-21 03:22:22  Darko           excluded from
+ *  2    Biblioteka1.1         2005-03-21 02:22:22  Darko           excluded from
  *       the build
- *  1    Biblioteka1.0         2005-03-17 00:47:04  Darko           
+ *  1    Biblioteka1.0         2005-03-16 23:47:04  Darko           
  * $
  *****************************************************************************/

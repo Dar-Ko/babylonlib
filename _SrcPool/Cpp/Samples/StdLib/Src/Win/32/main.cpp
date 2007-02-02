@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 2$ $Date: 2005-04-26 16:44:08$
+  $Revision: 3$ $Date: 2007-02-02 13:30:44$
   $Author: Darko Kolakovic$
 
   Test debugging and tracing routines.
@@ -35,7 +35,7 @@ extern int TestAssertMain();
 /*Validates different debugging and tracing routines.
   Defines the entry point for the console application.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
 
   Note: uses Microsoft Foundation Library (MFC);

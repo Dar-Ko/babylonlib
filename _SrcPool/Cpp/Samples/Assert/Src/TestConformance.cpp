@@ -1,5 +1,5 @@
 /*$Workfile: TestConformance.cpp$: implementation file
-  $Revision: 4$ $Date: 2005-03-21 15:01:00$
+  $Revision: 5$ $Date: 2007-02-02 13:20:14$
   $Author: Darko Kolakovic$
 
   Validates the conformance of a C++ compiler.
@@ -29,7 +29,7 @@ int TestCppConformance(void);
 /*Validates the conformance of a C++ compiler.
   Defines the entry point for the test.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int TestCppConformance()

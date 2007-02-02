@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonNumeric.cpp$: implementation file
-  $Revision: 6$ $Date: 2005-06-20 10:44:29$
+  $Revision: 7$ $Date: 2007-02-02 13:24:29$
   $Author: Darko Kolakovic$
 
   Test numerical and machine dependent routines.
@@ -42,7 +42,7 @@ extern bool TestLcm();
 //-----------------------------------------------------------------------------
 /*Validate different numerical and machine dependent routines.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int TestCommonNumeric()

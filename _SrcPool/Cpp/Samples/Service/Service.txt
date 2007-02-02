@@ -1,0 +1,5 @@
+$Workfile: S:\_SrcPool\Cpp\Samples\Service\Service.txt$: developer's note
+$Revision: 1$ $Date: 2007-02-02 10:50:37$
+$Author: Darko Kolakovic$
+
+\	Service.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32

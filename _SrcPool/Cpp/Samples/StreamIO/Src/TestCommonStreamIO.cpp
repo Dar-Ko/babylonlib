@@ -1,6 +1,6 @@
 /*$Workfile: TestCommonStreamIO.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-10-06 16:01:34$
-  $Author: Darko$
+  $Revision: 7$ $Date: 2007-02-02 13:30:40$
+  $Author: Darko Kolakovic$
 
   Testing routines using standard stream I/O.
 
@@ -23,7 +23,7 @@ int TestCommonStreamIO(LPCTSTR szFileName);
 /*Validates routines using standard stream I/O.
   Defines the entry point for the test.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int TestCommonStreamIO()
@@ -35,7 +35,7 @@ return TestCommonStreamIO(NULL);
 /*Validates routines using standard stream I/O.
   Defines the entry point for the test.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int TestCommonStreamIO(LPCTSTR szFileName //[in] file name of the testing subject
@@ -133,14 +133,14 @@ return EXIT_SUCCESS;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  6    Biblioteka1.5         2004-10-06 16:01:34  Darko           Unicode mapping
  *  5    Biblioteka1.4         2004-10-04 12:49:12  Darko           Renamed  test
  *       script to TestCommonStreamIO
- *  4    Biblioteka1.3         2004-10-04 12:47:39  Darko           
+ *  4    Biblioteka1.3         2004-10-04 12:47:39  Darko
  *  3    Biblioteka1.2         2004-09-30 15:47:54  Darko           inserted global
  *       CTestLog
  *  2    Biblioteka1.1         2004-09-29 13:23:29  Darko           improved tests
- *  1    Biblioteka1.0         2004-09-28 13:59:58  Darko           
+ *  1    Biblioteka1.0         2004-09-28 13:59:58  Darko
  * $
  *****************************************************************************/

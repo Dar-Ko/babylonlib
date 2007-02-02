@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonConsole.cpp$: implementation file
-  $Revision: 3$ $Date: 2005-07-07 17:52:27$
+  $Revision: 4$ $Date: 2007-02-02 13:20:14$
   $Author: Darko Kolakovic$
 
   Test console helper.
@@ -22,9 +22,9 @@ int TestCommonConsole();
 
 //-----------------------------------------------------------------------------
 /*Validates different console helper routines.
-  Defines the entry point for the test.
+  Defines the entry point for an automated test.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int TestCommonConsole()
@@ -36,7 +36,7 @@ return TestCommonConsole(0, NULL);
 /*Validates different console helper routines.
   Defines the entry point for the test.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int TestCommonConsole(int argc, //[in] specifies how many arguments are passed

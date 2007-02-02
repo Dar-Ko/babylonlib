@@ -31,7 +31,7 @@
           {340BC870-A012-93BB-2039-84BD734D76E7}
 
     Note: Microsoft compilers are using C linkage to initialize GUID numbers.
-    Also INITGUID have to be defined for one-time initialization (Microsoft 
+    Also INITGUID have to be defined for one-time initialization (Microsoft
     specific).
    */
   #define DEFINE_GUID(name, n32, a16, b16, a8, b8, c8, d8, e8, f8, g8, h8) \
@@ -122,9 +122,9 @@ struct SUuidPack
 #ifdef __cplusplus
 ///////////////////////////////////////////////////////////////////////////////
 /*CGuid description.
-   TODO: implematation
- 
- Note: No standard exist for binary representation of a UUID. Only string 
+   TODO: implementation
+
+ Note: No standard exist for binary representation of a UUID. Only string
  format is standardized.
 
  See also: tagGUID
@@ -390,9 +390,9 @@ return (m_uPack.l[0] + m_uPack.l[1] + m_uPack.l[2] + m_uPack.l[3]);
  */
 bool CGuid::IsNull() const
 {
-return (m_uPack.l[0] == 0 && 
-        m_uPack.l[1] == 0 && 
-        m_uPack.l[2] == 0 && 
+return (m_uPack.l[0] == 0 &&
+        m_uPack.l[1] == 0 &&
+        m_uPack.l[2] == 0 &&
         m_uPack.l[3] == 0 );
 }
 
@@ -511,8 +511,8 @@ guidRes.Data4[7]=nTemp;
 /*Creates a new UUID.
 
 
-  Generators for versions 1,3,4 and 5 UUID's are provided. 
-  
+  Generators for versions 1,3,4 and 5 UUID's are provided.
+
 
   UUID version 4
 The version 4 UUID is UUID based on random bytes. We fill the 128-bits with random bits (6 of the bits are correspondingly set to flag the version and variant of the UUID). No special configuration or implementation decisions are required to generate version 4 UUID's.

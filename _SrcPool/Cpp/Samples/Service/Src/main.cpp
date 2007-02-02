@@ -1,10 +1,10 @@
-/*$Workfile: main.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-03-11 02:13:54$
-  $Author: Darko$
+/*$Workfile: S:\_SrcPool\Cpp\Samples\Service\Src\main.cpp$: implementation file
+  $Revision: 1$ $Date: 2007-02-02 13:18:46$
+  $Author: Darko Kolakovic$
 
-  Test console I/O helper routines.
+  Test system services routines.
   Copyright: CommonSoft Inc.
-  2005-03-01 Darko Kolakovic
+  2007-02-02 Darko Kolakovic
 */
 
 // Group=Examples
@@ -25,7 +25,7 @@
 #include "stdafx.h"
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
-extern int TestCommonConsole(int argc, TCHAR* argv[]);
+extern int TestCommonService(int argc, TCHAR* argv[]);
 
 //-----------------------------------------------------------------------------
 /*Validates different debugging and tracing routines.
@@ -43,17 +43,17 @@ int _tmain(int argc,      //[in] specifies how many arguments are passed to the
                           //(argv[argc]) is indicated by a NULL pointer.
            )
 {
-TsWriteToViewLn(_T("Start Console Tests"));
+TsWriteToViewLn(_T("Start System Services Tests"));
 TsWriteToViewLn(_T(""));
 int nRetCode = EXIT_SUCCESS;
 
-nRetCode = TestCommonConsole(argc, argv);
+nRetCode = TestCommonService(argc, argv);
 return nRetCode;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2005-03-11 02:13:54  Darko           
+ *  1    Biblioteka1.0         2007-02-02 13:18:46  Darko Kolakovic 
  * $
  *****************************************************************************/

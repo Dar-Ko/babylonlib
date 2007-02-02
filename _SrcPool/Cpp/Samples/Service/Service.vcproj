@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="Console"
+	Name="Service"
 	ProjectGUID="{533C43D2-3A63-4754-9BAD-B07F62AB4166}"
 	SccProjectName=""
 	SccLocalPath=""
@@ -28,10 +28,10 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\..\Obj\Release_SBCS_MFC\Console\Win32/Console.pch"
-				AssemblerListingLocation=".\..\Obj\Release_SBCS_MFC\Console\Win32/"
-				ObjectFile=".\..\Obj\Release_SBCS_MFC\Console\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_SBCS_MFC\Console\Win32/"
+				PrecompiledHeaderFile=".\..\Obj\Release_SBCS_MFC\Service\Win32/Service.pch"
+				AssemblerListingLocation=".\..\Obj\Release_SBCS_MFC\Service\Win32/"
+				ObjectFile=".\..\Obj\Release_SBCS_MFC\Service\Win32/"
+				ProgramDataBaseFileName=".\..\Obj\Release_SBCS_MFC\Service\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -40,15 +40,15 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_SBCS_MFC\Win32/Console.exe"
+				OutputFile=".\..\bin\Release_SBCS_MFC\Win32/Service.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\..\bin\Release_SBCS_MFC\Win32/Console.pdb"
+				ProgramDatabaseFile=".\..\bin\Release_SBCS_MFC\Win32/Service.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Release_SBCS_MFC\Win32/Console.tlb"
+				TypeLibraryName=".\..\bin\Release_SBCS_MFC\Win32/Service.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -85,10 +85,10 @@
 				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_AFXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS_MFC\Console\Win32/Console.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_SBCS_MFC\Console\Win32/"
-				ObjectFile=".\..\Obj\Debug_SBCS_MFC\Console\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS_MFC\Console\Win32/"
+				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS_MFC\Service\Win32/Service.pch"
+				AssemblerListingLocation=".\..\Obj\Debug_SBCS_MFC\Service\Win32/"
+				ObjectFile=".\..\Obj\Debug_SBCS_MFC\Service\Win32/"
+				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS_MFC\Service\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -99,17 +99,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				ShowProgress="0"
-				OutputFile=".\..\bin\Debug_SBCS_MFC\Win32/Console.exe"
+				OutputFile=".\..\bin\Debug_SBCS_MFC\Win32/Service.exe"
 				Version="2005.0316"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_SBCS_MFC\Win32/Console.pdb"
+				ProgramDatabaseFile=".\..\bin\Debug_SBCS_MFC\Win32/Service.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Debug_SBCS_MFC\Win32/Console.tlb"
+				TypeLibraryName=".\..\bin\Debug_SBCS_MFC\Win32/Service.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -148,10 +148,10 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\..\Obj\Release_SBCS\Console\Win32/Console.pch"
-				AssemblerListingLocation=".\..\Obj\Release_SBCS\Console\Win32/"
-				ObjectFile=".\..\Obj\Release_SBCS\Console\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_SBCS\Console\Win32/"
+				PrecompiledHeaderFile=".\..\Obj\Release_SBCS\Service\Win32/Service.pch"
+				AssemblerListingLocation=".\..\Obj\Release_SBCS\Service\Win32/"
+				ObjectFile=".\..\Obj\Release_SBCS\Service\Win32/"
+				ProgramDataBaseFileName=".\..\Obj\Release_SBCS\Service\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -161,15 +161,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
-				OutputFile=".\..\bin\Release_SBCS\Win32/Console.exe"
+				OutputFile=".\..\bin\Release_SBCS\Win32/Service.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\..\bin\Release_SBCS\Win32/Console.pdb"
+				ProgramDatabaseFile=".\..\bin\Release_SBCS\Win32/Service.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Release_SBCS\Win32/Console.tlb"
+				TypeLibraryName=".\..\bin\Release_SBCS\Win32/Service.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -206,10 +206,10 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
-				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS\Console\Win32/Console.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_SBCS\Console\Win32/"
-				ObjectFile=".\..\Obj\Debug_SBCS\Console\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS\Console\Win32/"
+				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS\Service\Win32/Service.pch"
+				AssemblerListingLocation=".\..\Obj\Debug_SBCS\Service\Win32/"
+				ObjectFile=".\..\Obj\Debug_SBCS\Service\Win32/"
+				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS\Service\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -220,16 +220,16 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
-				OutputFile=".\..\bin\Debug_SBCS\Win32/Console.exe"
+				OutputFile=".\..\bin\Debug_SBCS\Win32/Service.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/Console.pdb"
+				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/Service.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Debug_SBCS\Win32/Console.tlb"
+				TypeLibraryName=".\..\bin\Debug_SBCS\Win32/Service.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -264,13 +264,13 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
-				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL;_DEBUG_INCL_PREPROCESS"
+				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode_MFC\Console\Win32/Console.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_Unicode_MFC\Console\Win32/"
-				ObjectFile=".\..\Obj\Debug_Unicode_MFC\Console\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode_MFC\Console\Win32/"
+				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode_MFC\Service\Win32/Service.pch"
+				AssemblerListingLocation=".\..\Obj\Debug_Unicode_MFC\Service\Win32/"
+				ObjectFile=".\..\Obj\Debug_Unicode_MFC\Service\Win32/"
+				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode_MFC\Service\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -280,16 +280,16 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_Unicode_MFC\Win32/Console.exe"
+				OutputFile=".\..\bin\Debug_Unicode_MFC\Win32/Service.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_Unicode_MFC\Win32/Console.pdb"
+				ProgramDatabaseFile=".\..\bin\Debug_Unicode_MFC\Win32/Service.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Debug_Unicode_MFC\Win32/Console.tlb"
+				TypeLibraryName=".\..\bin\Debug_Unicode_MFC\Win32/Service.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -329,10 +329,10 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode_MFC\Console\Win32/Console.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_Unicode_MFC\Console\Win32/"
-				ObjectFile=".\..\Obj\Debug_Unicode_MFC\Console\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode_MFC\Console\Win32/"
+				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode_MFC\Service\Win32/Service.pch"
+				AssemblerListingLocation=".\..\Obj\Debug_Unicode_MFC\Service\Win32/"
+				ObjectFile=".\..\Obj\Debug_Unicode_MFC\Service\Win32/"
+				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode_MFC\Service\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -341,15 +341,15 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_Unicode_MFC\Win32/Console.exe"
+				OutputFile=".\..\bin\Release_Unicode_MFC\Win32/Service.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\..\bin\Release_Unicode_MFC\Win32/Console.pdb"
+				ProgramDatabaseFile=".\..\bin\Release_Unicode_MFC\Win32/Service.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Release_Unicode_MFC\Win32/Console.tlb"
+				TypeLibraryName=".\..\bin\Release_Unicode_MFC\Win32/Service.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -387,10 +387,10 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL;_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
-				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode\Console\Win32/Console.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_Unicode\Console\Win32/"
-				ObjectFile=".\..\Obj\Debug_Unicode\Console\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode\Console\Win32/"
+				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode\Service\Win32/Service.pch"
+				AssemblerListingLocation=".\..\Obj\Debug_Unicode\Service\Win32/"
+				ObjectFile=".\..\Obj\Debug_Unicode\Service\Win32/"
+				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode\Service\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -401,16 +401,16 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
-				OutputFile=".\..\bin\Debug_Unicode\Win32/Console.exe"
+				OutputFile=".\..\bin\Debug_Unicode\Win32/Service.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_Unicode\Win32/Console.pdb"
+				ProgramDatabaseFile=".\..\bin\Debug_Unicode\Win32/Service.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Debug_Unicode\Win32/Console.tlb"
+				TypeLibraryName=".\..\bin\Debug_Unicode\Win32/Service.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -450,10 +450,10 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\..\Obj\Release_Unicode\Console\Win32/Console.pch"
-				AssemblerListingLocation=".\..\Obj\Release_Unicode\Console\Win32/"
-				ObjectFile=".\..\Obj\Release_Unicode\Console\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_Unicode\Console\Win32/"
+				PrecompiledHeaderFile=".\..\Obj\Release_Unicode\Service\Win32/Service.pch"
+				AssemblerListingLocation=".\..\Obj\Release_Unicode\Service\Win32/"
+				ObjectFile=".\..\Obj\Release_Unicode\Service\Win32/"
+				ProgramDataBaseFileName=".\..\Obj\Release_Unicode\Service\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -463,15 +463,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
-				OutputFile=".\..\bin\Release_Unicode\Win32/Console.exe"
+				OutputFile=".\..\bin\Release_Unicode\Win32/Service.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\..\bin\Release_Unicode\Win32/Console.pdb"
+				ProgramDatabaseFile=".\..\bin\Release_Unicode\Win32/Service.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Release_Unicode\Win32/Console.tlb"
+				TypeLibraryName=".\..\bin\Release_Unicode\Win32/Service.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
@@ -502,61 +502,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
-				RelativePath=".\Src\cmdline.cpp">
-				<FileConfiguration
-					Name="Release_SBCS_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_SBCS_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_SBCS|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode_MFC|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\KCmdLineParser.cpp">
-			</File>
-			<File
-				RelativePath="..\..\KStrCtoA.c">
 			</File>
 			<File
 				RelativePath="..\..\KTestLog.cpp">
@@ -566,6 +512,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
 						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -574,6 +521,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
@@ -583,6 +531,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
 						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -591,6 +540,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
@@ -609,6 +559,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="NDEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
 						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -617,6 +568,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
@@ -626,8 +578,12 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KWinService.cpp">
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.cpp">
@@ -748,16 +704,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Src\TestAscii.c">
-			</File>
-			<File
-				RelativePath=".\Src\TestCmdLineParser.cpp">
-			</File>
-			<File
-				RelativePath=".\Src\TestCommonConsole.cpp">
-			</File>
-			<File
-				RelativePath="..\Common\Src\TsWriteT.c">
+				RelativePath=".\Src\TestCommonService.cpp">
 			</File>
 			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
@@ -824,6 +771,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions="NDEBUG;_UNICODE;UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
 						UsePrecompiledHeader="3"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"/>
@@ -857,13 +805,13 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
-				RelativePath=".\Src\cmdline.h">
-			</File>
-			<File
 				RelativePath="..\..\KCmdLineParser.h">
 			</File>
 			<File
 				RelativePath="..\..\KDbgMacr.h">
+			</File>
+			<File
+				RelativePath="..\..\KOsService.h">
 			</File>
 			<File
 				RelativePath="..\..\KTestLog.h">
@@ -1058,7 +1006,7 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath="Console.txt">
+			RelativePath="Service.txt">
 		</File>
 	</Files>
 	<Globals>

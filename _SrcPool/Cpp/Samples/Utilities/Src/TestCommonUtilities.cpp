@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonUtilities.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-05-16 14:21:31$
+  $Revision: 2$ $Date: 2007-02-02 13:30:41$
   $Author: Darko Kolakovic$
 
   Test various helper functions.
@@ -33,7 +33,7 @@ extern bool TestGuid();
 //-----------------------------------------------------------------------------
 /*Validate various helper functions.
 
-  Returns: EXIT_SUCCESS, which represents a value of 0, if succesfull. Otherwise
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
 int TestCommonUtilities()
@@ -65,7 +65,7 @@ return EXIT_SUCCESS;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2005-05-16 14:21:31  Darko Kolakovic 
+ * $Log:
+ *  1    Biblioteka1.0         2005-05-16 14:21:31  Darko Kolakovic
  * $
  *****************************************************************************/
