@@ -10,8 +10,8 @@
 #include "stdafx.h"
 #include "KAdoRecordset.h" //class CAdoRecordset
 #include "KAtlExt.h" //TESTHR macro
-extern void ComErrorShow(_com_error& cee, 
-                         LPCTSTR szHelpFile = NULL, 
+extern void ComErrorShow(_com_error& cee,
+                         LPCTSTR szHelpFile = NULL,
                          UINT nHelpContext = 0);
 #ifdef _DEBUG
   void DumpAdoRecorsetSupport(_RecordsetPtr ptrRecordset);
@@ -88,7 +88,7 @@ VERIFY(Close());
         Field* pField = pFieldArray->GetItem(vtIndex);
         CString strField = (LPTSTR)pField->GetName();
         dc << _T("    ") << i << _T(". ")
-          << strField << _T(": ") 
+          << strField << _T(": ")
           << DumpAdoFieldType(pField->Type) << _T("\n      Current value: ");
         DumpComVariant(dc, pField->GetValue());
         dc << _T("\n");
@@ -165,9 +165,9 @@ return false;
 }
 /* TODO: Open table
 BOOL CAdoRecordset::Open(_ConnectionPtr mpdb, LPCTSTR lpstrExec, int nOption)
-{  
+{
   Close();
-  
+
   if(strcmp(lpstrExec, _T("")) != 0)
     m_strQuery = lpstrExec;
 
@@ -177,7 +177,7 @@ BOOL CAdoRecordset::Open(_ConnectionPtr mpdb, LPCTSTR lpstrExec, int nOption)
     m_pConnection = mpdb;
 
   m_strQuery.TrimLeft();
-  BOOL bIsSelect = m_strQuery.Mid(0, strlen("Select ")).CompareNoCase("select ") == 
+  BOOL bIsSelect = m_strQuery.Mid(0, strlen("Select ")).CompareNoCase("select ") ==
     0 && nOption == openUnknown;
 
   try
@@ -185,10 +185,10 @@ BOOL CAdoRecordset::Open(_ConnectionPtr mpdb, LPCTSTR lpstrExec, int nOption)
     m_pRecordset->CursorType = adOpenStatic;
     m_pRecordset->CursorLocation = adUseClient;
     if(bIsSelect || nOption == openQuery || nOption == openUnknown)
-      m_pRecordset->Open((LPCSTR)m_strQuery, _variant_t((IDispatch*)mpdb, TRUE), 
+      m_pRecordset->Open((LPCSTR)m_strQuery, _variant_t((IDispatch*)mpdb, TRUE),
               adOpenStatic, adLockOptimistic, adCmdUnknown);
     else if(nOption == openTable)
-      m_pRecordset->Open((LPCSTR)m_strQuery, _variant_t((IDispatch*)mpdb, TRUE), 
+      m_pRecordset->Open((LPCSTR)m_strQuery, _variant_t((IDispatch*)mpdb, TRUE),
               adOpenKeyset, adLockOptimistic, adCmdTable);
     else if(nOption == openStoredProc)
     {
@@ -196,7 +196,7 @@ BOOL CAdoRecordset::Open(_ConnectionPtr mpdb, LPCTSTR lpstrExec, int nOption)
       m_pCmd->CommandText = _bstr_t(m_strQuery);
       m_pCmd->CommandType = adCmdStoredProc;
       m_pConnection->CursorLocation = adUseClient;
-      
+
       m_pRecordset = m_pCmd->Execute(NULL, NULL, adCmdText);
     }
     else
@@ -215,8 +215,8 @@ BOOL CAdoRecordset::Open(_ConnectionPtr mpdb, LPCTSTR lpstrExec, int nOption)
 }
 */
 //-----------------------------------------------------------------------------
-/*Closes the open ADO Recordset connection. If recordset is already closed, 
-  function does nothing. In case of COM exception, the error message box shows 
+/*Closes the open ADO Recordset connection. If recordset is already closed,
+  function does nothing. In case of COM exception, the error message box shows
   the error description.
 
   Returns: true if successful; otherwise returns false.
@@ -233,7 +233,7 @@ HRESULT hReturn = S_FALSE;
           CancelUpdate();
 
     m_pRecordset->PutSort(_T(""));
-    m_pRecordset->Close();  
+    m_pRecordset->Close();
   }
 */
 
@@ -277,7 +277,7 @@ return true;
 /*Executes the specified query, SQL statement, or provider-specific text and
   replaces current recordset with new one.
 
-  Returns: true if succesfull.
+  Returns: true if succesful.
 
   TODO: Execute table name
   TODO: test it! D.K.
@@ -333,10 +333,10 @@ ASSERT(m_ptrConnection != NULL);
 if ((szCommand != NULL) && (szCommand[0] != _T('\0')) && (m_ptrConnection != NULL))
   {
   m_ptrConnection->CursorLocation = adUseClient;
-  /*adExecuteNoRecords = 0x80 
-    Indicates that the command text is a command or stored procedure that does 
+  /*adExecuteNoRecords = 0x80
+    Indicates that the command text is a command or stored procedure that does
     not return rows (for example, a command that only inserts data).
-    If any rows are retrieved, they are discarded and not returned. 
+    If any rows are retrieved, they are discarded and not returned.
    */
   m_ptrConnection->Execute(_bstr_t(szCommand), &vResult, adExecuteNoRecords);
   }
@@ -441,7 +441,7 @@ return false;
 
 //-----------------------------------------------------------------------------
 /*Retreives number of records in a recordset.
-  
+
   Returns: current number of records in a recordset.
  */
 unsigned long CAdoRecordset::GetRecordCount() const
@@ -449,7 +449,7 @@ unsigned long CAdoRecordset::GetRecordCount() const
 long lRows = m_ptrRecordset->GetRecordCount();
 
 //If the number of records contained in a Recordset object cannot be determined,
-//the GetRecordCount property returns -1 (adUnknown). 
+//the GetRecordCount property returns -1 (adUnknown).
 if(lRows == adUnknown)
   {
   lRows = 0;
@@ -471,7 +471,7 @@ return lRows;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  6    Biblioteka1.5         2005-04-29 01:13:01  Darko           Fixed warnings
  *  5    Biblioteka1.4         2004-10-01 22:33:32  Darko           stdafx.h
  *  4    Biblioteka1.3         2003-08-19 16:17:13  Darko           Execute(),
@@ -480,6 +480,6 @@ return lRows;
  *       functions out
  *  2    Biblioteka1.1         2003-08-14 14:17:23  Darko           GetField
  *       methods
- *  1    Biblioteka1.0         2003-08-12 13:56:49  Darko           
+ *  1    Biblioteka1.0         2003-08-12 13:56:49  Darko
  * $
  *****************************************************************************/
