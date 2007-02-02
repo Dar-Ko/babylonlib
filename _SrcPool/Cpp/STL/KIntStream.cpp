@@ -1,6 +1,6 @@
 /*$Workfile: KIntStream.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-10-07 12:56:26$
-  $Author: Darko$
+  $Revision: 8$ $Date: 2007-02-02 11:35:12$
+  $Author: Darko Kolakovic$
 
   Write int64 to the stream
   Copyright: CommonSoft Inc.
@@ -22,9 +22,11 @@
 #if _MSC_VER 
   #if defined (_UNICODE)
     //Note: Some Microsoft headers file requires UNICODE macro in order
-    //      to resolve character code mapping. Some headers are statisfied
+    //      to resolve character code mapping. Some headers are satisfied
     //      with _UNICODE, which is macro used by the library.
-    #define UNICODE
+    #ifndef UNICODE
+      #define UNICODE
+    #define
   #endif
 #endif
 
