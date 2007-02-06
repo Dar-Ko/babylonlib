@@ -1,5 +1,5 @@
 /*$Workfile: KAdoRecordset.h$: header file
-  $Revision: 6$ $Date: 2005-04-26 11:28:19$
+  $Revision: 7$ $Date: 2007-02-06 10:53:52$
   $Author: Darko Kolakovic$
 
   Interface of the CAdoRecordset class
@@ -143,7 +143,10 @@ return m_ptrRecordset;
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Obtains number of fields (columns) in the dataset table.
+  A field is the basic unit of a record. Each database record is divided into
+  fields.
+  Returns: number of data fields.
  */
 inline unsigned long CAdoRecordset::GetFieldCount() const
 {
@@ -151,7 +154,7 @@ return m_ptrRecordset->GetFields()->Count;
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Verifies if the dataset pointer is at the End Of File (EOF).
   If both BOF and EOF are True, the Recordset object is empty.
 
   Returns: true if dataset pointer is at the end of the recordset.
@@ -164,7 +167,7 @@ return (m_ptrRecordset->adoEOF == VARIANT_TRUE);
 };
 
 //-----------------------------------------------------------------------------
-/*
+/*Verifies if the dataset pointer is at the Beginning Of File (BOF).
   If both BOF and EOF are true, the Recordset object is empty.
 
   Returns: true if dataset pointer is at the begining of the recordset.
