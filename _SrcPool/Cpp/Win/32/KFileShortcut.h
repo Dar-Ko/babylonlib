@@ -1,5 +1,5 @@
 /*$Workfile: KFileShortcut.h$: header file
-  $Revision: 2$ $Date: 2005-05-11 17:39:32$
+  $Revision: 2$ $Date: 2005-05-11 16:39:32$
   $Author: Darko Kolakovic$
 
   Windows Shortcut (.Lnk) files helpers
@@ -53,9 +53,9 @@ return false;
 
 /******************************************************************************
  *$Log: 
- * 2    Biblioteka1.1         2005-05-11 17:39:32  Darko Kolakovic Replaced BOOL
+ * 2    Biblioteka1.1         2005-05-11 16:39:32  Darko Kolakovic Replaced BOOL
  *      with bool
- * 1    Biblioteka1.0         2002-03-12 23:01:12  Darko           
+ * 1    Biblioteka1.0         2002-03-12 22:01:12  Darko           
  *$
  * 0    Dec 98 Darko Kolakovic
  *****************************************************************************/

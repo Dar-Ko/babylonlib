@@ -1,5 +1,5 @@
 /*$Workfile: KPropShR.cpp$: implementation file
-  $Revision: 6$ $Date: 2005-05-24 16:23:11$
+  $Revision: 7$ $Date: 2007-02-06 11:00:11$
   $Author: Darko Kolakovic$
 
   Handles resizing of the property sheet
