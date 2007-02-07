@@ -1,5 +1,5 @@
 /*$Workfile: KDbgMacr.h$: header file
-  $Revision: 45$ $Date: 2005-04-27 12:55:24$
+  $Revision: 46$ $Date: 2007-02-06 19:10:21$
   $Author: Darko Kolakovic$
 
   Dumps values of some compiler-specific predefined macros
@@ -526,6 +526,7 @@
         Visual C++, 32-bit, version 6.0           1200
         Visual C++ .Net 2002, 32-bit, version 7.0 1300
         Visual C++ .Net 2003, 32-bit, version 7.1 1310
+        Visual C/C++ 2005, version 8.0            1400
      See also: Q65472
     */
     const int g__MSC_VER = _MSC_VER;
@@ -568,7 +569,10 @@
     #if _MSC_VER == 1310
       #pragma message ("  2003 ver. 7.1")
     #endif
-    #if _MSC_VER > 1310
+    #if _MSC_VER == 1400
+      #pragma message ("  2005 ver. 8.0")
+    #endif
+    #if _MSC_VER > 1400
       #pragma message ("  ver. unknown")
     #endif
   #endif

@@ -1,5 +1,5 @@
 /*$Workfile: KTrace.h$: implementation file
-  $Revision: 42$ $Date: 2007-02-01 17:25:54$
+  $Revision: 45$ $Date: 2007-02-06 19:10:23$
   $Author: Darko Kolakovic$
 
   Debugging helpers
@@ -193,6 +193,36 @@
   /* Microsoft C/C++ compilers are using own debugging API.
    */
   #ifdef _MSC_VER /*Microsoft Visual C/C++*/
+  
+    #if (_MSC_VER < 1400) //Less than Visual C++ 2005
+      #ifndef _TCRTDBGREPORT
+         //SBCS (ASCII) version of the debug report.
+        #define _TCRTDBGREPORT _CrtDbgReport
+      #endif
+
+    #else
+      #ifdef _UNICODE
+        #ifndef _TCRTDBGREPORT
+          //Wide character version of the debug report is available in Visual C++ 2005
+          #define _TCRTDBGREPORT _CrtDbgReportW
+        #endif
+      #else  //
+        #ifndef _TCRTDBGREPORT
+            /*SBCS (ASCII) version of the debug report.
+              _CrtDbgReport(int             nRptType    //report type
+                            const char*    szFile      //file name
+                            int             nLine       //line number
+                            const char*    szModule    //module name
+                            const char*    szFormat    //format string
+                            ...                         //var args
+                            )
+            */
+          #define _TCRTDBGREPORT _CrtDbgReport
+        #endif
+      #endif
+      
+    #endif //(_MSC_VER < 1300)
+    
     //D.K. 12.2.2k2 #ifdef __cplusplus
     //TODO: separate C and C++ traces (replace fprintf with a class Trace)
 
@@ -253,7 +283,7 @@
          */
         #define ASSERT(expr) \
             do{ _VALIDATE_ (!(expr) && \
-                (1 == _CrtDbgReport(_CRT_ASSERT, __FILE__, __LINE__, NULL, NULL))) \
+                (1 == _TCRTDBGREPORT(_CRT_ASSERT, __FILE__, __LINE__, NULL, NULL))) \
                  _CrtDbgBreak(); \
               } while (0)
 
@@ -263,19 +293,18 @@
           does not print or interrupt the program.
          */
         #define VERIFY(exp)  ASSERT(exp)
-
         #define TRACE( szMsg) \
-            _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, _TSFORMAT_, szMsg)
+            _TCRTDBGREPORT( _CRT_WARN, NULL, 0, NULL, _TSFORMAT_, szMsg)
         #define TRACE0( szMsg) \
-            _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, _TSFORMAT_, szMsg)
+            _TCRTDBGREPORT( _CRT_WARN, NULL, 0, NULL, _TSFORMAT_, szMsg)
         #define TRACE1( szMsg, p1) \
-            _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, szMsg, p1)
+            _TCRTDBGREPORT( _CRT_WARN, NULL, 0, NULL, szMsg, p1)
         #define TRACE2( szMsg, p1, p2) \
-            _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, szMsg, p1, p2)
+            _TCRTDBGREPORT( _CRT_WARN, NULL, 0, NULL, szMsg, p1, p2)
         #define TRACE3( szMsg, p1, p2, p3) \
-            _CrtDbgReport( _CRT_WARN, NULL, 0, NULL, szMsg, p1, p2, p3)
+            _TCRTDBGREPORT( _CRT_WARN, NULL, 0, NULL, szMsg, p1, p2, p3)
         #define TRACEINFO( szMsg) \
-            _CrtDbgReport(_CRT_WARN, __FILE__, __LINE__, NULL, _TSFORMAT_, szMsg)
+            _TCRTDBGREPORT(_CRT_WARN, __TFILE__, __LINE__, NULL, _TSFORMAT_, szMsg)
       /*  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  */
       #endif  /*_WIN32 || _MAC */
 

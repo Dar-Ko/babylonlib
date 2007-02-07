@@ -1,5 +1,5 @@
 /*$Workfile: KDateConv.h$: header file
-  $Revision: 5$ $Date: 2005-03-11 18:06:26$
+  $Revision: 6$ $Date: 2007-02-06 18:09:04$
   $Author: Darko Kolakovic$
 
   DATE conversions
@@ -116,8 +116,8 @@ if( dValue >= 0 ) //No problem if positive
   m_dateValue = dValue;
 else
   {
-    //If negative, must convert since negative dates not continuous
-    //(examples: -.75 to -1.25, -.50 to -1.50, -.25 to -1.75)
+    //Convert negative values since negative dates have not continuous range:
+    //(-0.75, -1.25), (-0.50, -1.50), (-0.25, -1.75)
   m_dateValue = floor(dValue); // m_dateValue is now whole part
 
     //Add day's fractions
