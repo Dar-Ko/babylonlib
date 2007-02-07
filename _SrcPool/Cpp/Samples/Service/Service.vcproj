@@ -23,7 +23,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..,..\..\Win\32,..\Service\Src\Win,..\Service\Src\Win\32,..\Service\Res\Win,..\Service\Res\Win\32"
 				PreprocessorDefinitions="NDEBUG;_STL;WIN32;_CONSOLE;_AFXDLL"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -81,7 +81,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..,..\..\Win\32,..\Service\Src\Win,..\Service\Src\Win\32,..\Service\Res\Win,..\Service\Res\Win\32"
 				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_AFXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -143,7 +143,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..,..\..\Win\32,..\Service\Src\Win,..\Service\Src\Win\32,..\Service\Res\Win,..\Service\Res\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -202,7 +202,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..,..\..\Win\32,..\Service\Src\Win,..\Service\Src\Win\32,..\Service\Res\Win,..\Service\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -263,7 +263,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..,..\..\Win\32,..\Service\Src\Win,..\Service\Src\Win\32,..\Service\Res\Win,..\Service\Res\Win\32"
 				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -324,7 +324,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..,..\..\Win\32,..\Service\Src\Win,..\Service\Src\Win\32,..\Service\Res\Win,..\Service\Res\Win\32"
 				PreprocessorDefinitions="NDEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
@@ -383,7 +383,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..,..\..\Win\32,..\Service\Src\Win,..\Service\Src\Win\32,..\Service\Res\Win,..\Service\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL;_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -445,7 +445,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..,..\..\Win\32,..\Service\Src\Win,..\Service\Src\Win\32,..\Service\Res\Win,..\Service\Res\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL;_UNICODE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -707,6 +707,9 @@
 				RelativePath=".\Src\TestCommonService.cpp">
 			</File>
 			<File
+				RelativePath=".\Src\Win\32\TestWinService.cpp">
+			</File>
+			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
 				<FileConfiguration
 					Name="Release_SBCS_MFC|Win32">
@@ -821,6 +824,12 @@
 			</File>
 			<File
 				RelativePath="..\..\KTraceFx.h">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KWinService.h">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KWinVers.inl">
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.h">
