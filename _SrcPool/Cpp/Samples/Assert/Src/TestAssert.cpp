@@ -1,8 +1,8 @@
 /*$Workfile: TestAssert.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-22 12:46:43$
+  $Revision: 5$ $Date: 2007-02-08 15:50:08$
   $Author: Darko Kolakovic$
 
-  Test validation of the assertation
+  Test validation of the assertion
   Copyright: CommonSoft Inc.
   2004-08-12 Darko Kolakovic
 */
@@ -16,7 +16,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 bool TestAssert();
 
 //-----------------------------------------------------------------------------
-/*Test assertation. An assertion statement specifies a condition that you expect
+/*Test assertion. An assertion statement specifies a condition that you expect
   to hold true at some particular point in your program. If that condition does
   not hold true, the assertion fails and execution of your program is
   interrupted.
@@ -28,19 +28,48 @@ bool TestAssert()
 TsWriteToViewLn(_T("TestAssert()"));
 
 bool bResult = true;
+TESTENTRY logEntry = {_T(""), _T(""), false};
 
+try
+  {
+  #ifdef _UNICODE
+    #ifdef _DEBUG
+      logEntry.m_szFileName = _T("KDbgRpt.cpp");
+      logEntry.m_szObjectName = _T("tCrtDbgReport()");
+      bResult = (tCrtDbgReport( _CRT_WARN, __TFILE__, __LINE__, _T("TestAssert()"),
+                  _T("Test Unicode message with %s\n"), _T("tCrtDbgReport()")) > 0);
+      logEntry.m_bResult = bResult;
+      LogTest(&logEntry);
+    #endif
+  #endif
+
+  if(bResult)
+    {
+    //Test true assertion
+    logEntry.m_szFileName = _T("KTrace.h");
+    logEntry.m_szObjectName = _T("ASSERT(true)");
+    ASSERT(bResult);
+    LogTest(&logEntry);
+    }
+  }
+catch(...)
+  {
+  bResult = false;
+  //Write test log
+  logEntry.m_bResult = bResult;
+  LogTest(&logEntry);
+  }
 
 TsWriteToViewLn(LOG_EOT);
-
 return bResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  4    Biblioteka1.3         2004-10-22 12:46:43  Darko Kolakovic CodeWarrior
  *  3    Biblioteka1.2         2004-09-28 13:59:18  Darko           comments
  *  2    Biblioteka1.1         2004-09-13 15:28:42  Darko           comments
- *  1    Biblioteka1.0         2004-08-23 17:58:05  Darko           
+ *  1    Biblioteka1.0         2004-08-23 17:58:05  Darko
  * $
  *****************************************************************************/

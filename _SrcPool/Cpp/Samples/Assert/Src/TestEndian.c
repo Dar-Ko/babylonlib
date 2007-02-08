@@ -1,5 +1,5 @@
 /*$Workfile: TestEndian.c$: implementation file
-  $Revision: 3$ $Date: 2004-11-23 16:51:34$
+  $Revision: 4$ $Date: 2007-02-08 15:50:10$
   $Author: Darko Kolakovic$
 
   Test machine architecture.
@@ -76,19 +76,19 @@ TsWriteToViewLn(_T("TestEndian()"));
 
 if (testValue.cByte[0] == (uint8_t)0x1)
   {
-  TRACE0(_T("Little Endian"));
+  TRACE0(_T("Little Endian\n"));
   TsWriteToViewLn(_T("Little Endian\n"));
   bResult = (bool)(nEndian == _ENDIAN_LITTLE_);
   }
 else if (testValue.cByte[sizeof(uint32_t)-1] == (uint8_t)0x1)
   {
-  TRACE0(_T("Big Endian"));
+  TRACE0(_T("Big Endian\n"));
   TsWriteToViewLn(_T("Big  Endian\n"));
   bResult = (bool)(nEndian == _ENDIAN_BIG_);
   }
 else if (testValue.cByte[sizeof(uint32_t)/2] == (uint8_t)0x1)
   {
-  TRACE0(_T("PDP Endian"));
+  TRACE0(_T("PDP Endian\n"));
   TsWriteToViewLn(_T("PDP Endian\n"));
   bResult = (bool)(nEndian == _ENDIAN_PDP_);
   }

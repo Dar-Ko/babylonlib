@@ -1,5 +1,5 @@
 /*$Workfile: TestTrace.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-11-05 13:27:09$
+  $Revision: 7$ $Date: 2007-02-08 15:50:11$
   $Author: Darko Kolakovic$
 
   Test tracing
@@ -21,7 +21,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 bool TestTrace();
 
 /*---------------------------------------------------------------------------*/
-/*Test tracing. Tracing reports warnings to an output device, such as 
+/*Test tracing. Tracing reports warnings to an output device, such as
   the debugger window.
 
   Returns true if test is successful; otherwise returns false.
@@ -36,10 +36,10 @@ TsWriteToViewLn(_T("TestTrace()"));
   /*Microsoft Visual Studio C/C++ or
     *Metrowerks CodeWarrior preprocessor
    */
-  #pragma message( __FILE__ " Your pragma message ") 
+  #pragma message( __FILE__ " Your pragma message ")
 #else
   /*Unknown preprocessor*/
-  #pragma message( __FILE__ " Your pragma message ") 
+  #pragma message( __FILE__ " Your pragma message ")
 #endif
 
 /*Testing customized preprocessor's message output*/
@@ -50,10 +50,10 @@ TRACEINFO(_T("This is a TRACEINFO(%s, %d)\n"), _T("message"), 101);
 TRACE(_T("This is TRACE message\n"));
 TRACE(_T("This is TRACE(%s, %d, %d, %d)\n"), _T("message"), 102, 1, 2);
 
-TRACE0("This is TRACE0 message\n");
-TRACE1("This is TRACE1(%d)\n", 103);
-TRACE2("This is TRACE2(%s, %d)\n", _T("message"), 104);
-TRACE3("This is TRACE3(%s, %d, %d)\n", _T("message"), 105, 3);
+TRACE0(_T("This is TRACE0 message\n"));
+TRACE1(_T("This is TRACE1(%d)\n"), 103);
+TRACE2(_T("This is TRACE2(%s, %d)\n"), _T("message"), 104);
+TRACE3(_T("This is TRACE3(%s, %d, %d)\n"), _T("message"), 105, 3);
 
 
 TsWriteToViewLn(LOG_EOT);
@@ -63,7 +63,7 @@ return bResult;
 
 /* ////////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  6    Biblioteka1.5         2004-11-05 13:27:09  Darko Kolakovic Moved Palm
  *       specifics to separate header files
  *  5    Biblioteka1.4         2004-11-01 12:07:22  Darko Kolakovic CodeWarrior
@@ -73,6 +73,6 @@ return bResult;
  *  3    Biblioteka1.2         2004-10-25 17:58:08  Darko Kolakovic CodeWarrior 9
  *       fixes
  *  2    Biblioteka1.1         2004-10-22 12:46:54  Darko Kolakovic CodeWarrior
- *  1    Biblioteka1.0         2004-09-13 15:30:08  Darko           
+ *  1    Biblioteka1.0         2004-09-13 15:30:08  Darko
  * $
  *****************************************************************************/
