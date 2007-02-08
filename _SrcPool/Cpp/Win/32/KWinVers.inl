@@ -1,5 +1,5 @@
 /*$Workfile: KWinVers.inl$: header file
-  $Revision: 8$ $Date: 2005-04-26 11:35:58$
+  $Revision: 9$ $Date: 2007-02-06 18:12:31$
   $Author: Darko Kolakovic$
 
   Detect operating system and Windows platform version
@@ -29,6 +29,7 @@
 // Inlines
 //IsWin9x()--------------------------------------------------------------------
 /*Returns TRUE if Windows version is Win95 or Win98.
+  To get extended error information, call GetLastError().
 
   Note: Microsoft Windows specific (Win).
  */
@@ -41,17 +42,19 @@ inline BOOL IsWin9x()
   OSVERSIONINFO osviData;
   osviData.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
     //The function fails if the value of the dwOSVersionInfoSize is too small
-  VERIFY(GetVersionEx(&osviData));
-  return IsWin9x(&osviData);
+  if(GetVersionEx(&osviData))
+    return IsWin9x(&osviData);
+  return FALSE;
   }
 
 //IsWinNT()--------------------------------------------------------------------
-/*Returns TRUE if Windows version is WinNT or Win2k.
+/*Returns TRUE if Windows version is WinNT, Win2k or WinXP.
+  To get extended error information, call GetLastError().
 
   Note: Microsoft Windows specific (Win).
 
   Example:
-    #include "UWinVers.inl"   //Get Windows Version
+    #include "KWinVers.inl"   //Get Windows Version
     void CheckWinVersion()
       {
       OSVERSIONINFO osviData;
@@ -60,7 +63,7 @@ inline BOOL IsWin9x()
 
       if (IsWinNT(&osviData))
         {
-        TRACE0("CheckWinVersion()\tWindows NT/2k\n");
+        TRACE0("CheckWinVersion()\tWindows NT/2k/XP\n");
         }
       else if (IsWin9x(&osviData))
         {
@@ -68,22 +71,24 @@ inline BOOL IsWin9x()
         }
       }
  */
-inline BOOL IsWinNT(LPOSVERSIONINFO posviData)
+inline bool IsWinNT(LPOSVERSIONINFO posviData)
   {
   return (posviData->dwPlatformId == VER_PLATFORM_WIN32_NT);
   }
 
-inline BOOL IsWinNT()
+inline bool IsWinNT()
   {
   OSVERSIONINFO osviData;
   osviData.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
     //The function fails if the value of the dwOSVersionInfoSize is too small
-  VERIFY(GetVersionEx(&osviData));
-  return IsWinNT(&osviData);
+  if(GetVersionEx(&osviData))
+    return IsWinNT(&osviData);
+  return false;
   }
 
 //IsWin32s()-------------------------------------------------------------------
 /*Returns TRUE if Windows version is 16-bit Windows with Win32s.
+  To get extended error information, call GetLastError().
 
   Note: Microsoft Windows specific (Win).
  */
@@ -97,8 +102,9 @@ inline BOOL IsWin32s()
   OSVERSIONINFO osviData;
   osviData.dwOSVersionInfoSize = sizeof (OSVERSIONINFO);
     //The function fails if the value of the dwOSVersionInfoSize is too small
-  VERIFY(GetVersionEx(&osviData));
-  return IsWin32s(&osviData);
+  if(GetVersionEx(&osviData))
+    return IsWin32s(&osviData);
+  return FALSE;
   }
 
 //IsTerminalServer()-----------------------------------------------------------
@@ -167,11 +173,11 @@ inline UINT GetOSBuild()
   #endif  //_WIN32
 #endif //_KWINVERS_INL_
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  4    Biblioteka1.3         8/16/01 11:38:29 PM  Darko           Update
- *  3    Biblioteka1.2         7/7/01 11:10:38 PM   Darko           $Revision: 8$
+ *  3    Biblioteka1.2         7/7/01 11:10:38 PM   Darko           $Revision: 9$
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:52:42 PM   Darko           VSS
- *  1    Biblioteka1.0         8/13/00 3:04:28 PM   Darko           
+ *  1    Biblioteka1.0         8/13/00 3:04:28 PM   Darko
  * $
  *****************************************************************************/
