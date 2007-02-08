@@ -1,5 +1,5 @@
 /*$Workfile: KTrace.h$: implementation file
-  $Revision: 45$ $Date: 2007-02-06 19:10:23$
+  $Revision: 46$ $Date: 2007-02-08 15:48:43$
   $Author: Darko Kolakovic$
 
   Debugging helpers
@@ -193,20 +193,47 @@
   /* Microsoft C/C++ compilers are using own debugging API.
    */
   #ifdef _MSC_VER /*Microsoft Visual C/C++*/
-  
-    #if (_MSC_VER < 1400) //Less than Visual C++ 2005
-      #ifndef _TCRTDBGREPORT
-         //SBCS (ASCII) version of the debug report.
-        #define _TCRTDBGREPORT _CrtDbgReport
-      #endif
 
-    #else
+    #if (_MSC_VER < 1400) //Less than Visual C++ 2005
+      #ifdef _UNICODE
+        #ifndef _TCRTDBGREPORT
+          //Note: requires KDbgRpt.cpp
+          #ifdef __cplusplus
+            extern "C" _CRTIMP int __cdecl tCrtDbgReport( int nRptType,
+                                                          LPCTSTR szFile,
+                                                          int nLine,
+                                                          LPCTSTR szModule,
+                                                          LPCTSTR szFormat,
+                                                          ...);
+          #else
+            extern  _CRTIMP int __cdecl tCrtDbgReport( int nRptType,
+                                                       LPCTSTR szFile,
+                                                       int nLine,
+                                                       LPCTSTR szModule,
+                                                       LPCTSTR szFormat,
+                                                       ...);
+          #endif
+          //SBCS (ASCII) version of the debug report.
+          #define _TCRTDBGREPORT tCrtDbgReport
+          #undef _TSFORMAT_
+          #define _TSFORMAT_ _T("%s")
+        #endif
+      #else  //SCBS
+        #ifndef _TCRTDBGREPORT
+          //SBCS (ASCII) version of the debug report.
+          #define _TCRTDBGREPORT _CrtDbgReport
+        #endif
+      #endif //(_UNICODE)
+
+    #else //(_MSC_VER >= 1400)
       #ifdef _UNICODE
         #ifndef _TCRTDBGREPORT
           //Wide character version of the debug report is available in Visual C++ 2005
           #define _TCRTDBGREPORT _CrtDbgReportW
+          #undef _TSFORMAT_
+          #define _TSFORMAT_ _T("%s")
         #endif
-      #else  //
+      #else  //SCBS
         #ifndef _TCRTDBGREPORT
             /*SBCS (ASCII) version of the debug report.
               _CrtDbgReport(int             nRptType    //report type
@@ -219,10 +246,9 @@
             */
           #define _TCRTDBGREPORT _CrtDbgReport
         #endif
-      #endif
-      
-    #endif //(_MSC_VER < 1300)
-    
+      #endif //(_UNICODE)
+    #endif //(_MSC_VER < 1400)
+
     //D.K. 12.2.2k2 #ifdef __cplusplus
     //TODO: separate C and C++ traces (replace fprintf with a class Trace)
 
@@ -283,13 +309,13 @@
          */
         #define ASSERT(expr) \
             do{ _VALIDATE_ (!(expr) && \
-                (1 == _TCRTDBGREPORT(_CRT_ASSERT, __FILE__, __LINE__, NULL, NULL))) \
+                (1 == _TCRTDBGREPORT(_CRT_ASSERT, __TFILE__, __LINE__, NULL, NULL))) \
                  _CrtDbgBreak(); \
               } while (0)
 
         /*Evaluates an expression when the _DEBUG flag has been defined and
           if the result is false, prints a diagnostic message and aborts
-          the program. In the release version evaluates the expression but 
+          the program. In the release version evaluates the expression but
           does not print or interrupt the program.
          */
         #define VERIFY(exp)  ASSERT(exp)
@@ -425,7 +451,7 @@
 
     /*Evaluates an expression when the _DEBUG flag has been defined and
       if the result is false, prints a diagnostic message and aborts
-      the program. In the release version evaluates the expression but 
+      the program. In the release version evaluates the expression but
       does not print or interrupt the program.
      */
     #define VERIFY(exp)  ASSERT(exp)
