@@ -505,6 +505,9 @@
 				RelativePath="..\..\KCmdLineParser.cpp">
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KDbgRpt.cpp">
+			</File>
+			<File
 				RelativePath="..\..\KTestLog.cpp">
 				<FileConfiguration
 					Name="Release_SBCS_MFC|Win32">

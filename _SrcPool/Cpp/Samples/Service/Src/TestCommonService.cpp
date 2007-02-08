@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Service\Src\TestCommonService.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-02-02 13:18:44$
+/*$Workfile: TestCommonService.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-02-06 18:08:31$
   $Author: Darko Kolakovic$
 
   Test system service (deamon) routines.
@@ -12,6 +12,9 @@
 #include "stdafx.h"
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
+#ifdef _WIN32
+  extern bool TestWinService();
+#endif
 
 int TestCommonService(int argc, TCHAR* argv[]);
 int TestCommonService();
@@ -25,7 +28,7 @@ a non-zero error code is returned.
 */
 int TestCommonService()
 {
-  return TestCommonService(0, NULL);
+return TestCommonService(0, NULL);
 }
 
 //-----------------------------------------------------------------------------
@@ -49,8 +52,12 @@ TsWriteToViewLn(_T(""));
 
 PFUNC_TEST funcTest[] =
   {
-  NULL
-//  TestTraceC,
+  #ifdef _WIN32
+    TestWinService
+  #else
+    NULL  //Break testing
+  #endif
+  
   };
 if (funcTest != NULL)
   {
@@ -71,7 +78,7 @@ if (funcTest != NULL)
     }
   }
 else
-  TsWriteToViewLn(_T("No test are defined."));
+  TsWriteToViewLn(_T("No tests are defined."));
 return EXIT_SUCCESS;
 }
 
