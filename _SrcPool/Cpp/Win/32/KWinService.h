@@ -1,5 +1,5 @@
 /*$Workfile: KWinService.h$: implementation file
-  $Revision: 2$ $Date: 2007-02-07 18:19:30$
+  $Revision: 3$ $Date: 2007-02-09 18:47:32$
   $Author: Darko Kolakovic$
 
   OS Service deamon
@@ -26,21 +26,40 @@
   execution immediately after operating system start.
   Configuration and control of services on Windows NT or later systems is
   handled by Service Control Manager (SCM).
+  The Service Control Manager, started at system boot, provides a database
+  of installed services and driver services and methods for service configuration
+  or handling. Becouse it is remote procedure call (RPC) server, it could be
+  also accessed from remote machines.
+  A service created with the type SERVICE_WIN32_OWN_PROCESS only contains the
+  code for one service. A service created with the type
+  SERVICE_WIN32_SHARE_PROCESS contains code for more than one service,
+  enabling them to share code. A service can be configured to execute in
+  the context of a user account from either the built-in (local), primary or
+  trusted domain. It can also be configured to run in a special service user
+  account.
 
-  {html:
-    <img src="../Images/diagWinService.gif" title="Service Components"
-      alt="WinNT service components" border="0"> <br />
-  }
+  Example:
+      #include "KWinService.h"  //CWinService class
+      int _tmain(int argc, TCHAR* argv[])
+        {
+        CWinService myService;
+        //Allow SCM to create the service entry and initialize 
+        //service specific data
+        if (myService.Create(_T("MyService")))
+          {
+          ...
+          }
+        ...
+        }
  */
 class CWinService
 {
 // Construction
 public:
-  CWinService(LPCTSTR szServiceName, LPCTSTR szDisplayName = NULL);
+  CWinService();
   virtual ~CWinService();
 
 private:
-  CWinService();
   CWinService(const CWinService& cService);
   CWinService& operator= (const CWinService& cService);
 
@@ -48,10 +67,16 @@ private:
 private:
   bool m_bHasScm; //OS has support for Service Control Manager (SCM) used
                   //to load and control a service.
-  LPSERVICE_MAIN_FUNCTION m_pfService;
+
+  LPSERVICE_MAIN_FUNCTION m_pfServiceMain; //pointer to the callback function
+                  //to be used by SCM to start and initialize the service and
+                  //update service status.
+  SERVICE_STATUS          m_sStatus; //current state of the service
+  SERVICE_STATUS_HANDLE   MyServiceStatusHandle; 
+
 // Operations
 public:
-  virtual bool Create();
+  virtual bool Create(LPTSTR szServiceName, LPCTSTR szDisplayName = NULL);
 //  virtual void Run();
 //  virtual void Stop();
 
@@ -74,16 +99,12 @@ public:
 
 ///////////////////////////////////////////////////////////////////////////////
 // Inlines
-//-----------------------------------------------------------------------------
-/*Default system service is not allowed.
- */
-inline CWinService::CWinService()
-{}
 
 //-----------------------------------------------------------------------------
 /*Creating a copy of other system service object is not allowed.
  */
-inline CWinService::CWinService(const CWinService& cService)
+inline CWinService::CWinService(const CWinService& cService) :
+  m_pfServiceMain(NULL)
 {}
 
 //-----------------------------------------------------------------------------

@@ -1593,6 +1593,16 @@
 				RelativePath="..\Common\Res\Win\SrcPool.ico">
 			</File>
 		</Filter>
+		<Filter
+			Name="Logs"
+			Filter="log;">
+			<File
+				RelativePath=".\LibraryTest.log">
+			</File>
+			<File
+				RelativePath=".\LibraryTestUni.log">
+			</File>
+		</Filter>
 		<File
 			RelativePath="Assert.txt">
 		</File>

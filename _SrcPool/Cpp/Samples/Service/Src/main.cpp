@@ -37,7 +37,7 @@ extern int TestCommonService(int argc, TCHAR* argv[]);
 int _tmain(int argc,      //[in] specifies how many arguments are passed to the
                           //program from the command line. The value of argc is
                           //at least one: the program name.
-           TCHAR* argv[] //[in] the program arguments as an array of pointers
+           TCHAR* argv[]  //[in] the program arguments as an array of pointers
                           //to null-terminated strings. The first string 
                           //(argv[0]) is the program name. The end of the array
                           //(argv[argc]) is indicated by a NULL pointer.

@@ -1,5 +1,5 @@
 /*$Workfile: TestAssertC.c$: implementation file
-  $Revision: 6$ $Date: 2007-02-08 15:50:09$
+  $Revision: 7$ $Date: 2007-02-09 18:48:42$
   $Author: Darko Kolakovic$
 
   Test validation of the assertion in C functions
@@ -29,10 +29,21 @@ TsWriteToViewLn(_T("TestAssertC()"));
 
 #ifdef _UNICODE
   #ifdef _DEBUG
+    TsWriteToViewLn(_T("Write a message to the debugger"));
     //logEntry.m_szFileName = _T("KDbgRpt.cpp");
-    //logEntry.m_szObjectName = _T("tCrtDbgReport()");
+    //logEntry.m_szObjectName = _T("tCrtDbgReport(_CRT_WARN)");
     bResult = (tCrtDbgReport( _CRT_WARN, __TFILE__, __LINE__, _T("TestAssertC()"),
               _T("Test Unicode message with %s\n"), _T("tCrtDbgReport()")) > 0);
+    //logEntry.m_bResult = bResult;
+    //LogTest(&logEntry);
+  #endif
+#else //SBCS
+  #ifdef _DEBUG
+    TsWriteToViewLn(_T("Write a message to the debugger"));
+    //logEntry.m_szFileName = _T("crt/src/dbgrpt.c"); //Microsoft CRT
+    //logEntry.m_szObjectName = _T("_CrtDbgReport(_CRT_WARN)");
+    bResult = (_CrtDbgReport( _CRT_WARN, __TFILE__, __LINE__, _T("TestAssertC()"),
+              _T("Test SBCS message with %s\n"), _T("_CrtDbgReport()")) > 0);
     //logEntry.m_bResult = bResult;
     //LogTest(&logEntry);
   #endif

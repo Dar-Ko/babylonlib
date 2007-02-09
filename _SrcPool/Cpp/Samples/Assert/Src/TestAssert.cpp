@@ -1,5 +1,5 @@
 /*$Workfile: TestAssert.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-02-08 15:50:08$
+  $Revision: 6$ $Date: 2007-02-09 18:48:41$
   $Author: Darko Kolakovic$
 
   Test validation of the assertion
@@ -34,10 +34,21 @@ try
   {
   #ifdef _UNICODE
     #ifdef _DEBUG
+      TsWriteToViewLn(_T("Write a message to the debugger"));
       logEntry.m_szFileName = _T("KDbgRpt.cpp");
-      logEntry.m_szObjectName = _T("tCrtDbgReport()");
+      logEntry.m_szObjectName = _T("tCrtDbgReport(_CRT_WARN)");
       bResult = (tCrtDbgReport( _CRT_WARN, __TFILE__, __LINE__, _T("TestAssert()"),
-                  _T("Test Unicode message with %s\n"), _T("tCrtDbgReport()")) > 0);
+                  _T("Test Unicode message with %s\n"), _T("tCrtDbgReport()")) >= 0);
+      logEntry.m_bResult = bResult;
+      LogTest(&logEntry);
+    #endif
+  #else //SBCS
+    #ifdef _DEBUG
+      TsWriteToViewLn(_T("Write a message to the debugger"));
+      logEntry.m_szFileName = _T("crt/src/dbgrpt.c"); //Microsoft CRT
+      logEntry.m_szObjectName = _T("_CrtDbgReport(_CRT_WARN)");
+      bResult = (_CrtDbgReport( _CRT_WARN, __TFILE__, __LINE__, _T("TestAssert()"),
+        _T("Test SBCS message with %s\n"), _T("_CrtDbgReport()")) >= 0);
       logEntry.m_bResult = bResult;
       LogTest(&logEntry);
     #endif
@@ -46,9 +57,20 @@ try
   if(bResult)
     {
     //Test true assertion
+    TsWriteToViewLn(_T("ASSERT(true)"));
     logEntry.m_szFileName = _T("KTrace.h");
     logEntry.m_szObjectName = _T("ASSERT(true)");
     ASSERT(bResult);
+    LogTest(&logEntry);
+    }
+  if(bResult)
+    {
+    //Test false assertion; a message box should appear
+    TsWriteToViewLn(_T("ASSERT(false)"));
+    TsWriteToViewLn(_T("Press Ignore to proceed ..."));
+    logEntry.m_szFileName = _T("KTrace.h");
+    logEntry.m_szObjectName = _T("ASSERT(false)");
+    ASSERT(!bResult);
     LogTest(&logEntry);
     }
   }
