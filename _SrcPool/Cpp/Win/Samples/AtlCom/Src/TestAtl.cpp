@@ -1,0 +1,8 @@
+// TestAtl.cpp : Implementation of CTestAtl
+#include "stdafx.h"
+#include "AtlCom.h"
+#include "TestAtl.h"
+
+/////////////////////////////////////////////////////////////////////////////
+// CTestAtl
+
