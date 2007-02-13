@@ -174,17 +174,6 @@ SOURCE=.\Src\TestButtonApp.cpp
 # Begin Source File
 
 SOURCE=.\Src\TestButtonDlg.cpp
-
-!IF  "$(CFG)" == "TestButton - Win32 Debug_Unicode_MFC"
-
-!ELSEIF  "$(CFG)" == "TestButton - Win32 Debug_SBCS_MFC"
-
-!ELSEIF  "$(CFG)" == "TestButton - Win32 Release_Unicode_MFC"
-
-!ELSEIF  "$(CFG)" == "TestButton - Win32 Release_SBCS_MFC"
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 

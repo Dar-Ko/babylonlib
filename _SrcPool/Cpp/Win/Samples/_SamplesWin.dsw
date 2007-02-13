@@ -15,6 +15,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "TestAtlCom"=.\TestAtlCom\TestAtlCom.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "TestButton"=.\TestButton\TestButton.dsp - Package Owner=<4>
 
 Package=<5>
@@ -23,6 +35,21 @@ Package=<5>
 
 Package=<4>
 {{{
+}}}
+
+###############################################################################
+
+Project: "TestComContainer"=.\TestComContainer\TestComContainer.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name TestAtlCom
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -40,6 +67,18 @@ Package=<4>
 ###############################################################################
 
 Project: "_LibraryTest"=.\_LibraryTest\_LibraryTest.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "sdf"=.\sdf\sdf.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
