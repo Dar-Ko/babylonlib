@@ -1,0 +1,14 @@
+$Workfile: S:\_SrcPool\Cpp\Win\Samples\_Samples.txt$: developer's note
+$Revision: 1$ $Date: 2007-02-13 10:36:17$
+$Author: Darko Kolakovic$
+
+Samples and test suites for the various functions, classes and algorithms using Babylon Library and Microsoft Windows API.
+
+Copyright: CommonSoft Inc.
+1998-02-01 Darko Kolakovic
+
+
+\	_Samples.dsw	Microsoft Developer Studio Workspace (DSW) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	_Samples.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	_Samples.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32

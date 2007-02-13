@@ -1,0 +1,39 @@
+// TestComAtl.idl : IDL source for TestComAtl.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (TestComAtl.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+  [
+    object,
+    uuid(FDD1C689-95D2-4534-A92D-DB2A0FA6AEDC),
+
+    helpstring("ITestAtlObj Interface"),
+    pointer_default(unique)
+  ]
+  interface ITestAtlObj : IUnknown
+  {
+    [helpstring("method TestMethod")] HRESULT TestMethod([in] long lInput, [out] long* pResult);
+  };
+
+[
+  uuid(F7E971BE-9991-4AEB-A70A-8ACCDE08646B),
+  version(1.0),
+  helpstring("TestComAtl 1.0 Type Library")
+]
+library TestComAtlLib
+{
+  importlib("stdole32.tlb");
+  importlib("stdole2.tlb");
+
+  [
+    uuid(B0B8333D-EF8D-4059-9B60-01BDA417E7FE),
+    helpstring("TestAtlObj Class")
+  ]
+  coclass TestAtlObj
+  {
+    [default] interface ITestAtlObj;
+  };
+};

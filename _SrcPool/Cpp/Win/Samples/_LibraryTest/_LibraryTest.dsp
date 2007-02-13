@@ -162,5 +162,9 @@ SOURCE=..\..\32\stdafx.h
 SOURCE=.\LibraryTest.log
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=..\_Samples.txt
+# End Source File
 # End Target
 # End Project

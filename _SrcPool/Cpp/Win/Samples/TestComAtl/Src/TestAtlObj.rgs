@@ -1,0 +1,25 @@
+HKCR
+{
+  TestComAtl.TestAtlObj.1 = s 'TestAtlObj Class'
+  {
+    CLSID = s '{B0B8333D-EF8D-4059-9B60-01BDA417E7FE}'
+  }
+  TestComAtl.TestAtlObj = s 'TestAtlObj Class'
+  {
+    CLSID = s '{B0B8333D-EF8D-4059-9B60-01BDA417E7FE}'
+    CurVer = s 'TestComAtl.TestAtlObj.1'
+  }
+  NoRemove CLSID
+  {
+    ForceRemove {B0B8333D-EF8D-4059-9B60-01BDA417E7FE} = s 'TestAtlObj Class'
+    {
+      ProgID = s 'TestComAtl.TestAtlObj.1'
+      VersionIndependentProgID = s 'TestComAtl.TestAtlObj'
+      InprocServer32 = s '%MODULE%'
+      {
+        val ThreadingModel = s 'Apartment'
+      }
+      'TypeLib' = s '{F7E971BE-9991-4AEB-A70A-8ACCDE08646B}'
+    }
+  }
+}
