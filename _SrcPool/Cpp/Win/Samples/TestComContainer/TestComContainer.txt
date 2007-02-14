@@ -1,0 +1,17 @@
+$Workfile: S:\_SrcPool\Cpp\Win\Samples\TestComContainer\TestComContainer.txt$: developer's note
+$Revision: 1$ $Date: 2007-02-13 14:31:09$
+$Author: Darko Kolakovic$
+
+Samples and test suites for the Component Object Model (COM), Active Template Library (ATL) and Microsoft Windows API.
+
+Copyright: CommonSoft Inc.
+1998-02-01 Darko Kolakovic
+
+Visual C/C++ 6.0 Notes
+----------------------
+Include directory <Test COM>\idl\ with MIDL generated files in order to create the container.
+Also <Test COM>.dll have to be registered:
+  regsvr32 <Test COM>.dll
+
+\	TestComContainer.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	TestComContainer.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32

@@ -7,8 +7,8 @@
 <meta name="ProgId" content="FrontPage.Editor.Document">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
-<meta name="Workfile" content="$Workfile: S:\_SrcPool\Cpp\Win\Samples\TestComAtlNet\TestComAtlVc7.htm$: documentation" />
-<meta name="Revision" content="$Revision: 1$" />
+<meta name="Workfile" content="$Workfile: TestComAtlVc7.htm$: documentation" />
+<meta name="Revision" content="$Revision: 3$" />
 <meta name="robots" content="index" />
 <meta name="keywords" content="compiler, ATL, COM" />
 <!-- Dublin Core Metadata Package -->
@@ -20,16 +20,16 @@
 <meta name="DC.subject" content="ATL COM" />
 <meta name="DC.description.abstract" content="COM project setup">
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
-<meta name="DC.date" content="$Date: 2007-02-13 19:36:32$" />
+<meta name="DC.date" content="$Date: 2007-02-14 16:58:26$" />
 <meta name="DC.type" content="Text.Article" />
 <meta name="DC.format" content="application/html" />
 <meta name="DC.language" content="en_ca" />
-<meta name="DC.identifier.version" content="$Revision: 1$" />
+<meta name="DC.identifier.version" content="$Revision: 3$" />
 <meta name="DC.relation.HasVersion" content />
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
 <link rel="stylesheet" type="text/css" href="../../../../../Doc/Res/KDocument.css">
-<link rel="icon" href="../../../../../Doc/KBook.ico" type="image/ico" />
+<link rel="icon" href="../../../../../Doc/Res/KBook.ico" type="image/ico" />
 <title>Creating an ATL COM project with Visual Studio .Net 2003 v7.1</title>
 <base target="_self" />
 <style type="text/css">
@@ -51,6 +51,11 @@
 <body>
 
 <h1>Creating an ATL COM project with Visual Studio .Net 2003 v7.1</h1>
+<p>See also: <a href="../TestComAtl/TestComAtlVc6.htm">Creating an </a>
+<a href="#Footnote1"><sup class="Footnote">1</sup></a>
+<a href="../TestComAtl/TestComAtlVc6.htm">COM</a><a href="#Footnote2">
+<sup class="Footnote">2</sup></a><a href="../TestComAtl/TestComAtlVc6.htm"> 
+project with Visual C++ 6.0</a></p>
 <ol>
   <li>Select new Visual C++ ATL project and choose &quot;ATL Project&quot; template:<br />
   <img border="0" src="Res/ComAtlVc71.gif" width="530" height="144"></li>
@@ -97,23 +102,25 @@
   <img border="0" src="Res/ComAtlVc76.gif" width="615" height="437"></li>
   <li>Also set desired options in the same wizard dialog:<br>
   <img border="0" src="Res/ComAtlVc79.gif" width="506" height="339"><br>
-  If this COM object is not going to be aggregating inside another, select <i>No</i> 
+  If this COM object is not going to be aggregated inside another, select <i>No</i> 
   for Aggregation. For the simplest interface option is <i>Custom</i>. With <i>
   Connection points</i> support the COM server will fire events back to the 
   client.<br />
   After finishing with options, the result will be presented in the Solution 
   Explorer:<br />
-  <img border="0" src="Res/ComAtlVc78.gif" width="196" height="235"></li>
-  <li>Add new method to the created object<br />
-  <img border="0" src="Res/ComAtlVc6A.gif" width="366" height="264"><br />
-  and change default implementation of the newly added method:<br />
-  <pre><code>
-	STDMETHODIMP CTestAtlObj::TestMethod(long lInput, long* pResult)
-	{
-	*pResult = 2 * lInput;
-	return S_OK;
-	}</code></pre>
-  </li>
+  <img border="0" src="Res/ComAtlVc78.gif" width="228" height="380"></li>
+  <li>Add new method to the newly created object<br />
+  <img border="0" src="Res/ComAtlVc7A.gif" width="343" height="116"><br>
+  and define parameters and result type<br>
+  <img border="0" src="Res/ComAtlVc7B.gif" width="615" height="437"></li>
+  <li>Change default implementation of the newly added method:<br>
+  <img border="0" src="Res/ComAtlVc7C.gif" width="274" height="140"><br />
+  <code><br>
+  STDMETHODIMP CTestAtlObj::TestMethod(long lInput, long* pResult)<br>
+  {<br>
+  *pResult = 2 + lInput;<br>
+  return S_OK;<br>
+  }</code></li>
   <li>Build the project. <span id="intelliTXT">The compiler will register your 
   new COM DLL so it could be used by container application.</span></li>
   <li>To test the the COM object, create new <span id="intelliTXT0">&quot;Win32 
@@ -202,6 +209,12 @@ C:\&gt;</pre>
   </li>
   </ol>
   <hr>
+  <p><a name="Footnote1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a>Active 
+  Template Library is Microsoft C++ library usually used to create ActiveX and 
+  other software components based on Component Object Model.<br />
+  <a name="Footnote2" class="Footnote" id="ID_FOOTNOTE2"><sup>2</sup></a>Component 
+  Object Model defines how an object exposes its functionality, allowing to be 
+  accessed from other processes and across networks.</p>
 
   </body>
 

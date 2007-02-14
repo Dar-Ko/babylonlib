@@ -112,7 +112,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode\TestComContainer\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\TestAtlCom\\" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\TestComAtl\idl\\" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_UNICODE" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\TestComAtl\idl\\" /I "..\bin\Debug_Unicode\Win32\\" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_UNICODE" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x1009 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -136,6 +136,19 @@ LINK32=link.exe
 # Begin Source File
 
 SOURCE=.\Src\main.cpp
+
+!IF  "$(CFG)" == "TestComContainer - Win32 Release_Unicode"
+
+!ELSEIF  "$(CFG)" == "TestComContainer - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "TestComContainer - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "TestComContainer - Win32 Debug_Unicode"
+
+# ADD CPP /YX"stdafx.h"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -162,5 +175,9 @@ SOURCE=.\Src\stdafx.h
 SOURCE=..\..\..\Samples\Common\Res\Win\SrcPool.ico
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\TestComContainer.txt
+# End Source File
 # End Target
 # End Project

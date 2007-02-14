@@ -10,9 +10,9 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-
-// TODO: reference additional headers your program requires here
-
+#ifndef _HRESULT_DEFINED
+  //#include <windows.h>
+#endif
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 

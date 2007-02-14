@@ -1,0 +1,51 @@
+/*$Workfile: TestComAtlNet.idl$: IDL source file
+  $Revision: 4$ $Date: 2007-02-14 16:57:43$
+  $Author: Darko Kolakovic$
+
+  Implementation file
+  Copyright: CommonSoft Inc.
+  2006-08-25 Darko Kolakovic
+ */
+
+// This file will be processed by the MIDL tool to
+// produce the type library (*.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(5D3C18C7-EC16-4DA3-AA45-9EDE4F48B9C5),
+	helpstring("ITestAtl7Obj Interface"),
+	pointer_default(unique)
+]
+interface ITestAtl7Obj : IUnknown{
+  [helpstring("method TestMethod")] HRESULT TestMethod([in] LONG lInput, [out] LONG* pResult);
+};
+[
+  uuid(3DF3DAAE-34D2-4703-B1C7-4533DC22C9D1),
+  version(1.0),
+  helpstring("TestComAtlNet $Revision: 4$ Type Library")
+]
+library TestComAtlNetLib
+{
+  importlib("stdole2.tlb");
+	[
+		uuid(88004DE2-802C-4858-B185-97FE288526ED),
+		helpstring("_ITestAtl7ObjEvents Interface")
+	]
+	dispinterface _ITestAtl7ObjEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543),
+		helpstring("TestAtl7Obj Class")
+	]
+	coclass TestAtl7Obj
+	{
+		[default] interface ITestAtl7Obj;
+		[default, source] dispinterface _ITestAtl7ObjEvents;
+	};
+};

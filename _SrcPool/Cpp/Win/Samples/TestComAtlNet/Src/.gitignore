@@ -6,9 +6,5 @@
 *.bak
 *.dsw
 *.sln
-*.vspscc
 obj
 bin
-idl
-dlldata.c
-*_p.c
