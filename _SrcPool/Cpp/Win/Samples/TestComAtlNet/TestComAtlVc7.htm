@@ -1,0 +1,208 @@
+<html lang="en-ca">
+
+<!--/* Group=Standards*/ -->
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-ca" />
+<meta name="Workfile" content="$Workfile: S:\_SrcPool\Cpp\Win\Samples\TestComAtlNet\TestComAtlVc7.htm$: documentation" />
+<meta name="Revision" content="$Revision: 1$" />
+<meta name="robots" content="index" />
+<meta name="keywords" content="compiler, ATL, COM" />
+<!-- Dublin Core Metadata Package -->
+<meta name="DC.title" content="Creating an ATL COM project with Visual Studio .Net 2003 v7.1" />
+<meta name="DC.creator" content="Darko Kolaković" />
+<meta name="DC.creator.vCard.EMAIL.internet" content="DarkoKolakovic @ yahoo" />
+<meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+<meta name="DC.Rights" content="© CommonSoft Inc" />
+<meta name="DC.subject" content="ATL COM" />
+<meta name="DC.description.abstract" content="COM project setup">
+<meta name="DC.publisher" content="CommonSoft Incorporated" />
+<meta name="DC.date" content="$Date: 2007-02-13 19:36:32$" />
+<meta name="DC.type" content="Text.Article" />
+<meta name="DC.format" content="application/html" />
+<meta name="DC.language" content="en_ca" />
+<meta name="DC.identifier.version" content="$Revision: 1$" />
+<meta name="DC.relation.HasVersion" content />
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+<link rel="stylesheet" type="text/css" href="../../../../../Doc/Res/KDocument.css">
+<link rel="icon" href="../../../../../Doc/KBook.ico" type="image/ico" />
+<title>Creating an ATL COM project with Visual Studio .Net 2003 v7.1</title>
+<base target="_self" />
+<style type="text/css">
+    dt
+      {
+      font-weight: bold;
+      }
+    table
+      {
+      border-collapse: collapse;
+      }
+    body
+      {
+      background-image: url('../../../../../Doc/Res/KBckgGray.jpg');
+      }
+  </style>
+</head>
+
+<body>
+
+<h1>Creating an ATL COM project with Visual Studio .Net 2003 v7.1</h1>
+<ol>
+  <li>Select new Visual C++ ATL project and choose &quot;ATL Project&quot; template:<br />
+  <img border="0" src="Res/ComAtlVc71.gif" width="530" height="144"></li>
+  <li>Type desired project name</li>
+  <li><span id="intelliTXT">Specify applications settings. If Attributed is 
+  checked, the compiler will parse and validate attributes found in a source 
+  file. A Service has benefits of running non-interactively immediately after 
+  system starts.<br />
+  <img border="0" src="Res/ComAtlVc72.gif" width="223" height="232"></span></li>
+  <li>After finishing with the wizard, the result will be displayed in the 
+  Solution Explorer:<br />
+  <img border="0" src="Res/ComAtlVc73.gif" width="257" height="447"></li>
+  <li>Provide the appropriate security settings for your service by replacing 
+  default code in <code>YourAtlModule::InitializeSecurity()</code> with the 
+  following:<span id="intelliTXT"><pre><code>HRESULT InitializeSecurity() <span class="SKeyword">throw</span>()
+{
+   <span class="Rem">//Allow service access to everyone</span>
+ HRESULT hResult = 
+      CoInitializeSecurity(NULL, <span class="Rem">//points to the access permissions that</span> 
+                                 <span class="Rem">//a server will use to receive calls</span>
+                             -1, <span class="Rem">//count of entries in asAuthSvc</span>
+                           NULL, <span class="Rem">//array of authentication services</span>
+                           NULL, <span class="Rem">//reserved for future use</span>
+                           RPC_C_AUTHN_LEVEL_NONE, <span class="Rem">//default authentication level</span>
+                           RPC_C_IMP_LEVEL_IMPERSONATE,<span class="Rem"> //default impersonation</span>
+                                                        <span class="Rem">//level for proxies</span>
+                           NULL, <span class="Rem">//information for each authentication service</span>
+                                 <span class="Rem">//that a client can use to call a server</span>
+                           EOAC_NONE, <span class="Rem">//capabilities of the client or server</span>
+                           NULL <span class="Rem">//reserved for future use</span>
+                          );
+
+ <span class="Skeyword">return</span> hResult;
+}</code></pre>
+  </span>
+  <p><br />
+  </li>
+  <li>To add new ATL object in Class View, after right mouse click, select &quot;Add 
+  Class&quot;<br />
+  <img border="0" src="Res/ComAtlVc74.gif" width="288" height="161"></li>
+  <li>Choose ATL Simple Object from Visual C++ ATL categories:<br />
+  <img border="0" src="Res/ComAtlVc75.gif" width="240" height="208"></li>
+  <li>Insert the name for the object<br />
+  <img border="0" src="Res/ComAtlVc76.gif" width="615" height="437"></li>
+  <li>Also set desired options in the same wizard dialog:<br>
+  <img border="0" src="Res/ComAtlVc79.gif" width="506" height="339"><br>
+  If this COM object is not going to be aggregating inside another, select <i>No</i> 
+  for Aggregation. For the simplest interface option is <i>Custom</i>. With <i>
+  Connection points</i> support the COM server will fire events back to the 
+  client.<br />
+  After finishing with options, the result will be presented in the Solution 
+  Explorer:<br />
+  <img border="0" src="Res/ComAtlVc78.gif" width="196" height="235"></li>
+  <li>Add new method to the created object<br />
+  <img border="0" src="Res/ComAtlVc6A.gif" width="366" height="264"><br />
+  and change default implementation of the newly added method:<br />
+  <pre><code>
+	STDMETHODIMP CTestAtlObj::TestMethod(long lInput, long* pResult)
+	{
+	*pResult = 2 * lInput;
+	return S_OK;
+	}</code></pre>
+  </li>
+  <li>Build the project. <span id="intelliTXT">The compiler will register your 
+  new COM DLL so it could be used by container application.</span></li>
+  <li>To test the the COM object, create new <span id="intelliTXT0">&quot;Win32 
+  Console Application&quot; </span>project for example.<br />
+  <img border="0" src="Res/ComAtlVc6B.gif" width="388" height="92"></li>
+  <li>Insert following code in the project file:<br />
+  <pre><code>//Files generated by MIDL compiler
+#include &quot;TestAtlCom.h&quot;
+#include &quot;TestAtlCom_i.c&quot; //CLSID_TestAtlObj
+//or to load the typelib from the dll
+//#import &quot;TestAtlCom.dll&quot; no_namespace
+/////////////////////////////////////////////////////////////////////////////
+#ifdef _MSC_VER     /*Microsoft Visual Studio C/C++ compiler                 */
+  #ifndef _CONSOLE
+    #error &quot;define _CONSOLE macro in the project&quot;
+  #endif
+#endif
+
+//-----------------------------------------------------------------------------
+/*Test ATL COM container.
+  Defines the entry point for the console application.
+
+  Returns: EXIT_SUCCESS, which represents a value of 0, if successful. Otherwise
+  a non-zero error code is returned.
+
+  Note: uses Active Template Library (ATL);
+        Microsoft Windows specific (Win32).
+ */
+int _tmain(int argc,      //[in] specifies how many arguments are passed to the
+                          //program from the command line. The value of argc is
+                          //at least one: the program name.
+           TCHAR* argv[], //[in] the program arguments as an array of pointers
+                          //to null-terminated strings. The first string 
+                          //(argv[0]) is the program name. The end of the array
+                          //(argv[argc]) is indicated by a NULL pointer.
+           TCHAR* envp[]  //[in] the user&#39;s environment variables as a pointer 
+                          //to an array of null-terminated strings. The end of
+                          //the array is indicated by a NULL pointer. 
+                          //Note: Microsoft Windows specific (Win).
+           )
+{
+int nRetCode = EXIT_SUCCESS;
+
+
+
+std::cout &lt;&lt; &quot;Creating COM object...&quot; &lt;&lt; std::endl;
+HRESULT hResult = CoInitialize(NULL); //Initialize COM
+if(SUCCEEDED(hResult))
+  {
+  ITestAtlObj* pcomTest = NULL;
+  hResult = CoCreateInstance( CLSID_TestAtlObj, 
+                              NULL, 
+                              CLSCTX_INPROC_SERVER,
+                              IID_ITestAtlObj, 
+                              (void**)&amp; pcomTest);
+
+  if(SUCCEEDED(hResult))
+    {
+    long lResult;
+    pcomTest-&gt;TestMethod(7, &amp;lResult);
+    std::cout &lt;&lt; &quot;2 * 7 = &quot; &lt;&lt; lResult &lt;&lt; std::endl;
+    pcomTest-&gt;Release(); 
+    }
+  else
+    {
+    std::cout &lt;&lt; &quot;CoCreateInstance() failed!&quot; &lt;&lt; std::endl;
+    }
+  }
+
+CoUninitialize(); //Uninitialize COM
+
+return nRetCode;
+}</code></pre>
+  </li>
+  <li>Compile and run the test application. Expected output is:<br />
+  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="31%">
+    <tr>
+      <td width="100%" bgcolor="#000000"><font color="#FFFFFF">
+      <pre>C:\&gt;TestComContainer.exe
+Creating COM object...
+2 * 7 = 14
+C:\&gt;</pre>
+      </font></td>
+    </tr>
+  </table>
+  </li>
+  </ol>
+  <hr>
+
+  </body>
+
+  </html>
