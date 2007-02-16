@@ -57,8 +57,16 @@
 				ProxyFileName="TestComAtlNet_p.c"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="&quot;$(TargetPath)&quot; /RegServer"/>
+				Description="Performing registration on $(TargetPath)"
+				CommandLine="@echo off
+&quot;$(TargetPath)&quot; /RegServer
+if errorlevel 1 goto ERR_LVL1
+goto S_OK
+:ERR_LVL1
+echo Post-Build(4) : warning : $(TargetName) is not registered!
+goto VCReportError
+:S_OK
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -124,8 +132,16 @@
 				ProxyFileName="TestComAtlNet_p.c"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="&quot;$(TargetPath)&quot; /RegServer"/>
+				Description="Performing registration on $(TargetPath)"
+				CommandLine="@echo off
+&quot;$(TargetPath)&quot; /RegServer
+if errorlevel 1 goto ERR_LVL1
+goto S_OK
+:ERR_LVL1
+echo Post-Build(4) : warning : $(TargetName) is not registered!
+goto VCReportError
+:S_OK
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -192,8 +208,16 @@
 				ProxyFileName="TestComAtlNet_p.c"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="&quot;$(TargetPath)&quot; /RegServer"/>
+				Description="Performing registration on $(TargetPath)"
+				CommandLine="@echo off
+&quot;$(TargetPath)&quot; /RegServer
+if errorlevel 1 goto ERR_LVL1
+goto S_OK
+:ERR_LVL1
+echo Post-Build(4) : warning : $(TargetName) is not registered!
+goto VCReportError
+:S_OK
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -259,8 +283,16 @@
 				ProxyFileName="TestComAtlNet_p.c"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
-				CommandLine="&quot;$(TargetPath)&quot; /RegServer"/>
+				Description="Performing registration on $(TargetPath)"
+				CommandLine="@echo off
+&quot;$(TargetPath)&quot; /RegServer
+if errorlevel 1 goto ERR_LVL1
+goto S_OK
+:ERR_LVL1
+echo Post-Build(4) : warning : $(TargetName) is not registered!
+goto VCReportError
+:S_OK
+"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -317,9 +349,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\testatl7obj.cpp">
-			</File>
-			<File
 				RelativePath=".\Src\TestAtl7Obj.cpp">
 			</File>
 			<File
@@ -369,7 +398,7 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\_ITestAtl7ObjEvents_CP.h">
+				RelativePath=".\Src\_ITestAtl7ObjEvents_CP.h">
 			</File>
 			<File
 				RelativePath=".\Src\Resource.h">

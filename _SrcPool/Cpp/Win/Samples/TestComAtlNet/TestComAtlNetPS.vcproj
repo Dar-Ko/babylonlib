@@ -4,6 +4,7 @@
 	Version="7.10"
 	Name="TestComAtlNetPS"
 	ProjectGUID="{2EAB0B99-F92B-403F-A312-303B7DD34337}"
+	RootNamespace="TestComAtlNetPS"
 	Keyword="AtlPSProj">
 	<Platforms>
 		<Platform
@@ -24,17 +25,18 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="kernel32.lib rpcndr.lib rpcns4.lib rpcrt4.lib oleaut32.lib uuid.lib"
-				ModuleDefinitionFile="TestComAtlNetPS.def"/>
+				ModuleDefinitionFile=".\Src\TestComAtlNetPS.def"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration of $(TargetPath)"
 				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"/>
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Checking for required files"
-				CommandLine="if exist dlldata.c goto :END
+				CommandLine="if exist .\idl\dlldata.c goto :END
+warning: check output path for the dlldata.c
 echo Error: MIDL will not generate DLLDATA.C unless you have at least 1 interface in the main project.
 Exit 1
 :END
@@ -69,19 +71,20 @@ Exit 1
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="kernel32.lib rpcndr.lib rpcns4.lib rpcrt4.lib oleaut32.lib uuid.lib"
-				ModuleDefinitionFile="TestComAtlNetPS.def"
+				ModuleDefinitionFile=".\Src\TestComAtlNetPS.def"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration of $(TargetPath)"
 				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"/>
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Checking for required files"
-				CommandLine="if exist dlldata.c goto :END
+				CommandLine="if exist .\idl\dlldata.c goto :END
+warning: check output path for the dlldata.c
 echo Error: MIDL will not generate DLLDATA.C unless you have at least 1 interface in the main project.
 Exit 1
 :END
@@ -116,17 +119,19 @@ Exit 1
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="kernel32.lib rpcndr.lib rpcns4.lib rpcrt4.lib oleaut32.lib uuid.lib"
-				ModuleDefinitionFile="TestComAtlNetPS.def"/>
+				Version="7.1"
+				ModuleDefinitionFile=".\Src\TestComAtlNetPS.def"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration of $(TargetPath)"
 				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"/>
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Checking for required files"
-				CommandLine="if exist dlldata.c goto :END
+				CommandLine="if exist .\idl\dlldata.c goto :END
+warning: check output path for the dlldata.c
 echo Error: MIDL will not generate DLLDATA.C unless you have at least 1 interface in the main project.
 Exit 1
 :END
@@ -162,19 +167,20 @@ Exit 1
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="kernel32.lib rpcndr.lib rpcns4.lib rpcrt4.lib oleaut32.lib uuid.lib"
-				ModuleDefinitionFile="TestComAtlNetPS.def"
+				ModuleDefinitionFile=".\Src\TestComAtlNetPS.def"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Performing registration"
+				Description="Performing registration of $(TargetPath)"
 				CommandLine="regsvr32 /s /c &quot;$(TargetPath)&quot;"/>
 			<Tool
 				Name="VCPreBuildEventTool"
 				Description="Checking for required files"
-				CommandLine="if exist dlldata.c goto :END
+				CommandLine="if exist .\idl\dlldata.c goto :END
+warning: check output path for the dlldata.c
 echo Error: MIDL will not generate DLLDATA.C unless you have at least 1 interface in the main project.
 Exit 1
 :END
@@ -206,17 +212,17 @@ Exit 1
 			Name="Generated Files"
 			SourceControlFiles="FALSE">
 			<File
-				RelativePath=".\dlldata.c">
+				RelativePath=".\idl\dlldata.c">
 			</File>
 			<File
 				RelativePath=".\idl\TestComAtlNet_i.c">
 			</File>
 			<File
-				RelativePath=".\TestComAtlNet_p.c">
+				RelativePath=".\idl\TestComAtlNet_p.c">
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\TestComAtlNetps.def">
+			RelativePath=".\Src\TestComAtlNetps.def">
 		</File>
 	</Files>
 	<Globals>

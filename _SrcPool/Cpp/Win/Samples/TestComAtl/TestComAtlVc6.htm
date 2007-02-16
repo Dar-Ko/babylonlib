@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComAtlVc6.htm$: documentation" />
-<meta name="Revision" content="$Revision: 4$" />
+<meta name="Revision" content="$Revision: 5$" />
 <meta name="robots" content="index" />
 <meta name="keywords" content="compiler, ATL, COM" />
 <!-- Dublin Core Metadata Package -->
@@ -20,11 +20,11 @@
 <meta name="DC.subject" content="ATL COM" />
 <meta name="DC.description.abstract" content="COM project setup">
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
-<meta name="DC.date" content="$Date: 2007-02-14 15:53:41$" />
+<meta name="DC.date" content="$Date: 2007-02-15 20:34:34$" />
 <meta name="DC.type" content="Text.Article" />
 <meta name="DC.format" content="application/html" />
 <meta name="DC.language" content="en_ca" />
-<meta name="DC.identifier.version" content="$Revision: 4$" />
+<meta name="DC.identifier.version" content="$Revision: 5$" />
 <meta name="DC.relation.HasVersion" content />
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
@@ -77,13 +77,14 @@ project with Visual Studio .Net 2003 v7.1</a></p>
   <img border="0" src="Res/ComAtlVc6A.gif" width="366" height="264"><br />
   and change default implementation of the newly added method:<br />
   <code><br>
-  	STDMETHODIMP CTestAtlObj::TestMethod(long lInput, long* pResult)<br>
-  	{<br>
-  	*pResult = 2 * lInput;<br>
-  	return S_OK;<br>
-  	}</code></li>
-  <li>Build the project. <span id="intelliTXT">The compiler will register your 
-  new COM DLL so it could be used by container application.</span></li>
+  STDMETHODIMP CTestAtlObj::TestMethod(long lInput, long* pResult)<br>
+  {<br>
+  *pResult = 2 * lInput;<br>
+  return S_OK;<br>
+  }</code></li>
+  <li>Build the project. The compiler will register your new COM DLL so it could 
+  be used by container application. To unregister the COM server use command
+  <code>regsvr32 /u ComName</code>.</li>
   <li>To test the the COM object, create new <span id="intelliTXT0">&quot;Win32 
   Console Application&quot; </span>project for example.<br />
   <img border="0" src="Res/ComAtlVc6B.gif" width="388" height="92"></li>

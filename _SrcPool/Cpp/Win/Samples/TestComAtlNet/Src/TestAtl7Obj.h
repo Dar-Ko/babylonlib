@@ -19,6 +19,7 @@ class ATL_NO_VTABLE CTestAtl7Obj :
 public:
 	CTestAtl7Obj()
 	{
+	//TODO: Initialize attributes
 	}
 
 DECLARE_REGISTRY_RESOURCEID(IDR_TESTATL7OBJ)
@@ -36,11 +37,22 @@ END_CONNECTION_POINT_MAP()
 
 	DECLARE_PROTECT_FINAL_CONSTRUCT()
 
+  /*Initializes the object instantiated with CoCreateInstance(). The method is 
+    called immediately after the most derived class is fully constructed if 
+    the reference count is zero, allowing you to call virtual functions and 
+    use the reference-counting implementation provided by ATL. 
+    
+    Returns: S_OK on success or one of the standard error HRESULT values.
+   */
 	HRESULT FinalConstruct()
 	{
-		return S_OK;
+	return S_OK;
 	}
 	
+	/*Deletes the object. Called during object destruction when the last client 
+	  has called IUnknown::Release() on the object, this method frees 
+	  the m_contained member.
+	 */
 	void FinalRelease() 
 	{
 	}

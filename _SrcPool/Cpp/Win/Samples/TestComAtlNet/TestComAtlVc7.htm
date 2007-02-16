@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComAtlVc7.htm$: documentation" />
-<meta name="Revision" content="$Revision: 3$" />
+<meta name="Revision" content="$Revision: 4$" />
 <meta name="robots" content="index" />
 <meta name="keywords" content="compiler, ATL, COM" />
 <!-- Dublin Core Metadata Package -->
@@ -20,11 +20,11 @@
 <meta name="DC.subject" content="ATL COM" />
 <meta name="DC.description.abstract" content="COM project setup">
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
-<meta name="DC.date" content="$Date: 2007-02-14 16:58:26$" />
+<meta name="DC.date" content="$Date: 2007-02-15 20:32:38$" />
 <meta name="DC.type" content="Text.Article" />
 <meta name="DC.format" content="application/html" />
 <meta name="DC.language" content="en_ca" />
-<meta name="DC.identifier.version" content="$Revision: 3$" />
+<meta name="DC.identifier.version" content="$Revision: 4$" />
 <meta name="DC.relation.HasVersion" content />
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
@@ -64,7 +64,15 @@ project with Visual C++ 6.0</a></p>
   checked, the compiler will parse and validate attributes found in a source 
   file. A Service has benefits of running non-interactively immediately after 
   system starts.<br />
-  <img border="0" src="Res/ComAtlVc72.gif" width="223" height="232"></span></li>
+  <img border="0" src="Res/ComAtlVc72.gif" width="223" height="232"><br>
+  Be aware that: </span><span id="intelliTXT">
+  <ul>
+    <li>.exe COM server will run only as a <i>local</i> or <i>remote</i> <i>
+    out-of-process</i> server and an additional Proxy/Stub DLL is required</li>
+    <li>.dll COM could be either a <i>local in-process</i> or a <i>local</i> or
+    <i>remote out-of-process</i> server.</li>
+  </ul>
+  </span></li>
   <li>After finishing with the wizard, the result will be displayed in the 
   Solution Explorer:<br />
   <img border="0" src="Res/ComAtlVc73.gif" width="257" height="447"></li>
@@ -121,8 +129,42 @@ project with Visual C++ 6.0</a></p>
   *pResult = 2 + lInput;<br>
   return S_OK;<br>
   }</code></li>
-  <li>Build the project. <span id="intelliTXT">The compiler will register your 
-  new COM DLL so it could be used by container application.</span></li>
+  <li>Build the project. The compiler will register your new COM exe so it could 
+  be used by container application. To unregister the COM dll server use command
+  <code>regsvr32 /u ComName</code>. For COM exe use <code>ComName /UnregServer</code>. 
+  Also, to obtain more insight into build process, replace the command-line of 
+  Post-Build Event
+  <img border="0" src="Res/ComAtlVc7H.gif" width="644" height="440"><br />
+  with following script:
+  <pre><b>@echo off
+&quot;$(TargetPath)&quot; /RegServer
+if errorlevel 1 goto ERR_LVL1
+goto S_OK
+:ERR_LVL1
+echo Post-Build(4) : warning : $(TargetName) is not registered!
+goto VCReportError
+:S_OK</b></pre>
+  <p>and Description with </p>
+  <pre><b>Performing registration on $(TargetPath)</b></pre>
+  </li>
+  <li>If it is required for COM to generate some events, the connection points 
+  have to be defined.
+  <ol>
+    <li>Add new method to the event source interface<br>
+    <img border="0" src="Res/ComAtlVc7D.gif" width="328" height="453"></li>
+    <li>Also, add parameters to the method. Use <span id="intelliTXT">
+    COM-compatible string type for the text handling.</span><br>
+    <img border="0" src="Res/ComAtlVc7F.gif" width="420" height="213"><br>
+    In the Solution Explorer find the <i>.idl</i> file and compile it. The MIDL 
+    complier will generate some files required for the final build.</li>
+    <li>Add the new connection point to the main class, by inserting it from the 
+    interface<br>
+    <img border="0" src="Res/ComAtlVc7G.gif" width="316" height="206"><br>
+    Use the <i>Implement Connection Point Wizard</i> to select the interface for 
+    the new connection point<br>
+    <img border="0" src="Res/ComAtlVc7E.gif" width="406" height="387"></li>
+  </ol>
+  </li>
   <li>To test the the COM object, create new <span id="intelliTXT0">&quot;Win32 
   Console Application&quot; </span>project for example.<br />
   <img border="0" src="Res/ComAtlVc6B.gif" width="388" height="92"></li>
@@ -201,7 +243,7 @@ return nRetCode;
       <td width="100%" bgcolor="#000000"><font color="#FFFFFF">
       <pre>C:\&gt;TestComContainer.exe
 Creating COM object...
-2 * 7 = 14
+2 + 7 = 9
 C:\&gt;</pre>
       </font></td>
     </tr>
