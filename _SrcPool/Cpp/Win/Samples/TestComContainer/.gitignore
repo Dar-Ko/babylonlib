@@ -6,5 +6,6 @@
 *.bak
 *.dsw
 *.sln
+*.suo
 obj
 bin
