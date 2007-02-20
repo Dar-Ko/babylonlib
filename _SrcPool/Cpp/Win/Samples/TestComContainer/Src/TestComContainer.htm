@@ -1,0 +1,144 @@
+<!doctype html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0" />
+<meta name="ProgId" content="FrontPage.Editor.Document" />
+<title>Test Component Object Model (COM) Container</title>
+<!-- Group=Examples -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-ca" />
+<meta name="Workfile" content="$Workfile: S:\_SrcPool\Js\Samples\Utilities\Src\TestWndStd.htm$: documentation" />
+<meta name="Revision" content="$Revision: 1$ $Date: 2006-12-13 12:19:30$" />
+<meta name="Editor" content="$Author: Darko Kolakovic$" />
+<meta name="Copyright" content="© CommonSoft Inc, 1985-2032." />
+<meta name="author" content="Darko Kolaković" />
+<meta name="robots" content="index" />
+<meta name="keywords" content="Win32, test, COM, ActiveX" />
+<meta name="description" content="Test Component Object Model (COM) Container" />
+<link rel="stylesheet" type="text/css" media="all" href="../../../../../../Doc/Res/KDocument.css" />
+<link rel="icon" type="image/ico" href="../../../../../../Doc/Res/icoWin32.ico" />
+<!-- Install Microsoft Script Debugger
+         To enable it, open IE and go to Tools|'Internet Options'|Advanced and uncheck
+        "Disable Script Debugging (Internet Explorer)".
+     If the debugger cannot debug any script code in the application you are
+     trying to debug, delete or rename
+     the HKLM\Software\Microsoft\Ole\DefaultAccessPermission key.
+    -->
+</head>
+
+<body>
+
+<h2>Test Component Object Model (COM) Container</h2>
+
+<h3>Test FileSystemObject Object</h3>
+<dl><dt>My Computer</dt>
+<script language="JavaScript" type="text/javascript">
+if (typeof ActiveXObject != 'undefined')
+  {
+  var fsObj      = new ActiveXObject("Scripting.FileSystemObject");
+  if (fsObj != undefined)
+    {
+    var enumDrives = new Enumerator(fsObj.Drives);
+    var strList = "";
+    do
+      {
+      var eItem = enumDrives.item();
+      strList = strList + "<dd>" + eItem.DriveLetter + ": ";
+      if(eItem.DriveType == 3)
+        strList += eItem.ShareName;
+      else if(eItem.IsReady)
+        strList += eItem.VolumeName;
+      else
+        strList += "device is not ready";
+      strList += "</dd>\n";
+      enumDrives.moveNext();
+      } while(!enumDrives.atEnd());
+    document.write(strList);
+    }
+  }
+</script>
+</dl>
+
+<h3>Test TestAtl7Obj Object</h3>
+<dl><dt>ClsID</dt><dd>8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543</dd>
+    <dt>ProgId</dt><dd>TestComAtlNet.TestAtl7Obj.1</dd>
+    </dl>
+<object classid="clsid:8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543" id="TestComAtlNet.TestAtl7Obj.1" width="130" height="123" VIEWASTEXT>
+  <param name="TestMethod" value="7">
+</object>
+
+<dl><dt>
+<script language="JavaScript" type="text/javascript">
+debugger;
+if (typeof ActiveXObject != 'undefined')
+  {
+  debugger;
+  var testObj      = new ActiveXObject("TestComAtlNet.TestAtl7Obj.1");
+  if ((testObj != undefined) && (testObj != null))
+    {
+    if ((testObj.TestAtl7Obj.TestMethod != 'undefined') && (testObj.TestAtl7Obj.TestMethod != null))
+      {
+      var strResult = "7 + 2 = ";
+      strResult += testObj.TestMethod(7);
+      document.write(strResult);
+      }
+    else
+      document.write("undefined method");
+    }
+  else
+    document.write("undefined");
+  }
+</script>
+</dt>
+</dl>
+
+<hr />
+<script language="JavaScript" type="text/javascript">
+  document.write("<img src='../../../../../../Doc/Res/S/icoJavaScript.gif' alt='JavaScript' border='0'>");
+  if (typeof ActiveXObject == 'undefined')
+    document.write(" <b style='color:red'>Browser does not support ActiveX.</b>");
+</script>
+<noscript><p style="color:red">JavaScript seems to be disabled!</p></noscript>
+
+<p>
+
+<object classid="clsid:0E8D0700-75DF-11D3-8B4A-0008C7450C4A" id="DjVuCtl1" VIEWASTEXT>
+  <param name="_cx" value="5080">
+  <param name="_cy" value="5080">
+  <param name="SRC" value>
+  <param name="imageURL" value>
+  <param name="Flags" value>
+  <param name="Align" value>
+  <param name="Cache" value="TRUE">
+  <param name="Frame" value="TRUE">
+  <param name="Highlight" value>
+  <param name="Keyboard" value="TRUE">
+  <param name="Links" value="TRUE">
+  <param name="Logo" value="TRUE">
+  <param name="Menu" value="TRUE">
+  <param name="Mode" value>
+  <param name="Page" value>
+  <param name="Passive" value>
+  <param name="ScrollBars" value="TRUE">
+  <param name="Rotate" value>
+  <param name="Thumbnails" value>
+  <param name="Toolbar" value>
+  <param name="VAlign" value>
+  <param name="Zoom" value="°è">
+  <param name="noMenu" value="FALSE">
+  <param name="noScrollBars" value="FALSE">
+  <param name="noToolbar" value="FALSE">
+  <param name="NavPane" value>
+  <param name="MouseMode" value>
+  <param name="HAlign" value>
+  <param name="MagSize" value="0">
+  <param name="MagZoom" value="0">
+  <param name="PostError" value="0">
+  <param name="LogoImage" value>
+  <param name="DisplayMode" value>
+  <param name="ShowPosition" value>
+</object>
+</body>
+
+</html>
