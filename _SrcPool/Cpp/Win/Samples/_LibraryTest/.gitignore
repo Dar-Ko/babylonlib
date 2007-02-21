@@ -4,11 +4,7 @@
 *.aps
 *.obj
 *.bak
-*.suo
-*.vspscc
+*.dsw
+*.sln
 obj
-Obj
 bin
-Bin
-Binaries
-

@@ -1,5 +1,5 @@
 /*$Workfile: TestDumpButtonStyle.cpp$: implementation file
-  $Revision: 5$ $Date: 2005-04-26 12:00:57$
+  $Revision: 6$ $Date: 2007-02-21 09:10:51$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -212,7 +212,7 @@ return TRUE;  // return TRUE unless you set the focus to a control
 
 ///////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
-/*Testing seting, retreiving and displaying button's type and style.
+/*Testing seting, retrieving and displaying button's type and style.
 
   See also: DumpButtonStyle()
  */

@@ -7,5 +7,6 @@
 *.dsw
 *.sln
 *.suo
+*.log
 obj
 bin
