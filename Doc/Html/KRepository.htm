@@ -1,0 +1,170 @@
+﻿<!doctype html PUBLIC "-//W3C//Dtd HTML 4.01 Transitional//EN">
+<html lang="en-CA">
+
+<!--/* Group=Papers*/ -->
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile" content="$Workfile: KRepository.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 6$" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="book, repository, library, BabylonLib" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="Repository" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Project repository manual" />
+  <meta name="DC.description.abstract" content="BabylonLib: Documentation">
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2007-02-21 11:49:46$" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.Revision" content="$Revision: 6$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <title>Babylon Library: Repository</title>
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="SHORTCUT ICON" href="../Res/SrcPool.ico" />
+  <link rel="icon" href="../Res/SrcPool.ico" type="image/ico" />
+  <base target="_self" />
+</head>
+
+<body>
+
+<table border="0" summary="Menu Container">
+  <tr>
+    <td width="80" valign="top" background="../Res/BcgkCpp.gif">
+    <table border="0" width="100%" summary="Menu">
+      <tr>
+        <td width="100%" valign="top">
+        <h3><a name="Repository" id="Repository">Repository</a></h3>
+        </td>
+      </tr>
+      <tr>
+        <td width="100%" height="39%" valign="top">
+        <a href="http://en.wikipedia.org/wiki/Petra">
+        <!-- Petra, Jordan; The Treasury at Petra; 300 B.C.-->
+        <img border="0" src="../Res/imgPetraTreasury.jpg"
+             title="The Treasury at Petra 300 B.C.; 'Rock', &pi;&epsilon;&tau;&rho;&alpha;,&#x0627;&#x0644;&#x0628;&#x062A;&#x0631;&#x0627;&#x0621; Petra, Jordan" alt="The Treasury at Petra 300 B.C." width="95" /></a></td>
+      </tr>
+    </table>
+    </td>
+    <td width="480" height="480" valign="top">
+    <!--Article -------------------------------------------------------------->
+    <h1>Version Control for Source Code</h1>
+    <ul>
+      <li><a href="http://babylonlib.cvs.sourceforge.net/babylonlib">Browse CVS
+      Repository</a></li>
+      <li><a href="http://en.wikipedia.org/wiki/Concurrent_Versions_System">
+      About CVS</a><dl>
+        <dd>The <b>Concurrent Versions System</b> (<b>CVS</b>) records the
+        history of changes made in files, author&#39;s notes and file updates,&nbsp;
+        allowing number of authors to contribute in file creation.</dd>
+        <dd>The <b>repository</b> is a collection of all files, including the
+        version history of each file. Some systems use a database for storage,
+        other relay on the file system of the server.</dd>
+      </dl>
+      </li>
+    </ul>
+    <h2><b>Anonymous CVS Access</b> </h2>
+    <p>This project&#39;s <a href="http://www.SourceForge.net">SourceForge.net</a>
+    CVS repository can be checked out through anonymous (pserver) CVS with the
+    following instruction set. The module you wish to check out must be
+    specified as the <i>modulename</i>. When prompted for a password for <i>
+    anonymous</i>, simply press the Enter key. To determine the names of the
+    modules created by this project, you may examine their CVS repository via
+    the provided <a href="http://babylonlib.cvs.sourceforge.net/babylonlib">
+    web-based CVS repository viewer</a>. </p>
+    <p><tt>cvs
+    -d:pserver:anonymous@babylonlib.cvs.sourceforge.net:/cvsroot/babylonlib
+    login <br />
+    &nbsp;<br />
+    cvs -z3
+    -d:pserver:anonymous@babylonlib.cvs.sourceforge.net:/cvsroot/babylonlib co
+    -P <i>modulename</i> </tt></p>
+    <p>Information about accessing this CVS repository may be found in our
+    document titled, &quot;<a href="http://sourceforge.net/docs/E04/">CVS (Version
+    Control for Source Code)</a>&quot;. </p>
+    <p>Updates from within the module&#39;s directory do not need the -d parameter.
+    </p>
+    <!-- developer access -->
+    <h2><b>Developer CVS Access via SSH</b> </h2>
+    <p>Only project developers can access the CVS tree via this method. A SSH
+    client must be installed on your client machine. Substitute <i>modulename</i>
+    and <i>developername</i> with the proper values. Enter your site password
+    when prompted. </p>
+    <p>Project administrators may limit CVS access to this repository using
+    cvs_acls or the CVS access member permissions option. Developers may verify
+    their CVS access status on the
+    <a href="http://sourceforge.net/project/admin/?group_id=61171">admin page</a>
+    for this project. </p>
+    <p>A significant amount of information about project CVS services may be
+    found in our &quot;<a href="http://sourceforge.net/docs/E04/">CVS (Version
+    Control for Source Code)</a>&quot;. </p>
+    <p>Developers may also make use of
+    <a href="http://sourceforge.net/docs/F02/">shared SSH keys for
+    authentication</a>. </p>
+    <p><tt>export CVS_RSH=ssh <br />
+    &nbsp;<br />
+    cvs -z3 -d:ext:<i>developername</i>@babylonlib.cvs.sourceforge.net:/cvsroot/babylonlib
+    co -P <i>modulename</i> </tt></p>
+    <p class="Note"><b>NOTE:</b> UNIX file and directory names are case
+    sensitive. The path to the project CVSROOT must be specified using lowercase
+    characters (i.e. /cvsroot/babylonlib)
+    <!-- End of Article ------------------------------------------------------>
+    </td>
+    </tr>
+    <tr>
+    <td background="../Res/BcgkCpp.gif"><h4>Browse code</h4></td>
+    <td>
+      <ul>
+        <li><a title="Koders" href="http://www.koders.com/info.aspx?c=ProjectInfo&pid=FYLBXPZ6CEG8678TDL34ZAA99C">
+        Babylon Project</a>
+        </li>
+        <li><a title="Sourceforge" href="http://babylonlib.cvs.sourceforge.net/babylonlib/">
+        Babylon Repository</a>
+        </li>
+      </ul>
+    </td>
+    </tr>
+    <tr>
+    <td background="../Res/BcgkCpp.gif"><h4>See also:</h4></td>
+    <td>
+      <ul>
+        <li>VSS-to-CVS conversion script
+        <a href="../../Util/KVss2Cvs.js">
+        <img src="../Res/S/icoJavaScript.gif" alt="JavaScript" title="JavaScript" border="0" /></a>
+        <a href="http://babylonlib.cvs.sourceforge.net/babylonlib/Util/KVss2Cvs.js?view=markup">
+        <img src="../Res/S/icoExternal.gif" alt="External" title="External Link" border="0" /></a>
+        <img src="../Res/S/icoWin32.gif" alt="Win32" title="Win32" />
+        </li>
+      </ul>
+    </td>
+
+    </tr>
+    </table>
+    <!-- EOT ================================================================= -->
+    <div id="ID_EOT" style="text-align: right">
+      <hr />
+      <p><a href="index.html" title="Go to home…" class="Plain" target="_main">⌂</a>
+      </div>
+      <div align="center" style="visibility:hidden">
+        <b>Your browser does not fully support CSS. This may result in visual
+        artifacts.</b>
+      </div>
+
+    </body>
+    <!-- ==========================================================================
+  $Log:
+   2    Biblioteka1.1         2006-09-27 22:51:50  Darko           Replaced
+        resource directory
+   1    Biblioteka1.0         2006-09-27 17:25:43  Darko
+  $
+-->
+
+  </html>

@@ -1,0 +1,62 @@
+/*$Workfile: $: header file
+  $Revision: $ $Date: $
+  $Author: $
+
+  file description
+  Copyright: CommonSoft Inc
+  <date> Darko Kolakovic
+ */
+/* Group=Time                                                                */
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+  #pragma once
+#endif
+
+#ifndef _K<CLASS>_H_
+    //$Workfile: $ sentry
+  #define _K<CLASS>_H_
+
+#ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
+  #pragma message ("   #include " __FILE__ )
+#endif
+
+#include "K<baseclass>.h"  //<baseclass> class
+
+///////////////////////////////////////////////////////////////////////////////
+//<class> description.
+//
+//See also: <baseclass>
+class <class>: public <baseclass>
+{
+public:
+  <class>();
+  <class>(const <class>& dtValue);
+
+  virtual ~<class>();
+
+public:
+public:
+  <class>& operator=(const <class>& dtValue);
+
+public:
+  virtual LPTSTR toString(LPTSTR szTarget);
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Inlines
+
+//-----------------------------------------------------------------------------
+/*
+ */
+inline <class>& <class>::operator=(const <class>& dtValue //[in] value to assign
+                            )
+{
+...
+return *this;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+#endif  //_K<CLASS>_H_
+/*****************************************************************************
+ * $Log: $
+ *****************************************************************************/

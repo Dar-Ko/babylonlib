@@ -1,0 +1,55 @@
+/*$Workfile: $: implementation file
+  $Revision: $ $Date: $
+  $Author: Darko$
+
+  Defines the class behavior.
+  Copyright: CommonSoft Inc.
+  <date> Darko Kolakovic
+ */
+
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
+
+#ifdef _MSC_VER //Micorsoft Visual Studio C++ compiler
+  #ifdef _UNICODE
+    #ifndef UNICODE
+      //To enable Unicode for some Microsoft Visual C/C++ header files,
+      //the UNICODE definition is required
+      #define UNICODE
+    #endif
+  #endif
+#endif  //_MSC_VER
+
+#include "K<class>.h"  //<class> class
+#ifndef ASSERT
+  //#include "KTrace.h"
+#endif
+//#include "KTChar.h"    //TCHAR typedef
+
+#ifdef _DEBUG
+  #define new DEBUG_NEW
+  #undef THIS_FILE
+  static char THIS_FILE[] = __FILE__;
+#endif
+
+///////////////////////////////////////////////////////////////////////////////
+// <class> class
+
+//-----------------------------------------------------------------------------
+/*Default constructor
+ */
+<class>::<class>()
+{
+}
+
+
+//-----------------------------------------------------------------------------
+/*Destructor
+ */
+<class>::~<class>()
+{
+}
+
+///////////////////////////////////////////////////////////////////////////////
+/*****************************************************************************
+ * $Log: $
+ *****************************************************************************/

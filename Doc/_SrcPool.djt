@@ -1,0 +1,803 @@
+#!docjet_editor
+
+FormatsToGenerate = 'CommonMFC\\\\HTMLHelp'
+NumberOfSpacesIndicatingPreformatted = 5
+Hooks = 'Group Hook; PrettyPrint Hook; Blank Line Hook; JavaDoc Hook; Argument Hook; AFX Hook'
+
+[Warnings]
+OnUndocumented = true
+OnOutOfDate = false
+OnSpellingError = true
+OnUndocumentedParams = false
+OnTagsInDict = true
+OnMissingSections = true
+OnMissingOverview = false
+OnMissingGroup = false
+
+[]
+'DefaultComment.C and C++ Sources.Assignment Operator' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets this object (on the lef'\
+        't-hand-side of the operator) to the value given on the right'\
+        ' of the operator.'
+'PrependToComment.C and C++ Sources.Assignment Operator' = \
+        '{alias:assignment operator}\r\n{group:Assignment}\r\nDescription'\
+        ':  Assignment Operator\r\n\r\nReturn Value:\r\nA reference to the '\
+        'current object.'
+'DefaultComment.C and C++ Sources.Cast Operators' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis converts the current object '\
+        'to a particular type.'
+'PrependToComment.C and C++ Sources.Cast Operators' = \
+        '{group:Coercion Operators}\r\nDescription: Converts to another'\
+        ' type.'
+'DefaultComment.C and C++ Sources.Classes' = ''
+'PrependToComment.C and C++ Sources.Classes' = \
+        '{defaultGroup:Classes}\r\n{glyph:CPPClass|Class}\r\n'
+'DefaultComment.C and C++ Sources.Constructors' = \
+        '{noArgWarnings}\r\n{secretIfNotPublic}\r\nRemarks:\r\nThis builds '\
+        'an instance of the object out of its parameters.'
+'PrependToComment.C and C++ Sources.Constructors' = \
+        'Description:  Builds an instance of the object\r\n\r\n{noUndocWa'\
+        'rnings}\r\n{group:Constructors}\r\n{alias:constructor}'
+'DefaultComment.C and C++ Sources.Destructors' = \
+        '{noArgWarnings}\r\n\r\nRemarks:\r\nThis destroys all the subordina'\
+        'te objects for this object.'
+'PrependToComment.C and C++ Sources.Destructors' = \
+        'Description: Destroys the object\r\n\r\n{group:Destructors}\r\n{al'\
+        'ias:destructor}'
+'DefaultComment.C and C++ Sources.Enums' = ''
+'PrependToComment.C and C++ Sources.Enums' = \
+        '{defaultGroup:Type Definitions}\r\n{glyph:Enum|Enumerated Type'\
+        '}\r\n'
+'DefaultComment.C and C++ Sources.External Assignment Operator' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets this object (on the lef'\
+        't-hand-side of the operator) to the value given on the right'\
+        ' of the operator.'
+'PrependToComment.C and C++ Sources.External Assignment Operator' = \
+        '{alias:assignment operator}\r\n\r\nDescription: Assignment Opera'\
+        'tor\r\n\r\nReturn Value:\r\nA reference to the current object.\r\n'
+'DefaultComment.C and C++ Sources.External Functions' = ''
+'PrependToComment.C and C++ Sources.External Functions' = \
+        '{defaultGroup:External Functions}\r\n{glyph:Method|External Fu'\
+        'nction}\r\n'
+'DefaultComment.C and C++ Sources.External Operator !' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns the logical neg'\
+        'ation of this object.'
+'PrependToComment.C and C++ Sources.External Operator !' = 'Description: Boolean Not'
+'DefaultComment.C and C++ Sources.External Operator !=' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject is not the same as the one on the right-hand-side of th'\
+        'e operator.'
+'PrependToComment.C and C++ Sources.External Operator !=' = 'Description: Not-Equals Operator'
+'DefaultComment.C and C++ Sources.External Operator %' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe remainder of dividing th'\
+        'is object by the value of the object on the right.'
+'PrependToComment.C and C++ Sources.External Operator %' = 'Description: Modulus Operator'
+'DefaultComment.C and C++ Sources.External Operator %=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets the current object to t'\
+        'he remainder of dividing the original value of this object b'\
+        'y the value on the right.'
+'PrependToComment.C and C++ Sources.External Operator %=' = \
+        'Description: Mod-Equals Operator\r\n\r\nReturn Value:\r\nA referen'\
+        'ce to the current object.'
+'DefaultComment.C and C++ Sources.External Operator &' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns the result of p'\
+        'erforming a bitwise AND operation between the current object'\
+        ' (which is on the left-side of the operator) and the object '\
+        'on the right side.'
+'PrependToComment.C and C++ Sources.External Operator &' = 'Description: Bitwise-And Operator'
+'DefaultComment.C and C++ Sources.External Operator &&' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject and the one on the right hand side are both true.'
+'PrependToComment.C and C++ Sources.External Operator &&' = 'Description: Boolean And Operator'
+'DefaultComment.C and C++ Sources.External Operator &=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis masks the current object wit'\
+        'h the value on the right.'
+'PrependToComment.C and C++ Sources.External Operator &=' = \
+        'Description: Masking Assignment Operator\r\n\r\nReturn Value:\r\nA'\
+        ' reference to the current object.\r\n'
+'DefaultComment.C and C++ Sources.External Operator *' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe result of multiplying th'\
+        'e current object by the value of the object on the right.'
+'PrependToComment.C and C++ Sources.External Operator *' = 'Description: Multiplication Operator'
+'DefaultComment.C and C++ Sources.External Operator *=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets the current object to t'\
+        'he product of the original value of this object and the valu'\
+        'e on the right.'
+'PrependToComment.C and C++ Sources.External Operator *=' = \
+        'Description: Multiply-Equals Operator\r\n\r\nReturn Value:\r\nA re'\
+        'ference to the current object.'
+'DefaultComment.C and C++ Sources.External Operator +' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe current object added wit'\
+        'h the value of the object on the right-hand-side of the oper'\
+        'ator.'
+'PrependToComment.C and C++ Sources.External Operator +' = 'Description: Addition Operator'
+'DefaultComment.C and C++ Sources.External Operator +=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets the current object to t'\
+        'he sum of the original value of this object and the value on'\
+        ' the right.'
+'PrependToComment.C and C++ Sources.External Operator +=' = \
+        'Description: Plus-Equals Operator\r\n\r\nReturn Value:\r\nA refere'\
+        'nce to the current object.'
+'DefaultComment.C and C++ Sources.External Operator -' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe result of subtracting th'\
+        'e value of the object on the right from this object.'
+'PrependToComment.C and C++ Sources.External Operator -' = 'Description: Subtraction Operator'
+'DefaultComment.C and C++ Sources.External Operator - (prefix)' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe negation of the argument'\
+        '.'
+'PrependToComment.C and C++ Sources.External Operator - (prefix)' = 'Description: Negation Operator'
+'DefaultComment.C and C++ Sources.External Operator -=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets the current object to t'\
+        'he difference between the original value of this object and '\
+        'the value on the right.'
+'PrependToComment.C and C++ Sources.External Operator -=' = \
+        'Description: Minus-Equals Operator\r\n\r\nReturn Value:\r\nA refer'\
+        'ence to the current object.'
+'DefaultComment.C and C++ Sources.External Operator /' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe current object divided b'\
+        'y the one on the right.'
+'PrependToComment.C and C++ Sources.External Operator /' = 'Description: Division Operator'
+'DefaultComment.C and C++ Sources.External Operator /=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets the current object to t'\
+        'he result of dividing the original value of this object by t'\
+        'he value on the right.'
+'PrependToComment.C and C++ Sources.External Operator /=' = \
+        'Description: Divide-Equals Operator\r\n\r\nReturn Value:\r\nA refe'\
+        'rence to the current object.'
+'DefaultComment.C and C++ Sources.External Operator <' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject is less than the one on the right-hand-side of the oper'\
+        'ator.'
+'PrependToComment.C and C++ Sources.External Operator <' = 'Description: Less-Than Operator'
+'DefaultComment.C and C++ Sources.External Operator <<' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis puts a description of the cu'\
+        'rrent object on this stream.'
+'PrependToComment.C and C++ Sources.External Operator <<' = 'Description: Left-Shift Operator'
+'DefaultComment.C and C++ Sources.External Operator <<=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis shifts the bits of the curre'\
+        'nt object to the left.  The right hand side indicates how ma'\
+        'ny bits to shift.'
+'PrependToComment.C and C++ Sources.External Operator <<=' = \
+        'Description:  Left-Shift Assignment\r\n\r\nReturn Value:\r\nA refe'\
+        'rence to the current object.\r\n'
+'DefaultComment.C and C++ Sources.External Operator <=' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject is not greater than the one on the right-hand-side of t'\
+        'he operator.'
+'PrependToComment.C and C++ Sources.External Operator <=' = 'Description: Less-Than-Or-Equal Operator'
+'DefaultComment.C and C++ Sources.External Operator ==' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject is the same as the one on the right-hand-side of the op'\
+        'erator.'
+'PrependToComment.C and C++ Sources.External Operator ==' = 'Description: Equality Operator'
+'DefaultComment.C and C++ Sources.External Operator >' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject is greater than the one on the right-hand-side of the o'\
+        'perator.'
+'PrependToComment.C and C++ Sources.External Operator >' = 'Description: Greater-Than Operator'
+'DefaultComment.C and C++ Sources.External Operator >=' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject is not less than the one on the right-hand-side of the '\
+        'operator.'
+'PrependToComment.C and C++ Sources.External Operator >=' = \
+        'Description: Greater-Than-Or-Equal-To Operator'
+'DefaultComment.C and C++ Sources.External Operator >>' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets the object on the right'\
+        '-hand side to the value given on the current input stream.'
+'PrependToComment.C and C++ Sources.External Operator >>' = 'Description: Right-Shift Operator'
+'DefaultComment.C and C++ Sources.External Operator >>=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis shifts the bits of the curre'\
+        'nt object to the right.  The right hand side indicates how m'\
+        'any bits to shift.'
+'PrependToComment.C and C++ Sources.External Operator >>=' = \
+        'Description:  Right-Shift Assignment\r\n\r\nReturn Value:\r\nA ref'\
+        'erence to the current object.\r\n'
+'DefaultComment.C and C++ Sources.External Operator ^' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns the result of p'\
+        'erforming a bitwise Exclusive-OR operation between the curre'\
+        'nt object (which is on the left-side of the operator) and th'\
+        'e object on the right side.'
+'PrependToComment.C and C++ Sources.External Operator ^' = 'Description:  Exclusive-Or Operator'
+'DefaultComment.C and C++ Sources.External Operator ^=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets the value of this objec'\
+        't to the result of performing an exclusive or with the right'\
+        '-hand-side.'
+'PrependToComment.C and C++ Sources.External Operator ^=' = \
+        'Description: Exclusive-or Assignment\r\n\r\nReturn Value:\r\nA ref'\
+        'erence to the current object.\r\n'
+'DefaultComment.C and C++ Sources.External Operator delete' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis frees the memory associated '\
+        'with this pointer argument.'
+'PrependToComment.C and C++ Sources.External Operator delete' = 'Description: Delete Operator'
+'DefaultComment.C and C++ Sources.External Operator new' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis allocates memory.'
+'PrependToComment.C and C++ Sources.External Operator new' = \
+        'Description: New Operator\r\n\r\nReturn Value:\r\nA pointer to the'\
+        ' allocated space.\r\n'
+'DefaultComment.C and C++ Sources.External Operator |' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns the result of p'\
+        'erforming a bitwise OR operation between the current object '\
+        '(which is on the left-side of the operator) and the object o'\
+        'n the right side.'
+'PrependToComment.C and C++ Sources.External Operator |' = 'Description: Bitwise Or Operator'
+'DefaultComment.C and C++ Sources.External Operator |=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis OR\'s the current object with'\
+        ' the value on the right.'
+'PrependToComment.C and C++ Sources.External Operator |=' = \
+        'Description: Conjunctive Assignment Operator\r\n\r\nReturn Value'\
+        ':\r\nA reference to the current object.\r\n'
+'DefaultComment.C and C++ Sources.External Operator ||' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if either '\
+        'this object or the object on the right side are true.'
+'PrependToComment.C and C++ Sources.External Operator ||' = 'Description: Boolean Or Operator'
+'DefaultComment.C and C++ Sources.External Operator ~' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns the bitwise NOT'\
+        ' of the current object.'
+'PrependToComment.C and C++ Sources.External Operator ~' = 'Description: Bitwise Not Operator'
+'DefaultComment.C and C++ Sources.External Variables' = ''
+'PrependToComment.C and C++ Sources.External Variables' = \
+        '{defaultGroup:External Variables}\r\n{glyph:Member|External Va'\
+        'riable}\r\n'
+'DefaultComment.C and C++ Sources.External operator ++ (postfix)' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis increments the current objec'\
+        't.'
+'PrependToComment.C and C++ Sources.External operator ++ (postfix)' = \
+        'Description: Postfix Increment Operator\r\n\r\nReturn Value:\r\nTh'\
+        'e value of this object before the operation was peformed.'
+'DefaultComment.C and C++ Sources.External operator ++ (prefix)' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis increments the current objec'\
+        't.'
+'PrependToComment.C and C++ Sources.External operator ++ (prefix)' = \
+        'Description: Prefix Increment Operator\r\n\r\nReturn Value:  A r'\
+        'eference to the current object.'
+'DefaultComment.C and C++ Sources.External operator -- (postfix)' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis decrements the current objec'\
+        't.'
+'PrependToComment.C and C++ Sources.External operator -- (postfix)' = \
+        'Description: Postfix Decrement Operator\r\n\r\nReturn Value:\r\nTh'\
+        'e value of this object before the operation was peformed.'
+'DefaultComment.C and C++ Sources.External operator -- (prefix)' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis decrements the current objec'\
+        't.'
+'PrependToComment.C and C++ Sources.External operator -- (prefix)' = \
+        'Description: Prefix Decrement Operator\r\n\r\nReturn Value:  A r'\
+        'eference to the current object.'
+'DefaultComment.C and C++ Sources.Macro Definitions' = '{secretIfInCPP}'
+'PrependToComment.C and C++ Sources.Macro Definitions' = \
+        '{defaultGroup:Macros}\r\n{glyph:Const|Macro}\r\n{secretByName:_H'\
+        '_.*_INCLUDED_}\r\n'
+'DefaultComment.C and C++ Sources.Members' = '{secretIfNotPublic}'
+'PrependToComment.C and C++ Sources.Members' = \
+        '{defaultGroup:Data Members}\r\n{glyph:Member|Member Variable}\r'\
+        '\n{secretByAccessSpecifier}\r\n'
+'DefaultComment.C and C++ Sources.Methods' = ''
+'PrependToComment.C and C++ Sources.Methods' = \
+        '{glyph:Method|Method}\r\n{secretByAccessSpecifier}'
+'DefaultComment.C and C++ Sources.Namespaces' = ''
+'PrependToComment.C and C++ Sources.Namespaces' = \
+        '{defaultGroup:Namespaces}\r\n{glyph:CPPClass|Namespace}'
+'DefaultComment.C and C++ Sources.Normal Methods' = '{secretIfNotPublic}'
+'PrependToComment.C and C++ Sources.Normal Methods' = '{defaultGroup:Operations}'
+'DefaultComment.C and C++ Sources.Operator !' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns the logical neg'\
+        'ation of this object.'
+'PrependToComment.C and C++ Sources.Operator !' = \
+        '{group:Operators}\r\nDescription: Boolean Not\r\n'
+'DefaultComment.C and C++ Sources.Operator !=' = \
+        '{noArgWarnings}\r\n\r\nReturn Value:\r\nThis returns true if this '\
+        'object is not the same as the one on the right-hand-side of '\
+        'the operator.'
+'PrependToComment.C and C++ Sources.Operator !=' = \
+        '{group:Comparison Operators}\r\nDescription: Not-Equals Operat'\
+        'or\r\n'
+'DefaultComment.C and C++ Sources.Operator %' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe remainder of dividing th'\
+        'is object by the value of the object on the right.'
+'PrependToComment.C and C++ Sources.Operator %' = \
+        '{group:Operators}\r\nDescription: Modulus Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator %=' = \
+        '{noArgWarnings}\r\n\r\nRemarks:\r\nThis sets the current object to'\
+        ' the remainder of dividing the original value of this object'\
+        ' by the value on the right.'
+'PrependToComment.C and C++ Sources.Operator %=' = \
+        '{group:Assignment}\r\nDescription: Mod-Equals Operator\r\n\r\nRetu'\
+        'rn Value:\r\nA reference to the current object.'
+'DefaultComment.C and C++ Sources.Operator &' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns the result of p'\
+        'erforming a bitwise AND operation between the current object'\
+        ' (which is on the left-side of the operator) and the object '\
+        'on the right side.'
+'PrependToComment.C and C++ Sources.Operator &' = \
+        '{group:Operators}\r\nDescription: Bitwise-And Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator &&' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject and the one on the right hand side are both true.'
+'PrependToComment.C and C++ Sources.Operator &&' = \
+        '{group:Operators}\r\nDescription: Boolean And Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator &=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis masks the current object wit'\
+        'h the value on the right.'
+'PrependToComment.C and C++ Sources.Operator &=' = \
+        'Description: Masking Assignment Operator\r\n\r\nReturn Value:\r\nA'\
+        ' reference to the current object.\r\n\r\n{group:Assignment}\r\n'
+'DefaultComment.C and C++ Sources.Operator *' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe result of multiplying th'\
+        'e current object by the value of the object on the right.'
+'PrependToComment.C and C++ Sources.Operator *' = \
+        '{group:Operators}\r\nDescription: Multiplication Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator * (contents)' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe object pointed to by thi'\
+        's object.'
+'PrependToComment.C and C++ Sources.Operator * (contents)' = \
+        '{group:Operators}\r\nDescription: Dereference Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator *=' = \
+        '{noArgWarnings}\r\n\r\nRemarks:\r\nThis sets the current object to'\
+        ' the product of the original value of this object and the va'\
+        'lue on the right.'
+'PrependToComment.C and C++ Sources.Operator *=' = \
+        '{group:Assignment}\r\nDescription: Multiply-Equals Operator\r\n\r'\
+        '\nReturn Value:\r\nA reference to the current object.'
+'DefaultComment.C and C++ Sources.Operator +' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe current object added wit'\
+        'h the value of the object on the right-hand-side of the oper'\
+        'ator.'
+'PrependToComment.C and C++ Sources.Operator +' = \
+        '{group:Operators}\r\nDescription: Addition Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator + (prefix)' = \
+        'Return Value:\r\nThe positive of the current object.'
+'PrependToComment.C and C++ Sources.Operator + (prefix)' = \
+        '{group:Operators}\r\nDescription: Positive Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator +=' = \
+        '{noArgWarnings}\r\n\r\nRemarks:\r\nThis sets the current object to'\
+        ' the sum of the original value of this object and the value '\
+        'on the right.'
+'PrependToComment.C and C++ Sources.Operator +=' = \
+        '{group:Assignment}\r\nDescription: Plus-Equals Operator\r\n\r\nRet'\
+        'urn Value:\r\nA reference to the current object.'
+'DefaultComment.C and C++ Sources.Operator -' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe result of subtracting th'\
+        'e value of the object on the right from this object.'
+'PrependToComment.C and C++ Sources.Operator -' = \
+        '{group:Operators}\r\nDescription: Subtraction Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator - (prefix)' = \
+        'Return Value:\r\nThe negation of the current object.'
+'PrependToComment.C and C++ Sources.Operator - (prefix)' = \
+        '{group:Operators}\r\nDescription: Negation Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator -=' = \
+        '{noArgWarnings}\r\n\r\nRemarks:\r\nThis sets the current object to'\
+        ' the difference between the original value of this object an'\
+        'd the value on the right.'
+'PrependToComment.C and C++ Sources.Operator -=' = \
+        '{group:Assignment}\r\nDescription: Minus-Equals Operator\r\n\r\nRe'\
+        'turn Value:\r\nA reference to the current object.'
+'DefaultComment.C and C++ Sources.Operator ->' = \
+        '{noArgWarnings}\r\n\r\nReturn Value:\r\nThe object pointed to this'\
+        ' object when it is being dereferenced for the purposes of fi'\
+        'nding a component of the pointed-to object.'
+'PrependToComment.C and C++ Sources.Operator ->' = \
+        '{group:Operators}\r\nDescription: Dereference Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator /' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe current object divided b'\
+        'y the one on the right.'
+'PrependToComment.C and C++ Sources.Operator /' = \
+        '{group:Operators}\r\nDescription: Division Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator /=' = \
+        '{noArgWarnings}\r\n\r\nRemarks:\r\nThis sets the current object to'\
+        ' the result of dividing the original value of this object by'\
+        ' the value on the right.'
+'PrependToComment.C and C++ Sources.Operator /=' = \
+        '{group:Assignment}\r\nDescription: Divide-Equals Operator\r\n\r\nR'\
+        'eturn Value:\r\nA reference to the current object.'
+'DefaultComment.C and C++ Sources.Operator <' = \
+        '{noArgWarnings}\r\n\r\nReturn Value:\r\nThis returns true if this '\
+        'object is less than the one on the right-hand-side of the op'\
+        'erator.'
+'PrependToComment.C and C++ Sources.Operator <' = \
+        '{group:Comparison Operators}\r\nDescription: Less-Than Operato'\
+        'r\r\n'
+'DefaultComment.C and C++ Sources.Operator <<' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis puts a description of the cu'\
+        'rrent object on this stream.'
+'PrependToComment.C and C++ Sources.Operator <<' = \
+        '{group:Operators}\r\nDescription: Left-Shift Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator <<=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis shifts the bits of the curre'\
+        'nt object to the left.  The right hand side indicates how ma'\
+        'ny bits to shift.'
+'PrependToComment.C and C++ Sources.Operator <<=' = \
+        '{group:Assignment}\r\n\r\nReturn Value:\r\nA reference to the curr'\
+        'ent object.\r\n\r\nDescription:  Left-Shift Assignment\r\n'
+'DefaultComment.C and C++ Sources.Operator <=' = \
+        '{noArgWarnings}\r\n\r\nReturn Value:\r\nThis returns true if this '\
+        'object is not greater than the one on the right-hand-side of'\
+        ' the operator.'
+'PrependToComment.C and C++ Sources.Operator <=' = \
+        '{group:Comparison Operators}\r\nDescription: Less-Than-Or-Equa'\
+        'l Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator ==' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject is the same as the one on the right-hand-side of the op'\
+        'erator.'
+'PrependToComment.C and C++ Sources.Operator ==' = \
+        '{group:Comparison Operators}\r\nDescription: Equality Operator'\
+        '\r\n'
+'DefaultComment.C and C++ Sources.Operator >' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject is greater than the one on the right-hand-side of the o'\
+        'perator.'
+'PrependToComment.C and C++ Sources.Operator >' = \
+        '{group:Comparison Operators}\r\nDescription: Greater-Than Oper'\
+        'ator\r\n'
+'DefaultComment.C and C++ Sources.Operator >=' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if this ob'\
+        'ject is not less than the one on the right-hand-side of the '\
+        'operator.'
+'PrependToComment.C and C++ Sources.Operator >=' = \
+        '{group:Comparison Operators}\r\nDescription: Greater-Than-Or-E'\
+        'qual-To Operator'
+'DefaultComment.C and C++ Sources.Operator >>' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets the object on the right'\
+        '-hand side to the value given on the current input stream.'
+'PrependToComment.C and C++ Sources.Operator >>' = \
+        '{group:Operators}\r\nDescription: Right-Shift Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator >>=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis shifts the bits of the curre'\
+        'nt object to the right.  The right hand side indicates how m'\
+        'any bits to shift.'
+'PrependToComment.C and C++ Sources.Operator >>=' = \
+        '{group:Assignment}\r\n\r\nReturn Value:\r\nA reference to the curr'\
+        'ent object.\r\n\r\nDescription: Right-Shift Assignment\r\n'
+'DefaultComment.C and C++ Sources.Operator []' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThe value that this object a'\
+        'ssociates with the value of the object that is the parameter'\
+        ' to this operator.'
+'PrependToComment.C and C++ Sources.Operator []' = \
+        '{group:Operators}\r\nDescription: Indexing Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator ^' = \
+        '{noArgWarnings}\r\n\r\nReturn Value:\r\nThis returns the result of'\
+        ' performing a bitwise Exclusive-OR operation between the cur'\
+        'rent object (which is on the left-side of the operator) and '\
+        'the object on the right side.'
+'PrependToComment.C and C++ Sources.Operator ^' = \
+        '{group:Operators}\r\nDescription:  Exclusive-Or Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator ^=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets the value of this objec'\
+        't to the result of performing an exclusive or with the right'\
+        '-hand-side.'
+'PrependToComment.C and C++ Sources.Operator ^=' = \
+        'Description: Exclusive-or Assignment\r\n\r\nReturn Value:\r\nA ref'\
+        'erence to the current object.\r\n\r\n{group:Assignment}\r\n'
+'DefaultComment.C and C++ Sources.Operator delete' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis frees the memory associated '\
+        'with this object.'
+'PrependToComment.C and C++ Sources.Operator delete' = \
+        '{group:Memory Allocation}\r\nDescription: Delete Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator new' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis allocates the memory to crea'\
+        'te a new instance of this object.'
+'PrependToComment.C and C++ Sources.Operator new' = \
+        '{group:Memory Allocation}\r\nDescription: New Operator\r\n\r\nRetu'\
+        'rn Value:\r\nA pointer to the newly allocated memory.'
+'DefaultComment.C and C++ Sources.Operator |' = \
+        '{noArgWarnings}\r\n\r\nReturn Value:\r\nThis returns the result of'\
+        ' performing a bitwise OR operation between the current objec'\
+        't (which is on the left-side of the operator) and the object'\
+        ' on the right side.'
+'PrependToComment.C and C++ Sources.Operator |' = \
+        '{group:Operators}\r\nDescription: Bitwise Or Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator |=' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis sets the value of this objec'\
+        't to the result of performing a bitwise OR operation with th'\
+        'e right-hand-side.'
+'PrependToComment.C and C++ Sources.Operator |=' = \
+        'Description:  Or Assignment\r\n\r\nReturn Value:\r\nA reference to'\
+        ' the current object.\r\n\r\n{group:Assignment}\r\n'
+'DefaultComment.C and C++ Sources.Operator ||' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns true if either '\
+        'this object or the object on the right side are true.'
+'PrependToComment.C and C++ Sources.Operator ||' = \
+        '{group:Operators}\r\nDescription: Boolean Or Operator\r\n'
+'DefaultComment.C and C++ Sources.Operator ~' = \
+        '{noArgWarnings}\r\nReturn Value:\r\nThis returns the bitwise NOT'\
+        ' of the current object.'
+'PrependToComment.C and C++ Sources.Operator ~' = \
+        '{group:Operators}\r\nDescription: Bitwise Not Operator\r\n'
+'DefaultComment.C and C++ Sources.Structure Members' = ''
+'PrependToComment.C and C++ Sources.Structure Members' = '{secretByAccessSpecifier}'
+'DefaultComment.C and C++ Sources.Structure with no methods' = ''
+'PrependToComment.C and C++ Sources.Structure with no methods' = \
+        '{defaultGroup:Type Definitions}\r\n{glyph:Member|Structure}\r\n'
+'DefaultComment.C and C++ Sources.Type Objects' = ''
+'PrependToComment.C and C++ Sources.Type Objects' = '{secretByAccessSpecifier}'
+'DefaultComment.C and C++ Sources.Typedefs' = ''
+'PrependToComment.C and C++ Sources.Typedefs' = \
+        '{defaultGroup:Type Definitions}\r\n{glyph:Member|Type Definiti'\
+        'on}\r\n'
+'DefaultComment.C and C++ Sources.operator ++ (postfix)' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis increments the current objec'\
+        't.'
+'PrependToComment.C and C++ Sources.operator ++ (postfix)' = \
+        '{group:Operators}\r\nDescription: Postfix Increment Operator\r\n'\
+        '\r\nReturn Value:\r\nThe value of the current object before the '\
+        'operation was performed.'
+'DefaultComment.C and C++ Sources.operator ++ (prefix)' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis increments the current objec'\
+        't.'
+'PrependToComment.C and C++ Sources.operator ++ (prefix)' = \
+        '{group:Operators}\r\nDescription: Prefix Increment Operator\r\n\r'\
+        '\nReturn Value:\r\nA reference to the current object.'
+'DefaultComment.C and C++ Sources.operator -- (postfix)' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis decrements the current objec'\
+        't.'
+'PrependToComment.C and C++ Sources.operator -- (postfix)' = \
+        '{group:Operators}\r\nDescription: Postfix Decrement Operator\r\n'\
+        '\r\nReturn Value:\r\nThe value of the current object before the '\
+        'operation was performed.'
+'DefaultComment.C and C++ Sources.operator -- (prefix)' = \
+        '{noArgWarnings}\r\nRemarks:\r\nThis decrements the current objec'\
+        't.'
+'PrependToComment.C and C++ Sources.operator -- (prefix)' = \
+        '{group:Operators}\r\nDescription: Prefix Decrement Operator\r\n\r'\
+        '\nReturn Value:\r\nA reference to the current object.'
+'DefaultComment.IDL Source.Classes' = ''
+'PrependToComment.IDL Source.Classes' = '{defaultGroup:Classes}'
+'DefaultComment.IDL Source.CoClasses' = ''
+'PrependToComment.IDL Source.CoClasses' = \
+        '{defaultGroup:COM Classes}\r\n{glyph:CPPClass|COM Class}\r\n'
+'DefaultComment.IDL Source.DispInterfaces' = ''
+'PrependToComment.IDL Source.DispInterfaces' = \
+        '{defaultGroup:DispInterfaces}\r\n{glyph:Interface|Display Inte'\
+        'rface}'
+'DefaultComment.IDL Source.Enumerations' = ''
+'PrependToComment.IDL Source.Enumerations' = \
+        '{defaultGroup:Type Definitions}\r\n{glyph:Enum|Enumerated Type'\
+        '}\r\n'
+'DefaultComment.IDL Source.External Functions' = ''
+'PrependToComment.IDL Source.External Functions' = \
+        '{defaultGroup:External Functions}\r\n{glyph:Method|External Fu'\
+        'nction}\r\n'
+'DefaultComment.IDL Source.External Variables' = ''
+'PrependToComment.IDL Source.External Variables' = \
+        '{defaultGroup:External Variables}\r\n{glyph:Member|External Va'\
+        'riable}\r\n'
+'DefaultComment.IDL Source.Interfaces' = ''
+'PrependToComment.IDL Source.Interfaces' = \
+        '{defaultGroup:Interfaces}\r\n{glyph:Interface|Interface}\r\n'
+'DefaultComment.IDL Source.Libraries' = ''
+'PrependToComment.IDL Source.Libraries' = \
+        '{defaultGroup:Type Libraries}\r\n{glyph:CPPClass|Type Library}'\
+        '\r\n'
+'DefaultComment.IDL Source.Macro Definitions' = '{secretIfInCPP}'
+'PrependToComment.IDL Source.Macro Definitions' = \
+        '{defaultGroup:Macros}\r\n{glyph:Const|Macro}\r\n'
+'DefaultComment.IDL Source.Members' = ''
+'PrependToComment.IDL Source.Members' = \
+        '{defaultGroup:Data Members}\r\n{glyph:Property|Member}\r\n{secre'\
+        'tByAccessSpecifier}'
+'DefaultComment.IDL Source.Methods' = ''
+'PrependToComment.IDL Source.Methods' = \
+        '{defaultGroup:Operations}\r\n{glyph:Method|Method}\r\n{secretByA'\
+        'ccessSpecifier}\r\n'
+'DefaultComment.IDL Source.Modules' = ''
+'PrependToComment.IDL Source.Modules' = \
+        '{defaultGroup:Modules}\r\n{glyph:CPPClass|Module}\r\n'
+'DefaultComment.IDL Source.Normal Methods' = ''
+'PrependToComment.IDL Source.Normal Methods' = '{defaultGroup:Operations}'
+'DefaultComment.IDL Source.Properties' = ''
+'PrependToComment.IDL Source.Properties' = \
+        '{glyph:Property|IDL Property}\r\n{secretByAccessSpecifier}\r\n'
+'DefaultComment.IDL Source.Read-only Properties' = ''
+'PrependToComment.IDL Source.Read-only Properties' = '{defaultGroup:Read-only Properties}\r\n'
+'DefaultComment.IDL Source.Read/Write Properties' = ''
+'PrependToComment.IDL Source.Read/Write Properties' = '{defaultGroup:Read/Write Properties}\r\n'
+'DefaultComment.IDL Source.Structure with no methods' = ''
+'PrependToComment.IDL Source.Structure with no methods' = \
+        '{defaultGroup:Type Definitions}\r\n{glyph:Member|Structure}\r\n'
+'DefaultComment.IDL Source.Type Objects' = ''
+'PrependToComment.IDL Source.Type Objects' = '{secretByAccessSpecifier}\r\n'
+'DefaultComment.IDL Source.Typedefs' = ''
+'PrependToComment.IDL Source.Typedefs' = \
+        '{defaultGroup:Type Definitions}\r\n{glyph:Member|Type Definiti'\
+        'on}\r\n'
+'DefaultComment.IDL Source.Write-only Properties' = ''
+'PrependToComment.IDL Source.Write-only Properties' = '{defaultGroup:Write-only Properties}\r\n'
+'DefaultComment.Java Sources.Class Objects' = ''
+'PrependToComment.Java Sources.Class Objects' = '{secretByAccessSpecifier}\r\n'
+'DefaultComment.Java Sources.Classes' = ''
+'PrependToComment.Java Sources.Classes' = \
+        '{defaultGroup:Classes}\r\n{glyph:CPPClass|Class}\r\n'
+'DefaultComment.Java Sources.Constructors' = ''
+'PrependToComment.Java Sources.Constructors' = '{defaultGroup:Construction/Destruction}'
+'DefaultComment.Java Sources.Finalize Methods' = ''
+'PrependToComment.Java Sources.Finalize Methods' = '{defaultGroup:Construction/Destruction}'
+'DefaultComment.Java Sources.Interfaces' = ''
+'PrependToComment.Java Sources.Interfaces' = \
+        '{defaultGroup:Interfaces}\r\n{glyph:Interface|Interface}\r\n'
+'DefaultComment.Java Sources.Methods' = ''
+'PrependToComment.Java Sources.Methods' = \
+        '{glyph:Method|Method}\r\n{secretByAccessSpecifier}\r\n'
+'DefaultComment.Java Sources.Normal Class Members' = '{secretIfNotPublic}'
+'PrependToComment.Java Sources.Normal Class Members' = '{defaultGroup:Data Members}'
+'DefaultComment.Java Sources.Normal Methods' = '{secretIfNotPublic}'
+'PrependToComment.Java Sources.Normal Methods' = '{defaultGroup:Operations}'
+'DefaultComment.Java Sources.Static Members' = '{secretIfNotPublic}'
+'PrependToComment.Java Sources.Static Members' = '{defaultGroup:Static Data}'
+'DefaultComment.Java Sources.Static Methods' = '{secretIfNotPublic}'
+'PrependToComment.Java Sources.Static Methods' = '{defaultGroup:Operations}'
+'DefaultComment.Java Sources.Variables' = ''
+'PrependToComment.Java Sources.Variables' = \
+        '{glyph:Member|Member Variable}\r\n{secretByAccessSpecifier}\r\n'
+'DefaultComment.Visual Basic Source.Attribute' = '{secretIfNotPublic}'
+'PrependToComment.Visual Basic Source.Attribute' = \
+        '{defaultGroup:Data Members}\r\n{glyph:Member|Attribute}\r\n{secr'\
+        'etByAccessSpecifier}\r\n'
+'DefaultComment.Visual Basic Source.Class' = ''
+'PrependToComment.Visual Basic Source.Class' = \
+        '{defaultGroup:Classes}\r\n{glyph:VBClass|Class}\r\n'
+'DefaultComment.Visual Basic Source.Constant' = '{secret}'
+'PrependToComment.Visual Basic Source.Constant' = \
+        '{defaultGroup:Data Members}\r\n{glyph:Const|Constant}\r\n'
+'DefaultComment.Visual Basic Source.Enumeration' = ''
+'PrependToComment.Visual Basic Source.Enumeration' = \
+        '{defaultGroup:Data Types}\r\n{glyph:Enum|Enumerated type}\r\n{se'\
+        'cretByAccessSpecifier}\r\n'
+'DefaultComment.Visual Basic Source.Event' = ''
+'PrependToComment.Visual Basic Source.Event' = \
+        '{defaultGroup:Events}\r\n{glyph:Event|Event}\r\n{secretByAccessS'\
+        'pecifier}\r\n'
+'DefaultComment.Visual Basic Source.Form' = ''
+'PrependToComment.Visual Basic Source.Form' = \
+        '{defaultGroup:Forms}\r\n{glyph:VBForm|Form}\r\n'
+'DefaultComment.Visual Basic Source.Function' = ''
+'PrependToComment.Visual Basic Source.Function' = \
+        '{defaultGroup:Operations}\r\n{glyph:Method|Function}\r\n{secretB'\
+        'yAccessSpecifier}\r\n'
+'DefaultComment.Visual Basic Source.Get Property' = ''
+'PrependToComment.Visual Basic Source.Get Property' = \
+        '{defaultGroup:Properties}\r\n{glyph:Property|Property}\r\n{secre'\
+        'tByAccessSpecifier}\r\n'
+'DefaultComment.Visual Basic Source.Let Property' = ''
+'PrependToComment.Visual Basic Source.Let Property' = \
+        '{defaultGroup:Properties}\r\n{glyph:Property|Property}\r\n{secre'\
+        'tByAccessSpecifier}\r\n'
+'DefaultComment.Visual Basic Source.Module' = ''
+'PrependToComment.Visual Basic Source.Module' = \
+        '{defaultGroup:Modules}\r\n{glyph:VBModule|Module}\r\n'
+'DefaultComment.Visual Basic Source.Set Property' = ''
+'PrependToComment.Visual Basic Source.Set Property' = \
+        '{defaultGroup:Properties}\r\n{glyph:Property|Property}\r\n{secre'\
+        'tByAccessSpecifier}\r\n'
+'DefaultComment.Visual Basic Source.Structure' = ''
+'PrependToComment.Visual Basic Source.Structure' = \
+        '{defaultGroup:Data Types}\r\n{glyph:Member|Structure}\r\n{secret'\
+        'ByAccessSpecifier}\r\n'
+'DefaultComment.Visual Basic Source.Subroutine' = ''
+'PrependToComment.Visual Basic Source.Subroutine' = \
+        '{defaultGroup:Operations}\r\n{glyph:Method|Subroutine}\r\n{secre'\
+        'tByAccessSpecifier}\r\n'
+
+[HookData]
+
+[Source]
+Wildcard = \
+        '..\\*.cls;*.bas;*.frm;*.ctl;*.dsr;*.rtf;*.js;*.hls;*.idl;*.od'\
+        'l;*.dof;*.txt;*.htm;*.html;*.jav;*.java;*.gls;*.c;*.cc;*.cpp'\
+        ';*.cxx;*.h;*.hpp;*.hxx;*.inl'
+Wildcard = \
+        '..\\LINUX\\*.cls;*.bas;*.frm;*.ctl;*.dsr;*.rtf;*.js;*.hls;*.id'\
+        'l;*.odl;*.dof;*.txt;*.htm;*.html;*.jav;*.java;*.gls;*.c;*.cc'\
+        ';*.cpp;*.cxx;*.h;*.hpp;*.hxx;*.inl\\'
+Wildcard = \
+        '..\\PALM\\*.cls;*.bas;*.frm;*.ctl;*.dsr;*.rtf;*.js;*.hls;*.idl'\
+        ';*.odl;*.dof;*.txt;*.htm;*.html;*.jav;*.java;*.gls;*.c;*.cc;'\
+        '*.cpp;*.cxx;*.h;*.hpp;*.hxx;*.inl\\'
+Wildcard = \
+        '..\\PLATFORM\\*.cls;*.bas;*.frm;*.ctl;*.dsr;*.rtf;*.js;*.hls;*'\
+        '.idl;*.odl;*.dof;*.txt;*.htm;*.html;*.jav;*.java;*.gls;*.c;*'\
+        '.cc;*.cpp;*.cxx;*.h;*.hpp;*.hxx;*.inl\\'
+Wildcard = \
+        '..\\STL\\*.cls;*.bas;*.frm;*.ctl;*.dsr;*.rtf;*.js;*.hls;*.idl;'\
+        '*.odl;*.dof;*.txt;*.htm;*.html;*.jav;*.java;*.gls;*.c;*.cc;*'\
+        '.cpp;*.cxx;*.h;*.hpp;*.hxx;*.inl'
+Wildcard = \
+        '..\\WIN\\16\\*.cls;*.bas;*.frm;*.ctl;*.dsr;*.rtf;*.js;*.hls;*.i'\
+        'dl;*.odl;*.dof;*.txt;*.htm;*.html;*.jav;*.java;*.gls;*.c;*.c'\
+        'c;*.cpp;*.cxx;*.h;*.hpp;*.hxx;*.inl\\'
+Wildcard = \
+        '..\\WIN\\32\\*.cls;*.bas;*.frm;*.ctl;*.dsr;*.rtf;*.js;*.hls;*.i'\
+        'dl;*.odl;*.dof;*.txt;*.htm;*.html;*.jav;*.java;*.gls;*.c;*.c'\
+        'c;*.cpp;*.cxx;*.h;*.hpp;*.hxx;*.inl\\'
+Wildcard = \
+        '..\\WIN\\CE\\*.cls;*.bas;*.frm;*.ctl;*.dsr;*.rtf;*.js;*.hls;*.i'\
+        'dl;*.odl;*.dof;*.txt;*.htm;*.html;*.jav;*.java;*.gls;*.c;*.c'\
+        'c;*.cpp;*.cxx;*.h;*.hpp;*.hxx;*.inl\\'
+
+[Exclusion]
+Wildcard = '..\\Win\\16\\KFileN16.cpp'
+Wildcard = '..\\Win\\16\\KFileN16.inl'
+Wildcard = '..\\Win\\32\\KFileN32.inl'
+Wildcard = '.\\*.js;*.rtf\\'
+
+[Variable]
+CommonMFC.Always Hide = '_private'
+CommonMFC.Author = 'Darko Kolakovic'
+CommonMFC.Footer = 'www.CommonsoftInc.com'
+CommonMFC.Home = '_Content.html'
+CommonMFC.Output File Title = 'Babylon Library Reference'
+CommonMFC.OutputDir = \
+        {010000005374616e64617264506172616772617068446573637269707469}\
+        {6f6e000000000039000000000000003900000003000000537472696e6744}\
+        {65736372697074696f6e000000000026000000533a5c5f537263506f6f6c}\
+        {5c4370705c446f63756d656e746174696f6e5c4c6962726172795c000300}\
+        {000002000000000000000000000000000000ffffffff50726f6365647572}\
+        {6543616c6c4465736372697074696f6e00260000000f0000005472756520}\
+        {4d6163726f00496e736572742061207265666572656e636520746f207468}\
+        {6520617267756d656e742c204f75747075742054797065002428224f7574}\
+        {70757420547970652229005b5b4f757470757420547970655d5d00000000}\
+        {000000000000000000537472696e674465736372697074696f6e00350000}\
+        {00040000002e746d70000300000002000000000000000000000000000000}\
+        {ffffffff000000000002000000000000000000000000000000ffffffff00}\
+        {0000000200000000000000000000000000000000000000}
+CommonMFC.Project Name = '_SrcPool'
+CommonMFC.Title = 'Babylon Library Reference'
+Internal.OutputDir = \
+        {010000005374616e64617264506172616772617068446573637269707469}\
+        {6f6e00000000003e000000000000003e00000003000000537472696e6744}\
+        {65736372697074696f6e000000000025000000533a5c5f537263506f6f6c}\
+        {5c4370705c446f63756d656e746174696f6e5c4c69627261727900030000}\
+        {0002000000000000000000000000000000ffffffff537472696e67446573}\
+        {6372697074696f6e00250000000a0000005c496e7465726e616c20000300}\
+        {000002000000000000000000000000000000ffffffff50726f6365647572}\
+        {6543616c6c4465736372697074696f6e002f0000000f0000005472756520}\
+        {4d6163726f00496e736572742061207265666572656e636520746f207468}\
+        {6520617267756d656e742c204f75747075742054797065002428224f7574}\
+        {70757420547970652229005b5b4f757470757420547970655d5d00000000}\
+        {000000000000000000000000000002000000000000000000000000000000}\
+        {ffffffff000000000200000000000000000000000000000000000000}
+MFC.OutputDir = \
+        {010000005374616e64617264506172616772617068446573637269707469}\
+        {6f6e000000000039000000000000003900000003000000537472696e6744}\
+        {65736372697074696f6e000000000025000000533a5c5f537263506f6f6c}\
+        {5c4370705c446f63756d656e746174696f6e5c4c69627261727900030000}\
+        {0002000000000000000000000000000000ffffffff537472696e67446573}\
+        {6372697074696f6e0025000000050000005c4d4643200003000000020000}\
+        {00000000000000000000000000ffffffff50726f63656475726543616c6c}\
+        {4465736372697074696f6e002a0000000f00000054727565204d6163726f}\
+        {00496e736572742061207265666572656e636520746f2074686520617267}\
+        {756d656e742c204f75747075742054797065002428224f75747075742054}\
+        {7970652229005b5b4f757470757420547970655d5d000000000000000000}\
+        {00000000000000000002000000000000000000000000000000ffffffff00}\
+        {0000000200000000000000000000000000000000000000}
+MSWord.OutputDir = \
+        'S:\\_SrcPool\\Cpp\\Documentation\\Library\\MSWord'
+New Standard.OutputDir = \
+        {010000005374616e64617264506172616772617068446573637269707469}\
+        {6f6e000000000042000000000000004200000003000000537472696e6744}\
+        {65736372697074696f6e000000000025000000533a5c5f537263506f6f6c}\
+        {5c4370705c446f63756d656e746174696f6e5c4c69627261727900030000}\
+        {0002000000000000000000000000000000ffffffff537472696e67446573}\
+        {6372697074696f6e00250000000e0000005c4e6577205374616e64617264}\
+        {20000300000002000000000000000000000000000000ffffffff50726f63}\
+        {656475726543616c6c4465736372697074696f6e00330000000f00000054}\
+        {727565204d6163726f00496e736572742061207265666572656e63652074}\
+        {6f2074686520617267756d656e742c204f75747075742054797065002428}\
+        {224f757470757420547970652229005b5b4f757470757420547970655d5d}\
+        {000000000000000000000000000000000000020000000000000000000000}\
+        {00000000ffffffff00000000020000000000000000000000000000000000}\
+        {0000}
+Standard.OutputDir = \
+        {010000005374616e64617264506172616772617068446573637269707469}\
+        {6f6e00000000003e000000000000003e00000003000000537472696e6744}\
+        {65736372697074696f6e000000000025000000533a5c5f537263506f6f6c}\
+        {5c4370705c446f63756d656e746174696f6e5c4c69627261727900030000}\
+        {0002000000000000000000000000000000ffffffff537472696e67446573}\
+        {6372697074696f6e00250000000a0000005c5374616e6461726420000300}\
+        {000002000000000000000000000000000000ffffffff50726f6365647572}\
+        {6543616c6c4465736372697074696f6e002f0000000f0000005472756520}\
+        {4d6163726f00496e736572742061207265666572656e636520746f207468}\
+        {6520617267756d656e742c204f75747075742054797065002428224f7574}\
+        {70757420547970652229005b5b4f757470757420547970655d5d00000000}\
+        {000000000000000000000000000002000000000000000000000000000000}\
+        {ffffffff000000000200000000000000000000000000000000000000}
+
+[CommentSection]
