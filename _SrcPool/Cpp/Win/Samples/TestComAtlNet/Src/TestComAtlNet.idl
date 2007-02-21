@@ -1,5 +1,5 @@
 /*$Workfile: TestComAtlNet.idl$: IDL source file
-  $Revision: 5$ $Date: 2007-02-15 20:33:42$
+  $Revision: 6$ $Date: 2007-02-16 14:22:33$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -14,10 +14,10 @@ import "oaidl.idl";
 import "ocidl.idl";
 
 [
-	object,
-	uuid(5D3C18C7-EC16-4DA3-AA45-9EDE4F48B9C5),
-	helpstring("ITestAtl7Obj Interface"),
-	pointer_default(unique)
+  object,
+  uuid(5D3C18C7-EC16-4DA3-AA45-9EDE4F48B9C5),
+  helpstring("ITestAtl7Obj Interface"),
+  pointer_default(unique)
 ]
 interface ITestAtl7Obj : IUnknown{
   [helpstring("method TestMethod")] HRESULT TestMethod([in] LONG lInput, [out] LONG* pResult);
@@ -25,28 +25,28 @@ interface ITestAtl7Obj : IUnknown{
 [
   uuid(3DF3DAAE-34D2-4703-B1C7-4533DC22C9D1),
   version(1.0),
-  helpstring("TestComAtlNet $Revision: 5$ Type Library")
+  helpstring("TestComAtlNet $Revision: 6$ Type Library")
 ]
 library TestComAtlNetLib
 {
   importlib("stdole2.tlb");
-	[
-		uuid(88004DE2-802C-4858-B185-97FE288526ED),
-		helpstring("_ITestAtl7ObjEvents Interface")
-	]
-	dispinterface _ITestAtl7ObjEvents
-	{
-		properties:
-		methods:
+  [
+    uuid(88004DE2-802C-4858-B185-97FE288526ED),
+    helpstring("DITestAtl7ObjEvents Interface")
+  ]
+  dispinterface DITestAtl7ObjEvents
+  {
+    properties:
+    methods:
     [id(1), helpstring("method TestAtlEvent")] HRESULT TestAtlEvent([in] BSTR bstrInput, [out] BSTR* bstrOutput);
   };
-	[
-		uuid(8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543),
-		helpstring("TestAtl7Obj Class")
-	]
-	coclass TestAtl7Obj
-	{
-		[default] interface ITestAtl7Obj;
-		[default, source] dispinterface _ITestAtl7ObjEvents;
-	};
+  [
+    uuid(8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543),
+    helpstring("TestAtl7Obj Class")
+  ]
+  coclass TestAtl7Obj
+  {
+    [default] interface ITestAtl7Obj;
+    [default, source] dispinterface DITestAtl7ObjEvents;
+  };
 };

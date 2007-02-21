@@ -1,9 +1,9 @@
-
+;Proxy/Stub Exports
 LIBRARY      "TestComAtlNetPS"
 
 EXPORTS
-	DllGetClassObject       PRIVATE
-	DllCanUnloadNow         PRIVATE
-	GetProxyDllInfo         PRIVATE
-	DllRegisterServer		PRIVATE
-	DllUnregisterServer		PRIVATE
+  DllGetClassObject       PRIVATE
+  DllCanUnloadNow         PRIVATE
+  GetProxyDllInfo         PRIVATE
+  DllRegisterServer   PRIVATE
+  DllUnregisterServer   PRIVATE

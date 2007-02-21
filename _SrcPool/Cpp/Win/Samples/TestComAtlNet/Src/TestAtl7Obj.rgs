@@ -1,0 +1,22 @@
+HKCR
+{
+  TestComAtlNet.TestAtl7Obj.1 = s 'TestAtl7Obj Class'
+  {
+    CLSID = s '{8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543}'
+  }
+  TestComAtlNet.TestAtl7Obj = s 'TestAtl7Obj Class'
+  {
+    CLSID = s '{8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543}'
+    CurVer = s 'TestComAtlNet.TestAtl7Obj.1'
+  }
+  NoRemove CLSID
+  {
+    ForceRemove {8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543} = s 'TestAtl7Obj Class'
+    {
+      ProgID = s 'TestComAtlNet.TestAtl7Obj.1'
+      VersionIndependentProgID = s 'TestComAtlNet.TestAtl7Obj'
+      LocalServer32 = s '%MODULE%'
+      'TypeLib' = s '{3DF3DAAE-34D2-4703-B1C7-4533DC22C9D1}'
+    }
+  }
+}

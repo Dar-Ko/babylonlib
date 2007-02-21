@@ -3,12 +3,12 @@
 <!--/* Group=Standards*/ -->
 
 <head>
-<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
-<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0" />
+<meta name="ProgId" content="FrontPage.Editor.Document" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComAtlVc7.htm$: documentation" />
-<meta name="Revision" content="$Revision: 4$" />
+<meta name="Revision" content="$Revision: 7$" />
 <meta name="robots" content="index" />
 <meta name="keywords" content="compiler, ATL, COM" />
 <!-- Dublin Core Metadata Package -->
@@ -18,17 +18,17 @@
 <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
 <meta name="DC.Rights" content="© CommonSoft Inc" />
 <meta name="DC.subject" content="ATL COM" />
-<meta name="DC.description.abstract" content="COM project setup">
+<meta name="DC.description.abstract" content="COM project setup" />
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
-<meta name="DC.date" content="$Date: 2007-02-15 20:32:38$" />
+<meta name="DC.date" content="$Date: 2007-02-21 11:21:42$" />
 <meta name="DC.type" content="Text.Article" />
 <meta name="DC.format" content="application/html" />
 <meta name="DC.language" content="en_ca" />
-<meta name="DC.identifier.version" content="$Revision: 4$" />
-<meta name="DC.relation.HasVersion" content />
+<meta name="DC.identifier.Revision" content="$Revision: 7$" />
+<meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
-<link rel="stylesheet" type="text/css" href="../../../../../Doc/Res/KDocument.css">
+<link rel="stylesheet" type="text/css" href="../../../../../Doc/Res/KDocument.css" />
 <link rel="icon" href="../../../../../Doc/Res/KBook.ico" type="image/ico" />
 <title>Creating an ATL COM project with Visual Studio .Net 2003 v7.1</title>
 <base target="_self" />
@@ -54,35 +54,38 @@
 <p>See also: <a href="../TestComAtl/TestComAtlVc6.htm">Creating an </a>
 <a href="#Footnote1"><sup class="Footnote">1</sup></a>
 <a href="../TestComAtl/TestComAtlVc6.htm">COM</a><a href="#Footnote2">
-<sup class="Footnote">2</sup></a><a href="../TestComAtl/TestComAtlVc6.htm"> 
+<sup class="Footnote">2</sup></a><a href="../TestComAtl/TestComAtlVc6.htm">
 project with Visual C++ 6.0</a></p>
 <ol>
   <li>Select new Visual C++ ATL project and choose &quot;ATL Project&quot; template:<br />
-  <img border="0" src="Res/ComAtlVc71.gif" width="530" height="144"></li>
+  <img border="0" src="Res/ComAtlVc71.gif" width="530" height="144" /></li>
   <li>Type desired project name</li>
-  <li><span id="intelliTXT">Specify applications settings. If Attributed is 
-  checked, the compiler will parse and validate attributes found in a source 
-  file. A Service has benefits of running non-interactively immediately after 
+  <li><span id="intelliTXT">Specify applications settings. If Attributed is
+  checked, the compiler will parse and validate attributes found in a source
+  file. A Service has benefits of running non-interactively immediately after
   system starts.<br />
-  <img border="0" src="Res/ComAtlVc72.gif" width="223" height="232"><br>
-  Be aware that: </span><span id="intelliTXT">
+  <img border="0" src="Res/ComAtlVc72.gif" width="223" height="232" /><br />
+  Be aware that: </span><span id="intelliTXT"></span>
   <ul>
+    <span id="intelliTXT">
     <li>.exe COM server will run only as a <i>local</i> or <i>remote</i> <i>
-    out-of-process</i> server and an additional Proxy/Stub DLL is required</li>
+    out-of-process</i> server and an additional <i>Proxy/Stub DLL</i> is
+    required</li>
     <li>.dll COM could be either a <i>local in-process</i> or a <i>local</i> or
     <i>remote out-of-process</i> server.</li>
+    </span>
   </ul>
-  </span></li>
-  <li>After finishing with the wizard, the result will be displayed in the 
+  <span id="intelliTXT"></span></li>
+  <li>After finishing with the wizard, the result will be displayed in the
   Solution Explorer:<br />
-  <img border="0" src="Res/ComAtlVc73.gif" width="257" height="447"></li>
-  <li>Provide the appropriate security settings for your service by replacing 
-  default code in <code>YourAtlModule::InitializeSecurity()</code> with the 
-  following:<span id="intelliTXT"><pre><code>HRESULT InitializeSecurity() <span class="SKeyword">throw</span>()
+  <img border="0" src="Res/ComAtlVc73.gif" width="257" height="447" /></li>
+  <li>Provide the appropriate security settings for your service by replacing
+  default code in <code>YourAtlModule::InitializeSecurity()</code> with the
+  following:<span id="intelliTXT"></span><pre><span id="intelliTXT"><code>HRESULT InitializeSecurity() <span class="SKeyword">throw</span>()
 {
    <span class="Rem">//Allow service access to everyone</span>
- HRESULT hResult = 
-      CoInitializeSecurity(NULL, <span class="Rem">//points to the access permissions that</span> 
+ HRESULT hResult =
+      CoInitializeSecurity(NULL, <span class="Rem">//points to the access permissions that</span>
                                  <span class="Rem">//a server will use to receive calls</span>
                              -1, <span class="Rem">//count of entries in asAuthSvc</span>
                            NULL, <span class="Rem">//array of authentication services</span>
@@ -97,44 +100,44 @@ project with Visual C++ 6.0</a></p>
                           );
 
  <span class="Skeyword">return</span> hResult;
-}</code></pre>
-  </span>
+}</code></span></pre>
+  <span id="intelliTXT"></span>
   <p><br />
   </li>
-  <li>To add new ATL object in Class View, after right mouse click, select &quot;Add 
+  <li>To add new ATL object in Class View, after right mouse click, select &quot;Add
   Class&quot;<br />
-  <img border="0" src="Res/ComAtlVc74.gif" width="288" height="161"></li>
+  <img border="0" src="Res/ComAtlVc74.gif" width="288" height="161" /></li>
   <li>Choose ATL Simple Object from Visual C++ ATL categories:<br />
-  <img border="0" src="Res/ComAtlVc75.gif" width="240" height="208"></li>
+  <img border="0" src="Res/ComAtlVc75.gif" width="240" height="208" /></li>
   <li>Insert the name for the object<br />
-  <img border="0" src="Res/ComAtlVc76.gif" width="615" height="437"></li>
-  <li>Also set desired options in the same wizard dialog:<br>
-  <img border="0" src="Res/ComAtlVc79.gif" width="506" height="339"><br>
-  If this COM object is not going to be aggregated inside another, select <i>No</i> 
+  <img border="0" src="Res/ComAtlVc76.gif" width="615" height="437" /></li>
+  <li>Also set desired options in the same wizard dialog:<br />
+  <img border="0" src="Res/ComAtlVc79.gif" width="506" height="339" /><br />
+  If this COM object is not going to be aggregated inside another, select <i>No</i>
   for Aggregation. For the simplest interface option is <i>Custom</i>. With <i>
-  Connection points</i> support the COM server will fire events back to the 
+  Connection points</i> support the COM server will fire events back to the
   client.<br />
-  After finishing with options, the result will be presented in the Solution 
+  After finishing with options, the result will be presented in the Solution
   Explorer:<br />
-  <img border="0" src="Res/ComAtlVc78.gif" width="228" height="380"></li>
+  <img border="0" src="Res/ComAtlVc78.gif" width="228" height="380" /></li>
   <li>Add new method to the newly created object<br />
-  <img border="0" src="Res/ComAtlVc7A.gif" width="343" height="116"><br>
-  and define parameters and result type<br>
-  <img border="0" src="Res/ComAtlVc7B.gif" width="615" height="437"></li>
-  <li>Change default implementation of the newly added method:<br>
-  <img border="0" src="Res/ComAtlVc7C.gif" width="274" height="140"><br />
-  <code><br>
-  STDMETHODIMP CTestAtlObj::TestMethod(long lInput, long* pResult)<br>
-  {<br>
-  *pResult = 2 + lInput;<br>
-  return S_OK;<br>
+  <img border="0" src="Res/ComAtlVc7A.gif" width="343" height="116" /><br />
+  and define parameters and result type<br />
+  <img border="0" src="Res/ComAtlVc7B.gif" width="615" height="437" /></li>
+  <li>Change default implementation of the newly added method:<br />
+  <img border="0" src="Res/ComAtlVc7C.gif" width="274" height="140" /><br />
+  <code><br />
+  STDMETHODIMP CTestAtlObj::TestMethod(long lInput, long* pResult)<br />
+  {<br />
+  *pResult = 2 + lInput;<br />
+  return S_OK;<br />
   }</code></li>
-  <li>Build the project. The compiler will register your new COM exe so it could 
+  <li>Build the project. The compiler will register your new COM exe so it could
   be used by container application. To unregister the COM dll server use command
-  <code>regsvr32 /u ComName</code>. For COM exe use <code>ComName /UnregServer</code>. 
-  Also, to obtain more insight into build process, replace the command-line of 
+  <code>regsvr32 /u ComName</code>. For COM exe use <code>ComName /UnregServer</code>.
+  Also, to obtain more insight into build process, replace the command-line of
   Post-Build Event
-  <img border="0" src="Res/ComAtlVc7H.gif" width="644" height="440"><br />
+  <img border="0" src="Res/ComAtlVc7H.gif" width="644" height="440" /><br />
   with following script:
   <pre><b>@echo off
 &quot;$(TargetPath)&quot; /RegServer
@@ -147,33 +150,35 @@ goto VCReportError
   <p>and Description with </p>
   <pre><b>Performing registration on $(TargetPath)</b></pre>
   </li>
-  <li>If it is required for COM to generate some events, the connection points 
+  <li>If it is required for COM to generate some events, the connection points
   have to be defined.
   <ol>
-    <li>Add new method to the event source interface<br>
-    <img border="0" src="Res/ComAtlVc7D.gif" width="328" height="453"></li>
+    <li>Add new method to the event source interface<br />
+    <img border="0" src="Res/ComAtlVc7D.gif" width="328" height="453" /></li>
     <li>Also, add parameters to the method. Use <span id="intelliTXT">
-    COM-compatible string type for the text handling.</span><br>
-    <img border="0" src="Res/ComAtlVc7F.gif" width="420" height="213"><br>
-    In the Solution Explorer find the <i>.idl</i> file and compile it. The MIDL 
+    COM-compatible string type for the text handling.</span><br />
+    <img border="0" src="Res/ComAtlVc7F.gif" width="420" height="213" /><br />
+    In the Solution Explorer find the <i>.idl</i> file and compile it. The MIDL
     complier will generate some files required for the final build.</li>
-    <li>Add the new connection point to the main class, by inserting it from the 
-    interface<br>
-    <img border="0" src="Res/ComAtlVc7G.gif" width="316" height="206"><br>
-    Use the <i>Implement Connection Point Wizard</i> to select the interface for 
-    the new connection point<br>
-    <img border="0" src="Res/ComAtlVc7E.gif" width="406" height="387"></li>
-  </ol>
-  </li>
-  <li>To test the the COM object, create new <span id="intelliTXT0">&quot;Win32 
-  Console Application&quot; </span>project for example.<br />
-  <img border="0" src="Res/ComAtlVc6B.gif" width="388" height="92"></li>
-  <li>Insert following code in the project file:<br />
-  <pre><code>//Files generated by MIDL compiler
-#include &quot;TestAtlCom.h&quot;
-#include &quot;TestAtlCom_i.c&quot; //CLSID_TestAtlObj
-//or to load the typelib from the dll
-//#import &quot;TestAtlCom.dll&quot; no_namespace
+    <li>Add the new connection point to the main class, by inserting it from the
+    interface<br />
+    <img border="0" src="Res/ComAtlVc7G.gif" width="316" height="206" /><br />
+    Use the <i>Implement Connection Point Wizard</i> to select the interface for
+    the new connection point<br />
+    <img border="0" src="Res/ComAtlVc7E.gif" width="406" height="387" /></li>
+    </ol>
+    </li>
+    <li>Build Proxy/Stub DLL and register it.</li>
+    <li>To test the the COM object, create new <span id="intelliTXT0">&quot;Win32
+    Console Application&quot; </span>project for example.<br />
+    <img border="0" src="Res/ComAtlVc7I.gif" width="531" height="157"></li>
+    <li>Insert following code in the project file:
+    <pre><code>#include &quot;STL/KOStream.h&quot; //_tcout
+//Files generated by MIDL compiler
+#include &quot;TestAtlComNet.h&quot;
+#include &quot;TestAtlComNet_i.c&quot; //CLSID_TestAtl7Obj
+//or to load the typelib from the exe
+//#import &quot;TestAtl7Com.exe&quot; no_namespace
 /////////////////////////////////////////////////////////////////////////////
 #ifdef _MSC_VER     /*Microsoft Visual Studio C/C++ compiler                 */
   #ifndef _CONSOLE
@@ -195,12 +200,12 @@ int _tmain(int argc,      //[in] specifies how many arguments are passed to the
                           //program from the command line. The value of argc is
                           //at least one: the program name.
            TCHAR* argv[], //[in] the program arguments as an array of pointers
-                          //to null-terminated strings. The first string 
+                          //to null-terminated strings. The first string
                           //(argv[0]) is the program name. The end of the array
                           //(argv[argc]) is indicated by a NULL pointer.
-           TCHAR* envp[]  //[in] the user&#39;s environment variables as a pointer 
+           TCHAR* envp[]  //[in] the user&#39;s environment variables as a pointer
                           //to an array of null-terminated strings. The end of
-                          //the array is indicated by a NULL pointer. 
+                          //the array is indicated by a NULL pointer.
                           //Note: Microsoft Windows specific (Win).
            )
 {
@@ -208,27 +213,28 @@ int nRetCode = EXIT_SUCCESS;
 
 
 
-std::cout &lt;&lt; &quot;Creating COM object...&quot; &lt;&lt; std::endl;
+std::_tcout &lt;&lt; &quot;Creating COM object...&quot; &lt;&lt; std::endl;
 HRESULT hResult = CoInitialize(NULL); //Initialize COM
 if(SUCCEEDED(hResult))
   {
-  ITestAtlObj* pcomTest = NULL;
-  hResult = CoCreateInstance( CLSID_TestAtlObj, 
-                              NULL, 
-                              CLSCTX_INPROC_SERVER,
-                              IID_ITestAtlObj, 
+  ITestAtl7Obj* pcomTest = NULL;
+  hResult = CoCreateInstance( CLSID_TestAtl7Obj,
+                              NULL,
+                              CLSCTX_ALL, //.exe COM could run only as local
+                                          //or remote out-of-process server
+                              IID_ITestAtl7Obj,
                               (void**)&amp; pcomTest);
 
   if(SUCCEEDED(hResult))
     {
     long lResult;
     pcomTest-&gt;TestMethod(7, &amp;lResult);
-    std::cout &lt;&lt; &quot;2 * 7 = &quot; &lt;&lt; lResult &lt;&lt; std::endl;
-    pcomTest-&gt;Release(); 
+    std::_tcout &lt;&lt; &quot;2 + 7 = &quot; &lt;&lt; lResult &lt;&lt; std::endl;
+    pcomTest-&gt;Release();
     }
   else
     {
-    std::cout &lt;&lt; &quot;CoCreateInstance() failed!&quot; &lt;&lt; std::endl;
+    std::_tcout &lt;&lt; &quot;CoCreateInstance() failed!&quot; &lt;&lt; std::endl;
     }
   }
 
@@ -236,28 +242,29 @@ CoUninitialize(); //Uninitialize COM
 
 return nRetCode;
 }</code></pre>
-  </li>
-  <li>Compile and run the test application. Expected output is:<br />
-  <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="31%">
-    <tr>
-      <td width="100%" bgcolor="#000000"><font color="#FFFFFF">
-      <pre>C:\&gt;TestComContainer.exe
+    </li>
+    <li>Compile and run the test application. Expected output is:<br />
+    <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="31%">
+      <tr>
+        <td width="100%" bgcolor="#000000"><font color="#FFFFFF"></font>
+        <pre><font color="#FFFFFF">C:\&gt;TestComContainer.exe
 Creating COM object...
 2 + 7 = 9
-C:\&gt;</pre>
-      </font></td>
-    </tr>
-  </table>
-  </li>
-  </ol>
-  <hr>
-  <p><a name="Footnote1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a>Active 
-  Template Library is Microsoft C++ library usually used to create ActiveX and 
-  other software components based on Component Object Model.<br />
-  <a name="Footnote2" class="Footnote" id="ID_FOOTNOTE2"><sup>2</sup></a>Component 
-  Object Model defines how an object exposes its functionality, allowing to be 
-  accessed from other processes and across networks.</p>
+C:\&gt;</font></pre>
+        <font color="#FFFFFF"></font></td>
+      </tr>
+    </table>
+    </li>
+    </ol>
+    <hr />
+    <p><a name="Footnote1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a>Active
+    Template Library is Microsoft C++ library usually used to create ActiveX and
+    other software components based on Component Object Model.<br />
+    <a name="Footnote2" class="Footnote" id="ID_FOOTNOTE2"><sup>2</sup></a>Component
+    Object Model defines how an object exposes its functionality, allowing to be
+    accessed from other processes and across networks. A COM Object must support
+    the <b>IUnknown</b> interface.</p>
 
-  </body>
+    </body>
 
-  </html>
+    </html>

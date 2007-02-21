@@ -1,5 +1,5 @@
 /*$Workfile: TestComAtlNet.cpp$: implementation file
-  $Revision: 2$ $Date: 2007-02-14 15:54:49$
+  $Revision: 3$ $Date: 2007-02-16 14:22:32$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -48,7 +48,7 @@ CTestComAtlNetModule _AtlModule;
 
 //-----------------------------------------------------------------------------
 /*
-*/
+ */
 extern "C" int WINAPI _tWinMain(HINSTANCE /*hInstance*/,
                                 HINSTANCE /*hPrevInstance*/,
                                 LPTSTR /*lpCmdLine*/,

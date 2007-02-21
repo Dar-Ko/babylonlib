@@ -398,7 +398,7 @@ goto VCReportError
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\Src\_ITestAtl7ObjEvents_CP.h">
+				RelativePath=".\Src\DITestAtl7ObjEvents_CP.h">
 			</File>
 			<File
 				RelativePath=".\Src\Resource.h">
