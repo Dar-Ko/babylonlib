@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 3$ $Date: 2007-02-15 20:36:32$
+  $Revision: 4$ $Date: 2007-02-21 09:15:31$
   $Author: Darko Kolakovic$
 
   COM container to test ATL DLL.
@@ -43,8 +43,8 @@
   #endif
 #endif
 
+extern bool TestCHresult();
 //extern bool TsWriteToViewLn(LPCTSTR lszText); TODO:
-//extern int TestCommonConsole(int argc, TCHAR* argv[]); TODO:
 
 //-----------------------------------------------------------------------------
 /*Test ATL COM container.
@@ -70,6 +70,10 @@ int _tmain(int argc,      //[in] specifies how many arguments are passed to the
            )
 {
 int nRetCode = EXIT_SUCCESS;
+
+//TODO: testing loop
+std::_tcout << _T("Test HRESULT validation") << std::endl;
+TestCHresult();
 
 std::_tcout << _T("Creating COM object...") << std::endl;
 HRESULT hResult = CoInitialize(NULL); //Initialize COM
@@ -125,6 +129,7 @@ return nRetCode;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  4    Biblioteka1.3         2007-02-21 09:15:31  Darko Kolakovic TestCHresult
  *  3    Biblioteka1.2         2007-02-15 20:36:32  Darko Kolakovic ITestAtl7Obj
  *  2    Biblioteka1.1         2007-02-13 13:44:58  Darko Kolakovic Changed Test
  *       object

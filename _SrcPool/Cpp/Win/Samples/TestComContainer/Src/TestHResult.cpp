@@ -1,5 +1,5 @@
-/*$Workfile: TestDumpButtonStyle.cpp$: implementation file
-  $Revision: 5$ $Date: 2005-04-26 12:00:57$
+/*$Workfile: S:\_SrcPool\Cpp\Win\Samples\TestComContainer\Src\TestHResult.cpp$: implementation file
+  $Revision: 1$ $Date: 2007-02-21 09:15:01$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -19,6 +19,7 @@
 #endif
 
 bool TestCHresult();
+extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 ///////////////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
@@ -32,7 +33,10 @@ bool TestCHresult();
  */
 bool TestCHresult()
 {
-TRACE(_T("TestCHresult()\n"));
+//TRACE(_T("TestCHresult()\n"));
+
+::SetLastError(ERROR_SUCCESS); //Clear previous error status
+
 TsWriteToViewLn(_T("TestCHresult()"));
 bool bRes = true;
 TESTENTRY logEntry =
@@ -72,13 +76,14 @@ try
       {
       logEntry.m_szObjectName = _T("CHresult::CHresult(HRESULT = E_UNEXPECTED)");
       CHresult hrError(E_UNEXPECTED); //Throw exception
+      hrLasterror = hrError;   //Copy
       //Write test log
       logEntry.m_bResult = bRes = false;
       }
     catch(...)
       {
       logEntry.m_bResult = bRes; //Correct action
-      _stprintf(szReport,_T("E_UNEXPECTED = %i"),(HRESULT)hrLasterror);
+      _stprintf(szReport,_T("E_UNEXPECTED = %i"),E_UNEXPECTED);
       TsWriteToViewLn(szReport);
       }
     LogTest(&logEntry);
@@ -91,12 +96,13 @@ catch(...)
   logEntry.m_bResult = bRes;
   LogTest(&logEntry);
   }
-TsWriteToView(LOG_EOT);
-TsWriteToView(_T("\r\n"));
+TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: $
+ * $Log: 
+ *  1    Biblioteka1.0         2007-02-21 09:15:01  Darko Kolakovic 
+ * $
  *****************************************************************************/

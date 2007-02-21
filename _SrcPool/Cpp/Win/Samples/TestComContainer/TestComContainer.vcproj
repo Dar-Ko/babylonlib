@@ -23,7 +23,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\TestComAtl\idl\,..\TestComAtlNet\idl\,..\..\.."
+				AdditionalIncludeDirectories="..\TestComAtl\idl\,..\TestComAtlNet\idl\,..\..\..,..\..\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -85,7 +85,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\TestComAtl\idl\,..\TestComAtlNet\idl\,..\..\.."
+				AdditionalIncludeDirectories="..\TestComAtl\idl\,..\TestComAtlNet\idl\,..\..\..,..\..\32"
 				PreprocessorDefinitions="_DEBUG;WIN32;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -148,7 +148,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\TestComAtl\idl\,..\TestComAtlNet\idl\,..\..\.."
+				AdditionalIncludeDirectories="..\TestComAtl\idl\,..\TestComAtlNet\idl\,..\..\..,..\..\32"
 				PreprocessorDefinitions="NDEBUG;WIN32;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -210,7 +210,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\TestComAtl\idl\,..\TestComAtlNet\idl\,..\..\.."
+				AdditionalIncludeDirectories="..\TestComAtl\idl\,..\TestComAtlNet\idl\,..\..\..,..\..\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -275,6 +275,15 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
+			<File
+				RelativePath="..\..\32\KDbgRpt.cpp">
+			</File>
+			<File
+				RelativePath="..\..\32\KDisplayComError.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\KTestLog.cpp">
+			</File>
 			<File
 				RelativePath="Src\main.cpp">
 				<FileConfiguration
@@ -389,10 +398,19 @@
 						AdditionalIncludeDirectories="\_SrcPool\Cpp\Samples\Common\Res\Win\32"/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\Src\TestHResult.cpp">
+			</File>
+			<File
+				RelativePath="..\..\..\Samples\Common\Src\TsWriteTxt.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\..\32\KHresult.h">
+			</File>
 			<File
 				RelativePath="Src\stdafx.h">
 			</File>
@@ -404,6 +422,17 @@
 				RelativePath="..\..\..\Samples\Common\Res\Win\SrcPool.ico">
 			</File>
 		</Filter>
+		<Filter
+			Name="Log Files"
+			Filter="*.log">
+			<File
+				RelativePath=".\LibraryTestUni.log">
+			</File>
+		</Filter>
+		<File
+			RelativePath=".\Src\TestComContainer.htm"
+			DeploymentContent="TRUE">
+		</File>
 		<File
 			RelativePath="TestComContainer.txt">
 		</File>
