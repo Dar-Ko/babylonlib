@@ -1,5 +1,11 @@
-// TestComAtl.cpp : Implementation of DLL Exports.
+/*$Workfile: TestComAtl.cpp$: implementation file
+  $Revision: 3$ $Date: 2007-02-16 14:22:29$
+  $Author: Darko Kolakovic$
 
+  Implementation of DLL Exports
+  Copyright: CommonSoft Inc.
+  2003-08-25 Darko Kolakovic
+ */
 
 // Note: Proxy/Stub Information
 //      To build a separate proxy/stub DLL,

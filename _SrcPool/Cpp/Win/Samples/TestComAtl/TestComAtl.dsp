@@ -44,7 +44,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS\TestComAtl\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /ZI /Od /I ".\idl" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /FR /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /ZI /Od /I ".\idl" /I "..\..\.." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /FR /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE RSC /l 0x1009 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -64,6 +64,11 @@ SOURCE="$(InputPath)"
 	echo regsvr32 exec. time > "$(OutDir)\regsvr32.trg" 
 	
 # End Custom Build
+# Begin Special Build Tool
+SOURCE="$(InputPath)"
+PostBuild_Desc=Build TestComAtlPS Proxy/Stub DLL
+PostBuild_Cmds=nmake -f TestComAtlps.mk
+# End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "TestComAtl - Win32 Debug_Unicode"
 
@@ -78,7 +83,7 @@ SOURCE="$(InputPath)"
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode\TestComAtl\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_USRDLL" /D "_UNICODE" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /ZI /Od /I ".\idl" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_USRDLL" /D "_UNICODE" /FR /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /ZI /Od /I ".\idl" /I "..\..\.." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_USRDLL" /D "_UNICODE" /FR /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE RSC /l 0x1009 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -104,6 +109,11 @@ SOURCE="$(InputPath)"
 	:end 
 	
 # End Custom Build
+# Begin Special Build Tool
+SOURCE="$(InputPath)"
+PostBuild_Desc=Build TestComAtlPS Proxy/Stub DLL
+PostBuild_Cmds=nmake -f TestComAtlps.mk
+# End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "TestComAtl - Win32 Release_SBCS"
 
@@ -118,7 +128,7 @@ SOURCE="$(InputPath)"
 # PROP Intermediate_Dir "..\Obj\Release_SBCS\TestComAtl\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "_ATL_STATIC_REGISTRY" /D "_ATL_MIN_CRT" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W3 /O1 /I ".\idl" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "_ATL_STATIC_REGISTRY" /D "_ATL_MIN_CRT" /FR /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W3 /O1 /I ".\idl" /I "..\..\.." /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "_ATL_STATIC_REGISTRY" /D "_ATL_MIN_CRT" /FR /Yu"stdafx.h" /FD /c
 # ADD BASE RSC /l 0x1009 /d "NDEBUG"
 # ADD RSC /l 0x1009 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -138,6 +148,11 @@ SOURCE="$(InputPath)"
 	echo regsvr32 exec. time > "$(OutDir)\regsvr32.trg" 
 	
 # End Custom Build
+# Begin Special Build Tool
+SOURCE="$(InputPath)"
+PostBuild_Desc=Build TestComAtlPS Proxy/Stub DLL
+PostBuild_Cmds=nmake -f TestComAtlps.mk
+# End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "TestComAtl - Win32 Release_Unicode"
 
@@ -152,7 +167,7 @@ SOURCE="$(InputPath)"
 # PROP Intermediate_Dir "..\Obj\Release_Unicode\TestComAtl\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "_UNICODE" /D "_ATL_STATIC_REGISTRY" /D "_ATL_MIN_CRT" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W3 /O1 /I ".\idl" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "_UNICODE" /D "_ATL_STATIC_REGISTRY" /D "_ATL_MIN_CRT" /FR /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W3 /O1 /I ".\idl" /I "..\..\.." /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_USRDLL" /D "_UNICODE" /D "_ATL_STATIC_REGISTRY" /D "_ATL_MIN_CRT" /FR /Yu"stdafx.h" /FD /c
 # ADD BASE RSC /l 0x1009 /d "NDEBUG"
 # ADD RSC /l 0x1009 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -178,6 +193,11 @@ SOURCE="$(InputPath)"
 	:end 
 	
 # End Custom Build
+# Begin Special Build Tool
+SOURCE="$(InputPath)"
+PostBuild_Desc=Build TestComAtlPS Proxy/Stub DLL
+PostBuild_Cmds=nmake -f TestComAtlps.mk
+# End Special Build Tool
 
 !ENDIF 
 
@@ -210,34 +230,14 @@ SOURCE=.\Src\TestComAtl.def
 # Begin Source File
 
 SOURCE=.\Src\TestComAtl.idl
-# ADD MTL /tlb ".\idl\TestComAtl.tlb" /h ".\idl\TestComAtl.h" /iid ".\idl\TestComAtl_i.c" /Oicf
+# ADD MTL /tlb ".\idl\TestComAtl.tlb" /h ".\idl\TestComAtl.h" /iid ".\idl\TestComAtl_i.c"
+# SUBTRACT MTL /mktyplib203 /Oicf
 # End Source File
 # Begin Source File
 
 SOURCE=.\Src\TestComAtl.rc
-
-!IF  "$(CFG)" == "TestComAtl - Win32 Debug_SBCS"
-
-# ADD BASE RSC /l 0x1009 /i "Src"
-# ADD RSC /l 0x1009 /i ".\idl" /i "Src"
-
-!ELSEIF  "$(CFG)" == "TestComAtl - Win32 Debug_Unicode"
-
 # ADD BASE RSC /l 0x1009 /i "Src"
 # ADD RSC /l 0x1009 /i "Src" /i ".\idl"
-
-!ELSEIF  "$(CFG)" == "TestComAtl - Win32 Release_SBCS"
-
-# ADD BASE RSC /l 0x1009 /i "Src"
-# ADD RSC /l 0x1009 /i "Src" /i ".\idl"
-
-!ELSEIF  "$(CFG)" == "TestComAtl - Win32 Release_Unicode"
-
-# ADD BASE RSC /l 0x1009 /i "Src"
-# ADD RSC /l 0x1009 /i "Src" /i ".\idl"
-
-!ENDIF 
-
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -264,6 +264,10 @@ SOURCE=.\Src\TestAtlObj.h
 SOURCE=.\Src\TestAtlObj.rgs
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\TestComAtlps.mk
+# End Source File
 # Begin Source File
 
 SOURCE=.\TestComAtlVc6.htm

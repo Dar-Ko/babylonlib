@@ -1,4 +1,11 @@
-// TestAtlObj.h : Declaration of the CTestAtlObj
+/*$Workfile: TestAtlObj.h$: header file
+  $Revision: 2$ $Date: 2007-02-16 14:22:27$
+  $Author: Darko Kolakovic$
+
+  Interface of the CTestButtonDlg class
+  Copyright: CommonSoft Inc
+  2003-08-25 Darko Kolakovic
+ */
 
 #ifndef __TESTATLOBJ_H_
 #define __TESTATLOBJ_H_

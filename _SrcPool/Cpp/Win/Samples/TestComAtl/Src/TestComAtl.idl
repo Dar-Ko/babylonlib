@@ -1,5 +1,11 @@
-// TestComAtl.idl : IDL source for TestComAtl.dll
-//
+/*$Workfile: TestComAtl.idl$: IDL source file
+  $Revision: 2$ $Date: 2007-02-16 14:22:30$
+  $Author: Darko Kolakovic$
+
+  Implementation file
+  Copyright: CommonSoft Inc.
+  2003-08-25 Darko Kolakovic
+ */
 
 // This file will be processed by the MIDL tool to
 // produce the type library (TestComAtl.tlb) and marshalling code.

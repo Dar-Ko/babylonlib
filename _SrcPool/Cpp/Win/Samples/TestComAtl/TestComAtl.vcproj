@@ -69,7 +69,16 @@ echo Warning : Cannot register Unicode DLL on Windows 95
 				TypeLibraryName=".\..\bin\Release_Unicode\Win32/TestComAtl.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				Description="Build $(TargetName)PS Proxy/Stub DLL"
+				CommandLine="@echo Build Proxy/Stub DLL
+nmake -f TestComAtlps.mk
+if errorlevel 1 goto ERR_LVL1
+goto S_OK
+:ERR_LVL1
+echo Post-Build(4) : warning : $(TargetName)PS failed to build!
+goto VCReportError
+:S_OK"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -139,7 +148,16 @@ echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;
 				TypeLibraryName=".\..\bin\Release_SBCS\Win32/TestComAtl.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				Description="Build $(TargetName)PS Proxy/Stub DLL"
+				CommandLine="@echo Build Proxy/Stub DLL
+nmake -f TestComAtlps.mk
+if errorlevel 1 goto ERR_LVL1
+goto S_OK
+:ERR_LVL1
+echo Post-Build(4) : warning : $(TargetName)PS failed to build!
+goto VCReportError
+:S_OK"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -208,7 +226,16 @@ echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;
 				TypeLibraryName=".\..\bin\Debug_SBCS\Win32/TestComAtl.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				Description="Build $(TargetName)PS Proxy/Stub DLL"
+				CommandLine="@echo Build Proxy/Stub DLL
+nmake -f TestComAtlps.mk
+if errorlevel 1 goto ERR_LVL1
+goto S_OK
+:ERR_LVL1
+echo Post-Build(4) : warning : $(TargetName)PS failed to build!
+goto VCReportError
+:S_OK"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -283,7 +310,16 @@ echo Warning : Cannot register Unicode DLL on Windows 95
 				TypeLibraryName=".\..\bin\Debug_Unicode\Win32/TestComAtl.tlb"
 				HeaderFileName=""/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+				Description="Build $(TargetName)PS Proxy/Stub DLL"
+				CommandLine="@echo Build Proxy/Stub DLL
+nmake -f TestComAtlps.mk
+if errorlevel 1 goto ERR_LVL1
+goto S_OK
+:ERR_LVL1
+echo Post-Build(4) : warning : $(TargetName)PS failed to build!
+goto VCReportError
+:S_OK"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
