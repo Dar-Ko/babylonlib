@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*$Workfile: KDocument.css$: Cascading style sheet file
-  $Revision: 29$ $Date: 2007-02-23 13:35:30$
+  $Revision: 30$ $Date: 2007-02-23 15:14:19$
   $Author: Darko Kolakovic$
 
   HTML Document layout
@@ -215,8 +215,15 @@ a:link.NewsTag
   cursor: help;
   /*Note: Works with  IE6, Firefox 1.0;
     IE uses first 32x32 from the set (even if it is monochrome),
-    Firefox the first image in the set */
-  cursor: url(../Res/KDocument.svg#curFootnote), url(../Res/KFootnote.cur), help;
+    Firefox the first image in the set
+    IE 6 could not resolve path relative to css,
+    Opera 8.1, Netscape 8 coould not display custom cursor at all
+    Firefox works OK
+    */
+  cursor: url(../Res/KDocument.svg#curFootnote),  /*KDE     */
+          url(../Res/KFootnote.cur),              /*Firefox */
+          url(../../../../Doc/Res/KFootnote.cur), /*IE      */
+          help;                                   /*Default */
   }
 
 a.Footnote, a:visited.Footnote, a:active.Footnote
@@ -240,7 +247,10 @@ a:hover.Footnote
   /*Note: Opera 7.5 works only with single predefind items (like cursor: pointer;)*/
   cursor: help;
   /*Note: Works with  IE6, Firefox 1.0*/
-  cursor: url(../Res/KDocument.svg#curReference), url(../Res/KReference.cur), help;
+  cursor: url(../Res/KDocument.svg#curReference),
+          url(../Res/KReference.cur),
+          url(../../../../Doc/Res/KReference.cur),
+          help;
   }
 
 a:link.Ref, a:visited.Ref, a:active.Ref
@@ -267,7 +277,10 @@ a:hover.Ref
   color: #000099;
   /*Note: Opera 7.5 works only with single predefind items (like cursor: pointer;)*/
   cursor: help;
-  cursor: url(../Res/KDocument.svg#curFootnote), url(../Res/KFootnote.cur), help;
+  cursor: url(../Res/KDocument.svg#curFootnote),
+          url(../Res/KFootnote.cur),
+          url(../../../../Doc/Res/KFootnote.cur),
+          help;
   }
 
 a.Glossary, a:Glossary.Footnote, a:active.Glossary
