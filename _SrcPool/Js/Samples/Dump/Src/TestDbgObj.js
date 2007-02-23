@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Js\Samples\Dump\Src\TestDbgObj.js$: script file
+/*$Workfile: TestDbgObj.js$: script file
   $Revision: 1$ $Date: 2006-11-23 18:17:41$
   $Author: Darko Kolakovic$
 

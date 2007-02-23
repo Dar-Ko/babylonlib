@@ -1,0 +1,44 @@
+<?XML version="1.0"?>
+<?job error="true" debug="true" ?>
+
+'==========================================================
+'
+' LANG : VBScript
+' NAME : MyScript.wsf
+' AUTHOR : My Name
+' DATE : 21/06/2000
+' Description : Demonstration Script Header
+' COMMENT : Add comments here
+'
+' KEYWORDS : Indexing Keywords here
+'==========================================================
+'The use of the KEYWORDS field is to enable an indexing engine to search and
+'retrieve all related scripts.
+
+<comment>
+acasfaa
+</comment>
+<!--
+  <title>HTML Test Files List</title>
+  <language>en-ca</language>
+  <workfile type="Windows Script File">$Workfile: TestIndex.xml$</workfile>
+  <editor>$Author: Darko Kolakovic$</editor>
+  <revision>$Revision: 3$ $Date: 2005-10-19 17:06:12$</revision>
+  <description>Test of the logging</description>
+  <copyright>&#xA9; CommonSoft Inc, 2006</copyright>
+  <copyright>&#xA9; Darko Kolakovi&#x0107;, 1985-2032, All Rights Reserved.</copyright>
+</comment -->
+
+<package id="testlog">
+  <!-- You must identify each job by using a unique job identifier. To run that portion
+of script, you can then reference these identifiers by using a command similar to
+the following:
+CScript //Job:testlogentry Log.wsf
+-->
+  <job id="testlogentry">
+    <script language="JScript" src="Src/TestLogEntry.js"/>
+    <script language="JScript">
+      TestLogEntry();
+    </script>
+  </job>
+</package>
