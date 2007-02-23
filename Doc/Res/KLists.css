@@ -1,0 +1,100 @@
+@charset "utf-8";
+/*$Workfile: KLists.css$: Cascading style sheet file
+  $Revision: 3$ $Date: 2007-02-23 13:35:16$
+  $Author: Darko Kolakovic$
+
+  HTML Document layout
+  Copyright: CommonSoft Inc
+  2005-09-29 D.Kolakovic
+ */
+
+
+/* List ---------------------------------------------------------------------*/
+
+li p
+  {
+  margin-top: .75em;
+  margin-bottom: 1.25em;
+  }
+
+li
+  {
+  margin-left: -.15in;
+  }
+
+ul
+  {
+  list-style: disc;
+  }
+
+/*Ordered list enumerates list items with small Roman numerals:
+  i, ii, iii, iv, ...
+ */
+ol.romanS
+  {
+  list-style-type: lower-Roman;
+  }
+
+/*Ordered list enumerates list items with Roman numerals:
+  I, II, III, IV, ...
+ */
+ol.Roman
+  {
+  list-style-type: upper-Roman;
+  }
+
+/*Ordered list enumerates list items with small Latin letters:
+  a, b, c, d, ...
+ */
+ol.abcS
+  {
+  list-style-type: lower-alpha;
+  }
+
+/*Ordered list enumerates list items with capital Latin letters:
+  A, B, C, D, ...
+ */
+ol.ABC
+  {
+  list-style-type: upper-alpha;
+  }
+
+/*CSS 2.1 numbers nested list items as "1", "1.1", "1.1.1"
+  Note: Works with Opera; does not with Firefox, IE6
+ */
+ol.Toc
+  {
+  counter-reset: item;
+  }
+
+ol.Toc li:before
+  {
+  content: counters(item, ".") " ";
+  counter-increment: item;
+  }
+
+ol.Toc li
+  {
+  display: block;
+  }
+
+li.LeftArrow
+  {
+  list-style-type: square;
+  list-style-position: outside;
+  list-style-image: url('../Res/arrowLBlue.gif')
+  }
+li.RightArrow
+  {
+  list-style-type: square;
+  list-style-position: outside;
+  list-style-image: url('../Res/arrowRBlue.gif')
+  }
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/*-----------------------------------------------------------------------------
+  $Log:
+   1    Biblioteka1.0         2005-09-29 12:04:17  Darko Kolakovic
+  $
+ */
+
