@@ -78,9 +78,12 @@ goto S_OK
 :ERR_LVL1
 echo Post-Build(4) : warning : $(TargetName)PS failed to build!
 goto VCReportError
-:S_OK"/>
+:S_OK
+"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				Description="Create IDL folder"
+				CommandLine="if not exist $(ProjectDir)idl mkdir $(ProjectDir)idl"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -157,9 +160,12 @@ goto S_OK
 :ERR_LVL1
 echo Post-Build(4) : warning : $(TargetName)PS failed to build!
 goto VCReportError
-:S_OK"/>
+:S_OK
+"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				Description="Create IDL folder"
+				CommandLine="if not exist $(ProjectDir)idl mkdir $(ProjectDir)idl"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -235,9 +241,12 @@ goto S_OK
 :ERR_LVL1
 echo Post-Build(4) : warning : $(TargetName)PS failed to build!
 goto VCReportError
-:S_OK"/>
+:S_OK
+"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				Description="Create IDL folder"
+				CommandLine="if not exist $(ProjectDir)idl mkdir $(ProjectDir)idl"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -319,9 +328,12 @@ goto S_OK
 :ERR_LVL1
 echo Post-Build(4) : warning : $(TargetName)PS failed to build!
 goto VCReportError
-:S_OK"/>
+:S_OK
+"/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPreBuildEventTool"
+				Description="Create IDL folder"
+				CommandLine="if not exist $(ProjectDir)idl mkdir $(ProjectDir)idl"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
