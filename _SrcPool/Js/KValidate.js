@@ -1,5 +1,5 @@
 //$Workfile: KValidate.js$: script file
-//$Revision: 2$ $Date: 2006-11-29 13:09:32$
+//$Revision: 3$ $Date: 2007-02-23 18:14:52$
 //$Author: Darko Kolakovic$
 //
 //Validate simple data types
@@ -57,3 +57,42 @@ if ((cValue != null) && (cValue.length == 1))
   }
 return false;
 }
+
+//------------------------------------------------------------------------------
+/*Validate if the argument is a string.
+
+  Returns: true if the argument passed to the function is a string; if not,
+  returns false.
+
+  Example:
+    var bRes = isString("Some text");
+ */
+function isString(strValue //[in] object to validate
+                 )
+{
+if (typeof strValue == 'string')
+  return true; //string constant
+if (typeof strValue == 'object')
+  {
+  //String object
+  return (strValue.constructor.toString().match(/string/i) != null);
+  }
+return false;
+}
+
+//------------------------------------------------------------------------------
+/*Validate if the argument is an array.
+
+  Returns: true if the argument passed to the function is an array object; if not,
+  returns false.
+ */
+function isArray(arrValue //[in] object to validate
+                )
+{
+if (typeof arrValue == 'object')
+  {
+  return (arrValue.constructor.toString().match(/array/i) != null);
+  }
+return false;
+}
+
