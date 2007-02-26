@@ -1,5 +1,5 @@
 @echo off
-REM $Workfile: S:\Util\KSetThis.bat$: batch command script
+REM $Workfile: KSetThis.bat$: batch command script
 REM $Revision: 1$ $Date: 2006-11-01 10:21:13$
 REM $Author: Darko Kolakovic$
 REM
@@ -46,7 +46,7 @@ goto LBLONEXIT
 
 REM ----------------------------------------------------------------------------
 :LBLHELP
-@echo $Workfile: S:\Util\KSetThis.bat$ $Revision: 1$
+@echo $Workfile: KSetThis.bat$ $Revision: 1$
 @echo Associates a directory path with a drive letter.
 @echo      KSetThis [drive1: [path]]
 @echo If the path is not given, the current working path is assumed.

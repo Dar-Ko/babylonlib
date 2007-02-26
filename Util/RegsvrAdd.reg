@@ -1,0 +1,59 @@
+Windows Registry Editor Version 5.00
+;$Workfile: S:\Util\RegsvrAdd.reg$: Windows Registry configuration file
+;$Revision: 1$ $Date: 2007-02-26 18:13:26$
+;$Author: Darko Kolakovic$
+;
+;Insert COM Automation registration menu items in the Windows Explorer context menu.
+;Invokes regsvr32 for OCX and COM Dlls or \regserver for EXE COM servers.
+;Note: Win32 specific
+;Copyright: CommonSoft Inc
+;2006-10-15 Darko Kolakovic
+
+
+;Handle ocx, olb and dll
+[HKEY_CLASSES_ROOT\.ocx]
+@="ocxfile"
+;Verbose
+[HKEY_CLASSES_ROOT\ocxfile\shell\Register\command]
+@="regsvr32.exe %1"
+[HKEY_CLASSES_ROOT\ocxfile\shell\Register -Quiet\command]
+@="regsvr32.exe /s %1"
+[HKEY_CLASSES_ROOT\ocxfile\shell\UnRegister\command]
+@="regsvr32.exe /u %1"
+[HKEY_CLASSES_ROOT\ocxfile\shell\UnRegister -Quiet\command]
+@="regsvr32.exe /u /s %1"
+
+[HKEY_CLASSES_ROOT\.olb]
+@="olbfile"
+[HKEY_CLASSES_ROOT\olbfile\shell\Register\command]
+@="regsvr32.exe %1"
+[HKEY_CLASSES_ROOT\olbfile\shell\Register -Quiet\command]
+@="regsvr32.exe /s %1"
+[HKEY_CLASSES_ROOT\olbfile\shell\UnRegister\command]
+@="regsvr32.exe /u %1"
+[HKEY_CLASSES_ROOT\olbfile\shell\UnRegister -Quiet\command]
+@="regsvr32.exe /u /s %1"
+
+[HKEY_CLASSES_ROOT\.dll]
+@="dllfile"
+[HKEY_CLASSES_ROOT\dllfile\shell\Register\command]
+@="regsvr32.exe %1"
+[HKEY_CLASSES_ROOT\dllfile\shell\Register -Quiet\command]
+@="regsvr32.exe /s %1"
+[HKEY_CLASSES_ROOT\dllfile\shell\UnRegister\command]
+@="regsvr32.exe /u %1"
+[HKEY_CLASSES_ROOT\dllfile\shell\UnRegister -Quiet\command]
+@="regsvr32.exe /u /s %1"
+
+
+;Handle exe servers
+[HKEY_CLASSES_ROOT\.exe]
+@="exefile"
+[HKEY_CLASSES_ROOT\exefile\shell\Register\command]
+@="%1 /register"
+[HKEY_CLASSES_ROOT\exefile\shell\UnRegister\command]
+@="%1 /unregister"
+;------------------------------------------------------------------------------
+;$Log: 
+; 1    Biblioteka1.0         2007-02-26 18:13:26  Darko Kolakovic 
+;$

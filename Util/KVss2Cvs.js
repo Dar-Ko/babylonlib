@@ -2,9 +2,10 @@
   $Revision: 4$ $Date: 2006-11-02 18:41:01$
   $Author: Darko Kolakovic$
 
-  Converts  Microsoft Visual SourceSafe repository to CVS format.
+  Converts Microsoft Visual SourceSafe repository to CVS format.
   Copyright: 1999-2001 Curt Hagenlocher
   1999-11-30 Curt Hagenlocher
+  2004-10-29 Darko Kolakovic
  */
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -18,10 +19,410 @@
 
   The script uses the Automation interface to Visual SourceSafe (VSS). VSS does
   not store date when in VSS a file was deleted, therefore such files are not
-  labeled correctly after moving to CVS Attic. Branching is ignored becouse of
+  labeled correctly after moving to CVS Attic. Branching is ignored because of
   different meaning of a branch in to systems.
   'Shared file' flag is also ignored.
  */
+
+debugger;
+
+////////////////////////////////////////////////////////////////////////////////
+// Set default output
+
+var g_defOut = new Object(); //default output device
+
+if(this.WScript != null) //Windows Script Host shell
+  {
+  g_defOut.Write   = WScript.Echo;
+  g_defOut.WriteLn = g_defOut.Write; //TODO:
+  g_defOut.WriteHtml = WScript.Echo; //TODO: strip HTML
+
+  main(); //Run the script
+  }
+else if (document != null) //HTML Browser shell
+  {
+    /*Note: Mozilla 1.5 generates NS_ERROR_XPC_BAD_OP_ON_WN_PROTO exception after
+      assigning document.write/writeln to an object and accessing it:
+         oWrite = document.write;
+         oWrite("str");
+     */
+
+     //TODO: Replace HTML escapes : document.writeln(EscapeHTml());
+  g_defOut.WriteLn =
+    function (szText //[in] line of text to output
+             )
+      {
+      if (szText != undefined)
+        //Outputs text to either a message box or the command console window.
+        document.writeln(escapeHtml2(szText) + "<br />");
+      else
+        document.writeln("&lt;null&gt;<br />");
+      };
+  g_defOut.Write =
+    function (szText //[in] line of text to output
+             )
+      {
+      if (szText != undefined)
+        //Outputs text to either a message box or the command console window.
+        document.write(escapeHtml2(szText));
+      else
+        document.write("&lt;null&gt;");
+      };
+  //Write preformatted HTML text
+  g_defOut.WriteHtml =
+    function (szText //[in] line of text to output
+             )
+      {
+      if (szText != undefined)
+        //Outputs text to either a message box or the command console window.
+        document.write(szText);
+      else
+        document.write("&lt;null&gt;");
+      };
+
+  //Call main() from the HTML document
+  }
+
+///////////////////////////////////////////////////////////////////////////////
+// Constants
+
+//Definition of the argument values for the exit() function
+/*const*/ var EXIT_SUCCESS = 0;
+/*const*/ var EXIT_FAILURE = 1;
+//Definition of the successful results
+/*const*/ var S_OK         = 0;
+/*const*/ var S_FALSE      = 1;
+/*const*/ var NO_ERROR     = 0;
+//Error codes
+/*const*/ var ERROR_SUCCESS = 0; //no errors
+/*const*/ var EOF = (-1); //'End of File' tags end of a stream
+
+//-----------------------------------------------------------------------------
+//COM type library constants
+/*const*/ var ForReading   = 1;//open a file for reading only.
+/*const*/ var ForWriting   = 2;//open a file for writing
+/*const*/ var ForAppending = 8;//open a file and write to the end of the file
+
+/*const*/ var TristateFalse      =  0;//opens the file as ASCII
+/*const*/ var TristateTrue       = -1;//opens the file as Unicode
+/*const*/ var TristateUseDefault = -2;//opens the file using the system default
+/*const*/ var TristateMixed      = -2;
+
+/////////////////////////////////////////////////////////////////////////////
+// Resources
+var resString = new Array(); //string resource lang=en
+resString['ERR_ACTIVEX'] = "The script requires Microsoft ActiveX objects to run!";
+resString['IDS_GETIE'] = 'Install the latest version of Internet Explorer.';
+resString['IDS_IEVER'] = "This page requires Windows IE 5.5 or higher.";
+resString['ERR_VSSARG'] = "Invalid VSS syntax: <syntax>\r\n" +
+        "The syntax you entered is invalid in VSS.\r\n" +
+        "This error has the following cause and solution:\r\n" +
+        "You have entered a VSS file or project path that does not use valid syntax.\r\n"+
+        "In VSS syntax, every path starts with a dollar sign followed by a series of\r\n"+
+        "project names, which are separated by slashes and optionally\r\n"+
+        "followed by a file name. For example:\r\n" +
+        "  - $/ is the root project.\r\n" +
+        "  - $/Code is a subproject of $/.\r\n" +
+        "  - $/Code/Win/Test.C is a file in the $/Code/Win project.\r\n" +
+        "Many parts of this syntax are optional. You can omit the dollar sign\r\n"+
+        "in most circumstances. You can also shorten the path by basing it\r\n"+
+        "on your current project; for example, if you are in $/Code, you can\r\n"+
+        "type WIN as a shorthand for $/Code/Win, Test.C for $/Code/Test.C\r\n"+
+        "and .. for the root.";
+///////////////////////////////////////////////////////////////////////////////
+// Starting point
+
+//------------------------------------------------------------------------------
+//Main
+function main()
+{
+try
+  {
+  if (!isWinShell()) //ActiveX is required
+    return EXIT_FAILURE;
+var fs = new ActiveXObject("Scripting.FileSystemObject");
+
+  }
+catch(error)
+ {
+  if((error.result != undefined) && (error.result == 0x8057000c))
+    {
+    //NS_ERROR_XPC_BAD_OP_ON_WN_PROTO
+    //Illegal operation on WrappedNative prototype object
+    g_defOut.WriteLn(error);
+    if (lf != undefined)
+      lf.close();
+    return EXIT_FAILURE;
+    }
+  g_defOut.WriteLn(error.message + ": " + logfile);
+  bEnableLog = false; //Proceed without logging
+  }
+
+try
+  {
+  var db  = new ActiveXObject("SourceSafe");
+  if (vss_ini_file.length > 0)
+    db.Open(vss_ini_file, vss_username, vss_password);
+  else
+    db.Open();
+
+  if (vss_project.charAt(vss_project.length - 1) != '/')
+    vss_project    += '/';
+  if (rcs_repository.charAt(rcs_repository.length - 1) != '\\')
+    rcs_repository += '\\';
+  if (rcs_path.length > 0 && rcs_path.charAt(rcs_path.length - 1) != '\\')
+    rcs_path       += '\\';
+
+  var shell = new ActiveXObject("WScript.Shell");
+  ConvertDir(vss_project, rcs_repository);
+
+  }
+catch(error)
+  {
+  addlog(verbose, bEnableLog, error.description);
+  g_defOut.WriteLn(error.message);
+  }
+
+if (lf != undefined)
+  lf.close();
+if (!quiet)
+  g_defOut.WriteLn ("Done.");
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Logger
+
+// With quiet set to true, the script will not popup for any reason,
+// including errors
+// With verbose set to true, the script will print out all RCS commands
+// as they are run, directory and files creation
+// With debug set to true, you'll get more popups than you'll ever need
+var quiet           = false;
+var verbose         = false;
+var debug           = true;
+
+// Enable Logging by setting log to true and logfile to the filename
+// full_log set to true will log every RCS command
+
+var bEnableLog         = true
+var full_log    = true;
+var logfile     = "_VssCvs.log"
+
+// Normalize some options
+if (quiet)
+  {
+  verbose = false;
+  debug   = false;
+  }
+var fsLog = new ActiveXObject("Scripting.FileSystemObject");
+
+  //Create log file
+var lf;
+if(bEnableLog)
+  {
+  lf = fsLog.OpenTextFile(logfile, ForWriting, true, TristateUseDefault);
+  }
+
+//------------------------------------------------------------------------------
+/*Display and log event messages.
+ */
+function addlog(bDisplayMessage,//[in]true if the message is to be displayed
+                bWriteMessage, //[in] true if the message is to be written in the log
+                szMessage      //[in] text do be displayed
+               )
+{
+try
+  {
+  if (bDisplayMessage)
+    g_defOut.WriteLn(szMessage);
+  if (bWriteMessage && (lf != undefined))
+    lf.WriteLine(szMessage);
+  }
+catch (err)
+  {
+  g_defOut.WriteLn(err.message);
+  if (lf != undefined)
+    lf.WriteLine(err.description);
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Helpers
+
+//------------------------------------------------------------------------------
+/*Verifies if the current browser is Microsoft Internet Explorer 5.0+ and if the
+  platform is 32-bit Microsoft Windows OS.
+
+  Returns: true if conditions are met, otherwise returns false.
+  */
+function validateBrowser()
+{
+var strVers = navigator.appVersion;
+var strName = navigator.appName;
+var strPlat = navigator.platform;
+var intVer = strVers.indexOf("MSIE");
+if (intVer > -1)
+  {
+  intVer = strVers.substring( intVer + 5, strVers.indexOf(";", intVer));
+  intVer = parseInt(intVer);
+  return (strName == "Microsoft Internet Explorer" && strPlat == "Win32" && intVer > 5);
+  }
+return false;
+}
+
+//------------------------------------------------------------------------------
+/*Verifies if environment conditions are met.
+
+  Returns: true if conditions are met, otherwise returns false.
+  */
+function isWinShell()
+{
+var bRes = true;
+if (typeof ActiveXObject == 'undefined') //Microsoft IE shell is required
+  {
+  g_defOut.WriteLn(resString['ERR_ACTIVEX']);
+  bRes = false;
+  }
+//Check the version of IE, if the shell is not WSH
+if((this.WScript == null) && !validateBrowser())
+  {
+  g_defOut.WriteLn(resString['IDS_IEVER']);
+  var strFormatMsg =
+    "<p id='IDS_GETIE'><font size='2'>\n" +
+    "  <a href='http://www.microsoft.com/isapi/redir.dll?Prd=Office&Sbp=Access&Pver=10&Ar=DPdesigner&Sba=IEhome&Plcid=1033'>\n  " +
+    resString['IDS_GETIE'] +
+    "\n  </a></font>\n</p>\n";
+    g_defOut.WriteHtml(strFormatMsg);
+  bRes = false;
+  }
+return bRes;
+}
+
+//-----------------------------------------------------------------------------
+/*Replaces HTML 2.0 special characters with HTML entities. Function also
+  converts single quote (') to escaped sequence (\').
+
+     Character          Entity
+     Less than sign        &lt;
+     Greater than sign     &gt;
+     Ampersand            &amp;
+     Double quote sign    &quot;
+
+  See also: RFC1866: Hypertext Markup Language 2.0 - 9.7.1 Numeric and Special
+  Graphic Entity Set, ISO 8879:1986.
+ */
+function escapeHtml2(strText //[in] plain text
+                    )
+{
+if (!strText)
+  return "";
+
+return strText.replace(
+    /([<>&\"'])/g,
+    function ($1)
+      {
+      switch ($1)
+        {
+        case "<":   return "&lt;";
+        case ">":   return "&gt;";
+        case "&":   return "&amp;";
+        case "\"":  return "&quot;";
+        case "'":   return "\\'";
+        }
+      }
+    );
+}
+
+//-----------------------------------------------------------------------------
+/*Filename pattern matching. Matches a filename with a pattern consisting of
+  charaters and wildcards. The special characters used as wildcards are:
+
+     Wildcard    Description
+       *        matches everything
+       ?        matches any single character
+     [list]     matches any character in list
+     [!list]    matches any character not in list
+
+  Returns: true or false as result of the pattern match.
+ */
+function FnMatch(szFilename, //[in] filename to match
+                 szPattern , //[in] pattern to match
+                 bCaseInsensitive, //= false [in] true or false for case-insensitive
+                                   //comparison
+                 arrPatternCache   //= null [in] list of patterns and their regular
+                      //expression equivalents, used to speed up the conversion
+                 )
+{
+if ((szFilename == undefined) || (szPattern == undefined))
+  return false; //Nothing to do
+if (bCaseInsensitive == undefined)
+  bCaseInsensitive = false;
+
+var rePattern; //file name RegExp pattern
+if (arrPatternCache != undefined)
+  rePattern = arrPatternCache[szPattern]; //Get the pattern from the cache
+
+//if ((arrPatternCache==undefined) || (arrPatternCache[szPattern] == undefined))
+if(rePattern == undefined)
+  {
+   //Convert filename pattern to regular expression pattern
+  var szRegex = ""; //regular expression pattern to match
+  var i = 0;
+  while (i < szPattern.length)
+    {
+    var ch = szPattern.charAt(i++);
+    if (ch == '*')      //Matches any number of characters
+      szRegex += ".*";
+    else if (ch == '?') //Matches any character
+      szRegex += '.';
+    else if (ch == '[') //Matches any single character from the specified set.
+      {
+      var j = i;
+      if (j < szPattern.length && szPattern.charAt(j) == '!')
+        j++;
+      if (j < szPattern.length && szPattern.charAt(j) == ']')
+        j++;
+      //Get the size of the character set
+      while (j < szPattern.length && szPattern.charAt(j) != ']')
+        j++;
+
+      if (j >= szPattern.length)
+        {
+        //Escape regex special character '[' if no closing ']' is found
+        szRegex += "\\[";
+        }
+      else
+        {
+        var szList = szPattern.slice(i, j);
+        i = j + 1; //Move index to the and of the set
+
+        //Replace regex special characters '\','^','[' and ']'
+        szList = szList.replace(/\\/g, "\\\\");
+        szList = szList.replace(/\^/g, "\\^");
+        szList = szList.replace(/\]/g, "\\]");
+        szList = szList.replace(/\[/g, "\\[");
+
+        //To matches any single character not in the specified set of characters,
+        //repace first '!' with regex special character '^'
+        szList = szList.replace("!", "^");
+        szRegex += '[' + szList + ']';
+        }
+      }
+    else if (ch.match(/\W/))
+      szRegex += "\\" + ch;
+    else
+      szRegex += ch;
+    }
+
+  //Specifies case-insensitive matching.
+  rePattern = new RegExp(szRegex + '$', bCaseInsensitive ? "i" : "");
+  if (arrPatternCache != undefined)
+    arrPatternCache[szPattern] = rePattern; //Store the pattern to the cache
+  }
+//Note: the match method returns null or an array with found patterns
+return (szFilename.match(rePattern) != null);
+}
+
 //-----------------------------------------------------------------------------
 /*Configuration information.
   Initialize following  configuration variables:
@@ -70,21 +471,7 @@ var rcs_repository  = "C:\\Development\\catapult3.a";
 var rcs_path        = "";
 
 
-// With quiet set to true, the script will not popup for any reason,
-// including errors
-// With verbose set to true, the script will print out all RCS commands
-// as they are run, directory and files creation
-// With debug set to true, you'll get more popups than you'll ever need
-var quiet           = false;
-var verbose         = false;
-var debug           = true;
 
-// Enable Logging by setting log to true and logfile to the filename
-// full_log set to true will log every RCS command
-
-var bEnableLog         = true
-var full_log    = true;
-var logfile     = "_VssCvs.log"
 
 // Convert filenames to a standard case
 // These form a hierarchy -- each (if true) implies that
@@ -96,80 +483,9 @@ var lowercase_exts  = true;
 // Convert usernames to a standard case
 var lowercase_users = false;
 
-// Normalize some options
-if (quiet)
-  {
-  verbose = false;
-  debug   = false;
-  }
 
-//Definition of the argument values for the exit() function 
-/*const*/ var EXIT_SUCCESS = 0;
-/*const*/ var EXIT_FAILURE = 1;
-//Definition of the successful results
-/*const*/ var S_OK         = 0;
-/*const*/ var S_FALSE      = 1;
-/*const*/ var NO_ERROR     = 0;
-//Error codes
-/*const*/ var ERROR_SUCCESS = 0; //no errors
-/*const*/ var EOF = (-1); //'End of File' tags end of a stream
 
-//COM type library constants
-var ForReading   = 1;//open a file for reading only. You can't write to this file.
-var ForWriting   = 2;//open a file for writing
-var ForAppending = 8;//open a file and write to the end of the file
 
-var TristateFalse      =  0;//opens the file as ASCII
-var TristateTrue       = -1;//opens the file as Unicode
-var TristateUseDefault = -2;//opens the file using the system default
-var TristateMixed      = -2;
-
-//------------------------------------------------------------------------------
-//Main
-try
-  {
-  var fs = new ActiveXObject("Scripting.FileSystemObject");
-    //Create log file
-  if(bEnableLog)
-    {
-    var lf = fs.OpenTextFile(logfile, ForWriting, true, TristateUseDefault);
-    } 
-  }
-catch(error)
-  {
-  WScript.echo(error.message + ": " + logfile);
-  bEnableLog = false; //Proceed without logging
-  }
-
-try
-  {
-  var db  = new ActiveXObject("SourceSafe");
-  if (vss_ini_file.length > 0)
-    db.Open(vss_ini_file, vss_username, vss_password);
-  else
-    db.Open();
-
-  if (vss_project.charAt(vss_project.length - 1) != '/')
-    vss_project    += '/';
-  if (rcs_repository.charAt(rcs_repository.length - 1) != '\\')
-    rcs_repository += '\\';
-  if (rcs_path.length > 0 && rcs_path.charAt(rcs_path.length - 1) != '\\')
-    rcs_path       += '\\';
-
-  var shell = new ActiveXObject("WScript.Shell");
-  ConvertDir(vss_project, rcs_repository);
-
-  }
-catch(error)
-  {
-  addlog(verbose, bEnableLog, error.description);
-  WScript.echo(error.message);
-  }
-
-if (lf != undefined)
-  lf.close();
-if (!quiet)
-  WScript.echo ("Done.");
 
 ///////////////////////////////////////////////////////////////////////
 // Stack object definition
@@ -222,7 +538,7 @@ function stack_print()
   {
     dmesg += "n "+ i +" :\t"+ this.data[i].name + "\n";
   }
-  WScript.echo(dmesg);
+  g_defOut.WriteLn(dmesg);
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -323,78 +639,6 @@ function FixupRCSPath(szFilename, deleted)
     return szFilename;
 }
 
-//-----------------------------------------------------------------------------
-/*Filename pattern matching. Matches a filename with a pattern consiting of 
-  charaters and wildcards. The special characters used as wildcards are:
-
-     Wildcard    Description
-       *        matches everything
-       ?        matches any single character
-     [list]     matches any character in list
-     [!list]    matches any character not in list
-
-  Returns: true or false as result of the pattern match.
- */
-function FnMatch(szFilename, //[in] filename to match
-                 szPattern , //[in] pattern to match
-                 bCaseInsensitive //[in] true or false for case-insensitive 
-                                  //comparison
-                 )
-{
-var cachedFilespecs;
-if (cachedFilespecs == undefined)
-  cachedFilespecs = new Object();
-  
- //Convert filename pattern to regular expression pattern
-if (cachedFilespecs[szPattern])
-  return szFilename.match( cachedFilespecs[szPattern] );
-
-var i = 0;
-var result = "";
-while (i < szPattern.length)
-  {
-  var c = szPattern.charAt(i++);
-  if (c == '*')
-    result += ".*";
-  else if (c == '?')
-    result += '.';
-  else if (c == '[')
-    {
-    var j = i;
-    if (j < szPattern.length && szPattern.charAt(j) == '!')
-      j++;
-    if (j < szPattern.length && szPattern.charAt(j) == ']')
-      j++;
-    while (j < szPattern.length && szPattern.charAt(j) != ']')
-      j++;
-    if (j >= szPattern.length)
-      result += "\\[";
-    else
-      {
-      var stuff = szPattern.slice(i, j);
-      i = j + 1;
-      if (stuff.charAt(0) == '!')
-        stuff = "[^" + stuff.slice(1) + ']';
-      else if (stuff == substring("^^^^^^^^^^^^^^^^", 0, stuff.length))
-        stuff = '\\^';
-      else
-        {
-        while (stuff.charAt(0) == '^')
-          stuff = stuff.slice(1) + stuff.charAt(0);
-        stuff = '[' + stuff + ']';
-        }
-      res += stuff;
-      }
-    }
-  else if (c.match(/\W/))
-    result += "\\" + c;
-  else
-    result += c;
-  }
-
-cachedFilespecs[szPattern] = new RegExp(result + '$', bCaseInsensitive ? "" : "i");
-return szFilename.match(cachedFilespecs[szPattern]);
-}
 
 //------------------------------------------------------------------------------
 /*Get a text output sent by Windows Script Shell to the standard streams.
@@ -403,7 +647,7 @@ return szFilename.match(cachedFilespecs[szPattern]);
 function ReadAllStdOutStdErr(oExec //[in] WshScriptExec object
                             )
 {
-//The StdOut property contains a read-only copy of any information the 
+//The StdOut property contains a read-only copy of any information the
 //script may have sent to the standard output.
 if (!oExec.StdOut.AtEndOfStream)
   return oExec.StdOut.ReadAll();
@@ -665,8 +909,16 @@ try
 catch (err)
   {
   addlog(verbose, bEnableLog, err.description + ": " + localdir );
+  if (err.number == -2146823279) //TypeError
+    {
+    if (fs == undefined)
+      {
+      g_defOut.WriteLn(err.name + ": " + err.description);
+      return;
+      }
+    }
   }
-    
+
   try
   {
     var items = new Enumerator(db.VSSItem(project).Items(vss_usedeleted));
@@ -674,71 +926,40 @@ catch (err)
   catch (err)
   {
     if (err.number == -2147166483)
-    {
-      WScript.echo("Invalid VSS syntax: <syntax>\r\n" +
-        "The syntax you entered is invalid in VSS.\r\n" +
-        "This error has the following cause and solution:\r\n" +
-        "You have entered a VSS file or project path that does not use valid syntax.\r\n"+
-        "In VSS syntax, every path starts with a dollar sign followed by a series of\r\n"+
-        "project names, which are separated by slashes and optionally\r\n"+
-        "followed by a file name. For example:\r\n" +
-        "  - $/ is the root project.\r\n" +
-        "  - $/Code is a subproject of $/.\r\n" +
-        "  - $/Code/Win/Test.C is a file in the $/Code/Win project.\r\n" +
-        "Many parts of this syntax are optional. You can omit the dollar sign\r\n"+
-        "in most circumstances. You can also shorten the path by basing it\r\n"+
-        "on your current project; for example, if you are in $/Code, you can\r\n"+
-        "type WIN as a shorthand for $/Code/Win, Test.C for $/Code/Test.C\r\n"+
-        "and .. for the root.");
-    }
+      {
+      g_defOut.WriteLn(resString['ERR_VSSARG']);
+      }
     addlog(verbose, bEnableLog, err.description + ": " + project);
     return;
   }
   if (items.atEnd())
     {
-    WScript.Echo("Nothing to do with " + project);
+    g_defOut.WriteLn("Nothing to do with " + project);
     addlog(verbose, bEnableLog, project + " has no items!");
     return;
     }
-  else while (!items.atEnd())
-  {
-    var item = items.item();
-    if( (item.Type == 0) && 
-        (vss_subdirspec.length > 0) &&
-        FnMatch(item.Name, vss_subdirspec, fnmatch_case) )
+  else
     {
-      ConvertDir(project + item.Name + "/", localdir + item.Name + "\\");
+    var arrRegexCache = new Array(); //stored filename patterns for speedy access
+    while (!items.atEnd())
+      {
+      var item = items.item();
+      if( (item.Type == 0) &&
+          (vss_subdirspec.length > 0) &&
+          FnMatch(item.Name, vss_subdirspec, fnmatch_case, arrRegexCache) )
+        {
+        ConvertDir(project + item.Name + "/", localdir + item.Name + "\\");
+        }
+      else if ( (item.Type == 1) && FnMatch(item.Name, vss_filespec, fnmatch_case, arrRegexCache))
+        {
+        ConvertFile(project, localdir, item.Name);
+        }
+      items.moveNext();
+      }
     }
-    else if ( (item.Type == 1) && FnMatch(item.Name, vss_filespec, fnmatch_case))
-    {
-      ConvertFile(project, localdir, item.Name);
-    }
-    items.moveNext();
-  }
 }
 
-//------------------------------------------------------------------------------
-/*Display and log event messages.
- */
-function addlog(bDisplayMessage,//[in]true if the message is to be displayed 
-                bWriteMessage, //[in] true if the message is to be written in the log
-                szMessage      //[in] text do be displayed
-               )
-{
-try
-  {
-  if (bDisplayMessage)
-    WScript.Echo(szMessage);
-  if (bWriteMessage && (lf != undefined))
-    lf.WriteLine(szMessage);
-  }
-catch (err)
-  {
-  WScript.echo(err.message);
-  if (lf != undefined)
-    lf.WriteLine(err.description);
-  }
-}
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -746,12 +967,12 @@ catch (err)
    You may distribute under the terms of the GNU General Public License.
  */
 /******************************************************************************
- *$Log: 
+ *$Log:
  * 4    Biblioteka1.3         2006-11-02 18:41:01  Darko Kolakovic Replaced
  *      FnMatch()
  * 3    Biblioteka1.2         2006-11-02 10:36:10  Darko Kolakovic Error handling
  * 2    Biblioteka1.1         2006-11-01 16:11:50  Darko Kolakovic Comments
- * 1    Biblioteka1.0         2006-11-01 15:21:31  Darko Kolakovic 
+ * 1    Biblioteka1.0         2006-11-01 15:21:31  Darko Kolakovic
  *$
  * 1    Biblioteka1.0         2004-11-12 17:55:51  Darko Kolakovic
  *2003-04-03  Improved logging of RCS output to file and other cleanups

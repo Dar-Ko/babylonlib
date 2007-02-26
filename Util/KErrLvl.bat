@@ -1,5 +1,5 @@
 @echo off
-REM $Workfile: S:\Util\KErrLvl.bat$: batch command script
+REM $Workfile: KErrLvl.bat$: batch command script
 REM $Revision: 1$ $Date: 2006-11-01 10:21:11$
 REM $Author: Darko Kolakovic$
 REM
@@ -168,7 +168,7 @@ goto LBLONEXIT
 
 REM ----------------------------------------------------------------------------
 :LBLHELP
-@echo $Workfile: S:\Util\KErrLvl.bat$ $Revision: 1$
+@echo $Workfile: KErrLvl.bat$ $Revision: 1$
 @echo Returns the exit code of an executed command.
 @echo Example: KErrLvl dir . /qwerty
 @echo Example: KErrLvl dir c:\
