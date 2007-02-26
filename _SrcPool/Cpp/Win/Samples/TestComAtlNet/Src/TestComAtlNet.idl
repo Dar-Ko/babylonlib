@@ -1,5 +1,5 @@
 /*$Workfile: TestComAtlNet.idl$: IDL source file
-  $Revision: 6$ $Date: 2007-02-16 14:22:33$
+  $Revision: 7$ $Date: 2007-02-26 18:16:32$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -23,9 +23,19 @@ interface ITestAtl7Obj : IUnknown{
   [helpstring("method TestMethod")] HRESULT TestMethod([in] LONG lInput, [out] LONG* pResult);
 };
 [
+	object,
+	uuid(FE946125-CD82-4A24-9EFF-1C0A589B9439),
+	dual,
+	nonextensible,
+	helpstring("ITestAtl7Web Interface"),
+	pointer_default(unique)
+]
+interface ITestAtl7Web : IDispatch{
+};
+[
   uuid(3DF3DAAE-34D2-4703-B1C7-4533DC22C9D1),
   version(1.0),
-  helpstring("TestComAtlNet $Revision: 6$ Type Library")
+  helpstring("TestComAtlNet $Revision: 7$ Type Library")
 ]
 library TestComAtlNetLib
 {
@@ -49,4 +59,22 @@ library TestComAtlNetLib
     [default] interface ITestAtl7Obj;
     [default, source] dispinterface DITestAtl7ObjEvents;
   };
+	[
+		uuid(32D58825-34D6-4CD8-A06F-F4AAA62BB1EA),
+		helpstring("DITestAtl7WebEvents Interface")
+	]
+	dispinterface DITestAtl7WebEvents
+	{
+		properties:
+		methods:
+	};
+	[
+		uuid(22252C96-126D-4147-A963-C38BC7E1E644),
+		helpstring("TestAtl7Web Class")
+	]
+	coclass TestAtl7Web
+	{
+		[default] interface ITestAtl7Web;
+		[default, source] dispinterface DITestAtl7WebEvents;
+	};
 };

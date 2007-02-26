@@ -360,6 +360,9 @@ goto VCReportError
 				RelativePath=".\Src\TestAtl7Obj.cpp">
 			</File>
 			<File
+				RelativePath=".\Src\TestAtl7Web.cpp">
+			</File>
+			<File
 				RelativePath=".\Src\TestComAtlNet.cpp">
 			</File>
 			<File
@@ -406,6 +409,9 @@ goto VCReportError
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath=".\Src\DITestAtl7WebEvents_CP.h">
+			</File>
+			<File
 				RelativePath=".\Src\DITestAtl7ObjEvents_CP.h">
 			</File>
 			<File
@@ -417,6 +423,9 @@ goto VCReportError
 			<File
 				RelativePath=".\Src\TestAtl7Obj.h">
 			</File>
+			<File
+				RelativePath=".\Src\TestAtl7Web.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -424,6 +433,9 @@ goto VCReportError
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 			<File
 				RelativePath=".\Src\TestAtl7Obj.rgs">
+			</File>
+			<File
+				RelativePath=".\Res\TestAtl7Web.rgs">
 			</File>
 			<File
 				RelativePath=".\Src\TestComAtlNet.rc">

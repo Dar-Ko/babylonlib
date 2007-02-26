@@ -1,8 +1,8 @@
 /*$Workfile: TestAtl7Obj.h$: header file
-  $Revision: 3$ $Date: 2007-02-16 14:22:24$
+  $Revision: 4$ $Date: 2007-02-26 18:16:30$
   $Author: Darko Kolakovic$
 
-  Interface of the CTestButtonDlg class
+  COM Object
   Copyright: CommonSoft Inc
   2006-08-25 Darko Kolakovic
  */
