@@ -8,11 +8,12 @@
  */
 
 // This file will be processed by the MIDL tool to
-// produce the type library (*.tlb) and marshalling code.
+// produce the type library (*.tlb) and marshaling code.
 
 import "oaidl.idl";
 import "ocidl.idl";
 
+//-----------------------------------------------------------------------------
 [
   object,
   uuid(5D3C18C7-EC16-4DA3-AA45-9EDE4F48B9C5),
@@ -22,16 +23,20 @@ import "ocidl.idl";
 interface ITestAtl7Obj : IUnknown{
   [helpstring("method TestMethod")] HRESULT TestMethod([in] LONG lInput, [out] LONG* pResult);
 };
+
+//-----------------------------------------------------------------------------
 [
-	object,
-	uuid(FE946125-CD82-4A24-9EFF-1C0A589B9439),
-	dual,
-	nonextensible,
-	helpstring("ITestAtl7Web Interface"),
-	pointer_default(unique)
+  object,
+  uuid(FE946125-CD82-4A24-9EFF-1C0A589B9439),
+  dual,
+  nonextensible,
+  helpstring("ITestAtl7Web Interface"),
+  pointer_default(unique)
 ]
 interface ITestAtl7Web : IDispatch{
 };
+
+//-----------------------------------------------------------------------------
 [
   uuid(3DF3DAAE-34D2-4703-B1C7-4533DC22C9D1),
   version(1.0),
@@ -50,6 +55,8 @@ library TestComAtlNetLib
     methods:
     [id(1), helpstring("method TestAtlEvent")] HRESULT TestAtlEvent([in] BSTR bstrInput, [out] BSTR* bstrOutput);
   };
+
+//-----------------------------------------------------------------------------
   [
     uuid(8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543),
     helpstring("TestAtl7Obj Class")
@@ -59,22 +66,26 @@ library TestComAtlNetLib
     [default] interface ITestAtl7Obj;
     [default, source] dispinterface DITestAtl7ObjEvents;
   };
-	[
-		uuid(32D58825-34D6-4CD8-A06F-F4AAA62BB1EA),
-		helpstring("DITestAtl7WebEvents Interface")
-	]
-	dispinterface DITestAtl7WebEvents
-	{
-		properties:
-		methods:
-	};
-	[
-		uuid(22252C96-126D-4147-A963-C38BC7E1E644),
-		helpstring("TestAtl7Web Class")
-	]
-	coclass TestAtl7Web
-	{
-		[default] interface ITestAtl7Web;
-		[default, source] dispinterface DITestAtl7WebEvents;
-	};
+
+//-----------------------------------------------------------------------------
+  [
+    uuid(32D58825-34D6-4CD8-A06F-F4AAA62BB1EA),
+    helpstring("DITestAtl7WebEvents Interface")
+  ]
+  dispinterface DITestAtl7WebEvents
+  {
+    properties:
+    methods:
+  };
+
+//-----------------------------------------------------------------------------
+  [
+    uuid(22252C96-126D-4147-A963-C38BC7E1E644),
+    helpstring("TestAtl7Web Class")
+  ]
+  coclass TestAtl7Web
+  {
+    [default] interface ITestAtl7Web;
+    [default, source] dispinterface DITestAtl7WebEvents;
+  };
 };
