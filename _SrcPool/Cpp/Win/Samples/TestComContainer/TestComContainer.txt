@@ -2,10 +2,14 @@ $Workfile: S:\_SrcPool\Cpp\Win\Samples\TestComContainer\TestComContainer.txt$: d
 $Revision: 1$ $Date: 2007-02-13 14:31:09$
 $Author: Darko Kolakovic$
 
-Samples and test suites for the Component Object Model (COM), Active Template Library (ATL) and Microsoft Windows API.
+Samples and test suites for the Component Object Model (COM), Active Template Library (ATL), Client in JavaScript and Microsoft Windows API.
 
 Copyright: CommonSoft Inc.
 1998-02-01 Darko Kolakovic
+
+JavaScript Notes:
+-----------------
+Requirements: HTML browser supporting ActiveX
 
 Visual C/C++ 6.0 Notes
 ----------------------
