@@ -38,5 +38,6 @@
 #include "resource.h"
 #include <atlbase.h>
 #include <atlcom.h>
+#include "KType32.h" /*ISO C99: 7.18 Integer types*/
 
 using namespace ATL;

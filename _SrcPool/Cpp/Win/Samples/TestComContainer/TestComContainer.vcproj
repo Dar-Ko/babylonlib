@@ -419,6 +419,9 @@
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 			<File
+				RelativePath="..\..\..\Samples\Common\Res\SrcPool.ico">
+			</File>
+			<File
 				RelativePath="..\..\..\Samples\Common\Res\Win\SrcPool.ico">
 			</File>
 		</Filter>

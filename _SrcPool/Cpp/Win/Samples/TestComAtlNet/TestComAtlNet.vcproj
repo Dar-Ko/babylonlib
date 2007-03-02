@@ -371,7 +371,7 @@ goto VCReportError
 					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCMIDLTool"
-						TypeLibraryName="./idl/TestComAtlNet.tlb"
+						TypeLibraryName="TestComAtlNet.tlb"
 						OutputDirectory="./idl/"
 						DLLDataFileName="dlldata.c"/>
 				</FileConfiguration>
@@ -379,7 +379,7 @@ goto VCReportError
 					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCMIDLTool"
-						TypeLibraryName="./idl/TestComAtlNet.tlb"
+						TypeLibraryName="TestComAtlNet.tlb"
 						OutputDirectory="./idl/"
 						DLLDataFileName="dlldata.c"/>
 				</FileConfiguration>
@@ -387,7 +387,7 @@ goto VCReportError
 					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCMIDLTool"
-						TypeLibraryName="./idl/TestComAtlNet.tlb"
+						TypeLibraryName="TestComAtlNet.tlb"
 						OutputDirectory="./idl/"
 						DLLDataFileName="dlldata.c"/>
 				</FileConfiguration>
@@ -395,7 +395,7 @@ goto VCReportError
 					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCMIDLTool"
-						TypeLibraryName="./idl/TestComAtlNet.tlb"
+						TypeLibraryName="TestComAtlNet.tlb"
 						OutputDirectory="./idl/"
 						HeaderFileName="TestComAtlNet.h"
 						DLLDataFileName="dlldata.c"
@@ -409,10 +409,10 @@ goto VCReportError
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath=".\Src\DITestAtl7WebEvents_CP.h">
+				RelativePath=".\Src\DITestAtl7ObjEvents_CP.h">
 			</File>
 			<File
-				RelativePath=".\Src\DITestAtl7ObjEvents_CP.h">
+				RelativePath=".\Src\DITestAtl7WebEvents_CP.h">
 			</File>
 			<File
 				RelativePath=".\Src\Resource.h">
@@ -432,6 +432,9 @@ goto VCReportError
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
 			<File
+				RelativePath="..\..\Res\SrcPool.ico">
+			</File>
+			<File
 				RelativePath=".\Src\TestAtl7Obj.rgs">
 			</File>
 			<File
@@ -439,6 +442,34 @@ goto VCReportError
 			</File>
 			<File
 				RelativePath=".\Src\TestComAtlNet.rc">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						Culture="4105"
+						AdditionalIncludeDirectories="$(IntDir);.\idl"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						Culture="4105"
+						AdditionalIncludeDirectories="$(IntDir);.\idl"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						Culture="4105"
+						AdditionalIncludeDirectories="$(IntDir);.\idl"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						Culture="4105"
+						AdditionalIncludeDirectories="$(IntDir);.\idl"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Src\TestComAtlNet.rgs">

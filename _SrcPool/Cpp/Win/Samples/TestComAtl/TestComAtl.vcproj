@@ -584,6 +584,9 @@ goto VCReportError
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 			<File
+				RelativePath="..\..\Res\SrcPool.ico">
+			</File>
+			<File
 				RelativePath="Src\TestAtlObj.rgs">
 			</File>
 		</Filter>

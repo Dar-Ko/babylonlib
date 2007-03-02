@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComAtlVc7.htm$: documentation" />
-<meta name="Revision" content="$Revision: 9$" />
+<meta name="Revision" content="$Revision: 11$" />
 <meta name="robots" content="index" />
 <meta name="keywords" content="compiler, ATL, COM" />
 <!-- Dublin Core Metadata Package -->
@@ -20,11 +20,11 @@
 <meta name="DC.subject" content="ATL COM" />
 <meta name="DC.description.abstract" content="COM project setup" />
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
-<meta name="DC.date" content="$Date: 2007-02-26 18:16:34$" />
+<meta name="DC.date" content="$Date: 2007-03-01 20:10:02$" />
 <meta name="DC.type" content="Text.Article" />
 <meta name="DC.format" content="application/html" />
 <meta name="DC.language" content="en_ca" />
-<meta name="DC.identifier.Revision" content="$Revision: 9$" />
+<meta name="DC.identifier.Revision" content="$Revision: 11$" />
 <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
@@ -222,7 +222,9 @@ goto VCReportError
     <img border="0" src="Res/ComAtlVc7E.gif" width="406" height="387" /></li>
     </ol>
     </li>
-    <li>Build Proxy/Stub DLL and register it.</li>
+    <li>Build Proxy/Stub DLL and register it. With the <i>OLE/COM Object Viewer</i> 
+    tool all registered automation components could be browsed:<br>
+    <img border="0" src="Res/ComAtlVc7J.gif" width="801" height="430"></li>
     <li>To test the the COM object, create new <span id="intelliTXT0">&quot;Win32 
     Console Application&quot; </span>project for example.<br />
     <img border="0" src="Res/ComAtlVc7I.gif" width="531" height="157" /></li>
@@ -308,6 +310,15 @@ C:\&gt;</font></pre>
         <font color="#FFFFFF"></font></td>
       </tr>
     </table>
+    </li>
+    <li>In order to debug the COM Server, the process have to be attached to the 
+    debugger. Select <i>Debug | Processes...</i> menu item and select the 
+    process in question.<br>
+    <img border="0" src="Res/ComAtlVc7K.gif" width="540" height="244"><br>
+    The program type is, of course, <i>Native</i>:<br>
+    <img border="0" src="Res/ComAtlVc7L.gif" width="305" height="148"><br>
+    If the code has hardcoded breakpoints (for example <code>ATLASSERT(false)</code>), 
+    the debugger will interrupt the execution.<br />
     </li>
     </ol>
     <hr />

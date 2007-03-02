@@ -1,5 +1,5 @@
 /*$Workfile: TestComAtlNet.idl$: IDL source file
-  $Revision: 7$ $Date: 2007-02-26 18:16:32$
+  $Revision: 9$ $Date: 2007-03-01 20:09:53$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -14,6 +14,8 @@ import "oaidl.idl";
 import "ocidl.idl";
 
 //-----------------------------------------------------------------------------
+/*Interface for vtable binding test
+ */
 [
   object,
   uuid(5D3C18C7-EC16-4DA3-AA45-9EDE4F48B9C5),
@@ -22,25 +24,51 @@ import "ocidl.idl";
 ]
 interface ITestAtl7Obj : IUnknown{
   [helpstring("method TestMethod")] HRESULT TestMethod([in] LONG lInput, [out] LONG* pResult);
+  [propget, helpstring("property Long")] HRESULT Long([out, retval] LONG* pVal);
 };
 
 //-----------------------------------------------------------------------------
+//Interface for Late-binding Test (JavaScript, etc.)
 [
   object,
   uuid(FE946125-CD82-4A24-9EFF-1C0A589B9439),
   dual,
   nonextensible,
-  helpstring("ITestAtl7Web Interface"),
+  helpstring("Late-binding Test Interface"),
   pointer_default(unique)
 ]
-interface ITestAtl7Web : IDispatch{
-};
+interface ITestAtl7Web : IDispatch
+  {
+  const int DISPID_TESTMEHOD    = 1;
+  const int DISPID_TESTCOUNTER  = 2;
+  const int DISPID_GETTESTCOUNT = 3;
+  const int DISPID_TESTLONG     = 4;
+  const int DISPID_TESTBSTR     = 5;
+  const int DISPID_TESTBSTRGET  = 6;
+  const int DISPID_TESTBSTRSET  = 7;
+
+  [id(DISPID_TESTMEHOD),   helpstring("Increments Test counter")]       HRESULT TestMethod(void);
+  [id(DISPID_TESTCOUNTER), helpstring("Obtain value of the counter")]   HRESULT GetMethod([out, retval] LONG* pVal);
+  /*[propget] TestCounter is mapped to get_TestCounter()
+   */
+  [propget, id(DISPID_GETTESTCOUNT), helpstring("Get Test count")]      HRESULT TestCounter([in] long in, [out, retval] LONG* pVal);
+  [         id(DISPID_TESTLONG)    , helpstring("Test Long as result")] HRESULT Long([out, retval] LONG* pVal);
+  
+  /*String property test. String [propget] is mapped to get_String() 
+     and String [propput] is mapped to put_String;
+   */
+  [propget, id(DISPID_TESTBSTR)    , helpstring("Test String as result")] HRESULT String([out, retval] BSTR* pVal);
+  [propput, id(DISPID_TESTBSTR)    , helpstring("Test String argument")]  HRESULT String([in] BSTR newVal);
+  
+  [         id(DISPID_TESTBSTRGET) , helpstring("Test String as result")] HRESULT GetString([out, retval] BSTR* pVal);
+  [         id(DISPID_TESTBSTRSET) , helpstring("Test String argument")]  HRESULT SetString([in] BSTR newVal);
+  };
 
 //-----------------------------------------------------------------------------
 [
   uuid(3DF3DAAE-34D2-4703-B1C7-4533DC22C9D1),
   version(1.0),
-  helpstring("TestComAtlNet $Revision: 7$ Type Library")
+  helpstring("TestComAtlNet $Revision: 9$ Type Library")
 ]
 library TestComAtlNetLib
 {
@@ -57,6 +85,8 @@ library TestComAtlNetLib
   };
 
 //-----------------------------------------------------------------------------
+/*ClassId for TestAtl7Obj
+ */
   [
     uuid(8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543),
     helpstring("TestAtl7Obj Class")
@@ -89,3 +119,20 @@ library TestComAtlNetLib
     [default, source] dispinterface DITestAtl7WebEvents;
   };
 };
+
+///////////////////////////////////////////////////////////////////////////////
+/*****************************************************************************
+* $Log: 
+*  9    Biblioteka1.8         2007-03-01 20:09:53  Darko Kolakovic Test setting a
+*       property
+*  8    Biblioteka1.7         2007-03-01 00:10:17  Darko Kolakovic TestCounter
+*       property
+*  7    Biblioteka1.6         2007-02-26 18:16:32  Darko Kolakovic IDispatch
+*  6    Biblioteka1.5         2007-02-16 14:22:33  Darko Kolakovic Header
+*  5    Biblioteka1.4         2007-02-15 20:33:42  Darko Kolakovic Fire an event
+*  4    Biblioteka1.3         2007-02-14 16:57:43  Darko Kolakovic TestMethod()
+*  3    Biblioteka1.2         2007-02-14 15:58:44  Darko Kolakovic Comment
+*  2    Biblioteka1.1         2007-02-14 15:54:50  Darko Kolakovic CoInitialize
+*  1    Biblioteka1.0         2007-02-14 14:36:27  Darko Kolakovic 
+* $
+*****************************************************************************/

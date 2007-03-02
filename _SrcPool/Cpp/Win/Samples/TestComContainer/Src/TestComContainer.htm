@@ -9,7 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComContainer.htm$: documentation" />
-<meta name="Revision" content="$Revision: 2$ $Date: 2007-02-27 18:33:59$" />
+<meta name="Revision" content="$Revision: 4$ $Date: 2007-03-01 20:10:03$" />
 <meta name="Editor" content="$Author: Darko Kolakovic$" />
 <meta name="Copyright" content="&copy; CommonSoft Inc, 1985-2032." />
 <meta name="author" content="Darko Kolakovi&#263;" />
@@ -25,12 +25,46 @@
      trying to debug, delete or rename
      the HKLM\Software\Microsoft\Ole\DefaultAccessPermission key.
     -->
+    
+<script type="text/javascript" language="javascript">
+//-----------------------------------------------------------------------------
+/*Dumps browser's plugins.
+  Note: Netscape specific.
+ */
+function DumpPulgins()
+{
+var b = document.getElementsByTagName("body")[0];
+document.writeln("<p><dl title='Plugins'>\n<dt>Enabled Plugins</dt>\n<dd><table>");
+for(var i = 0; navigator.mimeTypes[i]; i++)
+  {
+  document.writeln("<tr><td>" + i + ".</td><td>" + navigator.mimeTypes[i].description + "</td>");
+  document.writeln("<td>" + navigator.mimeTypes[i].type + "</td>");
+  if (navigator.mimeTypes[i].suffixes)
+    document.writeln("<td>" + navigator.mimeTypes[i].suffixes + "</td></tr>");
+  else
+    document.writeln("<td></td></tr>");
+  if ((navigator.mimeTypes[i].enabledPlugin) &&
+     (navigator.mimeTypes[i].enabledPlugin.length) )
+  for (var j = 0; navigator.mimeTypes[i].enabledPlugin.length > j; j++)
+    {
+    var strPluginType = navigator.mimeTypes[i].enabledPlugin[j].type;
+    var strPluginExt  = navigator.mimeTypes[i].enabledPlugin[j].suffixes;
+    if (strPluginType != "")
+      document.writeln("<tr><td></td><td></td><td>" + strPluginType + "</td><td>" + strPluginExt + "</td></tr>");
+    else if (strPluginExt != "")
+      document.writeln("<tr><td></td><td></td><td>" + strPluginType + "</td><td>" + strPluginExt + "</td></tr>");
+    }
+  }
+document.writeln("</table></dd></p>");
+}
+</script>
 </head>
 
 <body>
 
 <h2>Test Component Object Model (COM) Container</h2>
 
+<!-- Test stock COM object --------------------------------------------------->
 <h3>Test FileSystemObject Object</h3>
 <dl><dt>My Computer</dt>
 <script language="JavaScript" type="text/javascript">
@@ -60,6 +94,7 @@ if (typeof ActiveXObject != 'undefined')
 </script>
 </dl>
 
+<!-- Test stock custom object ------------------------------------------------>
 <script language="JavaScript" type="text/javascript">
   var strCoClass = "TestAtl7Web";
   document.writeln("<h3>Test " + strCoClass +" Object</h3>");
@@ -73,7 +108,7 @@ if (typeof ActiveXObject != 'undefined')
     {
     //coclass physical name (uuid) from the .idl file
     strClsId = "22252C96-126D-4147-A963-C38BC7E1E644";
-    //Program ID is coclass logical name
+    //Version Independent Program ID is coclass logical name
     strProgId = "TestComAtlNet." + strCoClass;
     }
   else
@@ -86,32 +121,77 @@ if (typeof ActiveXObject != 'undefined')
       document.writeln('HKEY_CLASSES_ROOT\\CLSID\\{' + strClsId + '}');
     </script>
   </dd>
-  <dt>Program ID</dt>
+  <dt>Programmatic ID</dt>
   <dd>
     <script language="JavaScript" type="text/javascript">
-      document.writeln('HKEY_CLASSES_ROOT\\CLSID\\{' + strClsId + '}\\ProgID<br />');
+      document.writeln('HKEY_CLASSES_ROOT\\CLSID\\{' + strClsId + '}\\VersionIndependentProgID<br />');
       document.writeln(strProgId);
     </script>
   </dd>
-
+  <dt>Test</dt>
   <dd>
     <script language="JavaScript" type="text/javascript">
     debugger;
     if (typeof ActiveXObject != 'undefined')
       {
+      //Creates an ActiveX object, based on the specified programmatic 
+      //identifier (ProgID).
       var testObj = new ActiveXObject(strProgId);
       if (testObj != null)
         {
         try
           {
-          if (testObj.TestMethod != null)
-            {
-            var strResult = "7 + 2 = ";
-            strResult += testObj.TestMethod(7);
-            document.write(strResult);
-            }
+          //var nTypeInfoCount = 1;
+          //nTypeInfoCount =testObj.GetIDsOfNames();
+          //testObj.GetTypeInfoCount(nTypeInfoCount);
+          
+          
+          //Increment the test count
+          testObj.TestMethod(); //1
+          document.writeln("Increment the test count.<br />");
+
+          testObj.TestMethod(); //2
+          var nTestCount = testObj.GetMethod();
+          document.writeln("Count = " + nTestCount + "<br />");
+          if (nTestCount != 2)
+            document.writeln("<b>Test failed!</b><br />");
+            
+          testObj.TestMethod(); //3
+          var nRes = testObj.TestCounter(44); //[propget] attribute 
+          document.writeln("44*" + nTestCount + " = "+ nRes +"<br />");
+          
+          testObj.TestMethod(); //4
+          nTestCount = testObj.GetMethod();
+          document.write("Getting Long ");
+          if (nTestCount == testObj.Long())
+            document.writeln("passed.<br />");
           else
-            document.writeln("undefined method");
+            document.writeln("failed.<br />");
+
+          //Test accessing the String property
+          var strText = "Hello stranger...";
+          try
+            {
+            testObj.TestMethod(); //5
+            document.writeln("Set <code>String</code> property:<br />");
+            testObj.String = strText;
+            document.writeln("<code>String</code> property is <i>" + 
+                              testObj.String + "</i>.<br />");
+            }
+          catch(err1)
+            {
+            if (err1.description == "")
+              err1.description = "Inaccessible object: property String" + strProgId;
+            document.writeln(err.name + "(" + 
+                  err1.number + ")<br />" + err1.description );
+            }
+          //Test setter an getter methods for a string 
+          testObj.TestMethod(); //6
+          document.writeln("<code>SetString</code> method:<br />");
+          testObj.SetString(strProgId);
+          strText = testObj.GetString();
+          document.writeln("Text is <i>" + strText + "</i>.<br />");
+
           }
         catch(err)
           {
@@ -128,17 +208,46 @@ if (typeof ActiveXObject != 'undefined')
   </dd>
 </dl>
 
-<!-- test as embedded Object
-//<object classid="clsid:8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543" id="TestComAtlNet.TestAtl7Obj.1" width="130" height="123" VIEWASTEXT>
-//  <param name="TestMethod" value="7">
-//</object>
--->
+<!-- Test embedded custom object --------------------------------------------->
+<script language="JavaScript" type="text/javascript">
+  debugger;
+  //object class physical name (uuid) from the .idl file
+  strClsId = "8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543";
+  document.writeln("<h3>Test " + strClsId +" Object</h3>");
+</script>
+<dl>
+  <dt>
+    <!-- test as embedded Object-->
+    
+    <object classid="clsid:8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543" 
+            id="ID_TESTATL7OBJ" name="TestComAtlNet" 
+            width="50" height="50" border="1" VIEWASTEXT>
+      <param name="TestAtl7Web.String" value="Test embedded object">
+      
+      <!-- Netscape with ActveX plugin object -->
+      <embed classid="clsid:8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543" 
+             name="ID_TESTATL7OBJ" type="application/oleobject" 
+             width="50" height="50" border="1" 
+             String="Test embedded object"
+             />
+   </object>
+  
+  </dt>
+</dl>
 
+<script language="JavaScript" type="text/javascript" for="ID_TESTATL7OBJ" event="OnTestHit">
+  document.bgColor = 0xbebebe;
+</script>
+
+<!--EOT----------------------------------------------------------------------->
 <hr />
 <script language="JavaScript" type="text/javascript">
   document.write("<img src='../../../../../../Doc/Res/S/icoJavaScript.gif' alt='JavaScript' border='0'>");
   if (typeof ActiveXObject == 'undefined')
+    {
     document.write(" <b style='color:red'>Browser does not support ActiveX.</b>");
+    DumpPulgins(); //List plugins enabled in Mozilla family browsers
+    }
 </script>
 <noscript><p style="color:red">JavaScript seems to be disabled!</p></noscript>
 
