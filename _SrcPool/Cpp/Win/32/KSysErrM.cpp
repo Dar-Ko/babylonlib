@@ -1,11 +1,11 @@
 /*$Workfile: KSysErrM.cpp$: implementation file
-  $Revision: 11$ $Date: 2005-05-18 18:36:08$
+  $Revision: 12$ $Date: 2007-03-05 09:15:06$
   $Author: Darko Kolakovic$
 
   System Error Display helper function
   Copyright: CommonSoft Inc.
   Aug. 95 D. Kolakovic
- */ 
+ */
 // Group=Diagnostic
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
@@ -28,8 +28,7 @@
   is on WinNT. If a function in this module fails because an unsupported feature
   was requested, no error is returned.
 
-  Note: uses Microsoft Foundation Library (MFC);
-        Microsoft Windows specific (Win).
+  Note: Microsoft Windows specific (Win).
 
   Example:
     void MyFunc()
@@ -52,7 +51,7 @@ if ((FormatMessage(
          FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM,
          NULL,
          uiSystemError,
-         MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL),
+         MAKELANGID(LANG_NEUTRAL, SUBLANG_NEUTRAL), //TODO: support locale
          szMessage,
          MAX_PATH,
          NULL)) !=0)
@@ -77,8 +76,8 @@ if ((FormatMessage(
       }
   #else //SDK application
     if (::MessageBox(NULL,
-                     (LPCTSTR)szMessage, 
-                     MSGBOX_SYSERROR_TITLE, 
+                     (LPCTSTR)szMessage,
+                     MSGBOX_SYSERROR_TITLE,
                      MB_OK | MB_ICONSTOP)    == 0)
       {
       TRACE0 ("Not enough memory to display the message box.\n");
@@ -98,6 +97,8 @@ return;
 // Win32 API Error code List---------------------------------------------------
 
 /*Error code definitions for the Win32 API functions  (WinError.h)
+  See also: winerror.h, adserr.h, cierror.h, filterr.h, oledberr.h
+
   Values are 32 bit values laid out as follows:
 
    | +---+-+-+-----------------------+-------------------------------+
@@ -111,12 +112,43 @@ return;
         Sev - is the severity code
               00 - Success
               01 - Informational
-              10 - Warning
+              10 - Warning, COM error
               11 - Error
         C - is the Customer code flag
         R - is a reserved bit
         Facility - is the facility code
         Code - is the facility's status code
+
+   Facilities:
+      FACILITY_NULL                    00
+      FACILITY_RPC                     01
+      FACILITY_DISPATCH                02
+      FACILITY_STORAGE                 03
+      FACILITY_ITF                     04
+      FACILITY_WIN32                   07
+      FACILITY_WINDOWS                 08
+      FACILITY_SECURITY                09
+      FACILITY_SSPI                    09
+      FACILITY_CONTROL                 10
+      FACILITY_CERT                    11
+      FACILITY_INTERNET                12
+      FACILITY_MEDIASERVER             13
+      FACILITY_MSMQ                    14
+      FACILITY_SETUPAPI                15
+      FACILITY_SCARD                   16
+      FACILITY_COMPLUS                 17
+      FACILITY_AAF                     18
+      FACILITY_URT                     19
+      FACILITY_ACS                     20
+      FACILITY_DPLAY                   21
+      FACILITY_UMI                     22
+      FACILITY_SXS                     23
+      FACILITY_WINDOWS_CE              24
+      FACILITY_HTTP                    25
+      FACILITY_BACKGROUNDCOPY          32
+      FACILITY_CONFIGURATION           33
+      FACILITY_STATE_MANAGEMENT        34
+      FACILITY_METADIRECTORY           35
 
    Error #       Error  Description
       0 The operation completed successfully.
@@ -932,27 +964,27 @@ return;
    4006 Replication with a non-configured partner is not allowed.
    4100 The DHCP client has obtained an IP address that is already in use on the network.  The local interface will be disabled until the DHCP client can obtain a new address.
    6118 The list of servers for this workgroup is not currently available
-   
+
    Note: Microsoft Windows specific (Win).
  */
 #define _ErrorCodeListWin32
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  11   Biblioteka1.10        2005-05-18 18:36:08  Darko Kolakovic replaced
  *       AfxWin.h
  *  10   Biblioteka1.9         2005-04-26 11:35:35  Darko Kolakovic Document groups
  *       and typo fixes
  *  9    Biblioteka1.8         2004-10-01 22:35:32  Darko           stdafx.h
  *  8    Biblioteka1.7         2003-08-06 03:46:44  Darko           Prepared for
- *       Unicode 
+ *       Unicode
  *  7    Biblioteka1.6         2003-08-06 03:21:22  Darko           Added  a note
- *  6    Biblioteka1.5         2002-08-19 10:38:40  Darko Kolakovic 
+ *  6    Biblioteka1.5         2002-08-19 10:38:40  Darko Kolakovic
  *  5    Biblioteka1.4         2002-01-25 16:59:00  Darko           Updated
  *       comments
  *  4    Biblioteka1.3         2001-08-19 23:55:51  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 22:53:09  Darko           
+ *  3    Biblioteka1.2         2001-07-11 22:53:09  Darko
  *  2    Biblioteka1.1         2001-06-08 23:52:09  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 16:01:13  Darko           
+ *  1    Biblioteka1.0         2000-08-13 16:01:13  Darko
  * $
  *****************************************************************************/
