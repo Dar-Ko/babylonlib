@@ -1,5 +1,5 @@
 /*$Workfile: KDlgTmpl.h$: header file
-  $Revision: 10$ $Date: 2005-05-12 11:05:28$
+  $Revision: 11$ $Date: 2007-02-21 09:07:58$
   $Author: Darko Kolakovic$
 
   Copyright (c) 1996 Microsoft Corporation. All rights reserved.
@@ -260,7 +260,7 @@ return FromResource(MAKEINTRESOURCE(nIDTemplate));
 
 #pragma pack(push, 1)
 
-/*The DLGTEMPLATEEX structure is not defined in any standard header file.
+/* Extended dialog template
 
     typedef struct
       {
@@ -286,34 +286,38 @@ return FromResource(MAKEINTRESOURCE(nIDTemplate));
       WCHAR    typeface[stringLen];//a null-terminated Unicode string that contains the name of the typeface for the font
       } DLGTEMPLATEEX;
 
+  Note: The DLGTEMPLATEEX structure is not defined in any standard header file.
   Note: Microsoft Windows specific (Win).
-
+  See also: AfxImpl.h
 */
-typedef struct
+typedef struct tagDLGTEMPLATEEX
   {
-  WORD dlgVer;
-  WORD signature;
-  DWORD helpID;
-  DWORD exStyle;
-  DWORD style;
-  WORD cDlgItems;
-  short x;
-  short y;
-  short cx;
-  short cy;
-  } DLGTEMPLATEEX;
+  WORD  dlgVer;    //=1 version number of the extended dialog box template;
+                   //always 1.
+  WORD  signature; //type of a template; 0xFFFF = extended dialog box template.
+  DWORD helpID;    //help context identifier
+  DWORD exStyle;   //extended windows styles
+  DWORD style;     //style of the dialog box
+  WORD  cDlgItems; //number of controls in the dialog box
+  short x;         //x-coordinate of the dialog box upper-left corner [dialog box units]
+  short y;         //y-coordinate of the dialog box upper-left corner [dialog box units]
+  short cx;        //width of the dialog box [dialog box units]
+  short cy;        //height of the dialog box [dialog box units]
+  } DLGTEMPLATEEX, *PDLGTEMPLATEEX;
 
-typedef struct
+/* Extended dialog item template
+ */
+typedef struct tagDLGITEMTEMPLATEEX
   {
-  DWORD helpID;
-  DWORD exStyle;
-  DWORD style;
-  short x;
-  short y;
-  short cx;
-  short cy;
-  DWORD id;
-  } DLGITEMTEMPLATEEX;
+  DWORD helpID;  //help context identifier
+  DWORD exStyle; //extended windows styles
+  DWORD style;   //style of the dialog box
+  short x;       //x-coordinate of the dialog box upper-left corner [dialog box units]
+  short y;       //y-coordinate of the dialog box upper-left corner [dialog box units]
+  short cx;      //width of the dialog box [dialog box units]
+  short cy;      //height of the dialog box [dialog box units]
+  DWORD id;      //dialog box item identifier
+  } DLGITEMTEMPLATEEX, *PDLGITEMTEMPLATEEX;
 
 #pragma pack(pop)
 

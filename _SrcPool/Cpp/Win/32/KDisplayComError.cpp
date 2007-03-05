@@ -1,5 +1,5 @@
 /*$Workfile: KDisplayComError.cpp$: implementation file
-  $Revision: 7$ $Date: 2005-06-21 17:51:52$
+  $Revision: 8$ $Date: 2007-02-21 09:07:39$
   $Author: Darko Kolakovic$
 
   Outputs COM exception.
@@ -80,7 +80,7 @@ try
   //Some of the IErrorInfo error descriptions have undesired CR/LF at the end
   //strMessage.TrimRight();
 
-  TRACE1("%s", (LPCTSTR)strMessage);
+  TRACE1(_T("%s"), (LPCTSTR)strMessage);
 
   #ifdef _CONSOLE
     #ifdef _STL

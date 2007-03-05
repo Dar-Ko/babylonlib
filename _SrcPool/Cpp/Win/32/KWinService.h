@@ -1,5 +1,5 @@
 /*$Workfile: KWinService.h$: implementation file
-  $Revision: 3$ $Date: 2007-02-09 18:47:32$
+  $Revision: 4$ $Date: 2007-02-21 09:08:59$
   $Author: Darko Kolakovic$
 
   OS Service deamon
@@ -43,7 +43,7 @@
       int _tmain(int argc, TCHAR* argv[])
         {
         CWinService myService;
-        //Allow SCM to create the service entry and initialize 
+        //Allow SCM to create the service entry and initialize
         //service specific data
         if (myService.Create(_T("MyService")))
           {
@@ -51,6 +51,8 @@
           }
         ...
         }
+
+  See also: CAtlServiceModuleT (ATL)
  */
 class CWinService
 {
@@ -72,7 +74,7 @@ private:
                   //to be used by SCM to start and initialize the service and
                   //update service status.
   SERVICE_STATUS          m_sStatus; //current state of the service
-  SERVICE_STATUS_HANDLE   MyServiceStatusHandle; 
+  SERVICE_STATUS_HANDLE   MyServiceStatusHandle;
 
 // Operations
 public:
