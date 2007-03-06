@@ -1,5 +1,5 @@
 /*$Workfile: KTimer.cpp$: implementation file
-  $Revision: 7$ $Date: 2007-03-06 14:35:52$
+  $Revision: 8$ $Date: 2007-03-06 18:03:16$
   $Author: Darko Kolakovic$
 
   Copyright: CommonSoft Inc.
@@ -64,11 +64,11 @@
                    the system was started. This is the value returned by
                    the GetTickCount function.
  */
-CTimer::CTimer(TIMERPROC pfCallbackTimer, //callback function that processes
+CTimer::CTimer(TIMERPROC pfCallbackTimer, //[in] callback function that processes
                           //the WM_TIMER messages. If this parameter is NULL,
                           //the WM_TIMER messages are placed in the application’s
                           //message queue and handled by the CWnd object.
-               UINT nTimePeriod //the time-out value [ms]
+               UINT nTimePeriod //[in] the time-out value [ms]
                ) :
   m_lpfnTimer(pfCallbackTimer),
   m_nTimerID (0),
@@ -107,7 +107,7 @@ Stop();
             }
 
  */
-BOOL CTimer::Start(UINT nTimePeriod//the time-out value [ms]
+BOOL CTimer::Start(UINT nTimePeriod //[in] the time-out value [ms]
                   )
 {
 #ifdef _DEBUG
@@ -183,8 +183,8 @@ return TRUE;
   Note: The elapsed time is stored as a DWORD value. Therefore, the time will wrap
         around to zero if the system is run continuously for 49.7 days.
  */
-DWORD CTimer::GetElapsedTime(DWORD dwSystemElapsedTime //time that have elapsed
-                              //since the system was started [ms]
+DWORD CTimer::GetElapsedTime(DWORD dwSystemElapsedTime //[in] time that have
+                                  //elapsed since the system was started [ms]
                    ) const
 {
 if(!IsStarted())
@@ -224,10 +224,10 @@ TRACE1("\telapsed time = %u [ms]\n",IsStarted() ?
 
   See also: TIMERPROC
  */
-VOID CALLBACK CTimer::DbgTimerProc(HWND hWnd, //handle of window processing timer messages
-                           UINT uMsg,         //WM_TIMER message
-                           UINT nTimerID,     //timer identifier
-                           DWORD dwTime       //number of milliseconds that have
+VOID CALLBACK CTimer::DbgTimerProc(HWND hWnd, //[in] handle of window processing timer messages
+                           UINT uMsg,         //[in] WM_TIMER message
+                           UINT_PTR nTimerID, //[in] timer identifier
+                           DWORD dwTime       //[in] number of milliseconds that have
                                   //elapsed since the system was started
                            )
 {
@@ -235,7 +235,6 @@ TRACE3("DbgTimerProc(hWnd = %x, ID = %d, time = %u [ms])\n",hWnd,nTimerID,dwTime
 MessageBeep(MB_ICONEXCLAMATION);
 }
 #endif
-
 /*****************************************************************************
  * $Log:
  *  6    Biblioteka1.5         2004-10-01 22:35:37  Darko           stdafx.h
