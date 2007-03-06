@@ -1,11 +1,38 @@
 /*$Workfile: KTimer.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-10-01 22:35:37$
-  $Author: Darko$
+  $Revision: 7$ $Date: 2007-03-06 14:35:52$
+  $Author: Darko Kolakovic$
 
   Copyright: CommonSoft Inc.
   Darko Kolakovic May 98
  */
- 
+
+#include "stdafx.h"
+
+#ifndef WINVER
+  //Minimum System Required: Windows 95 and Windows NT 4.0
+  #define WINVER 0x0400
+#endif
+
+#ifndef _AFX
+  #ifndef _ATL
+    #ifdef _WINDOWS_
+      #pragma message ("Warning:  <windows.h> already included ")
+    #endif
+
+    //SDK application
+    #include <windows.h>
+    #ifndef _T
+        #include "KTChar.h"
+    #endif
+    #ifndef ASSERT
+        #include "KTrace.h" //ASSERT macro
+    #endif
+
+  #else //Active Template Library
+    #include "KTraceAtl.h"
+  #endif  //_ATL
+#endif
+
 #include "KTimer.h" //CTimer class
 
 #ifdef _DEBUG
@@ -22,8 +49,22 @@
 //::CTimer()-------------------------------------------------------------------
 /*Default constructor starts the timer if callback function and time period are
   non-zero.
+  The TIMERPROC type defines a pointer to the callback function.
+
+    VOID CALLBACK TimerProc(HWND hwnd,
+                            UINT uMsg,
+                            UINT_PTR idEvent,
+                            DWORD dwTime
+                           );
+    Parameters
+      hwnd  [in] Handle to the window associated with the timer.
+      uMsg    [in] Specifies the WM_TIMER message.
+      idEvent [in] Specifies the timer's identifier.
+      dwTime  [in] Specifies the number of milliseconds that have elapsed since
+                   the system was started. This is the value returned by
+                   the GetTickCount function.
  */
-CTimer::CTimer(TIMERPROC pfCallbackTimer, //callback function that processes 
+CTimer::CTimer(TIMERPROC pfCallbackTimer, //callback function that processes
                           //the WM_TIMER messages. If this parameter is NULL,
                           //the WM_TIMER messages are placed in the application’s
                           //message queue and handled by the CWnd object.
@@ -50,15 +91,28 @@ Stop();
 
 //::Start()--------------------------------------------------------------------
 /*Start timer. Repeated call will reset time-out period.
-  Returns TRUE if a timer is created. In case of a failure result is FALSE. To 
+
+  Returns TRUE if a timer is created. In case of a failure result is FALSE. To
   get extended error information, call GetLastError().
+
+  Example:
+
+          CTimer ctTimer(MyTimerProc, 1000);
+          if(!ctTimer.IsStarted())
+            {
+            CString strError;
+            strError.Format("Failed to start a timer (error 0x%0lX)",
+                            ::GetLastError());
+            ::MessageBox(strError,"Timer Error", MB_OK);
+            }
+
  */
-BOOL CTimer::Start(UINT nTimePeriod//the time-out value [ms] 
-                  ) 
+BOOL CTimer::Start(UINT nTimePeriod//the time-out value [ms]
+                  )
 {
 #ifdef _DEBUG
-  if (IsStarted())  
-    TRACE2("CTimer::Start(Timeout %d[ms], ID=%d)\n",nTimePeriod,m_nTimerID);
+  if (IsStarted())
+    TRACE2("CTimer::Start(Timeout %d[ms], ID=%d)\n", nTimePeriod, m_nTimerID);
   else
     TRACE1("CTimer::Start(Timeout %d[ms])\n",nTimePeriod);
 #endif
@@ -71,16 +125,20 @@ if (IsStarted()) //Stop running timer
     return FALSE;
     }
   }
-  
-ASSERT(m_lpfnTimer != NULL);
-  //Create timer owned by desktop window
-m_nTimerID = ::SetTimer(NULL, 0,nTimePeriod,m_lpfnTimer);
 
+ASSERT(m_lpfnTimer != NULL);
+  /*Create timer owned by desktop window. If the function succeeds and
+    the hWnd parameter is NULL, the return value is an integer identifying
+    the new timer.
+   */
+m_nTimerID = (UINT)::SetTimer(NULL, 0,nTimePeriod,m_lpfnTimer);
+
+  //Check if timer is successfully crested
 #if _DEBUG
   if (IsStarted())
     TRACE1("  timer ID = %u\n",m_nTimerID);
   else
-  TRACE0("  failed to start a timer\n");
+    TRACE1("  failed to start a timer (error 0x%0lX)\n", ::GetLastError());
 #endif
 if (IsStarted())
   {
@@ -95,7 +153,7 @@ return FALSE;
 /*Stops the timer.
   Return Value
     If the function succeeds, the return value is TRUE.
-    If the function fails, the return value is FALSE. To get extended error 
+    If the function fails, the return value is FALSE. To get extended error
     information, call GetLastError.
  */
 BOOL CTimer::Stop()
@@ -117,16 +175,16 @@ return TRUE;
 
 //::GetElapsedTime()-----------------------------------------------------------
 /*Returns time in milliseconds since the timer was started. The current time is
-  given thoriugh dwSystemElapsedTime argument and represnets the number of 
+  given thorough dwSystemElapsedTime argument and represents the number of
   milliseconds that have elapsed since the system was started. That number could
   be obtained with call to GetTickCount() or as a parameter in associated callback
   function (see TIMERPROC).
 
-  Note: The elapsed time is stored as a DWORD value. Therefore, the time will wrap 
-        around to zero if the system is run continuously for 49.7 days. 
+  Note: The elapsed time is stored as a DWORD value. Therefore, the time will wrap
+        around to zero if the system is run continuously for 49.7 days.
  */
-DWORD CTimer::GetElapsedTime(DWORD dwSystemElapsedTime //time that have elapsed 
-                              //since the system was started [ms] 
+DWORD CTimer::GetElapsedTime(DWORD dwSystemElapsedTime //time that have elapsed
+                              //since the system was started [ms]
                    ) const
 {
 if(!IsStarted())
@@ -139,7 +197,7 @@ return dwElapsedTime;
 }
 
 //::Dump()---------------------------------------------------------------------
-#ifdef _DEBUG 
+#ifdef _DEBUG
 /*CTimer diagnostics
  */
 void CTimer::Dump() const
@@ -147,7 +205,7 @@ void CTimer::Dump() const
 TRACE0("CTimer::Dump()\n");
 TRACE1("\tTimer ID     = %d\n",m_nTimerID);
 TRACE1("\tTIMERPROC    = %ph\n",m_lpfnTimer);
-TRACE1("\telapsed time = %u [ms]\n",IsStarted() ? 
+TRACE1("\telapsed time = %u [ms]\n",IsStarted() ?
                                     GetElapsedTime(GetTickCount()) : 0);
 }
 #endif // _DEBUG
@@ -157,20 +215,20 @@ TRACE1("\telapsed time = %u [ms]\n",IsStarted() ?
 
 //DbgTimerProc()------------------------------------------------------------------
 #ifdef _DEBUG
-/*Debugging timer procedure used as an example for timer callaback function.
-  The timer procedure is an application-defined callback function that processes 
+/*Debugging timer procedure used as an example for timer callback function.
+  The timer procedure is an application-defined callback function that processes
   WM_TIMER messages.
 
-  Note: The elapsed time is stored as a DWORD value. Therefore, the time will wrap 
-        around to zero if the system is run continuously for 49.7 days. 
+  Note: The elapsed time is stored as a DWORD value. Therefore, the time will wrap
+        around to zero if the system is run continuously for 49.7 days.
 
   See also: TIMERPROC
  */
 VOID CALLBACK CTimer::DbgTimerProc(HWND hWnd, //handle of window processing timer messages
                            UINT uMsg,         //WM_TIMER message
                            UINT nTimerID,     //timer identifier
-                           DWORD dwTime       //number of milliseconds that have 
-                                  //elapsed since the system was started 
+                           DWORD dwTime       //number of milliseconds that have
+                                  //elapsed since the system was started
                            )
 {
 TRACE3("DbgTimerProc(hWnd = %x, ID = %d, time = %u [ms])\n",hWnd,nTimerID,dwTime);
@@ -179,7 +237,7 @@ MessageBeep(MB_ICONEXCLAMATION);
 #endif
 
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  6    Biblioteka1.5         2004-10-01 22:35:37  Darko           stdafx.h
  *  5    Biblioteka1.4         2003-09-22 22:27:08  Darko           formatting
  *  4    Biblioteka1.3         2002-01-25 16:59:05  Darko           Updated
@@ -187,6 +245,6 @@ MessageBeep(MB_ICONEXCLAMATION);
  *  3    Biblioteka1.2         2001-07-18 23:32:57  Darko           VSS tags
  *  2    Biblioteka1.1         2001-06-25 23:44:00  Darko           Simpilfied
  *       version
- *  1    Biblioteka1.0         2001-06-09 00:01:46  Darko           
+ *  1    Biblioteka1.0         2001-06-09 00:01:46  Darko
  * $
  *****************************************************************************/

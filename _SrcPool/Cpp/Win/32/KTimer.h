@@ -1,7 +1,7 @@
 /*$Workfile: KTimer.h$: header file
-  $Revision: 6$ $Date: 2005-04-26 11:35:40$
+  $Revision: 7$ $Date: 2007-03-06 14:35:54$
   $Author: Darko Kolakovic$
-  
+
   Simple Timer with callback function for Windows applications
   Darko Kolakovic
   June 2k1 simplified version; CWnd moved
@@ -15,11 +15,6 @@
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
-#endif
-
-
-#ifndef __AFXWIN_H__
-  #include <AfxWin.h> //Windows definitions
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
@@ -38,7 +33,7 @@
 // window procedure. Otherwise, the default window procedure will call the
 // associated TimerProc callback function specified in the call to the
 // SetTimerProc() function used to install the timer.
-// To send subsequent WM_TIMER message, system waits until prevoius message has
+// To send subsequent WM_TIMER message, system waits until previous message has
 // not been processed by thread's message queue (in timer's owner message loop,
 // or with associated callback function.
 //
@@ -66,7 +61,7 @@
 //        static CTimer ctTimer1;
 //        ctTimer1.SetTimerProc(MyTimerProc);
 //        ctTimer1.Start(TIME_OUT);
-//
+//        ...
 //        static CTimer ctTimer2(MyTimerProc);
 //        ctTimer2.Start(4*TIME_OUT);
 //        ...
@@ -86,7 +81,7 @@ public:
 public:
 
 protected:
-  UINT      m_nTimerID; //timer indentifier
+  UINT      m_nTimerID; //timer identifier
   TIMERPROC m_lpfnTimer;//timer callback function
   DWORD     m_dwStart;  //time elapsed between system start and timer start [ms]
 
@@ -136,7 +131,7 @@ m_lpfnTimer = pfCallbackTimer;
 }
 
 //::GetID()--------------------------------------------------------------------
-/*Returns timer indtification number. If timer has not been created, ID is zero.
+/*Returns timer identification number. If timer has not been created, ID is zero.
  */
 inline UINT CTimer::GetID() const
 {
@@ -156,7 +151,7 @@ return m_nTimerID;
   //}}AFX_MSG_MAP
 
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  6    Biblioteka1.5         2005-04-26 11:35:40  Darko Kolakovic Document groups
  *       and typo fixes
  *  5    Biblioteka1.4         2003-09-22 22:27:11  Darko           formatting
@@ -165,6 +160,6 @@ return m_nTimerID;
  *  3    Biblioteka1.2         2001-08-17 00:38:18  Darko           Update
  *  2    Biblioteka1.1         2001-06-25 23:44:04  Darko           Simpilfied
  *       version
- *  1    Biblioteka1.0         2001-06-09 00:01:48  Darko           
+ *  1    Biblioteka1.0         2001-06-09 00:01:48  Darko
  * $
  *****************************************************************************/
