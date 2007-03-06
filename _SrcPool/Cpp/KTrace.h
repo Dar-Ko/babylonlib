@@ -1,5 +1,5 @@
 /*$Workfile: KTrace.h$: implementation file
-  $Revision: 46$ $Date: 2007-02-08 15:48:43$
+  $Revision: 47$ $Date: 2007-03-06 18:04:58$
   $Author: Darko Kolakovic$
 
   Debugging helpers
@@ -273,11 +273,25 @@
     #endif
 
     /* ...................................................................... */
-    /* Windows SDK version                                                    */
-    #ifndef __AFX_H__ /*MFC not included and all TRACE macros are undefined*/
+    #ifdef __AFX_H__
+      //Define MFC tag as in afxver_h, MSVC/C++ .Net (2003, 7.1)
+      #ifndef _AFX
+        #define _AFX 19610706 //Microsoft Application Framework Classes (AFX/MFC)
+      #endif
+    #endif
+
+    #ifndef _AFX /*MFC not included and all TRACE macros are undefined*/
+      #ifdef _ATL //Active Template Library
+        #include "KTraceAtl.h" //Convert MFC macros to ATL
+      #endif
+
+      /* Windows SDK version                                                    */
 
       #ifdef _MFC_VER
         #error Use MFC debugging macros
+      #endif
+      #ifdef _ATL_VER
+        #error Use ATL debugging macros
       #endif
 
       /*  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . */
@@ -382,7 +396,7 @@
         Requires Debug build (_DEBUG have to be defined).
         In the Release environment, it does nothing.
 
-        TODO: Unicode version
+        TODO: Unicode version, ATL version
        */
       #define TRACEINFO ::AfxTrace(_T("%s(%i): "), __TFILE__, __LINE__); ::AfxTrace
 

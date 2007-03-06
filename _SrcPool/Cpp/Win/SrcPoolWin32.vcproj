@@ -1022,6 +1022,9 @@
 				RelativePath=".\32\KFindRes.h">
 			</File>
 			<File
+				RelativePath=".\32\KHresult.h">
+			</File>
+			<File
 				RelativePath=".\32\KHypLink.h">
 			</File>
 			<File

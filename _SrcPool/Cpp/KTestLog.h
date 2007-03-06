@@ -1,5 +1,5 @@
 /*$Workfile: KTestLog.h$: header file
-  $Revision: 7$ $Date: 2004-10-21 13:18:47$
+  $Revision: 8$ $Date: 2007-03-06 18:04:05$
   $Author: Darko Kolakovic$
 
   Collect some information about code testing
@@ -32,7 +32,7 @@ typedef struct tagTestEntry* PTESTENTRY; /*Pointer to test data container    */
 typedef bool (*PFUNC_TEST) (void);       /*Type definition of function used
                                            in testing                        */
 
-/*Deafult Log entries                                                        */
+/*Default Log entries                                                        */
 #ifndef LANG_CURRENT
   #define LANG_CURRENT LANG_NEUTRAL
 #endif
@@ -53,6 +53,15 @@ typedef bool (*PFUNC_TEST) (void);       /*Type definition of function used
   #define LOG_FAILURE  _T("Failed!")
     /*End-of-Test tag                */
   #define LOG_EOT      _T("===================End")
+#endif
+
+#if (LANG_CURRENT == LANG_GERMAN) && !defined (LOG_SUCCESS)
+  /*Erfolgreiche Protokollbucheintragung prüfen       */
+  #define LOG_SUCCESS  _T("Erfolg.")
+  /*Verlassene Protokollbucheintragung prüfen         */
+  #define LOG_FAILURE  _T("Ausfall!")
+  /*Ende-des-Tests Marke                              */
+  #define LOG_EOT      _T("==================Ende")
 #endif
 
 /* ///////////////////////////////////////////////////////////////////////// */
@@ -142,13 +151,14 @@ class CTestLog : public tagTestEntry
 #endif /*_KTESTLOG_H_                                                        */
 /******************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2004-10-21 13:18:47  Darko Kolakovic Boolean types
- *  6    Biblioteka1.5         2004-09-30 15:48:59  Darko           LogResult()
- *  5    Biblioteka1.4         2004-06-03 14:33:51  Darko           PFUNC_TEST
+ *  8    Biblioteka1.7         2007-03-06 18:04:05  Darko Kolakovic LANG_GERMAN
+ *  7    Biblioteka1.6         2004-10-21 12:18:47  Darko Kolakovic Boolean types
+ *  6    Biblioteka1.5         2004-09-30 14:48:59  Darko           LogResult()
+ *  5    Biblioteka1.4         2004-06-03 13:33:51  Darko           PFUNC_TEST
  *       typedef
- *  4    Biblioteka1.3         2003-09-22 22:27:03  Darko           formatting
- *  3    Biblioteka1.2         2003-08-29 08:48:38  Darko           localization
- *  2    Biblioteka1.1         2003-02-10 15:48:50  Darko           
- *  1    Biblioteka1.0         2003-01-30 22:45:02  Darko           
+ *  4    Biblioteka1.3         2003-09-22 21:27:03  Darko           formatting
+ *  3    Biblioteka1.2         2003-08-29 07:48:38  Darko           localization
+ *  2    Biblioteka1.1         2003-02-10 14:48:50  Darko           
+ *  1    Biblioteka1.0         2003-01-30 21:45:02  Darko           
  * $
  *****************************************************************************/

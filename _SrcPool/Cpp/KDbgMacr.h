@@ -1,5 +1,5 @@
 /*$Workfile: KDbgMacr.h$: header file
-  $Revision: 46$ $Date: 2007-02-06 19:10:21$
+  $Revision: 47$ $Date: 2007-03-06 18:04:33$
   $Author: Darko Kolakovic$
 
   Dumps values of some compiler-specific predefined macros
@@ -576,6 +576,10 @@
       #pragma message ("  ver. unknown")
     #endif
   #endif
+  
+  #ifdef _AFX
+    #pragma message ("Included Microsoft Application Framework Classes afxver_.h (AFX/MFC).")
+  #endif
   #ifdef _MFC_VER
     #pragma message ("Included Microsoft Fundation Class (MFC) library.")
      /*Current version of Microsoft Fundation Class (MFC) library.
@@ -624,6 +628,9 @@
     #endif
   #endif
 
+  #ifdef _ATL
+    #pragma message ("Included Active Template Library atldef.h (ATL).")
+  #endif
   #ifdef _ATL_VER
     #ifdef __cplusplus
       #pragma message ("Included Active Template Library (ATL).")
