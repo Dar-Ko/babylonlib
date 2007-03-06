@@ -1,5 +1,5 @@
 /*$Workfile: KHresult.h$: header file
-  $Revision: 1.2 $ $Date: 2007/03/05 14:18:30 $
+  $Revision: 1.3 $ $Date: 2007/03/06 23:07:29 $
   $Author: ddarko $
 
   Handles HRESULT error codes
@@ -75,7 +75,7 @@ public:
   operator HRESULT() const;
   virtual void Throw();
   virtual HRESULT SetErrorInfo(LPCTSTR szSource, LPCTSTR szDescription);
-  LPCTSTR ErrorMessage() const;
+  virtual LPCTSTR ErrorMessage() const;
 
   //Attributes
 protected:
@@ -295,6 +295,8 @@ return hr;
 #endif //_KHRESULT_H_
 /*****************************************************************************
 * $Log: 
+*  3    Biblioteka1.2         2007-03-06 18:02:30  Darko Kolakovic virtual
+*       ErrorMessage
 *  2    Biblioteka1.1         2007-03-05 09:17:12  Darko Kolakovic ErrorMessage()
 *  1    Biblioteka1.0         2007-02-21 09:09:12  Darko Kolakovic 
 * $
