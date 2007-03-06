@@ -1,3 +1,12 @@
+/*$Workfile: DITestAtl7ObjEvents_CP.h$: header file
+  $Revision: 2$ $Date: 2007-03-02 20:21:48$
+  $Author: Darko Kolakovic$
+
+  Connection Point Object
+  Copyright: CommonSoft Inc
+  2006-08-30 Darko Kolakovic
+*/
+
 #pragma once
 
 #ifndef VT_PBSTR
@@ -43,7 +52,8 @@ public:
       avarParams[1].vt = VT_BSTR;
 
       //*bstrOutput = T2BSTR(_T("Event fired!"));
-      avarParams[0] = bstrOutput;
+      //FixMe! avarParams[0] = bstrOutput;
+      avarParams[0] = 0;
       avarParams[0].vt = VT_PBSTR;
       CComVariant varResult;
 
@@ -55,3 +65,4 @@ public:
   }
 };
 
+///////////////////////////////////////////////////////////////////////////////

@@ -22,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./idl;../../..;"
+				AdditionalIncludeDirectories="./idl;../../..;../../32;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -99,7 +99,7 @@ goto VCReportError
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="./idl;../../..;"
+				AdditionalIncludeDirectories="./idl;../../..;../../32;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="3"
@@ -177,7 +177,7 @@ goto VCReportError
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="./idl;../../..;"
+				AdditionalIncludeDirectories="./idl;../../..;../../32;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -254,7 +254,7 @@ goto VCReportError
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="./idl;../../..;"
+				AdditionalIncludeDirectories="./idl;../../..;../../32;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="3"
@@ -329,6 +329,33 @@ goto VCReportError
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			<File
+				RelativePath="..\..\32\KTimer.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="3"/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath=".\Src\stdafx.cpp">
 				<FileConfiguration
@@ -413,6 +440,9 @@ goto VCReportError
 			</File>
 			<File
 				RelativePath=".\Src\DITestAtl7WebEvents_CP.h">
+			</File>
+			<File
+				RelativePath="..\..\32\KTimer.h">
 			</File>
 			<File
 				RelativePath=".\Src\Resource.h">

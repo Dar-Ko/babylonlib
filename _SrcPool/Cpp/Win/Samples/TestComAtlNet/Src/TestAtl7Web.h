@@ -1,5 +1,5 @@
 /*$Workfile: TestAtl7Web.h$: header file
-  $Revision: 3$ $Date: 2007-03-01 20:09:52$
+  $Revision: 4$ $Date: 2007-03-06 18:01:48$
   $Author: Darko Kolakovic$
 
   COM Object
@@ -12,6 +12,7 @@
 
 #include "TestComAtlNet.h"
 #include "DITestAtl7WebEvents_CP.h"
+#include "KTimer.h" //CTimer class
 
 ///////////////////////////////////////////////////////////////////////////////
 // CTestAtl7Web
@@ -56,6 +57,8 @@ END_CONNECTION_POINT_MAP()
                                                   UINT cNames,
                                                   LCID lcid,
                                                   DISPID *rgDispId);
+  static void CALLBACK EventSource(HWND hwnd, UINT uMsg, 
+                                   UINT_PTR idEvent, DWORD dwTime); 
 
 public:
   STDMETHOD(TestMethod)(void);
@@ -71,6 +74,8 @@ public:
 public:
   long     m_lTestCount;   //test counter
   CComBSTR m_bstrTestText; //test message
+  CTimer   m_ctTimer;      //event source
+  static CTestAtl7Web* m_pclTestObj; //event marshaler
 };
 
 OBJECT_ENTRY_AUTO(__uuidof(TestAtl7Web), CTestAtl7Web)
@@ -94,6 +99,8 @@ END_CATEGORY_MAP()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
+*  4    Biblioteka1.3         2007-03-06 18:01:48  Darko Kolakovic Fire an event
+*       each 3s
 *  3    Biblioteka1.2         2007-03-01 20:09:52  Darko Kolakovic Test setting a
 *       property
 *  2    Biblioteka1.1         2007-03-01 00:10:13  Darko Kolakovic TestCounter

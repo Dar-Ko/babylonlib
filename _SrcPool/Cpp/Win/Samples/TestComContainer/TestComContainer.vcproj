@@ -279,9 +279,6 @@
 				RelativePath="..\..\32\KDbgRpt.cpp">
 			</File>
 			<File
-				RelativePath="..\..\32\KDisplayComError.cpp">
-			</File>
-			<File
 				RelativePath="..\..\..\KTestLog.cpp">
 			</File>
 			<File
@@ -399,6 +396,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Src\TestComEvent.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestComWebEventHandlerRt.cpp">
+			</File>
+			<File
 				RelativePath=".\Src\TestHResult.cpp">
 			</File>
 			<File
@@ -414,15 +417,18 @@
 			<File
 				RelativePath="Src\stdafx.h">
 			</File>
+			<File
+				RelativePath=".\Src\TestComWebEventHandlerRt.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 			<File
-				RelativePath="..\..\..\Samples\Common\Res\SrcPool.ico">
+				RelativePath="..\..\..\Samples\Common\Res\Win\SrcPool.ico">
 			</File>
 			<File
-				RelativePath="..\..\..\Samples\Common\Res\Win\SrcPool.ico">
+				RelativePath="..\..\..\Samples\Common\Res\SrcPool.ico">
 			</File>
 		</Filter>
 		<Filter

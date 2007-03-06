@@ -1,5 +1,5 @@
 /*$Workfile: TestAtl7Obj.cpp$: implementation file
-  $Revision: 4$ $Date: 2007-03-01 00:10:10$
+  $Revision: 5$ $Date: 2007-03-02 20:21:50$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -24,6 +24,7 @@
 HRESULT CTestAtl7Obj::FinalConstruct()
 {
 //Inserted by the MSVC ATL Wizard
+ATLTRACE("CTestAtl7Obj::FinalConstruct()\n");
 return S_OK;
 }
 
@@ -35,6 +36,7 @@ return S_OK;
 void CTestAtl7Obj::FinalRelease()
 {
 //Inserted by the MSVC ATL Wizard
+ATLTRACE("CTestAtl7Web::FinalRelease()\n");
 }
 
 //-----------------------------------------------------------------------------
@@ -66,6 +68,8 @@ return S_OK;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
+*  5    Biblioteka1.4         2007-03-02 20:21:50  Darko Kolakovic Connection
+*       Points
 *  4    Biblioteka1.3         2007-03-01 00:10:10  Darko Kolakovic TestCounter
 *       property
 *  3    Biblioteka1.2         2007-02-16 14:22:22  Darko Kolakovic Header

@@ -39,5 +39,6 @@
 #include <atlbase.h>
 #include <atlcom.h>
 #include "KType32.h" /*ISO C99: 7.18 Integer types*/
+#include "KTraceAtl.h" //Convert MFC macros to ATL
 
 using namespace ATL;

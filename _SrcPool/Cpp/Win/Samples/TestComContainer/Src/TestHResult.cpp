@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\Samples\TestComContainer\Src\TestHResult.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-02-21 09:15:01$
+/*$Workfile: TestHResult.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-03-02 19:45:13$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -10,7 +10,6 @@
 // Group=Examples Windows
 
 #include "stdafx.h"
-#include "Resource.h"
 #include "KTestLog.h"
 #include "KHresult.h" //CHresult class
 
@@ -103,6 +102,7 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-03-02 19:45:13  Darko Kolakovic Deleted surplus
  *  1    Biblioteka1.0         2007-02-21 09:15:01  Darko Kolakovic 
  * $
  *****************************************************************************/

@@ -34,9 +34,9 @@
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\..\Obj\Release_Unicode\TestComAtl\Win32/TestComAtl.pch"
-				AssemblerListingLocation=".\..\Obj\Release_Unicode\TestComAtl\Win32/"
-				ObjectFile=".\..\Obj\Release_Unicode\TestComAtl\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_Unicode\TestComAtl\Win32/"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -56,17 +56,17 @@ echo Warning : Cannot register Unicode DLL on Windows 95
 				Outputs="$(OutDir)\regsvr32.trg"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_Unicode\Win32/TestComAtl.dll"
+				OutputFile="$(OutDir)/TestComAtl.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ModuleDefinitionFile=".\Src\TestComAtl.def"
-				ProgramDatabaseFile=".\..\bin\Release_Unicode\Win32/TestComAtl.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="2"
-				ImportLibrary=".\..\bin\Release_Unicode\Win32/TestComAtl.lib"
+				ImportLibrary="$(OutDir)/$(ProjectName).lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Release_Unicode\Win32/TestComAtl.tlb"
+				TypeLibraryName="$(IntDir)/TestComAtl.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -122,9 +122,9 @@ goto VCReportError
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\..\Obj\Release_SBCS\TestComAtl\Win32/TestComAtl.pch"
-				AssemblerListingLocation=".\..\Obj\Release_SBCS\TestComAtl\Win32/"
-				ObjectFile=".\..\Obj\Release_SBCS\TestComAtl\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_SBCS\TestComAtl\Win32/"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -138,17 +138,17 @@ echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;
 				Outputs="$(OutDir)\regsvr32.trg"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_SBCS\Win32/TestComAtl.dll"
+				OutputFile="$(OutDir)/TestComAtl.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ModuleDefinitionFile=".\Src\TestComAtl.def"
-				ProgramDatabaseFile=".\..\bin\Release_SBCS\Win32/TestComAtl.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="2"
-				ImportLibrary=".\..\bin\Release_SBCS\Win32/TestComAtl.lib"
+				ImportLibrary="$(OutDir)/$(ProjectName).lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Release_SBCS\Win32/TestComAtl.tlb"
+				TypeLibraryName="$(IntDir)/TestComAtl.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -201,9 +201,9 @@ goto VCReportError
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS\TestComAtl\Win32/TestComAtl.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_SBCS\TestComAtl\Win32/"
-				ObjectFile=".\..\Obj\Debug_SBCS\TestComAtl\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS\TestComAtl\Win32/"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -218,18 +218,18 @@ echo regsvr32 exec. time &gt; &quot;$(OutDir)\regsvr32.trg&quot;
 				Outputs="$(OutDir)\regsvr32.trg"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_SBCS\Win32/TestComAtl.dll"
+				OutputFile="$(OutDir)/TestComAtl.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ModuleDefinitionFile=".\Src\TestComAtl.def"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/TestComAtl.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="2"
-				ImportLibrary=".\..\bin\Debug_SBCS\Win32/TestComAtl.lib"
+				ImportLibrary="$(OutDir)/$(ProjectName).lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Debug_SBCS\Win32/TestComAtl.tlb"
+				TypeLibraryName="$(IntDir)/TestComAtl.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -282,9 +282,9 @@ goto VCReportError
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode\TestComAtl\Win32/TestComAtl.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_Unicode\TestComAtl\Win32/"
-				ObjectFile=".\..\Obj\Debug_Unicode\TestComAtl\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode\TestComAtl\Win32/"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -305,18 +305,18 @@ echo Warning : Cannot register Unicode DLL on Windows 95
 				Outputs="$(OutDir)\regsvr32.trg"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_Unicode\Win32/TestComAtl.dll"
+				OutputFile="$(OutDir)/TestComAtl.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ModuleDefinitionFile=".\Src\TestComAtl.def"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_Unicode\Win32/TestComAtl.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="2"
-				ImportLibrary=".\..\bin\Debug_Unicode\Win32/TestComAtl.lib"
+				ImportLibrary="$(OutDir)/$(ProjectName).lib"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\..\bin\Debug_Unicode\Win32/TestComAtl.tlb"
+				TypeLibraryName="$(IntDir)/TestComAtl.tlb"
 				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -495,7 +495,7 @@ goto VCReportError
 					<Tool
 						Name="VCMIDLTool"
 						GenerateStublessProxies="TRUE"
-						TypeLibraryName=".\idl\TestComAtl.tlb"
+						TypeLibraryName=".\TestComAtl.tlb"
 						OutputDirectory=".\idl\"
 						HeaderFileName="TestComAtl.h"
 						InterfaceIdentifierFileName="TestComAtl_i.c"
@@ -506,7 +506,7 @@ goto VCReportError
 					<Tool
 						Name="VCMIDLTool"
 						GenerateStublessProxies="TRUE"
-						TypeLibraryName=".\idl\TestComAtl.tlb"
+						TypeLibraryName=".\TestComAtl.tlb"
 						OutputDirectory=".\idl\"
 						HeaderFileName="TestComAtl.h"
 						InterfaceIdentifierFileName="TestComAtl_i.c"
@@ -517,7 +517,7 @@ goto VCReportError
 					<Tool
 						Name="VCMIDLTool"
 						GenerateStublessProxies="TRUE"
-						TypeLibraryName=".\idl\TestComAtl.tlb"
+						TypeLibraryName=".\TestComAtl.tlb"
 						OutputDirectory=".\idl\"
 						HeaderFileName="TestComAtl.h"
 						InterfaceIdentifierFileName="TestComAtl_i.c"
@@ -528,7 +528,7 @@ goto VCReportError
 					<Tool
 						Name="VCMIDLTool"
 						GenerateStublessProxies="TRUE"
-						TypeLibraryName=".\idl\TestComAtl.tlb"
+						TypeLibraryName=".\TestComAtl.tlb"
 						OutputDirectory=".\idl\"
 						HeaderFileName="TestComAtl.h"
 						InterfaceIdentifierFileName="TestComAtl_i.c"
@@ -590,6 +590,9 @@ goto VCReportError
 				RelativePath="Src\TestAtlObj.rgs">
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\TestComAtl.txt">
+		</File>
 		<File
 			RelativePath="TestComAtlVc6.htm">
 		</File>

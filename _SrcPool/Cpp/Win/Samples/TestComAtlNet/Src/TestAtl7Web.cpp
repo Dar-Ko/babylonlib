@@ -1,5 +1,5 @@
 /*$Workfile: TestAtl7Web.cpp$: implementation file
-  $Revision: 3$ $Date: 2007-03-01 20:09:51$
+  $Revision: 4$ $Date: 2007-03-06 18:01:46$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -14,12 +14,57 @@ extern uint32_t g_nDBgBreak;
 ////////////////////////////////////////////////////////////////////////////////
 // CTestAtl7Web
 
+//pointer to the service
+CTestAtl7Web* CTestAtl7Web::m_pclTestObj = NULL;
+
 //-----------------------------------------------------------------------------
-/*Default constructor
- */
-CTestAtl7Web::CTestAtl7Web()
-: m_lTestCount(0)
+//timer callback function
+void CALLBACK CTestAtl7Web::EventSource(HWND hwnd, //[in] handle to the window 
+                                      //associated with the timer or NULL
+                          UINT uMsg,    //[in] specifies the WM_TIMER message
+                          UINT idEvent, //[in] specifies the timer's identifier
+                          DWORD dwTime  //[in] number of milliseconds that have
+                                      //elapsed since the system was started
+                         )
 {
+ATLTRACE("CTestAtl7Web::EventSource()");
+ATLASSERT(g_nDBgBreak < 1); //debugger breakpoint
+
+HRESULT hRes = S_OK;
+try
+  {
+  CComBSTR bstrTemp;
+  bstrTemp = (L"Test Event ");
+  if (m_pclTestObj->m_bstrTestText == NULL)
+    bstrTemp = (L"<NULL>");
+  else
+    bstrTemp += m_pclTestObj->m_bstrTestText;
+  //Fire the event 
+  ::MessageBeep(MB_ICONEXCLAMATION);
+  hRes = m_pclTestObj->Fire_TestAtlEvent(bstrTemp.Detach());
+  }
+catch(CAtlException e)
+  {
+  ATLTRACE("  failed to fire an event (0x%0lX)!\n", HRESULT(e));
+  }
+}
+
+//-----------------------------------------------------------------------------
+/*Default constructor.
+  Throws AtlException with the error for the GetLastError();
+ */
+CTestAtl7Web::CTestAtl7Web() throw(...)
+: m_lTestCount(0),
+  m_ctTimer(CTestAtl7Web::EventSource, 3000)
+{
+if (!m_ctTimer.IsStarted())
+  AtlThrowLastWin32();
+//Initialize pointer to the service, allowing static function to access
+//connection points. This object is declared as a Singleton.
+if (m_pclTestObj == NULL)
+  m_pclTestObj = this;
+else
+  AtlThrow(E_UNEXPECTED);
 }
 
 //-----------------------------------------------------------------------------
@@ -262,6 +307,8 @@ return put_String(newVal);
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
+*  4    Biblioteka1.3         2007-03-06 18:01:46  Darko Kolakovic Fire an event
+*       each 3s
 *  3    Biblioteka1.2         2007-03-01 20:09:51  Darko Kolakovic Test setting a
 *       property
 *  2    Biblioteka1.1         2007-03-01 00:10:11  Darko Kolakovic TestCounter
