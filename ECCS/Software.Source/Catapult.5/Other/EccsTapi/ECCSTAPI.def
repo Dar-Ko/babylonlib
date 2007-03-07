@@ -1,5 +1,0 @@
-LIBRARY      "ECCSTAPI.dll"
-
-EXPORTS
-	DialCall
-	PhoneCall
