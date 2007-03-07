@@ -1,0 +1,51 @@
+// TAPITest.idl : IDL source for TAPITest.dll
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (TAPITest.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+	[
+		object,
+		uuid(D294F373-4AB3-42D6-8511-A8A54764D6C4),
+		dual,
+		helpstring("IMainTAPICtr Interface"),
+		pointer_default(unique)
+	]
+	interface IMainTAPICtr : IDispatch
+	{
+		[id(1), helpstring("method ChooseModem")] HRESULT ChooseModem();
+		[id(2), helpstring("method MyMakeCall")] HRESULT MyMakeCall();
+	};
+
+[
+	uuid(BE9560D1-23CE-4FD3-B3F2-A4675EF4912F),
+	version(1.0),
+	helpstring("TAPITest 1.0 Type Library")
+]
+library TAPITESTLib
+{
+	importlib("stdole32.tlb");
+	importlib("stdole2.tlb");
+
+	[
+		uuid(BDF1241C-0000-4D1A-A574-09860A835B67),
+		helpstring("_IMainTAPICtrEvents Interface")
+	]
+	dispinterface _IMainTAPICtrEvents
+	{
+		properties:
+		methods:
+	};
+
+	[
+		uuid(076DC055-EF11-4F58-85A9-7F6935B9C916),
+		helpstring("MainTAPICtr Class")
+	]
+	coclass MainTAPICtr
+	{
+		[default] interface IMainTAPICtr;
+		[default, source] dispinterface _IMainTAPICtrEvents;
+	};
+};
