@@ -1,0 +1,13 @@
+*.plg
+*.opt
+*.ncb
+*.aps
+*.obj
+*.bak
+*.suo
+*.scc
+*.vspscc
+obj
+Obj
+idl
+Idl

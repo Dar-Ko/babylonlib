@@ -1,0 +1,13 @@
+*.plg
+*.opt
+*.ncb
+*.aps
+*.obj
+*.bak
+*.suo
+*.vspscc
+obj
+Obj
+Binaries
+idl
+Idl
