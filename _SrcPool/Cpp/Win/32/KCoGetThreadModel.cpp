@@ -1,37 +1,40 @@
 /*$Workfile: KCoGetThreadModel.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-10-01 22:33:52$
-  $Author: Darko$
+  $Revision: 4$ $Date: 2007-03-08 14:19:22$
+  $Author: Darko Kolakovic$
 
   Retreives.COM threading model.
   Microsoft Systems Journal.
   1999-10 John Robbins
  */
+
+//Group=Windows
+
 #include "stdafx.h"
 #include "KType32.h"  //ISO C99: 7.18 Integer types
 
-typedef struct tagAPARTMENT 
+typedef struct tagAPARTMENT
   {
   struct tagAPARTMENT* next;
   struct tagAPARTMENT* prev;
   struct tagAPARTMENT* parent;
-  DWORD model;             //threading model   
+  DWORD model;             //threading model
   DWORD dwCount;           //CoInitialize count
-  DWORD tid;               //thread ID         
-  HANDLE thread;           //thread handle     
+  DWORD tid;               //thread ID
+  HANDLE thread;           //thread handle
   //TODO: Fixme!typedefs for OXID D.K.
- /* OXID oxid;               //object exporter ID
-  OID oidc;                //object ID counter 
-  HWND win;                //message window    
-  CRITICAL_SECTION cs;     //thread safety     
-  LPMESSAGEFILTER filter;  //message filter    
-  XOBJECT *objs;           //exported objects  
-  IOBJECT *proxies;        //imported objects  
+ /* OXID oxid;               //object exporter ID; OXID is stored in thread local storage (TLS)
+  OID oidc;                //object ID counter
+  HWND win;                //message window
+  CRITICAL_SECTION cs;     //thread safety
+  LPMESSAGEFILTER filter;  //message filter
+  XOBJECT *objs;           //exported objects
+  IOBJECT *proxies;        //imported objects
   LPVOID ErrorInfo;        //thread error information */
   } _APARTMENT, *_PAPARTMENT;
 
 //-----------------------------------------------------------------------------
 /*Obatins Thread Environment Block (TEB).
-  
+
   Returns: pointer to Thread Environment Block structure _TEB.
  */
 struct _TEB* WINAPI _NtCurrentTeb(void)
@@ -46,15 +49,18 @@ return pTeb;
 //-----------------------------------------------------------------------------
 /*Obtains the COM threading model for the current thread.
 
-      typedef enum tagCOINIT 
+      typedef enum tagCOINIT
         {
-        COINIT_MULTITHREADED     = 0x0,//Initializes the thread for 
+        COINIT_MULTITHREADED     = 0x0,//Initializes the thread for
                                        //multi-threaded object concurrency
-        COINIT_APARTMENTTHREADED = 0x2,//Initializes the thread for 
+        COINIT_APARTMENTTHREADED = 0x2,//Initializes the thread for
                                        //apartment-threaded object concurrency
         COINIT_DISABLE_OLE1DDE   = 0x4,//Disables DDE for Ole1 support
         COINIT_SPEED_OVER_MEMORY = 0x8,//Trades memory for speed.
         } COINIT;
+
+  Note: COM Thread Local Storage (TLS) structure is stored at offset 0xF80
+  in the Thread Environment Block (TEB).
 
   Returns: current Apartment type (COINIT_MULTITHREADED or COINIT_APARTMENTTHREADED),
   or 0xFF if COM library is not initialized.
@@ -80,7 +86,10 @@ const uint32_t OLE_FREE_MASK = 0x140; //apartment-threaded object concurrency ma
 
   //Get the Thread Environment Block (TEB)
 __asm MOV EAX , FS:018h
-//Get the COM TLS structure from its offset.
+/*Get the COM Thread Local Storage (TLS) structure from its offset.
+  COM TLS structure is stored at offset 0xF80 in the Thread Environment Block (TEB).
+  COM has its own function for TLS, COleTls::TLSAllocData.
+ */
 __asm MOV EAX , [EAX + 0F80h]
 __asm MOV pOleApartment , EAX
 
@@ -89,9 +98,13 @@ if ( NULL == pOleApartment )
   return COGET_NOT_INTIALIZED;
 uint_least32_t nResult = COGET_NOT_INTIALIZED;
 
+/*Threading model is stored as DWORD at offset 0xC. The offset is undocumented
+  and is subject to change at any time.
+  It is set with a mask of 0x80 for apartment threaded, and 0x140 for freethreaded.
+ */
 __try
   {
-  //Get the threading model flag, which is 12 bytes or 3 sizeof(int32) into 
+  //Get the threading model flag, which is 12 bytes or 3 sizeof(int32) into
   //the structure.
   uint32_t dwFlags = pOleApartment->model;
 
@@ -115,14 +128,14 @@ return nResult;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Note:
-  The Thread Environment Block (TEB) structure contains data that describes 
-  the state of a thread. TEB exists in the process address space (as opposed 
+  The Thread Environment Block (TEB) structure contains data that describes
+  the state of a thread. TEB exists in the process address space (as opposed
   to the system space). TEB is accessable at address fs:[0018h].
 
   Declared in Winternl.h. Included in Windows XP and Windows 2000 Professional.
 
-      typedef struct _TEB 
-        {  
+      typedef struct _TEB
+        {
         BYTE Reserved1[1952];
         PVOID Reserved2[412];
         PVOID TlsSlots[64];
@@ -133,7 +146,7 @@ return nResult;
         PVOID TlsExpansionSlots;
         } TEB, *PTEB;
 
-      typedef struct _TEB 
+      typedef struct _TEB
         {
         NT_TIB          Tib;
         PVOID           EnvironmentPointer;
@@ -229,9 +242,9 @@ typedef enum tagCOINIT
 
  */
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  3    Biblioteka1.2         2004-10-01 22:33:52  Darko           stdafx.h
  *  2    Biblioteka1.1         2003-08-13 14:39:27  Darko           formatting
- *  1    Biblioteka1.0         2003-08-09 14:06:20  Darko           
+ *  1    Biblioteka1.0         2003-08-09 14:06:20  Darko
  * $
  *****************************************************************************/
