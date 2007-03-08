@@ -1,5 +1,5 @@
 /*$Workfile: KHresult.h$: header file
-  $Revision: 1.3 $ $Date: 2007/03/06 23:07:29 $
+  $Revision: 1.4 $ $Date: 2007/03/08 18:47:45 $
   $Author: ddarko $
 
   Handles HRESULT error codes
@@ -19,7 +19,8 @@
 #include <atlexcept.h>
 
 ///////////////////////////////////////////////////////////////////////////////
-/*The CHresult class stores the status code indicating the reason for the
+/*{group=Windows}
+  The CHresult class stores the status code indicating the reason for the
   failure, trowing an exception to signal an error based on a HRESULT status
   code.
 
@@ -57,7 +58,7 @@
 
   Note:  Microsoft Windows specific (Win32).
 
-  See also: <winerror.h>, CAtlException class members, AtlThrow
+  See also: <winerror.h>, CAtlException class members, AtlThrow, TESTHR()
 */
 class CHresult
 {
@@ -96,7 +97,7 @@ protected:
 
   See also: GetLastError()
  */
-inline CHresult::CHresult() throw(...) : 
+inline CHresult::CHresult() throw(...) :
   m_hr(HRESULT_FROM_WIN32(::GetLastError())),
   m_pszMsg(NULL)
 {
@@ -108,7 +109,7 @@ if( FAILED(m_hr) )
 /*Converts the result of an operation to HRESULT.
  */
 inline CHresult::CHresult(const bool bResult //[in] error value
-                         ) throw(...) : 
+                         ) throw(...) :
   m_hr (bResult ? S_OK: E_FAIL),
   m_pszMsg(NULL)
 {
@@ -132,7 +133,7 @@ if( FAILED(m_hr) )
 /*Copy an object with result of an operation.
  */
 inline CHresult::CHresult(const CHresult& hResult //[in] error value
-                         ) throw(...) : 
+                         ) throw(...) :
   m_hr (hResult.m_hr),
   m_pszMsg(NULL)
 {
@@ -201,7 +202,7 @@ inline LPCTSTR CHresult::ErrorMessage() const
 if (m_pszMsg == NULL) //Create new error message
   {
     //TODO: support locale
-  FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | 
+  FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER |
                 FORMAT_MESSAGE_FROM_SYSTEM,
                 NULL,
                 m_hr,
@@ -213,27 +214,27 @@ if (m_pszMsg == NULL) //Create new error message
   if (m_pszMsg != NULL)  //Annex CRLF to the message
     {
     int nLen = lstrlen(m_pszMsg);
-    if (nLen > 1 && m_pszMsg[nLen - 1] == '\n') 
+    if (nLen > 1 && m_pszMsg[nLen - 1] == '\n')
       {
       m_pszMsg[nLen - 1] = 0;
-      if (m_pszMsg[nLen - 2] == '\r') 
+      if (m_pszMsg[nLen - 2] == '\r')
         {
         m_pszMsg[nLen - 2] = 0;
         }
       }
-    } 
+    }
   else //if HRESULT is without a description, provide one
     {
     const int ERRMSG_MAXSIZE = 32;
     m_pszMsg = (LPTSTR)LocalAlloc(0, ERRMSG_MAXSIZE * sizeof(TCHAR));
-    if (m_pszMsg != NULL) 
+    if (m_pszMsg != NULL)
       {
       //Check errors for Custom Interfaces Facility of FACILITY_ITF (see winerror.h)
       //Error codes for this facility could have duplicate descriptions (see MSDN Q183216)
       const unsigned short E_ITF_FIRST = 0x200; //first error in the range
       const HRESULT WCODE_HRESULT_FIRST = MAKE_HRESULT(SEVERITY_ERROR, FACILITY_ITF, E_ITF_FIRST);
       const HRESULT WCODE_HRESULT_LAST  = MAKE_HRESULT(SEVERITY_ERROR, FACILITY_ITF+1, 0);
-      if (m_hr >= WCODE_HRESULT_FIRST &&  m_hr < WCODE_HRESULT_LAST) 
+      if (m_hr >= WCODE_HRESULT_FIRST &&  m_hr < WCODE_HRESULT_LAST)
         wsprintf(m_pszMsg, TEXT("COM Interface error 0x%0lX"), m_hr);
       else
         wsprintf(m_pszMsg, TEXT("Unknown COM error 0x%0lX"), m_hr);
@@ -292,13 +293,34 @@ if (SUCCEEDED(hr))
 return hr;
 }
 ///////////////////////////////////////////////////////////////////////////////
+
+//-----------------------------------------------------------------------------
+/*{group=Diagnostic}
+  Validates the result returned by a COM object oparation. If hResult is not
+  S_OK,   throws _com_error exception.
+
+  Note: Microsoft Windows specific (Win).
+        and uses Active Template Library (ATL).
+
+  History: Microsoft MSDN Sample
+
+  See also: CHresult
+ */
+inline void TESTHR(HRESULT hResult //[in] result of COM Objects operation
+                  ) throw(_com_error)
+{
+if (FAILED(hResult))
+  _com_issue_error(hResult);
+};
+
+///////////////////////////////////////////////////////////////////////////////
 #endif //_KHRESULT_H_
 /*****************************************************************************
-* $Log: 
+* $Log:
 *  3    Biblioteka1.2         2007-03-06 18:02:30  Darko Kolakovic virtual
 *       ErrorMessage
 *  2    Biblioteka1.1         2007-03-05 09:17:12  Darko Kolakovic ErrorMessage()
-*  1    Biblioteka1.0         2007-02-21 09:09:12  Darko Kolakovic 
+*  1    Biblioteka1.0         2007-02-21 09:09:12  Darko Kolakovic
 * $
 * Revision 1.1  2007/02/20 22:51:25  ddarko
 * Created

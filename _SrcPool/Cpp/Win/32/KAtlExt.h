@@ -1,5 +1,5 @@
 /*$Workfile: KAtlExt.h$: header file
-  $Revision: 2$ $Date: 2005-04-26 16:42:05$
+  $Revision: 3$ $Date: 2007-03-08 13:45:58$
   $Author: Darko Kolakovic$
 
   ATL Helper methods and objects
@@ -20,7 +20,7 @@
 /*{group:Windows}
   Creates an instance of CComPtr object.
   ATL uses CComPtr to manage COM interface pointers. CComPtr is derived from
-  CComPtrBase, and perform automatic reference counting.
+  CComPtrBase and to perform automatic reference counting.
 
   Parameters:
     T - COM interface specifying the type of pointer to be stored.
@@ -28,7 +28,7 @@
   Example:
       #include "KAtlExt.h"
       ...
-      CAdoConnection = new_instance<CAdoConnection>();
+      CAdoConnection adoObj = new_instance<CAdoConnection>();
 
   Note: Microsoft Windows specific (Win32)
        and uses Active Template Library (ATL).
@@ -43,26 +43,6 @@ ComObject::CreateInstance(&pcoObject);
 
 return CComPtr<T>(pcoObject);
 }
-
-///////////////////////////////////////////////////////////////////////////////
-// Inlines
-
-//-----------------------------------------------------------------------------
-/*{group=Diagnostic}
-  Validates the result returned by a COM object oparation. If hResult is not SOK,
-  throws _com_error exception.
-
-  Note: Microsoft Windows specific (Win).
-        and uses Active Template Library (ATL).
-
-  History: Microsoft MSDN Sample
- */
-inline void TESTHR(HRESULT hResult //[in] result of COM Objects operation
-                  ) throw(_com_error)
-{
-if (FAILED(hResult))
-  _com_issue_error(hResult);
-};
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
