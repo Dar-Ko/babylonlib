@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDispatchPtr.h$: header file
-  $Revision: 1.1 $ $Date: 2007/03/08 18:48:11 $
+/*$Workfile: KDispatchPtr.h$: header file
+  $Revision: 1.2 $ $Date: 2007/03/08 19:20:49 $
   $Author: ddarko $
 
   IDispatch wrapper
