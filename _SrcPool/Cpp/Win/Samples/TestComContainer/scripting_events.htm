@@ -1,0 +1,1466 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-ca" />
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0" />
+<meta name="ProgId" content="FrontPage.Editor.Document" />
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+<title>Scripting Events</title>
+<link rel="stylesheet" type="text/css" href="../component_automation_files/global.css" />
+<style>
+<!--
+.codeShade {padding: 4px;margin-left: 0em;border-left:#60BF60 solid 1px;border-top:#60BF60 solid 1px;border-right:#60BF60 solid 2px;border-bottom:#60BF60 solid 2px;margin-top:0.5em;margin-bottom:0.5em;background-color:#FFD;}
+-->
+</style>
+</head>
+
+<body>
+
+<div id="ctl00_MainContent">
+  <div class="topic">
+    <div class="majorTitle">
+      Scripting Clinic</div>
+    <div class="title">
+      <h1>Scripting Events</h1>
+    </div>
+    <!--Content type: PSDK_8. Transform: wc2mtps.xslt.-->
+    <a name="scripting04092001">
+    <!----></a>
+    <div id="nstext" valign="bottom">
+&nbsp; msdn2.microsoft.com/en-us/ms974564.aspx<p>Andrew Clinick<br />
+      Microsoft Corporation</p>
+      <p>April 9, 2001</p>
+      <p><br />
+      Download
+      <a href="http://download.microsoft.com/download/a/9/7/a97600c9-4006-45d8-b8d9-0c74ef9639aa/scriptevents.exe">
+      Scriptevents.exe</a>.</p>
+      <p>Scripting events. It should be easy enough. After all, many 
+      applications, both from Microsoft and from third parties, allow you to 
+      write script code that responds to events fired from objects provided by 
+      the application. This is a great way to script, since the application 
+      calls you at the appropriate time, and all you (the developer) have to 
+      know is to respond by writing the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b>-handler 
+      code. That's the theory at least. In reality, events are handled and 
+      implemented in any number of ways between applications, and it can quickly 
+      become confusing as to what is the best way to script events.</p>
+      <p>I thought I'd take this opportunity to try to clear up some of the 
+      confusion by exploring various options for writing
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b>-handling 
+      scripts in popular applications—in particular, in Internet Explorer, 
+      Windows® Script Host, and Windows® Script Components.</p>
+      <h2 class="dtH1">How Do Events Work in A Script Engine?</h2>
+      <p>Before digging into the details of how each application deals with 
+      events, let's take a look at how a script engine (the component that 
+      actually runs the script code in an application) deals with events. 
+      Essentially, two mechanisms are available to application writers to enable
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      handling: built–in or &quot;automagic&quot; support, and calling 
+      functions/subroutines.</p>
+      <p><b>&quot;Automagic&quot; Support</b></p>
+      <p>Both of the Microsoft® Windows® script engines,
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>® 
+      and Visual Basic® Scripting Edition, provide a built-in mechanism to hook 
+      up script to events through a naming convention. If you're a VBScript 
+      programmer, you are probably already familiar with the <b>Object_Eventname
+      </b>naming convention for
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      handlers in Visual Basic® and in VBScript. If an application provides an 
+      object to the script engine, and puts the script engine into connected 
+      mode, then any subroutine with the correct naming convention will be 
+      called whenever the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> is 
+      fired. For example, if the script has an object named &quot;order,&quot; and it has 
+      an <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      &quot;onNew,&quot; the subroutine would be called<code class="ce"> order_onNew()</code>. 
+      The object must be available to the script engine when the script is 
+      compiled in order for the &quot;automagic&quot; hookup to work.</p>
+      <p>Hopefully this isn't news to VBScript programmers out there, but we 
+      often do get questions as to why
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b> 
+      doesn't support this mechanism.
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b> 
+      does support a built-in
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b>-binding 
+      naming convention, but unfortunately it's not very well known. When we 
+      were building
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b> 
+      3, there was considerable debate within the script team as to what would 
+      be the best way to add this to
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>. 
+      Should it follow the VBScript notation, or do something new? It was felt 
+      that the <b>Object_Eventname </b>convention wasn't really in the spirit of
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>. 
+      Further, we recognized that there might already be code out there using 
+      the naming convention, so adding it in version 3 could result in serious 
+      compatibility issues.</p>
+      <p>The alternative proposed was <b>Object:: Eventname</b>, since
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b> 
+      is related to C-like languages (and no, it really has nothing to do with 
+      Java, —the second most common question I get, after how to handle events 
+      in <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>!). 
+      To use the order object example again, the
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      handler for the<code class="ce"> onNew </code>
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      would be<code class="ce"> order::onNew</code>. To illustrate this, I've 
+      written a simple script host using Visual Basic and the Windows Script 
+      Control, so you can try the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      handlers. The program provides an order object that has 3 events,<code class="ce"> 
+      onNew</code>,<code class="ce"> onSave</code>, and<code class="ce"> 
+      onDelete</code>, and a simple text editor that allows you to write some 
+      script code.</p>
+      <h3 class="dtH1">Calling Functions/Subroutines</h3>
+      <p>Whenever an application hosts a script engine (some examples of hosts 
+      would be Internet Explorer, IIS, and Windows Script Host), the application 
+      can access all the functions or subroutines that you have written in your 
+      script code. Not only can the host application see the functions, it can 
+      also call them. This ability to call code directly allows applications to 
+      offer an alternative mechanism for providing
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      binding to the script engine. Rather than use the built-in capability of 
+      responding to events, the host application can call the appropriate script 
+      function to handle any events fired by an object. This mechanism allows 
+      the host application to define a different syntax for
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      handlers, which, while powerful, can result in confusion as to how to 
+      respond to events in script. A host application can use a variety of 
+      naming convention/coding practices. For example, the order example could 
+      have the <b style="color: black; background-color: rgb(160, 255, 255)">
+      event</b> handler for the <code class="ce">onNew </code>
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      implemented within the application, and it would call the <code class="ce">
+      orderOnNew </code>function in the script.</p>
+      <h2 class="dtH1"><a name="1">Events in Internet Explorer</a></h2>
+      <p>Internet Explorer is the leading source of confusion with regard to
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b>-driven 
+      script, mainly because it has so many different ways of handling events. 
+      The obvious question is, why does it need so many ways of achieving the 
+      same result? The main reason is that events in HTML were never really 
+      standardized, and so IE had to support the many ways in which events could 
+      be hooked up to HTML, and deal with features unsupported in other 
+      browsers, such as
+      <b style="color: black; background-color: rgb(153, 255, 153)">ActiveX</b>® 
+      controls. This is great for the end user, since nearly all content 
+      existing today will run in IE, but it does make the scriptwriter's life 
+      more complex.</p>
+      <h2 class="dtH1">Inline Script Handlers</h2>
+      <p>The inline script handler is perhaps the most widely used mechanism for 
+      handling events in IE, since it is supported in both IE and Netscape. The 
+      basic principle is that you add the script inside the HTML element, and 
+      the browser does all the hook up for you. For example:</p>
+      <div class="code" id="ctl00_ctl03_">
+        <pre class="code" id="ctl00_ctl03" space="preserve">&lt;span id=&quot;testinline&quot; onclick='alert(&quot;inline handler - <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>&quot;)'&gt;Click me inline - <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>&lt;/span&gt;</pre>
+      </div>
+      <p>The code provided in the <code class="ce">onclick</code> attribute will 
+      be called when the user clicks on the text enclosed in the span. This 
+      mechanism is great for small snippets of code, but it becomes cumbersome 
+      when you have a lot of script. This
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      mechanism works with both VBScript and
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>.</p>
+      <p>What happens behind the scenes is that Internet Explorer calls into the 
+      script engine with the script code and tells the engine to create an 
+      anonymous function (a function with no name). Those of you who know 
+      VBScript are probably wondering how it does this, since VBScript doesn't 
+      support anonymous functions. VBScript actually creates a subroutine called 
+      &quot;anonymous&quot; containing the script and returns a pointer to the function 
+      that is then hooked up to the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b>.</p>
+      <h2 class="dtH1">Function Pointers</h2>
+      <p>Every function in
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b> 
+      is a first-class object, which allows you to pass around pointers to the 
+      function and use them to call the function. This offers flexibility in 
+      hooking up <b style="color: black; background-color: rgb(160, 255, 255)">
+      event</b> handlers, enabling you to use the same function to handle one or 
+      many events. To setup function-pointer events, just set the <b>EventName
+      </b>property on the object to the pointer of the function. In
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b> 
+      this is very simple to do. For example:</p>
+      <div class="code" id="ctl00_ctl04_">
+        <div class="CodeSnippetTitleBar">
+          <div class="CodeDisplayLanguage">
+&nbsp;</div>
+        </div>
+        <pre class="code" id="ctl00_ctl04" space="preserve">window.onclick=foo
+function foo()
+{
+   alert('you clicked on the window')
+}
+</pre>
+      </div>
+      <p>In the first releases of VBScript, there was no way to use function 
+      pointers, since if you set<code class="ce"> window.onclick </code>to<code class="ce"> 
+      foo, </code>VBScript would call<code class="ce"> foo </code>rather than 
+      get a pointer. In VBScript 5.0 the <b>GetRef</b> method was introduced. 
+      This created a reference to the function, allowing you to set the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      handler. For example:</p>
+      <div class="code" id="ctl00_ctl05_">
+        <pre class="code" id="ctl00_ctl05" space="preserve">set window.onclick=GetRef(&quot;foo&quot;)
+function foo()
+   alert('you clicked on the window')
+end function
+</pre>
+      </div>
+      <h2 class="dtH1"><a name="2">&lt;Script&gt; Block-<b style="color: black; background-color: rgb(160, 255, 255)">Event</b> 
+      Handlers</a></h2>
+      <p>The <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      handlers used so far work well for HTML events, but don't provide a way 
+      for writing <b style="color: black; background-color: rgb(160, 255, 255)">
+      event</b> handlers for custom events on
+      <b style="color: black; background-color: rgb(153, 255, 153)">ActiveX</b> 
+      objects that you may have in your page. To provide this support, Internet 
+      Explorer introduced extensions to the &lt;script&gt; block to specify which 
+      object and which
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      the script is for. For example:</p>
+      <div class="code" id="ctl00_ctl06_">
+        <pre class="code" id="ctl00_ctl06" space="preserve">&lt;span id=&quot;testscript&quot;&gt;Click me script block handler - <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>&lt;/span&gt;
+&lt;script language=<b style="color: black; background-color: rgb(255, 255, 102)">JScript</b> for=testscript <b style="color: black; background-color: rgb(160, 255, 255)">event</b>=&quot;onclick&quot;&gt;
+alert(&quot;script block handler - <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>&quot;)
+&lt;/script&gt;
+&lt;br&gt;
+</pre>
+      </div>
+      <p>For some reason, JavaScript does <b>not get</b> events from
+      <font color="#008000"><i><b>out-of-proc</b></i></font> objects. Use a 
+      small fragment of VBScript to catch the
+      <b style="color: black; background-color: rgb(160, 255, 255);">event</b>, 
+      call JavaScript handler from there.</p>
+      <pre>&lt;object  width=3D&quot;1024&quot; height=3D&quot;600&quot;
+   classid=3D&quot;clsid:FD7AD3FB-1496-11D5-ADD9-0010B581B9E5&quot; id=3D&quot;PhotoScan&quot;
+   codebase=3D&quot;objets/PhotoScan.cab#version=3D2,2,0,0&quot;&gt;&lt;/object&gt;
+&lt;script language=&quot;<b>JavaScript</b>&quot; for=&quot;PhotoScan&quot;
+<b style="color: black; background-color: rgb(160, 255, 255);">event</b>=&quot;RightClick(nIndex)&quot;&gt;
+  alert(&quot;RightClick : &quot; + nIndex);
+  this.InfosFichier(nIndex);
+&lt;/script&gt;
+
+replace with :
+
+&lt;script language=&quot;<b>vbscript</b>&quot;&gt;
+&lt;!--
+  Sub PhotoScan_RightClick(nIndex)
+    msgbox &quot;RightClick : &quot; &amp; nIndex
+    PhotoScan.InfosFichier(nIndex)
+  End Sub
+--&gt;
+&lt;/script&gt;</pre>
+      <h2 class="dtH1">&nbsp;</h2>
+      <h2 class="dtH1">Naming Conventions</h2>
+      <p>The final Internet Explorer-specific
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b>-hookup 
+      mechanism consists of naming your function to include the object and 
+      eventname. As long as your function is<code class="ce"> name 
+      objectname.eventname</code>, IE will hook up the function automatically. 
+      For example:</p>
+      <div class="code" id="ctl00_ctl07_">
+        <div class="CodeSnippetTitleBar">
+          <div class="CodeDisplayLanguage">
+&nbsp;</div>
+        </div>
+        <pre class="code" id="ctl00_ctl07" space="preserve">&lt;span id=&quot;testnaming&quot;&gt;Click me naming - <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>&lt;/span&gt;
+&lt;script language=<b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>&gt;
+
+function testnaming.onclick()
+{
+   alert(&quot;script naming - <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>&quot;)
+}
+&lt;/script&gt;
+</pre>
+      </div>
+      <p class="normal"><b class="le">Note:&nbsp;&nbsp; </b>This mechanism only 
+      works with <b style="color: black; background-color: rgb(255, 255, 102)">
+      JScript</b>.</p>
+      <h2 class="dtH1"><a name="3">Automagic</a></h2>
+      <p>In addition to all the IE-specific
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      handling mechanisms, you can also use the built-in &quot;automagic&quot; hook up 
+      provided by the script engines. The key to using this mechanism is 
+      understanding when the hook up occurs. If the objects or HTML elements are 
+      available when the page loads, then the script engine will do the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      binding. If, however, the object or elements are added after page load (by 
+      setting<code class="ce"> innerHTML </code>for example) then the script 
+      engine won't hook up the events. The good thing about this mechanism is 
+      you can use it to respond to
+      <b style="color: black; background-color: rgb(153, 255, 153)">ActiveX</b> 
+      Control events.</p>
+      <div class="code" id="ctl00_ctl08_">
+        <pre class="code" id="ctl00_ctl08" space="preserve">&lt;span id=&quot;testscriptbuiltin&quot;&gt;Click me Built In - <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>&lt;/span&gt;
+&lt;script language=<b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>&gt;
+
+function testscriptbuiltin::onclick()
+{
+alert(&quot;script naming - <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>&quot;)
+}
+&lt;/script&gt;
+
+&lt;br&gt;
+
+&lt;span id=&quot;testscriptbuiltin&quot;&gt;Click me Built In - VBScript&lt;/span&gt;
+&lt;script language=VBScript&gt;
+
+sub testscriptbuiltin_onclick()
+   alert(&quot;script naming - VBScript&quot;)
+end sub
+&lt;/script&gt;
+</pre>
+      </div>
+      <p><a href="events.htm">View these
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b>-handler 
+      examples in action</a>.</p>
+      <p>Examples works for objects created with <code>&lt;OBJECT&gt;</code> tag but
+      <b>not</b> for objects created with <code>new ActiveXObject()</code>.<br />
+      This is because the functions are parsed when the page is loaded, and the 
+      object created with &quot;<code>new ActiveXObject</code>&quot; does not get created 
+      until the script starts running.&nbsp; Therefore, the parser has no way of 
+      knowing the name of the object. </p>
+      <pre><code>var obj = new ActiveXObject(&quot;dll.object&quot;);
+obj.attachEvent (&quot;CustomEvent&quot;, customevent_handler);
+
+function <b>customevent_handler</b>(){
+<b><font color="#008000">//gives &quot;Object doesn't support this property or method.&quot;</font>
+</b>alert(&quot;test&quot;);
+}
+
+
+var obj = new ActiveXObject(&quot;dll.object&quot;);
+
+function <b>obj::CustomEvent</b>(){
+<b><font color="#008000">//gives an &quot;obj&quot; not defined error.</font></b>
+alert(&quot;test&quot;);
+}
+</code></pre>
+      <p>An alternative to an event is to pass into your control a JScript 
+      function:</p>
+      <pre><code>CComPtr&lt;IDispatch&gt; m_pOnSomeEvent;
+
+STDMETHODIMP CYourClass::putref_onsomevent(LPDISPATCH newVal)
+{
+ m_pOnSomeEvent = newVal;
+ return S_OK;
+
+}
+
+void CYourClass::raiseSomeEvent(ULONG SomeValue)
+{
+ HRESULT hr;
+ if(m_pOnSomeEvent==NULL)
+ {
+  return;
+ }
+
+ DISPID dispid;
+ OLECHAR FAR* szMember = L&quot;call&quot;;
+ DISPPARAMS dispparams;
+ VARIANTARG * pvarg = NULL;
+
+ hr = m_pOnSomeEvent-&gt;GetIDsOfNames(IID_NULL, &amp;szMember, 1,
+LOCALE_SYSTEM_DEFAULT, &amp;dispid );
+ if (SUCCEEDED(hr))
+ {
+  pvarg = new VARIANTARG[2];
+  dispparams.rgvarg=pvarg;
+  dispparams.rgvarg[0].vt= VT_I4;
+  dispparams.rgvarg[0].intVal = SomeValue;
+  dispparams.rgvarg[1].vt= VT_DISPATCH;
+  this-&gt;QueryInterface(IID_IDispatch,
+(void**)&amp;dispparams.rgvarg[1].pdispVal);
+  dispparams.cArgs=2;
+  dispparams.cNamedArgs = 0;
+  hr =
+m_pOnSomeEvent-&gt;Invoke(dispid,IID_NULL,LOCALE_SYSTEM_DEFAULT,DISPATCH_METHOD
+,&amp;dispparams, NULL, NULL, NULL);
+
+  delete(pvarg);
+ }
+
+}  </code></pre>
+      <p>Now in your JScript code like this should work:</p>
+      <pre><code>var o = new ActiveXObject(&quot;YourLib.YourClass&quot;)
+o.onsomeevent = fnOnSomeEvent
+
+function fnOnSomeEvent(Value)
+{
+    alert('Some Event value is :&quot; + Value.toString())
+
+} </code></pre>
+      <p>Ok so it's not really an event, you can't use attachEvent but it ought 
+      to work for what you seem to need.</p>
+      <h2 class="dtH1"><a name="4">Events in WSH</a></h2>
+      <p>Windows Script Host has a much simpler
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b>-hookup 
+      mechanism than Internet Explorer in that it offers only two ways to hook 
+      up events. (Hey, two is better than five!) Nevertheless, writing code in 
+      WSH that deals with events can still present a challenge, not the least of 
+      which is being able to ensure that your script is still running when the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      fires. This is a problem because WSH scripts exit as soon as the last line 
+      of script is executed, which may be before the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      you want to handle has been fired. To deal with this, I recommend using 
+      the <b>WScript.Sleep </b>method (see
+      <a href="http://msdn2.microsoft.com/en-us/6t81adfd.aspx">Sleep Method</a> 
+      for more details) and create a loop that sleeps for a long time. Once the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      has fired, use the <b>WScript.Quit </b>method to exit the script. (We 
+      realize this is a pain to do; a fix for this is on our list of 
+      enhancements for the next version of WSH after 5.6.) Once you've 
+      established a way to ensure that your
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      handler will be called, you need to make the decision between the two
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b>-handling 
+      mechanisms.</p>
+      <p>WSH supports both &quot;automagic&quot; and a naming-convention-based
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      hookup. The naming-convention system, introduced with WSH 1.0, provides a 
+      way to respond to events from objects created using <b>
+      WScript.Createobject.</b> This was necessary at the time, since there was 
+      no other way to create an external object in WSH. <b>WScript.CreateObject
+      </b>is similar to the VBScript <b>CreateObject</b>, but adds a second 
+      argument that defines the naming convention for
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b>-handler 
+      functions. For example:</p>
+      <div class="code" id="ctl00_ctl11_">
+        <div class="CodeSnippetTitleBar">
+          <div class="CodeDisplayLanguage">
+&nbsp;</div>
+        </div>
+        <pre class="code" id="ctl00_ctl11" space="preserve">Set myobject = WScript.CreateObject(&quot;someobjectwithevents&quot;,&quot;myobject_&quot;)
+</pre>
+      </div>
+      <p>In this case, WSH will create an instance of the <b>
+      Someobjectwithevents </b>object, and any functions that begin with<code class="ce"> 
+      myobject_ </code>and end with the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      name will be called when the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> is 
+      fired. WSH achieves this by handling the
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      internally and calling the function that matches naming convention in the 
+      script engine. In VBScript this typically doesn't have much impact, since 
+      the &quot;automagic&quot;
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      hookup syntax is<code class="ce"> object_eventname. </code>In
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>, 
+      however, this is a little weird since<code class="ce"> object::eventname
+      </code>won't work. Here's an example of <b>CreateObject </b>
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      binding:</p>
+      <div class="code" id="ctl00_ctl12_">
+        <div class="CodeSnippetTitleBar">
+          <div class="CodeDisplayLanguage">
+&nbsp;</div>
+        </div>
+        <pre class="code" id="ctl00_ctl12" space="preserve">set myorder2 = WScript.CreateObject(&quot;ordersystem.clsorder&quot;,&quot;myorder2_&quot;)
+myorder2.neworder(1)
+
+sub myorder2_onNew()
+   Wscript.echo &quot;new order received from myorder2&quot;
+end sub
+</pre>
+      </div>
+      <p>The Windows Script team recognized that the <b>WScript.CreateObject </b>
+      mechanism was confusing, and in WSH 2.0 introduced the<code class="ce"> 
+      &lt;object&gt; </code>element in .wsf files. The<code class="ce"> &lt;object&gt;
+      </code>element works much like the<code class="ce"> &lt;object&gt; </code>
+      element in HTML, with one exception: By default, events fired by objects 
+      defined in<code class="ce"> &lt;object&gt; </code>elements won't be hooked up to 
+      the script code in file. To allow
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      hookup, you need to set the Events attribute on the<code class="ce"> 
+      &lt;object&gt; </code>element to <b>True</b>. For example:</p>
+      <div class="code" id="ctl00_ctl13_">
+        <pre class="code" id="ctl00_ctl13" space="preserve">&lt;job&gt;
+&lt;object progid=&quot;ordersystem.clsorder&quot; id=&quot;myorder&quot; events=&quot;true&quot;/&gt;
+&lt;script language=&quot;vbscript&quot;&gt;
+sub myorder_onNew()
+   Wscript.echo &quot;new order received myorder&quot;
+end sub
+myorder.neworder(1)
+wscript.sleep 5000
+&lt;/script&gt;
+&lt;/job&gt;
+</pre>
+      </div>
+      <p>WSH includes a final feature to bind to the events of objects that are 
+      created <i>after</i><code class="ce"><b> </b></code>the script has been 
+      loaded. This is useful for objects that are created via <b>CreateObject
+      </b>(in VBScript) or new <b>ActiveXObject </b>in
+      <b style="color: black; background-color: rgb(255, 255, 102)">JScript</b>. 
+      To bind to the events of an already-created object, there is a <b>
+      ConnectObject </b>method on WScript, and to disconnect, <b>
+      WScript.ConnectObject</b>.</p>
+      <div class="code" id="ctl00_ctl14_">
+        <pre class="code" id="ctl00_ctl14" space="preserve">set myorder3 = createobject(&quot;ordersystem.clsorder&quot;)
+
+wscript.connectobject myorder3,&quot;myorder3_&quot;
+
+myorder3.neworder(1)
+sub myorder3_onNew()
+   Wscript.echo &quot;new order received from myorder3&quot;
+end sub
+</pre>
+      </div>
+      <h2 class="dtH1"><a name="5">Windows Script Components</a></h2>
+      <p>Windows Script Components .wsc files are processed by the same 
+      component as .wsf files, so the<code class="ce"> &lt;object&gt; </code>element 
+      provides the same features, including the Events attribute. The <b>
+      Wscript.CreateObject </b>and <b>Wscript.ConnectObject </b>methods, 
+      however, are unique to WSH, so cannot be used outside of WSH.</p>
+      <h2 class="dtH1">Summary</h2>
+      <p><b style="color: black; background-color: rgb(160, 255, 255)">Event</b>-driven 
+      programming can make scripting applications considerably easier if you 
+      know what is available to you to bind to the events. As I've shown, it can 
+      be quite complicated to decide on the best mechanism for writing
+      <b style="color: black; background-color: rgb(160, 255, 255)">event</b> 
+      handlers. It pays to look at the relative merits of each approach, and to 
+      select one that meets your needs without unduly complicating the task of 
+      scripting. As always, we look forward to hearing your feedback and ideas 
+      for making scripting easier. Please feel free to contact us at
+      <a href="mailto:%20msscript@microsoft.com">msscript@microsoft.com</a> and 
+      to use the newsgroups on msnews.microsoft.com.</div>
+      </div>
+      </div>
+      <hr />
+      <h2><a name="6">Extending COM Server class</a></h2>
+      <p>Your COM Server class has to extend: </p>
+      <pre>CComObjectRootEx&lt;YourThreadingModel&gt;,
+CComCoClass&lt;YourClass, &amp;CLSID_YourClass&gt;,
+IConnectionPointContainerImpl&lt;YourClass&gt;,
+
+
+IProvideClassInfo2Impl&lt;&amp;CLSID_YourClass, &amp;DIID_YourEventInterface,
+   &amp;LIBID_YourTypeLib&gt;,
+
+
+IObjectSafetyImpl&lt;YourClass, INTERFACESAFE_FOR_UNTRUSTED_CALLER&gt;,
+
+
+// this one is probably optional
+IDispatchImpl&lt;IYourInterface, &amp;IID_IYourInterface,
+&amp;LIBID_YourTypeLib&gt;,
+
+</pre>
+      <p>this class is generated by the ATL class wizard, you have to say 
+      &quot;Support Connection Points&quot; when you create the class</p>
+      <pre>CProxy_IYourClassEvents&lt;YourClass&gt;,
+
+CComControl&lt;YourClass&gt;
+IOleinPlaceObjectWindowlessImpl&lt;YourClass&gt;
+</pre>
+      <p>This is the COM map </p>
+      <pre>BEGIN_COM_MAP(YourClass)
+ COM_INTERFACE_ENTRY(ISimple)
+ COM_INTERFACE_ENTRY(IDispatch)
+ COM_INTERFACE_ENTRY(IProvideClassInfo)
+ COM_INTERFACE_ENTRY(IProvideClassInfo2)
+ COM_INTERFACE_ENTRY(IObjectSafety)
+ COM_INTERFACE_ENTRY(IConnectionPointContainer)
+ COM_INTERFACE_ENTRY_IMPL(IConnectionPointContainer)
+ COM_INTERFACE_ENTRY(IOleInPlaceObjectWindowless)
+ COM_INTERFACE_ENTRY(IOleInPlaceObject)
+ COM_INTERFACE_ENTRY2(IOleWindow, IOleInPlaceObjectWindowless)
+END_COM_MAP() </pre>
+      <p>The most convenient way is to use the ATL class wizard: </p>
+      <li>Choose simple object </li>
+      <li>check the &quot;Support connection points&quot; </li>
+      <li>supply the IProvideClassInfo*, IObjectSafety and Window stuff </li>
+      <li>compile the project </li>
+      <li>in the class view of the work space: right-click your class and select 
+      the &quot;Implement connection point&quot; context menu item. That's it.
+      <p></p>
+      <p>In you HTML script you can catch the events e.g. in
+      <b style="color: black; background-color: rgb(255, 255, 102);">JScript</b> 
+      with: </p>
+      <pre>&lt;object id=&quot;myObj&quot; classid=&quot;clsid:12345678-1234-1234-1234-123456789012&quot;&gt;
+...
+&lt;/object&gt;
+
+
+&lt;script language=&quot;<b style="color: black; background-color: rgb(255, 255, 102);">JScript</b>&quot;&gt;
+   function myObj::myEvent(p1, p2) {
+      alert('<b style="color: black; background-color: rgb(160, 255, 255);">Event</b> fired: '+p1+','+p2);
+   }
+&lt;/script&gt; </pre>
+      <p>&nbsp;</p>
+      <hr />
+      <h2>Assigning a JScript event handler for a custom ActiveX DLL</h2>
+      <h1><a name="7">attachEvent Method</a></h1>
+      <p>
+      http://msdn.microsoft.com/workshop/author/dhtml/reference/methods/attachevent.asp</p>
+      <hr size="1" />
+      <p>Binds the specified function to an event, so that the function gets 
+      called whenever the event fires on the object.</p>
+      <p class="clsRef">Syntax</p>
+      <blockquote>
+        <pre class="clsSyntax"><i>bSuccess</i> = <i><span class="moreinfo" title="an element from the Applies To list below">object</span></i><b>.attachEvent(</b><i>sEvent</i><b>, </b><i>fpNotify</i><b>)</b></pre>
+      </blockquote>
+      <p class="clsRef">Parameters</p>
+      <blockquote>
+        <table class="clsStd">
+          <tr>
+            <td><i>sEvent</i></td>
+            <td>Required. <b>String</b> that specifies any of the standard
+            <a href="http://msdn.microsoft.com/workshop/author/dhtml/reference/events.asp">
+            DHTML Events</a>.</td>
+          </tr>
+          <tr>
+            <td><i>fpNotify</i></td>
+            <td>Required. Pointer that specifiesthe function to call when <i>
+            sEvent </i>fires.</td>
+          </tr>
+        </table>
+      </blockquote>
+      <p class="clsRef">Return Value</p>
+      <blockquote>
+        <p><b>Boolean</b>. Returns one of the following possible values:</p>
+        <table class="clsStd">
+          <tr>
+            <td nowrap="1"><span class="clsLiteral">true</span></td>
+            <td>The function was bound successfully to the event.</td>
+          </tr>
+          <tr>
+            <td nowrap="1"><span class="clsLiteral">false</span></td>
+            <td>The function was not bound to the event.</td>
+          </tr>
+        </table>
+      </blockquote>
+      <p class="clsRef">Remarks</p>
+      <blockquote>
+        <p>When <i>sEvent </i>fires on the object, the object's <i>sEvent </i>
+        handler is called before <i>fpNotify </i>, the specified function. If 
+        you attach multiple functions to the same event on the same object, the 
+        functions are called in random order, immediately after the object's 
+        event handler is called.</p>
+        <p>The <b>attachEvent</b> method enables a behavior to handle events 
+        that occur on the containing page. This method is not limited, however, 
+        to behaviors. You can also define a function on a page that attaches to 
+        events fired on the same page.</p>
+        <p>Behaviors that attach to events using the <b>attachEvent</b> method 
+        must explicitly call the
+        <a href="http://msdn.microsoft.com/workshop/author/dhtml/reference/methods/detachevent.asp">
+        detachEvent</a> method to stop receiving notifications from the page 
+        when the
+        <a href="http://msdn.microsoft.com/workshop/components/htc/reference/events/ondetach.asp">
+        ondetach</a> event fires.</p>
+        <p>A behavior that attaches to events on the page using the HTML 
+        Component (HTC)<a href="http://msdn.microsoft.com/workshop/components/htc/reference/elements/attach.asp">PUBLIC:ATTACH</a> 
+        element automatically stops receiving notifications when the behavior 
+        detaches from the element, and does not need to call the <b>detachEvent</b> 
+        method.</p>
+        <div class="clsNote">
+          <b>Note</b>&nbsp; To use the <b>attachEvent</b> method with Microsoft 
+          Visual Basic Scripting Edition (VBScript), you need to use the
+          <a href="http://msdn.microsoft.com/library/en-us/script56/html/f9643b79-b4a1-4f70-9017-2b2e2f01ef3a.asp">
+          GetRef</a> to obtain a function pointer. The function pointer can then 
+          be passed to <b>attachEvent</b>.
+        </div>
+      </blockquote>
+      <h4>Examples</h4>
+      <blockquote>
+        <p>This example shows how to implement a mouseover highlighting effect 
+        by calling the <b>attachEvent</b> method from an HTC.</p>
+        <pre class="clsCode" autohilite="1">&lt;PUBLIC:ATTACH EVENT=&quot;ondetach&quot; ONEVENT=&quot;cleanup()&quot; /&gt;
+
+&lt;SCRIPT LANGUAGE=&quot;JScript&quot;&gt;
+attachEvent ('onmouseover', Hilite);
+attachEvent ('onmouseout', Restore);
+
+function cleanup()
+{
+   detachEvent ('onmouseover', Hilite);
+   detachEvent ('onmouseout', Restore);
+}
+
+function Hilite()
+{
+   if (event.srcElement == element)
+   {
+     normalColor = style.color;
+     runtimeStyle.color  = &quot;red&quot;;
+     runtimeStyle.cursor = &quot;hand&quot;;
+   }
+}
+
+function Restore()
+{
+   if (event.srcElement == element)
+   {
+      runtimeStyle.color  = normalColor;
+      runtimeStyle.cursor = &quot;&quot;;
+   }
+}
+&lt;/SCRIPT&gt;</pre>
+        <div>
+          <div class="clsShowMe">
+            This feature requires Microsoft® Internet Explorer 5 or later.
+          </div>
+        </div>
+      </blockquote>
+      <blockquote>
+        <p>The following example shows how to use the <b>attachEvent</b> method 
+        with VBScript. When you click on the span's text, the event handler 
+        changes the background color.</p>
+        <pre class="clsCode" autohilite="1">&lt;HTML&gt;
+&lt;BODY ONLOAD=&quot;setupEventHandler()&quot; LANGUAGE=&quot;VBS&quot;&gt;
+&lt;SCRIPT LANGUAGE=&quot;VBS&quot;&gt;
+
+function setupEventHandler()
+    set fpchgBackground = getRef(&quot;chgBackground&quot;)
+    call mySpan.attachEvent(&quot;onclick&quot;, fpChgBackground)
+end function
+
+function chgBackground()
+    document.bgColor = &quot;lemonchiffon&quot;
+end function
+
+&lt;/SCRIPT&gt;
+&lt;SPAN ID=&quot;mySpan&quot;&gt;SPAN&lt;/SPAN&gt;
+&lt;/BODY&gt;
+&lt;/HTML&gt;
+</pre>
+      </blockquote>
+      <p class="clsRef">Standards Information</p>
+      <blockquote>
+        <p>There is no public standard that applies to this method. </p>
+      </blockquote>
+      <p>&nbsp;</p>
+      <p>Use Microsoft's Calendar Control and attach&nbsp; the &quot;AfterUpdate&quot; 
+      event.<br />
+      Here is a sample:<br />
+      <br />
+      <br />
+      Test Calendar Control </p>
+      <pre><code>
+var calendar;
+function buttonClicked ( ) {
+calendar.object.AboutBox ( );
+}
+
+function calendarUpdated ( ) {
+alert ( calendar.object.Value );
+}
+
+function initialize ( ) {
+calendar = document.getElementById ( &quot;CalendarControl&quot; );
+<font color="#008000">/*
+The attachEvent method is to attach a function to any of the standard DHTML
+events (i.e. the object is wrapped in a DHTML element).
+*/</font>
+calendar.attachEvent ( &quot;AfterUpdate&quot;, calendarUpdated );
+calendar.object.BackColor = 0xFFFFFF;
+}
+</code></pre>
+      <p></p>
+      <hr />
+      <h2><a name="8">How would I assign an JScript function to an ActiveX 
+      event? </a></h2>
+      <p>In Flash you can easily pass a function reference to a command or class 
+      property, but there´s no way to do that in JScript. <br />
+      <br />
+      After a bit digging around in the MSDN and playing with the syntax I found 
+      out that JScript simply does not allow call-by-references or 
+      invoke-by-references.<br />
+      <br />
+      But I found another ActiveX control that adds this huge capability to 
+      JScript.<br />
+      You can find it´s documentation here<br />
+      <a href="http://www.meadroid.com/scriptx/docs/gendocs.htm#InvokeByRef" target="_blank">
+      http://www.meadroid.com/scriptx/docs...tm#InvokeByRef</a><br />
+      <a href="http://www.meadroid.com/scriptx/docs/gendocs.htm#jscript" target="_blank">
+      http://www.meadroid.com/scriptx/docs...cs.htm#jscript</a></p>
+      <pre class="alt2" style="border: 1px inset ; margin: 0px; padding: 6px; overflow: auto; width: 640px; height: 114px;"><code>Rec = new ActiveXObject (&quot;MSSR300.MSSR300Ctrl.1&quot;); //the Object that exposes the event we want
+factory =  new ActiveXObject(&quot;ScriptX.Factory&quot;); //the ScriptX &quot;event forwarder&quot; mentioned above
+
+var outputSink = factory.NewEventSink(Rec); // Link the Sink to the main object
+
+outputSink(&quot;NewLevelValues&quot;) = onLevel; // Register the JScript function &quot;onLevel&quot;
+                                                 //to the event called &quot;NewLevelValues&quot;</code></pre>
+      <pre><code>
+&lt;head&gt;
+&lt;title&gt;ScriptX JScript Invoke By Ref&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body style=&quot;border:1pt solid gray&quot; scroll=no bgcolor=&quot;gainsboro&quot;&gt;
+
+&lt;object id=factory style=&quot;display:none&quot; classid=&quot;clsid:1663ed61-23eb-11d2-b92f-008048fdd814&quot;
+  viewastext codebase=&quot;http://www.meadroid.com/scriptx/smsx.cab#Version=6,3,434,26&quot;&gt;
+&lt;/object&gt;
+
+&lt;script&gt;
+function window.onload() {
+  if (!factory.object) {
+  return
+  } else {
+  srcText.innerText = factory.sourceText;
+
+  // pack params to &quot;args&quot; array
+  args = new Array(&quot;msxml&quot;, 0, 0, 0, 0);
+
+  // call the &quot;GetComponentVersion&quot; method on &quot;factory&quot; object
+  error = factory.js.InvokeByRefResult(factory, &quot;GetComponentVersion&quot;, args);
+
+  if ( error == 0 )
+    alert(&quot;MSXML Version: &quot;+args[1]+&quot;.&quot;+args[2]+&quot;.&quot;+args[3]+&quot;.&quot;+args[4]);
+  else
+    alert(&quot;Error: &quot;+error);
+  }
+}
+&lt;/script&gt;
+
+&lt;textarea wrap=off style=&quot;overflow: auto; font-size: 8pt; width: 100%; height: 100%&quot; id=srcText&gt;&lt;/textarea&gt;
+&lt;/body&gt;</code></pre>
+      <hr />
+      <div class="majorTitle">
+        MFC Library Reference&nbsp;
+      </div>
+      <div class="title">
+        <h2><a name="9">How Do I Script an
+        <b style="color: black; background-color: rgb(153, 255, 153);">ActiveX</b> 
+        Control on a Web Page?</a></h2>
+      </div>
+      <!--Content type: DocStudio. Transform: devdiv2mtps.xslt.-->
+      <div id="mainSection">
+        <div id="mainBody">
+          msdn2.microsoft.com/en-us/2t50tss3(VS.80).aspx<p>An easy way to get 
+          started with scripting is by using an HTML authoring tool like 
+          Microsoft
+          <b style="color: black; background-color: rgb(153, 255, 153);">ActiveX</b> 
+          Control Pad. This topic shows how to use
+          <b style="color: black; background-color: rgb(153, 255, 153);">ActiveX</b> 
+          Control Pad to script CIRC, an MFC control sample.</p>
+          <p>The <b style="color: black; background-color: rgb(153, 255, 153);">
+          ActiveX</b> Control Pad is an authoring tool that lets you add
+          <b style="color: black; background-color: rgb(153, 255, 153);">ActiveX</b> 
+          controls and scripting (such as
+          <b style="color: black; background-color: rgb(255, 255, 102);">JScript</b> 
+          and VB Script) to your HTML pages with point-and-click ease. The
+          <b style="color: black; background-color: rgb(153, 255, 153);">ActiveX</b> 
+          Control Pad also includes the Microsoft HTML Layout Control, which 
+          supports windowless controls and provides new layout capabilities 
+          based on the HTML extensions proposed by the World Wide Web Consortium 
+          (W3C).</p>
+          <div id="sectionSection0" class="seeAlsoNoToggleSection">
+            <h3 class="procedureSubHeading">To install and run
+            <b style="color: black; background-color: rgb(153, 255, 153);">
+            ActiveX</b> Control Pad</h3>
+            <div class="subSection">
+              <ul>
+                <li>The
+                <b style="color: black; background-color: rgb(153, 255, 153);">
+                ActiveX</b> Control Pad is freely available for downloading from 
+                the authoring tools section in the MSDN Online Web Workshop at
+                <a href="http://msdn.microsoft.com/workshop/misc/cpad/default.asp">
+                http://msdn.microsoft.com/workshop/misc/cpad/default.asp</a>. 
+                Follow the online instructions for installation.</li>
+              </ul>
+            </div>
+          </div>
+          <div id="sectionSection1" class="seeAlsoNoToggleSection">
+            <h3 class="procedureSubHeading">To insert CIRC</h3>
+            <div class="subSection">
+              <ol>
+                <li>Download the CIRC sample files from MSDN and build the DLL 
+                (Circ31.dll).</li>
+                <li>Start
+                <b style="color: black; background-color: rgb(153, 255, 153);">
+                ActiveX</b> Control Pad. It opens with a default HTML document, 
+                including head and body tags.</li>
+                <li>On the <b>Edit</b> menu, click <b>Insert
+                <b style="color: black; background-color: rgb(153, 255, 153);">
+                ActiveX</b> Control</b>.</li>
+                <li>In the<b> Insert
+                <b style="color: black; background-color: rgb(153, 255, 153);">
+                ActiveX</b> Control</b> dialog box, click the CIRC control to 
+                add it to the page.
+                <p>The control will be displayed in the <b>Edit
+                <b style="color: black; background-color: rgb(153, 255, 153);">
+                ActiveX</b> Control</b> window. You should see a rectangular 
+                control containing Circ31. Its properties can be set by changing 
+                values in the <b>Properties</b> window. </li>
+                <li>Close the <b>Edit
+                <b style="color: black; background-color: rgb(153, 255, 153);">
+                ActiveX</b> Control</b> window.
+                <p>The OBJECT tag will be displayed on your HTML page, including 
+                the control's class ID and other parameters used to instantiate 
+                the control at run time. </li>
+              </ol>
+            </div>
+          </div>
+          <div id="sectionSection2" class="seeAlsoNoToggleSection">
+            Now you are ready to script the control.<h3 class="procedureSubHeading">
+            To use VBScript to invoke properties and methods on CIRC</h3>
+            <div class="subSection">
+              <ol>
+                <li>Start
+                <b style="color: black; background-color: rgb(153, 255, 153);">
+                ActiveX</b> Control Pad and open the file created in the 
+                procedure To Insert CIRC, if it is not already open.</li>
+                <li>On the <b>Tools</b> menu, click <b>Options</b>, and then 
+                click <b>Script</b>.</li>
+                <li>In the <b>Script Options</b> dialog box, select Visual Basic 
+                Scripting Edition as the Default Script Language and click <b>OK</b>.</li>
+                <li>From the <b>Tools</b> menu, click <b>Script</b> <b>Wizard</b>.
+                <p>Steps 5 and 6 are performed in the <b>Script Wizard</b> 
+                dialog box. </li>
+                <li>In the <b>Select an
+                <b style="color: black; background-color: rgb(160, 255, 255);">
+                Event</b></b> list, click <b>Window</b>, and then click <b>Load</b> 
+                to add code to run when the control is loaded.</li>
+                <li>In the <b>Insert Actions</b> list, click <b>AboutBox</b>, 
+                and click <b>Insert Action</b>. The following code to invoke the 
+                AboutBox method is inserted into the HTML file:
+                <div class="code" id="ctl00_ctl03_other">
+                  <div class="CodeSnippetTitleBar">
+                    <div class="CodeDisplayLanguage">
+&nbsp;</div>
+                  </div>
+                  <pre class="code" id="ctl00_ctl03other" space="preserve">&lt;SCRIPT LANGUAGE=&quot;VBScript&quot;&gt;
+&lt;!--
+Sub window_onLoad()
+call Circ31.AboutBox()
+end sub
+--&gt;</pre>
+                </div>
+                </li>
+                <li>Save the file and open it in a browser. You should see the 
+                About box displayed.</li>
+              </ol>
+            </div>
+            <h3 class="procedureSubHeading"><a name="10">To use
+            <b style="color: black; background-color: rgb(255, 255, 102);">
+            JScript</b> to invoke properties and methods on CIRC</a></h3>
+            <div class="subSection">
+              <ol>
+                <li>Start
+                <b style="color: black; background-color: rgb(153, 255, 153);">
+                ActiveX</b> Control Pad and open the file created in the 
+                procedure To Insert CIRC, if it is not already open.</li>
+                <li>On the <b>Tools</b> menu, click <b>Options</b>, and then 
+                click <b>Script</b>.</li>
+                <li>In the <b>Script Options</b> dialog box, select
+                <b style="color: black; background-color: rgb(255, 255, 102);">
+                JScript</b> as the Default Script Language and click <b>OK</b>.</li>
+                <li>From the <b>Tools</b> menu, click <b>Script</b> <b>Wizard</b>.
+                <br />
+                Steps 5 and 6 are performed in the <b>Script Wizard</b> dialog 
+                box. </li>
+                <li>In the <b>Select an
+                <b style="color: black; background-color: rgb(160, 255, 255);">
+                Event</b></b> list, click <b>Window</b>, and then click <b>Load
+                </b>to add code to run when the control is loaded.</li>
+                <li>In the <b>Insert Actions </b>list, click <b>AboutBox</b>, 
+                and click <b>Insert Action</b>. The following code to invoke the 
+                AboutBox method is inserted into the HTML file:
+                <div class="code" id="ctl00_ctl04_other">
+                  <div class="CodeSnippetTitleBar">
+                    <div class="CodeDisplayLanguage">
+&nbsp;</div>
+                  </div>
+                  <pre class="code" id="ctl00_ctl04other" space="preserve">&lt;SCRIPT LANGUAGE=&quot;<b style="color: black; background-color: rgb(255, 255, 102);">jscript</b>&quot; FOR=&quot;window&quot; <b style="color: black; background-color: rgb(160, 255, 255);">EVENT</b>=&quot;onLoad()&quot;&gt;
+&lt;!--
+Circ31.AboutBox()
+--&gt;</pre>
+                </div>
+                </li>
+                <li>Save the file and open it in a browser. You should see the 
+                About box displayed.</li>
+                </ol>
+              </div>
+              <p>Using an authoring tool, it is simple to add a control to a Web 
+              page and to use scripting to invoke its properties and methods. 
+              You can easily attach
+              <b style="color: black; background-color: rgb(255, 255, 102);">
+              JScript</b> or VBScript code to buttons on your HTML pages.</div>
+            <h1 class="heading"><span id="seeAlsoNoToggle">See Also</span></h1>
+            <div id="seeAlsoSection" class="seeAlsoNoToggleSection">
+              <h4 class="subHeading">Concepts</h4>
+              <p><span class="linkTerms">
+              <a href="http://msdn2.microsoft.com/en-us/ax8e99d2(VS.80).aspx">
+              Internet Programming Frequently Asked Questions</a></span></div>
+          </div>
+        </div>
+        <hr />
+        <h2><font size="+2"><a name="11">Using
+        <b style="COLOR: black; BACKGROUND-COLOR: #99ff99">ActiveX</b> 
+        Components with <b style="COLOR: black; BACKGROUND-COLOR: #ffff66">
+        JScript</b></a></font></h2>
+        <p><code><font color="#3f7f5f">/*</font><br />
+        <font color="#3f7f5f">Mastering JavaScript, Premium Edition</font><br />
+        <font color="#3f7f5f">by James Jaworski </font><br />
+        <br />
+        <font color="#3f7f5f">ISBN:078212819X</font><br />
+        <font color="#3f7f5f">Publisher Sybex CopyRight 2001</font><br />
+        <font color="#3f7f5f">*/</font><br />
+        <br />
+        <font color="#000000">&lt;</font><font color="#7f0055"><b>HTML</b></font><font color="#000000">&gt;</font><br />
+        <font color="#000000">&lt;HEAD&gt;</font><br />
+        <font color="#000000">&lt;TITLE&gt;<b style="COLOR: black; BACKGROUND-COLOR: #99ff99">ActiveX</b> 
+        Demo&lt;/TITLE&gt;</font><br />
+        <font color="#000000">&lt;/HEAD&gt;</font><br />
+        <font color="#000000">&lt;</font><font color="#7f0055"><b>BODY</b></font><font color="#000000">&gt;</font><br />
+        <font color="#000000">&lt;P&gt;&lt;I&gt;Note </font><font color="#7f0055"><b>this
+        </b></font><font color="#000000">page requires Internet Explorer </font>
+        <font color="#990000">5.0 </font><font color="#000000">or later.&lt;/I&gt;&lt;/P&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;OBJECT ID=</font><font color="#2a00ff">&quot;ProgressBar1&quot; </font>
+        <font color="#000000">WIDTH=</font><font color="#990000">400 </font>
+        <font color="#000000">HEIGHT=</font><font color="#990000">33</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">CLASSID=</font><font color="#2a00ff">&quot;CLSID:0713E8D2-850A-101B-AFC0-4210102A8DA7&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_ExtentX&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;10583&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_ExtentY&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;873&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_Version&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;327682&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;Appearance&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;1&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;/OBJECT&gt;</font><br />
+        <font color="#000000">&lt;P&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">&lt;</font><font color="#7f0055"><b>SCRIPT
+        </b></font><font color="#000000">LANGUAGE=</font><font color="#2a00ff">&quot;JavaScript&quot;
+        </font><font color="#000000">FOR=</font><font color="#2a00ff">&quot;Slider1&quot;
+        </font><font color="#000000">
+        <b style="COLOR: black; BACKGROUND-COLOR: #a0ffff">EVENT</b>=</font><font color="#2a00ff">&quot;Change()&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#000000">&lt;!--</font><br />
+        <font color="#000000">ProgressBar1.value = Slider1.value</font><br />
+        <font color="#000000">--&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">&lt;/</font><font color="#7f0055"><b>SCRIPT</b></font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;OBJECT ID=</font><font color="#2a00ff">&quot;Slider1&quot; </font>
+        <font color="#000000">WIDTH=</font><font color="#990000">400 </font>
+        <font color="#000000">HEIGHT=</font><font color="#990000">33</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">CLASSID=</font><font color="#2a00ff">&quot;CLSID:373FF7F0-EB8B-11CD-8820-08002B2F4F5A&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_ExtentX&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;10583&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_ExtentY&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;873&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_Version&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;327682&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;Max&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;100&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;/OBJECT&gt;</font><br />
+        <font color="#000000">&lt;P&gt;&lt;B&gt;Move the slider and watch the progress bar 
+        change.&lt;/B&gt;&lt;/P&gt;</font><br />
+        <font color="#000000">&lt;/</font><font color="#7f0055"><b>BODY</b></font><font color="#000000">&gt;</font><br />
+        <font color="#000000">&lt;/</font><font color="#7f0055"><b>HTML</b></font><font color="#000000">&gt;</font><br />
+&nbsp;</code></p>
+        <p><i>Note this page requires Internet Explorer 5.0 or later.</i></p>
+        <p>
+        <object ID="ProgressBar1" WIDTH="400" HEIGHT="33" CLASSID="CLSID:0713E8D2-850A-101B-AFC0-4210102A8DA7">
+          <param NAME="_ExtentX" VALUE="10583" />
+          <param NAME="_ExtentY" VALUE="873" />
+          <param NAME="_Version" VALUE="327682" />
+          <param NAME="Appearance" VALUE="1" />
+        </object>
+        </p>
+        <p>
+        <script LANGUAGE="JavaScript" FOR="Slider1" EVENT="Change()">
+<!--
+ProgressBar1.value = Slider1.value
+-->
+        </script>
+        <object ID="Slider1" WIDTH="400" HEIGHT="33" CLASSID="CLSID:373FF7F0-EB8B-11CD-8820-08002B2F4F5A">
+          <param NAME="_ExtentX" VALUE="10583" />
+          <param NAME="_ExtentY" VALUE="873" />
+          <param NAME="_Version" VALUE="327682" />
+          <param NAME="Max" VALUE="100" />
+        </object>
+        </p>
+        <p><b>Move the slider and watch the progress bar change.</b> </p>
+        <p><font size="+2"><a name="12">Accessing ActiveX Controls</a></font></p>
+        <p><code><font color="#3f7f5f">/*</font><br />
+        <font color="#3f7f5f">Mastering JavaScript, Premium Edition</font><br />
+        <font color="#3f7f5f">by James Jaworski </font><br />
+        <br />
+        <font color="#3f7f5f">ISBN:078212819X</font><br />
+        <font color="#3f7f5f">Publisher Sybex CopyRight 2001</font><br />
+        <font color="#3f7f5f">*/</font><br />
+        <br />
+        <font color="#000000">&lt;</font><font color="#7f0055"><b>HTML</b></font><font color="#000000">&gt;</font><br />
+        <font color="#000000">&lt;HEAD&gt;</font><br />
+        <font color="#000000">&lt;TITLE&gt;Accessing ActiveX Components&lt;/TITLE&gt;</font><br />
+        <font color="#000000">&lt;</font><font color="#7f0055"><b>SCRIPT </b>
+        </font><font color="#000000">LANGUAGE=</font><font color="#2a00ff">&quot;JavaScript&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#7f0055"><b>function </b></font><font color="#000000">
+        accessActiveX() {</font><br />
+        <font color="#ffffff">&nbsp;</font><font color="#000000">var newValue = (</font><font color="#990000">1000</font><font color="#000000">*Math.random()) 
+        % </font><font color="#990000">101</font><br />
+        <font color="#ffffff">&nbsp;</font><font color="#000000">ProgressBar1.Value = 
+        newValue</font><br />
+        <font color="#ffffff">&nbsp;</font><font color="#000000">Slider1.Value = 
+        newValue</font><br />
+        <font color="#000000">}</font><br />
+        <font color="#000000">&lt;/</font><font color="#7f0055"><b>SCRIPT</b></font><font color="#000000">&gt;</font><br />
+        <font color="#000000">&lt;/HEAD&gt;</font><br />
+        <font color="#000000">&lt;</font><font color="#7f0055"><b>BODY </b></font>
+        <font color="#000000">onLoad=</font><font color="#ff6100">'se</font><font color="#000000">tInterval(</font><font color="#2a00ff">&quot;accessActiveX()&quot;</font><font color="#000000">,</font><font color="#990000">2000</font><font color="#000000">)</font><font color="#ff6100">'&gt;</font><br />
+        <font color="#000000">&lt;P&gt;&lt;I&gt;Note </font><font color="#7f0055"><b>this
+        </b></font><font color="#000000">page requires Internet Explorer </font>
+        <font color="#990000">5.0.</font><font color="#000000">&lt;/I&gt;&lt;/P&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;OBJECT ID=</font><font color="#2a00ff">&quot;ProgressBar1&quot; </font>
+        <font color="#000000">WIDTH=</font><font color="#990000">400 </font>
+        <font color="#000000">HEIGHT=</font><font color="#990000">33</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">CLASSID=</font><font color="#2a00ff">&quot;CLSID:0713E8D2-850A-101B-AFC0-4210102A8DA7&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_ExtentX&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;10583&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_ExtentY&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;873&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_Version&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;327682&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;Appearance&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;1&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;/OBJECT&gt;</font><br />
+        <font color="#000000">&lt;P&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;OBJECT ID=</font><font color="#2a00ff">&quot;Slider1&quot; </font>
+        <font color="#000000">WIDTH=</font><font color="#990000">400 </font>
+        <font color="#000000">HEIGHT=</font><font color="#990000">33</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">CLASSID=</font><font color="#2a00ff">&quot;CLSID:373FF7F0-EB8B-11CD-8820-08002B2F4F5A&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_ExtentX&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;10583&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_ExtentY&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;873&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;_Version&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;327682&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">&lt;PARAM NAME=</font><font color="#2a00ff">&quot;Max&quot;
+        </font><font color="#000000">VALUE=</font><font color="#2a00ff">&quot;100&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;/OBJECT&gt;</font><br />
+        <font color="#000000">&lt;/</font><font color="#7f0055"><b>BODY</b></font><font color="#000000">&gt;</font><br />
+        <font color="#000000">&lt;/</font><font color="#7f0055"><b>HTML</b></font><font color="#000000">&gt;</font><br />
+&nbsp;</code></p>
+        <script LANGUAGE="JavaScript">
+function accessActiveX() {
+ var newValue = (1000*Math.random()) % 101
+ ProgressBar1.Value = newValue
+ Slider1.Value = newValue
+}
+accessActiveX();
+        </script>
+        <p><i>Note this page requires Internet Explorer 5.0.</i></p>
+        <p>
+        <object ID="ProgressBar1" WIDTH="400" HEIGHT="33" CLASSID="CLSID:0713E8D2-850A-101B-AFC0-4210102A8DA7">
+          <param NAME="_ExtentX" VALUE="10583" />
+          <param NAME="_ExtentY" VALUE="873" />
+          <param NAME="_Version" VALUE="327682" />
+          <param NAME="Appearance" VALUE="1" />
+        </object>
+        </p>
+        <p>
+        <object ID="Slider1" WIDTH="400" HEIGHT="33" CLASSID="CLSID:373FF7F0-EB8B-11CD-8820-08002B2F4F5A">
+          <param NAME="_ExtentX" VALUE="10583" />
+          <param NAME="_ExtentY" VALUE="873" />
+          <param NAME="_Version" VALUE="327682" />
+          <param NAME="Max" VALUE="100" />
+        </object>
+        </p>
+        <table style="MARGIN-BOTTOM: 6px; BORDER-BOTTOM: #60bf60 1px solid" cellSpacing="0" cellPadding="2" border="0">
+          <tr>
+            <td bgColor="white" style="font-size: 83%; font-family: arial, sans-serif">
+            <font size="+2"><a name="13">Using JScript to Interact with ActiveX 
+            Controls</a></font> </td>
+          </tr>
+        </table>
+        <p><code><font color="#3f7f5f">/*</font><br />
+        <font color="#3f7f5f">JavaScript Unleashed, Third Edition</font><br />
+        <font color="#3f7f5f">by Richard Wagner and R. Allen Wyke </font><br />
+        <br />
+        <font color="#3f7f5f">ISBN: 067231763X</font><br />
+        <font color="#3f7f5f">Publisher Sams CopyRight 2000</font><br />
+        <br />
+        <font color="#3f7f5f">*/</font><br />
+        <font color="#000000">&lt;</font><font color="#7f0055"><b>html</b></font><font color="#000000">&gt;</font><br />
+        <font color="#000000">&lt;head&gt;</font><br />
+        <font color="#ffffff">&nbsp; </font><font color="#000000">
+        &lt;title&gt;JavaScript Unleashed&lt;/title&gt;</font><br />
+        <font color="#ffffff">&nbsp; </font><font color="#000000">&lt;script type=</font><font color="#2a00ff">&quot;text/javascript&quot;</font><font color="#000000">&gt;</font><br />
+        <br />
+        <font color="#ffffff">&nbsp; </font><font color="#000000">&lt;!--</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#7f0055">
+        <b>function </b></font><font color="#000000">loadBox() {</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">alert(</font><font color="#2a00ff">&quot;The Great 
+        Question&quot;</font><font color="#000000">);</font><br />
+        <font color="#000000">}</font><br />
+        <font color="#ffffff">&nbsp; </font><font color="#3f7f5f">//--&gt;</font><br />
+        <font color="#ffffff">&nbsp; </font><font color="#000000">&lt;/script&gt;</font><br />
+        <font color="#ffffff">&nbsp; </font><font color="#000000">&lt;script type=</font><font color="#2a00ff">&quot;text/javascript&quot;
+        </font><font color="#7f0055"><b>for</b></font><font color="#000000">=</font><font color="#2a00ff">&quot;CommandButton1&quot;
+        </font><font color="#000000">event=</font><font color="#2a00ff">&quot;Click()&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp; </font><font color="#000000">&lt;!--</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        var msg = </font><font color="#2a00ff">&quot;She loves me&quot;</font><font color="#000000">;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        var altMsg = </font><font color="#2a00ff">&quot;She loves me not&quot;</font><font color="#000000">;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#7f0055">
+        <b>if</b></font><font color="#000000">(CommandButton1.Caption == msg){</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">CommandButton1.Caption = altMsg;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">window.defaultStatus = altMsg;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">}</font><font color="#7f0055"><b>else</b></font><font color="#000000">{</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#7f0055"><b>if</b></font><font color="#000000">(CommandButton1.Caption 
+        == altMsg){</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">CommandButton1.Caption = msg;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">window.defaultStatus = msg;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </font>
+        <font color="#000000">}</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">}</font><br />
+        <font color="#ffffff">&nbsp; </font><font color="#3f7f5f">//--&gt;</font><br />
+        <font color="#ffffff">&nbsp; </font><font color="#000000">&lt;/script&gt;</font><br />
+        <font color="#000000">&lt;/head&gt;</font><br />
+        <font color="#000000">&lt;</font><font color="#7f0055"><b>body </b></font>
+        <font color="#000000">onload=</font><font color="#2a00ff">&quot;loadBox()&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp; </font><font color="#000000">&lt;object id=</font><font color="#2a00ff">&quot;CommandButton1&quot;
+        </font><font color="#000000">width=</font><font color="#2a00ff">&quot;98&quot;
+        </font><font color="#000000">height=</font><font color="#2a00ff">&quot;32&quot;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        classid=</font><font color="#2a00ff">&quot;CLSID:D7053240-CE69-11CD-A777-00DD01143C57&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;param name=</font><font color="#2a00ff">&quot;VariousPropertyBits&quot; </font>
+        <font color="#000000">value=</font><font color="#2a00ff">&quot;268435483&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;param name=</font><font color="#2a00ff">&quot;Caption&quot; </font>
+        <font color="#000000">value=</font><font color="#2a00ff">&quot;She loves me&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;param name=</font><font color="#2a00ff">&quot;Size&quot; </font>
+        <font color="#000000">value=</font><font color="#2a00ff">&quot;2096;678&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;param name=</font><font color="#2a00ff">&quot;FontCharSet&quot; </font>
+        <font color="#000000">value=</font><font color="#2a00ff">&quot;0&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;param name=</font><font color="#2a00ff">&quot;FontPitchAndFamily&quot; </font>
+        <font color="#000000">value=</font><font color="#2a00ff">&quot;2&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;param name=</font><font color="#2a00ff">&quot;ParagraphAlign&quot; </font>
+        <font color="#000000">value=</font><font color="#2a00ff">&quot;3&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp;&nbsp;&nbsp; </font><font color="#000000">
+        &lt;param name=</font><font color="#2a00ff">&quot;FontWeight&quot;&nbsp; </font>
+        <font color="#000000">value=</font><font color="#2a00ff">&quot;0&quot;</font><font color="#000000">&gt;</font><br />
+        <font color="#ffffff">&nbsp; </font><font color="#000000">&lt;/object&gt;</font><br />
+        <font color="#000000">&lt;/</font><font color="#7f0055"><b>body</b></font><font color="#000000">&gt;</font><br />
+        <font color="#000000">&lt;/</font><font color="#7f0055"><b>html</b></font><font color="#000000">&gt;</font></code></p>
+        <hr />
+        <h1 class="title"><a name="14">How To Enable ActiveX Control Event 
+        Handling on a Web Page</a></h1>
+        <p><a href="http://support.microsoft.com/kb/200839">
+        http://support.microsoft.com/kb/200839</a></p>
+        <div class="notice">
+          This article was previously published under Q200839<p>Article 
+          ID:200839 Last Review:May 11, 2006 Revision:3.0</div>
+        <div class="section">
+          <h2>SUMMARY</h2>
+          <div class="sbody">
+            An ActiveX control must implement the <b>IProvideClassInfo</b> or <b>
+            IProvideClassInfo2</b> interface to enable event handling on a Web 
+            page. Microsoft Internet Explorer uses this interface to obtain the 
+            type library for the control and determine the available event set.</div>
+        </div>
+        <h2>MORE INFORMATION</h2>
+        <div class="sbody">
+          Using a script language, such as VBScript or JavaScript, a Web page 
+          author can use automation to invoke methods/properties and handle 
+          events for an ActiveX control placed on the page with an HTML &lt;OBJECT&gt; 
+          tag.<br />
+          <br />
+          For an ActiveX control to support such event handling, it must 
+          implement the <b>IProvideClassInfo</b> or <b>
+          <a name="IProvideClassInfo2">IProvideClassInfo2</a></b> interface. 
+          Internet Explorer queries the control for these interfaces and, if 
+          implemented, calls the GetClassInfo() method to obtain the type 
+          library for the control. Internet Explorer will initially query the 
+          control for IProvideClassInfo2 and, if this is not implemented, will 
+          then query for IProvideClassInfo. <br />
+          <br />
+          The IProvideClassInfo2 interface is derived from IProvideClassInfo and 
+          provides an additional method, GetGUID(), which returns an object's 
+          outgoing interface ID for it's default event set. <br />
+          <br />
+          For ActiveX controls developed using the Microsoft Foundation Classes, 
+          the IProvideClassInfo2 interface is implemented by default. <br />
+          <br />
+          For ActiveX controls developed using Microsoft Visual Basic, the 
+          IProvideClassInfo interface is implemented by default. <br />
+          <br />
+          When using the Microsoft Active Template Library (ATL), version 3.0, 
+          the following 'lite control' ATL objects do not implement the 
+          IProvideClassInfo2 interface by default:
+          <table class="list ul">
+            <tr>
+              <td class="bullet">•</td>
+              <td class="text">Simple Object</td>
+            </tr>
+            <tr>
+              <td class="bullet">•</td>
+              <td class="text">Internet Explorer Object</td>
+            </tr>
+            <tr>
+              <td class="bullet">•</td>
+              <td class="text">Lite Control</td>
+            </tr>
+            <tr>
+              <td class="bullet">•</td>
+              <td class="text">Lite Composite Control</td>
+            </tr>
+            <tr>
+              <td class="bullet">•</td>
+              <td class="text">Lite HTML Control</td>
+            </tr>
+          </table>
+          <p>You can easily add support for event handling by implementing the 
+          IProvideClassInfo interfaces. This is done by deriving your control 
+          from the default ATL implementation, IProvideClassInfo2Impl. </p>
+          <table class="list ol">
+            <tr>
+              <td class="number">1.</td>
+              <td class="text">Add the following line to your class derivation 
+              list:<pre class="code">   public IProvideClassInfo2Impl&lt;&amp;CLSID_&lt;object_name&gt;, NULL,
+                                 &amp;LIBID_&lt;project_name&gt;Lib&gt;
+          </pre>
+              </td>
+            </tr>
+            <tr>
+              <td class="number">2.</td>
+              <td class="text">Add the following lines to your COM_MAP:<pre class="code">   COM_INTERFACE_ENTRY(IProvideClassInfo)
+   COM_INTERFACE_ENTRY(IProvideClassInfo2)
+          </pre>
+              </td>
+            </tr>
+          </table>
+          </div>
+          <h2>REFERENCES</h2>
+          <div class="sbody">
+            For more information about the Active Template Library and 
+            implementing ActiveX controls, please consult the Microsoft Visual 
+            C++ Online documentation.<br />
+            <br />
+            For more information about developing Web-based solutions for 
+            Microsoft Internet Explorer, visit the following Microsoft Web 
+            sites:<div class="indent">
+              <a href="http://msdn.microsoft.com/ie/">
+              http://msdn.microsoft.com/ie/</a><span class="pLink"> 
+              (http://msdn.microsoft.com/ie/)</span><br />
+              <br />
+              <a href="http://support.microsoft.com/iep">
+              http://support.microsoft.com/iep</a><span class="pLink"> 
+              (http://support.microsoft.com/iep)</span></div>
+              <p>(c) Microsoft Corporation 1999, All Rights Reserved. 
+              Contributions by Mark Davis, Microsoft Corporation.</div>
+              <h5>APPLIES TO</h5>
+              <table class="list">
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Internet Explorer 3.0</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Internet Explorer 3.01</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Internet Explorer 3.02</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Internet Explorer 4.0 128-Bit 
+                  Edition</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Internet Explorer 4.01 Service Pack 
+                  2</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Internet Explorer 4.01 Service Pack 
+                  1</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Internet Explorer 4.01 Service Pack 
+                  2</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Internet Explorer 5.0</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Internet Explorer 5.5</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft ActiveX Template Library 3.0</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Foundation Class Library 4.2</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Visual Basic 5.0 Learning Edition</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Visual Basic 6.0 Learning Edition</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Visual Basic 5.0 Professional 
+                  Edition</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Visual Basic 6.0 Professional 
+                  Edition</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Visual Basic 5.0 Enterprise Edition</td>
+                </tr>
+                <tr>
+                  <td class="bullet">•</td>
+                  <td class="text">Microsoft Visual Basic 6.0 Enterprise Edition</td>
+                </tr>
+              </table>
+              <h5>Keywords: </h5>
+              <p>kbhowto kbinetdev kbctrlcreate kbfaq kbactivexevents KB200839</p>
+              <hr /></li>
+
+            </body>
+
+            </html>
