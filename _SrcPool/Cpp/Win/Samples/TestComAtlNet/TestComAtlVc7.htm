@@ -107,7 +107,7 @@ project with Visual C++ 6.0</a></p>
   <li>To add new ATL object in Class View, after right mouse click, select &quot;Add 
   Class&quot;<br />
   <img border="0" src="Res/ComAtlVc74.gif" width="288" height="161" /></li>
-  <li>Choose ATL Simple Object from Visual C++ ATL categories:<br />
+  <li>Choose <i>ATL Simple Object</i> from Visual C++ ATL categories:<br />
   <img border="0" src="Res/ComAtlVc75.gif" width="240" height="208" /></li>
   <li>Insert the name for the object<br />
   <img border="0" src="Res/ComAtlVc76.gif" width="615" height="437" /><br />
@@ -131,8 +131,24 @@ project with Visual C++ 6.0</a></p>
   required. The new interface will be added if <i>Dual </i>Interface is selected 
   in the wizard form.<br />
   With <i>Connection points</i> support the COM server will fire events back to 
-  the client, with help of another interface - <i>IConnectionPointContainer</i>.<br />
-  After finishing with options, the result will be presented in the Solution 
+  the client, with help of another interface - <i>IConnectionPointContainer</i>. 
+  Also id required to implement the <b>IProvideClassInfo</b> or <b>
+  <a name="IProvideClassInfo2" href="../TestComContainer/scripting_events.htm#IProvideClassInfo2">
+  IProvideClassInfo2</a></b> interface, because Internet Explorer relies on 
+  those interfaces to obtain type library. Visual Basic and MFC<a href="#Footnote3"><sup class="Footnote">3</sup></a> 
+  wizards will add the interfaces by default, but for <i>ATL Simple Object</i><sup><a class="Ref" href="#200839">[Q200839]</a></sup> 
+  add following code to the object:<br />
+  </p>
+  <pre><code> public IProvideClassInfo2Impl&lt;&amp;CLSID_TestAtlObj, NULL,
+                                 &amp;LIBID_TestComAtlLib&gt;
+   ...
+   {
+   ...
+   COM_INTERFACE_ENTRY(IProvideClassInfo)
+   COM_INTERFACE_ENTRY(IProvideClassInfo2)
+   ...
+   }</code></pre>
+  <p>After finishing with options, the result will be presented in the Solution 
   Explorer:<br />
   <img border="0" src="Res/ComAtlVc78.gif" width="228" height="380" /><br />
   The IDL file </li>
@@ -328,7 +344,12 @@ C:\&gt;</font></pre>
     <a name="Footnote2" class="Footnote" id="ID_FOOTNOTE2"><sup>2</sup></a>Component 
     Object Model defines how an object exposes its functionality, allowing to be 
     accessed from other processes and across networks. A COM Object must support 
-    the <b>IUnknown</b> interface.</p>
+    the <b>IUnknown</b> interface.<br />
+    <a name="Footnote3" class="Footnote" id="ID_FOOTNOTE3"><sup>3</sup></a><font size="-1">Microsoft 
+    Foundation Class Library</font>. </p>
+    <p><a name="200839" class="Ref">Q200839</a> Article ID:200839
+    <a href="http://support.microsoft.com/kb/200839">How To Enable ActiveX 
+    Control Event Handling on a Web Page</a></a></p>
 
     </body>
 
