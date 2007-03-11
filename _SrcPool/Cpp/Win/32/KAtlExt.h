@@ -1,6 +1,6 @@
 /*$Workfile: KAtlExt.h$: header file
-  $Revision: 3$ $Date: 2007-03-08 13:45:58$
-  $Author: Darko Kolakovic$
+  $Revision: 4$ $Date: 2007-03-11 01:03:53$
+  $Author: Darko$
 
   ATL Helper methods and objects
   Copyright: CommonSoft Inc
@@ -14,6 +14,22 @@
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
+#endif
+
+#ifndef VT_PBSTR
+  //Bug Fix for the ATL wizard generated code.
+  //A reference to a string was passed. A BSTR* that points to a BSTR is
+  //in pbstrVal.
+  //The referenced pointer must be obtained or freed by the BSTR functions.
+  #define VT_PBSTR VT_BSTR | VT_BYREF
+#endif
+#ifndef VT_PVARIANT
+  //Bug Fix for the ATL wizard generated code.
+  //A pointer to another VARIANTARG is passed in pvarVal. This referenced
+  //VARIANTARG, pvarVal, cannot be another VT_VARIANT|VT_BYREF.
+  //This value can be used to support languages that allow functions to
+  //change the types of variables passed by reference.
+  #define VT_PVARIANT VT_VARIANT | VT_BYREF
 #endif
 
 //-----------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 /*$Workfile: KCoGetThreadModel.cpp$: implementation file
-  $Revision: 4$ $Date: 2007-03-08 14:19:22$
-  $Author: Darko Kolakovic$
+  $Revision: 5$ $Date: 2007-03-11 01:04:28$
+  $Author: Darko$
 
   Retreives.COM threading model.
   Microsoft Systems Journal.
@@ -11,6 +11,10 @@
 
 #include "stdafx.h"
 #include "KType32.h"  //ISO C99: 7.18 Integer types
+
+#ifndef _WIN32_DCOM
+  #define COINIT_MULTITHREADED  0x0  // OLE calls objects on any thread.
+#endif 
 
 typedef struct tagAPARTMENT
   {
@@ -63,7 +67,7 @@ return pTeb;
   in the Thread Environment Block (TEB).
 
   Returns: current Apartment type (COINIT_MULTITHREADED or COINIT_APARTMENTTHREADED),
-  or 0xFF if COM library is not initialized.
+  or COGET_NOT_INTIALIZED = 0xFF if the COM library is not initialized.
 
   Note: Microsoft Windows specific (Win).
 
