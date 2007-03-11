@@ -1,0 +1,48 @@
+$Workfile: S:\_SrcPool\Cpp\Win\Samples\TestComAtl\TestComAtl.txt$: developer's note
+$Revision: 1$ $Date: 2007-03-05 17:32:18$
+$Author: Darko Kolakovic$
+
+Samples and test suites for the Component Object Model (COM), Active Template Library (ATL) and Microsoft Windows API.
+
+Copyright: CommonSoft Inc.
+2006-08-25 Darko Kolakovic
+
+JavaScript Notes:
+-----------------
+Requirements: HTML browser supporting ActiveX
+
+Visual C/C++ 6.0 Notes
+----------------------
+Include directory <Test COM>\idl\ with MIDL generated files in order to create the container.
+Also <Test COM>.dll have to be registered:
+  regsvr32 <Test COM>.dll
+
+Visual Studio .Net 2003 v7.1 Notes
+----------------------------------
+The project is created with VC/C++ 6.0 and converted to v7.1. Output directories are changed to:
+  $(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)
+  $(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)
+  $(OutDir)/$(ProjectName).pdb
+  $(OutDir)/$(ProjectName).lib
+  $(IntDir)/TestComAtl.tlb
+  $(OutDir)/$(ProjectName).bsc
+
+Post-Build step
+---------------
+Proxy/Stub dll is created with the command-line tools as the last step in the build.
+Post-build step is changed to:
+
+	@echo Build Proxy/Stub DLL
+	nmake -f TestComAtlps.mk
+	if errorlevel 1 goto ERR_LVL1
+	goto S_OK
+	:ERR_LVL1
+	echo Post-Build(4) : warning : $(TargetName)PS failed to build!
+	goto VCReportError
+	:S_OK
+
+Proxy/Stub dll build requires some auto-generated files from the $(ProjectDir) and $(ProjectDir)/idl
+
+\	TestComAtlps.mk	Microsoft Program Maintenance Utility -nmake (mk) file format version 5.0.	Win32
+\	TestComAtl.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	TestComAtl.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32

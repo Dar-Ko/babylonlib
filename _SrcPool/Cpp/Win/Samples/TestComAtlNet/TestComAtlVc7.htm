@@ -8,23 +8,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComAtlVc7.htm$: documentation" />
-<meta name="Revision" content="$Revision: 11$" />
+<meta name="Revision" content="$Revision: 14$" />
 <meta name="robots" content="index" />
 <meta name="keywords" content="compiler, ATL, COM" />
 <!-- Dublin Core Metadata Package -->
 <meta name="DC.title" content="Creating an ATL COM project with Visual Studio .Net 2003 v7.1" />
 <meta name="DC.creator" content="Darko Kolaković" />
 <meta name="DC.creator.vCard.EMAIL.internet" content="DarkoKolakovic @ yahoo" />
-<meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+<meta name="DC.Contributor" content="$Author: Darko$" />
 <meta name="DC.Rights" content="© CommonSoft Inc" />
 <meta name="DC.subject" content="ATL COM" />
 <meta name="DC.description.abstract" content="COM project setup" />
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
-<meta name="DC.date" content="$Date: 2007-03-01 20:10:02$" />
+<meta name="DC.date" content="$Date: 2007-03-11 14:17:43$" />
 <meta name="DC.type" content="Text.Article" />
 <meta name="DC.format" content="application/html" />
 <meta name="DC.language" content="en_ca" />
-<meta name="DC.identifier.Revision" content="$Revision: 11$" />
+<meta name="DC.identifier.Revision" content="$Revision: 14$" />
 <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
@@ -55,7 +55,8 @@
 <a href="#Footnote1"><sup class="Footnote">1</sup></a>
 <a href="../TestComAtl/TestComAtlVc6.htm">COM</a><a href="#Footnote2">
 <sup class="Footnote">2</sup></a><a href="../TestComAtl/TestComAtlVc6.htm"> 
-project with Visual C++ 6.0</a></p>
+project with Visual C++ 6.0</a>
+<img border="0" src="../../../../../Doc/Symbol/extern.gif" width="14" height="22" /></p>
 <ol>
   <li>Select new Visual C++ ATL project and choose &quot;ATL Project&quot; template:<br />
   <img border="0" src="Res/ComAtlVc71.gif" width="530" height="144" /></li>
@@ -102,7 +103,7 @@ project with Visual C++ 6.0</a></p>
  <span class="Skeyword">return</span> hResult;
 }</code></span></pre>
   <span id="intelliTXT"></span>
-  <p><br />
+  <p><br /></p>
   </li>
   <li>To add new ATL object in Class View, after right mouse click, select &quot;Add 
   Class&quot;<br />
@@ -126,7 +127,10 @@ project with Visual C++ 6.0</a></p>
     <li><tt>ULONG Release(void)</tt> </li>
     <li><tt>HRESULT QueryInterface(REFIID id, void **ipv)</tt> </li>
   </ul>
-  <p>However, scripting engines like JavaScript could not access exported 
+  <p>
+  <img border="0" src="../../../../../Doc/Images/diagIConnectionPoint.gif" align="right" width="360" height="140" />However, scripting engines like JavaScript 
+  <a href="../TestComContainer/Src/TestComContainer.htm" title="Test embedded ActiveX objects">
+  <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8"></a> could not access exported 
   methods through the <i>vtable</i> and <i>IDispatch<b> </b></i>interface is 
   required. The new interface will be added if <i>Dual </i>Interface is selected 
   in the wizard form.<br />
@@ -151,9 +155,7 @@ project with Visual C++ 6.0</a></p>
   <p>After finishing with options, the result will be presented in the Solution 
   Explorer:<br />
   <img border="0" src="Res/ComAtlVc78.gif" width="228" height="380" /><br />
-  The IDL file </li>
-  <li></li>
-  <p>will contain following snippet:</p>
+  The IDL file will contain following snippet:</p> 
   <pre><code>  [
     uuid(8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543),
     helpstring(&quot;TestAtl7Obj Class&quot;)
@@ -228,23 +230,29 @@ goto VCReportError
     <li>Also, add parameters to the method. Use <span id="intelliTXT">
     COM-compatible string type for the text handling.</span><br />
     <img border="0" src="Res/ComAtlVc7F.gif" width="420" height="213" /><br />
-    In the Solution Explorer find the <i>.idl</i> file and compile it. The MIDL 
+    In the Solution Explorer find the <i>.idl</i> file
+    <a href="Src/TestComAtlNet.idl">
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a> and compile it. The MIDL 
     complier will generate some files required for the final build.</li>
     <li>Add the new connection point to the main class, by inserting it from the 
     interface<br />
     <img border="0" src="Res/ComAtlVc7G.gif" width="316" height="206" /><br />
     Use the <i>Implement Connection Point Wizard</i> to select the interface for 
-    the new connection point<br />
+    the new connection point <a href="Src/DITestAtl7WebEvents_CP.cpp">
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a><br />
     <img border="0" src="Res/ComAtlVc7E.gif" width="406" height="387" /></li>
     </ol>
     </li>
     <li>Build Proxy/Stub DLL and register it. With the <i>OLE/COM Object Viewer</i> 
-    tool all registered automation components could be browsed:<br>
-    <img border="0" src="Res/ComAtlVc7J.gif" width="801" height="430"></li>
+    tool all registered automation components could be browsed:<br />
+    <img border="0" src="Res/ComAtlVc7J.gif" width="801" height="430" /></li>
     <li>To test the the COM object, create new <span id="intelliTXT0">&quot;Win32 
     Console Application&quot; </span>project for example.<br />
     <img border="0" src="Res/ComAtlVc7I.gif" width="531" height="157" /></li>
-    <li>Insert following code in the project file:
+    <li>Insert following code in the  file
+    <a href="../TestComContainer/Src/main.cpp">
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a> 
+    created by the project wizard:
     <pre><code>#include &quot;STL/KOStream.h&quot; //_tcout
 //Files generated by MIDL compiler
 #include &quot;TestAtlComNet.h&quot;
@@ -275,7 +283,7 @@ int _tmain(int argc,      //[in] specifies how many arguments are passed to the
                           //to null-terminated strings. The first string
                           //(argv[0]) is the program name. The end of the array
                           //(argv[argc]) is indicated by a NULL pointer.
-           TCHAR* envp[]  //[in] the user&#39;s environment variables as a pointer
+           TCHAR* envp[]  //[in] the user&apos;s environment variables as a pointer
                           //to an array of null-terminated strings. The end of
                           //the array is indicated by a NULL pointer.
                           //Note: Microsoft Windows specific (Win).
@@ -317,6 +325,7 @@ return nRetCode;
     </li>
     <li>Compile and run the test application. Expected output is:<br />
     <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="31%">
+      <tbody>
       <tr>
         <td width="100%" bgcolor="#000000"><font color="#FFFFFF"></font>
         <pre><font color="#FFFFFF">C:\&gt;TestComContainer.exe
@@ -325,14 +334,23 @@ Creating COM object...
 C:\&gt;</font></pre>
         <font color="#FFFFFF"></font></td>
       </tr>
+    </tbody>
     </table>
     </li>
+    <li>Testing event sink
+    <a href="../TestComContainer/Src/TestComWebEventHandlerRt.h">
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a> 
+    in the single-threaded apartment model requires a message loop
+    <a href="../TestComContainer/Src/TestComEvent.cpp">
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a> 
+    with help of <code>MsgWaitForMultipleObjects</code> synchronization 
+    mechanism.</li>
     <li>In order to debug the COM Server, the process have to be attached to the 
     debugger. Select <i>Debug | Processes...</i> menu item and select the 
-    process in question.<br>
-    <img border="0" src="Res/ComAtlVc7K.gif" width="540" height="244"><br>
-    The program type is, of course, <i>Native</i>:<br>
-    <img border="0" src="Res/ComAtlVc7L.gif" width="305" height="148"><br>
+    process in question.<br />
+    <img border="0" src="Res/ComAtlVc7K.gif" width="540" height="244" /><br />
+    The program type is, of course, <i>Native</i>:<br />
+    <img border="0" src="Res/ComAtlVc7L.gif" width="305" height="148" /><br />
     If the code has hardcoded breakpoints (for example <code>ATLASSERT(false)</code>), 
     the debugger will interrupt the execution.<br />
     </li>
@@ -349,7 +367,7 @@ C:\&gt;</font></pre>
     Foundation Class Library</font>. </p>
     <p><a name="200839" class="Ref">Q200839</a> Article ID:200839
     <a href="http://support.microsoft.com/kb/200839">How To Enable ActiveX 
-    Control Event Handling on a Web Page</a></a></p>
+    Control Event Handling on a Web Page</a><a></a></p>
 
     </body>
 
