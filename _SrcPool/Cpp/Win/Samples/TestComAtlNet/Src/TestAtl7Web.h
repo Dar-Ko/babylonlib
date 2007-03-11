@@ -1,14 +1,16 @@
 /*$Workfile: TestAtl7Web.h$: header file
-  $Revision: 4$ $Date: 2007-03-06 18:01:48$
-  $Author: Darko Kolakovic$
+  $Revision: 6$ $Date: 2007-03-11 01:21:31$
+  $Author: Darko$
 
   COM Object
   Copyright: CommonSoft Inc
   2006-08-30 Darko Kolakovic
 */
 
+// Group=Examples
+
 #pragma once
-#include "resource.h"       // main symbols
+//#include "resource.h"       // main symbols
 
 #include "TestComAtlNet.h"
 #include "DITestAtl7WebEvents_CP.h"
@@ -17,6 +19,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 // CTestAtl7Web
 
+/*Test COM object implementing Singleton factory, Connection Points, 
+  Dual Inerface (vtab and IDispatch).
+  The object will fire an event every TESTEVENT_TIMER ms.
+  
+  Note: Microsoft Windows specific (Win32).
+ */
 class ATL_NO_VTABLE CTestAtl7Web :
   //COM object implementation
   public CComObjectRootEx<CComSingleThreadModel>,
@@ -26,7 +34,9 @@ class ATL_NO_VTABLE CTestAtl7Web :
   public IConnectionPointContainerImpl<CTestAtl7Web>,
   public CProxyDITestAtl7WebEvents<CTestAtl7Web>,
   public IDispatchImpl<ITestAtl7Web, &IID_ITestAtl7Web, &LIBID_TestComAtlNetLib, 
-                        /*wMajor =*/ 1, /*wMinor =*/ 0>
+                        /*wMajor =*/ 1, /*wMinor =*/ 0>,
+  public IProvideClassInfo2Impl<&CLSID_TestAtl7Web, NULL,
+                                &LIBID_TestComAtlNetLib>                        
 {
 public:
   CTestAtl7Web();
@@ -36,11 +46,16 @@ DECLARE_REGISTRY_RESOURCEID(IDR_TESTATL7WEB)
 DECLARE_NOT_AGGREGATABLE(CTestAtl7Web)
 DECLARE_CLASSFACTORY_SINGLETON(CTestAtl7Web)
 
+/*Note:IProvideClassInfo2 and IProvideClassInfo are required by VBScript and
+  JavaScript engines to obtain type library. See also: MSDN Q200839.
+ */
 BEGIN_COM_MAP(CTestAtl7Web)
   COM_INTERFACE_ENTRY(ITestAtl7Web)
   COM_INTERFACE_ENTRY(IDispatch)
   COM_INTERFACE_ENTRY(ISupportErrorInfo)
   COM_INTERFACE_ENTRY(IConnectionPointContainer)
+  COM_INTERFACE_ENTRY(IProvideClassInfo)
+  COM_INTERFACE_ENTRY(IProvideClassInfo2)
 END_COM_MAP()
 
 BEGIN_CONNECTION_POINT_MAP(CTestAtl7Web)
@@ -72,6 +87,7 @@ public:
 
 //Attributes
 public:
+  const unsigned int TESTEVENT_TIMER; //time lapse for the event timer [ms]
   long     m_lTestCount;   //test counter
   CComBSTR m_bstrTestText; //test message
   CTimer   m_ctTimer;      //event source
@@ -99,6 +115,9 @@ END_CATEGORY_MAP()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
+*  6    Biblioteka1.5         2007-03-11 01:21:31  Darko           Event sink and 
+*       apartman message loop
+*  5    Biblioteka1.4         2007-03-08 20:40:21  Darko Kolakovic Event sink
 *  4    Biblioteka1.3         2007-03-06 18:01:48  Darko Kolakovic Fire an event
 *       each 3s
 *  3    Biblioteka1.2         2007-03-01 20:09:52  Darko Kolakovic Test setting a

@@ -1,6 +1,6 @@
 /*$Workfile: DITestAtl7WebEvents_CP.h$: header file
-  $Revision: 3$ $Date: 2007-03-06 18:01:44$
-  $Author: Darko Kolakovic$
+  $Revision: 4$ $Date: 2007-03-11 01:19:56$
+  $Author: Darko$
 
   Connection Point Object
   Copyright: CommonSoft Inc
@@ -8,21 +8,21 @@
 */
 
 #pragma once
-
+#include "KHresult.h" //CHresult class
 #ifndef VT_PBSTR
-//Bug Fix for the ATL wizard generated code.
-//A reference to a string was passed. A BSTR* that points to a BSTR is
-//in pbstrVal.
-//The referenced pointer must be obtained or freed by the BSTR functions.
-#define VT_PBSTR VT_BSTR | VT_BYREF
+  //Bug Fix for the ATL wizard generated code.
+  //A reference to a string was passed. A BSTR* that points to a BSTR is
+  //in pbstrVal.
+  //The referenced pointer must be obtained or freed by the BSTR functions.
+  #define VT_PBSTR VT_BSTR | VT_BYREF
 #endif
 #ifndef VT_PVARIANT
-//Bug Fix for the ATL wizard generated code.
-//A pointer to another VARIANTARG is passed in pvarVal. This referenced
-//VARIANTARG, pvarVal, cannot be another VT_VARIANT|VT_BYREF.
-//This value can be used to support languages that allow functions to
-//change the types of variables passed by reference.
-#define VT_PVARIANT VT_VARIANT | VT_BYREF
+  //Bug Fix for the ATL wizard generated code.
+  //A pointer to another VARIANTARG is passed in pvarVal. This referenced
+  //VARIANTARG, pvarVal, cannot be another VT_VARIANT|VT_BYREF.
+  //This value can be used to support languages that allow functions to
+  //change the types of variables passed by reference.
+  #define VT_PVARIANT VT_VARIANT | VT_BYREF
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -45,37 +45,46 @@ template<class T>
 HRESULT CProxyDITestAtl7WebEvents<T>::Fire_TestAtlEvent(BSTR bstrValue //[in]
                                                        )
 {
-HRESULT hr = S_OK;
-T * pThis = static_cast<T *>(this);
-int cConnections = m_vec.GetSize();
-
-for (int iConnection = 0; iConnection < cConnections; iConnection++)
+CHresult hr = S_OK;
+try
   {
-  pThis->Lock();
-  CComPtr<IUnknown> punkConnection = m_vec.GetAt(iConnection);
-  pThis->Unlock();
+  T * pThis = static_cast<T *>(this);
+  int cConnections = m_vec.GetSize();
 
-  IDispatch * pConnection = static_cast<IDispatch *>(punkConnection.p);
-
-  if (pConnection)
+  ATLTRACE("CProxyDITestAtl7WebEvents<T>::Fire_TestAtlEvent() subscribers =%d.\n", 
+            cConnections);
+  for (int iConnection = 0; iConnection < cConnections; iConnection++)
     {
-    CComVariant avarParams[1];
-    avarParams[0] = bstrValue;  
-    avarParams[0].vt = VT_BSTR;
-    CComVariant varResult;
+    pThis->Lock();
+    CComPtr<IUnknown> punkConnection = m_vec.GetAt(iConnection);
+    pThis->Unlock();
 
-    DISPPARAMS params = { avarParams, NULL, 1, 0 };
-    hr = pConnection->Invoke( 1, 
-                              IID_NULL, 
-                              LOCALE_USER_DEFAULT, 
-                              DISPATCH_METHOD, 
-                              &params, 
-                              &varResult, 
-                              NULL, 
-                              NULL);
+    IDispatch * pConnection = static_cast<IDispatch *>(punkConnection.p);
+
+    if (pConnection)
+      {
+      CComVariant avarParams[1];
+      avarParams[0] = bstrValue;  
+      avarParams[0].vt = VT_BSTR;
+      CComVariant varResult;
+
+      DISPPARAMS params = { avarParams, NULL, 1, 0 };
+      hr = pConnection->Invoke( 1, 
+                                IID_NULL, 
+                                LOCALE_USER_DEFAULT, 
+                                DISPATCH_METHOD, 
+                                &params, 
+                                &varResult, 
+                                NULL, 
+                                NULL);
+      }
     }
   }
-return hr;
+catch(...)
+  {
+  ATLTRACE("  Exception %s!\n", hr.ErrorMessage());
+  }
+return (HRESULT)hr;
 };
 
 ////////////////////////////////////////////////////////////////////////////////

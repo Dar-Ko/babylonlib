@@ -30,9 +30,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS\TestComContainer\Win32/TestComContainer.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_SBCS\TestComContainer\Win32/"
-				ObjectFile=".\..\Obj\Debug_SBCS\TestComContainer\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS\TestComContainer\Win32/"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/$(ProjectName).pdb"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -42,7 +42,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_SBCS\Win32/TestComContainer.exe"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="7.1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
@@ -92,9 +92,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode\TestComContainer\Win32/TestComContainer.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_Unicode\TestComContainer\Win32/"
-				ObjectFile=".\..\Obj\Debug_Unicode\TestComContainer\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode\TestComContainer\Win32/"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/$(ProjectName).pdb"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -104,7 +104,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_Unicode\Win32/TestComContainer.exe"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="7.1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
@@ -156,9 +156,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\..\Obj\Release_Unicode\TestComContainer\Win32/TestComContainer.pch"
-				AssemblerListingLocation=".\..\Obj\Release_Unicode\TestComContainer\Win32/"
-				ObjectFile=".\..\Obj\Release_Unicode\TestComContainer\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_Unicode\TestComContainer\Win32/"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/$(ProjectName).pdb"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -167,7 +167,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_Unicode\Win32/TestComContainer.exe"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="7.1"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\..\bin\Release_Unicode\Win32/TestComContainer.pdb"
@@ -218,9 +218,9 @@
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
 				PrecompiledHeaderFile=".\..\Obj\Release_SBCS\TestComContainer\Win32/TestComContainer.pch"
-				AssemblerListingLocation=".\..\Obj\Release_SBCS\TestComContainer\Win32/"
-				ObjectFile=".\..\Obj\Release_SBCS\TestComContainer\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_SBCS\TestComContainer\Win32/"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/$(ProjectName).pdb"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -229,7 +229,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_SBCS\Win32/TestComContainer.exe"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="7.1"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\..\bin\Release_SBCS\Win32/TestComContainer.pdb"
@@ -275,6 +275,12 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
+			<File
+				RelativePath="F:\Download\ActiveX\atlevntvcnet\EventSrc\EventSrc_i.c">
+			</File>
+			<File
+				RelativePath="..\..\32\KCoGetThreadModel.cpp">
+			</File>
 			<File
 				RelativePath="..\..\32\KDbgRpt.cpp">
 			</File>
@@ -412,7 +418,16 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
+				RelativePath="..\..\32\KAtlExt.h">
+			</File>
+			<File
+				RelativePath="..\..\32\KDispatchPtr.h">
+			</File>
+			<File
 				RelativePath="..\..\32\KHresult.h">
+			</File>
+			<File
+				RelativePath=".\Src\SinkObj.h">
 			</File>
 			<File
 				RelativePath="Src\stdafx.h">
@@ -425,10 +440,10 @@
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 			<File
-				RelativePath="..\..\..\Samples\Common\Res\Win\SrcPool.ico">
+				RelativePath="..\..\..\Samples\Common\Res\SrcPool.ico">
 			</File>
 			<File
-				RelativePath="..\..\..\Samples\Common\Res\SrcPool.ico">
+				RelativePath="..\..\..\Samples\Common\Res\Win\SrcPool.ico">
 			</File>
 		</Filter>
 		<Filter

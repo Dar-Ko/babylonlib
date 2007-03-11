@@ -12,7 +12,7 @@
 
 
 // TODO: reference additional headers your program requires here
-
+#include "KType32.h" //ISO C99 type definitions
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 

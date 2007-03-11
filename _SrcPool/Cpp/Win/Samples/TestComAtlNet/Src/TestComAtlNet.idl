@@ -1,6 +1,6 @@
 /*$Workfile: TestComAtlNet.idl$: IDL source file
-  $Revision: 10$ $Date: 2007-03-02 20:21:52$
-  $Author: Darko Kolakovic$
+  $Revision: 11$ $Date: 2007-03-11 01:21:32$
+  $Author: Darko$
 
   Implementation file
   Copyright: CommonSoft Inc.
@@ -77,7 +77,7 @@ interface ITestAtl7Web : IDispatch
 [
   uuid(3DF3DAAE-34D2-4703-B1C7-4533DC22C9D1),
   version(1.0),
-  helpstring("TestComAtlNet $Revision: 10$ Type Library")
+  helpstring("TestComAtlNet $Revision: 11$ Type Library")
 ]
 library TestComAtlNetLib
 {
@@ -115,8 +115,9 @@ library TestComAtlNetLib
   };
 
   //---------------------------------------------------------------------------
+  const int DISPID_TESTATL7EVENT   = 1; //dispatch identifier for TestAtlEvent
   /*outgoing interface implemented by the client and called by the object.
-  */
+   */
   [
     uuid(32D58825-34D6-4CD8-A06F-F4AAA62BB1EA),
     helpstring("DITestAtl7WebEvents Interface")
@@ -127,7 +128,7 @@ library TestComAtlNetLib
     methods:
     /*Event handler mapped to Fire_TestAtlEvent()
      */
-    [id(1), helpstring("method TestAtlEvent")] 
+    [id(DISPID_TESTATL7EVENT), helpstring("method TestAtlEvent")] 
       HRESULT TestAtlEvent([in] BSTR bstrValue);
   };
 
@@ -147,6 +148,8 @@ library TestComAtlNetLib
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
+*  11   Biblioteka1.10        2007-03-11 01:21:32  Darko           Event sink and 
+*       apartman message loop
 *  10   Biblioteka1.9         2007-03-02 20:21:52  Darko Kolakovic Connection
 *       Points
 *  9    Biblioteka1.8         2007-03-01 20:09:53  Darko Kolakovic Test setting a

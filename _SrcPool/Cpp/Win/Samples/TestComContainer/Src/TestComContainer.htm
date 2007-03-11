@@ -9,8 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComContainer.htm$: documentation" />
-<meta name="Revision" content="$Revision: 4$ $Date: 2007-03-01 20:10:03$" />
-<meta name="Editor" content="$Author: Darko Kolakovic$" />
+<meta name="Revision" content="$Revision: 5$ $Date: 2007-03-11 01:21:33$" />
+<meta name="Editor" content="$Author: Darko$" />
 <meta name="Copyright" content="&copy; CommonSoft Inc, 1985-2032." />
 <meta name="author" content="Darko Kolakovi&#263;" />
 <meta name="robots" content="index" />
@@ -254,3 +254,20 @@ if (typeof ActiveXObject != 'undefined')
 </body>
 
 </html>
+
+<!--
+easiest way to determine if the ActiveX DLL was installed and registered correctly
+You should try the following code, replacing oControl with your OBJECT ID.
+
+if ("undefined" != typeof(document.all("oControl")) && 
+    null != document.all("oControl").object) 
+{
+    // The control is installed
+}
+else 
+{
+    // The control is not installed
+}
+
+
+-->

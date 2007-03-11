@@ -2,7 +2,9 @@
 // TestComAtlNet.pch will be the pre-compiled header
 // stdafx.obj will contain the pre-compiled type information
 
+// Group=Examples
+
 #include "stdafx.h"
 
-uint32_t g_nDBgBreak = 1; //disable (0) or enable (>0) debugger breakpoints
+uint32_t g_nDbgBreak = 3; //disable (0) or enable (>0) debugger breakpoints
                           //through ATLASSERT macro

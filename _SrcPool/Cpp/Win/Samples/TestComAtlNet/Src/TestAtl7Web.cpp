@@ -1,5 +1,5 @@
 /*$Workfile: TestAtl7Web.cpp$: implementation file
-  $Revision: 4$ $Date: 2007-03-06 18:01:46$
+  $Revision: 5$ $Date: 2007-03-08 20:40:20$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -9,16 +9,17 @@
 
 #include "stdafx.h"
 #include "TestAtl7Web.h"
-extern uint32_t g_nDBgBreak;
+extern uint32_t g_nDbgBreak;
 
 ////////////////////////////////////////////////////////////////////////////////
 // CTestAtl7Web
 
-//pointer to the service
+//pointer to the COM service object required by the static callback functions.
 CTestAtl7Web* CTestAtl7Web::m_pclTestObj = NULL;
 
 //-----------------------------------------------------------------------------
-//timer callback function
+/*Test Event Timer callback function.
+ */
 void CALLBACK CTestAtl7Web::EventSource(HWND hwnd, //[in] handle to the window 
                                       //associated with the timer or NULL
                           UINT uMsg,    //[in] specifies the WM_TIMER message
@@ -27,8 +28,8 @@ void CALLBACK CTestAtl7Web::EventSource(HWND hwnd, //[in] handle to the window
                                       //elapsed since the system was started
                          )
 {
-ATLTRACE("CTestAtl7Web::EventSource()");
-ATLASSERT(g_nDBgBreak < 1); //debugger breakpoint
+ATLTRACE("CTestAtl7Web::EventSource()\n");
+ATLASSERT(g_nDbgBreak == 3); //debugger breakpoint
 
 HRESULT hRes = S_OK;
 try
@@ -41,7 +42,8 @@ try
     bstrTemp += m_pclTestObj->m_bstrTestText;
   //Fire the event 
   ::MessageBeep(MB_ICONEXCLAMATION);
-  hRes = m_pclTestObj->Fire_TestAtlEvent(bstrTemp.Detach());
+  hRes = m_pclTestObj->Fire_TestAtlEvent(bstrTemp);
+  bstrTemp.Detach();
   }
 catch(CAtlException e)
   {
@@ -50,13 +52,16 @@ catch(CAtlException e)
 }
 
 //-----------------------------------------------------------------------------
-/*Default constructor.
+/*Default constructor creates the event timer with TESTEVENT_TIMER ms time 
+  lapse.
   Throws AtlException with the error for the GetLastError();
  */
 CTestAtl7Web::CTestAtl7Web() throw(...)
-: m_lTestCount(0),
-  m_ctTimer(CTestAtl7Web::EventSource, 3000)
+: TESTEVENT_TIMER(5000),
+  m_lTestCount(0),
+  m_ctTimer(CTestAtl7Web::EventSource, TESTEVENT_TIMER)
 {
+ATLTRACE("CTestAtl7Web::CTestAtl7Web()\n");
 if (!m_ctTimer.IsStarted())
   AtlThrowLastWin32();
 //Initialize pointer to the service, allowing static function to access
@@ -131,7 +136,7 @@ HRESULT STDMETHODCALLTYPE CTestAtl7Web::GetIDsOfNames(REFIID riid, //Reserved
                                              //array with ids of names to be mapped
                                                 ) 
 {
-ATLASSERT(g_nDBgBreak == 0); //Convinient way to set breakpoint;
+ATLASSERT(g_nDbgBreak == 1); //Convinient way to set breakpoint;
 
 HRESULT hRes = S_OK;
 try
@@ -164,7 +169,7 @@ return hRes;
 */
 STDMETHODIMP CTestAtl7Web::TestMethod(void)
 {
-ATLASSERT(g_nDBgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
 //Increase test count
 m_lTestCount++;
 ATLTRACE("CTestAtl7Web::TestMethod(count = %d)", m_lTestCount);
@@ -180,7 +185,7 @@ return S_OK;
 STDMETHODIMP CTestAtl7Web::GetMethod(LONG* pVal //[out] test count
                                     )
 {
-ATLASSERT(g_nDBgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
 ATLTRACE("CTestAtl7Web::GetMethod(count = %d)\n", m_lTestCount);
 
 if (NULL == pVal) 
@@ -201,7 +206,7 @@ STDMETHODIMP CTestAtl7Web::get_TestCounter(long lInput, //[in] multiplier
                                            LONG* pResult //[out]
                                           )
 {
-ATLASSERT(g_nDBgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
 ATLTRACE("CTestAtl7Web::get_TestCounter(lInput = %d)\n", lInput);
 
 if (NULL == pResult) 
@@ -219,7 +224,7 @@ return S_OK;
 STDMETHODIMP CTestAtl7Web::Long(LONG* pVal //[out] result
                                )
 {
-ATLASSERT(g_nDBgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
 ATLTRACE("CTestAtl7Web::Long()\n");
 
 if (NULL == pVal) 
@@ -241,7 +246,7 @@ return S_OK;
 STDMETHODIMP CTestAtl7Web::get_String(BSTR* pVal//[out]
                                      )
 {
-ATLASSERT(g_nDBgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
 ATLTRACE("CTestAtl7Web::get_String()\n");
 
 if (NULL == pVal) 
@@ -275,7 +280,7 @@ return hRes;
 STDMETHODIMP CTestAtl7Web::put_String(BSTR newVal //[in]
                                      )
 {
-ATLASSERT(g_nDBgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
 ATLTRACE("CTestAtl7Web::put_String(%ws)\n", newVal);
 try
   {
@@ -307,6 +312,7 @@ return put_String(newVal);
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
+*  5    Biblioteka1.4         2007-03-08 20:40:20  Darko Kolakovic Event sink
 *  4    Biblioteka1.3         2007-03-06 18:01:46  Darko Kolakovic Fire an event
 *       each 3s
 *  3    Biblioteka1.2         2007-03-01 20:09:51  Darko Kolakovic Test setting a

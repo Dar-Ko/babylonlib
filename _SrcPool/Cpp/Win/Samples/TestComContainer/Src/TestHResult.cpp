@@ -1,6 +1,6 @@
 /*$Workfile: TestHResult.cpp$: implementation file
-  $Revision: 2$ $Date: 2007-03-02 19:45:13$
-  $Author: Darko Kolakovic$
+  $Revision: 3$ $Date: 2007-03-11 01:21:40$
+  $Author: Darko$
 
   Implementation file
   Copyright: CommonSoft Inc.
@@ -45,7 +45,7 @@ TCHAR szReport[255]; //error message
 try
   {
   CHresult hrLasterror; //Get the last Win32 error. Expected success code.
-  _stprintf(szReport,_T("GetLasteError returned HRESULT = %i"),(HRESULT)hrLasterror);
+  _stprintf(szReport,_T("GetLasteError returned HRESULT = 0x%0lX"),(HRESULT)hrLasterror);
   TsWriteToViewLn(szReport);
   logEntry.m_bResult = bRes;
   LogTest(&logEntry);
@@ -53,7 +53,7 @@ try
   //Test bool conversion
   logEntry.m_szObjectName = _T("CHresult::&operator= (const bool)");
   hrLasterror = bRes;
-  _stprintf(szReport,_T("%s returned HRESULT = %i"),
+  _stprintf(szReport,_T("%s returned HRESULT = 0x%0lX"),
                      (bRes ? _T("true"):_T("false")),(HRESULT)hrLasterror);
   TsWriteToViewLn(szReport);
   logEntry.m_bResult = bRes;
@@ -62,7 +62,7 @@ try
   //Test HRESULT conversion
   logEntry.m_szObjectName = _T("CHresult::&operator= (const HRESULT=S_OK)");
   hrLasterror = S_OK;
-  _stprintf(szReport,_T("S_OK = %i"),(HRESULT)hrLasterror);
+  _stprintf(szReport,_T("S_OK = 0x%0lX"),(HRESULT)hrLasterror);
   TsWriteToViewLn(szReport);
   logEntry.m_bResult = bRes;
   LogTest(&logEntry);
@@ -82,7 +82,7 @@ try
     catch(...)
       {
       logEntry.m_bResult = bRes; //Correct action
-      _stprintf(szReport,_T("E_UNEXPECTED = %i"),E_UNEXPECTED);
+      _stprintf(szReport,_T("E_UNEXPECTED = 0x%0lX"),E_UNEXPECTED);
       TsWriteToViewLn(szReport);
       }
     LogTest(&logEntry);
@@ -102,6 +102,8 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  3    Biblioteka1.2         2007-03-11 01:21:40  Darko           Event sink and 
+ *       apartman message loop
  *  2    Biblioteka1.1         2007-03-02 19:45:13  Darko Kolakovic Deleted surplus
  *  1    Biblioteka1.0         2007-02-21 09:15:01  Darko Kolakovic 
  * $

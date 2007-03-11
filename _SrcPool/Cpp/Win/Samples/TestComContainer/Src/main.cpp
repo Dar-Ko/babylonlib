@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 7$ $Date: 2007-03-05 17:33:21$
+  $Revision: 8$ $Date: 2007-03-08 20:40:27$
   $Author: Darko Kolakovic$
 
   COM container to test ATL DLL.
@@ -15,7 +15,10 @@
 #include <iostream>
 #include "STL/KOStream.h" //_tcout
 #include "KTestLog.h"
-
+#include <objbase.h>
+#ifndef _WIN32_DCOM
+  #define COINIT_MULTITHREADED  0x0  // OLE calls objects on any thread.
+#endif 
   //#include "Resource.h"
 
 #ifdef _DEBUG
@@ -41,6 +44,7 @@
   #endif
 #endif
 
+extern uint_least32_t ComGetThreadingModel();
 extern bool TestCHresult();
 extern bool TestMethod();
 extern bool TestComEvents();
@@ -89,6 +93,22 @@ std::_tcout << _T("Creating COM object...") << std::endl;
 
 if(SUCCEEDED(hResult))
   {
+  //Test apartment model
+  switch (ComGetThreadingModel())
+    {
+    case COINIT_MULTITHREADED:
+      std::_tcout << _T("Multi-threaded Apartment type.") << std::endl;
+      break;
+    case COINIT_APARTMENTTHREADED:
+      std::_tcout << _T("Apartment-threaded Apartment type.") << std::endl;
+      break;
+    case 0xFF: //COGET_NOT_INTIALIZED
+      std::_tcout << _T("COM library is not initialized.") << std::endl;
+      break;
+    default:
+      std::_tcout << _T("unknown Apartment type.") << std::endl;
+    }
+    
   //Test in-process server object
   ITestAtlObj* pcomTest = NULL;
   hResult = CoCreateInstance( CLSID_TestAtlObj,//coclass guid  used to create
