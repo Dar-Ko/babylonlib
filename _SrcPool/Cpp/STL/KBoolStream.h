@@ -1,6 +1,6 @@
 /*$Workfile: KBoolStream.h$: header file
-  $Revision: 2$ $Date: 2004-12-20 15:26:18$
-  $Author: Darko Kolakovic$
+  $Revision: 3$ $Date: 2007-03-10 18:54:00$
+  $Author: Darko$
 
   Write bool literal to the stream
   Copyright: CommonSoft Inc.
@@ -34,7 +34,7 @@
 //Class used to convert bool type to its literal presentation.
 //
 //Example:
-//    #include "STL/KOStream.h" //ostream template
+//    #include "STL/KBoolStream.h" //tbool class
 //    ...
 //    int i = 100;
 //    bool bRes = (i == 0);
@@ -73,7 +73,7 @@ public:
       false F
 
   Example:
-    #include "STL/KOStream.h" //ostream template
+    #include "STL/KBoolStream.h" //tbool class
     ...
     int i = 100;
     bool bRes = (i != 0);

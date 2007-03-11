@@ -1,5 +1,5 @@
 /*$Workfile: KDbgLimits.cpp$: header file
-  $Revision: 2$ $Date: 2004-11-05 13:26:41$
+  $Revision: 2$ $Date: 2004-11-05 12:26:41$
   $Author: Darko Kolakovic$
 
   Dumps values of some constants defined in <limits>

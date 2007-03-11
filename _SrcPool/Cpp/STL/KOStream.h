@@ -1,5 +1,5 @@
 /*$Workfile: KOStream.h$: header file
-  $Revision: 14$ $Date: 2005-03-21 03:15:10$
+  $Revision: 14$ $Date: 2005-03-21 02:15:10$
   $Author: Darko$
 
   STL header file
@@ -140,25 +140,25 @@
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  14   Biblioteka1.13        2005-03-21 03:15:10  Darko           Fixed STLport
+ *  14   Biblioteka1.13        2005-03-21 02:15:10  Darko           Fixed STLport
  *       query
- *  13   Biblioteka1.12        2004-10-07 00:58:13  Darko           new value for
+ *  13   Biblioteka1.12        2004-10-06 23:58:13  Darko           new value for
  *       KSTL_VER / MSVC7
- *  12   Biblioteka1.11        2004-10-06 16:01:22  Darko           Unicode mapping
- *  11   Biblioteka1.10        2004-10-01 22:12:14  Darko           Moved tbool to
+ *  12   Biblioteka1.11        2004-10-06 15:01:22  Darko           Unicode mapping
+ *  11   Biblioteka1.10        2004-10-01 21:12:14  Darko           Moved tbool to
  *       separate file
- *  10   Biblioteka1.9         2004-09-28 14:06:16  Darko           comment
- *  9    Biblioteka1.8         2004-09-07 15:48:36  Darko           Comment
- *  8    Biblioteka1.7         2004-08-26 13:21:48  Darko           C compilation
+ *  10   Biblioteka1.9         2004-09-28 13:06:16  Darko           comment
+ *  9    Biblioteka1.8         2004-09-07 14:48:36  Darko           Comment
+ *  8    Biblioteka1.7         2004-08-26 12:21:48  Darko           C compilation
  *       error
- *  7    Biblioteka1.6         2004-08-23 17:59:29  Darko           Unicode build
- *  6    Biblioteka1.5         2004-06-03 14:26:59  Darko           Added stream
+ *  7    Biblioteka1.6         2004-08-23 16:59:29  Darko           Unicode build
+ *  6    Biblioteka1.5         2004-06-03 13:26:59  Darko           Added stream
  *       tag KSTL_IO
- *  5    Biblioteka1.4         2004-06-01 18:03:43  Darko           STLport
+ *  5    Biblioteka1.4         2004-06-01 17:03:43  Darko           STLport
  *       included
- *  4    Biblioteka1.3         2003-09-30 09:12:42  Darko           tbool
- *  3    Biblioteka1.2         2003-09-22 22:26:26  Darko           formatting
- *  2    Biblioteka1.1         2003-09-22 21:26:34  Darko           Unicode
- *  1    Biblioteka1.0         2003-09-22 18:34:47  Darko           
+ *  4    Biblioteka1.3         2003-09-30 08:12:42  Darko           tbool
+ *  3    Biblioteka1.2         2003-09-22 21:26:26  Darko           formatting
+ *  2    Biblioteka1.1         2003-09-22 20:26:34  Darko           Unicode
+ *  1    Biblioteka1.0         2003-09-22 17:34:47  Darko           
  * $
  *****************************************************************************/
