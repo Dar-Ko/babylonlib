@@ -1,5 +1,5 @@
 /*$Workfile: TestHResult.cpp$: implementation file
-  $Revision: 3$ $Date: 2007-03-11 01:21:40$
+  $Revision: 3$ $Date: 2007-03-11 02:21:40$
   $Author: Darko$
 
   Implementation file
@@ -102,9 +102,9 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2007-03-11 01:21:40  Darko           Event sink and 
+ *  3    Biblioteka1.2         2007-03-11 02:21:40  Darko           Event sink and 
  *       apartman message loop
- *  2    Biblioteka1.1         2007-03-02 19:45:13  Darko Kolakovic Deleted surplus
- *  1    Biblioteka1.0         2007-02-21 09:15:01  Darko Kolakovic 
+ *  2    Biblioteka1.1         2007-03-02 20:45:13  Darko Kolakovic Deleted surplus
+ *  1    Biblioteka1.0         2007-02-21 10:15:01  Darko Kolakovic 
  * $
  *****************************************************************************/

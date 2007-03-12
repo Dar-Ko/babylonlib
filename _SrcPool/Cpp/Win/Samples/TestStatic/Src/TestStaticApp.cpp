@@ -1,5 +1,5 @@
 /*$Workfile: TestStaticApp.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-05-02 16:04:45$
+  $Revision: 1$ $Date: 2005-05-02 17:04:45$
   $Author: Darko Kolakovic$
 
   Initializes main window object.
@@ -72,6 +72,6 @@ else if (m_pMainWnd != NULL) //Try with main window
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2005-05-02 16:04:45  Darko Kolakovic 
+ *  1    Biblioteka1.0         2005-05-02 17:04:45  Darko Kolakovic 
  * $
  *****************************************************************************/

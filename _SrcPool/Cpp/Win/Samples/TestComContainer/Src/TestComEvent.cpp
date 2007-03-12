@@ -1,5 +1,5 @@
 /*$Workfile: TestComEvent.cpp$: implementation file
-  $Revision: 4$ $Date: 2007-03-11 01:21:38$
+  $Revision: 4$ $Date: 2007-03-11 02:21:38$
   $Author: Darko$
 
   COM container to test ATL DLL.
@@ -234,10 +234,10 @@ return hRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
 * $Log: 
-*  4    Biblioteka1.3         2007-03-11 01:21:38  Darko           Event sink and 
+*  4    Biblioteka1.3         2007-03-11 02:21:38  Darko           Event sink and 
 *       apartman message loop
-*  3    Biblioteka1.2         2007-03-08 20:40:24  Darko Kolakovic Event sink
-*  2    Biblioteka1.1         2007-03-05 17:33:19  Darko Kolakovic Event sink
-*  1    Biblioteka1.0         2007-03-02 19:44:52  Darko Kolakovic 
+*  3    Biblioteka1.2         2007-03-08 21:40:24  Darko Kolakovic Event sink
+*  2    Biblioteka1.1         2007-03-05 18:33:19  Darko Kolakovic Event sink
+*  1    Biblioteka1.0         2007-03-02 20:44:52  Darko Kolakovic 
 * $
 *****************************************************************************/

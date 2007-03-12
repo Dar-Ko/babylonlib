@@ -1,5 +1,5 @@
 /*$Workfile: TestComWebEventHandlerRt.h$: header file
-  $Revision: 3$ $Date: 2007-03-11 01:21:39$
+  $Revision: 3$ $Date: 2007-03-11 02:21:39$
   $Author: Darko$
 
   COM Event Sink with run-time binding
@@ -72,9 +72,9 @@ END_SINK_MAP()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
-*  3    Biblioteka1.2         2007-03-11 01:21:39  Darko           Event sink and 
+*  3    Biblioteka1.2         2007-03-11 02:21:39  Darko           Event sink and 
 *       apartman message loop
-*  2    Biblioteka1.1         2007-03-08 20:40:26  Darko Kolakovic Event sink
-*  1    Biblioteka1.0         2007-03-06 18:00:45  Darko Kolakovic 
+*  2    Biblioteka1.1         2007-03-08 21:40:26  Darko Kolakovic Event sink
+*  1    Biblioteka1.0         2007-03-06 19:00:45  Darko Kolakovic 
 * $
 *****************************************************************************/
