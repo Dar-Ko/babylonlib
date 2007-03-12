@@ -1,5 +1,5 @@
 /*$Workfile: TestAtl7Web.h$: header file
-  $Revision: 6$ $Date: 2007-03-11 01:21:31$
+  $Revision: 7$ $Date: 2007-03-12 02:27:08$
   $Author: Darko$
 
   COM Object
@@ -23,6 +23,8 @@
   Dual Inerface (vtab and IDispatch).
   The object will fire an event every TESTEVENT_TIMER ms.
   
+  {html: <img src="../Images/diagIConnectionPoint.gif" title="IConnectionPointContainer" /><br />}
+
   Note: Microsoft Windows specific (Win32).
  */
 class ATL_NO_VTABLE CTestAtl7Web :
@@ -115,15 +117,16 @@ END_CATEGORY_MAP()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
-*  6    Biblioteka1.5         2007-03-11 01:21:31  Darko           Event sink and 
+*  7    Biblioteka1.6         2007-03-12 02:27:08  Darko           Debug flag
+*  6    Biblioteka1.5         2007-03-11 02:21:31  Darko           Event sink and 
 *       apartman message loop
-*  5    Biblioteka1.4         2007-03-08 20:40:21  Darko Kolakovic Event sink
-*  4    Biblioteka1.3         2007-03-06 18:01:48  Darko Kolakovic Fire an event
+*  5    Biblioteka1.4         2007-03-08 21:40:21  Darko Kolakovic Event sink
+*  4    Biblioteka1.3         2007-03-06 19:01:48  Darko Kolakovic Fire an event
 *       each 3s
-*  3    Biblioteka1.2         2007-03-01 20:09:52  Darko Kolakovic Test setting a
+*  3    Biblioteka1.2         2007-03-01 21:09:52  Darko Kolakovic Test setting a
 *       property
-*  2    Biblioteka1.1         2007-03-01 00:10:13  Darko Kolakovic TestCounter
+*  2    Biblioteka1.1         2007-03-01 01:10:13  Darko Kolakovic TestCounter
 *       property
-*  1    Biblioteka1.0         2007-02-26 18:16:14  Darko Kolakovic 
+*  1    Biblioteka1.0         2007-02-26 19:16:14  Darko Kolakovic 
 * $
 *****************************************************************************/

@@ -1,15 +1,13 @@
-<!doctype html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!doctype html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
 <html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-<meta name="GENERATOR" content="Microsoft FrontPage 5.0" />
-<meta name="ProgId" content="FrontPage.Editor.Document" />
 <title>Test Component Object Model (COM) Container</title>
 <!-- Group=Examples -->
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComContainer.htm$: documentation" />
-<meta name="Revision" content="$Revision: 5$ $Date: 2007-03-11 01:21:33$" />
+<meta name="Revision" content="$Revision: 6$ $Date: 2007-03-12 02:27:47$" />
 <meta name="Editor" content="$Author: Darko$" />
 <meta name="Copyright" content="&copy; CommonSoft Inc, 1985-2032." />
 <meta name="author" content="Darko Kolakovi&#263;" />
@@ -18,6 +16,18 @@
 <meta name="description" content="Test Component Object Model (COM) Container" />
 <link rel="stylesheet" type="text/css" media="all" href="../../../../../../Doc/Res/KDocument.css" />
 <link rel="icon" type="image/ico" href="../../../../../../Doc/Res/icoWin32.ico" />
+
+  <style type="text/css">
+  .logentry
+    {
+    background-color: rgb(160,255,255);
+    border-top:1px solid;
+    margin-top: 0.75em;
+    margin-left:  3;
+    padding-left: 5;
+    }
+  </style>
+
 <!-- Install Microsoft Script Debugger
          To enable it, open IE and go to Tools|'Internet Options'|Advanced and uncheck
         "Disable Script Debugging (Internet Explorer)".
@@ -25,8 +35,83 @@
      trying to debug, delete or rename
      the HKLM\Software\Microsoft\Ole\DefaultAccessPermission key.
     -->
-    
+
 <script type="text/javascript" language="javascript">
+
+//Data structure COM/ActiveX Object information
+var TestComAtlNet = new Object();
+TestComAtlNet.AppId = "8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543";
+TestComAtlNet.TestAtl7Obj = new Object();
+TestComAtlNet.TestAtl7Obj.VerIndProgId = "TestComAtlNet.TestAtl7Obj";
+TestComAtlNet.TestAtl7Obj.ClsId = "8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543";
+TestComAtlNet.TestAtl7Web = new Object();
+TestComAtlNet.TestAtl7Web.VerIndProgId = "TestComAtlNet.TestAtl7Web";
+TestComAtlNet.TestAtl7Web.ClsId = "22252C96-126D-4147-A963-C38BC7E1E644";
+
+//-----------------------------------------------------------------------------
+/*Handles onload event fired from a persistent element (windows in this case)
+  when the page reloads.
+  This implemetation verifies if embedded objects are successfuly created.
+
+  See also: <object>
+ */
+function onLoad()
+{
+debugger;
+try
+  {
+  if ("undefined" != typeof(document.all("objIdTestAtl7Web")) &&
+    null != document.all("objIdTestAtl7Web").object)
+  //if ((!objIdTestAtl7Web) || (!objIdTestAtl7Web.object))
+    {
+    //Note: Microsoft Windows specific (Win32)
+    alert("Required " + TestComAtlNet.TestAtl7Web.VerIndProgId +
+          "\npublisher is not available");
+    }
+  }
+catch(e)
+  {
+  alert(e.name + ' (' + e.number + ') ' + e.description + '<br \/>');
+  }
+}
+
+//-----------------------------------------------------------------------------
+/*Appends the new log entry to the logbook text area. The empty entry will be
+  replaced with non-breakable space.
+
+  Returns true if successful; otherwise returns false;
+ */
+function LogEntry(strEntry, //[in] text to be added to the log
+                   strEntryTag //=null [in] a tag that will
+                   //be added to the log entry or current
+                   //time in ms as default entry title
+                  )
+{
+if (this.ownerDocument != null)
+  {
+  if ((strEntry == null) || (strEntry == ""))
+    strEntry = " ";
+  //Note: createElement(any) requires Internet Explorer 5.
+  var eEntry = this.ownerDocument.createElement("span");
+  eEntry.className = "logentry";
+  //Add line number
+  eEntry.title = ((strEntryTag != null) && (strEntryTag != "")) ?
+                 strEntryTag : (new Date().getTime() + "ms");
+  eEntry.appendChild(this.ownerDocument.createTextNode(strEntry));
+  this.appendChild(eEntry);
+  //Add new line
+  this.appendChild(this.ownerDocument.createElement("br"));
+  //Make the last entry visible in the viewport
+  if (this.offsetHeight > this.scrollHeight)
+    this.scrollTop = 0;
+  else
+    this.scrollTop = this.scrollHeight;
+
+  return true;
+  }
+return false;
+}
+
 //-----------------------------------------------------------------------------
 /*Dumps browser's plugins.
   Note: Netscape specific.
@@ -34,15 +119,15 @@
 function DumpPulgins()
 {
 var b = document.getElementsByTagName("body")[0];
-document.writeln("<p><dl title='Plugins'>\n<dt>Enabled Plugins</dt>\n<dd><table>");
+document.writeln("<p><dl title='Plugins'>\n<dt>Enabled Plugins<\/dt>\n<dd><table>");
 for(var i = 0; navigator.mimeTypes[i]; i++)
   {
-  document.writeln("<tr><td>" + i + ".</td><td>" + navigator.mimeTypes[i].description + "</td>");
-  document.writeln("<td>" + navigator.mimeTypes[i].type + "</td>");
+  document.writeln("<tr><td>" + i + ".<\/td><td>" + navigator.mimeTypes[i].description + "<\/td>");
+  document.writeln("<td>" + navigator.mimeTypes[i].type + "<\/td>");
   if (navigator.mimeTypes[i].suffixes)
-    document.writeln("<td>" + navigator.mimeTypes[i].suffixes + "</td></tr>");
+    document.writeln("<td>" + navigator.mimeTypes[i].suffixes + "<\/td><\/tr>");
   else
-    document.writeln("<td></td></tr>");
+    document.writeln("<td><\/td><\/tr>");
   if ((navigator.mimeTypes[i].enabledPlugin) &&
      (navigator.mimeTypes[i].enabledPlugin.length) )
   for (var j = 0; navigator.mimeTypes[i].enabledPlugin.length > j; j++)
@@ -50,12 +135,12 @@ for(var i = 0; navigator.mimeTypes[i]; i++)
     var strPluginType = navigator.mimeTypes[i].enabledPlugin[j].type;
     var strPluginExt  = navigator.mimeTypes[i].enabledPlugin[j].suffixes;
     if (strPluginType != "")
-      document.writeln("<tr><td></td><td></td><td>" + strPluginType + "</td><td>" + strPluginExt + "</td></tr>");
+      document.writeln("<tr><td><\/td><td><\/td><td>" + strPluginType + "<\/td><td>" + strPluginExt + "<\/td><\/tr>");
     else if (strPluginExt != "")
-      document.writeln("<tr><td></td><td></td><td>" + strPluginType + "</td><td>" + strPluginExt + "</td></tr>");
+      document.writeln("<tr><td><\/td><td><\/td><td>" + strPluginType + "<\/td><td>" + strPluginExt + "<\/td><\/tr>");
     }
   }
-document.writeln("</table></dd></p>");
+document.writeln("<\/table><\/dd><\/p>");
 }
 </script>
 </head>
@@ -64,10 +149,11 @@ document.writeln("</table></dd></p>");
 
 <h2>Test Component Object Model (COM) Container</h2>
 
-<!-- Test stock COM object --------------------------------------------------->
+<!-- Test stock COM object - - - - - - - - - - - - - - - - - - - - - - - -  -->
 <h3>Test FileSystemObject Object</h3>
 <dl><dt>My Computer</dt>
 <script language="JavaScript" type="text/javascript">
+//debugger;
 if (typeof ActiveXObject != 'undefined')
   {
   var fsObj      = new ActiveXObject("Scripting.FileSystemObject");
@@ -85,16 +171,154 @@ if (typeof ActiveXObject != 'undefined')
         strList += eItem.VolumeName;
       else
         strList += "device is not ready";
-      strList += "</dd>\n";
+      strList += "<\/dd>\n";
       enumDrives.moveNext();
       } while(!enumDrives.atEnd());
     document.write(strList);
     }
   }
+else
+  document.writeln("<dd>requires ActiveX plug-in<\/>");
 </script>
+  <dd><hr align="left" width="30%" /></dd>
 </dl>
 
-<!-- Test stock custom object ------------------------------------------------>
+
+<!-- Test embedded custom object - - - - - - - - - - - - - - - - - - - - -  -->
+<script language="JavaScript" type="text/javascript">
+  //debugger;
+  try
+    {
+    //object class physical name (uuid) from the .idl file
+    //strClsId = TestComAtlNet.TestAtl7Web;//"8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543";
+    document.writeln("<h3>Test Embedded Object<\/h3>");
+    }
+  catch(e)
+    {
+    document.writeln(e.name + ' (' + e.number + ') ' + e.description + '<br \/>');
+    }
+</script>
+<dl>
+  <dt>COM Class ID</dt>
+  <dd>
+    <script language="JavaScript" type="text/javascript">
+      document.writeln('classid="' + TestComAtlNet.TestAtl7Web.ClsId + '"');
+    </script>
+  </dd>
+
+  <dt title="&lt;object&gt;">
+
+    <!-- Test as embedded object - - - - - - - - - - - - - - - - - - - - -  -->
+
+    <object classid="clsid:22252C96-126D-4147-A963-C38BC7E1E644"
+            id="objIdTestAtl7Web" name="Testing ComAtlNet"
+            width="50" height="50" border="1" VIEWASTEXT>
+      <param name="String" value="Test embedded object" />
+      <param name="Long"  value="20060912" />
+
+      <!-- Netscape with ActiveX plugin object -->
+      <embed classid="clsid:8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543"
+             name="objIdTestAtl7Web" type="application/oleobject"
+             width="50" height="50" border="1"
+             String="Test embedded object"
+             Long="20060912"
+             />
+    </object>
+  </dt>
+
+  <!-- Test Object::Eventname event sink -->
+  <dt>Object::Eventname</dt>
+  <dd title="Object::Eventname JavaScript">
+    <div id="ID_LOGTEST7W">
+      <!-- hook up script to events through a naming convention
+           Object::Eventname. The object have to be available when the page
+           loads and the script engine will do the event binding.
+        -->
+      <script language="JavaScript" type="text/javascript">
+        try
+          {
+          debugger;
+          var hLog7W = document.getElementById('ID_LOGTEST7W');
+          hLog7W.LogEntry = LogEntry; //appends an entry
+          hLog7W.nCount   = 0;        //record count
+          hLog7W.nSize    = 5;        //log size
+
+          /*Handles (sinks) events from the embedded object.
+            Logs up to nSize events to the element id = ID_LOGTEST7W
+           */
+          function objIdTestAtl7Web::TestAtlEvent(strValue)
+            {
+            if (hLog7W.nCount < hLog7W.nSize)
+              {
+              hLog7W.nCount++;
+              hLog7W.LogEntry('Event from object "' +
+                              objIdTestAtl7Web.name + '"');
+              }
+            }
+          }
+        catch(e)
+          {
+          document.writeln(e.name + ' (' + e.number + ') ' + e.description + '<br \/>');
+          }
+        </script>
+      </div>
+  </dd>
+
+  <!-- Test Object_Eventname event sink -->
+  <dt>Object_Eventname</dt>
+  <dd title="Object_Eventname VBScript">
+      <!-- hook up VBScript to events through a naming convention
+           Object_Eventname.
+        -->
+
+    <script language="vbscript">
+          'Handles (sinks) events from the embedded object.
+          ' Logs up to nSize events to the element id = ID_LOGTEST7W
+      sub objIdTestAtl7Web_TestAtlEvent(strValue)
+        'Dim nSize as Integer
+        'nSize Set 5
+
+        'alert("Event - VBScript")
+      end sub
+    </script>
+  </dd>
+  <dd><hr align="left" width="30%" /></dd>
+
+</dl>
+
+
+
+<script language=JScript type="text/javascript" for=objIdTestAtl7Web event="TestAtlEvent">
+  debugger;
+  alert("script block handler - JScript");
+</script>
+
+
+
+<!--EOT- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+<hr />
+<script language="JavaScript" type="text/javascript">
+  document.write("<img src='../../../../../../Doc/Res/S/icoJavaScript.gif' alt='JavaScript' border='0' \/>");
+  try
+    {
+    if (typeof ActiveXObject == 'undefined')
+      {
+      document.write(" <b style='color:red'>Browser does not support ActiveX.<\/b>");
+      DumpPulgins(); //List plugins enabled in Mozilla family browsers
+      }
+    }
+  catch(e)
+    {
+    document.writeln(e.name + ' (' + e.number + ') ' + e.description + '<br \/>');
+    }
+</script>
+<noscript><p style="color:red">JavaScript seems to be disabled!</p></noscript>
+
+</body>
+
+</html>
+
+<!-- Test custom COM object --------------------------------------------------  >
 <script language="JavaScript" type="text/javascript">
   var strCoClass = "TestAtl7Web";
   document.writeln("<h3>Test " + strCoClass +" Object</h3>");
@@ -134,7 +358,7 @@ if (typeof ActiveXObject != 'undefined')
     debugger;
     if (typeof ActiveXObject != 'undefined')
       {
-      //Creates an ActiveX object, based on the specified programmatic 
+      //Creates an ActiveX object, based on the specified programmatic
       //identifier (ProgID).
       var testObj = new ActiveXObject(strProgId);
       if (testObj != null)
@@ -144,8 +368,8 @@ if (typeof ActiveXObject != 'undefined')
           //var nTypeInfoCount = 1;
           //nTypeInfoCount =testObj.GetIDsOfNames();
           //testObj.GetTypeInfoCount(nTypeInfoCount);
-          
-          
+
+
           //Increment the test count
           testObj.TestMethod(); //1
           document.writeln("Increment the test count.<br />");
@@ -155,11 +379,11 @@ if (typeof ActiveXObject != 'undefined')
           document.writeln("Count = " + nTestCount + "<br />");
           if (nTestCount != 2)
             document.writeln("<b>Test failed!</b><br />");
-            
+
           testObj.TestMethod(); //3
-          var nRes = testObj.TestCounter(44); //[propget] attribute 
+          var nRes = testObj.TestCounter(44); //[propget] attribute
           document.writeln("44*" + nTestCount + " = "+ nRes +"<br />");
-          
+
           testObj.TestMethod(); //4
           nTestCount = testObj.GetMethod();
           document.write("Getting Long ");
@@ -175,17 +399,17 @@ if (typeof ActiveXObject != 'undefined')
             testObj.TestMethod(); //5
             document.writeln("Set <code>String</code> property:<br />");
             testObj.String = strText;
-            document.writeln("<code>String</code> property is <i>" + 
+            document.writeln("<code>String</code> property is <i>" +
                               testObj.String + "</i>.<br />");
             }
           catch(err1)
             {
             if (err1.description == "")
               err1.description = "Inaccessible object: property String" + strProgId;
-            document.writeln(err.name + "(" + 
+            document.writeln(err.name + "(" +
                   err1.number + ")<br />" + err1.description );
             }
-          //Test setter an getter methods for a string 
+          //Test setter an getter methods for a string
           testObj.TestMethod(); //6
           document.writeln("<code>SetString</code> method:<br />");
           testObj.SetString(strProgId);
@@ -197,7 +421,7 @@ if (typeof ActiveXObject != 'undefined')
           {
           if (err.description == "")
             err.description = "Inaccessible object: " + strProgId;
-          document.writeln(err.name + "(" + 
+          document.writeln(err.name + "(" +
                 err.number + ")<br />" + err.description );
           }
         }
@@ -207,67 +431,4 @@ if (typeof ActiveXObject != 'undefined')
     </script>
   </dd>
 </dl>
-
-<!-- Test embedded custom object --------------------------------------------->
-<script language="JavaScript" type="text/javascript">
-  debugger;
-  //object class physical name (uuid) from the .idl file
-  strClsId = "8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543";
-  document.writeln("<h3>Test " + strClsId +" Object</h3>");
-</script>
-<dl>
-  <dt>
-    <!-- test as embedded Object-->
-    
-    <object classid="clsid:8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543" 
-            id="ID_TESTATL7OBJ" name="TestComAtlNet" 
-            width="50" height="50" border="1" VIEWASTEXT>
-      <param name="TestAtl7Web.String" value="Test embedded object">
-      
-      <!-- Netscape with ActveX plugin object -->
-      <embed classid="clsid:8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543" 
-             name="ID_TESTATL7OBJ" type="application/oleobject" 
-             width="50" height="50" border="1" 
-             String="Test embedded object"
-             />
-   </object>
-  
-  </dt>
-</dl>
-
-<script language="JavaScript" type="text/javascript" for="ID_TESTATL7OBJ" event="OnTestHit">
-  document.bgColor = 0xbebebe;
-</script>
-
-<!--EOT----------------------------------------------------------------------->
-<hr />
-<script language="JavaScript" type="text/javascript">
-  document.write("<img src='../../../../../../Doc/Res/S/icoJavaScript.gif' alt='JavaScript' border='0'>");
-  if (typeof ActiveXObject == 'undefined')
-    {
-    document.write(" <b style='color:red'>Browser does not support ActiveX.</b>");
-    DumpPulgins(); //List plugins enabled in Mozilla family browsers
-    }
-</script>
-<noscript><p style="color:red">JavaScript seems to be disabled!</p></noscript>
-
-</body>
-
-</html>
-
-<!--
-easiest way to determine if the ActiveX DLL was installed and registered correctly
-You should try the following code, replacing oControl with your OBJECT ID.
-
-if ("undefined" != typeof(document.all("oControl")) && 
-    null != document.all("oControl").object) 
-{
-    // The control is installed
-}
-else 
-{
-    // The control is not installed
-}
-
-
 -->

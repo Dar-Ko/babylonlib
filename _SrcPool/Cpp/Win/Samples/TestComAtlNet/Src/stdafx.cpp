@@ -6,5 +6,5 @@
 
 #include "stdafx.h"
 
-uint32_t g_nDbgBreak = 3; //disable (0) or enable (>0) debugger breakpoints
+uint32_t g_nDbgBreak = 0; //disable (0) or enable (>0) debugger breakpoints
                           //through ATLASSERT macro

@@ -1,6 +1,6 @@
 /*$Workfile: TestAtl7Web.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-03-08 20:40:20$
-  $Author: Darko Kolakovic$
+  $Revision: 6$ $Date: 2007-03-12 02:27:07$
+  $Author: Darko$
 
   Implementation file
   Copyright: CommonSoft Inc.
@@ -29,7 +29,7 @@ void CALLBACK CTestAtl7Web::EventSource(HWND hwnd, //[in] handle to the window
                          )
 {
 ATLTRACE("CTestAtl7Web::EventSource()\n");
-ATLASSERT(g_nDbgBreak == 3); //debugger breakpoint
+ATLASSERT(g_nDbgBreak != 3); //debugger breakpoint
 
 HRESULT hRes = S_OK;
 try
@@ -136,7 +136,7 @@ HRESULT STDMETHODCALLTYPE CTestAtl7Web::GetIDsOfNames(REFIID riid, //Reserved
                                              //array with ids of names to be mapped
                                                 ) 
 {
-ATLASSERT(g_nDbgBreak == 1); //Convinient way to set breakpoint;
+ATLASSERT(g_nDbgBreak != 1); //Convinient way to set breakpoint;
 
 HRESULT hRes = S_OK;
 try
@@ -169,7 +169,7 @@ return hRes;
 */
 STDMETHODIMP CTestAtl7Web::TestMethod(void)
 {
-ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak != 2); //debugger breakpoint
 //Increase test count
 m_lTestCount++;
 ATLTRACE("CTestAtl7Web::TestMethod(count = %d)", m_lTestCount);
@@ -185,7 +185,7 @@ return S_OK;
 STDMETHODIMP CTestAtl7Web::GetMethod(LONG* pVal //[out] test count
                                     )
 {
-ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak != 2); //debugger breakpoint
 ATLTRACE("CTestAtl7Web::GetMethod(count = %d)\n", m_lTestCount);
 
 if (NULL == pVal) 
@@ -206,7 +206,7 @@ STDMETHODIMP CTestAtl7Web::get_TestCounter(long lInput, //[in] multiplier
                                            LONG* pResult //[out]
                                           )
 {
-ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak != 2); //debugger breakpoint
 ATLTRACE("CTestAtl7Web::get_TestCounter(lInput = %d)\n", lInput);
 
 if (NULL == pResult) 
@@ -224,7 +224,7 @@ return S_OK;
 STDMETHODIMP CTestAtl7Web::Long(LONG* pVal //[out] result
                                )
 {
-ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak != 2); //debugger breakpoint
 ATLTRACE("CTestAtl7Web::Long()\n");
 
 if (NULL == pVal) 
@@ -246,7 +246,7 @@ return S_OK;
 STDMETHODIMP CTestAtl7Web::get_String(BSTR* pVal//[out]
                                      )
 {
-ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak != 2); //debugger breakpoint
 ATLTRACE("CTestAtl7Web::get_String()\n");
 
 if (NULL == pVal) 
@@ -280,7 +280,7 @@ return hRes;
 STDMETHODIMP CTestAtl7Web::put_String(BSTR newVal //[in]
                                      )
 {
-ATLASSERT(g_nDbgBreak < 2); //debugger breakpoint
+ATLASSERT(g_nDbgBreak != 2); //debugger breakpoint
 ATLTRACE("CTestAtl7Web::put_String(%ws)\n", newVal);
 try
   {
@@ -312,13 +312,14 @@ return put_String(newVal);
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
-*  5    Biblioteka1.4         2007-03-08 20:40:20  Darko Kolakovic Event sink
-*  4    Biblioteka1.3         2007-03-06 18:01:46  Darko Kolakovic Fire an event
+*  6    Biblioteka1.5         2007-03-12 02:27:07  Darko           Debug flag
+*  5    Biblioteka1.4         2007-03-08 21:40:20  Darko Kolakovic Event sink
+*  4    Biblioteka1.3         2007-03-06 19:01:46  Darko Kolakovic Fire an event
 *       each 3s
-*  3    Biblioteka1.2         2007-03-01 20:09:51  Darko Kolakovic Test setting a
+*  3    Biblioteka1.2         2007-03-01 21:09:51  Darko Kolakovic Test setting a
 *       property
-*  2    Biblioteka1.1         2007-03-01 00:10:11  Darko Kolakovic TestCounter
+*  2    Biblioteka1.1         2007-03-01 01:10:11  Darko Kolakovic TestCounter
 *       property
-*  1    Biblioteka1.0         2007-02-26 18:16:13  Darko Kolakovic 
+*  1    Biblioteka1.0         2007-02-26 19:16:13  Darko Kolakovic 
 * $
 *****************************************************************************/
