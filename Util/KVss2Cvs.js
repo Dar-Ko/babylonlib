@@ -1,11 +1,10 @@
 /*$Workfile: KVss2Cvs.js$: script file
-  $Revision: 4$ $Date: 2006-11-02 18:41:01$
+  $Revision: 5$ $Date: 2007-01-11 11:02:54$
   $Author: Darko Kolakovic$
 
-  Converts Microsoft Visual SourceSafe repository to CVS format.
+  Converts  Microsoft Visual SourceSafe repository to CVS format.
   Copyright: 1999-2001 Curt Hagenlocher
   1999-11-30 Curt Hagenlocher
-  2004-10-29 Darko Kolakovic
  */
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,434 +14,49 @@
   32-bit versions of Revision Control System tools ci.exe, rcs.exe and diff.exe.
   On systems with Win9x or WinNT, Windows Scripting Host have to be installed.
 
+  Note: The script uses exceptions and requires a script engine compliant
+  with ECMA-262, 3rd Edition, 1999.
+  
   See also: http://www.cs.purdue.edu/homes/trinkle/RCS/
 
   The script uses the Automation interface to Visual SourceSafe (VSS). VSS does
   not store date when in VSS a file was deleted, therefore such files are not
-  labeled correctly after moving to CVS Attic. Branching is ignored because of
+  labeled correctly after moving to CVS Attic. Branching is ignored becouse of
   different meaning of a branch in to systems.
   'Shared file' flag is also ignored.
  */
-
-debugger;
-
-////////////////////////////////////////////////////////////////////////////////
-// Set default output
-
-var g_defOut = new Object(); //default output device
-
-if(this.WScript != null) //Windows Script Host shell
-  {
-  g_defOut.Write   = WScript.Echo;
-  g_defOut.WriteLn = g_defOut.Write; //TODO:
-  g_defOut.WriteHtml = WScript.Echo; //TODO: strip HTML
-
-  main(); //Run the script
-  }
-else if (document != null) //HTML Browser shell
-  {
-    /*Note: Mozilla 1.5 generates NS_ERROR_XPC_BAD_OP_ON_WN_PROTO exception after
-      assigning document.write/writeln to an object and accessing it:
-         oWrite = document.write;
-         oWrite("str");
-     */
-
-     //TODO: Replace HTML escapes : document.writeln(EscapeHTml());
-  g_defOut.WriteLn =
-    function (szText //[in] line of text to output
-             )
-      {
-      if (szText != undefined)
-        //Outputs text to either a message box or the command console window.
-        document.writeln(escapeHtml2(szText) + "<br />");
-      else
-        document.writeln("&lt;null&gt;<br />");
-      };
-  g_defOut.Write =
-    function (szText //[in] line of text to output
-             )
-      {
-      if (szText != undefined)
-        //Outputs text to either a message box or the command console window.
-        document.write(escapeHtml2(szText));
-      else
-        document.write("&lt;null&gt;");
-      };
-  //Write preformatted HTML text
-  g_defOut.WriteHtml =
-    function (szText //[in] line of text to output
-             )
-      {
-      if (szText != undefined)
-        //Outputs text to either a message box or the command console window.
-        document.write(szText);
-      else
-        document.write("&lt;null&gt;");
-      };
-
-  //Call main() from the HTML document
-  }
-
-///////////////////////////////////////////////////////////////////////////////
-// Constants
-
-//Definition of the argument values for the exit() function
-/*const*/ var EXIT_SUCCESS = 0;
-/*const*/ var EXIT_FAILURE = 1;
-//Definition of the successful results
-/*const*/ var S_OK         = 0;
-/*const*/ var S_FALSE      = 1;
-/*const*/ var NO_ERROR     = 0;
-//Error codes
-/*const*/ var ERROR_SUCCESS = 0; //no errors
-/*const*/ var EOF = (-1); //'End of File' tags end of a stream
-
-//-----------------------------------------------------------------------------
-//COM type library constants
-/*const*/ var ForReading   = 1;//open a file for reading only.
-/*const*/ var ForWriting   = 2;//open a file for writing
-/*const*/ var ForAppending = 8;//open a file and write to the end of the file
-
-/*const*/ var TristateFalse      =  0;//opens the file as ASCII
-/*const*/ var TristateTrue       = -1;//opens the file as Unicode
-/*const*/ var TristateUseDefault = -2;//opens the file using the system default
-/*const*/ var TristateMixed      = -2;
-
-/////////////////////////////////////////////////////////////////////////////
-// Resources
-var resString = new Array(); //string resource lang=en
-resString['ERR_ACTIVEX'] = "The script requires Microsoft ActiveX objects to run!";
-resString['IDS_GETIE'] = 'Install the latest version of Internet Explorer.';
-resString['IDS_IEVER'] = "This page requires Windows IE 5.5 or higher.";
-resString['ERR_VSSARG'] = "Invalid VSS syntax: <syntax>\r\n" +
-        "The syntax you entered is invalid in VSS.\r\n" +
-        "This error has the following cause and solution:\r\n" +
-        "You have entered a VSS file or project path that does not use valid syntax.\r\n"+
-        "In VSS syntax, every path starts with a dollar sign followed by a series of\r\n"+
-        "project names, which are separated by slashes and optionally\r\n"+
-        "followed by a file name. For example:\r\n" +
-        "  - $/ is the root project.\r\n" +
-        "  - $/Code is a subproject of $/.\r\n" +
-        "  - $/Code/Win/Test.C is a file in the $/Code/Win project.\r\n" +
-        "Many parts of this syntax are optional. You can omit the dollar sign\r\n"+
-        "in most circumstances. You can also shorten the path by basing it\r\n"+
-        "on your current project; for example, if you are in $/Code, you can\r\n"+
-        "type WIN as a shorthand for $/Code/Win, Test.C for $/Code/Test.C\r\n"+
-        "and .. for the root.";
-///////////////////////////////////////////////////////////////////////////////
-// Starting point
-
-//------------------------------------------------------------------------------
-//Main
-function main()
-{
-try
-  {
-  if (!isWinShell()) //ActiveX is required
-    return EXIT_FAILURE;
-var fs = new ActiveXObject("Scripting.FileSystemObject");
-
-  }
-catch(error)
- {
-  if((error.result != undefined) && (error.result == 0x8057000c))
-    {
-    //NS_ERROR_XPC_BAD_OP_ON_WN_PROTO
-    //Illegal operation on WrappedNative prototype object
-    g_defOut.WriteLn(error);
-    if (lf != undefined)
-      lf.close();
-    return EXIT_FAILURE;
-    }
-  g_defOut.WriteLn(error.message + ": " + logfile);
-  bEnableLog = false; //Proceed without logging
-  }
-
-try
-  {
-  var db  = new ActiveXObject("SourceSafe");
-  if (vss_ini_file.length > 0)
-    db.Open(vss_ini_file, vss_username, vss_password);
-  else
-    db.Open();
-
-  if (vss_project.charAt(vss_project.length - 1) != '/')
-    vss_project    += '/';
-  if (rcs_repository.charAt(rcs_repository.length - 1) != '\\')
-    rcs_repository += '\\';
-  if (rcs_path.length > 0 && rcs_path.charAt(rcs_path.length - 1) != '\\')
-    rcs_path       += '\\';
-
-  var shell = new ActiveXObject("WScript.Shell");
-  ConvertDir(vss_project, rcs_repository);
-
-  }
-catch(error)
-  {
-  addlog(verbose, bEnableLog, error.description);
-  g_defOut.WriteLn(error.message);
-  }
-
-if (lf != undefined)
-  lf.close();
-if (!quiet)
-  g_defOut.WriteLn ("Done.");
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// Logger
-
-// With quiet set to true, the script will not popup for any reason,
-// including errors
-// With verbose set to true, the script will print out all RCS commands
-// as they are run, directory and files creation
-// With debug set to true, you'll get more popups than you'll ever need
-var quiet           = false;
-var verbose         = false;
-var debug           = true;
-
-// Enable Logging by setting log to true and logfile to the filename
-// full_log set to true will log every RCS command
-
-var bEnableLog         = true
-var full_log    = true;
-var logfile     = "_VssCvs.log"
-
-// Normalize some options
-if (quiet)
-  {
-  verbose = false;
-  debug   = false;
-  }
-var fsLog = new ActiveXObject("Scripting.FileSystemObject");
-
-  //Create log file
-var lf;
-if(bEnableLog)
-  {
-  lf = fsLog.OpenTextFile(logfile, ForWriting, true, TristateUseDefault);
-  }
-
-//------------------------------------------------------------------------------
-/*Display and log event messages.
- */
-function addlog(bDisplayMessage,//[in]true if the message is to be displayed
-                bWriteMessage, //[in] true if the message is to be written in the log
-                szMessage      //[in] text do be displayed
-               )
-{
-try
-  {
-  if (bDisplayMessage)
-    g_defOut.WriteLn(szMessage);
-  if (bWriteMessage && (lf != undefined))
-    lf.WriteLine(szMessage);
-  }
-catch (err)
-  {
-  g_defOut.WriteLn(err.message);
-  if (lf != undefined)
-    lf.WriteLine(err.description);
-  }
-}
-
-///////////////////////////////////////////////////////////////////////////////
-// Helpers
-
-//------------------------------------------------------------------------------
-/*Verifies if the current browser is Microsoft Internet Explorer 5.0+ and if the
-  platform is 32-bit Microsoft Windows OS.
-
-  Returns: true if conditions are met, otherwise returns false.
-  */
-function validateBrowser()
-{
-var strVers = navigator.appVersion;
-var strName = navigator.appName;
-var strPlat = navigator.platform;
-var intVer = strVers.indexOf("MSIE");
-if (intVer > -1)
-  {
-  intVer = strVers.substring( intVer + 5, strVers.indexOf(";", intVer));
-  intVer = parseInt(intVer);
-  return (strName == "Microsoft Internet Explorer" && strPlat == "Win32" && intVer > 5);
-  }
-return false;
-}
-
-//------------------------------------------------------------------------------
-/*Verifies if environment conditions are met.
-
-  Returns: true if conditions are met, otherwise returns false.
-  */
-function isWinShell()
-{
-var bRes = true;
-if (typeof ActiveXObject == 'undefined') //Microsoft IE shell is required
-  {
-  g_defOut.WriteLn(resString['ERR_ACTIVEX']);
-  bRes = false;
-  }
-//Check the version of IE, if the shell is not WSH
-if((this.WScript == null) && !validateBrowser())
-  {
-  g_defOut.WriteLn(resString['IDS_IEVER']);
-  var strFormatMsg =
-    "<p id='IDS_GETIE'><font size='2'>\n" +
-    "  <a href='http://www.microsoft.com/isapi/redir.dll?Prd=Office&Sbp=Access&Pver=10&Ar=DPdesigner&Sba=IEhome&Plcid=1033'>\n  " +
-    resString['IDS_GETIE'] +
-    "\n  </a></font>\n</p>\n";
-    g_defOut.WriteHtml(strFormatMsg);
-  bRes = false;
-  }
-return bRes;
-}
-
-//-----------------------------------------------------------------------------
-/*Replaces HTML 2.0 special characters with HTML entities. Function also
-  converts single quote (') to escaped sequence (\').
-
-     Character          Entity
-     Less than sign        &lt;
-     Greater than sign     &gt;
-     Ampersand            &amp;
-     Double quote sign    &quot;
-
-  See also: RFC1866: Hypertext Markup Language 2.0 - 9.7.1 Numeric and Special
-  Graphic Entity Set, ISO 8879:1986.
- */
-function escapeHtml2(strText //[in] plain text
-                    )
-{
-if (!strText)
-  return "";
-
-return strText.replace(
-    /([<>&\"'])/g,
-    function ($1)
-      {
-      switch ($1)
-        {
-        case "<":   return "&lt;";
-        case ">":   return "&gt;";
-        case "&":   return "&amp;";
-        case "\"":  return "&quot;";
-        case "'":   return "\\'";
-        }
-      }
-    );
-}
-
-//-----------------------------------------------------------------------------
-/*Filename pattern matching. Matches a filename with a pattern consisting of
-  charaters and wildcards. The special characters used as wildcards are:
-
-     Wildcard    Description
-       *        matches everything
-       ?        matches any single character
-     [list]     matches any character in list
-     [!list]    matches any character not in list
-
-  Returns: true or false as result of the pattern match.
- */
-function FnMatch(szFilename, //[in] filename to match
-                 szPattern , //[in] pattern to match
-                 bCaseInsensitive, //= false [in] true or false for case-insensitive
-                                   //comparison
-                 arrPatternCache   //= null [in] list of patterns and their regular
-                      //expression equivalents, used to speed up the conversion
-                 )
-{
-if ((szFilename == undefined) || (szPattern == undefined))
-  return false; //Nothing to do
-if (bCaseInsensitive == undefined)
-  bCaseInsensitive = false;
-
-var rePattern; //file name RegExp pattern
-if (arrPatternCache != undefined)
-  rePattern = arrPatternCache[szPattern]; //Get the pattern from the cache
-
-//if ((arrPatternCache==undefined) || (arrPatternCache[szPattern] == undefined))
-if(rePattern == undefined)
-  {
-   //Convert filename pattern to regular expression pattern
-  var szRegex = ""; //regular expression pattern to match
-  var i = 0;
-  while (i < szPattern.length)
-    {
-    var ch = szPattern.charAt(i++);
-    if (ch == '*')      //Matches any number of characters
-      szRegex += ".*";
-    else if (ch == '?') //Matches any character
-      szRegex += '.';
-    else if (ch == '[') //Matches any single character from the specified set.
-      {
-      var j = i;
-      if (j < szPattern.length && szPattern.charAt(j) == '!')
-        j++;
-      if (j < szPattern.length && szPattern.charAt(j) == ']')
-        j++;
-      //Get the size of the character set
-      while (j < szPattern.length && szPattern.charAt(j) != ']')
-        j++;
-
-      if (j >= szPattern.length)
-        {
-        //Escape regex special character '[' if no closing ']' is found
-        szRegex += "\\[";
-        }
-      else
-        {
-        var szList = szPattern.slice(i, j);
-        i = j + 1; //Move index to the and of the set
-
-        //Replace regex special characters '\','^','[' and ']'
-        szList = szList.replace(/\\/g, "\\\\");
-        szList = szList.replace(/\^/g, "\\^");
-        szList = szList.replace(/\]/g, "\\]");
-        szList = szList.replace(/\[/g, "\\[");
-
-        //To matches any single character not in the specified set of characters,
-        //repace first '!' with regex special character '^'
-        szList = szList.replace("!", "^");
-        szRegex += '[' + szList + ']';
-        }
-      }
-    else if (ch.match(/\W/))
-      szRegex += "\\" + ch;
-    else
-      szRegex += ch;
-    }
-
-  //Specifies case-insensitive matching.
-  rePattern = new RegExp(szRegex + '$', bCaseInsensitive ? "i" : "");
-  if (arrPatternCache != undefined)
-    arrPatternCache[szPattern] = rePattern; //Store the pattern to the cache
-  }
-//Note: the match method returns null or an array with found patterns
-return (szFilename.match(rePattern) != null);
-}
-
 //-----------------------------------------------------------------------------
 /*Configuration information.
   Initialize following  configuration variables:
-     vss_project          specifies the VSS project to use
+     g_szVssProject       specifies the VSS project to use
      rcs_repository       describes the destination path and
      rcs_path             the directory containing RCS/CVS tools.
  */
 
-// The VSS project directory to convert
-//var vss_project     = "\\\\TPDC01\\VSS\\$/Build Versions/2002 06 10/Catapult_RAD";
-var vss_project     = "$/Build Versions/2002 06 10/Catapult_RAD";
-//var vss_project     = "$/";
-var vss_usedeleted  = true;
+/*The VSS project directory to convert. A project is a collection of files
+  that you store in VSS. A VSS database could have one  or more projects.
+  Project name have following format:
+        $/<project name>/<sub project name>/...
+*/
+//var g_szVssProject     = "\\\\TPDC01\\VSS\\$/Build Versions/2002 06 10/Catapult_RAD";
+var g_szVssProject     = "$/Build Versions/2002 06 10/Catapult_RAD/OCXs/DirSeekerControl/";
+//var g_szVssProject     = "$/";
+/*Indicate if deleted VSS items are to be included in the current items
+  collection. The default value of this parameter is false.
+  SourceSafe allows the user to delete a file or project item.
+  SourceSafe retains deleted items until they are purged or recovered.
+  The Deleted property of a VSSItem is used to set or retrieve the current
+  deleted state of the object. When a project is deleted, all of
+  its files and subprojects are deleted as well.
+ */
+var g_bVssIncludeDeleted  = true;
 
 // File specifications for the conversion
-// To skip all subdirectories, leave vss_subdirspec empty
-// Specifications follow the DOS/Un*x standard with *, ? and [].
-var vss_filespec    = "*";
-var vss_subdirspec  = "*";
-var fnmatch_case    = false; // true if case-sensitive
+// To skip all subdirectories, leave g_szVssFilterSubdir empty
+// Filter uses Unix wildcard charaters *, ? and [].
+var g_szVssFilterFilename  = "*";   //VSS filename filter
+var g_szVssFilterSubdir    = "[!xyq]";//"*";   //VSS subdirectory name filter
+var g_bCaseComaparaison    = false; //true if case-sensitive
 var max_comment_len = 400;   // depends on various path lengths
 
 // If one of these three is specified, then all must be
@@ -471,7 +85,21 @@ var rcs_repository  = "C:\\Development\\catapult3.a";
 var rcs_path        = "";
 
 
+// With quiet set to true, the script will not popup for any reason,
+// including errors
+// With verbose set to true, the script will print out all RCS commands
+// as they are run, directory and files creation
+// With debug set to true, you'll get more popups than you'll ever need
+var quiet           = false;
+var verbose         = false;
+var debug           = true;
 
+// Enable Logging by setting log to true and logfile to the filename
+// full_log set to true will log every RCS command
+
+var bEnableLog         = true
+var full_log    = true;
+var logfile     = "_VssCvs.log"
 
 // Convert filenames to a standard case
 // These form a hierarchy -- each (if true) implies that
@@ -483,21 +111,328 @@ var lowercase_exts  = true;
 // Convert usernames to a standard case
 var lowercase_users = false;
 
+// Normalize some options
+if (quiet)
+  {
+  verbose = false;
+  debug   = false;
+  }
 
+//Definition of the argument values for the exit() function
+/*const*/ var EXIT_SUCCESS = 0;
+/*const*/ var EXIT_FAILURE = 1;
+//Definition of the successful results
+/*const*/ var S_OK         = 0;
+/*const*/ var S_FALSE      = 1;
+/*const*/ var NO_ERROR     = 0;
+//Error codes
+/*const*/ var ERROR_SUCCESS = 0; //no errors
+/*const*/ var EOF = (-1); //'End of File' tags end of a stream
 
+//COM type library constants
+var ForReading   = 1;//open a file for reading only. You can't write to this file.
+var ForWriting   = 2;//open a file for writing
+var ForAppending = 8;//open a file and write to the end of the file
 
+var TristateFalse      =  0;//opens the file as ASCII
+var TristateTrue       = -1;//opens the file as Unicode
+var TristateUseDefault = -2;//opens the file using the system default
+var TristateMixed      = -2;
+
+//VSSItemType Constants
+//See also: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dnvss/html/vssauto.asp
+/*Const*/ var VSSITEM_FILE    = 1; //the object represents a file
+/*Const*/ var VSSITEM_PROJECT = 0; //the object represents a VSS project.
+
+//------------------------------------------------------------------------------
+//Main
+try
+  {
+  var fs = new ActiveXObject("Scripting.FileSystemObject");
+    //Create log file
+  if(bEnableLog)
+    {
+    var lf = fs.OpenTextFile(logfile, ForWriting, true, TristateUseDefault);
+    }
+  }
+catch(error)
+  {
+  WScript.echo(error.message + ": " + logfile);
+  bEnableLog = false; //Proceed without logging
+  }
+
+try
+  {
+  //Visual SourceSafe 6.0 Automation object
+  var db  = new ActiveXObject("SourceSafe");
+  if (vss_ini_file.length > 0)
+    db.Open(vss_ini_file, vss_username, vss_password);
+  else
+    db.Open();
+
+  //Append trailing directory delimiter
+  if (g_szVssProject.charAt(g_szVssProject.length - 1) != '/')
+    g_szVssProject    += '/';
+  if (rcs_repository.charAt(rcs_repository.length - 1) != '\\')
+    rcs_repository += '\\';
+  if (rcs_path.length > 0 && rcs_path.charAt(rcs_path.length - 1) != '\\')
+    rcs_path       += '\\';
+
+  var shell = new ActiveXObject("WScript.Shell");
+  var duplicatefiles = new Array();
+  var cachedFilespecs  = new Object();
+
+  ConvertDir(g_szVssProject, rcs_repository);
+  }
+catch(error)
+  {
+  addlog(verbose, bEnableLog, error.description);
+  WScript.echo(error.message);
+  }
+
+if (lf != undefined)
+  lf.close();
+if (!quiet)
+  WScript.echo ("Done.");
+
+//------------------------------------------------------------------------------
+/*
+ */
+function ConvertDir(szVssProjectName, //[in] VSS project name
+                    szWorkingFolder   //[in] folder where VSS copies files out
+                    )
+{
+try
+  {
+  addlog(verbose, bEnableLog, "Creating " + szWorkingFolder + "...");
+  fs.CreateFolder(FixupRCSPath(szWorkingFolder, false));
+  }
+catch (err)
+  {
+  addlog(verbose, bEnableLog, err.description + ": " + szWorkingFolder );
+  }
+
+try
+  {
+  /*The Items property is used to reference the collection of VSSItems within
+    a project object. Each SourceSafe project may contain up to four types of
+    objects. These are:
+        - Deleted files
+        - Deleted projects
+        - Non-deleted files
+        - Non-deleted projects
+    The optional Boolean parameter is used to indicate if deleted items
+    are to be included in the current collection.
+   */
+  var items = new Enumerator(db.VSSItem(szVssProjectName).Items(g_bVssIncludeDeleted));
+  }
+catch (err)
+  {
+  if (err.number == -2147166483)
+    {
+    WScript.echo("Invalid VSS syntax: <syntax>\r\n" +
+      "The syntax you entered is invalid in VSS.\r\n" +
+      "This error has the following cause and solution:\r\n" +
+      "You have entered a VSS file or project path that does not use valid syntax.\r\n"+
+      "In VSS syntax, every path starts with a dollar sign followed by a series of\r\n"+
+      "project names, which are separated by slashes and optionally\r\n"+
+      "followed by a file name. For example:\r\n" +
+      "  - $/ is the root project.\r\n" +
+      "  - $/Code is a subproject of $/.\r\n" +
+      "  - $/Code/Win/Test.C is a file in the $/Code/Win project.\r\n" +
+      "Many parts of this syntax are optional. You can omit the dollar sign\r\n"+
+      "in most circumstances. You can also shorten the path by basing it\r\n"+
+      "on your current project; for example, if you are in $/Code, you can\r\n"+
+      "type WIN as a shorthand for $/Code/Win, Test.C for $/Code/Test.C\r\n"+
+      "and .. for the root.");
+    }
+  addlog(verbose, bEnableLog, err.description + ": " + szVssProjectName);
+  return;
+  }
+
+if (items.atEnd())
+  {
+  WScript.Echo("Nothing to do with " + szVssProjectName);
+  addlog(verbose, bEnableLog, szVssProjectName + " has no items!");
+  return;
+  }
+else while (!items.atEnd())
+  {
+  //Filter out required items.
+  var vssItem = items.item(); //VSSItem object represents a file or project
+                              //item within the SourceSafe database.
+  switch(vssItem.Type)
+    {
+    case VSSITEM_PROJECT:
+      //A project is a collection of files (any type) that you store in VSS.
+      if(g_szVssFilterSubdir.length > 0)
+        if (FnMatch(vssItem.Name, g_szVssFilterSubdir, g_bCaseComaparaison) )
+          ConvertDir(szVssProjectName + vssItem.Name + "/",
+                     szWorkingFolder + vssItem.Name + "\\");
+      break;
+    case VSSITEM_FILE:
+      if(FnMatch(vssItem.Name, g_szVssFilterFilename, g_bCaseComaparaison) )
+        ExportVssFile(szVssProjectName, szWorkingFolder, vssItem.Name);
+      break;
+    default:
+    }
+
+  items.moveNext();
+  }
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+function ExportVssFile(szVssProjectName,//[in] VSS project name
+                     szWorkingFolder, //[in] folder where VSS copies files out
+                     szFilename       //[in]
+                    )
+{
+addlog(verbose, bEnableLog, szVssProjectName + szFilename);
+var item = null, itemDeleted = null;
+try
+  {
+  //Obtain an undeleted item
+  item = db.VSSItem(szVssProjectName + szFilename, false);
+  }
+catch (x)
+  {
+  }
+
+  //Fetch deleted VSS items
+try
+  {
+  itemDeleted   = db.VSSItem(szVssProjectName + szFilename, g_bVssIncludeDeleted);
+  }
+catch (x)
+  {
+  }
+
+if (g_bVssIncludeDeleted)
+  {
+  if (item != null && itemDeleted != null)
+    {
+    if(duplicatefiles == undefied)
+      duplicatefiles = new Array();
+    //This file has both a deleted and an undeleted version
+    if (duplicatefiles[szVssProjectName + szFilename] == "done")
+      return; // Already processed
+    duplicatefiles[szVssProjectName + szFilename] = "done";
+    }
+
+  if (item == null)
+    item = itemDeleted;
+  }
+
+//Create a list of actions required to import a file to the CVS repository
+var localfile = FixupRCSPath(szWorkingFolder + szFilename, item.Deleted);
+var versions  = new Enumerator(item.Versions);
+var cmds      = new stack();
+var created   = false;
+
+// Set an upper bound for the time on the checkin
+var lastDate = new Date();
+lastDate.setFullYear(lastDate.getFullYear() + 1);
+
+if (item.Deleted)
+  {
+  // For a deleted file, the last thing to do is to mark it dead
+  cmds.push(new command(localfile, "rcs", "-sdead"));
+  }
+
+// Otherwise, the last thing to do when converting the file is to
+// reset it back to standard locking.  Put the lock
+// command at the bottom of the stack.
+cmds.push(new command(localfile, "rcs", "-L"));
+
+while (!created && !versions.atEnd())
+  {
+  var version = versions.item();
+
+  /*Possible values for the Action property are:
+    - Added
+    - Branch at version <version number>
+    - Checked in <SourceSafe file path>
+    - Created
+    - Deleted
+    - Destroyed
+    - Labeled <label>
+    - Moved <old SourceSafe path> to <new SourceSafe path>
+    - Renamed <old name> to <new name>
+    - Shared <SourceSafe file path>
+   undocumented values are:
+    - Pinned
+    - Purged
+    - Recovered
+    - Rollback to version <number>
+    - Unpinned
+    Bug: Moved action is impossible to produce because of the bug in the
+    Microsoft software.
+   */
+
+  if (version.Action.substring(0, 7) == "Created")
+    {
+    var c = new checkin(localfile, version, true, item.Binary, lastDate);
+    cmds.push(c);
+    lastDate = new Date(c.date);
+    created = true;
+    }
+  else if (version.Action.substring(0, 10) == "Checked in")
+    {
+    var c = new checkin(localfile, version, false, item.Binary, lastDate);
+    cmds.push(c);
+    lastDate = new Date(c.date);
+    }
+  else if (version.Action.substring(0, 7) == "Labeled")
+    {
+    cmds.push(new label(localfile, version.Label));
+    }
+  else if (version.Action.substring(0, 19) == "Rollback to version")
+    {
+    var c = new checkin(localfile, version, false, item.Binary, lastDate);
+    cmds.push(c);
+    lastDate = new Date(c.date);
+    }
+  else
+    {
+    addlog(quiet, bEnableLog, "Unhandled action: " + version.Action);
+    }
+  versions.moveNext();
+  }
+
+if (!created)
+  {
+  addlog(quiet, bEnableLog, szVssProjectName + szFilename +
+    " was never created.  Is there both a deleted and a non-deleted version?");
+  }
+
+try
+  {
+  if (debug)
+    cmds.show();
+  while (!cmds.empty())
+    {
+    cmds.pop().exec();
+    }
+  }
+catch (err)
+  {
+  addlog(quiet, bEnableLog, "Error in cmd: " + err);
+  }
+}
 
 ///////////////////////////////////////////////////////////////////////
 // Stack object definition
 
 function stack()
 {
-  this.data   = new Array();
-  this.empty  = stack_empty;
-  this.push   = stack_push;
-  this.pop    = stack_pop;
-  this.top    = stack_top;
-  this.show   = stack_print;
+this.data   = new Array();
+this.empty  = stack_empty;
+this.push   = stack_push;
+this.pop    = stack_pop;
+this.top    = stack_top;
+this.show   = stack_print;
 }
 
 function stack_empty()
@@ -538,7 +473,7 @@ function stack_print()
   {
     dmesg += "n "+ i +" :\t"+ this.data[i].name + "\n";
   }
-  g_defOut.WriteLn(dmesg);
+  WScript.echo(dmesg);
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -546,99 +481,177 @@ function stack_print()
 
 function TwoDigit(x)
 {
-  var y = "0" + x;
-  return y.substr(y.length-2, 2);
+var y = "0" + x;
+return y.substr(y.length-2, 2);
 }
 
+//-----------------------------------------------------------------------------
 function MakeRCSDate(datestring)
 {
-  var cidate = new Date(datestring);
-  return cidate.getUTCFullYear() + "/" + TwoDigit(1+cidate.getUTCMonth()) + "/" +
-    TwoDigit(cidate.getUTCDate()) + " " + TwoDigit(cidate.getUTCHours()) + ":" +
-    TwoDigit(cidate.getUTCMinutes()) + ":" + TwoDigit(cidate.getUTCSeconds());
+var cidate = new Date(datestring);
+return cidate.getUTCFullYear() + "/" + TwoDigit(1+cidate.getUTCMonth()) + "/" +
+  TwoDigit(cidate.getUTCDate()) + " " + TwoDigit(cidate.getUTCHours()) + ":" +
+  TwoDigit(cidate.getUTCMinutes()) + ":" + TwoDigit(cidate.getUTCSeconds());
 }
 
+//-----------------------------------------------------------------------------
 function left(s, n)
 {
-  if (s.length < n)
-    return s;
-  else
-    return s.substring(0, n);
+if (s.length < n)
+  return s;
+else
+  return s.substring(0, n);
 }
 
+//-----------------------------------------------------------------------------
 function FixupComment(comment)
 {
-  // Comment cannot consist of only whitespace
-  if (comment.match(/^\s*$/))
-    comment = ".";
+//Comment cannot consist of only whitespace
+if (comment.match(/^\s*$/))
+  comment = ".";
 
-  // Replace double-quotes with single-quotes
-  comment = comment.replace(/\"/g, "'");
+//Replace double-quotes with single-quotes
+comment = comment.replace(/\"/g, "'");
 
-  // Replace CR/LF with LF
-  comment = comment.replace(/\r\n/g, "\n");
+//Replace CR/LF with LF
+comment = comment.replace(/\r\n/g, "\n");
 
-  // Replace multiple LFs with one
-  comment = comment.replace(/\n+/g, "\n");
+//Replace multiple LFs with one
+comment = comment.replace(/\n+/g, "\n");
 
-  return "\"" + left(comment, max_comment_len) + "\"";
+return "\"" + left(comment, max_comment_len) + "\"";
 }
 
+//-----------------------------------------------------------------------------
 function FixupLabel(label)
 {
-  // Convert illegal characters to underscores
-  // Illegal characters include spaces
-  label = label.replace(/[\000-\031 ,@#\.]/g, "_");
+// Convert illegal characters to underscores
+// Illegal characters include spaces
+label = label.replace(/[\000-\031 ,@#\.]/g, "_");
 
-  // Labels cannot be all numeric
-  if (label.match(/^\d+$/))
-  {
-    label = "_" + label;
-  }
+// Labels cannot be all numeric
+if (label.match(/^\d+$/))
+  label = "_" + label;
 
-  return label;
+return label;
 }
 
+//-----------------------------------------------------------------------------
 function FixupUsername(username)
 {
-  if (lowercase_users)
-    return username.toLowerCase();
-  else
-    return username;
+if (lowercase_users)
+  return username.toLowerCase();
+else
+  return username;
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 function FixupRCSPath(szFilename, deleted)
 {
-  if (deleted)
+if (deleted)
   {
-    var re = szFilename.match(/^(.*)([\\/])([^\\/]+)$/);
-    if (re)
-      szFilename = re[1] + re[2] + "Attic" + re[2] + re[3];
-    else
-      szFilename = "Attic\\" + szFilename;
+  var re = szFilename.match(/^(.*)([\\/])([^\\/]+)$/);
+  if (re)
+    szFilename = re[1] + re[2] + "Attic" + re[2] + re[3];
+  else
+    szFilename = "Attic\\" + szFilename;
   }
-  if (lowercase_paths)
-    return szFilename.toLowerCase();
-  else if (lowercase_files)
+
+if (lowercase_paths)
+  return szFilename.toLowerCase();
+else if (lowercase_files)
   {
-    var re = szFilename.match(/^(.*)([\\/])([^\\/]+)$/);
-    if (re)
-      return re[1] + re[2] + re[3].toLowerCase();
-    else
-      return szFilename;
-  }
-  else if (lowercase_exts)
-  {
-    var re = szFilename.match(/^(.*)\.([^\\/.]+)$/);
-    if (re)
-      return re[1] + "." + re[2].toLowerCase();
-    else
-      return szFilename;
-  }
+  var re = szFilename.match(/^(.*)([\\/])([^\\/]+)$/);
+  if (re)
+    return re[1] + re[2] + re[3].toLowerCase();
   else
     return szFilename;
+  }
+else if (lowercase_exts)
+  {
+  var re = szFilename.match(/^(.*)\.([^\\/.]+)$/);
+  if (re)
+    return re[1] + "." + re[2].toLowerCase();
+  else
+    return szFilename;
+  }
+else
+  return szFilename;
 }
 
+//-----------------------------------------------------------------------------
+/*Filename pattern matching. Matches a filename with a pattern consisting of
+  charaters and wildcards. The special characters used as wildcards are:
+
+     Wildcard    Description
+       *        matches everything
+       ?        matches any single character
+     [list]     matches any character in list
+     [!list]    matches any character not in list
+
+  Returns: true or false as result of the pattern match.
+ */
+function FnMatch(szFilename, //[in] filename to match
+                 szPattern , //[in] pattern to match
+                 bCaseInsensitive //[in] true or false for case-insensitive
+                                  //comparison
+                 )
+{
+if (cachedFilespecs == undefined)
+  cachedFilespecs = new Object();
+
+ //Convert filename pattern to regular expression pattern
+if (cachedFilespecs[szPattern])
+  return szFilename.match( cachedFilespecs[szPattern] );
+
+var i = 0;
+var szRegex = ""; //regular expression pattern to match
+while (i < szPattern.length)
+  {
+  var c = szPattern.charAt(i++);
+  if (c == '*')
+    szRegex += ".*";
+  else if (c == '?')
+    szRegex += '.';
+  else if (c == '[')
+    {
+    var j = i;
+    if (j < szPattern.length && szPattern.charAt(j) == '!')
+      j++;
+    if (j < szPattern.length && szPattern.charAt(j) == ']')
+      j++;
+    while (j < szPattern.length && szPattern.charAt(j) != ']')
+      j++;
+    if (j >= szPattern.length)
+      szRegex += "\\[";
+    else
+      {
+      var stuff = szPattern.slice(i, j);
+      i = j + 1;
+      if (stuff.charAt(0) == '!')
+        stuff = "[^" + stuff.slice(1) + ']';
+      else if (stuff == substring("^^^^^^^^^^^^^^^^", 0, stuff.length))
+        stuff = '\\^';
+      else
+        {
+        while (stuff.charAt(0) == '^')
+          stuff = stuff.slice(1) + stuff.charAt(0);
+        stuff = '[' + stuff + ']';
+        }
+      res += stuff;
+      }
+    }
+  else if (c.match(/\W/))
+    szRegex += "\\" + c;
+  else
+    szRegex += c;
+  }
+
+cachedFilespecs[szPattern] = new RegExp(szRegex + '$', bCaseInsensitive ? "" : "i");
+return szFilename.match(cachedFilespecs[szPattern]);
+}
 
 //------------------------------------------------------------------------------
 /*Get a text output sent by Windows Script Shell to the standard streams.
@@ -709,22 +722,23 @@ addlog(verbose, bEnableLog && full_log, allOutput);
 //Checkin object definition
 function checkin(szFilename, version, created, binary, lastDate)
 {
-  this.version  = version;
-  this.filename = szFilename;
-  this.exec     = checkin_exec;
-  this.first    = created;
-  this.binary   = binary;
-  this.date = new Date(version.Date);
-  if (this.date.getTime() > lastDate.getTime())
+this.version  = version;
+this.filename = szFilename;
+this.exec     = checkin_exec;
+this.first    = created;
+this.binary   = binary;
+this.date = new Date(version.Date);
+//Add a comment if not exist previously
+this.comment = ((version.Comment == "") ?
+                   this.version.Action : this.version.Comment);
+
+//The files in VSS were not in time order!
+if (this.date.getTime() > lastDate.getTime())
   {
-    // The files in VSS were not in time order!
-    this.comment = FixupComment("[" + this.date + "] " + this.version.Comment);
-    this.date = lastDate;
+  this.comment = this.date + ": " + this.comment;
+  this.date = lastDate;
   }
-  else
-  {
-    this.comment = FixupComment(this.version.Comment);
-  }
+this.comment = FixupComment(this.comment);
 }
 
 //------------------------------------------------------------------------------
@@ -787,180 +801,28 @@ function command_exec()
 
 ///////////////////////////////////////////////////////////////////////
 
-
-
-//-----------------------------------------------------------------------------
-/*
- */
-function ConvertFile(project, localdir, szFilename)
-{
-  addlog(verbose, bEnableLog, project + szFilename);
-  var item = null, delitem = null;
-  try
-  {
-    item      = db.VSSItem(project + szFilename, 0);
-  }
-  catch (x)
-  {
-  }
-  try
-  {
-    delitem   = db.VSSItem(project + szFilename, vss_usedeleted);
-  }
-  catch (x)
-  {
-  }
-
-  if (vss_usedeleted)
-  {
-    if (item != null && delitem != null)
-      {
-      var duplicatefiles;
-      if(duplicatefiles == undefied)
-        duplicatefiles = new Array();
-      //This file has both a deleted and an undeleted version
-      if (duplicatefiles[project + szFilename] == "done")
-        return; // Already processed
-      duplicatefiles[project + szFilename] = "done";
-      }
-
-    if (item == null)
-      item = delitem;
-  }
-
-  var localfile = FixupRCSPath(localdir + szFilename, item.Deleted);
-  var versions  = new Enumerator(item.Versions);
-  var cmds      = new stack();
-  var created   = false;
-
-  // Set an upper bound for the time on the checkin
-  var lastDate = new Date();
-  lastDate.setFullYear(lastDate.getFullYear() + 1);
-
-  if (item.Deleted)
-  {
-    // For a deleted file, the last thing to do is to mark it dead
-    cmds.push(new command(localfile, "rcs", "-sdead"));
-  }
-
-  // Otherwise, the last thing to do when converting the file is to
-  // reset it back to standard locking.  Put the lock
-  // command at the bottom of the stack.
-  cmds.push(new command(localfile, "rcs", "-L"));
-
-  while (!created && !versions.atEnd())
-  {
-    var version = versions.item();
-    if (version.Action.substring(0, 7) == "Created")
-    {
-      var c = new checkin(localfile, version, true, item.Binary, lastDate);
-      cmds.push(c);
-      lastDate = new Date(c.date);
-      created = true;
-    }
-    else if (version.Action.substring(0, 10) == "Checked in")
-    {
-      var c = new checkin(localfile, version, false, item.Binary, lastDate);
-      cmds.push(c);
-      lastDate = new Date(c.date);
-    }
-    else if (version.Action.substring(0, 7) == "Labeled")
-    {
-      cmds.push(new label(localfile, version.Label));
-    }
-    else
-    {
-      addlog(quiet, bEnableLog, "Unknown action : " + version.Action);
-    }
-    versions.moveNext();
-  }
-
-  if (!created)
-  {
-    addlog(quiet, bEnableLog, project + szFilename +
-      " was never created.  Is there both a deleted and a non-deleted version?");
-  }
-
-  try
-  {
-    if (debug)
-      cmds.show();
-    while (!cmds.empty())
-    {
-      cmds.pop().exec();
-    }
-  }
-  catch (err)
-  {
-    addlog(quiet, bEnableLog, "Error in cmd: " + err);
-  }
-}
-
 //------------------------------------------------------------------------------
-/*
+/*Display and log event messages.
  */
-function ConvertDir(project, localdir)
+function addlog(bDisplayMessage,//[in]true if the message is to be displayed
+                bWriteMessage, //[in] true if the message is to be written in the log
+                szMessage      //[in] text do be displayed
+               )
 {
 try
   {
-  addlog(verbose, bEnableLog, "Creating " + localdir + "...");
-  fs.CreateFolder(FixupRCSPath(localdir, false));
+  if (bDisplayMessage)
+    WScript.Echo(szMessage);
+  if (bWriteMessage && (lf != undefined))
+    lf.WriteLine(szMessage);
   }
 catch (err)
   {
-  addlog(verbose, bEnableLog, err.description + ": " + localdir );
-  if (err.number == -2146823279) //TypeError
-    {
-    if (fs == undefined)
-      {
-      g_defOut.WriteLn(err.name + ": " + err.description);
-      return;
-      }
-    }
+  WScript.echo(err.message);
+  if (lf != undefined)
+    lf.WriteLine(err.description);
   }
-
-  try
-  {
-    var items = new Enumerator(db.VSSItem(project).Items(vss_usedeleted));
-  }
-  catch (err)
-  {
-    if (err.number == -2147166483)
-      {
-      g_defOut.WriteLn(resString['ERR_VSSARG']);
-      }
-    addlog(verbose, bEnableLog, err.description + ": " + project);
-    return;
-  }
-  if (items.atEnd())
-    {
-    g_defOut.WriteLn("Nothing to do with " + project);
-    addlog(verbose, bEnableLog, project + " has no items!");
-    return;
-    }
-  else
-    {
-    var arrRegexCache = new Array(); //stored filename patterns for speedy access
-    while (!items.atEnd())
-      {
-      var item = items.item();
-      if( (item.Type == 0) &&
-          (vss_subdirspec.length > 0) &&
-          FnMatch(item.Name, vss_subdirspec, fnmatch_case, arrRegexCache) )
-        {
-        ConvertDir(project + item.Name + "/", localdir + item.Name + "\\");
-        }
-      else if ( (item.Type == 1) && FnMatch(item.Name, vss_filespec, fnmatch_case, arrRegexCache))
-        {
-        ConvertFile(project, localdir, item.Name);
-        }
-      items.moveNext();
-      }
-    }
 }
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////
 /* Copyright (C) 1999-2001 Curt Hagenlocher <curt@hagenlocher.org>

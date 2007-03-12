@@ -1,6 +1,6 @@
 @echo off
 REM $Workfile: KSetThis.bat$: batch command script
-REM $Revision: 1$ $Date: 2006-11-01 10:21:13$
+REM $Revision: 1$ $Date: 2006-11-01 11:21:13$
 REM $Author: Darko Kolakovic$
 REM
 REM Map current directory to working directory S:\.
@@ -65,5 +65,5 @@ if "%OS%" == "Windows_NT" endlocal
 :END
 REM ---------------------------------------------------------------------------
 REM $Log: 
-REM  1    Biblioteka1.0         2006-11-01 10:21:13  Darko Kolakovic 
+REM  1    Biblioteka1.0         2006-11-01 11:21:13  Darko Kolakovic 
 REM $

@@ -1,6 +1,6 @@
 @echo off
 REM $Workfile: KErrLvl.bat$: batch command script
-REM $Revision: 1$ $Date: 2006-11-01 10:21:11$
+REM $Revision: 1$ $Date: 2006-11-01 11:21:11$
 REM $Author: Darko Kolakovic$
 REM
 REM Obtain the exit codes (ERRORLEVEL) returned by commands.
@@ -186,5 +186,5 @@ set KCMDEXIT=
 :END
 REM ---------------------------------------------------------------------------
 REM $Log: 
-REM  1    Biblioteka1.0         2006-11-01 10:21:11  Darko Kolakovic 
+REM  1    Biblioteka1.0         2006-11-01 11:21:11  Darko Kolakovic 
 REM $
