@@ -436,6 +436,9 @@
 				RelativePath=".\Cpp\KNLSCst.h">
 			</File>
 			<File
+				RelativePath=".\Cpp\KOsService.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\KPair.h">
 			</File>
 			<File
