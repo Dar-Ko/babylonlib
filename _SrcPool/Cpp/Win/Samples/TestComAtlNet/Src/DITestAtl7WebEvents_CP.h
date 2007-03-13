@@ -27,6 +27,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 /*
+ {html: <img src="../Images/diagIConnectionPoint.gif" title="IConnectionPointContainer" /><br />}
+
  */
 template<class T>
 class CProxyDITestAtl7WebEvents : public IConnectionPointImpl<T, 

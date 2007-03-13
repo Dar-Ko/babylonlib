@@ -25,7 +25,11 @@
   #define VT_PVARIANT VT_VARIANT | VT_BYREF
 #endif
 
+///////////////////////////////////////////////////////////////////////////////
+/*
+{html: <img src="../Images/diagIConnectionPoint.gif" title="IConnectionPointContainer" /><br />}
 
+*/
 template<class T>
 class CProxyDITestAtl7ObjEvents :
   public IConnectionPointImpl<T, &__uuidof(DITestAtl7ObjEvents)>

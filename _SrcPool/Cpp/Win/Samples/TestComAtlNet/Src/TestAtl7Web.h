@@ -60,6 +60,14 @@ BEGIN_COM_MAP(CTestAtl7Web)
   COM_INTERFACE_ENTRY(IProvideClassInfo2)
 END_COM_MAP()
 
+BEGIN_PROP_MAP(CTestAtl7Web)
+  PROP_DATA_ENTRY("TestCount", m_lTestCount, VT_I4)
+  PROP_DATA_ENTRY("TestText", m_bstrTestText, VT_BSTR)
+  // Example entries
+  // PROP_ENTRY("Property Description", dispid, clsid)
+  // PROP_PAGE(CLSID_StockColorPage)
+END_PROP_MAP()
+
 BEGIN_CONNECTION_POINT_MAP(CTestAtl7Web)
   CONNECTION_POINT_ENTRY(__uuidof(DITestAtl7WebEvents))
 END_CONNECTION_POINT_MAP()
