@@ -1,0 +1,1989 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<!--/* Group=Papers*/ -->
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile" content="$Workfile: KASCIICharTable.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 22$" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="ASCII, character table, Unicode, SBCS, MBCS" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="Character Tables" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Project repository manual" />
+  <meta name="DC.description.abstract" content="Character Tables: ASCII, Unicode, HTML">
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2007-03-14 17:25:24$" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.Revision" content="$Revision: 22$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <title>Character Tables</title>
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="stylesheet" type="text/css" href="../Res/KTables.css" />
+  <link rel="stylesheet" type="text/css" href="../Res/KASCIIChar.css" />
+  <link rel="SHORTCUT ICON" href="../Res/SrcPool.ico" />
+  <link rel="icon" href="../Res/SrcPool.ico" type="image/ico" />
+  <base target="_self" />
+  <style type="text/css">
+  /*<![CDATA[*/
+    td.ColHex
+      {
+      color: silver;
+      }
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <h1>Character Tables</h1>
+
+  <h2><a name="ASCII_Table" id="ASCII_Table">American Standard Code for
+  Information Interchange</a>
+  (ASCII<sup><a class="Footnote" href="#ASCII">1</a></sup>) Table</h2>
+
+  <!-- ======================================================================= -->
+
+  <table summary="ASCII 7-bit character code [0, 31]" border="0" width="80%">
+    <!-- [0, 31] -->
+
+    <tr>
+      <th>Dec</th>
+      <th>Hex</th>
+      <th colspan="2">Char</th>
+      <th>HTML</th>
+      <th colspan="2">Description</th>
+    </tr>
+
+    <tr>
+      <td class="ColDec">0</td>
+      <td class="ColHex">0</td>
+      <th class="ColChar">^@</th>
+      <td class="ColSymbPhy"><b>NUL</b></td>
+      <td class="ColHtml">&#9216;</td>
+      <td class="ColDscrptShrt">Null</td>
+      <td class="ColDscrptLong">Used for time delay or to fill space when there
+      is no data.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">1</td>
+      <td class="ColHex">1</td>
+      <th class="ColChar">^A</th>
+      <td class="ColSymbLCC"><b>SOH</b></td>
+      <td class="ColHtml">&#9217;</td>
+      <td class="ColDscrptShrt">Start of heading</td>
+      <td class="ColDscrptLong">Indicates the start of a heading which may
+      contain address or routing information.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">2</td>
+      <td class="ColHex">2</td>
+      <th class="ColChar">^B</th>
+      <td class="ColSymbLCC"><b>STX</b></td>
+      <td class="ColHtml">&#9218;</td>
+      <td class="ColDscrptShrt">Start of text</td>
+      <td class="ColDscrptLong">Indicates the end of the heading and the start
+      of the text.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">3</td>
+      <td class="ColHex">3</td>
+      <th class="ColChar">^C</th>
+      <td class="ColSymbLCC"><b>ETX</b></td>
+      <td class="ColHtml">&#9219;</td>
+      <td class="ColDscrptShrt">End of text</td>
+      <td class="ColDscrptLong">Used to terminate the text which was started
+      with STX.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">4</td>
+      <td class="ColHex">4</td>
+      <th class="ColChar">^D</th>
+      <td class="ColSymbLCC"><b>EOT</b></td>
+      <td class="ColHtml">&#9220;</td>
+      <td class="ColDscrptShrt">End of transmission</td>
+      <td class="ColDscrptLong">Indicates the end of a transmission of one or
+      more text blocks.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">5</td>
+      <td class="ColHex">5</td>
+      <th class="ColChar">^E</th>
+      <td class="ColSymbLCC"><b>ENQ</b></td>
+      <td class="ColHtml">&#9221;</td>
+      <td class="ColDscrptShrt">Enquiry</td>
+      <td class="ColDscrptLong">A request for a response from a remote
+      station.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">6</td>
+      <td class="ColHex">6</td>
+      <th class="ColChar">^F</th>
+      <td class="ColSymbLCC"><b>ACK</b></td>
+      <td class="ColHtml">&#9222;</td>
+      <td class="ColDscrptShrt">Acknowledge</td>
+      <td class="ColDscrptLong">An affirmation response to a sender.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">7</td>
+      <td class="ColHex">7</td>
+      <th class="ColChar">^G</th>
+      <td class="ColSymbPhD"><b>BEL</b></td>
+      <td class="ColHtml">&#9223;</td>
+      <td class="ColDscrptShrt">Bell/ Alert/ Beep</td>
+      <td class="ColDscrptLong">Used when there is need to call human
+      attention. It may control alarm or attention devices.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">8</td>
+      <td class="ColHex">8</td>
+      <th class="ColChar">^H</th>
+      <td class="ColSymbPhF"><b>BS</b></td>
+      <td class="ColHtml">&#9224;</td>
+      <td class="ColDscrptShrt">Backspace</td>
+      <td class="ColDscrptLong">Indicates movement of the printing mechanism or
+      display cursor backwards in one position.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">9</td>
+      <td class="ColHex">9</td>
+      <th class="ColChar">^I</th>
+      <td class="ColSymbPhF"><b>HT/ TAB</b></td>
+      <td class="ColHtml">&#9225;</td>
+      <td class="ColDscrptShrt">Horizontal tab</td>
+      <td class="ColDscrptLong">Indicates movement of the printing mechanism or
+      display cursor forward to the next &#39;tab&#39; or stopping
+      position.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">10</td>
+      <td class="ColHex">A</td>
+      <th class="ColChar">^J</th>
+      <td class="ColSymbPhF"><b>LF/ NL</b></td>
+      <td class="ColHtml">&#9226;</td>
+      <td class="ColDscrptShrt">Line feed/ New line</td>
+      <td class="ColDscrptLong">Indicates movement of the printing mechanism or
+      display cursor to the start of the next line (one line down).</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">11</td>
+      <td class="ColHex">B</td>
+      <th class="ColChar">^K</th>
+      <td class="ColSymbPhF"><b>VT</b></td>
+      <td class="ColHtml">&#9227;</td>
+      <td class="ColDscrptShrt">Vertical tab/ Home</td>
+      <td class="ColDscrptLong">Indicates movement of the printing mechanism or
+      display cursor to the next of a series of printing lines.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">12</td>
+      <td class="ColHex">C</td>
+      <th class="ColChar">^L</th>
+      <td class="ColSymbPhF"><b>FF/ NP</b></td>
+      <td class="ColHtml">&#9228;</td>
+      <td class="ColDscrptShrt">Form feed/ New page</td>
+      <td class="ColDscrptLong">Indicates movement of the printing mechanism or
+      display cursor to the starting position of the next page, form, or
+      screen.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">13</td>
+      <td class="ColHex">D</td>
+      <th class="ColChar">^M</th>
+      <td class="ColSymbPhF"><b>CR</b></td>
+      <td class="ColHtml">&#9229;</td>
+      <td class="ColDscrptShrt">Carriage return</td>
+      <td class="ColDscrptLong">Indicates movement of the printing mechanism or
+      display cursor to the starting position (left) of the current line.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">14</td>
+      <td class="ColHex">E</td>
+      <th class="ColChar">^N</th>
+      <td class="ColSymbCtr"><b>SO</b></td>
+      <td class="ColHtml">&#9230;</td>
+      <td class="ColDscrptShrt">Shift out</td>
+      <td class="ColDscrptLong">Indicates that the code combinations which
+      follow shall be interpreted as differently than in standard set until an
+      SI character is reached.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">15</td>
+      <td class="ColHex">F</td>
+      <th class="ColChar">^O</th>
+      <td class="ColSymbCtr"><b>SI</b></td>
+      <td class="ColHtml">&#9231;</td>
+      <td class="ColDscrptShrt">Shift in</td>
+      <td class="ColDscrptLong">Indicates that the code combinations which
+      follow shall be interpreted according to the standard character set.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">16</td>
+      <td class="ColHex">10</td>
+      <th class="ColChar">^P</th>
+      <td class="ColSymbLCC"><b>DLE</b></td>
+      <td class="ColHtml">&#9232;</td>
+      <td class="ColDscrptShrt">Data link escape</td>
+      <td class="ColDscrptLong">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">17</td>
+      <td class="ColHex">11</td>
+      <th class="ColChar">^Q</th>
+      <td class="ColSymbPhD"><b>DC1/ XON</b></td>
+      <td class="ColHtml">&#9233;</td>
+      <td class="ColDscrptShrt">Device control 1</td>
+      <td class="ColDscrptLong">Characters for the control of ancillary devices
+      or special terminal features like XON in communication
+      handshaking&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">18</td>
+      <td class="ColHex">12</td>
+      <th class="ColChar">^R</th>
+      <td class="ColSymbPhD"><b>DC2</b></td>
+      <td class="ColHtml">&#9234;</td>
+      <td class="ColDscrptShrt">Device control 2</td>
+      <td class="ColDscrptLong">Characters for the control of ancillary devices
+      or special terminal features.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">19</td>
+      <td class="ColHex">13</td>
+      <th class="ColChar">^S</th>
+      <td class="ColSymbPhD"><b>DC3/ XOFF</b></td>
+      <td class="ColHtml">&#9235;</td>
+      <td class="ColDscrptShrt">Device control 3</td>
+      <td class="ColDscrptLong">Characters for the control of ancillary devices
+      or special terminal features like XOFF in communication handshaking.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">20</td>
+      <td class="ColHex">14</td>
+      <th class="ColChar">^T</th>
+      <td class="ColSymbPhD"><b>DC4</b></td>
+      <td class="ColHtml">&#9236;</td>
+      <td class="ColDscrptShrt">Device control 4</td>
+      <td class="ColDscrptLong">Characters for the control of ancillary devices
+      or special terminal features.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">21</td>
+      <td class="ColHex">15</td>
+      <th class="ColChar">^U</th>
+      <td class="ColSymbLCC"><b>NAK</b></td>
+      <td class="ColHtml">&#9237;</td>
+      <td class="ColDscrptShrt">Negative acknowledge</td>
+      <td class="ColDscrptLong">A negative response to a sender sent by a
+      receiving device.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">22</td>
+      <td class="ColHex">16</td>
+      <th class="ColChar">^V</th>
+      <td class="ColSymbLCC"><b>SYN</b></td>
+      <td class="ColHtml">&#9238;</td>
+      <td class="ColDscrptShrt">Synchronous/ Idle</td>
+      <td class="ColDscrptLong">Used&nbsp; to achieve synchronization&nbsp; or
+      to signal that no data pending in synchronous communication.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">23</td>
+      <td class="ColHex">17</td>
+      <th class="ColChar">^W</th>
+      <td class="ColSymbLCC"><b>ETB</b></td>
+      <td class="ColHtml">&#9239;</td>
+      <td class="ColDscrptShrt">End of transmission block</td>
+      <td class="ColDscrptLong">Indicates the end of a block of data for
+      communication purposes. It is used for blocking data where the block
+      structure is not necessarily related to the processing format.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">24</td>
+      <td class="ColHex">18</td>
+      <th class="ColChar">^X</th>
+      <td class="ColSymbPhy"><b>CAN</b></td>
+      <td class="ColHtml">&#9240;</td>
+      <td class="ColDscrptShrt">Cancel</td>
+      <td class="ColDscrptLong">Indicates that the previously sent data should
+      be disregarded.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">25</td>
+      <td class="ColHex">19</td>
+      <th class="ColChar">^Y</th>
+      <td class="ColSymbPhy"><b>EM</b></td>
+      <td class="ColHtml">&#9241;</td>
+      <td class="ColDscrptShrt">End of medium</td>
+      <td class="ColDscrptLong">Indicates the physical end of a card, tape or
+      other medium, or the end of the required or used portion of the
+      medium.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">26</td>
+      <td class="ColHex">1A</td>
+      <th class="ColChar">^Z</th>
+      <td class="ColSymbPhy"><b>SUB</b></td>
+      <td class="ColHtml">&#9242;</td>
+      <td class="ColDscrptShrt">Substitute</td>
+      <td class="ColDscrptLong">Substituted for a character that is found to be
+      erroneous or invalid.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">27</td>
+      <td class="ColHex">1B</td>
+      <th class="ColChar">^[</th>
+      <td class="ColSymbCtr"><b>ESC</b></td>
+      <td class="ColHtml">&#9243;</td>
+      <td class="ColDscrptShrt">Escape</td>
+      <td class="ColDscrptLong">Indicates the start of character sequence with
+      special meaning.</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">28</td>
+      <td class="ColHex">1C</td>
+      <th class="ColChar">^\</th>
+      <td class="ColSymbInS"><b>FS</b></td>
+      <td class="ColHtml">&#9244;</td>
+      <td class="ColDscrptShrt">File separator/ Cursor right</td>
+      <td class="ColDscrptLong">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">29</td>
+      <td class="ColHex">1D</td>
+      <th class="ColChar">^]</th>
+      <td class="ColSymbInS"><b>GS</b></td>
+      <td class="ColHtml">&#9245;</td>
+      <td class="ColDscrptShrt">Group separator/ Cursor left</td>
+      <td class="ColDscrptLong">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">30</td>
+      <td class="ColHex">1E</td>
+      <th class="ColChar">^^</th>
+      <td class="ColSymbInS"><b>RS</b></td>
+      <td class="ColHtml">&#9245;</td>
+      <td class="ColDscrptShrt">Record separator/ Cursor up</td>
+      <td class="ColDscrptLong">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td class="ColDec">31</td>
+      <td class="ColHex">1F</td>
+      <th class="ColChar">^_</th>
+      <td class="ColSymbInS"><b>US</b></td>
+      <td class="ColHtml">&#9247;</td>
+      <td class="ColDscrptShrt">Unit separator/ Cursor down</td>
+      <td class="ColDscrptLong">&nbsp;</td>
+    </tr>
+  </table>
+
+  <table summary="ASCII 7-bit character code [32, 63]" border="0" width="100%">
+    <!-- [32, 4] -->
+
+    <tr>
+      <td width="50%">
+        <table summary="ASCII 7-bit character code [32, 47]" border="0">
+          <tr>
+            <th>Dec</th>
+            <th>Hex</th>
+            <th colspan="2">Char</th>
+            <th>HTML</th>
+            <th colspan="2">Description</th>
+          </tr>
+
+          <tr>
+            <td class="ColDec">32</td>
+            <td class="ColHex">20</td>
+            <th class="ColChar">&nbsp;</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml HtmlEnt"><b>&nbsp;</b></td>
+            <td class="ColDscrptShrt">Space</td>
+            <td class="ColDscrptLong">Character used to separate words, or to
+            move the printing mechanism or display cursor forward by one
+            position.</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">33</td>
+            <td class="ColHex">21</td>
+            <th class="ColChar">!</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#33;</td>
+            <td class="ColDscrptShrt" colspan="2">exclamation</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">34</td>
+            <td class="ColHex">22</td>
+            <th class="ColChar">&quot;</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml HtmlEnt"><b>&quot;</b></td>
+            <td class="ColDscrptShrt" colspan="2">double-quotation</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">35</td>
+            <td class="ColHex">23</td>
+            <th class="ColChar">#</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#35;</td>
+            <td class="ColDscrptShrt" colspan="2">number-sign</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">36</td>
+            <td class="ColHex">24</td>
+            <th class="ColChar">$</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#36;</td>
+            <td class="ColDscrptShrt" colspan="2">dollar-sign</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">37</td>
+            <td class="ColHex">25</td>
+            <th class="ColChar">%</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#37;</td>
+            <td class="ColDscrptShrt" colspan="2">percent-sign</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">38</td>
+            <td class="ColHex">26</td>
+            <th class="ColChar">&amp;</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml HtmlEnt"><b>&amp;</b></td>
+            <td class="ColDscrptShrt" colspan="2">ampersand, and</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">39</td>
+            <td class="ColHex">27</td>
+            <th class="ColChar">&#39;</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#39;</td>
+            <td class="ColDscrptShrt" colspan="2">apostrophe, quote</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">40</td>
+            <td class="ColHex">28</td>
+            <th class="ColChar">(</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#40;</td>
+            <td class="ColDscrptShrt" colspan="2">left-parenthesis</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">41</td>
+            <td class="ColHex">29</td>
+            <th class="ColChar">)</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#41;</td>
+            <td class="ColDscrptShrt" colspan="2">right-parenthesis</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">42</td>
+            <td class="ColHex">2A</td>
+            <th class="ColChar">*</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#42;</td>
+            <td class="ColDscrptShrt" colspan="2">asterisk, wildcard</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">43</td>
+            <td class="ColHex">2B</td>
+            <th class="ColChar">+</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#43;</td>
+            <td class="ColDscrptShrt" colspan="2">addition-sign, plus</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">44</td>
+            <td class="ColHex">2C</td>
+            <th class="ColChar">,</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#44;</td>
+            <td class="ColDscrptShrt" colspan="2">comma</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">45</td>
+            <td class="ColHex">2D</td>
+            <th class="ColChar">-</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#45;</td>
+            <td class="ColDscrptShrt">subtraction-sign</td>
+            <td class="ColDscrptLong">minus, hyphen</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">46</td>
+            <td class="ColHex">2E</td>
+            <th class="ColChar">.</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#46;</td>
+            <td class="ColDscrptShrt">PERIOD</td>
+            <td class="ColDscrptLong">FULL STOP, dot</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">47</td>
+            <td class="ColHex">2F</td>
+            <th class="ColChar">/</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#47;</td>
+            <td class="ColDscrptShrt">SLASH</td>
+            <td class="ColDscrptLong">SOLIDUS, right-slash</td>
+          </tr>
+        </table>
+      </td>
+      <td width="50%">
+        <table summary="ASCII 7-bit character code [48, 63]" border="0">
+          <tr>
+            <th>Dec</th>
+            <th>Hex</th>
+            <th colspan="2">Char</th>
+            <th>HTML</th>
+            <th colspan="2">Description</th>
+          </tr>
+
+          <tr>
+            <td class="ColDec">48</td>
+            <td class="ColHex">30</td>
+            <th class="ColChar">0</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#48;</td>
+            <td class="ColDscrptShrt" colspan="2">DIGIT ZERO</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">49</td>
+            <td class="ColHex">31</td>
+            <th class="ColChar">1</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#49;</td>
+            <td class="ColDscrptShrt" colspan="2">DIGIT ONE</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">50</td>
+            <td class="ColHex">32</td>
+            <th class="ColChar">2</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#50;</td>
+            <td class="ColDscrptShrt" colspan="2">DIGIT TWO</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">51</td>
+            <td class="ColHex">33</td>
+            <th class="ColChar">3</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#51;</td>
+            <td class="ColDscrptShrt" colspan="2">DIGIT THREE</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">52</td>
+            <td class="ColHex">34</td>
+            <th class="ColChar">4</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#52;</td>
+            <td class="ColDscrptShrt" colspan="2">DIGIT FOUR</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">53</td>
+            <td class="ColHex">35</td>
+            <th class="ColChar">5</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#53;</td>
+            <td class="ColDscrptShrt" colspan="2">DIGIT FIVE</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">54</td>
+            <td class="ColHex">36</td>
+            <th class="ColChar">6</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#54;</td>
+            <td class="ColDscrptShrt" colspan="2">DIGIT SIX</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">55</td>
+            <td class="ColHex">37</td>
+            <th class="ColChar">7</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#55;</td>
+            <td class="ColDscrptShrt" colspan="2">DIGIT SEVEN</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">56</td>
+            <td class="ColHex">38</td>
+            <th class="ColChar">8</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#56;</td>
+            <td class="ColDscrptShrt" colspan="2">DIGIT EIGHT</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">57</td>
+            <td class="ColHex">39</td>
+            <th class="ColChar">9</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#57;</td>
+            <td class="ColDscrptShrt" colspan="2">DIGIT NINE</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">58</td>
+            <td class="ColHex">3A</td>
+            <th class="ColChar">:</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#58;</td>
+            <td class="ColDscrptShrt" colspan="2">colon</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">59</td>
+            <td class="ColHex">3B</td>
+            <th class="ColChar">;</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#59;</td>
+            <td class="ColDscrptShrt" colspan="2">semicolon</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">60</td>
+            <td class="ColHex">3C</td>
+            <th class="ColChar">&lt;</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml HtmlEnt"><b>&lt;</b></td>
+            <td class="ColDscrptShrt" colspan="2">less-than</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">61</td>
+            <td class="ColHex">3D</td>
+            <th class="ColChar">=</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#61;</td>
+            <td class="ColDscrptShrt" colspan="2">equals</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">62</td>
+            <td class="ColHex">3E</td>
+            <th class="ColChar">&gt;</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml HtmlEnt"><b>&gt;</b></td>
+            <td class="ColDscrptShrt" colspan="2">greater-than</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">63</td>
+            <td class="ColHex">3F</td>
+            <th class="ColChar">?</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#63;</td>
+            <td class="ColDscrptShrt" colspan="2">question-mark, query</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <table summary="ASCII 7-bit character code [64, 127]" border="0"
+  width="100%">
+    <!-- [64, 127] -->
+
+    <tr>
+      <td width="50%">
+        <table summary="ASCII 7-bit character code [64, 95]">
+          <tr>
+            <th>Dec</th>
+            <th>Hex</th>
+            <th colspan="2">Char</th>
+            <th>HTML</th>
+            <th colspan="2">Description</th>
+          </tr>
+
+          <tr>
+            <td class="ColDec">64</td>
+            <td class="ColHex">40</td>
+            <th class="ColChar">@</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#64;</td>
+            <td class="ColDscrptShrt" colspan="2">at-sign</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">65</td>
+            <td class="ColHex">41</td>
+            <th class="ColChar">A</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#65;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER A</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">66</td>
+            <td class="ColHex">42</td>
+            <th class="ColChar">B</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#66;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER B</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">67</td>
+            <td class="ColHex">43</td>
+            <th class="ColChar">C</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#67;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER C</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">68</td>
+            <td class="ColHex">44</td>
+            <th class="ColChar">D</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#68;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER D</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">69</td>
+            <td class="ColHex">45</td>
+            <th class="ColChar">E</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#69;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER E</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">70</td>
+            <td class="ColHex">46</td>
+            <th class="ColChar">F</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#70;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER F</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">71</td>
+            <td class="ColHex">47</td>
+            <th class="ColChar">G</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#71;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER G</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">72</td>
+            <td class="ColHex">48</td>
+            <th class="ColChar">H</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#72;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER H</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">73</td>
+            <td class="ColHex">49</td>
+            <th class="ColChar">I</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#73;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER I</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">74</td>
+            <td class="ColHex">4A</td>
+            <th class="ColChar">J</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#74;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER J</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">75</td>
+            <td class="ColHex">4B</td>
+            <th class="ColChar">K</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#75;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER K</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">76</td>
+            <td class="ColHex">4C</td>
+            <th class="ColChar">L</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#76;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER L</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">77</td>
+            <td class="ColHex">4D</td>
+            <th class="ColChar">M</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#77;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER M</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">78</td>
+            <td class="ColHex">4E</td>
+            <th class="ColChar">N</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#78;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER N</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">79</td>
+            <td class="ColHex">4F</td>
+            <th class="ColChar">O</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#79;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER O</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">80</td>
+            <td class="ColHex">50</td>
+            <th class="ColChar">P</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#80;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER P</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">81</td>
+            <td class="ColHex">51</td>
+            <th class="ColChar">Q</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#81;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER Q</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">82</td>
+            <td class="ColHex">52</td>
+            <th class="ColChar">R</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#82;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER R</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">83</td>
+            <td class="ColHex">53</td>
+            <th class="ColChar">S</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#83;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER S</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">84</td>
+            <td class="ColHex">54</td>
+            <th class="ColChar">T</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#84;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER T</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">85</td>
+            <td class="ColHex">55</td>
+            <th class="ColChar">U</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#85;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER U</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">86</td>
+            <td class="ColHex">56</td>
+            <th class="ColChar">V</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#86;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER V</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">87</td>
+            <td class="ColHex">57</td>
+            <th class="ColChar">W</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#87;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER W</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">88</td>
+            <td class="ColHex">58</td>
+            <th class="ColChar">X</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#88;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER X</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">89</td>
+            <td class="ColHex">59</td>
+            <th class="ColChar">Y</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#89;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER Y</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">90</td>
+            <td class="ColHex">5A</td>
+            <th class="ColChar">Z</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#90;</td>
+            <td class="ColDscrptShrt" colspan="2">CAPITAL LETTER Z</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">91</td>
+            <td class="ColHex">5B</td>
+            <th class="ColChar">[</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#91;</td>
+            <td class="ColDscrptShrt" colspan="2">LEFT SQUARE BRACKET</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">92</td>
+            <td class="ColHex">5C</td>
+            <th class="ColChar">\</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#92;</td>
+            <td class="ColDscrptShrt">REVERSE SOLIDUS</td>
+            <td class="ColDscrptLong">backslash</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">93</td>
+            <td class="ColHex">5D</td>
+            <th class="ColChar">]</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#93;</td>
+            <td class="ColDscrptShrt" colspan="2">RIGHT SQUARE BRACKET</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">94</td>
+            <td class="ColHex">5E</td>
+            <th class="ColChar">^</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#94;</td>
+            <td class="ColDscrptShrt" colspan="2">caret, circumflex</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">95</td>
+            <td class="ColHex">5F</td>
+            <th class="ColChar">_</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#95;</td>
+            <td class="ColDscrptShrt">UNDERLINE</td>
+            <td class="ColDscrptLong">LOW LINE, underscore</td>
+          </tr>
+        </table>
+      </td>
+      <td width="50%">
+        <table summary="ASCII 7-bit character code [96, 127]">
+          <tr>
+            <th>Dec</th>
+            <th>Hex</th>
+            <th colspan="2">Char</th>
+            <th>HTML</th>
+            <th colspan="2">Description</th>
+          </tr>
+
+          <tr>
+            <td class="ColDec">96</td>
+            <td class="ColHex">60</td>
+            <th class="ColChar">`</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#96;</td>
+            <td class="ColDscrptShrt" colspan="2">accent-grave</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">97</td>
+            <td class="ColHex">61</td>
+            <th class="ColChar">a</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#97;</td>
+            <td class="ColDscrptShrt">SMALL LETTER A</td>
+            <td class="ColDscrptLong">(alpha)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">98</td>
+            <td class="ColHex">62</td>
+            <th class="ColChar">b</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#98;</td>
+            <td class="ColDscrptShrt">SMALL LETTER B</td>
+            <td class="ColDscrptLong">(bravo)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">99</td>
+            <td class="ColHex">63</td>
+            <th class="ColChar">c</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#99;</td>
+            <td class="ColDscrptShrt">SMALL LETTER C</td>
+            <td class="ColDscrptLong">(charlie)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">100</td>
+            <td class="ColHex">64</td>
+            <th class="ColChar">d</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#100;</td>
+            <td class="ColDscrptShrt">SMALL LETTER D</td>
+            <td class="ColDscrptLong">(delta)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">101</td>
+            <td class="ColHex">65</td>
+            <th class="ColChar">e</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#101;</td>
+            <td class="ColDscrptShrt">SMALL LETTER E</td>
+            <td class="ColDscrptLong">(echo)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">102</td>
+            <td class="ColHex">66</td>
+            <th class="ColChar">f</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#102;</td>
+            <td class="ColDscrptShrt">SMALL LETTER F</td>
+            <td class="ColDscrptLong">(foxtrot)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">103</td>
+            <td class="ColHex">67</td>
+            <th class="ColChar">g</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#103;</td>
+            <td class="ColDscrptShrt">SMALL LETTER G</td>
+            <td class="ColDscrptLong">(golf)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">104</td>
+            <td class="ColHex">68</td>
+            <th class="ColChar">h</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#104;</td>
+            <td class="ColDscrptShrt">SMALL LETTER H</td>
+            <td class="ColDscrptLong">(hotel)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">105</td>
+            <td class="ColHex">69</td>
+            <th class="ColChar">i</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#105;</td>
+            <td class="ColDscrptShrt">SMALL LETTER I</td>
+            <td class="ColDscrptLong">(india)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">106</td>
+            <td class="ColHex">6A</td>
+            <th class="ColChar">j</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#106;</td>
+            <td class="ColDscrptShrt">SMALL LETTER J</td>
+            <td class="ColDscrptLong">(juliett)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">107</td>
+            <td class="ColHex">6B</td>
+            <th class="ColChar">k</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#107;</td>
+            <td class="ColDscrptShrt">SMALL LETTER K</td>
+            <td class="ColDscrptLong">(kilo)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">108</td>
+            <td class="ColHex">6C</td>
+            <th class="ColChar">l</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#108;</td>
+            <td class="ColDscrptShrt">SMALL LETTER L</td>
+            <td class="ColDscrptLong">(lima)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">109</td>
+            <td class="ColHex">6D</td>
+            <th class="ColChar">m</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#109;</td>
+            <td class="ColDscrptShrt">SMALL LETTER M</td>
+            <td class="ColDscrptLong">(mike)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">110</td>
+            <td class="ColHex">6E</td>
+            <th class="ColChar">n</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#110;</td>
+            <td class="ColDscrptShrt">SMALL LETTER N</td>
+            <td class="ColDscrptLong">(november)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">111</td>
+            <td class="ColHex">6F</td>
+            <th class="ColChar">o</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#111;</td>
+            <td class="ColDscrptShrt">SMALL LETTER O</td>
+            <td class="ColDscrptLong">(oscar)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">112</td>
+            <td class="ColHex">70</td>
+            <th class="ColChar">p</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#112;</td>
+            <td class="ColDscrptShrt">SMALL LETTER P</td>
+            <td class="ColDscrptLong">(papa)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">113</td>
+            <td class="ColHex">71</td>
+            <th class="ColChar">q</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#113;</td>
+            <td class="ColDscrptShrt">SMALL LETTER Q</td>
+            <td class="ColDscrptLong">(quebec)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">114</td>
+            <td class="ColHex">72</td>
+            <th class="ColChar">r</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#114;</td>
+            <td class="ColDscrptShrt">SMALL LETTER R</td>
+            <td class="ColDscrptLong">(romeo)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">115</td>
+            <td class="ColHex">73</td>
+            <th class="ColChar">s</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#115;</td>
+            <td class="ColDscrptShrt">SMALL LETTER S</td>
+            <td class="ColDscrptLong">(sierra)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">116</td>
+            <td class="ColHex">74</td>
+            <th class="ColChar">t</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#116;</td>
+            <td class="ColDscrptShrt">SMALL LETTER T</td>
+            <td class="ColDscrptLong">(tango)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">117</td>
+            <td class="ColHex">75</td>
+            <th class="ColChar">u</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#117;</td>
+            <td class="ColDscrptShrt">SMALL LETTER U</td>
+            <td class="ColDscrptLong">(uniform)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">118</td>
+            <td class="ColHex">76</td>
+            <th class="ColChar">v</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#117;</td>
+            <td class="ColDscrptShrt">SMALL LETTER V</td>
+            <td class="ColDscrptLong">(victor)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">119</td>
+            <td class="ColHex">77</td>
+            <th class="ColChar">w</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#119;</td>
+            <td class="ColDscrptShrt">SMALL LETTER W</td>
+            <td class="ColDscrptLong">(whiskey)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">120</td>
+            <td class="ColHex">78</td>
+            <th class="ColChar">x</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#120;</td>
+            <td class="ColDscrptShrt">SMALL LETTER X</td>
+            <td class="ColDscrptLong">(x-ray)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">121</td>
+            <td class="ColHex">79</td>
+            <th class="ColChar">y</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#121;</td>
+            <td class="ColDscrptShrt">SMALL LETTER Y</td>
+            <td class="ColDscrptLong">(yankee)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">122</td>
+            <td class="ColHex">7A</td>
+            <th class="ColChar">z</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#122;</td>
+            <td class="ColDscrptShrt">SMALL LETTER Z</td>
+            <td class="ColDscrptLong">(zulu)</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">123</td>
+            <td class="ColHex">7B</td>
+            <th class="ColChar">{</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#123;</td>
+            <td class="ColDscrptShrt">LEFT CURLY BRACKET</td>
+            <td class="ColDscrptLong">left-brace</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">124</td>
+            <td class="ColHex">7C</td>
+            <th class="ColChar">|</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#124;</td>
+            <td class="ColDscrptShrt">VERTICAL LINE</td>
+            <td class="ColDscrptLong">VERTICAL BAR, logical-or, pipe</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">125</td>
+            <td class="ColHex">7D</td>
+            <th class="ColChar">}</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#125;</td>
+            <td class="ColDscrptShrt">RIGHT CURLY BRACKET</td>
+            <td class="ColDscrptLong">right-brace</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">126</td>
+            <td class="ColHex">7E</td>
+            <th class="ColChar">~</th>
+            <td class="ColSymb">&nbsp;</td>
+            <td class="ColHtml">&#126;</td>
+            <td class="ColDscrptShrt" colspan="2">tilde, approx</td>
+          </tr>
+
+          <tr>
+            <td class="ColDec">127</td>
+            <td class="ColHex">7F</td>
+            <th class="ColChar"><b>^?</b></th>
+            <td class="ColSymbPhy"><b>DEL</b></td>
+            <td class="ColHtml">&nbsp;</td>
+            <td class="ColDscrptShrt">Delete/ Rubout</td>
+            <td class="ColDscrptLong">Used to erase unwanted characters.</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <!-- ASCII 7-bit Table End =================================================-->
+
+  <table border="0" cellpadding="6" width="80%"
+  summary="ASCII Control Character Legend">
+    <caption>
+      Legend: ASCII Control Character Codes
+    </caption>
+
+    <tr>
+      <td class="ColSymbPhF" width="50%">
+        <p><b>Physical Device Controls: Format Effectors</b></p>
+
+        <ul>
+          <li><strong>BS:</strong> Backspace</li>
+          <li><strong>HT:</strong> Horizontal Tab</li>
+          <li><strong>LF:</strong> Line Feed</li>
+          <li><strong>VT:</strong> Vertical Tab</li>
+          <li><strong>FF:</strong> Form Feed</li>
+          <li><strong>CR:</strong> Carriage Return</li>
+        </ul><br />
+        <br />
+      </td>
+      <td class="ColSymbLCC" width="50%">
+        <p><b>Logical Communications Controls</b></p>
+
+        <ul>
+          <li><strong>SOH:</strong> Start of Header</li>
+          <li><strong>STX:</strong> Start of Text</li>
+          <li><strong>ETX:</strong> End of Text</li>
+          <li><strong>EOT:</strong> End of Transmission</li>
+          <li><strong>ENQ:</strong> Enquiry</li>
+          <li><strong>ACK:</strong> Acknowledge</li>
+          <li><strong>DLE:</strong> Data Link Escape</li>
+          <li><strong>NAK:</strong> Negative Acknowledge</li>
+          <li><strong>SYN:</strong> Synchronous Idle</li>
+          <li><strong>ETB:</strong> End of Transmission Block</li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="ColSymbPhD" width="50%">
+        <p><b>Physical Device Controls: Other</b></p>
+
+        <ul>
+          <li><strong>BEL:</strong> Bell</li>
+          <li><strong>DC1:</strong> No assigned meaning in ASCII</li>
+          <li><strong>DC2:</strong> No assigned meaning in ASCII</li>
+          <li><strong>DC3:</strong> No assigned meaning in ASCII</li>
+          <li><strong>DC4:</strong> No assigned meaning in ASCII</li>
+        </ul>
+      </td>
+      <td class="ColSymbInS" width="50%">
+        <p><b>Information Separators</b></p>
+
+        <ul>
+          <li><strong>FS:</strong> File Separator</li>
+          <li><strong>GS:</strong> Group Separator</li>
+          <li><strong>RS:</strong> Record Separator</li>
+          <li><strong>US:</strong> Unit Separator</li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="ColSymbPhy" width="50%">
+        <p><b>Physical Communications Controls</b></p>
+
+        <ul>
+          <li><strong>NUL:</strong> Null</li>
+          <li><strong>DEL:</strong> Delete</li>
+          <li><strong>CAN:</strong> Cancel</li>
+          <li><strong>EM:</strong> End of Medium</li>
+          <li><strong>SUB:</strong> Substitute</li>
+        </ul>
+      </td>
+      <td class="ColSymbCtr" width="50%">
+        <p><b>Controls for Code Extensions</b></p>
+
+        <ul>
+          <li><strong>SI:</strong> Shift In</li>
+          <li><strong>SO:</strong> Shift Out</li>
+          <li><strong>ESC:</strong> Escape</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+
+  <p>See also:</p>
+
+  <ol>
+    <li>
+    <a href="http://www.iso.ch/iso/en/CatalogueDetailPage.CatalogueDetail?CSNUMBER=26096">
+    ISO 14962:1997</a> Space data and information transfer systems - ASCII
+    encoded</li>
+    <li>ANSI-X3.4-1986/
+    <a href="http://webstore.ansi.org/ansidocstore/product.asp?sku=ANSI+INCITS+4%2D1986+%28R2002%29">
+    ANSI INCITS 4-1986 (R2002)</a> 7-Bit American National Standard Code for
+    Information Interchange (7-Bit ASCII)</li>
+    <li>Bemer, Robert W.; father of the ASCII (1965).</li>
+    <li>
+    <a href="http://www.iso.ch/iso/en/CatalogueDetailPage.CatalogueDetail?CSNUMBER=4777&ICS1=35&ICS2=40&ICS3=">
+    ISO/IEC 646:1991</a> Information processing--ISO 7-bit coded character set
+    for information processing</li>
+    <li>ISO 10646, ISO 8879, ISO 8859-1 Latin alphabet No. 1</li>
+    <li>
+    <a href="http://www.w3.org/MarkUp/html-spec/html-spec_13.html#SEC13">The
+    HTML Coded Character Set</a></li>
+    <li><a href="http://www.w3.org/MarkUp/html3/latin1.html">ISO Latin 1
+    Character Entity Set</a></li>
+    <li><a href="http://www.w3.org/MarkUp/html3/specialchars.html">Special
+    Characters</a></li>
+    <li>
+    <a href="http://www.microsoft.com/globaldev/reference/oem/437.mspx">Microsoft
+    Code Page 437 reference chart</a> CP437, OEM 437</li>
+    <li>RFC 1345: Character Mnemonics &amp; Character Sets</li>
+    <li>CP367, IBM367</li>
+    <li><a href="http://www.unicode.org/">Unicode Standard</a> character coding
+    system</li>
+    <li><a href="KASCIIOem.htm#AsciiIbm">IBM PC ASCII Character Code</a></li>
+  </ol><br />
+  <br />
+  <!-- ======================================================================= -->
+
+  <h3><a name="End-of-line_Characters">End-of-line
+  Characters</a></h3>
+  <p>Different operating systems use different conventions for
+  indicating end-of-line in a text file. Table bellow shows typical
+  conventions:</p>
+
+  <table summary="End-of-line Characters" border="0">
+    <tr>
+      <th>EOL</th>
+      <th>Decimal</th>
+      <th>Hex</th>
+      <th>Char</th>
+    </tr>
+
+    <tr>
+      <th>DOS</th>
+      <td align="right">13 10</td>
+      <td align="right">0D 0A</td>
+      <td align="right">CR LF</td>
+    </tr>
+
+    <tr>
+      <th>Unix</th>
+      <td align="right">10</td>
+      <td align="right">0A</td>
+      <td align="right">LF</td>
+    </tr>
+
+    <tr>
+      <th>Mac</th>
+      <td align="right">13</td>
+      <td align="right">0D</td>
+      <td align="right">CR</td>
+    </tr>
+  </table>
+  <!-- ======================================================================= -->
+
+  <h3 align="left"><a name="IBMPCKeyboardScanCodes"
+  id="IBMPCKeyboardScanCodes">IBM PC Keyboard Scan Codes</a></h3>
+  <p>IBM PC two-character escape sequences:</p>
+
+  <table summary="IBM PC Keyboard Scan Codes" border="0" width="70%">
+    <!-- Opera 7.5 outputs <caption> before <thead>, <tfoot> is correctly after <tbody>
+         IE6 oputputs <thead>, <tfoot>, <caption> and  then <tbody>
+         Firefox 7.5 outputs <thead> and <tfoot> in the same line, then <caption> before
+         <tbody>
+    -->
+
+    <tbody>
+      <tr>
+        <td width="50%" valign="top">
+          <table summary="keybord scan code [30, 50]" border="0" width="100%">
+            <col class="ColChar" title="Character" />
+            <col class="ColDec" title="Decimal" align="left" />
+            <col class="ColHex" title="Hex" align="left" />
+            <!-- Note: IE6 renders col class style properly, but not align;
+                 Firefox 1.04 renders align, but not class;
+                 Opera 7.5 renders algin, but not text color defined in the class style -->
+
+            <tr>
+              <th align="center">Character</th>
+              <th align="center">Decimal</th>
+              <th align="center">Hex</th>
+            </tr>
+
+            <tr>
+              <td>ALT-A</td>
+              <td>ESC,&nbsp;30</td>
+              <td>ESC,&nbsp;0x1e</td>
+            </tr>
+
+            <tr>
+              <td>ALT-B</td>
+              <td>ESC,&nbsp;48</td>
+              <td>ESC,&nbsp;0x30</td>
+            </tr>
+
+            <tr>
+              <td>ALT-C</td>
+              <td>ESC,&nbsp;46</td>
+              <td>ESC,&nbsp;0x2e</td>
+            </tr>
+
+            <tr>
+              <td>ALT-D</td>
+              <td>ESC,&nbsp;32</td>
+              <td>ESC,&nbsp;0x20</td>
+            </tr>
+
+            <tr>
+              <td>ALT-E</td>
+              <td>ESC,&nbsp;18</td>
+              <td>ESC,&nbsp;0x12</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F</td>
+              <td>ESC,&nbsp;33</td>
+              <td>ESC,&nbsp;0x21</td>
+            </tr>
+
+            <tr>
+              <td>ALT-G</td>
+              <td>ESC,&nbsp;34</td>
+              <td>ESC,&nbsp;0x22</td>
+            </tr>
+
+            <tr>
+              <td>ALT-H</td>
+              <td>ESC,&nbsp;35</td>
+              <td>ESC,&nbsp;0x23</td>
+            </tr>
+
+            <tr>
+              <td>ALT-I</td>
+              <td>ESC,&nbsp;23</td>
+              <td>ESC,&nbsp;0x17</td>
+            </tr>
+
+            <tr>
+              <td>ALT-J</td>
+              <td>ESC,&nbsp;36</td>
+              <td>ESC,&nbsp;0x24</td>
+            </tr>
+
+            <tr>
+              <td>ALT-K</td>
+              <td>ESC,&nbsp;37</td>
+              <td>ESC,&nbsp;0x25</td>
+            </tr>
+
+            <tr>
+              <td>ALT-L</td>
+              <td>ESC,&nbsp;38</td>
+              <td>ESC,&nbsp;0x26</td>
+            </tr>
+
+            <tr>
+              <td>ALT-M</td>
+              <td>ESC,&nbsp;50</td>
+              <td>ESC,&nbsp;0x32</td>
+            </tr>
+
+            <tr>
+              <td>ALT-N</td>
+              <td>ESC,&nbsp;49</td>
+              <td>ESC,&nbsp;0x31</td>
+            </tr>
+
+            <tr>
+              <td>ALT-O</td>
+              <td>ESC,&nbsp;24</td>
+              <td>ESC,&nbsp;0x18</td>
+            </tr>
+
+            <tr>
+              <td>ALT-P</td>
+              <td>ESC,&nbsp;25</td>
+              <td>ESC,&nbsp;0x19</td>
+            </tr>
+
+            <tr>
+              <td>ALT-Q</td>
+              <td>ESC,&nbsp;16</td>
+              <td>ESC,&nbsp;0x10</td>
+            </tr>
+
+            <tr>
+              <td>ALT-R</td>
+              <td>ESC,&nbsp;19</td>
+              <td>ESC,&nbsp;0x13</td>
+            </tr>
+
+            <tr>
+              <td>ALT-S</td>
+              <td>ESC,&nbsp;31</td>
+              <td>ESC,&nbsp;0x1a</td>
+            </tr>
+
+            <tr>
+              <td>ALT-T</td>
+              <td>ESC,&nbsp;20</td>
+              <td>ESC,&nbsp;0x14</td>
+            </tr>
+
+            <tr>
+              <td>ALT-U</td>
+              <td>ESC,&nbsp;22</td>
+              <td>ESC,&nbsp;0x16</td>
+            </tr>
+
+            <tr>
+              <td>ALT-V</td>
+              <td>ESC,&nbsp;47</td>
+              <td>ESC,&nbsp;0x2f</td>
+            </tr>
+
+            <tr>
+              <td>ALT-W</td>
+              <td>ESC,&nbsp;17</td>
+              <td>ESC,&nbsp;0x11</td>
+            </tr>
+
+            <tr>
+              <td>ALT-X</td>
+              <td>ESC,&nbsp;45</td>
+              <td>ESC,&nbsp;0x2d</td>
+            </tr>
+
+            <tr>
+              <td>ALT-Y</td>
+              <td>ESC,&nbsp;21</td>
+              <td>ESC,&nbsp;0x15</td>
+            </tr>
+
+            <tr>
+              <td>ALT-Z</td>
+              <td>ESC,&nbsp;44</td>
+              <td>ESC,&nbsp;0x2c</td>
+            </tr>
+
+            <tr>
+              <td class="Note" colspan="3">Escape character is either
+              <b><i>ESC</i></b> (27, 0x1B), or <b><i>NUL</i></b> (0), depending
+              on the programming language being used and the level at which the
+              keyboard is being accessed.</td>
+            </tr>
+          </table><br />
+        </td>
+        <td width="50%" valign="top">
+          <table summary="keybord scan code [73, 140]" border="0" width="100%">
+            <col class="ColChar" title="Character" />
+            <col class="ColDec" title="Decimal" align="left" />
+            <col class="ColHex" title="Hex" align="left" />
+
+            <tr>
+              <th align="center">Character</th>
+              <th align="center">Decimal</th>
+              <th align="center">Hex</th>
+            </tr>
+
+            <tr>
+              <td>PgUp</td>
+              <td>ESC,&nbsp;73</td>
+              <td>ESC,&nbsp;0x49</td>
+            </tr>
+
+            <tr>
+              <td>PgDn</td>
+              <td>ESC,&nbsp;81</td>
+              <td>ESC,&nbsp;0x51</td>
+            </tr>
+
+            <tr>
+              <td>Home</td>
+              <td>ESC,&nbsp;71</td>
+              <td>ESC,&nbsp;0x47</td>
+            </tr>
+
+            <tr>
+              <td>End</td>
+              <td>ESC,&nbsp;79</td>
+              <td>ESC,&nbsp;0x4f</td>
+            </tr>
+
+            <tr>
+              <td>UpArrow</td>
+              <td>ESC,&nbsp;72</td>
+              <td>ESC,&nbsp;0x48</td>
+            </tr>
+
+            <tr>
+              <td>DnArrow</td>
+              <td>ESC,&nbsp;80</td>
+              <td>ESC,&nbsp;0x50</td>
+            </tr>
+
+            <tr>
+              <td>LftArrow</td>
+              <td>ESC,&nbsp;75</td>
+              <td>ESC,&nbsp;0x4b</td>
+            </tr>
+
+            <tr>
+              <td>RtArrow</td>
+              <td>ESC,&nbsp;77</td>
+              <td>ESC,&nbsp;0x4d</td>
+            </tr>
+
+            <tr>
+              <td>F1</td>
+              <td>ESC,&nbsp;59</td>
+              <td>ESC,&nbsp;0x3b</td>
+            </tr>
+
+            <tr>
+              <td>F2</td>
+              <td>ESC,&nbsp;60</td>
+              <td>ESC,&nbsp;0x3c</td>
+            </tr>
+
+            <tr>
+              <td>F3</td>
+              <td>ESC,&nbsp;61</td>
+              <td>ESC,&nbsp;0x3d</td>
+            </tr>
+
+            <tr>
+              <td>F4</td>
+              <td>ESC,&nbsp;62</td>
+              <td>ESC,&nbsp;0x3e</td>
+            </tr>
+
+            <tr>
+              <td>F5</td>
+              <td>ESC,&nbsp;63</td>
+              <td>ESC,&nbsp;0x3f</td>
+            </tr>
+
+            <tr>
+              <td>F6</td>
+              <td>ESC,&nbsp;64</td>
+              <td>ESC,&nbsp;0x40</td>
+            </tr>
+
+            <tr>
+              <td>F7</td>
+              <td>ESC,&nbsp;65</td>
+              <td>ESC,&nbsp;0x41</td>
+            </tr>
+
+            <tr>
+              <td>F8</td>
+              <td>ESC,&nbsp;66</td>
+              <td>ESC,&nbsp;0x42</td>
+            </tr>
+
+            <tr>
+              <td>F9</td>
+              <td>ESC,&nbsp;67</td>
+              <td>ESC,&nbsp;0x43</td>
+            </tr>
+
+            <tr>
+              <td>F10</td>
+              <td>ESC,&nbsp;68</td>
+              <td>ESC,&nbsp;0x44</td>
+            </tr>
+
+            <tr>
+              <td>F11</td>
+              <td>ESC,&nbsp;133</td>
+              <td>ESC,&nbsp;0x85</td>
+            </tr>
+
+            <tr>
+              <td>F12</td>
+              <td>ESC,&nbsp;134</td>
+              <td>ESC,&nbsp;0x86</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F1</td>
+              <td>ESC,&nbsp;104</td>
+              <td>ESC,&nbsp;0x68</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F2</td>
+              <td>ESC,&nbsp;105</td>
+              <td>ESC,&nbsp;0x69</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F3</td>
+              <td>ESC,&nbsp;106</td>
+              <td>ESC,&nbsp;0x6a</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F4</td>
+              <td>ESC,&nbsp;107</td>
+              <td>ESC,&nbsp;0x6b</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F5</td>
+              <td>ESC,&nbsp;108</td>
+              <td>ESC,&nbsp;0x6c</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F6</td>
+              <td>ESC,&nbsp;109</td>
+              <td>ESC,&nbsp;0x6d</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F7</td>
+              <td>ESC,&nbsp;110</td>
+              <td>ESC,&nbsp;0x6e</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F8</td>
+              <td>ESC,&nbsp;111</td>
+              <td>ESC,&nbsp;0x6f</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F9</td>
+              <td>ESC,&nbsp;112</td>
+              <td>ESC,&nbsp;0x70</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F10</td>
+              <td>ESC,&nbsp;113</td>
+              <td>ESC,&nbsp;0x71</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F11</td>
+              <td>ESC,&nbsp;139</td>
+              <td>ESC,&nbsp;0x8b</td>
+            </tr>
+
+            <tr>
+              <td>ALT-F12</td>
+              <td>ESC,&nbsp;140</td>
+              <td>ESC,&nbsp;0x8c</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr />
+  <p><a name="Footnote1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a>
+    <b><a name="ASCII" id="ASCII">ASCII</a></b> - The <b>A</b>merican
+    <b>S</b>tandard <b>C</b>ode for <b>I</b>nformation <b>I</b>nterchange is a
+    standard <a class="Standard" href="../Std/ANSIX3_4-1986.htm">
+    <img border="0" src="../Symbol/externS.gif" width="8" height="8" /></a>
+    <b>seven-bit</b> code that was proposed by
+    <a href="http://www.ansi.org/">ANSI</a> between 1963 and 1968.<br />
+    ASCII was established to achieve compatibility between various types of data
+    processing equipment.
+  </p>
+  <div style="visibility:hidden">
+    <b>Your browser does not fully support CSS. This may result in visual
+    artifacts.</b>
+  </div>
+  </body>
+<!-- ==========================================================================
+  $Log:
+   21   Biblioteka1.20        2006-11-21 14:34:03  Darko Kolakovic Resource
+        directory
+   20   Biblioteka1.19        2005-08-12 14:53:45  Darko Kolakovic xhtml
+   19   Biblioteka1.18        2005-07-29 16:20:44  Darko Kolakovic Comment
+   18   Biblioteka1.17        2005-07-22 15:38:00  Darko Kolakovic Deleted
+        HTML401ExtendedTable
+   17   Biblioteka1.16        2005-07-13 12:47:59  Darko Kolakovic Moved ext.
+        tables to OEM
+   16   Biblioteka1.15        2005-07-12 15:53:56  Darko Kolakovic table
+   15   Biblioteka1.14        2005-07-11 21:54:27  Darko
+   14   Biblioteka1.13        2005-07-11 17:13:11  Darko Kolakovic IBB PC table
+   13   Biblioteka1.12        2005-07-08 18:17:05  Darko Kolakovic ASCII Control
+        Characters
+   12   Biblioteka1.11        2005-07-07 16:53:26  Darko Kolakovic Table colors
+   11   Biblioteka1.10        2005-07-05 16:58:33  Darko Kolakovic 2-col table for
+        ASCII
+   10   Biblioteka1.9         2005-06-28 09:45:45  Darko Kolakovic
+   9    Biblioteka1.8         2005-06-28 09:32:00  Darko Kolakovic HTML tags
+        replaced with W3C recommended tags
+   8    Biblioteka1.7         2005-06-27 09:13:03  Darko Kolakovic
+   7    Biblioteka1.6         2004-06-02 14:23:06  Darko           HTML 4.01
+   6    Biblioteka1.5         2004-04-25 01:16:29  Darko           HTML codes
+   5    Biblioteka1.4         2003-07-19 17:16:46  Darko           Extended ASCII
+        table
+   4    Biblioteka1.3         2003-01-18 19:53:34  Darko           Log tag
+   3    Biblioteka1.2         2002-11-07 07:38:53  Darko Kolakovic Added meta tags
+   2    Biblioteka1.1         2001-08-02 23:17:58  Darko
+   1    Biblioteka1.0         2001-08-02 21:07:15  Darko
+  $
+-->
+</html>

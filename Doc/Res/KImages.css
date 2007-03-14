@@ -1,0 +1,66 @@
+@charset "utf-8";
+/*$Workfile: KImages.css$: Cascading style sheet file
+  $Revision: 3$ $Date: 2005-10-18 16:07:02$
+  $Author: Darko Kolakovic$
+
+  HTML Document layout
+  Copyright: CommonSoft Inc
+  2005-09-29 D.Kolakovic
+ */
+
+
+/* Image --------------------------------------------------------------------*/
+
+img.Logo
+  {
+  position:relative;
+  left: -4px;
+  }
+
+/* Small icons */
+img.IconS
+  {
+  border: 0;
+  height: 16;
+  }
+/* Medium icons */
+img.IconM
+  {
+  border: 0;
+  height: 24;
+  }
+/* Large icons */
+img.IconL
+  {
+  border: 0;
+  height: 32;
+  }
+/* Extra large icons */
+img.IconX
+  {
+  border: 0;
+  height: 48;
+  }
+/* Buttons with images */
+img.Btn
+  {
+  border: 0;
+  height: 22;
+  width:  22;
+  }
+
+.Poster
+  {
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-attachment: fixed;
+  }
+
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/*-----------------------------------------------------------------------------
+  $Log:
+   1    Biblioteka1.0         2005-09-29 12:04:13  Darko Kolakovic
+  $
+ */
+
