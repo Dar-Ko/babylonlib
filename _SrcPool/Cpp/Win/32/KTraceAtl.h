@@ -1,6 +1,6 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KTraceAtl.h$: implementation file
-  $Revision: 1$ $Date: 2007-03-06 14:36:13$
-  $Author: Darko Kolakovic$
+/*$Workfile: KTraceAtl.h$: implementation file
+  $Revision: 2$ $Date: 2007-03-11 02:13:52$
+  $Author: Darko$
 
   Debugging helpers for the ATL application
  */
@@ -8,7 +8,7 @@
 /* Group=Diagnostic                                                          */
 
 #ifndef _KTRACEATL_H_
-    /*$Workfile: S:\_SrcPool\Cpp\Win\32\KTraceAtl.h$ sentry*/
+    /*$Workfile: KTraceAtl.h$ sentry*/
   #define _KTRACEATL_H_
 
 /* ------------------------------------------------------------------------- */
@@ -78,6 +78,7 @@
 #endif  /*_KTRACEATL_H_ */
 /******************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2007-03-06 14:36:13  Darko Kolakovic 
+ *  2    Biblioteka1.1         2007-03-11 02:13:52  Darko            
+ *  1    Biblioteka1.0         2007-03-06 15:36:13  Darko Kolakovic 
  * $
  *****************************************************************************/

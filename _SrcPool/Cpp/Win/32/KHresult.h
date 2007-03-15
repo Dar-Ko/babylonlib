@@ -1,5 +1,5 @@
 /*$Workfile: KHresult.h$: header file
-  $Revision: 1.5 $ $Date: 2007/03/11 06:16:01 $
+  $Revision: 1.6 $ $Date: 2007/03/15 20:05:23 $
   $Author: ddarko $
 
   Handles HRESULT error codes

@@ -213,10 +213,19 @@
 				RelativePath=".\32\KApnSyMn.cpp">
 			</File>
 			<File
+				RelativePath=".\32\KBeepWin.cpp">
+			</File>
+			<File
 				RelativePath=".\32\KBtnEx.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KCheckBox.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KClipCBm.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KClipCTx.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KClrShem.cpp">
@@ -525,6 +534,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\32\KDbgRpt.cpp">
+			</File>
+			<File
 				RelativePath=".\32\KDbgTraceLog.cpp">
 			</File>
 			<File
@@ -562,6 +574,15 @@
 			</File>
 			<File
 				RelativePath=".\32\KFileGetDirectory.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KFileNameFit.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KFileNmB.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KFileShortcut.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KFileTime.cpp">
@@ -645,6 +666,12 @@
 				RelativePath=".\32\KListEx.cpp">
 			</File>
 			<File
+				RelativePath=".\32\KPropPgR.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KPropShR.cpp">
+			</File>
+			<File
 				RelativePath=".\32\KRegCtrl.cpp">
 			</File>
 			<File
@@ -661,6 +688,9 @@
 			</File>
 			<File
 				RelativePath=".\32\KSpwnURL.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KStaticEx.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KStatusBarEx.cpp">
@@ -691,6 +721,9 @@
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\32\KStrFit.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KStrGuidWin.cpp">
@@ -891,6 +924,9 @@
 				RelativePath=".\32\KWinPlac.cpp">
 			</File>
 			<File
+				RelativePath=".\32\KWinService.cpp">
+			</File>
+			<File
 				RelativePath=".\32\KWinVerG.cpp">
 				<FileConfiguration
 					Name="Debug_Unicode_MFC|Win32">
@@ -995,7 +1031,13 @@
 				RelativePath=".\32\KDbgDump.h">
 			</File>
 			<File
+				RelativePath=".\32\KDbgMacrAtl.h">
+			</File>
+			<File
 				RelativePath=".\32\KDbgXmlWin.h">
+			</File>
+			<File
+				RelativePath=".\32\KDispatchPtr.h">
 			</File>
 			<File
 				RelativePath=".\32\KDlgItem.h">
@@ -1011,6 +1053,15 @@
 			</File>
 			<File
 				RelativePath=".\32\KDlgTmpl.h">
+			</File>
+			<File
+				RelativePath=".\32\KFileN32.inl">
+			</File>
+			<File
+				RelativePath=".\32\KFileNmB.h">
+			</File>
+			<File
+				RelativePath=".\32\KFileShortcut.h">
 			</File>
 			<File
 				RelativePath=".\32\KFileTime.h">
@@ -1031,6 +1082,12 @@
 				RelativePath=".\32\KListEx.h">
 			</File>
 			<File
+				RelativePath=".\32\KPropPgR.h">
+			</File>
+			<File
+				RelativePath=".\32\KPropShR.h">
+			</File>
+			<File
 				RelativePath=".\32\KRegCtrl.h">
 			</File>
 			<File
@@ -1044,6 +1101,9 @@
 			</File>
 			<File
 				RelativePath=".\32\KSound.inl">
+			</File>
+			<File
+				RelativePath=".\32\KStaticEx.h">
 			</File>
 			<File
 				RelativePath=".\32\KStatusBarEx.h">
@@ -1061,10 +1121,16 @@
 				RelativePath=".\32\KTipBox.h">
 			</File>
 			<File
+				RelativePath=".\32\KTraceAtl.h">
+			</File>
+			<File
 				RelativePath=".\32\KVerInfo.h">
 			</File>
 			<File
 				RelativePath=".\32\KWinPlac.h">
+			</File>
+			<File
+				RelativePath=".\32\KWinService.h">
 			</File>
 			<File
 				RelativePath=".\32\KWinVerG.inl">

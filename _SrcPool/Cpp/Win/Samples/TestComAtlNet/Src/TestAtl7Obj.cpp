@@ -1,5 +1,5 @@
 /*$Workfile: TestAtl7Obj.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-03-02 20:21:50$
+  $Revision: 6$ $Date: 2007-03-15 16:04:36$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -12,6 +12,14 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // CTestAtl7Obj
+
+//-----------------------------------------------------------------------------
+/*Default constructor.
+ */
+CTestAtl7Obj::CTestAtl7Obj()
+{
+  //TODO: Initialize attributes
+}
 
 //-----------------------------------------------------------------------------
 /*Initializes the object instantiated with CoCreateInstance(). The method is
@@ -68,12 +76,13 @@ return S_OK;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
-*  5    Biblioteka1.4         2007-03-02 20:21:50  Darko Kolakovic Connection
+*  6    Biblioteka1.5         2007-03-15 16:04:36  Darko Kolakovic Param
+*  5    Biblioteka1.4         2007-03-02 21:21:50  Darko Kolakovic Connection
 *       Points
-*  4    Biblioteka1.3         2007-03-01 00:10:10  Darko Kolakovic TestCounter
+*  4    Biblioteka1.3         2007-03-01 01:10:10  Darko Kolakovic TestCounter
 *       property
-*  3    Biblioteka1.2         2007-02-16 14:22:22  Darko Kolakovic Header
-*  2    Biblioteka1.1         2007-02-15 20:33:39  Darko Kolakovic Fire an event
-*  1    Biblioteka1.0         2007-02-14 16:56:11  Darko Kolakovic 
+*  3    Biblioteka1.2         2007-02-16 15:22:22  Darko Kolakovic Header
+*  2    Biblioteka1.1         2007-02-15 21:33:39  Darko Kolakovic Fire an event
+*  1    Biblioteka1.0         2007-02-14 17:56:11  Darko Kolakovic 
 * $
 *****************************************************************************/

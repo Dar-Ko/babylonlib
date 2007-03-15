@@ -1,5 +1,5 @@
 /*$Workfile: KAtlExt.h$: header file
-  $Revision: 4$ $Date: 2007-03-11 01:03:53$
+  $Revision: 4$ $Date: 2007-03-11 02:03:53$
   $Author: Darko$
 
   ATL Helper methods and objects

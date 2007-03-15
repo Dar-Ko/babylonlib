@@ -8,23 +8,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComAtlVc7.htm$: documentation" />
-<meta name="Revision" content="$Revision: 14$" />
+<meta name="Revision" content="$Revision: 15$" />
 <meta name="robots" content="index" />
 <meta name="keywords" content="compiler, ATL, COM" />
 <!-- Dublin Core Metadata Package -->
 <meta name="DC.title" content="Creating an ATL COM project with Visual Studio .Net 2003 v7.1" />
 <meta name="DC.creator" content="Darko Kolaković" />
 <meta name="DC.creator.vCard.EMAIL.internet" content="DarkoKolakovic @ yahoo" />
-<meta name="DC.Contributor" content="$Author: Darko$" />
+<meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
 <meta name="DC.Rights" content="© CommonSoft Inc" />
 <meta name="DC.subject" content="ATL COM" />
 <meta name="DC.description.abstract" content="COM project setup" />
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
-<meta name="DC.date" content="$Date: 2007-03-11 14:17:43$" />
+<meta name="DC.date" content="$Date: 2007-03-15 16:04:43$" />
 <meta name="DC.type" content="Text.Article" />
 <meta name="DC.format" content="application/html" />
 <meta name="DC.language" content="en_ca" />
-<meta name="DC.identifier.Revision" content="$Revision: 14$" />
+<meta name="DC.identifier.Revision" content="$Revision: 15$" />
 <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
@@ -54,34 +54,34 @@
 <p>See also: <a href="../TestComAtl/TestComAtlVc6.htm">Creating an </a>
 <a href="#Footnote1"><sup class="Footnote">1</sup></a>
 <a href="../TestComAtl/TestComAtlVc6.htm">COM</a><a href="#Footnote2">
-<sup class="Footnote">2</sup></a><a href="../TestComAtl/TestComAtlVc6.htm"> 
+<sup class="Footnote">2</sup></a><a href="../TestComAtl/TestComAtlVc6.htm">
 project with Visual C++ 6.0</a>
 <img border="0" src="../../../../../Doc/Symbol/extern.gif" width="14" height="22" /></p>
 <ol>
   <li>Select new Visual C++ ATL project and choose &quot;ATL Project&quot; template:<br />
   <img border="0" src="Res/ComAtlVc71.gif" width="530" height="144" /></li>
   <li>Type desired project name</li>
-  <li><span id="intelliTXT">Specify applications settings. If Attributed is 
-  checked, the compiler will parse and validate attributes found in a source 
-  file. A Service has benefits of running non-interactively immediately after 
+  <li><span id="intelliTXT">Specify applications settings. If Attributed is
+  checked, the compiler will parse and validate attributes found in a source
+  file. A Service has benefits of running non-interactively immediately after
   system starts.<br />
   <img border="0" src="Res/ComAtlVc72.gif" width="223" height="232" /><br />
   Be aware that: </span><span id="intelliTXT"></span>
   <ul>
     <span id="intelliTXT">
     <li>.exe COM server will run only as a <i>local</i> or <i>remote</i> <i>
-    out-of-process</i> server and an additional <i>Proxy/Stub DLL</i> is 
+    out-of-process</i> server and an additional <i>Proxy/Stub DLL</i> is
     required</li>
     <li>.dll COM could be either a <i>local in-process</i> or a <i>local</i> or
     <i>remote out-of-process</i> server.</li>
     </span>
   </ul>
   <span id="intelliTXT"></span></li>
-  <li>After finishing with the wizard, the result will be displayed in the 
+  <li>After finishing with the wizard, the result will be displayed in the
   Solution Explorer:<br />
   <img border="0" src="Res/ComAtlVc73.gif" width="257" height="447" /></li>
-  <li>Provide the appropriate security settings for your service by replacing 
-  default code in <code>YourAtlModule::InitializeSecurity()</code> with the 
+  <li>Provide the appropriate security settings for your service by replacing
+  default code in <code>YourAtlModule::InitializeSecurity()</code> with the
   following:<span id="intelliTXT"></span><pre><span id="intelliTXT"><code>HRESULT InitializeSecurity() <span class="SKeyword">throw</span>()
 {
    <span class="Rem">//Allow service access to everyone</span>
@@ -105,42 +105,42 @@ project with Visual C++ 6.0</a>
   <span id="intelliTXT"></span>
   <p><br /></p>
   </li>
-  <li>To add new ATL object in Class View, after right mouse click, select &quot;Add 
+  <li>To add new ATL object in Class View, after right mouse click, select &quot;Add
   Class&quot;<br />
   <img border="0" src="Res/ComAtlVc74.gif" width="288" height="161" /></li>
   <li>Choose <i>ATL Simple Object</i> from Visual C++ ATL categories:<br />
   <img border="0" src="Res/ComAtlVc75.gif" width="240" height="208" /></li>
   <li>Insert the name for the object<br />
   <img border="0" src="Res/ComAtlVc76.gif" width="615" height="437" /><br />
-  If <i>Attributed</i> is selected, the .idl file will be automatically created 
+  If <i>Attributed</i> is selected, the .idl file will be automatically created
   by the compiler, based on
   <a href="http://msdn2.microsoft.com/en-us/library/aa367042.aspx" title="IDL Atributes">
   attribute blocks</a> inserted by this wizard.</li>
   <li>Also set desired options in the same wizard dialog:<br />
   <img border="0" src="Res/ComAtlVc79.gif" width="506" height="339" /><br />
-  If this COM object is not going to be aggregated inside another, select <i>No</i> 
-  for Aggregation. For the simplest interface option is <i>Custom</i>. This will 
-  add smallest common denominator for COM objects: <i>IUknown</i> interface and 
-  virtual functions list <em>vtable</em>. The <tt>IUnknown</tt> interface has 
+  If this COM object is not going to be aggregated inside another, select <i>No</i>
+  for Aggregation. For the simplest interface option is <i>Custom</i>. This will
+  add smallest common denominator for COM objects: <i>IUknown</i> interface and
+  virtual functions list <em>vtable</em>. The <tt>IUnknown</tt> interface has
   the following member functions:<ul>
     <li><tt>ULONG AddRef(void)</tt> </li>
     <li><tt>ULONG Release(void)</tt> </li>
     <li><tt>HRESULT QueryInterface(REFIID id, void **ipv)</tt> </li>
   </ul>
   <p>
-  <img border="0" src="../../../../../Doc/Images/diagIConnectionPoint.gif" align="right" width="360" height="140" />However, scripting engines like JavaScript 
+  <img border="0" src="../../../../../Doc/Images/diagIConnectionPoint.gif" align="right" width="360" height="140" />However, scripting engines like JavaScript
   <a href="../TestComContainer/Src/TestComContainer.htm" title="Test embedded ActiveX objects">
-  <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8"></a> could not access exported 
-  methods through the <i>vtable</i> and <i>IDispatch<b> </b></i>interface is 
-  required. The new interface will be added if <i>Dual </i>Interface is selected 
+  <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8"></a> could not access exported
+  methods through the <i>vtable</i> and <i>IDispatch<b> </b></i>interface is
+  required. The new interface will be added if <i>Dual </i>Interface is selected
   in the wizard form.<br />
-  With <i>Connection points</i> support the COM server will fire events back to 
-  the client, with help of another interface - <i>IConnectionPointContainer</i>. 
+  With <i>Connection points</i> support the COM server will fire events back to
+  the client, with help of another interface - <i>IConnectionPointContainer</i>.
   Also id required to implement the <b>IProvideClassInfo</b> or <b>
   <a name="IProvideClassInfo2" href="../TestComContainer/scripting_events.htm#IProvideClassInfo2">
-  IProvideClassInfo2</a></b> interface, because Internet Explorer relies on 
-  those interfaces to obtain type library. Visual Basic and MFC<a href="#Footnote3"><sup class="Footnote">3</sup></a> 
-  wizards will add the interfaces by default, but for <i>ATL Simple Object</i><sup><a class="Ref" href="#200839">[Q200839]</a></sup> 
+  IProvideClassInfo2</a></b> interface, because Internet Explorer relies on
+  those interfaces to obtain type library. Visual Basic and MFC<a href="#Footnote3"><sup class="Footnote">3</sup></a>
+  wizards will add the interfaces by default, but for <i>ATL Simple Object</i><sup><a class="Ref" href="#200839">[Q200839]</a></sup>
   add following code to the object:<br />
   </p>
   <pre><code> public IProvideClassInfo2Impl&lt;&amp;CLSID_TestAtlObj, NULL,
@@ -152,10 +152,10 @@ project with Visual C++ 6.0</a>
    COM_INTERFACE_ENTRY(IProvideClassInfo2)
    ...
    }</code></pre>
-  <p>After finishing with options, the result will be presented in the Solution 
+  <p>After finishing with options, the result will be presented in the Solution
   Explorer:<br />
   <img border="0" src="Res/ComAtlVc78.gif" width="228" height="380" /><br />
-  The IDL file will contain following snippet:</p> 
+  The IDL file will contain following snippet:</p>
   <pre><code>  [
     uuid(8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543),
     helpstring(&quot;TestAtl7Obj Class&quot;)
@@ -165,7 +165,7 @@ project with Visual C++ 6.0</a>
     [default] interface ITestAtlObj;
     ...
   };</code></pre>
-  <p>However, if Visual C++ IDL attributes are used, you will find the next 
+  <p>However, if Visual C++ IDL attributes are used, you will find the next
   attribute block in the header file (.h): </p>
   <pre><code>[
   coclass,
@@ -185,7 +185,7 @@ class ATL_NO_VTABLE <b>CTestAtlObj</b> :
  version(1.0),
  uuid(8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543),
  helpstring(&quot;Replace default text&quot;)
-] 
+]
 #line 51 &quot;...\\testatlobj.h&quot;
 coclass <b>CTestAtlObj</b> {
  interface ITestAtlObj;
@@ -204,10 +204,10 @@ coclass <b>CTestAtlObj</b> {
   *pResult = 2 + lInput;<br />
   return S_OK;<br />
   }</code></li>
-  <li>Build the project. The compiler will register your new COM exe so it could 
+  <li>Build the project. The compiler will register your new COM exe so it could
   be used by container application. To unregister the COM dll server use command
-  <code>regsvr32 /u ComName</code>. For COM exe use <code>ComName /UnregServer</code>. 
-  Also, to obtain more insight into build process, replace the command-line of 
+  <code>regsvr32 /u ComName</code>. For COM exe use <code>ComName /UnregServer</code>.
+  Also, to obtain more insight into build process, replace the command-line of
   Post-Build Event
   <img border="0" src="Res/ComAtlVc7H.gif" width="644" height="440" /><br />
   with following script:
@@ -222,7 +222,7 @@ goto VCReportError
   <p>and Description with </p>
   <pre><b>Performing registration on $(TargetPath)</b></pre>
   </li>
-  <li>If it is required for COM to generate some events, the connection points 
+  <li>If it is required for COM to generate some events, the connection points
   have to be defined.
   <ol>
     <li>Add new method to the event source interface<br />
@@ -232,26 +232,26 @@ goto VCReportError
     <img border="0" src="Res/ComAtlVc7F.gif" width="420" height="213" /><br />
     In the Solution Explorer find the <i>.idl</i> file
     <a href="Src/TestComAtlNet.idl">
-    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a> and compile it. The MIDL 
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a> and compile it. The MIDL
     complier will generate some files required for the final build.</li>
-    <li>Add the new connection point to the main class, by inserting it from the 
+    <li>Add the new connection point to the main class, by inserting it from the
     interface<br />
     <img border="0" src="Res/ComAtlVc7G.gif" width="316" height="206" /><br />
-    Use the <i>Implement Connection Point Wizard</i> to select the interface for 
+    Use the <i>Implement Connection Point Wizard</i> to select the interface for
     the new connection point <a href="Src/DITestAtl7WebEvents_CP.cpp">
     <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a><br />
     <img border="0" src="Res/ComAtlVc7E.gif" width="406" height="387" /></li>
     </ol>
     </li>
-    <li>Build Proxy/Stub DLL and register it. With the <i>OLE/COM Object Viewer</i> 
+    <li>Build Proxy/Stub DLL and register it. With the <i>OLE/COM Object Viewer</i>
     tool all registered automation components could be browsed:<br />
     <img border="0" src="Res/ComAtlVc7J.gif" width="801" height="430" /></li>
-    <li>To test the the COM object, create new <span id="intelliTXT0">&quot;Win32 
+    <li>To test the the COM object, create new <span id="intelliTXT0">&quot;Win32
     Console Application&quot; </span>project for example.<br />
     <img border="0" src="Res/ComAtlVc7I.gif" width="531" height="157" /></li>
     <li>Insert following code in the  file
     <a href="../TestComContainer/Src/main.cpp">
-    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a> 
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a>
     created by the project wizard:
     <pre><code>#include &quot;STL/KOStream.h&quot; //_tcout
 //Files generated by MIDL compiler
@@ -339,34 +339,34 @@ C:\&gt;</font></pre>
     </li>
     <li>Testing event sink
     <a href="../TestComContainer/Src/TestComWebEventHandlerRt.h">
-    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a> 
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a>
     in the single-threaded apartment model requires a message loop
     <a href="../TestComContainer/Src/TestComEvent.cpp">
-    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a> 
-    with help of <code>MsgWaitForMultipleObjects</code> synchronization 
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a>
+    with help of <code>MsgWaitForMultipleObjects</code> synchronization
     mechanism.</li>
-    <li>In order to debug the COM Server, the process have to be attached to the 
-    debugger. Select <i>Debug | Processes...</i> menu item and select the 
+    <li>In order to debug the COM Server, the process have to be attached to the
+    debugger. Select <i>Debug | Processes...</i> menu item and select the
     process in question.<br />
     <img border="0" src="Res/ComAtlVc7K.gif" width="540" height="244" /><br />
     The program type is, of course, <i>Native</i>:<br />
     <img border="0" src="Res/ComAtlVc7L.gif" width="305" height="148" /><br />
-    If the code has hardcoded breakpoints (for example <code>ATLASSERT(false)</code>), 
+    If the code has hardcoded breakpoints (for example <code>ATLASSERT(false)</code>),
     the debugger will interrupt the execution.<br />
     </li>
     </ol>
     <hr />
-    <p><a name="Footnote1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a>Active 
-    Template Library is Microsoft C++ library usually used to create ActiveX and 
+    <p><a name="Footnote1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a>Active
+    Template Library is Microsoft C++ library usually used to create ActiveX and
     other software components based on Component Object Model.<br />
-    <a name="Footnote2" class="Footnote" id="ID_FOOTNOTE2"><sup>2</sup></a>Component 
-    Object Model defines how an object exposes its functionality, allowing to be 
-    accessed from other processes and across networks. A COM Object must support 
+    <a name="Footnote2" class="Footnote" id="ID_FOOTNOTE2"><sup>2</sup></a>Component
+    Object Model defines how an object exposes its functionality, allowing to be
+    accessed from other processes and across networks. A COM Object must support
     the <b>IUnknown</b> interface.<br />
-    <a name="Footnote3" class="Footnote" id="ID_FOOTNOTE3"><sup>3</sup></a><font size="-1">Microsoft 
+    <a name="Footnote3" class="Footnote" id="ID_FOOTNOTE3"><sup>3</sup></a><font size="-1">Microsoft
     Foundation Class Library</font>. </p>
     <p><a name="200839" class="Ref">Q200839</a> Article ID:200839
-    <a href="http://support.microsoft.com/kb/200839">How To Enable ActiveX 
+    <a href="http://support.microsoft.com/kb/200839">How To Enable ActiveX
     Control Event Handling on a Web Page</a><a></a></p>
 
     </body>

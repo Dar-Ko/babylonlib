@@ -7,8 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComContainer.htm$: documentation" />
-<meta name="Revision" content="$Revision: 6$ $Date: 2007-03-12 02:27:47$" />
-<meta name="Editor" content="$Author: Darko$" />
+<meta name="Revision" content="$Revision: 7$ $Date: 2007-03-15 16:04:46$" />
+<meta name="Editor" content="$Author: Darko Kolakovic$" />
 <meta name="Copyright" content="&copy; CommonSoft Inc, 1985-2032." />
 <meta name="author" content="Darko Kolakovi&#263;" />
 <meta name="robots" content="index" />
@@ -213,16 +213,18 @@ else
     <object classid="clsid:22252C96-126D-4147-A963-C38BC7E1E644"
             id="objIdTestAtl7Web" name="Testing ComAtlNet"
             width="50" height="50" border="1" VIEWASTEXT>
-      <param name="String" value="Test embedded object" />
-      <param name="Long"  value="20060912" />
+      <param name="TestText" value="Test embedded object" />
+      <param name="TestCount"  value="20060912" />
 
       <!-- Netscape with ActiveX plugin object -->
+      <!--[if !IE]>-->
       <embed classid="clsid:8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543"
              name="objIdTestAtl7Web" type="application/oleobject"
              width="50" height="50" border="1"
-             String="Test embedded object"
-             Long="20060912"
+             TestText="Test embedded object"
+             TestCount="20060912"
              />
+      <!--<![endif]-->
     </object>
   </dt>
 
@@ -238,6 +240,26 @@ else
         try
           {
           debugger;
+          //Test properties
+          if(objIdTestAtl7Web != undefined)
+            {
+            document.writeln("Properties are:\n<ol>\n");
+            for(var i = 0; i < objIdTestAtl7Web.childNodes.length; i++)
+              {
+              if (objIdTestAtl7Web.childNodes[i].tagName == "PARAM")
+                {
+                document.writeln("  <li>" +
+                                  objIdTestAtl7Web.childNodes[i].name + " = " +
+                                  objIdTestAtl7Web.childNodes[i].value + "<\/li>\n");
+                }
+              }
+            document.writeln("<\/ol>\n");
+            }
+          document.writeln("Properties are: " +
+                            objIdTestAtl7Web.TestText + ", " +
+                            objIdTestAtl7Web.TestCount + "<br \/>"
+                           );
+
           var hLog7W = document.getElementById('ID_LOGTEST7W');
           hLog7W.LogEntry = LogEntry; //appends an entry
           hLog7W.nCount   = 0;        //record count
@@ -250,9 +272,13 @@ else
             {
             if (hLog7W.nCount < hLog7W.nSize)
               {
+              //Param is not equal to the property
+              if (strValue !=  objIdTestAtl7Web.childNodes[0].value)
+                strValue += ' failed to set property!';
               hLog7W.nCount++;
               hLog7W.LogEntry('Event from object "' +
-                              objIdTestAtl7Web.name + '"');
+                              objIdTestAtl7Web.name + '": ' +
+                              strValue);
               }
             }
           }

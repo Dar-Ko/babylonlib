@@ -1,5 +1,5 @@
 /*$Workfile: KCoGetThreadModel.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-03-11 01:04:28$
+  $Revision: 5$ $Date: 2007-03-11 02:04:28$
   $Author: Darko$
 
   Retreives.COM threading model.

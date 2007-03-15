@@ -1,13 +1,13 @@
 /*$Workfile: TestAtl7Web.h$: header file
-  $Revision: 7$ $Date: 2007-03-12 02:27:08$
-  $Author: Darko$
+  $Revision: 8$ $Date: 2007-03-15 16:04:40$
+  $Author: Darko Kolakovic$
 
   COM Object
   Copyright: CommonSoft Inc
   2006-08-30 Darko Kolakovic
 */
 
-// Group=Examples
+// Group=Examples Windows
 
 #pragma once
 //#include "resource.h"       // main symbols
@@ -20,10 +20,12 @@
 // CTestAtl7Web
 
 /*Test COM object implementing Singleton factory, Connection Points, 
-  Dual Inerface (vtab and IDispatch).
+  Dual Interface (vtab and IDispatch).
   The object will fire an event every TESTEVENT_TIMER ms.
   
   {html: <img src="../Images/diagIConnectionPoint.gif" title="IConnectionPointContainer" /><br />}
+  Following interfaces are implemented:
+  {html: <img src="../Images/diagTestAtl7Web.gif" title="CTestAtl7Web class" /><br />}
 
   Note: Microsoft Windows specific (Win32).
  */
@@ -60,6 +62,17 @@ BEGIN_COM_MAP(CTestAtl7Web)
   COM_INTERFACE_ENTRY(IProvideClassInfo2)
 END_COM_MAP()
 
+#if _MSC_VER >= 1300
+  //MSVC 2002 v7.0
+  #ifdef WIN32
+   /*If 32-bit application is compiled with with /Wp64 
+     (Detect 64-bit portability issues) command switch,
+      the warning C4267: 'initializing' : conversion from 'size_t' to 'DWORD'
+     is issued
+    */
+   #pragma warning (disable: 4267)
+  #endif
+#endif
 BEGIN_PROP_MAP(CTestAtl7Web)
   PROP_DATA_ENTRY("TestCount", m_lTestCount, VT_I4)
   PROP_DATA_ENTRY("TestText", m_bstrTestText, VT_BSTR)
@@ -67,6 +80,7 @@ BEGIN_PROP_MAP(CTestAtl7Web)
   // PROP_ENTRY("Property Description", dispid, clsid)
   // PROP_PAGE(CLSID_StockColorPage)
 END_PROP_MAP()
+#pragma warning (default: 4267)
 
 BEGIN_CONNECTION_POINT_MAP(CTestAtl7Web)
   CONNECTION_POINT_ENTRY(__uuidof(DITestAtl7WebEvents))
@@ -125,6 +139,7 @@ END_CATEGORY_MAP()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
+*  8    Biblioteka1.7         2007-03-15 16:04:40  Darko Kolakovic Param
 *  7    Biblioteka1.6         2007-03-12 02:27:08  Darko           Debug flag
 *  6    Biblioteka1.5         2007-03-11 02:21:31  Darko           Event sink and 
 *       apartman message loop

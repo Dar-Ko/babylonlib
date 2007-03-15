@@ -1,5 +1,5 @@
 /*$Workfile: TestComAtlNet.cpp$: implementation file
-  $Revision: 4$ $Date: 2007-03-02 20:21:51$
+  $Revision: 5$ $Date: 2007-03-15 16:04:42$
   $Author: Darko Kolakovic$
 
   Implementation file
@@ -7,10 +7,24 @@
   2006-08-25 Darko Kolakovic
  */
 
+// Group=Examples Windows
+
 #include "stdafx.h"
 #include "resource.h"
 #include "TestComAtlNet.h" //Note: created by MIDL compiler
 
+///////////////////////////////////////////////////////////////////////////////
+/*The class is the main the module for an executable application and contains 
+  code that supports creating an .exe, processing the command line, registering 
+  class objects, running the message loop, and cleaning up on exit.
+
+  The base class is designed to improve performance when COM objects in 
+  the EXE server are continually created and destroyed. 
+  After the last COM object is released, the EXE waits for a duration specified 
+  by the CAtlExeModuleT::m_dwTimeOut data member. If there is no activity during 
+  this period (that is, no COM objects are created), the shutdown process is 
+  initiated.
+ */
 class CTestComAtlNetModule : public CAtlServiceModuleT< CTestComAtlNetModule, IDS_SERVICENAME >
 {
 public :
@@ -26,6 +40,9 @@ public :
  */
 HRESULT CTestComAtlNetModule::InitializeSecurity() throw()
 {
+m_bDelayShutdown = false; //flag indicating that there should be a delay 
+                          //shutting down the module.
+
 //Allow service access to everyone
 HRESULT hResult =
   CoInitializeSecurity(NULL, //points to the access permissions that
@@ -45,7 +62,7 @@ HRESULT hResult =
 return hResult;
 }
 
-CTestComAtlNetModule _AtlModule;
+CTestComAtlNetModule TestAtlModule; //the main the module for an executable application
 
 
 //-----------------------------------------------------------------------------
@@ -67,7 +84,7 @@ extern "C" int WINAPI _tWinMain(HINSTANCE ,//hInstance [in] Handle to the curren
                                 //to be shown. 
                                )
 {
-return _AtlModule.WinMain(nShowCmd);
+return TestAtlModule.WinMain(nShowCmd);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
