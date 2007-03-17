@@ -1,6 +1,6 @@
 /*$Workfile: TsWriteTxt.cpp$: implementation file
-  $Revision: 9$ $Date: 2005-03-22 02:20:01$
-  $Author: Darko$
+  $Revision: 10$ $Date: 2007-03-16 22:24:30$
+  $Author: Darko Kolakovic$
 
   Outputs text to stdout stream
   Copyright: CommonSoft Inc.
@@ -10,6 +10,9 @@
 // Group=Examples
 
 #include "stdafx.h"
+#ifndef LPCTSTR
+  #include "KTChar.h"
+#endif
 
 #ifdef _STLP_IOSTREAM //STLport library
   #if !defined KSTL_IO

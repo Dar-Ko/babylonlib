@@ -1,6 +1,6 @@
 /*$Workfile: KTestLog.cpp$: implementation file
-  $Revision: 9$ $Date: 2005-03-21 02:10:56$
-  $Author: Darko$
+  $Revision: 10$ $Date: 2007-03-16 22:26:30$
+  $Author: Darko Kolakovic$
 
   Outputs test data to file
   Copyright: CommonSoft Inc.
@@ -78,6 +78,16 @@ if (!s_bTestLogInitalized) //Initialize only once
 
     #ifdef __STDC__
       szEntry = _T("ANSI C compliance");
+      fwrite(szEntry, sizeof(TCHAR), _tcslen(szEntry), s_fileTestLog);
+      fwrite(szEOL, sizeof(TCHAR), 1, s_fileTestLog);
+    #endif
+
+    #ifdef _MT
+      szEntry = _T("Multithreaded applcation.");
+      fwrite(szEntry, sizeof(TCHAR), _tcslen(szEntry), s_fileTestLog);
+      fwrite(szEOL, sizeof(TCHAR), 1, s_fileTestLog);
+    #else
+      szEntry = _T("Single-threaded application.");
       fwrite(szEntry, sizeof(TCHAR), _tcslen(szEntry), s_fileTestLog);
       fwrite(szEOL, sizeof(TCHAR), 1, s_fileTestLog);
     #endif
@@ -225,18 +235,19 @@ if (s_fileTestLog != NULL)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  9    Biblioteka1.8         2005-03-21 02:10:56  Darko           Query
+ *  10   Biblioteka1.9         2007-03-16 22:26:30  Darko Kolakovic _MT
+ *  9    Biblioteka1.8         2005-03-21 03:10:56  Darko           Query
  *       __AFXWIN_H_
- *  8    Biblioteka1.7         2004-08-23 16:59:31  Darko           Unicode build
- *  7    Biblioteka1.6         2004-06-03 10:25:25  Darko           _AFXDLL,
+ *  8    Biblioteka1.7         2004-08-23 17:59:31  Darko           Unicode build
+ *  7    Biblioteka1.6         2004-06-03 11:25:25  Darko           _AFXDLL,
  *       _ATL_DLL
- *  6    Biblioteka1.5         2004-06-03 08:59:16  Darko           fixed
+ *  6    Biblioteka1.5         2004-06-03 09:59:16  Darko           fixed
  *       Unicode-specific prolog
- *  5    Biblioteka1.4         2004-06-01 15:54:43  Darko           StdAfx changed
+ *  5    Biblioteka1.4         2004-06-01 16:54:43  Darko           StdAfx changed
  *       to stdafx
- *  4    Biblioteka1.3         2003-09-22 21:27:01  Darko           formatting
- *  3    Biblioteka1.2         2003-08-29 07:47:58  Darko           localization
- *  2    Biblioteka1.1         2003-02-10 14:48:40  Darko           
- *  1    Biblioteka1.0         2003-01-30 21:44:58  Darko           
+ *  4    Biblioteka1.3         2003-09-22 22:27:01  Darko           formatting
+ *  3    Biblioteka1.2         2003-08-29 08:47:58  Darko           localization
+ *  2    Biblioteka1.1         2003-02-10 15:48:40  Darko           
+ *  1    Biblioteka1.0         2003-01-30 22:44:58  Darko           
  * $
  *****************************************************************************/

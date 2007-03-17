@@ -1,5 +1,5 @@
 /*$Workfile: KDbgMacr.h$: header file
-  $Revision: 47$ $Date: 2007-03-06 18:04:33$
+  $Revision: 48$ $Date: 2007-03-16 22:26:27$
   $Author: Darko Kolakovic$
 
   Dumps values of some compiler-specific predefined macros
@@ -689,7 +689,14 @@
     #pragma message ("Enabled Run-Time Type Information.")
   #endif
   #ifdef _MT
+    /*Defined when /MD or /MDd (Multithreaded DLL) or /MT
+     or /MTd (Multithreaded) is specified.*/
     #pragma message ("Enabled Multithreading.")
+  #else
+    #ifndef _ST
+      #define _ST 1998
+    #endif
+    #pragma message ("Single-threaded application.")
   #endif
   #ifdef _DLL
     #pragma message ("Multithread DLL is specified.")

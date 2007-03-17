@@ -1,5 +1,5 @@
 /*$Workfile: TestAtl7Web.h$: header file
-  $Revision: 8$ $Date: 2007-03-15 16:04:40$
+  $Revision: 9$ $Date: 2007-03-16 22:25:57$
   $Author: Darko Kolakovic$
 
   COM Object
@@ -64,13 +64,15 @@ END_COM_MAP()
 
 #if _MSC_VER >= 1300
   //MSVC 2002 v7.0
-  #ifdef WIN32
+  #ifdef _Wp64
    /*If 32-bit application is compiled with with /Wp64 
      (Detect 64-bit portability issues) command switch,
       the warning C4267: 'initializing' : conversion from 'size_t' to 'DWORD'
      is issued
     */
-   #pragma warning (disable: 4267)
+    #ifndef _WIN64
+      #pragma warning (disable: 4267)
+    #endif
   #endif
 #endif
 BEGIN_PROP_MAP(CTestAtl7Web)
@@ -139,6 +141,7 @@ END_CATEGORY_MAP()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: 
+*  9    Biblioteka1.8         2007-03-16 22:25:57  Darko Kolakovic _Wp64
 *  8    Biblioteka1.7         2007-03-15 16:04:40  Darko Kolakovic Param
 *  7    Biblioteka1.6         2007-03-12 02:27:08  Darko           Debug flag
 *  6    Biblioteka1.5         2007-03-11 02:21:31  Darko           Event sink and 

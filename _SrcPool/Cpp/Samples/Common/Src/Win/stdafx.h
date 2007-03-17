@@ -1,5 +1,5 @@
 /*$Workfile: stdafx.h$: header file
-  $Revision: 18$  $Date: 2005-05-16 14:28:55$
+  $Revision: 19$  $Date: 2007-03-16 22:24:31$
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -145,6 +145,14 @@
 
 #endif //__cplusplus
 
+///////////////////////////////////////////////////////////////////////////////
+//Threading model
+#ifndef _MT /*Defined when /MD or /MDd (Multithreaded DLL) or
+             /MT or /MTd (Multithreaded) is specified.*/
+  #ifndef _ST
+    #define _ST 1998  /*singlethreaded application*/
+  #endif
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 //Project specific header files

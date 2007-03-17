@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="StreamIO"
+	ProjectGUID="{055B98E5-3956-4091-AA9A-7B86C0B554D9}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -580,7 +581,13 @@
 		</Filter>
 		<Filter
 			Name="Logs"
-			Filter="">
+			Filter="log;">
+			<File
+				RelativePath=".\LibraryTest.log">
+			</File>
+			<File
+				RelativePath=".\LibraryTestUni.log">
+			</File>
 		</Filter>
 		<File
 			RelativePath="StreamIO.txt">
