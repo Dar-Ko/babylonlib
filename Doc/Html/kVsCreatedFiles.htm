@@ -1,0 +1,439 @@
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<!--/* Group=Papers*/ -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-ca" />
+<meta name="Workfile" content="$Workfile: kVsCreatedFiles.htm$: documentation" />
+<meta name="Revision" content="$Revision: 5$" />
+<meta name="robots" content="index" />
+<meta name="keywords" content="compiler, C/C++, IDE, file format" />
+<!-- Dublin Core Metadata Package -->
+<meta name="DC.title" content="File Types Created by Build Tools" />
+<meta name="DC.creator" content="Kolaković, Darko" />
+<meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+<meta name="DC.subject" content="Project repository manual" />
+<meta name="DC.description.abstract" content="List of files created by build tools">
+<meta name="DC.publisher" content="CommonSoft Inc." />
+<meta name="DC.date" content="$Date: 2007-03-19 11:06:30$" />
+<meta name="DC.type" content="Text.Article" />
+<meta name="DC.format" content="application/html" />
+<meta name="DC.language" content="en_ca" />
+<meta name="DC.identifier.Revision" content="$Revision: 5$" />
+<meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+<title>File Types Created by Build Tools</title>
+<link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+<link rel="SHORTCUT ICON" href="../Res/icoMsDev.ico" />
+<link rel="icon" href="../Res/icoMsDev.ico" type="image/ico" />
+<base target="_self" />
+<style type="text/css">
+  /*<![CDATA[*/
+    .PrjLocale  {color:#0099CC; font-family:"Verdana, Arial, Helvetica, sans-serif";  }
+  /*]]>*/
+  </style>
+</head>
+
+<body style="background: url('../Res/KBckgGray.jpg')">
+
+<h1>File Types Created for Visual C++ Projects</h1>
+<table border="0" style="border-collapse: collapse; border: medium none">
+  <tr>
+    <th>File extension</th>
+    <th valign="top">Type</th>
+    <th valign="top">Contents</th>
+  </tr>
+  <tr>
+    <td valign="top"><span class="PrjLocale">.obj, .o</span></td>
+    <td valign="top">Compiling</td>
+    <td valign="top">Object files, compiled but not linked.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.bsc </td>
+    <td valign="top">Compiling </td>
+    <td valign="top">The browser code file.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.idb </td>
+    <td valign="top">Compiling </td>
+    <td valign="top">The state file, containing dependency information between
+    source files and class definitions, which can be used by the compiler during
+    minimal rebuild and incremental compilation. Use the /Fd compiler option to
+    specify the name of the .idb file. See /Gm (Enable Minimal Rebuild) for more
+    information.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.idl </td>
+    <td valign="top">Compiling </td>
+    <td valign="top">The interface definition language file. See Interface
+    Definition (IDL) File in the Platform SDK for more information.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.plg</td>
+    <td valign="top">Compiling</td>
+    <td valign="top">build log</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.sbr </td>
+    <td valign="top">Compiling </td>
+    <td valign="top">Source browser intermediate file. The input file for
+    BSCMAKE.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.baml</td>
+    <td valign="top">Compiling</td>
+    <td valign="top">binary version of the XAML (i.e. tokenized XAML)</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.g.cs</td>
+    <td valign="top">Compiling</td>
+    <td valign="top">generated C# source files</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.pch </td>
+    <td valign="top">Debug </td>
+    <td valign="top">Precompiled header file.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.pdb </td>
+    <td valign="top">Debug </td>
+    <td valign="top">The program debug database file. See What Are .pdb Files?
+    for more information.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.ilk </td>
+    <td valign="top">Linking </td>
+    <td valign="top">Incremental link file. See /INCREMENTAL for more
+    information.</td>
+  </tr>
+  <tr>
+    <td height="38" valign="top" class="PrjLocale">.map </td>
+    <td valign="top" height="38">Linking </td>
+    <td valign="top" height="38">A text file containing linker information. Use
+    the /Fm compiler option to name the map file. See /MAP for more information.</td>
+  </tr>
+  <tr>
+    <td valign="top">.atp </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">Application template project file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.dbp </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">Database project file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.exe, .dll </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">Executable or dynamic-link library files.</td>
+  </tr>
+  <tr>
+    <td valign="top">.HxC </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">Help project file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.srf </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">The server response file. This file contains the HTML code
+    for an ATL Server application.</td>
+  </tr>
+  <tr>
+    <td valign="top">.vap </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">Visual Studio Analyzer Project file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.csproj</td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">Web project files (C#)</td>
+  </tr>
+  <tr>
+    <td valign="top">.vcproj </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">The Visual C++ project file. See Project Files and
+    Makefiles for more information.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.vic</td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">Visual Interdev Cache File</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.vbproj.webinfo, .csproj.webinfo, .vbproj.user,
+    .csproj.user</td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">Web project files.</td>
+  </tr>
+  <tr>
+    <td valign="top">.vdproj </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">The Visual Studio deployment project file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.vmx </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">The macro project file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.vup </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">The Visual Utility Project file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.ocx</td>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">ActiveX Control (<font size="-1">OLE Custom control</font>)</td>
+  </tr>
+  <tr>
+    <td valign="top">.oct</td>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">ActiveX Control (<font size="-1">OLE Custom control</font>)
+    TypeLib Cache auto-generated</td>
+  </tr>
+  <tr>
+    <td valign="top">.vbp, .vip</td>
+    <td valign="top">
+    <img src="../Res/S/icoMsVb6.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">Visual Basic project file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.vbproj </td>
+    <td valign="top">
+    <img src="../Res/S/icoMsDev.gif" alt="MsDev" title="Project" width="16" height="16" /></td>
+    <td valign="top">Web project files (Visual Basic). In the way it manages
+    files, Visual Studio .NET has only two types of projects - Web and non-Web,
+    or local.</td>
+  </tr>
+  <tr>
+    <td valign="top">.vbw</td>
+    <td valign="top">
+    <img src="../Res/S/icoMsVb6.gif" alt="MsDev" title="Solution" width="16" height="16" /></td>
+    <td valign="top">Visual Basic 6.0 Workspace</td>
+  </tr>
+  <tr>
+    <td valign="top">.bas</td>
+    <td valign="top">Source </td>
+    <td valign="top">Visual Basic Module source code file</td>
+  </tr>
+  <tr>
+    <td valign="top">.ctl</td>
+    <td valign="top">Source </td>
+    <td valign="top">Visual Basic User Control source code file</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.ctx</td>
+    <td valign="top">Compiling </td>
+    <td valign="top">Visual Basic User Control Binary File</td>
+  </tr>
+  <tr>
+    <td valign="top">.frm</td>
+    <td valign="top">Source </td>
+    <td valign="top">Visual Basic Form source code file</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.frx</td>
+    <td valign="top">Compiling </td>
+    <td valign="top">Visual Basic Form Binary File</td>
+  </tr>
+  <tr>
+    <td valign="top">.bmp, .dib, .gif, .jpg, .jpe, .png </td>
+    <td valign="top">Resource </td>
+    <td valign="top">General image files.</td>
+  </tr>
+  <tr>
+    <td valign="top">.cur </td>
+    <td valign="top">Resource </td>
+    <td valign="top">Cursor bitmap graphic file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.htm, .html, .xsp, .asp, .htc, .hta, .xml </td>
+    <td valign="top">Resource </td>
+    <td valign="top">Common Web files.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.xsx</td>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">auto-generated by the XML Schema Designer</td>
+  </tr>
+  <tr>
+    <td valign="top">.ico </td>
+    <td valign="top">Resource </td>
+    <td valign="top">Icon bitmap graphic file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.rc, .rc2, .<a href="#ResX">resx</a></td>
+    <td valign="top">Resource </td>
+    <td valign="top">Resource script files to generate resources.</td>
+  </tr>
+  <tr>
+    <td valign="top">.txt </td>
+    <td valign="top">Resource </td>
+    <td valign="top">Text file, usually the &quot;readme&quot; file.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.ncb </td>
+    <td valign="top">Solution </td>
+    <td valign="top">The no compile browser file.</td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.opt</td>
+    <td valign="top">Solution </td>
+    <td valign="top">Workspace User Options</td>
+  </tr>
+  <tr>
+    <td valign="top">.sln </td>
+    <td valign="top">Solution </td>
+    <td valign="top">The solution file. Stores solution metadata, such as a list
+    of projects and their locations in storage.</td>
+  </tr>
+  <tr>
+    <td valign="top">
+    <p class="PrjLocale"><font class="PrjLocale">.suo</font></td>
+    <td valign="top">Solution </td>
+    <td valign="top">The solution options file. Solutions include a second
+    solution file, .suo that tracks user-specific information, such as the
+    default save location for your Visual Studio projects. </td>
+  </tr>
+  <tr>
+    <td valign="top" class="PrjLocale">.scc</td>
+    <td valign="top">Solution</td>
+    <td valign="top">VSS source safe file. Part of VS .Net soluition</td>
+  </tr>
+  <tr>
+    <td valign="top">.vbg </td>
+    <td valign="top">Solution </td>
+    <td valign="top">Compatible project group file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.asmx </td>
+    <td valign="top">Source </td>
+    <td valign="top">Deployment file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.asp </td>
+    <td valign="top">Source </td>
+    <td valign="top">Active Server Page file.</td>
+  </tr>
+  <tr>
+    <td valign="top">.cpp; .c </td>
+    <td valign="top">Source </td>
+    <td valign="top">Main source code files for your application.</td>
+  </tr>
+  <tr>
+    <td valign="top">.disco </td>
+    <td valign="top">Source </td>
+    <td valign="top">The dynamic discovery document file. Handles XML Web
+    service discovery.</td>
+  </tr>
+  <tr>
+    <td valign="top">.h , .inc</td>
+    <td valign="top">Source </td>
+    <td valign="top">The header, or include, file.</td>
+  </tr>
+  <caption>////////// </caption>
+  <tr>
+    <td valign="top">.vbs, .vbe</td>
+    <td valign="top">Source </td>
+    <td valign="top">Script file and encoded script written in VBScript.</td>
+  </tr>
+  <tr>
+    <td valign="top">.js, .jse</td>
+    <td valign="top">Source </td>
+    <td valign="top">Script file and encoded script written in JScript.</td>
+  </tr>
+  <tr>
+    <td valign="top">.wsh</td>
+    <td valign="top">Source </td>
+    <td valign="top">Script control file fir handling the execution of a script.</td>
+  </tr>
+  <tr>
+    <td valign="top">.ws, .wsf</td>
+    <td valign="top">Source </td>
+    <td valign="top">Windows script file written by using Extensible Markup
+    Language (XML) format. Before WSH 2.0, the .ws was used for XML script
+    files.</td>
+  </tr>
+  <tr>
+    <td valign="top">.wsc</td>
+    <td valign="top">Source </td>
+    <td valign="top">Script Component file representing a COM component written
+    in script.</td>
+  </tr>
+  <tr>
+    <td valign="top">.wsml</td>
+    <td valign="top">&nbsp;</td>
+    <td valign="top">Web Services Meta Language (WSML) file is specific to
+    Microsoft&#39;s implementation of SOAP</td>
+  </tr>
+</table>
+<dl>
+  <dt>Create solutions, not projects.</dt>
+  <dd>By creating a solution first and then adding projects, you maintain the
+  logical, parent-child relationship between a solution and its projects in
+  storage. Doing so ensures the discoverability of secondary projects in a
+  multiproject solution and helps you avoid some confusing issues that can occur
+  with some of the more complicated source control operations, such as branching
+  and merging.</dd>
+  <dt><a name="../ResX">ResX</a> resource files</dt>
+  <dd>
+  <a href="http://www.windojitsu.com/blog/resxsucks.html" tabindex="2" title="Included bitmaps are scrambled">
+  Don&#39;t include any binary data</a>. All binary resource files (icons, bitmaps,
+  etc) should be under source version control and included in .resx as embedded
+  resources so they&#39;re picked up in the automated build. This file doesn&#39;t get
+  regenerated unless you actually open the forms designer for the form/control
+  in question. Additionally, some of the resources may not regenerated at all,
+  such as bitmaps, icons etc.</dd>
+  <dt>Use a Virtual Drive Letter for Greater Flexibility</dt>
+  <dd>If you reference a local assembly that has been copied from the build
+  server, you should do so with a virtual drive letter established with the
+  subst command.<br />
+  All developers within the team must adopt the same drive letter because it is
+  maintained within the source controlled project file.</dd>
+  </dl>
+  <p>See also:
+  <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dv_vstechart/html/vetchwebprojectssourcecontrolintegrationinvisualstudionet.asp">
+  Web Projects and Source Control Integration in Visual Studio .NET</a></p>
+  <p>&nbsp;</p>
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="text-align: right">
+    <hr />
+    <p><a href="index.html" title="Go to home…" class="Plain" target="_main">⌂</a>
+    </div>
+    <div align="center" style="visibility:hidden">
+      <b>Your browser does not fully support CSS. This may result in visual
+      artifacts.</b>
+    </div>
+
+</body>
+<!-- ==========================================================================
+  $Log:
+   1    Biblioteka1.0         2006-11-21 10:29:04  Darko Kolakovic
+  $
+  Revision 1.2  2006/11/21 14:59:06  dkolakovic
+  References
+
+  Revision 1.1  2006/03/02 15:32:47  dkolakovic
+  Created
+
+-->
+
+</html>
