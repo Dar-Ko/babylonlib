@@ -1,5 +1,5 @@
 /*$Workfile: KGaussianInt.h$: header file
-  $Revision: 1$ $Date: 2005-06-21 16:46:35$
+  $Revision: 1$ $Date: 2005-06-21 17:46:35$
   $Author: Darko Kolakovic$
 
   Gaussian Integer class
@@ -55,6 +55,6 @@ typedef template <> class std::complex<int> CGausssianInt;
 /*///////////////////////////////////////////////////////////////////////////*/
 /******************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2005-06-21 16:46:35  Darko Kolakovic 
+ *  1    Biblioteka1.0         2005-06-21 17:46:35  Darko Kolakovic 
  * $
  *****************************************************************************/

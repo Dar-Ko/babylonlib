@@ -1,5 +1,5 @@
 /*$Workfile: KLinkedListS.c$: implementation file
-  $Revision: 1$ $Date: 2005-04-14 15:14:34$
+  $Revision: 1$ $Date: 2005-04-14 16:14:34$
   $Author: Darko Kolakovic$
 
   Singly Linked List
@@ -41,7 +41,7 @@ return pEndNode;
 /* ////////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2005-04-14 15:14:34  Darko Kolakovic 
+ *  1    Biblioteka1.0         2005-04-14 16:14:34  Darko Kolakovic 
  * $
  *  0    Biblioteka1.0           Jun 1989 Darko Kolakovic
  *****************************************************************************/

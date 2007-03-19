@@ -1,5 +1,5 @@
 /*$Workfile: KRefCounter.h$: header file
-  $Revision: 1$ $Date: 2005-04-29 18:16:26$
+  $Revision: 1$ $Date: 2005-04-29 19:16:26$
   $Author: Darko Kolakovic$
 
   Reference counting
@@ -117,6 +117,6 @@ return m_nRefCount;
 #endif  //_KREFCOUNTER_H_
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2005-04-29 18:16:26  Darko Kolakovic 
+ *  1    Biblioteka1.0         2005-04-29 19:16:26  Darko Kolakovic 
  * $
  *****************************************************************************/

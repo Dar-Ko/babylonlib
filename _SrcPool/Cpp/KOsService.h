@@ -1,5 +1,5 @@
-/*$Workfile: KTime.h$: implementation file
-  $Revision: 18$ $Date: 2005-06-28 12:38:09$
+/*$Workfile: KOsService.h$: implementation file
+  $Revision: 1$ $Date: 2007-02-15 21:29:56$
   $Author: Darko Kolakovic$
 
   OS Service deamon
@@ -9,7 +9,7 @@
 /* Group=System                                                              */
 
 #ifndef _KOSSERVICE_H_
-    /*$Workfile: $ sentry                                                    */
+    /*$Workfile: KOsService.h$ sentry                                                    */
   #define _KOSSERVICE_H_
 
 
@@ -88,5 +88,7 @@ return( *this );
 #endif  /*_KOSSERVICE_H_                                                     */
 
 /*****************************************************************************
- * $Log: $
+ * $Log: 
+ *  1    Biblioteka1.0         2007-02-15 21:29:56  Darko Kolakovic 
+ * $
  *****************************************************************************/

@@ -194,7 +194,9 @@ switch (origin)
             char *_tmpfname;
             };
           typedef struct _iobuf FILE;
-  #endif
+          #define _FILE_DEFINED
+        #endif
+      #endif
     #endif
   #endif
 
@@ -253,7 +255,14 @@ switch (origin)
  */
 
 /*****************************************************************************
- *$Log: $$
+ *$Log: 
+ * 5    Biblioteka1.4         2005-06-21 11:11:26  Darko Kolakovic Example
+ * 4    Biblioteka1.3         2005-04-29 01:11:26  Darko           Comment
+ * 3    Biblioteka1.2         2002-01-29 23:20:13  Darko           Used lbraries
+ *      notes 
+ * 2    Biblioteka1.1         2001-07-11 22:50:31  Darko           
+ * 1    Biblioteka1.0         2001-06-09 00:01:43  Darko           
+ *$$
  * Version 2 User: Dkolakovic   Date: 4/11/01    Time: 6:31p Comments
  * Version 1 User: Dkolakovic   Date: 4/11/01    Time: 10:55a  Dump VxWorks FILE struct
  * Apr. 2k1 verified with GNU D.K.
