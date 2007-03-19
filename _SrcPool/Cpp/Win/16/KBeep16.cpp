@@ -1,5 +1,5 @@
 /*$Workfile: KBeep16.cpp$: implementation file
-  $Revision: 11$ $Date: 2005-05-18 17:34:43$
+  $Revision: 11$ $Date: 2005-05-18 18:34:43$
   $Author: Darko Kolakovic$
 
   Generates beep sounds on PC speaker
@@ -112,18 +112,18 @@
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  11   Biblioteka1.10        2005-05-18 17:34:43  Darko Kolakovic comment
- *  10   Biblioteka1.9         2005-05-17 13:14:50  Darko Kolakovic Extrected
+ *  11   Biblioteka1.10        2005-05-18 18:34:43  Darko Kolakovic comment
+ *  10   Biblioteka1.9         2005-05-17 14:14:50  Darko Kolakovic Extrected
  *       Octave and Scale constants
- *  9    Biblioteka1.8         2005-05-16 13:25:39  Darko Kolakovic Comments
- *  8    Biblioteka1.7         2005-04-28 20:00:33  Darko           
- *  7    Biblioteka1.6         2002-10-11 13:33:30  Darko Kolakovic 
- *  6    Biblioteka1.5         2002-10-10 19:26:06  Darko Kolakovic Fixed x86
+ *  9    Biblioteka1.8         2005-05-16 14:25:39  Darko Kolakovic Comments
+ *  8    Biblioteka1.7         2005-04-28 21:00:33  Darko           
+ *  7    Biblioteka1.6         2002-10-11 14:33:30  Darko Kolakovic 
+ *  6    Biblioteka1.5         2002-10-10 20:26:06  Darko Kolakovic Fixed x86
  *       version (16-bit)
- *  5    Biblioteka1.4         2002-09-19 16:37:37  Darko Kolakovic 
- *  4    Biblioteka1.3         2002-09-19 00:14:36  Darko           
- *  3    Biblioteka1.2         2002-09-18 17:13:35  Darko Kolakovic Start() /Win9x
- *  2    Biblioteka1.1         2002-09-17 13:36:45  Darko Kolakovic Added KioPIT.h
- *  1    Biblioteka1.0         2002-09-16 16:57:06  Darko Kolakovic 
+ *  5    Biblioteka1.4         2002-09-19 17:37:37  Darko Kolakovic 
+ *  4    Biblioteka1.3         2002-09-19 01:14:36  Darko           
+ *  3    Biblioteka1.2         2002-09-18 18:13:35  Darko Kolakovic Start() /Win9x
+ *  2    Biblioteka1.1         2002-09-17 14:36:45  Darko Kolakovic Added KioPIT.h
+ *  1    Biblioteka1.0         2002-09-16 17:57:06  Darko Kolakovic 
  * $
  *****************************************************************************/
