@@ -123,6 +123,21 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath="..\..\KSerialIo.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\KTestLog.cpp">
 				<FileConfiguration
 					Name="Debug_Unicode|Win32">
@@ -158,6 +173,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Src\TestCommonSerialIo.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestSerialIo.cpp">
+			</File>
+			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
 				<FileConfiguration
 					Name="Debug_Unicode|Win32">
@@ -178,6 +199,9 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath="..\..\KSerialIo.h">
+			</File>
+			<File
 				RelativePath="..\Common\Src\Win\stdafx.h">
 			</File>
 		</Filter>
@@ -185,6 +209,23 @@
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			<File
+				RelativePath="..\Common\Res\Win\32\Test.rc">
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						Culture="4105"
+						AdditionalIncludeDirectories="\_SrcPool\Cpp\Samples\Common\Res\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						Culture="4105"
+						AdditionalIncludeDirectories="\_SrcPool\Cpp\Samples\Common\Res\Win\32"/>
+				</FileConfiguration>
+			</File>
 		</Filter>
 		<Filter
 			Name="Logs"

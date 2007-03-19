@@ -1,6 +1,6 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 2$ $Date: 2007-03-16 22:22:14$
-  $Author: Darko Kolakovic$
+  $Revision: 3$ $Date: 2007-03-18 21:57:21$
+  $Author: Darko$
 
   Test serial port I/O routines.
   Copyright: CommonSoft Inc.
@@ -25,7 +25,7 @@
 #include "stdafx.h"
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
-//extern int TestCommonService(int argc, TCHAR* argv[]);
+extern int TestCommonSerialIo(int argc, TCHAR* argv[]);
 
 //-----------------------------------------------------------------------------
 /*Validates different debugging and tracing routines.
@@ -47,13 +47,15 @@ TsWriteToViewLn(_T("Start Serial Port I/O Tests"));
 TsWriteToViewLn(_T(""));
 int nRetCode = EXIT_SUCCESS;
 
-//nRetCode = TestCommonService(argc, argv);
+nRetCode = TestCommonSerialIo(argc, argv);
 return nRetCode;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  3    Biblioteka1.2         2007-03-18 21:57:21  Darko          
+ *       TestCommonSerialIo()
  *  2    Biblioteka1.1         2007-03-16 22:22:14  Darko Kolakovic Created
  *  1    Biblioteka1.0         2007-03-16 10:19:09  Darko Kolakovic 
  * $
