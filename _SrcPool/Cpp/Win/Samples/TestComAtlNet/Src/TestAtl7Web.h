@@ -19,10 +19,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 // CTestAtl7Web
 
-/*Test COM object implementing Singleton factory, Connection Points, 
+/*Test COM object implementing Singleton factory, Connection Points,
   Dual Interface (vtab and IDispatch).
   The object will fire an event every TESTEVENT_TIMER ms.
-  
+
   {html: <img src="../Images/diagIConnectionPoint.gif" title="IConnectionPointContainer" /><br />}
   Following interfaces are implemented:
   {html: <img src="../Images/diagTestAtl7Web.gif" title="CTestAtl7Web class" /><br />}
@@ -33,14 +33,14 @@ class ATL_NO_VTABLE CTestAtl7Web :
   //COM object implementation
   public CComObjectRootEx<CComSingleThreadModel>,
   public CComCoClass<CTestAtl7Web, &CLSID_TestAtl7Web>,
-  
+
   public ISupportErrorInfo,
   public IConnectionPointContainerImpl<CTestAtl7Web>,
   public CProxyDITestAtl7WebEvents<CTestAtl7Web>,
-  public IDispatchImpl<ITestAtl7Web, &IID_ITestAtl7Web, &LIBID_TestComAtlNetLib, 
+  public IDispatchImpl<ITestAtl7Web, &IID_ITestAtl7Web, &LIBID_TestComAtlNetLib,
                         /*wMajor =*/ 1, /*wMinor =*/ 0>,
   public IProvideClassInfo2Impl<&CLSID_TestAtl7Web, NULL,
-                                &LIBID_TestComAtlNetLib>                        
+                                &LIBID_TestComAtlNetLib>
 {
 public:
   CTestAtl7Web();
@@ -65,7 +65,7 @@ END_COM_MAP()
 #if _MSC_VER >= 1300
   //MSVC 2002 v7.0
   #ifdef _Wp64
-   /*If 32-bit application is compiled with with /Wp64 
+   /*If 32-bit application is compiled with with /Wp64
      (Detect 64-bit portability issues) command switch,
       the warning C4267: 'initializing' : conversion from 'size_t' to 'DWORD'
      is issued
@@ -93,13 +93,13 @@ END_CONNECTION_POINT_MAP()
   DECLARE_PROTECT_FINAL_CONSTRUCT()
   HRESULT FinalConstruct();
   void    FinalRelease();
-  virtual HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID riid, 
+  virtual HRESULT STDMETHODCALLTYPE GetIDsOfNames(REFIID riid,
                                                   LPOLESTR *rgszNames,
                                                   UINT cNames,
                                                   LCID lcid,
                                                   DISPID *rgDispId);
-  static void CALLBACK EventSource(HWND hwnd, UINT uMsg, 
-                                   UINT_PTR idEvent, DWORD dwTime); 
+  static void CALLBACK EventSource(HWND hwnd, UINT uMsg,
+                                   UINT_PTR idEvent, DWORD dwTime);
 
 public:
   STDMETHOD(TestMethod)(void);
@@ -122,16 +122,16 @@ public:
 
 OBJECT_ENTRY_AUTO(__uuidof(TestAtl7Web), CTestAtl7Web)
 
-                                       
+
 /*Group COM classes into categories when the module is registered.
-  If Standard Component Categories Manager is installed on the system, each 
-  class that has an associated OBJECT_ENTRY_AUTO or 
+  If Standard Component Categories Manager is installed on the system, each
+  class that has an associated OBJECT_ENTRY_AUTO or
   OBJECT_ENTRY_NON_CREATEABLE_EX_AUTO will be categorized.
   Microsoft Specific: (uuid) attribute can be applied in a redeclaration.
  */
 struct __declspec(uuid("{BAB17049-D0DE-4241-4149-4C4F4E4C4942}")) CATID_BABYLONLIB;
 struct __declspec(uuid("{BAB17049-D0DE-4886-A995-6E2BE7F1E7E2}")) CATID_BABYLONLIBTEST;
- 
+
 BEGIN_CATEGORY_MAP(CTestAtl7Web)
   IMPLEMENTED_CATEGORY(__uuidof(CATID_BABYLONLIB))
   IMPLEMENTED_CATEGORY(__uuidof(CATID_BABYLONLIBTEST))
@@ -140,11 +140,11 @@ END_CATEGORY_MAP()
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
-* $Log: 
+* $Log:
 *  9    Biblioteka1.8         2007-03-16 22:25:57  Darko Kolakovic _Wp64
 *  8    Biblioteka1.7         2007-03-15 16:04:40  Darko Kolakovic Param
 *  7    Biblioteka1.6         2007-03-12 02:27:08  Darko           Debug flag
-*  6    Biblioteka1.5         2007-03-11 02:21:31  Darko           Event sink and 
+*  6    Biblioteka1.5         2007-03-11 02:21:31  Darko           Event sink and
 *       apartman message loop
 *  5    Biblioteka1.4         2007-03-08 21:40:21  Darko Kolakovic Event sink
 *  4    Biblioteka1.3         2007-03-06 19:01:48  Darko Kolakovic Fire an event
@@ -153,6 +153,6 @@ END_CATEGORY_MAP()
 *       property
 *  2    Biblioteka1.1         2007-03-01 01:10:13  Darko Kolakovic TestCounter
 *       property
-*  1    Biblioteka1.0         2007-02-26 19:16:14  Darko Kolakovic 
+*  1    Biblioteka1.0         2007-02-26 19:16:14  Darko Kolakovic
 * $
 *****************************************************************************/

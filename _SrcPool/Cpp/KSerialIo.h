@@ -1,6 +1,6 @@
 /*$Workfile: KSerialIo.h$: header file
-  $Revision: 1$ $Date: 2007-03-18 21:55:40$
-  $Author: Darko$
+  $Revision: 2$ $Date: 2007-03-22 18:01:11$
+  $Author: Darko Kolakovic$
 
   Serial Port I/O
   Copyright: CommonSoft Inc.
@@ -45,6 +45,8 @@ public:
   CSerialIo(void);
   virtual ~CSerialIo(void);
 
+  /*The following table lists all baud rates.
+   */
   enum BaudRate
     {
     eBAUD50     = 50,
@@ -59,9 +61,11 @@ public:
     eBAUD1800   = 1800,
     eBAUD2400   = 2400,
     eBAUD4800   = 4800,
-    eBAUD9600   = 9600, //CBR_9600
+    eBAUD9600   = 9600, //CBR_9600 (Default)
     eBAUD19200  = 19200,
+    eBAUD28800  = 28800,
     eBAUD38400  = 38400,
+    eBAUD56000  = 56000,
     eBAUD57600  = 57600,
     eBAUD115200 = 115200,
     eBAUD153600 = 153600,
@@ -71,27 +75,37 @@ public:
     eBAUDERR    = -1
     };
 
+  /*The following table lists the valid data bit values.
+   */
   enum DataSize
     {
+    eDATASIZE4 = 4, //data size is 4 bits
     eDATASIZE5 = 5, //data size is 5 bits (pseudo)
     eDATASIZE6 = 6, //data size is 6 bits
     eDATASIZE7 = 7, //data size is 7 bits
-    eDATASIZE8 = 8, //data size is 8 bits
+    eDATASIZE8 = 8, //data size is 8 bits (Default)
     eDATASIZEERR = -1
     };
 
+  /*The following table describes the valid parity values.
+   */
   enum Parity
     {
-    ePARITYEVEN,
-    ePARITYODD,
-    ePARITYNONE,
+    ePARITYEVEN,  //Even
+    ePARITYODD,   //Odd
+    ePARITYNONE,  //None (Default)
+    ePARITYMARK,  //Mark
+    ePARITYSPACE, //Space
     ePARITYERR
     };
 
+  /*The following table lists the valid stop bit values.
+   */
   enum StopBits
     {
-    eSTOPBIT1,
-    eSTOPBITS2,
+    eSTOPBIT1,   //1 (Default)
+    eSTOPBITS2,  //2
+    eSTOPBITS15, //1.5
     eSTOPBITERR = -1
     };
 
@@ -150,7 +164,7 @@ return (m_hPort != -1);
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_KSERIALIO_H_
 /*****************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2007-03-18 21:55:40  Darko           
+ * $Log:
+ *  1    Biblioteka1.0         2007-03-18 21:55:40  Darko
  * $
  *****************************************************************************/
