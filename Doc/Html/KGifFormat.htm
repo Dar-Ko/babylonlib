@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+<!--/* Group=Papers*/ -->
+
+<head lang="en-ca">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile" content="$Workfile: KGifFormat.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 12$" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="GIF, image, format" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="GIF Graphics Interchange Format version 89a" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Color names" />
+  <meta name="DC.description.abstract" content="GIF image format">
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2007-03-22 12:52:10$" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.Revision" content="$Revision: 12$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <title>GIF Graphics Interchange Format version 89a</title>
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="stylesheet" type="text/css" href="../Res/KTables.css" />
+  <link rel="SHORTCUT ICON" href="../Res/SrcPool.ico" />
+  <link rel="icon" href="../Res/SrcPool.ico" type="image/ico" />
+  <base target="_self" />
+
+  <!-- Note: Cell borders working OK for Mozilla, Opera. Unvisible for IE6; 20050703 D.K. -->
+  <!-- Note: Mozilla 1.0.4 doesn't like comment lines before style classes; 20050703 D.K. -->
+  <!-- Table Cell borders -->
+  <style type="text/css">
+  /*<![CDATA[*/
+  .BlackBorderTL
+    {
+    border:
+      solid black 1.0pt;
+      border-top;
+      border-left;
+      border-right:none;
+      border-bottom:none;
+    }
+  .BlackBorderTLR
+    {
+    border:
+      solid black 1.0pt;
+      border-top;
+      border-left;
+      border-right;
+      border-bottom:none;
+    }
+  .BlackBorderTR
+    {
+    border:
+      solid black 1.0pt;
+      border-top;
+      border-left:none;
+      border-right;
+     border-bottom:none;
+    }
+  .BlackBorderTLB
+    {
+    border:
+      solid black 1.0pt;
+      border-top;
+      border-left;
+      border-right:none;
+      border-bottom;
+    }
+  .BlackBorderTLBR
+    {
+    border:
+      solid black 1.0pt;
+      border-top;
+      border-left;
+      border-right;
+      border-bottom;
+    }
+  /*]]>*/
+  </style>
+</head>
+
+<map name="GifMap">
+  <area shape="rect" coords="209,   0, 377,  24" href="../Std/gif87a.htm#GENERALFILEFORMAT"           alt="General File Format"         />
+  <area shape="rect" coords="  1,  75, 172,  97" href="../Std/gif89a.htm#Version_Numbers"             alt="Version Numbers"             />
+  <area shape="rect" coords="  1,  53, 171,  74" href="../Std/gif87a.htm#GIFSIGNATURE"                alt="GIF Signature"               />
+  <area shape="rect" coords="208, 368, 379, 394" href="../Std/gif89a.htm#Trailer"                     alt="Trailer"                     />
+  <area shape="rect" coords="208,  27, 380,  52" href="../Std/gif89a.htm#Header"                      alt="Header"                      />
+  <area shape="rect" coords="  0,  30, 171,  52" href="../Std/gif89a.htm#Header"                      alt="Header"                      />
+  <area shape="rect" coords="208,  53, 380,  75" href="../Std/gif89a.htm#Logical_Screen_Descriptor"   alt="Logical Screen Descriptor"   />
+  <area shape="rect" coords="  0, 110, 172, 133" href="../Std/gif89a.htm#Logical_Screen_Descriptor"   alt="Logical Screen Descriptor"   />
+  <area shape="rect" coords="209,  76, 379,  96" href="../Std/gif89a.htm#Global_Color_Table"          alt="Global Color Table"          />
+  <area shape="rect" coords="209, 102, 379, 129" href="../Std/gif89a.htm#Application_Extension"       alt="Application Extension"       />
+  <area shape="rect" coords="444,  29, 614,  53" href="../Std/gif89a.htm#Application_Extension"       alt="Application Extension"       />
+  <area shape="rect" coords="444,  98, 611, 123" href="../Std/gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
+  <area shape="rect" coords="443, 212, 612, 234" href="../Std/gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
+  <area shape="rect" coords="444, 323, 617, 347" href="../Std/gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
+  <area shape="rect" coords="445, 434, 611, 458" href="../Std/gif89a.htm#Block_Terminator"            alt="Block Terminator"            />
+  <area shape="rect" coords="235, 128, 407, 150" href="../Std/gif89a.htm#Graphic_Control_Extension"   alt="Graphic Control Extension"   />
+  <area shape="rect" coords="234, 151, 404, 174" href="../Std/gif89a.htm#Image_Descriptor"            alt="Image Descriptor"            />
+  <area shape="rect" coords="236, 173, 406, 198" href="../Std/gif89a.htm#Local_Color_Table"           alt="Local Color Table"           />
+  <area shape="rect" coords="236, 199, 405, 222" href="../Std/gif87a.htm#RASTERDATA"                  alt="Raster Data"                 />
+  <area shape="rect" coords="236, 222, 403, 245" href="../Std/gif89a.htm#Comment_Extension"           alt="Comment Extension"           />
+  <area shape="rect" coords="443, 253, 613, 277" href="../Std/gif89a.htm#Comment_Extension"           alt="Comment Extension"           />
+  <area shape="rect" coords="444, 142, 613, 163" href="../Std/gif89a.htm#Graphic_Control_Extension"   alt="Graphic Control Extension"   />
+  <area shape="rect" coords="235, 246, 406, 271" href="../Std/gif89a.htm#Application_Extension"       alt="Application Extension"       />
+  <area shape="rect" coords="237, 270, 405, 293" href="../Std/gif87a.htm#GIFEXTENSIONBLOCKS"          alt="GIF Extension Blocks"        />
+  <area shape="rect" coords="236, 293, 404, 319" href="../Std/gif89a.htm#Plain_Text_Extension"        alt="Plain Text Extension"        />
+  <area shape="rect" coords="444, 368, 615, 392" href="../Std/gif89a.htm#Plain_Text_Extension"        alt="Plain Text Extension"        />
+  <area shape="rect" coords="236, 339, 404, 362" href="../Std/gif89a.htm#Comment_Extension"           alt="Comment Extension"           />
+  <area shape="rect" coords="  0, 260, 170, 287" href="../Std/gif89a.htm#Image_Descriptor"            alt="Image Descriptor"            />
+  <area shape="rect" coords="  0, 432, 173, 456" href="../Std/gif89a.htm#Data_Sub-blocks"             alt="Data Sub-blocks"             />
+  <area shape="rect" coords="222, 436, 391, 456" href="../Std/gif87a.htm#GIFEXTENSIONBLOCKS"          alt="GIF Extension Blocks"        />
+  <area shape="rect" coords="223, 479, 394, 504" href="../Std/gif89a.htm#Data_Sub-blocks"             alt="Data Sub-blocks"             />
+  <area shape="rect" coords="  0, 457, 171, 480" href="../Std/gif89a.htm#Block_Sizes"                 alt="Block Sizes"                 />
+  <area shape="rect" coords="443,  54, 616,  75" href="../Std/gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+  <area shape="rect" coords="444, 162, 613, 185" href="../Std/gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+  <area shape="rect" coords="445, 279, 613, 302" href="../Std/gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+  <area shape="rect" coords="445, 393, 614, 413" href="../Std/gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+  <area shape="rect" coords="  1, 285, 170, 309" href="../Std/gif89a.htm#Blocks_Extensions_and_Scope" alt="Blocks Extensions and Scope" />
+</map>
+
+<body>
+  <!--Article - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <h1>GIF Graphics Interchange Format version 89a</h1>
+
+  <p>
+  <table summary="GIF File Format Outline" border="0" cellspacing="0"
+  cellpadding="2">
+    <caption>
+      Figure: File Format Outline
+    </caption>
+
+    <tr>
+      <th colspan="2" class="BlackBorderTL"><i>Graphics Interchange
+      Format</i></th>
+      <th class="BlackBorderTLR"><i>Description</i></th>
+    </tr>
+
+    <tr>
+      <td bgcolor="#FFCC99" rowspan="2" class="BlackBorderTL">
+      <i>Header</i></td>
+      <td bgcolor="#FF6600" class="BlackBorderTL">Signature</td>
+      <td rowspan="3" class="BlackBorderTLR">required fields<br />
+      13 bytes</td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#FF6600" class="BlackBorderTL">Version</td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#FFCC99" colspan="2" class="BlackBorderTL"><i>Logical Screen
+      Descriptor</i></td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#FFCC00" colspan="2" class="BlackBorderTL"><i>Global Color
+      Table</i></td>
+      <td valign="top" class="BlackBorderTLR">optional field</td>
+    </tr>
+
+    <tr>
+      <td colspan="2" class="BlackBorderTL">&hellip;</td>
+      <td valign="top" class="BlackBorderTR">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#99CCFF" rowspan="4" class="BlackBorderTL"><i>Extension
+      Block(s)</i></td>
+      <td bgcolor="#FFCC99" class="BlackBorderTL"><i>Graphic Control
+      Extension</i></td>
+      <td valign="top" class="BlackBorderTLR">optional fields</td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#CCFFCC" class="BlackBorderTL"><i>Image Descriptor</i></td>
+      <td rowspan="3" valign="top" class="BlackBorderTLR">1 to n <i>Graphic
+      Control Extension</i> blocks</td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#CCFFCC" class="BlackBorderTL"><i>Local Color Table</i></td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#CCFFCC" class="BlackBorderTL"><i>Image (Raster)
+      Data</i></td>
+    </tr>
+
+    <tr>
+      <td colspan="2" class="BlackBorderTL">&hellip;</td>
+      <td class="BlackBorderTR">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#99CCFF" colspan="2" class="BlackBorderTL"><i>Extension
+      Block(s)</i></td>
+      <td valign="top" class="BlackBorderTLR">optional fields</td>
+    </tr>
+
+    <tr>
+      <td colspan="2" class="BlackBorderTL">&hellip;</td>
+      <td class="BlackBorderTR">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td bgcolor="#FFCC99" colspan="2" class="BlackBorderTLB"><i>Trailer (GIF
+      Terminator)</i></td>
+      <td valign="top" class="BlackBorderTLBR">required field<br />
+      1 byte</td>
+    </tr>
+  </table>
+  </p>
+
+  <p>
+  <table summary="GIF Block Extensions" border="0" cellspacing="1"
+  cellpadding="6" width="60%">
+    <tr>
+      <th>Block Groups</th>
+      <th>Label Range</th>
+      <th></th>
+    </tr>
+
+    <tr bgcolor="#FFCC99">
+      <td valign="top"><b><i>Control Blocks</i></b> are used to control the
+      process of the Data Stream or information used in setting hardware
+      parameters.</td>
+      <td valign="top">[80, F9] and 3B</td>
+      <td valign="top">
+        <ul>
+          <li>Header</li>
+          <li>Logical Screen Descriptor</li>
+          <li>Global Color Table</li>
+          <li>Graphic Control Extension</li>
+          <li>Trailer</li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr bgcolor="#CCFFCC">
+      <td valign="top">
+        <p><b><i>Graphic Rendering Blocks</i></b> are used to render a graphic
+        on the display device.</p>
+      </td>
+      <td valign="top">
+        <p>[00, 3A] and [3C, 7F]</p>
+      </td>
+      <td valign="top">
+        <ul>
+          <li>Image Descriptor</li>
+          <li>Plain Text Extension</li>
+        </ul>
+      </td>
+    </tr>
+
+    <tr style="background-color: #99CCFF;">
+      <td valign="top">
+        <p><b><i>Special Purpose Blocks</i></b> are not used by GIF
+        decoders</p>
+      </td>
+      <td valign="top">
+        <p>[FA, FF]</p>
+      </td>
+      <td valign="top">
+        <ul>
+          <li>Comment Extension</li>
+          <li>Application Extension</li>
+        </ul>
+      </td>
+    </tr>
+
+    <caption>
+      Block Extensions Table
+    </caption>
+  </table>
+  </p>
+
+
+  <p><img src="../Images/diagGIFFormat.gif" alt="GIF file format 89a"
+  width="620" height="511" usemap="#gifmap" border="0" /></p>
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="text-align: right">
+    <hr />
+    <a href="index.html" title="Go to home&hellip;" class="Plain" target="_main">
+    &#x2302;</a>
+  </div>
+  </body>
+<!-- ==========================================================================
+  $Log:
+   9    Biblioteka1.8         2005-08-17 16:19:37  Darko Kolakovic xhtml
+   8    Biblioteka1.7         2005-07-05 17:55:48  Darko Kolakovic GIF File Format
+        Outline
+   7    Biblioteka1.6         2005-06-29 17:46:40  Darko Kolakovic image map
+   6    Biblioteka1.5         2005-06-28 13:34:39  Darko Kolakovic Redirected CSS
+   5    Biblioteka1.4         2005-06-28 10:46:02  Darko Kolakovic
+   4    Biblioteka1.3         2005-06-21 16:03:33  Darko Kolakovic
+   3    Biblioteka1.2         2004-03-02 14:43:30  Darko           robots are
+        allowed
+   2    Biblioteka1.1         2002-11-07 08:38:58  Darko Kolakovic Added meta tags
+   1    Biblioteka1.0         2002-07-29 00:43:16  Darko
+  $
+-->
+</html>

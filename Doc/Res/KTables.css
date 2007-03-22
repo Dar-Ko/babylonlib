@@ -1,6 +1,6 @@
 @charset "utf-8";
 /*$Workfile: KTables.css$: Cascading style sheet file
-  $Revision: 4$ $Date: 2007-01-12 11:00:20$
+  $Revision: 5$ $Date: 2007-03-22 12:51:32$
   $Author: Darko Kolakovic$
 
   Tables layout
@@ -36,6 +36,18 @@ caption
   padding:      0;
   margin:       0 2.5em 0.75em;
   border:       none;
+  }
+
+/*header cell with background image                                           */
+Bckgrd
+  {
+  text-align: left;
+  margin: .25em;
+  vertical-align: top;
+  background-color: #dddddd;
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-position: 0% 50%
   }
 
 /*Table row                                                                  */

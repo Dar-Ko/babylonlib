@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+<!--/* Group=Papers*/ -->
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile" content="$Workfile: KCodingLF.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 15$" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="Coding Standard, C/C++, library, BabylonLib" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="Babylon Library: Coding Look and Feel" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Color names" />
+  <meta name="DC.description.abstract" content="BabylonLib: Coding Standard">
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2007-03-22 12:52:02$" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.Revision" content="$Revision: 15$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <title>Babylon Library: Coding Look and Feel</title>
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="SHORTCUT ICON" href="../Res/SrcPool.ico" />
+  <link rel="icon" href="../Res/SrcPool.ico" type="image/ico" />
+  <base target="_self" />
+  <style type="text/css">
+  /*<![CDATA[*/
+    .Poster
+      {
+      background-repeat: no-repeat;
+      background-position: 0px 0px;
+      background-attachment: fixed;
+      }
+  /*]]>*/
+  </style>
+  <script type="text/javascript" language="Javascript">
+  //<![CDATA[
+  function ShowFootnote()
+    {
+    if (!document.getElementById)
+      return false;
+    var HiddenObj = document.getElementById("ID_HIDDEN");
+    if (HiddenObj .style.display == "block")
+      {
+      HiddenObj.style.display = "none";
+      }
+    else
+      {
+      HiddenObj.style.display = "block";
+      }
+    }
+  //]]>
+  </script>
+</head>
+
+<head>
+</head>
+
+<body>
+  <table summary="Container" border="0">
+    <tr>
+      <td width="80" valign="top" background="../Res/BcgkCpp.gif">
+        <table summary="L&amp;F elements" border="0" width="100%">
+          <tr>
+            <td width="100%" height="100%" valign="top">
+              <h3><a name="CodingStd" id="CodingStd">Coding Look and
+              Feel</a></h3><br />
+               C/C++ Library
+            </td>
+          </tr>
+        </table>
+        <!-- background: Bruegel, Pieter; 1563 The 'Little' Tower of Babel -->
+        </td>
+
+      <td class="Poster"
+      background="../Res/BckgBruegelPieter_LittleTowerofBabel.jpg"
+      width="580" height="480" valign="top">
+        <ul>
+          <!--Article - - - - - - - - - - - - - - - - - - - - - - - - - - -  -->
+          <li><i><b>Coding standard</b></i> <a href="#Footnote1"
+          onclick="ShowFootnote();"><sup class="Footnote">1</sup></a> is very
+          useful when more than two people are involved on the same project. It
+          easier to analyze and maintain the code, if code appearance is
+          somewhat uniform. 80% of the lifetime cost of a software goes to
+          maintenance.</li>
+
+          <li><i><b>Source code indentation</b></i> may contain tab characters,
+          but the code formatter will convert it to spaces. Tabs are
+          inconvenient for large group of developers because they don't
+          necessarily look the same in every editing environment. Modern
+          editors let you compose code just as easily with spaces as with tabs.
+          All blocks of code (functions, loops, <code>if</code>'s, etc.)
+          will be indented two spaces from opening curly brace
+          '<code><b>{</b></code>' to closing curly brace
+          '<code><b>}</b></code>'.&nbsp; Opening and closing braces
+          will be placed on a separate line and indented to the same
+          column.</li>
+
+          <li><b><i>Variable names</i></b> should follow at least rudimentary
+          Hungarian Notation<a href="#Footnote2"
+          onclick="ShowFootnote();"><sup class="Footnote">2</sup></a>. If
+          you're maintaining someone else's code, or even your own
+          several years later, following the logic behind the code is
+          error-prone. If you could readily recognize variable type, analyzing
+          the code becomes little easier. Even if you are working with
+          strong-typed language, where compiler will warn you about
+          inappropriate type casts, Hungarian Notation<a href="#Footnote2"
+          onclick="ShowFootnote();"><sup class="Footnote">2</sup></a> is
+          helpful when you are reading lengthy printouts.</li>
+
+          <li><i><b>Variable scope</b></i> should be indicated with common
+          prefixes like following: <code><b>g_</b></code> for
+          <code>global</code> variables, <code><b>s_</b></code> for
+          <code>static</code> or <code><b>m_</b></code> for <i>class
+          members</i>.</li>
+
+          <li><b><i>Global and module specific</i></b> (<code>static</code>)
+          variables should be avoided whenever possible. If data needs to be
+          shared across functions (and handlers), space for it should be
+          allocated on the heap and registered as thread specific data. This
+          helps avoid common multithreading bugs.</li>
+
+          <li><b><i>Shared variables</i></b> which are passed between threads
+          may need to be declared as <code>volatile</code> <a href="#Footnote3"
+          onclick="ShowFootnote();"><sup class="Footnote">3</sup></a> in order
+          to prevent the compiler from using stale data cached in
+          registers.&nbsp; Unfortunately, the definition of
+          <code>volatile</code> differs form compiler to compiler, but it is a
+          good idea to declare a variable as <code>volatile</code> if it is
+          changed before a synchronization point and referenced after a
+          synchronization point during which another thread may have modified
+          the value.</li>
+
+          <li><b><i>Line length</i></b> should be 80 characters, since longer
+          lines are not handled well by many terminals and tools.</li>
+        </ul>
+
+        <div style="text-align: center">
+          <img border="0" src="../Res/DevAtWork.gif"
+          title="Developers at Work!" alt="Developers at Work&hellip;"
+          width="45" height="45" />
+
+          <div class="Caption Warning">
+            Work in progress&hellip;
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="text-align: right">
+    <hr />
+    <a href="index.html" title="Go to home&hellip;" class="Plain" target="_main">
+    &#x2302;</a>
+  </div>
+
+  <span id="ID_HIDDEN" style="display:none">
+
+  <p><a name="Footnote1" class="Footnote"
+  onclick="ShowFootnote();" id="Footnote1"><sup>1</sup></a> <i>Extreme
+  Programming</i>:<br />
+  Coding Standard - The programmers all write code in the same way. This allows
+  them to work in pairs and to share ownership of the code.<br />
+  Coding standards typically address not only style, but also naming (Hungarian
+  notation).</p>
+
+  <p><a name="Footnote2" class="Footnote" onclick="ShowFootnote();"
+  id="Footnote2"><sup>2</sup></a> <i>Hungarian Notation</i> is a variable name
+  prefixed with a common tag so you know what data type a variable name is
+  carrying. It is invented to help programmers know what the data type was they
+  were working with, to prevent&nbsp; bad assignment operations in weak-typed
+  languages such as C.</p>
+
+  <p><a name="Footnote3" class="Footnote" onclick="ShowFootnote();"
+  id="Footnote3"><sup>3</sup></a><i><code>volatile</code> declarator</i> is a
+  type qualifier used to declare that an object can be modified in the program
+  by something other than statements, such as the operating system, the
+  hardware, or a concurrently executing thread.</p>
+
+  <hr />
+  </span>
+
+  <!--CSS support validation -->
+  <div align="center" style="visibility:hidden">
+    <b>Your browser does not fully support CSS. This may result in visual
+    artifacts.</b>
+  </div>
+  </body>
+<!-- ==========================================================================
+  $Log:
+   2    Biblioteka1.1         18/01/2003 11:44:45 PMDarko           Added TODO:
+   1    Biblioteka1.0         18/01/2003 7:54:44 PMDarko
+  $
+-->
+</html>

@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+<!--/* Group=Papers*/ -->
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile" content="$Workfile: KXModemProtocol.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 14$" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="XModem, YModem, network, protocol" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="X-modem Protocol" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Color names" />
+  <meta name="DC.description.abstract" content="XModem and YModem File transfer protocol">
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2007-03-22 12:52:15$" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.Revision" content="$Revision: 14$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <title>X-modem Protocol</title>
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="stylesheet" type="text/css" href="../Res/KTables.css" />
+  <link rel="SHORTCUT ICON" href="../Res/SrcPool.ico" />
+  <link rel="icon" href="../Res/SrcPool.ico" type="image/ico" />
+  <base target="_self" />
+</head>
+
+<body>
+  <!--Article - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+  <h1>XModem Protocol</h1>
+
+  <p>XModem protocol was developed and first implemented by Ward Christensen in
+  1977 and placed in the public domain becoming one of the earliest and most
+  popular protocols for file transfers between various hardware platforms.</p>
+
+  <p>XModem is the simplest and one of the slowest of the file transfer
+  protocols. It uses data blocks of only 128 bytes, requires an acknowledgement
+  of every single block transmitted and uses only a simple checksum for data
+  validation.</p>
+
+  <p><a name="Xmodem_blocks" id="Xmodem_blocks">XModem blocks</a> have the
+  following format:</p>
+
+  <table border="1" width="81%" cellspacing="0" summary="X-modem blocks">
+    <tr>
+      <td width="14%" align="center" bgcolor="#99CCFF"><code>&lt;SOH&gt;
+      1&nbsp;byte</code></td>
+      <td width="19%" align="center" bgcolor="#99FFCC"><code>&lt;BlockNo&gt;
+      1&nbsp;byte</code></td>
+      <td width="19%" align="center" bgcolor="#99FFCC"><code>&lt;~BlockNo&gt;
+      1&nbsp;byte</code></td>
+      <td width="19%" align="center"><code>&lt;Data&gt;
+      128&nbsp;bytes</code></td>
+      <td width="29%" align="center" bgcolor="#FFFF99"><code>&lt;Checksum&gt;
+      1&nbsp;byte</code></td>
+    </tr>
+  </table>
+
+  <ul>
+    <li><b>SOH</b> marks start of the block.</li>
+
+    <li><b><a name="BlockNo" id="BlockNo">BlockNo</a></b> is a one byte block
+    number. The block numbers have range [1, 255]. After 255, the block number
+    cycle starts again.</li>
+
+    <li><b>~BlockNo</b> is a complement of the block number.</li>
+
+    <li><b><a name="Data" id="Data">Data</a></b> are a text long 128
+    characters. If the text is shorter than 128 characters, the data block is
+    filled with padding characters (CtrlZ by default).</li>
+
+    <li><b><a name="Checksum" id="Checksum">Checksum</a></b> is an arithmetic
+    sum (modulo-256) of all data bytes.</li>
+  </ul>
+
+  <p>A typical XModem protocol transfer looks like this:</p>
+
+  <table border="0" width="59%" cellspacing="0"
+  summary="XModem protocol transfer">
+    <tr>
+      <th width="33%">Transmitter</th>
+      <th width="6%" align="center"></th>
+      <th width="61%">Receiver</th>
+      <th width="61%"></th>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>&lt;NAK&gt;</code></td>
+      <td width="61%">handshake</td>
+    </tr>
+
+    <tr>
+      <td width="33%">
+      <code>&lt;SOH&gt;&lt;1&gt;&lt;254&gt;&lt;Data&nbsp;128&nbsp;bytes&gt;&lt;CHK&gt;</code></td>
+      <td width="6%" align="center"><code>&rarr;</code></td>
+      <td width="61%">&nbsp;</td>
+      <td width="61%">response</td>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>&lt;ACK&gt;</code></td>
+      <td width="61%">acknowledgment</td>
+    </tr>
+
+    <tr>
+      <td width="33%">
+      <code>&lt;SOH&gt;&lt;2&gt;&lt;253&gt;&lt;Data&nbsp;128&nbsp;bytes&gt;&lt;CHK&gt;</code></td>
+      <td width="6%" align="center"><code>&rarr;</code></td>
+      <td width="61%">&nbsp;</td>
+      <td width="61%"></td>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>&lt;ACK&gt;</code></td>
+      <td width="61%"></td>
+    </tr>
+
+    <tr>
+      <td width="33%"><code>&lt;EOT&gt;</code></td>
+      <td width="6%" align="center"><code>&rarr;</code></td>
+      <td width="61%">&nbsp;</td>
+      <td width="61%">end of transmission</td>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>&lt;ACK&gt;</code></td>
+      <td width="61%"></td>
+    </tr>
+  </table>
+
+  <ul>
+    <li><i><a name="Handshake" id="Handshake">Handshake</a>:</i> the receiver
+    always begins communication in start-up phase by sending a handshake
+    character (in this case a <b>NAK</b> character). It waits for 10 seconds
+    for the response. If it does not receive a block within 10 seconds it sends
+    another <b>NAK</b>. Receiver tries up to 10 times to establish the
+    handshake when it gives up.</li>
+
+    <li><i>Response:</i> transmitter sends requested data. Data are divided in
+    blocks 128 characters long. Timeout for each character to be received is 1
+    second. Transmitter waits after first block up to 1 minute for the
+    receiver&#39;s acknowledgement. This gives the receiver time for disk
+    storage preparation.</li>
+
+    <li><i>Acknowledgement:</i> receiver calculates the checksum and compares
+    it to the checksum received. If checksums are the same, it sends positive
+    acknowledgement <b>ACK</b>. If they differ, the receiver sends a <b>NAK</b>
+    and the transmitter resends the current block. This continues until the all
+    data is transmitted.</li>
+
+    <li><i>End of transmission:</i> after the all data are transmitted, the
+    transmitter notifies that by sending a <b>EOT</b> character. Either side
+    can cancel transmission at any time by sending 3 <b>CAN</b> (CtrlX)
+    characters.</li>
+  </ul>
+
+  <p>Protocol does not support any additional information about the file being
+  transmitted, like file name or file size. Hence, the received file size is
+  always a multiple of the block size. Since XModem does not escape any binary
+  data (like <b>XON</b> and <b>XOFF</b>), a <i>software flow control</i> is
+  <u>not possible</u>. For binary data transfer hardware flow control (called
+  also RTS/CTS Control - Ready to Send/Clear to Send) should be selected.</p>
+
+  <table border="0" width="70%" summary="Data flow charts">
+    <tr>
+      <td width="38%" valign="top"><img border="0"
+      src="../Images/diagXModemSend.gif" title="Send Data Flow Chart"
+      alt="Send Data" width="314" height="404" /></td>
+      <td width="62%" valign="top"><img border="0"
+      src="../Images/diagXModemReceive.gif" title="Receive Data Flow Chart"
+      alt="Receive Data" width="301" height="635" /></td>
+    </tr>
+  </table>
+
+  <h2>XModem Extensions</h2>
+
+  <dl>
+    <dt><i>XModem CRC</i></dt>
+
+    <dd>improves error checking by substituting 1 byte
+    <a href="#Checksum">checksum</a> with 2 bytes cyclic redundancy check
+    (CRC16). This offers much higher level of data integrity. The receiver
+    indicates this protocol by sending the &#39;<b>C</b>&#39; character as a
+    <a href="#Handshake">handshake</a>. Receiver tries up to 3 times to start
+    data transfer when it concludes that transmiter is not capable.</dd>
+  </dl>
+
+  <table border="0" width="100%" cellspacing="2" cellpadding="2"
+  summary="XModem CRC">
+    <tr>
+      <td width="22%">
+        <table border="1" width="22%" cellspacing="0" summary="CRC16">
+          <tr>
+            <td width="29%" align="center" bgcolor="#FFFF99" colspan="2">
+            <code>&lt;CRC16&gt; 2&nbsp;bytes</code></td>
+          </tr>
+
+          <tr>
+            <td width="14%" align="center" bgcolor="#FFCC66">
+            <code>CRC&nbsp;HiByte</code></td>
+            <td width="15%" align="center" bgcolor="#FFCC66">
+            <code>CRC&nbsp;LoByte</code></td>
+          </tr>
+        </table>
+      </td>
+      <td width="78%" valign="top">XModem uses a non-reversed CRC algorithm
+      with divisor polynomial
+      X<font size="1"><sup>16</sup></font>+X<font size="1"><sup>12</sup></font>+X
+      <font size="1"><sup>5</sup></font>+X<font size="1"><sup>0</sup></font>.</td>
+    </tr>
+  </table><br />
+
+
+  <table border="0" width="59%" cellspacing="0" summary="Datagram with CRC">
+    <tr>
+      <th width="33%">Transmitter</th>
+      <th width="6%" align="center"></th>
+      <th width="61%">Receiver</th>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>C</code></td>
+    </tr>
+
+    <tr>
+      <td width="33%">
+        <table border="1" width="81%" cellspacing="0" summary="XModem block">
+          <tr>
+            <td width="14%" align="center" bgcolor="#99CCFF"><code>&lt;SOH&gt;
+            1&nbsp;byte</code></td>
+            <td width="19%" align="center" bgcolor="#99FFCC">
+            <code>&lt;BlockNo&gt; 1&nbsp;byte</code></td>
+            <td width="19%" align="center" bgcolor="#99FFCC">
+            <code>&lt;~BlockNo&gt; 1&nbsp;byte</code></td>
+            <td width="19%" align="center"><code>&lt;Data&gt;
+            128&nbsp;bytes</code></td>
+            <td width="29%" align="center" bgcolor="#FFFF99">
+            <code>&lt;CRC16&gt; 2&nbsp;bytes</code></td>
+          </tr>
+        </table>
+      </td>
+      <td width="6%" align="center"><code>&rarr;</code></td>
+      <td width="61%">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>&lt;ACK&gt;</code></td>
+    </tr>
+
+    <tr>
+      <td width="33%"><code>&lt;EOT&gt;</code></td>
+      <td width="6%" align="center"><code>&rarr;</code></td>
+      <td width="61%">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>&lt;ACK&gt;</code></td>
+    </tr>
+  </table>
+
+  <dl>
+    <dt><i><a name="XModem1k" id="XModem1k">XModem 1k</a></i></dt>
+
+    <dd>improves data transfer speed by increasing <a href="#Data">block
+    size</a> up to 1024 bytes. Each block starts with an <b>STX</b> character
+    rather than an <b>SOH.</b> A CRC16 is used for the checksum. Because of the
+    larger block size, number of times the transmitter must wait for an
+    acknowledgement is reduced and transmission speed is increased. With noisy
+    lines throughput is reduced significantly, because the block must be
+    retransmitted is bigger. If transmitter receives 5 NAK characters in a row,
+    it should decrease block size to 128 bytes. Once the block size is reduced,
+    it is never stepped back up to 1024 bytes.</dd>
+  </dl>
+
+  <table border="0" width="59%" cellspacing="0" summary="XModem 1k">
+    <tr>
+      <th width="33%">Transmitter</th>
+      <th width="6%" align="center"></th>
+      <th width="61%">Receiver</th>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>C</code></td>
+    </tr>
+
+    <tr>
+      <td width="33%">
+        <table border="1" width="81%" cellspacing="0" summary="XModem block">
+          <tr>
+            <td width="14%" align="center" bgcolor="#99CCFF"><code>&lt;STX&gt;
+            1&nbsp;byte</code></td>
+            <td width="19%" align="center" bgcolor="#99FFCC">
+            <code>&lt;BlockNo&gt; 1&nbsp;byte</code></td>
+            <td width="19%" align="center" bgcolor="#99FFCC">
+            <code>&lt;~BlockNo&gt; 1&nbsp;byte</code></td>
+            <td width="19%" align="center"><code>&lt;Data&gt;
+            1024&nbsp;bytes</code></td>
+            <td width="29%" align="center" bgcolor="#FFFF99">
+            <code>&lt;CRC16&gt; 2&nbsp;bytes</code></td>
+          </tr>
+        </table>
+      </td>
+      <td width="6%" align="center"><code>&rarr;</code></td>
+      <td width="61%">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>&lt;ACK&gt;</code></td>
+    </tr>
+
+    <tr>
+      <td width="33%"><code>&lt;EOT&gt;</code></td>
+      <td width="6%" align="center"><code>&rarr;</code></td>
+      <td width="61%">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>&lt;ACK&gt;</code></td>
+    </tr>
+  </table>
+
+  <dl>
+    <dt><i>XModem 1kG</i></dt>
+
+    <dd>supports data streaming. The receiver request data by sending the
+    &#39;<b>G</b>&#39; character as a <a href="#Handshake">handshake</a>. The
+    transmiter continuously transmits blocks without waiting for
+    acknowledgment. If the receiver does encounter a bad block, it aborts
+    entire session by sending a <b>NAK</b>. To obtain this very high
+    throughput, modems on both sides of the line must have enabled error
+    correcting features.</dd>
+  </dl>
+
+  <table border="0" width="59%" cellspacing="0" summary="XModem 1kG">
+    <tr>
+      <th width="33%">Transmitter</th>
+      <th width="6%" align="center"></th>
+      <th width="61%">Receiver</th>
+    </tr>
+
+    <tr>
+      <td width="33%">&nbsp;</td>
+      <td width="6%" align="center"><code>&larr;</code></td>
+      <td width="61%"><code>G</code></td>
+    </tr>
+
+    <tr>
+      <td width="33%">
+        <table border="1" width="81%" cellspacing="0" summary="XModem block">
+          <tr>
+            <td width="14%" align="center" bgcolor="#99CCFF"><code>&lt;STX&gt;
+            1&nbsp;byte</code></td>
+            <td width="19%" align="center" bgcolor="#99FFCC">
+            <code>&lt;BlockNo&gt; 1&nbsp;byte</code></td>
+            <td width="19%" align="center" bgcolor="#99FFCC">
+            <code>&lt;~BlockNo&gt; 1&nbsp;byte</code></td>
+            <td width="19%" align="center"><code>&lt;Data&gt;
+            1024&nbsp;bytes</code></td>
+            <td width="29%" align="center" bgcolor="#FFFF99">
+            <code>&lt;CRC16&gt; 2&nbsp;bytes</code></td>
+          </tr>
+        </table>
+      </td>
+      <td width="6%" align="center"><code>&rarr;</code></td>
+      <td width="61%">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td width="33%">
+        <table border="1" width="81%" cellspacing="0" summary="XModem block">
+          <tr>
+            <td width="14%" align="center" bgcolor="#99CCFF"><code>&lt;STX&gt;
+            1&nbsp;byte</code></td>
+            <td width="19%" align="center" bgcolor="#99FFCC">
+            <code>&lt;BlockNo&gt; 1&nbsp;byte</code></td>
+            <td width="19%" align="center" bgcolor="#99FFCC">
+            <code>&lt;~BlockNo&gt; 1&nbsp;byte</code></td>
+            <td width="19%" align="center"><code>&lt;Data&gt;
+            1024&nbsp;bytes</code></td>
+            <td width="29%" align="center" bgcolor="#FFFF99">
+            <code>&lt;CRC16&gt; 2&nbsp;bytes</code></td>
+          </tr>
+        </table>
+      </td>
+      <td width="6%" align="center"><code>&rarr;</code></td>
+      <td width="61%">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td width="33%"><code>&lt;EOT&gt;</code></td>
+      <td width="6%" align="center"><code>&rarr;</code></td>
+      <td width="61%">&nbsp;</td>
+    </tr>
+  </table>
+
+  <p><b><a name="Reference" id="Reference">See also</a>:</b>
+  <ol>
+    <li><a href="../Std/YModem.htm">XModem / YModem Protocol Reference</a> by Chuck
+    Forsberg [1988-10-14]</li>
+  </ol></p>
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="text-align: right">
+    <hr />
+    <a href="index.html" title="Go to home&hellip;" class="Plain" target="_main">
+    &#x2302;</a>
+  </div>
+  </body>
+<!-- ==========================================================================
+  $Log:
+   11   Biblioteka1.10        2005-08-17 16:19:41  Darko Kolakovic xhtml
+   10   Biblioteka1.9         2005-08-02 18:09:56  Darko Kolakovic header tags
+   9    Biblioteka1.8         2005-07-29 17:20:03  Darko Kolakovic xhtml
+   8    Biblioteka1.7         2005-07-29 16:06:58  Darko Kolakovic
+   7    Biblioteka1.6         2005-07-28 10:25:43  Darko Kolakovic followed W3C
+        recomendation
+   6    Biblioteka1.5         2004-03-02 14:44:40  Darko           robots are
+        allowed
+   5    Biblioteka1.4         2003-01-27 11:26:02  Darko
+   4    Biblioteka1.3         2003-01-27 11:25:17  Darko           Replaced CSS
+   3    Biblioteka1.2         2002-12-05 18:39:51  Darko Kolakovic Updated
+        transfer example
+   2    Biblioteka1.1         2002-11-27 15:56:42  Darko Kolakovic Updated flow
+        control requirements
+   1    Biblioteka1.0         2002-11-07 08:43:18  Darko Kolakovic
+  $
+-->
+</html>
