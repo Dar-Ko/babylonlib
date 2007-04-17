@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en-ca" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile"
+  content="$Workfile: KTestTrace.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 6$ $Date: 2007-04-17 18:07:57$" />
+  <meta name="Editor" content="$Author: Darko Kolakovic$" />
+  <meta name="Copyright"
+  content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="author" content="Darko Kolakovi&#263;" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="JavaScript, test, trace, Debugging" />
+  <meta name="description" content="Test of the Trace function" />
+
+  <title>Test Trace</title>
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="icon" href="../Res/icoConfig.ico" type="image/ico" />
+  <base target="_self" />
+
+  <script language="JavaScript" src="../Res/KTrace.js"
+  type="text/javascript"> </script>
+</head>
+
+<body>
+<h1>Trace</h1>
+  <dl>
+    <dt>
+      <a href="../Res/KTrace.js"><img src="../Res/icoJavaScriptS.gif"
+       alt="import JavaScript" title="KTrace.js" border="0" /></a>
+    <dd>
+    </dd>
+  </dl>
+
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="text-align: right">
+    <hr />
+    <a href="index.html" title="Go to home&hellip;" class="Plain" target="_main">
+    &#x2302;</a>
+  </div>
+
+<!--
+You can set the tracing level at the level you want and start to generate tracings from the second list. You can set the tracing level as many times as you want. Depending on the level selected the messages will be shown or not.
+
+<h3>Set tracing level</h3>
+<ul>
+<li><a href="javascript:;" onclick="javascript:Trace.level=0;">off</a></li>
+<li><a href="javascript:;" onclick="javascript:Trace.level=1;">fatal</a></li>
+<li><a href="javascript:;" onclick="javascript:Trace.level=2;">error</a></li>
+<li><a href="javascript:;" onclick="javascript:Trace.level=3;">warn</a></li>
+<li><a href="javascript:;" onclick="javascript:Trace.level=4;">info</a></li>
+<li><a href="javascript:;" onclick="javascript:Trace.level=5;">debug</a></li>
+<li><a href="javascript:;" onclick="javascript:Trace.level=6;">all</a></li>
+</ul>
+
+<h3>Some examples of use</h3>
+<ul>
+<li><a href="javascript:Trace.fatal('fatal error example');">fatal error</a></li>
+<li><a href="javascript:Trace.error('error example');">error</a></li>
+<li><a href="javascript:Trace.warn('warn message example');">warn message</a></li>
+<li><a href="javascript:Trace.info('info message example');">info message</a></li>
+<li><a href="javascript:Trace.debug('debug message example');">debug message</a></li>
+</ul>
+
+
+<script type=text/javascript>
+function doit( arg1, arg2, arg3 )
+{
+	trace1(  "This is where the cool code goes." );
+	traceArgs( arguments );
+}
+
+function print1(x)
+{ x+="."; print(x);
+}
+function print(x)  {
+  document.write(stacktrace())
+  document.write("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Parameter = "+x+"<br />")
+}
+
+function funcname(f) {
+ var s = f.toString().match(/function (\w*)/)[1];
+ if ((s == null) || (s.length==0)) return "anonymous";
+ return s;
+}
+function stacktrace() {
+ var s = "";
+ TRACE(true, "X", s)
+ if (arguments.caller == null)
+  TRACE(true, "arguments.caller", arguments.caller)
+
+for (var a = arguments.caller; a !=null; a = a.caller) {
+   s += "->"+funcname(a.callee) + "\n";
+ TRACE(true, "djoka", s)
+   if (a.caller == a) {s+="*"; break;}
+ }
+ return s;
+}
+//TRACE(true, "asas", 3)
+
+print1("TEST");
+print1("THIS");
+TRACE(true, "asas", 3);
+</script>
+
+  Click here to run the dbg() function:
+  <input type="button" onclick="doit(1,2,3,4)" value="do it"/>
+<pre id="trace"></pre>
+    <button onclick="TRACE(true);">TRACE()</button>
+ -->
+
+</body>
+</html>

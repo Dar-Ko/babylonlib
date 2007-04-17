@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile"
+  content="$Workfile: KTestTreeView.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 9$ $Date: 2007-04-17 18:07:58$" />
+  <meta name="Editor" content="$Author: Darko Kolakovic$" />
+  <meta name="Copyright"
+  content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="author" content="Darko Kolakovi&#263;" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="JavaScript, test, TreeView" />
+  <meta name="description" content="Test of the TreeView control" />
+
+  <title>Test TreeView</title>
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="icon" href="../Res/icoConfig.ico" type="image/ico" />
+  <base target="_self" />
+  <style type="text/css" media="all">
+  /*<![CDATA[*/
+  <!-- Bug: Works only with Firefox, Mozilla -->
+.Dir li{
+        list-style: none;
+        background-image: url("Images/Symbol/nodeV.gif");
+        background-repeat: repeat-y;
+        padding: 2px 0 0px 33px;
+        text-indent: -14px;
+        background-position: 14px 0;
+}
+
+.Dir li:last-child{
+        list-style: none;
+        //background-image: url("Images/Symbol/nodeV.gif");
+        background-repeat: no-repeat;
+        padding-left: 33px;
+        text-indent: -14px;
+        background-position: 14px 0;
+}
+.Dir li a{
+        text-decoration: none;
+       color: black;
+}
+.Dir li a:hover{
+        color: blue;
+        text-decoration: none;
+}
+
+.Dir li a::before{
+        content: url("Images/Symbol/nodeVRc.gif") " ";
+}
+.Dir li a:hover::before{
+        content: url("Images/Symbol/nodeVRe.gif") " ";
+}
+<!-- IE does not undersyand 'before' -->
+.Dir li a:last-child::before{
+        content: url("Images/Symbol/nodeURc.gif") " ";
+}
+.Dir li a:last-child:hover::before{
+        content: url("Images/Symbol/nodeURe.gif") " ";
+}
+  /*]]>*/
+  </style>
+
+  <script language="JavaScript" src="../Res/KTreeView.js"
+  type="text/javascript"> </script>
+</head>
+
+<body>
+<h1>TreeView</h1>
+        <!-- Default ordered list -->
+      <ol class="Dir">
+        <li><a href="vcdcbv"><i>Default ordered list</a></i>
+        <ul>
+          <li><a>umbered list</a>
+            <ol>
+              <li><a>Numbered list</a>
+                <ol>
+                  <li><a name="11">Numbered list</a></li>
+                  <li><a name="11">Numbered list</a></li>
+                </ol>
+              </li>
+              <li><a name="11">Numbered list</a></li>
+            </ol>
+          </li>
+          <li><a name="11">Numbered list</a></li>
+        </ol>
+        </li>
+      </ul>
+
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="text-align: right">
+    <hr />
+    <a href="index.html" title="Go to home&hellip;" class="Plain" target="_main">
+    &#x2302;</a>
+  </div>
+
+</body>
+</html>

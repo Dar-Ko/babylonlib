@@ -1,0 +1,481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<!--/* Group=Papers*/ -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile" content="$Workfile: KDirTree.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 11$ $Date: 2007-04-17 18:07:12$" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="Directory, Structure, Sitemap, library, BabylonLib" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="Babylon Library: Directory Tree" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Project repository manual" />
+  <meta name="DC.description.abstract" content="BabylonLib: Directory">
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2007-04-17 18:07:12$" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.Revision" content="$Revision: 11$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <title>Babylon Library: Directory Tree</title>
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="SHORTCUT ICON" href="../Res/SrcPool.ico" />
+  <link rel="icon" type="image/ico" href="../Res/SrcPool.ico" />
+  <base target="_self" />
+  <style type="text/css">
+  /*<![CDATA[*/
+    .Poster
+      {
+      background-repeat: no-repeat;
+      background-position: 0px 0px;
+      background-attachment: fixed;
+      }
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table summary="article frame" border="0">
+    <tr>
+      <td width="125" valign="top" background="../Res/BcgkCpp.gif"
+      rowspan="2">
+        <table summary="article" border="0" width="125">
+          <tr>
+            <td width="125" height="100%" valign="top">
+              <h3><a name="DirectoryMap" id="DirectoryMap">Directory
+              Map</a></h3>
+
+              <ul class="Directory">
+                <li><a href="#SiteMap" class="Plain">Site Map</a></li>
+
+                <li><a href="#ProjectExample" class="Plain">Project
+                Example</a></li>
+
+                <li><a href="#ProjectConfiguration" class="Plain">Project
+                Configuration</a></li>
+
+                <li><a href="#Documentation" class="Plain">Documents</a></li>
+
+                <li><a href="#ProjectDependencies" class="Plain">Project
+                Dependencies</a></li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </td>
+
+      <td width="100%" height="100%" valign="top">
+        <!-- background: Duke of Bedford, Master of the; c.1423 Book of Hours, Building of the Tower of Babel-->
+
+        <table class="Poster" summary="article image" border="0" width="100%"
+        background="../Res/BckgBookOfHoursIllumination_BuildingOfTheTowerOfBabel.jpg">
+        <tr>
+            <td width="100%">
+              <h4><a name="SiteMap" id="SiteMap">Site Map</a></h4>
+
+              <ul class="Directory">
+                <li>
+                  <img border="0" src="../Res/L/KSrcPool.gif" alt="KSrcPool"
+                  width="32" height="32" />Babylon <i>(root. S:)</i> root
+                  project
+
+                  <ul class="Directory">
+                    <li>
+                      <a href="file:///S:/_SrcPool/">_SrcPool</a> <b>Project files,
+                      make files, IDE solutions</b>
+
+                      <ul class="Directory">
+                        <li>
+                          <img border="0" src="../Res/M/icoFolderClosed.gif"
+                          alt="Folder Closed" width="24"
+                          height="24" /><a href="file:///S:/_SrcPool/Cpp/">Cpp</a>
+                          C/C++ source code files
+
+                          <ul class="Directory">
+                            <li>
+                              <img border="0"
+                              src="../Res/M/icoDocumentation.gif"
+                              alt="Documentation" width="24"
+                              height="24" /><a href="file:///S:/_SrcPool/Cpp/Documentation/">
+                              Documentation</a> Papers
+
+                              <ul class="Directory">
+                                <li>
+                                  Library
+
+                                  <ul class="Directory">
+                                    <li>Images</li>
+                                  </ul>
+                                </li>
+
+                                <li>
+                                <a href="file:///S:/_SrcPool/Cpp/Documentation/Resources/">
+                                Resources</a> Images, Style sheets, JavaScript
+                                files</li>
+                              </ul>
+                            </li>
+
+                            <li><img border="0"
+                            src="../Res/M/icoFolderClosed.gif"
+                            alt="Folder Closed" width="24"
+                            height="24" /><a href="file:///S:/_SrcPool/Cpp/Samples/">Samples</a>
+                            Code usage examples, test programs</li>
+
+                            <li><img border="0"
+                            src="../Res/M/icoFolderClosed.gif"
+                            alt="Folder Closed" width="24"
+                            height="24" /><a href="file:///S:/_SrcPool/Cpp/STL/">STL</a>
+                            Source code using Standard Template Library</li>
+
+                            <li>
+                              <img border="0" src="../Res/M/icoWinXP.gif"
+                              alt="WinXP" width="24"
+                              height="24" /><a href="file:///S:/_SrcPool/Cpp/Win/">Win</a>
+                              Microsoft Windows OS dependant code&nbsp;
+
+                              <ul class="Directory">
+                                <li><img border="0"
+                                src="../Res/M/icoFolderClosed.gif"
+                                alt="Folder Closed" width="24"
+                                height="24" /><a href="file:///S:/_SrcPool/Cpp/Win/16/">
+                                16</a> Microsoft Windows 16-bit OS dependant
+                                code&nbsp;</li>
+
+                                <li><img border="0"
+                                src="../Res/M/icoWin32.gif" alt="Win32"
+                                width="24"
+                                height="24" /><a href="file:///S:/_SrcPool/Cpp/Win/32/">
+                                32</a> Microsoft Windows OS dependant
+                                code&nbsp;</li>
+
+                                <li><img border="0"
+                                src="../Res/M/icoFolderClosed.gif"
+                                alt="Folder Closed" width="24"
+                                height="24" /><a href="file:///S:/_SrcPool/Cpp/Win/Samples/">
+                                Samples</a> Code usage examples, test
+                                programs</li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+
+                        <li><img border="0" src="../Res/M/icoJava.gif"
+                        alt="Java" width="24"
+                        height="24" /><a href="file:///S:/_SrcPool/Java/">Java</a> Java
+                        source files</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td width="100%">
+              <h4><a name="ProjectExample" id="ProjectExample">Project
+              Example</a></h4>
+
+              <ul class="Directory">
+                <li>
+                  <img border="0" src="../Res/M/icoFolderClosed.gif"
+                  alt="Folder Closed" width="24"
+                  height="24" /><b>SolutionDir</b> <i>Batch command scripts,
+                  makefile</i>
+
+                  <ul class="Directory">
+                    <li>
+                      <img border="0" src="../Res/M/icoFolderClosed.gif"
+                      alt="Folder Closed" width="24" height="24" /><b>bin</b>
+                      <i>Output files</i> (.exe, .dll, .lib)
+
+                      <ul class="Directory">
+                        <li>
+                          <img border="0" src="../Res/M/icoFolderClosed.gif"
+                          alt="Folder Closed" width="24"
+                          height="24" /><b><a href="#ProjectExample"
+                          class="Plain">ConfigurationName</a></b>
+
+                          <ul class="Directory">
+                            <li><img border="0"
+                            src="../Res/M/icoFolderClosed.gif"
+                            alt="Folder Closed" width="24"
+                            height="24" /><b>PlatformName</b></li>
+
+                            <li><img border="0" src="../Res/M/icoDOS.gif"
+                            alt="DOS" width="24" height="24" />DOS</li>
+
+                            <li><img border="0" src="../Res/M/icoLinux.gif"
+                            alt="Linux" width="24" height="24" />Linux</li>
+
+                            <li><img border="0" src="../Res/M/icoMac.gif"
+                            alt="MacOS" width="24" height="24" />MacOS</li>
+
+                            <li><img border="0" src="../Res/M/icoVxWorks.gif"
+                            alt="VxWorks" width="24" height="24" />VxWorks</li>
+
+                            <li><img border="0" src="../Res/M/icoWin32.gif"
+                            alt="Win32" width="24" height="24" />Win32</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li>
+                      <img border="0" src="../Res/M/icoFolderClosed.gif"
+                      alt="Folder Closed" width="24" height="24" /><b>Obj</b>
+                      <i>Intermediate files</i> (.o, .obj, .lst, .map, .ilk,
+                      .tlb, .tli, .tlh, .tmp, .rsp)
+
+                      <ul class="Directory">
+                        <li>
+                          <img border="0" src="../Res/M/icoFolderClosed.gif"
+                          alt="Folder Closed" width="24"
+                          height="24" /><b><a href="#ProjectExample"
+                          class="Plain">ConfigurationName</a></b> <i>Release /
+                          Debug; Unicode (wide-character) /
+                          Singlebyte-character (SBCS or ASCII) text mapping</i>
+
+
+                          <ul class="Directory">
+                            <li>
+                              <img border="0"
+                              src="../Res/M/icoFolderClosed.gif"
+                              alt="Folder Closed" width="24"
+                              height="24" /><b>ProjectName</b>&nbsp;
+
+                              <ul class="Directory">
+                                <li><img border="0"
+                                src="../Res/M/icoFolderClosed.gif"
+                                alt="Folder Closed" width="24"
+                                height="24" /><b>PlatformName</b></li>
+
+                                <li><img border="0" src="../Res/M/icoDOS.gif"
+                                alt="DOS" width="24" height="24" />DOS</li>
+
+                                <li><img border="0"
+                                src="../Res/M/icoLinux.gif" alt="Linux"
+                                width="24" height="24" />Linux</li>
+
+                                <li><img border="0" src="../Res/M/icoMac.gif"
+                                alt="MacOS" width="24" height="24" />MacOS</li>
+
+                                <li><img border="0"
+                                src="../Res/M/icoVxWorks.gif" alt="VxWorks"
+                                width="24" height="24" />VxWorks</li>
+
+                                <li><img border="0"
+                                src="../Res/M/icoWin32.gif" alt="Win32"
+                                width="24" height="24" />Win32</li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li>
+                      <img border="0" src="../Res/M/icoFolderClosed.gif"
+                      alt="Folder Closed" width="24"
+                      height="24" /><b>ProjectName</b> <i>Project files, make
+                      files</i> (makefile, .mak, .dsw, .sln)
+
+                      <ul class="Directory">
+                        <li>
+                          <img border="0" src="../Res/M/icoFolderClosed.gif"
+                          alt="Folder Closed" width="24"
+                          height="24" /><b>Res</b> <i>Resource files, images,
+                          icons, sound files</i> (.bmp, .ico, .cur, .avi, .txt)
+
+
+                          <ul class="Directory">
+                            <li><img border="0" src="../Res/M/icoWin32.gif"
+                            alt="Win32" width="24"
+                            height="24" />Win32&nbsp;</li>
+                          </ul>
+                        </li>
+
+                        <li><img border="0" src="../Res/M/icoFolderClosed.gif"
+                        alt="Folder Closed" width="24" height="24" /><b>Src</b>
+                        <i>Source code files</i> (.cpp, .h, .inl)</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+          </tr>
+
+          <tr>
+            <td width="100%">
+              <h4><a name="ProjectConfiguration"
+              id="ProjectConfiguration">Project Configuration</a></h4>
+
+              <p>Output directory:</p>
+              <pre>
+SolutionDir/bin/ConfigurationName/PlatformName
+              </pre>
+
+              <p>Intermediate directory:</p>
+              <pre>
+SolutionDir/Obj/ConfigurationName/ProjectName/PlatformName
+              </pre>
+
+              <table summary="Project Configuration" border="0" width="100%">
+                <tr>
+                  <th width="50%"><a name="Debug_SBCS"
+                  id="Debug_SBCS">Debug_SBCS</a></th>
+
+                  <td width="50%">WIN32; _CONSOLE; _DEBUG; _STLP_DEBUG=1</td>
+                </tr>
+
+                <tr>
+                  <th width="50%"><a name="Debug_Unicode"
+                  id="Debug_Unicode">Debug_Unicode</a></th>
+
+                  <td width="50%">WIN32; _CONSOLE; _DEBUG; _UNICODE;
+                  _STLP_DEBUG=1</td>
+                </tr>
+
+                <tr>
+                  <th width="50%"><a name="Release_SBCS"
+                  id="Release_SBCS">Release_SBCS</a></th>
+
+                  <td width="50%">WIN32; _CONSOLE; NDEBUG;</td>
+                </tr>
+
+                <tr>
+                  <th width="50%"><a name="Release_Unicode"
+                  id="Release_Unicode">Release_Unicode</a></th>
+
+                  <td width="50%">WIN32; _CONSOLE; NDEBUG; _UNICODE;</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td width="100%">
+              <h4><a name="Documentation"
+              id="Documentation">Documentation</a></h4>
+
+              <ul class="Directory">
+                <li>
+                  <img border="0" src="../Res/M/icoDocumentation.gif"
+                  alt="Documentation" width="24"
+                  height="24" /><a href="file:///S:/_SrcPool/Cpp/Documentation/">Documentation</a>
+                  <i>Output files</i>
+                  <img class="Icon" src="../Res/M/icoHlpS.gif" alt="Hlp" />
+                  (.chm, .HxS, .zip) Papers
+                  <img class="Icon" src="../Res/M/IcoTxtS.gif" alt="txt" />
+                  <img class="Icon" src="../Res/M/icoHtmS.gif" alt="htm" />
+                  (.htm, .doc), references,&nbsp; project files (.dox, .bat, .mak)
+
+                  <ul class="Directory">
+                    <li><img border="0" src="../Res/M/icoImage.gif"
+                    alt="Images" width="24"
+                    height="24" /><a href="file:///S:/_SrcPool/Cpp/Documentation/Resources/">
+                    Resources</a> Images, Style sheets, JavaScript files (.bmp,
+                    .ico, .gif, .jpg, .css, .js)</li>
+
+                    <li>
+                      <img border="0" src="../Res/M/icoHtm.gif" alt="HTML"
+                      width="24" height="24" />Library&nbsp;<i>Intermediate
+                      files</i> (.html, .txt, .xml)
+
+                      <ul class="Directory">
+                        <li>Images (.png, .jpg)</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+
+              <p>&nbsp;</p>
+            </td>
+          </tr>
+
+          <tr>
+            <td width="100%">
+              <h4><a name="ProjectDependencies"
+              id="ProjectDependencies">Project Dependencies</a></h4>
+
+              <ul>
+                <li>
+                  <b><img border="0" src="../Res/L/icoVcSln.gif" alt="VcSln"
+                  width="32" height="32" />Babylon</b> (<i>root,
+                  <a href="../../../BabylonLib.sln">S:/BabylonLib.sln</a></i>)
+                  root project
+
+                  <ul>
+                    <li><b><img border="0" src="../Res/L/icoVcProj.gif"
+                    alt="VcProj" width="32" height="32" />_SrcPool</b>
+                    (<i>root/_SrcPool/_SrcPool.vcproj</i>)</li>
+
+                    <li><b><img border="0" src="../Res/L/icoVcProj.gif"
+                    alt="VcProj" width="32" height="32" />SrcPoolWin32</b>
+                    (<i>root/_SrcPool/Cpp/Win/SrcPoolWin32.vcproj</i>)</li>
+                  </ul>
+                </li>
+              </ul>
+              <hr width="30%" />
+
+              <ul>
+                <li>
+                  <b><img border="0" src="../Res/L/icoVcSln.gif" alt="VcSln"
+                  width="32"
+                  height="32" /><a href="#ProjectExample">Samples</a></b>
+                  (<i>root/_SrcPool/Cpp/Samples/Samples.sln</i>)
+
+                  <ul>
+                    <li><b><img border="0" src="../Res/L/icoVcProj.gif"
+                    alt="VcProj" width="32" height="32" />_LibraryTest</b>
+                    (<i>Samples/_LibraryTest</i><i>/</i><i>_LibraryTest</i><i>.vcproj</i>)</li>
+
+                    <li><b><img border="0" src="../Res/L/icoVcProj.gif"
+                    alt="VcProj" width="32" height="32" />DateTime</b>
+                    (<i>Samples/DateTime</i><i>/</i><i>DateTime</i><i>.vcproj</i>)</li>
+
+                    <li><b><img border="0" src="../Res/L/icoVcProj.gif"
+                    alt="VcProj" width="32" height="32" />StringDyn</b>
+                    (<i>Samples/StringDyn</i><i>/</i><i>StringDyn</i><i>.vcproj</i>)</li>
+
+                    <li>&hellip;</li>
+                  </ul>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="text-align: right">
+    <hr />
+    <a href="index.html" title="Go to home&hellip;" class="Plain" target="_main">
+    &#x2302;</a>
+  </div>
+
+  <div align="center" style="visibility:hidden">
+    <b>Your browser does not fully support CSS. This may result in visual
+    artifacts.</b>
+  </div>
+  </body>
+<!-- ==========================================================================
+  $Log:
+   2    Biblioteka1.1         18/01/2003 11:44:41 PMDarko           Added TODO:
+   1    Biblioteka1.0         18/01/2003 7:54:41 PMDarko
+  $
+-->
+</html>

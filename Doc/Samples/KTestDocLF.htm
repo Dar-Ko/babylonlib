@@ -1,0 +1,799 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en-CA">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile" content="$Workfile: KTestDocLF.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 19$ $Date: 2007-04-17 18:07:54$" />
+  <meta name="Editor" content="$Author: Darko Kolakovic$" />
+  <meta name="Copyright"
+  content="&copy; Darko Kolakovi#x0107;, 1985-2032, All Rights Reserved." />
+  <meta name="author" content="Darko Kolakovi#x0107;" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="Documentation, Test" />
+  <meta name="description" content="BabylonLib: Documentation Test Page" />
+
+  <title>Document L&amp;F Test Page</title>
+  <link rel="stylesheet" type="text/css" href="../Res/KDocument.css" />
+  <link rel="stylesheet" type="text/css" href="../Res/KImages.css" />
+  <link rel="stylesheet" type="text/css" href="../Res/KASCIIChar.css" />
+  <link rel="stylesheet" type="text/css" href="../Res/KMenuBtn.css" />
+  <link rel="stylesheet" type="text/css" href="../Res/KTreeView.css" />
+  <link rel="stylesheet" type="text/css" href="../Res/KTables.css">
+  <link rel="stylesheet" type="text/css" href="../Res/KLists.css">
+  <link rel="SHORTCUT ICON" href="../Res/icoConfig16.ico" />
+  <link rel="icon" href="../Res/icoConfig.ico" type="image/ico" />
+  <base target="_self" />
+  <style type="text/css">
+  /*<![CDATA[*/
+    td.ColWide
+      {
+      width: 80%;
+      vertical-align: top;
+      }
+    td.ColNarrow
+      {
+      width: 20%;
+      vertical-align: top;
+      }
+  /*]]>*/
+  </style>
+ <script language="JavaScript" src="../Res/KChmExtLnk.js"
+  type="text/javascript">
+  </script>
+  <script language="JavaScript" src="../Res/KWndSize.js"
+  type="text/javascript">
+  </script>
+  <script language="JavaScript" src="../Res/KEmptyElemValue.js"
+  type="text/javascript"> </script>
+  <script type="text/javascript" language="Javascript">
+  //<![CDATA[
+  function ShowFootnote()
+    {
+    if (!document.getElementById)
+      return false;
+    var HiddenObj = document.getElementById("Hide");
+    if (HiddenObj .style.display == "block")
+      {
+      HiddenObj.style.display = "none";
+      }
+    else
+      {
+      HiddenObj.style.display = "block";
+      }
+    }
+  //]]>
+  </script>
+</head>
+
+<body>
+  <table border="0" summary="Style Examples" cellpadding="0" cellspacing="8"
+  style="width: 98%;">
+    <thead>
+      <tr>
+        <th class="ColNarrow">&nbsp;</th>
+        <th class="ColWide">
+          <h1>&lt;h1&gt;Document Look &amp; Feel Test</h1>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+    <!--  1 ================================================================-->
+
+    <tr>
+      <td class="ColNarrow">
+
+        <!-- CSS validation -->
+        <div align="center" style="visibility:hidden">
+          <a href="http://www.w3.org/Style/CSS/">
+            <img src="../Res/S/icoCss.gif" alt="Cascading Style Sheet"
+             title="CSS" class="IconS" />
+          </a>
+          <b>Your browser does not fully support Cascading Style Sheets.
+          This may result in visual artifacts.</b>
+        </div>
+      </td>
+      <td class="ColWide Desc">
+        This document uses Cascading Style Sheets:<br />
+        <code>
+          <a href="../Res/KDocument.css">
+            <img src="../Res/S/icoCss.gif" alt="import Cascading Style Sheet"
+            title="CSS" class="IconS" />
+          </a>
+          <font color="#0000C0">&lt;link rel=</font>&quot;stylesheet&quot;
+          <font color="#0000C0">type=</font>&quot;text/css&quot;
+          <font color="#0000C0">href=</font>&quot;
+          <a href="../Res/KDocument.css">Res/<b>KDocument.css</b></a>
+          &quot;<font color="#0000C0"> /&gt;</font><br />
+
+          <a href="../Res/KImages.css">
+            <img src="../Res/S/icoCss.gif" alt="import Cascading Style Sheet"
+            title="CSS" class="IconS" />
+          </a>
+          <font color="#0000C0">&lt;link rel=</font>&quot;stylesheet&quot;
+          <font color="#0000C0">type=</font>&quot;text/css&quot;
+          <font color="#0000C0">href=</font>&quot;
+          <a href="../Res/KImages.css">Res/<b>KImages.css</b></a>
+          &quot;<font color="#0000C0"> /&gt;</font>
+        </code>
+      </td>
+      <td width="16" height="16"><a class="Plain" href="javascript:print()"
+         title="Print this page"><img src="../Res/btnPrinter.gif"
+         alt="Printing..."
+         class=IconS" vspace="3"></a>
+      </td>
+    </tr>
+    <!--  2 ================================================================-->
+
+    <tr>
+      <td class="ColNarrow">
+        <hr />
+
+        <p><b>Anchors:</b></p>
+
+        <ol>
+          <li><a href="KDocLFTest.htm">Default</a>&nbsp;</li>
+          <li>
+            <a class="Plain" href="KDocLFTest.htm">Plain</a>
+            <pre>
+<font color="#0000C0">&lt;a class=</font>&quot;<b>Plain</b>&quot;
+<font color="#0000C0">href=</font>&quot;KDocLFTest.htm&quot;<font color="#0000C0">&gt;</font>
+            </pre>
+          </li>
+          <li>
+            <!-- External link -->
+            <a class="ChmLnk"
+            onclick="ChmExtLnk('KComputerLaws.htm')">Extern link</a>
+            <a href="../Res/KChmExtLnk.js">
+              <img src="../Res/S/icoJavaScript.gif" alt="import JavaScript" title="JavaScript"
+              class="IconS" />
+            </a>
+            <pre>
+<font color="#0000C0">&lt;a class=</font>&quot;<b>ChmLnk</b>&quot; <font color="#0000C0">
+onclick=</font>&quot;ChmExtLnk
+    ('Dir/File.pdf')&quot;<font color="#0000C0">&gt;</font>
+  Jump to pdf<font color="#0000C0">&lt;/a&gt;</font>
+            </pre>
+          </li>
+        </ol>
+
+        <p><b>Title Text:</b></p><span class="Capitalize">capitalizing a
+        text</span>
+        <pre>
+<font color="#0000C0">&lt;span class=</font>&quot;<b>Capitalize</b>&quot;<font color="#0000C0">&gt;</font>
+capitalizing a text
+<font color="#0000C0">&lt;/span&gt;</font>
+        </pre>
+
+        <p><b>New Tag:</b> Displays new, unvistited links in bright colors only
+        once. The tag is hidden, if the link has been visited recently.</p>
+        <!--span class="NewsTag"-->
+        <a class="NewsTag" href="KComputerLaws.htm">New!</a>
+        <!--/span-->
+         <a href="KComputerLaws.htm">Recent Laws</a>
+      </td>
+      <td class="ColWide">
+        <hr size="4" />
+
+        <h2>&lt;h2&gt; Paragraphs:</h2>
+
+        <ol>
+          <li>
+            Default
+
+            <p>The document has several paragraph styles.</p>
+          </li>
+          <li>
+            Warning
+
+            <p class="Warning">Warning style is used to notify something
+            important.</p>
+            <pre>
+<font color="#0000C0">&lt;p class=</font>&quot;Warning&quot;<font
+color="#0000C0">&gt;</font>Note<font color="#0000C0">&lt;/p&gt;</font>
+            </pre>
+          </li>
+          <li>
+            Caption
+
+            <div class="Figure">
+              <p class="Caption">Caption style is used to describe tables and
+              figures.</p>
+
+              <p><img border="0" src="../Res/L/KSrcPool.gif" alt="Logo"
+              title="Caption" class="IconL" /></p>
+            </div>
+            <pre>
+<font color="#0000C0">&lt;div class=</font>&quot;Figure&quot;<font color="#0000C0">&gt;</font>
+<font color="#0000C0">&lt;p&gt;&lt;img src=</font>&quot;MyPict.png&quot;<font color="#0000C0">&gt;&lt;/p&gt;</font>
+<font color="#0000C0">&lt;p class=</font>&quot;Caption&quot;<font color="#0000C0">&gt;</font>Figure MyPict<font color="#0000C0">&lt;/p&gt;</font>
+<font color="#0000C0">&lt;/div&gt;</font>
+            </pre>
+          </li>
+        </ol>
+      </td>
+    </tr>
+    <!--  3 ================================================================-->
+
+    <tr>
+      <td class="ColNarrow">
+        <hr />
+
+        <p><b>Block Text:</b></p>
+
+        <div class="Note">
+          Note: a highlighted text
+        </div>
+        <pre>
+<font color="#0000C0">&lt;div class=</font>&quot;<b>Note</b>&quot;<font color="#0000C0">&gt;</font>
+  Note: boxed text
+<font color="#0000C0">&lt;/div&gt;</font>
+        </pre>
+
+        <div class="Indent">
+          <hr />
+
+          <p>Indent a group of paragraphs,</p>
+
+          <p>list items or tables</p>
+        </div>
+        <pre>
+<font color="#0000C0">&lt;div class=</font>&quot;<b>Indent</b>&quot;<font color="#0000C0">&gt;</font>
+  Note: Indented text
+<font color="#0000C0">&lt;/div&gt;</font>
+        </pre>
+
+        <p onclick="ShowFootnote();">Hidden text, usually used for
+        <b><font color="#000080">footnotes<sup class="Footnote">1</sup></font></b></p>
+
+        <p id="Hide"><a name="Footnote1" id="Footnote1">1)</a>
+        <b><font color="#800000">Hidden footnote</font></b></p>
+        <hr size="4" />
+        <!-- Description class -->
+
+        <p><b>Description:</b></p>
+        <pre>
+<font color="#0000C0">&lt;p class=</font>&quot;<b>Desc</b>&quot;<font color="#0000C0">&gt;</font>
+  Note: Some description.
+<font color="#0000C0">&lt;/p&gt;</font>
+        </pre>
+
+        <p class="Desc">Note: Some description.</p>
+      </td>
+      <td class="ColWide">
+        <hr />
+
+        <h2>&lt;h2&gt; Headings:</h2>
+        <h3>&lt;h3&gt; Headings</h3>
+        <h4>&lt;h4&gt; Headings</h4>
+        <h5>&lt;h5&gt; Headings</h5>
+        <h5 class="Sub">&lt;h5.Sub&gt; Subheadings</h5>
+
+        <p class="Sub">Text with Subheading style.</p>
+        <pre>
+<font color="#0000C0">&lt;h5 class=</font>&quot;<b>Sub</b>&quot;<font color="#0000C0">&gt;</font>Subheading<font color="#0000C0">&lt;/h5&gt;</font>
+<font color="#0000C0">&lt;p class=</font>&quot;<b>Sub</b>&quot;<font color="#0000C0">&gt;</font>Text with Subheading style.<font color="#0000C0">&lt;/p&gt;</font>
+        </pre>
+
+        <h5 class="Topic">&lt;h5.Topic&gt; Topic</h5>
+
+        <p class="Topic">Text with Topic style.</p>
+
+        <h6>&lt;h6&gt; Headings</h6>
+      </td>
+    </tr>
+    <!--  4 ================================================================-->
+
+    <tr>
+      <td class="ColNarrow">
+        <hr />
+
+        <p><a href="../Res/KLists.css">
+          <img src="../Res/S/icoCss.gif" alt="import Cascading Style Sheet"
+           title="CSS" class="IconS" />
+        </a><b>Lists:</b></p>
+
+        <!-- Default ordered list -->
+        <i>Ordered list</i>
+        <ol class="Roman" title="class=&quot;Roman&quot;">
+          <li>&quot;Roman&quot; Numbered list
+            <ol title="Default">
+              <li>Numbered list
+                <ol>
+                  <li>Numbered list</li>
+                  <li>Numbered list</li>
+                </ol>
+              </li>
+              <li>Numbered list</li>
+            </ol>
+          </li>
+          <li>Numbered list</li>
+        </ol>
+
+        <!-- Default unordered list -->
+        <i>Default unordered list</i>
+        <ul title="Default">
+          <li>Bulleted list
+            <ul>
+              <li>Bulleted list
+                <ul>
+                  <li>Bulleted list</li>
+                  <li>Bulleted list</li>
+                </ul>
+              </li>
+              <li>Bulleted list</li>
+            </ul>
+          </li>
+          <li>Bulleted list</li>
+        </ul>
+
+        <!-- Default definition list -->
+        <i>Default definition list</i>
+        <dl title="Default">
+          <!-- Default definition description -->
+          <dt>Definition term</dt>
+          <dd>Definition desc.</dd>
+          <dd>
+            <dl>
+              <dd>Definition desc.</dd>
+              <dd>
+                <dl>
+                  <dt>Definition term</dt>
+                  <dd>Definition desc.</dd>
+                  <dt>Definition term</dt>
+                  <dd>Definition desc.</dd>
+                </dl>
+              </dd>
+              <dd>Definition desc.</dd>
+            </dl>
+          </dd>
+          <dd>Definition desc.</dd>
+        </dl>
+
+        <!-- Content Table list -->
+        <i>Content list</i>
+        <ol class="Toc" title="class=&quot;Toc&quot;">
+          <li><i>Chapter 1.&quot;Toc&quot; Numbered list</i>
+            <ol class="Toc" title="class=&quot;Toc&quot;">
+              <li><i>Chapter 1.1</i>
+                <ol class="Toc" title="class=&quot;Toc&quot;">
+                  <li><i>Chapter 1.1.1</i></li>
+                  <li><i>Chapter 1.1.2</i></li>
+                </ol>
+              </li>
+              <li><i>Chapter 1.2</i></li>
+            </ol>
+          </li>
+          <li><i>Chapter 2.</i>
+            <ol title="Default">
+              <li><i>Figure 1</i></li>
+              <li><i>Figure 2</i></li>
+            </ol>
+          </li>
+        </ol>
+      </td>
+
+      <!-- Preformatted Paragraphs -->
+      <td class="ColWide">
+        <hr />
+
+        <h2>&lt;h2&gt; Preformatted Paragraphs:</h2>
+
+        <ol>
+          <li>
+            <b>&lt;pre&gt;</b>
+
+            <p>For example:</p>
+            <pre>
+<small>
+        11110000 11001100 10101010 00001111 <font color="#008000">//32-bit integer</font>
+    = +1.1110000 11001100 10101010 &times; 2<sup>31</sup>    <font color="#008000">//Single-Precision Float</font>
+    =   11110000 11001100 10101010 00000000 <font color="#008000">//Corresponding Value</font>
+</small>
+            </pre>
+          </li>
+
+          <!-- Code example -->
+          <li>
+            <b>&lt;code&gt;</b><br />
+
+
+            <p><code><b>BYTE</b>
+            <font color="#0000FF">GetLRC</font>(<b>BYTE</b>* pbData,
+            <font color="#008000">//[in] data buffer including</font><br />
+            <font color="#008000">//termination character (ETB/ETX/EOT)</font><br />
+            <b>int</b> iCount
+            <font color="#008000">//[in] size of data in  bytes including</font><br />
+            <font color="#008000">//termination character</font> )<br />
+            { <b>BYTE</b> chLRC = 0;<br />
+            <font color="#000080"><b>while</b></font>(iCount &gt; 0) { chLRC ^=
+            *pbData++;<br />
+            iCount--;<br />
+            }<br />
+            <b><font color="#000080">return</font></b> chLRC;<br />
+            }</code></p>
+          </li>
+
+          <!-- Preformatted paragraph -->
+          <li>
+            <b>&lt;pre class=&quot;Code&quot;&gt;</b>
+            <pre class="Code">
+<b>BYTE</b> <font color="#0000FF">GetLRC</font>(<b>BYTE</b>* pbData,
+  <font color="#008000">//[in] data buffer including</font>
+  <font color="#008000">//termination character (ETB/ETX/EOT)</font>
+<b>int</b> iCount
+  <font color="#008000">//[in] size of data in bytes including</font>
+  <font color="#008000">//termination character</font>
+            )
+{
+<b>BYTE</b> chLRC = 0;
+<font color="#000080"><b>while</b></font>(iCount &gt; 0)
+  {
+  chLRC ^= *pbData++;
+  iCount--;
+  }
+
+<b><font color="#000080">return</font></b> chLRC;
+}
+            </pre>
+          </li>
+        </ol>
+      </td>
+    </tr>
+    <!--  5 ================================================================-->
+
+    <tr>
+      <td class="ColNarrow">
+        <hr />
+        <i>Test page outlook</i>
+        <a href="../Res/KWndSize.js">
+          <img src="../Res/S/icoJavaScript.gif" alt="import JavaScript" title="JavaScript"
+          class="IconS" />
+        </a>
+
+        <form action="http://localhost">
+
+          <!-- Requires KWndSize.js script -->
+          <!-- Note: Works with IE 5, Firefox 1.04
+                          Does not work with Opera 7.5
+          -->
+          <p><input type="button" value="640x480" onclick="OpenWndStd()" />
+          <input type="button" value="800x600" onclick="OpenWndStd(2)" /></p>
+
+          <p><input type="button" value="580x600" onclick="OpenWndStd(3)" />
+          <input type="button" value="470x600" onclick="OpenWndStd(4)" /></p>
+
+          <p>Close this window (only IE): <input type="button" value="Close"
+          onclick="window.close()" /></p>
+        </form>
+      </td>
+      <td class="ColWide">
+        <!-- Table styles -->
+        <hr />
+
+        <h2>&lt;h2&gt; Tables</h2>
+        <a href="../Res/KTables.css">
+          <img src="../Res/S/icoCss.gif" alt="import Cascading Style Sheet"
+           title="CSS" class="IconS" />
+        </a>
+
+        <table border="0" width="100%" summary="Table Style example">
+          <caption>
+            &lt;caption&gt; Table Style example
+          </caption>
+
+          <tr>
+            <th width="25%">Deafult header</th>
+            <th width="25%" class="Highlight">Highlight style</th>
+            <th width="25%" bgcolor="#0000FF">&nbsp;Blue background</th>
+            <th width="25%" class="Highlight" bgcolor="#0000FF">Blue background
+            and Highlight style&nbsp;</th>
+          </tr>
+
+          <tr>
+            <td width="25%">Default cell</td>
+            <td width="25%" class="Highlight">Highlight cell</td>
+            <td width="25%" bgcolor="#0000FF">Blue background</td>
+            <td width="25%" class="Highlight" bgcolor="#0000FF">
+            Blue background and Highlight style</td>
+          </tr>
+
+          <tr class="Even">
+            <td width="25%">Default cell<br />
+             Even style row</td>
+            <td width="25%" class="Highlight">Highlight cell<br />
+             Even style row</td>
+            <td width="25%" bgcolor="#0000FF">Blue background</td>
+            <td width="25%" class="Highlight Even" bgcolor="#0000FF">
+            Blue background and Highlight, then Even style cell<br />
+             Even style row</td>
+          </tr>
+
+          <tr class="Odd">
+            <td width="25%">Default cell<br />
+             Odd style row</td>
+            <td width="25%" class="Highlight">Highlight cell<br />
+             Odd style row</td>
+            <td width="25%" bgcolor="#0000FF">Blue background</td>
+            <td width="25%" class="Odd Highlight" bgcolor="#0000FF">
+            Blue background and Odd, then Highlight style cell<br />
+            Odd style row</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <!--  6 ================================================================-->
+
+    <tr>
+      <td class="ColNarrow">
+        <hr />
+        <i>Test Search Form</i>
+        <a href="../Res/KEmptyElemValue.js">
+          <img src="../Res/S/icoJavaScript.gif" alt="import JavaScript"
+          title="JavaScript" class="IconS" />
+        </a>
+        <div id="ID_SEARCH">
+          <!-- Replace form's action with the link to the proper query script -->
+          <!-- FixBlock style is a fix for IE -->
+          <form method="get" action="KTestDoc.htm" class="FixBlock" target="_parent">
+            <div class="NoBr">
+              <input type="text" name="query" value="search for&hellip;" size="20"
+               onfocus="EmptyElemValue(this);" title="Type query" />
+
+              <input type="image" name="search" src="../Res/btnGoto.gif"
+               title="Search&hellip;" alt="Search" />
+              <a class="Plain Help" href="KTestDoc.htm" style="vertical-align: bottom;"
+               title="Help on using Search" target="_parent">
+              <img src="../Res/btnHelp.gif" alt="?" class="Btn"/></a>
+            </div>
+          </form>
+        </div>
+      </td>
+      <td class="ColWide">
+        <hr />
+        <div class="Desc">
+        <a href="../Res/KASCIIChar.css">
+          <img src="../Res/S/icoCss.gif" alt="import Cascading Style Sheet"
+          title="CSS" class="IconS" />
+        </a>
+        This section uses Cascading Style Sheet:<br />
+        <code>
+          <font color="#0000C0">&lt;link rel=</font>&quot;stylesheet&quot;
+          <font color="#0000C0">type=</font>&quot;text/css&quot;
+          <font color="#0000C0">href=</font>&quot;
+          <a href="../Res/KASCIIChar.css">Res/<b>KASCIIChar.css</b></a>
+          &quot;<font color="#0000C0">&gt;</font>
+        </code>
+        </div>
+        <table summary="test styles" class="Cl">
+          <caption>Test Coloumn Styles</caption>
+          <tr>
+            <td class=ColHex>ColHex</td>
+            <td class=HtmlEnt>HtmlEnt</td>
+            <td class="Glyph">
+              <img class="Glyph" src="Symbol/ok.gif"
+              alt="Glyph" title="Glyph"> </td>
+            <td class=ColSymbLCC>ColSymbLCC</td>
+            <td class=ColSymbCtr>ColSymbCtr;</td>
+            <td class=ColDscrptShrt>ColDscrptShrt</td>
+          </tr>
+          <tr>
+            <td class=ColDec>ColDec</td>
+            <td class=ColHtml>ColHtml</td>
+            <td class=ColChar>ColChar</td>
+            <td class=ColSymbPhD>ColSymbPhD</td>
+            <td class=ColSymbPhy>ColSymbPhy</td>
+            <td class=ColDscrptLong>ColDscrptLong</td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+    <!--  7 ================================================================-->
+
+    <tr>
+      <td class="ColNarrow">
+        <hr />
+        <div id="MenuBarV"  class="ButtonUrl">
+          <a href="URL1.html">Btn1</a><br />
+          <a href="URL2.html">Btn2</a>
+        </div>
+        </td>
+      <td class="ColWide">
+        <hr />
+        <div class="Desc">
+        <a href="../Res/KMenuBtn.css">
+          <img src="../Res/S/icoCss.gif" alt="import Cascading Style Sheet"
+          title="CSS" class="IconS" />
+        </a>
+        This section uses Cascading Style Sheet:<br />
+        <code>
+          <font color="#0000C0">&lt;link rel=</font>&quot;stylesheet&quot;
+          <font color="#0000C0">type=</font>&quot;text/css&quot;
+          <font color="#0000C0">href=</font>&quot;
+          <a href="../Res/KMenuBtn.css">Res/<b>KMenuBtn.css</b></a>
+          &quot;<font color="#0000C0">&gt;</font>
+        </code>
+        </div>
+        <div id="MenuBarV">
+          <p><a href="KReferences.htm" title="Example: Tip1">Btn1</a></p>
+          <p><a href="KTestTreeView.htm" title="Example: Tip2">Btn2</a></p>
+        </div>
+      </td>
+    </tr>
+    <!--  8 ================================================================-->
+
+    <tr>
+      <td class="ColNarrow">
+        <hr />
+        <ul style="list-style: none">
+          <li><i>More tests</i>:
+            <ul style="list-style: none">
+            <li><a href="KTestTrace.htm">Trace</a></li>
+            <li><a href="KTestTreeView.htm">Tree</a></li>
+            <li><a href="KTestDoc.htm">Article</a></li>
+            <li><a href="KTestResources.htm">Resources</a></li>
+            </ul>
+          </li>
+        </ul>
+      </td>
+      <td class="ColWide">
+        <hr />
+      </td>
+    </tr>
+    <!--  9 ================================================================-->
+
+    <tr>
+      <td class="ColNarrow"></td>
+      <td class="ColWide"></td>
+    </tr>
+    <!-- 10 ================================================================-->
+
+    <tr>
+      <td class="ColNarrow"></td>
+      <td class="ColWide"></td>
+    </tr>
+  </tbody>
+  </table>
+
+  <!-- Logo image -->
+  <hr size="4" />
+  <b>Logo image:</b>&nbsp;
+  <a href="../Res/KImages.css">
+    <img src="../Res/S/icoCss.gif" alt="import Cascading Style Sheet"
+    title="CSS" class="IconS" />
+  </a><br />
+  <img class="Logo" style="border:0" src="../Res/L/logoApplet.gif" title="Logo"
+  alt="Logo" /><br />
+  <pre>
+<font color="#0000C0">&lt;img class=</font>&quot;Logo&quot; <font color="#0000C0">src=</font>&quot;Res/L/Logo.gif&quot;<font color="#0000C0">&gt;</font>
+  </pre>
+  <hr />
+
+  <!-- Tree Hierrachy Nodes -->
+  <table summary="Hierrachy Tree Glyphs" border="0" cellpadding="0"
+  width="60%">
+    <tr>
+      <td width="50%">
+        <table border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFCC"
+        summary="Tree Hierarchy Node Symbols">
+          <caption>
+            Tree Hierarchy Node Symbols
+            <a href="../Res/KTreeView.css">
+              <img src="../Res/S/icoCss.gif" alt="import Cascading Style Sheet"
+              title="CSS" class="IconS" />
+            </a>
+          </caption>
+
+          <tr height="22">
+            <td width="14"><img src="Symbol/nodeVRe.gif"
+            alt="-" title="VERTICAL-RIGHT EXPANDED NODE" /></td>
+            <td width="14">&nbsp;</td>
+            <td class="TreeView">
+              <!-- Do not insert EOL or space characters between node image
+                   elements; vertical realigment will result  otherwise. -->
+              <img src="Symbol/nodeVRc.gif"
+                alt="-" title="VERTICAL-RIGHT COMPRESSED NODE" /><a
+                href="KTestTreeView.htm"><img src="Symbol/nodeFolderClose.gif"
+                alt="X" title="FOLDER CLOSED" class="TreeView" /></a>
+            </td>
+            <td width="14">&nbsp;</td>
+            <td width="14">&nbsp;</td>
+          </tr>
+
+          <tr height="22">
+            <td width="14"><img src="Symbol/nodeV.gif"
+            alt="|" title="VERTICAL LINE" /></td>
+            <td width="14"><img src="Symbol/nodeSp.gif"
+            alt=" " title="SPACE" /></td>
+            <td width="28"><img src="Symbol/nodeV.gif"
+            alt="|" title="VERTICAL LINE" /></td>
+            <td width="14">&nbsp;</td>
+            <td width="14">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td style="vertical-align: middle"><img src="Symbol/nodeVR.gif"
+            alt="L" title="VERTICAL-RIGHT NODE" /><img src="Symbol/pagePrev.gif"
+            alt="Previous" title="PREVIOUS ARTICLE" />Page</td>
+            <td width="14">&nbsp;</td>
+            <td><img src="Symbol/nodeURc.gif"
+            alt="L[+]" title="UP-RIGHT COMPRESSED NODE" /><img
+                 src="Symbol/nodeFolderOpen.gif"
+                 alt="O" title="FOLDER OPEN" class="TreeView" />
+            </td>
+            <td width="14"><img src="Symbol/nodeV.gif"
+            alt="|" title="VERTICAL LINE" /></td>
+            <td width="14">&nbsp;</td>
+          </tr>
+
+          <tr height="22">
+            <td><img src="Symbol/nodeUR.gif"
+            alt="L" title="UP-RIGHT NODE" /><img src="Symbol/paper.gif"
+            alt="Paper" title="ARTICLE" />
+            </td>
+            <td width="14">&nbsp;</td>
+            <td width="28"><img src="Symbol/nodeSp.gif"
+            alt=" " title="SPACE" /><img
+            src="Symbol/nodeURe.gif"
+            alt="L[-]" title="UP-RIGHT EXPANDED NODE" /></td>
+            <td width="14"></td>
+            <td width="14">&nbsp;</td>
+          </tr>
+        </table>
+        </div>
+      </td>
+
+      <!-- Unicode symbols -->
+      <td width="50%">
+        <table border="0" cellpadding="0" cellspacing="0" bgcolor="#CCFFCC"
+        summary="Tree Hierarchy Unicode Glyphs">
+          <caption>
+            Tree Hierarchy Unicode Symbols
+          </caption>
+
+          <tr>
+            <td align="center">&#8863;&#9472;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+            <td align="center">&#8862;&#9472;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="center">&#9474;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+           <td align="center">&#9474;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+         </tr>
+
+          <tr>
+            <td align="center">&#9500;&#9472;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+            <td align="center">&#8862;&#9472;</td>
+            <td align="center">&#9474;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td align="center">&#9492;&#9472;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+            <td align="center">&#8863;&#9472;</td>
+            <td align="center">&nbsp;&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  </body>
+<!-- ===========================================================================
+  $Log:
+   1    Biblioteka1.0         2004-06-02 11:56:18  Darko
+  $
+-->
+</html>
