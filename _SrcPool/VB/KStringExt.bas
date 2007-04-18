@@ -1,12 +1,12 @@
-Attribute VB_Name = "StringExt"
-'$Workfile: StringExt.bas,v $: implementation file
-'$Revision: 1.2 $ $Date: 2007/03/29 22:35:11 $
-'$Author: dkolakovic $
+Attribute VB_Name = "KStringExt"
+'$Workfile: KStringExt.bas$: implementation file
+'$Revision: 2$ $Date: 2007-04-18 16:05:20$
+'$Author: Darko Kolakovic$
 '
 'Text manipulation helpers
-'babylonlib@sourceforge.net
 '2002-10-14
 
+Option Explicit
 'Note: JScript does not support ByRef parameters of any type, so if you plan to
 'write components that will support JScript, you should not use ByRef parameters
 'at all. VBScript does not impose this restriction.
@@ -14,17 +14,15 @@ Attribute VB_Name = "StringExt"
 'COM must marshal the value both to and from the object.
 'ByVal parameters require only one-way marshaling.
 
+Public Const ASCII_SP As Integer = 32
 '------------------------------------------------------------------------------
 'Strip white characters from the end of SBCS string
 Public Function TrimRight(strText As String) As String
   Dim strResult As String
-
-  strResult = strText
-  nLen = Len(strText)
-  Chrr = Asc(Right$(strResult, 1))
   If Len(strText) > 0 Then
+    strResult = strText
     Do While Asc(Right$(strResult, 1)) <= ASCII_SP 'Less or equal to SPACE
-      text = Left$(strResult, Len(strResult) - 1)
+      strResult = Left$(strResult, Len(strResult) - 1)
     Loop
     TrimRight = strResult
   End If
@@ -32,7 +30,7 @@ End Function
 '------------------------------------------------------------------------------
 'Strip white characters from the beginning of SBCS string
 Public Function TrimLeft(strText As String) As String
-  Dim text As String
+  Dim strResult As String
   If Len(strText) > 0 Then
     strResult = strText
     Do While Asc(strResult) <= ASCII_SP 'Less or equal to SPACE
@@ -42,38 +40,62 @@ Public Function TrimLeft(strText As String) As String
   End If
 End Function
 '------------------------------------------------------------------------------
-'Strip white characters from the beginning and the end of SBCS string.
-Public Function TrimText(strText As String) As String
-  TrimBoth = TrimLeft(TrimRight(strText))
+'Strip white characters from the beginning and the end of SBCS string
+Public Function TrimBoth(strText As String) As String
+    TrimBoth = TrimLeft(TrimRight(strText))
 End Function
 '------------------------------------------------------------------------------
-'Returns True if the string is Unicode text with Latin characters
-Public Function IsUnicode(strText As String) As Boolean
-  Dim i As Long
-  Dim lSize As Long 'text lenght
-  Dim arrText() As Byte 'text as byte array
+'Public Function PointerToStringA(ByVal lpStringA As Long) As String
+'   Dim Buffer() As Byte
+'   Dim nLen As Long
 
-  If LenB(strText) Then
-    arrText = strText
-    lSize = UBound(arrText)
-    For i = 1 To lSize Step 2 'Check every 2nd byte
-      If (arrText(i) > 0) Then
-        IsUnicode = True 'Return OK
-        Exit Function
-      End If
-    Next
-  End If
+   'If lpStringA Then
+   '   nLen = lstrlenA(ByVal lpStringA)
+   '   If nLen Then
+   '      ReDim Buffer(0 To (nLen - 1)) As Byte
+   '      CopyMemory Buffer(0), ByVal lpStringA, nLen
+   '      PointerToStringA = StrConv(Buffer, vbUnicode)
+   '   End If
+   'End If
+'End Function
+'------------------------------------------------------------------------------
+'Public Function PointerToStringW(ByVal lpStringW As Long) As String
+'   Dim Buffer() As Byte
+'   Dim nLen As Long
+
+'   If lpStringW Then
+'      nLen = lstrlenW(lpStringW) * 2
+'      If nLen Then
+'         ReDim Buffer(0 To (nLen - 1)) As Byte
+'         CopyMemory Buffer(0), ByVal lpStringW, nLen
+'         PointerToStringW = Buffer
+'      End If
+'   End If
+'End Function
+'------------------------------------------------------------------------------
+'Returns True if the string is Unicode
+Public Function IsUnicode(strText As String) As Boolean
+   Dim i As Long
+   Dim lLen As Long
+   Dim Map() As Byte
+
+   If LenB(strText) Then
+      Map = strText
+      lLen = UBound(Map)
+      For i = 1 To lLen Step 2
+         If (Map(i) > 0) Then
+            IsUnicode = True 'Return OK
+            Exit Function
+         End If
+      Next
+   End If
 End Function
 
 '//////////////////////////////////////////////////////////////////////////////
 '******************************************************************************
-'$Log: StringExt.bas,v $
-'Revision 1.2  2007/03/29 22:35:11  dkolakovic
-'Printer Status
-'
-'Revision 1.1  2007/03/20 13:22:08  dkolakovic
-'Created
-'
+'$Log: 
+' 2    Biblioteka1.1         2007-04-18 16:05:20  Darko Kolakovic Constant
+' 1    Biblioteka1.0         2007-04-13 09:23:58  Darko Kolakovic 
+'$
 '******************************************************************************
-
 
