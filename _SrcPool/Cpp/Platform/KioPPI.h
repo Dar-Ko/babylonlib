@@ -1,5 +1,5 @@
 /*$Workfile: KioPPI.h$: header file
-  $Revision: 3$ $Date: 2005-04-18 10:35:39$
+  $Revision: 4$ $Date: 2007-04-19 13:26:11$
   $Author: Darko Kolakovic$
 
   Programmable Peripheral Interface (PPI) IBM-PC 8255 constants
@@ -24,7 +24,7 @@
 
 /*PPI Port A Keyboard Scan Code / System Configuration Status.
 
-  PPI teturns keyboard scan code of the key pressed if bit 7 of Port B
+  PPI returns keyboard scan code of the key pressed if bit 7 of Port B
   (Port A Mode) is set to 0.
   If bit 7 of Port B is set to 1, returns system configuration:
 
@@ -173,7 +173,7 @@ const uint8 IOC_PPI_PC_SPEAKER = 0x02;
   Configuration Jumpers (Switches) 8,7,6 and 5.
 
   Bits 1,0 Video Mode Bits (XT)
-  If bit 3 of Port B (Port C Mode - XT) is set to 1, returns Video Mode Status:
+ If bit 3 of Port B (Port C Mode - XT) is set to 1, returns Video Mode Status:
 
           01  Color (40 rows x 25 columns)
           10  Color (80 rows x 25 columns)
@@ -217,10 +217,10 @@ inline bool HAS_PPI_FDD(const uint8 cStatusA //[in] PPI Port A Status
 /* ///////////////////////////////////////////////////////////////////////// */
 #endif  //__KIOPPI_H__
 /******************************************************************************
- *$Log: 
+ *$Log:
  * 3    Biblioteka1.2         2005-04-18 10:35:39  Darko Kolakovic Comment
  * 2    Biblioteka1.1         2005-04-18 10:27:55  Darko Kolakovic __cplusplus
  *      sentry
- * 1    Biblioteka1.0         2002-09-18 18:12:32  Darko Kolakovic 
+ * 1    Biblioteka1.0         2002-09-18 18:12:32  Darko Kolakovic
  *$
  *****************************************************************************/
