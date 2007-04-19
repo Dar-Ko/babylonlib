@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWinEnv"
-'$Workfile: S:\_SrcPool\VB\KWinEnv.bas$: implementation file
-'$Revision: 1$ $Date: 2007-04-18 15:59:40$
+'$Workfile: KWinEnv.bas$: implementation file
+'$Revision: 2$ $Date: 2007-04-19 13:23:46$
 '$Author: Darko Kolakovic$
 '
 'MS Windows Environment Variable Handler
@@ -46,6 +46,7 @@ Public Declare Function SetEnvironmentVariable Lib "kernel32.dll" Alias _
   "SetEnvironmentVariableA" (ByVal lpName As String, _
                              ByVal lpValue As String) As Long
 '-------------------------------------------------------------------------------
+'Returns the value of required Windows environment variable or the empty string.
 Public Function GetEnvVariable(ByVal szName As String) As String
   Dim lpBuffer As String 'buffer that receives required environment variable
   Dim nSize As Long 'size of the buffer
@@ -53,17 +54,36 @@ Public Function GetEnvVariable(ByVal szName As String) As String
   lpBuffer = String(256, " ")
   nSize = GetEnvironmentVariable(szName, lpBuffer, Len(lpBuffer))
   If nSize = 0 Then
-    GetEnvVariable = ""
+    GetEnvVariable = "" 'Variable not exist
   Else
     'Trim the result
     lpBuffer = Left(lpBuffer, InStr(lpBuffer, Chr(0)) - 1)
     GetEnvVariable = lpBuffer
   End If
 End Function
-
+'-------------------------------------------------------------------------------
+'Returns the list with Windows environment variables.
+Public Function GetEnvList() As String
+  Dim i As Integer
+  Dim szList As String
+  szList = ""
+  i = 1
+  'Environ$() returns the text assigned to the specified environment variable;
+  'the text following the equal sign (=) in the environment-string table for
+  'that environment variable or zero-length string (""), if the variable name
+  'is specified. If variable sequential number is given, Environ$() returns
+  'pairs "name=value".
+  While Environ$(i) <> ""
+    szList = szList + _
+             Mid(Environ$(i), 1, InStr(1, Environ(i), "=") - 1) + _
+             vbNewLine
+    i = i + 1
+  Wend
+  GetEnvList = szList
+End Function
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
-'$Log: 
-' 1    Biblioteka1.0         2007-04-18 15:59:40  Darko Kolakovic 
+'$Log:
+' 1    Biblioteka1.0         2007-04-18 15:59:40  Darko Kolakovic
 '$
 '*******************************************************************************

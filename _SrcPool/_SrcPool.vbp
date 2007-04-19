@@ -1,10 +1,13 @@
 Type=Exe
 Module=KWinEnv; VB\KWinEnv.bas
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#C:\WINDOWS\system32\stdole2.tlb#OLE Automation
+Module=KStringExt; VB\KStringExt.bas
+Module=KWaitTime; VB\KWaitTime.bas
+Module=KWin32; VB\KWin32.bas
 Startup="Sub Main"
 HelpFile=""
 Command32=""
-Name="Project1"
+Name="SrcPool"
 HelpContextID="0"
 CompatibleMode="0"
 MajorVer=1

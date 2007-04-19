@@ -1,11 +1,12 @@
-Attribute VB_Name = "KWin32.bas"
-'$Workfile: S:\_SrcPool\VB\KWin32.bas$: implementation file
-'$Revision: 1$ $Date: 2007-04-18 15:59:40$
+Attribute VB_Name = "KWin32"
+'$Workfile: KWin32.bas$: implementation file
+'$Revision: 2$ $Date: 2007-04-19 13:23:45$
 '$Author: Darko Kolakovic$
 '
 'Microsoft Windows SDK prototypes
 'babylonlib@sourceforge.net
 '2002-11-02
+Option Explicit
 
 'Pointer to string (SBCS)
 Public Type LPSTR
@@ -92,7 +93,7 @@ End Type
 
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
-'$Log: 
-' 1    Biblioteka1.0         2007-04-18 15:59:40  Darko Kolakovic 
+'$Log:
+' 1    Biblioteka1.0         2007-04-18 15:59:40  Darko Kolakovic
 '$
 '*******************************************************************************
