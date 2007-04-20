@@ -1,12 +1,13 @@
 Attribute VB_Name = "KStringExt"
 '$Workfile: KStringExt.bas$: implementation file
-'$Revision: 2$ $Date: 2007-04-18 16:05:20$
+'$Revision: 3$ $Date: 2007-04-20 14:03:23$
 '$Author: Darko Kolakovic$
 '
 'Text manipulation helpers
 '2002-10-14
 
 Option Explicit
+                   
 'Note: JScript does not support ByRef parameters of any type, so if you plan to
 'write components that will support JScript, you should not use ByRef parameters
 'at all. VBScript does not impose this restriction.
@@ -43,6 +44,21 @@ End Function
 'Strip white characters from the beginning and the end of SBCS string
 Public Function TrimBoth(strText As String) As String
     TrimBoth = TrimLeft(TrimRight(strText))
+End Function
+'------------------------------------------------------------------------------
+'Converts number of bytes to a string
+Public Function BytesToString(pByteArray As Byte, _
+                              lByteArraySize As Long) As String
+  Dim strTemp As String
+  Dim lLength As Long
+
+  'Create a storage
+  strTemp = String(lByteArraySize + 1, 0)
+  'Copy byte array to the storage
+  CopyMemory ByVal strTemp, pByteArray, lByteArraySize
+
+  lLength = InStr(strTemp, Chr$(0)) - 1
+  BytesToString = Left$(strTemp, lLength) 'Return the string
 End Function
 '------------------------------------------------------------------------------
 'Public Function PointerToStringA(ByVal lpStringA As Long) As String
@@ -93,9 +109,9 @@ End Function
 
 '//////////////////////////////////////////////////////////////////////////////
 '******************************************************************************
-'$Log: 
+'$Log:
 ' 2    Biblioteka1.1         2007-04-18 16:05:20  Darko Kolakovic Constant
-' 1    Biblioteka1.0         2007-04-13 09:23:58  Darko Kolakovic 
+' 1    Biblioteka1.0         2007-04-13 09:23:58  Darko Kolakovic
 '$
 '******************************************************************************
 
