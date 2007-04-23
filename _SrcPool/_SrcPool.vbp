@@ -11,6 +11,7 @@ Module=KWinUser32; VB\KWinUser32.bas
 Module=KWinAdvApi32; VB\KWinAdvApi32.bas
 Module=KWinPsApi; VB\KWinPsApi.bas
 Module=KTerminateProcess; VB\KTerminateProcess.bas
+Module=KFileIo; VB\KFileIo.bas
 Startup="Sub Main"
 HelpFile=""
 Command32=""
