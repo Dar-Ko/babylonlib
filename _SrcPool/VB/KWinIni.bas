@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWinIni"
 '$Workfile: KWinIni.bas$: implementation file
-'$Revision: 2$ $Date: 2007-04-23 09:51:09$
+'$Revision: 3$ $Date: 2007-04-23 13:22:28$
 '$Author: Darko Kolakovic$
 '
 'Configuration file handler (.INI format)
@@ -181,9 +181,9 @@ Public Function GetIniSection(szFilename As String, _
   lCount = GetPrivateProfileSection(szSection, szResult, VAL_SIZE, szFilename)
   GetIniSection = Left(szResult, lCount - 1)
   If (lCount > 0) Then
-    GetIniValue = Left(szResult, lCount - 1)
+    GetIniSection = Left(szResult, lCount - 1)
   Else
-    GetIniValue = ""
+    GetIniSection = ""
   End If
 End Function
 '-------------------------------------------------------------------------------
