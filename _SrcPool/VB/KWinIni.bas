@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWinIni"
-'$Workfile: S:\_SrcPool\VB\KWinIni.bas$: implementation file
-'$Revision: 1$ $Date: 2007-04-19 17:46:43$
+'$Workfile: KWinIni.bas$: implementation file
+'$Revision: 2$ $Date: 2007-04-23 09:51:09$
 '$Author: Darko Kolakovic$
 '
 'Configuration file handler (.INI format)
@@ -145,7 +145,8 @@ Public Declare Function WritePrivateProfileSection Lib "kernel32" Alias _
                                  ByVal lpFileName As String) As Long
                                  
 'Copies a string into the specified section of an initialization file.
-' lpSectionName [in] The name of the section to which the string will be copied. If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
+' lpSectionName [in] The name of the section to which the string will be copied.
+'                If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
 ' lpKeyName     [in] The name of the key to be associated with a string. If the key does not exist in the specified section, it is created. If this parameter is NULL, the entire section, including all entries within the section, is deleted.
 ' lpString      [in] A null-terminated string to be written to the file. If this parameter is NULL, the key pointed to by the lpKeyName parameter is deleted.
 '               Windows Me/98/95:  The system does not support the use of the TAB (\t) character as part of this parameter.
@@ -161,7 +162,7 @@ Public Declare Function WritePrivateProfileString Lib "kernel32" Alias _
                                 ByVal lpFileName As String) As Long
 '-------------------------------------------------------------------------------
 'Retrieves all the keys and values for the specified section of an initialization
-'file.
+'file. The string is limited to the 256 characters.
 'Initialization file have following format:
 '   [Section1]
 '   Key1=Value1
@@ -173,66 +174,124 @@ Public Declare Function WritePrivateProfileString Lib "kernel32" Alias _
 '
 'Returns section paragraph.
 Public Function GetIniSection(szFilename As String, _
-                              szSection As String, _
-                              lLength As Long) As String
-  Dim szResult As String * lLength
+                              szSection As String) As String
+  Const VAL_SIZE = 256
+  Dim szResult As String * VAL_SIZE
   Dim lCount As Long
-  lCount = GetPrivateProfileSection(szSection, szResult, lLength, szFilename)
+  lCount = GetPrivateProfileSection(szSection, szResult, VAL_SIZE, szFilename)
   GetIniSection = Left(szResult, lCount - 1)
+  If (lCount > 0) Then
+    GetIniValue = Left(szResult, lCount - 1)
+  Else
+    GetIniValue = ""
+  End If
 End Function
 '-------------------------------------------------------------------------------
 'Retrieves a string from the specified section in an initialization file.
+'The string is limited to the 256 characters.
 '
 'Returns value of the specified initialization key
 Public Function GetIniValue(szFilename As String, _
                             szSection As String, _
-                            szKey As String, _
-                            lLength As Long) As String
-  Dim szResult As String * lLength
+                            szKey As String) As String
+  Const VAL_SIZE = 256
+  Dim szResult As String * VAL_SIZE
   Dim lCount As Long
-  lCount = GetPrivateProfileString(szSection, szKey, "", szResult, lLength, szFilename)
-  GetIniValue = Left(szResult, lCount - 1)
+  lCount = GetPrivateProfileString(szSection, szKey, "", szResult, VAL_SIZE, szFilename)
+  If (lCount > 0) Then
+    GetIniValue = Left(szResult, lCount - 1)
+  Else
+    GetIniValue = ""
+  End If
 End Function
 '-------------------------------------------------------------------------------
 'Retrieves a string value from the specified key in an initialization file.
+'The search for the key is case insensitive.
+'A section with keys must have the following form:
+'   [Section]
 'A key in the initialization file must have the following form:
 '   Key=Value
 '
-'Returns value of the specified initialization key
-Public Function ReadIniValue(INIpath As String, _
-                             KEY As String, _
-                             Variable As String) As String
-Dim NF As Integer
-Dim Temp As String
-Dim LcaseTemp As String
-Dim ReadyToRead As Boolean
+'Parameters:
+' szFilename  initialization file name
+' strSection  name of the section in the initialization file or an empty string.
+'             If the section is not specified, the function will search for the
+'             first occurrence of the key.
+' strKey      name of the key to be associated with a string.
+'
+'Returns value of the specified initialization key or the empty string if the file
+'or the key could not be found.
+Public Function ReadIniValue(ByVal szFilename As String, _
+                             ByVal strSection As String, _
+                             ByVal strKey As String) As String
+  ReadIniValue = ""
+  If szFilename <> "" Then 'File is not specified
+    If ((strKey = "") And (strSection = "")) Then Exit Function 'Nothing to do
     
-AssignVariables:
-        NF = FreeFile
-        ReadIniValue = ""
-        KEY = "[" & LCase$(KEY) & "]"
-        Variable = LCase$(Variable)
+    Dim bBrowseSections As Boolean
+    'Normalize search strings to lower case
+    strKey = LCase$(strKey)
+    If (strSection <> "") Then
+      'Find the section
+      strSection = "[" & LCase$(strSection) & "]"
+      bBrowseSections = True
+    Else
+      'Find the fist occurrence of the key
+      bBrowseSections = False
+    End If
     
-EnsureFileExists:
-    Open INIpath For Binary As NF
-    Close NF
-    SetAttr INIpath, vbArchive
+    Dim strLine As String 'line of text
+    Dim strNormalizedLine As String 'line of text in lower case
+    Dim bFoundSection As Boolean 'line contains a section name
+    bFoundSection = False
     
-LoadFile:
-    Open INIpath For Input As NF
-    While Not EOF(NF)
-    Line Input #NF, Temp
-    LcaseTemp = LCase$(Temp)
-    If InStr(LcaseTemp, "[") <> 0 Then ReadyToRead = False
-    If LcaseTemp = KEY Then ReadyToRead = True
-    If InStr(LcaseTemp, "[") = 0 And ReadyToRead = True Then
-        If InStr(LcaseTemp, Variable & "=") = 1 Then
-            ReadIniValue = Mid$(Temp, 1 + Len(Variable & "="))
-            Close NF: Exit Function
-            End If
+    Dim hFile As Integer 'file handle
+    hFile = FreeFile
+    SetAttr szFilename, vbArchive
+    Open szFilename For Input As hFile
+    'Read the file lines until the end of file
+    While Not EOF(hFile)
+      Line Input #hFile, strLine
+      strNormalizedLine = LCase$(strLine)
+      'Find the section name
+      
+      If bBrowseSections Then 'Find the section
+        If Not bFoundSection And (InStr(strNormalizedLine, strSection) <> 0) Then
+          bFoundSection = True 'Found a section
+          GoTo GET_NEXT 'Break and read next line
         End If
+        If bFoundSection Then
+          If InStr(strNormalizedLine, "[") <> 0 Then
+            'Found next section
+            Close hFile
+            Exit Function 'Stop searching
+          Else
+            If InStr(strNormalizedLine, strKey) <> 0 Then
+              'Found the key
+              If InStr(strNormalizedLine, strKey & "=") = 1 Then
+                'Get the key value
+                ReadIniValue = Mid$(strLine, 1 + Len(strKey & "="))
+                Close hFile
+                Exit Function
+              End If
+            End If
+          End If
+        End If
+      Else 'Find first occurrence of the key, regardless of section
+        If InStr(strNormalizedLine, strKey) <> 0 Then
+          'Found the key
+          If InStr(strNormalizedLine, strKey & "=") = 1 Then
+            'Get the key value
+            ReadIniValue = Mid$(strLine, 1 + Len(strKey & "="))
+            Close hFile
+            Exit Function
+          End If
+        End If
+      End If
+GET_NEXT:
     Wend
-    Close NF
+    Close hFile
+  End If
 End Function
 '-------------------------------------------------------------------------------
 'Replaces the keys and values for the specified section in an initialization file.
@@ -250,89 +309,100 @@ Public Sub SetIniValue(szFilename As String, _
   Call WritePrivateProfileString(szSection, szKey, szValue, szFilename)
 End Sub
 '-------------------------------------------------------------------------------
-Public Function WriteIniValue(INIpath As String, _
-                              PutKey As String, _
-                              PutVariable As String, _
-                              PutValue As String)
-Dim Temp As String
-Dim LcaseTemp As String
-Dim ReadKey As String
-Dim ReadVariable As String
-Dim LOKEY As Integer
-Dim HIKEY As Integer
-Dim KEYLEN As Integer
-Dim VAR As Integer
-Dim VARENDOFLINE As Integer
-Dim NF As Integer
-Dim X As Integer
+'Copies a string into the specified section of an initialization file.
+'Requires 2 times file size of free memory. If file does not exist, creates
+'new one.
+'
+'Author Bernie Madigan <bernie@ testrun.cjb.net>
+Public Function WriteIniValue(szFilename As String, _
+                              strSection As String, _
+                              strKey As String, _
+                              strValue As String)
+  Dim hFile As Integer 'file handle
+  Dim strSectionName As String 'normalized section name
+  Dim iSectionNameLen As Integer
+  Dim strKeyName As String 'normalized key name
+  
+  hFile = FreeFile
+  strSectionName = vbCrLf & "[" & LCase$(strSection) & "]" & Chr$(13)
+  iSectionNameLen = Len(strSectionName)
+  strKeyName = Chr$(10) & LCase$(strKey) & "="
+        
+  'Create file if not exist
+  Open szFilename For Binary As hFile
+  Close hFile
+  SetAttr szFilename, vbArchive
+    
+  'Read the file
+  Dim strFileContent As String
+  Dim strNormalizedContent As String
+  Open szFilename For Input As hFile
+  strFileContent = Input$(LOF(hFile), hFile)
+  strFileContent = vbCrLf & strFileContent & "[]"
+  Close hFile
+  strNormalizedContent = LCase$(strFileContent)
+    
+  'Get position of the elements
+  Dim iSectionStart As Integer 'section start position
+  iSectionStart = InStr(strNormalizedContent, strSectionName)
+  If iSectionStart = 0 Then GoTo INSERT_KEY:
+  
+  Dim iSectionEnd As Integer 'section end position
+  iSectionEnd = InStr(iSectionStart + iSectionNameLen, strNormalizedContent, "[")
+  
+  Dim iKeyEnd As Integer 'key name end position
+  iKeyEnd = InStr(iSectionStart, strNormalizedContent, strKeyName)
+  If iKeyEnd > iSectionEnd Or iKeyEnd < iSectionStart Then GoTo INSERT_VALUE:
+  
+  GoTo CHANGE_VALUE:
+    
+INSERT_KEY:
+  strFileContent = Left$(strFileContent, Len(strFileContent) - 2)
+  strFileContent = strFileContent & vbCrLf & vbCrLf & _
+                   "[" & strSection & "]" & vbCrLf & _
+                   strKey & "=" & strValue
+  GoTo FORMAT_OUTPUT:
+        
+INSERT_VALUE:
+  strFileContent = Left$(strFileContent, Len(strFileContent) - 2)
+  strFileContent = Left$(strFileContent, iSectionStart + iSectionNameLen) & _
+                   strKey & "=" & strValue & vbCrLf & _
+                   Mid$(strFileContent, iSectionStart + iSectionNameLen + 1)
+  GoTo FORMAT_OUTPUT:
+        
+CHANGE_VALUE:
+  Dim iValueEnd As Integer 'text value end position
+  strFileContent = Left$(strFileContent, Len(strFileContent) - 2)
+  iValueEnd = InStr(iKeyEnd, strFileContent, Chr$(13))
+  strFileContent = Left$(strFileContent, iKeyEnd) & _
+                   strKey & "=" & strValue & _
+                   Mid$(strFileContent, iValueEnd)
+  GoTo FORMAT_OUTPUT:
 
-AssignVariables:
-    NF = FreeFile
-    ReadKey = vbCrLf & "[" & LCase$(PutKey) & "]" & Chr$(13)
-    KEYLEN = Len(ReadKey)
-    ReadVariable = Chr$(10) & LCase$(PutVariable) & "="
-        
-EnsureFileExists:
-    Open INIpath For Binary As NF
-    Close NF
-    SetAttr INIpath, vbArchive
+FORMAT_OUTPUT:
+  strFileContent = Mid$(strFileContent, 2)
+  Do Until InStr(strFileContent, vbCrLf & vbCrLf & vbCrLf) = 0
+    strFileContent = Replace(strFileContent, vbCrLf & vbCrLf & vbCrLf, vbCrLf & vbCrLf)
+  Loop
+  
+  Do Until Right$(strFileContent, 1) > Chr$(13)
+    strFileContent = Left$(strFileContent, Len(strFileContent) - 1)
+  Loop
+  
+  Do Until Left$(strFileContent, 1) > Chr$(13)
+    strFileContent = Mid$(strFileContent, 2)
+  Loop
     
-LoadFile:
-    Open INIpath For Input As NF
-    Temp = Input$(LOF(NF), NF)
-    Temp = vbCrLf & Temp & "[]"
-    Close NF
-    LcaseTemp = LCase$(Temp)
-    
-LogicMenu:
-    LOKEY = InStr(LcaseTemp, ReadKey)
-    If LOKEY = 0 Then GoTo AddKey:
-    HIKEY = InStr(LOKEY + KEYLEN, LcaseTemp, "[")
-    VAR = InStr(LOKEY, LcaseTemp, ReadVariable)
-    If VAR > HIKEY Or VAR < LOKEY Then GoTo AddVariable:
-    GoTo RenewVariable:
-    
-AddKey:
-        Temp = Left$(Temp, Len(Temp) - 2)
-        Temp = Temp & vbCrLf & vbCrLf & "[" & PutKey & "]" & vbCrLf & PutVariable & "=" & PutValue
-        GoTo TrimFinalString:
-        
-AddVariable:
-        Temp = Left$(Temp, Len(Temp) - 2)
-        Temp = Left$(Temp, LOKEY + KEYLEN) & PutVariable & "=" & PutValue & vbCrLf & Mid$(Temp, LOKEY + KEYLEN + 1)
-        GoTo TrimFinalString:
-        
-RenewVariable:
-        Temp = Left$(Temp, Len(Temp) - 2)
-        VARENDOFLINE = InStr(VAR, Temp, Chr$(13))
-        Temp = Left$(Temp, VAR) & PutVariable & "=" & PutValue & Mid$(Temp, VARENDOFLINE)
-        GoTo TrimFinalString:
-
-TrimFinalString:
-        Temp = Mid$(Temp, 2)
-        Do Until InStr(Temp, vbCrLf & vbCrLf & vbCrLf) = 0
-        Temp = Replace(Temp, vbCrLf & vbCrLf & vbCrLf, vbCrLf & vbCrLf)
-        Loop
-    
-        Do Until Right$(Temp, 1) > Chr$(13)
-        Temp = Left$(Temp, Len(Temp) - 1)
-        Loop
-    
-        Do Until Left$(Temp, 1) > Chr$(13)
-        Temp = Mid$(Temp, 2)
-        Loop
-    
-OutputAmendedINIFile:
-        Open INIpath For Output As NF
-        Print #NF, Temp
-        Close NF
+  'Save the result
+  Open szFilename For Output As hFile
+  Print #hFile, strFileContent
+  Close hFile
     
 End Function
-
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
-'$Log: 
-' 1    Biblioteka1.0         2007-04-19 17:46:43  Darko Kolakovic 
+'$Log:
+' 1    Biblioteka1.0         2007-04-19 17:46:43  Darko Kolakovic
 '$
 '*******************************************************************************
 
