@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWinKernel32"
 '$Workfile: KWinKernel32.bas$: implementation file
-'$Revision: 3$ $Date: 2007-04-23 09:48:05$
+'$Revision: 4$ $Date: 2007-04-24 15:25:40$
 '$Author: Darko Kolakovic$
 '
 'MS Windows kernel32 DLL
@@ -28,13 +28,13 @@ Public Declare Function WritePrivateProfileString Lib "kernel32" Alias "WritePri
 Public Declare Sub CloseHandle Lib "kernel32" (ByVal hPass As Long)
 Public Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (hpvDest As Any, hpvSource As Any, ByVal cbCopy As Long)
 Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
-Public Declare Function GetEnvironmentVariable Lib "kernel32.dll" Alias _
-  "GetEnvironmentVariableA" (ByVal lpName As String, _
-                             ByVal lpBuffer As String, _
-                             ByVal nSize As Long) As Long
-Public Declare Function SetEnvironmentVariable Lib "kernel32.dll" Alias _
-  "SetEnvironmentVariableA" (ByVal lpName As String, _
-                             ByVal lpValue As String) As Long
+Public Declare Function GetEnvironmentVariable Lib "kernel32.dll" Alias "GetEnvironmentVariableA" (ByVal lpName As String, ByVal lpBuffer As String, ByVal nSize As Long) As Long
+Public Declare Function SetEnvironmentVariable Lib "kernel32.dll" Alias "SetEnvironmentVariableA" (ByVal lpName As String, ByVal lpValue As String) As Long
+Public Declare Function lStrCat Lib "kernel32" Alias "lstrcatA" (ByVal lpString1 As String, ByVal lpString2 As String) As Long
+Public Declare Function lstrlenW Lib "kernel32" (ByVal lpString As Long) As Long
+Public Declare Function lstrcpyW Lib "kernel32" (lpString1 As Byte, ByVal lpString2 As Long) As Long
+Public Declare Function MoveFileEx Lib "kernel32" Alias "MoveFileExA" (ByVal lpExistingFileName As String, ByVal lpNewFileName As String, ByVal dwFlags As Long) As Long
+Public Declare Function CreateDirectory Lib "kernel32" Alias "CreateDirectoryA" (ByVal lpPathName As String, lpSecurityAttributes As SECURITY_ATTRIBUTES) As Long
                              
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************

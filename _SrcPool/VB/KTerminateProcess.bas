@@ -1,6 +1,6 @@
 Attribute VB_Name = "KTerminateProcess"
-'$Workfile: S:\_SrcPool\VB\KTerminateProcess.bas$: implementation file
-'$Revision: 1$ $Date: 2007-04-20 14:02:58$
+'$Workfile: KTerminateProcess.bas$: implementation file
+'$Revision: 2$ $Date: 2007-04-24 15:25:17$
 '$Author: Darko Kolakovic$
 '
 'Kill MS Windows process
@@ -20,14 +20,14 @@ Public Function TerminateProcess(ByVal hActiveWnd As Long, _
   'Cose the window owning the process
   If lpdwProcessId = lpdwActiveProcessId Then
     'Closing open Windows
-    Call SendMessage(hWnd, WM_CLOSE, ByVal 0, ByVal 0)
+    Call SendMessage(hActiveWnd, WM_CLOSE, ByVal 0, ByVal 0)
     TerminateProcess = True
   End If
 End Function
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
-'$Log: 
-' 1    Biblioteka1.0         2007-04-20 14:02:58  Darko Kolakovic 
+'$Log:
+' 1    Biblioteka1.0         2007-04-20 14:02:58  Darko Kolakovic
 '$
 '*******************************************************************************
 

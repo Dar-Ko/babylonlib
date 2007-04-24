@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWin32"
 '$Workfile: KWin32.bas$: implementation file
-'$Revision: 3$ $Date: 2007-04-20 14:03:45$
+'$Revision: 4$ $Date: 2007-04-24 15:25:38$
 '$Author: Darko Kolakovic$
 '
 'Microsoft Windows SDK prototypes
@@ -10,6 +10,7 @@ Option Explicit
 
 Public Const MAX_COMPUTERNAME_LENGTH = 31
 Public Const MAX_PATH = 260
+Public Const INVALID_HANDLE_VALUE As Long = -1
 
 Public Const HWND_TOPMOST = -1
 Public Const HWND_NOTOPMOST = -2
@@ -189,6 +190,23 @@ Public Const PROCESS_VM_READ = 16
 Public Const SMTO_BLOCK = &H1
 Public Const SMTO_ABORTIFHUNG = &H2
 
+Public Type BROWSEINFO
+    hwndOwner As Long
+    pIDLRoot As Long
+    pszDisplayName As Long
+    lpszTitle As Long
+    ulFlags As Long
+    lpfnCallback As Long
+    lParam As Long
+    iImage As Long
+End Type
+
+Public Type SECURITY_ATTRIBUTES
+  nLength As Long
+  lpSecurityDescriptor As Long
+  bInheritHandle As Long
+End Type
+
 Public Type PROCESS_INFORMATION
         hProcess As Long
         hThread As Long
@@ -223,35 +241,62 @@ Public Type PROCESS_MEMORY_COUNTERS
 End Type
 
 Public Type APPINFO
-    iAppID                  As Long
-    sStartOption            As String
-    sAppName                As String
-    sAppPath                As String
-    sStartParams            As String
-    iShowWindow             As Long
-    iXPos                   As Long
-    iYPos                   As Long
-    iXSize                  As Long
-    iYSize                  As Long
-    sMonitorOption          As String
-    sDependents             As String
-    iLastRestart            As Long
-    iLoadTime               As Integer
-    iLastResponding         As Long
-    iResponseTimeout        As Long
-    iTotalTimeout           As Long
-    iWorkingSetMax          As Long
-    iWorkingSetTimeout      As Long
-    iLastWorkSetNormal      As Long
-    iPageFileUseMax         As Long
-    iPageFileUseTimeout     As Long
-    iLastPageFileNormal     As Long
-    sLogOption              As String
-    iPosInObjectArray       As Integer
+  iAppID                  As Long
+  sStartOption            As String
+  sAppName                As String
+  sAppPath                As String
+  sStartParams            As String
+  iShowWindow             As Long
+  iXPos                   As Long
+  iYPos                   As Long
+  iXSize                  As Long
+  iYSize                  As Long
+  sMonitorOption          As String
+  sDependents             As String
+  iLastRestart            As Long
+  iLoadTime               As Integer
+  iLastResponding         As Long
+  iResponseTimeout        As Long
+  iTotalTimeout           As Long
+  iWorkingSetMax          As Long
+  iWorkingSetTimeout      As Long
+  iLastWorkSetNormal      As Long
+  iPageFileUseMax         As Long
+  iPageFileUseTimeout     As Long
+  iLastPageFileNormal     As Long
+  sLogOption              As String
+  iPosInObjectArray       As Integer
 End Type
 
 Public Const WM_NULL = &H0
 Public Const WM_CLOSE = &H10
+Public Const WM_MOUSEMOVE = &H200
+Public Const WM_RBUTTONUP = &H205
+Public Const WM_RBUTTONDOWN = &H204
+Public Const WM_LBUTTONDBLCLK = &H203
+Public Const WM_GETTEXT = &HD
+Public Const WM_GETTEXTLENGTH = &HE
+
+Public Type SHFILEINFO
+  hIcon As Long
+  iIcon As Long
+  dwAttributes As Long
+  szDisplayName As String * 260
+  szTypeName As String * 80
+End Type
+
+Public Type OSVERSIONINFO
+   dwOSVersionInfoSize As Long
+   dwMajorVersion As Long
+   dwMinorVersion As Long
+   dwBuildNumber As Long
+   dwPlatformId As Long
+   szCSDVersion As String * 128
+End Type
+Public Const VER_PLATFORM_WIN32s = 0
+Public Const VER_PLATFORM_WIN32_WINDOWS = 1
+Public Const VER_PLATFORM_WIN32_NT = 2
+
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
 '$Log:

@@ -1,6 +1,6 @@
 Attribute VB_Name = "KStringExt"
 '$Workfile: KStringExt.bas$: implementation file
-'$Revision: 3$ $Date: 2007-04-20 14:03:23$
+'$Revision: 4$ $Date: 2007-04-24 15:25:37$
 '$Author: Darko Kolakovic$
 '
 'Text manipulation helpers
@@ -14,6 +14,13 @@ Option Explicit
 'ByRef procedures cause more overhead during cross-process marshaling, because
 'COM must marshal the value both to and from the object.
 'ByVal parameters require only one-way marshaling.
+
+Private Declare Sub CopyMem Lib "kernel32" Alias _
+  "RtlMoveMemory" (pTo As Any, uFrom As Any, ByVal lSize As Long)
+Private Declare Function lstrlenW Lib "kernel32" (ByVal lpString As Long) As Long
+Private Declare Function lstrlenA Lib "kernel32" (ByVal lpString As Long) As Long
+Private Declare Function lstrcpyW Lib "kernel32" (lpString1 As Byte, _
+                                                  ByVal lpString2 As Long) As Long
 
 Public Const ASCII_SP As Integer = 32
 '------------------------------------------------------------------------------
@@ -60,34 +67,81 @@ Public Function BytesToString(pByteArray As Byte, _
   lLength = InStr(strTemp, Chr$(0)) - 1
   BytesToString = Left$(strTemp, lLength) 'Return the string
 End Function
-'------------------------------------------------------------------------------
-'Public Function PointerToStringA(ByVal lpStringA As Long) As String
-'   Dim Buffer() As Byte
-'   Dim nLen As Long
+'-------------------------------------------------------------------------------
+'Find the next token in a string. The set of characters in strDelimiter specifies
+'possible delimiters of the token to be found in strSource on the current call.
+'
+'Parameters
+' strSource      [in/out] String containing token or tokens.
+' strDelimiter   [in] Set of delimiter characters.
+'
+'Returns a token if found and remaining part of the strSource after the token.
+Function strToken(ByRef strSource As String, _
+                  ByVal strDelimiter As String) As String
 
-   'If lpStringA Then
-   '   nLen = lstrlenA(ByVal lpStringA)
-   '   If nLen Then
-   '      ReDim Buffer(0 To (nLen - 1)) As Byte
-   '      CopyMemory Buffer(0), ByVal lpStringA, nLen
-   '      PointerToStringA = StrConv(Buffer, vbUnicode)
-   '   End If
-   'End If
-'End Function
-'------------------------------------------------------------------------------
-'Public Function PointerToStringW(ByVal lpStringW As Long) As String
-'   Dim Buffer() As Byte
-'   Dim nLen As Long
+  Dim iPos As Integer
+  Dim sToken As String
+  iPos = 1
 
-'   If lpStringW Then
-'      nLen = lstrlenW(lpStringW) * 2
-'      If nLen Then
-'         ReDim Buffer(0 To (nLen - 1)) As Byte
-'         CopyMemory Buffer(0), ByVal lpStringW, nLen
-'         PointerToStringW = Buffer
-'      End If
-'   End If
-'End Function
+  Do
+    If Mid$(strSource, iPos, 1) = strDelimiter Then
+      sToken = Mid$(strSource, 1, iPos)
+      strSource = Mid$(strSource, iPos + 1, Len(strSource))
+      strToken = sToken
+      Exit Function
+    End If
+    iPos = iPos + 1
+  Loop
+
+End Function
+'------------------------------------------------------------------------------
+'Replaces all occurrences of strSearch in the source string.
+'Parameters:
+'   strSource       string to search
+'   strSearch       string to search for
+'   strReplacement  replacment string
+'
+'Returns string with replaced text
+Public Function StrReplace(ByVal strSource, _
+                           ByVal strSearch, _
+                           ByVal strReplacement)
+  Do Until InStr(1, strSource, strSearch) = 0
+    strSource = Left(strSource, InStr(1, strSource, strSearch) - 1) + _
+                strReplacement + _
+                Mid(strSource, InStr(1, strSource, strSearch) + Len(strSearch))
+  Loop
+  StrReplace = strSource
+End Function
+'------------------------------------------------------------------------------
+'Converts C-style pointer to SBSC character string to String
+Public Function PointerToStringA(ByVal pStringA As Long) As String
+   Dim Buffer() As Byte
+   Dim nLen As Long
+
+   If pStringA Then
+      nLen = lstrlenA(ByVal pStringA)
+      If nLen Then
+         ReDim Buffer(0 To (nLen - 1)) As Byte
+         CopyMem Buffer(0), ByVal pStringA, nLen
+         PointerToStringA = StrConv(Buffer, vbUnicode)
+      End If
+   End If
+End Function
+'------------------------------------------------------------------------------
+'Converts C-style pointer to wide character string to String
+Public Function PointerToStringW(ByVal pStringW As Long) As String
+   Dim Buffer() As Byte
+   Dim nLen As Long
+
+   If pStringW Then
+      nLen = lstrlenW(pStringW) * 2
+      If nLen Then
+         ReDim Buffer(0 To (nLen - 1)) As Byte
+         CopyMem Buffer(0), ByVal pStringW, nLen
+         PointerToStringW = Buffer
+      End If
+   End If
+End Function
 '------------------------------------------------------------------------------
 'Returns True if the string is Unicode
 Public Function IsUnicode(strText As String) As Boolean
@@ -106,7 +160,20 @@ Public Function IsUnicode(strText As String) As Boolean
       Next
    End If
 End Function
+'-------------------------------------------------------------------------------
+'Returns string without trailing spaces and directory delimiter ('\') characters.
+Public Function StrTrimSlash(ByVal strPath As String) As String
 
+  'Trim and remove any trailing slash
+  strPath = Trim$(strPath)
+
+  If Right$(strPath, 1) = "\" Then
+    StrTrimSlash = Left$(strPath, Len(strPath) - 1)
+  Else
+    StrTrimSlash = strPath
+  End If
+
+End Function
 '//////////////////////////////////////////////////////////////////////////////
 '******************************************************************************
 '$Log:
