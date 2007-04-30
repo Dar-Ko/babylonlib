@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWin32"
 '$Workfile: KWin32.bas$: implementation file
-'$Revision: 4$ $Date: 2007-04-24 15:25:38$
+'$Revision: 5$ $Date: 2007-04-30 16:53:21$
 '$Author: Darko Kolakovic$
 '
 'Microsoft Windows SDK prototypes
@@ -11,6 +11,14 @@ Option Explicit
 Public Const MAX_COMPUTERNAME_LENGTH = 31
 Public Const MAX_PATH = 260
 Public Const INVALID_HANDLE_VALUE As Long = -1
+
+'From WINNT.H
+Public Const APPLICATION_ERROR_MASK       As Long = &H20000000
+Public Const ERROR_SEVERITY_SUCCESS       As Long = &H0
+Public Const ERROR_SEVERITY_INFORMATIONAL As Long = &H40000000
+Public Const ERROR_SEVERITY_WARNING       As Long = &H80000000
+Public Const ERROR_SEVERITY_ERROR         As Long = &HC0000000
+
 
 Public Const HWND_TOPMOST = -1
 Public Const HWND_NOTOPMOST = -2
@@ -81,6 +89,17 @@ End Type
 Public Type FILETIME
   dwLowDateTime As Long
   dwHighDateTime As Long
+End Type
+
+Public Type SYSTEMTIME
+  wYear As Integer
+  wMonth As Integer
+  wDayOfWeek As Integer
+  wDay As Integer
+  wHour As Integer
+  wMinute As Integer
+  wSecond As Integer
+  wMilliseconds As Integer
 End Type
 
 'Point structure

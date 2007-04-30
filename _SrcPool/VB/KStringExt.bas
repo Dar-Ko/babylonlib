@@ -1,6 +1,6 @@
 Attribute VB_Name = "KStringExt"
 '$Workfile: KStringExt.bas$: implementation file
-'$Revision: 4$ $Date: 2007-04-24 15:25:37$
+'$Revision: 5$ $Date: 2007-04-30 16:52:44$
 '$Author: Darko Kolakovic$
 '
 'Text manipulation helpers
@@ -22,7 +22,8 @@ Private Declare Function lstrlenA Lib "kernel32" (ByVal lpString As Long) As Lon
 Private Declare Function lstrcpyW Lib "kernel32" (lpString1 As Byte, _
                                                   ByVal lpString2 As Long) As Long
 
-Public Const ASCII_SP As Integer = 32
+Public Const ASCII_SP    As Integer = 32
+Public Const ASCII_QUOTE As Integer = 34
 '------------------------------------------------------------------------------
 'Strip white characters from the end of SBCS string
 Public Function TrimRight(strText As String) As String

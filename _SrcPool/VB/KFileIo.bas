@@ -1,6 +1,6 @@
 Attribute VB_Name = "KFileIo"
 '$Workfile: KFileIo.bas$: implementation file
-'$Revision: 2$ $Date: 2007-04-24 15:23:44$
+'$Revision: 3$ $Date: 2007-04-30 16:52:19$
 '$Author: Darko Kolakovic$
 '
 'File I/O/ handling helpers
@@ -55,6 +55,23 @@ Public Function ExtractFilename(ByVal strFileName As String) As String
     strFileName = Right(strFileName, Len(strFileName) - i%)
   Loop
   ExtractFilename = strFileName
+End Function
+'-------------------------------------------------------------------------------
+'Creates unique file name in the following form
+'   X:\TempDir\XXX12345.tmp
+'in the directory designated as temporary directory by the TMP or TEMP
+'environment variable.
+Public Function CreateTmpFileName(Optional strPrefix As String) As String
+  Dim strPath As String
+  Dim strResult As String
+  strResult = Space$(MAX_PATH) 'Create a buffer
+  
+  strPath = Environ$("temp")
+  If GetTempFileName(strPath, strPrefix, 0, strResult) <> 0 Then
+    CreateTmpFileName = Left(strResult, InStr(1, strResult, Chr(0)) - 1)
+  Else
+    CreateTmpFileName = ""
+  End If
 End Function
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************

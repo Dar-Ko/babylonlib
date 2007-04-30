@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWinKernel32"
 '$Workfile: KWinKernel32.bas$: implementation file
-'$Revision: 4$ $Date: 2007-04-24 15:25:40$
+'$Revision: 5$ $Date: 2007-04-30 16:53:22$
 '$Author: Darko Kolakovic$
 '
 'MS Windows kernel32 DLL
@@ -35,7 +35,13 @@ Public Declare Function lstrlenW Lib "kernel32" (ByVal lpString As Long) As Long
 Public Declare Function lstrcpyW Lib "kernel32" (lpString1 As Byte, ByVal lpString2 As Long) As Long
 Public Declare Function MoveFileEx Lib "kernel32" Alias "MoveFileExA" (ByVal lpExistingFileName As String, ByVal lpNewFileName As String, ByVal dwFlags As Long) As Long
 Public Declare Function CreateDirectory Lib "kernel32" Alias "CreateDirectoryA" (ByVal lpPathName As String, lpSecurityAttributes As SECURITY_ATTRIBUTES) As Long
-                             
+Public Declare Function GetTempFileName Lib "kernel32" Alias "GetTempFileNameA" (ByVal lpszPath As String, ByVal lpPrefixString As String, ByVal wUnique As Long, ByVal lpTempFileName As String) As Long
+Public Declare Function SystemTimeToFileTime Lib "kernel32" (lpSystemTime As SYSTEMTIME, lpFileTime As FILETIME) As Long
+Public Declare Function LocalFileTimeToFileTime Lib "kernel32" (lpLocalFileTime As FILETIME, lpFileTime As FILETIME) As Long
+Public Declare Function FileTimeToSystemTime Lib "kernel32" (lpFileTime As FILETIME, lpSystemTime As SYSTEMTIME) As Long
+Public Declare Sub GetSystemTime Lib "kernel32" (ByRef lpSystemTime As SYSTEMTIME)
+Public Declare Function FileTimeToLocalFileTime Lib "kernel32" (lpFileTime As FILETIME, lpLocalFileTime As FILETIME) As Long
+Public Declare Function GetDiskFreeSpace Lib "kernel32" Alias "GetDiskFreeSpaceA" (ByVal RootPathName As String, SectorsPerCluster As Long, BytesPerSector As Long, NumberOfFreeClusters As Long, TotalNumberOfClusters As Long) As Long
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
 '$Log:
