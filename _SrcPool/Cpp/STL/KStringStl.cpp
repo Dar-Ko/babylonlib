@@ -1,5 +1,5 @@
 /*$Workfile: KStringStl.cpp$: implementation file
-  $Revision: 14$ $Date: 2005-04-27 12:51:01$
+  $Revision: 15$ $Date: 2007-05-03 15:51:12$
   $Author: Darko Kolakovic$
 
   Implementation of the CString class. This is a STL port of MFC CString class
@@ -59,7 +59,7 @@ if(m_pData != NULL)
   Append(chSource,iCount);
 }
 
-/*Copies number of charactes from an array.
+/*Copies number of characters from an array.
  */
 CString::CString(LPCTSTR pchSource,//[in] an array of characters, not null-terminated.
                  int iLength       //[in] size of the array
@@ -584,7 +584,7 @@ ASSERT(iFirst + iCount <= static_cast<int>(m_pData->length()));
 if (iFirst == 0 && iFirst + iCount == static_cast<int>(m_pData->length()))
   return *this;
 
-strResult.m_pData = m_pData->substr(iFirst, iCount);
+strResult.m_pData = (CStringHandler *) m_pData->substr(iFirst, iCount).c_str();
 return strResult;
 }
 
@@ -616,7 +616,7 @@ if (iCount >= static_cast<int>(m_pData->length()))
   return *this;
 
 CString strResult;
-strResult.m_pData = m_pData->substr(0, iCount);
+strResult.m_pData = (CStringHandler *)m_pData->substr(0, iCount).c_str();
 return strResult;
 }
 
@@ -639,8 +639,8 @@ if (iCount >= static_cast<int>(m_pData->length()))
   return *this;
 
 CString strResult;
-strResult.m_pData = m_pData->substr(static_cast<int>(m_pData->length()) -
-                                    iCount);
+strResult.m_pData = (CStringHandler *)m_pData->substr(static_cast<int>(m_pData->length()) -
+                                    iCount).c_str();
 return strResult;
 }
 
@@ -650,7 +650,7 @@ return strResult;
   in the string that is not in lpszCharSet.
   Returns: a substring that contains characters found in both: this string and
   in the lpszCharSet. If the first character in the string is not in
-  the specified set, an empty strin is returned.
+  the specified set, an empty string is returned.
 
 
   Example:
@@ -692,13 +692,17 @@ return( Left(_tcscspn(m_pData->c_str(), lpszCharSet)) );
 
 ///////////////////////////////////////////////////////////////////////////////
 // Conversions
-
 //::MakeUpper()----------------------------------------------------------------
 /*Converts all the characters in this string to uppercase characters.
  */
 void CString::MakeUpper()
 {
-std::ctype<TCHAR>().toupper(m_pData->begin(), m_pData->end() );
+
+#if _MSC_VER < 1310
+//Note:  FixMe! problems with MSVC7.1 STL _PROTECTED ctype destructor
+
+std::ctype<TCHAR>().toupper(m_pData->begin(),  m_pData->end() );
+#endif
 }
 
 //::MakeLower()----------------------------------------------------------------
@@ -706,7 +710,12 @@ std::ctype<TCHAR>().toupper(m_pData->begin(), m_pData->end() );
  */
 void CString::MakeLower()
 {
+#if _MSC_VER < 1310
+
+  //Note:  FixMe! problems with MSVC7.1 STL _PROTECTED ctype destructor
+
 std::ctype<TCHAR>().tolower(m_pData->begin(), m_pData->end() );
+#endif
 }
 
 //::MakeReverse()--------------------------------------------------------------
@@ -845,6 +854,8 @@ catch( ... )
 
 }
 
+//MSVC 71 runtime_error usess char* even if _UNICODE
+#define _TOWIDE 
 //----------------------------------------------------------------------------
 /* throws memory exception
 #ifdef _WIN32
@@ -855,22 +866,23 @@ catch( ... )
 void _cdecl CString::FormatMessage(LPCTSTR lpszFormat, ...)
 {
 va_list argList;
-va_start(argList, szFormat);
-LPTSTR szTemp;
+va_start(argList, lpszFormat);
+LPTSTR szTemp = NULL;
 if ((::FormatMessage(FORMAT_MESSAGE_FROM_STRING|
                      FORMAT_MESSAGE_ALLOCATE_BUFFER,
                      lpszFormat,
                      0,
                      0,
-                     &szTemp,
+                     szTemp,
                      0,
                      &argList) == 0) ||
     (szTemp == NULL) )
   {
-  throw std::runtime_error(_T("out of memory"));
+  
+  throw std::runtime_error(_TOWIDE("out of memory"));
   }
 
-m_pData = szTemp;
+m_pData = (CStringHandler *)szTemp;
 ::LocalFree(szTemp);
 va_end(argList);
 }
@@ -878,38 +890,37 @@ va_end(argList);
 //----------------------------------------------------------------------------
 /*
  */
-void _cdecl CString::FormatMessage(UINT nFormatID, ...)
+void _cdecl CString::FormatMessage(UINT nFormatId, ...)
 {
 CString lpszFormat;
 lpszFormat.LoadString(nFormatId);
 va_list argList;
-va_start(argList, szFormat);
-LPTSTR szTemp;
+va_start(argList, lpszFormat);
+LPTSTR szTemp = NULL;
 if ((::FormatMessage(FORMAT_MESSAGE_FROM_STRING|
                      FORMAT_MESSAGE_ALLOCATE_BUFFER,
                      lpszFormat,
                      0,
                      0,
-                     &szTemp,
+                     szTemp,
                      0,
                      &argList) == 0) ||
     (szTemp == NULL) )
   {
-  throw std::runtime_error(_T("out of memory"));
+  throw std::runtime_error(_TOWIDE("out of memory"));
   }
 
-m_pData = szTemp;
+m_pData = (CStringHandler *)szTemp;
 ::LocalFree(szTemp);
 va_end(argList);
 }
 
 //::Replace()------------------------------------------------------------------
-/*
- */
 int CString::Replace(TCHAR chOld, //[in] character to be replaced
                      TCHAR chNew  //[in] character replacing chOld
-                    )
+                     )
 {
+return 0;
 }
 
 /*
@@ -919,6 +930,7 @@ int CString::Replace(LPCTSTR lpszOld, //[in] token string to be replaced
                                       //or NULL
                     )
 {
+return 0;
 }
 
 //::Remove()-------------------------------------------------------------------
@@ -926,6 +938,7 @@ int CString::Replace(LPCTSTR lpszOld, //[in] token string to be replaced
  */
 int CString::Remove(TCHAR chRemove)
 {
+return 0;
 }
 
 //::Insert()-------------------------------------------------------------------
@@ -933,12 +946,14 @@ int CString::Remove(TCHAR chRemove)
  */
 int CString::Insert(int iIndex, TCHAR ch)
 {
+return 0;
 }
 
 /*
  */
 int CString::Insert(int iIndex, LPCTSTR pstr)
 {
+return 0;
 }
 
 //::Delete()-------------------------------------------------------------------
@@ -948,8 +963,30 @@ int CString::Delete(int iIndex, //[in]
                     int iCount  //[in] = 1
                     )
 {
-
+return 0;
 }
+
+void CString::Append(TCHAR text_character, int number_of_times )
+{
+//TODO:
+}
+void CString::Copy(LPCSTR string_p, 
+                   long number_of_characters, // = (-1), 
+                   long beginning_at // = 0 
+                  )
+{
+  //TODO:
+}
+
+void CString::Copy(LPCWSTR string_p,
+                   long number_of_characters, // = (-1), 
+                   long beginning_at // = 0 
+                   )
+
+{
+  //TODO:
+}
+
 
 //::TrimRight()----------------------------------------------------------------
 /*
@@ -1236,7 +1273,7 @@ void CString::AnsiToOem()
   ASSERT(false);
 #endif
 }
-#endif
+#endif //_UNICODE
 
 //::OemToAnsi()----------------------------------------------------------------
 #ifndef _UNICODE
@@ -1256,7 +1293,7 @@ void CString::OemToAnsi()
 #ifdef _WIN32
   if (!IsEmpty())
     {
-    ::OemToChar(reinterpret_cast<const char*>(c_str()), //string to translate
+    ::OemToChar(reinterpret_cast<const char*>(m_pData->c_str()), //string to translate
                 reinterpret_cast<char*>(&(m_pData->at(0))));//translated string
 
     /*Note: If the OemToChar function is being used as an ANSI function,
@@ -1272,10 +1309,10 @@ void CString::OemToAnsi()
 #endif
 
 }
-#endif
-
+#endif //_UNICODE
 
 ///////////////////////////////////////////////////////////////////////////////
+#endif //_STRING_
 /******************************************************************************
  * $Log:
  *  11   Biblioteka1.10        2003-09-22 18:34:01  Darko           formatting

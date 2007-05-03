@@ -23,7 +23,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win,..\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL;_UNICODE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -81,7 +81,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win,..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL;_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -140,7 +140,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win,..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -200,7 +200,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win,..\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -254,6 +254,30 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
+			<File
+				RelativePath="..\..\Win\32\KDbgRpt.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KFileFindOld.cpp">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KFileNmB.cpp">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KFileTmp.cpp">
+			</File>
 			<File
 				RelativePath="..\..\STL\KGetLines.cpp">
 				<FileConfiguration
@@ -330,6 +354,24 @@
 						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Stl\KStringStl.cpp">
+			</File>
+			<File
+				RelativePath="..\..\Stl\KStrWtoChar.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -484,6 +526,33 @@
 				RelativePath=".\Src\TestCommonStreamIO.cpp">
 			</File>
 			<File
+				RelativePath=".\Src\TestFilename.cpp">
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="Src\TestGetLines.cpp">
 				<FileConfiguration
 					Name="Release_Unicode|Win32">
@@ -565,6 +634,9 @@
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\..\Win\32\KFileNmB.h">
+			</File>
 			<File
 				RelativePath="..\..\KFileSys.h">
 			</File>

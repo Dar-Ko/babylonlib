@@ -10,7 +10,7 @@ Attribute VB_Name = "clsSrcPool"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
-Attribute VB_Exposed = True
+Attribute VB_Exposed = False
 '$Workfile: KWinUser32.bas$: implementation file
 '$Revision: 2$ $Date: 2007-04-20 14:28:36$
 '$Author: Darko Kolakovic$

@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\STL\KHexStream.h$: header file
-  $Revision: 1$ $Date: 2007-03-10 18:54:26$
+/*$Workfile: KHexStream.h$: header file
+  $Revision: 1$ $Date: 2007-03-10 19:54:26$
   $Author: Darko$
 
   Write hexadecimal number to the stream
@@ -10,7 +10,7 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #ifndef _KHEXSTREAM_H_
-    //$Workfile: S:\_SrcPool\Cpp\STL\KHexStream.h$ sentry
+    //$Workfile: KHexStream.h$ sentry
   #define _KHEXSTREAM_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -97,6 +97,6 @@ return (outStream
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2007-03-10 18:54:26  Darko           
+ *  1    Biblioteka1.0         2007-03-10 19:54:26  Darko           
  * $
  *****************************************************************************/

@@ -1,6 +1,6 @@
 /*$Workfile: TestGetLines.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-06 16:01:37$
-  $Author: Darko$
+  $Revision: 5$ $Date: 2007-05-03 15:57:55$
+  $Author: Darko Kolakovic$
 
   Test of the counting of the text lines.
   Copyright: CommonSoft Inc.
@@ -32,7 +32,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 bool TestGetLines(LPCTSTR szFileName //[in] file name
                   )
 {
-TsWriteToViewLn(_T("TestGetLines()"));
+TsWriteToViewLn(_T("Start retrieving text lines"));
 
 bool GetLines(tifstream& fileSource, 
               std::vector<tstring>& arrayLine,
@@ -48,9 +48,9 @@ g_logTest.m_bResult      = false;              //result of the test
 std::vector<tstring> arrayLine;
   //Open source file
 #ifdef _UNICODE
-  #if (_MSC_VER < 1300) && (KSTL_IO <= 1201)
-    /*Note: STL MSVC v6.0 implementation of wifstream uses char* for file names:
-            wifstream::wifstream(const char* filename);
+  #if (_MSC_VER < 1400) && (KSTL_IO <= 1310)
+    /*Note: STL MSVC v6.0, 7.1 implementation of wifstream uses char* 
+            for file names: wifstream::wifstream(const char* filename);
             The reason is that wchar_t id defined as unsigned short and could not
             be overloaded in as other primitive types.
             For KSTL_IO values see KOStream.h
@@ -118,6 +118,9 @@ else
   std::_tcout << _T("Cannot open file ") << szFileName << std::endl;
 
 g_logTest.LogResult(bResult);
+
+TsWriteToViewLn(LOG_EOT);
+
 return bResult;
 }
 
@@ -126,6 +129,8 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  5    Biblioteka1.4         2007-05-03 15:57:55  Darko Kolakovic Unicode with
+ *       MSVC STL 7.1
  *  4    Biblioteka1.3         2004-10-06 16:01:37  Darko           Unicode mapping
  *  3    Biblioteka1.2         2004-09-30 15:47:52  Darko           inserted global
  *       CTestLog

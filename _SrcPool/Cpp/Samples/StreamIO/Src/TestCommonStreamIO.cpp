@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonStreamIO.cpp$: implementation file
-  $Revision: 7$ $Date: 2007-02-02 13:30:40$
+  $Revision: 8$ $Date: 2007-05-03 15:57:33$
   $Author: Darko Kolakovic$
 
   Testing routines using standard stream I/O.
@@ -15,6 +15,7 @@
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 extern bool TestGetLines(LPCTSTR szFileName);
+extern bool TestFilename();
 
 int TestCommonStreamIO();
 int TestCommonStreamIO(LPCTSTR szFileName);
@@ -45,7 +46,7 @@ TsWriteToViewLn(_T("Start validation of various stream I/O methods"));
 TsWriteToViewLn(_T(""));
 
 #ifdef KSTL_IO
-  TRACE1("  KSTL_IO version %d.\n", KSTL_IO);
+  TRACE1(_T("  KSTL_IO version %d.\n"), KSTL_IO);
 #else
   TRACE0("  KSTL_IO is not defined.\n");
 #endif
@@ -53,6 +54,7 @@ TsWriteToViewLn(_T(""));
 PFUNC_TEST funcTest[] =
   {
   //TODO: add Test
+  TestFilename,
   NULL
   };
 

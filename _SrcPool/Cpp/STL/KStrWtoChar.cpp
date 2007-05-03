@@ -1,6 +1,6 @@
 /*$Workfile: KStrWtoChar.cpp$: implementation file
-  $Revision: 3$ $Date: 2005-03-21 02:16:00$
-  $Author: Darko$
+  $Revision: 4$ $Date: 2007-05-03 15:50:35$
+  $Author: Darko Kolakovic$
 
   Convert wide-character string to ASCII string
   CommonSoft Inc.
@@ -10,7 +10,10 @@
 /* Group=Strings                                                             */
 
 #include <string>
-
+#ifndef ASSERT
+  #include "KTChar.h"
+  #include "KTrace.h"
+#endif
 std::string WtoChar(const wchar_t* lpWideCharStr, int iLen = -1);
 
 //-----------------------------------------------------------------------------
@@ -48,10 +51,11 @@ return strResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2005-03-21 02:16:00  Darko           Replaced
+ *  4    Biblioteka1.3         2007-05-03 15:50:35  Darko Kolakovic ASSERT
+ *  3    Biblioteka1.2         2005-03-21 03:16:00  Darko           Replaced
  *       Microsoft version with ANSI
- *  2    Biblioteka1.1         2004-10-07 11:56:34  Darko           documentation
+ *  2    Biblioteka1.1         2004-10-07 12:56:34  Darko           documentation
  *       group
- *  1    Biblioteka1.0         2004-10-06 15:00:48  Darko           
+ *  1    Biblioteka1.0         2004-10-06 16:00:48  Darko           
  * $
  *****************************************************************************/

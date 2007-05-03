@@ -1,5 +1,5 @@
 /*$Workfile: KStrAtoWChar.cpp$: implementation file
-  $Revision: 3$ $Date: 2005-03-21 02:15:58$
+  $Revision: 3$ $Date: 2005-03-21 03:15:58$
   $Author: Darko$
 
   Convert ASCII string to wide-character string
@@ -48,10 +48,10 @@ return strResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2005-03-21 02:15:58  Darko           Replaced
+ *  3    Biblioteka1.2         2005-03-21 03:15:58  Darko           Replaced
  *       Microsoft version with ANSI
- *  2    Biblioteka1.1         2004-10-07 11:56:29  Darko           documentation
+ *  2    Biblioteka1.1         2004-10-07 12:56:29  Darko           documentation
  *       group
- *  1    Biblioteka1.0         2004-10-06 15:00:46  Darko           
+ *  1    Biblioteka1.0         2004-10-06 16:00:46  Darko           
  * $
  *****************************************************************************/

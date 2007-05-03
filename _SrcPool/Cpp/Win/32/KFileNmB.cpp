@@ -1,5 +1,5 @@
 /*$Workfile: KFileNmB.cpp$: implementation file
-  $Revision: 4$ $Date: 2005-05-24 12:39:44$
+  $Revision: 5$ $Date: 2007-05-03 15:53:07$
   $Author: Darko Kolakovic$
 
   File Name Browser
@@ -15,6 +15,12 @@
   #include <afxwin.h>
 #else          //use MS SDK
   #include <windows.h>
+  #ifndef TRACE0
+    #ifndef _T
+      #include "KTChar.h"
+    #endif
+    #include "KTrace.h" //Debugging macros
+  #endif
 #endif
 
 #include "KFileNmB.h" //CFileNameBrowser class
@@ -30,7 +36,8 @@
 
 /*If the construction succeeds, the m_Handle member is used in a subsequent call
   to iteration operator. If the function fails, the value of m_Handle is
-  INVALID_HANDLE_VALUE. To get extended error information, call GetLastError().
+  INVALID_HANDLE_VALUE. Use IsFileFound() to validate the handle.
+  To get extended error information, call GetLastError().
  */
 CFileNameBrowser::CFileNameBrowser(LPCTSTR szFileName //[in] null-terminated
                                    //string with name of the file to search for

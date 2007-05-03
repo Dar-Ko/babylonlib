@@ -1,6 +1,6 @@
 Attribute VB_Name = "KStringExt"
 '$Workfile: KStringExt.bas$: implementation file
-'$Revision: 5$ $Date: 2007-04-30 16:52:44$
+'$Revision: 6$ $Date: 2007-05-03 11:28:40$
 '$Author: Darko Kolakovic$
 '
 'Text manipulation helpers
@@ -77,7 +77,7 @@ End Function
 ' strDelimiter   [in] Set of delimiter characters.
 '
 'Returns a token if found and remaining part of the strSource after the token.
-Function strToken(ByRef strSource As String, _
+Function StrToken(ByRef strSource As String, _
                   ByVal strDelimiter As String) As String
 
   Dim iPos As Integer
@@ -88,7 +88,7 @@ Function strToken(ByRef strSource As String, _
     If Mid$(strSource, iPos, 1) = strDelimiter Then
       sToken = Mid$(strSource, 1, iPos)
       strSource = Mid$(strSource, iPos + 1, Len(strSource))
-      strToken = sToken
+      StrToken = sToken
       Exit Function
     End If
     iPos = iPos + 1

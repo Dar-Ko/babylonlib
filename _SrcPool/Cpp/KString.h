@@ -1,6 +1,6 @@
 /*$Workfile: KString.h$: header file
-  $Revision: 11$ $Date: 2004-06-01 15:52:17$ 
-  $Author: Darko$
+  $Revision: 12$ $Date: 2007-05-03 15:54:14$ 
+  $Author: Darko Kolakovic$
 
   Interface for the CString class
   Copyright: CommonSoft Inc
@@ -23,7 +23,6 @@
     #define _STRING_ 14
   #endif
 #endif
-
 #ifdef __STRING__
   //included STL std::string
   #define _STRING_ 12
@@ -37,8 +36,8 @@
   #define _cdecl
 #endif
 
-#include "KTrace.h" //ASSERT
 #include "KTChar.h" //TCHAR
+#include "KTrace.h" //ASSERT
 
 #ifdef __BORLANDC__
   #pragma option push -w-inl
@@ -81,6 +80,9 @@ typedef TCHAR*          LPTSTR;
 class CString
 {
 #ifdef _STRING_ //STL <string> header included
+  #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+    #pragma message ("   #include <string>" )
+  #endif
     //Uses STL string template as basic string handler
     //
     //Note:  <string> header have to be included before declaration of 
@@ -384,21 +386,22 @@ return s2.Compare(s1) != 0;
 #endif // _KSTRING_H_
 /******************************************************************************
  * $Log: 
- *  11   Biblioteka1.10        2004-06-01 15:52:17  Darko           STLport
+ *  12   Biblioteka1.11        2007-05-03 15:54:14  Darko Kolakovic ASSERT
+ *  11   Biblioteka1.10        2004-06-01 16:52:17  Darko           STLport
  *       included
- *  10   Biblioteka1.9         2003-11-03 12:13:22  Darko           Borland pragmas
- *  9    Biblioteka1.8         2003-09-05 11:54:11  Darko           formatting
- *  8    Biblioteka1.7         2003-01-20 03:10:14  Darko           Added ASSERT
+ *  10   Biblioteka1.9         2003-11-03 13:13:22  Darko           Borland pragmas
+ *  9    Biblioteka1.8         2003-09-05 12:54:11  Darko           formatting
+ *  8    Biblioteka1.7         2003-01-20 04:10:14  Darko           Added ASSERT
  *       and TCHAR header files
- *  7    Biblioteka1.6         2002-01-29 22:22:18  Darko           Used lbraries
+ *  7    Biblioteka1.6         2002-01-29 23:22:18  Darko           Used lbraries
  *       notes 
- *  6    Biblioteka1.5         2002-01-24 18:19:32  Darko           Updated
+ *  6    Biblioteka1.5         2002-01-24 19:19:32  Darko           Updated
  *       comments
- *  5    Biblioteka1.4         2002-01-23 18:23:25  Darko           
- *  4    Biblioteka1.3         2002-01-06 00:47:37  Darko           
- *  3    Biblioteka1.2         2001-12-30 19:20:25  Darko           
- *  2    Biblioteka1.1         2001-11-06 14:52:08  Darko           pointer to data
+ *  5    Biblioteka1.4         2002-01-23 19:23:25  Darko           
+ *  4    Biblioteka1.3         2002-01-06 01:47:37  Darko           
+ *  3    Biblioteka1.2         2001-12-30 20:20:25  Darko           
+ *  2    Biblioteka1.1         2001-11-06 15:52:08  Darko           pointer to data
  *       holder
- *  1    Biblioteka1.0         2001-11-05 14:13:04  Darko           
+ *  1    Biblioteka1.0         2001-11-05 15:13:04  Darko           
  * $
  *****************************************************************************/

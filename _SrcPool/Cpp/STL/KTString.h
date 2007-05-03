@@ -1,5 +1,5 @@
 /*$Workfile: KTString.h$: header file
-  $Revision: 1$ $Date: 2004-12-20 14:26:32$
+  $Revision: 1$ $Date: 2004-12-20 15:26:32$
   $Author: Darko Kolakovic$
 
   STL string helper functions
@@ -46,6 +46,6 @@ typedef std::basic_string<TCHAR> tstring;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2004-12-20 14:26:32  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-12-20 15:26:32  Darko Kolakovic 
  * $
  *****************************************************************************/

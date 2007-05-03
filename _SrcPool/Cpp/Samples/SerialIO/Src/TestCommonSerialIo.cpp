@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\SerialIO\Src\TestCommonSerialIo.cpp$: implementation file
+/*$Workfile: TestCommonSerialIo.cpp$: implementation file
   $Revision: 1$ $Date: 2007-03-18 21:56:25$
   $Author: Darko$
 
