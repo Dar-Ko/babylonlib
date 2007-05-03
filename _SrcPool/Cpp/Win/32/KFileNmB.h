@@ -1,5 +1,5 @@
 /*$Workfile: KFileNmB.h$: header file
-  $Revision: 1.1 $ $Date: 2006/11/20 19:34:24 $
+  $Revision: 1.2 $ $Date: 2007/05/03 20:06:34 $
   $Author: ddarko $
 
   File Name Browser
@@ -41,17 +41,17 @@ private:
 
   HANDLE m_Handle;  //a search handle used in a subsequent call
                     //to FindNextFile or FindClose.
-  BOOL  m_bDone;    //signals that iteration is done
+  bool  m_bDone;    //signals that iteration is done
 
 // Operations
 public:
   operator LPCTSTR() const;
-  BOOL IsFileFound() const;
-  BOOL IsLastFileFound() const;
+  bool IsFileFound() const;
+  bool IsLastFileFound() const;
   LPCTSTR operator ++();
   const WIN32_FIND_DATA& FindData() const;
   DWORD GetFileAttributes() const;
-  BOOL  IsDirectory() const;
+  bool  IsDirectory() const;
 
 };
 
@@ -69,7 +69,7 @@ return FindData().cFileName;
 //::IsFileFound()-------------------------------------------------------------
 /*Returns TRUE if file has been found
  */
-inline BOOL CFileNameBrowser::IsFileFound() const
+inline bool CFileNameBrowser::IsFileFound() const
 {
 return (m_Handle != INVALID_HANDLE_VALUE);
 }
@@ -77,7 +77,7 @@ return (m_Handle != INVALID_HANDLE_VALUE);
 //::IsLastFileFound()----------------------------------------------------------
 /*Returns TRUE if the last file in the directory has been found
  */
-inline BOOL CFileNameBrowser::IsLastFileFound() const
+inline bool CFileNameBrowser::IsLastFileFound() const
 {
 return m_bDone;
 }
@@ -123,7 +123,7 @@ return FindData().dwFileAttributes;
 //::IsDirectory()--------------------------------------------------------------
 /*Returns TRUE if file found is a directory.
  */
-inline BOOL CFileNameBrowser::IsDirectory() const
+inline bool CFileNameBrowser::IsDirectory() const
 {
 return ((GetFileAttributes() & FILE_ATTRIBUTE_DIRECTORY) == FILE_ATTRIBUTE_DIRECTORY);
 }
