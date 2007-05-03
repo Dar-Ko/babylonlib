@@ -1,30 +1,17 @@
-/*$Workfile: KFileTmp.cpp$: implementation file
-  $Revision: 6$ $Date: 2007-05-03 15:52:49$
+/*$Workfile: KFileTmpName.cpp$: implementation file
+  $Revision: 4$ $Date: 2007-02-06 10:59:06$
   $Author: Darko Kolakovic$
 
-  Creates temporary file
+  Creates unique file name
   CommonSoft Inc.
   Jun 98 Darko Kolakovic
 */
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
-#ifdef WIN32 //Microsoft Win32 platform dependant
 
 #ifdef _AFXDLL
   //MSVC and MFC
   #include <afxwin.h>
-#else          //use MS SDK
-  #include <windows.h>
-  #ifndef TRACE0
-    #ifndef _T
-      #include "KTChar.h"
-    #endif
-    #include "KTrace.h" //Debugging macros
-  #endif
-  #ifdef _STL
-    #include <string> //base string class
-  #endif
-  #include "KString.h" //CString class
 #endif
 
 #ifdef _DEBUG
@@ -33,27 +20,31 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
-//-----------------------------------------------------------------------------
+//CreateTmpFileName()----------------------------------------------------------
 /*Creates an empty temporary file with unique name in the following form:
-      X:\TempDir\PPP12345.tmp
+      X:\TempDir\XXX12345.tmp
   in the directory designated as temporary directory by the TMP or TEMP
-  environment variable. PPP is a prefix string with maximum length of 3
-  characters. If strPrefix is NULL, the default prefix '~Pr' is used.
+  environment variable.
 
   Returns: NULL if function is not succesful, otherwise returns null-terminated
   (TODO: ANSI character) string with full default file path. To get extended error
   information, call GetLastError() or SystemErrMessage().
 
+  TODO: Make function UNICODE comaptible.
 
-  Note: Microsoft Windows specific (Win).
+  Note: uses Microsoft Foundation Library (MFC).
+        Microsoft Windows specific (Win).
  */
-LPCTSTR CreateTmpFile(CString& strResult,//[out] name of an unique file
-                      LPCTSTR  strPrefix //[in] NULL or filename prefix.
-                                         //Only first 3 characters are
-                                         //used for the prefix.
-                     )
+LPCTSTR CreateTmpFileName(CString& strResult,//[out] unique file name
+                          LPCTSTR  strPrefix //[in] address of filename prefix or
+                                             //NULL
+                          )
 {
 TRACE(_T("CreateTmpFileName()\n"));
+#ifdef _UNICODE
+  #pragma todo(" Make function UNICODE comaptible")
+  return NULL;
+#endif
 
   //Set the file prefix
 TCHAR  szPrefix[4];
@@ -92,12 +83,11 @@ if(::GetTempFileName(szTempPath,/*dir. for temp. files            */
   }
 
 strResult.ReleaseBuffer();
-TRACE1(_T("  %s\n"),(LPCTSTR)strResult);
+TRACE(_T("  %s\n",(LPCTSTR)strResult));
 return strResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-#endif //WIN32
 /******************************************************************************
  *$Log:
  * 3    Biblioteka1.2         2005-05-05 20:22:20  Darko           comments

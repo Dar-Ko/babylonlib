@@ -2,10 +2,10 @@
   $Revision: 2$ $Date: 2004-10-01 22:34:55$
   $Author: Darko$
 
-  Dumps CFileException cause
+  Get Windows 2000 domain name
   Copyright: CommonSoft Inc.
   2003-08 Darko Kolakovic
- */ 
+ */
 
 #include "stdafx.h"
 
@@ -14,11 +14,11 @@
 #endif
 
 //-----------------------------------------------------------------------------
-/*Retrieves the DNS name of the local computer's domain, such as 
+/*Retrieves the DNS name of the local computer's domain, such as
   "domainName.companyName.com".
-  The property methods of the IADsADSystemInfo interface get or set the 
+  The property methods of the IADsADSystemInfo interface get or set the
   properties described in the following table.
-  
+
   Returns: true if successful. otherwise reurns false.
 
   See also: Interface Property Methods.
@@ -48,19 +48,19 @@ return false;
 }
 
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  2    Biblioteka1.1         2004-10-01 22:34:55  Darko           stdafx.h
- *  1    Biblioteka1.0         2003-08-17 02:16:42  Darko           
+ *  1    Biblioteka1.0         2003-08-17 02:16:42  Darko
  * $
  *****************************************************************************/
 
 /*IADsADSystemInfo Property Methods
-  The property methods of the IADsADSystemInfo interface get or set the 
+  The property methods of the IADsADSystemInfo interface get or set the
   properties described in the following table. For more information, see
   Interface Property Methods.
 
 
-  Properties 
+  Properties
   UserName
   Access: Read-only
   DataType: BSTR
@@ -70,17 +70,17 @@ return false;
   ComputerName
   Access: Read-only
   DataType: BSTR
-  Retrieves the distinguished name of the local computer. 
+  Retrieves the distinguished name of the local computer.
 
   SiteName
   Access: Read-only
   DataType: BSTR
-  Retrieves the site name of the local computer. 
+  Retrieves the site name of the local computer.
 
   DomainShortName
   Access: Read-only
   DataType: BSTR
-  Retrieves the short name of the local computer's domain, such as "domainName". 
+  Retrieves the short name of the local computer's domain, such as "domainName".
 
   DomainDNSName
   Access: Read-only
@@ -90,21 +90,21 @@ return false;
   ForestDNSName
   Access: Read-only
   DataType: BSTR
-  Retrieves the DNS name of the local computer's forest. 
+  Retrieves the DNS name of the local computer's forest.
 
   PDCRoleOwner
   Access: Read-only
   DataType: BSTR
-  Retrieves the distinguished name of the directory service agent (DSA) object 
-  for the DC that owns the primary domain controller role in the local computer's domain. 
+  Retrieves the distinguished name of the directory service agent (DSA) object
+  for the DC that owns the primary domain controller role in the local computer's domain.
 
   SchemaRoleOwner
   Access: Read-only
-  Retrieves the distinguished name of the directory service agent (DSA) object for the 
-  DC that owns the schema master role in the local computer's forest. 
+  Retrieves the distinguished name of the directory service agent (DSA) object for the
+  DC that owns the schema master role in the local computer's forest.
 
   IsNativeMode
   Access: Read-only
   DataType: Variant Boolean
-  Determines whether the local computer's domain is in native or mixed mode. 
+  Determines whether the local computer's domain is in native or mixed mode.
  */
