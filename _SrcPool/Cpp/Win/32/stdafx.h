@@ -1,5 +1,5 @@
-/*$Workfile: stdafx.h$: header file
-  $Revision: 15$  $Date: 2005-05-05 22:56:40$
+/*$Workfile: StdAfx.h$: header file
+  $Revision: 3$  $Date: 2007-05-04 17:52:46$
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -7,7 +7,7 @@
 */
 
 #ifndef _STDAFX_H_
-  /*$Workfile: stdafx.h$ sentry */
+  /*$Workfile: StdAfx.h$ sentry */
   #define _STDAFX_H_ 1432
 
 #if _MSC_VER > 1000
@@ -77,6 +77,7 @@
   //---------------------------------------------------------------------------
   #endif //_USE_MFC
 
+  /*Microsoft VC/C++ compiler*/
   #ifdef _MSC_VER
     /*Replaces library header file names with the compiler's aliases*/
     #ifdef _USE_STD_HEADERS
@@ -91,6 +92,9 @@
       //Years in tm structure are represented as number of years since 1900.
       #define YEAR_EPOCH_TM  1900
     #endif
+    
+    #define ItoA _itot /*use Microsoft specific _itoa with SBCS
+                         or _itow _UNICODE mapping. */
   #endif //_MSC_VER
 
  #ifdef _UNICODE

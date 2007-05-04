@@ -1,5 +1,5 @@
 /*$Workfile: KItoA.c$: implementation file
-  $Revision: 7$ $Date: 2005-06-21 11:11:29$
+  $Revision: 8$ $Date: 2007-05-04 11:22:28$
   $Author: Darko Kolakovic$
 
   Convert a signed decimal integers to ASCII string.
@@ -52,7 +52,7 @@
       }
       Output:
         base 10: -1 (2 chars)
-       base 9: 12068657453 (11 chars)
+        base 9: 12068657453 (11 chars)
         base 8: 37777777777 (11 chars)
         base 7: 211301422353 (12 chars)
         base 6: 1550104015503 (13 chars)

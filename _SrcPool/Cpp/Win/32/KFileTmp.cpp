@@ -1,5 +1,5 @@
 /*$Workfile: KFileTmp.cpp$: implementation file
-  $Revision: 6$ $Date: 2007-05-03 15:52:49$
+  $Revision: 8$ $Date: 2007-05-04 17:52:20$
   $Author: Darko Kolakovic$
 
   Creates temporary file
@@ -47,7 +47,7 @@
 
   Note: Microsoft Windows specific (Win).
  */
-LPCTSTR CreateTmpFile(CString& strResult,//[out] name of an unique file
+LPCTSTR CreateTmpFile(CString& strResult,//[out] name of temporary file
                       LPCTSTR  strPrefix //[in] NULL or filename prefix.
                                          //Only first 3 characters are
                                          //used for the prefix.

@@ -1,5 +1,5 @@
 /*$Workfile: KBeepLin.cpp$: implementation file
-  $Revision: 2$ $Date: 2005-05-18 17:32:31$
+  $Revision: 2$ $Date: 2005-05-18 18:32:31$
   $Author: Darko Kolakovic$
 
   Generates beep sounds on PC speaker
@@ -73,7 +73,7 @@ TRACE(_T("CBeep::Stop()\n"));
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2005-05-18 17:32:31  Darko Kolakovic Comment
- *  1    Biblioteka1.0         2005-04-29 00:14:07  Darko           
+ *  2    Biblioteka1.1         2005-05-18 18:32:31  Darko Kolakovic Comment
+ *  1    Biblioteka1.0         2005-04-29 01:14:07  Darko           
  * $
  ******************************************************************************/

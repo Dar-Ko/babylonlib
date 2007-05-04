@@ -1,5 +1,5 @@
 /*$Workfile: TestFilename.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-05-03 15:57:34$
+  $Revision: 6$ $Date: 2007-05-04 17:53:43$
   $Author: Darko Kolakovic$
 
   Test file names handling
@@ -33,6 +33,10 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 extern CString FindOldestFile(LPCTSTR strDirectoryPath, LPCTSTR strFileExt);
 extern LPCTSTR CreateTmpFile(CString& strResult, LPCTSTR strPrefix);
+extern LPCTSTR CreateUniqueFileName(CString& strResult,
+                                    LPCTSTR szFilePath,
+                                    LPCTSTR szPrefix,  
+                                    LPCTSTR szExtension);
 
 //-----------------------------------------------------------------------------
 /*Test file names handling functions.
@@ -113,6 +117,23 @@ else
   }
 g_logTest.LogResult(bResult);
 
+//Test creating an unique file name
+TsWriteToViewLn(_T("CreateUniqueFileName()"));
+g_logTest.m_szObjectName = _T("CreateUniqueFileName(LPCTSTR, LPCTSTR)");
+g_logTest.m_szFileName   = _T("KFileUnique.cpp");//function or object file name
+
+szTmpFileName = CreateUniqueFileName(strDirectory, _T(".\\."),_T("New"), _T("bak"));
+if( szTmpFileName != NULL )
+  {
+  std::_tcout << _T("File name is ") << szTmpFileName << std::endl;
+  }
+else
+  {
+  std::_tcout << _T("Failure!")<< std::endl;
+  bResult = false;
+  }
+g_logTest.LogResult(bResult);
+
 TsWriteToViewLn(LOG_EOT);
 
 return bResult;
@@ -121,6 +142,8 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
+ * 6    Biblioteka1.5         2007-05-04 17:53:43  Darko Kolakovic
+ *      CreateUniqueFilename()
  * 5    Biblioteka1.4         2007-05-03 15:57:34  Darko Kolakovic TestFilename()
  * 4    Biblioteka1.3         2007-05-03 11:25:05  Darko Kolakovic 
  * 3    Biblioteka1.2         2002-07-16 01:41:55  Darko           Fixed VSS Log 

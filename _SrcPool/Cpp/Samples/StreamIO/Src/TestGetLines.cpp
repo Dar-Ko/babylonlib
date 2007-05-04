@@ -1,5 +1,5 @@
 /*$Workfile: TestGetLines.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-05-03 15:57:55$
+  $Revision: 6$ $Date: 2007-05-04 17:54:12$
   $Author: Darko Kolakovic$
 
   Test of the counting of the text lines.
@@ -88,23 +88,23 @@ if(fileSource != NULL)
     {
     std::string strOutFile = arrayLine[2].substr(7);
     strOutFile = strOutFile.substr(0,strOutFile.length()-8);
-    int i = 0;
-    while(i < strOutFile.length())
+    int iPos = 0;
+    while(iPos < strOutFile.length())
       {
-      if (strOutFile[i] == ' ')
-        strOutFile.at(i) = '_';
-      i++;
+      if (strOutFile[iPos] == ' ')
+        strOutFile.at(iPos) = '_';
+      iPos++;
       }
     strOutFile += ".htm";
     std::_tcout << strOutFile << std::endl;
     std::ofstream fileOut(strOutFile.c_str());
     if(fileOut != NULL)
       {
-      i = 0;
-      while ( i < 7)
+      iPos = 0;
+      while ( iPos < 7)
         {
-        fileOut << arrayLine[i] << std::endl;
-        i++;
+        fileOut << arrayLine[iPos] << std::endl;
+        iPos++;
         }
       fileOut.close();
       }
@@ -129,6 +129,7 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  6    Biblioteka1.5         2007-05-04 17:54:12  Darko Kolakovic renamed index
  *  5    Biblioteka1.4         2007-05-03 15:57:55  Darko Kolakovic Unicode with
  *       MSVC STL 7.1
  *  4    Biblioteka1.3         2004-10-06 16:01:37  Darko           Unicode mapping
@@ -399,14 +400,14 @@ into the array s. The variable lim is the line length of the longest allowable l
 extern tifstream inFile;
 
 int getline(char s[], int lim) {
-  int i = 0; 
+  int iPos = 0; 
   char c;
   while (--lim > 0 && inFile.get(c) && c != '\n')
-    s[i++] = c;
+    s[iPos++] = c;
   if (c == '\n')
-    s[i++] = c;
-  s[i] = '\0';
-  return i;
+    s[iPos++] = c;
+  s[iPos] = '\0';
+  return iPos;
 }
 
 #ifndef SAFE_STL

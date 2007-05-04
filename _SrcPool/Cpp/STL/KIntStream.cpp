@@ -142,9 +142,9 @@ tostream& operator<<(tostream& outStream, //[out] output stream
                      const std::valarray<double>& vArray //[in] array to write
                     )
 {
-for (unsigned i = 0; i < vArray.size() - 1; ++i)
-  outStream << vArray[i] << _T('\t');
-outStream << vArray[i]; //Output the last element
+for (unsigned iPos = 0; iPos < vArray.size() - 1; ++iPos)
+  outStream << vArray[iPos] << _T('\t');
+outStream << vArray[iPos]; //Output the last element
 return outStream;
 }
 

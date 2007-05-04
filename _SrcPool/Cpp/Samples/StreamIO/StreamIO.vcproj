@@ -279,6 +279,9 @@
 				RelativePath="..\..\Win\32\KFileTmp.cpp">
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KFileUnique.cpp">
+			</File>
+			<File
 				RelativePath="..\..\STL\KGetLines.cpp">
 				<FileConfiguration
 					Name="Release_Unicode|Win32">

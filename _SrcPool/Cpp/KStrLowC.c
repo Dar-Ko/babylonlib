@@ -26,8 +26,8 @@
 #endif
 
 /*StrToLower()---------------------------------------------------------------*/
-/*The function convert a string with characters in range from 0x0 to 0x7F
-  to lowercase string if possible and appropriate.
+/*Converts characters from the range [A, Z] to lowercase if it is possible and
+  appropriate.
 
   Returns a pointer to the converted string.
 
