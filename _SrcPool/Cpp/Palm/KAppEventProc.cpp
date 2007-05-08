@@ -1,5 +1,5 @@
 /*$Workfile: KAppEventProc.cpp$: implementation file
-  $Revision: 1$ $Date: 2004-11-12 13:55:22$
+  $Revision: 1$ $Date: 2004-11-12 14:55:22$
   $Author: Darko Kolakovic$
 
   Event handler callback routine for the application
@@ -102,6 +102,6 @@ return FrmDispatchEvent(pEvent);
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2004-11-12 13:55:22  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-11-12 14:55:22  Darko Kolakovic 
  * $
  *****************************************************************************/

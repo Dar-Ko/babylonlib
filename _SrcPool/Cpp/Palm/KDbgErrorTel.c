@@ -1,5 +1,5 @@
 /*$Workfile: KDbgErrorTel.c$: implementation file
-  $Revision: 1$ $Date: 2004-11-09 18:42:23$
+  $Revision: 1$ $Date: 2004-11-09 19:42:23$
   $Author: Darko Kolakovic$
 
   Dumps error code values
@@ -99,6 +99,6 @@ TRACE1(_T(" (%d).\n"), (UInt32)nErrorCode);
 /* ////////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2004-11-09 18:42:23  Darko Kolakovic 
+ *  1    Biblioteka1.0         2004-11-09 19:42:23  Darko Kolakovic 
  * $
  *****************************************************************************/

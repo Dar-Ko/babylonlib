@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KFileUnique.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-05-04 17:51:55$
+/*$Workfile: KFileUnique.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-05-08 10:16:42$
   $Author: Darko Kolakovic$
 
   Creates unique file name
@@ -21,7 +21,7 @@
     #endif
     #include "KTrace.h" //Debugging macros
   #endif
-  
+
   #ifdef _STL
     #include <string> //base string class
   #endif
@@ -36,14 +36,14 @@
 
 //-----------------------------------------------------------------------------
 /*Creates unique name for a file in the given folder. Filename is generated
-  from the current time and has minimum length of 8 characters. 
+  from the current time and has minimum length of 8 characters.
   File name is limited to MAX_PATH. Lengths of directory path and file name
   extension are also included in the limit, if they are not empty strings.
-  
-  Note: some other process could create a file with the same name as the name 
+
+  Note: some other process could create a file with the same name as the name
   returned by the function, in the period before the caller actually creates the
   file.
-  
+
   Note: Path length limit for FAT32 file systems is MAX_PATH and for NTFS is 32768
   characters (see also: Path Field Limits (CRT)).
 
@@ -54,15 +54,15 @@
 LPCTSTR CreateUniqueFileName(CString& strResult,//[out] unique filename
                              LPCTSTR szFilePath,//[in] directory path or NULL.
                              LPCTSTR szPrefix,  //[in] filename prefix or NULL
-                             LPCTSTR szExtension//[in] filename extension or NULL                   
+                             LPCTSTR szExtension//[in] filename extension or NULL
                             )
 {
 TRACE(_T("CreateUniqueFileName()\n"));
 
 /*File access permission:
-  00 Existence only 
-  02 Write permission 
-  04 Read permission 
+  00 Existence only
+  02 Write permission
+  04 Read permission
   06 Read and write permission
  */
 const int EXIST = 0; //existence validation only
@@ -94,7 +94,7 @@ if((szExtension != NULL) && (szExtension[0] != _T('\0')))
 if (iPos > (MAX_PATH - NAMESIZE))
   return NULL; //File path is too long
 
-//Allocate space for the result                        
+//Allocate space for the result
 LPTSTR szResult = strResult.GetBuffer(iPos + NAMESIZE);
 //Copy directory path
 iPos = 0;
@@ -105,30 +105,30 @@ if ((szFilePath != NULL) && (szFilePath[0] != _T('\0')))
     szResult[iPos] = szFilePath[iPos];
     iPos++;
     }
- 
+
   if (!IsPathDelim(szResult[iPos]))  //Append directory delimiter
     {
     szResult[iPos] = PATHDELIM;
     iPos++;
     }
-  } 
+  }
 
 //Append filename prefix to the directory
 int i = 0;
 if ((szPrefix != NULL) && (szPrefix[0] != _T('\0')))
   {
-  while(szPrefix[i] != _T('\0')) 
+  while(szPrefix[i] != _T('\0'))
     {
     szResult[iPos] = szPrefix[i];
     iPos++;
     i++;
     }
-  } 
+  }
 
 int iNamePos = iPos; //begining of the variable part of the filename
 FILETIME ftTime; //system time
 //32-bit integer is required to create a name
-ASSERT (sizeof(ftTime.dwLowDateTime) <= 4); 
+ASSERT (sizeof(ftTime.dwLowDateTime) <= 4);
 GetSystemTimeAsFileTime(&ftTime);
 //Use lower portion of the FILETIME to create the name
 ItoA(ftTime.dwLowDateTime, &szResult[iNamePos], 16);
@@ -152,15 +152,15 @@ if ((szExtension != NULL) && (szExtension[0] != _T('\0')))
   }
 ASSERT((MAX_PATH - iPos) > 0); //Check if enough space is allocated
 //Save the character after variable part of filename
-TCHAR chNameEnd = szResult[iNamePos + NAMESIZE]; 
+TCHAR chNameEnd = szResult[iNamePos + NAMESIZE];
 errno = EOK;           //Clear the current error status
 
-ftTime.dwHighDateTime = ftTime.dwLowDateTime; //Save value for later 
+ftTime.dwHighDateTime = ftTime.dwLowDateTime; //Save value for later
                                               //sanity check
-                                              
+
 /*Check all files until _taccess() function does not return failure
   with ENOENT: filename or path not found.
-  The function returns –1 if the named file does not exist or 
+  The function returns –1 if the named file does not exist or
   is not accessible and sets errno to EACCES or ENOENT .
  */
 while ((_taccess(szResult, EXIST) == ACCESS_OK) || (errno == EACCES))
@@ -178,14 +178,14 @@ while ((_taccess(szResult, EXIST) == ACCESS_OK) || (errno == EACCES))
   //Replace terminating zero inserted by ItoA
   szResult[iNamePos + NAMESIZE] = chNameEnd;
   }
-  
+
 strResult.ReleaseBuffer();
 return strResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- *$Log: 
- * 1    Biblioteka1.0         2007-05-04 17:51:55  Darko Kolakovic 
+ *$Log:
+ * 1    Biblioteka1.0         2007-05-04 17:51:55  Darko Kolakovic
  *$
  *****************************************************************************/

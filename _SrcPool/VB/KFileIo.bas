@@ -1,6 +1,6 @@
 Attribute VB_Name = "KFileIo"
 '$Workfile: KFileIo.bas$: implementation file
-'$Revision: 4$ $Date: 2007-05-03 11:27:58$
+'$Revision: 5$ $Date: 2007-05-08 10:13:40$
 '$Author: Darko Kolakovic$
 '
 'File I/O/ handling helpers
@@ -61,16 +61,16 @@ End Function
 '   X:\TempDir\XXX12345.tmp
 'in the directory designated as temporary directory by the TMP or TEMP
 'environment variable.
-Public Function CreateTmpFileName(Optional strPrefix As String) As String
+Public Function CreateTmpFile(Optional strPrefix As String) As String
   Dim strPath As String
   Dim strResult As String
   strResult = Space$(MAX_PATH) 'Create a buffer
   
   strPath = Environ$("temp")
   If GetTempFileName(strPath, strPrefix, 0, strResult) <> 0 Then
-    CreateTmpFileName = Left(strResult, InStr(1, strResult, Chr(0)) - 1)
+    CreateTmpFile = Left(strResult, InStr(1, strResult, Chr(0)) - 1)
   Else
-    CreateTmpFileName = ""
+    CreateTmpFile = ""
   End If
 End Function
 '///////////////////////////////////////////////////////////////////////////////

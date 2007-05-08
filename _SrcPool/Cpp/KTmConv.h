@@ -1,5 +1,5 @@
 /*$Workfile: KTmConv.h$: implementation file
-  $Revision: 8$ $Date: 2005-06-28 13:38:13$
+  $Revision: 9$ $Date: 2007-05-08 10:30:25$
   $Author: Darko Kolakovic$
 
   struct tm conversions
@@ -258,7 +258,7 @@ printDate(szTarget, tm_mday, tm_mon+1, tm_year +1900);
 
 #include "STL/KOstream.h" //tostream typedef
   //---------------------------------------------------------------------------
-  /*Writes date and time in standard exended format YYYY-MM-DDThh:mm:ss to
+  /*Writes date and time in standard extended format YYYY-MM-DDThh:mm:ss to
     output stream.
 
     See also: _TIME_FORMAT_STD, International Standard

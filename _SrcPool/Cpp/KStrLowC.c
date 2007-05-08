@@ -1,5 +1,5 @@
 /*$Workfile: KStrLowC.c$: implementation file
-  $Revision: 8$ $Date: 2004-11-12 17:55:13$
+  $Revision: 9$ $Date: 2007-05-08 10:29:26$
   $Author: Darko Kolakovic$
 
   Converts uppercase characters to lower case

@@ -1,7 +1,7 @@
 Attribute VB_Name = "KWaitTime"
-'$Workfile: KWaitTime.bas,v $: implementation file
-'$Revision: 1.1 $ $Date: 2007/04/11 13:36:37 $
-'$Author: dkolakovic $
+'$Workfile: KWaitTime.bas$: implementation file
+'$Revision: 2$ $Date: 2007-05-08 10:14:27$
+'$Author: Darko Kolakovic$
 '
 'http://support.microsoft.com/kb/231298
 '2004-07-13
@@ -71,9 +71,6 @@ Private Declare Function SetWaitableTimer Lib "kernel32" ( _
 
 Private Declare Function CancelWaitableTimer Lib "kernel32" ( _
                       ByVal hTimer As Long)
-
-Private Declare Function CloseHandle Lib "kernel32" ( _
-                      ByVal hObject As Long) As Long
 
 Private Declare Function WaitForSingleObject Lib "kernel32" ( _
                       ByVal hHandle As Long, _
@@ -156,7 +153,10 @@ Public Sub Wait(lInterval As Long)
 End Sub
 '///////////////////////////////////////////////////////////////////////////////
 '*****************************************************************************
-'$Log: KWaitTime.bas,v $
+'$Log: 
+' 2    Biblioteka1.1         2007-05-08 10:14:27  Darko Kolakovic Cleanup
+' 1    Biblioteka1.0         2007-04-13 09:23:59  Darko Kolakovic 
+'$
 'Revision 1.1  2007/04/11 13:36:37  dkolakovic
 'Timer
 '

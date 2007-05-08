@@ -1,6 +1,6 @@
 Attribute VB_Name = "KDate"
-'$Workfile: S:\_SrcPool\VB\KDate.bas$: implementation file
-'$Revision: 1$ $Date: 2007-04-30 16:51:34$
+'$Workfile: KDate.bas$: implementation file
+'$Revision: 2$ $Date: 2007-05-08 10:13:12$
 '$Author: Darko Kolakovic$
 '
 'Date and time manipulators
@@ -51,10 +51,32 @@ Public Function GetUtcTime(Optional ByVal bBasicFormat As Boolean) As String
                   Format(uSystTime.wMilliseconds, "00#")
   End If
 End Function
+'-------------------------------------------------------------------------------
+'Parses time in the format:
+'   hh:mm:ss
+Public Sub Str2Time(ByRef lHour As Long, _
+                    ByRef lMinute As Long, _
+                    ByRef lSecond As Long, _
+                    ByRef strTime As String, _
+                    Optional ByRef strDelimiter As String)
+  If strTime = "" Then
+    Exit Sub 'Nothing to do
+  End If
+  
+  If strDelimiter = "" Then
+    strDelimiter = ":"
+  End If
+  lHour = Val(Left(strTime, InStr(1, strTime, strDelimiter) - 1))
+  lMinute = Val(Mid(strTime, InStr(1, strTime, strDelimiter) + 1, _
+                    InStrRev(strTime, strDelimiter) - _
+                    InStr(1, strTime, strDelimiter) - 1))
+  lSecond = Val(Mid(strTime, InStrRev(strTime, strDelimiter) + 1))
+End Sub
+
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
-'$Log: 
-' 1    Biblioteka1.0         2007-04-30 16:51:34  Darko Kolakovic 
+'$Log:
+' 1    Biblioteka1.0         2007-04-30 16:51:34  Darko Kolakovic
 '$
 '*******************************************************************************
 
