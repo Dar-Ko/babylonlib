@@ -1,12 +1,84 @@
 Attribute VB_Name = "KWin32"
 '$Workfile: KWin32.bas$: implementation file
-'$Revision: 6$ $Date: 2007-05-08 10:14:45$
+'$Revision: 8$ $Date: 2007-05-10 16:59:42$
 '$Author: Darko Kolakovic$
 '
 'Microsoft Windows SDK prototypes
 'babylonlib@sourceforge.net
 '2002-11-02
 Option Explicit
+
+'-------------------------------------------------------------------------------
+'Standard Access Rights [Security] WinNT.h
+'Each type of securable object has a set of access rights that correspond to
+'operations specific to that type of object. In addition to these object-specific
+'access rights, there is a set of standard access rights that correspond to
+'operations common to most types of securable objects.
+'The access mask format includes a set of bits for the standard access rights.
+
+'Windows constants defined for the standard access rights.
+Public Const DELETE = &H10000        'The right to delete the object.
+Public Const READ_CONTROL = &H20000  'The right to read the information in the
+                                     'object's security descriptor, not including
+                                     'the information in the SACL.
+Public Const SYNCHRONIZE = &H100000  'The right to use the object for synchronization.
+                                     'This enables a thread to wait until the object is
+                                     'in the signaled state. Some object types do not
+                                     'support this access right.
+Public Const WRITE_DAC = &H40000     'The right to modify the DACL in the object's
+                                     'security descriptor.
+Public Const WRITE_OWNER = &H80000   'The right to change the owner in the object's
+                                     'security descriptor.
+'The Windows API also defines the following combinations of the
+'standard access rights constants
+
+'Combines DELETE, READ_CONTROL, WRITE_DAC, WRITE_OWNER, and SYNCHRONIZE access.
+Public Const STANDARD_RIGHTS_ALL = &H1F0000
+'Currently defined to equal READ_CONTROL.
+Public Const STANDARD_RIGHTS_EXECUTE = (READ_CONTROL)
+'Currently defined to equal READ_CONTROL.
+Public Const STANDARD_RIGHTS_READ = (READ_CONTROL)
+'Combines DELETE, READ_CONTROL, WRITE_DAC, and WRITE_OWNER access.
+Public Const STANDARD_RIGHTS_REQUIRED = &HF0000
+'Currently defined to equal READ_CONTROL.
+Public Const STANDARD_RIGHTS_WRITE = (READ_CONTROL)
+
+Public Const SPECIFIC_RIGHTS_ALL = &HFFFF
+
+'AccessSystemAcl access type
+Public Const ACCESS_SYSTEM_SECURITY = &H1000000
+
+'MaximumAllowed access type
+Public Const MAXIMUM_ALLOWED = &H2000000
+
+'These are the generic rights.
+Public Const GENERIC_READ = &H80000000
+Public Const GENERIC_WRITE = &H40000000
+Public Const GENERIC_EXECUTE = &H20000000
+Public Const GENERIC_ALL = &H10000000
+
+'Access mask as a longword sized structure divided up as follows:
+'
+'       3 3 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1
+'       1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0
+'      +---------------+---------------+-------------------------------+
+'      |G|G|G|G|Res'd|A| StandardRights|         SpecificRights        |
+'      |R|W|E|A|     |S|               |                               |
+'      +-+-------------+---------------+-------------------------------+
+Public Type ACCESS_MASK
+  mask As Long
+End Type
+
+'Define the generic mapping array.
+'This is used to denote the mapping of each generic access right to
+'a specific access mask.
+Public Type GENERIC_MAPPING
+  GenericRead     As Long 'ACCESS_MASK
+  GenericWrite    As Long 'ACCESS_MASK
+  GenericExecute  As Long 'ACCESS_MASK
+  GenericAll      As Long 'ACCESS_MASK
+End Type
+'==============================================================================
 
 Public Const MAX_COMPUTERNAME_LENGTH = 31
 Public Const MAX_PATH = 260
@@ -120,7 +192,7 @@ End Type
 
 'Point structure
 Public Type POINTAPI
-  X As Long
+  x As Long
   Y As Long
 End Type
 
@@ -199,7 +271,6 @@ Public Type STARTUPINFO
   hStdError       As Long
 End Type
 
-Public Const SYNCHRONIZE = &H100000
 
 Public Const PROCESS_TERMINATE = &H1
 Public Const PROCESS_CREATE_THREAD = &H2
@@ -489,10 +560,6 @@ Public Type WINDOWPLACEMENT
   rcNormalPosition As RECT
 End Type
 
-Public Const ERROR_SUCCESS = 0&
-Public Const ERROR_CANCELLED = 1223&
-Public Const ERROR_ALREADY_EXISTS = 183&
-
 Public Const FILE_ATTRIBUTE_ARCHIVE = &H20
 Public Const FILE_ATTRIBUTE_COMPRESSED = &H800
 Public Const FILE_ATTRIBUTE_DIRECTORY = &H10
@@ -573,11 +640,7 @@ Public Const ERROR_PIPE_LISTENING = 536&
 Public Const ERROR_PIPE_NOT_CONNECTED = 233&
 Public Const ERROR_NO_DATA = 232&
 
-Public Const STANDARD_RIGHTS_REQUIRED = &HF0000
 
-
-Public Const GENERIC_READ = &H80000000
-Public Const GENERIC_WRITE = &H40000000
 Public Const FILE_SHARE_READ = &H1
 Public Const FILE_SHARE_WRITE = &H2
 Public Const FILE_SHARE_DELETE = &H4
@@ -590,11 +653,11 @@ Public Const FILE_FLAG_RANDOM_ACCESS = &H10000000
 Public Const FILE_FLAG_DELETE_ON_CLOSE = &H4000000
 
 Public Type OVERLAPPED
-  Internal As Long
-  InternalHigh As Long
-  offset As Long
-  OffsetHigh As Long
-  hevent As Long
+  Internal      As Long
+  InternalHigh  As Long
+  offset        As Long
+  OffsetHigh    As Long
+  hEvent        As Long
 End Type
 
 Public Const FILE_BEGIN = 0

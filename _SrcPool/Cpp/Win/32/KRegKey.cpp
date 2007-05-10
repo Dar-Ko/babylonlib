@@ -1,12 +1,12 @@
 /*$Workfile: KRegKey.cpp$: implementation file
-  $Revision: 12$ $Date: 2005-05-04 01:27:33$
-  $Author: Darko$
+  $Revision: 14$ $Date: 2007-05-10 16:56:29$
+  $Author: Darko Kolakovic$
 
   Copyright: CommonSoft Inc.
   Darko Kolakovic
   May 94 (16b)
   Nov 98 (NT ver)
- */ 
+ */
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
@@ -48,35 +48,44 @@
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CRegistryKey
-//
-// Predefined Value Types        VALUE   Description (WinNT.h)
-// REG_NONE                        0  No value type
-// REG_SZ                          1  Unicode nul terminated string
-// REG_EXPAND_SZ                   2  Unicode nul terminated string(with environment variable references)
-// REG_BINARY                      3  Free form binary
-// REG_DWORD                       4  32-bit number
-// REG_DWORD_LITTLE_ENDIAN         4  32-bit number (same as REG_DWORD)
-// REG_DWORD_BIG_ENDIAN            5  32-bit number
-// REG_LINK                        6  Symbolic Link (unicode)
-// REG_MULTI_SZ                    7  Multiple Unicode strings
-// REG_RESOURCE_LIST               8  Resource list in the resource map
-// REG_FULL_RESOURCE_DESCRIPTOR    9  Resource list in the hardware description
-// REG_RESOURCE_REQUIREMENTS_LIST  10
-//
-//
-// Registry Specific Access Rights         Description (REGSAM WinNT.h)
-// KEY_ALL_ACCESS                   Combination of KEY_QUERY_VALUE, KEY_ENUMERATE_SUB_KEYS, KEY_NOTIFY, KEY_CREATE_SUB_KEY, KEY_CREATE_LINK, and KEY_SET_VALUE access.
-// KEY_CREATE_LINK              32  Permission to create a symbolic link.
-// KEY_CREATE_SUB_KEY            4  Permission to create subkeys.
-// KEY_ENUMERATE_SUB_KEYS        8  Permission to enumerate subkeys.
-// KEY_EXECUTE                      Permission for read access.
-// KEY_NOTIFY                   16  Permission for change notification.
-// KEY_QUERY_VALUE               1  Permission to query subkey data.
-// KEY_READ                         Combination of KEY_QUERY_VALUE, KEY_ENUMERATE_SUB_KEYS, and KEY_NOTIFY access.
-// KEY_SET_VALUE                 2  Permission to set subkey data.
-// KEY_WRITE                        Combination of KEY_SET_VALUE and KEY_CREATE_SUB_KEY access.
+/* CRegistryKey
 
+    Predefined Value Types        VALUE   Description (WinNT.h)
+    REG_NONE                        0  No value type
+    REG_SZ                          1  Unicode nul terminated string
+    REG_EXPAND_SZ                   2  Unicode nul terminated string with
+                                       environment variable references)
+    REG_BINARY                      3  Free form binary
+    REG_DWORD                       4  32-bit number
+    REG_DWORD_LITTLE_ENDIAN         4  32-bit number (same as REG_DWORD)
+    REG_DWORD_BIG_ENDIAN            5  32-bit number
+    REG_LINK                        6  Symbolic Link (unicode)
+    REG_MULTI_SZ                    7  Multiple Unicode strings
+    REG_RESOURCE_LIST               8  Resource list in the resource map
+    REG_FULL_RESOURCE_DESCRIPTOR    9  Resource list in the hardware description
+    REG_RESOURCE_REQUIREMENTS_LIST  10
+
+
+    Registry Specific Access Rights       Description (REGSAM WinNT.h)
+    KEY_ALL_ACCESS                   Combination of KEY_QUERY_VALUE,
+                                                    KEY_ENUMERATE_SUB_KEYS,
+                                                    KEY_NOTIFY,
+                                                    KEY_CREATE_SUB_KEY,
+                                                    KEY_CREATE_LINK and
+                                                    KEY_SET_VALUE access.
+    KEY_CREATE_LINK              32  Permission to create a symbolic link.
+    KEY_CREATE_SUB_KEY            4  Permission to create subkeys.
+    KEY_ENUMERATE_SUB_KEYS        8  Permission to enumerate subkeys.
+    KEY_EXECUTE                      Permission for read access.
+    KEY_NOTIFY                   16  Permission for change notification.
+    KEY_QUERY_VALUE               1  Permission to query subkey data.
+    KEY_READ                         Combination of KEY_QUERY_VALUE,
+                                                    KEY_ENUMERATE_SUB_KEYS,
+                                                and KEY_NOTIFY access.
+    KEY_SET_VALUE                 2  Permission to set subkey data.
+    KEY_WRITE                        Combination of KEY_SET_VALUE and
+                                                    KEY_CREATE_SUB_KEY access.
+ */
 
 //::Close()--------------------------------------------------------------------
 /*The function releases the handle of the specified key.
@@ -101,15 +110,27 @@ if (m_hKey != NULL)
     HKEY_CURRENT_USER
     HKEY_LOCAL_MACHINE
     HKEY_USERS
+    HKEY_PERFORMANCE_DATA
+    HKEY_PERFORMANCE_TEXT
+    HKEY_PERFORMANCE_NLSTEXT
+    HKEY_CURRENT_CONFIG
+    HKEY_DYN_DATA
+
+  The subkey specified must be a subkey of the key identified by the hKey
+  parameter and it can be up to 32 levels deep in the registry tree.
  */
 BOOL CRegistryKey::Create(HKEY hKey,        //Identifies a currently open key
                                             //or any of the predefined
                                             //reserved handle values
-                        LPCTSTR lpszKeyName,//name of subkey to open or NULL
+                        LPCTSTR lpszKeyName,//name of subkey to open and cannot
+                                            //be NULL.
                         REGSAM  samDesired  //desired security access
                          )
 {
 ASSERT(hKey != NULL);
+if ((lpszKeyName == NULL) || (lpszKeyName[0] = _T('\0'))
+  return false; //Subkey parameter cannot be NULL.
+
 DWORD dwDisposition; //a variable that receives one of the following disposition values:
                      //REG_CREATED_NEW_KEY     The key did not exist and was created.
                      //REG_OPENED_EXISTING_KEY The key existed and was simply opened
@@ -117,7 +138,7 @@ DWORD dwDisposition; //a variable that receives one of the following disposition
 
 return (RegCreateKeyEx(hKey,        // handle of an open key
                        lpszKeyName, // address of subkey name
-                       0,           // reserved
+                       _RESERVED_FOR_FUTURE_USE, // reserved
                        REG_NONE,    // address of class string
                        REG_OPTION_NON_VOLATILE, // special options flag
                        samDesired,              // desired security access
@@ -131,16 +152,25 @@ return (RegCreateKeyEx(hKey,        // handle of an open key
 /*The function opens the specified key. If lpszKeyName parameter is NULL or a
   pointer to an empty string, the function initializes m_hKey member to the same
   handle that was passed in.
+  A single registry key can be opened only 65534 times; after that function fails.
+
   Predefined reserved key handle values are:
 
     HKEY_CLASSES_ROOT
     HKEY_CURRENT_USER
     HKEY_LOCAL_MACHINE
     HKEY_USERS
+    HKEY_PERFORMANCE_DATA
+    HKEY_PERFORMANCE_TEXT
+    HKEY_PERFORMANCE_NLSTEXT
+    HKEY_CURRENT_CONFIG
+    HKEY_DYN_DATA
 
   Registry Specific Access Rights         Description (REGSAM WinNT.h)
-    KEY_ALL_ACCESS                     Combination of KEY_QUERY_VALUE, KEY_ENUMERATE_SUB_KEYS,
-                                       KEY_NOTIFY, KEY_CREATE_SUB_KEY, KEY_CREATE_LINK,
+    KEY_ALL_ACCESS                     Combination of KEY_QUERY_VALUE,
+                                       KEY_ENUMERATE_SUB_KEYS,
+                                       KEY_NOTIFY, KEY_CREATE_SUB_KEY,
+                                       KEY_CREATE_LINK,
                                        and KEY_SET_VALUE access.
     KEY_CREATE_LINK                32  Permission to create a symbolic link.
     KEY_CREATE_SUB_KEY              4  Permission to create subkeys.
@@ -148,31 +178,39 @@ return (RegCreateKeyEx(hKey,        // handle of an open key
     KEY_EXECUTE                        Permission for read access.
     KEY_NOTIFY                     16  Permission for change notification.
     KEY_QUERY_VALUE                 1  Permission to query subkey data.
-    KEY_READ                           Combination of KEY_QUERY_VALUE, KEY_ENUMERATE_SUB_KEYS,
+    KEY_READ                           Combination of KEY_QUERY_VALUE,
+                                       KEY_ENUMERATE_SUB_KEYS,
                                        and KEY_NOTIFY access.
     KEY_SET_VALUE                   2  Permission to set subkey data.
-    KEY_WRITE                          Combination of KEY_SET_VALUE and KEY_CREATE_SUB_KEY access.
+    KEY_WRITE                          Combination of KEY_SET_VALUE and
+                                       KEY_CREATE_SUB_KEY access.
 
   Example:
     CRegistryKey regKey;
-    if (regKey.Open(HKEY_LOCAL_MACHINE,_T("SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application"),
-                      KEY_WRITE))
-      {
+    if (regKey.Open(HKEY_LOCAL_MACHINE,
+                    _T("SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application"),
+                    KEY_WRITE))
+     {
       TRACE0(_T("Succes\n"));
       }
 
-
  */
-BOOL CRegistryKey::Open(HKEY hKey,          //Identifies a key to open
+BOOL CRegistryKey::Open(HKEY hKey,          //handle to an open registry key
                                             //or any of the predefined
                                             //reserved handle values
                         LPCTSTR lpszKeyName, //name of subkey to open or NULL.
+                        //If this parameter is NULL or a pointer to an empty
+                        //string, the function will open a new handle to the key
+                        //identified by the hKey parameter.
                         REGSAM  samDesired   //desired security access
 
                         )
 {
 ASSERT(hKey != NULL);
-return (RegOpenKeyEx(hKey, lpszKeyName, 0, samDesired, &m_hKey) == ERROR_SUCCESS);
+//Note: ERROR_NO_SYSTEM_RESOURCES is returned if the key is opened more than
+//65534 times.
+return (RegOpenKeyEx(hKey, lpszKeyName, _RESERVED_FOR_FUTURE_USE,
+                     samDesired, &m_hKey) == ERROR_SUCCESS);
 }
 
 //::SetStringValue()-----------------------------------------------------------
@@ -184,9 +222,9 @@ BOOL CRegistryKey::SetStringValue(LPCTSTR lpszValue,
                                   )
 {
 ASSERT(m_hKey != NULL);
-return (RegSetValueEx(m_hKey, lpszValueName, NULL, REG_SZ,
-                    (BYTE * const)lpszValue,
-                      (lstrlen(lpszValue)+1)*sizeof(TCHAR)) == ERROR_SUCCESS);
+return (RegSetValueEx(m_hKey, lpszValueName, _RESERVED_FOR_FUTURE_USE, REG_SZ,
+                     (BYTE * const)lpszValue,
+                     (lstrlen(lpszValue)+1)*sizeof(TCHAR)) == ERROR_SUCCESS);
 //Note: For data types REG_SZ, REG_EXPAND_SZ, or REG_MULTI_SZ, cbData must include
 //the size of the terminating null character.
 }
@@ -279,7 +317,8 @@ return FALSE;
   Predefined Value Types        VALUE   Description (WinNT.h)
   REG_NONE                        0  No value type
   REG_SZ                          1  Unicode nul terminated string
-  REG_EXPAND_SZ                   2  Unicode nul terminated string(with environment variable references)
+  REG_EXPAND_SZ                   2  Unicode nul terminated string with
+                                     environment variable references
   REG_BINARY                      3  Free form binary
   REG_DWORD                       4  32-bit number
   REG_DWORD_LITTLE_ENDIAN         4  32-bit number (same as REG_DWORD)
@@ -342,7 +381,7 @@ if (lRes == ERROR_SUCCESS)
 return FALSE;
 }
 
-//::GetSetDataData()------------------------------------------------------------------
+//::SetData()------------------------------------------------------------------
 /*Function stores data in the value field of an open registry key.
   Value lengths are limited by available memory. Long values (more than 2048 bytes)
   should be stored as files with the filenames stored in the registry. This helps
@@ -413,7 +452,7 @@ return strDestination;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  12   Biblioteka1.11        2005-05-04 01:27:33  Darko           stdafx
  *  11   Biblioteka1.10        2005-05-03 11:16:09  Darko Kolakovic Unicode build
  *  10   Biblioteka1.9         2005-04-26 11:35:24  Darko Kolakovic Document groups
@@ -426,11 +465,11 @@ return strDestination;
  *       ASSERT
  *  5    Biblioteka1.4         2003-08-09 14:11:16  Darko           formatting
  *  4    Biblioteka1.3         2002-01-29 23:21:42  Darko           Used lbraries
- *       notes 
+ *       notes
  *  3    Biblioteka1.2         2002-01-25 16:57:49  Darko           Updated
  *       comments
  *  2    Biblioteka1.1         2001-08-17 00:37:56  Darko           Update
- *  1    Biblioteka1.0         2001-07-07 01:13:45  Darko           
+ *  1    Biblioteka1.0         2001-07-07 01:13:45  Darko
  * $
  *****************************************************************************/
 

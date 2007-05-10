@@ -1,13 +1,13 @@
 /*$Workfile: KRegKey.h$: header file
-  $Revision: 8$ $Date: 2005-05-04 01:27:19$
-  $Author: Darko$
+  $Revision: 9$ $Date: 2007-05-10 11:12:57$
+  $Author: Darko Kolakovic$
 
   Windows Registry handler
   Copyright: CommonSoft Inc
   Darko Kolakovic May 94
  */
 // Group=Windows
- 
+
 #ifndef _KREGKEY_H_
     //$Workfile: KRegKey.h$ sentry
   #define _KREGKEY_H_
@@ -20,6 +20,10 @@
   #include <winreg.h>
 #endif
 
+#ifndef _RESERVED_FOR_FUTURE_USE
+  //Reserved for the future use
+  #define _RESERVED_FOR_FUTURE_USE 0
+#endif
 /////////////////////////////////////////////////////////////////////////////
 //CRegistryKey handles operations with registry file.
 //
@@ -93,7 +97,7 @@ return dc;
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KREGKEY_H_
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  8    Biblioteka1.7         2005-05-04 01:27:19  Darko           path character
  *       case
  *  7    Biblioteka1.6         2005-04-26 11:35:27  Darko Kolakovic Document groups
@@ -101,10 +105,10 @@ return dc;
  *  6    Biblioteka1.5         2005-03-21 03:16:53  Darko           comments
  *  5    Biblioteka1.4         2003-09-22 22:26:43  Darko           formatting
  *  4    Biblioteka1.3         2002-01-29 23:21:46  Darko           Used lbraries
- *       notes 
+ *       notes
  *  3    Biblioteka1.2         2002-01-24 19:19:23  Darko           Updated
  *       comments
  *  2    Biblioteka1.1         2001-08-17 00:38:00  Darko           Update
- *  1    Biblioteka1.0         2001-07-07 01:13:47  Darko           
+ *  1    Biblioteka1.0         2001-07-07 01:13:47  Darko
  * $
  *****************************************************************************/
