@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWinIni"
 '$Workfile: KWinIni.bas$: implementation file
-'$Revision: 3$ $Date: 2007-04-23 13:22:28$
+'$Revision: 4$ $Date: 2007-05-15 15:47:09$
 '$Author: Darko Kolakovic$
 '
 'Configuration file handler (.INI format)
@@ -322,6 +322,11 @@ Public Function WriteIniValue(szFilename As String, _
   Dim strSectionName As String 'normalized section name
   Dim iSectionNameLen As Integer
   Dim strKeyName As String 'normalized key name
+  
+  If (szFilename = "") Then
+    Err.Raise ERROR_INVALID_DATA, App.Title, "Invalid filename"
+    Exit Function 'Nothing to do
+  End If
   
   hFile = FreeFile
   strSectionName = vbCrLf & "[" & LCase$(strSection) & "]" & Chr$(13)

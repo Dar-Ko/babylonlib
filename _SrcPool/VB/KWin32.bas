@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWin32"
 '$Workfile: KWin32.bas$: implementation file
-'$Revision: 8$ $Date: 2007-05-10 16:59:42$
+'$Revision: 9$ $Date: 2007-05-11 17:26:38$
 '$Author: Darko Kolakovic$
 '
 'Microsoft Windows SDK prototypes
@@ -79,6 +79,24 @@ Public Type GENERIC_MAPPING
   GenericAll      As Long 'ACCESS_MASK
 End Type
 '==============================================================================
+
+'-------------------------------------------------------------------------------
+' Microsoft Windows Data types [Data Structures] WTypes.h , Win32.h
+
+'Security information for a securable object. A security descriptor identifies
+'the object's owner and primary group. It can also contain a DACL that controls
+'access to the object, and a SACL that controls the logging of attempts to access
+'the object.
+Public Type SECURITY_ATTRIBUTES
+  nLength As Long   'size, in bytes, of this structure. Set this value to
+                    'the size of the SECURITY_ATTRIBUTES structure.
+  lpSecurityDescriptor As Long 'security descriptor for the object that
+                               'controls the sharing of it.
+  bInheritHandle As Long 'TRUE specifies whether the returned handle is
+                         'inherited when a new process is created.
+End Type
+'==============================================================================
+
 
 Public Const MAX_COMPUTERNAME_LENGTH = 31
 Public Const MAX_PATH = 260
@@ -300,12 +318,6 @@ Public Type BROWSEINFO
   iImage As Long
 End Type
 
-Public Type SECURITY_ATTRIBUTES
-  nLength As Long
-  lpSecurityDescriptor As Long
-  bInheritHandle As Long
-End Type
-
 Public Type PROCESS_INFORMATION
   hprocess    As Long
   hThread     As Long
@@ -314,29 +326,29 @@ Public Type PROCESS_INFORMATION
 End Type
 
 Public Type PROCESSENTRY32
-  lSize    As Long
-  lUsage     As Long
-  lProcessid   As Long
-  lDefaultHeapId   As Long
-  lModuleId  As Long
-  lThreads   As Long
-  lParentProcessId As Long
-  lPriClassBase  As Long
-  lFlags     As Long
-  sExeFile   As String * MAX_PATH
+  lSize             As Long
+  lUsage            As Long
+  lProcessid        As Long
+  lDefaultHeapId    As Long
+  lModuleId         As Long
+  lThreads          As Long
+  lParentProcessId  As Long
+  lPriClassBase     As Long
+  lFlags            As Long
+  sExeFile          As String * MAX_PATH
 End Type
 
 Public Type PROCESS_MEMORY_COUNTERS
-  cb        As Long
-  PageFaultCount    As Long
-  PeakWorkingSetSize    As Long
-  WorkingSetSize    As Long
-  QuotaPeakPagedPoolUsage   As Long
-  QuotaPagedPoolUsage   As Long
+  cb                          As Long
+  PageFaultCount              As Long
+  PeakWorkingSetSize          As Long
+  WorkingSetSize              As Long
+  QuotaPeakPagedPoolUsage     As Long
+  QuotaPagedPoolUsage         As Long
   QuotaPeakNonPagedPoolUsage  As Long
-  QuotaNonPagedPoolUsage  As Long
-  PagefileUsage     As Long
-  PeakPagefileUsage     As Long
+  QuotaNonPagedPoolUsage      As Long
+  PagefileUsage               As Long
+  PeakPagefileUsage           As Long
 End Type
 
 Public Type APPINFO

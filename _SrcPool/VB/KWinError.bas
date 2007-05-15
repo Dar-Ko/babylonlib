@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWinError"
-'$Workfile: S:\_SrcPool\VB\KWinError.bas$: implementation file
-'$Revision: 1$ $Date: 2007-05-10 11:10:47$
+'$Workfile: KWinError.bas$: implementation file
+'$Revision: 2$ $Date: 2007-05-11 17:28:23$
 '$Author: Darko Kolakovic$
 '
 'WinError.h error code definitions for the Win32 API functions
@@ -539,7 +539,8 @@ Public Const ERROR_NOT_REGISTRY_FILE = 1017
 Public Const ERROR_KEY_DELETED = 1018
 'System could not allocate the required space in a registry log.
 Public Const ERROR_NO_LOG_SPACE = 1019
-'Cannot create a symbolic link in a registry key that already has subkeys or values.
+'Cannot create a symbolic link in a registry key that already has subkeys or
+'values.
 Public Const ERROR_KEY_HAS_CHILDREN = 1020
 'Cannot create a stable subkey under a volatile parent key.
 Public Const ERROR_CHILD_MUST_BE_VOLATILE = 1021
@@ -547,7 +548,8 @@ Public Const ERROR_CHILD_MUST_BE_VOLATILE = 1021
 'returned in the caller's buffer. The caller now needs to enumerate the files
 'to find the changes.
 Public Const ERROR_NOTIFY_ENUM_DIR = 1022
-'A stop control has been sent to a service that other running services are dependent on.
+'A stop control has been sent to a service that other running services are
+'dependent on.
 Public Const ERROR_DEPENDENT_SERVICES_RUNNING = 1051
 'The requested control is not valid for this service.
 Public Const ERROR_INVALID_SERVICE_CONTROL = 1052
@@ -819,7 +821,8 @@ Public Const ERROR_DUP_DOMAINNAME = 1221
 Public Const ERROR_NO_NETWORK = 1222
 'The operation was canceled by the user.
 Public Const ERROR_CANCELLED = 1223
-'The requested operation cannot be performed on a file with a user-mapped section open.
+'The requested operation cannot be performed on a file with a user-mapped
+'section open.
 Public Const ERROR_USER_MAPPED_FILE = 1224
 'The remote system refused the network connection.
 Public Const ERROR_CONNECTION_REFUSED = 1225
@@ -904,7 +907,7 @@ Public Const ERROR_APPHELP_BLOCK = 1259
 'restriction policy. For more information, open Event Viewer or contact your
 'system administrator.
 Public Const ERROR_ACCESS_DISABLED_BY_POLICY = 1260
-'A program attempt to use an invalid register value.  Normally caused by
+'A program attempt to use an invalid register value. Normally caused by
 'an uninitialized register. This error is Itanium specific.
 Public Const ERROR_REG_NAT_CONSUMPTION = 1261
 'The share is currently offline or does not exist.
@@ -963,7 +966,8 @@ Public Const ERROR_DELAY_LOAD_FAILED = 1285
 Public Const ERROR_VDM_DISALLOWED = 1286
 
 '...............................................................................
-'Add new status codes before this point unless there is a component specific section below.
+'Add new status codes before this point unless there is a component specific
+'section below.
 
 '------------------------------------------------------------------------------
 'Security Status Codes
@@ -1028,7 +1032,7 @@ Public Const ERROR_ILL_FORMED_PASSWORD = 1324
 Public Const ERROR_PASSWORD_RESTRICTION = 1325
 'Logon failure: unknown user name or bad password.
 Public Const ERROR_LOGON_FAILURE = 1326
-'Logon failure: user account restriction.  Possible reasons are blank passwords
+'Logon failure: user account restriction. Possible reasons are blank passwords
 'not allowed, logon hour restrictions, or a policy restriction has been enforced.
 Public Const ERROR_ACCOUNT_RESTRICTION = 1327
 'Logon failure: account logon time restriction violation.
@@ -1067,7 +1071,8 @@ Public Const ERROR_ALLOTTED_SPACE_EXCEEDED = 1344
 'The specified attributes are invalid, or incompatible with the attributes for
 'the group as a whole.
 Public Const ERROR_INVALID_GROUP_ATTRIBUTES = 1345
-'Either a required impersonation level was not provided, or the provided impersonation level is invalid.
+'Either a required impersonation level was not provided, or the provided
+'impersonation level is invalid.
 Public Const ERROR_BAD_IMPERSONATION_LEVEL = 1346
 'Cannot open an anonymous level security token.
 Public Const ERROR_CANT_OPEN_ANONYMOUS = 1347
@@ -1077,9 +1082,11 @@ Public Const ERROR_BAD_VALIDATION_CLASS = 1348
 Public Const ERROR_BAD_TOKEN_TYPE = 1349
 'Unable to perform a security operation on an object that has no associated security.
 Public Const ERROR_NO_SECURITY_ON_OBJECT = 1350
-'Configuration information could not be read from the domain controller, either because the machine is unavailable, or access has been denied.
+'Configuration information could not be read from the domain controller, either
+'because the machine is unavailable, or access has been denied.
 Public Const ERROR_CANT_ACCESS_DOMAIN_INFO = 1351
-'The security account manager (SAM) or local security authority (LSA) server was in the wrong state to perform the security operation.
+'The security account manager (SAM) or local security authority (LSA) server was
+'in the wrong state to perform the security operation.
 Public Const ERROR_INVALID_SERVER_STATE = 1352
 'The domain was in the wrong state to perform the security operation.
 Public Const ERROR_INVALID_DOMAIN_STATE = 1353
@@ -1091,21 +1098,25 @@ Public Const ERROR_NO_SUCH_DOMAIN = 1355
 Public Const ERROR_DOMAIN_EXISTS = 1356
 'An attempt was made to exceed the limit on the number of domains per server.
 Public Const ERROR_DOMAIN_LIMIT_EXCEEDED = 1357
-'Unable to complete the requested operation because of either a catastrophic media failure or a data structure corruption on the disk.
+'Unable to complete the requested operation because of either a catastrophic
+'media failure or a data structure corruption on the disk.
 Public Const ERROR_INTERNAL_DB_CORRUPTION = 1358
 'An internal error occurred.
 Public Const ERROR_INTERNAL_ERROR = 1359
-'Generic access types were contained in an access mask which should already be mapped to nongeneric types.
+'Generic access types were contained in an access mask which should already be
+'mapped to nongeneric types.
 Public Const ERROR_GENERIC_NOT_MAPPED = 1360
 'A security descriptor is not in the right format (absolute or self-relative).
 Public Const ERROR_BAD_DESCRIPTOR_FORMAT = 1361
-'The requested action is restricted for use by logon processes only. The calling process has not registered as a logon process.
+'The requested action is restricted for use by logon processes only.
+'The calling process has not registered as a logon process.
 Public Const ERROR_NOT_LOGON_PROCESS = 1362
 'Cannot start a new logon session with an ID that is already in use.
 Public Const ERROR_LOGON_SESSION_EXISTS = 1363
 'A specified authentication package is unknown.
 Public Const ERROR_NO_SUCH_PACKAGE = 1364
-'The logon session is not in a state that is consistent with the requested operation.
+'The logon session is not in a state that is consistent with the requested
+'operation.
 Public Const ERROR_BAD_LOGON_SESSION_STATE = 1365
 'The logon session ID is already in use.
 Public Const ERROR_LOGON_SESSION_COLLISION = 1366
@@ -1113,7 +1124,8 @@ Public Const ERROR_LOGON_SESSION_COLLISION = 1366
 Public Const ERROR_INVALID_LOGON_TYPE = 1367
 'Unable to impersonate using a named pipe until data has been read from that pipe.
 Public Const ERROR_CANNOT_IMPERSONATE = 1368
-'The transaction state of a registry subtree is incompatible with the requested operation.
+'The transaction state of a registry subtree is incompatible with the requested
+'operation.
 Public Const ERROR_RXACT_INVALID_STATE = 1369
 'An internal security database corruption has been encountered.
 Public Const ERROR_RXACT_COMMIT_FAILURE = 1370
@@ -1123,7 +1135,8 @@ Public Const ERROR_SPECIAL_ACCOUNT = 1371
 Public Const ERROR_SPECIAL_GROUP = 1372
 'Cannot perform this operation on this built-in special user.
 Public Const ERROR_SPECIAL_USER = 1373
-'The user cannot be removed from a group because the group is currently the user's primary group.
+'The user cannot be removed from a group because the group is currently
+'the user's primary group.
 Public Const ERROR_MEMBERS_PRIMARY_GROUP = 1374
 'The token is already in use as a primary token.
 Public Const ERROR_TOKEN_ALREADY_IN_USE = 1375
@@ -1135,23 +1148,29 @@ Public Const ERROR_MEMBER_NOT_IN_ALIAS = 1377
 Public Const ERROR_MEMBER_IN_ALIAS = 1378
 'The specified local group already exists.
 Public Const ERROR_ALIAS_EXISTS = 1379
-'Logon failure: the user has not been granted the requested logon type at this computer.
+'Logon failure: the user has not been granted the requested logon type at this
+'computer.
 Public Const ERROR_LOGON_NOT_GRANTED = 1380
-'The maximum number of secrets that may be stored in a single system has been exceeded.
+'The maximum number of secrets that may be stored in a single system has been
+'exceeded.
 Public Const ERROR_TOO_MANY_SECRETS = 1381
 'The length of a secret exceeds the maximum length allowed.
 Public Const ERROR_SECRET_TOO_LONG = 1382
 'The local security authority database contains an internal inconsistency.
 Public Const ERROR_INTERNAL_DB_ERROR = 1383
-'During a logon attempt, the user's security context accumulated too many security IDs.
+'During a logon attempt, the user's security context accumulated too many
+'security IDs.
 Public Const ERROR_TOO_MANY_CONTEXT_IDS = 1384
-'Logon failure: the user has not been granted the requested logon type at this computer.
+'Logon failure: the user has not been granted the requested logon type at this
+'computer.
 Public Const ERROR_LOGON_TYPE_NOT_GRANTED = 1385
 'A cross-encrypted password is necessary to change a user password.
 Public Const ERROR_NT_CROSS_ENCRYPTION_REQUIRED = 1386
-'A member could not be added to or removed from the local group because the member does not exist.
+'A member could not be added to or removed from the local group because
+'the member does not exist.
 Public Const ERROR_NO_SUCH_MEMBER = 1387
-'A new member could not be added to a local group because the member has the wrong account type.
+'A new member could not be added to a local group because the member has
+'the wrong account type.
 Public Const ERROR_INVALID_MEMBER = 1388
 'Too many security IDs have been specified.
 Public Const ERROR_TOO_MANY_SIDS = 1389
@@ -1171,7 +1190,8 @@ Public Const ERROR_NO_USER_SESSION_KEY = 1394
 Public Const ERROR_LICENSE_QUOTA_EXCEEDED = 1395
 'Logon Failure: The target account name is incorrect.
 Public Const ERROR_WRONG_TARGET_NAME = 1396
-'Mutual Authentication failed. The server's password is out of date at the domain controller.
+'Mutual Authentication failed. The server's password is out of date at
+'the domain controller.
 Public Const ERROR_MUTUAL_AUTH_FAILED = 1397
 'There is a time and/or date difference between the client and server.
 Public Const ERROR_TIME_SKEW = 1398
@@ -1264,7 +1284,8 @@ Public Const ERROR_INVALID_MSGBOX_STYLE = 1438
 Public Const ERROR_INVALID_SPI_VALUE = 1439
 'Screen already locked.
 Public Const ERROR_SCREEN_ALREADY_LOCKED = 1440
-'All handles to windows in a multiple-window position structure must have the same parent.
+'All handles to windows in a multiple-window position structure must have
+'the same parent.
 Public Const ERROR_HWNDS_HAVE_DIFF_PARENT = 1441
 'The window is not a child window.
 Public Const ERROR_NOT_CHILD_WINDOW = 1442
@@ -1272,7 +1293,8 @@ Public Const ERROR_NOT_CHILD_WINDOW = 1442
 Public Const ERROR_INVALID_GW_COMMAND = 1443
 'Invalid thread identifier.
 Public Const ERROR_INVALID_THREAD_ID = 1444
-'Cannot process a message from a window that is not a multiple document interface (MDI) window.
+'Cannot process a message from a window that is not a multiple document
+'interface (MDI) window.
 Public Const ERROR_NON_MDICHILD_WINDOW = 1445
 'Popup menu already active.
 Public Const ERROR_POPUP_ALREADY_ACTIVE = 1446
@@ -1344,13 +1366,16 @@ Public Const ERROR_UNKNOWN_COMPONENT = 1607
 Public Const ERROR_UNKNOWN_PROPERTY = 1608
 'Handle is in an invalid state.
 Public Const ERROR_INVALID_HANDLE_STATE = 1609
-'The configuration data for this product is corrupt.  Contact your support personnel.
+'The configuration data for this product is corrupt. Contact your support personnel.
 Public Const ERROR_BAD_CONFIGURATION = 1610
 'Component qualifier not present.
 Public Const ERROR_INDEX_ABSENT = 1611
-'The installation source for this product is not available.  Verify that the source exists and that you can access it.
+'The installation source for this product is not available. Verify that
+'the source exists and that you can access it.
 Public Const ERROR_INSTALL_SOURCE_ABSENT = 1612
-'This installation package cannot be installed by the Windows Installer service.  You must install a Windows service pack that contains a newer version of the Windows Installer service.
+'This installation package cannot be installed by the Windows Installer service.
+'You must install a Windows service pack that contains a newer version of
+'the Windows Installer service.
 Public Const ERROR_INSTALL_PACKAGE_VERSION = 1613
 'Product is uninstalled.
 Public Const ERROR_PRODUCT_UNINSTALLED = 1614
@@ -1360,21 +1385,27 @@ Public Const ERROR_BAD_QUERY_SYNTAX = 1615
 Public Const ERROR_INVALID_FIELD = 1616
 'The device has been removed.
 Public Const ERROR_DEVICE_REMOVED = 1617
-'Another installation is already in progress.  Complete that installation before proceeding with this install.
+'Another installation is already in progress. Complete that installation before
+'proceeding with this install.
 Public Const ERROR_INSTALL_ALREADY_RUNNING = 1618
-'This installation package could not be opened.  Verify that the package exists and that you can access it, or contact the application vendor to verify that this is a valid Windows Installer package.
+'This installation package could not be opened. Verify that the package exists
+'and that you can access it, or contact the application vendor to verify that
+'this is a valid Windows Installer package.
 Public Const ERROR_INSTALL_PACKAGE_OPEN_FAILED = 1619
-'This installation package could not be opened.  Contact the application vendor to verify that this is a valid Windows Installer package.
+'This installation package could not be opened. Contact the application vendor
+'to verify that this is a valid Windows Installer package.
 Public Const ERROR_INSTALL_PACKAGE_INVALID = 1620
-'There was an error starting the Windows Installer service user interface.  Contact your support personnel.
+'There was an error starting the Windows Installer service user interface.
+'Contact your support personnel.
 Public Const ERROR_INSTALL_UI_FAILURE = 1621
-'Error opening installation log file. Verify that the specified log file location exists and that you can write to it.
+'Error opening installation log file. Verify that the specified log file
+'location exists and that you can write to it.
 Public Const ERROR_INSTALL_LOG_FAILURE = 1622
 'The language of this installation package is not supported by your system.
 Public Const ERROR_INSTALL_LANGUAGE_UNSUPPORTED = 1623
-'Error applying transforms.  Verify that the specified transform paths are valid.
+'Error applying transforms. Verify that the specified transform paths are valid.
 Public Const ERROR_INSTALL_TRANSFORM_FAILURE = 1624
-'This installation is forbidden by system policy.  Contact your system administrator.
+'This installation is forbidden by system policy. Contact your system administrator.
 Public Const ERROR_INSTALL_PACKAGE_REJECTED = 1625
 'Function could not be executed.
 Public Const ERROR_FUNCTION_NOT_CALLED = 1626
@@ -1386,36 +1417,52 @@ Public Const ERROR_INVALID_TABLE = 1628
 Public Const ERROR_DATATYPE_MISMATCH = 1629
 'Data of this type is not supported.
 Public Const ERROR_UNSUPPORTED_TYPE = 1630
-'The Windows Installer service failed to start.  Contact your support personnel.
+'The Windows Installer service failed to start. Contact your support personnel.
 Public Const ERROR_CREATE_FAILED = 1631
-'The Temp folder is on a drive that is full or is inaccessible. Free up space on the drive or verify that you have write permission on the Temp folder.
+'The Temp folder is on a drive that is full or is inaccessible. Free up space
+'on the drive or verify that you have write permission on the Temp folder.
 Public Const ERROR_INSTALL_TEMP_UNWRITABLE = 1632
-'This installation package is not supported by this processor type. Contact your product vendor.
+'This installation package is not supported by this processor type. Contact your
+'product vendor.
 Public Const ERROR_INSTALL_PLATFORM_UNSUPPORTED = 1633
 'Component not used on this computer.
 Public Const ERROR_INSTALL_NOTUSED = 1634
-'This patch package could not be opened.  Verify that the patch package exists and that you can access it, or contact the application vendor to verify that this is a valid Windows Installer patch package.
+'This patch package could not be opened. Verify that the patch package exists
+'and that you can access it, or contact the application vendor to verify that
+'this is a valid Windows Installer patch package.
 Public Const ERROR_PATCH_PACKAGE_OPEN_FAILED = 1635
-'This patch package could not be opened.  Contact the application vendor to verify that this is a valid Windows Installer patch package.
+'This patch package could not be opened. Contact the application vendor to
+'verify that this is a valid Windows Installer patch package.
 Public Const ERROR_PATCH_PACKAGE_INVALID = 1636
-'This patch package cannot be processed by the Windows Installer service.  You must install a Windows service pack that contains a newer version of the Windows Installer service.
+'This patch package cannot be processed by the Windows Installer service.
+'You must install a Windows service pack that contains a newer version of
+'the Windows Installer service.
 Public Const ERROR_PATCH_PACKAGE_UNSUPPORTED = 1637
-'Another version of this product is already installed.  Installation of this version cannot continue.  To configure or remove the existing version of this product, use Add/Remove Programs on the Control Panel.
+'Another version of this product is already installed. Installation of this
+'version cannot continue. To configure or remove the existing version of this
+'product, use Add/Remove Programs on the Control Panel.
 Public Const ERROR_PRODUCT_VERSION = 1638
-'Invalid command line argument.  Consult the Windows Installer SDK for detailed command line help.
+'Invalid command line argument. Consult the Windows Installer SDK for detailed
+'command line help.
 Public Const ERROR_INVALID_COMMAND_LINE = 1639
-'Only administrators have permission to add, remove, or configure server software during a Terminal services remote session. If you want to install or configure software on the server, contact your network administrator.
+'Only administrators have permission to add, remove, or configure server
+'software during a Terminal services remote session. If you want to install or
+'configure software on the server, contact your network administrator.
 Public Const ERROR_INSTALL_REMOTE_DISALLOWED = 1640
-'The requested operation completed successfully.  The system will be restarted so the changes can take effect.
+'The requested operation completed successfully. The system will be restarted
+'so the changes can take effect.
 Public Const ERROR_SUCCESS_REBOOT_INITIATED = 1641
-'The upgrade patch cannot be installed by the Windows Installer service because the program to be upgraded may be missing, or the upgrade patch may update a different version of the program. Verify that the program to be upgraded exists on your computer an
-'d that you have the correct upgrade patch.
+'The upgrade patch cannot be installed by the Windows Installer service because
+'the program to be upgraded may be missing, or the upgrade patch may update
+'a different version of the program. Verify that the program to be upgraded
+'exists on your computer and that you have the correct upgrade patch.
 Public Const ERROR_PATCH_TARGET_NOT_FOUND = 1642
 'The patch package is not permitted by software restriction policy.
 Public Const ERROR_PATCH_PACKAGE_REJECTED = 1643
 'One or more customizations are not permitted by software restriction policy.
 Public Const ERROR_INSTALL_TRANSFORM_REJECTED = 1644
-'The Windows Installer does not permit installation from a Remote Desktop Connection.
+'The Windows Installer does not permit installation from
+'a Remote Desktop Connection.
 Public Const ERROR_INSTALL_REMOTE_PROHIBITED = 1645
 
 'End of MSI error codes
@@ -1494,7 +1541,8 @@ Public Const RPC_S_NO_ENTRY_NAME = 1735
 Public Const RPC_S_INVALID_NAME_SYNTAX = 1736
 'The name syntax is not supported.
 Public Const RPC_S_UNSUPPORTED_NAME_SYNTAX = 1737
-'No network address is available to use to construct a universal unique identifier (UUID).
+'No network address is available to use to construct a universal unique
+'identifier (UUID).
 Public Const RPC_S_UUID_NO_ADDRESS = 1739
 'The endpoint is a duplicate.
 Public Const RPC_S_DUPLICATE_ENDPOINT = 1740
@@ -1560,13 +1608,15 @@ Public Const RPC_S_FP_DIV_ZERO = 1769
 Public Const RPC_S_FP_UNDERFLOW = 1770
 'A floating-point overflow occurred at the RPC server.
 Public Const RPC_S_FP_OVERFLOW = 1771
-'The list of RPC servers available for the binding of auto handles has been exhausted.
+'The list of RPC servers available for the binding of auto handles has been
+'exhausted.
 Public Const RPC_X_NO_MORE_ENTRIES = 1772
 'Unable to open the character translation table file.
 Public Const RPC_X_SS_CHAR_TRANS_OPEN_FAIL = 1773
 'The file containing the character translation table has fewer than 512 bytes.
 Public Const RPC_X_SS_CHAR_TRANS_SHORT_FILE = 1774
-'A null context handle was passed from the client to the host during a remote procedure call.
+'A null context handle was passed from the client to the host during a
+'remote procedure call.
 Public Const RPC_X_SS_IN_NULL_CONTEXT = 1775
 'The context handle changed during a remote procedure call.
 Public Const RPC_X_SS_CONTEXT_DAMAGED = 1777
@@ -1588,7 +1638,8 @@ Public Const ERROR_INVALID_USER_BUFFER = 1784
 Public Const ERROR_UNRECOGNIZED_MEDIA = 1785
 'The workstation does not have a trust secret.
 Public Const ERROR_NO_TRUST_LSA_SECRET = 1786
-'The security database on the server does not have a computer account for this workstation trust relationship.
+'The security database on the server does not have a computer account for this
+'workstation trust relationship.
 Public Const ERROR_NO_TRUST_SAM_ACCOUNT = 1787
 'The trust relationship between the primary domain and the trusted domain failed.
 Public Const ERROR_TRUSTED_DOMAIN_FAILURE = 1788
@@ -1628,13 +1679,17 @@ Public Const ERROR_INVALID_DATATYPE = 1804
 Public Const ERROR_INVALID_ENVIRONMENT = 1805
 'There are no more bindings.
 Public Const RPC_S_NO_MORE_BINDINGS = 1806
-'The account used is an interdomain trust account. Use your global user account or local user account to access this server.
+'The account used is an interdomain trust account. Use your global user account
+'or local user account to access this server.
 Public Const ERROR_NOLOGON_INTERDOMAIN_TRUST_ACCOUNT = 1807
-'The account used is a computer account. Use your global user account or local user account to access this server.
+'The account used is a computer account. Use your global user account or
+'local user account to access this server.
 Public Const ERROR_NOLOGON_WORKSTATION_TRUST_ACCOUNT = 1808
-'The account used is a server trust account. Use your global user account or local user account to access this server.
+'The account used is a server trust account. Use your global user account or
+'local user account to access this server.
 Public Const ERROR_NOLOGON_SERVER_TRUST_ACCOUNT = 1809
-'The name or security ID (SID) of the domain specified is inconsistent with the trust information for that domain.
+'The name or security ID (SID) of the domain specified is inconsistent with
+'the trust information for that domain.
 Public Const ERROR_DOMAIN_TRUST_INCONSISTENT = 1810
 'The server is in use and cannot be unloaded.
 Public Const ERROR_SERVER_HAS_OPEN_HANDLES = 1811
@@ -1744,7 +1799,8 @@ Public Const RPC_S_PRF_ELT_NOT_REMOVED = 1927
 Public Const RPC_S_GRP_ELT_NOT_ADDED = 1928
 'The group element could not be removed.
 Public Const RPC_S_GRP_ELT_NOT_REMOVED = 1929
-'The printer driver is not compatible with a policy enabled on your computer that blocks NT 4.0 drivers.
+'The printer driver is not compatible with a policy enabled on your computer
+'that blocks NT 4.0 drivers.
 Public Const ERROR_KM_DRIVER_BLOCKED = 1930
 'The context has expired and can no longer be used.
 Public Const ERROR_CONTEXT_EXPIRED = 1931
@@ -1754,9 +1810,12 @@ Public Const ERROR_PER_USER_TRUST_QUOTA_EXCEEDED = 1932
 Public Const ERROR_ALL_USER_TRUST_QUOTA_EXCEEDED = 1933
 'The current user's delegated trust deletion quota has been exceeded.
 Public Const ERROR_USER_DELETE_TRUST_QUOTA_EXCEEDED = 1934
-'Logon Failure: The machine you are logging onto is protected by an authentication firewall.  The specified account is not allowed to authenticate to the machine.
+'Logon Failure: The machine you are logging onto is protected by
+'an authentication firewall. The specified account is not allowed to
+'authenticate to the machine.
 Public Const ERROR_AUTHENTICATION_FIREWALL_FAILED = 1935
-'Remote connections to the Print Spooler are blocked by a policy set on your machine.
+'Remote connections to the Print Spooler are blocked by a policy set on your
+'machine.
 Public Const ERROR_REMOTE_PRINT_CONNECTIONS_BLOCKED = 1936
 
 '------------------------------------------------------------------------------
@@ -1850,9 +1909,11 @@ Public Const ERROR_INVALID_PRINT_MONITOR = 3007
 Public Const ERROR_PRINT_MONITOR_IN_USE = 3008
 'The requested operation is not allowed when there are jobs queued to the printer.
 Public Const ERROR_PRINTER_HAS_JOBS_QUEUED = 3009
-'The requested operation is successful. Changes will not be effective until the system is rebooted.
+'The requested operation is successful. Changes will not be effective until
+'the system is rebooted.
 Public Const ERROR_SUCCESS_REBOOT_REQUIRED = 3010
-'The requested operation is successful. Changes will not be effective until the service is restarted.
+'The requested operation is successful. Changes will not be effective until
+'the service is restarted.
 Public Const ERROR_SUCCESS_RESTART_REQUIRED = 3011
 'No printers were found.
 Public Const ERROR_PRINTER_NOT_FOUND = 3012
@@ -1861,7 +1922,9 @@ Public Const ERROR_PRINTER_DRIVER_WARNED = 3013
 'The printer driver is known to harm the system.
 Public Const ERROR_PRINTER_DRIVER_BLOCKED = 3014
 
-''''''''''''''''''                              '   Wins Error Codes           '                              '''''''''''''''''
+''''''''''''''''''
+''   Wins Error Codes
+''                              '''''''''''''''''
 
 'WINS encountered an error while processing the command.
 Public Const ERROR_WINS_INTERNAL = 4000
@@ -1878,12 +1941,18 @@ Public Const ERROR_REC_NON_EXISTENT = 4005
 'Replication with a nonconfigured partner is not allowed.
 Public Const ERROR_RPL_NOT_ALLOWED = 4006
 
-''''''''''''''''''                              '   DHCP Error Codes           '                              '''''''''''''''''
+''''''''''''''''''
+''   DHCP Error Codes
+''                              '''''''''''''''''
 
-'The DHCP client has obtained an IP address that is already in use on the network. The local interface will be disabled until the DHCP client can obtain a new address.
+'The DHCP client has obtained an IP address that is already in use on the network.
+'The local interface will be disabled until the DHCP client can obtain a
+'new address.
 Public Const ERROR_DHCP_ADDRESS_CONFLICT = 4100
 
-''''''''''''''''''                              '   WMI Error Codes            '                              '''''''''''''''''
+''''''''''''''''''
+''   WMI Error Codes
+'                              '''''''''''''''''
 
 'The GUID passed was not recognized as valid by a WMI data provider.
 Public Const ERROR_WMI_GUID_NOT_FOUND = 4200
@@ -1927,7 +1996,8 @@ Public Const ERROR_INVALID_LIBRARY = 4301
 Public Const ERROR_INVALID_MEDIA_POOL = 4302
 'The drive and medium are not compatible or exist in different libraries.
 Public Const ERROR_DRIVE_MEDIA_MISMATCH = 4303
-'The medium currently exists in an offline library and must be online to perform this operation.
+'The medium currently exists in an offline library and must be online to
+'perform this operation.
 Public Const ERROR_MEDIA_OFFLINE = 4304
 'The operation cannot be performed on an offline library.
 Public Const ERROR_LIBRARY_OFFLINE = 4305
@@ -1963,7 +2033,7 @@ Public Const ERROR_DEVICE_NOT_AVAILABLE = 4319
 Public Const ERROR_REQUEST_REFUSED = 4320
 'The drive identifier does not represent a valid drive.
 Public Const ERROR_INVALID_DRIVE_OBJECT = 4321
-'Library is full.  No slot is available for use.
+'Library is full. No slot is available for use.
 Public Const ERROR_LIBRARY_FULL = 4322
 'The transport cannot access the medium.
 Public Const ERROR_MEDIUM_NOT_ACCESSIBLE = 4323
@@ -1995,9 +2065,11 @@ Public Const ERROR_CANT_DELETE_LAST_ITEM = 4335
 Public Const ERROR_MESSAGE_EXCEEDS_MAX_SIZE = 4336
 'The volume contains system or paging files.
 Public Const ERROR_VOLUME_CONTAINS_SYS_FILES = 4337
-'The media type cannot be removed from this library since at least one drive in the library reports it can support this media type.
+'The media type cannot be removed from this library since at least one drive
+'in the library reports it can support this media type.
 Public Const ERROR_INDIGENOUS_TYPE = 4338
-'This offline media cannot be mounted on this system since no enabled drives are present which can be used.
+'This offline media cannot be mounted on this system since no enabled drives
+'are present which can be used.
 Public Const ERROR_NO_SUPPORTING_DRIVES = 4339
 'A cleaner cartridge is present in the tape library.
 Public Const ERROR_CLEANER_CARTRIDGE_INSTALLED = 4340
@@ -2017,14 +2089,15 @@ Public Const ERROR_REMOTE_STORAGE_MEDIA_ERROR = 4352
 
 'The file or directory is not a reparse point.
 Public Const ERROR_NOT_A_REPARSE_POINT = 4390
-'The reparse point attribute cannot be set because it conflicts with an existing attribute.
+'The reparse point attribute cannot be set because it conflicts with an existing
+'attribute.
 Public Const ERROR_REPARSE_ATTRIBUTE_CONFLICT = 4391
 'The data present in the reparse point buffer is invalid.
 Public Const ERROR_INVALID_REPARSE_DATA = 4392
 'The tag present in the reparse point buffer is invalid.
 Public Const ERROR_REPARSE_TAG_INVALID = 4393
-'There is a mismatch between the tag specified in the request and the tag present in the reparse point.
-'
+'There is a mismatch between the tag specified in the request and the tag
+'present in the reparse point.
 Public Const ERROR_REPARSE_TAG_MISMATCH = 4394
 
 '------------------------------------------------------------------------------
@@ -2036,11 +2109,13 @@ Public Const ERROR_VOLUME_NOT_SIS_ENABLED = 4500
 '------------------------------------------------------------------------------
 '   Cluster Error Codes
 
-'The cluster resource cannot be moved to another group because other resources are dependent on it.
+'The cluster resource cannot be moved to another group because other resources
+'are dependent on it.
 Public Const ERROR_DEPENDENT_RESOURCE_EXISTS = 5001
 'The cluster resource dependency cannot be found.
 Public Const ERROR_DEPENDENCY_NOT_FOUND = 5002
-'The cluster resource cannot be made dependent on the specified resource because it is already dependent.
+'The cluster resource cannot be made dependent on the specified resource
+'because it is already dependent.
 Public Const ERROR_DEPENDENCY_ALREADY_EXISTS = 5003
 'The cluster resource is not online.
 Public Const ERROR_RESOURCE_NOT_ONLINE = 5004
@@ -2052,7 +2127,8 @@ Public Const ERROR_RESOURCE_NOT_AVAILABLE = 5006
 Public Const ERROR_RESOURCE_NOT_FOUND = 5007
 'The cluster is being shut down.
 Public Const ERROR_SHUTDOWN_CLUSTER = 5008
-'A cluster node cannot be evicted from the cluster unless the node is down or it is the last node.
+'A cluster node cannot be evicted from the cluster unless the node is down
+'or it is the last node.
 Public Const ERROR_CANT_EVICT_ACTIVE_NODE = 5009
 'The object already exists.
 Public Const ERROR_OBJECT_ALREADY_EXISTS = 5010
@@ -2074,17 +2150,22 @@ Public Const ERROR_RESMON_CREATE_FAILED = 5017
 Public Const ERROR_RESMON_ONLINE_FAILED = 5018
 'The operation could not be completed because the cluster resource is online.
 Public Const ERROR_RESOURCE_ONLINE = 5019
-'The cluster resource could not be deleted or brought offline because it is the quorum resource.
+'The cluster resource could not be deleted or brought offline because it is the
+'quorum resource.
 Public Const ERROR_QUORUM_RESOURCE = 5020
-'The cluster could not make the specified resource a quorum resource because it is not capable of being a quorum resource.
+'The cluster could not make the specified resource a quorum resource because it
+'is not capable of being a quorum resource.
 Public Const ERROR_NOT_QUORUM_CAPABLE = 5021
 'The cluster software is shutting down.
 Public Const ERROR_CLUSTER_SHUTTING_DOWN = 5022
-'The group or resource is not in the correct state to perform the requested operation.
+'The group or resource is not in the correct state to perform the requested
+'operation.
 Public Const ERROR_INVALID_STATE = 5023
-'The properties were stored but not all changes will take effect until the next time the resource is brought online.
+'The properties were stored but not all changes will take effect until the next
+'time the resource is brought online.
 Public Const ERROR_RESOURCE_PROPERTIES_STORED = 5024
-'The cluster could not make the specified resource a quorum resource because it does not belong to a shared storage class.
+'The cluster could not make the specified resource a quorum resource because it
+'does not belong to a shared storage class.
 Public Const ERROR_NOT_QUORUM_CLASS = 5025
 'The cluster resource could not be deleted since it is a core resource.
 Public Const ERROR_CORE_RESOURCE = 5026
@@ -2094,7 +2175,8 @@ Public Const ERROR_QUORUM_RESOURCE_ONLINE_FAILED = 5027
 Public Const ERROR_QUORUMLOG_OPEN_FAILED = 5028
 'The cluster log is corrupt.
 Public Const ERROR_CLUSTERLOG_CORRUPT = 5029
-'The record could not be written to the cluster log since it exceeds the maximum size.
+'The record could not be written to the cluster log since it exceeds the maximum
+'size.
 Public Const ERROR_CLUSTERLOG_RECORD_EXCEEDS_MAXSIZE = 5030
 'The cluster log exceeds its maximum size.
 Public Const ERROR_CLUSTERLOG_EXCEEDS_MAXSIZE = 5031
@@ -2102,7 +2184,8 @@ Public Const ERROR_CLUSTERLOG_EXCEEDS_MAXSIZE = 5031
 Public Const ERROR_CLUSTERLOG_CHKPOINT_NOT_FOUND = 5032
 'The minimum required disk space needed for logging is not available.
 Public Const ERROR_CLUSTERLOG_NOT_ENOUGH_SPACE = 5033
-'The cluster node failed to take control of the quorum resource because the resource is owned by another active node.
+'The cluster node failed to take control of the quorum resource because
+'the resource is owned by another active node.
 Public Const ERROR_QUORUM_OWNER_ALIVE = 5034
 'A cluster network is not available for this operation.
 Public Const ERROR_NETWORK_NOT_AVAILABLE = 5035
@@ -2164,17 +2247,23 @@ Public Const ERROR_CLUSTER_NETWORK_ALREADY_ONLINE = 5063
 Public Const ERROR_CLUSTER_NETWORK_ALREADY_OFFLINE = 5064
 'The cluster node is already a member of the cluster.
 Public Const ERROR_CLUSTER_NODE_ALREADY_MEMBER = 5065
-'The cluster network is the only one configured for internal cluster communication between two or more active cluster nodes. The internal communication capability cannot be removed from the network.
+'The cluster network is the only one configured for internal cluster
+'communication between two or more active cluster nodes.
+'The internal communication capability cannot be removed from the network.
 Public Const ERROR_CLUSTER_LAST_INTERNAL_NETWORK = 5066
-'One or more cluster resources depend on the network to provide service to clients. The client access capability cannot be removed from the network.
+'One or more cluster resources depend on the network to provide service
+'to clients. The client access capability cannot be removed from the network.
 Public Const ERROR_CLUSTER_NETWORK_HAS_DEPENDENTS = 5067
-'This operation cannot be performed on the cluster resource as it the quorum resource. You may not bring the quorum resource offline or modify its possible owners list.
+'This operation cannot be performed on the cluster resource as it
+'the quorum resource. You may not bring the quorum resource offline or
+'modify its possible owners list.
 Public Const ERROR_INVALID_OPERATION_ON_QUORUM = 5068
 'The cluster quorum resource is not allowed to have any dependencies.
 Public Const ERROR_DEPENDENCY_NOT_ALLOWED = 5069
 'The cluster node is paused.
 Public Const ERROR_CLUSTER_NODE_PAUSED = 5070
-'The cluster resource cannot be brought online. The owner node cannot run this resource.
+'The cluster resource cannot be brought online. The owner node cannot run
+'this resource.
 Public Const ERROR_NODE_CANT_HOST_RESOURCE = 5071
 'The cluster node is not ready to perform the requested operation.
 Public Const ERROR_CLUSTER_NODE_NOT_READY = 5072
@@ -2182,25 +2271,35 @@ Public Const ERROR_CLUSTER_NODE_NOT_READY = 5072
 Public Const ERROR_CLUSTER_NODE_SHUTTING_DOWN = 5073
 'The cluster join operation was aborted.
 Public Const ERROR_CLUSTER_JOIN_ABORTED = 5074
-'The cluster join operation failed due to incompatible software versions between the joining node and its sponsor.
+'The cluster join operation failed due to incompatible software versions
+'between the joining node and its sponsor.
 Public Const ERROR_CLUSTER_INCOMPATIBLE_VERSIONS = 5075
-'This resource cannot be created because the cluster has reached the limit on the number of resources it can monitor.
+'This resource cannot be created because the cluster has reached the limit
+'on the number of resources it can monitor.
 Public Const ERROR_CLUSTER_MAXNUM_OF_RESOURCES_EXCEEDED = 5076
-'The system configuration changed during the cluster join or form operation. The join or form operation was aborted.
+'The system configuration changed during the cluster join or form operation.
+'The join or form operation was aborted.
 Public Const ERROR_CLUSTER_SYSTEM_CONFIG_CHANGED = 5077
 'The specified resource type was not found.
 Public Const ERROR_CLUSTER_RESOURCE_TYPE_NOT_FOUND = 5078
-'The specified node does not support a resource of this type.  This may be due to version inconsistencies or due to the absence of the resource DLL on this node.
+'The specified node does not support a resource of this type. This may be due t
+'o version inconsistencies or due to the absence of the resource DLL on this node.
 Public Const ERROR_CLUSTER_RESTYPE_NOT_SUPPORTED = 5079
-'The specified resource name is not supported by this resource DLL. This may be due to a bad (or changed) name supplied to the resource DLL.
+'The specified resource name is not supported by this resource DLL.
+'This may be due to a bad (or changed) name supplied to the resource DLL.
 Public Const ERROR_CLUSTER_RESNAME_NOT_FOUND = 5080
 'No authentication package could be registered with the RPC server.
 Public Const ERROR_CLUSTER_NO_RPC_PACKAGES_REGISTERED = 5081
-'You cannot bring the group online because the owner of the group is not in the preferred list for the group. To change the owner node for the group, move the group.
+'You cannot bring the group online because the owner of the group is not in
+'the preferred list for the group. To change the owner node for the group,
+'move the group.
 Public Const ERROR_CLUSTER_OWNER_NOT_IN_PREFLIST = 5082
-'The join operation failed because the cluster database sequence number has changed or is incompatible with the locker node. This may happen during a join operation if the cluster database was changing during the join.
+'The join operation failed because the cluster database sequence number has
+'changed or is incompatible with the locker node. This may happen during
+'a join operation if the cluster database was changing during the join.
 Public Const ERROR_CLUSTER_DATABASE_SEQMISMATCH = 5083
-'The resource monitor will not allow the fail operation to be performed while the resource is in its current state. This may happen if the resource is in a pending state.
+'The resource monitor will not allow the fail operation to be performed while
+'the resource is in its current state. This may happen if the resource is in a pending state.
 Public Const ERROR_RESMON_INVALID_STATE = 5084
 'A non locker code got a request to reserve the lock for making global updates.
 Public Const ERROR_CLUSTER_GUM_NOT_LOCKER = 5085
@@ -2210,44 +2309,56 @@ Public Const ERROR_QUORUM_DISK_NOT_FOUND = 5086
 Public Const ERROR_DATABASE_BACKUP_CORRUPT = 5087
 'A DFS root already exists in this cluster node.
 Public Const ERROR_CLUSTER_NODE_ALREADY_HAS_DFS_ROOT = 5088
-'An attempt to modify a resource property failed because it conflicts with another existing property.
+'An attempt to modify a resource property failed because it conflicts with
+'another existing property.
 Public Const ERROR_RESOURCE_PROPERTY_UNCHANGEABLE = 5089
 
 '------------------------------------------------------------------------------
 'Codes from 4300 through 5889 overlap with codes in ds\published\inc\apperr2.w.
 'Do not add any more error codes in that range.
 
-'An operation was attempted that is incompatible with the current membership state of the node.
+'An operation was attempted that is incompatible with the current membership
+'state of the node.
 Public Const ERROR_CLUSTER_MEMBERSHIP_INVALID_STATE = 5890
 'The quorum resource does not contain the quorum log.
 Public Const ERROR_CLUSTER_QUORUMLOG_NOT_FOUND = 5891
 'The membership engine requested shutdown of the cluster service on this node.
 Public Const ERROR_CLUSTER_MEMBERSHIP_HALT = 5892
-'The join operation failed because the cluster instance ID of the joining node does not match the cluster instance ID of the sponsor node.
+'The join operation failed because the cluster instance ID of the joining node
+'does not match the cluster instance ID of the sponsor node.
 Public Const ERROR_CLUSTER_INSTANCE_ID_MISMATCH = 5893
-'A matching network for the specified IP address could not be found. Please also specify a subnet mask and a cluster network.
+'A matching network for the specified IP address could not be found.
+'Please also specify a subnet mask and a cluster network.
 Public Const ERROR_CLUSTER_NETWORK_NOT_FOUND_FOR_IP = 5894
-'The actual data type of the property did not match the expected data type of the property.
+'The actual data type of the property did not match the expected data type of
+'the property.
 Public Const ERROR_CLUSTER_PROPERTY_DATA_TYPE_MISMATCH = 5895
-'The cluster node was evicted from the cluster successfully, but the node was not cleaned up.  Extended status information explaining why the node was not cleaned up is available.
+'The cluster node was evicted from the cluster successfully, but the node
+'was not cleaned up. Extended status information explaining why the node was
+'not cleaned up is available.
 Public Const ERROR_CLUSTER_EVICT_WITHOUT_CLEANUP = 5896
 'Two or more parameter values specified for a resource's properties are in conflict.
 Public Const ERROR_CLUSTER_PARAMETER_MISMATCH = 5897
 'This computer cannot be made a member of a cluster.
 Public Const ERROR_NODE_CANNOT_BE_CLUSTERED = 5898
-'This computer cannot be made a member of a cluster because it does not have the correct version of Windows installed.
+'This computer cannot be made a member of a cluster because it does not have
+'the correct version of Windows installed.
 Public Const ERROR_CLUSTER_WRONG_OS_VERSION = 5899
-'A cluster cannot be created with the specified cluster name because that cluster name is already in use. Specify a different name for the cluster.
+'A cluster cannot be created with the specified cluster name because that
+'cluster name is already in use. Specify a different name for the cluster.
 Public Const ERROR_CLUSTER_CANT_CREATE_DUP_CLUSTER_NAME = 5900
 'The cluster configuration action has already been committed.
 Public Const ERROR_CLUSCFG_ALREADY_COMMITTED = 5901
 'The cluster configuration action could not be rolled back.
 Public Const ERROR_CLUSCFG_ROLLBACK_FAILED = 5902
-'The drive letter assigned to a system disk on one node conflicted with the drive letter assigned to a disk on another node.
+'The drive letter assigned to a system disk on one node conflicted with the
+'drive letter assigned to a disk on another node.
 Public Const ERROR_CLUSCFG_SYSTEM_DISK_DRIVE_LETTER_CONFLICT = 5903
-'One or more nodes in the cluster are running a version of Windows that does not support this operation.
+'One or more nodes in the cluster are running a version of Windows that does
+'not support this operation.
 Public Const ERROR_CLUSTER_OLD_VERSION = 5904
-'The name of the corresponding computer account doesn't match the Network Name for this resource.
+'The name of the corresponding computer account doesn't match the Network Name
+'for this resource.
 Public Const ERROR_CLUSTER_MISMATCHED_COMPUTER_ACCT_NAME = 5905
 
 '------------------------------------------------------------------------------
@@ -2257,13 +2368,15 @@ Public Const ERROR_CLUSTER_MISMATCHED_COMPUTER_ACCT_NAME = 5905
 Public Const ERROR_ENCRYPTION_FAILED = 6000
 'The specified file could not be decrypted.
 Public Const ERROR_DECRYPTION_FAILED = 6001
-'The specified file is encrypted and the user does not have the ability to decrypt it.
+'The specified file is encrypted and the user does not have the ability to
+'decrypt it.
 Public Const ERROR_FILE_ENCRYPTED = 6002
 'There is no valid encryption recovery policy configured for this system.
 Public Const ERROR_NO_RECOVERY_POLICY = 6003
 'The required encryption driver is not loaded for this system.
 Public Const ERROR_NO_EFS = 6004
-'The file was encrypted with a different encryption driver than is currently loaded.
+'The file was encrypted with a different encryption driver than is currently
+'loaded.
 Public Const ERROR_WRONG_EFS = 6005
 'There are no EFS keys defined for the user.
 Public Const ERROR_NO_USER_KEYS = 6006
@@ -2279,7 +2392,8 @@ Public Const ERROR_DIR_EFS_DISALLOWED = 6010
 Public Const ERROR_EFS_SERVER_NOT_TRUSTED = 6011
 'Recovery policy configured for this system contains invalid recovery certificate.
 Public Const ERROR_BAD_RECOVERY_POLICY = 6012
-'The encryption algorithm used on the source file needs a bigger key buffer than the one on the destination file.
+'The encryption algorithm used on the source file needs a bigger key buffer
+'than the one on the destination file.
 Public Const ERROR_EFS_ALG_BLOB_TOO_BIG = 6013
 'The disk partition does not support file encryption.
 Public Const ERROR_VOLUME_NOT_SUPPORT_EFS = 6014
@@ -2297,7 +2411,8 @@ Public Const ERROR_NO_BROWSER_SERVERS_FOUND = 6118
 '------------------------------------------------------------------------------
 'Task Scheduler Error Codes that NET START must understand
 
-'The Task Scheduler service must be configured to run in the System account to function properly.  Individual tasks may be configured to run in other accounts.
+'The Task Scheduler service must be configured to run in the System account
+'to function properly. Individual tasks may be configured to run in other accounts.
 Public Const SCHED_E_SERVICE_NOT_LOCALSYSTEM = 6200
 
 '------------------------------------------------------------------------------
@@ -2323,13 +2438,16 @@ Public Const ERROR_CTX_NO_OUTBUF = 7008
 Public Const ERROR_CTX_MODEM_INF_NOT_FOUND = 7009
 'The modem name was not found in MODEM.INF.
 Public Const ERROR_CTX_INVALID_MODEMNAME = 7010
-'The modem did not accept the command sent to it. Verify that the configured modem name matches the attached modem.
+'The modem did not accept the command sent to it. Verify that the configured
+'modem name matches the attached modem.
 Public Const ERROR_CTX_MODEM_RESPONSE_ERROR = 7011
-'The modem did not respond to the command sent to it. Verify that the modem is properly cabled and powered on.
+'The modem did not respond to the command sent to it. Verify that the modem
+'is properly cabled and powered on.
 Public Const ERROR_CTX_MODEM_RESPONSE_TIMEOUT = 7012
 'Carrier detect has failed or carrier has been dropped due to disconnect.
 Public Const ERROR_CTX_MODEM_RESPONSE_NO_CARRIER = 7013
-'Dial tone not detected within the required time. Verify that the phone cable is properly attached and functional.
+'Dial tone not detected within the required time. Verify that the phone cable
+'is properly attached and functional.
 Public Const ERROR_CTX_MODEM_RESPONSE_NO_DIALTONE = 7014
 'Busy signal detected at remote site on callback.
 Public Const ERROR_CTX_MODEM_RESPONSE_BUSY = 7015
@@ -2341,9 +2459,11 @@ Public Const ERROR_CTX_TD_ERROR = 7017
 Public Const ERROR_CTX_WINSTATION_NOT_FOUND = 7022
 'The specified session name is already in use.
 Public Const ERROR_CTX_WINSTATION_ALREADY_EXISTS = 7023
-'The requested operation cannot be completed because the terminal connection is currently busy processing a connect, disconnect, reset, or delete operation.
+'The requested operation cannot be completed because the terminal connection
+'is currently busy processing a connect, disconnect, reset, or delete operation.
 Public Const ERROR_CTX_WINSTATION_BUSY = 7024
-'An attempt has been made to connect to a session whose video mode is not supported by the current client.
+'An attempt has been made to connect to a session whose video mode is not
+'supported by the current client.
 Public Const ERROR_CTX_BAD_VIDEO_MODE = 7025
 'The application attempted to enable DOS graphics mode.
 'DOS graphics mode is not supported.
@@ -2352,7 +2472,8 @@ Public Const ERROR_CTX_GRAPHICS_INVALID = 7035
 'Please contact your administrator.
 Public Const ERROR_CTX_LOGON_DISABLED = 7037
 'The requested operation can be performed only on the system console.
-'This is most often the result of a driver or system DLL requiring direct console access.
+'This is most often the result of a driver or system DLL requiring direct
+'console access.
 Public Const ERROR_CTX_NOT_CONSOLE = 7038
 'The client failed to respond to the server connect message.
 Public Const ERROR_CTX_CLIENT_QUERY_TIMEOUT = 7040
@@ -2367,28 +2488,37 @@ Public Const ERROR_CTX_WINSTATION_ACCESS_DENIED = 7045
 'The specified terminal connection driver is invalid.
 Public Const ERROR_CTX_INVALID_WD = 7049
 'The requested session cannot be controlled remotely.
-'This may be because the session is disconnected or does not currently have a user logged on.
+'This may be because the session is disconnected or does not currently have
+'a user logged on.
 Public Const ERROR_CTX_SHADOW_INVALID = 7050
 'The requested session is not configured to allow remote control.
 Public Const ERROR_CTX_SHADOW_DISABLED = 7051
-'Your request to connect to this Terminal Server has been rejected. Your Terminal Server client license number is currently being used by another user.
+'Your request to connect to this Terminal Server has been rejected.
+'Your Terminal Server client license number is currently being used by another
+'user.
 'Please call your system administrator to obtain a unique license number.
 Public Const ERROR_CTX_CLIENT_LICENSE_IN_USE = 7052
-'Your request to connect to this Terminal Server has been rejected. Your Terminal Server client license number has not been entered for this copy of the Terminal Server client.
+'Your request to connect to this Terminal Server has been rejected.
+'Your Terminal Server client license number has not been entered for this copy
+'of the Terminal Server client.
 'Please contact your system administrator.
 Public Const ERROR_CTX_CLIENT_LICENSE_NOT_SET = 7053
 'The system has reached its licensed logon limit.
 'Please try again later.
 Public Const ERROR_CTX_LICENSE_NOT_AVAILABLE = 7054
-'The client you are using is not licensed to use this system.  Your logon request is denied.
+'The client you are using is not licensed to use this system.
+'Your logon request is denied.
 Public Const ERROR_CTX_LICENSE_CLIENT_INVALID = 7055
-'The system license has expired.  Your logon request is denied.
+'The system license has expired. Your logon request is denied.
 Public Const ERROR_CTX_LICENSE_EXPIRED = 7056
-'Remote control could not be terminated because the specified session is not currently being remotely controlled.
+'Remote control could not be terminated because the specified session is
+'not currently being remotely controlled.
 Public Const ERROR_CTX_SHADOW_NOT_RUNNING = 7057
-'The remote control of the console was terminated because the display mode was changed. Changing the display mode in a remote control session is not supported.
+'The remote control of the console was terminated because the display mode
+'was changed. Changing the display mode in a remote control session is not supported.
 Public Const ERROR_CTX_SHADOW_ENDED_BY_MODE_CHANGE = 7058
-'Activation has already been reset the maximum number of times for this installation. Your activation timer will not be cleared.
+'Activation has already been reset the maximum number of times for this
+'installation. Your activation timer will not be cleared.
 Public Const ERROR_ACTIVATION_COUNT_EXCEEDED = 7059
 
 '------------------------------------------------------------------------------
@@ -2414,33 +2544,43 @@ Public Const FRS_ERR_INTERNAL = 8005
 'The file replication service cannot be contacted.
 'The event log may have more information.
 Public Const FRS_ERR_SERVICE_COMM = 8006
-'The file replication service cannot satisfy the request because the user has insufficient privileges.
+'The file replication service cannot satisfy the request because the user
+'has insufficient privileges.
 'The event log may have more information.
 Public Const FRS_ERR_INSUFFICIENT_PRIV = 8007
-'The file replication service cannot satisfy the request because authenticated RPC is not available.
+'The file replication service cannot satisfy the request because authenticated
+'RPC is not available.
 'The event log may have more information.
 Public Const FRS_ERR_AUTHENTICATION = 8008
-'The file replication service cannot satisfy the request because the user has insufficient privileges on the domain controller.
+'The file replication service cannot satisfy the request because the user has
+'insufficient privileges on the domain controller.
 'The event log may have more information.
 Public Const FRS_ERR_PARENT_INSUFFICIENT_PRIV = 8009
-'The file replication service cannot satisfy the request because authenticated RPC is not available on the domain controller.
+'The file replication service cannot satisfy the request because authenticated
+'RPC is not available on the domain controller.
 'The event log may have more information.
 Public Const FRS_ERR_PARENT_AUTHENTICATION = 8010
-'The file replication service cannot communicate with the file replication service on the domain controller.
+'The file replication service cannot communicate with the file replication
+'service on the domain controller.
 'The event log may have more information.
 Public Const FRS_ERR_CHILD_TO_PARENT_COMM = 8011
-'The file replication service on the domain controller cannot communicate with the file replication service on this computer.
+'The file replication service on the domain controller cannot communicate
+'with the file replication service on this computer.
 'The event log may have more information.
 Public Const FRS_ERR_PARENT_TO_CHILD_COMM = 8012
-'The file replication service cannot populate the system volume because of an internal error.
+'The file replication service cannot populate the system volume because of
+'an internal error.
 'The event log may have more information.
 Public Const FRS_ERR_SYSVOL_POPULATE = 8013
-'The file replication service cannot populate the system volume because of an internal timeout.
+'The file replication service cannot populate the system volume because of
+'an internal timeout.
 'The event log may have more information.
 Public Const FRS_ERR_SYSVOL_POPULATE_TIMEOUT = 8014
-'The file replication service cannot process the request. The system volume is busy with a previous request.
+'The file replication service cannot process the request. The system volume
+'is busy with a previous request.
 Public Const FRS_ERR_SYSVOL_IS_BUSY = 8015
-'The file replication service cannot stop replicating the system volume because of an internal error.
+'The file replication service cannot stop replicating the system volume because
+'of an internal error.
 'The event log may have more information.
 Public Const FRS_ERR_SYSVOL_DEMOTE = 8016
 'The file replication service detected an invalid parameter.
@@ -2452,7 +2592,8 @@ Public Const FRS_ERR_INVALID_SERVICE_PARAMETER = 8017
 Public Const DS_S_SUCCESS = NO_ERROR
 
 
-'An error occurred while installing the directory service. For more information, see the event log.
+'An error occurred while installing the directory service. For more information,
+'see the event log.
 Public Const ERROR_DS_NOT_INSTALLED = 8200
 'The directory service evaluated group memberships locally.
 Public Const ERROR_DS_MEMBERSHIP_EVALUATED_LOCALLY = 8201
@@ -2472,15 +2613,19 @@ Public Const ERROR_DS_UNAVAILABLE = 8207
 Public Const ERROR_DS_NO_RIDS_ALLOCATED = 8208
 'The directory service has exhausted the pool of relative identifiers.
 Public Const ERROR_DS_NO_MORE_RIDS = 8209
-'The requested operation could not be performed because the directory service is not the master for that type of operation.
+'The requested operation could not be performed because the directory service
+'is not the master for that type of operation.
 Public Const ERROR_DS_INCORRECT_ROLE_OWNER = 8210
-'The directory service was unable to initialize the subsystem that allocates relative identifiers.
+'The directory service was unable to initialize the subsystem that allocates
+'relative identifiers.
 Public Const ERROR_DS_RIDMGR_INIT_ERROR = 8211
-'The requested operation did not satisfy one or more constraints associated with the class of the object.
+'The requested operation did not satisfy one or more constraints associated
+'with the class of the object.
 Public Const ERROR_DS_OBJ_CLASS_VIOLATION = 8212
 'The directory service can perform the requested operation only on a leaf object.
 Public Const ERROR_DS_CANT_ON_NON_LEAF = 8213
-'The directory service cannot perform the requested operation on the RDN attribute of an object.
+'The directory service cannot perform the requested operation on the RDN
+'attribute of an object.
 Public Const ERROR_DS_CANT_ON_RDN = 8214
 'The directory service detected an attempt to modify the object class of an object.
 Public Const ERROR_DS_CANT_MOD_OBJ_CLASS = 8215
@@ -2580,19 +2725,24 @@ Public Const ERROR_DS_REFERRAL_LIMIT_EXCEEDED = 8260
 Public Const ERROR_DS_SORT_CONTROL_MISSING = 8261
 'The search results exceed the offset range specified.
 Public Const ERROR_DS_OFFSET_RANGE_ERROR = 8262
-'The root object must be the head of a naming context. The root object cannot have an instantiated parent.
+'The root object must be the head of a naming context. The root object
+'cannot have an instantiated parent.
 Public Const ERROR_DS_ROOT_MUST_BE_NC = 8301
-'The add replica operation cannot be performed. The naming context must be writeable in order to create the replica.
+'The add replica operation cannot be performed. The naming context must
+'be writeable in order to create the replica.
 Public Const ERROR_DS_ADD_REPLICA_INHIBITED = 8302
 'A reference to an attribute that is not defined in the schema occurred.
 Public Const ERROR_DS_ATT_NOT_DEF_IN_SCHEMA = 8303
 'The maximum size of an object has been exceeded.
 Public Const ERROR_DS_MAX_OBJ_SIZE_EXCEEDED = 8304
-'An attempt was made to add an object to the directory with a name that is already in use.
+'An attempt was made to add an object to the directory with a name that is
+'already in use.
 Public Const ERROR_DS_OBJ_STRING_NAME_EXISTS = 8305
-'An attempt was made to add an object of a class that does not have an RDN defined in the schema.
+'An attempt was made to add an object of a class that does not have an RDN
+'defined in the schema.
 Public Const ERROR_DS_NO_RDN_DEFINED_IN_SCHEMA = 8306
-'An attempt was made to add an object using an RDN that is not the RDN defined in the schema.
+'An attempt was made to add an object using an RDN that is not the RDN defined
+'in the schema.
 Public Const ERROR_DS_RDN_DOESNT_MATCH_SCHEMA = 8307
 'None of the requested attributes were found on the objects.
 Public Const ERROR_DS_NO_REQUESTED_ATTS_FOUND = 8308
@@ -2612,7 +2762,8 @@ Public Const ERROR_DS_MASTERDSA_REQUIRED = 8314
 Public Const ERROR_DS_OBJECT_CLASS_REQUIRED = 8315
 'A required attribute is missing.
 Public Const ERROR_DS_MISSING_REQUIRED_ATT = 8316
-'An attempt was made to modify an object to include an attribute that is not legal for its class.
+'An attempt was made to modify an object to include an attribute that is
+'not legal for its class.
 Public Const ERROR_DS_ATT_NOT_DEF_FOR_CLASS = 8317
 'The specified attribute is already present on the object.
 Public Const ERROR_DS_ATT_ALREADY_EXISTS = 8318
@@ -2638,13 +2789,16 @@ Public Const ERROR_DS_ROOT_CANT_BE_SUBREF = 8326
 Public Const ERROR_DS_NO_CHAINING = 8327
 'Chained evaluation is not permitted.
 Public Const ERROR_DS_NO_CHAINED_EVAL = 8328
-'The operation could not be performed because the object's parent is either uninstantiated or deleted.
+'The operation could not be performed because the object's parent is either
+'uninstantiated or deleted.
 Public Const ERROR_DS_NO_PARENT_OBJECT = 8329
 'Having a parent that is an alias is not permitted. Aliases are leaf objects.
 Public Const ERROR_DS_PARENT_IS_AN_ALIAS = 8330
-'The object and parent must be of the same type, either both masters or both replicas.
+'The object and parent must be of the same type, either both masters or both
+'replicas.
 Public Const ERROR_DS_CANT_MIX_MASTER_AND_REPS = 8331
-'The operation cannot be performed because child objects exist. This operation can only be performed on a leaf object.
+'The operation cannot be performed because child objects exist. This operation
+'can only be performed on a leaf object.
 Public Const ERROR_DS_CHILDREN_EXIST = 8332
 'Directory object not found.
 Public Const ERROR_DS_OBJ_NOT_FOUND = 8333
@@ -2658,7 +2812,8 @@ Public Const ERROR_DS_ALIAS_POINTS_TO_ALIAS = 8336
 Public Const ERROR_DS_CANT_DEREF_ALIAS = 8337
 'The operation is out of scope.
 Public Const ERROR_DS_OUT_OF_SCOPE = 8338
-'The operation cannot continue because the object is in the process of being removed.
+'The operation cannot continue because the object is in the process of being
+'removed.
 Public Const ERROR_DS_OBJECT_BEING_REMOVED = 8339
 'The DSA object cannot be deleted.
 Public Const ERROR_DS_CANT_DELETE_DSA_OBJ = 8340
@@ -2670,9 +2825,11 @@ Public Const ERROR_DS_DSA_MUST_BE_INT_MASTER = 8342
 Public Const ERROR_DS_CLASS_NOT_DSA = 8343
 'Insufficient access rights to perform the operation.
 Public Const ERROR_DS_INSUFF_ACCESS_RIGHTS = 8344
-'The object cannot be added because the parent is not on the list of possible superiors.
+'The object cannot be added because the parent is not on the list of possible
+'superiors.
 Public Const ERROR_DS_ILLEGAL_SUPERIOR = 8345
-'Access to the attribute is not permitted because the attribute is owned by the Security Accounts Manager (SAM).
+'Access to the attribute is not permitted because the attribute is owned by
+'the Security Accounts Manager (SAM).
 Public Const ERROR_DS_ATTRIBUTE_OWNED_BY_SAM = 8346
 'The name has too many parts.
 Public Const ERROR_DS_NAME_TOO_MANY_PARTS = 8347
@@ -2698,7 +2855,8 @@ Public Const ERROR_DS_SUBREF_MUST_HAVE_PARENT = 8356
 Public Const ERROR_DS_NCNAME_MUST_BE_NC = 8357
 'It is not permitted to add an attribute which is owned by the system.
 Public Const ERROR_DS_CANT_ADD_SYSTEM_ONLY = 8358
-'The class of the object must be structural; you cannot instantiate an abstract class.
+'The class of the object must be structural; you cannot instantiate an
+'abstract class.
 Public Const ERROR_DS_CLASS_MUST_BE_CONCRETE = 8359
 'The schema object could not be found.
 Public Const ERROR_DS_INVALID_DMD = 8360
@@ -2708,13 +2866,15 @@ Public Const ERROR_DS_OBJ_GUID_EXISTS = 8361
 Public Const ERROR_DS_NOT_ON_BACKLINK = 8362
 'The cross reference for the specified naming context could not be found.
 Public Const ERROR_DS_NO_CROSSREF_FOR_NC = 8363
-'The operation could not be performed because the directory service is shutting down.
+'The operation could not be performed because the directory service is
+'shutting down.
 Public Const ERROR_DS_SHUTTING_DOWN = 8364
 'The directory service request is invalid.
 Public Const ERROR_DS_UNKNOWN_OPERATION = 8365
 'The role owner attribute could not be read.
 Public Const ERROR_DS_INVALID_ROLE_OWNER = 8366
-'The requested FSMO operation failed. The current FSMO holder could not be contacted.
+'The requested FSMO operation failed. The current FSMO holder could not
+'be contacted.
 Public Const ERROR_DS_COULDNT_CONTACT_FSMO = 8367
 'Modification of a DN across a naming context is not permitted.
 Public Const ERROR_DS_CROSS_NC_DN_RENAME = 8368
@@ -2758,11 +2918,13 @@ Public Const ERROR_DS_EXISTS_IN_MAY_HAVE = 8386
 Public Const ERROR_DS_NONEXISTENT_MAY_HAVE = 8387
 'Schema update failed: attribute in must-contain does not exist.
 Public Const ERROR_DS_NONEXISTENT_MUST_HAVE = 8388
-'Schema update failed: class in aux-class list does not exist or is not an auxiliary class.
+'Schema update failed: class in aux-class list does not exist or is not
+'an auxiliary class.
 Public Const ERROR_DS_AUX_CLS_TEST_FAIL = 8389
 'Schema update failed: class in poss-superiors does not exist.
 Public Const ERROR_DS_NONEXISTENT_POSS_SUP = 8390
-'Schema update failed: class in subclassof list does not exist or does not satisfy hierarchy rules.
+'Schema update failed: class in subclassof list does not exist or does not
+'satisfy hierarchy rules.
 Public Const ERROR_DS_SUB_CLS_TEST_FAIL = 8391
 'Schema update failed: Rdn-Att-Id has wrong syntax.
 Public Const ERROR_DS_BAD_RDN_ATT_ID_SYNTAX = 8392
@@ -2774,7 +2936,8 @@ Public Const ERROR_DS_EXISTS_IN_SUB_CLS = 8394
 Public Const ERROR_DS_EXISTS_IN_POSS_SUP = 8395
 'Schema update failed in recalculating validation cache.
 Public Const ERROR_DS_RECALCSCHEMA_FAILED = 8396
-'The tree deletion is not finished.  The request must be made again to continue deleting the tree.
+'The tree deletion is not finished. The request must be made again to
+'continue deleting the tree.
 Public Const ERROR_DS_TREE_DELETE_NOT_FINISHED = 8397
 'The requested delete operation could not be performed.
 Public Const ERROR_DS_CANT_DELETE = 8398
@@ -2792,7 +2955,9 @@ Public Const ERROR_DS_CANT_REMOVE_ATT_CACHE = 8403
 Public Const ERROR_DS_CANT_REMOVE_CLASS_CACHE = 8404
 'The distinguished name attribute could not be read.
 Public Const ERROR_DS_CANT_RETRIEVE_DN = 8405
-'No superior reference has been configured for the directory service. The directory service is therefore unable to issue referrals to objects outside this forest.
+'No superior reference has been configured for the directory service.
+'The directory service is therefore unable to issue referrals to objects
+'outside this forest.
 Public Const ERROR_DS_MISSING_SUPREF = 8406
 'The instance type attribute could not be retrieved.
 Public Const ERROR_DS_CANT_RETRIEVE_INSTANCE = 8407
@@ -2814,9 +2979,12 @@ Public Const ERROR_DS_SCHEMA_NOT_LOADED = 8414
 Public Const ERROR_DS_SCHEMA_ALLOC_FAILED = 8415
 'Failed to obtain the required syntax for the attribute schema.
 Public Const ERROR_DS_ATT_SCHEMA_REQ_SYNTAX = 8416
-'The global catalog verification failed. The global catalog is not available or does not support the operation. Some part of the directory is currently not available.
+'The global catalog verification failed. The global catalog is not available or
+'does not support the operation. Some part of the directory is currently not
+'available.
 Public Const ERROR_DS_GCVERIFY_ERROR = 8417
-'The replication operation failed because of a schema mismatch between the servers involved.
+'The replication operation failed because of a schema mismatch between
+'the servers involved.
 Public Const ERROR_DS_DRA_SCHEMA_MISMATCH = 8418
 'The DSA object could not be found.
 Public Const ERROR_DS_CANT_FIND_DSA_OBJ = 8419
@@ -2846,17 +3014,21 @@ Public Const ERROR_DS_INTERNAL_FAILURE = 8430
 Public Const ERROR_DS_UNKNOWN_ERROR = 8431
 'A root object requires a class of 'top'.
 Public Const ERROR_DS_ROOT_REQUIRES_CLASS_TOP = 8432
-'This directory server is shutting down, and cannot take ownership of new floating single-master operation roles.
+'This directory server is shutting down, and cannot take ownership of new
+'floating single-master operation roles.
 Public Const ERROR_DS_REFUSING_FSMO_ROLES = 8433
-'The directory service is missing mandatory configuration information, and is unable to determine the ownership of floating single-master operation roles.
+'The directory service is missing mandatory configuration information, and is
+'unable to determine the ownership of floating single-master operation roles.
 Public Const ERROR_DS_MISSING_FSMO_SETTINGS = 8434
-'The directory service was unable to transfer ownership of one or more floating single-master operation roles to other servers.
+'The directory service was unable to transfer ownership of one or more floating
+'single-master operation roles to other servers.
 Public Const ERROR_DS_UNABLE_TO_SURRENDER_ROLES = 8435
 'The replication operation failed.
 Public Const ERROR_DS_DRA_GENERIC = 8436
 'An invalid parameter was specified for this replication operation.
 Public Const ERROR_DS_DRA_INVALID_PARAMETER = 8437
-'The directory service is too busy to complete the replication operation at this time.
+'The directory service is too busy to complete the replication operation at this
+'time.
 Public Const ERROR_DS_DRA_BUSY = 8438
 'The distinguished name specified for this replication operation is invalid.
 Public Const ERROR_DS_DRA_BAD_DN = 8439
@@ -2884,7 +3056,8 @@ Public Const ERROR_DS_DRA_REF_NOT_FOUND = 8449
 Public Const ERROR_DS_DRA_OBJ_IS_REP_SOURCE = 8450
 'The replication operation encountered a database error.
 Public Const ERROR_DS_DRA_DB_ERROR = 8451
-'The naming context is in the process of being removed or is not replicated from the specified server.
+'The naming context is in the process of being removed or is not replicated
+'from the specified server.
 Public Const ERROR_DS_DRA_NO_REPLICA = 8452
 'Replication access was denied.
 Public Const ERROR_DS_DRA_ACCESS_DENIED = 8453
@@ -2908,13 +3081,18 @@ Public Const ERROR_DS_DRA_PREEMPTED = 8461
 Public Const ERROR_DS_DRA_ABANDON_SYNC = 8462
 'The replication operation was terminated because the system is shutting down.
 Public Const ERROR_DS_DRA_SHUTDOWN = 8463
-'The replication synchronization attempt failed as the destination partial attribute set is not a subset of source partial attribute set.
+'The replication synchronization attempt failed as the destination partial
+'attribute set is not a subset of source partial attribute set.
 Public Const ERROR_DS_DRA_INCOMPATIBLE_PARTIAL_SET = 8464
-'The replication synchronization attempt failed because a master replica attempted to sync from a partial replica.
+'The replication synchronization attempt failed because a master replica
+'attempted to sync from a partial replica.
 Public Const ERROR_DS_DRA_SOURCE_IS_PARTIAL_REPLICA = 8465
-'The server specified for this replication operation was contacted, but that server was unable to contact an additional server needed to complete the operation.
+'The server specified for this replication operation was contacted, but that
+'server was unable to contact an additional server needed to complete
+'the operation.
 Public Const ERROR_DS_DRA_EXTN_CONNECTION_FAILED = 8466
-'The version of the Active Directory schema of the source forest is not compatible with the version of Active Directory on this computer.
+'The version of the Active Directory schema of the source forest is not
+'compatible with the version of Active Directory on this computer.
 Public Const ERROR_DS_INSTALL_SCHEMA_MISMATCH = 8467
 'Schema update failed: An attribute with the same link identifier already exists.
 Public Const ERROR_DS_DUP_LINK_ID = 8468
@@ -2928,11 +3106,13 @@ Public Const ERROR_DS_NAME_ERROR_NOT_UNIQUE = 8471
 Public Const ERROR_DS_NAME_ERROR_NO_MAPPING = 8472
 'Name translation: Unable to resolve completely, only the domain was found.
 Public Const ERROR_DS_NAME_ERROR_DOMAIN_ONLY = 8473
-'Name translation: Unable to perform purely syntactical mapping at the client without going out to the wire.
+'Name translation: Unable to perform purely syntactical mapping at the client
+'without going out to the wire.
 Public Const ERROR_DS_NAME_ERROR_NO_SYNTACTICAL_MAPPING = 8474
 'Modification of a constructed attribute is not allowed.
 Public Const ERROR_DS_CONSTRUCTED_ATT_MOD = 8475
-'The OM-Object-Class specified is incorrect for an attribute with the specified syntax.
+'The OM-Object-Class specified is incorrect for an attribute with the specified
+'syntax.
 Public Const ERROR_DS_WRONG_OM_OBJ_CLASS = 8476
 'The replication request has been posted; waiting for reply.
 Public Const ERROR_DS_DRA_REPL_PENDING = 8477
@@ -2944,52 +3124,86 @@ Public Const ERROR_DS_INVALID_LDAP_DISPLAY_NAME = 8479
 Public Const ERROR_DS_NON_BASE_SEARCH = 8480
 'The search failed to retrieve attributes from the database.
 Public Const ERROR_DS_CANT_RETRIEVE_ATTS = 8481
-'The schema update operation tried to add a backward link attribute that has no corresponding forward link.
+'The schema update operation tried to add a backward link attribute that has
+'no corresponding forward link.
 Public Const ERROR_DS_BACKLINK_WITHOUT_LINK = 8482
-'Source and destination of a cross-domain move do not agree on the object's epoch number.  Either source or destination does not have the latest version of the object.
+'Source and destination of a cross-domain move do not agree on the object's
+'epoch number. Either source or destination does not have the latest version of
+'the object.
 Public Const ERROR_DS_EPOCH_MISMATCH = 8483
-'Source and destination of a cross-domain move do not agree on the object's current name.  Either source or destination does not have the latest version of the object.
+'Source and destination of a cross-domain move do not agree on the object's
+'current name. Either source or destination does not have the latest version
+'of the object.
 Public Const ERROR_DS_SRC_NAME_MISMATCH = 8484
-'Source and destination for the cross-domain move operation are identical.  Caller should use local move operation instead of cross-domain move operation.
+'Source and destination for the cross-domain move operation are identical.
+'Caller should use local move operation instead of cross-domain move operation.
 Public Const ERROR_DS_SRC_AND_DST_NC_IDENTICAL = 8485
-'Source and destination for a cross-domain move are not in agreement on the naming contexts in the forest.  Either source or destination does not have the latest version of the Partitions container.
+'Source and destination for a cross-domain move are not in agreement on
+'the naming contexts in the forest. Either source or destination does not have
+'the latest version of the Partitions container.
 Public Const ERROR_DS_DST_NC_MISMATCH = 8486
-'Destination of a cross-domain move is not authoritative for the destination naming context.
+'Destination of a cross-domain move is not authoritative for the destination
+'naming context.
 Public Const ERROR_DS_NOT_AUTHORITIVE_FOR_DST_NC = 8487
-'Source and destination of a cross-domain move do not agree on the identity of the source object.  Either source or destination does not have the latest version of the source object.
+'Source and destination of a cross-domain move do not agree on the identity of
+'the source object. Either source or destination does not have the latest
+'version of the source object.
 Public Const ERROR_DS_SRC_GUID_MISMATCH = 8488
-'Object being moved across-domains is already known to be deleted by the destination server.  The source server does not have the latest version of the source object.
+'Object being moved across-domains is already known to be deleted by
+'the destination server. The source server does not have the latest
+'version of the source object.
 Public Const ERROR_DS_CANT_MOVE_DELETED_OBJECT = 8489
-'Another operation which requires exclusive access to the PDC FSMO is already in progress.
+'Another operation which requires exclusive access to the PDC FSMO is
+'already in progress.
 Public Const ERROR_DS_PDC_OPERATION_IN_PROGRESS = 8490
-'A cross-domain move operation failed such that two versions of the moved object exist - one each in the source and destination domains.  The destination object needs to be removed to restore the system to a consistent state.
+'A cross-domain move operation failed such that two versions of the moved
+'object exist - one each in the source and destination domains. The destination
+'object needs to be removed to restore the system to a consistent state.
 Public Const ERROR_DS_CROSS_DOMAIN_CLEANUP_REQD = 8491
-'This object may not be moved across domain boundaries either because cross-domain moves for this class are disallowed, or the object has some special characteristics, e.g.: trust account or restricted RID, which prevent its move.
+'This object may not be moved across domain boundaries either because
+'cross-domain moves for this class are disallowed, or the object has some
+'special characteristics, e.g.: trust account or restricted RID, which prevent
+'its move.
 Public Const ERROR_DS_ILLEGAL_XDOM_MOVE_OPERATION = 8492
-'Can't move objects with memberships across domain boundaries as once moved, this would violate the membership conditions of the account group.  Remove the object from any account group memberships and retry.
+'Can't move objects with memberships across domain boundaries as once moved,
+'this would violate the membership conditions of the account group. Remove
+'the object from any account group memberships and retry.
 Public Const ERROR_DS_CANT_WITH_ACCT_GROUP_MEMBERSHPS = 8493
-'A naming context head must be the immediate child of another naming context head, not of an interior node.
+'A naming context head must be the immediate child of another naming context
+'head, not of an interior node.
 Public Const ERROR_DS_NC_MUST_HAVE_NC_PARENT = 8494
-'The directory cannot validate the proposed naming context name because it does not hold a replica of the naming context above the proposed naming context.  Please ensure that the domain naming master role is held by a server that is configured as a global catalog server, and that the server is up to date with its replication partners. (Applies only to Windows 2000 Domain Naming masters)
+'The directory cannot validate the proposed naming context name because
+'it does not hold a replica of the naming context above the proposed naming
+'context. Please ensure that the domain naming master role is held by a server
+'that is configured as a global catalog server, and that the server is up to
+'date with its replication partners.
+'(Applies only to Windows 2000 Domain Naming masters)
 Public Const ERROR_DS_CR_IMPOSSIBLE_TO_VALIDATE = 8495
 'Destination domain must be in native mode.
 Public Const ERROR_DS_DST_DOMAIN_NOT_NATIVE = 8496
-'The operation can not be performed because the server does not have an infrastructure container in the domain of interest.
+'The operation can not be performed because the server does not
+'have an infrastructure container in the domain of interest.
 Public Const ERROR_DS_MISSING_INFRASTRUCTURE_CONTAINER = 8497
 'Cross-domain move of non-empty account groups is not allowed.
 Public Const ERROR_DS_CANT_MOVE_ACCOUNT_GROUP = 8498
 'Cross-domain move of non-empty resource groups is not allowed.
 Public Const ERROR_DS_CANT_MOVE_RESOURCE_GROUP = 8499
-'The search flags for the attribute are invalid. The ANR bit is valid only on attributes of Unicode or Teletex strings.
+'The search flags for the attribute are invalid. The ANR bit is valid
+'only on attributes of Unicode or Teletex strings.
 Public Const ERROR_DS_INVALID_SEARCH_FLAG = 8500
-'Tree deletions starting at an object which has an NC head as a descendant are not allowed.
+'Tree deletions starting at an object which has an NC head as a descendant
+'are not allowed.
 Public Const ERROR_DS_NO_TREE_DELETE_ABOVE_NC = 8501
-'The directory service failed to lock a tree in preparation for a tree deletion because the tree was in use.
+'The directory service failed to lock a tree in preparation for a tree deletion
+'because the tree was in use.
 Public Const ERROR_DS_COULDNT_LOCK_TREE_FOR_DELETE = 8502
-'The directory service failed to identify the list of objects to delete while attempting a tree deletion.
+'The directory service failed to identify the list of objects to delete while
+'attempting a tree deletion.
 Public Const ERROR_DS_COULDNT_IDENTIFY_OBJECTS_FOR_TREE_DELETE = 8503
-'Security Accounts Manager initialization failed because of the following error: %1.
-'Error Status: &H%2. Click OK to shut down the system and reboot into Directory Services Restore Mode. Check the event log for detailed information.
+'Security Accounts Manager initialization failed because of the
+'following error: %1.
+'Error Status: &H%2. Click OK to shut down the system and reboot into
+'Directory Services Restore Mode. Check the event log for detailed information.
 Public Const ERROR_DS_SAM_INIT_FAILURE = 8504
 'Only an administrator can modify the membership list of an administrative group.
 Public Const ERROR_DS_SENSITIVE_GROUP_VIOLATION = 8505
@@ -2997,15 +3211,22 @@ Public Const ERROR_DS_SENSITIVE_GROUP_VIOLATION = 8505
 Public Const ERROR_DS_CANT_MOD_PRIMARYGROUPID = 8506
 'An attempt is made to modify the base schema.
 Public Const ERROR_DS_ILLEGAL_BASE_SCHEMA_MOD = 8507
-'Adding a new mandatory attribute to an existing class, deleting a mandatory attribute from an existing class, or adding an optional attribute to the special class Top that is not a backlink attribute (directly or through inheritance, for example, by adding or deleting an auxiliary class) is not allowed.
+'Adding a new mandatory attribute to an existing class, deleting a mandatory
+'attribute from an existing class, or adding an optional attribute to the special class Top that is not a backlink attribute (directly or through inheritance, for example, by adding or deleting an auxiliary class) is not allowed.
 Public Const ERROR_DS_NONSAFE_SCHEMA_CHANGE = 8508
-'Schema update is not allowed on this DC because the DC is not the schema FSMO Role Owner.
+'Schema update is not allowed on this DC because the DC is not the schema
+'FSMO Role Owner.
 Public Const ERROR_DS_SCHEMA_UPDATE_DISALLOWED = 8509
-'An object of this class cannot be created under the schema container. You can only create attribute-schema and class-schema objects under the schema container.
+'An object of this class cannot be created under the schema container.
+'You can only create attribute-schema and class-schema objects under the schema container.
 Public Const ERROR_DS_CANT_CREATE_UNDER_SCHEMA = 8510
-'The replica/child install failed to get the objectVersion attribute on the schema container on the source DC. Either the attribute is missing on the schema container or the credentials supplied do not have permission to read it.
+'The replica/child install failed to get the objectVersion attribute on t
+'he schema container on the source DC. Either the attribute is missing on
+'the schema container or the credentials supplied do not have permission
+'to read it.
 Public Const ERROR_DS_INSTALL_NO_SRC_SCH_VERSION = 8511
-'The replica/child install failed to read the objectVersion attribute in the SCHEMA section of the file schema.ini in the system32 directory.
+'The replica/child install failed to read the objectVersion attribute
+'in the SCHEMA section of the file schema.ini in the system32 directory.
 Public Const ERROR_DS_INSTALL_NO_SCH_VERSION_IN_INIFILE = 8512
 'The specified group type is invalid.
 Public Const ERROR_DS_INVALID_GROUP_TYPE = 8513
@@ -3025,19 +3246,24 @@ Public Const ERROR_DS_GLOBAL_CANT_HAVE_CROSSDOMAIN_MEMBER = 8519
 Public Const ERROR_DS_LOCAL_CANT_HAVE_CROSSDOMAIN_LOCAL_MEMBER = 8520
 'A group with primary members cannot change to a security-disabled group.
 Public Const ERROR_DS_HAVE_PRIMARY_MEMBERS = 8521
-'The schema cache load failed to convert the string default SD on a class-schema object.
+'The schema cache load failed to convert the string default SD on
+'a class-schema object.
 Public Const ERROR_DS_STRING_SD_CONVERSION_FAILED = 8522
-'Only DSAs configured to be Global Catalog servers should be allowed to hold the Domain Naming Master FSMO role. (Applies only to Windows 2000 servers)
+'Only DSAs configured to be Global Catalog servers should be allowed to
+'hold the Domain Naming Master FSMO role. (Applies only to Windows 2000 servers)
 Public Const ERROR_DS_NAMING_MASTER_GC = 8523
 'The DSA operation is unable to proceed because of a DNS lookup failure.
 Public Const ERROR_DS_DNS_LOOKUP_FAILURE = 8524
-'While processing a change to the DNS Host Name for an object, the Service Principal Name values could not be kept in sync.
+'While processing a change to the DNS Host Name for an object,
+'the Service Principal Name values could not be kept in sync.
 Public Const ERROR_DS_COULDNT_UPDATE_SPNS = 8525
 'The Security Descriptor attribute could not be read.
 Public Const ERROR_DS_CANT_RETRIEVE_SD = 8526
 'The object requested was not found, but an object with that key was found.
 Public Const ERROR_DS_KEY_NOT_UNIQUE = 8527
-'The syntax of the linked attribute being added is incorrect. Forward links can only have syntax 2.5.5.1, 2.5.5.7, and 2.5.5.14, and backlinks can only have syntax 2.5.5.1
+'The syntax of the linked attribute being added is incorrect. Forward links
+'can only have syntax 2.5.5.1, 2.5.5.7, and 2.5.5.14, and backlinks can only
+'have syntax 2.5.5.1
 Public Const ERROR_DS_WRONG_LINKED_ATT_SYNTAX = 8528
 'Security Account Manager needs to get the boot password.
 Public Const ERROR_DS_SAM_NEED_BOOTKEY_PASSWORD = 8529
@@ -3064,17 +3290,22 @@ Public Const ERROR_DS_SRC_SID_EXISTS_IN_FOREST = 8539
 'The source and destination object must be of the same type.
 Public Const ERROR_DS_SRC_AND_DST_OBJECT_CLASS_MISMATCH = 8540
 'Security Accounts Manager initialization failed because of the following error: %1.
-'Error Status: &H%2. Click OK to shut down the system and reboot into Safe Mode. Check the event log for detailed information.
+'Error Status: &H%2. Click OK to shut down the system and reboot into
+'Safe Mode. Check the event log for detailed information.
 Public Const ERROR_SAM_INIT_FAILURE = 8541
 'Schema information could not be included in the replication request.
 Public Const ERROR_DS_DRA_SCHEMA_INFO_SHIP = 8542
 'The replication operation could not be completed due to a schema incompatibility.
 Public Const ERROR_DS_DRA_SCHEMA_CONFLICT = 8543
-'The replication operation could not be completed due to a previous schema incompatibility.
+'The replication operation could not be completed due to a previous schema
+'incompatibility.
 Public Const ERROR_DS_DRA_EARLIER_SCHEMA_CONFLICT = 8544
-'The replication update could not be applied because either the source or the destination has not yet received information regarding a recent cross-domain move operation.
+'The replication update could not be applied because either the source or
+'the destination has not yet received information regarding a recent
+'cross-domain move operation.
 Public Const ERROR_DS_DRA_OBJ_NC_MISMATCH = 8545
-'The requested domain could not be deleted because there exist domain controllers that still host this domain.
+'The requested domain could not be deleted because there exist domain
+'controllers that still host this domain.
 Public Const ERROR_DS_NC_STILL_HAS_DSAS = 8546
 'The requested operation can be performed only on a global catalog server.
 Public Const ERROR_DS_GC_REQUIRED = 8547
@@ -3084,51 +3315,73 @@ Public Const ERROR_DS_LOCAL_MEMBER_OF_LOCAL_ONLY = 8548
 Public Const ERROR_DS_NO_FPO_IN_UNIVERSAL_GROUPS = 8549
 'The attribute is not allowed to be replicated to the GC because of security reasons.
 Public Const ERROR_DS_CANT_ADD_TO_GC = 8550
-'The checkpoint with the PDC could not be taken because there too many modifications being processed currently.
+'The checkpoint with the PDC could not be taken because there too many
+'modifications being processed currently.
 Public Const ERROR_DS_NO_CHECKPOINT_WITH_PDC = 8551
 'The operation requires that source domain auditing be enabled.
 Public Const ERROR_DS_SOURCE_AUDITING_NOT_ENABLED = 8552
 'Security principal objects can only be created inside domain naming contexts.
 Public Const ERROR_DS_CANT_CREATE_IN_NONDOMAIN_NC = 8553
-'A Service Principal Name (SPN) could not be constructed because the provided hostname is not in the necessary format.
+'A Service Principal Name (SPN) could not be constructed because the provided
+'hostname is not in the necessary format.
 Public Const ERROR_DS_INVALID_NAME_FOR_SPN = 8554
 'A Filter was passed that uses constructed attributes.
 Public Const ERROR_DS_FILTER_USES_CONTRUCTED_ATTRS = 8555
 'The unicodePwd attribute value must be enclosed in double quotes.
 Public Const ERROR_DS_UNICODEPWD_NOT_IN_QUOTES = 8556
-'Your computer could not be joined to the domain. You have exceeded the maximum number of computer accounts you are allowed to create in this domain. Contact your system administrator to have this limit reset or increased.
+'Your computer could not be joined to the domain. You have exceeded
+'the maximum number of computer accounts you are allowed to create in this domain.
+'Contact your system administrator to have this limit reset or increased.
 Public Const ERROR_DS_MACHINE_ACCOUNT_QUOTA_EXCEEDED = 8557
 'For security reasons, the operation must be run on the destination DC.
 Public Const ERROR_DS_MUST_BE_RUN_ON_DST_DC = 8558
 'For security reasons, the source DC must be NT4SP4 or greater.
 Public Const ERROR_DS_SRC_DC_MUST_BE_SP4_OR_GREATER = 8559
-'Critical Directory Service System objects cannot be deleted during tree delete operations.  The tree delete may have been partially performed.
+'Critical Directory Service System objects cannot be deleted during tree
+'delete operations. The tree delete may have been partially performed.
 Public Const ERROR_DS_CANT_TREE_DELETE_CRITICAL_OBJ = 8560
 'Directory Services could not start because of the following error: %1.
-'Error Status: &H%2. Please click OK to shutdown the system. You can use the recovery console to diagnose the system further.
+'Error Status: &H%2. Please click OK to shutdown the system. You can use
+'the recovery console to diagnose the system further.
 Public Const ERROR_DS_INIT_FAILURE_CONSOLE = 8561
 'Security Accounts Manager initialization failed because of the following error: %1.
-'Error Status: &H%2. Please click OK to shutdown the system. You can use the recovery console to diagnose the system further.
+'Error Status: &H%2. Please click OK to shutdown the system. You can use
+'the recovery console to diagnose the system further.
 Public Const ERROR_DS_SAM_INIT_FAILURE_CONSOLE = 8562
-'The version of the operating system installed is incompatible with the current forest functional level. You must upgrade to a new version of the operating system before this server can become a domain controller in this forest.
+'The version of the operating system installed is incompatible with
+'the current forest functional level. You must upgrade to a new version of
+'the operating system before this server can become a domain controller in
+'this forest.
 Public Const ERROR_DS_FOREST_VERSION_TOO_HIGH = 8563
-'The version of the operating system installed is incompatible with the current domain functional level. You must upgrade to a new version of the operating system before this server can become a domain controller in this domain.
+'The version of the operating system installed is incompatible with
+'the current domain functional level. You must upgrade to a new version of
+'the operating system before this server can become a domain controller in this domain.
 Public Const ERROR_DS_DOMAIN_VERSION_TOO_HIGH = 8564
-'The version of the operating system installed on this server no longer supports the current forest functional level. You must raise the forest functional level before this server can become a domain controller in this forest.
+'The version of the operating system installed on this server no longer
+'supports the current forest functional level. You must raise the forest
+'functional level before this server can become a domain controller in this forest.
 Public Const ERROR_DS_FOREST_VERSION_TOO_LOW = 8565
-'The version of the operating system installed on this server no longer supports the current domain functional level. You must raise the domain functional level before this server can become a domain controller in this domain.
+'The version of the operating system installed on this server no
+'longer supports the current domain functional level. You must raise
+'the domain functional level before this server can become a domain
+'controller in this domain.
 Public Const ERROR_DS_DOMAIN_VERSION_TOO_LOW = 8566
-'The version of the operating system installed on this server is incompatible with the functional level of the domain or forest.
+'The version of the operating system installed on this server is
+'incompatible with the functional level of the domain or forest.
 Public Const ERROR_DS_INCOMPATIBLE_VERSION = 8567
-'The functional level of the domain (or forest) cannot be raised to the requested value, because there exist one or more domain controllers in the domain (or forest) that are at a lower incompatible functional level.
+'The functional level of the domain (or forest) cannot be raised to
+'the requested value, because there exist one or more domain controllers in
+'the domain (or forest) that are at a lower incompatible functional level.
 Public Const ERROR_DS_LOW_DSA_VERSION = 8568
-'The forest functional level cannot be raised to the requested value since one or more domains are still in mixed domain mode. All domains in the forest must be in native mode, for you to raise the forest functional level.
+'The forest functional level cannot be raised to the requested value since one
+'or more domains are still in mixed domain mode. All domains in the forest
+'must be in native mode, for you to raise the forest functional level.
 Public Const ERROR_DS_NO_BEHAVIOR_VERSION_IN_MIXEDDOMAIN = 8569
 'The sort order requested is not supported.
 Public Const ERROR_DS_NOT_SUPPORTED_SORT_ORDER = 8570
 'The requested name already exists as a unique identifier.
 Public Const ERROR_DS_NAME_NOT_UNIQUE = 8571
-'The machine account was created pre-NT4.  The account needs to be recreated.
+'The machine account was created pre-NT4. The account needs to be recreated.
 Public Const ERROR_DS_MACHINE_ACCOUNT_CREATED_PRENT4 = 8572
 'The database is out of version store.
 Public Const ERROR_DS_OUT_OF_VERSION_STORE = 8573
@@ -3142,27 +3395,37 @@ Public Const ERROR_DS_RESERVED_LINK_ID = 8576
 Public Const ERROR_DS_LINK_ID_NOT_AVAILABLE = 8577
 'An account group can not have a universal group as a member.
 Public Const ERROR_DS_AG_CANT_HAVE_UNIVERSAL_MEMBER = 8578
-'Rename or move operations on naming context heads or read-only objects are not allowed.
+'Rename or move operations on naming context heads or read-only objects are
+'not allowed.
 Public Const ERROR_DS_MODIFYDN_DISALLOWED_BY_INSTANCE_TYPE = 8579
 'Move operations on objects in the schema naming context are not allowed.
 Public Const ERROR_DS_NO_OBJECT_MOVE_IN_SCHEMA_NC = 8580
-'A system flag has been set on the object and does not allow the object to be moved or renamed.
+'A system flag has been set on the object and does not allow the object to be
+'moved or renamed.
 Public Const ERROR_DS_MODIFYDN_DISALLOWED_BY_FLAG = 8581
-'This object is not allowed to change its grandparent container. Moves are not forbidden on this object, but are restricted to sibling containers.
+'This object is not allowed to change its grandparent container. Moves are
+'not forbidden on this object, but are restricted to sibling containers.
 Public Const ERROR_DS_MODIFYDN_WRONG_GRANDPARENT = 8582
 'Unable to resolve completely, a referral to another forest is generated.
 Public Const ERROR_DS_NAME_ERROR_TRUST_REFERRAL = 8583
 'The requested action is not supported on standard server.
 Public Const ERROR_NOT_SUPPORTED_ON_STANDARD_SERVER = 8584
-'Could not access a partition of the Active Directory located on a remote server.  Make sure at least one server is running for the partition in question.
+'Could not access a partition of the Active Directory located on a remote server.
+'Make sure at least one server is running for the partition in question.
 Public Const ERROR_DS_CANT_ACCESS_REMOTE_PART_OF_AD = 8585
-'The directory cannot validate the proposed naming context (or partition) name because it does not hold a replica nor can it contact a replica of the naming context above the proposed naming context.  Please ensure that the parent naming context is properly registered in DNS, and at least one replica of this naming context is reachable by the Domain Naming master.
+'The directory cannot validate the proposed naming context (or partition)
+'name because it does not hold a replica nor can it contact a replica of the
+'naming context above the proposed naming context. Please ensure that the parent
+'naming context is properly registered in DNS, and at least one replica of this
+'naming context is reachable by the Domain Naming master.
 Public Const ERROR_DS_CR_IMPOSSIBLE_TO_VALIDATE_V2 = 8586
 'The thread limit for this request was exceeded.
 Public Const ERROR_DS_THREAD_LIMIT_EXCEEDED = 8587
 'The Global catalog server is not in the closest site.
 Public Const ERROR_DS_NOT_CLOSEST = 8588
-'The DS cannot derive a service principal name (SPN) with which to mutually authenticate the target server because the corresponding server object in the local DS database has no serverReference attribute.
+'The DS cannot derive a service principal name (SPN) with which to mutually
+'authenticate the target server because the corresponding server object in
+'the local DS database has no serverReference attribute.
 Public Const ERROR_DS_CANT_DERIVE_SPN_WITHOUT_SERVER_REF = 8589
 'The Directory Service failed to enter single user mode.
 Public Const ERROR_DS_SINGLE_USER_MODE_FAILED = 8590
@@ -3189,41 +3452,50 @@ Public Const ERROR_DS_EXISTS_IN_RDNATTID = 8598
 Public Const ERROR_DS_AUTHORIZATION_FAILED = 8599
 'The Directory Service cannot process the script because it is invalid.
 Public Const ERROR_DS_INVALID_SCRIPT = 8600
-'The remote create cross reference operation failed on the Domain Naming Master FSMO.  The operation's error is in the extended data.
+'The remote create cross reference operation failed on
+'the Domain Naming Master FSMO. The operation's error is in the extended data.
 Public Const ERROR_DS_REMOTE_CROSSREF_OP_FAILED = 8601
 'A cross reference is in use locally with the same name.
 Public Const ERROR_DS_CROSS_REF_BUSY = 8602
-'The DS cannot derive a service principal name (SPN) with which to mutually authenticate the target server because the server's domain has been deleted from the forest.
+'The DS cannot derive a service principal name (SPN) with which to mutually
+'authenticate the target server because the server's domain has been deleted
+'from the forest.
 Public Const ERROR_DS_CANT_DERIVE_SPN_FOR_DELETED_DOMAIN = 8603
 'Writeable NCs prevent this DC from demoting.
 Public Const ERROR_DS_CANT_DEMOTE_WITH_WRITEABLE_NC = 8604
 'The requested object has a non-unique identifier and cannot be retrieved.
 Public Const ERROR_DS_DUPLICATE_ID_FOUND = 8605
-'Insufficient attributes were given to create an object.  This object may not exist because it may have been deleted and already garbage collected.
+'Insufficient attributes were given to create an object. This object may not
+'exist because it may have been deleted and already garbage collected.
 Public Const ERROR_DS_INSUFFICIENT_ATTR_TO_CREATE_OBJECT = 8606
-'The group cannot be converted due to attribute restrictions on the requested group type.
+'The group cannot be converted due to attribute restrictions on the requested
+'group type.
 Public Const ERROR_DS_GROUP_CONVERSION_ERROR = 8607
 'Cross-domain move of non-empty basic application groups is not allowed.
 Public Const ERROR_DS_CANT_MOVE_APP_BASIC_GROUP = 8608
 'Cross-domain move of non-empty query based application groups is not allowed.
 Public Const ERROR_DS_CANT_MOVE_APP_QUERY_GROUP = 8609
-'The FSMO role ownership could not be verified because its directory partition has not replicated successfully with atleast one replication partner.
+'The FSMO role ownership could not be verified because its directory partition
+'has not replicated successfully with atleast one replication partner.
 Public Const ERROR_DS_ROLE_NOT_VERIFIED = 8610
-'The target container for a redirection of a well known object container cannot already be a special container.
+'The target container for a redirection of a well known object container
+'cannot already be a special container.
 Public Const ERROR_DS_WKO_CONTAINER_CANNOT_BE_SPECIAL = 8611
-'The Directory Service cannot perform the requested operation because a domain rename operation is in progress.
+'The Directory Service cannot perform the requested operation because
+'a domain rename operation is in progress.
 Public Const ERROR_DS_DOMAIN_RENAME_IN_PROGRESS = 8612
 'The Active Directory detected an Active Directory child partition below the
-'requested new partition name.  The Active Directory's partition heiarchy must
+'requested new partition name. The Active Directory's partition heiarchy must
 'be created in a top down method.
 Public Const ERROR_DS_EXISTING_AD_CHILD_NC = 8613
-'The Active Directory cannot replicate with this server because the time since the last replication with this server has exceeded the tombstone lifetime.
+'The Active Directory cannot replicate with this server because the time since
+'the last replication with this server has exceeded the tombstone lifetime.
 Public Const ERROR_DS_REPL_LIFETIME_EXCEEDED = 8614
 'The requested operation is not allowed on an object under the system container.
 Public Const ERROR_DS_DISALLOWED_IN_SYSTEM_CONTAINER = 8615
 'The LDAP servers network send queue has filled up because the client is not
-'processing the results of it's requests fast enough.  No more requests will
-'be processed until the client catches up.  If the client does not catch up
+'processing the results of it's requests fast enough. No more requests will
+'be processed until the client catches up. If the client does not catch up
 'then it will be disconnected.
 Public Const ERROR_DS_LDAP_SEND_QUEUE_FULL = 8616
 
@@ -3245,80 +3517,54 @@ Public Const DNS_ERROR_RCODE_NO_ERROR = NO_ERROR
 Public Const DNS_ERROR_MASK = &H2328     '9000 or DNS_ERROR_RESPONSE_CODES_BASE
 
 'DNS_ERROR_RCODE_FORMAT_ERROR          &H00002329
-
-
 'DNS server unable to interpret format.
 Public Const DNS_ERROR_RCODE_FORMAT_ERROR = 9001
 
 'DNS_ERROR_RCODE_SERVER_FAILURE        &H0000232a
-
-
 'DNS server failure.
 Public Const DNS_ERROR_RCODE_SERVER_FAILURE = 9002
 
 'DNS_ERROR_RCODE_NAME_ERROR            &H0000232b
-
-
 'DNS name does not exist.
 Public Const DNS_ERROR_RCODE_NAME_ERROR = 9003
 
 'DNS_ERROR_RCODE_NOT_IMPLEMENTED       &H0000232c
-
-
 'DNS request not supported by name server.
 Public Const DNS_ERROR_RCODE_NOT_IMPLEMENTED = 9004
 
 'DNS_ERROR_RCODE_REFUSED               &H0000232d
-
-
 'DNS operation refused.
 Public Const DNS_ERROR_RCODE_REFUSED = 9005
 
 'DNS_ERROR_RCODE_YXDOMAIN              &H0000232e
-
-
 'DNS name that ought not exist, does exist.
 Public Const DNS_ERROR_RCODE_YXDOMAIN = 9006
 
 'DNS_ERROR_RCODE_YXRRSET               &H0000232f
-
-
 'DNS RR set that ought not exist, does exist.
 Public Const DNS_ERROR_RCODE_YXRRSET = 9007
 
 'DNS_ERROR_RCODE_NXRRSET               &H00002330
-
-
 'DNS RR set that ought to exist, does not exist.
 Public Const DNS_ERROR_RCODE_NXRRSET = 9008
 
 'DNS_ERROR_RCODE_NOTAUTH               &H00002331
-
-
 'DNS server not authoritative for zone.
 Public Const DNS_ERROR_RCODE_NOTAUTH = 9009
 
 'DNS_ERROR_RCODE_NOTZONE               &H00002332
-
-
 'DNS name in update or prereq is not in zone.
 Public Const DNS_ERROR_RCODE_NOTZONE = 9010
 
 'DNS_ERROR_RCODE_BADSIG                &H00002338
-
-
 'DNS signature failed to verify.
 Public Const DNS_ERROR_RCODE_BADSIG = 9016
 
 'DNS_ERROR_RCODE_BADKEY                &H00002339
-
-
 'DNS bad key.
 Public Const DNS_ERROR_RCODE_BADKEY = 9017
 
 'DNS_ERROR_RCODE_BADTIME               &H0000233a
-
-
 'DNS signature validity expired.
 Public Const DNS_ERROR_RCODE_BADTIME = 9018
 
@@ -3330,32 +3576,22 @@ Public Const DNS_ERROR_RCODE_LAST = DNS_ERROR_RCODE_BADTIME
 Public Const DNS_ERROR_PACKET_FMT_BASE = 9500
 
 'DNS_INFO_NO_RECORDS                   &H0000251d
-
-
 'No records found for given DNS query.
 Public Const DNS_INFO_NO_RECORDS = 9501
 
 'DNS_ERROR_BAD_PACKET                  &H0000251e
-
-
 'Bad DNS packet.
 Public Const DNS_ERROR_BAD_PACKET = 9502
 
 'DNS_ERROR_NO_PACKET                   &H0000251f
-
-
 'No DNS packet.
 Public Const DNS_ERROR_NO_PACKET = 9503
 
 'DNS_ERROR_RCODE                       &H00002520
-
-
 'DNS error, check rcode.
 Public Const DNS_ERROR_RCODE = 9504
 
 'DNS_ERROR_UNSECURE_PACKET             &H00002521
-
-
 'Unsecured DNS packet.
 Public Const DNS_ERROR_UNSECURE_PACKET = 9505
 
@@ -3371,93 +3607,63 @@ Public Const DNS_ERROR_INVALID_DATA = ERROR_INVALID_DATA
 Public Const DNS_ERROR_GENERAL_API_BASE = 9550
 
 'DNS_ERROR_INVALID_TYPE                &H0000254f
-
-
 'Invalid DNS type.
 Public Const DNS_ERROR_INVALID_TYPE = 9551
 
 'DNS_ERROR_INVALID_IP_ADDRESS          &H00002550
-
-
 'Invalid IP address.
 Public Const DNS_ERROR_INVALID_IP_ADDRESS = 9552
 
 'DNS_ERROR_INVALID_PROPERTY            &H00002551
-
-
 'Invalid property.
 Public Const DNS_ERROR_INVALID_PROPERTY = 9553
 
 'DNS_ERROR_TRY_AGAIN_LATER             &H00002552
-
-
 'Try DNS operation again later.
 Public Const DNS_ERROR_TRY_AGAIN_LATER = 9554
 
 'DNS_ERROR_NOT_UNIQUE                  &H00002553
-
-
 'Record for given name and type is not unique.
 Public Const DNS_ERROR_NOT_UNIQUE = 9555
 
 'DNS_ERROR_NON_RFC_NAME                &H00002554
-
-
 'DNS name does not comply with RFC specifications.
 Public Const DNS_ERROR_NON_RFC_NAME = 9556
 
 'DNS_STATUS_FQDN                       &H00002555
-
-
 'DNS name is a fully-qualified DNS name.
 Public Const DNS_STATUS_FQDN = 9557
 
 'DNS_STATUS_DOTTED_NAME                &H00002556
-
-
 'DNS name is dotted (multi-label).
 Public Const DNS_STATUS_DOTTED_NAME = 9558
 
 'DNS_STATUS_SINGLE_PART_NAME           &H00002557
-
-
 'DNS name is a single-part name.
 Public Const DNS_STATUS_SINGLE_PART_NAME = 9559
 
 'DNS_ERROR_INVALID_NAME_CHAR           &H00002558
-
-
 'DNS name contains an invalid character.
 Public Const DNS_ERROR_INVALID_NAME_CHAR = 9560
 
 'DNS_ERROR_NUMERIC_NAME                &H00002559
-
-
 'DNS name is entirely numeric.
 Public Const DNS_ERROR_NUMERIC_NAME = 9561
 
 'DNS_ERROR_NOT_ALLOWED_ON_ROOT_SERVER  &H0000255A
-
-
 'The operation requested is not permitted on a DNS root server.
 Public Const DNS_ERROR_NOT_ALLOWED_ON_ROOT_SERVER = 9562
 
 'DNS_ERROR_NOT_ALLOWED_UNDER_DELEGATION  &H0000255B
-
-
 'The record could not be created because this part of the DNS namespace has
 'been delegated to another server.
 Public Const DNS_ERROR_NOT_ALLOWED_UNDER_DELEGATION = 9563
 
 'DNS_ERROR_CANNOT_FIND_ROOT_HINTS  &H0000255C
-
-
 'The DNS server could not find a set of root hints.
 Public Const DNS_ERROR_CANNOT_FIND_ROOT_HINTS = 9564
 
 'DNS_ERROR_INCONSISTENT_ROOT_HINTS  &H0000255D
-
-
 'The DNS server found root hints but they were not consistent across
 'all adapters.
 Public Const DNS_ERROR_INCONSISTENT_ROOT_HINTS = 9565
@@ -3468,128 +3674,86 @@ Public Const DNS_ERROR_INCONSISTENT_ROOT_HINTS = 9565
 Public Const DNS_ERROR_ZONE_BASE = 9600
 
 'DNS_ERROR_ZONE_DOES_NOT_EXIST         &H00002581
-
-
 'DNS zone does not exist.
 Public Const DNS_ERROR_ZONE_DOES_NOT_EXIST = 9601
 
 'DNS_ERROR_NO_ZONE_INFO                &H00002582
-
-
 'DNS zone information not available.
 Public Const DNS_ERROR_NO_ZONE_INFO = 9602
 
 'DNS_ERROR_INVALID_ZONE_OPERATION      &H00002583
-
-
 'Invalid operation for DNS zone.
 Public Const DNS_ERROR_INVALID_ZONE_OPERATION = 9603
 
 'DNS_ERROR_ZONE_CONFIGURATION_ERROR    &H00002584
-
-
 'Invalid DNS zone configuration.
 Public Const DNS_ERROR_ZONE_CONFIGURATION_ERROR = 9604
 
 'DNS_ERROR_ZONE_HAS_NO_SOA_RECORD      &H00002585
-
-
 'DNS zone has no start of authority (SOA) record.
 Public Const DNS_ERROR_ZONE_HAS_NO_SOA_RECORD = 9605
 
 'DNS_ERROR_ZONE_HAS_NO_NS_RECORDS      &H00002586
-
-
 'DNS zone has no Name Server (NS) record.
 Public Const DNS_ERROR_ZONE_HAS_NO_NS_RECORDS = 9606
 
 'DNS_ERROR_ZONE_LOCKED                 &H00002587
-
-
 'DNS zone is locked.
 Public Const DNS_ERROR_ZONE_LOCKED = 9607
 
 'DNS_ERROR_ZONE_CREATION_FAILED        &H00002588
-
-
 'DNS zone creation failed.
 Public Const DNS_ERROR_ZONE_CREATION_FAILED = 9608
 
 'DNS_ERROR_ZONE_ALREADY_EXISTS         &H00002589
-
-
 'DNS zone already exists.
 Public Const DNS_ERROR_ZONE_ALREADY_EXISTS = 9609
 
 'DNS_ERROR_AUTOZONE_ALREADY_EXISTS     &H0000258a
-
-
 'DNS automatic zone already exists.
 Public Const DNS_ERROR_AUTOZONE_ALREADY_EXISTS = 9610
 
 'DNS_ERROR_INVALID_ZONE_TYPE           &H0000258b
-
-
 'Invalid DNS zone type.
 Public Const DNS_ERROR_INVALID_ZONE_TYPE = 9611
 
 'DNS_ERROR_SECONDARY_REQUIRES_MASTER_IP &H0000258c
-
-
 'Secondary DNS zone requires master IP address.
 Public Const DNS_ERROR_SECONDARY_REQUIRES_MASTER_IP = 9612
 
 'DNS_ERROR_ZONE_NOT_SECONDARY          &H0000258d
-
-
 'DNS zone not secondary.
 Public Const DNS_ERROR_ZONE_NOT_SECONDARY = 9613
 
 'DNS_ERROR_NEED_SECONDARY_ADDRESSES    &H0000258e
-
-
 'Need secondary IP address.
 Public Const DNS_ERROR_NEED_SECONDARY_ADDRESSES = 9614
 
 'DNS_ERROR_WINS_INIT_FAILED            &H0000258f
-
-
 'WINS initialization failed.
 Public Const DNS_ERROR_WINS_INIT_FAILED = 9615
 
 'DNS_ERROR_NEED_WINS_SERVERS           &H00002590
-
-
 'Need WINS servers.
 Public Const DNS_ERROR_NEED_WINS_SERVERS = 9616
 
 'DNS_ERROR_NBSTAT_INIT_FAILED          &H00002591
-
-
 'NBTSTAT initialization call failed.
 Public Const DNS_ERROR_NBSTAT_INIT_FAILED = 9617
 
 'DNS_ERROR_SOA_DELETE_INVALID          &H00002592
-
-
 'Invalid delete of start of authority (SOA)
 Public Const DNS_ERROR_SOA_DELETE_INVALID = 9618
 
 'DNS_ERROR_FORWARDER_ALREADY_EXISTS    &H00002593
-
-
 'A conditional forwarding zone already exists for that name.
 Public Const DNS_ERROR_FORWARDER_ALREADY_EXISTS = 9619
 
 'DNS_ERROR_ZONE_REQUIRES_MASTER_IP     &H00002594
-
-
 'This zone must be configured with one or more master DNS server IP addresses.
 Public Const DNS_ERROR_ZONE_REQUIRES_MASTER_IP = 9620
 
 'DNS_ERROR_ZONE_IS_SHUTDOWN            &H00002595
-
-
 'The operation cannot be performed because this zone is shutdown.
 Public Const DNS_ERROR_ZONE_IS_SHUTDOWN = 9621
 
@@ -3599,151 +3763,101 @@ Public Const DNS_ERROR_ZONE_IS_SHUTDOWN = 9621
 Public Const DNS_ERROR_DATAFILE_BASE = 9650
 
 'DNS                                   &H000025b3
-
-
 'Primary DNS zone requires datafile.
 Public Const DNS_ERROR_PRIMARY_REQUIRES_DATAFILE = 9651
 
 'DNS                                   &H000025b4
-
-
 'Invalid datafile name for DNS zone.
 Public Const DNS_ERROR_INVALID_DATAFILE_NAME = 9652
 
 'DNS                                   &H000025b5
-
-
 'Failed to open datafile for DNS zone.
 Public Const DNS_ERROR_DATAFILE_OPEN_FAILURE = 9653
 
 'DNS                                   &H000025b6
-
-
 'Failed to write datafile for DNS zone.
 Public Const DNS_ERROR_FILE_WRITEBACK_FAILED = 9654
 
 'DNS                                   &H000025b7
-
-
 'Failure while reading datafile for DNS zone.
 Public Const DNS_ERROR_DATAFILE_PARSING = 9655
-
-
 'Database errors
 
 Public Const DNS_ERROR_DATABASE_BASE = 9700
 
 'DNS_ERROR_RECORD_DOES_NOT_EXIST       &H000025e5
-
-
 'DNS record does not exist.
 Public Const DNS_ERROR_RECORD_DOES_NOT_EXIST = 9701
 
 'DNS_ERROR_RECORD_FORMAT               &H000025e6
-
-
 'DNS record format error.
 Public Const DNS_ERROR_RECORD_FORMAT = 9702
 
 'DNS_ERROR_NODE_CREATION_FAILED        &H000025e7
-
-
 'Node creation failure in DNS.
 Public Const DNS_ERROR_NODE_CREATION_FAILED = 9703
 
 'DNS_ERROR_UNKNOWN_RECORD_TYPE         &H000025e8
-
-
 'Unknown DNS record type.
 Public Const DNS_ERROR_UNKNOWN_RECORD_TYPE = 9704
 
 'DNS_ERROR_RECORD_TIMED_OUT            &H000025e9
-
-
 'DNS record timed out.
 Public Const DNS_ERROR_RECORD_TIMED_OUT = 9705
 
 'DNS_ERROR_NAME_NOT_IN_ZONE            &H000025ea
-
-
 'Name not in DNS zone.
 Public Const DNS_ERROR_NAME_NOT_IN_ZONE = 9706
 
 'DNS_ERROR_CNAME_LOOP                  &H000025eb
-
-
 'CNAME loop detected.
 Public Const DNS_ERROR_CNAME_LOOP = 9707
 
 'DNS_ERROR_NODE_IS_CNAME               &H000025ec
-
-
 'Node is a CNAME DNS record.
 Public Const DNS_ERROR_NODE_IS_CNAME = 9708
 
 'DNS_ERROR_CNAME_COLLISION             &H000025ed
-
-
 'A CNAME record already exists for given name.
 Public Const DNS_ERROR_CNAME_COLLISION = 9709
 
 'DNS_ERROR_RECORD_ONLY_AT_ZONE_ROOT    &H000025ee
-
-
 'Record only at DNS zone root.
 Public Const DNS_ERROR_RECORD_ONLY_AT_ZONE_ROOT = 9710
 
 'DNS_ERROR_RECORD_ALREADY_EXISTS       &H000025ef
-
-
 'DNS record already exists.
 Public Const DNS_ERROR_RECORD_ALREADY_EXISTS = 9711
 
 'DNS_ERROR_SECONDARY_DATA              &H000025f0
-
-
 'Secondary DNS zone data error.
 Public Const DNS_ERROR_SECONDARY_DATA = 9712
 
 'DNS_ERROR_NO_CREATE_CACHE_DATA        &H000025f1
-
-
 'Could not create DNS cache data.
 Public Const DNS_ERROR_NO_CREATE_CACHE_DATA = 9713
 
 'DNS_ERROR_NAME_DOES_NOT_EXIST         &H000025f2
-
-
 'DNS name does not exist.
 Public Const DNS_ERROR_NAME_DOES_NOT_EXIST = 9714
 
 'DNS_WARNING_PTR_CREATE_FAILED         &H000025f3
-
-
 'Could not create pointer (PTR) record.
 Public Const DNS_WARNING_PTR_CREATE_FAILED = 9715
 
 'DNS_WARNING_DOMAIN_UNDELETED          &H000025f4
-
-
 'DNS domain was undeleted.
 Public Const DNS_WARNING_DOMAIN_UNDELETED = 9716
 
 'DNS_ERROR_DS_UNAVAILABLE              &H000025f5
-
-
 'The directory service is unavailable.
 Public Const DNS_ERROR_DS_UNAVAILABLE = 9717
 
 'DNS_ERROR_DS_ZONE_ALREADY_EXISTS      &H000025f6
-
-
 'DNS zone already exists in the directory service.
 Public Const DNS_ERROR_DS_ZONE_ALREADY_EXISTS = 9718
 
 'DNS_ERROR_NO_BOOTFILE_IF_DS_ZONE      &H000025f7
-
-
 'DNS server not creating or reading the boot file for the directory service integrated DNS zone.
 Public Const DNS_ERROR_NO_BOOTFILE_IF_DS_ZONE = 9719
 
@@ -3753,20 +3867,14 @@ Public Const DNS_ERROR_NO_BOOTFILE_IF_DS_ZONE = 9719
 Public Const DNS_ERROR_OPERATION_BASE = 9750
 
 'DNS_INFO_AXFR_COMPLETE                &H00002617
-
-
 'DNS AXFR (zone transfer) complete.
 Public Const DNS_INFO_AXFR_COMPLETE = 9751
 
 'DNS_ERROR_AXFR                        &H00002618
-
-
 'DNS zone transfer failed.
 Public Const DNS_ERROR_AXFR = 9752
 
 'DNS_INFO_ADDED_LOCAL_WINS             &H00002619
-
-
 'Added local WINS server.
 Public Const DNS_INFO_ADDED_LOCAL_WINS = 9753
 
@@ -3776,8 +3884,6 @@ Public Const DNS_INFO_ADDED_LOCAL_WINS = 9753
 Public Const DNS_ERROR_SECURE_BASE = 9800
 
 'DNS_STATUS_CONTINUE_NEEDED            &H00002649
-
-
 'Secure update call needs to continue update request.
 Public Const DNS_STATUS_CONTINUE_NEEDED = 9801
 
@@ -3787,14 +3893,10 @@ Public Const DNS_STATUS_CONTINUE_NEEDED = 9801
 Public Const DNS_ERROR_SETUP_BASE = 9850
 
 'DNS_ERROR_NO_TCPIP                    &H0000267b
-
-
 'TCP/IP network protocol not installed.
 Public Const DNS_ERROR_NO_TCPIP = 9851
 
 'DNS_ERROR_NO_DNS_SERVERS              &H0000267c
-
-
 'No DNS servers configured for local system.
 Public Const DNS_ERROR_NO_DNS_SERVERS = 9852
 
@@ -3804,39 +3906,37 @@ Public Const DNS_ERROR_NO_DNS_SERVERS = 9852
 Public Const DNS_ERROR_DP_BASE = 9900
 
 'DNS_ERROR_DP_DOES_NOT_EXIST           &H000026ad
-
-
 'The specified directory partition does not exist.
 Public Const DNS_ERROR_DP_DOES_NOT_EXIST = 9901
 
 'DNS_ERROR_DP_ALREADY_EXISTS           &H000026ae
-
-
 'The specified directory partition already exists.
 Public Const DNS_ERROR_DP_ALREADY_EXISTS = 9902
 
 'DNS_ERROR_DP_NOT_ENLISTED             &H000026af
-
-
 'This DNS server is not enlisted in the specified directory partition.
 Public Const DNS_ERROR_DP_NOT_ENLISTED = 9903
 
 'DNS_ERROR_DP_ALREADY_ENLISTED         &H000026b0
-
-
 'This DNS server is already enlisted in the specified directory partition.
 Public Const DNS_ERROR_DP_ALREADY_ENLISTED = 9904
 
 'DNS_ERROR_DP_NOT_AVAILABLE            &H000026b1
-
-
 'The directory partition is not available at this time. Please wait
 'a few minutes and try again.
 Public Const DNS_ERROR_DP_NOT_AVAILABLE = 9905
 
-'--------------------------------------------------'           End of DNS Error Codes            '                                             '                9000 to 9999                 ''''''''''''''''''''''''/
+'--------------------------------------------------
+'           End of DNS Error Codes
+'
+'                9000 to 9999
+''''''''''''''''''''''''/
 
-'--------------------------------------------------'             WinSock Error Codes             '                                             '               10000 to 11999                ''''''''''''''''''''''''/
+'--------------------------------------------------
+'             WinSock Error Codes
+'
+'               10000 to 11999
+''''''''''''''''''''''''/
 'WinSock error codes are also defined in WinSock.h
 'and WinSock2.h, hence the IFDEF
 
@@ -3847,9 +3947,11 @@ Public Const WSABASEERR = 10000
 Public Const WSAEINTR = 10004
 'The file handle supplied is not valid.
 Public Const WSAEBADF = 10009
-'An attempt was made to access a socket in a way forbidden by its access permissions.
+'An attempt was made to access a socket in a way forbidden by its access
+'permissions.
 Public Const WSAEACCES = 10013
-'The system detected an invalid pointer address in attempting to use a pointer argument in a call.
+'The system detected an invalid pointer address in attempting to use a pointer
+'argument in a call.
 Public Const WSAEFAULT = 10014
 'An invalid argument was supplied.
 Public Const WSAEINVAL = 10022
@@ -3859,29 +3961,37 @@ Public Const WSAEMFILE = 10024
 Public Const WSAEWOULDBLOCK = 10035
 'A blocking operation is currently executing.
 Public Const WSAEINPROGRESS = 10036
-'An operation was attempted on a non-blocking socket that already had an operation in progress.
+'An operation was attempted on a non-blocking socket that already had
+'an operation in progress.
 Public Const WSAEALREADY = 10037
 'An operation was attempted on something that is not a socket.
 Public Const WSAENOTSOCK = 10038
 'A required address was omitted from an operation on a socket.
 Public Const WSAEDESTADDRREQ = 10039
-'A message sent on a datagram socket was larger than the internal message buffer or some other network limit, or the buffer used to receive a datagram into was smaller than the datagram itself.
+'A message sent on a datagram socket was larger than the internal message
+'buffer or some other network limit, or the buffer used to receive a datagram
+'into was smaller than the datagram itself.
 Public Const WSAEMSGSIZE = 10040
-'A protocol was specified in the socket function call that does not support the semantics of the socket type requested.
+'A protocol was specified in the socket function call that does not support
+'the semantics of the socket type requested.
 Public Const WSAEPROTOTYPE = 10041
-'An unknown, invalid, or unsupported option or level was specified in a getsockopt or setsockopt call.
+'An unknown, invalid, or unsupported option or level was specified in
+'a getsockopt or setsockopt call.
 Public Const WSAENOPROTOOPT = 10042
-'The requested protocol has not been configured into the system, or no implementation for it exists.
+'The requested protocol has not been configured into the system, or
+'no implementation for it exists.
 Public Const WSAEPROTONOSUPPORT = 10043
 'The support for the specified socket type does not exist in this address family.
 Public Const WSAESOCKTNOSUPPORT = 10044
 'The attempted operation is not supported for the type of object referenced.
 Public Const WSAEOPNOTSUPP = 10045
-'The protocol family has not been configured into the system or no implementation for it exists.
+'The protocol family has not been configured into the system or no
+'implementation for it exists.
 Public Const WSAEPFNOSUPPORT = 10046
 'An address incompatible with the requested protocol was used.
 Public Const WSAEAFNOSUPPORT = 10047
-'Only one usage of each socket address (protocol/network address/port) is normally permitted.
+'Only one usage of each socket address (protocol/network address/port)
+'is normally permitted.
 Public Const WSAEADDRINUSE = 10048
 'The requested address is not valid in its context.
 Public Const WSAEADDRNOTAVAIL = 10049
@@ -3889,23 +3999,30 @@ Public Const WSAEADDRNOTAVAIL = 10049
 Public Const WSAENETDOWN = 10050
 'A socket operation was attempted to an unreachable network.
 Public Const WSAENETUNREACH = 10051
-'The connection has been broken due to keep-alive activity detecting a failure while the operation was in progress.
+'The connection has been broken due to keep-alive activity detecting
+'a failure while the operation was in progress.
 Public Const WSAENETRESET = 10052
 'An established connection was aborted by the software in your host machine.
 Public Const WSAECONNABORTED = 10053
 'An existing connection was forcibly closed by the remote host.
 Public Const WSAECONNRESET = 10054
-'An operation on a socket could not be performed because the system lacked sufficient buffer space or because a queue was full.
+'An operation on a socket could not be performed because the system lacked
+'sufficient buffer space or because a queue was full.
 Public Const WSAENOBUFS = 10055
 'A connect request was made on an already connected socket.
 Public Const WSAEISCONN = 10056
-'A request to send or receive data was disallowed because the socket is not connected and (when sending on a datagram socket using a sendto call) no address was supplied.
+'A request to send or receive data was disallowed because the socket is not
+'connected and (when sending on a datagram socket using a sendto call) no
+'address was supplied.
 Public Const WSAENOTCONN = 10057
-'A request to send or receive data was disallowed because the socket had already been shut down in that direction with a previous shutdown call.
+'A request to send or receive data was disallowed because the socket had
+'already been shut down in that direction with a previous shutdown call.
 Public Const WSAESHUTDOWN = 10058
 'Too many references to some kernel object.
 Public Const WSAETOOMANYREFS = 10059
-'A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond.
+'A connection attempt failed because the connected party did not properly
+'respond after a period of time, or established connection failed because
+'connected host has failed to respond.
 Public Const WSAETIMEDOUT = 10060
 'No connection could be made because the target machine actively refused it.
 Public Const WSAECONNREFUSED = 10061
@@ -3919,7 +4036,8 @@ Public Const WSAEHOSTDOWN = 10064
 Public Const WSAEHOSTUNREACH = 10065
 'Cannot remove a directory that is not empty.
 Public Const WSAENOTEMPTY = 10066
-'A Windows Sockets implementation may have a limit on the number of applications that may use it simultaneously.
+'A Windows Sockets implementation may have a limit on the number of applications
+'that may use it simultaneously.
 Public Const WSAEPROCLIM = 10067
 'Ran out of quota.
 Public Const WSAEUSERS = 10068
@@ -3929,17 +4047,20 @@ Public Const WSAEDQUOT = 10069
 Public Const WSAESTALE = 10070
 'Item is not available locally.
 Public Const WSAEREMOTE = 10071
-'WSAStartup cannot function at this time because the underlying system it uses to provide network services is currently unavailable.
+'WSAStartup cannot function at this time because the underlying system it
+'uses to provide network services is currently unavailable.
 Public Const WSASYSNOTREADY = 10091
 'The Windows Sockets version requested is not supported.
 Public Const WSAVERNOTSUPPORTED = 10092
 'Either the application has not called WSAStartup, or WSAStartup failed.
 Public Const WSANOTINITIALISED = 10093
-'Returned by WSARecv or WSARecvFrom to indicate the remote party has initiated a graceful shutdown sequence.
+'Returned by WSARecv or WSARecvFrom to indicate the remote party has initiated
+'a graceful shutdown sequence.
 Public Const WSAEDISCON = 10101
 'No more results can be returned by WSALookupServiceNext.
 Public Const WSAENOMORE = 10102
-'A call to WSALookupServiceEnd was made while this call was still processing. The call has been canceled.
+'A call to WSALookupServiceEnd was made while this call was still processing.
+'The call has been canceled.
 Public Const WSAECANCELLED = 10103
 'The procedure call table is invalid.
 Public Const WSAEINVALIDPROCTABLE = 10104
@@ -3955,13 +4076,15 @@ Public Const WSASERVICE_NOT_FOUND = 10108
 Public Const WSATYPE_NOT_FOUND = 10109
 'No more results can be returned by WSALookupServiceNext.
 Public Const WSA_E_NO_MORE = 10110
-'A call to WSALookupServiceEnd was made while this call was still processing. The call has been canceled.
+'A call to WSALookupServiceEnd was made while this call was still processing.
+'The call has been canceled.
 Public Const WSA_E_CANCELLED = 10111
 'A database query failed because it was actively refused.
 Public Const WSAEREFUSED = 10112
 'No such host is known.
 Public Const WSAHOST_NOT_FOUND = 11001
-'This is usually a temporary error during hostname resolution and means that the local server did not receive a response from an authoritative server.
+'This is usually a temporary error during hostname resolution and means that
+'the local server did not receive a response from an authoritative server.
 Public Const WSATRY_AGAIN = 11002
 'A non-recoverable error occurred during a database lookup.
 Public Const WSANO_RECOVERY = 11003
@@ -4001,7 +4124,8 @@ Public Const WSA_QOS_EFILTERSTYLE = 11019
 Public Const WSA_QOS_EFILTERTYPE = 11020
 'An incorrect number of QOS FILTERSPECs were specified in the FLOWDESCRIPTOR.
 Public Const WSA_QOS_EFILTERCOUNT = 11021
-'An object with an invalid ObjectLength field was specified in the QOS provider-specific buffer.
+'An object with an invalid ObjectLength field was specified in the
+'QOS provider-specific buffer.
 Public Const WSA_QOS_EOBJLENGTH = 11022
 'An incorrect number of flow descriptors was specified in the QOS structure.
 Public Const WSA_QOS_EFLOWCOUNT = 11023
@@ -4024,16 +4148,23 @@ Public Const WSA_QOS_RESERVED_PETYPE = 11031
 
 
 '--------------------------------------------------
-'         End of WinSock Error Codes          '                                             '               10000 to 11999                ''''''''''''''''''''''''/
+'         End of WinSock Error Codes
+''
+'               10000 to 11999                '
+'''''''''''''''''''''''''/
 
 
 '--------------------------------------------------
-'           Side By Side Error Codes          '                                             '               14000 to 14999                ''''''''''''''''''''''''/
+'           Side By Side Error Codes
+''
+''               14000 to 14999
+'''''''''''''''''''''''''/
 
 
 'The requested section was not present in the activation context.
 Public Const ERROR_SXS_SECTION_NOT_FOUND = 14000
-'This application has failed to start because the application configuration is incorrect. Reinstalling the application may fix this problem.
+'This application has failed to start because the application configuration is
+'incorrect. Reinstalling the application may fix this problem.
 Public Const ERROR_SXS_CANT_GEN_ACTCTX = 14001
 'The application binding data format is invalid.
 Public Const ERROR_SXS_INVALID_ACTCTXDATA_FORMAT = 14002
@@ -4047,13 +4178,16 @@ Public Const ERROR_SXS_MANIFEST_PARSE_ERROR = 14005
 Public Const ERROR_SXS_ACTIVATION_CONTEXT_DISABLED = 14006
 'The requested lookup key was not found in any active activation context.
 Public Const ERROR_SXS_KEY_NOT_FOUND = 14007
-'A component version required by the application conflicts with another component version already active.
+'A component version required by the application conflicts with another
+'component version already active.
 Public Const ERROR_SXS_VERSION_CONFLICT = 14008
 'The type requested activation context section does not match the query API used.
 Public Const ERROR_SXS_WRONG_SECTION_TYPE = 14009
-'Lack of system resources has required isolated activation to be disabled for the current thread of execution.
+'Lack of system resources has required isolated activation to be disabled for
+'the current thread of execution.
 Public Const ERROR_SXS_THREAD_QUERIES_DISABLED = 14010
-'An attempt to set the process default activation context failed because the process default activation context was already set.
+'An attempt to set the process default activation context failed because the
+'process default activation context was already set.
 Public Const ERROR_SXS_PROCESS_DEFAULT_ALREADY_SET = 14011
 'The encoding group identifier specified is not recognized.
 Public Const ERROR_SXS_UNKNOWN_ENCODING_GROUP = 14012
@@ -4061,38 +4195,51 @@ Public Const ERROR_SXS_UNKNOWN_ENCODING_GROUP = 14012
 Public Const ERROR_SXS_UNKNOWN_ENCODING = 14013
 'The manifest contains a reference to an invalid URI.
 Public Const ERROR_SXS_INVALID_XML_NAMESPACE_URI = 14014
-'The application manifest contains a reference to a dependent assembly which is not installed
+'The application manifest contains a reference to a dependent assembly which
+'is not installed
 Public Const ERROR_SXS_ROOT_MANIFEST_DEPENDENCY_NOT_INSTALLED = 14015
-'The manifest for an assembly used by the application has a reference to a dependent assembly which is not installed
+'The manifest for an assembly used by the application has a reference to
+'a dependent assembly which is not installed
 Public Const ERROR_SXS_LEAF_MANIFEST_DEPENDENCY_NOT_INSTALLED = 14016
 'The manifest contains an attribute for the assembly identity which is not valid.
 Public Const ERROR_SXS_INVALID_ASSEMBLY_IDENTITY_ATTRIBUTE = 14017
-'The manifest is missing the required default namespace specification on the assembly element.
+'The manifest is missing the required default namespace specification on
+'the assembly element.
 Public Const ERROR_SXS_MANIFEST_MISSING_REQUIRED_DEFAULT_NAMESPACE = 14018
-'The manifest has a default namespace specified on the assembly element but its value is not "urn:schemas-microsoft-com:asm.v1".
+'The manifest has a default namespace specified on the assembly element
+'but its value is not "urn:schemas-microsoft-com:asm.v1".
 Public Const ERROR_SXS_MANIFEST_INVALID_REQUIRED_DEFAULT_NAMESPACE = 14019
 'The private manifest probed has crossed reparse-point-associated path
 Public Const ERROR_SXS_PRIVATE_MANIFEST_CROSS_PATH_WITH_REPARSE_POINT = 14020
-'Two or more components referenced directly or indirectly by the application manifest have files by the same name.
+'Two or more components referenced directly or indirectly by the application
+'manifest have files by the same name.
 Public Const ERROR_SXS_DUPLICATE_DLL_NAME = 14021
-'Two or more components referenced directly or indirectly by the application manifest have window classes with the same name.
+'Two or more components referenced directly or indirectly by the application
+'manifest have window classes with the same name.
 Public Const ERROR_SXS_DUPLICATE_WINDOWCLASS_NAME = 14022
-'Two or more components referenced directly or indirectly by the application manifest have the same COM server CLSIDs.
+'Two or more components referenced directly or indirectly by
+'the application manifest have the same COM server CLSIDs.
 Public Const ERROR_SXS_DUPLICATE_CLSID = 14023
-'Two or more components referenced directly or indirectly by the application manifest have proxies for the same COM interface IIDs.
+'Two or more components referenced directly or indirectly by
+'the application manifest have proxies for the same COM interface IIDs.
 Public Const ERROR_SXS_DUPLICATE_IID = 14024
-'Two or more components referenced directly or indirectly by the application manifest have the same COM type library TLBIDs.
+'Two or more components referenced directly or indirectly by
+'the application manifest have the same COM type library TLBIDs.
 Public Const ERROR_SXS_DUPLICATE_TLBID = 14025
-'Two or more components referenced directly or indirectly by the application manifest have the same COM ProgIDs.
+'Two or more components referenced directly or indirectly by
+'the application manifest have the same COM ProgIDs.
 Public Const ERROR_SXS_DUPLICATE_PROGID = 14026
-'Two or more components referenced directly or indirectly by the application manifest are different versions of the same component which is not permitted.
+'Two or more components referenced directly or indirectly by
+'the application manifest are different versions of the same component which
+'is not permitted.
 Public Const ERROR_SXS_DUPLICATE_ASSEMBLY_NAME = 14027
 'A component's file does not match the verification information present in the
 'component manifest.
 Public Const ERROR_SXS_FILE_HASH_MISMATCH = 14028
 'The policy manifest contains one or more syntax errors.
 Public Const ERROR_SXS_POLICY_PARSE_ERROR = 14029
-'Manifest Parse Error : A string literal was expected, but no opening quote character was found.
+'Manifest Parse Error : A string literal was expected, but no opening quote
+'character was found.
 Public Const ERROR_SXS_XML_E_MISSINGQUOTE = 14030
 'Manifest Parse Error : Incorrect syntax was used in a comment.
 Public Const ERROR_SXS_XML_E_COMMENTSYNTAX = 14031
@@ -4122,7 +4269,8 @@ Public Const ERROR_SXS_XML_E_UNEXPECTED_WHITESPACE = 14042
 Public Const ERROR_SXS_XML_E_INCOMPLETE_ENCODING = 14043
 'Manifest Parse Error : Missing parenthesis.
 Public Const ERROR_SXS_XML_E_MISSING_PAREN = 14044
-'Manifest Parse Error : A single or double closing quote character (\'or \") is missing.
+'Manifest Parse Error : A single or double closing quote character (\'or \")
+'is missing.
 Public Const ERROR_SXS_XML_E_EXPECTINGCLOSEQUOTE = 14045
 'Manifest Parse Error : Multiple colons are not allowed in a name.
 Public Const ERROR_SXS_XML_E_MULTIPLE_COLONS = 14046
@@ -4150,7 +4298,8 @@ Public Const ERROR_SXS_XML_E_BADXMLDECL = 14056
 Public Const ERROR_SXS_XML_E_MISSINGROOT = 14057
 'Manifest Parse Error : Unexpected end of file.
 Public Const ERROR_SXS_XML_E_UNEXPECTEDEOF = 14058
-'Manifest Parse Error : Parameter entities cannot be used inside markup declarations in an internal subset.
+'Manifest Parse Error : Parameter entities cannot be used inside markup
+'declarations in an internal subset.
 Public Const ERROR_SXS_XML_E_BADPEREFINSUBSET = 14059
 'Manifest Parse Error : Element was not closed.
 Public Const ERROR_SXS_XML_E_UNCLOSEDSTARTTAG = 14060
@@ -4164,17 +4313,20 @@ Public Const ERROR_SXS_XML_E_UNCLOSEDCOMMENT = 14063
 Public Const ERROR_SXS_XML_E_UNCLOSEDDECL = 14064
 'Manifest Parse Error : A CDATA section was not closed.
 Public Const ERROR_SXS_XML_E_UNCLOSEDCDATA = 14065
-'Manifest Parse Error : The namespace prefix is not allowed to start with the reserved string "xml".
+'Manifest Parse Error : The namespace prefix is not allowed to start with the
+'reserved string "xml".
 Public Const ERROR_SXS_XML_E_RESERVEDNAMESPACE = 14066
 'Manifest Parse Error : System does not support the specified encoding.
 Public Const ERROR_SXS_XML_E_INVALIDENCODING = 14067
-'Manifest Parse Error : Switch from current encoding to specified encoding not supported.
+'Manifest Parse Error : Switch from current encoding to specified encoding not
+'supported.
 Public Const ERROR_SXS_XML_E_INVALIDSWITCH = 14068
 'Manifest Parse Error : The name 'xml'is reserved and must be lower case.
 Public Const ERROR_SXS_XML_E_BADXMLCASE = 14069
 'Manifest Parse Error : The standalone attribute must have the value 'yes'or 'no'.
 Public Const ERROR_SXS_XML_E_INVALID_STANDALONE = 14070
-'Manifest Parse Error : The standalone attribute cannot be used in external entities.
+'Manifest Parse Error : The standalone attribute cannot be used in external
+'entities.
 Public Const ERROR_SXS_XML_E_UNEXPECTED_STANDALONE = 14071
 'Manifest Parse Error : Invalid version number.
 Public Const ERROR_SXS_XML_E_INVALID_VERSION = 14072
@@ -4182,26 +4334,36 @@ Public Const ERROR_SXS_XML_E_INVALID_VERSION = 14072
 Public Const ERROR_SXS_XML_E_MISSINGEQUALS = 14073
 'Assembly Protection Error : Unable to recover the specified assembly.
 Public Const ERROR_SXS_PROTECTION_RECOVERY_FAILED = 14074
-'Assembly Protection Error : The public key for an assembly was too short to be allowed.
+'Assembly Protection Error : The public key for an assembly was too short to
+'be allowed.
 Public Const ERROR_SXS_PROTECTION_PUBLIC_KEY_TOO_SHORT = 14075
-'Assembly Protection Error : The catalog for an assembly is not valid, or does not match the assembly's manifest.
+'Assembly Protection Error : The catalog for an assembly is not valid, or does
+'not match the assembly's manifest.
 Public Const ERROR_SXS_PROTECTION_CATALOG_NOT_VALID = 14076
 'An HRESULT could not be translated to a corresponding Win32 error code.
 Public Const ERROR_SXS_UNTRANSLATABLE_HRESULT = 14077
 'Assembly Protection Error : The catalog for an assembly is missing.
 Public Const ERROR_SXS_PROTECTION_CATALOG_FILE_MISSING = 14078
-'The supplied assembly identity is missing one or more attributes which must be present in this context.
+'The supplied assembly identity is missing one or more attributes which must
+'be present in this context.
 Public Const ERROR_SXS_MISSING_ASSEMBLY_IDENTITY_ATTRIBUTE = 14079
-'The supplied assembly identity has one or more attribute names that contain characters not permitted in XML names.
+'The supplied assembly identity has one or more attribute names that contain
+'characters not permitted in XML names.
 Public Const ERROR_SXS_INVALID_ASSEMBLY_IDENTITY_ATTRIBUTE_NAME = 14080
 
 
 '--------------------------------------------------
-'         End of Side By Side Error Codes     '                                             '               14000 to 14999                ''''''''''''''''''''''''/
+'         End of Side By Side Error Codes
+''
+''               14000 to 14999
+'''''''''''''''''''''''''/
 
 
 '--------------------------------------------------
-'         Start of IPSec Error codes          '                                             '               13000 to 13999                ''''''''''''''''''''''''/
+'         Start of IPSec Error codes
+''
+''               13000 to 13999
+'''''''''''''''''''''''''/
 'The specified quick mode policy already exists.
 Public Const ERROR_IPSEC_QM_POLICY_EXISTS = 13000
 'The specified quick mode policy was not found.
@@ -4250,9 +4412,11 @@ Public Const ERROR_IPSEC_MM_POLICY_PENDING_DELETION = 13021
 Public Const ERROR_IPSEC_MM_AUTH_PENDING_DELETION = 13022
 'The Quick Mode policy is pending deletion.
 Public Const ERROR_IPSEC_QM_POLICY_PENDING_DELETION = 13023
-'The Main Mode policy was successfully added, but some of the requested offers are not supported.
+'The Main Mode policy was successfully added, but some of the requested
+'offers are not supported.
 Public Const WARNING_IPSEC_MM_POLICY_PRUNED = 13024
-'The Quick Mode policy was successfully added, but some of the requested offers are not supported.
+'The Quick Mode policy was successfully added, but some of the requested
+'offers are not supported.
 Public Const WARNING_IPSEC_QM_POLICY_PRUNED = 13025
 'ERROR_IPSEC_IKE_NEG_STATUS_BEGIN
 Public Const ERROR_IPSEC_IKE_NEG_STATUS_BEGIN = 13800
@@ -4364,17 +4528,25 @@ Public Const ERROR_IPSEC_IKE_SECLOADFAIL = 13852
 Public Const ERROR_IPSEC_IKE_FAILSSPINIT = 13853
 'Failed to query Kerberos package to obtain max token size.
 Public Const ERROR_IPSEC_IKE_FAILQUERYSSP = 13854
-'Failed to obtain Kerberos server credentials for ISAKMP/ERROR_IPSEC_IKE service.  Kerberos authentication will not function.  The most likely reason for this is lack of domain membership.  This is normal if your computer is a member of a workgroup.
+'Failed to obtain Kerberos server credentials for ISAKMP/ERROR_IPSEC_IKE
+'service. Kerberos authentication will not function. The most likely reason
+'for this is lack of domain membership. This is normal if your computer is
+'a member of a workgroup.
 Public Const ERROR_IPSEC_IKE_SRVACQFAIL = 13855
-'Failed to determine SSPI principal name for ISAKMP/ERROR_IPSEC_IKE service (QueryCredentialsAttributes).
+'Failed to determine SSPI principal name for ISAKMP/ERROR_IPSEC_IKE service
+'(QueryCredentialsAttributes).
 Public Const ERROR_IPSEC_IKE_SRVQUERYCRED = 13856
-'Failed to obtain new SPI for the inbound SA from Ipsec driver.  The most common cause for this is that the driver does not have the correct filter.  Check your policy to verify the filters.
+'Failed to obtain new SPI for the inbound SA from Ipsec driver.
+'The most common cause for this is that the driver does not have the correct
+'filter. Check your policy to verify the filters.
 Public Const ERROR_IPSEC_IKE_GETSPIFAIL = 13857
 'Given filter is invalid
 Public Const ERROR_IPSEC_IKE_INVALID_FILTER = 13858
 'Memory allocation failed.
 Public Const ERROR_IPSEC_IKE_OUT_OF_MEMORY = 13859
-'Failed to add Security Association to IPSec Driver.  The most common cause for this is if the IKE negotiation took too long to complete.  If the problem persists, reduce the load on the faulting machine.
+'Failed to add Security Association to IPSec Driver. The most common cause for
+'this is if the IKE negotiation took too long to complete. If the problem
+'persists, reduce the load on the faulting machine.
 Public Const ERROR_IPSEC_IKE_ADD_UPDATE_KEY_FAILED = 13860
 'Invalid policy
 Public Const ERROR_IPSEC_IKE_INVALID_POLICY = 13861
@@ -4412,7 +4584,8 @@ Public Const ERROR_IPSEC_IKE_LOAD_FAILED = 13876
 Public Const ERROR_IPSEC_IKE_RPC_DELETE = 13877
 'Temporary state created to perform reinit. This is not a real failure.
 Public Const ERROR_IPSEC_IKE_BENIGN_REINIT = 13878
-'The lifetime value received in the Responder Lifetime Notify is below the Windows 2000 configured minimum value.  Please fix the policy on the peer machine.
+'The lifetime value received in the Responder Lifetime Notify is below the
+'Windows 2000 configured minimum value. Please fix the policy on the peer machine.
 Public Const ERROR_IPSEC_IKE_INVALID_RESPONDER_LIFETIME_NOTIFY = 13879
 'Key length in certificate is too small for configured security requirements.
 Public Const ERROR_IPSEC_IKE_INVALID_CERT_KEYLEN = 13881
@@ -4423,13 +4596,16 @@ Public Const ERROR_IPSEC_IKE_NEGOTIATION_DISABLED = 13883
 'ERROR_IPSEC_IKE_NEG_STATUS_END
 Public Const ERROR_IPSEC_IKE_NEG_STATUS_END = 13884
 
-''''''''''''''''''                              '   COM Error Codes            '                              '''''''''''''''''
+''''''''''''''''''
+''   COM Error Codes
+''
+''''''''''''''''''
 'The return value of COM functions and methods is an HRESULT.
 'This is not a handle to anything, but is merely a 32-bit value
-'with several fields encoded in the value.  The parts of an
+'with several fields encoded in the value. The parts of an
 'HRESULT are shown below.
 'Many of the macros and functions below were orginally defined to
-'operate on SCODEs.  SCODEs are no longer used.  The macros are
+'operate on SCODEs. SCODEs are no longer used. The macros are
 'still present for compatibility and easy porting of Win16 code.
 'Newly written code should use the HRESULT macros and functions.
 
@@ -4565,11 +4741,13 @@ Public Const CO_E_WRONG_SERVER_IDENTITY = (&H80004015)
 Public Const CO_E_OLE1DDE_DISABLED = (&H80004016)
 'A RunAs specification must be <domain name>\<user name> or simply <user name>
 Public Const CO_E_RUNAS_SYNTAX = (&H80004017)
-'The server process could not be started.  The pathname may be incorrect.
+'The server process could not be started. The pathname may be incorrect.
 Public Const CO_E_CREATEPROCESS_FAILURE = (&H80004018)
-'The server process could not be started as the configured identity.  The pathname may be incorrect or unavailable.
+'The server process could not be started as the configured identity.
+'The pathname may be incorrect or unavailable.
 Public Const CO_E_RUNAS_CREATEPROCESS_FAILURE = (&H80004019)
-'The server process could not be started because the configured identity is incorrect.  Check the username and password.
+'The server process could not be started because the configured identity
+'is incorrect. Check the username and password.
 Public Const CO_E_RUNAS_LOGON_FAILURE = (&H8000401A)
 'The client is not allowed to launch this server.
 Public Const CO_E_LAUNCH_PERMSSION_DENIED = (&H8000401B)
@@ -4603,7 +4781,8 @@ Public Const CO_E_CLRNOTAVAILABLE = (&H80004028)
 Public Const CO_E_ASYNC_WORK_REJECTED = (&H80004029)
 'The server started, but did not finish initializing in a timely fashion.
 Public Const CO_E_SERVER_INIT_TIMEOUT = (&H8000402A)
-'Unable to complete the call since there is no COM+ security context inside IObjectControl.Activate.
+'Unable to complete the call since there is no COM+ security context
+'inside IObjectControl.Activate.
 Public Const CO_E_NO_SECCTX_IN_ACTIVATE = (&H8000402B)
 'The provided tracker configuration is invalid
 Public Const CO_E_TRACKER_CONFIG = (&H80004030)
@@ -4774,11 +4953,14 @@ Public Const CS_E_FIRST = &H80040164
 Public Const CS_E_LAST = &H8004016F
 
 
-'No package in the software installation data in the Active Directory meets this criteria.
+'No package in the software installation data in the Active Directory
+'meets this criteria.
 Public Const CS_E_PACKAGE_NOTFOUND = (&H80040164)
-'Deleting this will break the referential integrity of the software installation data in the Active Directory.
+'Deleting this will break the referential integrity of the software
+'installation data in the Active Directory.
 Public Const CS_E_NOT_DELETABLE = (&H80040165)
-'The CLSID was not found in the software installation data in the Active Directory.
+'The CLSID was not found in the software installation data in the
+'Active Directory.
 Public Const CS_E_CLASS_NOTFOUND = (&H80040166)
 'The software installation data in the Active Directory is corrupt.
 Public Const CS_E_INVALID_VERSION = (&H80040167)
@@ -4794,7 +4976,8 @@ Public Const CS_E_INVALID_PATH = (&H8004016B)
 Public Const CS_E_NETWORK_ERROR = (&H8004016C)
 'The size of this object exceeds the maximum size set by the Administrator.
 Public Const CS_E_ADMIN_LIMIT_EXCEEDED = (&H8004016D)
-'The schema for the software installation data in the Active Directory does not match the required schema.
+'The schema for the software installation data in the Active Directory does
+'not match the required schema.
 Public Const CS_E_SCHEMA_MISMATCH = (&H8004016E)
 'An error occurred in the software installation data in the Active Directory.
 Public Const CS_E_INTERNAL_ERROR = (&H8004016F)
@@ -5002,43 +5185,53 @@ Public Const XACT_S_FIRST = &H4D000
 Public Const XACT_S_LAST = &H4D010
 
 
-'Another single phase resource manager has already been enlisted in this transaction.
+'Another single phase resource manager has already been enlisted in this
+'transaction.
 Public Const XACT_E_ALREADYOTHERSINGLEPHASE = (&H8004D000)
 'A retaining commit or abort is not supported
 Public Const XACT_E_CANTRETAIN = (&H8004D001)
 'The transaction failed to commit for an unknown reason. The transaction was aborted.
 Public Const XACT_E_COMMITFAILED = (&H8004D002)
-'Cannot call commit on this transaction object because the calling application did not initiate the transaction.
+'Cannot call commit on this transaction object because the calling application
+'did not initiate the transaction.
 Public Const XACT_E_COMMITPREVENTED = (&H8004D003)
 'Instead of committing, the resource heuristically aborted.
 Public Const XACT_E_HEURISTICABORT = (&H8004D004)
 'Instead of aborting, the resource heuristically committed.
 Public Const XACT_E_HEURISTICCOMMIT = (&H8004D005)
-'Some of the states of the resource were committed while others were aborted, likely because of heuristic decisions.
+'Some of the states of the resource were committed while others were aborted,
+'likely because of heuristic decisions.
 Public Const XACT_E_HEURISTICDAMAGE = (&H8004D006)
-'Some of the states of the resource may have been committed while others may have been aborted, likely because of heuristic decisions.
+'Some of the states of the resource may have been committed while others may
+'have been aborted, likely because of heuristic decisions.
 Public Const XACT_E_HEURISTICDANGER = (&H8004D007)
 'The requested isolation level is not valid or supported.
 Public Const XACT_E_ISOLATIONLEVEL = (&H8004D008)
-'The transaction manager doesn't support an asynchronous operation for this method.
+'The transaction manager doesn't support an asynchronous operation for this
+' method.
 Public Const XACT_E_NOASYNC = (&H8004D009)
 'Unable to enlist in the transaction.
 Public Const XACT_E_NOENLIST = (&H8004D00A)
-'The requested semantics of retention of isolation across retaining commit and abort boundaries cannot be supported by this transaction implementation, or isoFlags was not equal to zero.
+'The requested semantics of retention of isolation across retaining commit
+'and abort boundaries cannot be supported by this transaction implementation,
+'or isoFlags was not equal to zero.
 Public Const XACT_E_NOISORETAIN = (&H8004D00B)
 'There is no resource presently associated with this enlistment
 Public Const XACT_E_NORESOURCE = (&H8004D00C)
-'The transaction failed to commit due to the failure of optimistic concurrency control in at least one of the resource managers.
+'The transaction failed to commit due to the failure of optimistic concurrency
+'control in at least one of the resource managers.
 Public Const XACT_E_NOTCURRENT = (&H8004D00D)
 'The transaction has already been implicitly or explicitly committed or aborted
 Public Const XACT_E_NOTRANSACTION = (&H8004D00E)
 'An invalid combination of flags was specified
 Public Const XACT_E_NOTSUPPORTED = (&H8004D00F)
-'The resource manager id is not associated with this transaction or the transaction manager.
+'The resource manager id is not associated with this transaction or
+'the transaction manager.
 Public Const XACT_E_UNKNOWNRMGRID = (&H8004D010)
 'This method was called in the wrong state
 Public Const XACT_E_WRONGSTATE = (&H8004D011)
-'The indicated unit of work does not match the unit of work expected by the resource manager.
+'The indicated unit of work does not match the unit of work expected by
+'the resource manager.
 Public Const XACT_E_WRONGUOW = (&H8004D012)
 'An enlistment in a transaction already exists.
 Public Const XACT_E_XTIONEXISTS = (&H8004D013)
@@ -5046,7 +5239,8 @@ Public Const XACT_E_XTIONEXISTS = (&H8004D013)
 Public Const XACT_E_NOIMPORTOBJECT = (&H8004D014)
 'The transaction cookie is invalid.
 Public Const XACT_E_INVALIDCOOKIE = (&H8004D015)
-'The transaction status is in doubt. A communication failure occurred, or a transaction manager or resource manager has failed
+'The transaction status is in doubt. A communication failure occurred,
+'or a transaction manager or resource manager has failed
 Public Const XACT_E_INDOUBT = (&H8004D016)
 'A time-out was specified, but time-outs are not supported.
 Public Const XACT_E_NOTIMEOUT = (&H8004D017)
@@ -5064,11 +5258,14 @@ Public Const XACT_E_CONNECTION_DOWN = (&H8004D01C)
 Public Const XACT_E_CONNECTION_DENIED = (&H8004D01D)
 'Resource manager reenlistment to determine transaction status timed out.
 Public Const XACT_E_REENLISTTIMEOUT = (&H8004D01E)
-'This transaction manager failed to establish a connection with another TIP transaction manager.
+'This transaction manager failed to establish a connection with another
+'TIP transaction manager.
 Public Const XACT_E_TIP_CONNECT_FAILED = (&H8004D01F)
-'This transaction manager encountered a protocol error with another TIP transaction manager.
+'This transaction manager encountered a protocol error with another
+'TIP transaction manager.
 Public Const XACT_E_TIP_PROTOCOL_ERROR = (&H8004D020)
-'This transaction manager could not propagate a transaction from another TIP transaction manager.
+'This transaction manager could not propagate a transaction from another
+'TIP transaction manager.
 Public Const XACT_E_TIP_PULL_FAILED = (&H8004D021)
 'The Transaction Manager on the destination machine is not available.
 Public Const XACT_E_DEST_TMNOTAVAILABLE = (&H8004D022)
@@ -5106,19 +5303,26 @@ Public Const XACT_E_REPLAYREQUEST = (&H8004D085)
 'OleTx Success codes.
 
 
-'An asynchronous operation was specified. The operation has begun, but its outcome is not known yet.
+'An asynchronous operation was specified. The operation has begun, but
+'its outcome is not known yet.
 Public Const XACT_S_ASYNC = (&H4D000)
 'XACT_S_DEFECT
 Public Const XACT_S_DEFECT = (&H4D001)
 'The method call succeeded because the transaction was read-only.
 Public Const XACT_S_READONLY = (&H4D002)
-'The transaction was successfully aborted. However, this is a coordinated transaction, and some number of enlisted resources were aborted outright because they could not support abort-retaining semantics
+'The transaction was successfully aborted. However, this is a coordinated
+'transaction, and some number of enlisted resources were aborted outright
+'because they could not support abort-retaining semantics
 Public Const XACT_S_SOMENORETAIN = (&H4D003)
-'No changes were made during this call, but the sink wants another chance to look if any other sinks make further changes.
+'No changes were made during this call, but the sink wants another chance
+'to look if any other sinks make further changes.
 Public Const XACT_S_OKINFORM = (&H4D004)
-'The sink is content and wishes the transaction to proceed. Changes were made to one or more resources during this call.
+'The sink is content and wishes the transaction to proceed. Changes were made
+'to one or more resources during this call.
 Public Const XACT_S_MADECHANGESCONTENT = (&H4D005)
-'The sink is for the moment and wishes the transaction to proceed, but if other changes are made following this return by other event sinks then this sink wants another chance to look
+'The sink is for the moment and wishes the transaction to proceed, but if other
+'changes are made following this return by other event sinks then this sink
+'wants another chance to look
 Public Const XACT_S_MADECHANGESINFORM = (&H4D006)
 'The transaction was successfully aborted. However, the abort was non-retaining.
 Public Const XACT_S_ALLNORETAIN = (&H4D007)
@@ -5128,7 +5332,8 @@ Public Const XACT_S_ABORTING = (&H4D008)
 Public Const XACT_S_SINGLEPHASE = (&H4D009)
 'The local transaction has not aborted.
 Public Const XACT_S_LOCALLY_OK = (&H4D00A)
-'The resource manager has requested to be the coordinator (last resource manager) for the transaction.
+'The resource manager has requested to be the coordinator (last resource manager)
+'for the transaction.
 Public Const XACT_S_LASTRESOURCEMANAGER = (&H4D010)
 
 Public Const CONTEXT_E_FIRST = &H8004E000
@@ -5139,15 +5344,19 @@ Public Const CONTEXT_S_LAST = &H4E02F
 
 'The root transaction wanted to commit, but transaction aborted
 Public Const CONTEXT_E_ABORTED = (&H8004E002)
-'You made a method call on a COM+ component that has a transaction that has already aborted or in the process of aborting.
+'You made a method call on a COM+ component that has a transaction that has
+'already aborted or in the process of aborting.
 Public Const CONTEXT_E_ABORTING = (&H8004E003)
 'There is no MTS object context
 Public Const CONTEXT_E_NOCONTEXT = (&H8004E004)
-'The component is configured to use synchronization and this method call would cause a deadlock to occur.
+'The component is configured to use synchronization and this method call
+'would cause a deadlock to occur.
 Public Const CONTEXT_E_WOULD_DEADLOCK = (&H8004E005)
-'The component is configured to use synchronization and a thread has timed out waiting to enter the context.
+'The component is configured to use synchronization and a thread has timed
+'out waiting to enter the context.
 Public Const CONTEXT_E_SYNCH_TIMEOUT = (&H8004E006)
-'You made a method call on a COM+ component that has a transaction that has already committed or aborted.
+'You made a method call on a COM+ component that has a transaction that has
+'already committed or aborted.
 Public Const CONTEXT_E_OLDREF = (&H8004E007)
 'The specified role was not configured for the application
 Public Const CONTEXT_E_ROLENOTFOUND = (&H8004E00C)
@@ -5159,17 +5368,22 @@ Public Const CO_E_ACTIVATIONFAILED = (&H8004E021)
 Public Const CO_E_ACTIVATIONFAILED_EVENTLOGGED = (&H8004E022)
 'COM+ Activation failed due to a catalog or configuration error.
 Public Const CO_E_ACTIVATIONFAILED_CATALOGERROR = (&H8004E023)
-'COM+ activation failed because the activation could not be completed in the specified amount of time.
+'COM+ activation failed because the activation could not be completed in
+'the specified amount of time.
 Public Const CO_E_ACTIVATIONFAILED_TIMEOUT = (&H8004E024)
-'COM+ Activation failed because an initialization function failed.  Check the event log for more information.
+'COM+ Activation failed because an initialization function failed. Check
+'the event log for more information.
 Public Const CO_E_INITIALIZATIONFAILED = (&H8004E025)
-'The requested operation requires that JIT be in the current context and it is not
+'The requested operation requires that JIT be in the current context and it
+'is not
 Public Const CONTEXT_E_NOJIT = (&H8004E026)
-'The requested operation requires that the current context have a Transaction, and it does not
+'The requested operation requires that the current context have a Transaction,
+'and it does not
 Public Const CONTEXT_E_NOTRANSACTION = (&H8004E027)
-'The components threading model has changed after install into a COM+ Application.  Please re-install component.
+'The components threading model has changed after install
+'into a COM+ Application. Please re-install component.
 Public Const CO_E_THREADINGMODEL_CHANGED = (&H8004E028)
-'IIS intrinsics not available.  Start your work with IIS.
+'IIS intrinsics not available. Start your work with IIS.
 Public Const CO_E_NOIISINTRINSICS = (&H8004E029)
 'An attempt to write a cookie failed.
 Public Const CO_E_NOCOOKIES = (&H8004E02A)
@@ -5181,7 +5395,9 @@ Public Const CO_E_NOTPOOLED = (&H8004E02C)
 Public Const CO_E_NOTCONSTRUCTED = (&H8004E02D)
 'The COM+ component requires synchronization, and it is not configured for it.
 Public Const CO_E_NOSYNCHRONIZATION = (&H8004E02E)
-'The TxIsolation Level property for the COM+ component being created is stronger than the TxIsolationLevel for the "root" component for the transaction.  The creation failed.
+'The TxIsolation Level property for the COM+ component being created is stronger
+'than the TxIsolationLevel for the "root" component for the transaction.
+'The creation failed.
 Public Const CO_E_ISOLEVELMISMATCH = (&H8004E02F)
 
 'Old OLE Success Codes
@@ -5243,7 +5459,8 @@ Public Const SCHED_S_TASK_DISABLED = (&H41302)
 Public Const SCHED_S_TASK_HAS_NOT_RUN = (&H41303)
 'There are no more runs scheduled for this task.
 Public Const SCHED_S_TASK_NO_MORE_RUNS = (&H41304)
-'One or more of the properties that are needed to run this task on a schedule have not been set.
+'One or more of the properties that are needed to run this task on a schedule
+'have not been set.
 Public Const SCHED_S_TASK_NOT_SCHEDULED = (&H41305)
 'The last run of the task was terminated by the user.
 Public Const SCHED_S_TASK_TERMINATED = (&H41306)
@@ -5263,17 +5480,20 @@ Public Const SCHED_E_SERVICE_NOT_INSTALLED = (&H8004130C)
 Public Const SCHED_E_CANNOT_OPEN_TASK = (&H8004130D)
 'The object is either an invalid task object or is not a task object.
 Public Const SCHED_E_INVALID_TASK = (&H8004130E)
-'No account information could be found in the Task Scheduler security database for the task indicated.
+'No account information could be found in the Task Scheduler security database
+'for the task indicated.
 Public Const SCHED_E_ACCOUNT_INFORMATION_NOT_SET = (&H8004130F)
 'Unable to establish existence of the account specified.
 Public Const SCHED_E_ACCOUNT_NAME_NOT_FOUND = (&H80041310)
-'Corruption was detected in the Task Scheduler security database; the database has been reset.
+'Corruption was detected in the Task Scheduler security database; the database
+'has been reset.
 Public Const SCHED_E_ACCOUNT_DBASE_CORRUPT = (&H80041311)
 'Task Scheduler security services are available only on Windows NT.
 Public Const SCHED_E_NO_SECURITY_SERVICES = (&H80041312)
 'The task object version is either unsupported or invalid.
 Public Const SCHED_E_UNKNOWN_OBJECT_VERSION = (&H80041313)
-'The task has been configured with an unsupported combination of account settings and run time options.
+'The task has been configured with an unsupported combination of account
+'settings and run time options.
 Public Const SCHED_E_UNSUPPORTED_ACCOUNT_OPTION = (&H80041314)
 'The Task Scheduler Service is not running.
 Public Const SCHED_E_SERVICE_NOT_RUNNING = (&H80041315)
@@ -5487,7 +5707,7 @@ Public Const STG_E_BADBASEADDRESS = (&H80030110)
 Public Const STG_E_DOCFILETOOLARGE = (&H80030111)
 'The compound file was not created with the STGM_SIMPLE flag
 Public Const STG_E_NOTSIMPLEFORMAT = (&H80030112)
-'The file download was aborted abnormally.  The file is incomplete.
+'The file download was aborted abnormally. The file is incomplete.
 Public Const STG_E_INCOMPLETE = (&H80030201)
 'The file download has been terminated.
 Public Const STG_E_TERMINATED = (&H80030202)
@@ -5520,9 +5740,11 @@ Public Const STG_E_CSS_KEY_NOT_PRESENT = (&H80030307)
 Public Const STG_E_CSS_KEY_NOT_ESTABLISHED = (&H80030308)
 'Copy Protection Error - The read failed because the sector is encrypted.
 Public Const STG_E_CSS_SCRAMBLED_SECTOR = (&H80030309)
-'Copy Protection Error - The current DVD's region does not correspond to the region setting of the drive.
+'Copy Protection Error - The current DVD's region does not correspond to
+'the region setting of the drive.
 Public Const STG_E_CSS_REGION_MISMATCH = (&H8003030A)
-'Copy Protection Error - The drive's region setting may be permanent or the number of user resets has been exhausted.
+'Copy Protection Error - The drive's region setting may be permanent or
+'the number of user resets has been exhausted.
 Public Const STG_E_RESETS_EXHAUSTED = (&H8003030B)
 
 '******************
@@ -5535,21 +5757,26 @@ Public Const STG_E_RESETS_EXHAUSTED = (&H8003030B)
 Public Const RPC_E_CALL_REJECTED = (&H80010001)
 'Call was canceled by the message filter.
 Public Const RPC_E_CALL_CANCELED = (&H80010002)
-'The caller is dispatching an intertask SendMessage call and cannot call out via PostMessage.
+'The caller is dispatching an intertask SendMessage call and cannot call
+'out via PostMessage.
 Public Const RPC_E_CANTPOST_INSENDCALL = (&H80010003)
-'The caller is dispatching an asynchronous call and cannot make an outgoing call on behalf of this call.
+'The caller is dispatching an asynchronous call and cannot make an outgoing
+'call on behalf of this call.
 Public Const RPC_E_CANTCALLOUT_INASYNCCALL = (&H80010004)
 'It is illegal to call out while inside message filter.
 Public Const RPC_E_CANTCALLOUT_INEXTERNALCALL = (&H80010005)
-'The connection terminated or is in a bogus state and cannot be used any more. Other connections are still valid.
+'The connection terminated or is in a bogus state and cannot be used any more.
+'Other connections are still valid.
 Public Const RPC_E_CONNECTION_TERMINATED = (&H80010006)
-'The callee (server [not server application]) is not available and disappeared; all connections are invalid. The call may have executed.
+'The callee (server [not server application]) is not available and disappeared;
+'all connections are invalid. The call may have executed.
 Public Const RPC_E_SERVER_DIED = (&H80010007)
 'The caller (client) disappeared while the callee (server) was processing a call.
 Public Const RPC_E_CLIENT_DIED = (&H80010008)
 'The data packet with the marshalled parameter data is incorrect.
 Public Const RPC_E_INVALID_DATAPACKET = (&H80010009)
-'The call was not transmitted properly; the message queue was full and was not emptied after yielding.
+'The call was not transmitted properly; the message queue was full and was not
+'emptied after yielding.
 Public Const RPC_E_CANTTRANSMIT_CALL = (&H8001000A)
 'The client (caller) cannot marshall the parameter data - low memory, etc.
 Public Const RPC_E_CLIENT_CANTMARSHAL_DATA = (&H8001000B)
@@ -5565,7 +5792,8 @@ Public Const RPC_E_INVALID_DATA = (&H8001000F)
 Public Const RPC_E_INVALID_PARAMETER = (&H80010010)
 'There is no second outgoing call on same channel in DDE conversation.
 Public Const RPC_E_CANTCALLOUT_AGAIN = (&H80010011)
-'The callee (server [not server application]) is not available and disappeared; all connections are invalid. The call did not execute.
+'The callee (server [not server application]) is not available and disappeared;
+'all connections are invalid. The call did not execute.
 Public Const RPC_E_SERVER_DIED_DNE = (&H80010012)
 'System call failed.
 Public Const RPC_E_SYS_CALL_FAILED = (&H80010100)
@@ -5575,7 +5803,8 @@ Public Const RPC_E_OUT_OF_RESOURCES = (&H80010101)
 Public Const RPC_E_ATTEMPTED_MULTITHREAD = (&H80010102)
 'The requested interface is not registered on the server object.
 Public Const RPC_E_NOT_REGISTERED = (&H80010103)
-'RPC could not call the server or could not return the results of calling the server.
+'RPC could not call the server or could not return the results of calling
+'the server.
 Public Const RPC_E_FAULT = (&H80010104)
 'The server threw an exception.
 Public Const RPC_E_SERVERFAULT = (&H80010105)
@@ -5585,7 +5814,7 @@ Public Const RPC_E_CHANGED_MODE = (&H80010106)
 Public Const RPC_E_INVALIDMETHOD = (&H80010107)
 'The object invoked has disconnected from its clients.
 Public Const RPC_E_DISCONNECTED = (&H80010108)
-'The object invoked chose not to process the call now.  Try again later.
+'The object invoked chose not to process the call now. Try again later.
 Public Const RPC_E_RETRY = (&H80010109)
 'The message filter indicated that the application is busy.
 Public Const RPC_E_SERVERCALL_RETRYLATER = (&H8001010A)
@@ -5593,7 +5822,8 @@ Public Const RPC_E_SERVERCALL_RETRYLATER = (&H8001010A)
 Public Const RPC_E_SERVERCALL_REJECTED = (&H8001010B)
 'A call control interfaces was called with invalid data.
 Public Const RPC_E_INVALID_CALLDATA = (&H8001010C)
-'An outgoing call cannot be made since the application is dispatching an input-synchronous call.
+'An outgoing call cannot be made since the application is dispatching an
+'input-synchronous call.
 Public Const RPC_E_CANTCALLOUT_ININPUTSYNCCALL = (&H8001010D)
 'The application called an interface that was marshalled for a different thread.
 Public Const RPC_E_WRONG_THREAD = (&H8001010E)
@@ -5617,9 +5847,12 @@ Public Const RPC_S_WAITONTIMER = (&H80010116)
 Public Const RPC_E_CALL_COMPLETE = (&H80010117)
 'Impersonate on unsecure calls is not supported.
 Public Const RPC_E_UNSECURE_CALL = (&H80010118)
-'Security must be initialized before any interfaces are marshalled or unmarshalled. It cannot be changed once initialized.
+'Security must be initialized before any interfaces are marshalled or
+'unmarshalled. It cannot be changed once initialized.
 Public Const RPC_E_TOO_LATE = (&H80010119)
-'No security packages are installed on this machine or the user is not logged on or there are no compatible security packages between the client and server.
+'No security packages are installed on this machine or the user is not
+'logged on or there are no compatible security packages between the client
+'and server.
 Public Const RPC_E_NO_GOOD_SECURITY_PACKAGES = (&H8001011A)
 'Access is denied.
 Public Const RPC_E_ACCESS_DENIED = (&H8001011B)
@@ -5627,7 +5860,8 @@ Public Const RPC_E_ACCESS_DENIED = (&H8001011B)
 Public Const RPC_E_REMOTE_DISABLED = (&H8001011C)
 'The marshaled interface data packet (OBJREF) has an invalid or unknown format.
 Public Const RPC_E_INVALID_OBJREF = (&H8001011D)
-'No context is associated with this call. This happens for some custom marshalled calls and on the client side of the call.
+'No context is associated with this call. This happens for some custom
+'marshalled calls and on the client side of the call.
 Public Const RPC_E_NO_CONTEXT = (&H8001011E)
 'This operation returned because the timeout period expired.
 Public Const RPC_E_TIMEOUT = (&H8001011F)
@@ -5645,7 +5879,8 @@ Public Const CO_E_FAILEDTOGETSECCTX = (&H80010124)
 Public Const CO_E_FAILEDTOOPENTHREADTOKEN = (&H80010125)
 'Unable to obtain user info from an access token
 Public Const CO_E_FAILEDTOGETTOKENINFO = (&H80010126)
-'The client who called IAccessControl::IsAccessPermitted was not the trustee provided to the method
+'The client who called IAccessControl::IsAccessPermitted was not the trustee
+'provided to the method
 Public Const CO_E_TRUSTEEDOESNTMATCHCLIENT = (&H80010127)
 'Unable to obtain the client's security blanket
 Public Const CO_E_FAILEDTOQUERYCLIENTBLANKET = (&H80010128)
@@ -5655,17 +5890,20 @@ Public Const CO_E_FAILEDTOSETDACL = (&H80010129)
 Public Const CO_E_ACCESSCHECKFAILED = (&H8001012A)
 'Either NetAccessDel or NetAccessAdd returned an error code.
 Public Const CO_E_NETACCESSAPIFAILED = (&H8001012B)
-'One of the trustee strings provided by the user did not conform to the <Domain>\<Name> syntax and it was not the "*" string
+'One of the trustee strings provided by the user did not conform to
+'the <Domain>\<Name> syntax and it was not the "*" string
 Public Const CO_E_WRONGTRUSTEENAMESYNTAX = (&H8001012C)
 'One of the security identifiers provided by the user was invalid
 Public Const CO_E_INVALIDSID = (&H8001012D)
 'Unable to convert a wide character trustee string to a multibyte trustee string
 Public Const CO_E_CONVERSIONFAILED = (&H8001012E)
-'Unable to find a security identifier that corresponds to a trustee string provided by the user
+'Unable to find a security identifier that corresponds to a trustee string
+'provided by the user
 Public Const CO_E_NOMATCHINGSIDFOUND = (&H8001012F)
 'The system function, LookupAccountSID, failed
 Public Const CO_E_LOOKUPACCSIDFAILED = (&H80010130)
-'Unable to find a trustee name that corresponds to a security identifier provided by the user
+'Unable to find a trustee name that corresponds to a security identifier
+'provided by the user
 Public Const CO_E_NOMATCHINGNAMEFOUND = (&H80010131)
 'The system function, LookupAccountName, failed
 Public Const CO_E_LOOKUPACCNAMEFAILED = (&H80010132)
@@ -5683,9 +5921,11 @@ Public Const CO_E_FAILEDTOCREATEFILE = (&H80010137)
 Public Const CO_E_FAILEDTOCLOSEHANDLE = (&H80010138)
 'The number of ACEs in an ACL exceeds the system limit.
 Public Const CO_E_EXCEEDSYSACLLIMIT = (&H80010139)
-'Not all the DENY_ACCESS ACEs are arranged in front of the GRANT_ACCESS ACEs in the stream.
+'Not all the DENY_ACCESS ACEs are arranged in front of the GRANT_ACCESS
+'ACEs in the stream.
 Public Const CO_E_ACESINWRONGORDER = (&H8001013A)
-'The version of ACL format in the stream is not supported by this implementation of IAccessControl
+'The version of ACL format in the stream is not supported by this
+'implementation of IAccessControl
 Public Const CO_E_INCOMPATIBLESTREAMVERSION = (&H8001013B)
 'Unable to open the access token of the server process
 Public Const CO_E_FAILEDTOOPENPROCESSTOKEN = (&H8001013C)
@@ -5697,12 +5937,20 @@ Public Const CO_E_ACNOTINITIALIZED = (&H8001013F)
 Public Const CO_E_CANCEL_DISABLED = (&H80010140)
 'An internal error occurred.
 Public Const RPC_E_UNEXPECTED = (&H8001FFFF)
-'''''''''''''''''''                                'Additional Security Status Codes '                                'Facility=Security                '                                ''''''''''''''''''
+'''''''''''''''''''
+''Additional Security Status Codes
+''
+''Facility=Security
+''                                ''''''''''''''''''
 'The specified event is currently not being audited.
 Public Const ERROR_AUDITING_DISABLED = (&HC0090001)
 'The SID filtering operation removed all SIDs.
 Public Const ERROR_ALL_SIDS_FILTERED = (&HC0090002)
-''''''''''''''''''''''/                                         'end of Additional Security Status Codes '                                       '''''''''''''''''''''/
+'''''''''''''''''''''
+''/
+''end of Additional Security Status Codes
+''
+''''''''''''''''''''''/
 
 
  '''''''/  'FACILITY_SSPI
@@ -5823,9 +6071,11 @@ Public Const SEC_E_NO_AUTHENTICATING_AUTHORITY = (&H80090311)
 Public Const SEC_I_CONTINUE_NEEDED = (&H90312)
 'The function completed successfully, but CompleteToken must be called
 Public Const SEC_I_COMPLETE_NEEDED = (&H90313)
-'The function completed successfully, but both CompleteToken and this function must be called to complete the context
+'The function completed successfully, but both CompleteToken and this function
+'must be called to complete the context
 Public Const SEC_I_COMPLETE_AND_CONTINUE = (&H90314)
-'The logon was completed, but no network authority was available. The logon was made using locally known information
+'The logon was completed, but no network authority was available.
+'The logon was made using locally known information
 Public Const SEC_I_LOCAL_LOGON = (&H90315)
 'The requested security package does not exist
 Public Const SEC_E_BAD_PKGID = (&H80090316)
@@ -5833,13 +6083,15 @@ Public Const SEC_E_BAD_PKGID = (&H80090316)
 Public Const SEC_E_CONTEXT_EXPIRED = (&H80090317)
 'The context has expired and can no longer be used.
 Public Const SEC_I_CONTEXT_EXPIRED = (&H90317)
-'The supplied message is incomplete.  The signature was not verified.
+'The supplied message is incomplete. The signature was not verified.
 Public Const SEC_E_INCOMPLETE_MESSAGE = (&H80090318)
-'The credentials supplied were not complete, and could not be verified. The context could not be initialized.
+'The credentials supplied were not complete, and could not be verified.
+'The context could not be initialized.
 Public Const SEC_E_INCOMPLETE_CREDENTIALS = (&H80090320)
 'The buffers supplied to a function was too small.
 Public Const SEC_E_BUFFER_TOO_SMALL = (&H80090321)
-'The credentials supplied were not complete, and could not be verified. Additional information can be returned from the context.
+'The credentials supplied were not complete, and could not be verified.
+'Additional information can be returned from the context.
 Public Const SEC_I_INCOMPLETE_CREDENTIALS = (&H90320)
 'The context data must be renegotiated with the peer.
 Public Const SEC_I_RENEGOTIATE = (&H90321)
@@ -5861,32 +6113,41 @@ Public Const SEC_E_CERT_EXPIRED = (&H80090328)
 Public Const SEC_E_ENCRYPT_FAILURE = (&H80090329)
 'The specified data could not be decrypted.
 Public Const SEC_E_DECRYPT_FAILURE = (&H80090330)
-'The client and server cannot communicate, because they do not possess a common algorithm.
+'The client and server cannot communicate, because they do not possess a
+'common algorithm.
 Public Const SEC_E_ALGORITHM_MISMATCH = (&H80090331)
-'The security context could not be established due to a failure in the requested quality of service (e.g. mutual authentication or delegation).
+'The security context could not be established due to a failure in
+'the requested quality of service (e.g. mutual authentication or delegation).
 Public Const SEC_E_SECURITY_QOS_FAILED = (&H80090332)
-'A security context was deleted before the context was completed.  This is considered a logon failure.
+'A security context was deleted before the context was completed.
+'This is considered a logon failure.
 Public Const SEC_E_UNFINISHED_CONTEXT_DELETED = (&H80090333)
-'The client is trying to negotiate a context and the server requires user-to-user but didn't send a TGT reply.
+'The client is trying to negotiate a context and the server requires
+'user-to-user but didn't send a TGT reply.
 Public Const SEC_E_NO_TGT_REPLY = (&H80090334)
-'Unable to accomplish the requested task because the local machine does not have any IP addresses.
+'Unable to accomplish the requested task because the local machine
+'does not have any IP addresses.
 Public Const SEC_E_NO_IP_ADDRESSES = (&H80090335)
-'The supplied credential handle does not match the credential associated with the security context.
+'The supplied credential handle does not match the credential
+'associated with the security context.
 Public Const SEC_E_WRONG_CREDENTIAL_HANDLE = (&H80090336)
-'The crypto system or checksum function is invalid because a required function is unavailable.
+'The crypto system or checksum function is invalid because
+'a required function is unavailable.
 Public Const SEC_E_CRYPTO_SYSTEM_INVALID = (&H80090337)
 'The number of maximum ticket referrals has been exceeded.
 Public Const SEC_E_MAX_REFERRALS_EXCEEDED = (&H80090338)
 'The local machine must be a Kerberos KDC (domain controller) and it is not.
 Public Const SEC_E_MUST_BE_KDC = (&H80090339)
-'The other end of the security negotiation is requires strong crypto but it is not supported on the local machine.
+'The other end of the security negotiation is requires strong
+'crypto but it is not supported on the local machine.
 Public Const SEC_E_STRONG_CRYPTO_NOT_SUPPORTED = (&H8009033A)
 'The KDC reply contained more than one principal name.
 Public Const SEC_E_TOO_MANY_PRINCIPALS = (&H8009033B)
 'Expected to find PA data for a hint of what etype to use, but it was not found.
 Public Const SEC_E_NO_PA_DATA = (&H8009033C)
-'The client certificate does not contain a valid UPN, or does not match the client name
-'in the logon request.  Please contact your administrator.
+'The client certificate does not contain a valid UPN, or does not match
+'the client name
+'in the logon request. Please contact your administrator.
 Public Const SEC_E_PKINIT_NAME_MISMATCH = (&H8009033D)
 'Smartcard logon is required and was not used.
 Public Const SEC_E_SMARTCARD_LOGON_REQUIRED = (&H8009033E)
@@ -5900,7 +6161,8 @@ Public Const SEC_E_KDC_UNABLE_TO_REFER = (&H80090341)
 Public Const SEC_E_KDC_UNKNOWN_ETYPE = (&H80090342)
 'An unsupported preauthentication mechanism was presented to the kerberos package.
 Public Const SEC_E_UNSUPPORTED_PREAUTH = (&H80090343)
-'The requested operation cannot be completed.  The computer must be trusted for delegation and the current user account must be configured to allow delegation.
+'The requested operation cannot be completed. The computer must be trusted
+'for delegation and the current user account must be configured to allow delegation.
 Public Const SEC_E_DELEGATION_REQUIRED = (&H80090345)
 'Client's supplied SSPI channel bindings were incorrect.
 Public Const SEC_E_BAD_BINDINGS = (&H80090346)
@@ -5910,31 +6172,34 @@ Public Const SEC_E_MULTIPLE_ACCOUNTS = (&H80090347)
 Public Const SEC_E_NO_KERB_KEY = (&H80090348)
 'The certificate is not valid for the requested usage.
 Public Const SEC_E_CERT_WRONG_USAGE = (&H80090349)
-'The system detected a possible attempt to compromise security.  Please ensure that you can contact the server that authenticated you.
+'The system detected a possible attempt to compromise security.
+'Please ensure that you can contact the server that authenticated you.
 Public Const SEC_E_DOWNGRADE_DETECTED = (&H80090350)
 'The smartcard certificate used for authentication has been revoked.
-'Please contact your system administrator.  There may be additional information in the
+'Please contact your system administrator. There may be additional information in the
 'event log.
 Public Const SEC_E_SMARTCARD_CERT_REVOKED = (&H80090351)
 'An untrusted certificate authority was detected While processing the
-'smartcard certificate used for authentication.  Please contact your system
+'smartcard certificate used for authentication. Please contact your system
 'administrator.
 Public Const SEC_E_ISSUING_CA_UNTRUSTED = (&H80090352)
 'The revocation status of the smartcard certificate used for
 'authentication could not be determined. Please contact your system administrator.
 Public Const SEC_E_REVOCATION_OFFINE_C = (&H80090353)
-'The smartcard certificate used for authentication was not trusted.  Please
+'The smartcard certificate used for authentication was not trusted. Please
 'contact your system administrator.
 Public Const SEC_E_PKINIT_CLIENT_FAILURE = (&H80090354)
-'The smartcard certificate used for authentication has expired.  Please
+'The smartcard certificate used for authentication has expired. Please
 'contact your system administrator.
 Public Const SEC_E_SMARTCARD_CERT_EXPIRED = (&H80090355)
-'The Kerberos subsystem encountered an error.  A service for user protocol request was made
+'The Kerberos subsystem encountered an error. A service for user protocol
+'request was made
 'against a domain controller which does not support service for user.
 Public Const SEC_E_NO_S4U_PROT_SUPPORT = (&H80090356)
-'An attempt was made by this server to make a Kerberos constrained delegation request for a target
-'outside of the server's realm.  This is not supported, and indicates a misconfiguration on this
-'server's allowed to delegate to list.  Please contact your administrator.
+'An attempt was made by this server to make a Kerberos constrained delegation
+'request for a target outside of the server's realm.
+'This is not supported, and indicates a misconfiguration on this
+'server's allowed to delegate to list. Please contact your administrator.
 Public Const SEC_E_CROSSREALM_DELEGATION_FAILURE = (&H80090357)
 
 'Provided for backwards compatibility
@@ -5972,7 +6237,8 @@ Public Const CRYPT_E_SIGNER_NOT_FOUND = (&H8009100E)
 Public Const CRYPT_E_ATTRIBUTES_MISSING = (&H8009100F)
 'The streamed cryptographic message is not ready to return data.
 Public Const CRYPT_E_STREAM_MSG_NOT_READY = (&H80091010)
-'The streamed cryptographic message requires more data to complete the decode operation.
+'The streamed cryptographic message requires more data to complete the
+'decode operation.
 Public Const CRYPT_E_STREAM_INSUFFICIENT_DATA = (&H80091011)
 'The protected data needs to be re-protected.
 Public Const CRYPT_I_NEW_PROTECTION_REQUIRED = (&H91012)
@@ -6000,9 +6266,11 @@ Public Const CRYPT_E_UNEXPECTED_MSG_TYPE = (&H8009200A)
 Public Const CRYPT_E_NO_KEY_PROPERTY = (&H8009200B)
 'Cannot find the certificate and private key to use for decryption.
 Public Const CRYPT_E_NO_DECRYPT_CERT = (&H8009200C)
-'Not a cryptographic message or the cryptographic message is not formatted correctly.
+'Not a cryptographic message or the cryptographic message is not formatted
+'correctly.
 Public Const CRYPT_E_BAD_MSG = (&H8009200D)
-'The signed cryptographic message does not have a signer for the specified signer index.
+'The signed cryptographic message does not have a signer for the specified
+'signer index.
 Public Const CRYPT_E_NO_SIGNER = (&H8009200E)
 'Final closure is pending until additional frees or closes.
 Public Const CRYPT_E_PENDING_CLOSE = (&H8009200F)
@@ -6012,7 +6280,8 @@ Public Const CRYPT_E_REVOKED = (&H80092010)
 Public Const CRYPT_E_NO_REVOCATION_DLL = (&H80092011)
 'The revocation function was unable to check revocation for the certificate.
 Public Const CRYPT_E_NO_REVOCATION_CHECK = (&H80092012)
-'The revocation function was unable to check revocation because the revocation server was offline.
+'The revocation function was unable to check revocation because the revocation
+'server was offline.
 Public Const CRYPT_E_REVOCATION_OFFINE = (&H80092013)
 'The certificate is not in the revocation server's database.
 Public Const CRYPT_E_NOT_IN_REVOCATION_DATABASE = (&H80092014)
@@ -6024,9 +6293,11 @@ Public Const CRYPT_E_INVALID_PRINTABLE_STRING = (&H80092021)
 Public Const CRYPT_E_INVALID_IA5_STRING = (&H80092022)
 'The string contains an invalid X500 name attribute key, oid, value or delimiter.
 Public Const CRYPT_E_INVALID_X500_STRING = (&H80092023)
-'The dwValueType for the CERT_NAME_VALUE is not one of the character strings.  Most likely it is either a CERT_RDN_ENCODED_BLOB or CERT_TDN_OCTED_STRING.
+'The dwValueType for the CERT_NAME_VALUE is not one of the character strings.
+'Most likely it is either a CERT_RDN_ENCODED_BLOB or CERT_TDN_OCTED_STRING.
 Public Const CRYPT_E_NOT_CHAR_STRING = (&H80092024)
-'The Put operation can not continue.  The file needs to be resized.  However, there is already a signature present.  A complete signing operation must be done.
+'The Put operation can not continue. The file needs to be resized. However,
+'there is already a signature present. A complete signing operation must be done.
 Public Const CRYPT_E_FILERESIZED = (&H80092025)
 'The cryptographic operation failed due to a local security option setting.
 Public Const CRYPT_E_SECURITY_SETTINGS = (&H80092026)
@@ -6034,11 +6305,13 @@ Public Const CRYPT_E_SECURITY_SETTINGS = (&H80092026)
 Public Const CRYPT_E_NO_VERIFY_USAGE_DLL = (&H80092027)
 'The called function was unable to do a usage check on the subject.
 Public Const CRYPT_E_NO_VERIFY_USAGE_CHECK = (&H80092028)
-'Since the server was offline, the called function was unable to complete the usage check.
+'Since the server was offline, the called function was unable to complete
+'the usage check.
 Public Const CRYPT_E_VERIFY_USAGE_OFFINE = (&H80092029)
 'The subject was not found in a Certificate Trust List (CT).
 Public Const CRYPT_E_NOT_IN_CTL = (&H8009202A)
-'None of the signers of the cryptographic message or certificate trust list is trusted.
+'None of the signers of the cryptographic message or certificate trust
+'list is trusted.
 Public Const CRYPT_E_NO_TRUSTED_SIGNER = (&H8009202B)
 'The public key's algorithm parameters are missing.
 Public Const CRYPT_E_MISSING_PUBKEY_PARA = (&H8009202C)
@@ -6191,31 +6464,43 @@ Public Const CERTSRV_E_PROPERTY_EMPTY = (&H80094004)
 Public Const CERTSRV_E_INVALID_CA_CERTIFICATE = (&H80094005)
 'Certificate service has been suspended for a database restore operation.
 Public Const CERTSRV_E_SERVER_SUSPENDED = (&H80094006)
-'The certificate contains an encoded length that is potentially incompatible with older enrollment software.
+'The certificate contains an encoded length that is potentially
+'incompatible with older enrollment software.
 Public Const CERTSRV_E_ENCODING_LENGTH = (&H80094007)
-'The operation is denied. The user has multiple roles assigned and the certification authority is configured to enforce role separation.
+'The operation is denied. The user has multiple roles assigned
+'and the certification authority is configured to enforce role separation.
 Public Const CERTSRV_E_ROLECONFICT = (&H80094008)
-'The operation is denied. It can only be performed by a certificate manager that is allowed to manage certificates for the current requester.
+'The operation is denied. It can only be performed by a certificate
+'manager that is allowed to manage certificates for the current requester.
 Public Const CERTSRV_E_RESTRICTEDOFFICER = (&H80094009)
-'Cannot archive private key.  The certification authority is not configured for key archival.
+'Cannot archive private key. The certification authority is not
+'configured for key archival.
 Public Const CERTSRV_E_KEY_ARCHIVAL_NOT_CONFIGURED = (&H8009400A)
-'Cannot archive private key.  The certification authority could not verify one or more key recovery certificates.
+'Cannot archive private key. The certification authority could not
+'verify one or more key recovery certificates.
 Public Const CERTSRV_E_NO_VALID_KRA = (&H8009400B)
-'The request is incorrectly formatted.  The encrypted private key must be in an unauthenticated attribute in an outermost signature.
+'The request is incorrectly formatted. The encrypted private key must
+'be in an unauthenticated attribute in an outermost signature.
 Public Const CERTSRV_E_BAD_REQUEST_KEY_ARCHIVAL = (&H8009400C)
 'At least one security principal must have the permission to manage this CA.
 Public Const CERTSRV_E_NO_CAADMIN_DEFINED = (&H8009400D)
 'The request contains an invalid renewal certificate attribute.
 Public Const CERTSRV_E_BAD_RENEWAL_CERT_ATTRIBUTE = (&H8009400E)
-'An attempt was made to open a Certification Authority database session, but there are already too many active sessions.  The server may need to be configured to allow additional sessions.
+'An attempt was made to open a Certification Authority database session,
+'but there are already too many active sessions. The server may need
+'to be configured to allow additional sessions.
 Public Const CERTSRV_E_NO_DB_SESSIONS = (&H8009400F)
 'A memory reference caused a data alignment fault.
 Public Const CERTSRV_E_ALIGNMENT_FAULT = (&H80094010)
-'The permissions on this certification authority do not allow the current user to enroll for certificates.
+'The permissions on this certification authority do not allow the current
+'user to enroll for certificates.
 Public Const CERTSRV_E_ENROLL_DENIED = (&H80094011)
-'The permissions on the certificate template do not allow the current user to enroll for this type of certificate.
+'The permissions on the certificate template do not allow the current
+'user to enroll for this type of certificate.
 Public Const CERTSRV_E_TEMPLATE_DENIED = (&H80094012)
-'The contacted domain controller cannot support signed LDAP traffic.  Update the domain controller or configure Certificate Services to use SSL for Active Directory access.
+'The contacted domain controller cannot support signed LDAP traffic.
+'Update the domain controller or configure Certificate Services to
+'use SSL for Active Directory access.
 Public Const CERTSRV_E_DOWNLEVEL_DC_SSL_OR_UPGRADE = (&H80094013)
 'The requested certificate template is not supported by this CA.
 Public Const CERTSRV_E_UNSUPPORTED_CERT_TYPE = (&H80094800)
@@ -6229,7 +6514,9 @@ Public Const CERTSRV_E_SUBJECT_ALT_NAME_REQUIRED = (&H80094803)
 Public Const CERTSRV_E_ARCHIVED_KEY_REQUIRED = (&H80094804)
 'The request is missing a required SMIME capabilities extension.
 Public Const CERTSRV_E_SMIME_REQUIRED = (&H80094805)
-'The request was made on behalf of a subject other than the caller.  The certificate template must be configured to require at least one signature to authorize the request.
+'The request was made on behalf of a subject other than the caller.
+'The certificate template must be configured to require at least one
+'signature to authorize the request.
 Public Const CERTSRV_E_BAD_RENEWAL_SUBJECT = (&H80094806)
 'The request template version is newer than the supported template version.
 Public Const CERTSRV_E_BAD_TEMPLATE_VERSION = (&H80094807)
@@ -6239,25 +6526,33 @@ Public Const CERTSRV_E_TEMPLATE_POLICY_REQUIRED = (&H80094808)
 Public Const CERTSRV_E_SIGNATURE_POLICY_REQUIRED = (&H80094809)
 'The request is missing one or more required signatures.
 Public Const CERTSRV_E_SIGNATURE_COUNT = (&H8009480A)
-'One or more signatures did not include the required application or issuance policies.  The request is missing one or more required valid signatures.
+'One or more signatures did not include the required application or issuance
+'policies. The request is missing one or more required valid signatures.
 Public Const CERTSRV_E_SIGNATURE_REJECTED = (&H8009480B)
 'The request is missing one or more required signature issuance policies.
 Public Const CERTSRV_E_ISSUANCE_POLICY_REQUIRED = (&H8009480C)
 'The UPN is unavailable and cannot be added to the Subject Alternate name.
 Public Const CERTSRV_E_SUBJECT_UPN_REQUIRED = (&H8009480D)
-'The Active Directory GUID is unavailable and cannot be added to the Subject Alternate name.
+'The Active Directory GUID is unavailable and cannot be added to the
+'Subject Alternate name.
 Public Const CERTSRV_E_SUBJECT_DIRECTORY_GUID_REQUIRED = (&H8009480E)
 'The DNS name is unavailable and cannot be added to the Subject Alternate name.
 Public Const CERTSRV_E_SUBJECT_DNS_REQUIRED = (&H8009480F)
-'The request includes a private key for archival by the server, but key archival is not enabled for the specified certificate template.
+'The request includes a private key for archival by the server, but key
+'archival is not enabled for the specified certificate template.
 Public Const CERTSRV_E_ARCHIVED_KEY_UNEXPECTED = (&H80094810)
-'The public key does not meet the minimum size required by the specified certificate template.
+'The public key does not meet the minimum size required by the specified
+'certificate template.
 Public Const CERTSRV_E_KEY_LENGTH = (&H80094811)
-'The EMail name is unavailable and cannot be added to the Subject or Subject Alternate name.
+'The EMail name is unavailable and cannot be added to the Subject or
+'Subject Alternate name.
 Public Const CERTSRV_E_SUBJECT_EMAIL_REQUIRED = (&H80094812)
-'One or more certificate templates to be enabled on this certification authority could not be found.
+'One or more certificate templates to be enabled on this certification
+'authority could not be found.
 Public Const CERTSRV_E_UNKNOWN_CERT_TYPE = (&H80094813)
-'The certificate template renewal period is longer than the certificate validity period.  The template should be reconfigured or the CA certificate renewed.
+'The certificate template renewal period is longer than the certificate
+'validity period. The template should be reconfigured or the CA certificate
+'renewed.
 Public Const CERTSRV_E_CERT_TYPE_OVERLAP = (&H80094814)
 
 'The range &H5000-&H51ff is reserved for XENROLL errors.
@@ -6352,9 +6647,11 @@ Public Const NTE_OP_OK = 0
 
 'Unknown trust provider.
 Public Const TRUST_E_PROVIDER_UNKNOWN = (&H800B0001)
-'The trust verification action specified is not supported by the specified trust provider.
+'The trust verification action specified is not supported by the specified
+'trust provider.
 Public Const TRUST_E_ACTION_UNKNOWN = (&H800B0002)
-'The form specified for the subject is not one supported or known by the specified trust provider.
+'The form specified for the subject is not one supported or known by
+'the specified trust provider.
 Public Const TRUST_E_SUBJECT_FORM_UNKNOWN = (&H800B0003)
 'The subject is not trusted for the specified action.
 Public Const TRUST_E_SUBJECT_NOT_TRUSTED = (&H800B0004)
@@ -6374,11 +6671,13 @@ Public Const PERSIST_E_SIZEINDEFINITE = (&H800B000A)
 Public Const PERSIST_E_NOTSELFSIZING = (&H800B000B)
 'No signature was present in the subject.
 Public Const TRUST_E_NOSIGNATURE = (&H800B0100)
-'A required certificate is not within its validity period when verifying against the current system clock or the timestamp in the signed file.
+'A required certificate is not within its validity period when verifying
+'against the current system clock or the timestamp in the signed file.
 Public Const CERT_E_EXPIRED = (&H800B0101)
 'The validity periods of the certification chain do not nest correctly.
 Public Const CERT_E_VALIDITYPERIODNESTING = (&H800B0102)
-'A certificate that can only be used as an end-entity is being used as a CA or visa versa.
+'A certificate that can only be used as an end-entity is being used as
+'a CA or visa versa.
 Public Const CERT_E_ROLE = (&H800B0103)
 'A path length constraint in the certification chain has been violated.
 Public Const CERT_E_PATHLENCONST = (&H800B0104)
@@ -6388,9 +6687,11 @@ Public Const CERT_E_CRITICAL = (&H800B0105)
 Public Const CERT_E_PURPOSE = (&H800B0106)
 'A parent of a given certificate in fact did not issue that child certificate.
 Public Const CERT_E_ISSUERCHAINING = (&H800B0107)
-'A certificate is missing or has an empty value for an important field, such as a subject or issuer name.
+'A certificate is missing or has an empty value for an important field, such
+'as a subject or issuer name.
 Public Const CERT_E_MALFORMED = (&H800B0108)
-'A certificate chain processed, but terminated in a root certificate which is not trusted by the trust provider.
+'A certificate chain processed, but terminated in a root certificate which
+'is not trusted by the trust provider.
 Public Const CERT_E_UNTRUSTEDROOT = (&H800B0109)
 'A certificate chain could not be built to a trusted root authority.
 Public Const CERT_E_CHAINING = (&H800B010A)
@@ -6398,7 +6699,8 @@ Public Const CERT_E_CHAINING = (&H800B010A)
 Public Const TRUST_E_FAIL = (&H800B010B)
 'A certificate was explicitly revoked by its issuer.
 Public Const CERT_E_REVOKED = (&H800B010C)
-'The certification path terminates with the test root which is not trusted with the current policy settings.
+'The certification path terminates with the test root which is not trusted
+'with the current policy settings.
 Public Const CERT_E_UNTRUSTEDTESTROOT = (&H800B010D)
 'The revocation process could not continue - the certificate(s) could not be checked.
 Public Const CERT_E_REVOCATION_FAILURE = (&H800B010E)
@@ -6408,11 +6710,13 @@ Public Const CERT_E_CN_NO_MATCH = (&H800B010F)
 Public Const CERT_E_WRONG_USAGE = (&H800B0110)
 'The certificate was explicitly marked as untrusted by the user.
 Public Const TRUST_E_EXPLICIT_DISTRUST = (&H800B0111)
-'A certification chain processed correctly, but one of the CA certificates is not trusted by the policy provider.
+'A certification chain processed correctly, but one of the CA certificates
+'is not trusted by the policy provider.
 Public Const CERT_E_UNTRUSTEDCA = (&H800B0112)
 'The certificate has invalid policy.
 Public Const CERT_E_INVALID_POLICY = (&H800B0113)
-'The certificate has an invalid name. The name is not included in the permitted list or is explicitly excluded.
+'The certificate has an invalid name. The name is not included in
+'the permitted list or is explicitly excluded.
 Public Const CERT_E_INVALID_NAME = (&H800B0114)
 
 '*****************
@@ -6420,7 +6724,8 @@ Public Const CERT_E_INVALID_NAME = (&H800B0114)
 '*****************
 'A non-empty line was encountered in the INF before the start of a section.
 Public Const SPAPI_E_EXPECTED_SECTION_NAME = (&H800F0000)
-'A section name marker in the INF is not complete, or does not exist on a line by itself.
+'A section name marker in the INF is not complete, or does not exist on
+'a line by itself.
 Public Const SPAPI_E_BAD_SECTION_NAME_LINE = (&H800F0001)
 'An INF section was encountered whose name exceeds the maximum section name length.
 Public Const SPAPI_E_SECTION_NAME_TOO_LONG = (&H800F0002)
@@ -6432,13 +6737,17 @@ Public Const SPAPI_E_WRONG_INF_STYLE = (&H800F0100)
 Public Const SPAPI_E_SECTION_NOT_FOUND = (&H800F0101)
 'The required line was not found in the INF.
 Public Const SPAPI_E_LINE_NOT_FOUND = (&H800F0102)
-'The files affected by the installation of this file queue have not been backed up for uninstall.
+'The files affected by the installation of this file queue have not been
+'backed up for uninstall.
 Public Const SPAPI_E_NO_BACKUP = (&H800F0103)
-'The INF or the device information set or element does not have an associated install class.
+'The INF or the device information set or element does not have
+'an associated install class.
 Public Const SPAPI_E_NO_ASSOCIATED_CLASS = (&H800F0200)
-'The INF or the device information set or element does not match the specified install class.
+'The INF or the device information set or element does not match
+'the specified install class.
 Public Const SPAPI_E_CLASS_MISMATCH = (&H800F0201)
-'An existing device was found that is a duplicate of the device being manually installed.
+'An existing device was found that is a duplicate of the device
+'being manually installed.
 Public Const SPAPI_E_DUPLICATE_FOUND = (&H800F0202)
 'There is no driver selected for the device information set or element.
 Public Const SPAPI_E_NO_DRIVER_SELECTED = (&H800F0203)
@@ -6450,7 +6759,8 @@ Public Const SPAPI_E_INVALID_DEVINST_NAME = (&H800F0205)
 Public Const SPAPI_E_INVALID_CLASS = (&H800F0206)
 'The device instance cannot be created because it already exists.
 Public Const SPAPI_E_DEVINST_ALREADY_EXISTS = (&H800F0207)
-'The operation cannot be performed on a device information element that has not been registered.
+'The operation cannot be performed on a device information element
+'that has not been registered.
 Public Const SPAPI_E_DEVINFO_NOT_REGISTERED = (&H800F0208)
 'The device property code is invalid.
 Public Const SPAPI_E_INVALID_REG_PROPERTY = (&H800F0209)
@@ -6462,13 +6772,15 @@ Public Const SPAPI_E_NO_SUCH_DEVINST = (&H800F020B)
 Public Const SPAPI_E_CANT_LOAD_CLASS_ICON = (&H800F020C)
 'The class installer registry entry is invalid.
 Public Const SPAPI_E_INVALID_CLASS_INSTALLER = (&H800F020D)
-'The class installer has indicated that the default action should be performed for this installation request.
+'The class installer has indicated that the default action should be performed
+'for this installation request.
 Public Const SPAPI_E_DI_DO_DEFAULT = (&H800F020E)
 'The operation does not require any files to be copied.
 Public Const SPAPI_E_DI_NOFILECOPY = (&H800F020F)
 'The specified hardware profile does not exist.
 Public Const SPAPI_E_INVALID_HWPROFILE = (&H800F0210)
-'There is no device information element currently selected for this device information set.
+'There is no device information element currently selected for
+'this device information set.
 Public Const SPAPI_E_NO_DEVICE_SELECTED = (&H800F0211)
 'The operation cannot be performed because the device information set is locked.
 Public Const SPAPI_E_DEVINFO_LIST_LOCKED = (&H800F0212)
@@ -6476,7 +6788,8 @@ Public Const SPAPI_E_DEVINFO_LIST_LOCKED = (&H800F0212)
 Public Const SPAPI_E_DEVINFO_DATA_LOCKED = (&H800F0213)
 'The specified path does not contain any applicable device INFs.
 Public Const SPAPI_E_DI_BAD_PATH = (&H800F0214)
-'No class installer parameters have been set for the device information set or element.
+'No class installer parameters have been set for the device
+'information set or element.
 Public Const SPAPI_E_NO_CLASSINSTALL_PARAMS = (&H800F0215)
 'The operation cannot be performed because the file queue is locked.
 Public Const SPAPI_E_FILEQUEUE_LOCKED = (&H800F0216)
@@ -6484,13 +6797,17 @@ Public Const SPAPI_E_FILEQUEUE_LOCKED = (&H800F0216)
 Public Const SPAPI_E_BAD_SERVICE_INSTALLSECT = (&H800F0217)
 'There is no class driver list for the device information element.
 Public Const SPAPI_E_NO_CLASS_DRIVER_LIST = (&H800F0218)
-'The installation failed because a function driver was not specified for this device instance.
+'The installation failed because a function driver was not specified
+'for this device instance.
 Public Const SPAPI_E_NO_ASSOCIATED_SERVICE = (&H800F0219)
-'There is presently no default device interface designated for this interface class.
+'There is presently no default device interface designated for this
+'interface class.
 Public Const SPAPI_E_NO_DEFAULT_DEVICE_INTERFACE = (&H800F021A)
-'The operation cannot be performed because the device interface is currently active.
+'The operation cannot be performed because the device interface is
+'currently active.
 Public Const SPAPI_E_DEVICE_INTERFACE_ACTIVE = (&H800F021B)
-'The operation cannot be performed because the device interface has been removed from the system.
+'The operation cannot be performed because the device interface
+'has been removed from the system.
 Public Const SPAPI_E_DEVICE_INTERFACE_REMOVED = (&H800F021C)
 'An interface installation section in this INF is invalid.
 Public Const SPAPI_E_BAD_INTERFACE_INSTALLSECT = (&H800F021D)
@@ -6510,7 +6827,8 @@ Public Const SPAPI_E_NO_CONFIGMGR_SERVICES = (&H800F0223)
 Public Const SPAPI_E_INVALID_PROPPAGE_PROVIDER = (&H800F0224)
 'The requested device interface is not present in the system.
 Public Const SPAPI_E_NO_SUCH_DEVICE_INTERFACE = (&H800F0225)
-'The device's co-installer has additional work to perform after installation is complete.
+'The device's co-installer has additional work to perform after
+'installation is complete.
 Public Const SPAPI_E_DI_POSTPROCESSING_REQUIRED = (&H800F0226)
 'The device's co-installer is invalid.
 Public Const SPAPI_E_INVALID_COINSTALLER = (&H800F0227)
@@ -6530,7 +6848,8 @@ Public Const SPAPI_E_NON_WINDOWS_NT_DRIVER = (&H800F022D)
 Public Const SPAPI_E_NON_WINDOWS_DRIVER = (&H800F022E)
 'The third-party INF does not contain digital signature information.
 Public Const SPAPI_E_NO_CATALOG_FOR_OEM_INF = (&H800F022F)
-'An invalid attempt was made to use a device installation file queue for verification of digital signatures relative to other platforms.
+'An invalid attempt was made to use a device installation file queue
+'for verification of digital signatures relative to other platforms.
 Public Const SPAPI_E_DEVINSTALL_QUEUE_NONNATIVE = (&H800F0230)
 'The device cannot be disabled.
 Public Const SPAPI_E_NOT_DISABLEABLE = (&H800F0231)
@@ -6542,11 +6861,13 @@ Public Const SPAPI_E_INVALID_TARGET = (&H800F0233)
 Public Const SPAPI_E_DRIVER_NONNATIVE = (&H800F0234)
 'Operation not allowed in WOW64.
 Public Const SPAPI_E_IN_WOW64 = (&H800F0235)
-'The operation involving unsigned file copying was rolled back, so that a system restore point could be set.
+'The operation involving unsigned file copying was rolled back, so that
+'a system restore point could be set.
 Public Const SPAPI_E_SET_SYSTEM_RESTORE_POINT = (&H800F0236)
 'An INF was copied into the Windows INF directory in an improper manner.
 Public Const SPAPI_E_INCORRECTLY_COPIED_INF = (&H800F0237)
-'The Security Configuration Editor (SCE) APIs have been disabled on this Embedded product.
+'The Security Configuration Editor (SCE) APIs have been disabled
+'on this Embedded product.
 Public Const SPAPI_E_SCE_DISABLED = (&H800F0238)
 'No installed components were detected.
 Public Const SPAPI_E_ERROR_NOT_INSTALLED = (&H800F1000)
@@ -6588,7 +6909,8 @@ Public Const SCARD_E_NO_SMARTCARD = (&H8010000C)
 Public Const SCARD_E_UNKNOWN_CARD = (&H8010000D)
 'The system could not dispose of the media in the requested manner.
 Public Const SCARD_E_CANT_DISPOSE = (&H8010000E)
-'The requested protocols are incompatible with the protocol currently in use with the smart card.
+'The requested protocols are incompatible with the protocol currently
+'in use with the smart card.
 Public Const SCARD_E_PROTO_MISMATCH = (&H8010000F)
 'The reader or smart card is not ready to accept commands.
 Public Const SCARD_E_NOT_READY = (&H80100010)
@@ -6652,7 +6974,8 @@ Public Const SCARD_E_NO_SUCH_CERTIFICATE = (&H8010002C)
 Public Const SCARD_E_CERTIFICATE_UNAVAILABLE = (&H8010002D)
 'Cannot find a smart card reader.
 Public Const SCARD_E_NO_READERS_AVAILABLE = (&H8010002E)
-'A communications error with the smart card has been detected.  Retry the operation.
+'A communications error with the smart card has been detected.
+'Retry the operation.
 Public Const SCARD_E_COMM_DATA_LOST = (&H8010002F)
 'The requested key container does not exist on the smart card.
 Public Const SCARD_E_NO_KEY_CONTAINER = (&H80100030)
@@ -6662,11 +6985,13 @@ Public Const SCARD_E_SERVER_TOO_BUSY = (&H80100031)
 'These are warning codes.
 
 
-'The reader cannot communicate with the smart card, due to ATR configuration conflicts.
+'The reader cannot communicate with the smart card, due to
+'ATR configuration conflicts.
 Public Const SCARD_W_UNSUPPORTED_CARD = (&H80100065)
 'The smart card is not responding to a reset.
 Public Const SCARD_W_UNRESPONSIVE_CARD = (&H80100066)
-'Power has been removed from the smart card, so that further communication is not possible.
+'Power has been removed from the smart card, so that further
+'communication is not possible.
 Public Const SCARD_W_UNPOWERED_CARD = (&H80100067)
 'The smart card has been reset, so any shared state information is invalid.
 Public Const SCARD_W_RESET_CARD = (&H80100068)
@@ -6676,7 +7001,8 @@ Public Const SCARD_W_REMOVED_CARD = (&H80100069)
 Public Const SCARD_W_SECURITY_VIOLATION = (&H8010006A)
 'The card cannot be accessed because the wrong PIN was presented.
 Public Const SCARD_W_WRONG_CHV = (&H8010006B)
-'The card cannot be accessed because the maximum number of PIN entry attempts has been reached.
+'The card cannot be accessed because the maximum number of PIN
+'entry attempts has been reached.
 Public Const SCARD_W_CHV_BLOCKED = (&H8010006C)
 'The end of the smart card file has been reached.
 Public Const SCARD_W_EOF = (&H8010006D)
@@ -6699,7 +7025,8 @@ Public Const SCARD_W_CARD_NOT_AUTHENTICATED = (&H8010006F)
 'COMPLUS Admin errors
 
 
-'Errors occurred accessing one or more objects - the ErrorInfo collection may have more detail
+'Errors occurred accessing one or more objects - the ErrorInfo
+'collection may have more detail
 Public Const COMADMIN_E_OBJECTERRORS = (&H80110401)
 'One or more of the object's properties are missing or invalid
 Public Const COMADMIN_E_OBJECTINVALID = (&H80110402)
@@ -6767,7 +7094,8 @@ Public Const COMADMIN_E_NOTCHANGEABLE = (&H8011042A)
 Public Const COMADMIN_E_NOTDELETEABLE = (&H8011042B)
 'The server catalog version is not supported
 Public Const COMADMIN_E_SESSION = (&H8011042C)
-'The component move was disallowed, because the source or destination application is either a system application or currently locked against changes
+'The component move was disallowed, because the source or destination
+'application is either a system application or currently locked against changes
 Public Const COMADMIN_E_COMP_MOVE_LOCKED = (&H8011042D)
 'The component move failed because the destination application no longer exists
 Public Const COMADMIN_E_COMP_MOVE_BAD_DEST = (&H8011042E)
@@ -6795,7 +7123,8 @@ Public Const COMADMIN_E_PROPERTY_OVERFOW = (&H8011043C)
 Public Const COMADMIN_E_NOTINREGISTRY = (&H8011043E)
 'This object is not poolable
 Public Const COMADMIN_E_OBJECTNOTPOOLABLE = (&H8011043F)
-'A CLSID with the same GUID as the new application ID is already installed on this machine
+'A CLSID with the same GUID as the new application ID is
+'already installed on this machine
 Public Const COMADMIN_E_APPLID_MATCHES_CLSID = (&H80110446)
 'A role assigned to a component, interface, or method did not exist in the application
 Public Const COMADMIN_E_ROLE_DOES_NOT_EXIST = (&H80110447)
@@ -6805,7 +7134,8 @@ Public Const COMADMIN_E_START_APP_NEEDS_COMPONENTS = (&H80110448)
 Public Const COMADMIN_E_REQUIRES_DIFFERENT_PLATFORM = (&H80110449)
 'Application Proxy is not exportable
 Public Const COMADMIN_E_CAN_NOT_EXPORT_APP_PROXY = (&H8011044A)
-'Failed to start application because it is either a library application or an application proxy
+'Failed to start application because it is either a library application
+'or an application proxy
 Public Const COMADMIN_E_CAN_NOT_START_APP = (&H8011044B)
 'System application is not exportable
 Public Const COMADMIN_E_CAN_NOT_EXPORT_SYS_APP = (&H8011044C)
@@ -6821,13 +7151,17 @@ Public Const COMADMIN_E_BASE_PARTITION_ONLY = (&H80110450)
 Public Const COMADMIN_E_START_APP_DISABLED = (&H80110451)
 'The specified partition name is already in use on this computer
 Public Const COMADMIN_E_CAT_DUPLICATE_PARTITION_NAME = (&H80110457)
-'The specified partition name is invalid. Check that the name contains at least one visible character
+'The specified partition name is invalid. Check that the name contains
+'at least one visible character
 Public Const COMADMIN_E_CAT_INVALID_PARTITION_NAME = (&H80110458)
-'The partition cannot be deleted because it is the default partition for one or more users
+'The partition cannot be deleted because it is the default partition
+'for one or more users
 Public Const COMADMIN_E_CAT_PARTITION_IN_USE = (&H80110459)
-'The partition cannot be exported, because one or more components in the partition have the same file name
+'The partition cannot be exported, because one or more components in
+'the partition have the same file name
 Public Const COMADMIN_E_FILE_PARTITION_DUPLICATE_FILES = (&H8011045A)
-'Applications that contain one or more imported components cannot be installed into a non-base partition
+'Applications that contain one or more imported components cannot be
+'installed into a non-base partition
 Public Const COMADMIN_E_CAT_IMPORTED_COMPONENTS_NOT_ALLOWED = (&H8011045B)
 'The application name is not unique and cannot be resolved to an application id
 Public Const COMADMIN_E_AMBIGUOUS_APPLICATION_NAME = (&H8011045C)
@@ -6843,7 +7177,8 @@ Public Const COMADMIN_E_REGDB_SYSTEMERR = (&H80110474)
 Public Const COMADMIN_E_REGDB_ALREADYRUNNING = (&H80110475)
 'This version of the COM+ registry database cannot be migrated
 Public Const COMADMIN_E_MIG_VERSIONNOTSUPPORTED = (&H80110480)
-'The schema version to be migrated could not be found in the COM+ registry database
+'The schema version to be migrated could not be found in
+'the COM+ registry database
 Public Const COMADMIN_E_MIG_SCHEMANOTFOUND = (&H80110481)
 'There was a type mismatch between binaries
 Public Const COMADMIN_E_CAT_BITNESSMISMATCH = (&H80110482)
@@ -6861,7 +7196,8 @@ Public Const COMADMIN_E_CAT_SERVERFAULT = (&H80110486)
 
 'Only COM+ Applications marked "queued" can be invoked using the "queue" moniker
 Public Const COMQC_E_APPLICATION_NOT_QUEUED = (&H80110600)
-'At least one interface must be marked "queued" in order to create a queued component instance with the "queue" moniker
+'At least one interface must be marked "queued" in order to create
+'a queued component instance with the "queue" moniker
 Public Const COMQC_E_NO_QUEUEABLE_INTERFACES = (&H80110601)
 'MSMQ is required for the requested operation and is not installed
 Public Const COMQC_E_QUEUING_SERVICE_NOT_AVAILABLE = (&H80110602)
@@ -6869,7 +7205,8 @@ Public Const COMQC_E_QUEUING_SERVICE_NOT_AVAILABLE = (&H80110602)
 Public Const COMQC_E_NO_IPERSISTSTREAM = (&H80110603)
 'The message is improperly formatted or was damaged in transit
 Public Const COMQC_E_BAD_MESSAGE = (&H80110604)
-'An unauthenticated message was received by an application that accepts only authenticated messages
+'An unauthenticated message was received by an application that accepts
+'only authenticated messages
 Public Const COMQC_E_UNAUTHENTICATED = (&H80110605)
 'The message was requeued or moved by a user not in the "QC Trusted User" role
 Public Const COMQC_E_UNTRUSTED_ENQUEUER = (&H80110606)
@@ -6883,7 +7220,8 @@ Public Const MSDTC_E_DUPLICATE_RESOURCE = (&H80110701)
 'More COMADMIN errors from &H8**
 
 
-'One of the objects being inserted or updated does not belong to a valid parent collection
+'One of the objects being inserted or updated does not belong to a valid
+'parent collection
 Public Const COMADMIN_E_OBJECT_PARENT_MISSING = (&H80110808)
 'One of the specified objects cannot be found
 Public Const COMADMIN_E_OBJECT_DOES_NOT_EXIST = (&H80110809)
@@ -6905,7 +7243,8 @@ Public Const COMADMIN_E_PROCESSALREADYRECYCLED = (&H80110812)
 Public Const COMADMIN_E_PAUSEDPROCESSMAYNOTBERECYCLED = (&H80110813)
 'Library applications may not be NT services.
 Public Const COMADMIN_E_CANTMAKEINPROCSERVICE = (&H80110814)
-'The ProgID provided to the copy operation is invalid. The ProgID is in use by another registered CLSID.
+'The ProgID provided to the copy operation is invalid. The ProgID is in use
+'by another registered CLSID.
 Public Const COMADMIN_E_PROGIDINUSEBYCLSID = (&H80110815)
 'The partition specified as default is not a member of the partition set.
 Public Const COMADMIN_E_DEFAULT_PARTITION_NOT_IN_SET = (&H80110816)
@@ -6915,17 +7254,22 @@ Public Const COMADMIN_E_RECYCLEDPROCESSMAYNOTBEPAUSED = (&H80110817)
 Public Const COMADMIN_E_PARTITION_ACCESSDENIED = (&H80110818)
 'Only Application Files (*.MSI files) can be installed into partitions.
 Public Const COMADMIN_E_PARTITION_MSI_ONLY = (&H80110819)
-'Applications containing one or more legacy components may not be exported to 1.0 format.
+'Applications containing one or more legacy components may not be
+'exported to 1.0 format.
 Public Const COMADMIN_E_LEGACYCOMPS_NOT_ALLOWED_IN_1_0_FORMAT = (&H8011081A)
 'Legacy components may not exist in non-base partitions.
 Public Const COMADMIN_E_LEGACYCOMPS_NOT_ALLOWED_IN_NONBASE_PARTITIONS = (&H8011081B)
-'A component cannot be moved (or copied) from the System Application, an application proxy or a non-changeable application
+'A component cannot be moved (or copied) from the System Application,
+'an application proxy or a non-changeable application
 Public Const COMADMIN_E_COMP_MOVE_SOURCE = (&H8011081C)
-'A component cannot be moved (or copied) to the System Application, an application proxy or a non-changeable application
+'A component cannot be moved (or copied) to the System Application,
+'an application proxy or a non-changeable application
 Public Const COMADMIN_E_COMP_MOVE_DEST = (&H8011081D)
-'A private component cannot be moved (or copied) to a library application or to the base partition
+'A private component cannot be moved (or copied) to a library
+'application or to the base partition
 Public Const COMADMIN_E_COMP_MOVE_PRIVATE = (&H8011081E)
-'The Base Application Partition exists in all partition sets and cannot be removed.
+'The Base Application Partition exists in all partition sets
+'and cannot be removed.
 Public Const COMADMIN_E_BASEPARTITION_REQUIRED_IN_SET = (&H8011081F)
 'Alas, Event Class components cannot be aliased.
 Public Const COMADMIN_E_CANNOT_ALIAS_EVENTCLASS = (&H80110820)
@@ -7014,8 +7358,7 @@ End Function
 
 '===============================================================================
 '*******************************************************************************
-'$Log: 
-' 1    Biblioteka1.0         2007-05-10 11:10:47  Darko Kolakovic 
+'$Log:
+' 1    Biblioteka1.0         2007-05-10 11:10:47  Darko Kolakovic
 '$
 '*******************************************************************************
-

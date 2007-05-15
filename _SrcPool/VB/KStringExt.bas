@@ -1,13 +1,13 @@
 Attribute VB_Name = "KStringExt"
 '$Workfile: KStringExt.bas$: implementation file
-'$Revision: 6$ $Date: 2007-05-03 11:28:40$
+'$Revision: 7$ $Date: 2007-05-15 15:46:31$
 '$Author: Darko Kolakovic$
 '
 'Text manipulation helpers
 '2002-10-14
 
 Option Explicit
-                   
+
 'Note: JScript does not support ByRef parameters of any type, so if you plan to
 'write components that will support JScript, you should not use ByRef parameters
 'at all. VBScript does not impose this restriction.
@@ -69,12 +69,12 @@ Public Function BytesToString(pByteArray As Byte, _
   BytesToString = Left$(strTemp, lLength) 'Return the string
 End Function
 '-------------------------------------------------------------------------------
-'Find the next token in a string. The set of characters in strDelimiter specifies
-'possible delimiters of the token to be found in strSource on the current call.
+'Find the next token in a string. The strDelimiter specifies
+'possible separating word of the token to be found in strSource on the current call.
 '
 'Parameters
-' strSource      [in/out] String containing token or tokens.
-' strDelimiter   [in] Set of delimiter characters.
+' strSource      [in/out] string containing token or tokens.
+' strDelimiter   [in] delimiter string.
 '
 'Returns a token if found and remaining part of the strSource after the token.
 Function StrToken(ByRef strSource As String, _
@@ -88,7 +88,7 @@ Function StrToken(ByRef strSource As String, _
     If Mid$(strSource, iPos, 1) = strDelimiter Then
       sToken = Mid$(strSource, 1, iPos)
       strSource = Mid$(strSource, iPos + 1, Len(strSource))
-      StrToken = sToken
+      StrToken = Left(sToken, Len(sToken) - Len(strDelimiter))
       Exit Function
     End If
     iPos = iPos + 1
@@ -174,6 +174,20 @@ Public Function StrTrimSlash(ByVal strPath As String) As String
     StrTrimSlash = strPath
   End If
 
+End Function
+'-------------------------------------------------------------------------------
+'Converts a zero terminated string to String data types with length equal
+'to number of characters.
+'
+'Returns: input text as String data type.
+Public Function SzToString(ByVal szText As String) As String
+  Dim iZero As Integer
+  iZero = InStr(szText, Chr$(0))
+  If iZero <> 0 Then
+    SzToString = Left$(szText, iZero - 1) 'Cut-off terminating zero
+  Else
+    SzToString = szText
+  End If
 End Function
 '//////////////////////////////////////////////////////////////////////////////
 '******************************************************************************

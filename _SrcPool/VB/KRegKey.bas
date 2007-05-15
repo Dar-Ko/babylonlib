@@ -1,6 +1,6 @@
 Attribute VB_Name = "KRegKey"
 '$Workfile: KRegKey.bas$: implementation file
-'$Revision: 2$ $Date: 2007-05-10 16:58:25$
+'$Revision: 3$ $Date: 2007-05-11 17:26:06$
 '$Author: Darko Kolakovic$
 '
 'Windows Registry handler
@@ -402,6 +402,42 @@ Public Function RegKeySaveBinValue(ByVal hKey As Long, _
   Else
     RegKeySaveBinValue = False
   End If
+End Function
+'-------------------------------------------------------------------------------
+'Converts predefined registry key names to one of the following reserved
+'handles:
+'         HKEY_CLASSES_ROOT
+'         HKEY_CURRENT_USER
+'         HKEY_LOCAL_MACHINE
+'         HKEY_USERS
+'         HKEY_PERFORMANCE_DATA
+'         HKEY_PERFORMANCE_TEXT
+'         HKEY_PERFORMANCE_NLSTEXT
+'         HKEY_CURRENT_CONFIG
+'         HKEY_DYN_DATA
+'Returns: one of resreved registry key handles or HKEY_CURRENT_USER if
+'key name is not one from the list of predefined handles.
+Public Function StrToHkey(ByVal strHkey As String) As Long
+  StrToHkey = HKEY_CURRENT_USER 'Return default value
+  
+  Select Case strHkey
+    Case "HKEY_CLASSES_ROOT"
+      StrToHkey = HKEY_CLASSES_ROOT
+    Case "HKEY_LOCAL_MACHINE"
+      StrToHkey = HKEY_LOCAL_MACHINE
+    Case "HKEY_USERS"
+      StrToHkey = HKEY_USERS
+    Case "HKEY_PERFORMANCE_DATA"
+      StrToHkey = HKEY_PERFORMANCE_DATA
+    Case "HKEY_PERFORMANCE_TEXT"
+      StrToHkey = HKEY_PERFORMANCE_TEXT
+    Case "HKEY_PERFORMANCE_NLSTEXT"
+      StrToHkey = HKEY_PERFORMANCE_NLSTEXT
+    Case "HKEY_CURRENT_CONFIG"
+      StrToHkey = HKEY_CURRENT_CONFIG
+    Case "HKEY_DYN_DATA"
+      StrToHkey = HKEY_DYN_DATA
+  End Select
 End Function
 
 '///////////////////////////////////////////////////////////////////////////////
