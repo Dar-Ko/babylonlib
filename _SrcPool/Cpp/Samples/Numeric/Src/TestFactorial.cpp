@@ -1,5 +1,5 @@
 /*$Workfile: TestFactorial.cpp$: implementation file
-  $Revision: 1$ $Date: 2005-06-01 16:15:02$
+  $Revision: 1$ $Date: 2005-06-01 17:15:02$
   $Author: Darko Kolakovic$
 
   Test Test factorial calculation
@@ -89,6 +89,6 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2005-06-01 16:15:02  Darko Kolakovic 
+ *  1    Biblioteka1.0         2005-06-01 17:15:02  Darko Kolakovic 
  * $
  *****************************************************************************/

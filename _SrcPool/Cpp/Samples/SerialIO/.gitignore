@@ -1,0 +1,12 @@
+*.plg
+*.opt
+*.ncb
+*.aps
+*.obj
+*.bak
+*.dsw
+*.sln
+*.suo
+*.log
+obj
+bin
