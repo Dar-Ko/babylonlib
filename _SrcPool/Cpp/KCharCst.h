@@ -1,5 +1,5 @@
 /*$Workfile: KCharCst.h$: header file
-  $Revision: 11$ $Date: 2007-03-22 18:01:48$
+  $Revision: 12$ $Date: 2007-05-18 15:47:42$
   $Author: Darko Kolakovic$
 
   ASCII Control Characters Table
@@ -82,7 +82,7 @@
   #define BOXVSLD  0xB5 /*Vertical Single And Left Double, B5, U+2561, Box Drawings Vertical Single And Left Double*/
   #define BOXVDLS  0xB6 /*Vertical Double And Left Single, B6, U+2562, Box Drawings Vertical Double And Left Single*/
   #define BOXDDLS  0xB7 /*Down Double And Left Single, B7, U+2556, Box Drawings Down Double And Left Single*/
-  #define BOXDDLD  0xB8 /*Down Single And Left Double, B8, 184, U+2555, Box Drawings Down Single And Left Double*/
+  #define BOXDSLD  0xB8 /*Down Single And Left Double, B8, 184, U+2555, Box Drawings Down Single And Left Double*/
   #define BOXVDLD  0xB9 /*Double Vertical And Left, B9, U+2563, Box Drawings Double Vertical And Left*/
   #define BOXVD    0xBA /*Double Vertical, BA, U+2551, Box Drawings Double Vertical*/
   #define BOXDDLD  0xBB /*Double Down And Left, BB, U+2557, Box Drawings Double Down And Left*/
@@ -197,7 +197,7 @@
   const int BOXVSLD = 0xB5; //Vertical Single And Left Double, B5, U+2561, Box Drawings Vertical Single And Left Double
   const int BOXVDLS = 0xB6; //Vertical Double And Left Single, B6, U+2562, Box Drawings Vertical Double And Left Single
   const int BOXDDLS = 0xB7; //Down Double And Left Single, B7, U+2556, Box Drawings Down Double And Left Single
-  const int BOXDDLD = 0xB8; //Down Single And Left Double, B8, 184, U+2555, Box Drawings Down Single And Left Double
+  const int BOXDSLD = 0xB8; //Down Single And Left Double, B8, 184, U+2555, Box Drawings Down Single And Left Double
   const int BOXVDLD = 0xB9; //Double Vertical And Left, B9, U+2563, Box Drawings Double Vertical And Left
   const int BOXVD   = 0xBA; //Double Vertical, BA, U+2551, Box Drawings Double Vertical
   const int BOXDDLD = 0xBB; //Double Down And Left, BB, U+2557, Box Drawings Double Down And Left

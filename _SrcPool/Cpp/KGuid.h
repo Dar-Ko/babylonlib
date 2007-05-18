@@ -1,5 +1,5 @@
 /*$Workfile: KGuid.h$: header file
-  $Revision: 5$ $Date: 2005-05-16 13:28:55$
+  $Revision: 7$ $Date: 2007-05-18 17:25:30$
   $Author: Darko Kolakovic$
 
   Globally Unique Identifier (GUID /UUID) definition
@@ -78,9 +78,14 @@
   typedef const tagGUID* LPCGUID;
 #endif /*tagGUID*/
 
-#if defined( __LPGUID_DEFINED__ ) /*See: Microsoft wtypes.h*/
+#if defined(__LPCGUID_DEFINED__) 
+   /*See: Microsoft wtypes.h or PlatformSDK\Include\Guiddef.h */
+  #define LPCGUID LPCGUID
+#endif
+            
+#ifndef LPCGUID
   typedef const LPGUID LPCGUID;
-#endif // __LPGUID_DEFINED__
+#endif
 
 #if !defined(UUID_DEFINED) && !defined(UUID)
   /*Universally Unique Identifier (UUID) is a pseudo-random number
@@ -158,7 +163,7 @@ public:
 // Inlines
 
 //-----------------------------------------------------------------------------
-/*Deafult constructor.
+/*Default constructor.
  */
 inline CGuid::CGuid()
 {

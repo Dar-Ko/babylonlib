@@ -1,5 +1,5 @@
 /*$Workfile: KOctave.h$: header file
-  $Revision: 4$ $Date: 2005-06-23 17:47:05$
+  $Revision: 5$ $Date: 2007-05-18 17:25:55$
   $Author: Darko Kolakovic$
 
   Octave constants
@@ -20,7 +20,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // Macros and type definitions.
-{
+
 /* Group=Constants                                                           */
 
 #define NOTE_REST      0  //pause (silence, silenzio)
@@ -49,7 +49,6 @@
                           //tempered chromatic scale [Hz/1000]
 #define NOTE_Gis  103826  //note 11 G#/Ab in first (0) octave of
                           //tempered chromatic scale [Hz/1000]
-}
 
 /*Index of a note in musical octaves (12-TET).
 
