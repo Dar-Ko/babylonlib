@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 15$ $Date: 2007-02-02 13:30:45$
+  $Revision: 16$ $Date: 2007-05-18 15:50:09$
   $Author: Darko Kolakovic$
 
   Test numerical and machine dependent routines.
@@ -33,7 +33,14 @@ extern int TestCommonNumeric();
   Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
   a non-zero error code is returned.
  */
-int main()
+int main(  int argc,      //[in] specifies how many arguments are passed to the
+                          //program from the command line. The value of argc is
+                          //at least one: the program name.
+            char* argv[]  //[in] the program arguments as an array of pointers
+                          //to null-terminated strings. The first string 
+                          //(argv[0]) is the program name. The end of the array
+                          //(argv[argc]) is indicated by a NULL pointer.
+        )
 {
 TsWriteToViewLn(_T("Start Numerical Methods Tests"));
 TsWriteToViewLn(_T(""));

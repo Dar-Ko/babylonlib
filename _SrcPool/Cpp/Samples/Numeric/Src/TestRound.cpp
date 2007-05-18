@@ -1,6 +1,6 @@
 /*$Workfile: TestRound.cpp$: implementation file
-  $Revision: 1$ $Date: 2004-07-09 02:37:08$
-  $Author: Darko$
+  $Revision: 2$ $Date: 2007-05-18 19:22:51$
+  $Author: Darko Kolakovic$
 
   Test basic string class
   Copyright: CommonSoft Inc.
@@ -13,6 +13,7 @@
 #include <math.h>
 #include "stdafx.h"
 #include "KMathCst.h" //Round()
+#include "KRound.h" //RoundBy()
 #include "KProgCst.h" //SIZEOFARR
 
 extern bool TsWriteToView(LPCTSTR lszText);
@@ -162,7 +163,7 @@ if (-DBL_INTEGER_MAX != floor(-DBL_INTEGER_MAX))
 
   //Test rounding to the integer
 TESTENTRY logEntry = 
-  {_T("RoundPos(double, unsigned int)"), _T("KMathCst.inl"), false};
+  {_T("Round(double, unsigned int)"), _T("KMathCst.inl"), false};
 while ( (i < SIZEOFARR(Test))/* && bRes*/ )
   {
   double dRounded = Round(Test[i].m_dSource);
@@ -185,6 +186,65 @@ while ( (i < SIZEOFARR(Test))/* && bRes*/ )
 logEntry.m_bResult = bRes;
 LogTest(&logEntry);
 
+if(bRes)
+ {
+  //Test rounding to closest increment
+  logEntry.m_szObjectName = _T("RoundBy(TYPE, double)");
+  logEntry.m_szFileName = _T("KRound.h");
+
+  double dRes = 0;
+  double dValue = 525.345;
+  TsWriteToView(_T("Round "));
+  TsWriteToView(dValue);
+  
+  //Round to the closest integer
+  TsWriteToView(_T(" to the closest integer: "));
+  dRes = RoundBy (525.345, 1); //dRes = 525
+  TsWriteToViewLn(dRes);
+  bRes = (dRes == 525.0);
+  
+  if(bRes)
+    {
+    //Round to the closest increment of 1/8
+    TsWriteToView(_T(" to the closest increment of 1/8: "));
+    dRes = RoundBy (525.345, 0.125); //dRes = 525.375 = 525 + 3/8
+    TsWriteToViewLn(dRes);
+    bRes = (dRes == 525.375);
+    }
+
+  if(bRes)
+    {
+    //Round to the closest increment of 3/100
+    TsWriteToView(_T(" to the closest increment of 3/100: "));
+    dRes = RoundBy (525.345, .03); //dRes = 525.360
+    TsWriteToViewLn(dRes);
+    bRes = (dRes == 525.360);
+    }
+
+  if(bRes)
+    {
+    //Currency rounding
+    TsWriteToView(_T(" to the closest increment of 1/100: "));
+    dRes = RoundBy (525.345, -.01); //dRes = 525.34
+    TsWriteToViewLn(dRes);
+    bRes = (dRes == 525.35);
+    }
+
+  if(bRes)
+    {
+    //Round by thousands
+    TsWriteToView(_T(" to the closest increment of 1000: "));
+    dRes = RoundBy (525.345, 1000); //dRes = 1000
+    TsWriteToViewLn(dRes);
+    bRes = (dRes == 1000);
+    }
+  
+  }
+
+ //Write test log
+ logEntry.m_bResult = bRes;
+ LogTest(&logEntry);
+
 TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
@@ -192,6 +252,7 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-05-18 19:22:51  Darko Kolakovic RoundBy()
  *  1    Biblioteka1.0         2004-07-09 02:37:08  Darko           
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonLibrary.cpp$: implementation file
-  $Revision: 11$ $Date: 2006-11-21 14:50:44$
+  $Revision: 12$ $Date: 2007-05-18 15:49:36$
   $Author: Darko Kolakovic$
 
   Defines the entry point for the console application used to test library
@@ -33,6 +33,7 @@ extern int TestCommonStringDyn();
 extern int TestCommonNumeric();
 extern int TestCommonDateTime();
 extern int TestCommonHtmlIO();
+extern int TestCommonRandom();
 
 //-----------------------------------------------------------------------------
 /*Invokes different test routines used to validate functionality of the library.
@@ -43,7 +44,7 @@ extern int TestCommonHtmlIO();
 int TestCommonLibrary()
 {
 
-//test recepies
+//test recipes
 int (* funcTest[])(void) =
   {
   TestCommonAssert,   //validates different debugging and tracing routines
@@ -53,6 +54,7 @@ int (* funcTest[])(void) =
   TestCommonUtilities,//validate various helper functions.
   TestCommonStringDyn,//validates a string class
   TestCommonNumeric,  //Validates different numerical methods
+  TestCommonRandom,   //Validates random numer generators
   TestCommonDateTime, //validates Date and Time conversions
   TestCommonHtmlIO,   //validates HTML and XML parsing
   };

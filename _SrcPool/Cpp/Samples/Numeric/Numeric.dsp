@@ -25,8 +25,8 @@ CFG=Numeric - Win32 Debug_SBCS
 
 # Begin Project
 # PROP AllowPerConfigDependencies 1
-# PROP Scc_ProjName ""
-# PROP Scc_LocalPath ""
+# PROP Scc_ProjName "Numeric"
+# PROP Scc_LocalPath "..\.."
 CPP=cl.exe
 RSC=rc.exe
 
@@ -203,17 +203,6 @@ SOURCE=.\Src\main.cpp
 # Begin Source File
 
 SOURCE=S:\_SrcPool\Cpp\Samples\Common\Res\Win\32\Test.rc
-
-!IF  "$(CFG)" == "Numeric - Win32 Debug_SBCS"
-
-!ELSEIF  "$(CFG)" == "Numeric - Win32 Release_SBCS"
-
-!ELSEIF  "$(CFG)" == "Numeric - Win32 Debug_Unicode"
-
-!ELSEIF  "$(CFG)" == "Numeric - Win32 Release_Unicode"
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -348,5 +337,9 @@ SOURCE=S:\_SrcPool\Cpp\Samples\Numeric\LibraryTest.log
 SOURCE=.\LibraryTestUni.log
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\Numeric.txt
+# End Source File
 # End Target
 # End Project
