@@ -25,8 +25,8 @@ CFG=_Samples - Win32 Release_Unicode
 
 # Begin Project
 # PROP AllowPerConfigDependencies 1
-# PROP Scc_ProjName ""
-# PROP Scc_LocalPath ""
+# PROP Scc_ProjName "_Samples"
+# PROP Scc_LocalPath "."
 MTL=midl.exe
 
 !IF  "$(CFG)" == "_Samples - Win32 Debug_SBCS"

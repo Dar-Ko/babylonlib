@@ -25,7 +25,7 @@
 				PreprocessorDefinitions="_DEBUG;WIN32;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
-				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS\_LibraryTest\Win32/_LibraryTest.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Debug_SBCS\_LibraryTest\Win32/"
 				ObjectFile=".\..\Obj\Debug_SBCS\_LibraryTest\Win32/"
 				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS\_LibraryTest\Win32/"
@@ -87,7 +87,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\..\Obj\Release_Unicode\_LibraryTest\Win32/_LibraryTest.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Release_Unicode\_LibraryTest\Win32/"
 				ObjectFile=".\..\Obj\Release_Unicode\_LibraryTest\Win32/"
 				ProgramDataBaseFileName=".\..\Obj\Release_Unicode\_LibraryTest\Win32/"
@@ -146,7 +146,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\..\Obj\Release_SBCS\_LibraryTest\Win32/_LibraryTest.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Release_SBCS\_LibraryTest\Win32/"
 				ObjectFile=".\..\Obj\Release_SBCS\_LibraryTest\Win32/"
 				ProgramDataBaseFileName=".\..\Obj\Release_SBCS\_LibraryTest\Win32/"
@@ -204,7 +204,7 @@
 				PreprocessorDefinitions="_DEBUG;WIN32;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
-				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode\_LibraryTest\Win32/_LibraryTest.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Debug_Unicode\_LibraryTest\Win32/"
 				ObjectFile=".\..\Obj\Debug_Unicode\_LibraryTest\Win32/"
 				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode\_LibraryTest\Win32/"
@@ -465,6 +465,18 @@
 				RelativePath="..\..\KfFibonacci.cpp">
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KFileFindOld.cpp">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KFileNmB.cpp">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KFileTmp.cpp">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KFileUnique.cpp">
+			</File>
+			<File
 				RelativePath="..\..\KfNewtRp.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
@@ -588,6 +600,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\KGuid.cpp">
+			</File>
+			<File
+				RelativePath="..\..\KGuid.h">
+			</File>
+			<File
 				RelativePath="..\..\KIsPrimeNo.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
@@ -629,6 +647,24 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\KMatFact.cpp">
+			</File>
+			<File
+				RelativePath="..\..\KMatGcd.c">
+			</File>
+			<File
+				RelativePath="..\..\KOctave.cpp">
+			</File>
+			<File
+				RelativePath="..\..\KOctave.h">
+			</File>
+			<File
+				RelativePath="..\..\KRandomGauss.cpp">
+			</File>
+			<File
+				RelativePath="..\..\KRandomUniform.cpp">
+			</File>
+			<File
 				RelativePath="..\..\KStrAtoI.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
@@ -668,6 +704,9 @@
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KStrGuidWin.cpp">
 			</File>
 			<File
 				RelativePath="..\..\KStringHandler.cpp">
@@ -947,6 +986,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\Console\Src\TestAscii.c">
+			</File>
+			<File
 				RelativePath="..\Assert\Src\TestAssert.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
@@ -1068,6 +1110,9 @@
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\Utilities\Src\TestBeep.cpp">
 			</File>
 			<File
 				RelativePath="..\Console\Src\TestCmdLineParser.cpp">
@@ -1196,6 +1241,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\HtmlIO\Src\TestCommonHtmlIO.cpp">
+			</File>
+			<File
 				RelativePath="Src\TestCommonLibrary.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
@@ -1276,6 +1324,9 @@
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\Random\Src\TestCommonRandom.cpp">
 			</File>
 			<File
 				RelativePath="..\StdLib\Src\TestCommonStdLib.c">
@@ -1399,6 +1450,9 @@
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\Utilities\Src\TestCommonUtilities.cpp">
 			</File>
 			<File
 				RelativePath="..\DateTime\Src\TestDate.cpp">
@@ -1551,7 +1605,40 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\Numeric\Src\TestFactorial.cpp">
+			</File>
+			<File
 				RelativePath="..\Numeric\Src\TestFibonnaci.cpp">
+			</File>
+			<File
+				RelativePath="..\StreamIO\Src\TestFilename.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\..\..\_SrcPool\Cpp\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\..\..\_SrcPool\Cpp\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\..\..\_SrcPool\Cpp\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\..\..\_SrcPool\Cpp\Win\32"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\Numeric\Src\TestGcd.cpp">
 			</File>
 			<File
 				RelativePath="..\StreamIO\Src\TestGetLines.cpp">
@@ -1595,6 +1682,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\Utilities\Src\TestGuid.cpp">
+			</File>
+			<File
 				RelativePath="..\StringDyn\Src\TestIsPalindrome.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
@@ -1634,6 +1724,9 @@
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\Numeric\Src\TestLcm.cpp">
 			</File>
 			<File
 				RelativePath="..\DateTime\Src\TestLeapYear.cpp">
@@ -1885,6 +1978,18 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\Random\Src\TestRandomCongr.cpp">
+			</File>
+			<File
+				RelativePath="..\Random\Src\TestRandomGauss.cpp">
+			</File>
+			<File
+				RelativePath="..\Random\Src\TestRandomNo.cpp">
+			</File>
+			<File
+				RelativePath="..\Random\Src\TestRandomUniform.cpp">
+			</File>
+			<File
 				RelativePath="..\Numeric\Src\TestRound.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
@@ -2131,6 +2236,15 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\HtmlIO\Src\TestXmlNode.cpp">
+			</File>
+			<File
+				RelativePath="..\HtmlIO\Src\TestXmlParser.cpp">
+			</File>
+			<File
+				RelativePath="..\HtmlIO\Src\TestXmlString.cpp">
+			</File>
+			<File
 				RelativePath="..\Common\Src\TsWriteT.c">
 			</File>
 			<File
@@ -2179,7 +2293,28 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
 			<File
+				RelativePath="..\..\Win\32\KFileNmB.h">
+			</File>
+			<File
+				RelativePath="..\..\KMatGcd.h">
+			</File>
+			<File
+				RelativePath="..\..\KMatLcm.h">
+			</File>
+			<File
 				RelativePath="..\..\Stl\KOStream.h">
+			</File>
+			<File
+				RelativePath="..\..\KRandom.h">
+			</File>
+			<File
+				RelativePath="..\..\KRandomCongr.h">
+			</File>
+			<File
+				RelativePath="..\..\KRandomGauss.h">
+			</File>
+			<File
+				RelativePath="..\..\KRandomUniform.h">
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.h">
@@ -2200,10 +2335,8 @@
 			RelativePath="_LibraryTest.txt">
 		</File>
 		<File
-			RelativePath="..\..\Documentation\KCopyright.htm">
-		</File>
-		<File
-			RelativePath="..\..\Documentation\KDirTree.htm">
+			RelativePath="..\..\..\..\Doc\Html\KCopyright.htm"
+			DeploymentContent="TRUE">
 		</File>
 		<File
 			RelativePath="..\Common\Src\Win\32\ReadMe.txt">

@@ -1,6 +1,9 @@
 $Workfile: Utilities.txt$: developer's note
-$Revision: 2$ $Date: 2005-05-16 14:23:44$
+$Revision: 3$ $Date: 2007-05-18 19:22:11$
 $Author: Darko Kolakovic$
+
+Include dirctory .\Src with stdafx.h defining replacement for CString
 
 \	Utilities.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	Utilities.Wsp	Microsoft Visual C/C++ Workspace (WSP) file is a generated build file, format version 1.52 (MSVC).	DOS
+\	Utilities.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32

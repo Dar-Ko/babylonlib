@@ -25,8 +25,8 @@ CFG=_LibraryTest - Win32 Debug_Unicode
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""
-# PROP Scc_LocalPath ""
+# PROP Scc_ProjName "_LibraryTest"
+# PROP Scc_LocalPath "..\.."
 CPP=cl.exe
 RSC=rc.exe
 
@@ -260,6 +260,10 @@ SOURCE=..\Numeric\Src\TestCommonNumeric.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\Random\Src\TestCommonRandom.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\StdLib\Src\TestCommonStdLib.c
 # End Source File
 # Begin Source File
@@ -321,6 +325,22 @@ SOURCE=..\Assert\Src\TestPredefinedMacrosC.c
 # Begin Source File
 
 SOURCE=..\Numeric\Src\TestPrimes.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\Random\Src\TestRandomCongr.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\Random\Src\TestRandomGauss.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\Random\Src\TestRandomNo.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\Random\Src\TestRandomUniform.cpp
 # End Source File
 # Begin Source File
 

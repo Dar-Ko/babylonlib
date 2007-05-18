@@ -29,8 +29,8 @@ CFG=Console - Win32 Debug_Unicode_MFC
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""
-# PROP Scc_LocalPath ""
+# PROP Scc_ProjName "Console"
+# PROP Scc_LocalPath "..\.."
 CPP=cl.exe
 RSC=rc.exe
 
