@@ -1,5 +1,5 @@
 /*$Workfile: KTrace.h$: implementation file
-  $Revision: 47$ $Date: 2007-03-06 18:04:58$
+  $Revision: 48$ $Date: 2007-05-22 17:40:19$
   $Author: Darko Kolakovic$
 
   Debugging helpers
@@ -197,6 +197,23 @@
     #if (_MSC_VER < 1400) //Less than Visual C++ 2005
       #ifdef _UNICODE
         #ifndef _TCRTDBGREPORT
+
+          #ifndef _CRTIMP
+            #ifdef CRTDLL
+              #define _CRTIMP __declspec(dllexport)
+            #else  /* CRTDLL */
+              #ifdef _DLL
+                #define _CRTIMP __declspec(dllimport)
+              #else  /* _DLL */
+                #define _CRTIMP
+              #endif  /* _DLL */
+            #endif  /* CRTDLL */
+          #endif  /* _CRTIMP */
+
+          #ifndef LPCTSTR
+            #include "KTypedef.h" //LPCTSTR
+          #endif
+
           //Note: requires KDbgRpt.cpp
           #ifdef __cplusplus
             extern "C" _CRTIMP int __cdecl tCrtDbgReport( int nRptType,

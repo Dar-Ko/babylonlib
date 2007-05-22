@@ -1,6 +1,6 @@
 /*$Workfile: KfNewtRp.cpp$: implementation file
-  $Revision: 9$ $Date: 2005-04-21 02:20:45$
-  $Author: Darko$
+  $Revision: 10$ $Date: 2007-05-22 17:39:55$
+  $Author: Darko Kolakovic$
 
   Solve an equation using Newton-Raphson iteration method
   Jul 99 Darko Kolakovic
@@ -18,8 +18,7 @@
   #include "KTrace.h" //ASSERT macro
 #endif
 
-
-#include <Math.h>       //fabs()
+#include <math.h>       //fabs()
 #ifndef bool
   #include "KTypedef.h" //bool
 #endif
