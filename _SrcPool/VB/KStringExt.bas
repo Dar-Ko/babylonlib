@@ -1,6 +1,6 @@
 Attribute VB_Name = "KStringExt"
 '$Workfile: KStringExt.bas$: implementation file
-'$Revision: 7$ $Date: 2007-05-15 15:46:31$
+'$Revision: 8$ $Date: 2007-05-18 15:47:08$
 '$Author: Darko Kolakovic$
 '
 'Text manipulation helpers
@@ -176,7 +176,25 @@ Public Function StrTrimSlash(ByVal strPath As String) As String
 
 End Function
 '-------------------------------------------------------------------------------
-'Converts a zero terminated string to String data types with length equal
+'Indicates whether the character at the specified position in a specified string
+'is categorized as white space.
+'
+'Returns: True if the character is SPACE, TAB, CR or LF
+Public Function IsWhiteSpace(chInput As String, _
+                             Optional ByVal iPos As Long = 1) As Boolean
+Dim st As String
+If iPos < 0 Then iPos = 1
+st = Mid$(chInput, iPos, 1)
+  Select Case Mid(chInput, iPos, 1)
+    Case vbTab, vbCr, vbLf, " "
+      IsWhiteSpace = True
+    Case Else
+      IsWhiteSpace = False
+  End Select
+
+End Function
+'-------------------------------------------------------------------------------
+'Converts a SBSC zero terminated string to String data types with length equal
 'to number of characters.
 '
 'Returns: input text as String data type.

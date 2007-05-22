@@ -29,6 +29,7 @@
 				BufferSecurityCheck="TRUE"
 				TreatWChar_tAsBuiltInType="TRUE"
 				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				BrowseInformation="1"
 				WarningLevel="4"
 				Detect64BitPortabilityProblems="TRUE"
@@ -69,6 +70,7 @@
 				RuntimeLibrary="4"
 				TreatWChar_tAsBuiltInType="TRUE"
 				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="3"/>
@@ -115,6 +117,7 @@
 				BufferSecurityCheck="TRUE"
 				TreatWChar_tAsBuiltInType="TRUE"
 				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				BrowseInformation="1"
 				WarningLevel="4"
 				Detect64BitPortabilityProblems="TRUE"
@@ -154,6 +157,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="4"
 				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="3"/>
@@ -473,6 +477,9 @@
 			</File>
 			<File
 				RelativePath=".\Cpp\KReal8Cv.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KRound.h">
 			</File>
 			<File
 				RelativePath=".\Cpp\Win\Res\Win\KStdRes.h">

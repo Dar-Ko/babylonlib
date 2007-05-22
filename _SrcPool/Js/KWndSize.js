@@ -1,5 +1,5 @@
 //$Workfile: KWndSize.js$: script file
-//$Revision: 2$ $Date: 2006-12-13 12:20:33$
+//$Revision: 2$ $Date: 2006-12-13 13:20:33$
 //$Author: Darko Kolakovic$
 //
 //Opens a new window with standardized dimensions
@@ -60,7 +60,7 @@ function OpenWndStd(nType, //=1 [in] one of predefined window size types [1, 4]
   }
 ///////////////////////////////////////////////////////////////////////////////
 /*$Log: 
-/* 2    Biblioteka1.1         2006-12-13 12:20:33  Darko Kolakovic strUrl argument
-/* 1    Biblioteka1.0         2004-10-01 22:10:34  Darko           
+/* 2    Biblioteka1.1         2006-12-13 13:20:33  Darko Kolakovic strUrl argument
+/* 1    Biblioteka1.0         2004-10-01 23:10:34  Darko           
 /*$
  */

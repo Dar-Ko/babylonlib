@@ -1,5 +1,5 @@
 /*$Workfile: TestBasicTypes.js$: script file
-  $Revision: 1$ $Date: 2006-11-09 16:58:29$
+  $Revision: 1$ $Date: 2006-11-09 17:58:29$
   $Author: Darko Kolakovic$
 
   Test basic types validation
@@ -34,6 +34,6 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         2006-11-09 16:58:29  Darko Kolakovic 
+ *  1    Biblioteka1.0         2006-11-09 17:58:29  Darko Kolakovic 
  * $
  *****************************************************************************/
