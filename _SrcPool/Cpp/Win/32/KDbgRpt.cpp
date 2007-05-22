@@ -1,5 +1,5 @@
 /*$Workfile: KDbgRpt.cpp$: implementation file
-  $Revision: 3$ $Date: 2007-02-09 13:35:56$
+  $Revision: 4$ $Date: 2007-05-22 17:41:47$
   $Author: Darko Kolakovic$
 
   Unicode Debug C Run-time Reporting Functions, required by
@@ -12,10 +12,10 @@
 #ifdef _DEBUG
   #ifdef _UNICODE
     #if (_MSC_VER < 1400) //Less than Visual C++ 2005 v8.0
-
-  #ifdef  __cplusplus
-    extern "C" {
-  #endif  /* __cplusplus */
+  
+  #ifndef UNICODE //Fix Microsoft macro mixed definitions
+    #define UNICODE
+  #endif
 
   #include <crtdbg.h>
   #include <tchar.h>
@@ -26,7 +26,9 @@
   #include <signal.h>
 
   #ifndef LPCTSTR
-    typedef const TCHAR * LPCTSTR;
+    #ifndef _WINNT_ //not included <winnt.h>
+      typedef const TCHAR * LPCTSTR;
+    #endif
     #define LPCTSTR LPCTSTR
   #endif
 
@@ -43,6 +45,11 @@
   #define MAX_MSG     4096 //Maximum debugging message length
   #define tTOOLONGMSG _T("tCrtDbgReport: String too long or IO Error")
 
+
+  #ifdef  __cplusplus
+    extern "C" {
+  #endif  /* __cplusplus */
+
   /*CRT MessageBoxA wrapper to avoid static link with user32.dll
     See crt\src\crtmbox.c
    */
@@ -57,12 +64,18 @@
     _CRT_REPORT_HOOK       pfnHookFunc;
     } ReportHookNode;
 
-  extern ReportHookNode*  _pReportHookList;
   extern _CRT_REPORT_HOOK _pfnReportHook;
   extern int    _CrtDbgMode[]; //Array of _CRT_ERRCNT = 3debugging modes
   extern _HFILE _CrtDbgFile[]; //Array of _CRT_ERRCNT = 3debugging log files
 
   extern _CRTIMP long _crtAssertBusy; //Thread synchronisation counter
+
+  #if (_MSC_VER < 1300) //Less than Visual C++ .Net 2002, 32-bit, version 7.0
+    _CRTIMP unsigned int _osplatform = 0;
+    ReportHookNode*  _pReportHookList = NULL;
+  #else
+    extern ReportHookNode*  _pReportHookList;
+  #endif
 
   /////////////////////////////////////////////////////////////////////////////
   // Unicode Debug Reporting
@@ -136,7 +149,7 @@
     #define FN_MESSAGEBOX "MessageBoxA"
     #define FN_GETUSROBJINFO "GetUserObjectInformationA"
   #endif
-
+ 
   HWND    hWndParent = NULL;
   bool    bNonInteractive = false;
   HWINSTA hwinsta;
@@ -156,6 +169,16 @@
 
     pfnGetLastActivePopup = (FGETLASTACTIVEPOPUP)
       GetProcAddress(hlib, "GetLastActivePopup");
+
+    #if (_MSC_VER < 1300) //Less than Visual C++ .Net 2002, 32-bit, version 7.0
+      if (_osplatform == 0) //Initialize OS version Id
+        {
+        OSVERSIONINFOA osvi;
+        osvi.dwOSVersionInfoSize = sizeof(OSVERSIONINFOA);
+        (void)GetVersionExA(&osvi);
+        _osplatform = osvi.dwPlatformId;
+        }
+    #endif
 
     if (_osplatform == VER_PLATFORM_WIN32_NT)
       {

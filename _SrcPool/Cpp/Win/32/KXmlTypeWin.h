@@ -1,5 +1,5 @@
 /*$Workfile: KXmlTypeWin.h$: header file
-  $Revision: 16$ $Date: 2005-05-10 16:08:19$
+  $Revision: 17$ $Date: 2007-05-22 17:41:20$
   $Author: Darko Kolakovic$
 
   Type definitions for the XML content handler
@@ -61,7 +61,7 @@
     #else
       //Windows Template Library (WTL) is required for the CString
       #include <atlbase.h>
-      #include <atlapp.h>
+      #include <atlapp.h> //Requires Windows Template Library (WTL v7.1) 
       #if (_ATL_VER < 0x0700)
         //Windows Template Library (WTL) main module. See <atlmisc.h>
         extern CAppModule _Module;

@@ -1,6 +1,6 @@
 /*$Workfile: KXmlProcessorSax.cpp$: implementation file
-  $Revision: 14$ $Date: 2005-04-29 01:13:07$
-  $Author: Darko$
+  $Revision: 15$ $Date: 2007-05-22 17:41:19$
+  $Author: Darko Kolakovic$
 
   Defines the class behavior.
   Copyright: CommonSoft Inc.
@@ -90,10 +90,11 @@ try
   {
   // Create an instance of the XML processor
   //HRESULT hr = m_xmlEngine.CoCreateInstance(__uuidof(SAXXMLReader));
+
+  //Requires Microsoft XML Core Services (MSXML) 4.0 
   HRESULT hr = (!m_xmlEngine) ?
         m_xmlEngine.CoCreateInstance(__uuidof(SAXXMLReader40)) :
         S_OK;
-
 
   /*Note:
       Microsoft XML Core Services (MSXML),  Version 4.0
