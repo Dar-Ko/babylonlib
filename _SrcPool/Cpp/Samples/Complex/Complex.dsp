@@ -2,9 +2,9 @@
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
-# TARGTYPE "Win32 (x86) Application" 0x0101
+# TARGTYPE "Win32 (x86) Console Application" 0x0103
 
-CFG=Complex - Win32 Debug
+CFG=Complex - Win32 Debug_Unicode
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
@@ -13,91 +13,153 @@ CFG=Complex - Win32 Debug
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "Complex.mak" CFG="Complex - Win32 Debug"
+!MESSAGE NMAKE /f "Complex.mak" CFG="Complex - Win32 Debug_Unicode"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "Complex - Win32 Debug" (based on "Win32 (x86) Application")
+!MESSAGE "Complex - Win32 Release_SBCS" (based on "Win32 (x86) Console Application")
+!MESSAGE "Complex - Win32 Debug_SBCS" (based on "Win32 (x86) Console Application")
+!MESSAGE "Complex - Win32 Debug_Unicode" (based on "Win32 (x86) Console Application")
+!MESSAGE "Complex - Win32 Release_Unicode" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
-# PROP Scc_ProjName ""
-# PROP Scc_LocalPath ""
+# PROP Scc_ProjName "Complex"
+# PROP Scc_LocalPath "..\.."
 CPP=cl.exe
-MTL=midl.exe
 RSC=rc.exe
-# PROP BASE Use_MFC 6
-# PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir ".\Debug"
-# PROP BASE Intermediate_Dir ".\Debug"
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 0
+# PROP BASE Output_Dir "Release"
+# PROP BASE Intermediate_Dir "Release"
 # PROP BASE Target_Dir ""
-# PROP Use_MFC 6
-# PROP Use_Debug_Libraries 1
-# PROP Output_Dir ".\WinDbg\VC6.0"
-# PROP Intermediate_Dir ".\ObjDbg\VC6.0"
-# PROP Ignore_Export_Lib 0
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 0
+# PROP Output_Dir "..\bin\Release_SBCS\Win32"
+# PROP Intermediate_Dir "..\Obj\Release_SBCS\Complex\Win32"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MDd /W3 /Gm /GX /Zi /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Yu"stdafx.h" /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /FR /Yu"StdAfx.h" /FD /c
-# ADD BASE MTL /nologo /D "_DEBUG" /win32
-# ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-# ADD BASE RSC /l 0x409 /d "_DEBUG" /d "_AFXDLL"
-# ADD RSC /l 0x409 /i ".\Res" /d "_DEBUG" /d "_AFXDLL"
+MTL=midl.exe
+# ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_STL" /FD /c
+# SUBTRACT CPP /YX
+# ADD BASE RSC /l 0x1009 /d "NDEBUG"
+# ADD RSC /l 0x1009 /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 /nologo /subsystem:windows /debug /machine:I386
-# ADD LINK32 /nologo /subsystem:windows /debug /machine:I386 /out:".\WinDbg/VC6.0/Complex6.exe"
-# SUBTRACT LINK32 /verbose /nodefaultlib
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir "Debug"
+# PROP BASE Intermediate_Dir "Debug"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 1
+# PROP Output_Dir "..\bin\Debug_SBCS\Win32"
+# PROP Intermediate_Dir "..\Obj\Debug_SBCS\Complex\Win32"
+# PROP Target_Dir ""
+MTL=midl.exe
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
+# SUBTRACT CPP /YX
+# ADD BASE RSC /l 0x1009 /d "_DEBUG"
+# ADD RSC /l 0x1009 /d "_DEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir "Complex___Win32_Debug_Unicode"
+# PROP BASE Intermediate_Dir "Complex___Win32_Debug_Unicode"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 1
+# PROP Output_Dir "..\bin\Debug_Unicode\Win32"
+# PROP Intermediate_Dir "..\Obj\Debug_Unicode\Complex\Win32"
+# PROP Target_Dir ""
+MTL=midl.exe
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "../.." /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_STL" /FR /FD /GZ /c
+# SUBTRACT CPP /YX
+# ADD BASE RSC /l 0x1009 /d "_DEBUG"
+# ADD RSC /l 0x1009 /d "_DEBUG" /d "_UNICODE"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 0
+# PROP BASE Output_Dir "Complex___Win32_Release_Unicode"
+# PROP BASE Intermediate_Dir "Complex___Win32_Release_Unicode"
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 0
+# PROP Output_Dir "..\bin\Release_Unicode\Win32"
+# PROP Intermediate_Dir "..\Obj\Release_Unicode\Complex\Win32"
+# PROP Target_Dir ""
+MTL=midl.exe
+# ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_STL" /FD /c
+# SUBTRACT CPP /YX
+# ADD BASE RSC /l 0x1009 /d "NDEBUG"
+# ADD RSC /l 0x1009 /d "NDEBUG" /d "_UNICODE"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+
+!ENDIF 
+
 # Begin Target
 
-# Name "Complex - Win32 Debug"
+# Name "Complex - Win32 Release_SBCS"
+# Name "Complex - Win32 Debug_SBCS"
+# Name "Complex - Win32 Debug_Unicode"
+# Name "Complex - Win32 Release_Unicode"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;for;f90"
+# Begin Source File
+
+SOURCE=..\..\KTestLog.cpp
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\KZLineIn.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Src\MainFrm.cpp
+SOURCE=.\Src\main.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Src\StdAfx.cpp
-# ADD CPP /W3 /Yc"StdAfx.h"
+SOURCE=.\Src\TestCommonComplex.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Src\TestAbout.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Src\TestApp.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Src\TestApp.rc
-# ADD BASE RSC /l 0x409 /i "Src"
-# SUBTRACT BASE RSC /i ".\Res"
-# ADD RSC /l 0x409 /i "Src" /i ".\Src"
-# SUBTRACT RSC /i ".\Res"
-# End Source File
-# Begin Source File
-
-SOURCE=.\Src\TestDoc.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Src\TestView.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Src\TsComplex.cpp
-# ADD CPP /W4
+SOURCE=.\Src\TestComplex.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -121,39 +183,31 @@ SOURCE=..\..\KPhysCst.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Src\MainFrm.h
+SOURCE=..\Common\Src\Win\stdafx.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Src\stdafx.h
+SOURCE=..\Common\Res\Win\32\Test.rc
 # End Source File
 # Begin Source File
 
-SOURCE=.\Src\TestAbout.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Src\TestApp.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Src\TestDoc.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Src\TestView.h
+SOURCE=..\Common\Src\TsWriteTxt.cpp
 # End Source File
 # End Group
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe"
+# End Group
+# Begin Group "Logs"
+
+# PROP Default_Filter "*.log"
 # Begin Source File
 
-SOURCE=.\res\TestApp.ico
+SOURCE=.\LibraryTest.log
 # End Source File
 # Begin Source File
 
-SOURCE=.\res\TestAppDoc.ico
+SOURCE=.\LibraryTestUni.log
 # End Source File
 # End Group
 # End Target

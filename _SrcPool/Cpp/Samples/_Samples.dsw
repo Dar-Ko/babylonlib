@@ -19,7 +19,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "Complex"=.\Common\Src\Win\Complex\Complex.dsp - Package Owner=<4>
+Project: "Complex"=.\Complex\Complex.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -63,7 +63,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "HTTPUtils"=.\Common\Src\Win\HTTPUtils\HTTPUtils.dsp - Package Owner=<4>
+Project: "HTTPUtils"=.\Complex\Src\Common\Src\Win\HTTPUtils\HTTPUtils.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -187,7 +187,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "Strings"=.\Common\Src\Win\Strings\Strings.dsp - Package Owner=<4>
+Project: "Strings"=.\Complex\Src\Common\Src\Win\Strings\Strings.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -199,7 +199,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "Timer"=.\Common\Src\Win\Timer\Timer.dsp - Package Owner=<4>
+Project: "Timer"=.\Complex\Src\Common\Src\Win\Timer\Timer.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

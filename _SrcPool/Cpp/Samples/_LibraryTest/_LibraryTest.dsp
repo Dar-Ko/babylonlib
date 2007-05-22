@@ -192,6 +192,14 @@ SOURCE=..\..\KIsPrimeNo.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KRandomGauss.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KRandomUniform.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KStrAtoI.cpp
 # End Source File
 # Begin Source File
@@ -209,6 +217,16 @@ SOURCE=..\..\STL\KStrWtoChar.cpp
 # Begin Source File
 
 SOURCE=..\..\KTestLog.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win\32\KXmlProcessorSax.cpp
+# ADD CPP /I "..\..\Win\WTL\include"
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win\32\KXmlSaxErrorHandler.cpp
+# ADD CPP /I "..\..\Win\WTL\include"
 # End Source File
 # Begin Source File
 
@@ -277,6 +295,7 @@ SOURCE=..\StringDyn\Src\TestCommonStringDyn.cpp
 # Begin Source File
 
 SOURCE=..\Utilities\Src\TestCommonUtilities.cpp
+# ADD CPP /I ".."
 # End Source File
 # Begin Source File
 
@@ -305,6 +324,7 @@ SOURCE=..\DateTime\Src\TestLeapYear.cpp
 # Begin Source File
 
 SOURCE=..\HtmlIO\Src\Win\32\TestMsSaxParser.cpp
+# ADD CPP /I "..\..\Win\32" /I "..\..\Win\WTL\include"
 # End Source File
 # Begin Source File
 

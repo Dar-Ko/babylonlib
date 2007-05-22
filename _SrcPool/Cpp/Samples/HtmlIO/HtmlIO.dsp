@@ -48,7 +48,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /I "..\..\Win\WTL\include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /X /YX /Yc /Yu
 # ADD BASE RSC /l 0x1009 /d "_DEBUG" /d "_AFXDLL"
 # ADD RSC /l 0x1009 /d "_DEBUG"
@@ -73,7 +73,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /c
-# ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /I "..\..\Win\WTL\include" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /c
 # SUBTRACT CPP /X /YX /Yc /Yu
 # ADD BASE RSC /l 0x1009 /d "NDEBUG" /d "_AFXDLL"
 # ADD RSC /l 0x1009 /d "NDEBUG"
@@ -98,7 +98,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /D "_STL" /FR /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /I "..\..\Win\WTL\include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /X /YX /Yc /Yu
 # ADD BASE RSC /l 0x1009 /d "_DEBUG" /d "_AFXDLL"
 # ADD RSC /l 0x1009 /d "_DEBUG" /d "_UNICODE"
@@ -123,7 +123,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /c
-# ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /D "_STL" /FR /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /I "..\..\Win\WTL\include" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /D "_STL" /FR /FD /c
 # SUBTRACT CPP /X /YX /Yc /Yu
 # ADD BASE RSC /l 0x1009 /d "NDEBUG" /d "_AFXDLL"
 # ADD RSC /l 0x1009 /d "NDEBUG" /d "_UNICODE"

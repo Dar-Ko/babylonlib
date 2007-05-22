@@ -99,7 +99,7 @@ LINK32=link.exe
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /FD /GZ /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "_DEBUG" /D "_UNICODE" /D "WIN32" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "_DEBUG" /D "_UNICODE" /D "UNICODE" /D "WIN32" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG" /d "_UNICODE"
@@ -125,7 +125,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /I "..\.." /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "NDEBUG" /D "_UNICODE" /D "WIN32" /D "_CONSOLE" /D "_STL" /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "NDEBUG" /D "_UNICODE" /D "UNICODE" /D "WIN32" /D "_CONSOLE" /D "_STL" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x1009 /d "NDEBUG" /d "_UNICODE"
@@ -147,6 +147,25 @@ LINK32=link.exe
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Source File
+
+SOURCE=..\..\Win\32\KDbgRpt.cpp
+
+!IF  "$(CFG)" == "Numeric - Win32 Debug_SBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Numeric - Win32 Release_SBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Numeric - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Numeric - Win32 Release_Unicode"
+
+!ENDIF 
+
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\KfFibonacci.cpp
@@ -203,6 +222,21 @@ SOURCE=.\Src\main.cpp
 # Begin Source File
 
 SOURCE=S:\_SrcPool\Cpp\Samples\Common\Res\Win\32\Test.rc
+
+!IF  "$(CFG)" == "Numeric - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "Numeric - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Numeric - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Numeric - Win32 Release_Unicode"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestCalc.cpp
 # End Source File
 # Begin Source File
 
