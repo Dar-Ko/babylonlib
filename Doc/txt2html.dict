@@ -1,5 +1,5 @@
 #$Workfile: txt2html.dict$: rule dictionary file
-#$Revision: 2$ $Date: 2007-01-04 17:08:22$
+#$Revision: 2$ $Date: 2007-01-04 18:08:22$
 #$Author: Darko Kolakovic$
 #
 #Plain URL to HTML REF conversion rules
@@ -190,7 +190,7 @@
 # http://www.aigeek.com/txt2html/
 #
 # $Log: 
-#  2    Biblioteka1.1         2007-01-04 17:08:22  Darko Kolakovic Moved Rfc rule
-#  1    Biblioteka1.0         2007-01-04 12:31:01  Darko Kolakovic 
+#  2    Biblioteka1.1         2007-01-04 18:08:22  Darko Kolakovic Moved Rfc rule
+#  1    Biblioteka1.0         2007-01-04 13:31:01  Darko Kolakovic 
 # $
 ###############################################################################
