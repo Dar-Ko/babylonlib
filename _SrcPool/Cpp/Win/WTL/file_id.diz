@@ -1,0 +1,13 @@
+Windows Template Library (WTL) is a C++ library for developing Windows applications and UI components. It extends ATL (Active Template Library) and provides a set of classes for controls, dialogs, frame windows, GDI objects, and more.
+Operating System: All 32-bit MS Windows (95/98/NT/2000/XP) 
+v7.5.5333
+
+http://sourceforge.net/projects/wtl
+
+ Anonymous CVS Access
+
+This project's SourceForge.net CVS repository can be checked out through anonymous (pserver) CVS with the following instruction set. The module you wish to check out must be specified as the modulename. When prompted for a password for anonymous, simply press the Enter key. To determine the names of the modules created by this project, you may examine their CVS repository via the provided web-based CVS repository viewer.
+
+cvs -d:pserver:anonymous@wtl.cvs.sourceforge.net:/cvsroot/wtl login
+ 
+cvs -z3 -d:pserver:anonymous@wtl.cvs.sourceforge.net:/cvsroot/wtl co -P modulename 
