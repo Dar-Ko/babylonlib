@@ -1,6 +1,6 @@
 /*$Workfile: TestCptString.h$: header file
-  $Revision: 1$ $Date: 2004-06-08 16:37:13$
-  $Author: Darko$
+  $Revision: 2$ $Date: 2007-05-24 16:51:47$
+  $Author: Darko Kolakovic$
 
   Test Palindrome string class
   Copyright: CommonSoft Inc.
@@ -72,7 +72,7 @@ return ::IsPalindrome(m_pData, m_nLength);
 #ifndef _KBOOLSTREAM_H_
   #include "STL/KBoolStream.h"
 #endif
-/*Writes the string object and the result of palindrome validation at the 
+/*Writes the string object and the result of palindrome validation at the
   console standard output stream.
 
   Note: uses Standard Template Library (STL).
@@ -125,7 +125,7 @@ return in;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2004-06-08 16:37:13  Darko           
+ * $Log:
+ *  1    Biblioteka1.0         2004-06-08 16:37:13  Darko
  * $
  *****************************************************************************/

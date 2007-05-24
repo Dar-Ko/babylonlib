@@ -1,6 +1,6 @@
-/*$Workfile: TsComplex.cpp$: implementation file
-  $Revision: 5$ $Date: 2003-01-30 22:47:32$
-  $Author: Darko$
+/*$Workfile: TestComplex.cpp$: implementation file
+  $Revision: 7$ $Date: 2007-05-24 16:54:06$
+  $Author: Darko Kolakovic$
 
   Complex number arithmetics test
   Copyright: CommonSoft Inc.
@@ -19,12 +19,20 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
-#ifdef  _COMPLEX_DEFINED
-  #pragma message ("_COMPLEX_DEFINED")
+#ifdef _MSC_VER
+  //Microsoft Visual C/C++ compiler
+  #ifdef  _STL
+    #pragma message ("Using STL")
+  #endif
+
+  #ifdef  _COMPLEX_DEFINED
+    #pragma message ("_COMPLEX_DEFINED")
+  #endif
+  #ifdef  __STD_COMPLEX
+    #pragma message ("__STD_COMPLEX")
+  #endif
 #endif
-#ifdef  __STD_COMPLEX
-  #pragma message ("__STD_COMPLEX")
-#endif
+
 extern bool TsWriteToView(LPCTSTR lszText);
 
 //TestComplex()--------------------------------------------------------------
@@ -104,6 +112,8 @@ TsWriteToView(szText);
 
 logEntry.m_bResult = true;
 LogTest(&logEntry);
+if (!bRes)
+  return bRes;
 
   //The function returns exponential of D, for base 10.
 C = exp10(D); 
@@ -118,6 +128,8 @@ TRACE2(_T(" A E(10) = %d +j%d\n"),A2.real(),A2.imag());
 logEntry.m_bResult = true;
 logEntry.m_szObjectName = _T("exp10()");
 LogTest(&logEntry);
+if (!bRes)
+  return bRes;
 
   //Test acos
 D = CComplex(1.2,2.8); //The function returns cosine of D
@@ -138,8 +150,10 @@ bRes = bRes &&  (C.real() > 1.19999) && (C.real() < 1.20001) &&
 logEntry.m_bResult = bRes;
 logEntry.m_szObjectName = _T("acos()");
 LogTest(&logEntry);
+if (!bRes)
+  return bRes;
 
-  //Test asine
+  //Test asin
 D = CComplex(1.2,2.8);
 C = sin(D);  //The function returns sine of D
 _stprintf(szText, _T("sin(D) = %f+i%f "),C.real(),C.imag());
@@ -155,6 +169,8 @@ bRes = bRes &&  (C.real() > 1.19999) && (C.real() < 1.20001) &&
 logEntry.m_bResult = bRes;
 logEntry.m_szObjectName = _T("asin()");
 LogTest(&logEntry);
+if (!bRes)
+  return bRes;
 
   //Test atan
 TComplex<float> Phi(.94F,1.78F);
@@ -177,14 +193,29 @@ logEntry.m_szObjectName = _T("tan()");
 LogTest(&logEntry);
 logEntry.m_szObjectName = _T("atan()");
 LogTest(&logEntry);
+if (!bRes)
+  return bRes;
 
   //Test atanh
+CComplex R(1.0, 0.0); //Real number
+CComplex Res = tanh(R);
+bRes = ( (Res.imag() == 0.0) && 
+         (Res.real() >= 0.761594) && (Res.real() <= (0.7615945)) );
+if (bRes)
+  {
+  Res = atanh(Res);
+  bRes = ( (Res.imag() == 0.0) && 
+           (Res.real() >= 0.99999) && (Res.real() <= 1.00005) );
+  }
+if (!bRes)
+  return bRes;
+      
 X = tanh(Phi);  //The function returns hyperbolic tangent of Phi
-_stprintf(szText, _T("tanh(Phi) = %f+i%f "),X.real(),X.imag());
+_stprintf(szText, _T("tanh(Phi) = %f+i%f "), X.real(), X.imag());
 TRACE0(szText);
 TsWriteToView(szText);
 X = atanh(X);
-_stprintf(szText, _T("atanh(X) = %f+i%f\r\n"),X.real(),X.imag());
+_stprintf(szText, _T("atanh(X) = %f+i%f\r\n"), X.real(), X.imag());
 TRACE0(szText);
 TsWriteToView(szText);
 
@@ -195,7 +226,8 @@ logEntry.m_szObjectName = _T("tanh()");
 LogTest(&logEntry);
 logEntry.m_szObjectName = _T("atanh()");
 LogTest(&logEntry);
-
+if (!bRes)
+  return bRes;
 
   //Dividing two complex numbers
 C.real(-3.2);
@@ -259,7 +291,7 @@ TsWriteToView(szText);
 dEff = 220;
 int iNom = 3;
 double dPhi = CST_PI/iNom;
-D = polar(dEff,dPhi); //D = 220*e(i*60[deg])
+D = polar(dEff, dPhi); //D = 220*e(i*60[deg])
 _stprintf(szText, _T("D = %.0fe**(i3.14/%d) = %f + i%f\r\n"),dEff,iNom,D.real(),D.imag());
 TRACE0(szText);
 TsWriteToView(szText);
@@ -269,10 +301,12 @@ D = logN(C,2); //Returns the logarithm to base 2
 _stprintf(szText, _T("D = log2(C) = %f + i%f\r\n"),D.real(),D.imag());
 TRACE0(szText);
 TsWriteToView(szText);
-logEntryBase.m_bResult = true;
+logEntryBase.m_bResult = bRes; //TODO: Check result
 logEntryBase.m_szObjectName = _T("logN()");
 logEntryBase.m_szFileName = _T("KMathCst.inl");
 LogTest(&logEntryBase);
+if (!bRes)
+  return bRes;
 
   //Test acoth
 D = acoth(C); //Returns the hyperbolic arcus cosecant
@@ -280,15 +314,17 @@ _stprintf(szText, _T("acoth(C) = %f + i%f\r\n"),D.real(),D.imag());
 TRACE0(szText);
 TsWriteToView(szText);
 
-logEntry.m_bResult = bRes;
+logEntry.m_bResult = bRes; //TODO: Check result
 logEntry.m_szObjectName = _T("acoth()");
 LogTest(&logEntry);
+if (!bRes)
+  return bRes;
 
   //Calculate line input impedance
 extern CComplex GetLineZin(CComplex Zt, const CComplex& Zline, double dAttenuation,
                     double dPhaseShift, const double& dLineLength);
 C.real(0);
-C.imag(0);
+C.imag(0); //Shortcut
 
 D = GetLineZin(C, CComplex(50.0,0), 2.5,CST_PI/2.,10);
 _stprintf(szText, _T("Load = %f + i%f, Zin =  %f + i%f\r\n"),
@@ -298,7 +334,6 @@ TsWriteToView(szText);
 logEntryBase.m_bResult =  (D.real() > 49.68300) && (D.real() < 49.68500) &&
                 (D.imag() > -0.00001) && (D.imag() < 0.00001); //result and previous result
 
-logEntryBase.m_bResult = true;
 logEntryBase.m_szObjectName = _T("GetLineZin()");
 logEntryBase.m_szFileName = _T("KZLineIn.cpp");
 LogTest(&logEntryBase);
@@ -364,6 +399,8 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  7    Biblioteka1.6         2007-05-24 16:54:06  Darko Kolakovic Test atanh
+ *  6    Biblioteka1.5         2007-05-22 16:54:05  Darko Kolakovic 
  *  5    Biblioteka1.4         2003-01-30 22:47:32  Darko           Write results
  *       to the test log
  *  4    Biblioteka1.3         2003-01-22 23:22:35  Darko           

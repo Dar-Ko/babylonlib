@@ -3,19 +3,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assert", "Assert\Assert.vcp
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Calc", "Calc\Calc.vcproj", "{83563C79-16A7-4912-AA76-BD20CD86F43F}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Complex", "Complex\Complex.vcproj", "{99F6D0D6-31A5-430B-85A3-F897C6A476F8}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -24,6 +12,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DateTime", "DateTime\DateTi
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HTTPUtils", "HTTPUtils\HTTPUtils.vcproj", "{473BF723-A704-436E-893B-DB13CE031081}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
@@ -54,6 +46,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Strings", "Strings\Strings.
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Timer", "Timer\Timer.vcproj", "{38FF4512-5DE8-4709-B6BD-574E93B401A9}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -62,12 +58,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Timer", "Timer\Timer.vcproj
 	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utilities", "Utilities\Utilities.vcproj", "{DFC7977F-91A0-4374-99BE-8C21C032490B}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -107,15 +103,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Random", "Random\Random.vcp
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 1
-		SccProjectUniqueName0 = Random\\Random.vcproj
-		SccProjectName0 = Random
-		SccLocalPath0 = ..
-		SccProvider0 = MSSCCI:Jalindi\u0020Igloo
-		CanCheckoutShared = false
-		SccProjectFilePathRelativizedFromConnection0 = Samples\\Random\\
-	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug_SBCS = Debug_SBCS
 		Debug_SBCS_MFC = Debug_SBCS_MFC
@@ -143,22 +130,6 @@ Global
 		{BD93E42E-2C09-4313-9743-FC9D50E5FC0C}.Release_Unicode.Build.0 = Release_Unicode|Win32
 		{BD93E42E-2C09-4313-9743-FC9D50E5FC0C}.Release_Unicode_MFC.ActiveCfg = Release_Unicode_MFC|Win32
 		{BD93E42E-2C09-4313-9743-FC9D50E5FC0C}.Release_Unicode_MFC.Build.0 = Release_Unicode_MFC|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Debug_SBCS.ActiveCfg = Debug_SBCS|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Debug_SBCS.Build.0 = Debug_SBCS|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Debug_SBCS_MFC.ActiveCfg = Debug_SBCS|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Debug_SBCS_MFC.Build.0 = Debug_SBCS|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Debug_Unicode.ActiveCfg = Debug_Unicode|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Debug_Unicode.Build.0 = Debug_Unicode|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Debug_Unicode_MFC.ActiveCfg = Debug_Unicode|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Debug_Unicode_MFC.Build.0 = Debug_Unicode|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Release_SBCS.ActiveCfg = Release_SBCS|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Release_SBCS.Build.0 = Release_SBCS|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Release_SBCS_MFC.ActiveCfg = Release_SBCS|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Release_SBCS_MFC.Build.0 = Release_SBCS|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Release_Unicode.ActiveCfg = Release_Unicode|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Release_Unicode.Build.0 = Release_Unicode|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Release_Unicode_MFC.ActiveCfg = Release_Unicode|Win32
-		{83563C79-16A7-4912-AA76-BD20CD86F43F}.Release_Unicode_MFC.Build.0 = Release_Unicode|Win32
 		{99F6D0D6-31A5-430B-85A3-F897C6A476F8}.Debug_SBCS.ActiveCfg = Debug_SBCS|Win32
 		{99F6D0D6-31A5-430B-85A3-F897C6A476F8}.Debug_SBCS.Build.0 = Debug_SBCS|Win32
 		{99F6D0D6-31A5-430B-85A3-F897C6A476F8}.Debug_SBCS_MFC.ActiveCfg = Debug_SBCS|Win32

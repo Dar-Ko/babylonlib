@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Complex\Src\main.cpp$: implementation file
+/*$Workfile: main.cpp$: implementation file
   $Revision: 1$ $Date: 2007-05-22 17:37:02$
   $Author: Darko Kolakovic$
 

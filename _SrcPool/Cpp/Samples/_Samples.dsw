@@ -155,6 +155,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "StlTools"=.\StlTools\StlTools.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "StreamIO"=.\StreamIO\StreamIO.dsp - Package Owner=<4>
 
 Package=<5>

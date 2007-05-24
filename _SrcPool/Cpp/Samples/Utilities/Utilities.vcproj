@@ -5,10 +5,10 @@
 	Name="Utilities"
 	ProjectGUID="{76548192-184C-4892-8272-BA0F164241EE}"
 	RootNamespace="Utilities"
-	SccProjectName="Utilities"
+	SccProjectName=""
 	SccAuxPath=""
-	SccLocalPath="..\.."
-	SccProvider="MSSCCI:Jalindi Igloo">
+	SccLocalPath=""
+	SccProvider="">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
