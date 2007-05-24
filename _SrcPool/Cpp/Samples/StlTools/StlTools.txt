@@ -1,0 +1,7 @@
+$Workfile: S:\_SrcPool\Cpp\Samples\StlTools\StlTools.txt$: developer's note
+$Revision: 1$ $Date: 2007-05-24 16:19:17$
+$Author: Darko Kolakovic$
+
+\	StlTools.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	StlTools.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
+
