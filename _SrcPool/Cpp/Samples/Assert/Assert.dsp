@@ -47,6 +47,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS\Assert\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /X /YX /Yc /Yu
@@ -72,6 +73,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Release_SBCS\Assert\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /c
 # SUBTRACT CPP /X /YX /Yc /Yu
@@ -97,6 +99,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode\Assert\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /X /YX /Yc /Yu
@@ -122,6 +125,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Release_Unicode\Assert\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_STL" /FR /FD /c
 # SUBTRACT CPP /X /YX /Yc /Yu
@@ -147,6 +151,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode_MFC\Assert\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /c
 # ADD CPP /nologo /MD /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "NDEBUG" /D "_UNICODE" /D "_AFXDLL" /D "_STL" /D "WIN32" /D "_CONSOLE" /FR /FD /c
 # SUBTRACT CPP /X /YX /Yc /Yu
@@ -172,6 +177,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Release_SBCS_MFC\Assert\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /c
 # ADD CPP /nologo /MD /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "NDEBUG" /D "_AFXDLL" /D "_STL" /D "WIN32" /D "_CONSOLE" /FR /FD /c
 # SUBTRACT CPP /X /YX /Yc /Yu
@@ -197,6 +203,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS_MFC\Assert\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /GZ /c
 # ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "_DEBUG" /D "_STL" /D "_AFXDLL" /D "WIN32" /D "_CONSOLE" /FR /FD /GZ /c
 # SUBTRACT CPP /X /YX /Yc /Yu
@@ -222,6 +229,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode_MFC\Assert\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /Yu"StdAfx.h" /FD /GZ /c
 # ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "_DEBUG" /D "_UNICODE" /D "_AFXDLL" /D "_STL" /D "WIN32" /D "_CONSOLE" /FR /FD /GZ /c
 # SUBTRACT CPP /X /YX /Yc /Yu
@@ -462,6 +470,10 @@ SOURCE=.\Src\TestConformance.h
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=..\Common\Res\SrcPool.ico
+# End Source File
 # Begin Source File
 
 SOURCE=..\Common\Res\Win\SrcPool.ico

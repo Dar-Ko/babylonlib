@@ -1,4 +1,4 @@
-$Workfile: S:\_SrcPool\Cpp\Samples\StlTools\StlTools.txt$: developer's note
+$Workfile: StlTools.txt$: developer's note
 $Revision: 1$ $Date: 2007-05-24 16:19:17$
 $Author: Darko Kolakovic$
 

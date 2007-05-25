@@ -1,5 +1,5 @@
 /*$Workfile: TestComplex.cpp$: implementation file
-  $Revision: 7$ $Date: 2007-05-24 16:54:06$
+  $Revision: 8$ $Date: 2007-05-25 17:28:32$
   $Author: Darko Kolakovic$
 
   Complex number arithmetics test
@@ -10,8 +10,13 @@
 // Group=Examples
 
 #include "stdafx.h"
+#include "KDbgMacr.h" //Compiler specific constants
 #include "KComplex.h" //CComplex class
 #include "KTestLog.h" //TESTENTRY struct
+
+int s0 = g__WINVER;
+int s1 = g__MSC_VER;
+int s2 = g__cplusplus_VER;
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -399,6 +404,7 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  8    Biblioteka1.7         2007-05-25 17:28:32  Darko Kolakovic g__MSC_VER
  *  7    Biblioteka1.6         2007-05-24 16:54:06  Darko Kolakovic Test atanh
  *  6    Biblioteka1.5         2007-05-22 16:54:05  Darko Kolakovic 
  *  5    Biblioteka1.4         2003-01-30 22:47:32  Darko           Write results
