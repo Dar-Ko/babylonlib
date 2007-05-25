@@ -1,5 +1,5 @@
 /*$Workfile: KMathCst.h$: header file
-  $Revision: 18$ $Date: 2005-06-14 16:59:50$
+  $Revision: 19$ $Date: 2007-05-24 16:56:44$
   $Author: Darko Kolakovic$
 
   Constants
@@ -44,9 +44,11 @@
 #define CST_PI_2      1.570796326794896619231322
   //{html: &pi;/4}
 #define CST_PI_4      0.7853981633974483096156608
+  //{html: 1/&pi;}
+#define CST_1_PI      0.318309886183790671538
 
   //{html: 1/sqrt(&pi;) }
-#define CST_INVSQRTPI  0.5641895835477562869480795
+#define CST_INVSQRTPI 0.5641895835477562869480795
   //1/sqrt(2)
 #define CST_INVSQRT2  0.70710678118654752440
   //1/sqrt(3)

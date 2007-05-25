@@ -1,5 +1,5 @@
 /*$Workfile: KComplex.h$: header file
-  $Revision: 12$ $Date: 2005-05-25 15:58:06$
+  $Revision: 12$ $Date: 2005-05-25 16:58:06$
   $Author: Darko Kolakovic$
 
   TComplex Numbers: extension to the template std::complex
@@ -30,6 +30,7 @@
     //To allow direct access to the members of complex class, _Re and _Im are
     //redefined as _ccR and _ccI
   #if _MSC_VER < 1300
+    //private members
     #define _ccR  _Re
     #define _ccI  _Im
   #endif
@@ -162,7 +163,7 @@ inline TComplex<TYPE>::TComplex(const TComplexBase<TYPE>& complexNo)
     {
     }
 #endif  //__AFXWIN_H__
-#ifdef  _COMPLEX_DEFINED //<Math.h>
+#ifdef  _COMPLEX_DEFINED //<math.h>
   /*Assignment constructor |Z| = x + j*y
     x   Specifies the real part of the complex number
     y   Specifies the imaginary part of the complex number.
@@ -191,7 +192,7 @@ return (TYPE)atan2((double)_ccI, (double)_ccR);
 
 //::Rho()----------------------------------------------------------------------
 /*Returns a radius of a complex number in the polar form.
-  Radius is equal to the magnitide of the phasor represented by complex number
+  Radius is equal to the magnitude of the phasor represented by complex number
   and it is calulated as complex norm (absolute value of the complex number).
   Phasor is a rotating vector vector representing a periodical quantity.
     {html:<br /><img src="Images/graphComplexNo.gif" border="0"
@@ -364,13 +365,14 @@ return TComplex<TYPE>((TYPE)(arg(ccW)/2),(TYPE)( -log(abs(ccW))/2));
 }
 
 //tanh()-----------------------------------------------------------------------
-/*Returns hyperbolic tangent of complexNo.
-    {html:<br /><img src="Images/eqPhasorej.gif" border="0">
-                   alt="z=abs(z)e**(i&phi;)">
-        <br />
-  }
-
-      tanh(z) = sinh(Z)/cosh(Z)
+/*Returns hyperbolic tangent of a complex number. All angles are in radians.
+    {html:<br />
+    <img src="Images/eqPhasorej.gif" border="0">
+                   alt="z=abs(z)e**(i&phi;)"><br />
+  
+     <img src="Images/eqTanhZ.gif" border="0">
+                   alt="tanh(z) = sinh(Z)/cosh(Z)"><br />
+    }
  */
 template<class TYPE>
 TComplex<TYPE> tanh(const TComplex<TYPE>& complexNo)
@@ -393,7 +395,7 @@ return TComplex<TYPE>((eDelta/div)*eSigma, (4*SinI*CosI)/div);
         <br />
   }
 
-      atanh(Z)=-i*atan(iZ)
+      atanh(Z)=-i*atan(iZ) ; Z = iY
       atanh(Z)=1/2*ln((1+Z)/(1-Z))
  */
 template<class TYPE>

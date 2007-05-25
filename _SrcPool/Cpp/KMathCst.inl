@@ -1,5 +1,5 @@
 /*$Workfile: KMathCst.inl$: header file
-  $Revision: 21$ $Date: 2005-06-21 10:11:33$
+  $Revision: 22$ $Date: 2007-05-24 07:50:25$
   $Author: Darko Kolakovic$
 
   Simple mathematical functions
@@ -62,7 +62,8 @@ return x*x*x;
 
   logN(x) = log(x) / log(n)
  */
-template <class TYPE, class BASE> inline TYPE logN(TYPE x, //[in]
+template <class TYPE, class BASE> inline TYPE logN(TYPE x,//[in] value whose
+                                                //logarithm is to be found. 
                                                    BASE n //[in]
                                                    )
 {
@@ -70,6 +71,18 @@ if ( n == (BASE) 0)
   return (TYPE)0;
 return log(x)/log(n);
 }
+
+#if _MSC_VER > 1300
+template <class TYPE> inline TYPE logN(TYPE x,//[in] value whose
+                                              //logarithm is to be found. 
+                                       int n  //[in]
+                                       )
+{
+if ( n == 0)
+  return (TYPE)0;
+return log(x)/log((TYPE)n);
+}
+#endif
 
 //Absolute()-----------------------------------------------------------------
 /*Returns the absolute value
@@ -97,7 +110,7 @@ inline double Absolute(double x //[in]
 {
 return fabs(x);
 }
-#ifdef  _COMPLEX_DEFINED  //included <Math.h>
+#ifdef  _COMPLEX_DEFINED  //included <math.h>
   /*Returns the absolute value as the real part of _complex structure
       {html:<br /><img src="Images/eqVectorNorm.gif" border="0"
                         alt="abs(x)=sqrt(&Sigma;(xi**2))">
@@ -243,13 +256,15 @@ a ^= b;
   an odd number.
  */
 template <class TYPE>
-inline bool IsEven(TYPE nNumber)
+inline bool IsEven(TYPE nNumber //[in]
+                  )
 {
 return ((nNumber % 2) == 0);
 }
 
 template <>
-inline bool IsEven(double nNumber)
+inline bool IsEven(double nNumber //[in]
+                  )
 {
 return (fmod(nNumber,2.0) == 0.0);
 }
@@ -265,13 +280,15 @@ return (fmod(nNumber,2.0) == 0.0);
   an even number.
  */
 template <class TYPE>
-inline bool IsOdd(TYPE nNumber)
+inline bool IsOdd(TYPE nNumber //[in]
+                 )
 {
 return ((nNumber % 2) == 1);
 }
 
 template <>
-inline bool IsOdd(double nNumber)
+inline bool IsOdd(double nNumber //[in]
+                 )
 {
 return (fmod(nNumber,2.0) != 0.0);
 }
@@ -374,7 +391,7 @@ return (int)floor(x + 0.5);
  *  6    Biblioteka1.5         29/01/2002 3:40:51 PMDarko           Tag update
  *  5    Biblioteka1.4         17/08/2001 12:37:44 AMDarko           Update
  *  4    Biblioteka1.3         20/07/2001 12:58:28 AMDarko           VSS tags
- *  3    Biblioteka1.2         08/07/2001 12:10:27 AMDarko           $Revision: 21$
+ *  3    Biblioteka1.2         08/07/2001 12:10:27 AMDarko           $Revision: 22$
  *       inserted
  *  2    Biblioteka1.1         08/06/2001 11:51:07 PMDarko           VSS
  *  1    Biblioteka1.0         13/08/2000 3:56:50 PMDarko

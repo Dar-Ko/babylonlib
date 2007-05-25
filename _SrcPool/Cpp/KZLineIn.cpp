@@ -1,6 +1,6 @@
 /*$Workfile: KZLineIn.cpp$: implementation file
-  $Revision: 7$ $Date: 2004-06-01 16:54:56$
-  $Author: Darko$
+  $Revision: 9$ $Date: 2007-05-25 17:24:14$
+  $Author: Darko Kolakovic$
 
   Line impedance calculation
   Copyright: CommonSoft Inc.
@@ -45,40 +45,55 @@
 #endif
 
 //GetLineZin()-----------------------------------------------------------------
-/*Calculates a Transmission Line Input Impedance.
+/*Calculates a Transmission Line Input Impedance. 
+  {html: It is assumed that the transmission line is linear and uniform along
+  its length. A transmission line could be replaced with an equivalent quadrupole
+  defined by its characteristic impedance <i>Z<sub>0</sub></i>.
+  <img src="Images/diagTransmissionLine.gif" alt="quadrupole" title="quadrupole" /><br />
+  <!--      +---------------------------------------+
+      -Zin--+  Z0(length, phase shift, attenuation) +--ZL-+ Terminating impedance
+         +--+                                       +-----+
+      ---+  +---------------------------------------+
+   -->
+  The characteristic (surge) impedance of a uniform transmission line is:<br />
+  <img src="Images/eqZ0.gif" alt="Z0=sqtrt((R+j&omega;L)/(G+j&omega;L))" /><br /.
+  where:<dl>
+    <dd><i>R</i> is the resistance per unit length,</dd>
+    <dd><i>L</i> is the inductance per unit length,</dd>
+    <dd><i>G</i> is the conductance of the dielectric per unit length,</dd>
+    <dd><i>C</i> is the capacitance per unit length,
+    <dd><i>j</i> is the imaginary unit,</dd>
+    <dd><i>&omega;</i> is the angular frequency.</dd></dl>
 
-    Zin = Zline * tanh[Zcst*dLineLength + atanh(Zt / Zline)]
+   The input impedance is calculated as:<br />
+   <img src="Images/eqZin.gif" alt="Zin=Z0((ZL+Z0 tanh(&gamma;l))/(Z0+ZL tanh(&gamma;l)))" /><br />
+    Zin = Z0 * tanh[&gamma;*dLineLength + atanh(ZL / Z0)]
 
-    Zcst = dAttenuation + j*dPhaseShift
-    Zi      the line input impedance to the line,
-    Zcst    the line propagation constant [ohm/length_unit]
-    Zline   the line characteristic impedance of the line
-    Zt      the line terminating impedance
-
-     |      +---------+
-     |      |         |
-     |    --+  Zline, +---+
-     |      | length, |   |
-     |      |  phase  |  +++
-     |   Zin|  shift, |  | |Terminating impedance
-     |      | attenu- |  | |Zt
-     |      | ation   |  +++
-     |      |         |   |
-     |    --+         +---+
-     |      |         |
-     |      +---------+
+  where:<dl>
+    <dd><i>&gamma;</i>[&Omega;/m] is the line propagation constant
+    <img src="Images/eqPropCst.gif" alt="&gamma; = dAttenuation + j*dPhaseShift" /><br />
+    <img src="Images/eqPropCst1.gif" alt="&gamma; = loss [dB/m] + j*dPhaseCst" /></dd>
+    <dd><i>&alpha;</i> is attenuation constant representing signal loss in the conductor
+      and dielectric signal loss per length unit
+      <img src="Images/eqLineLoss.gif" alt="&alpha;[dB/m] = -ln(10e(&aplha;/20))" />,</dd>
+    <dd><i>&beta;</i> is phase constant representing change in phase of
+    the signal per length unit
+      <img src="Images/eqLinePhase.gif" alt="&beta;[m/s] = 2&pi;f/v" />,</dd>
+    <dd><i>Z<sub>L</sub></i> is the terminating impedance or load,</dd>
+    <dd><i>Z<sub>0</sub></i> is the characteristic impedance of the line,</dd>
+    <dd><i>Z<sub>in</sub></i> is input impedance or impedance of the signal source.</dd></dl>}
  */
-CComplex GetLineZin(CComplex        Zt,          //[in] terminating impedance
-                    const CComplex& Zline,       //[in] line characteristic impedance
-                    double          dAttenuation,//[in] line attenuation per unit of
-                                                 //length  [dB/length_unit]
-                    double          dPhaseShift, //[in] phase shift per unit of
-                                                 //length [rad/length_unit]
-                    const double&   dLineLength  //[in] line length [length_unit]
+CComplex GetLineZin(CComplex        ZL,          //[in] terminating impedance
+                    const CComplex& Z0,          //[in] line characteristic impedance
+                    double          dAttenuation,//[in] signal loss as it travels 
+                    //over the transmission line [dB/m]
+                    double          dPhaseShift, //[in] propagation velocity of 
+                    //a uniform plane wave on the transmission line [m/s]
+                    const double&   dLineLength  //[in] line length [m]
                     )
 {
-CComplex Zin(0,0); //Result
-if (Zline == 0.)   //If Zline == 0 +j0
+CComplex Zin(0., 0.); //Result
+if (Z0 == 0.)   //If Z0 == 0 +j0
   {
   Zin.real(CST_dNaN);
   Zin.imag(CST_dNaN);
@@ -89,9 +104,9 @@ if (Zline == 0.)   //If Zline == 0 +j0
 dAttenuation *= dB2Np(dLineLength);
 dPhaseShift  *= dLineLength;
 
-if (Zt != 0.) //if Zt != 0 +j0
+if (ZL != 0.) //if ZL != 0 +j0
   {
-  Zin = Zt / Zline;
+  Zin = ZL / Z0;
   Zin = atanh(Zin);
   }
 
@@ -99,14 +114,17 @@ if (Zt != 0.) //if Zt != 0 +j0
 Zin.real(Zin.real()+ dAttenuation);
 Zin.imag(Zin.imag()+  dPhaseShift);
 Zin = tanh(Zin); //Calculate  hyperbolic tangent
-Zin *= Zline;
+Zin *= Z0;
 
-return Zin;
+return Zin; //Return input impedance
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  9    Biblioteka1.8         2007-05-25 17:24:14  Darko Kolakovic Comment
+ *  8    Biblioteka1.7         2007-05-24 07:48:31  Darko Kolakovic Complex 0
+ *       initialization
  *  7    Biblioteka1.6         2004-06-01 16:54:56  Darko           StdAfx changed
  *       to stdafx
  *  6    Biblioteka1.5         2003-08-22 16:59:47  Darko           comment

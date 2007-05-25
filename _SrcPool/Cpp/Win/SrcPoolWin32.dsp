@@ -232,6 +232,10 @@ SOURCE=.\32\KDbgDaoQueryDefType.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KDbgDCAt.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KDbgDlgErrorCode.cpp
 # End Source File
 # Begin Source File
@@ -269,6 +273,10 @@ SOURCE=.\32\KDbgRASS.cpp
 # Begin Source File
 
 SOURCE=.\32\KDbgREFIID.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KDbgRpt.cpp
 # End Source File
 # Begin Source File
 
@@ -320,6 +328,14 @@ SOURCE=.\32\KDockBar.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KFileExtR.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KFileFindOld.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KFileGetDirectory.cpp
 # End Source File
 # Begin Source File
@@ -332,7 +348,27 @@ SOURCE=.\32\KFileNmB.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KFileSetTime.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KFileShortcut.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KFileTime.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KFileTmp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KFileUnique.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KFindEdt.cpp
 # End Source File
 # Begin Source File
 
@@ -376,6 +412,10 @@ SOURCE=.\32\KListEx.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KLogoOut.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KPropPgR.cpp
 # End Source File
 # Begin Source File
@@ -412,6 +452,10 @@ SOURCE=.\Res\Win\32\KSrcPool.rc
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KStaticEx.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KStatusBarEx.cpp
 # End Source File
 # Begin Source File
@@ -421,6 +465,10 @@ SOURCE=.\32\KStrAtoWChar.cpp
 # Begin Source File
 
 SOURCE=.\32\KStrFit.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KStrGuidWin.cpp
 # End Source File
 # Begin Source File
 
@@ -457,6 +505,10 @@ SOURCE=.\32\KWinFWIs.cpp
 # Begin Source File
 
 SOURCE=.\32\KWinPlac.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KWinService.cpp
 # End Source File
 # Begin Source File
 
@@ -536,7 +588,15 @@ SOURCE=.\32\KDbgDump.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KDbgMacrAtl.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KDbgXmlWin.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KDispatchPtr.h
 # End Source File
 # Begin Source File
 
@@ -560,6 +620,10 @@ SOURCE=.\32\KDlgTmpl.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KFileExtR.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KFileN32.inl
 # End Source File
 # Begin Source File
@@ -568,11 +632,23 @@ SOURCE=.\32\KFileNmB.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KFileShortcut.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KFileTime.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\32\KFileTimeCm.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KFindRes.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KHresult.h
 # End Source File
 # Begin Source File
 
@@ -612,6 +688,10 @@ SOURCE=.\32\KSound.inl
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KStaticEx.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KStatusBarEx.h
 # End Source File
 # Begin Source File
@@ -636,11 +716,19 @@ SOURCE=.\32\KTipBox.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\32\KTraceAtl.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\32\KVerInfo.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\32\KWinPlac.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\32\KWinService.h
 # End Source File
 # Begin Source File
 
