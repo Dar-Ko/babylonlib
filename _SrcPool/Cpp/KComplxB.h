@@ -1,5 +1,5 @@
 /*$Workfile: KComplxB.h$: header file
-  $Revision: 11$ $Date: 2005-06-21 17:50:57$
+  $Revision: 12$ $Date: 2007-05-28 17:06:04$
   $Author: Darko Kolakovic$
 
   Base class for complex numbers
@@ -61,13 +61,13 @@ public:
   friend TYPE  arg(const TComplexBase<TYPE>& complexNo);                    // angle of vector
   friend TYPE norm(const TComplexBase<TYPE>& complexNo);
   friend TComplexBase<TYPE> conj (const TComplexBase<TYPE>& complexNo);
-  friend TComplexBase<TYPE> polar(const TYPE& Rho,const TYPE Angle);
-  friend TComplexBase<TYPE> polar(const TYPE& Rho);
   friend TComplexBase<TYPE> cos  (const TComplexBase<TYPE>& complexNo);     // cosine
   friend TComplexBase<TYPE> cosh (const TComplexBase<TYPE>& complexNo);     // hyperbolic cosine
   friend TComplexBase<TYPE> exp  (const TComplexBase<TYPE>& complexNo);     // e raised to a power
   friend TComplexBase<TYPE> log  (const TComplexBase<TYPE>& complexNo);     // log base e
   friend TComplexBase<TYPE> log10(const TComplexBase<TYPE>& complexNo);     // log base 10
+  friend TComplexBase<TYPE> polar(const TYPE& Rho);
+  friend TComplexBase<TYPE> polar(const TYPE& Rho,const TYPE Angle);
   friend TComplexBase<TYPE> pow  (const TComplexBase<TYPE>& complexNo,      // Z**Y
                                   const TComplexBase<TYPE>& Power);
   friend TComplexBase<TYPE> pow  (const TComplexBase<TYPE>& complexNo,      // Z**a
@@ -92,8 +92,8 @@ public:
   friend TComplexBase<TYPE> operator/(const TComplexBase<TYPE>&, const TComplexBase<TYPE>&);
   friend TComplexBase<TYPE> operator/(const TComplexBase<TYPE>&, const TYPE&);
   friend TComplexBase<TYPE> operator/(const TYPE&,               const TComplexBase<TYPE>&);
-  friend BOOL               operator==(const TComplexBase<TYPE>&, const TComplexBase<TYPE>&);
-  friend BOOL               operator!=(const TComplexBase<TYPE>&, const TComplexBase<TYPE>&);
+  friend bool               operator==(const TComplexBase<TYPE>&, const TComplexBase<TYPE>&);
+  friend bool               operator!=(const TComplexBase<TYPE>&, const TComplexBase<TYPE>&);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -594,7 +594,8 @@ TComplexBase<TYPE> sin(const TComplexBase<TYPE>& complexNo)
 {
 TYPE eI  = exp(complexNo._ccI);
 TYPE e_negI = 1 / eI;
-return TComplexBase<TYPE>(sin(complexNo._ccR)*(e_negI+eI)/2, cos(complexNo._ccR)*(e_negI-eI)/(-2));
+return TComplexBase<TYPE>(sin(complexNo._ccR)*(e_negI+eI)/2,
+                          cos(complexNo._ccR)*(e_negI-eI)/(-2));
 }
 
 //sinh()-----------------------------------------------------------------------
@@ -758,19 +759,19 @@ return TComplexBase<TYPE>(dReal * complexNo.real(), - dReal * complexNo.imag());
 /*Returns nonzero if equal; otherwise 0.
  */
 template<class TYPE>
-inline BOOL operator == (const TComplexBase<TYPE>& X,const TComplexBase<TYPE>& Y)
+inline bool operator == (const TComplexBase<TYPE>& X,const TComplexBase<TYPE>& Y)
 {
 return (X.real() == Y.real()  &&  X.imag() == Y.imag());
 }
 
 template<class TYPE>
-inline BOOL operator == (const TComplexBase<TYPE>& complexNo, TYPE dReal)
+inline bool operator == (const TComplexBase<TYPE>& complexNo, TYPE dReal)
 {
 return(complexNo.imag() == (TYPE)0  && complexNo.real() == dReal);
 }
 
 template<class TYPE>
-inline BOOL operator == (TYPE dReal,const TComplexBase<TYPE>& complexNo)
+inline bool operator == (TYPE dReal,const TComplexBase<TYPE>& complexNo)
 {
 return(complexNo.imag() == (TYPE)0  &&  dReal==complexNo.real() );
 }
@@ -779,19 +780,19 @@ return(complexNo.imag() == (TYPE)0  &&  dReal==complexNo.real() );
 /*Returns nonzero if not equal; otherwise 0.
  */
 template<class TYPE>
-inline BOOL operator != (const TComplexBase<TYPE>& X,const TComplexBase<TYPE>& Y)
+inline bool operator != (const TComplexBase<TYPE>& X,const TComplexBase<TYPE>& Y)
 {
 return (X.real() != Y.real()  ||  X.imag() != Y.imag());
 }
 
 template<class TYPE>
-inline BOOL operator != (const TComplexBase<TYPE>& complexNo, TYPE dReal)
+inline bool operator != (const TComplexBase<TYPE>& complexNo, TYPE dReal)
 {
 return (complexNo.imag() != (TYPE)0  || complexNo.real() != dReal);
 }
 
 template<class TYPE>
-inline BOOL operator != ( TYPE dReal,const TComplexBase<TYPE>& complexNo )
+inline bool operator != ( TYPE dReal,const TComplexBase<TYPE>& complexNo )
 {
 return(complexNo.imag() != (TYPE)0  ||  dReal!=complexNo.real());
 }
@@ -809,7 +810,7 @@ return(complexNo.imag() != (TYPE)0  ||  dReal!=complexNo.real());
     Note: uses Standard Template Library (STL).
   */
   template<class TYPE>
-  ostream & operator<<(ostream& outStream, //[out] output stream
+  ostream & operator<<(tostream& outStream, //[out] output stream
                       TComplexBase<TYPE>& complexNo //[in] value to write
                       )
   {
@@ -825,7 +826,7 @@ return(complexNo.imag() != (TYPE)0  ||  dReal!=complexNo.real());
     Note: uses Standard Template Library (STL).
   */
   template<class TYPE>
-  istream& operator>>(istream& Stream, //[in] input stream
+  istream& operator>>(tistream& Stream, //[in] input stream
                       TComplexBase<TYPE>& complexNo //[out] extracted value
                       )
   {
@@ -863,7 +864,7 @@ return(complexNo.imag() != (TYPE)0  ||  dReal!=complexNo.real());
 /******************************************************************************
  * $Log:
  *  4    Biblioteka1.3         7/19/01 11:52:57 PM  Darko           VSS tags
- *  3    Biblioteka1.2         7/7/01 11:10:11 PM   Darko           $Revision: 11$
+ *  3    Biblioteka1.2         7/7/01 11:10:11 PM   Darko           $Revision: 12$
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:49:19 PM   Darko           VSS
  *  1    Biblioteka1.0         8/13/00 2:55:42 PM   Darko

@@ -1,5 +1,5 @@
 /*$Workfile: KPhysCst.h$: header file
-  $Revision: 9$ $Date: 2005-06-24 19:15:48$
+  $Revision: 10$ $Date: 2007-05-28 17:04:56$
   $Author: Darko Kolakovic$
 
   Physics - Constants
@@ -19,11 +19,61 @@
 // Group=Constants
 
   //Temperature of 0°Celsius in [K]
-#define CST_0C2K  273.15
+#define CST_0C2K     273.15
   //Speed of light in vacuum [m/s]
 #define CST_c        299792458.
-  //Acceleration due to gravity at sea level, 45° latitude [m/s2]
+#define CST_G        6.67428e-14
+ /*Planck's constant h [Js] describes quantization of certain physical
+   properties of subatomic particles such as electrons and photons.
+   It is estimated to value
+   {html: &#x0210E; = (6.62606896 &plusmn; 0.00000033)E-34 Js}
+
+   [named after Planck, Max (1858-04-23, 1947-10-04)]
+  */
+#define CST_h        6.62606896e-34
+ /*Boltzmann's constant k [J/K] is proportional constant used to convert
+   energy E to the temperature T: E = kT.
+   It is estimated to value
+   {html: k = k<sub>B</sub> = (1.3806504 &plusmn; 0.0000024)E-23 J/K}
+   [named after Boltzmann, Ludwig Eduard (1844-02-20, 1906-09-05)]
+  */
+#define CST_kB        1.3806504e-23
+ /*Avogadro constant is the number of atoms in 12 grams of carbon-12.
+   Consequently, this is same as is the number of atoms of one mole of a substance.
+   It is estimated to value
+   {html: N<sub>A</sub> = ( 6.02214179 &plusmn; 0.0000003)E23 mole<sup>-1</sup>}
+   [named after Avogadro, Lorenzo Romano Amedeo Carlo (1766-08-09, 1856-07-09)]
+  */
+#define CST_Na       6.02214179e+23
+/*Stefan-Boltzmann constant {html: &sigma; [W/m<sup>2</sup>K<sup>4</sup>]} is
+   the constant of proportionality relating total energy radiated per unit
+   surface area of a black body and thermodynamic temperature in
+   Stefan-Boltzmann law:
+   &sigma; = 2&pi;^5kB^4/(15h^3c^2)
+
+   It is estimated to value
+   {html: (&sigma; = 5.6704 &plusmn; 0.00004)E-8 Wm<sup>-2</sup>K<sup>-4</sup>}
+  */
+#define CST_Sigma    5.6704e-8
+ /*Elementary charge q [C] is the electric charge carried by a single proton or
+   electron.
+   It is estimated to value
+   {html: (q = 1.602176487 &plusmn; 0.00000004)E-19 C}
+  */
+#define CST_Qe       1.602176487e-19
+
+  //Acceleration g due to Earth's gravity at sea level, 45° latitude [m/s2]
 #define CST_g        9.806194
+  /*Universal Gravitational Constant G {html:[m<sup>3</sup>/g s<sup>2</sup>]} is
+    the constant of proportionality relating force to mass and distance in
+    Newton's law of gravitation. It is estimated to value
+    {html: (G = 6.67428 &plusmn; 0.001)E-11 m<sup>3</sup>kg<sup>-1</sup>s<sup>-2</sup>}
+    Newton's law of gravitation from 1666 states any two bodies attract each
+    other with a force F that is directly proportional to the product of their
+    masses m and inversely proportional to the square of the distance d between them.
+    F= G(m1*m2/d^2).
+    [named after Newton, Isaac (1643-01-04, 1727-03-31)]
+   */
 
 //Astronomical constants
 

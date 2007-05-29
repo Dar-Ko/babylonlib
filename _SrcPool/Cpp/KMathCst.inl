@@ -1,5 +1,5 @@
 /*$Workfile: KMathCst.inl$: header file
-  $Revision: 22$ $Date: 2007-05-24 07:50:25$
+  $Revision: 23$ $Date: 2007-05-29 16:40:03$
   $Author: Darko Kolakovic$
 
   Simple mathematical functions
@@ -90,11 +90,11 @@ return log(x)/log((TYPE)n);
   Absolute(x) = |x| = x  if x >= 0 or
   Absolute(x) = |x| = -x if x <  0
  */
-template <class TYPE> inline TYPE Absolute(TYPE x //[in]
+/*template <class TYPE> inline TYPE Absolute(TYPE x //[in]
                                            )
 {
 return( x >= (TYPE)0 ? x : -x );
-}
+}*/
 inline int Absolute(int x //[in]
                     )
 {
@@ -111,34 +111,56 @@ inline double Absolute(double x //[in]
 return fabs(x);
 }
 #ifdef  _COMPLEX_DEFINED  //included <math.h>
-  /*Returns the absolute value as the real part of _complex structure
+  /*Calculates the absolute value of a complex number.
+
+    Returns: the magnitude (or complex norm) of a _complex structure
       {html:<br /><img src="Images/eqVectorNorm.gif" border="0"
-                        alt="abs(x)=sqrt(&Sigma;(xi**2))">
+                        alt="abs(Z)=sqrt(&Sigma;(Zi**2))" />
+            <br /><img src="Images/eqComplexNo.gif" border="0"
+                        alt="Z= x +i*y" />                        
+            <br /><img src="Images/eqPhasorMod.gif" border="0"
+                        alt="abs(Z)=sqrt( Z.x*Z.x + Z.y*Z.y ). 
       }
+    On overflow, returns HUGE_VAL and sets errno to ERANGE.
+    
+    Example:
+        #include "KMathCst.inl"
+        #include "STL/KOStream.h"
+        int main()
+          {
+          struct _complex Z = { 3.0, 4.0 };
+          double dAbs; //absolute value of a complex number
+
+          dAbs = Absolute(Z);
+          std::_tcout << _T("|Z| = |") << Z.x 
+                      << _T(" + i") << Z.y 
+                      << _T("| = ") << dAbs << std::endl;
+          }
+        Output: |Z| = |3.000 + i4.000| = 5.000
    */
-  inline _complex Absolute(_complex x //[in]
-                          )
+  inline double Absolute(_complex Z //[in]complex number
+                        )
   {
-  _complex Temp;
-  Temp.x =_cabs(x);
-  Temp.y = 0.0;
-  return Temp;
+  return _cabs(Z);
   }
 #endif
 #ifdef  __STD_COMPLEX //included <complex>
-  /*Returns the magnitude (or complex norm) of a complex number.
+  /*Calculates the absolute value of a complex number.
+
+    Returns the magnitude (or complex norm) of a complex number.
     {html:<br /><img src="Images/eqComplexNo.gif" border="0"
-               alt="Z= x +i*y">
+               alt="Z= x +i*y" />
           <br /><img src="Images/eqPhasorMod.gif" border="0"
-               alt="Absolute(Z) = |Z| = sqrt(x**2+y**2)">
+               alt="Absolute(Z) = |Z| = sqrt(x**2+y**2)" />
           <br />
     }
 
   */
-  template <class TYPE> inline TYPE Absolute(std::complex<TYPE> x //[in]
+  template <class TYPE> inline TYPE Absolute(const std::complex<TYPE>& Z //[in]
+                                                        //complex number
                                             )
   {
-  return std::abs(x);
+  return std::abs(Z);
   }
 #endif
 
@@ -391,7 +413,7 @@ return (int)floor(x + 0.5);
  *  6    Biblioteka1.5         29/01/2002 3:40:51 PMDarko           Tag update
  *  5    Biblioteka1.4         17/08/2001 12:37:44 AMDarko           Update
  *  4    Biblioteka1.3         20/07/2001 12:58:28 AMDarko           VSS tags
- *  3    Biblioteka1.2         08/07/2001 12:10:27 AMDarko           $Revision: 22$
+ *  3    Biblioteka1.2         08/07/2001 12:10:27 AMDarko           $Revision: 23$
  *       inserted
  *  2    Biblioteka1.1         08/06/2001 11:51:07 PMDarko           VSS
  *  1    Biblioteka1.0         13/08/2000 3:56:50 PMDarko

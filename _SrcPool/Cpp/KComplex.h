@@ -1,5 +1,5 @@
 /*$Workfile: KComplex.h$: header file
-  $Revision: 12$ $Date: 2005-05-25 16:58:06$
+  $Revision: 14$ $Date: 2007-05-29 16:40:36$
   $Author: Darko Kolakovic$
 
   TComplex Numbers: extension to the template std::complex
@@ -9,7 +9,7 @@
 // Group=Mathematics
 
 #ifndef _KCOMPLEX_H_
-    //KComplex.h sentry
+    //$Workfile: KComplex.h$ sentry
   #define _KCOMPLEX_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -24,30 +24,25 @@
 //Define base class for TComplex<TYPE>
 #if _MSC_VER >= 1100 //if Visual C++ 5.0 (or bigger), include std::complex D.K.
   #include <complex>
+
     //Use complex template
   #define TComplexBase std::complex
-    //_Re and _Im are defined in the <complex> header file (1994 by P.J. Plauger)
-    //To allow direct access to the members of complex class, _Re and _Im are
-    //redefined as _ccR and _ccI
-  #if _MSC_VER < 1300
-    //private members
-    #define _ccR  _Re
-    #define _ccI  _Im
-  #endif
-
-    //_Real and _Imag are defined in the <complex> header file (VC++.Net v7.0)
-  #if _MSC_VER == 1300
-    #define _ccR  _Real
-    #define _ccI  _Imag
-  #endif
-
-  #if _MSC_VER == 1310
-    #define _ccR  _Val[0]
-    #define _ccI  _Val[1]
-  #endif
 
   using namespace std;
 #endif  //_MSC_VER
+
+#ifdef _STLP_INTERNAL_COMPLEX //STLport library
+  #ifndef _USE_STLPORT
+    #define _USE_STLPORT 445
+  #endif
+  #ifndef __STD_COMPLEX
+    //Do not include "KComplxB.h"
+    #define __STD_COMPLEX 445
+  #endif
+
+    //Use complex template
+  #define TComplexBase std::complex
+#endif
 
 #ifndef __STD_COMPLEX //if template std::complex is not included,
                       //define new base class
@@ -90,22 +85,9 @@ public:
 public:
   TComplex<TYPE> I();
   //Operations
+  bool IsFinite() const;
+  bool IsNan() const;
 public:
-
-  friend TComplex<TYPE> I(    const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> exp10(const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> asin (const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> acos (const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> tan  (const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> atan (const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> tanh (const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> atanh(const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> acosh(const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> asinh(const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> asech(const TComplex<TYPE>& complexNo);
-  friend TComplex<TYPE> acoth(const TComplex<TYPE>& complexNo);
-  //Helpers
-  friend void _GetAR(const TComplex<TYPE>& complexNo, TYPE& Angle, TYPE&R);
 
   //Overrides
 public:
@@ -135,10 +117,9 @@ inline TComplex<TYPE>::TComplex(const TYPE& x, //= 0 real part of the complex nu
 /*Assignment constructor |Z| = |Y|
  */
 template<class TYPE>
-inline TComplex<TYPE>::TComplex(const TComplexBase<TYPE>& complexNo)
+inline TComplex<TYPE>::TComplex(const TComplexBase<TYPE>& complexNo) :
+  TComplexBase<TYPE>((TYPE)complexNo.real(),(TYPE)complexNo.imag())
   {
-  _ccR = complexNo.real();
-  _ccI = complexNo.imag();
   }
 
 #ifdef __AFXWIN_H__ //Microsoft's MFC Utility functions
@@ -187,7 +168,7 @@ inline TComplex<TYPE>::TComplex(const TComplexBase<TYPE>& complexNo)
 template<class TYPE>
 inline TYPE TComplex<TYPE>::Angle() const
 {
-return (TYPE)atan2((double)_ccI, (double)_ccR);
+return (TYPE)atan2((double)imag(), (double)real());
 }
 
 //::Rho()----------------------------------------------------------------------
@@ -229,10 +210,38 @@ return (abs(*this));
 template<class TYPE>
 inline TComplex<TYPE> TComplex<TYPE>::I()
 {
-TYPE oldR = _ccR;
-_ccR = - _ccI;
-_ccI = oldR;
+TYPE oldR = real();
+real() = - imag();
+imag() = oldR;
 return (*this);
+}
+
+//-----------------------------------------------------------------------------
+/*Determines whether the complex number is finite.
+
+  Returns: true if both real and imaginary part of the complex number are
+  between (–INF, +INF). Returns false if any component is infinite or a NaN.
+ */
+template<class TYPE>
+inline bool TComplex<TYPE>::IsFinite() const
+{
+return ( (finite((double) real()) != 0) &&
+         (finite((double) imag()) != 0) );
+}
+
+//-----------------------------------------------------------------------------
+/*Determines whether the complex number is not a number (NaN).
+  A NaN is generated when the result of a floating-point operation cannot be
+  represented in Institute of Electrical and Electronics Engineers (IEEE) format.
+
+  Returns: true if real or imaginary part of the complex number is not a number.
+  Returns false if both components are valid numbers.
+ */
+template<class TYPE>
+inline bool TComplex<TYPE>::IsNan() const
+{
+return ( (isnan((double) real()) != 0) ||
+         (isnan((double) imag()) != 0) );
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -262,8 +271,8 @@ return (TComplex<TYPE>(-complexNo.imag(),complexNo.real()));
 template<class TYPE>
 TComplex<TYPE> exp10(const TComplex<TYPE>& complexNo)
   {
-  return TComplex<TYPE>((TYPE)(exp(complexNo._ccR * CST_LN10) + cos(complexNo._ccI * CST_LN10)),
-                        (TYPE)(exp(complexNo._ccR * CST_LN10) + sin(complexNo._ccI * CST_LN10)) );
+  return TComplex<TYPE>((TYPE)(exp(complexNo.real() * CST_LN10) + cos(complexNo.imag() * CST_LN10)),
+                        (TYPE)(exp(complexNo.real() * CST_LN10) + sin(complexNo.imag() * CST_LN10)) );
   }
 
 //_GetAR()---------------------------------------------------------------------
@@ -273,8 +282,8 @@ TComplex<TYPE> exp10(const TComplex<TYPE>& complexNo)
 template<class TYPE>
 inline void _GetAR(const TComplex<TYPE>& complexNo, TYPE& Angle, TYPE&R)
   {
-  TComplex<TYPE> ccV(1 - SQUARE(complexNo._ccR) + SQUARE(complexNo._ccI),
-                     -2*complexNo._ccR*complexNo._ccI);
+  TComplex<TYPE> ccV(1 - SQUARE(complexNo.real()) + SQUARE(complexNo.imag()),
+                     -2*complexNo.real()*complexNo.imag());
   Angle = arg(ccV)/2;
   R = sqrt(abs(ccV));
   }
@@ -294,7 +303,7 @@ return -i * log(complexNo + i*sqrt(TComplex<TYPE>(1,0) - SQUARE(complexNo)));
 TYPE Angle;
 TYPE R    ;
 _GetAR(complexNo,Angle,R);
-TComplex<TYPE> ccW(complexNo._ccR - R*sin(Angle), complexNo._ccI + R*cos(Angle));
+TComplex<TYPE> ccW(complexNo.real() - R*sin(Angle), complexNo.imag() + R*cos(Angle));
 return TComplex<TYPE>(arg(ccW), -log(abs(ccW)));
 }
 
@@ -313,7 +322,7 @@ return i * log(i*complexNo + sqrt(TComplex<TYPE>(1,0) - SQUARE(complexNo)));
 TYPE Angle;
 TYPE R    ;
 _GetAR(complexNo,Angle,R);
-TComplex<TYPE> ccW(-complexNo._ccI + R*cos(Angle), complexNo._ccR + R*sin(Angle));
+TComplex<TYPE> ccW(-complexNo.imag() + R*cos(Angle), complexNo.real() + R*sin(Angle));
 return TComplex<TYPE>(arg(ccW), -log(abs(ccW)));
 }
 
@@ -325,9 +334,9 @@ return TComplex<TYPE>(arg(ccW), -log(abs(ccW)));
 template<class TYPE>
 TComplex<TYPE> tan(const TComplex<TYPE>& complexNo)
 {
-TYPE SinR = (TYPE)sin(complexNo._ccR);
-TYPE CosR = (TYPE)cos(complexNo._ccR);
-TYPE eI   = (TYPE)exp(complexNo._ccI);
+TYPE SinR = (TYPE)sin(complexNo.real());
+TYPE CosR = (TYPE)cos(complexNo.real());
+TYPE eI   = (TYPE)exp(complexNo.imag());
 TYPE e_negI = 1 / eI;
 TYPE eDelta = e_negI - eI;
 TYPE eSigma = e_negI + eI;
@@ -356,10 +365,10 @@ const TComplexBase<TYPE> _ccZero(0,0);
 if (complexNo == _ccZero)
   return  TComplexBase<TYPE>(0,0);
 
-TYPE Iplus1 = 1 + complexNo._ccI;      //i(1+Y)
-TYPE RSquare = SQUARE(complexNo._ccR); //x^2
+TYPE Iplus1 = 1 + complexNo.imag();      //i(1+Y)
+TYPE RSquare = SQUARE(complexNo.real()); //x^2
 TYPE Znorm = SQUARE(Iplus1) + RSquare; //norm(Z+i)
-TComplex<TYPE> ccW(((1-complexNo._ccI)*Iplus1 - RSquare)/Znorm, 2*complexNo._ccR/Znorm);
+TComplex<TYPE> ccW(((1-complexNo.imag())*Iplus1 - RSquare)/Znorm, 2*complexNo.real()/Znorm);
 
 return TComplex<TYPE>((TYPE)(arg(ccW)/2),(TYPE)( -log(abs(ccW))/2));
 }
@@ -369,7 +378,7 @@ return TComplex<TYPE>((TYPE)(arg(ccW)/2),(TYPE)( -log(abs(ccW))/2));
     {html:<br />
     <img src="Images/eqPhasorej.gif" border="0">
                    alt="z=abs(z)e**(i&phi;)"><br />
-  
+
      <img src="Images/eqTanhZ.gif" border="0">
                    alt="tanh(z) = sinh(Z)/cosh(Z)"><br />
     }
@@ -377,9 +386,9 @@ return TComplex<TYPE>((TYPE)(arg(ccW)/2),(TYPE)( -log(abs(ccW))/2));
 template<class TYPE>
 TComplex<TYPE> tanh(const TComplex<TYPE>& complexNo)
 {
-TYPE SinI = (TYPE)sin(complexNo._ccI);
-TYPE CosI = (TYPE)cos(complexNo._ccI);
-TYPE eR   = (TYPE)exp(complexNo._ccR);
+TYPE SinI = (TYPE)sin(complexNo.imag());
+TYPE CosI = (TYPE)cos(complexNo.imag());
+TYPE eR   = (TYPE)exp(complexNo.real());
 TYPE e_negR = 1 / eR;
 TYPE eDelta = eR - e_negR;
 TYPE eSigma = eR + e_negR;
@@ -392,31 +401,25 @@ return TComplex<TYPE>((eDelta/div)*eSigma, (4*SinI*CosI)/div);
 /*Returns the hyperbolic arcus tangent of complexNo.
     {html:<br /><img src="Images/eqPhasorej.gif" border="0">
                    alt="z=abs(z)e**(i&phi;)">
-        <br />
+       <br />
   }
 
       atanh(Z)=-i*atan(iZ) ; Z = iY
       atanh(Z)=1/2*ln((1+Z)/(1-Z))
  */
 template<class TYPE>
-TComplex<TYPE> atanh(const TComplex<TYPE>& complexNo)
+TComplex<TYPE> _cdecl atanh(const TComplex<TYPE>& complexNo)
 {
-if( complexNo._ccR == (TYPE)0 && complexNo._ccI == (TYPE)0)
+if( complexNo.real() == (TYPE)0 && complexNo.imag() == (TYPE)0)
   return TComplex<TYPE> ((TYPE)0,(TYPE)0);
-else if (complexNo._ccR == (TYPE)0)
-  return TComplex<TYPE> ((TYPE)0,(TYPE)atan(complexNo._ccI));
+else if (complexNo.real() == (TYPE)0)
+  return TComplex<TYPE> ((TYPE)0,(TYPE)atan(complexNo.imag()));
 else
   {
-  TYPE Rplus1  = 1 + complexNo._ccR;
-  TYPE Rminus1 = 1 - complexNo._ccR;
-  return TComplex<TYPE> ((TYPE)(0.25 *  log( (SQUARE(Rplus1 ) + SQUARE(complexNo._ccI)) /
-                                     (SQUARE(Rminus1) + SQUARE(complexNo._ccI))    ) ),
-
-                         (TYPE)(  -0.5 * (CST_PI - atan2(Rplus1, -complexNo._ccI) -
-                                 atan2(Rminus1, -complexNo._ccI))              ) );
+  return log(((TYPE)1 + complexNo)/((TYPE)1 - complexNo))/(TYPE)2;
   }
-}
 
+}
 //acosh()----------------------------------------------------------------------
 /*Returns inverse hyperbolic cosine (arccosine).
     {html:<br /><img src="Images/eqPhasorej.gif" border="0">
@@ -477,6 +480,15 @@ template<class TYPE>
 TComplex<TYPE> acoth(const TComplex<TYPE>& complexNo)
 {
 return (log((complexNo+(TYPE)1) / (complexNo-(TYPE)1))/(TYPE)2);
+}
+
+//-----------------------------------------------------------------------------
+/*Returns the base 2 logarithm of a complex number.
+ */
+template<class TYPE>
+TComplex<TYPE> log2(const TComplex<TYPE>& complexNo)
+{
+return (log(complexNo) / log(2.0));
 }
 
 //operator<<()-----------------------------------------------------------------

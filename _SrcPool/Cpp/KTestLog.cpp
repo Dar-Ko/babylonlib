@@ -1,5 +1,5 @@
 /*$Workfile: KTestLog.cpp$: implementation file
-  $Revision: 10$ $Date: 2007-03-16 22:26:30$
+  $Revision: 11$ $Date: 2007-05-29 16:38:39$
   $Author: Darko Kolakovic$
 
   Outputs test data to file
@@ -83,7 +83,7 @@ if (!s_bTestLogInitalized) //Initialize only once
     #endif
 
     #ifdef _MT
-      szEntry = _T("Multithreaded applcation.");
+      szEntry = _T("Multithreaded application.");
       fwrite(szEntry, sizeof(TCHAR), _tcslen(szEntry), s_fileTestLog);
       fwrite(szEOL, sizeof(TCHAR), 1, s_fileTestLog);
     #else
@@ -235,6 +235,7 @@ if (s_fileTestLog != NULL)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  11   Biblioteka1.10        2007-05-29 16:38:39  Darko Kolakovic Spelling
  *  10   Biblioteka1.9         2007-03-16 22:26:30  Darko Kolakovic _MT
  *  9    Biblioteka1.8         2005-03-21 03:10:56  Darko           Query
  *       __AFXWIN_H_
