@@ -1,5 +1,5 @@
 /*$Workfile: TestComplex.cpp$: implementation file
-  $Revision: 8$ $Date: 2007-05-25 17:28:32$
+  $Revision: 10$ $Date: 2007-05-29 16:37:23$
   $Author: Darko Kolakovic$
 
   Complex number arithmetics test
@@ -13,9 +13,12 @@
 #include "KDbgMacr.h" //Compiler specific constants
 #include "KComplex.h" //CComplex class
 #include "KTestLog.h" //TESTENTRY struct
+#include "TestComplex.h" //Test complex number class
 
 int s0 = g__WINVER;
-int s1 = g__MSC_VER;
+#ifdef _MSC_VER
+  int s1 = g__MSC_VER;
+#endif
 int s2 = g__cplusplus_VER;
 
 #ifdef _DEBUG
@@ -29,14 +32,17 @@ int s2 = g__cplusplus_VER;
   #ifdef  _STL
     #pragma message ("Using STL")
   #endif
-
   #ifdef  _COMPLEX_DEFINED
     #pragma message ("_COMPLEX_DEFINED")
   #endif
   #ifdef  __STD_COMPLEX
     #pragma message ("__STD_COMPLEX")
   #endif
+  #ifdef _STLP_INTERNAL_COMPLEX //STLport library
+    #pragma message ("_STLP_INTERNAL_COMPLEX")
+  #endif
 #endif
+
 
 extern bool TsWriteToView(LPCTSTR lszText);
 
@@ -52,12 +58,17 @@ TESTENTRY logEntry =
 TESTENTRY logEntryBase = 
   {_T("TComplexBase"), _T("KComplxB.h"), false};
 
+double EPSMIN = 1e-10; //rounding error
+double EPSMAX = 1e-4;
+
 #ifdef  _COMPLEX_DEFINED  //included <math.h>
     //Complex number as structure defined in <math.h>
   TsWriteToView(_T("_cabs() calculates the absolute value of a _complex number.\r\n"));
   _complex B;
   B.x = 3.2;  //Real part
   B.y = 4.2;  //Imaginary part
+  TsComplexD testB(B.x, B.y);
+
    //Calculate the absolute value of a complex number
    //(compatible with  Win 9x, Win NT).
   double dRho = _cabs(B);
@@ -67,16 +78,28 @@ TESTENTRY logEntryBase =
     TsWriteToView(szText);
     }
 
-  logEntryBase.m_bResult = true;
-  logEntryBase.m_szObjectName = _T("_complex");
+  double dTs = TsComplexD::Abs(TsComplexD(B.x, B.y));
+  bRes = (dRho == dTs);
+  
+  logEntryBase.m_bResult = bRes;
+  logEntryBase.m_szFileName = _T("math.h");
+  logEntryBase.m_szObjectName = _T("abs(_complex)");
+  LogTest(&logEntryBase);
+  
+  
+  logEntryBase.m_bResult = (dRho == Absolute(B));
+  logEntryBase.m_szFileName = _T("KMathCst.inl");
+  logEntryBase.m_szObjectName = _T("Absolute(_complex)");
+  LogTest(&logEntryBase);
+
 #else  //<Math.h> not included
   TsWriteToView(_T("Complex numbers are not supported.\r\n"));
   TComplexBase<double>B(3.2,4.2); //Initialize B = x +iy
+  TsComplexD testB(B.real(), B.imag());
 
   logEntryBase.m_bResult = true;
 #endif //_COMPLEX_DEFINED
 
-LogTest(&logEntryBase);
 
 #ifdef  __STD_COMPLEX //included <complex>
 
@@ -89,8 +112,16 @@ LogTest(&logEntryBase);
     //The std::abs(A) function returns the magnitude of A
   _stprintf(szText, _T("|%d+i%d| = %d\r\n"),A.real(),A.imag(),std::abs(A));
   TsWriteToView(szText);
-  logEntryBase.m_szObjectName = _T("std::complex");
+  logEntryBase.m_szObjectName = _T("abs(std::complex)");
+  logEntryBase.m_szFileName = _T("complex");
   logEntryBase.m_bResult = true;
+  LogTest(&logEntryBase);
+  
+  logEntryBase.m_bResult = (std::abs(A) == (double)Absolute(A));
+  logEntryBase.m_szFileName = _T("KMathCst.inl");
+  logEntryBase.m_szObjectName = _T("Absolute(std::complex)");
+  LogTest(&logEntryBase);
+  
 #else //<complex> not included
   TComplexBase<double>A(5,6); //Initialize A = x +iy
   TComplexBase<double> A1;
@@ -99,53 +130,102 @@ LogTest(&logEntryBase);
   A1 /= 4;
   _stprintf(szText, _T("|%.2f+i%.2f| = %.2f\r\n"),A1.real(),A1.imag(),abs(A1));
   TsWriteToView(szText);
+  logEntryBase.m_szObjectName = _T("abs()");
+  logEntryBase.m_szFileName = _T("KComplxB.h");
   logEntryBase.m_bResult = true;
+  LogTest(&logEntryBase);
 #endif  //__STD_COMPLEX
 
-LogTest(&logEntryBase);
+TsComplexD testA(A.real(), A.imag());
+TsComplexD testC = testB + testA;
 
 CComplex C(B.x, B.y);
 C = B;
 C += A;
+bRes = (C.real() == testC.Re()) && (C.imag() == testC.Im());
+
+logEntry.m_bResult = bRes;
+logEntry.m_szObjectName = _T("CComplex::operator+=(CComplex)");
+LogTest(&logEntry);
+if (!bRes)
+  return bRes;
+
 CComplex D(-4.3,6.1);
+TsComplexD testD(D.real(),D.imag()); //test case D
 
 _stprintf(szText, _T("C = %f+i%f  D =  %f+i%f  "),C.real(),C.imag(),D.real(),D.imag());
 TsWriteToView(szText);
 C = D / C ;
+testC = testD / testC;
+
 _stprintf(szText, _T("D/C = %f+i%f\r\n"),C.real(),C.imag());
 TsWriteToView(szText);
 
-logEntry.m_bResult = true;
+bRes = (abs(C.real() - testC.Re()) <= EPSMIN) && 
+       (abs(C.imag() - testC.Im()) <= EPSMIN);
+
+logEntry.m_bResult = bRes;
+logEntry.m_szObjectName = _T("CComplex::operator/(CComplex)");
 LogTest(&logEntry);
 if (!bRes)
   return bRes;
 
-  //The function returns exponential of D, for base 10.
-C = exp10(D); 
-_stprintf(szText, _T("D E(10) = %f+i%f\r\n"),C.real(),C.imag());
+  //The function returns exponential of Z, for base 10.
+TComplex<int> A2(-1, 7);
+D = CComplex(A2.real(), A2.imag());  
+
+_stprintf(szText, _T(" A = %d+j%d\r\n"),A2.real(),A2.imag());
 TsWriteToView(szText);
+TRACE0(szText);
 
-TComplex<int> A2(-1,7);
-TRACE2(_T("A = %d +j%d;"),A2.real(),A2.imag());
 A2 = exp10(A2);
-TRACE2(_T(" A E(10) = %d +j%d\n"),A2.real(),A2.imag());
+TRACE2(_T(" 10^A = %d +j%d\n"), A2.real(), A2.imag());
 
-logEntry.m_bResult = true;
-logEntry.m_szObjectName = _T("exp10()");
+logEntry.m_bResult = false; //TODO: validation! D.K. <int> rounding error
+logEntry.m_szObjectName = _T("exp10(TComplex<int>)");
 LogTest(&logEntry);
 if (!bRes)
   return bRes;
 
-  //Test acos
+C = exp10(D);
+_stprintf(szText, _T("D = A; 10^D = %f+i%f\r\n"),C.real(),C.imag());
+TsWriteToView(szText);
+TRACE0(szText);
+
+logEntry.m_bResult = false; //TODO: validation! D.K. 
+logEntry.m_szObjectName = _T("exp10(TComplex<double>)");
+LogTest(&logEntry);
+if (!bRes)
+  return bRes;
+
+  //Test cos
 D = CComplex(1.2,2.8); //The function returns cosine of D
+testD.m_fRe = D.real();
+testD.m_fIm = D.imag();
+
 _stprintf(szText, _T("D = %f+i%f\r\n"),D.real(),D.imag());
 TRACE0(szText);
 TsWriteToView(szText);
 C = cos(D);
+testC = TsComplexD::Cos(testD);
+
 _stprintf(szText, _T("cos(D) = %f+i%f "),C.real(),C.imag());
 TRACE0(szText);
 TsWriteToView(szText);
+
+bRes = (abs(C.real() - testC.Re()) <= EPSMIN) && 
+       (abs(C.imag() - testC.Im()) <= EPSMIN);
+
+logEntry.m_bResult = bRes;
+logEntry.m_szObjectName = _T("CComplex::cos(CComplex)");
+LogTest(&logEntry);
+if (!bRes)
+  return bRes;
+
+
+//Test acos
 C = acos(C);
+testC = TsComplexD::ACos(testC);
 _stprintf(szText, _T("acos(C) = %f+i%f\r\n"),C.real(),C.imag());
 TRACE0(szText);
 TsWriteToView(szText);
@@ -153,18 +233,34 @@ TsWriteToView(szText);
 bRes = bRes &&  (C.real() > 1.19999) && (C.real() < 1.20001) &&
                 (C.imag() > 2.79999) && (C.imag() < 2.80001); //result and previous result
 logEntry.m_bResult = bRes;
-logEntry.m_szObjectName = _T("acos()");
+logEntry.m_szObjectName = _T("CComplex::acos(CComplex)");
 LogTest(&logEntry);
 if (!bRes)
   return bRes;
 
-  //Test asin
+  //Test sin
 D = CComplex(1.2,2.8);
+testD.m_fRe = D.real();
+testD.m_fIm = D.imag();
+
 C = sin(D);  //The function returns sine of D
+testC = TsComplexD::Sin(testD);
 _stprintf(szText, _T("sin(D) = %f+i%f "),C.real(),C.imag());
 TRACE0(szText);
 TsWriteToView(szText);
+
+bRes = (abs(C.real() - testC.Re()) <= EPSMIN) && 
+       (abs(C.imag() - testC.Im()) <= EPSMIN);
+
+logEntry.m_bResult = bRes;
+logEntry.m_szObjectName = _T("CComplex::sin(CComplex)");
+LogTest(&logEntry);
+if (!bRes)
+  return bRes;
+
+//Test asin
 C = asin(C);
+testC = TsComplexD::ASin(testC);
 _stprintf(szText, _T("asin(C) = %f+i%f\r\n"),C.real(),C.imag());
 TRACE0(szText);
 TsWriteToView(szText);
@@ -172,12 +268,12 @@ TsWriteToView(szText);
 bRes = bRes &&  (C.real() > 1.19999) && (C.real() < 1.20001) &&
                 (C.imag() > 2.79999) && (C.imag() < 2.80001); //result and previous result
 logEntry.m_bResult = bRes;
-logEntry.m_szObjectName = _T("asin()");
+logEntry.m_szObjectName = _T("CComplex::asin(CComplex)");
 LogTest(&logEntry);
 if (!bRes)
   return bRes;
 
-  //Test atan
+  //Test tan
 TComplex<float> Phi(.94F,1.78F);
 _stprintf(szText, _T("Phi = %f+i%f\r\n"),Phi.real(),Phi.imag());
 TRACE0(szText);
@@ -186,6 +282,17 @@ TComplex<float> X = tan(Phi);  //The function returns tangent of Phi
 _stprintf(szText, _T("tan(Phi) = %f+i%f "),X.real(),X.imag());
 TRACE0(szText);
 TsWriteToView(szText);
+
+testD.m_fRe = Phi.real();
+testD.m_fIm = Phi.imag();
+testC = TsComplexD::Tan(testD);
+bRes = (X.real() == testC.Re()) && (X.imag() == testC.Im());
+
+logEntry.m_bResult = bRes;
+logEntry.m_szObjectName = _T("tan(TComplex<float>)");
+LogTest(&logEntry);
+
+//Test atan
 X = atan(X);
 _stprintf(szText, _T("atan(X) = %f+i%f\r\n"),X.real(),X.imag());
 TRACE0(szText);
@@ -194,24 +301,32 @@ TsWriteToView(szText);
 bRes = bRes &&  (X.real() > 0.93999) && (X.real() < 0.94001) &&
                 (X.imag() > 1.77999) && (X.imag() < 1.78001); //result and previous result
 logEntry.m_bResult = bRes;
-logEntry.m_szObjectName = _T("tan()");
-LogTest(&logEntry);
-logEntry.m_szObjectName = _T("atan()");
+
+logEntry.m_szObjectName = _T("atan(TComplex<float>)");
 LogTest(&logEntry);
 if (!bRes)
   return bRes;
 
-  //Test atanh
+  //Test tanh
 CComplex R(1.0, 0.0); //Real number
 CComplex Res = tanh(R);
 bRes = ( (Res.imag() == 0.0) && 
          (Res.real() >= 0.761594) && (Res.real() <= (0.7615945)) );
+         
+logEntry.m_bResult = bRes;
+logEntry.m_szObjectName = _T("CComplex::tanh(double)");
+LogTest(&logEntry);
+         
 if (bRes)
   {
   Res = atanh(Res);
   bRes = ( (Res.imag() == 0.0) && 
            (Res.real() >= 0.99999) && (Res.real() <= 1.00005) );
   }
+logEntry.m_bResult = bRes;
+logEntry.m_szObjectName = _T("CComplex::atanh(double)");
+LogTest(&logEntry);
+  
 if (!bRes)
   return bRes;
       
@@ -219,6 +334,19 @@ X = tanh(Phi);  //The function returns hyperbolic tangent of Phi
 _stprintf(szText, _T("tanh(Phi) = %f+i%f "), X.real(), X.imag());
 TRACE0(szText);
 TsWriteToView(szText);
+
+testD.m_fRe = Phi.real();
+testD.m_fIm = Phi.imag();
+testC = TsComplexD::TanH(testD);
+bRes = (X.real() == testC.Re()) && (X.imag() == testC.Im());
+
+logEntry.m_bResult = bRes;
+logEntry.m_szObjectName = _T("tanh(TComplex<float>)");
+LogTest(&logEntry);
+if (!bRes)
+  return bRes;
+
+  //Test atanh
 X = atanh(X);
 _stprintf(szText, _T("atanh(X) = %f+i%f\r\n"), X.real(), X.imag());
 TRACE0(szText);
@@ -227,9 +355,7 @@ TsWriteToView(szText);
 bRes = bRes &&  (X.real() > 0.93999) && (X.real() < 0.94001) &&
                 (X.imag() > 1.77999) && (X.imag() < 1.78001); //result and previous result
 logEntry.m_bResult = bRes;
-logEntry.m_szObjectName = _T("tanh()");
-LogTest(&logEntry);
-logEntry.m_szObjectName = _T("atanh()");
+logEntry.m_szObjectName = _T("atanh(TComplex<float>)");
 LogTest(&logEntry);
 if (!bRes)
   return bRes;
@@ -404,6 +530,10 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  10   Biblioteka1.9         2007-05-29 16:37:23  Darko Kolakovic Inserted
+ *       complex number validation
+ *  9    Biblioteka1.8         2007-05-28 17:07:33  Darko Kolakovic
+ *       _STLP_INTERNAL_COMPLEX
  *  8    Biblioteka1.7         2007-05-25 17:28:32  Darko Kolakovic g__MSC_VER
  *  7    Biblioteka1.6         2007-05-24 16:54:06  Darko Kolakovic Test atanh
  *  6    Biblioteka1.5         2007-05-22 16:54:05  Darko Kolakovic 

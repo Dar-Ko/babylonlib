@@ -1,190 +1,531 @@
-// @(#)root/math:$Name:  $:$Id: TComplex.h,v 1.8 2007/02/09 10:15:39 rdm Exp $
-// Author: Federico Carminati   22/04/2004
+/*$Workfile: TestComplex.h$: header file
+  $Revision: 2$ $Date: 2007-05-29 16:37:38$
+  $Author: Darko Kolakovic$
 
+  Complex Numbers
+  Copyright (C) 1995-2004, Rene Brun and Fons Rademakers
+  Federico Carminati   22/04/2004
+*/
+
+// Group=Examples
+
+#ifndef _TESTCOMPLEX_H_
+  //$Workfile: TestComplex.h$ sentry
+  #define _TESTCOMPLEX_H_
+
+#include <float.h> //finite(), isnan()
+////////////////////////////////////////////////////////////////////////////////
+// Helper functions
+inline double TsSign(double a, double b)
+  {
+  return (b >= 0) ? abs(a) : -abs(a);
+  }
+
+inline double TsAbs(double d)
+  {
+  return (d >= 0) ? d : -d;
+  }
+
+inline double TsPi()
+  {
+  return 3.14159265358979323846;
+  }
+
+inline double TsMin(double a, double b)
+  {
+  return a <= b ? a : b;
+  }
+
+inline double TsMax(double a, double b)
+  {
+  return a >= b ? a : b;
+  }
+
+inline double TsATan2(double y, double x)
+  {
+  if (x != 0)
+    return  ::atan2(y, x);
+  if (y == 0)
+    return  0;
+  if (y >  0)
+    return  TsPi()/2;
+  else
+    return -TsPi()/2;
+  }
+
+////////////////////////////////////////////////////////////////////////////////
+//TsComplexD class handles numbers in complex domain |Z| = R + jI. Real and
+//imaginary parts are stored with double precision.
+//This class is used to validate results of complex number arithmetic.
+class TsComplexD
+{
+public:
+  double m_fRe;    //real part
+  double m_fIm;    //imaginary part
+
+public:
+  // ctors and dtors
+  TsComplexD();
+  TsComplexD(double re, double im=0, bool polar = false);
+  virtual ~TsComplexD();
+
+  // constants
+  static TsComplexD I();
+  static TsComplexD One();
+
+  // getters and setters
+  double Re() const;
+  double Im() const;
+  double Rho() const;
+  double Rho2() const;
+  double Theta() const;
+
+  // Simple operators complex - complex
+  TsComplexD operator *(const TsComplexD & c) const;
+  TsComplexD operator +(const TsComplexD & c) const;
+  TsComplexD operator /(const TsComplexD & c) const;
+  TsComplexD operator -(const TsComplexD & c) const;
+
+  TsComplexD operator *=(const TsComplexD & c);
+  TsComplexD operator +=(const TsComplexD & c);
+  TsComplexD operator /=(const TsComplexD & c);
+  TsComplexD operator -=(const TsComplexD & c);
+
+  TsComplexD operator -();
+  TsComplexD operator +();
+
+  // Simple operators complex - double
+  TsComplexD operator *(double c) const;
+  TsComplexD operator +(double c) const;
+  TsComplexD operator /(double c) const;
+  TsComplexD operator -(double c) const;
+
+  // Simple operators double - complex
+  friend TsComplexD operator *(double d, const TsComplexD & c);
+  friend TsComplexD operator +(double d, const TsComplexD & c);
+  friend TsComplexD operator /(double d, const TsComplexD & c);
+  friend TsComplexD operator -(double d, const TsComplexD & c);
+
+  // Convertors
+  operator double () const;
+  operator float  () const;
+  operator int    () const;
+
+  static double Abs(const TsComplexD &c);
+
+  static TsComplexD Sqrt(const TsComplexD &c);
+
+  static TsComplexD Exp(const TsComplexD &c);
+  static TsComplexD Log(const TsComplexD &c);
+  static TsComplexD Log2(const TsComplexD &c);
+  static TsComplexD Log10(const TsComplexD &c);
+
+  static TsComplexD Sin(const TsComplexD &c);
+  static TsComplexD Cos(const TsComplexD &c);
+  static TsComplexD Tan(const TsComplexD &c);
+
+  static TsComplexD ASin(const TsComplexD &c);
+  static TsComplexD ACos(const TsComplexD &c);
+  static TsComplexD ATan(const TsComplexD &c);
+
+  static TsComplexD SinH(const TsComplexD &c);
+  static TsComplexD CosH(const TsComplexD &c);
+  static TsComplexD TanH(const TsComplexD &c);
+
+  static TsComplexD ASinH(const TsComplexD &c);
+  static TsComplexD ACosH(const TsComplexD &c);
+  static TsComplexD ATanH(const TsComplexD &c);
+
+  static TsComplexD Power(const TsComplexD& x, const TsComplexD& y);
+  static TsComplexD Power(const TsComplexD& x, double y);
+  static TsComplexD Power(double x, const TsComplexD& y);
+  static TsComplexD Power(const TsComplexD& x, int y);
+
+  static bool Finite(const TsComplexD& c);
+  static bool IsNaN(const TsComplexD& c);
+
+  static TsComplexD Min(const TsComplexD &a, const TsComplexD &b);
+  static TsComplexD Max(const TsComplexD &a, const TsComplexD &b);
+  static TsComplexD Normalize(const TsComplexD &c);
+  static TsComplexD Conjugate(const TsComplexD &c);
+  static TsComplexD Range(const TsComplexD &lb, const TsComplexD &ub, const TsComplexD &c);
+
+  // I/O
+  friend ostream& operator<<(ostream& out, const TsComplexD& c);
+  friend istream& operator>>(istream& in, TsComplexD& c);
+  friend wostream& operator<<(wostream& out, const TsComplexD& c);
+  friend wistream& operator>>(wistream& in, TsComplexD& c);
+};
+////////////////////////////////////////////////////////////////////////////////
+// Inlines
+
+inline TsComplexD::TsComplexD():
+  m_fRe(0), m_fIm(0)
+  {
+  }
+
+//TsComplexD::TsComplexD(double re, double im=0, bool polar/*=false*/)
+
+inline TsComplexD::~TsComplexD()
+  {
+  }
+
+  // constants
+inline TsComplexD TsComplexD::I()
+  {
+  return TsComplexD(0,1);
+  }
+
+inline TsComplexD TsComplexD::One()
+  {
+  return TsComplexD(1,0);
+  }
+
+// getters and setters
+inline double TsComplexD::Re() const
+  {
+  return m_fRe;
+  }
+
+inline double TsComplexD::Im() const
+  {
+  return m_fIm;
+  }
+
+inline double TsComplexD::Rho() const
+  {
+  return sqrt(m_fRe*m_fRe+m_fIm*m_fIm);
+  }
+
+inline double TsComplexD::Rho2() const
+  {
+  return m_fRe*m_fRe+m_fIm*m_fIm;
+  }
+
+inline double TsComplexD::Theta() const
+  {
+  return (m_fIm||m_fRe)?TsATan2(m_fIm,m_fRe):0;
+  }
+
+inline TsComplexD::TsComplexD(double x, double y, bool polar /*=false*/)
+  {
+  if (polar)
+    {
+    m_fRe = x*cos(y);
+    m_fIm = x*sin(y);
+    }
+  else
+    {
+    m_fRe = x;
+    m_fIm = y;
+    }
+  }
+
+inline TsComplexD::operator double () const
+  {
+  return m_fRe;
+  }
+inline TsComplexD::operator float  () const
+  {
+  return static_cast<float>(m_fRe);
+  }
+inline TsComplexD::operator int    () const
+  {
+  return static_cast<int>(m_fRe);
+  }
+
+// Simple operators complex - complex
+inline TsComplexD TsComplexD::operator *(const TsComplexD & c) const
+  {
+  return TsComplexD(m_fRe*c.m_fRe-m_fIm*c.m_fIm,m_fRe*c.m_fIm+m_fIm*c.m_fRe);
+  }
+
+inline TsComplexD TsComplexD::operator +(const TsComplexD & c) const
+  {
+  return TsComplexD(m_fRe+c.m_fRe, m_fIm+c.m_fIm);
+  }
+
+inline TsComplexD TsComplexD::operator /(const TsComplexD & c) const
+  {
+  return TsComplexD(m_fRe*c.m_fRe+m_fIm*c.m_fIm,
+                    -m_fRe*c.m_fIm+m_fIm*c.m_fRe) / c.Rho2();
+  }
+
+inline TsComplexD TsComplexD::operator -(const TsComplexD & c) const
+  {
+  return TsComplexD(m_fRe-c.m_fRe, m_fIm-c.m_fIm);
+  }
+
+inline TsComplexD TsComplexD::operator *=(const TsComplexD & c)
+  {
+  return ((*this) = (*this) * c);
+  }
+
+inline TsComplexD TsComplexD::operator +=(const TsComplexD & c)
+  {
+  return ((*this) = (*this) + c);
+  }
+
+inline TsComplexD TsComplexD::operator /=(const TsComplexD & c)
+  {
+  return ((*this) = (*this) / c);
+  }
+
+inline TsComplexD TsComplexD::operator -=(const TsComplexD & c)
+  {
+  return ((*this) = (*this) - c);
+  }
+
+
+inline TsComplexD TsComplexD::operator -()
+  {
+  return TsComplexD(-m_fRe,-m_fIm);
+  }
+
+inline TsComplexD TsComplexD::operator +()
+  {
+  return *this;
+  }
+
+// Simple operators complex - double
+inline TsComplexD TsComplexD::operator *(double c) const
+  {
+  return TsComplexD(m_fRe*c,m_fIm*c);
+  }
+
+inline TsComplexD TsComplexD::operator +(double c) const
+  {
+  return TsComplexD(m_fRe+c, m_fIm);
+  }
+
+inline TsComplexD TsComplexD::operator /(double c) const
+  {
+  return TsComplexD(m_fRe/c,m_fIm/c);
+  }
+
+inline TsComplexD TsComplexD::operator -(double c) const
+  {
+  return TsComplexD(m_fRe-c, m_fIm);
+  }
+
+inline double TsComplexD::Abs(const TsComplexD &c)
+  {
+  return c.Rho();
+  }
+
+inline TsComplexD TsComplexD::Sqrt(const TsComplexD &c)
+  {
+  return TsComplexD(sqrt(c.Rho()),0.5*c.Theta(),true);}
+
+//e^c
+inline TsComplexD TsComplexD::Exp(const TsComplexD &c)
+  {
+  return TsComplexD(exp(c.m_fRe), c.m_fIm,true);
+  }
+
+inline TsComplexD TsComplexD::Log(const TsComplexD &c)
+  {
+  return TsComplexD(0.5*log(c.Rho2()),c.Theta());
+  }
+
+inline TsComplexD TsComplexD::Log2(const TsComplexD &c)
+  {
+  return Log(c)/::log(2.);
+  }
+
+inline TsComplexD TsComplexD::Log10(const TsComplexD &c)
+  {
+  return Log(c)/::log(10.);
+  }
+
+
+inline TsComplexD TsComplexD::Sin(const TsComplexD &c)
+  {
+  return TsComplexD(sin(c.m_fRe)*::cosh(c.m_fIm),
+                    cos(c.m_fRe)*::sinh(c.m_fIm));
+  }
+
+inline TsComplexD TsComplexD::Cos(const TsComplexD &c)
+  {
+  return TsComplexD(cos(c.m_fRe)*::cosh(c.m_fIm),
+                    -sin(c.m_fRe)*::sinh(c.m_fIm));
+  }
+
+inline TsComplexD TsComplexD::Tan(const TsComplexD &c)
+  {
+  TsComplexD cc=Cos(c);
+  return Sin(c) * TsComplexD::Conjugate(cc)/cc.Rho2();
+  }
+
+
+inline TsComplexD TsComplexD::ASin(const TsComplexD &c)
+  {
+  return -TsComplexD::I()*Log(TsComplexD::I()*c+ TsSign(1.,c.Im())*Sqrt(1.-c*c));
+  }
+
+inline TsComplexD TsComplexD::ACos(const TsComplexD &c)
+  {
+  return -TsComplexD::I()*Log(c+TsSign(1.,c.Im())*Sqrt(c*c-1.));
+  }
+
+inline TsComplexD TsComplexD::ATan(const TsComplexD &c)
+  {
+  return -0.5*TsComplexD::I()*Log((1.+TsComplexD::I()*c)/(1.-TsComplexD::I()*c));
+  }
+
+
+inline TsComplexD TsComplexD::SinH(const TsComplexD &c)
+  {
+  return TsComplexD(::sinh(c.m_fRe)*cos(c.m_fIm),
+                     ::cosh(c.m_fRe)*sin(c.m_fIm));
+  }
+
+inline TsComplexD TsComplexD::CosH(const TsComplexD &c)
+  {
+  return TsComplexD(::cosh(c.m_fRe)*cos(c.m_fIm),
+                     ::sinh(c.m_fRe)*sin(c.m_fIm));
+  }
+
+inline TsComplexD TsComplexD::TanH(const TsComplexD &c)
+  {
+  TsComplexD cc=CosH(c);
+  return SinH(c)*TsComplexD::Conjugate(cc)/cc.Rho2();
+  }
+
+
+inline TsComplexD TsComplexD::ASinH(const TsComplexD &c)
+  {
+  return Log(c+TsSign(1.,c.Im())*Sqrt(c*c+1.));
+  }
+
+inline TsComplexD TsComplexD::ACosH(const TsComplexD &c)
+  {
+  return Log(c+TsSign(1.,c.Im())*Sqrt(c*c-1.));
+  }
+
+inline TsComplexD TsComplexD::ATanH(const TsComplexD &c)
+  {
+  return 0.5*Log((1.+c)/(1.-c));
+  }
+
+
+inline TsComplexD TsComplexD::Power(const TsComplexD& x, const TsComplexD& y)
+  {
+  double lrho=log(x.Rho());
+  double theta=x.Theta();
+  return TsComplexD(exp(lrho*y.Re()-theta*y.Im()),
+                     lrho*y.Im()+theta*y.Re(),true);
+  }
+
+inline TsComplexD TsComplexD::Power(const TsComplexD& x, double y)
+  {
+  return TsComplexD(::pow(x.Rho(),y),x.Theta()*y,true);
+  }
+
+inline TsComplexD TsComplexD::Power(double x, const TsComplexD& y)
+  {
+  double lrho=log(TsAbs(x));
+  double theta=(x>0)?0:TsPi();
+  return TsComplexD(exp(lrho*y.Re()-theta*y.Im()),
+                     lrho*y.Im()+theta*y.Re(),true);
+  }
+
+inline TsComplexD TsComplexD::Power(const TsComplexD& x, int y)
+  {
+  return TsComplexD(::pow(x.Rho(),y),x.Theta()*y,true);
+  }
+
+
+inline bool TsComplexD::Finite(const TsComplexD& c)
+  {
+  return (::_finite(c.Re()) && ::_finite(c.Im()));
+  }
+
+inline bool TsComplexD::IsNaN(const TsComplexD& c)
+  {
+  return (::_isnan(c.Re()) || ::_isnan(c.Im()));
+  }
+
+
+inline TsComplexD TsComplexD::Min(const TsComplexD &a, const TsComplexD &b)
+  {
+  return a.Rho()<=b.Rho()?a:b;
+  }
+
+inline TsComplexD TsComplexD::Max(const TsComplexD &a, const TsComplexD &b)
+  {
+  return a.Rho()>=b.Rho()?a:b;
+  }
+
+inline TsComplexD TsComplexD::Normalize(const TsComplexD &c)
+  {
+  return TsComplexD(1.,c.Theta(),true);
+  }
+
+inline TsComplexD TsComplexD::Conjugate(const TsComplexD &c)
+  {
+  return TsComplexD(c.Re(),-c.Im());
+  }
+
+inline TsComplexD TsComplexD::Range(const TsComplexD &lb, const TsComplexD &ub, const TsComplexD &c)
+  {
+  return Max(lb,Min(c,ub));
+  }
+
+//______________________________________________________________________________
+inline TsComplexD operator *(double d, const TsComplexD & c)
+  {
+  return TsComplexD(d*c.m_fRe,d*c.m_fIm);
+  }
+inline TsComplexD operator +(double d, const TsComplexD & c)
+  {
+  return TsComplexD(d+c.m_fRe, c.m_fIm);
+  }
+inline TsComplexD operator /(double d, const TsComplexD & c)
+  {
+  return TsComplexD(d*c.m_fRe,-d*c.m_fIm)/c.Rho2();
+  }
+inline TsComplexD operator -(double d, const TsComplexD & c)
+  {
+  return TsComplexD(d-c.m_fRe, -c.m_fIm);
+  }
+
+//______________________________________________________________________________
+inline ostream& operator<<(ostream& out, const TsComplexD& c)
+  {
+  out << "(" << c.m_fRe << "," << c.m_fIm << "i)";
+  return out;
+  }
+
+inline istream& operator>>(istream& in, TsComplexD& c)
+  {
+  in >> c.m_fRe >> c.m_fIm;
+  return in;
+  }
+
+inline wostream& operator<<(wostream& out, const TsComplexD& c)
+  {
+  out << "(" << c.m_fRe << "," << c.m_fIm << "i)";
+  return out;
+  }
+
+inline wistream& operator>>(wistream& in, TsComplexD& c)
+  {
+  in >> c.m_fRe >> c.m_fIm;
+  return in;
+  }
+
+#endif //_TESTCOMPLEX_H_
+////////////////////////////////////////////////////////////////////////////////
 /*************************************************************************
  * Copyright (C) 1995-2004, Rene Brun and Fons Rademakers.               *
  * All rights reserved.                                                  *
  *                                                                       *
  * For the licensing terms see $ROOTSYS/LICENSE.                         *
  * For the list of contributors see $ROOTSYS/README/CREDITS.             *
+ *      GNU LESSER GENERAL PUBLIC LICENSE                                *
+ *         Version 2.1, February 1999                                    *
  *************************************************************************/
-
-#ifndef ROOT_TComplex
-#define ROOT_TComplex
-
-//////////////////////////////////////////////////////////////////////////
-//                                                                      //
-// TComplex                                                             //
-//                                                                      //
-//////////////////////////////////////////////////////////////////////////
-
-#ifndef ROOT_Riosfwd
-#include "Riosfwd.h"
-#endif
-#ifndef ROOT_TMath
-#include "TMath.h"
-#endif
-
-
-class TComplex {
-
-protected:
-   Double_t fRe;    // real part
-   Double_t fIm;    // imaginary part
-
-public:
-   // ctors and dtors
-   TComplex(): fRe(0), fIm(0) {}
-   TComplex(Double_t re, Double_t im=0, Bool_t polar=kFALSE);
-   virtual ~TComplex() {}
-
-   // constants
-   static TComplex I() {return TComplex(0,1);}
-   static TComplex One() {return TComplex(1,0);}
-
-   // getters and setters
-   Double_t Re() const {return fRe;}
-   Double_t Im() const {return fIm;}
-   Double_t Rho() const {return TMath::Sqrt(fRe*fRe+fIm*fIm);}
-   Double_t Rho2() const {return fRe*fRe+fIm*fIm;}
-   Double_t Theta() const {return (fIm||fRe)?TMath::ATan2(fIm,fRe):0;}
-   TComplex operator()(Double_t x, Double_t y, Bool_t polar=kFALSE)
-      { if (polar) { fRe = x*TMath::Cos(y); fIm = x*TMath::Sin(y); }
-        else { fRe = x; fIm = y; } return *this; }
-
-   // Simple operators complex - complex
-   TComplex operator *(const TComplex & c) const
-      {return TComplex(fRe*c.fRe-fIm*c.fIm,fRe*c.fIm+fIm*c.fRe);}
-   TComplex operator +(const TComplex & c) const
-      {return TComplex(fRe+c.fRe, fIm+c.fIm);}
-   TComplex operator /(const TComplex & c) const
-      {return TComplex(fRe*c.fRe+fIm*c.fIm,-fRe*c.fIm+fIm*c.fRe)/c.Rho2();}
-   TComplex operator -(const TComplex & c) const
-      {return TComplex(fRe-c.fRe, fIm-c.fIm);}
-
-   TComplex operator *=(const TComplex & c)
-      {return ((*this) = (*this) * c);}
-   TComplex operator +=(const TComplex & c)
-      {return ((*this) = (*this) + c);}
-   TComplex operator /=(const TComplex & c)
-      {return ((*this) = (*this) / c);}
-   TComplex operator -=(const TComplex & c)
-      {return ((*this) = (*this) - c);}
-
-   TComplex operator -()
-      {return TComplex(-fRe,-fIm);}
-   TComplex operator +()
-      {return *this;}
-
-   // Simple operators complex - double
-   TComplex operator *(Double_t c) const
-      {return TComplex(fRe*c,fIm*c);}
-   TComplex operator +(Double_t c) const
-      {return TComplex(fRe+c, fIm);}
-   TComplex operator /(Double_t c) const
-      {return TComplex(fRe/c,fIm/c);}
-   TComplex operator -(Double_t c) const
-      {return TComplex(fRe-c, fIm);}
-
-   // Simple operators double - complex
-   friend TComplex operator *(Double_t d, const TComplex & c)
-      {return TComplex(d*c.fRe,d*c.fIm);}
-   friend TComplex operator +(Double_t d, const TComplex & c)
-      {return TComplex(d+c.fRe, c.fIm);}
-   friend TComplex operator /(Double_t d, const TComplex & c)
-      {return TComplex(d*c.fRe,-d*c.fIm)/c.Rho2();}
-   friend TComplex operator -(Double_t d, const TComplex & c)
-      {return TComplex(d-c.fRe, -c.fIm);}
-
-   // Convertors
-   operator Double_t () const {return fRe;}
-   operator Float_t  () const {return static_cast<Float_t>(fRe);}
-   operator Int_t    () const {return static_cast<Int_t>(fRe);}
-
-   // TMath:: extensions
-   static TComplex Sqrt(const TComplex &c)
-      {return TComplex(TMath::Sqrt(c.Rho()),0.5*c.Theta(),kTRUE);}
-
-   static TComplex Exp(const TComplex &c)
-      {return TComplex(TMath::Exp(c.fRe),c.fIm,kTRUE);}
-   static TComplex Log(const TComplex &c)
-      {return TComplex(0.5*TMath::Log(c.Rho2()),c.Theta());}
-   static TComplex Log2(const TComplex &c)
-      {return Log(c)/TMath::Log(2);}
-   static TComplex Log10(const TComplex &c)
-      {return Log(c)/TMath::Log(10);}
-
-   static TComplex Sin(const TComplex &c)
-      {return TComplex(TMath::Sin(c.fRe)*TMath::CosH(c.fIm),
-                       TMath::Cos(c.fRe)*TMath::SinH(c.fIm));}
-   static TComplex Cos(const TComplex &c)
-      {return TComplex(TMath::Cos(c.fRe)*TMath::CosH(c.fIm),
-                       -TMath::Sin(c.fRe)*TMath::SinH(c.fIm));}
-   static TComplex Tan(const TComplex &c)
-      {TComplex cc=Cos(c); return Sin(c)*Conjugate(cc)/cc.Rho2();}
-
-   static TComplex ASin(const TComplex &c)
-      {return -I()*Log(I()*c+TMath::Sign(1.,c.Im())*Sqrt(1.-c*c));}
-   static TComplex ACos(const TComplex &c)
-      {return -I()*Log(c+TMath::Sign(1.,c.Im())*Sqrt(c*c-1.));}
-   static TComplex ATan(const TComplex &c)
-      {return -0.5*I()*Log((1.+I()*c)/(1.-I()*c));}
-
-   static TComplex SinH(const TComplex &c)
-      {return TComplex(TMath::SinH(c.fRe)*TMath::Cos(c.fIm),
-                       TMath::CosH(c.fRe)*TMath::Sin(c.fIm));}
-   static TComplex CosH(const TComplex &c)
-      {return TComplex(TMath::CosH(c.fRe)*TMath::Cos(c.fIm),
-                       TMath::SinH(c.fRe)*TMath::Sin(c.fIm));}
-   static TComplex TanH(const TComplex &c)
-      {TComplex cc=CosH(c); return SinH(c)*Conjugate(cc)/cc.Rho2();}
-
-   static TComplex ASinH(const TComplex &c)
-      {return Log(c+TMath::Sign(1.,c.Im())*Sqrt(c*c+1.));}
-   static TComplex ACosH(const TComplex &c)
-      {return Log(c+TMath::Sign(1.,c.Im())*Sqrt(c*c-1.));}
-   static TComplex ATanH(const TComplex &c)
-      {return 0.5*Log((1.+c)/(1.-c));}
-
-   static Double_t Abs(const TComplex &c)
-      {return c.Rho();}
-
-   static TComplex Power(const TComplex& x, const TComplex& y)
-      {Double_t lrho=TMath::Log(x.Rho());
-       Double_t theta=x.Theta();
-       return TComplex(TMath::Exp(lrho*y.Re()-theta*y.Im()),
-                       lrho*y.Im()+theta*y.Re(),kTRUE);}
-   static TComplex Power(const TComplex& x, Double_t y)
-      {return TComplex(TMath::Power(x.Rho(),y),x.Theta()*y,kTRUE);}
-   static TComplex Power(Double_t x, const TComplex& y)
-      {Double_t lrho=TMath::Log(TMath::Abs(x));
-       Double_t theta=(x>0)?0:TMath::Pi();
-       return TComplex(TMath::Exp(lrho*y.Re()-theta*y.Im()),
-                       lrho*y.Im()+theta*y.Re(),kTRUE);}
-   static TComplex Power(const TComplex& x, Int_t y)
-      {return TComplex(TMath::Power(x.Rho(),y),x.Theta()*y,kTRUE);}
-
-   static Int_t Finite(const TComplex& c)
-      {return TMath::Min(TMath::Finite(c.Re()),TMath::Finite(c.Im()));}
-   static Int_t IsNaN(const TComplex& c)
-      {return TMath::Max(TMath::IsNaN(c.Re()),TMath::IsNaN(c.Im()));}
-
-   static TComplex Min(const TComplex &a, const TComplex &b)
-      {return a.Rho()<=b.Rho()?a:b;}
-   static TComplex Max(const TComplex &a, const TComplex &b)
-      {return a.Rho()>=b.Rho()?a:b;}
-   static TComplex Normalize(const TComplex &c)
-      {return TComplex(1.,c.Theta(),kTRUE);}
-   static TComplex Conjugate(const TComplex &c)
-      {return TComplex(c.Re(),-c.Im());}
-   static TComplex Range(const TComplex &lb, const TComplex &ub, const TComplex &c)
-     {return Max(lb,Min(c,ub));}
-
-   // I/O
-   friend ostream& operator<<(ostream& out, const TComplex& c);
-   friend istream& operator>>(istream& in, TComplex& c);
-
-   ClassDef(TComplex,1)  //Complex Class
-};
-
-#endif
+/*CERN ROOT Object Oriented Framework For Large Scale Data Analysis
+  http://root.cern.ch/
+ */

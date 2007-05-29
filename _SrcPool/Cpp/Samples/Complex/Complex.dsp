@@ -191,6 +191,10 @@ SOURCE=..\Common\Res\Win\32\Test.rc
 # End Source File
 # Begin Source File
 
+SOURCE=.\Src\TestComplex.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\Common\Src\TsWriteTxt.cpp
 # End Source File
 # End Group
