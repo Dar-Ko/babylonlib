@@ -1,5 +1,5 @@
 /*$Workfile: KDbgMacr.h$: header file
-  $Revision: 48$ $Date: 2007-03-16 22:26:27$
+  $Revision: 50$ $Date: 2007-05-31 16:43:23$
   $Author: Darko Kolakovic$
 
   Dumps values of some compiler-specific predefined macros
@@ -2247,6 +2247,22 @@ M_I86HM, __HUGE__
       #pragma message ("Boolean typedef.")
     #endif
 #endif /*Boolean*/
+
+/* Definitions of _HUGE and HUGE_VAL - respectively the XENIX and ANSI names
+ * for a value returned in case of error by a number of the floating point
+ * math routines in math.h
+ */
+#ifdef HUGE_VAL
+  #pragma message ("floating point HUGE_VAL defined.")
+#endif
+#ifdef HUGE
+  #pragma message ("floating point HUGE defined.")
+
+#endif
+#ifdef _HUGE
+  /*ANCI C: _STD_C_*/
+  #pragma message ("floating point _HUGE defined.")
+#endif
 
 /*---------------------------------------------------------------------------*/
 /*Third Party Libraries                                                      */

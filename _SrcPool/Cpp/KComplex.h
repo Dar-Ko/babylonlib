@@ -1,5 +1,5 @@
 /*$Workfile: KComplex.h$: header file
-  $Revision: 14$ $Date: 2007-05-29 16:40:36$
+  $Revision: 15$ $Date: 2007-05-31 16:44:10$
   $Author: Darko Kolakovic$
 
   TComplex Numbers: extension to the template std::complex
@@ -249,6 +249,19 @@ return ( (isnan((double) real()) != 0) ||
 
 #include "KMathCst.h" //Constants
 
+//_GetAR()---------------------------------------------------------------------
+/*Helper function for asin and acos. Returns half angle and square root of
+  magnitude.
+ */
+template<class TYPE>
+inline void _GetAR(const TComplex<TYPE>& complexNo, TYPE& Angle, TYPE&R)
+{
+TComplex<TYPE> ccV(1 - SQUARE(complexNo.real()) + SQUARE(complexNo.imag()),
+                     -2*complexNo.real()*complexNo.imag());
+Angle = arg(ccV)/2;
+R   = sqrt(abs(ccV));
+}
+
 //::I()------------------------------------------------------------------------
 /*Multiplies complex number with i.
 
@@ -273,19 +286,6 @@ TComplex<TYPE> exp10(const TComplex<TYPE>& complexNo)
   {
   return TComplex<TYPE>((TYPE)(exp(complexNo.real() * CST_LN10) + cos(complexNo.imag() * CST_LN10)),
                         (TYPE)(exp(complexNo.real() * CST_LN10) + sin(complexNo.imag() * CST_LN10)) );
-  }
-
-//_GetAR()---------------------------------------------------------------------
-/*Helper function for asin and acos. Returns half angle and square root of
-  magnitude.
- */
-template<class TYPE>
-inline void _GetAR(const TComplex<TYPE>& complexNo, TYPE& Angle, TYPE&R)
-  {
-  TComplex<TYPE> ccV(1 - SQUARE(complexNo.real()) + SQUARE(complexNo.imag()),
-                     -2*complexNo.real()*complexNo.imag());
-  Angle = arg(ccV)/2;
-  R = sqrt(abs(ccV));
   }
 
 //acos()-----------------------------------------------------------------------
@@ -420,6 +420,7 @@ else
   }
 
 }
+
 //acosh()----------------------------------------------------------------------
 /*Returns inverse hyperbolic cosine (arccosine).
     {html:<br /><img src="Images/eqPhasorej.gif" border="0">
@@ -498,7 +499,7 @@ return (log(complexNo) / log(2.0));
   */
   template<class TYPE>
   inline std::complex<TYPE>& operator <<(std::complex<TYPE>& Z,_complex Y)
- {
+  {
   return (Z = std::complex<TYPE>((TYPE)Y.x,(TYPE)Y.y));
   }
 #endif  //__STD_COMPLEX

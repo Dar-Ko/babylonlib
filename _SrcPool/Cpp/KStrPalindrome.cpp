@@ -1,5 +1,5 @@
 /*$Workfile: KStrPalindrome.cpp$: implementation file
-  $Revision: 3$ $Date: 2005-06-21 11:11:55$
+  $Revision: 4$ $Date: 2007-05-31 16:44:31$
   $Author: Darko Kolakovic$
 
   Verifies if a string is a palindrome.
@@ -79,7 +79,7 @@ if ((strSource != NULL) && (nLength > 1 ))
   return bResult;
   }
 
-return false; //Failed minumum criteria for a palindrome
+return false; //Failed minimum criteria for a palindrome
 
 }
 

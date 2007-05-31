@@ -1,5 +1,5 @@
 /*$Workfile: TestComplex.h$: header file
-  $Revision: 2$ $Date: 2007-05-29 16:37:38$
+  $Revision: 3$ $Date: 2007-05-31 16:41:23$
   $Author: Darko Kolakovic$
 
   Complex Numbers
@@ -12,6 +12,13 @@
 #ifndef _TESTCOMPLEX_H_
   //$Workfile: TestComplex.h$ sentry
   #define _TESTCOMPLEX_H_
+
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #pragma message ("   #include " __FILE__ )
+#endif
+
+#include <ostream>
+#include <iomanip>    //std::endl
 
 #include <float.h> //finite(), isnan()
 ////////////////////////////////////////////////////////////////////////////////
@@ -151,10 +158,12 @@ public:
   static TsComplexD Range(const TsComplexD &lb, const TsComplexD &ub, const TsComplexD &c);
 
   // I/O
-  friend ostream& operator<<(ostream& out, const TsComplexD& c);
-  friend istream& operator>>(istream& in, TsComplexD& c);
-  friend wostream& operator<<(wostream& out, const TsComplexD& c);
-  friend wistream& operator>>(wistream& in, TsComplexD& c);
+  #if defined (_STL) || defined (_USE_STL)
+    //friend ostream& operator<<(ostream& out, const TsComplexD& c);
+    //friend istream& operator>>(istream& in, TsComplexD& c);
+    //friend wostream& operator<<(wostream& out, const TsComplexD& c);
+    //friend wistream& operator>>(wistream& in, TsComplexD& c);
+  #endif //_STL
 };
 ////////////////////////////////////////////////////////////////////////////////
 // Inlines
@@ -491,29 +500,33 @@ inline TsComplexD operator -(double d, const TsComplexD & c)
   }
 
 //______________________________________________________________________________
-inline ostream& operator<<(ostream& out, const TsComplexD& c)
-  {
-  out << "(" << c.m_fRe << "," << c.m_fIm << "i)";
-  return out;
-  }
+#if defined (_STL) || defined (_USE_STL)
 
-inline istream& operator>>(istream& in, TsComplexD& c)
-  {
-  in >> c.m_fRe >> c.m_fIm;
-  return in;
-  }
+  //inline ostream& operator<<(ostream& out, const TsComplexD& c)
+  inline int& operator<<(int& out, const TsComplexD& c)
+    {
+    //out << "(" << c.m_fRe << "," << c.m_fIm << "i)";
+    return out;
+    }
+/*
+  inline istream& operator>>(istream& in, TsComplexD& c)
+    {
+    in >> c.m_fRe >> c.m_fIm;
+    return in;
+    }
 
-inline wostream& operator<<(wostream& out, const TsComplexD& c)
-  {
-  out << "(" << c.m_fRe << "," << c.m_fIm << "i)";
-  return out;
-  }
+  inline wostream& operator<<(wostream& out, const TsComplexD& c)
+    {
+    out << "(" << c.m_fRe << "," << c.m_fIm << "i)";
+    return out;
+    }
 
-inline wistream& operator>>(wistream& in, TsComplexD& c)
-  {
-  in >> c.m_fRe >> c.m_fIm;
-  return in;
-  }
+  inline wistream& operator>>(wistream& in, TsComplexD& c)
+    {
+    in >> c.m_fRe >> c.m_fIm;
+    return in;
+    }*/
+#endif //_STL
 
 #endif //_TESTCOMPLEX_H_
 ////////////////////////////////////////////////////////////////////////////////

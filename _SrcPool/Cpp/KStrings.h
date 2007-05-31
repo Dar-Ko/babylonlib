@@ -1,5 +1,5 @@
 /*$Workfile: KStrings.h$: implementation file
-  $Revision: 30$ $Date: 2005-06-21 17:48:03$
+  $Revision: 31$ $Date: 2007-05-31 16:42:41$
   $Author: Darko Kolakovic$
 
   String manipulation
@@ -92,6 +92,7 @@ int EnumSubstring(const TCHAR* strSource,const TCHAR* szDelimiter);
 int GetLine(LPTSTR& szSource, LPTSTR& szLine);
 bool IsPalindrome(LPCTSTR szSource);
 bool IsPalindrome(LPCTSTR strSource, unsigned int);
+bool IsVowel(TCHAR ch);
 unsigned int StrPrefix(LPCTSTR szOperand1, LPCTSTR szOperand2);
 /* ///////////////////////////////////////////////////////////////////////// */
 /* STL functions                                                             */

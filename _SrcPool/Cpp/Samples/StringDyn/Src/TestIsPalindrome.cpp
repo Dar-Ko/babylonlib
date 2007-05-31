@@ -1,6 +1,6 @@
 /*$Workfile: TestIsPalindrome.cpp$: implementation file
-  $Revision: 4$ $Date: 2004-10-12 11:49:04$
-  $Author: Darko$
+  $Revision: 5$ $Date: 2007-05-31 16:40:19$
+  $Author: Darko Kolakovic$
 
   Test IsPalindrome methods
   Copyright: CommonSoft Inc.
@@ -108,7 +108,7 @@ struct tagTestPalindromeAtoi
   _T("Wash my transgressions, not only my face."),false,  // B palindrome (EN)
   #ifndef _UNICODE
     #ifdef _DEBUG
-       //Note: in debug mode characters > 127 generates assertations,
+       //Note: in debug mode characters > 127 generates assertions,
        //      causing break of the automated test
       _T("NI?ON ANOMHMATA MH MONAN O>IN"),         true,  // C palindrome (GR)
     #else

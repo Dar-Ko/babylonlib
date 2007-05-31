@@ -1,5 +1,5 @@
 /*$Workfile: KProgCst.h$: header file
-  $Revision: 26$ $Date: 2005-07-27 16:30:22$
+  $Revision: 28$ $Date: 2007-05-31 16:43:24$
   $Author: Darko Kolakovic$
 
   Constants
@@ -211,8 +211,9 @@ const unsigned long GiB = 0x40000000UL;
     Presentation of NaNs according to IEC 559:
 
       quiet NaN         -1.#IND,
-      signaling NaN     -1.#INF,
-      positive infinity  1.#INF                                              */
+      signaling NaN     -1.#INF, //TODO: Check this D.K.
+      positive infinity  1.#INF                                              
+   */
   typedef union tagNaN_NUMBER
     {
     unsigned long llValue[2]; /*Low and high-order integers of NaN           */
@@ -261,18 +262,35 @@ const unsigned long GiB = 0x40000000UL;
     #define _GET_DWORD_ALIGNP(pBYTE) (*((DWORD*)pBYTE))
   #endif
 
-    /*High-order long for double quiet NaN (not a number)                    */
+    /*QNaN High-order long for double quiet NaN (not a number)                    
+      denotes indeterminate operations.
+
+      See also: CST_dQNaN
+     */
   #define NaN_DQUIET       0xFFF80000
-    /*High-order long for double signaling NaN (not a number)                */
+    /*SNaN High-order long for double signaling NaN (not a number) 
+      denotes invalid operations.
+
+      See also: CST_dSNaN
+     */
   #define NaN_DSIGNAL      0xFFF00000
-    /*High-order long for double positive infinity                           */
+    /*High-order long for double positive infinity.
+    
+      See also: CST_dINF
+     */
   #define NaN_DPOSINFINITY 0x7FF00000
+    /*High-order long for double negative infinity.                           
+      The sign bit distinguishes between negative infinity and positive infinity. 
+     */
+  #define NaN_DNEGINFINITY (-NaN_DPOSINFINITY)
+
     /*High-order long for float quiet NaN (not a number)                     */
   #define NaN_FQUIET       0xFFC00000
     /*High-order long for float signaling NaN (not a number)                 */
   #define NaN_FDSIGNAL     0xFF800000
     /*High-order long for float positive infinity                            */
   #define NaN_FPOSINFINITY 0x7F800000
+  #define NaN_FNEGINFINITY (-NaN_FPOSINFINITY)
 
 #endif  /*_M_IX86   Intel x86 CPU                                            */
 

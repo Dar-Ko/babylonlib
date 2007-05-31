@@ -42,6 +42,7 @@ RSC=rc.exe
 # PROP Output_Dir "..\bin\Debug_SBCS\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS\StringDyn\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
@@ -66,6 +67,7 @@ LINK32=link.exe
 # PROP Output_Dir "..\bin\Release_SBCS\Win32"
 # PROP Intermediate_Dir "..\Obj\Release_SBCS\StringDyn\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /c
 # SUBTRACT CPP /YX
@@ -90,6 +92,7 @@ LINK32=link.exe
 # PROP Output_Dir "..\bin\Debug_Unicode\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode\StringDyn\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
@@ -114,6 +117,7 @@ LINK32=link.exe
 # PROP Output_Dir "..\bin\Release_Unicode\Win32"
 # PROP Intermediate_Dir "..\Obj\Release_Unicode\StringDyn\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_STL" /FR /FD /c
 # SUBTRACT CPP /YX
@@ -147,6 +151,10 @@ SOURCE=..\..\KStrPalindrome.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KStrVowel.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KTestLog.cpp
 # End Source File
 # Begin Source File
@@ -168,6 +176,10 @@ SOURCE=.\Src\TestCommonStringDyn.cpp
 # Begin Source File
 
 SOURCE=.\Src\TestIsPalindrome.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestIsVowel.cpp
 # End Source File
 # Begin Source File
 
@@ -205,6 +217,10 @@ SOURCE=.\Src\TestCptString.h
 # Begin Group "Logs"
 
 # PROP Default_Filter "*.log"
+# Begin Source File
+
+SOURCE=.\LibraryTest.log
+# End Source File
 # Begin Source File
 
 SOURCE=.\LibraryTestUni.log

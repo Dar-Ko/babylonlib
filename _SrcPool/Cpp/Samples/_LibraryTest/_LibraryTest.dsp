@@ -43,6 +43,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS\_LibraryTest\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
@@ -68,6 +69,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode\_LibraryTest\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "_DEBUG" /D "_UNICODE" /D "WIN32" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
@@ -92,6 +94,7 @@ LINK32=link.exe
 # PROP Output_Dir "..\bin\Release_SBCS\Win32"
 # PROP Intermediate_Dir "..\Obj\Release_SBCS\_LibraryTest\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_STL" /FR /FD /c
 # SUBTRACT CPP /YX
@@ -116,6 +119,7 @@ LINK32=link.exe
 # PROP Output_Dir "..\bin\Release_Unicode\Win32"
 # PROP Intermediate_Dir "..\Obj\Release_Unicode\_LibraryTest\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /D "NDEBUG" /D "_UNICODE" /D "WIN32" /D "_CONSOLE" /D "_STL" /FR /FD /c
 # SUBTRACT CPP /YX
@@ -258,6 +262,10 @@ SOURCE=..\Assert\Src\TestCommonAssert.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\Complex\Src\TestCommonComplex.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\Console\Src\TestCommonConsole.cpp
 # End Source File
 # Begin Source File
@@ -296,6 +304,10 @@ SOURCE=..\StringDyn\Src\TestCommonStringDyn.cpp
 
 SOURCE=..\Utilities\Src\TestCommonUtilities.cpp
 # ADD CPP /I ".."
+# End Source File
+# Begin Source File
+
+SOURCE=..\Complex\Src\TestComplex.cpp
 # End Source File
 # Begin Source File
 
@@ -396,6 +408,10 @@ SOURCE=..\HtmlIO\Src\TestXmlString.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\Complex\Src\TestZAssert.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\Common\Src\TsWriteTxt.cpp
 # End Source File
 # End Group
@@ -404,7 +420,19 @@ SOURCE=..\Common\Src\TsWriteTxt.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\..\KComplex.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KComplxB.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\Common\Src\Win\stdafx.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Complex\Src\TestComplex.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

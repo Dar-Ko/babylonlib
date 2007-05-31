@@ -1,6 +1,6 @@
 /*$Workfile: KProgCst.inl$: header file
-  $Revision: 18$ $Date: 2005-04-30 23:28:12$
-  $Author: Darko$
+  $Revision: 19$ $Date: 2007-05-31 16:43:25$
+  $Author: Darko Kolakovic$
 
   Constants
   Copyright: CommonSoft Inc.
@@ -35,6 +35,13 @@
     }
 #endif
 
+#ifdef _MSC_VER     //Microsoft VC
+  #include <float.h>
+  #ifndef __cplusplus
+    #define IsNaN(dvalue)   (_isnan(dvalue) != 0)
+  #endif
+#endif
+
 /////////////////////////////////////////////////////////////////////////////
 //Constants
 #ifdef _M_IX86    //Intel x86 CPU
@@ -47,10 +54,10 @@
     #define CST_fROUNDOFF FLT_EPSILON
   #endif  //_ROUNDOFF_INC_
 
-  #ifndef CST_dNaN
+  #ifndef CST_dQNaN
            //double quiet NaN (not a number) -1.#IND according to IEC 559
-    const NaN_NUMBER CST_dNaN  = {0x0,NaN_DQUIET};
-    #define CST_dNaN CST_dNaN
+    const NaN_NUMBER CST_dQNaN  = {0x0,NaN_DQUIET};
+    #define CST_dQNaN CST_dQNaN
   #endif
   #ifndef CST_dSNaN
            //double signaling NaN (not a number) -1.#INF
@@ -59,6 +66,7 @@
     #define CST_dSNaN CST_dSNaN
   #endif
   #ifndef CST_dINF
+    //See also: HUGE_VAL, _HUGE, math.h
     const NaN_NUMBER CST_dINF  = {0x0,NaN_DPOSINFINITY};
     #define CST_dINF CST_dINF
   #endif
@@ -69,7 +77,7 @@
 //Template functions
 #ifdef __cplusplus
 ///////////////////////////////////////////////////////////////////////////////
-#include <Math.h>
+#include <math.h>
 
 #ifndef _ROUNDOFF_INC_ //define different roundoff than it is in <float.h>
  #ifndef IsZero
@@ -123,12 +131,12 @@ inline bool IsEqual(const double& a, const double& b)
 
 //IsNaN()----------------------------------------------------------------------
 #ifdef _MSC_VER     //Microsoft VC++
-  #include <Float.h>
-  #define IsNaN(dvalue)   (_isnan(dvalue) != 0)
+ inline bool IsNaN(const double& dValue)
+   {
+   return (_isnan(dValue) != 0);
+   }
 #else
   #define _KEXAMIN_NAN_FUNC 1
-  //Reason of using _KEXAMIN_NAN_FUNC instead #elif is to include comment of
-  //IsNan() into documentation generator project D.K.
 #endif
 
 #ifdef _KEXAMIN_NAN_FUNC
@@ -152,6 +160,8 @@ inline bool IsEqual(const double& a, const double& b)
       if (IsNaN(dTest))
         wprintf("Undefined result for x = %f",x);
       }
+
+   See also: HUGE_VAL, _HUGE, math.h
  */
 inline bool IsNaN(const double& dValue)
   {

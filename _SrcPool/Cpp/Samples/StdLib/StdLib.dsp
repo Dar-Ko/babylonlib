@@ -44,6 +44,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS\StdLib\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /FAs /FR /FD /GZ /c
 # SUBTRACT BASE CPP /YX
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /FAs /FR /FD /GZ /c
@@ -71,6 +72,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode\StdLib\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /FAs /FR /FD /GZ /c
 # SUBTRACT BASE CPP /YX
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /FAs /FR /FD /GZ /c
@@ -96,6 +98,7 @@ LINK32=link.exe
 # PROP Output_Dir "..\bin\Release_SBCS\Win32"
 # PROP Intermediate_Dir "..\Obj\Release_SBCS\StdLib\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /FR /FD /c
 # SUBTRACT BASE CPP /YX
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /FR /FD /c
@@ -121,6 +124,7 @@ LINK32=link.exe
 # PROP Output_Dir "..\bin\Release_Unicode\Win32"
 # PROP Intermediate_Dir "..\Obj\Release_Unicode\StdLib\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /FR /FD /c
 # SUBTRACT BASE CPP /YX
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /I "..\Common\Res\Win\32" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /FR /FD /c
@@ -174,10 +178,46 @@ SOURCE=..\Common\Res\Win\32\Test.rc
 
 SOURCE=.\Src\TestCommonStdLib.c
 # End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestLimits.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestNaNC.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestPrinF.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestPrintF.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestStdExc.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestStdStrCmp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestStdStrDup.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\KProgCst.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KProgCst.inl
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\KStdLib.h

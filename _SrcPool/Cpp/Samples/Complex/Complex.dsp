@@ -161,6 +161,10 @@ SOURCE=.\Src\TestCommonComplex.cpp
 
 SOURCE=.\Src\TestComplex.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=..\Numeric\Src\TestNaN.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -183,6 +187,10 @@ SOURCE=..\..\KPhysCst.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KProgCst.inl
+# End Source File
+# Begin Source File
+
 SOURCE=..\Common\Src\Win\stdafx.cpp
 # End Source File
 # Begin Source File
@@ -192,6 +200,10 @@ SOURCE=..\Common\Res\Win\32\Test.rc
 # Begin Source File
 
 SOURCE=.\Src\TestComplex.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestZAssert.h
 # End Source File
 # Begin Source File
 

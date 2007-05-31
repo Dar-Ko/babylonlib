@@ -44,6 +44,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS\Numeric\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /FD /GZ /c
 # SUBTRACT BASE CPP /YX
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
@@ -71,6 +72,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Release_SBCS\Numeric\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /I "..\.." /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_STL" /FD /c
 # SUBTRACT CPP /YX
@@ -97,6 +99,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode\Numeric\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /FD /GZ /c
 # SUBTRACT BASE CPP /YX
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "_DEBUG" /D "_UNICODE" /D "UNICODE" /D "WIN32" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
@@ -124,6 +127,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Release_Unicode\Numeric\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /I "..\.." /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "NDEBUG" /D "_UNICODE" /D "UNICODE" /D "WIN32" /D "_CONSOLE" /D "_STL" /FD /c
 # SUBTRACT CPP /YX
@@ -265,6 +269,10 @@ SOURCE=.\Src\TestLcm.cpp
 # Begin Source File
 
 SOURCE=.\Src\TestLinkedList.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestNaN.cpp
 # End Source File
 # Begin Source File
 

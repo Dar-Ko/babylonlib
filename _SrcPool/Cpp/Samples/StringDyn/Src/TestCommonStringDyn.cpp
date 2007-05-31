@@ -1,6 +1,6 @@
 /*$Workfile: TestCommonStringDyn.cpp$: implementation file
-  $Revision: 1$ $Date: 2004-10-04 13:15:29$
-  $Author: Darko$
+  $Revision: 2$ $Date: 2007-05-31 16:41:22$
+  $Author: Darko Kolakovic$
 
   Test debugging and tracing routines.
   Copyright: CommonSoft Inc.
@@ -16,6 +16,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TestStringHandler();
 extern bool TestIsPalindrome();
+extern bool TestIsVowel();
 
 //-----------------------------------------------------------------------------
 /*Defines the entry point for the console application that validates a string
@@ -32,7 +33,8 @@ TsWriteToViewLn(_T(""));
 PFUNC_TEST funcTest[] =
   {
   TestStringHandler,
-  TestIsPalindrome
+  TestIsPalindrome,
+  TestIsVowel
   };
 
 int iTestCount = 0;
@@ -57,6 +59,7 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-05-31 16:41:22  Darko Kolakovic Test NaN
  *  1    Biblioteka1.0         2004-10-04 13:15:29  Darko           
  * $
  *****************************************************************************/

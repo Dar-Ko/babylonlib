@@ -1,5 +1,5 @@
 /*$Workfile: KZLineIn.cpp$: implementation file
-  $Revision: 10$ $Date: 2007-05-28 17:04:29$
+  $Revision: 12$ $Date: 2007-05-31 16:43:27$
   $Author: Darko Kolakovic$
 
   Line impedance calculation
@@ -56,7 +56,7 @@
       ---+  +---------------------------------------+
    -->
   The characteristic (surge) impedance of a uniform transmission line is:<br />
-  <img src="Images/eqZ0.gif" alt="Z0=sqtrt((R+j&omega;L)/(G+j&omega;L))" /><br /.
+  <img src="Images/eqZ0.gif" alt="Z0=sqrt((R+j&omega;L)/(G+j&omega;L))" /><br /.
   where:<dl>
     <dd><i>R</i> is the resistance per unit length,</dd>
     <dd><i>L</i> is the inductance per unit length,</dd>
@@ -97,8 +97,8 @@ CComplex GetLineZin(CComplex        ZL,          //[in] terminating impedance
 CComplex Zin(0., 0.); //Result
 if (Z0 == 0.)   //If Z0 == 0 +j0
   {
-  Zin.real(CST_dNaN);
-  Zin.imag(CST_dNaN);
+  Zin.real(CST_dQNaN);
+  Zin.imag(CST_dQNaN);
   return Zin;
   }
 

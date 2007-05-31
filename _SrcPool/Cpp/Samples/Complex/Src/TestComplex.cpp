@@ -1,5 +1,5 @@
 /*$Workfile: TestComplex.cpp$: implementation file
-  $Revision: 10$ $Date: 2007-05-29 16:37:23$
+  $Revision: 12$ $Date: 2007-05-31 16:41:23$
   $Author: Darko Kolakovic$
 
   Complex number arithmetics test
@@ -11,9 +11,9 @@
 
 #include "stdafx.h"
 #include "KDbgMacr.h" //Compiler specific constants
+#include "KProgCst.inl" //NaN constants
 #include "KComplex.h" //CComplex class
-#include "KTestLog.h" //TESTENTRY struct
-#include "TestComplex.h" //Test complex number class
+#include "TestZAssert.h" //Test validation class
 
 int s0 = g__WINVER;
 #ifdef _MSC_VER
@@ -45,12 +45,17 @@ int s2 = g__cplusplus_VER;
 
 
 extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 //TestComplex()--------------------------------------------------------------
 /*Function evaluates operations with complex numbers.
+
+  Returns: true if successful, otherwise returns false.
  */
 bool TestComplex()
 {
+TsWriteToViewLn(_T("TestComplex()"));
+
 TCHAR szText[512];
 bool bRes = true;
 TESTENTRY logEntry = 
@@ -59,7 +64,6 @@ TESTENTRY logEntryBase =
   {_T("TComplexBase"), _T("KComplxB.h"), false};
 
 double EPSMIN = 1e-10; //rounding error
-double EPSMAX = 1e-4;
 
 #ifdef  _COMPLEX_DEFINED  //included <math.h>
     //Complex number as structure defined in <math.h>
@@ -105,8 +109,21 @@ double EPSMAX = 1e-4;
 
     //Complex number as template class as defined in <Complex>
   TsWriteToView(_T("\r\nstd::abs(A) calculates the absolute value of a std::complex<int> number\r\n"));
-  std::complex<int> A(5,6);
+  std::complex<int> A(45,46);
+  A.real(5); //Test assigning number parts
+  A.imag(6);
   A << B; //Copy complex numbers
+  #ifdef  _COMPLEX_DEFINED
+    logEntry.m_bResult = ((A.real() == (int)B.x) && (A.imag() == (int)B.y));
+    logEntry.m_szFileName = _T("KComplex.h");
+    logEntry.m_szObjectName = _T("operator <<(std::complex<int>&,_complex)");
+  #else
+    logEntry.m_bResult = ((A.real() == (int)B.real()) && (A.imag() == (int)B.imag()));
+    logEntry.m_szFileName = _T("KComplex.h");
+    logEntry.m_szObjectName = _T("operator <<(std::complex<int>&,TComplexBase<double>)");
+  #endif
+  LogTest(&logEntry);
+
   _stprintf(szText, _T("std::complex<int> A = (int)B = %d+i%d\r\n"),A.real(),A.imag());
   TsWriteToView(szText);
     //The std::abs(A) function returns the magnitude of A
@@ -230,8 +247,9 @@ _stprintf(szText, _T("acos(C) = %f+i%f\r\n"),C.real(),C.imag());
 TRACE0(szText);
 TsWriteToView(szText);
 
-bRes = bRes &&  (C.real() > 1.19999) && (C.real() < 1.20001) &&
-                (C.imag() > 2.79999) && (C.imag() < 2.80001); //result and previous result
+bRes = (abs(C.real() - testC.Re()) <= EPSMIN) && 
+       (abs(C.imag() - testC.Im()) <= EPSMIN);
+
 logEntry.m_bResult = bRes;
 logEntry.m_szObjectName = _T("CComplex::acos(CComplex)");
 LogTest(&logEntry);
@@ -265,8 +283,9 @@ _stprintf(szText, _T("asin(C) = %f+i%f\r\n"),C.real(),C.imag());
 TRACE0(szText);
 TsWriteToView(szText);
 
-bRes = bRes &&  (C.real() > 1.19999) && (C.real() < 1.20001) &&
-                (C.imag() > 2.79999) && (C.imag() < 2.80001); //result and previous result
+bRes = (abs(C.real() - testC.Re()) <= EPSMIN) && 
+       (abs(C.imag() - testC.Im()) <= EPSMIN);
+
 logEntry.m_bResult = bRes;
 logEntry.m_szObjectName = _T("CComplex::asin(CComplex)");
 LogTest(&logEntry);
@@ -286,11 +305,15 @@ TsWriteToView(szText);
 testD.m_fRe = Phi.real();
 testD.m_fIm = Phi.imag();
 testC = TsComplexD::Tan(testD);
-bRes = (X.real() == testC.Re()) && (X.imag() == testC.Im());
+
+bRes = (abs(X.real() - testC.Re()) <= EPSMIN) && 
+       (abs(X.imag() - testC.Im()) <= EPSMIN);
 
 logEntry.m_bResult = bRes;
 logEntry.m_szObjectName = _T("tan(TComplex<float>)");
 LogTest(&logEntry);
+if (!bRes)
+  return bRes;
 
 //Test atan
 X = atan(X);
@@ -298,30 +321,38 @@ _stprintf(szText, _T("atan(X) = %f+i%f\r\n"),X.real(),X.imag());
 TRACE0(szText);
 TsWriteToView(szText);
 
-bRes = bRes &&  (X.real() > 0.93999) && (X.real() < 0.94001) &&
-                (X.imag() > 1.77999) && (X.imag() < 1.78001); //result and previous result
-logEntry.m_bResult = bRes;
+testC = TsComplexD::ATan(testC);
 
+bRes = (abs(X.real() - testC.Re()) <= EPSMIN) && 
+       (abs(X.imag() - testC.Im()) <= EPSMIN);
+
+logEntry.m_bResult = bRes;
 logEntry.m_szObjectName = _T("atan(TComplex<float>)");
 LogTest(&logEntry);
 if (!bRes)
   return bRes;
 
-  //Test tanh
+  //Test tanh(x+j0)
 CComplex R(1.0, 0.0); //Real number
-CComplex Res = tanh(R);
-bRes = ( (Res.imag() == 0.0) && 
-         (Res.real() >= 0.761594) && (Res.real() <= (0.7615945)) );
+C = tanh(R);
+
+testC = TsComplexD::ATan(TsComplexD(R.real(), R.imag()));
+
+bRes = (abs(C.real() - testC.Re()) <= EPSMIN) && 
+       (abs(C.imag() - testC.Im()) <= EPSMIN);
          
 logEntry.m_bResult = bRes;
 logEntry.m_szObjectName = _T("CComplex::tanh(double)");
 LogTest(&logEntry);
-         
+if (!bRes)
+  return bRes;
+
+//Test atanh(x+j0)
 if (bRes)
   {
-  Res = atanh(Res);
-  bRes = ( (Res.imag() == 0.0) && 
-           (Res.real() >= 0.99999) && (Res.real() <= 1.00005) );
+  C = atanh(C);
+  bRes = ( (C.imag() == 0.0) && 
+           (C.real() >= 0.99999) && (C.real() <= 1.00005) );
   }
 logEntry.m_bResult = bRes;
 logEntry.m_szObjectName = _T("CComplex::atanh(double)");
@@ -473,10 +504,12 @@ bRes = bRes && logEntryBase.m_bResult;
 return bRes;
 }
 
-//TestPointToComplex()------------------------------------------------------
-/*Test conversion from CPoint to complex number
- */
 #ifndef _CONSOLE //GUI application
+//TestPointToComplex()------------------------------------------------------
+/*Test conversion from CPoint to complex number.
+
+  Returns: true if successful, otherwise returns false.
+ */
   bool TestPointToComplex(CPoint& ptPos //[in] current pointer position
                          )
   {
@@ -527,9 +560,88 @@ return bRes;
   }
 #endif //_CONSOLE
 
+const int TESTSIZE = 18;
+TestCComplex g_arrTestD[TESTSIZE] = 
+  {
+  TestCComplex(  0.0, 0.0), // 0: Z =  0
+  TestCComplex(  1.0, 0.0), // 1: Z =  1 
+  TestCComplex(  0.0, 1.0), // 2: Z =     j
+  TestCComplex(  1.0, 1.0), // 3: Z =  1 +j
+  TestCComplex( -1.0, 0.0), // 4: Z = -1 
+  TestCComplex(  0.0,-1.0), // 5: Z =    -j
+  TestCComplex( -1.0,-1.0), // 6: Z = -1 -j
+  TestCComplex(  CST_dINF, 0.0     ), // 7: Z =  1.#INF 
+  TestCComplex(  0.0,      CST_dINF), // 8: Z =          j1.#INF
+  TestCComplex(  CST_dINF, CST_dINF), // 9: Z =  1.#INF +j1.#INF
+  TestCComplex(  3.2,  4.2 ), //10: Z =  3.2  +j4.2
+  TestCComplex( -4.3,  6.1 ), //11: Z = -4.34 +j6.1
+  TestCComplex(  1.2,  2.8 ), //12: Z =  1.2  +j2.8
+  TestCComplex(  0.98,-1.78), //13: Z =  0.98 -j1.78
+  TestCComplex( -3.2, -4.8 ), //14: Z = -3.2  -j4.8
+  TestCComplex(  0.4, -0.4 ), //15: Z =  0.4  -j0.4
+  TestCComplex(100.0,  0.0 ), //16: Z = -100
+  TestCComplex( -1E3,  1E2 ), //17: Z = -1000 +j100
+  
+  };
+
+//-----------------------------------------------------------------------------
+/*Function evaluates additional operations with complex numbers.
+
+  Returns: true if successful, otherwise returns false.
+ */
+bool TestCComplexExt()
+{
+TsWriteToViewLn(_T("TestComplexExt()"));
+typedef CComplex (*PFUNCCOMPLEXEXT_TEST) (const CComplex&);
+struct tagSFuncTest
+  {
+  PFUNCCOMPLEXEXT_TEST m_func; //function to test
+  LPCTSTR m_funcName;          //name of the function
+  };
+bool bRes = false;  
+
+tagSFuncTest funcTest[] =
+  {
+  {I    , _T("I(const CComplex&)")    }, // 0
+  {exp10, _T("exp10(const CComplex&)")}, // 1
+  {log2 , _T("log2(const CComplex&)") }, // 2
+  {acos , _T("acos(const CComplex&)") }, // 3
+  {asin , _T("asin(const CComplex&)") }, // 4
+  {tan  , _T("tan(const CComplex&)")  }, // 5
+  {atan , _T("atan(const CComplex&)") }, // 6
+  {acosh, _T("acosh(const CComplex&)")}, // 7
+  {asinh, _T("asinh(const CComplex&)")}, // 8
+  {tanh , _T("tanh(const CComplex&)") }, // 9
+  {atanh, _T("atanh(const CComplex&)")}, //10 
+  {asech, _T("asech(const CComplex&)")}, //11
+  {acoth, _T("acoth(const CComplex&)")}, //12
+
+  {NULL, NULL}
+  };
+
+int f = 0; //function number
+while (funcTest[f].m_func != NULL)
+  {
+  int c = 0; //tested value number
+  while(c < TESTSIZE)
+    {
+    g_arrTestD[c].m_szFileName = _T("KComplex.h");
+    g_arrTestD[c].m_szObjectName = funcTest[f].m_funcName;
+    funcTest[f].m_func(CComplex(g_arrTestD[c]));
+    g_arrTestD[c].Write();
+    c++;
+    }
+  f++;
+  }
+
+return bRes;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  12   Biblioteka1.11        2007-05-31 16:41:23  Darko Kolakovic Test NaN
+ *  11   Biblioteka1.10        2007-05-30 16:47:01  Darko Kolakovic Automate test
  *  10   Biblioteka1.9         2007-05-29 16:37:23  Darko Kolakovic Inserted
  *       complex number validation
  *  9    Biblioteka1.8         2007-05-28 17:07:33  Darko Kolakovic

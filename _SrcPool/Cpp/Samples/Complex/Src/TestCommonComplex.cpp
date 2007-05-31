@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Complex\Src\TestCommonComplex.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-05-22 17:37:00$
+/*$Workfile: TestCommonComplex.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-05-31 16:41:19$
   $Author: Darko Kolakovic$
 
   Testing complex number calculations.
@@ -14,7 +14,9 @@
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
+extern bool TestNaN();
 extern bool TestComplex();
+extern bool TestCComplexExt();
 extern bool TestPointToComplex();
 
 int TestCommonComplex();
@@ -39,7 +41,9 @@ TsWriteToViewLn(_T(""));
 
 PFUNC_TEST funcTest[] =
   {
-  TestComplex,
+  TestNaN,
+  //TestComplex,
+  TestCComplexExt,
   TestPointToComplex,
   NULL
   };

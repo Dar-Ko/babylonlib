@@ -1,6 +1,6 @@
 /*$Workfile: TestLimits.c$: implementation file
-  $Revision: 2$ $Date: 2005-03-12 17:17:09$
-  $Author: Darko$
+  $Revision: 3$ $Date: 2007-05-31 16:41:37$
+  $Author: Darko Kolakovic$
 
   Test prototypes limits
   Copyright: CommonSoft Inc.
@@ -129,3 +129,54 @@ limits_main()
   test_int_limits();
 }
 */
+
+/* Definitions of _HUGE and HUGE_VAL - respectively the XENIX and ANSI names
+ * for a value returned in case of error by a number of the floating point
+ * math routines math.h
+ */
+#ifdef HUGE_VAL
+  #pragma message ("HUGE_VAL")
+#endif
+#ifdef HUGE
+  #pragma message ("HUGE")
+#endif
+#ifdef _HUGE
+  #pragma message ("_HUGE")
+#endif
+
+#include <stdio.h>
+#include <float.h>
+#include <math.h>
+#include <fenv.h>
+
+const double infd=(double)1.0/(double)0.0;
+
+void testinf(double v) 
+{
+  if (v == infd)
+    puts("infinity");
+
+  else if (v == DBL_MAX)
+    puts("ok nearest");
+
+  else
+    puts("error?");
+}
+
+int
+main()
+{
+  volatile double max=DBL_MAX;
+
+#if 0
+  fesetround (FE_UPWARD);   
+#endif
+
+  if (fegetround() == FE_TONEAREST)
+    puts ("rounding to nearest");
+
+  testinf(max+(double)1.0);
+  testinf(max+max);
+
+  return 0;
+}
