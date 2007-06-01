@@ -1,5 +1,5 @@
 /*$Workfile: TestComplex.h$: header file
-  $Revision: 3$ $Date: 2007-05-31 16:41:23$
+  $Revision: 4$ $Date: 2007-06-01 17:34:53$
   $Author: Darko Kolakovic$
 
   Complex Numbers
@@ -156,6 +156,9 @@ public:
   static TsComplexD Normalize(const TsComplexD &c);
   static TsComplexD Conjugate(const TsComplexD &c);
   static TsComplexD Range(const TsComplexD &lb, const TsComplexD &ub, const TsComplexD &c);
+  
+  static TsComplexD CstI(const TsComplexD &c);
+
 
   // I/O
   #if defined (_STL) || defined (_USE_STL)
@@ -480,6 +483,13 @@ inline TsComplexD TsComplexD::Range(const TsComplexD &lb, const TsComplexD &ub, 
   {
   return Max(lb,Min(c,ub));
   }
+  
+  //Multiplies complex number with constant Z = 0 + i;
+inline TsComplexD TsComplexD::CstI(const TsComplexD &c)
+  {
+  return TsComplexD::I() * c;
+  }
+
 
 //______________________________________________________________________________
 inline TsComplexD operator *(double d, const TsComplexD & c)

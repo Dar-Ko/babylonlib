@@ -1,5 +1,5 @@
 /*$Workfile: TestComplex.cpp$: implementation file
-  $Revision: 12$ $Date: 2007-05-31 16:41:23$
+  $Revision: 13$ $Date: 2007-06-01 17:34:52$
   $Author: Darko Kolakovic$
 
   Complex number arithmetics test
@@ -597,24 +597,25 @@ struct tagSFuncTest
   {
   PFUNCCOMPLEXEXT_TEST m_func; //function to test
   LPCTSTR m_funcName;          //name of the function
+  PFUNCCOMPLEXD_TEST m_funcT;  //validating function
   };
 bool bRes = false;  
 
 tagSFuncTest funcTest[] =
   {
-  {I    , _T("I(const CComplex&)")    }, // 0
-  {exp10, _T("exp10(const CComplex&)")}, // 1
-  {log2 , _T("log2(const CComplex&)") }, // 2
-  {acos , _T("acos(const CComplex&)") }, // 3
-  {asin , _T("asin(const CComplex&)") }, // 4
-  {tan  , _T("tan(const CComplex&)")  }, // 5
-  {atan , _T("atan(const CComplex&)") }, // 6
-  {acosh, _T("acosh(const CComplex&)")}, // 7
-  {asinh, _T("asinh(const CComplex&)")}, // 8
-  {tanh , _T("tanh(const CComplex&)") }, // 9
-  {atanh, _T("atanh(const CComplex&)")}, //10 
-  {asech, _T("asech(const CComplex&)")}, //11
-  {acoth, _T("acoth(const CComplex&)")}, //12
+  {I    , _T("I(const CComplex&)")    ,TsComplexD::CstI}, // 0
+  {exp10, _T("exp10(const CComplex&)"),NULL}, // 1
+  {log2 , _T("log2(const CComplex&)") ,NULL}, // 2
+  {acos , _T("acos(const CComplex&)") ,TsComplexD::ACos}, // 3
+  {asin , _T("asin(const CComplex&)") ,TsComplexD::ASin}, // 4
+  {tan  , _T("tan(const CComplex&)")  ,TsComplexD::Tan }, // 5
+  {atan , _T("atan(const CComplex&)") ,TsComplexD::ATan}, // 6
+  {acosh, _T("acosh(const CComplex&)"),TsComplexD::ACosH}, // 7
+  {asinh, _T("asinh(const CComplex&)"),TsComplexD::ASinH}, // 8
+  {tanh , _T("tanh(const CComplex&)") ,TsComplexD::TanH}, // 9
+  {atanh, _T("atanh(const CComplex&)"),TsComplexD::ATanH}, //10 
+  {asech, _T("asech(const CComplex&)"),NULL}, //11
+  {acoth, _T("acoth(const CComplex&)"),NULL}, //12
 
   {NULL, NULL}
   };
@@ -627,10 +628,14 @@ while (funcTest[f].m_func != NULL)
     {
     g_arrTestD[c].m_szFileName = _T("KComplex.h");
     g_arrTestD[c].m_szObjectName = funcTest[f].m_funcName;
-    funcTest[f].m_func(CComplex(g_arrTestD[c]));
+    g_arrTestD[c] = funcTest[f].m_func(CComplex(g_arrTestD[c])); //Invoke a method
+    g_arrTestD[c].Validate(funcTest[f].m_funcT); //Get test values
     g_arrTestD[c].Write();
+    if (!g_arrTestD[c].m_bResult)
+      break;
     c++;
     }
+    LogTest(&g_arrTestD[c]);
   f++;
   }
 
@@ -640,6 +645,7 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  13   Biblioteka1.12        2007-06-01 17:34:52  Darko Kolakovic Test cases
  *  12   Biblioteka1.11        2007-05-31 16:41:23  Darko Kolakovic Test NaN
  *  11   Biblioteka1.10        2007-05-30 16:47:01  Darko Kolakovic Automate test
  *  10   Biblioteka1.9         2007-05-29 16:37:23  Darko Kolakovic Inserted

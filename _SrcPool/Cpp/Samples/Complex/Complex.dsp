@@ -143,11 +143,45 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;for;f90"
 # Begin Source File
 
+SOURCE=..\..\KDtoA.c
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+# ADD CPP /D "NUSE_STD_HEADERS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KTestLog.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\KZLineIn.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KZtoA.cpp
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+# ADD CPP /D "NUSE_STD_HEADERS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -175,15 +209,19 @@ SOURCE=..\..\KComplex.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KComplxB.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KGaussianInt.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KMathCst.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\KMathCst.inl
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\KPhysCst.h
 # End Source File
 # Begin Source File
 
