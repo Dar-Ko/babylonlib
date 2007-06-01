@@ -1,6 +1,6 @@
 /*$Workfile: KDtoA.c$: implementation file
-  $Revision: 2$ $Date: 2004-10-08 11:35:49$
-  $Author: Darko$
+  $Revision: 3$ $Date: 2007-06-01 17:33:52$
+  $Author: Darko Kolakovic$
 
   Converts a real number to the string.
   Copyright: CommonSoft Inc.
@@ -21,8 +21,10 @@
           #define UNICODE
         #endif
       #endif
-      #pragma include_alias("KTrace.h", "trace.h")
       #pragma include_alias("KTChar.h", "wtypes.h")
+      #if _MSC_VER < 1300
+        #pragma include_alias("KTrace.h", "trace.h")
+      #endif
     #endif  //_MSC_VER
   #endif  //_WIN32
 
@@ -43,7 +45,7 @@
 
     #define _CVTBUFSIZE (309+40) /* Number of digits in maximum double precision
                                     value + slop
-                                 */
+                                  */
   #endif
 #endif
 
@@ -51,13 +53,13 @@
 
 /*Converts the given floating-point value to a zero-terminated string.
   The supplied buffer should be large enough to accommodate the converted value.
-  The value includes a decimal point and possiblesign and exponent information,
+  The value includes a decimal point and possible sign and exponent information,
   plus a terminating null character, which is appended automatically.
 
   Returns: a pointer to zero-terminated string. There is no error return.
  */
-LPTSTR DtoA(double dValue,  /*[in] real number to be converted               */
-            LPTSTR szResult, /*[in] pointer to string buffer                  */
+LPTSTR DtoA(double dValue,   /*[in] real number to be converted               */
+            LPTSTR szResult, /*[out] pointer to string buffer                 */
             unsigned int iSize /*[in] size of the resulting buffer in
                                  characters
                                 */
@@ -68,13 +70,15 @@ LPTSTR DtoA(double dValue,  /*[in] real number to be converted               */
   char szTemp[_CVTBUFSIZE];
 
   #if !defined _MBCS && !defined _UNICODE
+    #if _MSC_VER < 1400 /*Before Visual C/C++ 2005, version 8.0*/
+
     /*Singlebyte-character (SBCS or ASCII) text mapping*/
     if (szResult != NULL)
       {
       unsigned int i = 0;
-      _gcvt(dValue, /*value to be converted              */
+      _gcvt(dValue,   /*value to be converted              */
             DBL_DIG,  /*number of significant digits stored*/
-            szTemp  /*storage location for result        */
+            szTemp    /*storage location for result        */
             );
       while ((szTemp[i] != '\0') && (i < iSize))
         {
@@ -83,17 +87,39 @@ LPTSTR DtoA(double dValue,  /*[in] real number to be converted               */
         }
       szResult[i] = '\0';
       }
-
+    #else /*Visual C/C++ 2005, version 8.0*/
+    /*Note: If a failure occurs due to an invalid parameter, the invalid
+      parameter handler is invoked as described in Parameter Validation and
+      function returns EINVAL.
+     */
+    _gcvt_s(szResult, /*Buffer to store the result of the conversion.*/
+            iSize,    /*Size of the buffer.                          */
+            dValue,   /*Value to be converted.                       */
+            DBL_DIG   /*Number of significant digits stored.         */
+            );
+    #endif
   #else
     /*Multibyte-character or Unicode (wide-character) text mapping*/
 
     if (szResult != NULL)
       {
-
+      #if _MSC_VER < 1400 /*Before Visual C/C++ 2005, version 8.0*/
       _gcvt(dValue, /*value to be converted              */
             DBL_DIG,/*number of significant digits stored*/
             szTemp  /*storage location for result        */
             );
+      #else /*Visual C/C++ 2005, version 8.0*/
+      /*Note: If a failure occurs due to an invalid parameter, the invalid
+        parameter handler is invoked as described in Parameter Validation and
+        function returns EINVAL
+       */
+      if (_gcvt_s(szResult, /*Buffer to store the result of the conversion.*/
+                  iSize,    /*Size of the buffer.                          */
+                  dValue,   /*Value to be converted.                       */
+                  DBL_DIG   /*Number of significant digits stored.         */
+                  ) != 0)
+        return szResult;
+      #endif
 
       /*Convert ANSI string to Unicode*/
     MultiByteToWideChar(CP_ACP,           /*code page is ANSI*/
