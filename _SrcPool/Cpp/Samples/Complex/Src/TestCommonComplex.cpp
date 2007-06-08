@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonComplex.cpp$: implementation file
-  $Revision: 2$ $Date: 2007-05-31 16:41:19$
+  $Revision: 3$ $Date: 2007-06-08 17:56:09$
   $Author: Darko Kolakovic$
 
   Testing complex number calculations.
@@ -15,9 +15,11 @@
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 extern bool TestNaN();
-extern bool TestComplex();
+extern bool TestCComplexBase();
 extern bool TestCComplexExt();
 extern bool TestPointToComplex();
+extern bool TestLineZin();
+extern bool TestACos();
 
 int TestCommonComplex();
 
@@ -42,12 +44,14 @@ TsWriteToViewLn(_T(""));
 PFUNC_TEST funcTest[] =
   {
   TestNaN,
-  //TestComplex,
+  TestCComplexBase,
   TestCComplexExt,
   TestPointToComplex,
+  TestLineZin,
+  TestACos,
   NULL
   };
-
+int iResult = EXIT_SUCCESS;
 int iTestCount = 0;
 while (iTestCount < (sizeof(funcTest)/sizeof(PFUNC_TEST)) )
   {
@@ -59,12 +63,12 @@ while (iTestCount < (sizeof(funcTest)/sizeof(PFUNC_TEST)) )
   else
     {
     TsWriteToViewLn(LOG_FAILURE);
-    return EXIT_FAILURE + 50 + iTestCount;
+    iResult = EXIT_FAILURE + 50 + iTestCount; //Latest error
     }
   iTestCount++;
   }
 
-return EXIT_SUCCESS;
+return iResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

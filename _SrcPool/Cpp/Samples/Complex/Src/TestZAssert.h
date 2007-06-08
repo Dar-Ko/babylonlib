@@ -1,5 +1,5 @@
 /*$Workfile: TestZAssert.h$: header file
-  $Revision: 3$ $Date: 2007-06-01 17:34:54$
+  $Revision: 5$ $Date: 2007-06-08 17:56:12$
   $Author: Darko Kolakovic$
 
   Complex number validation
@@ -22,6 +22,7 @@
 
 //Validating function type
 typedef TsComplexD (*PFUNCCOMPLEXD_TEST) (const TsComplexD&);
+const int TESTSIZE = 27; //number of test values
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Test class used to automate validation of complex number arithmetic.
@@ -46,6 +47,9 @@ public:
   void Write();
   
   operator CComplex() const;
+  operator _complex() const;
+  operator TComplexBase<TYPE>() const;
+
   TestZAssert& operator =(const CComplex& Value);
 };
 
@@ -63,12 +67,27 @@ TestZAssert<TYPE>::~TestZAssert()
 
 //-----------------------------------------------------------------------------
 /*Evaluates complex numbers rounding error
-*/
+ */
 template<class TYPE>
 bool TestZAssert<TYPE>::Validate(TYPE ReZ, TYPE ImZ, TYPE ReT, TYPE ImT)
 {
-m_bResult = (abs(double(ReZ - ReT)) <= m_dEps) &&
-  (abs(double(ImZ - ImT)) <= m_dEps);
+if (ReZ == ReT)
+  m_bResult = true;
+else if ((_isnan((double)ReZ) != 0) &&  (_isnan((double)ReT) != 0))
+  m_bResult = true;
+else //Check if the error is less or equal to epsilon
+  m_bResult = (abs(double(ReZ - ReT)) <= m_dEps);
+ 
+if (m_bResult)
+  {
+  if (ImZ == ImT)
+    m_bResult = true;
+  else if ((_isnan((double)ImZ) != 0) &&  (_isnan((double)ImT) != 0))
+    m_bResult = true;
+  else //Check if the error is less or equal to epsilon
+    m_bResult = (abs(double(ImZ - ImT)) <= m_dEps);
+  }
+  
 return m_bResult;
 }
 
@@ -80,6 +99,8 @@ if (functValidator != NULL)
   TsComplexD CTemp = functValidator(TsComplexD(*this));
   m_ReT = (TYPE)CTemp.Re();
   m_ImT = (TYPE)CTemp.Im();
+  //Result of the validated operation is kept in (m_ReZ, m_ImZ);
+  //result of the validating operation is kept in (m_ReT, m_ImT).
   return Validate(m_ReZ, m_ImZ, m_ReT, m_ImT);
   }
 return (m_bResult = false);
@@ -116,14 +137,16 @@ extern LPTSTR ZtoA(double dReal,double dImag, LPTSTR szResult, unsigned int iSiz
 TCHAR szMessage[126];
 TsWriteToView(m_szObjectName);
 const int BUFFSIZE = 100;
-TCHAR szZ[BUFFSIZE];
-TCHAR szT[BUFFSIZE];
-ZtoA(m_ReZ, m_ImZ, szZ, BUFFSIZE);
-ZtoA(m_ReT, m_ImT, szT, BUFFSIZE);
+TCHAR szZ[BUFFSIZE];     //input value
+TCHAR szOpRes[BUFFSIZE]; //result of the operation
+ZtoA(Re(), Im(), szZ, BUFFSIZE);   //Tested value
+ZtoA(m_ReZ, m_ImZ, szOpRes, BUFFSIZE); //Result of the operation
+//Note: result of the validing operation is kept in (m_ReT, m_ImT)
+
 #ifdef UNICODE
-  _stprintf(szMessage, _T(" = f(%ws) = %ws"), szZ, szT);
+  _stprintf(szMessage, _T(" = f(%ws) = %ws"), szZ, szOpRes);
 #else
-  _stprintf(szMessage, _T(" = f(%s) = %s"), szZ, szT);
+  _stprintf(szMessage, _T(" = f(%s) = %s"), szZ, szOpRes);
 #endif
 TsWriteToView(szMessage);
 TRACE2(_T("%s%s\n"), m_szObjectName, szMessage);
@@ -140,7 +163,28 @@ else
 template<class TYPE>
 TestZAssert<TYPE>::operator CComplex() const
 {
-return CComplex(m_ReZ, m_ImZ);
+//Get values from the base class
+return CComplex(Re(), Im());
+}
+
+//-----------------------------------------------------------------------------
+template<class TYPE>
+TestZAssert<TYPE>::operator _complex() const
+{
+_complex sRes;
+sRes.x = Re(); //Get values from the base class
+sRes.y = Im();
+return sRes;
+}
+
+//-----------------------------------------------------------------------------
+template<class TYPE>
+TestZAssert<TYPE>::operator TComplexBase<TYPE>() const
+{
+TComplexBase<TYPE> sRes;
+sRes.real(Re()); //Get values from the base class
+sRes.imag(Im());
+return sRes;
 }
 
 //-----------------------------------------------------------------------------
@@ -163,6 +207,9 @@ typedef TestZAssert<int>    TestIComplex; //integer validation
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  5    Biblioteka1.4         2007-06-08 17:56:12  Darko Kolakovic New test cases
+ *  4    Biblioteka1.3         2007-06-04 16:58:01  Darko Kolakovic Fixed
+ *       validation of NaNs
  *  3    Biblioteka1.2         2007-06-01 17:34:54  Darko Kolakovic Test cases
  *  2    Biblioteka1.1         2007-05-31 16:42:05  Darko Kolakovic operator
  *       CComplex()
