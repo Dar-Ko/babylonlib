@@ -1,5 +1,5 @@
 /*$Workfile: KComplxB.h$: header file
-  $Revision: 12$ $Date: 2007-05-28 17:06:04$
+  $Revision: 13$ $Date: 2007-06-08 17:53:45$
   $Author: Darko Kolakovic$
 
   Base class for complex numbers
@@ -445,7 +445,7 @@ return TComplexBase<TYPE>(cos(complexNo._ccI)*(eR + e_negR)/2,
 template <class TYPE>
 TComplexBase<TYPE> exp(const TComplexBase<TYPE>& complexNo)
 {
-return polar(exp(complexNo._ccR),complexNo._ccI);
+return polar(exp(complexNo._ccR), complexNo._ccI);
 }
 
 //log()------------------------------------------------------------------------
@@ -474,7 +474,7 @@ return TComplexBase<TYPE>(log(abs(complexNo)), arg(complexNo));
 }
 
 //log10()----------------------------------------------------------------------
-/*Calculates the base 10 logarithm of complex number.
+/*Calculates the base 10 logarithm of a complex number.
 
   Example:
       #include "KComplxB.h"
@@ -864,7 +864,7 @@ return(complexNo.imag() != (TYPE)0  ||  dReal!=complexNo.real());
 /******************************************************************************
  * $Log:
  *  4    Biblioteka1.3         7/19/01 11:52:57 PM  Darko           VSS tags
- *  3    Biblioteka1.2         7/7/01 11:10:11 PM   Darko           $Revision: 12$
+ *  3    Biblioteka1.2         7/7/01 11:10:11 PM   Darko           $Revision: 13$
  *       inserted
  *  2    Biblioteka1.1         6/8/01 10:49:19 PM   Darko           VSS
  *  1    Biblioteka1.0         8/13/00 2:55:42 PM   Darko

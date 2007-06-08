@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\KStrVowel.cpp$: implementation file
+/*$Workfile: KStrVowel.cpp$: implementation file
   $Revision: 1$ $Date: 2007-05-31 12:34:41$
   $Author: Darko Kolakovic$
 

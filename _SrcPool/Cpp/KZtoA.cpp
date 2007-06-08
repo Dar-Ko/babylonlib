@@ -1,6 +1,6 @@
-/*$Workfile: S:\_SrcPool\Cpp\KZtoA.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-06-01 17:34:07$
-  $Author: Darko Kolakovic$
+/*$Workfile: KZtoA.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-06-01 22:34:20$
+  $Author: Darko$
 
   Converts a complex number to the string.
   Copyright: CommonSoft Inc.
@@ -65,7 +65,7 @@ if ((szResult != NULL) && (iSize > ZBUFFSIZEMIN))
     szResult[1] = _T('\0');
     }
   else
-    {  
+    {
     int iBuffSize = (iSize - ZBUFFSIZEMIN)/2;
     DtoA(dReal, szResult, iBuffSize); //Format real part
     //Find the end of the string
@@ -87,7 +87,9 @@ if ((szResult != NULL) && (iSize > ZBUFFSIZEMIN))
 
     szResult[i++] = _T(' ');
     szResult[i++] = _T('i');
-    if (dReal == dImag)
+    if (dImag == 1.0)
+      szResult[i] = _T('\0');
+    else if (dReal == dImag)
       {
       //Copy already formatted value
       iBuffSize = (szResult[iBuffSize] == _T('-')) ? 1 : 0;
@@ -106,7 +108,7 @@ return szResult;
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
- *$Log: 
- * 1    Biblioteka1.0         2007-06-01 17:34:07  Darko Kolakovic 
+ *$Log:
+ * 1    Biblioteka1.0         2007-06-01 17:34:07  Darko Kolakovic
  *$
  *****************************************************************************/

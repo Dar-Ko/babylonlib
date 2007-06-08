@@ -1,5 +1,5 @@
 /*$Workfile: KTestLog.cpp$: implementation file
-  $Revision: 11$ $Date: 2007-05-29 16:38:39$
+  $Revision: 12$ $Date: 2007-06-08 17:53:22$
   $Author: Darko Kolakovic$
 
   Outputs test data to file
@@ -200,17 +200,22 @@ void LogTest(const PTESTENTRY pTestLog)
 {
 if (!s_bTestLogInitalized)
   InitLogTest();
+LPCTSTR STR_NULL = _T("<null>");
 if ((pTestLog != NULL) && (s_fileTestLog != NULL))
   {
-    //Write source code file name
-  fwrite(pTestLog->m_szFileName, 
-         sizeof(TCHAR), _tcslen(pTestLog->m_szFileName),
-         s_fileTestLog);
+  if (pTestLog->m_szFileName != NULL) //Write source code file name
+    fwrite(pTestLog->m_szFileName, 
+           sizeof(TCHAR), _tcslen(pTestLog->m_szFileName),
+           s_fileTestLog);
+  else
+    fwrite(STR_NULL, sizeof(TCHAR), _tcslen(STR_NULL), s_fileTestLog);
   fwrite(_T("\t"), sizeof(TCHAR), 1, s_fileTestLog);
-    //Write name of the tested object
-  fwrite(pTestLog->m_szObjectName, 
-         sizeof(TCHAR), _tcslen(pTestLog->m_szObjectName),
-         s_fileTestLog);
+  if (pTestLog->m_szObjectName != NULL) //Write name of the tested object
+    fwrite(pTestLog->m_szObjectName, 
+          sizeof(TCHAR), _tcslen(pTestLog->m_szObjectName),
+          s_fileTestLog);
+  else
+    fwrite(STR_NULL, sizeof(TCHAR), _tcslen(STR_NULL), s_fileTestLog);
   fwrite(_T("\t"), sizeof(TCHAR), 1, s_fileTestLog);
     //Write test results
   LPCTSTR szResult = BoolToA(pTestLog->m_bResult);
@@ -235,6 +240,7 @@ if (s_fileTestLog != NULL)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  12   Biblioteka1.11        2007-06-08 17:53:22  Darko Kolakovic Validate NULL
  *  11   Biblioteka1.10        2007-05-29 16:38:39  Darko Kolakovic Spelling
  *  10   Biblioteka1.9         2007-03-16 22:26:30  Darko Kolakovic _MT
  *  9    Biblioteka1.8         2005-03-21 03:10:56  Darko           Query

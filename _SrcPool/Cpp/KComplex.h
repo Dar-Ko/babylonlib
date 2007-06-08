@@ -1,5 +1,5 @@
 /*$Workfile: KComplex.h$: header file
-  $Revision: 15$ $Date: 2007-05-31 16:44:10$
+  $Revision: 17$ $Date: 2007-06-08 17:54:19$
   $Author: Darko Kolakovic$
 
   TComplex Numbers: extension to the template std::complex
@@ -49,6 +49,7 @@
   #include "KComplxB.h"  //TComplexBase template
 #endif  //__STD_COMPLEX
 
+#include <float.h> //_finite()
 
 ///////////////////////////////////////////////////////////////////////////////
 /*TComplex template class handles numbers in complex domain |Z| = R + jI.
@@ -88,7 +89,8 @@ public:
   bool IsFinite() const;
   bool IsNan() const;
 public:
-
+  TComplex<TYPE> operator~() const;
+  
   //Overrides
 public:
   virtual TYPE Rho()   const;
@@ -163,7 +165,8 @@ inline TComplex<TYPE>::TComplex(const TComplexBase<TYPE>& complexNo) :
           <br /><img src="Images/eqComplexArg.gif" border="0"
                   alt="&phi;=atan(y/x)">
     }
-
+    
+ See also: std::arg(const std::complex<T>& x);
  */
 template<class TYPE>
 inline TYPE TComplex<TYPE>::Angle() const
@@ -174,7 +177,7 @@ return (TYPE)atan2((double)imag(), (double)real());
 //::Rho()----------------------------------------------------------------------
 /*Returns a radius of a complex number in the polar form.
   Radius is equal to the magnitude of the phasor represented by complex number
-  and it is calulated as complex norm (absolute value of the complex number).
+  and it is calculated as complex norm (absolute value of the complex number).
   Phasor is a rotating vector vector representing a periodical quantity.
     {html:<br /><img src="Images/graphComplexNo.gif" border="0"
                alt="complex number">
@@ -210,10 +213,7 @@ return (abs(*this));
 template<class TYPE>
 inline TComplex<TYPE> TComplex<TYPE>::I()
 {
-TYPE oldR = real();
-real() = - imag();
-imag() = oldR;
-return (*this);
+return ::I(*this);
 }
 
 //-----------------------------------------------------------------------------
@@ -225,8 +225,8 @@ return (*this);
 template<class TYPE>
 inline bool TComplex<TYPE>::IsFinite() const
 {
-return ( (finite((double) real()) != 0) &&
-         (finite((double) imag()) != 0) );
+return ( (_finite((double) real()) != 0) &&
+         (_finite((double) imag()) != 0) );
 }
 
 //-----------------------------------------------------------------------------
@@ -234,14 +234,28 @@ return ( (finite((double) real()) != 0) &&
   A NaN is generated when the result of a floating-point operation cannot be
   represented in Institute of Electrical and Electronics Engineers (IEEE) format.
 
-  Returns: true if real or imaginary part of the complex number is not a number.
-  Returns false if both components are valid numbers.
+  Returns: true if real or imaginary part of the complex number is not a number 
+  or false if both components are valid numbers.
  */
 template<class TYPE>
 inline bool TComplex<TYPE>::IsNan() const
 {
 return ( (isnan((double) real()) != 0) ||
          (isnan((double) imag()) != 0) );
+}
+
+//-----------------------------------------------------------------------------
+/*Complex conjugate operator.
+
+  Returns: the complex conjugate
+*/
+template<class TYPE>
+inline TComplex<TYPE> TComplex<TYPE>::operator~() const 
+{
+TComplex<TYPE> zRes;
+zRes.real(real());
+zRes.imag(-imag());
+return zRes;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -275,21 +289,46 @@ R   = sqrt(abs(ccV));
 template<class TYPE>
 inline TComplex<TYPE> I(const TComplex<TYPE>& complexNo)
 {
-return (TComplex<TYPE>(-complexNo.imag(),complexNo.real()));
+return (TComplex<TYPE>(-complexNo.imag(),complexNo.real())); //TODO:  check NaNs D.K.
+}
+
+template<>
+inline TComplex<double> I(const TComplex<double>& complexNo)
+{
+TComplex<double> zRes;
+if(_finite(complexNo.real()) == 0)
+  zRes.real(complexNo.real()*0.0);
+else
+  zRes.real(-complexNo.imag());
+
+if(_finite(complexNo.imag()) == 0)
+  zRes.imag(complexNo.imag()*0.0);
+else
+  zRes.imag(complexNo.real());
+
+return zRes;
 }
 
 //exp10()----------------------------------------------------------------------
-/*Returns the number 10 raised to the power of a complexNo.
+/*Exponential function for base 10.
+      exp10(Z) = 10**(x+iy)
+  Returns: the number 10 raised to the power of a complexNo.
  */
 template<class TYPE>
 TComplex<TYPE> exp10(const TComplex<TYPE>& complexNo)
   {
-  return TComplex<TYPE>((TYPE)(exp(complexNo.real() * CST_LN10) + cos(complexNo.imag() * CST_LN10)),
-                        (TYPE)(exp(complexNo.real() * CST_LN10) + sin(complexNo.imag() * CST_LN10)) );
+  //FixMe! D.K
+  return TComplex<TYPE>((TYPE)CST_dINF, -(TYPE)CST_dINF);
+  /*
+  return TComplex<TYPE>((TYPE)(exp(complexNo.real() * CST_LN10) + 
+                               cos(complexNo.imag() * CST_LN10)),
+                        (TYPE)(exp(complexNo.real() * CST_LN10) + 
+                               sin(complexNo.imag() * CST_LN10)) );
+   */                               
   }
 
 //acos()-----------------------------------------------------------------------
-/*Returns the arcus cosine of complexNo in radians.
+/*Returns the arcus cosine of complex numbers in radians.
 
       acos(Z) = -i *ln(Z [+/-] i*sqrt(Z**2 -1))
  */
@@ -302,7 +341,7 @@ return -i * log(complexNo + i*sqrt(TComplex<TYPE>(1,0) - SQUARE(complexNo)));
 */
 TYPE Angle;
 TYPE R    ;
-_GetAR(complexNo,Angle,R);
+_GetAR(complexNo, Angle, R);
 TComplex<TYPE> ccW(complexNo.real() - R*sin(Angle), complexNo.imag() + R*cos(Angle));
 return TComplex<TYPE>(arg(ccW), -log(abs(ccW)));
 }
