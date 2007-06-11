@@ -1,5 +1,5 @@
-/*$Workfile: TestCommonComplex.cpp$: implementation file
-  $Revision: 3$ $Date: 2007-06-08 17:56:09$
+/*$Workfile: TsMfcApp.cpp$: implementation file
+  $Revision: 6$ $Date: 2007-06-11 17:00:21$
   $Author: Darko Kolakovic$
 
   Defines the class behaviors for the application.
@@ -13,9 +13,9 @@
 #include "stdafx.h"
 #include "TsMfcApp.h"
 
-#include "MainFrm.h"
-#include "TestDoc.h"
-#include "TestView.h"
+#include "TsMfcFrame.h"
+#include "TsMfcDoc.h"
+#include "TsMfcView.h"
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -61,6 +61,10 @@ CTestApp::CTestApp()
 {
 }
 
+CTestApp::~CTestApp()
+{
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // The one and only CTestApp object
 CTestApp theApp;
@@ -98,7 +102,7 @@ LoadStdProfileSettings(0);  // Load standard INI file options (including MRU)
 CSingleDocTemplate* pDocTemplate;
 pDocTemplate = new CSingleDocTemplate(IDR_MAINFRAME,
                                       RUNTIME_CLASS(CTestDoc),
-                                      RUNTIME_CLASS(CMainFrame), // main SDI frame window
+                                      RUNTIME_CLASS(CTestMainFrame), // main SDI frame window
                                       RUNTIME_CLASS(CTestView));
 AddDocTemplate(pDocTemplate);
 EnableShellOpen();                        //Enable DDE Execute open
@@ -124,9 +128,9 @@ return TRUE;
 /*Execute a test during instance initialization.
   Returns FALSE if testing is unsuccesful.
  */
-BOOL CTestApp::DoTestInit()
+bool CTestApp::DoTestInit()
 {
-return FALSE;
+return false;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -134,11 +138,11 @@ return FALSE;
 
 
 //::OnAppAbout()----------------------------------------------------------------
-#include "TestAbout.h"   //CAboutDlg class
+#include "TsMfcAbout.h"   //CTestAboutDlg class
 /*Open About dialog box
  */
 void CTestApp::OnAppAbout()
 {
-CAboutDlg aboutDlg;
+CTestAboutDlg aboutDlg;
 aboutDlg.DoModal();
 }

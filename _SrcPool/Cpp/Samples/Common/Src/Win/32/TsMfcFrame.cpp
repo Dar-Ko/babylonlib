@@ -1,12 +1,19 @@
-// MainFrm.cpp : implementation of the CMainFrame class
-//
-// Darko Kolakovic
-// Jan. 2k
+/*$Workfile: TsMfcFrame.cpp$: implementation file
+  $Revision: 5$ $Date: 2007-06-11 17:00:28$
+  $Author: Darko Kolakovic$
 
-#include "StdAfx.h"
-#include "TestApp.h"
+  Defines the class behaviors for the application.
 
-#include "MainFrm.h"
+  Copyright: CommonSoft Inc.
+  Jan. 2k Darko Kolakovic
+*/
+
+// Group=Examples
+
+#include "stdafx.h"
+#include "TsMfcApp.h"
+
+#include "TsMfcFrame.h"
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -15,46 +22,46 @@
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-// CMainFrame
+// CTestMainFrame
 
-IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
+IMPLEMENT_DYNCREATE(CTestMainFrame, CFrameWnd)
 
-BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
-  //{{AFX_MSG_MAP(CMainFrame)
+BEGIN_MESSAGE_MAP(CTestMainFrame, CFrameWnd)
+  //{{AFX_MSG_MAP(CTestMainFrame)
   //}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
-// CMainFrame construction/destruction
+// CTestMainFrame construction/destruction
 
-CMainFrame::CMainFrame()
+CTestMainFrame::CTestMainFrame()
 {
 }
 
-CMainFrame::~CMainFrame()
+CTestMainFrame::~CTestMainFrame()
 {
 }
 
-BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
+BOOL CTestMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
-  return CFrameWnd::PreCreateWindow(cs);
+return CFrameWnd::PreCreateWindow(cs);
 }
 
 /////////////////////////////////////////////////////////////////////////////
-// CMainFrame diagnostics
+// CTestMainFrame diagnostics
 
 #ifdef _DEBUG
-void CMainFrame::AssertValid() const
-{
+  void CTestMainFrame::AssertValid() const
+  {
   CFrameWnd::AssertValid();
-}
+  }
 
-void CMainFrame::Dump(CDumpContext& dc) const
-{
+  void CTestMainFrame::Dump(CDumpContext& dc) const
+  {
   CFrameWnd::Dump(dc);
-}
+  }
 
 #endif //_DEBUG
 
 /////////////////////////////////////////////////////////////////////////////
-// CMainFrame message handlers
+// CTestMainFrame message handlers

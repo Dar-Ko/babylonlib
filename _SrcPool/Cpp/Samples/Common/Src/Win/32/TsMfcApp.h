@@ -1,5 +1,5 @@
-/*$Workfile: TestComplex.h$: header file
-  $Revision: 6$ $Date: 2007-06-08 17:56:11$
+/*$Workfile: TsMfcApp.h$: header file
+  $Revision: 5$ $Date: 2007-06-11 17:00:25$
   $Author: Darko Kolakovic$
 
   Interface of the main test application
@@ -10,7 +10,7 @@
 // Group=Examples
 
 #ifndef _TSMFCAPP_H_
-  //$Workfile: TestComplex.h$ sentry
+  //$Workfile: TsMfcApp.h$ sentry
   #define _TSMFCAPP_H_
 
 #ifndef __AFXWIN_H__
@@ -41,7 +41,7 @@ public:
 
 //Operations
 public:
-  virtual BOOL DoTestInit();
+  virtual bool DoTestInit();
 
 //Overrides
   // ClassWizard generated virtual function overrides
@@ -61,5 +61,12 @@ public:
 #endif //_TSMFCAPP_H_
 ////////////////////////////////////////////////////////////////////////////////
 /*
-  $Log: $
+  $Log: 
+   5    Biblioteka1.4         2007-06-11 17:00:25  Darko Kolakovic Windows MFC
+        application
+   4    Biblioteka1.3         2007-06-11 13:45:21  Darko Kolakovic 
+   3    Biblioteka1.2         2007-05-24 11:51:31  Darko Kolakovic Formatting
+   2    Biblioteka1.1         2001-07-11 22:36:42  Darko           
+   1    Biblioteka1.0         2001-06-08 22:43:48  Darko           
+  $
  */

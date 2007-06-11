@@ -1,12 +1,19 @@
-// TestDoc.cpp : implementation of the CTestDoc class
-//
-// Darko KOlakovic
-// Jan. 2k
+/*$Workfile: TsMfcDoc.cpp$: implementation file
+  $Revision: 6$ $Date: 2007-06-11 17:00:41$
+  $Author: Darko Kolakovic$
 
-#include "StdAfx.h"
-#include "TestApp.h"
+  Defines the class behaviors for the application.
 
-#include "TestDoc.h"
+  Copyright: CommonSoft Inc.
+  Jan. 2k Darko Kolakovic
+*/
+
+// Group=Examples
+
+#include "stdafx.h"
+#include "TsMfcApp.h"
+
+#include "TsMfcDoc.h"
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -80,7 +87,7 @@ return TRUE;
 }
 
 //::AppendText()------------------------------------------------------------------
-#include "TestView.h" //CTestView class
+#include "TsMfcView.h" //CTestView class
 /*Appends text within the associated edit control.
  */
 BOOL CTestDoc::AppendText(LPCTSTR lpszText)
@@ -113,7 +120,7 @@ strTitle.LoadString(AFX_IDS_APP_TITLE);
   //Set document's title
 SetTitle((LPCTSTR)strTitle);
   //Display a title
-strTitle+=_T("\r\n");           //CRLF
+strTitle += _T("\r\n");           //CRLF
 AppendText((LPCTSTR)strTitle);
 
 return TRUE;

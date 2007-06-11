@@ -1,15 +1,20 @@
-// TestView.cpp : implementation of the CTestView class
-// $Revision: 3$  $Date: 2007-05-24 11:51:37$
-//
-// Darko Kolakovic
-// Jan. 2k
+/*$Workfile: TsMfcView.cpp$: implementation file
+  $Revision: 5$ $Date: 2007-06-11 17:00:36$
+  $Author: Darko Kolakovic$
 
+  Defines the class behaviors for the application.
 
-#include "StdAfx.h"
-#include "TestApp.h"
+  Copyright: CommonSoft Inc.
+  Jan. 2k Darko Kolakovic
+*/
 
-#include "TestDoc.h"
-#include "TestView.h" //CTestView class
+// Group=Examples
+
+#include "stdafx.h"
+#include "TsMfcApp.h"
+
+#include "TsMfcDoc.h"
+#include "TsMfcView.h" //CTestView class
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -21,11 +26,10 @@
 // Helper functions
 
 //TsWriteToView()--------------------------------------------------------------
-#include "MainFrm.h"  //CMainFrame class
+#include "TsMfcFrame.h"  //CTestMainFrame class
 /*Writes a character string at the View window
  */
-
-BOOL TsWriteToView(LPCTSTR lszText)
+bool TsWriteToView(LPCTSTR lszText)
 {
 CWnd* pFrame = AfxGetMainWnd();
 ASSERT(pFrame != NULL);
@@ -33,9 +37,9 @@ ASSERT_VALID(pFrame);
 
 if (pFrame != NULL)
   {
-  ASSERT_KINDOF(CMainFrame, pFrame);
-  ASSERT (pFrame->IsKindOf(RUNTIME_CLASS(CMainFrame)));
-  CView* pView = ((CMainFrame*)pFrame)->GetActiveView();
+  ASSERT_KINDOF(CTestMainFrame, pFrame);
+  ASSERT (pFrame->IsKindOf(RUNTIME_CLASS(CTestMainFrame)));
+  CView* pView = ((CTestMainFrame*)pFrame)->GetActiveView();
   if (pView != NULL)
     {
     ASSERT_KINDOF(CTestView, pView);
@@ -44,7 +48,7 @@ if (pFrame != NULL)
     return ((CTestView*)pView)->AppendText(lszText);
     }
   }
-return FALSE;
+return false;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -145,17 +149,17 @@ CTestDoc* CTestView::GetDocument() // non-debug version is inline
 //::AppendText()---------------------------------------------------------------
 /*Appends new text and scrolls the viewport to make it visible
  */
-BOOL CTestView::AppendText(LPCTSTR lpszText //Text to append
+bool CTestView::AppendText(LPCTSTR lpszText //Text to append
                           )
 {
 if (lpszText == NULL)
-  return FALSE;
+  return false;
 
 CEdit& ctrlEdit = GetEditCtrl();//Get associated edit control
 ctrlEdit.SetSel(-1, -1, TRUE);  //Find the end of the text
 ctrlEdit.ReplaceSel(lpszText);  //Append new text
 
-return TRUE;
+return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -167,6 +171,6 @@ return TRUE;
  */
 void CTestView::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-TestPoint(point);
+//TestPoint(point);
 CEditView::OnLButtonDblClk(nFlags, point);
 }

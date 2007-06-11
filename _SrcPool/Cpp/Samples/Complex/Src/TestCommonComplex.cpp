@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonComplex.cpp$: implementation file
-  $Revision: 3$ $Date: 2007-06-08 17:56:09$
+  $Revision: 4$ $Date: 2007-06-11 17:02:13$
   $Author: Darko Kolakovic$
 
   Testing complex number calculations.
@@ -20,6 +20,7 @@ extern bool TestCComplexExt();
 extern bool TestPointToComplex();
 extern bool TestLineZin();
 extern bool TestACos();
+extern bool TestZtoA();
 
 int TestCommonComplex();
 
@@ -44,6 +45,7 @@ TsWriteToViewLn(_T(""));
 PFUNC_TEST funcTest[] =
   {
   TestNaN,
+  TestZtoA,
   TestCComplexBase,
   TestCComplexExt,
   TestPointToComplex,

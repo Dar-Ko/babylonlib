@@ -1,5 +1,5 @@
 /*$Workfile: TestZAssert.h$: header file
-  $Revision: 5$ $Date: 2007-06-08 17:56:12$
+  $Revision: 6$ $Date: 2007-06-11 17:02:14$
   $Author: Darko Kolakovic$
 
   Complex number validation
@@ -129,25 +129,37 @@ return sqrt(R*R+I*I);
 }
 
 //-----------------------------------------------------------------------------
+#if _MSC_VER == 1200
+  //Microsoft Visual C++, 32-bit, version 6.0 compiler ignores extern keyword
+  //if declared inside the scope of a template function.
+  extern bool TsWriteToView(LPCTSTR lszText);
+  extern LPTSTR ZtoA(double dReal,double dImag, LPTSTR szResult, unsigned int iSize);
+#endif
+
 template<class TYPE>
 void TestZAssert<TYPE>::Write()
 {
-extern bool TsWriteToView(LPCTSTR lszText);
-extern LPTSTR ZtoA(double dReal,double dImag, LPTSTR szResult, unsigned int iSize);
+#if !defined(_MSC_VER) &&  _MSC_VER >= 1200
+  extern bool TsWriteToView(LPCTSTR lszText);
+  extern LPTSTR ZtoA(double dReal,double dImag, LPTSTR szResult, unsigned int iSize);
+#endif
+
 TCHAR szMessage[126];
 TsWriteToView(m_szObjectName);
 const int BUFFSIZE = 100;
 TCHAR szZ[BUFFSIZE];     //input value
 TCHAR szOpRes[BUFFSIZE]; //result of the operation
-ZtoA(Re(), Im(), szZ, BUFFSIZE);   //Tested value
+
+ZtoA(Re(), Im(), szZ, BUFFSIZE);        //Tested value
 ZtoA(m_ReZ, m_ImZ, szOpRes, BUFFSIZE); //Result of the operation
 //Note: result of the validing operation is kept in (m_ReT, m_ImT)
 
 #ifdef UNICODE
   _stprintf(szMessage, _T(" = f(%ws) = %ws"), szZ, szOpRes);
 #else
-  _stprintf(szMessage, _T(" = f(%s) = %s"), szZ, szOpRes);
+ _stprintf(szMessage, _T(" = f(%s) = %s"), szZ, szOpRes);
 #endif
+
 TsWriteToView(szMessage);
 TRACE2(_T("%s%s\n"), m_szObjectName, szMessage);
 if (m_bResult)
@@ -207,6 +219,8 @@ typedef TestZAssert<int>    TestIComplex; //integer validation
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  6    Biblioteka1.5         2007-06-11 17:02:14  Darko Kolakovic Windows MFC
+ *       application
  *  5    Biblioteka1.4         2007-06-08 17:56:12  Darko Kolakovic New test cases
  *  4    Biblioteka1.3         2007-06-04 16:58:01  Darko Kolakovic Fixed
  *       validation of NaNs
