@@ -1,4 +1,15 @@
 ========================================================================
+       MFC APPLICATION : Test Common Files
+========================================================================
+  TsMfc files are generic files for a Document-View Windows application
+  using MFC framework.
+
+TsMfcApp is the main WinApp file.
+TsMfcView is the view of the document.
+TsMfcDoc
+TsMfcFrame
+
+========================================================================
        CONSOLE APPLICATION : Test
 ========================================================================
 
