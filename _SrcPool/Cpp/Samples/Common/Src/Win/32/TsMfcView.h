@@ -1,5 +1,5 @@
 /*$Workfile: TsMfcView.h$: header file
-  $Revision: 5$ $Date: 2007-06-11 17:00:38$
+  $Revision: 6$ $Date: 2007-06-12 17:16:15$
   $Author: Darko Kolakovic$
 
   Interface of the document's view
@@ -13,6 +13,8 @@
   //$Workfile: TsMfcView.h$ sentry
   #define _TSMFCVIEW_H_
 
+//Callback type for testing CPoint operations
+typedef bool (*PFUNCPOINT_TEST) (CPoint&);
 
 /////////////////////////////////////////////////////////////////////////////
 /*Interface of the CTestView class.
@@ -29,7 +31,7 @@ protected: // create from serialization only
 // Attributes
 public:
   CTestDoc* GetDocument();
-
+  PFUNCPOINT_TEST m_PointTest; //CPoint testing method
 // Operations
 public:
   bool AppendText(LPCTSTR lpszText);
@@ -73,6 +75,8 @@ inline CTestDoc* CTestView::GetDocument()
 ////////////////////////////////////////////////////////////////////////////////
 /*
   $Log: 
+   6    Biblioteka1.5         2007-06-12 17:16:15  Darko Kolakovic
+        subsystem:windows
    5    Biblioteka1.4         2007-06-11 17:00:38  Darko Kolakovic Windows MFC
         application
    4    Biblioteka1.3         2007-06-11 16:06:19  Darko Kolakovic 

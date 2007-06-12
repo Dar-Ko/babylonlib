@@ -1,5 +1,5 @@
 /*$Workfile: TsMfcApp.cpp$: implementation file
-  $Revision: 6$ $Date: 2007-06-11 17:00:21$
+  $Revision: 7$ $Date: 2007-06-12 17:16:12$
   $Author: Darko Kolakovic$
 
   Defines the class behaviors for the application.
@@ -23,6 +23,22 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
+/*Note: when you build a Windows project created from the scratch, you may 
+  get the following error message from linker:
+      error LNK2001: unresolved external symbol _main
+  To solve the problem, insure that target subsystem is not console, but
+  windows. Click the Link tab and under Project Options, change 
+    /subsystem:console to /subsystem:windows.
+  Also replace preprocessor definition _CONSOLE with _WINDOWS. Click at 
+  the C/C++ tab  and change preprocessor definitions.
+ */
+#ifdef _CONSOLE
+  #error This is a Windows application; subsystem:console is prohibited
+#endif
+#ifndef _WINDOWS
+  #error This is a Windows application; subsystem:windows is required
+#endif
+  
 /* Note: Visual C++ version 4.1 with MFC 4.0 is last version that supports
          building Win32s applications.
  */

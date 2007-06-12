@@ -28,7 +28,7 @@ CFG=Complex - Win32 Debug_Unicode_MFC
 !MESSAGE 
 
 # Begin Project
-# PROP AllowPerConfigDependencies 0
+# PROP AllowPerConfigDependencies 1
 # PROP Scc_ProjName "Complex"
 # PROP Scc_LocalPath "..\.."
 CPP=cl.exe
@@ -150,8 +150,7 @@ LINK32=link.exe
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /D "WIN32" /D "_DEBUG" /D "NCONSOLE" /D "_STL" /D "_AFXDLL" /FR /FD /GZ /c
-# SUBTRACT CPP /YX
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /D "WIN32" /D "_DEBUG" /D "NCONSOLE" /D "_STL" /D "_AFXDLL" /D "_WINDOWS" /FR /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE RSC /l 0x1009 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
@@ -159,7 +158,8 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 /nologo /version:2.2 /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
 
@@ -172,11 +172,12 @@ LINK32=link.exe
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "..\bin\Release_SBCS_MFC\Win32"
 # PROP Intermediate_Dir "..\Obj\Release_SBCS_MFC\Complex\Win32"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_STL" /FD /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /D "WIN32" /D "NDEBUG" /D "NCONSOLE" /D "_STL" /D "_AFXDLL" /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /D "WIN32" /D "NDEBUG" /D "NCONSOLE" /D "_STL" /D "_AFXDLL" /D "_WINDOWS" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x1009 /d "NDEBUG"
 # ADD RSC /l 0x1009 /d "NDEBUG" /d "_AFXDLL"
@@ -185,7 +186,8 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 /nologo /subsystem:console /machine:I386
+# ADD LINK32 /nologo /subsystem:windows /machine:I386
+# SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode_MFC"
 
@@ -198,11 +200,12 @@ LINK32=link.exe
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "..\bin\Debug_Unicode_MFC\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode_MFC\Complex\Win32"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /D "WIN32" /D "_DEBUG" /D "NCONSOLE" /D "_UNICODE" /D "_STL" /D "_AFXDLL" /FR /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /D "WIN32" /D "_DEBUG" /D "NCONSOLE" /D "_UNICODE" /D "_STL" /D "_AFXDLL" /D "_WINDOWS" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x1009 /d "_DEBUG" /d "_UNICODE"
 # ADD RSC /l 0x1009 /d "_DEBUG" /d "_UNICODE" /d "_AFXDLL"
@@ -211,7 +214,8 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode_MFC"
 
@@ -224,11 +228,12 @@ LINK32=link.exe
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "..\bin\Release_Unicode_MFC\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode_MFC\Complex\Win32"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_STL" /FD /c
 # SUBTRACT BASE CPP /YX
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /D "WIN32" /D "NDEBUG" /D "NCONSOLE" /D "_UNICODE" /D "_STL" /D "_AFXDLL" /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /I "..\Common\Src\Win\32" /I "..\Common\Res\Win" /D "WIN32" /D "NDEBUG" /D "NCONSOLE" /D "_UNICODE" /D "_STL" /D "_AFXDLL" /D "_WINDOWS" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x1009 /d "NDEBUG" /d "_UNICODE"
 # ADD RSC /l 0x1009 /d "NDEBUG" /d "_UNICODE" /d "_AFXDLL"
@@ -237,7 +242,8 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 /nologo /subsystem:console /machine:I386
+# ADD LINK32 /nologo /subsystem:windows /machine:I386
+# SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
 
@@ -272,6 +278,7 @@ SOURCE=..\..\KDtoA.c
 
 # ADD BASE CPP /D "NUSE_STD_HEADERS"
 # ADD CPP /D "NUSE_STD_HEADERS"
+# SUBTRACT CPP /YX /Yc /Yu
 
 !ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
 
@@ -285,14 +292,77 @@ SOURCE=..\..\KDtoA.c
 # Begin Source File
 
 SOURCE=..\..\KMatAcosC.cpp
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS_MFC"
+
+# SUBTRACT CPP /YX /Yc /Yu
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode_MFC"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\KTestLog.cpp
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS_MFC"
+
+# SUBTRACT CPP /YX /Yc /Yu
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode_MFC"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\KZLineIn.cpp
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS_MFC"
+
+# SUBTRACT CPP /YX /Yc /Yu
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode_MFC"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -312,6 +382,7 @@ SOURCE=..\..\KZtoA.cpp
 
 # ADD BASE CPP /D "NUSE_STD_HEADERS"
 # ADD CPP /D "NUSE_STD_HEADERS"
+# SUBTRACT CPP /YX /Yc /Yu
 
 !ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
 
@@ -355,6 +426,54 @@ SOURCE=.\Src\main.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\Common\Src\Win\stdafx.cpp
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS_MFC"
+
+# ADD CPP /Yc"stdafx.h"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode_MFC"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Res\Win\32\Test.rc
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode_MFC"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\TestCommonComplex.cpp
 # End Source File
 # Begin Source File
@@ -368,6 +487,10 @@ SOURCE=.\Src\TestComplexBase.cpp
 # Begin Source File
 
 SOURCE=.\Src\TestComplexToA.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\Win\32\TestMfcComplex.cpp
 # End Source File
 # Begin Source File
 
@@ -528,6 +651,68 @@ SOURCE=..\Common\Src\Win\32\TsMfcView.cpp
 !ENDIF 
 
 # End Source File
+# Begin Source File
+
+SOURCE=..\Common\Src\Win\32\TsMfcWriteTxt.cpp
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode_MFC"
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Src\TsWriteTxt.cpp
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS_MFC"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode_MFC"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode_MFC"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
@@ -555,14 +740,6 @@ SOURCE=..\..\KMathCst.inl
 # Begin Source File
 
 SOURCE=..\..\KProgCst.inl
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Src\Win\stdafx.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Res\Win\32\Test.rc
 # End Source File
 # Begin Source File
 
@@ -757,10 +934,6 @@ SOURCE=..\Common\Src\Win\32\TsMfcView.h
 
 !ENDIF 
 
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Src\TsWriteTxt.cpp
 # End Source File
 # End Group
 # Begin Group "Resource Files"

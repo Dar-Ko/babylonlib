@@ -1,5 +1,5 @@
 /*$Workfile: stdafx.h$: header file
-  $Revision: 19$  $Date: 2007-03-16 22:24:31$
+  $Revision: 20$  $Date: 2007-06-12 17:17:05$
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -89,6 +89,8 @@
   #endif //_USE_MFC
 
   #ifdef _MSC_VER
+    #pragma comment( user, "Compiled on " __DATE__ " at " __TIME__ )
+
     /*Replaces library header file names with the compiler's aliases*/
     #ifdef _USE_STD_HEADERS
       //Microsoft Visual C/C++ compilers: replace custom header files With

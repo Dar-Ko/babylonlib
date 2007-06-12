@@ -1,5 +1,5 @@
 /*$Workfile: TestComplex.cpp$: implementation file
-  $Revision: 15$ $Date: 2007-06-08 17:56:10$
+  $Revision: 16$ $Date: 2007-06-12 17:18:44$
   $Author: Darko Kolakovic$
 
   Complex number arithmetics test
@@ -142,31 +142,12 @@ while (funcTest[f].m_func != NULL)
 return bRes; //fixme
 }
 
-#ifndef _CONSOLE //GUI application
+#ifdef _CONSOLE //Console application
 //TestPointToComplex()------------------------------------------------------
-/*Test conversion from CPoint to complex number.
+/*Test conversion from orthogonal coordinates to complex number.
 
   Returns: true if successful, otherwise returns false.
 */
-  bool TestPointToComplex(CPoint& ptPos //[in] current pointer position
-                          )
-  {
-  bool bRes = true;
-  CComplex ccPos = ptPos;
-  double dRho;   //magnitude
-  double dAngle; //phase angle
-
-  dRho   = ccPos.Rho();   //The function returns the magnitude of ccPos
-  dAngle = ccPos.Angle(); //The function returns the phase angle of ccPos
-
-  TRACE2(_T("ccPos = %f e(j%f)\n"),abs(ccPos),arg(ccPos));
-  TsWriteToView(_T("Mouse position is "));
-  TCHAR szText[512];
-  _stprintf(szText, _T("%.2f+i%.2f = %.2fe(i%.2f)\r\n"),ccPos.real(),ccPos.imag(),dRho,dAngle);
-  TsWriteToView(szText);
-  return bRes;
-  }
-#else
   bool TestPointToComplex()
   {
   bool bRes = true;
@@ -269,6 +250,8 @@ return bRes; //fixme
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  16   Biblioteka1.15        2007-06-12 17:18:44  Darko Kolakovic excluded
+ *       TestComplexPoint
  *  15   Biblioteka1.14        2007-06-08 17:56:10  Darko Kolakovic New test cases
  *  14   Biblioteka1.13        2007-06-04 16:57:59  Darko Kolakovic Fixed
  *       validation of NaNs

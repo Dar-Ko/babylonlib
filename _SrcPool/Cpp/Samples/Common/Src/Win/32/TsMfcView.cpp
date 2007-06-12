@@ -1,5 +1,5 @@
 /*$Workfile: TsMfcView.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-06-11 17:00:36$
+  $Revision: 6$ $Date: 2007-06-12 17:14:13$
   $Author: Darko Kolakovic$
 
   Defines the class behaviors for the application.
@@ -22,35 +22,6 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
-///////////////////////////////////////////////////////////////////////////////
-// Helper functions
-
-//TsWriteToView()--------------------------------------------------------------
-#include "TsMfcFrame.h"  //CTestMainFrame class
-/*Writes a character string at the View window
- */
-bool TsWriteToView(LPCTSTR lszText)
-{
-CWnd* pFrame = AfxGetMainWnd();
-ASSERT(pFrame != NULL);
-ASSERT_VALID(pFrame);
-
-if (pFrame != NULL)
-  {
-  ASSERT_KINDOF(CTestMainFrame, pFrame);
-  ASSERT (pFrame->IsKindOf(RUNTIME_CLASS(CTestMainFrame)));
-  CView* pView = ((CTestMainFrame*)pFrame)->GetActiveView();
-  if (pView != NULL)
-    {
-    ASSERT_KINDOF(CTestView, pView);
-    ASSERT(pView->IsKindOf(RUNTIME_CLASS(CTestView)));
-      //Append a string text at the end of the text
-    return ((CTestView*)pView)->AppendText(lszText);
-    }
-  }
-return false;
-}
-
 /////////////////////////////////////////////////////////////////////////////
 // CTestView
 
@@ -65,12 +36,14 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CTestView construction/destruction
 
-CTestView::CTestView()
+CTestView::CTestView() : m_PointTest(NULL)
+
 {
 }
 
 CTestView::~CTestView()
 {
+m_PointTest = NULL;
 }
 
 //::PreCreateWindow()----------------------------------------------------------
@@ -149,7 +122,7 @@ CTestDoc* CTestView::GetDocument() // non-debug version is inline
 //::AppendText()---------------------------------------------------------------
 /*Appends new text and scrolls the viewport to make it visible
  */
-bool CTestView::AppendText(LPCTSTR lpszText //Text to append
+bool CTestView::AppendText(LPCTSTR lpszText //[in] text to append
                           )
 {
 if (lpszText == NULL)
@@ -167,10 +140,28 @@ return true;
 
 
 //::OnLButtonDblClk()------------------------------------------------------
-/*Test TPoint class
+/*Invokes point test method.
  */
 void CTestView::OnLButtonDblClk(UINT nFlags, CPoint point)
 {
-//TestPoint(point);
+//Note: use point in your test cases
+if (m_PointTest != NULL)
+  m_PointTest(point);
+
 CEditView::OnLButtonDblClk(nFlags, point);
 }
+
+///////////////////////////////////////////////////////////////////////////////
+/*****************************************************************************
+ * $Log: 
+ *  6    Biblioteka1.5         2007-06-12 17:14:13  Darko Kolakovic Moved out
+ *       TsWriteToView()
+ *  5    Biblioteka1.4         2007-06-11 17:00:36  Darko Kolakovic Windows MFC
+ *       application
+ *  4    Biblioteka1.3         2007-06-11 16:06:08  Darko Kolakovic 
+ *  3    Biblioteka1.2         2007-05-24 11:51:37  Darko Kolakovic Formatting
+ *  2    Biblioteka1.1         2001-07-10 00:43:29  Darko          
+ *       TestQuadraticEquation()
+ *  1    Biblioteka1.0         2001-06-08 22:43:56  Darko           
+ * $
+ *****************************************************************************/
