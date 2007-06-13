@@ -1,0 +1,6 @@
+$Workfile: S:\_SrcPool\Cpp\Samples\Strings\Strings.txt$: developer's note
+$Revision: 1$ $Date: 2007-06-13 16:06:20$
+$Author: Darko Kolakovic$
+
+\	Strings.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	Strings.wpj	Wind River Tornado Project (WPJ) file is a generated build file, format version 2.2.	VxWorks
