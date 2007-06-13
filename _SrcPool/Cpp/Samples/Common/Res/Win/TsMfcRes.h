@@ -1,13 +1,13 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Developer Studio generated include file.
-// Used by TestApp.rc
+// Used by S:\_SrcPool\Cpp\Samples\Common\Res\Win\32\TestMfcApp.rc
 //
 #define IDD_ABOUTBOX                    100
 #define IDR_MAINFRAME                   128
 #define IDR_WINOSVTYPE                  129
 
 // Next default values for new objects
-//
+// 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        135

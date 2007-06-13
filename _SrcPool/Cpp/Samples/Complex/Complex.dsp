@@ -463,11 +463,19 @@ SOURCE=..\Common\Res\Win\32\Test.rc
 
 !ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS_MFC"
 
+# PROP Exclude_From_Build 1
+
 !ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
+
+# PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode_MFC"
 
+# PROP Exclude_From_Build 1
+
 !ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode_MFC"
+
+# PROP Exclude_From_Build 1
 
 !ENDIF 
 
@@ -487,6 +495,37 @@ SOURCE=.\Src\TestComplexBase.cpp
 # Begin Source File
 
 SOURCE=.\Src\TestComplexToA.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Res\Win\32\TestMfcApp.rc
+
+!IF  "$(CFG)" == "Complex - Win32 Release_SBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_SBCS_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_SBCS_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Debug_Unicode_MFC"
+
+!ELSEIF  "$(CFG)" == "Complex - Win32 Release_Unicode_MFC"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -939,6 +978,10 @@ SOURCE=..\Common\Src\Win\32\TsMfcView.h
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=..\Common\Res\Win\SrcPool.ico
+# End Source File
 # End Group
 # Begin Group "Logs"
 

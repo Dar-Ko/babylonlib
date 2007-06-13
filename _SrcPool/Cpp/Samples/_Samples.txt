@@ -1,6 +1,6 @@
 $Workfile: _Samples.txt$: developer's note
-$Revision: 10$ $Date: 2005-07-08 22:16:01$
-$Author: Darko$
+$Revision: 11$ $Date: 2007-06-13 17:15:10$
+$Author: Darko Kolakovic$
 
 Samples and test suites for the various functions, classes and algorithms using Babylon Library
 
@@ -35,7 +35,6 @@ _Samples        OK   OK   OK
   StringDyn     OK   OK   OK
   
 To Be Moved:
-    Calc
     Complex
     HTTPUtils
     Resizable

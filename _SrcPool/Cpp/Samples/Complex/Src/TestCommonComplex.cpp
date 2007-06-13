@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonComplex.cpp$: implementation file
-  $Revision: 4$ $Date: 2007-06-11 17:02:13$
+  $Revision: 5$ $Date: 2007-06-13 17:14:16$
   $Author: Darko Kolakovic$
 
   Testing complex number calculations.
@@ -23,6 +23,7 @@ extern bool TestACos();
 extern bool TestZtoA();
 
 int TestCommonComplex();
+PFUNCENTRY_TEST g_startTest = TestCommonComplex; //test entry point
 
 //-----------------------------------------------------------------------------
 /*Validates complex arithmetics and functions using complex numbers.

@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Complex\Src\Win\32\TestMfcComplex.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-06-12 17:17:47$
+/*$Workfile: TestMfcComplex.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-06-13 17:14:27$
   $Author: Darko Kolakovic$
 
   Complex number arithmetics test
@@ -61,7 +61,8 @@ extern bool TsWriteToView(LPCTSTR lszText);
   TRACE2(_T("ccPos = %f e(j%f)\n"),abs(ccPos),arg(ccPos));
   TsWriteToView(_T("Mouse position is "));
   TCHAR szText[512];
-  _stprintf(szText, _T("%.2f+i%.2f = %.2fe(i%.2f)\r\n"),ccPos.real(),ccPos.imag(),dRho,dAngle);
+  _stprintf(szText, _T("%.2f+i%.2f = %.2fe(i%.2f)\r\n"),
+                  ccPos.real(), ccPos.imag(), dRho, dAngle);
   TsWriteToView(szText);
   return bRes;
   }
@@ -95,6 +96,7 @@ extern bool TsWriteToView(LPCTSTR lszText);
   ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-06-13 17:14:27  Darko Kolakovic formatting
  *  1    Biblioteka1.0         2007-06-12 17:17:47  Darko Kolakovic 
  * $
  *****************************************************************************/

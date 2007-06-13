@@ -1,5 +1,5 @@
 /*$Workfile: stdafx.h$: header file
-  $Revision: 20$  $Date: 2007-06-12 17:17:05$
+  $Revision: 21$  $Date: 2007-06-13 16:19:02$
 
   STandarD Application FrameworX
   header file includes standard system header files, or project specific header
@@ -165,6 +165,12 @@
 #endif
 // TODO: reference additional headers your program requires here
 
+#ifndef PFUNCENTRY_TEST
+  //Callback type for test entry point
+  typedef int (*PFUNCENTRY_TEST) (void);
+  #define PFUNCENTRY_TEST PFUNCENTRY_TEST
+#endif PFUNCENTRY_TEST
+  
 ///////////////////////////////////////////////////////////////////////////////
 #endif // !defined(_STDAFX_H_)
 /*****************************************************************************

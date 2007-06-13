@@ -1,5 +1,5 @@
 /*$Workfile: TsMfcApp.cpp$: implementation file
-  $Revision: 7$ $Date: 2007-06-12 17:16:12$
+  $Revision: 8$ $Date: 2007-06-13 16:20:13$
   $Author: Darko Kolakovic$
 
   Defines the class behaviors for the application.
@@ -130,9 +130,10 @@ ParseCommandLine(cmdInfo);
 // Create new document, main frame and view object, initialize m_pMainWnd
 if (!ProcessShellCommand(cmdInfo))
   return FALSE;
-  //Execute initial testing
-if (!DoTestInit())
-  return FALSE;
+
+ 
+DoTestInit();  //Execute initial testing
+
 return TRUE;
 }
 
@@ -142,11 +143,18 @@ return TRUE;
 
 //::DoTestInit()---------------------------------------------------------------
 /*Execute a test during instance initialization.
-  Returns FALSE if testing is unsuccesful.
+  Defines the entry point for the test.
+
+  Returns: EXIT_SUCCESS, which represents a value of 0, if succesful. Otherwise
+  a non-zero error code is returned.
  */
-bool CTestApp::DoTestInit()
+int CTestApp::DoTestInit()
 {
-return false;
+TRACE(_T("CTestApp::DoTestInit()\r\n"));
+extern PFUNCENTRY_TEST g_startTest;
+if (g_startTest != NULL)
+  return g_startTest();
+return EXIT_FAILURE;
 }
 
 /////////////////////////////////////////////////////////////////////////////

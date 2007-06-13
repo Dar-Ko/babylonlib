@@ -1,5 +1,5 @@
 /*$Workfile: TsMfcApp.h$: header file
-  $Revision: 5$ $Date: 2007-06-11 17:00:25$
+  $Revision: 6$ $Date: 2007-06-13 16:20:14$
   $Author: Darko Kolakovic$
 
   Interface of the main test application
@@ -41,7 +41,7 @@ public:
 
 //Operations
 public:
-  virtual bool DoTestInit();
+  virtual int DoTestInit();
 
 //Overrides
   // ClassWizard generated virtual function overrides
@@ -62,6 +62,8 @@ public:
 ////////////////////////////////////////////////////////////////////////////////
 /*
   $Log: 
+   6    Biblioteka1.5         2007-06-13 16:20:14  Darko Kolakovic Entry point for
+        the test
    5    Biblioteka1.4         2007-06-11 17:00:25  Darko Kolakovic Windows MFC
         application
    4    Biblioteka1.3         2007-06-11 13:45:21  Darko Kolakovic 

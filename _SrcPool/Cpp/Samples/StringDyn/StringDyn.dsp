@@ -226,5 +226,9 @@ SOURCE=.\LibraryTest.log
 SOURCE=.\LibraryTestUni.log
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\StringDyn.txt
+# End Source File
 # End Target
 # End Project
