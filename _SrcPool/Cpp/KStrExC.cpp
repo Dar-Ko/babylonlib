@@ -1,5 +1,5 @@
 /*$Workfile: KStrExC.cpp$: implementation file
-  $Revision: 8$ $Date: 2005-04-26 15:39:18$
+  $Revision: 9$ $Date: 2007-06-15 17:24:21$
   $Author: Darko Kolakovic$
 
   Extract number of characters from CString
@@ -7,12 +7,17 @@
 */
 /* Group=Strings                                                             */
 
-//#include "stdafx.h"
-#include <afxwin.h>
+#include "stdafx.h"
+#ifndef _USE_MFC
+  #include "KStringHandler.h"
+  #include "KString.h"  //CString class
+#endif //_USE_MFC
 #include "KStrExt.h"  //Declarations
 
 #ifdef _DEBUG
-  #define new DEBUG_NEW
+  #ifdef _USE_MFC
+    #define new DEBUG_NEW
+  #endif //_USE_MFC
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
@@ -22,8 +27,8 @@
 
 //Extract()--------------------------------------------------------------------
 /*Extracts an array of characters from the given string. Start and the end
-  postion of extraction is validated against legth of source string.
-  Returns: an extracted string and source string less exctracted part.
+  postion of extraction is validated against length of source string.
+  Returns: an extracted string and source string less extracted part.
 
   Note: uses Microsoft Foundation Library (MFC).
 
@@ -42,24 +47,27 @@ if(iStart <= iEnd && iStart < strSrc.GetLength())
   }
 return strRes;
 }
-
+#else
+  #pragma message("warning: TODO")
 ///////////////////////////////////////////////////////////////////////////////
 #endif //__AFXWIN_H__
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  8    Biblioteka1.7         2005-04-26 15:39:18  Darko Kolakovic fixed typo
- *  7    Biblioteka1.6         2004-06-01 16:53:06  Darko           time sync
- *  6    Biblioteka1.5         2003-09-04 08:19:52  Darko           commented out
+ *  9    Biblioteka1.8         2007-06-15 17:24:21  Darko Kolakovic _USE_MFC for
+ *       CString
+ *  8    Biblioteka1.7         2005-04-26 16:39:18  Darko Kolakovic fixed typo
+ *  7    Biblioteka1.6         2004-06-01 17:53:06  Darko           time sync
+ *  6    Biblioteka1.5         2003-09-04 09:19:52  Darko           commented out
  *       StdAfx.h
- *  5    Biblioteka1.4         2003-09-04 08:10:48  Darko           comment
- *  4    Biblioteka1.3         2002-01-29 22:21:55  Darko           Used library
+ *  5    Biblioteka1.4         2003-09-04 09:10:48  Darko           comment
+ *  4    Biblioteka1.3         2002-01-29 23:21:55  Darko           Used library
  *       notes 
- *  3    Biblioteka1.2         2002-01-25 15:58:04  Darko           Updated
+ *  3    Biblioteka1.2         2002-01-25 16:58:04  Darko           Updated
  *       comments
- *  2    Biblioteka1.1         2001-12-23 00:12:23  Darko           Comments
- *  1    Biblioteka1.0         2001-08-18 15:04:07  Darko           
+ *  2    Biblioteka1.1         2001-12-23 01:12:23  Darko           Comments
+ *  1    Biblioteka1.0         2001-08-18 16:04:07  Darko           
  * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/

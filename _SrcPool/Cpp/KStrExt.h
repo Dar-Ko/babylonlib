@@ -1,5 +1,5 @@
 /*$Workfile: KStrExt.h$: header file
-  $Revision: 10$ $Date: 2005-06-21 17:47:36$
+  $Revision: 11$ $Date: 2007-06-15 17:24:25$
   $Author: Darko Kolakovic$
 
   CString Extensions declarations
@@ -17,9 +17,11 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#ifndef __AFXWIN_H__
-  #include <AfxWin.h>
-#endif
+//#ifdef WIN32
+//  #ifdef __AFXWIN_H__
+//    #include <afxwin.h>
+//  #endif
+//#endif
 
   #ifdef _DOCBROwSER //Dummy elif
   #else
@@ -65,7 +67,7 @@ typedef void (*EmptyString)();
 //Functions using MFC
 //  TODO: replace MFC D.K.
 
-#ifdef __AFXWIN_H__
+#ifdef _USE_MFC
   CString  GetSubstring(CString& strSource,LPCSTR Delimiters,int iSubstringIndex);
   CString  FitString(CDC* pDC,CString strText, int iWidth,LPCTSTR szSuffix);
   CString  Extract(CString& strSrc, const int iStart, const int iEnd );
@@ -123,10 +125,9 @@ else
 return strSrc;
 }
 
-
 //operator<<()-----------------------------------------------------------------
 /*Inserts a string to a CString object. Throws the memory exceptions in case
-  of insuficient memory space.
+  of insufficient memory space.
 
   Example:
     CString strTitle;
@@ -222,7 +223,7 @@ return strDestination << _itot(iSource,szTemp,10);
 
 //operator<<()-----------------------------------------------------------------
 /*Inserts a character to a CString object. Throws the memory exceptions in case
-  of insuficient memory space.
+  of insufficient memory space.
 
   TODO: replace MFC D.K.
  */
@@ -253,7 +254,7 @@ return strDestination;
   #endif
 
 ///////////////////////////////////////////////////////////////////////////////
-#endif //__AFXWIN_H__
+#endif //_USE_MFC
 
 //////////////////////////////////////////////////////////////////////////////
 #endif  //_KSTRINGEXT_H_

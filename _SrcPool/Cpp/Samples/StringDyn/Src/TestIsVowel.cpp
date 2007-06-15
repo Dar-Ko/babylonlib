@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\StringDyn\Src\TestIsVowel.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-05-31 12:35:30$
+/*$Workfile: TestIsVowel.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-06-15 17:28:35$
   $Author: Darko Kolakovic$
 
   Test IsVowel methods
@@ -19,6 +19,9 @@ extern bool TsWriteToView(const int& iValue);
 extern bool TsWriteToViewLn(const int& iValue);
 
 #ifdef _DEBUG
+  #ifdef _USE_MFC
+    #define new DEBUG_NEW
+  #endif _USE_MFC
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
@@ -57,7 +60,7 @@ bool bRes = false;
 int i = 0;
 do
   {
-  int j = 0;
+  unsigned int j = 0;
   TsWriteToViewLn(Test[i].m_szSource);
 
   while (j < _tcslen(Test[i].m_szResult))
@@ -83,6 +86,8 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-06-15 17:28:35  Darko Kolakovic Console traget
+ *       fixes
  *  1    Biblioteka1.0         2007-05-31 12:35:30  Darko Kolakovic 
  * $
  *****************************************************************************/

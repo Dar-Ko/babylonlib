@@ -1,6 +1,6 @@
 /*$Workfile: KZtoA.cpp$: implementation file
-  $Revision: 2$ $Date: 2007-06-01 22:34:20$
-  $Author: Darko$
+  $Revision: 3$ $Date: 2007-06-11 13:29:08$
+  $Author: Darko Kolakovic$
 
   Converts a complex number to the string.
   Copyright: CommonSoft Inc.
@@ -53,7 +53,7 @@ const int ZBUFFSIZEMIN = 6; /*Minimal number of characters for the
  */
 LPTSTR ZtoA(double dReal,  //[in] real part of a complex number
             double dImag,  //[in] imaginary part of a complex number
-            LPTSTR szResult,  //[in] pointer to string buffer
+            LPTSTR szResult,   //[out] pointer to string buffer
             unsigned int iSize //[in] size of the resulting buffer in characters
            )
 {

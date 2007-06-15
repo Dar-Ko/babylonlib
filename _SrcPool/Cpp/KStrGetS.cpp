@@ -1,8 +1,8 @@
 /*$Workfile: KStrGetS.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-06-01 17:53:20$
-  $Author: Darko$
+  $Revision: 7$ $Date: 2007-06-15 17:24:29$
+  $Author: Darko Kolakovic$
 
-  Retreive substrings
+  Retrieve substrings
   Copyright: CommonSoft Inc.
   May '97 Darko Kolakovic
 */
@@ -16,7 +16,9 @@
 #include "KStrings.h" /*Declaration                                          */
 
 #ifdef _DEBUG
-  #define new DEBUG_NEW
+  #ifdef _USE_MFC
+    #define new DEBUG_NEW
+  #endif //_USE_MFC
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
@@ -53,6 +55,8 @@ return strToken;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  7    Biblioteka1.6         2007-06-15 17:24:29  Darko Kolakovic _USE_MFC for
+ *       CString
  *  6    Biblioteka1.5         2004-06-01 17:53:20  Darko           time sync
  *  5    Biblioteka1.4         2003-09-04 11:23:01  Darko           Unicode
  *  4    Biblioteka1.3         2002-02-04 19:56:22  Darko           include

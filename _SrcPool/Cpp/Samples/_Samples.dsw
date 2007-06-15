@@ -63,18 +63,6 @@ Package=<4>
 
 ###############################################################################
 
-Project: "HTTPUtils"=.\Common\Src\Win\Complex\Src\Common\Src\Win\HTTPUtils\HTTPUtils.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
 Project: "HtmlIO"=.\HtmlIO\HtmlIO.dsp - Package Owner=<4>
 
 Package=<5>

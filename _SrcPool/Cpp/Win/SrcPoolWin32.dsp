@@ -143,7 +143,7 @@ SOURCE=.\32\KAbout.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Res\Win\32\KAbtRes.rc
+SOURCE=.\Res\32\KAbtRes.rc
 # PROP Exclude_From_Build 1
 # End Source File
 # Begin Source File
@@ -448,7 +448,7 @@ SOURCE=.\32\KSpwnURL.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Res\Win\32\KSrcPool.rc
+SOURCE=.\Res\32\KSrcPool.rc
 # End Source File
 # Begin Source File
 
@@ -778,6 +778,10 @@ SOURCE=.\32\stdafx.h
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;png;xml;htm"
+# Begin Source File
+
+SOURCE=.\Res\SrcPool.ico
+# End Source File
 # Begin Source File
 
 SOURCE=.\Res\Win\SrcPool.ico

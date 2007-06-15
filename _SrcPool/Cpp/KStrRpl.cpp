@@ -1,5 +1,5 @@
 /*$Workfile: KStrRpl.cpp$: implementation file
-  $Revision: 7$ $Date: 2005-04-26 16:39:26$
+  $Revision: 8$ $Date: 2007-06-15 17:24:35$
   $Author: Darko Kolakovic$
 
   Replace characters in CString
@@ -7,12 +7,17 @@
 */
 /* Group=Strings                                                             */
 
-//#include "stdafx.h"
-#include <afxwin.h>
+#include "stdafx.h"
+#ifndef _USE_MFC
+  #include "KStringHandler.h"
+  #include "KString.h"
+#endif
 #include "KStrExt.h"  //Declarations
 
 #ifdef _DEBUG
-  #define new DEBUG_NEW
+  #ifdef _USE_MFC
+    #define new DEBUG_NEW
+  #endif //_USE_MFC
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
@@ -21,7 +26,7 @@
 #ifdef __AFXWIN_H__
 
 //ReplaceChar()----------------------------------------------------------------
-/*Call this function to replace all occurences of the chOld with the chNew.
+/*Call this function to replace all occurrences of the chOld with the chNew.
 
   Note: uses Microsoft Foundation Library (MFC).
 
@@ -47,6 +52,8 @@ return strSource;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  8    Biblioteka1.7         2007-06-15 17:24:35  Darko Kolakovic _USE_MFC for
+ *       CString
  *  7    Biblioteka1.6         2005-04-26 16:39:26  Darko Kolakovic fixed typo
  *  6    Biblioteka1.5         2004-06-01 17:53:32  Darko           time sync
  *  5    Biblioteka1.4         2003-09-04 11:23:56  Darko           StdAfx.h

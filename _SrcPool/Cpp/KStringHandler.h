@@ -1,5 +1,5 @@
 /*$Workfile: KStringHandler.h$: header file
-  $Revision: 4$ $Date: 2005-04-26 16:39:31$
+  $Revision: 5$ $Date: 2007-06-15 17:24:38$
   $Author: Darko Kolakovic$
 
   Dynamic string class
@@ -8,8 +8,13 @@
  */
 
 /* Group=Strings                                                             */
-#pragma once
+#ifndef __KSTRINGHANDLER_H__
+    /*$Workfile: KStringHandler.h$ sentry */
+  #define __KSTRINGHANDLER_H__
 
+#ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
+  #pragma message ("   #include " __FILE__ )
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 //The CStringHandler manages a variable-length sequence of characters.
@@ -182,6 +187,7 @@ inline bool operator!=(LPCTSTR s1, const CStringHandler& s2)
 return s2.Compare(s1) != 0;
 }
 
+#endif  /*__KSTRINGHANDLER_H__ */
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************

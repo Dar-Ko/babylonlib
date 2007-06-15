@@ -1,5 +1,5 @@
 /*$Workfile: KStrGSu.cpp$: implementation file
-  $Revision: 7$ $Date: 2005-06-21 11:11:46$
+  $Revision: 8$ $Date: 2007-06-15 17:24:27$
   $Author: Darko Kolakovic$
 
   String helpers and CString extension
@@ -9,12 +9,17 @@
 
 /* Group=Strings                                                             */
 
-//#include "stdafx.h"
-#include <afxwin.h>
+#include "stdafx.h"
+#ifndef _USE_MFC
+  #include "KStringHandler.h"
+  #include "KString.h"  //CString class
+#endif //_USE_MFC
 #include "KStrExt.h"  //Declarations
 
 #ifdef _DEBUG
-  #define new DEBUG_NEW
+  #ifdef _USE_MFC
+    #define new DEBUG_NEW
+  #endif //_USE_MFC
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif

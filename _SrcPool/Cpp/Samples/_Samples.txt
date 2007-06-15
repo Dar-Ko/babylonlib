@@ -1,5 +1,5 @@
 $Workfile: _Samples.txt$: developer's note
-$Revision: 11$ $Date: 2007-06-13 17:15:10$
+$Revision: 12$ $Date: 2007-06-15 17:25:13$
 $Author: Darko Kolakovic$
 
 Samples and test suites for the various functions, classes and algorithms using Babylon Library
@@ -8,15 +8,15 @@ Copyright: CommonSoft Inc.
 1993-06-07 Darko Kolakovic
 
 
-\	_Samples.dsw	Microsoft Developer Studio Workspace (DSW) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	_Samples.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
-\	_Samples.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
 \	_Samples.cww	Metrowerks CodeWarrior Workspace (CWW) file is a generated build file, format version 1.00.	PalmOS
-\	_Samples.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
-\	_Samples.vcw	Microsoft eMbedded Visual Tools Workspace (VCW) file is a generated build file, format version 6.02 (eVC6).	WinCE
+\	_Samples.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	_Samples.dsw	Microsoft Developer Studio Workspace (DSW) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	_Samples.FNG	Falch.net DevloperStudio Workspace Group (FNG) file is a generated build file, format version 2.0 (CW9).	PalmOS
 \	_Samples.FNP	Falch.net DevloperStudio Project (FNP) file is a generated build file, format version 2.0 (CW9).	PalmOS
+\	_Samples.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
+\	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	_Samples.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	_Samples.vcw	Microsoft eMbedded Visual Tools Workspace (VCW) file is a generated build file, format version 6.02 (eVC6).	WinCE
 
 _Samples Workspace Project components
 
@@ -33,7 +33,7 @@ _Samples        OK   OK   OK
   StdLib        OK   OK   OK
   StreamIO      OK   OK   OK
   StringDyn     OK   OK   OK
-  
+
 To Be Moved:
     Complex
     HTTPUtils

@@ -42,6 +42,7 @@ RSC=rc.exe
 # PROP Output_Dir "..\bin\Release_SBCS\Win32"
 # PROP Intermediate_Dir "..\Obj\Release_SBCS\StreamIO\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_STL" /FD /c
 # SUBTRACT CPP /YX
@@ -66,6 +67,7 @@ LINK32=link.exe
 # PROP Output_Dir "..\bin\Debug_SBCS\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS\StreamIO\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
@@ -90,6 +92,7 @@ LINK32=link.exe
 # PROP Output_Dir "..\bin\Debug_Unicode\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode\StreamIO\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "../.." /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
 # ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_STL" /FR /FD /GZ /c
 # SUBTRACT CPP /YX
@@ -114,6 +117,7 @@ LINK32=link.exe
 # PROP Output_Dir "..\bin\Release_Unicode\Win32"
 # PROP Intermediate_Dir "..\Obj\Release_Unicode\StreamIO\Win32"
 # PROP Target_Dir ""
+MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
 # ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\..\STL" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_STL" /FD /c
 # SUBTRACT CPP /YX
@@ -137,6 +141,10 @@ LINK32=link.exe
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Source File
+
+SOURCE=..\..\STL\KFileRead.cpp
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\STL\KGetLines.cpp

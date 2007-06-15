@@ -1,5 +1,5 @@
 /*$Workfile: KStrFindNoCase.cpp$: implementation file
-  $Revision: 4$ $Date: 2005-04-26 15:39:20$
+  $Revision: 5$ $Date: 2007-06-15 17:24:26$
   $Author: Darko Kolakovic$
 
   Searches for a substring ignoring case.
@@ -7,12 +7,17 @@
 */
 /* Group=Strings                                                             */
 
-//#include "stdafx.h"
-#include <afxwin.h>
+#include "stdafx.h"
+#ifndef _USE_MFC
+  #include "KStringHandler.h"
+  #include "KString.h"  //CString class
+#endif //_USE_MFC
 #include "KStrExt.h"  //Declarations
 
 #ifdef _DEBUG
-  #define new DEBUG_NEW
+  #ifdef _USE_MFC
+    #define new DEBUG_NEW
+  #endif //_USE_MFC
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
@@ -48,16 +53,19 @@ strToken.MakeLower();
 
 return strLower.Find(strToken, nStart);
 }
-
+#else
+  #pragma message ("warning: TODO")
 ///////////////////////////////////////////////////////////////////////////////
 #endif //__AFXWIN_H__
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  4    Biblioteka1.3         2005-04-26 15:39:20  Darko Kolakovic fixed typo
- *  3    Biblioteka1.2         2004-06-01 16:53:10  Darko           time sync
- *  2    Biblioteka1.1         2003-08-19 15:12:56  Darko           comment
- *  1    Biblioteka1.0         2003-08-14 10:34:34  Darko           
+ *  5    Biblioteka1.4         2007-06-15 17:24:26  Darko Kolakovic _USE_MFC for
+ *       CString
+ *  4    Biblioteka1.3         2005-04-26 16:39:20  Darko Kolakovic fixed typo
+ *  3    Biblioteka1.2         2004-06-01 17:53:10  Darko           time sync
+ *  2    Biblioteka1.1         2003-08-19 16:12:56  Darko           comment
+ *  1    Biblioteka1.0         2003-08-14 11:34:34  Darko           
  * $
  *****************************************************************************/

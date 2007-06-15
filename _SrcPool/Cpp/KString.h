@@ -1,5 +1,5 @@
 /*$Workfile: KString.h$: header file
-  $Revision: 12$ $Date: 2007-05-03 15:54:14$ 
+  $Revision: 13$ $Date: 2007-06-15 17:24:37$ 
   $Author: Darko Kolakovic$
 
   Interface for the CString class
@@ -38,6 +38,10 @@
 
 #include "KTChar.h" //TCHAR
 #include "KTrace.h" //ASSERT
+
+#ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
+  #pragma message ("   #include " __FILE__ )
+#endif
 
 #ifdef __BORLANDC__
   #pragma option push -w-inl
@@ -257,6 +261,17 @@ private:
 ///////////////////////////////////////////////////////////////////////////////
 // Inlines
 
+//-----------------------------------------------------------------------------
+/*
+ */
+inline CString::~CString()
+  {
+  //TODO: replace with CStringHandler base class
+  if (m_pData != NULL)
+    delete m_pData;
+  }
+
+  
 //::operator<()----------------------------------------------------------------
 /*Operator performs case-sensitive comparison of two strings.
   Returns true if the strings meet the comparison condition; 
@@ -386,6 +401,8 @@ return s2.Compare(s1) != 0;
 #endif // _KSTRING_H_
 /******************************************************************************
  * $Log: 
+ *  13   Biblioteka1.12        2007-06-15 17:24:37  Darko Kolakovic _USE_MFC for
+ *       CString
  *  12   Biblioteka1.11        2007-05-03 15:54:14  Darko Kolakovic ASSERT
  *  11   Biblioteka1.10        2004-06-01 16:52:17  Darko           STLport
  *       included

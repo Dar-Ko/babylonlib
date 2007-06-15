@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonStringDyn.cpp$: implementation file
-  $Revision: 2$ $Date: 2007-05-31 16:41:22$
+  $Revision: 3$ $Date: 2007-06-15 17:28:30$
   $Author: Darko Kolakovic$
 
   Test debugging and tracing routines.
@@ -15,6 +15,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TestStringHandler();
+extern bool TestStringClass();
 extern bool TestIsPalindrome();
 extern bool TestIsVowel();
 
@@ -33,6 +34,7 @@ TsWriteToViewLn(_T(""));
 PFUNC_TEST funcTest[] =
   {
   TestStringHandler,
+  TestStringClass,
   TestIsPalindrome,
   TestIsVowel
   };
@@ -59,6 +61,8 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  3    Biblioteka1.2         2007-06-15 17:28:30  Darko Kolakovic Console traget
+ *       fixes
  *  2    Biblioteka1.1         2007-05-31 16:41:22  Darko Kolakovic Test NaN
  *  1    Biblioteka1.0         2004-10-04 13:15:29  Darko           
  * $

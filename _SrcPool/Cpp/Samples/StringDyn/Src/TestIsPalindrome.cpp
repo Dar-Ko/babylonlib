@@ -1,5 +1,5 @@
 /*$Workfile: TestIsPalindrome.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-05-31 16:40:19$
+  $Revision: 6$ $Date: 2007-06-15 17:28:34$
   $Author: Darko Kolakovic$
 
   Test IsPalindrome methods
@@ -10,9 +10,11 @@
 // Group=Examples
 
 #include "stdafx.h"
-#include "TestCptString.h" //CPTString class
-#include <conio.h>
 #include <locale>
+#include <string>
+#include "STL/KOStream.h"
+#include "STL/KTString.h"  //tstring template
+#include "TestCptString.h" //CPTString class
 
 extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToViewLn(LPCTSTR lszText);

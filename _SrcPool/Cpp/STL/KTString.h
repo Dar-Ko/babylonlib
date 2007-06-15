@@ -1,5 +1,5 @@
 /*$Workfile: KTString.h$: header file
-  $Revision: 1$ $Date: 2004-12-20 15:26:32$
+  $Revision: 2$ $Date: 2007-06-15 17:25:47$
   $Author: Darko Kolakovic$
 
   STL string helper functions
@@ -8,7 +8,6 @@
 */
 
 /* Group=Strings                                                             */
-
 #ifndef _KTSTRING_H_
     //$Workfile: KTString.h$ sentry
   #define _KTSTRING_H_
@@ -28,7 +27,7 @@
 #endif
 
 #ifndef TCHAR
-    #include "KTChar.h"  //TCHAR definition
+  #include "KTChar.h"  //TCHAR definition
 #endif
 
 /*The class based for handling TCHAR string objects.
@@ -46,6 +45,7 @@ typedef std::basic_string<TCHAR> tstring;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-06-15 17:25:47  Darko Kolakovic  
  *  1    Biblioteka1.0         2004-12-20 15:26:32  Darko Kolakovic 
  * $
  *****************************************************************************/

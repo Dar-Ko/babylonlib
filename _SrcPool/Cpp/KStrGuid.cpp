@@ -1,5 +1,5 @@
 /*$Workfile: KStrGuid.cpp$: implementation file
-  $Revision: 5$ $Date: 2005-05-16 14:28:55$
+  $Revision: 6$ $Date: 2007-06-15 17:24:31$
   $Author: Darko Kolakovic$
 
   Converts globally unique identifier (GUID) to a string.
@@ -10,6 +10,10 @@
 /* Group=Strings                                                             */
 
 #include "stdafx.h"
+#ifndef _USE_MFC
+  #include "KStringHandler.h"
+  #include "KString.h"  //CString class
+#endif //_USE_MFC
 
 //GuidToStr()-----------------------------------------------------------------
 /*Converts globally unique identifier (GUID) to a string.

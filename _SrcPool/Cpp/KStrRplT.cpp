@@ -1,5 +1,5 @@
 /*$Workfile: KStrRplT.cpp$: implementation file
-  $Revision: 7$ $Date: 2005-04-26 15:39:28$
+  $Revision: 8$ $Date: 2007-06-15 17:24:36$
   $Author: Darko Kolakovic$
 
   Replace TAB characterts in CString with spaces
@@ -7,8 +7,12 @@
 */
 /* Group=Strings                                                             */
 
-//#include "stdafx.h"
-#include <afxwin.h>
+#include "stdafx.h"
+#ifndef _USE_MFC
+  #include "KStringHandler.h"
+  #include "KString.h"  //CString class
+#endif //_USE_MFC
+
 #include "KStrExt.h"  //Declarations
 
 #ifdef _DEBUG
@@ -64,16 +68,18 @@ return strSource;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2005-04-26 15:39:28  Darko Kolakovic fixed typo
- *  6    Biblioteka1.5         2004-06-01 16:53:37  Darko           time sync
- *  5    Biblioteka1.4         2003-09-04 10:18:55  Darko           StdAfx.h
+ *  8    Biblioteka1.7         2007-06-15 17:24:36  Darko Kolakovic _USE_MFC for
+ *       CString
+ *  7    Biblioteka1.6         2005-04-26 16:39:28  Darko Kolakovic fixed typo
+ *  6    Biblioteka1.5         2004-06-01 17:53:37  Darko           time sync
+ *  5    Biblioteka1.4         2003-09-04 11:18:55  Darko           StdAfx.h
  *       excluded
- *  4    Biblioteka1.3         2003-08-14 03:56:49  Darko           header file
- *  3    Biblioteka1.2         2002-01-29 22:22:05  Darko           Used lbraries
+ *  4    Biblioteka1.3         2003-08-14 04:56:49  Darko           header file
+ *  3    Biblioteka1.2         2002-01-29 23:22:05  Darko           Used lbraries
  *       notes 
- *  2    Biblioteka1.1         2002-01-25 15:58:37  Darko           Updated
+ *  2    Biblioteka1.1         2002-01-25 16:58:37  Darko           Updated
  *       comments
- *  1    Biblioteka1.0         2001-12-22 23:21:04  Darko           
+ *  1    Biblioteka1.0         2001-12-23 00:21:04  Darko           
  * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/

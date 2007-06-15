@@ -1,6 +1,6 @@
 /*$Workfile: KStrGetW.cpp$: implementation file
-  $Revision: 6$ $Date: 2004-06-01 16:53:23$
-  $Author: Darko$
+  $Revision: 7$ $Date: 2007-06-15 17:24:30$
+  $Author: Darko Kolakovic$
 
   Retreive words
   Copyright: CommonSoft Inc.
@@ -17,7 +17,9 @@
 #include "KStrings.h" /*Declaration                                          */
 
 #ifdef _DEBUG
-  #define new DEBUG_NEW
+  #ifdef _USE_MFC
+    #define new DEBUG_NEW
+  #endif //_USE_MFC
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
@@ -43,14 +45,16 @@ return lpszSource;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  6    Biblioteka1.5         2004-06-01 16:53:23  Darko           time sync
- *  5    Biblioteka1.4         2003-09-04 10:23:27  Darko           comment
- *  4    Biblioteka1.3         2002-02-04 18:56:58  Darko           include
+ *  7    Biblioteka1.6         2007-06-15 17:24:30  Darko Kolakovic _USE_MFC for
+ *       CString
+ *  6    Biblioteka1.5         2004-06-01 17:53:23  Darko           time sync
+ *  5    Biblioteka1.4         2003-09-04 11:23:27  Darko           comment
+ *  4    Biblioteka1.3         2002-02-04 19:56:58  Darko           include
  *       KTChar.h
- *  3    Biblioteka1.2         2002-01-25 15:58:27  Darko           Updated
+ *  3    Biblioteka1.2         2002-01-25 16:58:27  Darko           Updated
  *       comments
- *  2    Biblioteka1.1         2001-12-23 00:21:32  Darko           _DEBUG
- *  1    Biblioteka1.0         2001-08-18 15:04:26  Darko           
+ *  2    Biblioteka1.1         2001-12-23 01:21:32  Darko           _DEBUG
+ *  1    Biblioteka1.0         2001-08-18 16:04:26  Darko           
  * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/

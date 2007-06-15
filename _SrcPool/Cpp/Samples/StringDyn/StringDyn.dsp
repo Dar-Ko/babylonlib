@@ -41,6 +41,7 @@ RSC=rc.exe
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "..\bin\Debug_SBCS\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS\StringDyn\Win32"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
@@ -175,6 +176,10 @@ SOURCE=.\Src\TestCommonStringDyn.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Src\TestCString.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\TestIsPalindrome.cpp
 # End Source File
 # Begin Source File
@@ -193,6 +198,10 @@ SOURCE=..\Common\Src\TsWriteTxt.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\KString.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\KStringHandler.h

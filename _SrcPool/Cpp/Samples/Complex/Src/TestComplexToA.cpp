@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Complex\Src\TestComplexToA.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-06-11 17:01:45$
+/*$Workfile: TestComplexToA.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-06-15 17:28:30$
   $Author: Darko Kolakovic$
 
   Test Complex number presentation
@@ -13,21 +13,36 @@
 #include "KDbgMacr.h"     //Compiler specific constants
 #include "KProgCst.inl"   //NaN constants
 #include "KComplex.h"     //CComplex class
-#include "TestZAssert.h"  //Test validation class
 
 #ifdef _DEBUG
-  #define new DEBUG_NEW
+  #ifdef _USE_MFC
+    #define new DEBUG_NEW
+  #endif //_USE_MFC
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
 
+#ifndef NUSE_TESTCCOMPLEX
+  #include "TestZAssert.h"  //Test validation class
+  extern TestCComplex g_arrTestD[];//test values
+#else //use _complex
+  const int TESTSIZE = 6;
+  _complex g_arrTestD[TESTSIZE] = 
+    {
+      { 0.0,  0.0},
+      {10.0,  0.0},
+      { 0.0, 11.1},
+      {-1.2, -1.3},
+      { 0.0, -1.4},
+      {-5.1, 0.0}
+    };
+#endif
 
 
 extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern LPTSTR ZtoA(double dReal,double dImag, LPTSTR szResult, unsigned int iSize);
 
-extern TestCComplex g_arrTestD[];//test values
 
 //-----------------------------------------------------------------------------
 /*Function evaluates complex number text representation.
@@ -66,6 +81,8 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-06-15 17:28:30  Darko Kolakovic Console traget
+ *       fixes
  *  1    Biblioteka1.0         2007-06-11 17:01:45  Darko Kolakovic 
  * $
  *****************************************************************************/

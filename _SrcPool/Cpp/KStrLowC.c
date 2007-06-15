@@ -1,5 +1,5 @@
 /*$Workfile: KStrLowC.c$: implementation file
-  $Revision: 9$ $Date: 2007-05-08 10:29:26$
+  $Revision: 10$ $Date: 2007-06-15 17:24:32$
   $Author: Darko Kolakovic$
 
   Converts uppercase characters to lower case
@@ -10,9 +10,8 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
 #include <tchar.h>  /*_totlower()*/
-
-  /*Microsoft Visual C++.NET 2003 v7.1 compiler                              */
-#if _MSC_VER == 1310
+  /*Microsoft Visual C++    */
+#ifdef _MSC_VER 
   #if !defined _MBCS && !defined _UNICODE
     #include <stdlib.h> /*tolower()*/
   #endif
@@ -32,8 +31,8 @@
   Returns a pointer to the converted string.
 
   Example:
-    #include <StdLib.h>
-    #include <TChar.h>
+    #include <stdlib.h>
+    #include <tchar.h>
     #include "KStrings.h"
     void MyFunc()
       {
@@ -48,20 +47,25 @@
       }
 
  */
-TCHAR* StrToLower(TCHAR* szDestination  /*result                                   */,
-                  TCHAR* szSource       /*pointer to a null-terminated string      */
+TCHAR* StrToLower(TCHAR* szDestination  /*[out] result                            */,
+                  TCHAR* szSource       /*[in] pointer to a null-terminated string*/
                  )
 {
 TCHAR* szSrc = szSource;
 TCHAR* szRes = szDestination;
-int iChar ;
+int iChar = 0;
 
 if (szDestination == NULL || szSrc == NULL)
   szRes = NULL;
 else
-  while (*(_tcsinc(szDestination) =
-            (TCHAR)( (iChar = *(_tcsinc(szSrc)) >= _T('A') && iChar  <= _T('Z') ?
-                                          _totlower((TCHAR)iChar) : iChar) );
+  {
+  while ( (*_tcsinc(szDestination) =
+                  (TCHAR) (iChar = ((*(_tcsinc(szSrc)) >= _T('A') && iChar  <= _T('Z')) ?
+                                          _totlower((TCHAR)iChar) : iChar))
+          ) != _T('\0')
+        );
+  }
+
 return szRes;
 }
 

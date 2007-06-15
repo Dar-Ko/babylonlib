@@ -1,5 +1,5 @@
 /*$Workfile: KIsLRC.cpp$: implementation file
-  $Revision: 5$ $Date: 2005-06-17 18:10:52$
+  $Revision: 6$ $Date: 2007-06-15 17:24:20$
   $Author: Darko Kolakovic$
 
   Validates Longitudinal Redundancy Checksum (LRC)
@@ -14,7 +14,9 @@
 #endif
 
 #ifdef _DEBUG
-  #define new DEBUG_NEW
+  #ifdef _USE_MFC
+    #define new DEBUG_NEW
+  #endif //_USE_MFC
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
