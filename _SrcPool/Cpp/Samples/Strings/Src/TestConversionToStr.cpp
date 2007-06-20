@@ -1,5 +1,5 @@
 /*$Workfile: TestConversionToStr.cpp$: implementation file
-  $Revision: 6$ $Date: 2007-06-15 17:28:31$
+  $Revision: 7$ $Date: 2007-06-20 14:45:16$
   $Author: Darko Kolakovic$
 
   Test different conversions from and to string
@@ -11,7 +11,7 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
-#include "KStrings.h"	//OcttoL()
+#include "KStrings.h" //OcttoL()
 #include <iostream>
 #include <iomanip.h>  //std::endl
 
@@ -85,14 +85,14 @@ return bRes;
 
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- *$Log: 
+ *$Log:
  * 6    Biblioteka1.5         2007-06-15 17:28:31  Darko Kolakovic Console traget
  *      fixes
- * 5    Biblioteka1.4         2007-06-15 12:42:42  Darko Kolakovic 
- * 4    Biblioteka1.3         2002-08-19 10:35:58  Darko Kolakovic 
- * 3    Biblioteka1.2         2002-08-13 18:52:51  Darko Kolakovic 
- * 2    Biblioteka1.1         2002-07-16 01:41:52  Darko           Fixed VSS Log 
+ * 5    Biblioteka1.4         2007-06-15 12:42:42  Darko Kolakovic
+ * 4    Biblioteka1.3         2002-08-19 10:35:58  Darko Kolakovic
+ * 3    Biblioteka1.2         2002-08-13 18:52:51  Darko Kolakovic
+ * 2    Biblioteka1.1         2002-07-16 01:41:52  Darko           Fixed VSS Log
  *      tag
- * 1    Biblioteka1.0         2002-03-07 17:01:24  Darko           
+ * 1    Biblioteka1.0         2002-03-07 17:01:24  Darko
  *$
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KStrGuid.cpp$: implementation file
-  $Revision: 6$ $Date: 2007-06-15 17:24:31$
+  $Revision: 7$ $Date: 2007-06-19 16:29:02$
   $Author: Darko Kolakovic$
 
   Converts globally unique identifier (GUID) to a string.
@@ -14,7 +14,7 @@
   #include "KStringHandler.h"
   #include "KString.h"  //CString class
 #endif //_USE_MFC
-
+#ifdef _USE_MFC
 //GuidToStr()-----------------------------------------------------------------
 /*Converts globally unique identifier (GUID) to a string.
   GUID is a pseudo-random number "statistically guaranteed" to be unique.
@@ -43,7 +43,9 @@ strGUID.Format(_T("%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x"),
     iid.Data4[4], iid.Data4[5], iid.Data4[6], iid.Data4[7]);
 return strGUID;
 }
-
+#else
+#pragma message ("Warning: TODO CString")
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log:

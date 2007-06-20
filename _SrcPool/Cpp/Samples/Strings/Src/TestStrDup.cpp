@@ -1,8 +1,8 @@
 /*$Workfile: TestStrDup.cpp$: implementation file
-  $Revision: 3$ $Date: 2007-06-15 17:28:37$
+  $Revision: 4$ $Date: 2007-06-20 14:45:18$
   $Author: Darko Kolakovic$
 
-  Test string trimming 
+  Test string trimming
   Copyright: CommonSoft Inc.
   Aug. 2k2 Darko Kolakovic
 */
@@ -11,7 +11,7 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
-#include "KStrings.h"	//StrDup()
+#include "KStrings.h" //StrDup()
 #include <iostream>
 #include <iomanip.h>  //std::endl
 
@@ -40,7 +40,7 @@ else
   {
   if (iTextLen != _tcslen(szCopy))
     bRes = false;
-  else 
+  else
     {
     int i = 0;
     while (szCopy[i] != _T('\0'))
@@ -48,7 +48,7 @@ else
       if (szCopy[i] != szText[i])
         {
         bRes = false;
-        cout << "Character szText[" << i 
+        cout << "Character szText[" << i
              << "] is not copied properly." << endl;
         break;
         }
@@ -65,10 +65,10 @@ return bRes;
 
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- *$Log: 
+ *$Log:
  * 3    Biblioteka1.2         2007-06-15 17:28:37  Darko Kolakovic Console traget
  *      fixes
- * 2    Biblioteka1.1         2007-06-15 12:43:09  Darko Kolakovic 
- * 1    Biblioteka1.0         2002-09-11 16:25:48  Darko Kolakovic 
+ * 2    Biblioteka1.1         2007-06-15 12:43:09  Darko Kolakovic
+ * 1    Biblioteka1.0         2002-09-11 16:25:48  Darko Kolakovic
  *$
  *****************************************************************************/

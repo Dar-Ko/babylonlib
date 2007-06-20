@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Strings\Src\TestCommonStrings.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-06-15 17:29:25$
+/*$Workfile: TestCommonStrings.cpp$: implementation file
+  $Revision: 3$ $Date: 2007-06-20 14:45:15$
   $Author: Darko Kolakovic$
 
   Test debugging and tracing routines.
@@ -25,15 +25,76 @@ extern bool TestStrDup();
 extern bool TestStrings();
 extern bool TestReplaceEscapeSeq();
 
+int TestCommonStrings(void);
 
 int g_iNoofLines = -1;
+LPCTSTR TESTFILE = _T("../../../Strings/Res/TomSawyer.txt");
+
 #ifdef _USE_MFC
    //Name of default text file used to test string functions
-  CString     g_strTestFile = "../../Res/TomSawyer.txt";
+  CString g_strTestFile = TESTFILE;
+  PFUNCENTRY_TEST g_startTest = TestCommonStrings; //test entry point
+
 #else
-  #include <string>     //std::string
-  std::string g_strTestFile = "../../Res/TomSawyer.txt";
+  #include <string> //std::basic_string
+  #include "STL/KTString.h" //tstring typedef
+  class TsString : public tstring
+    {
+    public:
+      TsString(LPCTSTR szString = NULL)
+        {
+        if (szString != NULL)
+          *((tstring*)this) = szString;
+        };
+      virtual ~TsString() {};
+      operator LPCTSTR() const
+        {
+        return c_str();
+        };
+    };
+
+  TsString g_strTestFile = TESTFILE;
 #endif //_USE_MFC
+
+//-----------------------------------------------------------------------------
+/*Helper functions stores the name of a test text file.
+ */
+void TsSetTesFile(LPCTSTR szFileName //[in] name of a text file
+                 )
+{
+if (szFileName != NULL)
+  g_strTestFile = szFileName;
+}
+
+//-----------------------------------------------------------------------------
+/*Validates environment values.
+
+  Returns: true if successful, otherwise returns false.
+ */
+bool TestCharacterSet()
+{
+bool bRes = true;
+#ifdef _UNICODE
+  TsWriteToViewLn(_T("Unicode character set"));
+#endif
+#ifdef _MBCS
+  TsWriteToViewLn(_T("Multi-byte character set"));
+#endif
+#ifdef _SBCS
+  TsWriteToViewLn(_T("Single-byte character set"));
+#endif
+switch (sizeof(TCHAR))
+  {
+  case 1: TsWriteToViewLn("Character is 1 byte."); break;
+  case 2: TsWriteToViewLn("Character is 2 bytes."); break;
+  case 4: TsWriteToViewLn("Character is 4 bytes."); break;
+  default:
+    TsWriteToViewLn("Character size is unvalid.");
+    bRes = false;
+  }
+
+return bRes;
+}
 
 //-----------------------------------------------------------------------------
 /*Defines the entry point for the console application that validates a string
@@ -49,6 +110,7 @@ TsWriteToViewLn(_T(""));
 
 PFUNC_TEST funcTest[] =
   {
+  TestCharacterSet,
   TestStringConversion,
   TestCharConversion,
   TestStrDup,
@@ -77,7 +139,7 @@ while (iTestCount < (sizeof(funcTest)/sizeof(PFUNC_TEST)) )
   iTestCount++;
   }
 
-if(TestGetLine(g_strTestFile.c_str(), g_iNoofLines))
+if(TestGetLine(LPCTSTR(g_strTestFile), g_iNoofLines))
   {
   TsWriteToViewLn(LOG_SUCCESS);
   TsWriteToViewLn(_T(""));
@@ -93,7 +155,9 @@ return EXIT_SUCCESS;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2007-06-15 17:29:25  Darko Kolakovic 
+ * $Log:
+ *  2    Biblioteka1.1         2007-06-19 16:31:56  Darko Kolakovic
+ *       TestCharacterSet()
+ *  1    Biblioteka1.0         2007-06-15 17:29:25  Darko Kolakovic
  * $
  *****************************************************************************/

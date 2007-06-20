@@ -1,6 +1,6 @@
 /*$Workfile: KStrRplEscSeq.cpp$: implementation file
-  $Revision: 7$ $Date: 2003-09-22 21:26:50$
-  $Author: Darko$
+  $Revision: 8$ $Date: 2007-06-20 14:43:32$
+  $Author: Darko Kolakovic$
 
   Replace "C" escape sequences with characters
   Dec 2k1 Darko Kolakovic
@@ -60,7 +60,7 @@ if (szFormat != NULL)
   {
   int i = 0;
   //Find first escape delimiter in order to speed up browsing
-  while ((szFormat[i] != _T('\\')) || (szFormat[i] != _T('\0')))
+  while ((szFormat[i] != _T('\\')) && (szFormat[i] != _T('\0')))
     i++;
   int iNext = i;
   while (szFormat[iNext] != _T('\0'))
@@ -167,16 +167,18 @@ return szFormat;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  7    Biblioteka1.6         2003-09-22 21:26:50  Darko           formatting
- *  6    Biblioteka1.5         2002-02-04 18:57:28  Darko           include
+ *  8    Biblioteka1.7         2007-06-20 14:43:32  Darko Kolakovic fixed while
+ *       condition
+ *  7    Biblioteka1.6         2003-09-22 22:26:50  Darko           formatting
+ *  6    Biblioteka1.5         2002-02-04 19:57:28  Darko           include
  *       KTChar.h
- *  5    Biblioteka1.4         2002-01-29 22:22:01  Darko           Used lbraries
+ *  5    Biblioteka1.4         2002-01-29 23:22:01  Darko           Used lbraries
  *       notes 
- *  4    Biblioteka1.3         2001-12-30 19:19:55  Darko           Find first
+ *  4    Biblioteka1.3         2001-12-30 20:19:55  Darko           Find first
  *       escape delimiter; fix missing termminating zero
- *  3    Biblioteka1.2         2001-12-23 17:08:14  Darko           declaration
+ *  3    Biblioteka1.2         2001-12-23 18:08:14  Darko           declaration
  *       header file
- *  2    Biblioteka1.1         2001-12-22 23:25:24  Darko           changed header
- *  1    Biblioteka1.0         2001-12-22 23:12:50  Darko           
+ *  2    Biblioteka1.1         2001-12-23 00:25:24  Darko           changed header
+ *  1    Biblioteka1.0         2001-12-23 00:12:50  Darko           
  * $
  *****************************************************************************/

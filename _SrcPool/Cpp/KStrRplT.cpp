@@ -1,5 +1,5 @@
 /*$Workfile: KStrRplT.cpp$: implementation file
-  $Revision: 8$ $Date: 2007-06-15 17:24:36$
+  $Revision: 9$ $Date: 2007-06-19 16:29:17$
   $Author: Darko Kolakovic$
 
   Replace TAB characterts in CString with spaces
@@ -16,7 +16,9 @@
 #include "KStrExt.h"  //Declarations
 
 #ifdef _DEBUG
-  #define new DEBUG_NEW
+  #ifndef _USE_MFC
+    #define new DEBUG_NEW
+  #endif
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
@@ -63,11 +65,14 @@ return strSource;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+#else
+#pragma message ("Warning: replace MFC CString")
 #endif //__AFXWIN_H__
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  9    Biblioteka1.8         2007-06-19 16:29:17  Darko Kolakovic _USE_MFC
  *  8    Biblioteka1.7         2007-06-15 17:24:36  Darko Kolakovic _USE_MFC for
  *       CString
  *  7    Biblioteka1.6         2005-04-26 16:39:28  Darko Kolakovic fixed typo

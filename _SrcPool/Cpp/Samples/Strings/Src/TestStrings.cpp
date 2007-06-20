@@ -1,5 +1,5 @@
 /*$Workfile: TestStrings.cpp$: implementation file
-  $Revision: 9$ $Date: 2007-06-15 17:28:38$
+  $Revision: 11$ $Date: 2007-06-20 14:45:19$
   $Author: Darko Kolakovic$
 
   Test for different string functions
@@ -38,6 +38,8 @@ extern bool IsLRCValid(const BYTE chReceivedLRC,BYTE* pbData, int iCount);
  */
 bool TestStrings()
 {
+#ifdef _USE_MFC
+
 CString strText;
 strText = _T("ABCDEFGH12345678\r\n");
 TsWriteToView((LPCTSTR)strText);
@@ -54,15 +56,15 @@ if (szResult  != NULL)
   //Test StrPCpy()
 LPTSTR strTail =  StrPCpy(szText, _T("1234"));
 strTail = StrPCpy(strTail,_T("$%^&"));
-*strTail = _T('-');  //Concatenate 
+*strTail = _T('-');  //Concatenate
 TsWriteToView(szText);
 
   //Test StrCatV()
 TCHAR szOutput[64];
 szOutput[0] = _T('\0');  //Empty string
 StrCatV(szOutput, _T("The "), _T("quick "), _T("brown "), _T("dog "),
-                  _T("jumps "), _T("over "), 
-                  _T("the "), _T("lazy "), _T("fox.\r\n"), 
+                  _T("jumps "), _T("over "),
+                  _T("the "), _T("lazy "), _T("fox.\r\n"),
                   0 );
 TsWriteToView(szOutput);
 
@@ -107,6 +109,11 @@ chData[9] = GetLRC(&chData[1],8);
 if(IsLRCValid(chData[9],&chData[1],8))
    TRACE0("LRC is valid\n");
 return true;
+
+#else
+#pragma message("Warning: todo CString")
+return true;
+#endif
 }
 
 //TestReplaceEscapeSeq()-------------------------------------------------------
@@ -115,7 +122,7 @@ return true;
 bool TestReplaceEscapeSeq()
 {
 TRACE0("TestReplaceEscapeSeq()\n");
-TCHAR szText[32] = 
+TCHAR szText[32] =
   {
   _T('0'),_T('1'),_T('\\'),_T('a'),_T('\\'),_T('5'),_T('6'),_T('\\'),_T('n'),_T('9'),
   _T('\\'),_T('1'),_T('2'),_T('A'),_T('\\'),_T('0'),_T('8'),_T('7'),_T('\\'),_T('n'),
@@ -123,6 +130,8 @@ TCHAR szText[32] =
   _T('\\'),_T('\0')
   };
 TRACE1("  byte stream:%s\n",szText);
+#ifdef _USE_MFC
+
 CString strOutput = "Testing Escape Sequence replacement\r\n";
 TsWriteToView((LPCTSTR)strOutput);
 
@@ -132,6 +141,9 @@ ReplaceEscapeSeq(szText);
 TRACE1("  result:\n%s\n",szText);
 strOutput.Format("\r\nresult:\r\n%s\r\n\r\n",szText);
 TsWriteToView((LPCTSTR)strOutput);
+#else
+#pragma message("Warning: todo CString")
+#endif
 
 return true;
 }

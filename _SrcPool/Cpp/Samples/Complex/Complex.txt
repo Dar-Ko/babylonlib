@@ -1,6 +1,11 @@
-$Workfile: S:\_SrcPool\Cpp\Samples\Complex\Complex.txt$: developer's note
-$Revision: 1$ $Date: 2007-05-22 17:02:42$
+$Workfile: Complex.txt$: developer's note
+$Revision: 2$ $Date: 2007-06-20 14:44:19$
 $Author: Darko Kolakovic$
+
+Target Microsoft Windows (MFC/GUI subsystem:windows) requires MFC library, _WINDOWS preprocessor definition, /subsystem:windows linker option (Microsoft Visual C/C++).
+If MFC TestDocument/TestView framework is used, it is required to initialize global test entry point:
+    PFUNCENTRY_TEST g_startTest = MyTestFunc;
+This is not required if the target is Windows console (subsystem:console).
 
 \	Complex.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	Complex.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32

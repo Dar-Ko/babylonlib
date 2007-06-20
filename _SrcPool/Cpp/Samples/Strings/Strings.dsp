@@ -2,7 +2,6 @@
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
-# TARGTYPE "Win32 (x86) Application" 0x0101
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=Strings - Win32 Debug_MBCS_MFC
@@ -18,51 +17,45 @@ CFG=Strings - Win32 Debug_MBCS_MFC
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "Strings - Win32 Debug_SBCS" (based on "Win32 (x86) Console Application")
+!MESSAGE "Strings - Win32 Release_MBCS" (based on "Win32 (x86) Console Application")
 !MESSAGE "Strings - Win32 Debug_MBCS" (based on "Win32 (x86) Console Application")
 !MESSAGE "Strings - Win32 Debug_Unicode" (based on "Win32 (x86) Console Application")
-!MESSAGE "Strings - Win32 Release_Unicode" (based on "Win32 (x86) Console Application")
-!MESSAGE "Strings - Win32 Debug_MBCS_MFC" (based on "Win32 (x86) Application")
-!MESSAGE "Strings - Win32 Debug_Unicode_MFC" (based on "Win32 (x86) Application")
-!MESSAGE "Strings - Win32 Release_Unicode_MFC" (based on "Win32 (x86) Application")
+!MESSAGE "Strings - Win32 Debug_SBCS" (based on "Win32 (x86) Console Application")
+!MESSAGE "Strings - Win32 Debug_SBCS_MFC" (based on "Win32 (x86) Console Application")
+!MESSAGE "Strings - Win32 Debug_Unicode_MFC" (based on "Win32 (x86) Console Application")
+!MESSAGE "Strings - Win32 Debug_MBCS_MFC" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
 # PROP Scc_ProjName "Strings"
-# PROP Scc_LocalPath "..\.."
+# PROP Scc_LocalPath "."
+CPP=cl.exe
+RSC=rc.exe
 
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
 
 # PROP BASE Use_MFC 0
-# PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "Strings___Win32_Debug_SBCS"
-# PROP BASE Intermediate_Dir "Strings___Win32_Debug_SBCS"
-# PROP BASE Ignore_Export_Lib 0
+# PROP BASE Use_Debug_Libraries 0
+# PROP BASE Output_Dir "Strings___Win32_Release_MBCS"
+# PROP BASE Intermediate_Dir "Strings___Win32_Release_MBCS"
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
-# PROP Use_Debug_Libraries 1
-# PROP Output_Dir "..\bin\Debug_SBCS\Win32"
-# PROP Intermediate_Dir "..\Obj\Debug_SBCS\Strings\Win32"
-# PROP Ignore_Export_Lib 0
+# PROP Use_Debug_Libraries 0
+# PROP Output_Dir "..\bin\Release_MBCS\Win32"
+# PROP Intermediate_Dir "..\Obj\Release_MBCS\Strings\Win32"
 # PROP Target_Dir ""
 MTL=midl.exe
-# ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-# ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-CPP=cl.exe
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /Yu"StdAfx.h" /FD /GZ /c
-# ADD CPP /nologo /ML /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_SBCS" /D "NAFXDLL" /FR /FD /GZ /c
-# SUBTRACT CPP /YX /Yc /Yu
-RSC=rc.exe
-# ADD BASE RSC /l 0x409 /d "_DEBUG" /d "NAFXDLL"
-# ADD RSC /l 0x1009 /d "_DEBUG" /d "NAFXDLL"
+# ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
+# ADD BASE RSC /l 0x1009 /d "NDEBUG"
+# ADD RSC /l 0x1009 /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 /nologo /subsystem:console /debug /machine:I386 /nodefaultlib:"nafxcwd.lib" /nodefaultlib:"libc.lib" /pdbtype:sept
-# SUBTRACT LINK32 /nodefaultlib
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
 
@@ -70,7 +63,6 @@ LINK32=link.exe
 # PROP BASE Use_Debug_Libraries 1
 # PROP BASE Output_Dir "Strings___Win32_Debug_MBCS"
 # PROP BASE Intermediate_Dir "Strings___Win32_Debug_MBCS"
-# PROP BASE Ignore_Export_Lib 0
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
@@ -79,15 +71,10 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 MTL=midl.exe
-# ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-# ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-CPP=cl.exe
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /Yu"StdAfx.h" /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /D "_AFXDLL" /FR /FD /GZ /c
-# SUBTRACT CPP /YX /Yc /Yu
-RSC=rc.exe
-# ADD BASE RSC /l 0x409 /d "_DEBUG" /d "NAFXDLL"
-# ADD RSC /l 0x1009 /d "_DEBUG" /d "NAFXDLL"
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD BASE RSC /l 0x1009 /d "_DEBUG"
+# ADD RSC /l 0x1009 /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
@@ -110,286 +97,140 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 MTL=midl.exe
-# ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-# ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-CPP=cl.exe
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /Yu"StdAfx.h" /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_AFXDLL" /FR /FD /GZ /c
-# SUBTRACT CPP /YX /Yc /Yu
-RSC=rc.exe
-# ADD BASE RSC /l 0x409 /d "_DEBUG" /d "NAFXDLL"
-# ADD RSC /l 0x1009 /d "_DEBUG" /d "_UNICODE" /d "NAFXDLL"
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /FR /YX /FD /GZ /c
+# ADD BASE RSC /l 0x1009 /d "_DEBUG"
+# ADD RSC /l 0x1009 /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# SUBTRACT LINK32 /pdb:none
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
 
 # PROP BASE Use_MFC 0
-# PROP BASE Use_Debug_Libraries 0
-# PROP BASE Output_Dir "Strings___Win32_Release_Unicode"
-# PROP BASE Intermediate_Dir "Strings___Win32_Release_Unicode"
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir "Strings___Win32_Debug_SBCS"
+# PROP BASE Intermediate_Dir "Strings___Win32_Debug_SBCS"
 # PROP BASE Ignore_Export_Lib 0
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "..\bin\Release_Unicode\Win32"
-# PROP Intermediate_Dir "..\Obj\Release_Unicode\Strings\Win32"
+# PROP Output_Dir "..\bin\Debug_SBCS\Win32"
+# PROP Intermediate_Dir "..\Obj\Debug_SBCS\Strings\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 MTL=midl.exe
-# ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-# ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-CPP=cl.exe
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /Yu"StdAfx.h" /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_AFXDLL" /FR /FD /GZ /c
-# SUBTRACT CPP /YX /Yc /Yu
-RSC=rc.exe
-# ADD BASE RSC /l 0x409 /d "NDEBUG" /d "NAFXDLL"
-# ADD RSC /l 0x1009 /d "NDEBUG" /d "_UNICODE" /d "NAFXDLL"
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_SBCS" /FR /YX /FD /GZ /c
+# ADD BASE RSC /l 0x1009 /d "_DEBUG"
+# ADD RSC /l 0x1009 /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 kernel32.lib user32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# SUBTRACT LINK32 /nodefaultlib
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
 
-# PROP BASE Use_MFC 6
+# PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "Strings___Win32_Debug_MBCS_MFC"
-# PROP BASE Intermediate_Dir "Strings___Win32_Debug_MBCS_MFC"
+# PROP BASE Output_Dir "Strings___Win32_Debug_SBCS_MFC"
+# PROP BASE Intermediate_Dir "Strings___Win32_Debug_SBCS_MFC"
 # PROP BASE Ignore_Export_Lib 0
 # PROP BASE Target_Dir ""
-# PROP Use_MFC 6
+# PROP Use_MFC 2
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "..\bin\Debug_MBCS_MFC\Win32"
-# PROP Intermediate_Dir "..\Obj\Debug_MBCS_MFC\Strings\Win32"
+# PROP Output_Dir "..\bin\Debug_SBCS_MFC\Win32"
+# PROP Intermediate_Dir "..\Obj\Debug_SBCS_MFC\Strings\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-CPP=cl.exe
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /Yu"StdAfx.h" /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /FD /GZ /c
-# SUBTRACT CPP /YX /Yc /Yu
 MTL=midl.exe
-# ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-# ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-RSC=rc.exe
-# ADD BASE RSC /l 0x409 /d "_DEBUG" /d "_AFXDLL"
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_SBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_SBCS" /D "_AFXDLL" /FR /YX /FD /GZ /c
+# ADD BASE RSC /l 0x1009 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 /nologo /version:1.0 /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 /nologo /version:1.0 /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# ADD BASE LINK32 kernel32.lib user32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# SUBTRACT BASE LINK32 /nodefaultlib
+# ADD LINK32 /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
 
-# PROP BASE Use_MFC 6
+# PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
 # PROP BASE Output_Dir "Strings___Win32_Debug_Unicode_MFC"
 # PROP BASE Intermediate_Dir "Strings___Win32_Debug_Unicode_MFC"
 # PROP BASE Ignore_Export_Lib 0
 # PROP BASE Target_Dir ""
-# PROP Use_MFC 6
+# PROP Use_MFC 2
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "..\bin\Debug_Unicode_MFC\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode_MFC\Strings\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-CPP=cl.exe
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /Yu"StdAfx.h" /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_UNICODE" /FR /FD /GZ /c
-# SUBTRACT CPP /YX /Yc /Yu
 MTL=midl.exe
-# ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-# ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-RSC=rc.exe
-# ADD BASE RSC /l 0x409 /d "_DEBUG" /d "_AFXDLL"
-# ADD RSC /l 0x1009 /d "_DEBUG" /d "_AFXDLL" /d "_UNICODE"
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_UNICODE" /D "_AFXDLL" /FR /YX /FD /GZ /c
+# ADD BASE RSC /l 0x1009 /d "_DEBUG"
+# ADD RSC /l 0x1009 /d "_DEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 /nologo /version:1.0 /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 /nologo /version:1.0 /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# SUBTRACT LINK32 /pdb:none
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
 
-# PROP BASE Use_MFC 6
+# PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
-# PROP BASE Output_Dir "Strings___Win32_Release_Unicode_MFC"
-# PROP BASE Intermediate_Dir "Strings___Win32_Release_Unicode_MFC"
+# PROP BASE Output_Dir "Strings___Win32_Debug_MBCS_MFC"
+# PROP BASE Intermediate_Dir "Strings___Win32_Debug_MBCS_MFC"
 # PROP BASE Ignore_Export_Lib 0
 # PROP BASE Target_Dir ""
-# PROP Use_MFC 6
+# PROP Use_MFC 2
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "..\bin\Release_Unicode_MFC\Win32"
-# PROP Intermediate_Dir "..\Obj\Release_Unicode_MFC\Strings\Win32"
+# PROP Output_Dir "..\bin\Debug_MBCS_MFC\Win32"
+# PROP Intermediate_Dir "..\Obj\Debug_MBCS_MFC\Strings\Win32"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-CPP=cl.exe
-# ADD BASE CPP /nologo /MDd /W4 /Gm /GX /ZI /Od /I "..\.." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /FR /Yu"StdAfx.h" /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_UNICODE" /FR /FD /GZ /c
-# SUBTRACT CPP /YX /Yc /Yu
 MTL=midl.exe
-# ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-# ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
-RSC=rc.exe
-# ADD BASE RSC /l 0x409 /d "_DEBUG" /d "_AFXDLL"
-# ADD RSC /l 0x1009 /d "_DEBUG" /d "_AFXDLL" /d "_UNICODE"
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\.." /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_AFXDLL" /FR /YX /FD /GZ /c
+# ADD BASE RSC /l 0x1009 /d "_DEBUG"
+# ADD RSC /l 0x1009 /d "_DEBUG" /d "_AFXDLL"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 /nologo /version:1.0 /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 /nologo /version:1.0 /subsystem:windows /machine:I386 /pdbtype:sept
-# SUBTRACT LINK32 /debug
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD LINK32 /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
+# SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
 
 # Begin Target
 
-# Name "Strings - Win32 Debug_SBCS"
+# Name "Strings - Win32 Release_MBCS"
 # Name "Strings - Win32 Debug_MBCS"
 # Name "Strings - Win32 Debug_Unicode"
-# Name "Strings - Win32 Release_Unicode"
-# Name "Strings - Win32 Debug_MBCS_MFC"
+# Name "Strings - Win32 Debug_SBCS"
+# Name "Strings - Win32 Debug_SBCS_MFC"
 # Name "Strings - Win32 Debug_Unicode_MFC"
-# Name "Strings - Win32 Release_Unicode_MFC"
-# Begin Group "Resources"
+# Name "Strings - Win32 Debug_MBCS_MFC"
+# Begin Group "Source Files"
 
-# PROP Default_Filter "*.ico;*.bmp;*.rc2;*.rc"
-# Begin Source File
-
-SOURCE=..\Common\Res\Win\SrcPool.ico
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Res\Win\32\Test.rc
-
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
-
-# PROP Exclude_From_Build 1
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Res\Win\32\TestMfcApp.rc
-
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Res\Win\32\TestMfcApp.rc2
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Res\Win\TsMfcRes.h
-# End Source File
-# End Group
-# Begin Group "Headers"
-
-# PROP Default_Filter "*.h;*.inl"
-# Begin Source File
-
-SOURCE=..\..\KCharCst.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\KStrConvert.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\KStrExt.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\KString.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\KStrings.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\..\KTChar.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Src\Win\stdafx.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Src\Win\32\TsMfcAbout.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Src\Win\32\TsMfcApp.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Src\Win\32\TsMfcDoc.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Src\Win\32\TsMfcFrame.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\Common\Src\Win\32\TsMfcView.h
-# End Source File
-# End Group
-# Begin Group "Source"
-
-# PROP Default_Filter "cpp,c"
+# PROP Default_Filter "cpp;c;cxx;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
 SOURCE=..\..\KDtoA.c
@@ -511,29 +352,6 @@ SOURCE=..\..\KStrICmp.c
 # Begin Source File
 
 SOURCE=..\..\KStringHandler.cpp
-
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
-
-# PROP Exclude_From_Build 1
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -632,15 +450,15 @@ SOURCE=..\..\KZtoA.cpp
 
 SOURCE=.\Src\main.cpp
 
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
 
 # PROP Exclude_From_Build 1
 
@@ -648,7 +466,7 @@ SOURCE=.\Src\main.cpp
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
 
 # PROP Exclude_From_Build 1
 
@@ -672,25 +490,7 @@ SOURCE=.\Src\TestCommonStrings.cpp
 # Begin Source File
 
 SOURCE=..\Complex\Src\TestComplexToA.cpp
-
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
-
 # ADD CPP /D "NUSE_TESTCCOMPLEX"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -705,25 +505,7 @@ SOURCE=.\Src\TestGetLine.cpp
 # Begin Source File
 
 SOURCE=..\StringDyn\Src\TestIsPalindrome.cpp
-
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
-
 # ADD CPP /YX"stdafx.h"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
-
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -747,7 +529,7 @@ SOURCE=.\Src\TestStrings.cpp
 
 SOURCE=..\Common\Src\Win\32\TsMfcAbout.cpp
 
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
 
 # PROP Exclude_From_Build 1
 
@@ -757,17 +539,28 @@ SOURCE=..\Common\Src\Win\32\TsMfcAbout.cpp
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
 
 !ENDIF 
 
@@ -776,7 +569,7 @@ SOURCE=..\Common\Src\Win\32\TsMfcAbout.cpp
 
 SOURCE=..\Common\Src\Win\32\TsMfcApp.cpp
 
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
 
 # PROP Exclude_From_Build 1
 
@@ -786,17 +579,28 @@ SOURCE=..\Common\Src\Win\32\TsMfcApp.cpp
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
 
 !ENDIF 
 
@@ -805,7 +609,7 @@ SOURCE=..\Common\Src\Win\32\TsMfcApp.cpp
 
 SOURCE=..\Common\Src\Win\32\TsMfcDoc.cpp
 
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
 
 # PROP Exclude_From_Build 1
 
@@ -815,17 +619,28 @@ SOURCE=..\Common\Src\Win\32\TsMfcDoc.cpp
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
 
 !ENDIF 
 
@@ -834,7 +649,7 @@ SOURCE=..\Common\Src\Win\32\TsMfcDoc.cpp
 
 SOURCE=..\Common\Src\Win\32\TsMfcFrame.cpp
 
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
 
 # PROP Exclude_From_Build 1
 
@@ -844,17 +659,28 @@ SOURCE=..\Common\Src\Win\32\TsMfcFrame.cpp
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
 
 !ENDIF 
 
@@ -863,7 +689,7 @@ SOURCE=..\Common\Src\Win\32\TsMfcFrame.cpp
 
 SOURCE=..\Common\Src\Win\32\TsMfcView.cpp
 
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
 
 # PROP Exclude_From_Build 1
 
@@ -873,17 +699,28 @@ SOURCE=..\Common\Src\Win\32\TsMfcView.cpp
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# ADD CPP /I "..\Common\Res\Win"
 
 !ENDIF 
 
@@ -892,7 +729,7 @@ SOURCE=..\Common\Src\Win\32\TsMfcView.cpp
 
 SOURCE=..\Common\Src\Win\32\TsMfcWriteTxt.cpp
 
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
 
 # PROP Exclude_From_Build 1
 
@@ -902,17 +739,25 @@ SOURCE=..\Common\Src\Win\32\TsMfcWriteTxt.cpp
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
 
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
+# PROP BASE Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
 
 !ENDIF 
 
@@ -921,15 +766,15 @@ SOURCE=..\Common\Src\Win\32\TsMfcWriteTxt.cpp
 
 SOURCE=..\Common\Src\TsWriteTxt.cpp
 
-!IF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
 
 !ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
 
 # PROP Exclude_From_Build 1
 
@@ -937,8 +782,240 @@ SOURCE=..\Common\Src\TsWriteTxt.cpp
 
 # PROP Exclude_From_Build 1
 
-!ELSEIF  "$(CFG)" == "Strings - Win32 Release_Unicode_MFC"
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
 
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# End Group
+# Begin Group "Header Files"
+
+# PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=..\..\KCharCst.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KStrConvert.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KStrExt.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KString.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KStrings.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KTChar.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Src\Win\stdafx.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Src\Win\32\TsMfcAbout.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Src\Win\32\TsMfcApp.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Src\Win\32\TsMfcDoc.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Src\Win\32\TsMfcFrame.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Src\Win\32\TsMfcView.h
+# End Source File
+# End Group
+# Begin Group "Resource Files"
+
+# PROP Default_Filter "ico;cur;bmp;dlg;rc;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=..\Common\Res\Win\SrcPool.ico
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Res\Win\32\Test.rc
+
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Res\Win\32\Test.rc2
+
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Res\Win\32\TestMfcApp.rc
+
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
+
+# PROP BASE Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Res\Win\32\TestMfcApp.rc2
+
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
+
+# PROP BASE Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\Res\TomSawyer.txt
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Res\Win\TsMfcRes.h
+
+!IF  "$(CFG)" == "Strings - Win32 Release_MBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS"
+
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_SBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_Unicode_MFC"
+
+# PROP BASE Exclude_From_Build 1
+# PROP Exclude_From_Build 1
+
+!ELSEIF  "$(CFG)" == "Strings - Win32 Debug_MBCS_MFC"
+
+# PROP BASE Exclude_From_Build 1
 # PROP Exclude_From_Build 1
 
 !ENDIF 
@@ -950,7 +1027,7 @@ SOURCE=..\Common\Src\TsWriteTxt.cpp
 # PROP Default_Filter "*.log"
 # Begin Source File
 
-SOURCE=.\Strings.log
+SOURCE=.\LibraryTest.log
 # End Source File
 # End Group
 # Begin Source File

@@ -1,5 +1,5 @@
 /*$Workfile: KStrVowel.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-05-31 12:34:41$
+  $Revision: 2$ $Date: 2007-06-20 14:43:51$
   $Author: Darko Kolakovic$
 
   Verifies if a character is a vowel.
@@ -25,7 +25,9 @@
 bool IsVowel(TCHAR ch //[in] character to validate
              )
 {
-TRACE1("IsVowel(%c)\n", ch);
+#ifdef _DEBUG_VOWEL
+  TRACE1("IsVowel(%c)\n", ch);
+#endif
 //TODO: localization
 #if (LANG_CURRENT == LANG_ENGLISH)
   LPCTSTR szVowelSet = _T("AEIOUaeiou");
@@ -49,6 +51,7 @@ return false;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-06-20 14:43:51  Darko Kolakovic _DEBUG_VOWEL
  *  1    Biblioteka1.0         2007-05-31 12:34:41  Darko Kolakovic 
  * $
  *****************************************************************************/

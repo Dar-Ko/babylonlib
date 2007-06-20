@@ -1,8 +1,8 @@
 /*$Workfile: TestReplaceSpace.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-06-15 17:28:36$
+  $Revision: 6$ $Date: 2007-06-20 14:45:17$
   $Author: Darko Kolakovic$
 
-  Test string trimming 
+  Test string trimming
   Copyright: CommonSoft Inc.
   Aug. 2k2 Darko Kolakovic
 */
@@ -11,7 +11,7 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
-#include "KStrings.h"	//ChtoAscii()
+#include "KStrings.h" //ChtoAscii()
 #include <iostream>
 #include <iomanip.h>  //std::endl
 
@@ -42,11 +42,11 @@ StrTrim(szBuffer);
 unsigned int iResultLen = _tcslen(szBuffer);
 if (iResultLen != 0)
   bRes = false;
-  
+
 if (bRes)
   {
     //Test trimming leading and trailing spaces
-  cout << szText << endl << "<EOT>" << endl 
+  cout << szText << endl << "<EOT>" << endl
        << "Text length = " << iTextLen << endl
        << "Trim leading and trailing spaces:" << endl;
 
@@ -57,7 +57,7 @@ if (bRes)
     bRes = false;
   else if (szBuffer[iResultLen - 1] != _T('.'))
     bRes = false;
-  cout << szBuffer << endl << "<EOT>" << endl 
+  cout << szBuffer << endl << "<EOT>" << endl
        << "Text length = " << iResultLen << endl;
 
     //Test trimming on text without leading or trailing spaces
@@ -88,7 +88,7 @@ if (bRes)
         else if (szBuffer[iResultLen-1] != _T('.'))
           bRes = false;
 
-        cout << szBuffer << endl << "<EOT>" << endl 
+        cout << szBuffer << endl << "<EOT>" << endl
              << "Text length = " << iResultLen << endl;
         }
 
@@ -182,14 +182,14 @@ return bRes;
 
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- *$Log: 
+ *$Log:
  * 5    Biblioteka1.4         2007-06-15 17:28:36  Darko Kolakovic Console traget
  *      fixes
- * 4    Biblioteka1.3         2007-06-15 12:42:59  Darko Kolakovic 
+ * 4    Biblioteka1.3         2007-06-15 12:42:59  Darko Kolakovic
  * 3    Biblioteka1.2         2002-10-25 03:31:25  Darko Kolakovic Added
  *      TestTrim()
  * 2    Biblioteka1.1         2002-09-11 16:26:38  Darko Kolakovic Added
  *      TestStrDup()
- * 1    Biblioteka1.0         2002-09-10 18:51:14  Darko Kolakovic 
+ * 1    Biblioteka1.0         2002-09-10 18:51:14  Darko Kolakovic
  *$
  *****************************************************************************/

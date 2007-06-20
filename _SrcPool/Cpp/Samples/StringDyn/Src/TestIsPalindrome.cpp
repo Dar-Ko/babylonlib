@@ -1,5 +1,5 @@
 /*$Workfile: TestIsPalindrome.cpp$: implementation file
-  $Revision: 6$ $Date: 2007-06-15 17:28:34$
+  $Revision: 7$ $Date: 2007-06-20 14:46:07$
   $Author: Darko Kolakovic$
 
   Test IsPalindrome methods
@@ -52,6 +52,7 @@ TsWriteToView(_T("TestIsPalindrome()\r\n"));
   #if _MSC_VER > 1000
     //MS Visual Studio STL implementation
     std::_tcout.imbue( std::locale("Greek_Greece.1253"));
+    //FixMe! : memory leak with MSVC6.0 MFC/GUI & STL D.K.
   #else
     //gcc
     std::_tcout.imbue( std::locale("gr_GR"));

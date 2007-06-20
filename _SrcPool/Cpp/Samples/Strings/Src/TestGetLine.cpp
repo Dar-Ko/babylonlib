@@ -1,5 +1,5 @@
 /*$Workfile: TestGetLine.cpp$: implementation file
-  $Revision: 8$ $Date: 2007-06-15 17:28:32$
+  $Revision: 9$ $Date: 2007-06-20 14:45:16$
   $Author: Darko Kolakovic$
 
   Test for obtaining a text line
@@ -16,9 +16,9 @@
 #include "KTrace.h"    //ASSERT macro
 #include "KStrings.h"  //GetLine()
 extern bool TsWriteToView(LPCTSTR lszText);
-extern LPTSTR FileRead(LPCTSTR szFileName, 
-					   LPTSTR szBuffer = NULL, 
-					   int iCount = -1);
+extern LPTSTR FileRead( LPCTSTR szFileName,
+                        LPTSTR szBuffer = NULL,
+                        int iCount = -1);
 
 //TestGetLine()------------------------------------------------------------
 /*Function shows how to use GetLine().
