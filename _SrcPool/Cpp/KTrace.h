@@ -1,5 +1,5 @@
 /*$Workfile: KTrace.h$: implementation file
-  $Revision: 48$ $Date: 2007-05-22 17:40:19$
+  $Revision: 49$ $Date: 2007-06-27 16:46:08$
   $Author: Darko Kolakovic$
 
   Debugging helpers
@@ -340,7 +340,7 @@
          */
         #define ASSERT(expr) \
             do{ _VALIDATE_ (!(expr) && \
-                (1 == _TCRTDBGREPORT(_CRT_ASSERT, __TFILE__, __LINE__, NULL, NULL))) \
+                (1 == _TCRTDBGREPORT(_CRT_ASSERT, (LPCTSTR)__TFILE__, __LINE__, NULL, NULL))) \
                  _CrtDbgBreak(); \
               } while (0)
 

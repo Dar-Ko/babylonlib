@@ -1,5 +1,5 @@
 /*$Workfile: KStrings.h$: implementation file
-  $Revision: 31$ $Date: 2007-05-31 16:42:41$
+  $Revision: 32$ $Date: 2007-06-27 16:46:03$
   $Author: Darko Kolakovic$
 
   String manipulation
@@ -113,7 +113,7 @@ unsigned int StrPrefix(LPCTSTR szOperand1, LPCTSTR szOperand2);
 inline LPCTSTR BoolToA(bool bExpression //[in] Value of an expression
                        )
 {
-return (bExpression ? _T("true"): _T("false"));
+return ((LPCTSTR)(bExpression ? _T("true"): _T("false")));
 }
 
 

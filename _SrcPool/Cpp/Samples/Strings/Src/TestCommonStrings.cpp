@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonStrings.cpp$: implementation file
-  $Revision: 3$ $Date: 2007-06-20 14:45:15$
+  $Revision: 4$ $Date: 2007-06-27 16:52:18$
   $Author: Darko Kolakovic$
 
   Test debugging and tracing routines.
@@ -85,11 +85,11 @@ bool bRes = true;
 #endif
 switch (sizeof(TCHAR))
   {
-  case 1: TsWriteToViewLn("Character is 1 byte."); break;
-  case 2: TsWriteToViewLn("Character is 2 bytes."); break;
-  case 4: TsWriteToViewLn("Character is 4 bytes."); break;
+  case 1: TsWriteToViewLn(_T("Character is 1 byte.")); break;
+  case 2: TsWriteToViewLn(_T("Character is 2 bytes.")); break;
+  case 4: TsWriteToViewLn(_T("Character is 4 bytes.")); break;
   default:
-    TsWriteToViewLn("Character size is unvalid.");
+    TsWriteToViewLn(_T("Character size is unvalid."));
     bRes = false;
   }
 

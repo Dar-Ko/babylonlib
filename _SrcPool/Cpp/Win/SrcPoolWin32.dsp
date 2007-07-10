@@ -787,53 +787,5 @@ SOURCE=.\Res\SrcPool.ico
 SOURCE=.\Res\Win\SrcPool.ico
 # End Source File
 # End Group
-# Begin Group "ToDo Files"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KClrShem.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KClrShem.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KCmdLineParser.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KCmdLineParser.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KIpAddress.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KListEx.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\Win\32\KListEx.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KMatGcd.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KNetByte.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KStringStd.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KStringStd.h
-# End Source File
-# End Group
 # End Target
 # End Project

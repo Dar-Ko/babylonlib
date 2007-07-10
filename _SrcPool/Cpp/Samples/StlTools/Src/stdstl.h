@@ -1,7 +1,7 @@
 /*$Workfile: stdstl.h$ : include file for standard system include files,
   or project specific include files that are used frequently, but
   are changed infrequently
-  $Revision: 3$ $Date: 2007-05-24 16:49:26$
+  $Revision: 4$ $Date: 2007-07-10 17:48:10$
   $Author: Darko Kolakovic$
 
   stdstl.h, stdstl.cpp
@@ -17,11 +17,12 @@
 
 #ifdef __cplusplus
   #include <string>     //std::string
-  #include <iostream>   //std::cout
+  #include "KOStream.h" //std::_tcout
   #include <iomanip.h>  //std::endl
   #include "KTypedef.h" //Type definitions
   #include "KTChar.h"   //Unicode mapping layer
   #include "KTrace.h"   //debugging tools
   #include "KString.h"  //CString
+  #include "KTestLog.h" //CTestLog
 #endif //__cplusplus
 // TODO: reference additional headers your program requires here

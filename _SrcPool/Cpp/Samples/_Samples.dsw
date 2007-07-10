@@ -23,6 +23,10 @@ Project: "Complex"=.\Complex\Complex.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
+    begin source code control
+    Complex
+    ..
+    end source code control
 }}}
 
 Package=<4>
@@ -195,18 +199,10 @@ Project: "Strings"=.\Strings\Strings.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "Timer"=.\Common\Src\Win\Complex\Src\Common\Src\Win\Timer\Timer.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
+    begin source code control
+    Strings
+    .\strings
+    end source code control
 }}}
 
 Package=<4>
@@ -283,6 +279,21 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name HtmlIO
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Complex
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Random
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name StlTools
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Strings
+    End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name Utilities
+    End Project Dependency
 }}}
 
 ###############################################################################
@@ -293,6 +304,22 @@ Package=<5>
 {{{
     begin source code control
     _SrcPool
+    ..\..
+    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "_SrcUtil"=..\..\_SrcUtil.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+    begin source code control
+    _SrcUtil
     ..\..
     end source code control
 }}}

@@ -1,5 +1,5 @@
 /*$Workfile: KOStream.h$: header file
-  $Revision: 15$ $Date: 2007-05-03 15:50:12$
+  $Revision: 16$ $Date: 2007-07-10 17:54:46$
   $Author: Darko Kolakovic$
 
   STL header file
@@ -80,7 +80,7 @@
   #endif
   #if _MSC_VER >= 1400
     #define KSTL_IO 1400
-    #pragma message ("  Standard Template Library (STL MSVC v8.0 .Net) is used " __FILE__ )
+    #pragma message ("  Standard Template Library (STL MSVC v8.0(or > 8.0) .Net ) is used " __FILE__ )
   #endif
 #endif
 
@@ -148,6 +148,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  16   Biblioteka1.15        2007-07-10 17:54:46  Darko Kolakovic pragma
  *  15   Biblioteka1.14        2007-05-03 15:50:12  Darko Kolakovic KSTL_IO 1400
  *  14   Biblioteka1.13        2005-03-21 03:15:10  Darko           Fixed STLport
  *       query

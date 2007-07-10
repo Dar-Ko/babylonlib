@@ -1,5 +1,5 @@
 /*$Workfile: TestStrDup.cpp$: implementation file
-  $Revision: 4$ $Date: 2007-06-20 14:45:18$
+  $Revision: 5$ $Date: 2007-06-27 16:52:48$
   $Author: Darko Kolakovic$
 
   Test string trimming
@@ -10,12 +10,12 @@
 // Group=Examples
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
-
+#include "stdafx.h"
 #include "KStrings.h" //StrDup()
-#include <iostream>
-#include <iomanip.h>  //std::endl
+#include "STL/KOStream.h" //_tcout
 
 extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 //TestStrDup()-----------------------------------------------------------------
 /*Test of copying a string to a buffer.
@@ -24,14 +24,14 @@ extern bool TsWriteToView(LPCTSTR lszText);
  */
 bool TestStrDup()
 {
-TsWriteToView("TestStrDup()\r\n");
+TsWriteToView(_T("TestStrDup()\r\n"));
 
 bool bRes = true;
 LPCTSTR szText = _T("       CHAPTER VII      \
 THE harder Tom tried to fasten his mind on his book, the more his ideas wandered.\r\n \
 So at last, with a sigh and a yawn, he gave it up.\r\n  \
    \t \v");
-int iTextLen = _tcslen(szText);
+int iTextLen = (int)_tcslen(szText);
 
 LPTSTR szCopy = StrDup(szText);
 if (szCopy == NULL)
@@ -48,8 +48,8 @@ else
       if (szCopy[i] != szText[i])
         {
         bRes = false;
-        cout << "Character szText[" << i
-             << "] is not copied properly." << endl;
+        std::_tcout << "Character szText[" << i
+             << "] is not copied properly." << std::endl;
         break;
         }
       i++;
@@ -59,7 +59,7 @@ else
   free(szCopy);
   }
 
-TsWriteToView("======================\r\n");
+TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 

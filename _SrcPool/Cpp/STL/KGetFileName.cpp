@@ -1,6 +1,6 @@
 /*$Workfile: KGetFileName.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-06-01 18:03:35$
-  $Author: Darko$
+  $Revision: 3$ $Date: 2007-07-10 17:54:01$
+  $Author: Darko Kolakovic$
 
   Copyright: CommonSoft Inc.
   2003-08 Darko Kolakovic
@@ -21,7 +21,7 @@
 #include <string>
 
 //-----------------------------------------------------------------------------
-/*Call this function to extract the file name from a file path.
+/*Extracts the file name from a file path.
 
   Returns: file name.
 
@@ -45,6 +45,13 @@ if(strFilePath.rfind(".") != std::string::npos && strFilePath.rfind(".") > nInde
 return strPath;
 }
 
+//-----------------------------------------------------------------------------
+/*Extracts the file name and extension from a file path.
+
+  Returns: file title.
+
+  Note: uses Standard Template Library (STL).
+ */
 std::string GetFileTitle(std::string strFilePath//[in] fully-qualified filename
                         )
 {
@@ -53,16 +60,24 @@ std::string strResult = "";
 std::string::size_type nIndex = strFilePath.rfind("/");
 if(nIndex != std::string::npos)
   {
-  strResult = strFilePath.substr(nIndex+1); //subtring to the end
+  //Return substring from the current position to the end
+  strResult = strFilePath.substr(nIndex+1); 
   }
 return strResult;
 }
 
+//-----------------------------------------------------------------------------
+/*Extracts the path to a file from a file path.
+
+  Returns: directory path.
+
+  Note: uses Standard Template Library (STL).
+ */
 std::string GetFilePath(std::string strPath//[in] fully-qualified filename
                         )
 {
 std::string strResult = "";
-std::size_t nPos = strPath.rfind(".");
+size_t nPos = strPath.rfind(".");
 if(nPos != std::string::npos)
   {
   nPos = strPath.rfind("/");

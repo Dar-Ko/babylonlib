@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonNumeric.cpp$: implementation file
-  $Revision: 9$ $Date: 2007-05-31 16:41:21$
+  $Revision: 10$ $Date: 2007-07-10 17:51:15$
   $Author: Darko Kolakovic$
 
   Test numerical and machine dependent routines.
@@ -78,7 +78,10 @@ int iTestCount = 0;
 while (iTestCount < (sizeof(funcTest)/sizeof(PFUNC_TEST)) )
   {
   if ((funcTest[iTestCount] != NULL) && funcTest[iTestCount]())
-    std::_tcout << LOG_SUCCESS << std::endl << std::endl;
+    {
+    TsWriteToViewLn(LOG_SUCCESS);
+    TsWriteToViewLn(_T(""));
+    }
   else
     {
     TsWriteToViewLn(LOG_FAILURE);

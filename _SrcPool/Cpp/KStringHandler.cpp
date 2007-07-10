@@ -1,6 +1,6 @@
 /*$Workfile: KStringHandler.cpp$: implementation file
-  $Revision: 3$ $Date: 2004-06-08 15:42:26$
-  $Author: Darko$
+  $Revision: 4$ $Date: 2007-06-27 16:45:58$
+  $Author: Darko Kolakovic$
 
   Defines the class behavior.
   Copyright: CommonSoft Inc.
@@ -32,7 +32,7 @@ CStringHandler::CStringHandler(LPCTSTR szSource //[in]= NULL a zero-terminated
 {
 if( (szSource != NULL ) && (szSource[0] != _T('\0')) )
   {
-  m_nLength = (unsigned int)_tcslen(szSource);
+  m_nLength = (unsigned int)_tcslen((TCHAR*)szSource);
   m_nSize = m_nLength + 1;
   m_pData = new TCHAR[m_nSize];
   if (m_pData != NULL)
@@ -346,10 +346,11 @@ return (int)m_nSize;
 #pragma warning (default: 4127)
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2004-06-08 15:42:26  Darko           Deleted friend
+ *  4    Biblioteka1.3         2007-06-27 16:45:58  Darko Kolakovic typecast
+ *  3    Biblioteka1.2         2004-06-08 16:42:26  Darko           Deleted friend
  *       operator<<()
- *  2    Biblioteka1.1         2004-06-06 21:54:35  Darko           Fixed data
+ *  2    Biblioteka1.1         2004-06-06 22:54:35  Darko           Fixed data
  *       holder size in operator=()
- *  1    Biblioteka1.0         2004-06-04 15:57:20  Darko           
+ *  1    Biblioteka1.0         2004-06-04 16:57:20  Darko           
  * $
  *****************************************************************************/

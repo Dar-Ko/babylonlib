@@ -493,6 +493,66 @@
 			<Tool
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
+		<Configuration
+			Name="Debug_MBCS|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
+				AssemblerListingLocation=".\..\Obj\Debug_SBCS\Assert\Win32/"
+				ObjectFile=".\..\Obj\Debug_SBCS\Assert\Win32/"
+				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS\Assert\Win32/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"
+				CompileAs="0"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="odbc32.lib odbccp32.lib"
+				OutputFile=".\..\bin\Debug_SBCS\Win32/Assert.exe"
+				LinkIncremental="2"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/Assert.pdb"
+				SubSystem="1"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"
+				TypeLibraryName=".\..\bin\Debug_SBCS\Win32/Assert.tlb"
+				HeaderFileName=""/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="4105"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -581,6 +641,16 @@
 						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Common\Res\Win\32\Test.rc">
@@ -638,6 +708,13 @@
 					<Tool
 						Name="VCResourceCompilerTool"
 						PreprocessorDefinitions="NDEBUG;$(NoInherit)"
+						AdditionalIncludeDirectories="\_SrcPool\Cpp\Samples\Common\Res\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions=""
 						AdditionalIncludeDirectories="\_SrcPool\Cpp\Samples\Common\Res\Win\32"/>
 				</FileConfiguration>
 			</File>
@@ -735,6 +812,18 @@
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="3"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="Src\TestAssertC.c">
@@ -812,6 +901,16 @@
 						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
@@ -924,6 +1023,18 @@
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Src\TestConformance.cpp">
@@ -1021,6 +1132,16 @@
 						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="Src\TestPredefinedMacrosC.c">
@@ -1098,6 +1219,16 @@
 						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
@@ -1179,6 +1310,16 @@
 						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="Src\TestTraceC.c">
@@ -1256,6 +1397,16 @@
 						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
 			</File>
@@ -1352,6 +1503,18 @@
 						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+						UsePrecompiledHeader="3"
+						PrecompiledHeaderThrough="stdafx.h"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="3"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"/>
@@ -1458,6 +1621,19 @@
 							PrecompiledHeaderThrough="stdafx.h"
 							BrowseInformation="1"/>
 					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_MBCS|Win32"
+						ExcludedFromBuild="TRUE">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
+							UsePrecompiledHeader="3"
+							PrecompiledHeaderThrough="stdafx.h"
+							BrowseInformation="1"/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 			<Filter
@@ -1557,6 +1733,18 @@
 							Optimization="2"
 							AdditionalIncludeDirectories=""
 							PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
+							UsePrecompiledHeader="3"
+							PrecompiledHeaderThrough="stdafx.h"
+							BrowseInformation="1"/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug_MBCS|Win32">
+						<Tool
+							Name="VCCLCompilerTool"
+							Optimization="0"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+							BasicRuntimeChecks="3"
 							UsePrecompiledHeader="3"
 							PrecompiledHeaderThrough="stdafx.h"
 							BrowseInformation="1"/>

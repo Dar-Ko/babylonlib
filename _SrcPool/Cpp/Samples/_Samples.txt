@@ -1,5 +1,5 @@
 $Workfile: _Samples.txt$: developer's note
-$Revision: 12$ $Date: 2007-06-15 17:25:13$
+$Revision: 13$ $Date: 2007-07-10 17:48:58$
 $Author: Darko Kolakovic$
 
 Samples and test suites for the various functions, classes and algorithms using Babylon Library
@@ -26,19 +26,22 @@ _LibraryTest    OK        OK
 Doc                  OK   OK
 _Samples        OK   OK   OK
   Assert        OK   OK   OK
+  Complex       OK   OK
   Console       OK   OK   OK
   DateTime      OK   OK   OK
   HtmlIO        OK   OK   OK
   Numeric       OK   OK   OK
+  Random        OK
   StdLib        OK   OK   OK
+  StlTools      NOK
   StreamIO      OK   OK   OK
   StringDyn     OK   OK   OK
+  Strings       OK
+  Utilities     OK
 
 To Be Moved:
-    Complex
     HTTPUtils
     Resizable
-    Strings
     Timer
     VerInfoTest
     WinOSVer

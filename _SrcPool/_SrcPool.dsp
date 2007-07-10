@@ -166,6 +166,14 @@ SOURCE=.\Cpp\STL\KIntStream.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KMatAcosh.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KSerialIo.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\STL\KSkipWSp.cpp
 # End Source File
 # Begin Source File
@@ -175,6 +183,10 @@ SOURCE=.\Cpp\STL\KStrAtoWChar.cpp
 # Begin Source File
 
 SOURCE=.\Cpp\STL\KStringStl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KStrPrefix.cpp
 # End Source File
 # Begin Source File
 
@@ -190,13 +202,17 @@ SOURCE=.\Cpp\STL\KStrUppr.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\STL\KStrWtoChar.cpp
+SOURCE=.\Cpp\KStrVowel.cpp
 # End Source File
-# End Group
 # Begin Source File
 
-SOURCE=.\Cpp\KBitmap.h
+SOURCE=.\Cpp\STL\KStrWtoChar.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KXmlDataType.cpp
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\Cpp\KColorShade.cpp
@@ -223,6 +239,10 @@ SOURCE=.\Cpp\KDateTm.c
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KDbgFILE.c
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KDtoA.c
 # End Source File
 # Begin Source File
@@ -232,10 +252,6 @@ SOURCE=.\Cpp\KfFibonacci.cpp
 # Begin Source File
 
 SOURCE=.\Cpp\KFileNam.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KFileNam.h
 # End Source File
 # Begin Source File
 
@@ -283,10 +299,6 @@ SOURCE=.\Cpp\KGuid.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Cpp\KGuid.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\Cpp\KIsLRC.cpp
 # End Source File
 # Begin Source File
@@ -300,6 +312,10 @@ SOURCE=.\Cpp\KItoA.c
 # Begin Source File
 
 SOURCE=.\Cpp\KItoOct.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KLinkedListS.c
 # End Source File
 # Begin Source File
 
@@ -320,10 +336,6 @@ SOURCE=.\Cpp\KRandomGauss.cpp
 # Begin Source File
 
 SOURCE=.\Cpp\KRandomUniform.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\Cpp\KRefCounter.h
 # End Source File
 # Begin Source File
 
@@ -518,6 +530,14 @@ SOURCE=.\Cpp\STL\KBoolStream.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\STL\KDbgStlA.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KHexStream.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\STL\KOStream.h
 # End Source File
 # Begin Source File
@@ -547,7 +567,15 @@ SOURCE=.\Cpp\KBitMan.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KBitmap.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KCharCst.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KChecksum.h
 # End Source File
 # Begin Source File
 
@@ -567,6 +595,10 @@ SOURCE=.\Cpp\KConvCst.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KCrc32.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KDate.h
 # End Source File
 # Begin Source File
@@ -579,7 +611,15 @@ SOURCE=.\Cpp\KDbgMacr.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KFileNam.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KFileSys.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KGaussianInt.h
 # End Source File
 # Begin Source File
 
@@ -592,6 +632,14 @@ SOURCE=.\Cpp\KGifImageData.h
 # Begin Source File
 
 SOURCE=.\CPP\KGifImageDescriptor.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KGuid.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KLinkedListS.h
 # End Source File
 # Begin Source File
 
@@ -615,7 +663,15 @@ SOURCE=.\Cpp\KMatLog2.inl
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KNLSCst.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KOctave.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KOsService.h
 # End Source File
 # Begin Source File
 
@@ -667,11 +723,23 @@ SOURCE=.\Cpp\KReal8Cv.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\KRefCounter.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KRound.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KRvrElements.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\Cpp\KRvrRows.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\KSerialIo.h
 # End Source File
 # Begin Source File
 
@@ -743,7 +811,15 @@ SOURCE=.\Cpp\KXmlAttribute.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Cpp\STL\KXmlAttributeVector.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Cpp\KXmlBinding.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KXmlElementVector.h
 # End Source File
 # Begin Source File
 
@@ -756,6 +832,10 @@ SOURCE=.\Cpp\KXmlParserI.h
 # Begin Source File
 
 SOURCE=.\Cpp\KXmlStringData.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Cpp\STL\KXmlTypeStl.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

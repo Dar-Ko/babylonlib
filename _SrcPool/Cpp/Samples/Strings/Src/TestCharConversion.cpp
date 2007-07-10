@@ -1,5 +1,5 @@
 /*$Workfile: TestCharConversion.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-06-20 14:45:10$
+  $Revision: 6$ $Date: 2007-06-27 16:52:15$
   $Author: Darko Kolakovic$
 
   Test different character conversions
@@ -10,12 +10,12 @@
 // Group=Examples
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
-
+#include "stdafx.h"
 #include "KStrings.h" //ChtoAscii()
-#include <iostream>
-#include <iomanip.h>  //std::endl
+#include "STL/KOStream.h" //std::_tcout
 
 extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern TCHAR* ByteToHex(BYTE cValue, TCHAR* szResult);
 
 //TestCharConversion()----------------------------------------------------------
@@ -25,10 +25,10 @@ extern TCHAR* ByteToHex(BYTE cValue, TCHAR* szResult);
  */
 bool TestCharConversion()
 {
-TsWriteToView("TestCharConversion()\r\n");
+TsWriteToView(_T("TestCharConversion()\r\n"));
 
 bool bRes = true;
-char szResult[16];
+TCHAR szResult[16];
 
 BYTE chTable[] =
   {
@@ -51,26 +51,26 @@ TCHAR* szAsciiTable[] =
 int i = 0;
 while ( i < sizeof(chTable) )
   {
-  cout << (int)chTable[i] << " = 0x"
+  std::_tcout << (int)chTable[i] << " = 0x"
        << ByteToHex(chTable[i], szResult)
-       << ", "
+       << _T(", ")
        << ChtoAscii(chTable[i])
-       << endl;
-  if ( strcmp(szHexTable[i], szResult) != 0 )
+       << std::endl;
+  if ( _tcscmp(szHexTable[i], szResult) != 0 )
     {
-    cout << "  " << BoolToA(bRes = false)
-         << " wrong hex value" << endl;
+    std::_tcout << "  " << BoolToA(bRes = false)
+         << _T(" wrong hex value") << std::endl;
     }
-  if (strcmp(szAsciiTable[i], ChtoAscii(chTable[i])) != 0 )
+  if ( _tcscmp(szAsciiTable[i], ChtoAscii(chTable[i])) != 0 )
     {
-    cout << "  " << BoolToA(bRes = false)
-         << " wrong ASCII value" << endl;
+    std::_tcout << "  " << BoolToA(bRes = false)
+         << _T(" wrong ASCII value") << std::endl;
     }
 
   i++;
   }
 
-TsWriteToView("======================\r\n");
+TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 

@@ -1,5 +1,5 @@
 /*$Workfile: TestStrings.cpp$: implementation file
-  $Revision: 11$ $Date: 2007-06-20 14:45:19$
+  $Revision: 12$ $Date: 2007-06-27 16:53:00$
   $Author: Darko Kolakovic$
 
   Test for different string functions
@@ -129,7 +129,7 @@ TCHAR szText[32] =
   _T('\\'),_T('x'),_T('0'),_T('3'),_T('f'),_T('\\'),_T('\"'),_T('7'),_T('\\'),_T('r'),
   _T('\\'),_T('\0')
   };
-TRACE1("  byte stream:%s\n",szText);
+TRACE1(_T("  byte stream:%s\n"),szText);
 #ifdef _USE_MFC
 
 CString strOutput = "Testing Escape Sequence replacement\r\n";

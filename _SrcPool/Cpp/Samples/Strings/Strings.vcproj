@@ -5,7 +5,9 @@
 	Name="Strings"
 	ProjectGUID="{BBB71972-C2A2-43F5-84A6-9B3B468B4B42}"
 	SccProjectName="Strings"
+	SccAuxPath=""
 	SccLocalPath="."
+	SccProvider="MSSCCI:Jalindi Igloo"
 	Keyword="MFCProj">
 	<Platforms>
 		<Platform
@@ -14,8 +16,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug_Unicode_MFC|Win32"
-			OutputDirectory=".\..\bin\Debug_Unicode_MFC\Win32"
-			IntermediateDirectory=".\..\Obj\Debug_Unicode_MFC\Strings\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="2"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -28,24 +30,25 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode_MFC\Strings\Win32/Strings.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Debug_Unicode_MFC\Strings\Win32/"
-				ObjectFile=".\..\Obj\Debug_Unicode_MFC\Strings\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode_MFC\Strings\Win32/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/vc70.pdb"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"
 				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_Unicode_MFC\Win32/Strings.exe"
+				OutputFile="$(OutDir)/Strings.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_Unicode_MFC\Win32/Strings.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
@@ -75,8 +78,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_MBCS_MFC|Win32"
-			OutputDirectory=".\..\bin\Debug_MBCS_MFC\Win32"
-			IntermediateDirectory=".\..\Obj\Debug_MBCS_MFC\Strings\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="2"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -89,24 +92,25 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\..\Obj\Debug_MBCS_MFC\Strings\Win32/Strings.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Debug_MBCS_MFC\Strings\Win32/"
-				ObjectFile=".\..\Obj\Debug_MBCS_MFC\Strings\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_MBCS_MFC\Strings\Win32/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/vc70.pdb"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"
 				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_MBCS_MFC\Win32/Strings.exe"
+				OutputFile="$(OutDir)/Strings.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_MBCS_MFC\Win32/Strings.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
@@ -136,8 +140,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_SBCS_MFC|Win32"
-			OutputDirectory=".\..\bin\Debug_SBCS_MFC\Win32"
-			IntermediateDirectory=".\..\Obj\Debug_SBCS_MFC\Strings\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="2"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
@@ -149,10 +153,10 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS_MFC\Strings\Win32/Strings.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Debug_SBCS_MFC\Strings\Win32/"
-				ObjectFile=".\..\Obj\Debug_SBCS_MFC\Strings\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS_MFC\Strings\Win32/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/vc70.pdb"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -162,11 +166,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_SBCS_MFC\Win32/Strings.exe"
+				OutputFile="$(OutDir)/Strings.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_SBCS_MFC\Win32/Strings.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
@@ -196,8 +200,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_Unicode|Win32"
-			OutputDirectory=".\..\bin\Debug_Unicode\Win32"
-			IntermediateDirectory=".\..\Obj\Debug_Unicode\Strings\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -210,24 +214,25 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode\Strings\Win32/Strings.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Debug_Unicode\Strings\Win32/"
-				ObjectFile=".\..\Obj\Debug_Unicode\Strings\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode\Strings\Win32/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/vc70.pdb"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"
 				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_Unicode\Win32/Strings.exe"
+				OutputFile="$(OutDir)/Strings.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_Unicode\Win32/Strings.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -257,8 +262,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release_MBCS|Win32"
-			OutputDirectory=".\..\bin\Release_MBCS\Win32"
-			IntermediateDirectory=".\..\Obj\Release_MBCS\Strings\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -273,10 +278,10 @@
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\..\Obj\Release_MBCS\Strings\Win32/Strings.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Release_MBCS\Strings\Win32/"
-				ObjectFile=".\..\Obj\Release_MBCS\Strings\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_MBCS\Strings\Win32/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/vc70.pdb"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="0"/>
@@ -284,10 +289,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_MBCS\Win32/Strings.exe"
+				OutputFile="$(OutDir)/Strings.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\..\bin\Release_MBCS\Win32/Strings.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -317,8 +322,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_SBCS|Win32"
-			OutputDirectory=".\..\bin\Debug_SBCS\Win32"
-			IntermediateDirectory=".\..\Obj\Debug_SBCS\Strings\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
@@ -330,24 +335,25 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS\Strings\Win32/Strings.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Debug_SBCS\Strings\Win32/"
-				ObjectFile=".\..\Obj\Debug_SBCS\Strings\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS\Strings\Win32/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/vc70.pdb"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
+				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"
 				CompileAs="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_SBCS\Win32/Strings.exe"
+				OutputFile="$(OutDir)/Strings.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/Strings.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -377,8 +383,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_MBCS|Win32"
-			OutputDirectory=".\..\bin\Debug_MBCS\Win32"
-			IntermediateDirectory=".\..\Obj\Debug_MBCS\Strings\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -391,10 +397,10 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\..\Obj\Debug_MBCS\Strings\Win32/Strings.pch"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				AssemblerListingLocation=".\..\Obj\Debug_MBCS\Strings\Win32/"
-				ObjectFile=".\..\Obj\Debug_MBCS\Strings\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_MBCS\Strings\Win32/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/vc70.pdb"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -404,11 +410,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_MBCS\Win32/Strings.exe"
+				OutputFile="$(OutDir)/Strings.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_MBCS\Win32/Strings.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool

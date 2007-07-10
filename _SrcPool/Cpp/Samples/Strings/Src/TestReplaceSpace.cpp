@@ -1,5 +1,5 @@
 /*$Workfile: TestReplaceSpace.cpp$: implementation file
-  $Revision: 6$ $Date: 2007-06-20 14:45:17$
+  $Revision: 7$ $Date: 2007-06-27 16:52:41$
   $Author: Darko Kolakovic$
 
   Test string trimming
@@ -10,12 +10,12 @@
 // Group=Examples
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
-
+#include "stdafx.h"
 #include "KStrings.h" //ChtoAscii()
-#include <iostream>
-#include <iomanip.h>  //std::endl
+#include "STL/KOStream.h" //std::_tcout
 
 extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 //TestReplaceSpace()----------------------------------------------------------
 /*Test reducing the number of whitespace characters in a string.
@@ -24,7 +24,7 @@ extern bool TsWriteToView(LPCTSTR lszText);
  */
 bool TestReplaceSpace()
 {
-TsWriteToView("TestReplaceSpace()\r\n");
+TsWriteToView(_T("TestReplaceSpace()\r\n"));
 
 bool bRes = true;
 LPCTSTR szText = _T("\n\n\r\n\t  \
@@ -32,39 +32,39 @@ LPCTSTR szText = _T("\n\n\r\n\t  \
 THE harder Tom tried to fasten his mind on his book, the more his ideas wandered.\r\n \
 \t\t\t  \t\n  So at last, with a sigh and a yawn, he gave it up.\r\n  \
    \t \v");
-int iTextLen = _tcslen(szText);
+int iTextLen = (unsigned int)_tcslen(szText);
 LPTSTR szBuffer = new TCHAR[iTextLen + 1];
 
   //Test trimming a string with spaces only
-cout << "Trim spaces from a string with blanks only." << endl;
+std::_tcout << "Trim spaces from a string with blanks only." << std::endl;
 _tcscpy(szBuffer, "  \t  \v\f  \r");
 StrTrim(szBuffer);
-unsigned int iResultLen = _tcslen(szBuffer);
+unsigned int iResultLen = (unsigned int)_tcslen(szBuffer);
 if (iResultLen != 0)
   bRes = false;
 
 if (bRes)
   {
     //Test trimming leading and trailing spaces
-  cout << szText << endl << "<EOT>" << endl
-       << "Text length = " << iTextLen << endl
-       << "Trim leading and trailing spaces:" << endl;
+  std::_tcout << szText << std::endl << "<EOT>" << std::endl
+       << "Text length = " << iTextLen << std::endl
+       << "Trim leading and trailing spaces:" << std::endl;
 
   _tcscpy(szBuffer, szText);
   StrTrim(szBuffer);
-  iResultLen = _tcslen(szBuffer);
+  iResultLen = (unsigned int)_tcslen(szBuffer);
   if (szBuffer[0] != _T('C'))
     bRes = false;
   else if (szBuffer[iResultLen - 1] != _T('.'))
     bRes = false;
-  cout << szBuffer << endl << "<EOT>" << endl
-       << "Text length = " << iResultLen << endl;
+  std::_tcout << szBuffer << std::endl << "<EOT>" << std::endl
+       << "Text length = " << iResultLen << std::endl;
 
     //Test trimming on text without leading or trailing spaces
   if (bRes)
     {
     StrTrim(szBuffer);
-    if (iResultLen != _tcslen(szBuffer))
+    if (iResultLen != (unsigned int)_tcslen(szBuffer))
       bRes = false;
     else if (szBuffer[0] != _T('C'))
       bRes = false;
@@ -75,21 +75,21 @@ if (bRes)
       //Test replacing multiple spaces with single character
     if (bRes)
       {
-      cout << "Replace multiple spaces:" << endl;
+      std::_tcout << "Replace multiple spaces:" << std::endl;
 
         //Test replacing on text without leading or trailing spaces
       if (ReplaceSpaces(szBuffer) == NULL)
         bRes = false;
       else
         {
-        iResultLen = _tcslen(szBuffer);
+        iResultLen = (unsigned int)_tcslen(szBuffer);
         if (szBuffer[0] != _T('C'))
           bRes = false;
         else if (szBuffer[iResultLen-1] != _T('.'))
           bRes = false;
 
-        cout << szBuffer << endl << "<EOT>" << endl
-             << "Text length = " << iResultLen << endl;
+        std::_tcout << szBuffer << std::endl << "<EOT>" << std::endl
+             << "Text length = " << iResultLen << std::endl;
         }
 
       //Test replacing on text with leading and trailing spaces
@@ -100,11 +100,11 @@ if (bRes)
           bRes = false;
         else
           {
-          if (iResultLen != _tcslen(szBuffer))
+          if (iResultLen != (unsigned int)_tcslen(szBuffer))
             {
             bRes = false;
-            iResultLen = _tcslen(szBuffer);
-            cout << "Text length = " << iResultLen << endl;
+            iResultLen = (unsigned int)_tcslen(szBuffer);
+            std::_tcout << "Text length = " << iResultLen << std::endl;
             }
           else if (szBuffer[0] != _T('C'))
             bRes = false;
@@ -116,7 +116,7 @@ if (bRes)
   }
 
 delete[] szBuffer;
-TsWriteToView("======================\r\n");
+TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 
@@ -127,7 +127,7 @@ return bRes;
  */
 bool TestTrim()
 {
-TsWriteToView("TestTrim()\r\n");
+TsWriteToView(_T("TestTrim()\r\n"));
 
 TCHAR szSource[256];
 bool bRes = false;
@@ -154,7 +154,7 @@ if (bRes)
 if (bRes)
   {
   _tcscpy(szSource, _T("/Dir/SubDir/"));
-  unsigned int iLen = _tcslen(szSource);
+  unsigned int iLen = (unsigned int)_tcslen(szSource);
   StrTrimSlash(szSource);
   bRes = (_tcslen(szSource) == (iLen - 1) && szSource[_tcslen(szSource) - 1] == _T('r') );
   }
@@ -163,7 +163,7 @@ if (bRes)
 if (bRes)
   {
   _tcscpy(szSource, _T("\\Dir\\SubDir\\"));
-  unsigned int iLen = _tcslen(szSource);
+  unsigned int iLen = (unsigned int)_tcslen(szSource);
   StrTrimSlash(szSource);
   bRes = (_tcslen(szSource) == (iLen - 1) && szSource[_tcslen(szSource) - 1] == _T('r') );
   }
@@ -171,12 +171,12 @@ if (bRes)
   //Test a string ending with a letter
 if (bRes)
   {
-  unsigned int iLen = _tcslen(szSource);
+  unsigned int iLen = (unsigned int)_tcslen(szSource);
   StrTrimSlash(szSource);
   bRes = (_tcslen(szSource) == iLen && szSource[_tcslen(szSource) - 1] == _T('r') );
   }
 
-TsWriteToView("======================\r\n");
+TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 

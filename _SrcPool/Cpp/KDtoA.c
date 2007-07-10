@@ -1,5 +1,5 @@
 /*$Workfile: KDtoA.c$: implementation file
-  $Revision: 3$ $Date: 2007-06-01 17:33:52$
+  $Revision: 4$ $Date: 2007-06-27 16:45:50$
   $Author: Darko Kolakovic$
 
   Converts a real number to the string.
@@ -125,7 +125,7 @@ LPTSTR DtoA(double dValue,   /*[in] real number to be converted               */
     MultiByteToWideChar(CP_ACP,           /*code page is ANSI*/
                         0,                /*character-type options*/
                         szTemp,           /*string to map*/
-                        strlen(szTemp)+1, /*number of bytes in string*/
+                        (int)strlen(szTemp)+1, /*number of bytes in string*/
                         szResult,         /*wide-character buffer*/
                         iSize             /*size of buffer*/
                         );

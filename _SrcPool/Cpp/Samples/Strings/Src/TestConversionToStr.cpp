@@ -1,5 +1,5 @@
 /*$Workfile: TestConversionToStr.cpp$: implementation file
-  $Revision: 7$ $Date: 2007-06-20 14:45:16$
+  $Revision: 8$ $Date: 2007-06-27 16:52:22$
   $Author: Darko Kolakovic$
 
   Test different conversions from and to string
@@ -10,12 +10,12 @@
 
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
-
+#include "stdafx.h"
 #include "KStrings.h" //OcttoL()
-#include <iostream>
-#include <iomanip.h>  //std::endl
+#include "STL/KOStream.h" //std::_tcout
 
 extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern "C" LPTSTR ItoOct(int iValue, LPTSTR szResult);
 
 //TestStringConversion()-------------------------------------------------------
@@ -25,38 +25,38 @@ extern "C" LPTSTR ItoOct(int iValue, LPTSTR szResult);
  */
 bool TestStringConversion()
 {
-TsWriteToView("TestStringConversion()\r\n");
+TsWriteToView(_T("TestStringConversion()\r\n"));
 bool bRes = false;
 LPTSTR szTemp;
 long lResult;
 
   //Test conversion from string to long
   //Number in range
-szTemp = "567";
+szTemp = _T("567");
 lResult = OcttoL(szTemp);
-cout << "octal " << szTemp << " = " << lResult << endl;
+std::_tcout << _T("octal ") << szTemp << _T(" = ") << lResult << std::endl;
 bRes = (lResult == 375);
 
 if (bRes)
   {
   lResult = HextoL(szTemp);
-  cout << "hex " << szTemp << " = " << lResult << endl;
+  std::_tcout << _T("hex ") << szTemp << _T(" = ") << lResult << std::endl;
   bRes = (lResult == 1383);
   }
 
   //Number is out of range
 if (bRes)
   {
-  szTemp = "567745516123476412444";
+  szTemp = _T("567745516123476412444");
   lResult = OcttoL(szTemp);
-  cout << "octal " << szTemp << " = " << lResult << endl;
+  std::_tcout << _T("octal ") << szTemp << _T(" = ") << lResult << std::endl;
   bRes = (lResult == -1661332188);
   }
 
 if (bRes)
   {
   lResult = HextoL(szTemp); //Truncates to 56774551
-  cout << "hex " << szTemp << " = " << lResult << endl;
+  std::_tcout << "hex " << szTemp << _T(" = ") << lResult << std::endl;
   bRes = (lResult == 1983980612);
   }
 
@@ -66,20 +66,20 @@ int iValue;
 if (bRes)
   {
   iValue = 375;
-  ItoOct(iValue,szResult);
-  cout << iValue << " = " << "octal " << szResult << endl;
-  bRes = ( strcmp(szResult, "567") == 0 );
+  ItoOct(iValue, szResult);
+  std::_tcout << iValue << _T(" = ") << _T("octal ") << szResult << std::endl;
+  bRes = ( _tcscmp(szResult, _T("567")) == 0 );
   }
 
 if (bRes)
   {
   iValue = 65535;
   ItoOct(iValue,szResult);
-  cout << iValue << " = " << "octal " << szResult << endl;
-  bRes = ( strcmp(szResult, "177777") == 0 );
+  std::_tcout << iValue << _T(" = ") << _T("octal ") << szResult << std::endl;
+  bRes = ( _tcscmp(szResult, _T("177777")) == 0 );
   }
 
-TsWriteToView("======================\r\n");
+TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 

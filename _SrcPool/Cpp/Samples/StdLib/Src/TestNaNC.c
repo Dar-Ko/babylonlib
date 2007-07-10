@@ -1,8 +1,8 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\StdLib\Src\TestNaNC.c$: implementation file
-  $Revision: 1$ $Date: 2007-05-31 12:35:10$
+/*$Workfile: TestNaNC.c$: implementation file
+  $Revision: 2$ $Date: 2007-07-10 17:51:22$
   $Author: Darko Kolakovic$
 
-  Calculus test
+  Not-a-numbers test
   Copyright: CommonSoft Inc.
   Feb. 2k Darko Kolakovic
 */
@@ -111,6 +111,7 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-07-10 17:51:22  Darko Kolakovic Comment
  *  1    Biblioteka1.0         2007-05-31 12:35:10  Darko Kolakovic 
  * $
  *****************************************************************************/

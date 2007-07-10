@@ -1,5 +1,5 @@
 /*$Workfile: TestGetLine.cpp$: implementation file
-  $Revision: 9$ $Date: 2007-06-20 14:45:16$
+  $Revision: 10$ $Date: 2007-06-27 16:52:25$
   $Author: Darko Kolakovic$
 
   Test for obtaining a text line
@@ -11,11 +11,12 @@
 
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
-
+#include "stdafx.h"
 #include "KTypedef.h"  //LPCTSTR typedef
 #include "KTrace.h"    //ASSERT macro
 #include "KStrings.h"  //GetLine()
 extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern LPTSTR FileRead( LPCTSTR szFileName,
                         LPTSTR szBuffer = NULL,
                         int iCount = -1);
@@ -30,9 +31,9 @@ bool TestGetLine(LPCTSTR szFileName, //[in] text file to be tested
                          //a negative number skips the "number of lines" test
                  )
 {
-TsWriteToView("TestGetLine(");
+TsWriteToView(_T("TestGetLine("));
 TsWriteToView(szFileName);
-TsWriteToView(")\r\n");
+TsWriteToView(_T(")\r\n"));
 
 bool bRes = true;
 int iLineCount = 0;
@@ -249,7 +250,7 @@ if(bRes)
   //Read text
 if(bRes)
   {
-  char* szText = FileRead(szFileName);
+  TCHAR* szText = FileRead(szFileName);
   if(szText == NULL)
     {
     TsWriteToView("Cannot open file ");
@@ -274,7 +275,7 @@ if(bRes)
 
     TsWriteToView(szFileName);
     TsWriteToView(" has ");
-    TsWriteToView(_itot(iLineCount,szText,10));
+    TsWriteToView(_itot(iLineCount, szText, 10));
     TsWriteToView(" lines.\r\n");
     delete szText;
     if ((iNoofLines >=0 ) && (iLineCount != iNoofLines))
@@ -282,7 +283,7 @@ if(bRes)
     }
   }
 
-TsWriteToView("======================\r\n");
+TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 

@@ -1,5 +1,5 @@
 /*$Workfile: TestIsPalindrome.cpp$: implementation file
-  $Revision: 7$ $Date: 2007-06-20 14:46:07$
+  $Revision: 8$ $Date: 2007-06-27 16:52:38$
   $Author: Darko Kolakovic$
 
   Test IsPalindrome methods
@@ -42,22 +42,29 @@ TsWriteToView(_T("TestIsPalindrome()\r\n"));
   #if (KSTL_IO == 1200) || (KSTL_IO == 1201)
     //MS Visual Studio 6.0 STL implementation
     std::_tcout.imbue( std::locale("Greek_Greece.1253"));
-  #elif (KSTL_IO == 1300)
+  #elif (KSTL_IO == 1300) || (KSTL_IO == 1310)
     //MS Visual Studio .Net 7.0 STL implementation
     std::_tcout.imbue( std::locale("Greek_Greece.1253"));
+  #elif (KSTL_IO == 1400)
+    //MS Visual Studio .Net 8.0 STL implementation
+    std::_tcout.imbue( std::locale("Greek_Greece.1253"));
   #else
+    //Note: MS Visual Studio could generate an exception 
+    //'unknown resource' on this point. 
+    //Validate correct KSTL_IO value
+    
     std::_tcout.imbue( std::locale("gr_GR"));
   #endif
-#else
+#else //!KSTL_IO
   #if _MSC_VER > 1000
     //MS Visual Studio STL implementation
     std::_tcout.imbue( std::locale("Greek_Greece.1253"));
-    //FixMe! : memory leak with MSVC6.0 MFC/GUI & STL D.K.
   #else
     //gcc
     std::_tcout.imbue( std::locale("gr_GR"));
   #endif
-#endif
+#endif //KSTL_IO
+
 /*The "C" locale is defined by ANSI to correspond to the locale in which C
   programs have traditionally executed. The code page for the "C" locale
   ("C" code page) corresponds to the ASCII character set. 
@@ -159,8 +166,7 @@ if (bRes)
   LogTest(&logEntry);
   }
 
-TsWriteToView(LOG_EOT);
-TsWriteToView(_T("\r\n"));
+TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 

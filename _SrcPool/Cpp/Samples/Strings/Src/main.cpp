@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 11$ $Date: 2007-06-20 14:45:20$
+  $Revision: 12$ $Date: 2007-06-27 16:53:22$
   $Author: Darko Kolakovic$
 
   Console application used to test various string operations
@@ -34,7 +34,7 @@ extern int TestCommonStrings();
  */
 int _tmain(int   argc,   //[in] 1st argument is a text file name;
                          //     2nd in number of lines in the text file
-           char* argv[]  //[in] a text file name
+           TCHAR* argv[] //[in] a text file name
           )
 {
 g_iNoofLines = -1;
@@ -45,7 +45,7 @@ if(argc >= 2) //Get file name from command line
   }
 
 if(argc >= 3) //Get file name from command line
-  g_iNoofLines = atoi(argv[2]);
+  g_iNoofLines = _ttoi(argv[2]);
 
 TsWriteToViewLn(_T("Start String Tests"));
 TsWriteToViewLn(_T(""));

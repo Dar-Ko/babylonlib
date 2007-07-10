@@ -1,5 +1,5 @@
 /*$Workfile: KStrPalindrome.cpp$: implementation file
-  $Revision: 4$ $Date: 2007-05-31 16:44:31$
+  $Revision: 5$ $Date: 2007-06-27 16:45:55$
   $Author: Darko Kolakovic$
 
   Verifies if a string is a palindrome.
@@ -44,7 +44,7 @@ bool IsPalindrome(LPCTSTR strSource,  //[in] string to validate
                  unsigned int nLength //[in] length of the string in characters
                   )
 {
-TRACE2("IsPalindrome(%s, %d)\n", strSource, nLength);
+TRACE2(_T("IsPalindrome(%s, %d)\n"), strSource, nLength);
 
 if ((strSource != NULL) && (nLength > 1 ))
   {
