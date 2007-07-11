@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="_Samples"
+	ProjectGUID="{06741D7E-9675-4FC4-92E4-F03C2E2D4F63}"
 	SccProjectName=""
 	SccLocalPath=""
 	Keyword="MakeFileProj">

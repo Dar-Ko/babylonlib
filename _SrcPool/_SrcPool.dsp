@@ -894,5 +894,9 @@ SOURCE=.\Cpp\KStringStd.cpp
 SOURCE=.\Cpp\KStringStd.h
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=.\_SrcPool.txt
+# End Source File
 # End Target
 # End Project

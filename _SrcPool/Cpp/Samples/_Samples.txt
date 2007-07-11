@@ -1,5 +1,5 @@
 $Workfile: _Samples.txt$: developer's note
-$Revision: 13$ $Date: 2007-07-10 17:48:58$
+$Revision: 14$ $Date: 2007-07-11 12:47:36$
 $Author: Darko Kolakovic$
 
 Samples and test suites for the various functions, classes and algorithms using Babylon Library
@@ -15,7 +15,7 @@ Copyright: CommonSoft Inc.
 \	_Samples.FNP	Falch.net DevloperStudio Project (FNP) file is a generated build file, format version 2.0 (CW9).	PalmOS
 \	_Samples.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
 \	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
-\	_Samples.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	_Samples.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
 \	_Samples.vcw	Microsoft eMbedded Visual Tools Workspace (VCW) file is a generated build file, format version 6.02 (eVC6).	WinCE
 
 _Samples Workspace Project components

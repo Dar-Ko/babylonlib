@@ -1,0 +1,13 @@
+Microsoft Visual Studio Solution File, Format Version 1.00
+Project("{2CA5CB9B-D322-11D0-AD8F-00C04FB6BE4C}") = "_SrcPoolJs", "_SrcPoolJs.vup", "{6AF817AB-696B-4166-95D1-8F222902F0ED}"
+EndProject
+Global
+	GlobalSection(LocalDeployment) = postSolution
+		StartupProject = {6AF817AB-696B-4166-95D1-8F222902F0ED}
+	EndGlobalSection
+	GlobalSection(BuildOrder) = postSolution
+		0 = {6AF817AB-696B-4166-95D1-8F222902F0ED}
+	EndGlobalSection
+	GlobalSection(DeploymentRoot) = postSolution
+	EndGlobalSection
+EndGlobal

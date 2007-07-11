@@ -1178,6 +1178,9 @@
 				RelativePath=".\32\KIsSrvce.cpp">
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\Wtl\file_id.diz">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

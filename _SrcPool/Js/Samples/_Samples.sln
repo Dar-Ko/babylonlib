@@ -9,6 +9,8 @@ Project("{2CA5CB9B-D322-11D0-AD8F-00C04FB6BE4C}") = "String", "String\String.vup
 EndProject
 Project("{2CA5CB9B-D322-11D0-AD8F-00C04FB6BE4C}") = "Validation", "Validation\Validation.vup", "{E911F10A-00E0-4298-909A-5B41043E9B34}"
 EndProject
+Project("{2CA5CB9B-D322-11D0-AD8F-00C04FB6BE4C}") = "_SrcPoolJs", "..\..\_SrcPoolJs.vup", "{A9C58CBC-2449-493A-8E34-354C5221BDD0}"
+EndProject
 Global
 	GlobalSection(LocalDeployment) = postSolution
 		StartupProject = {160A014B-845A-459C-869A-C10A35BCF96C}
@@ -19,6 +21,7 @@ Global
 		2 = {89047D04-0A86-4B80-8AD8-AF5756AABEA3}
 		3 = {C1BB3BF5-F8DE-4EA5-96CF-9F13B8E57357}
 		4 = {E911F10A-00E0-4298-909A-5B41043E9B34}
+		5 = {A9C58CBC-2449-493A-8E34-354C5221BDD0}
 	EndGlobalSection
 	GlobalSection(DeploymentRoot) = postSolution
 	EndGlobalSection

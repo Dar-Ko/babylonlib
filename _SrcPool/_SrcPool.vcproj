@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="_SrcPool"
+	Name="_SrcPoolCpp"
 	ProjectGUID="{36497428-ED6B-4061-ABCD-D1FADF09B5BF}"
 	RootNamespace="_SrcPool"
 	Keyword="Win32Proj">
@@ -632,6 +632,9 @@
 				RelativePath=".\Cpp\KStringStd.h">
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\_SrcPool.txt">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
