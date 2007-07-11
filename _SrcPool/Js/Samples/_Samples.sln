@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 1.00
+Project("{2CA5CB9B-D322-11D0-AD8F-00C04FB6BE4C}") = "_Samples", "_Samples.vup", "{160A014B-845A-459C-869A-C10A35BCF96C}"
+EndProject
+Project("{2CA5CB9B-D322-11D0-AD8F-00C04FB6BE4C}") = "Dom", "Dom\Dom.vup", "{4C8CDA76-4932-49FA-A1D2-A345B4324AEF}"
+EndProject
+Project("{2CA5CB9B-D322-11D0-AD8F-00C04FB6BE4C}") = "Dump", "Dump\Dump.vup", "{89047D04-0A86-4B80-8AD8-AF5756AABEA3}"
+EndProject
+Project("{2CA5CB9B-D322-11D0-AD8F-00C04FB6BE4C}") = "String", "String\String.vup", "{C1BB3BF5-F8DE-4EA5-96CF-9F13B8E57357}"
+EndProject
+Project("{2CA5CB9B-D322-11D0-AD8F-00C04FB6BE4C}") = "Validation", "Validation\Validation.vup", "{E911F10A-00E0-4298-909A-5B41043E9B34}"
+EndProject
+Global
+	GlobalSection(LocalDeployment) = postSolution
+		StartupProject = {160A014B-845A-459C-869A-C10A35BCF96C}
+	EndGlobalSection
+	GlobalSection(BuildOrder) = postSolution
+		0 = {160A014B-845A-459C-869A-C10A35BCF96C}
+		1 = {4C8CDA76-4932-49FA-A1D2-A345B4324AEF}
+		2 = {89047D04-0A86-4B80-8AD8-AF5756AABEA3}
+		3 = {C1BB3BF5-F8DE-4EA5-96CF-9F13B8E57357}
+		4 = {E911F10A-00E0-4298-909A-5B41043E9B34}
+	EndGlobalSection
+	GlobalSection(DeploymentRoot) = postSolution
+	EndGlobalSection
+EndGlobal

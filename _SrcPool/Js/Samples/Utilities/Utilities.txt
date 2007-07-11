@@ -1,5 +1,5 @@
-$Workfile: S:\_SrcPool\Js\Samples\Utilities\Utilities.txt$: developer's note
-$Revision: 1$ $Date: 2006-12-12 17:09:10$
+$Workfile: Utilities.txt$: developer's note
+$Revision: 2$ $Date: 2007-07-11 11:06:08$
 $Author: Darko Kolakovic$
 
-\	Utilities.html  Starting page for testing within HTML browser shells.
+\	Utilities.html	Starting page for testing within HTML browser shells.
