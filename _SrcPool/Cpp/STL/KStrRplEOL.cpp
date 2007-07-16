@@ -1,6 +1,6 @@
 /*$Workfile: KStrRplEOL.cpp$: implementation file
-  $Revision: 5$ $Date: 2004-10-07 12:56:31$
-  $Author: Darko$
+  $Revision: 6$ $Date: 2007-07-16 18:03:53$
+  $Author: Darko Kolakovic$
 
   Replaces Unix EOL with DOS End-of-Line markers
   Copyright: CommonSoft Inc.
@@ -19,10 +19,11 @@
   #endif
 #endif
 
-#include <string> //std::string
+#include <string>     //std::string
 #ifndef _TCHAR_DEFINED
   #include "KTChar.h" //TCHAR typedef
 #endif
+#include "STL/KTString.h" //std::string<TCHAR>
 
 //::ReplaceEOL()---------------------------------------------------------------
 /*Replaces one character End-of-Line markers (CR) with two characters (CR,LF).
@@ -31,10 +32,10 @@
 
   Note: uses Standard Template Library (STL).
  */
-std::string& ReplaceEOL(LPCTSTR szText, //[in] zero-teminated text
-                        std::string& strResult //[out] text with new End-of-Line
-                                               //markers
-                       )
+tstring& ReplaceEOL(LPCTSTR szText, //[in] zero-terminated text
+                    tstring& strResult //[out] text with new End-of-Line
+                                       //markers
+                   )
 {
 const TCHAR CR = _T('\r');
 const TCHAR LF = _T('\n');

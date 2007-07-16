@@ -1,5 +1,5 @@
 /*$Workfile: KTString.h$: header file
-  $Revision: 2$ $Date: 2007-06-15 17:25:47$
+  $Revision: 3$ $Date: 2007-07-16 18:04:23$
   $Author: Darko Kolakovic$
 
   STL string helper functions
@@ -38,6 +38,19 @@
  */
 typedef std::basic_string<TCHAR> tstring;
 
+/*Single byte character set
+ */
+typedef std::basic_string<UCS1> ucs1string;
+/*Universal Character Set UCS-2 string.
+  UCS-2 characters are the subset of Unicode set equal to the Basic Multilingual 
+  Plane. Characters are 16 bit wide
+  See also: ISO 10646-1:1993
+ */
+typedef std::basic_string<UCS2> ucs2string;
+/*Universal Character Set UCS-4 string has characters 32-bit wide.
+  See also: ISO 10646
+*/
+typedef std::basic_string<UCS4> ucs4string;
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KTSTRING_H_
@@ -45,6 +58,8 @@ typedef std::basic_string<TCHAR> tstring;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  3    Biblioteka1.2         2007-07-16 18:04:23  Darko Kolakovic Universal
+ *       Character Set format
  *  2    Biblioteka1.1         2007-06-15 17:25:47  Darko Kolakovic  
  *  1    Biblioteka1.0         2004-12-20 15:26:32  Darko Kolakovic 
  * $

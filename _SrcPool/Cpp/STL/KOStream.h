@@ -1,5 +1,5 @@
 /*$Workfile: KOStream.h$: header file
-  $Revision: 16$ $Date: 2007-07-10 17:54:46$
+  $Revision: 17$ $Date: 2007-07-16 18:02:59$
   $Author: Darko Kolakovic$
 
   STL header file
@@ -111,7 +111,7 @@
     //Provides a stream interface to read or write characters from or to strings.
   typedef std::wstreambuf     tstreambuf;
     //Performs output operations with a stream buffer.
-  typedef std::wostream       tostream;
+  typedef std::wostream       tostream; //FixMe! typedefs
     //Reads and interprets input from a stream buffer.
   typedef std::wistream       tistream;
     //Provides a stream interface to write data to files.
@@ -148,6 +148,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  17   Biblioteka1.16        2007-07-16 18:02:59  Darko Kolakovic ToDo!
  *  16   Biblioteka1.15        2007-07-10 17:54:46  Darko Kolakovic pragma
  *  15   Biblioteka1.14        2007-05-03 15:50:12  Darko Kolakovic KSTL_IO 1400
  *  14   Biblioteka1.13        2005-03-21 03:15:10  Darko           Fixed STLport

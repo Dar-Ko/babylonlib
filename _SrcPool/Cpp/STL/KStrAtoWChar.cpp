@@ -1,6 +1,6 @@
 /*$Workfile: KStrAtoWChar.cpp$: implementation file
-  $Revision: 3$ $Date: 2005-03-21 03:15:58$
-  $Author: Darko$
+  $Revision: 4$ $Date: 2007-07-16 18:03:28$
+  $Author: Darko Kolakovic$
 
   Convert ASCII string to wide-character string
   CommonSoft Inc.
@@ -23,12 +23,12 @@ std::wstring AtoWChar(const char* lpString, int iLen = -1);
   See also: SBCS, _UNICODE
  */
 std::wstring AtoWChar(const char* lpString, //[in] string to be converted
-                    int iLen //[in] = -1 Specifies the number of characters
-                             //to be converted. If this value is –1, the string
-                             //is assumed to be zero-terminated and the size of
-                             //the string is calculated. The size includes
-                             //the null-terminator.
-                   )
+                      int iLen //[in] = -1 Specifies the number of characters
+                               //to be converted. If this value is –1,
+                               //the string is assumed to be zero-terminated
+                               //and the size of the string is calculated.
+                               //The size includes the null-terminator.
+                     )
 {
 ASSERT(lpString != NULL);
 std::wstring strResult;
@@ -48,6 +48,7 @@ return strResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  4    Biblioteka1.3         2007-07-16 18:03:28  Darko Kolakovic Comment
  *  3    Biblioteka1.2         2005-03-21 03:15:58  Darko           Replaced
  *       Microsoft version with ANSI
  *  2    Biblioteka1.1         2004-10-07 12:56:29  Darko           documentation

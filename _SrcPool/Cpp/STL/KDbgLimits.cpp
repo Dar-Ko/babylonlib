@@ -1,5 +1,5 @@
 /*$Workfile: KDbgLimits.cpp$: header file
-  $Revision: 2$ $Date: 2004-11-05 13:26:41$
+  $Revision: 3$ $Date: 2007-07-16 18:02:31$
   $Author: Darko Kolakovic$
 
   Dumps values of some constants defined in <limits>
@@ -7,10 +7,10 @@
   2004-08-31 Darko Kolakovic
  */
 
-#include "KOStream.h" //ostream template. See <iostream>
+#include "STL/KOStream.h" //ostream template. See <iostream>
+#include "KTChar.h"
 #include <limits>
 #include <string>
-
 #ifndef __cplusplus
   #error STL requires C++ compilation (use a .cpp suffix)
 #endif
@@ -25,7 +25,9 @@
  */
 void DumpLimits()
 {
-typedef _tcerr DbgOut;
+using namespace std;
+
+#define DbgOut std::_tcerr 
 
 /*The boolalpha flag defines the format used to read or to write Boolean
   values. The flag is not set by default and values are represented using
@@ -44,12 +46,15 @@ typedef _tcerr DbgOut;
         cout << noboolalpha << bValue<< " == " << boolalpha << bValue << endl;
  */
 
-DbgOut << _T("Boolean representation: ") << (boolalpha ? _T("numeric") :
-                                                         _T("text"))
+DbgOut << _T("Boolean representation: ") << (_tcout.boolalpha ? _T("numeric") :
+                                                                _T("text"))
                                          << std::endl;
-DbgOut << boolalpha << 1 << _T(" == ") << noboolalpha << 1<< endl;
-DbgOut << boolalpha << 0 << _T(" == ") << noboolalpha << 0<< endl;
+DbgOut << boolalpha << true  << _T(" == ") << noboolalpha << true  << endl;
+DbgOut << boolalpha << false << _T(" == ") << noboolalpha << false << endl;
 
+  //Disable macro expansion
+#undef min
+#undef max
  //Prototype limits
 DbgOut << _T("short:      [") << numeric_limits<short>::min()       << _T(',')
                               << numeric_limits<short>::max()       << _T(']')
@@ -89,3 +94,4 @@ DbgOut << "string: " << (numeric_limits<string>::is_specialized ?
  *  1    Biblioteka1.0         2004-09-07 15:48:48  Darko
  * $
  *****************************************************************************/
+ 
