@@ -3,6 +3,30 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
+Project: "Images"=.\Images\Images.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "Resizable"=.\Resizable\Resize.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "SrcPoolWin32"=..\SrcPoolWin32.dsp - Package Owner=<4>
 
 Package=<5>
@@ -15,7 +39,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "TestComAtl"=.\TestComAtl\TestComAtl.dsp - Package Owner=<4>
+Project: "TestButton"=.\TestButton\TestButton.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -27,7 +51,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "TestButton"=.\TestButton\TestButton.dsp - Package Owner=<4>
+Project: "TestComAtl"=.\TestComAtl\TestComAtl.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -55,6 +79,42 @@ Package=<4>
 ###############################################################################
 
 Project: "TestStatic"=.\TestStatic\TestStatic.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "Timer"=.\Timer\Timer.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "VerInfoTest"=.\VerInfoTest\VerInfoTest.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "WinOSVer"=.\WinOSVer\WinOsVer.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

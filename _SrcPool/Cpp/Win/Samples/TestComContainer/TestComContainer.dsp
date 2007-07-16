@@ -172,6 +172,10 @@ SOURCE=.\Src\stdafx.h
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # Begin Source File
 
+SOURCE=..\..\..\Samples\Common\Res\SrcPool.ico
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\Samples\Common\Res\Win\SrcPool.ico
 # End Source File
 # End Group
