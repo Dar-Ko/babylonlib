@@ -1,5 +1,5 @@
 /*$Workfile: TsWriteTxt.cpp$: implementation file
-  $Revision: 10$ $Date: 2007-03-16 22:24:30$
+  $Revision: 11$ $Date: 2007-07-16 17:54:52$
   $Author: Darko Kolakovic$
 
   Outputs text to stdout stream
@@ -9,7 +9,6 @@
 
 // Group=Examples
 
-#include "stdafx.h"
 #ifndef LPCTSTR
   #include "KTChar.h"
 #endif

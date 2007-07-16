@@ -1,7 +1,7 @@
 /*$Workfile: stdstl.h$ : include file for standard system include files,
   or project specific include files that are used frequently, but
   are changed infrequently
-  $Revision: 4$ $Date: 2007-07-10 17:48:10$
+  $Revision: 5$ $Date: 2007-07-16 17:52:51$
   $Author: Darko Kolakovic$
 
   stdstl.h, stdstl.cpp
@@ -12,17 +12,27 @@
 
 #pragma once
 
-#define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
+#define WIN32_LEAN_AND_MEAN // Exclude rarely-used stuff from Windows headers
+#ifdef _UNICODE
+  #ifndef UNICODE
+    //To enable Unicode for some Microsoft Visual C/C++ header files,
+    //the UNICODE definition is required
+    #define UNICODE
+  #endif
+#endif
+
 #include <stdio.h>
 
 #ifdef __cplusplus
   #include <string>     //std::string
-  #include "KOStream.h" //std::_tcout
-  #include <iomanip.h>  //std::endl
-  #include "KTypedef.h" //Type definitions
-  #include "KTChar.h"   //Unicode mapping layer
-  #include "KTrace.h"   //debugging tools
-  #include "KString.h"  //CString
-  #include "KTestLog.h" //CTestLog
+  #include "STL/KOStream.h" //std::_tcout
+  #if _MSC_VER <= 1200
+    #include <iomanip.h>  //std::endl
+  #endif
 #endif //__cplusplus
+
+#include "KTypedef.h" //Type definitions
+#include "KTChar.h"   //Unicode mapping layer
+#include "KTrace.h"   //debugging tools
+#include "KTestLog.h" //CTestLog
 // TODO: reference additional headers your program requires here

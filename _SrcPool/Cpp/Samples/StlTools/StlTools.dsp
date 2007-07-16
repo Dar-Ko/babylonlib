@@ -148,6 +148,8 @@ SOURCE=..\..\STL\KDateStr.cpp
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
 
+# PROP Exclude_From_Build 1
+
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_Unicode"
@@ -166,6 +168,8 @@ SOURCE=..\..\STL\KDbgLimits.cpp
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
 
+# PROP Exclude_From_Build 1
+
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_Unicode"
@@ -182,6 +186,8 @@ SOURCE=..\..\STL\KFileRead.cpp
 # PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
+
+# PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
@@ -200,6 +206,8 @@ SOURCE=..\..\STL\KGetFileExtn.cpp
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
 
+# PROP Exclude_From_Build 1
+
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_Unicode"
@@ -216,6 +224,8 @@ SOURCE=..\..\STL\KGetFileName.cpp
 # PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
+
+# PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
@@ -234,6 +244,8 @@ SOURCE=..\..\STL\KGetLines.cpp
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
 
+# PROP Exclude_From_Build 1
+
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_Unicode"
@@ -250,6 +262,8 @@ SOURCE=..\..\STL\KIntStream.cpp
 # PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
+
+# PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
@@ -268,6 +282,8 @@ SOURCE=..\..\STL\KSkipWSp.cpp
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
 
+# PROP Exclude_From_Build 1
+
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_Unicode"
@@ -284,6 +300,8 @@ SOURCE=..\..\STL\KStrAtoWChar.cpp
 # PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
+
+# PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
@@ -302,6 +320,8 @@ SOURCE=..\..\STL\KStringStl.cpp
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
 
+# PROP Exclude_From_Build 1
+
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_Unicode"
@@ -312,19 +332,6 @@ SOURCE=..\..\STL\KStringStl.cpp
 # Begin Source File
 
 SOURCE=..\..\STL\KStrRplEOL.cpp
-
-!IF  "$(CFG)" == "StlTools - Win32 Debug_SBCS"
-
-# PROP Exclude_From_Build 1
-
-!ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
-
-!ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
-
-!ELSEIF  "$(CFG)" == "StlTools - Win32 Release_Unicode"
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -335,6 +342,8 @@ SOURCE=..\..\STL\KStrStream.cpp
 # PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
+
+# PROP Exclude_From_Build 1
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
@@ -353,6 +362,8 @@ SOURCE=..\..\STL\KStrUppr.cpp
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
 
+# PROP Exclude_From_Build 1
+
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_Unicode"
@@ -370,12 +381,18 @@ SOURCE=..\..\STL\KStrWtoChar.cpp
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Debug_Unicode"
 
+# PROP Exclude_From_Build 1
+
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_SBCS"
 
 !ELSEIF  "$(CFG)" == "StlTools - Win32 Release_Unicode"
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KTestLog.cpp
 # End Source File
 # Begin Source File
 
@@ -389,6 +406,18 @@ SOURCE=.\Src\stdstl.cpp
 # Begin Source File
 
 SOURCE=.\Src\TestCommonStlTools.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestStlStrings.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Src\TsText.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Src\TsWriteTxt.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -442,6 +471,14 @@ SOURCE=.\Src\stdstl.h
 # Begin Group "Logs"
 
 # PROP Default_Filter "*.log"
+# Begin Source File
+
+SOURCE=.\LibraryTest.log
+# End Source File
+# Begin Source File
+
+SOURCE=.\LibraryTestUni.log
+# End Source File
 # End Group
 # Begin Source File
 

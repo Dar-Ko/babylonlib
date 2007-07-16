@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\StlTools\Src\TestCommonStlTools.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-07-10 17:46:49$
+/*$Workfile: TestCommonStlTools.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-07-16 17:53:29$
   $Author: Darko Kolakovic$
 
   Test system service (deamon) routines.
@@ -11,7 +11,9 @@
 
 #include "stdstl.h"
 
-//extern bool TestWinService();
+extern bool TestStlLimits();
+extern bool TestStlStringCfg();
+extern bool TestReplaceEol();
 
 int TestCommonStlTools();
 
@@ -25,12 +27,15 @@ int TestCommonStlTools();
 */
 int TestCommonStlTools()
 {
-_tcout << _T("TestCommonStlTools()") << endl << endl;
+std::_tcout << _T("TestCommonStlTools()") << std::endl << std::endl;
 
 PFUNC_TEST funcTest[] =
   {
-    NULL  //Break testing
+  TestStlLimits,
+  TestStlStringCfg,
+  TestReplaceEol
   };
+
 if (funcTest != NULL)
   {
   int iTestCount = 0;
@@ -56,6 +61,7 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-07-16 17:53:29  Darko Kolakovic TestStlLimits()
  *  1    Biblioteka1.0         2007-07-10 17:46:49  Darko Kolakovic 
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: main.cpp$: implementation file
-  $Revision: 4$ $Date: 2007-07-10 17:47:13$
+  $Revision: 5$ $Date: 2007-07-16 17:52:13$
   $Author: Darko Kolakovic$
 
   Defines the entry point for the console application used to test STL
@@ -43,7 +43,7 @@ int main(  int argc,      //[in] specifies how many arguments are passed to the
                           //(argv[argc]) is indicated by a NULL pointer.
         )
 {
-_tcout << _T("Start testing STL tools") << endl << endl;
+std::_tcout << _T("Start testing STL tools") << std::endl << std::endl;
 
 int nRetCode = EXIT_SUCCESS;
 
@@ -53,6 +53,7 @@ return nRetCode;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  5    Biblioteka1.4         2007-07-16 17:52:13  Darko Kolakovic std::endl
  *  4    Biblioteka1.3         2007-07-10 17:47:13  Darko Kolakovic _tcout
  *  3    Biblioteka1.2         2007-07-10 16:45:33  Darko Kolakovic standardized
  *       test entry point

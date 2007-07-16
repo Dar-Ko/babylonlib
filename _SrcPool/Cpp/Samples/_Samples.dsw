@@ -7,10 +7,6 @@ Project: "Assert"=.\Assert\Assert.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    Assert
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -23,10 +19,6 @@ Project: "Complex"=.\Complex\Complex.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    Complex
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -39,10 +31,6 @@ Project: "Console"=.\Console\Console.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    Console
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -55,10 +43,6 @@ Project: "DateTime"=.\DateTime\DateTime.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    DateTime
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -71,10 +55,6 @@ Project: "HtmlIO"=.\HtmlIO\HtmlIO.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    HtmlIO
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -87,10 +67,6 @@ Project: "Numeric"=.\Numeric\Numeric.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    Numeric
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -103,10 +79,6 @@ Project: "Random"=.\Random\Random.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    Random
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -119,10 +91,6 @@ Project: "SrcPoolWin32"=..\Win\SrcPoolWin32.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    SrcPoolWin32
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -135,10 +103,6 @@ Project: "StdLib"=.\StdLib\StdLib.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    StdLib
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -151,10 +115,6 @@ Project: "StlTools"=.\StlTools\StlTools.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    StlTools
-    .\stltools
-    end source code control
 }}}
 
 Package=<4>
@@ -167,10 +127,6 @@ Project: "StreamIO"=.\StreamIO\StreamIO.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    StreamIO
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -183,10 +139,6 @@ Project: "StringDyn"=.\StringDyn\StringDyn.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    StringDyn
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -199,10 +151,6 @@ Project: "Strings"=.\Strings\Strings.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    Strings
-    .\strings
-    end source code control
 }}}
 
 Package=<4>
@@ -215,10 +163,18 @@ Project: "Utilities"=.\Utilities\Utilities.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    Utilities
-    ..
-    end source code control
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "_Doc"=..\..\..\Doc\_Doc.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
 }}}
 
 Package=<4>
@@ -231,10 +187,6 @@ Project: "_LibraryTest"=.\_LibraryTest\_LibraryTest.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    _LibraryTest
-    ..
-    end source code control
 }}}
 
 Package=<4>
@@ -247,10 +199,6 @@ Project: "_Samples"=.\_Samples.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    _Samples
-    .
-    end source code control
 }}}
 
 Package=<4>
@@ -302,10 +250,6 @@ Project: "_SrcPool"=..\..\_SrcPool.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    _SrcPool
-    ..\..
-    end source code control
 }}}
 
 Package=<4>
@@ -314,14 +258,10 @@ Package=<4>
 
 ###############################################################################
 
-Project: "_SrcUtil"=..\..\_SrcUtil.dsp - Package Owner=<4>
+Project: "_Util"=..\..\..\Util\_Util.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
-    begin source code control
-    _SrcUtil
-    ..\..
-    end source code control
 }}}
 
 Package=<4>

@@ -50,7 +50,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Samples", "_Samples.vcproj
 		{95BA43FB-F558-4FBA-A7AC-567FCB0F3DC6} = {95BA43FB-F558-4FBA-A7AC-567FCB0F3DC6}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_SrcPool", "..\..\_SrcPool.vcproj", "{B3DC2A0B-9D6F-405B-9F9B-2A6C8AF10CFD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_SrcPoolCpp", "..\..\_SrcPool.vcproj", "{B3DC2A0B-9D6F-405B-9F9B-2A6C8AF10CFD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -70,15 +70,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Random", "Random\Random.vcp
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StlTools", "G:\MyDocuments\BabelLib\_SrcPool\Cpp\Samples\StlTools\StlTools.vcproj", "{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 1
-		SccProjectUniqueName0 = Strings\\Strings.vcproj
-		SccProjectName0 = Strings
-		SccLocalPath0 = Strings
-		SccProvider0 = MSSCCI:Jalindi\u0020Igloo
-		CanCheckoutShared = false
-	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug_SBCS = Debug_SBCS
 		Debug_SBCS_MFC = Debug_SBCS_MFC
@@ -346,6 +342,22 @@ Global
 		{216ACF6A-B2F5-4D5B-930B-FB4B135A92D0}.Release_Unicode.Build.0 = Release_Unicode|Win32
 		{216ACF6A-B2F5-4D5B-930B-FB4B135A92D0}.Release_Unicode_MFC.ActiveCfg = Release_Unicode|Win32
 		{216ACF6A-B2F5-4D5B-930B-FB4B135A92D0}.Release_Unicode_MFC.Build.0 = Release_Unicode|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Debug_SBCS.ActiveCfg = Debug_SBCS|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Debug_SBCS.Build.0 = Debug_SBCS|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Debug_SBCS_MFC.ActiveCfg = Debug_SBCS|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Debug_SBCS_MFC.Build.0 = Debug_SBCS|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Debug_Unicode.ActiveCfg = Debug_Unicode|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Debug_Unicode.Build.0 = Debug_Unicode|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Debug_Unicode_MFC.ActiveCfg = Debug_Unicode|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Debug_Unicode_MFC.Build.0 = Debug_Unicode|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Release_SBCS.ActiveCfg = Release_SBCS|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Release_SBCS.Build.0 = Release_SBCS|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Release_SBCS_MFC.ActiveCfg = Release_SBCS|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Release_SBCS_MFC.Build.0 = Release_SBCS|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Release_Unicode.ActiveCfg = Release_Unicode|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Release_Unicode.Build.0 = Release_Unicode|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Release_Unicode_MFC.ActiveCfg = Release_Unicode|Win32
+		{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}.Release_Unicode_MFC.Build.0 = Release_Unicode|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

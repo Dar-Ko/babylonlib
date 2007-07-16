@@ -1,5 +1,5 @@
 $Workfile: _Samples.txt$: developer's note
-$Revision: 14$ $Date: 2007-07-11 12:47:36$
+$Revision: 15$ $Date: 2007-07-16 17:51:27$
 $Author: Darko Kolakovic$
 
 Samples and test suites for the various functions, classes and algorithms using Babylon Library
@@ -21,11 +21,8 @@ Copyright: CommonSoft Inc.
 _Samples Workspace Project components
 
                 dsw  sln  CVS
-_LibraryTest    OK        OK
-  Common        NA        OK
-Doc                  OK   OK
-_Samples        OK   OK   OK
   Assert        OK   OK   OK
+  Common        NA        OK
   Complex       OK   OK
   Console       OK   OK   OK
   DateTime      OK   OK   OK
@@ -38,14 +35,12 @@ _Samples        OK   OK   OK
   StringDyn     OK   OK   OK
   Strings       OK
   Utilities     OK
-
-To Be Moved:
-    HTTPUtils
-    Resizable
-    Timer
-    VerInfoTest
-    WinOSVer
-
+ _Doc           OK   OK
+ _LibraryTest   OK        OK
+ _Samples       OK   OK   OK
+ _SrcPool       OK   OK
+  SrcPoolWin32  OK   OK
+ _Util          OK
 
 To be removed from CVS:
 Calc
