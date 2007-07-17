@@ -1,6 +1,6 @@
 /*$Workfile: KStrUppr.cpp$: implementation file
-  $Revision: 6$ $Date: 2005-05-11 22:33:34$
-  $Author: Darko$
+  $Revision: 8$ $Date: 2007-07-17 12:01:55$
+  $Author: Darko Kolakovic$
 
   Converts lower case characters to upper case
   Copyright: CommonSoft Inc.
@@ -39,13 +39,14 @@
 
   Note: uses Standard Template Library (STL).
  */
-tstring StrToUpper(const tstring& strSource)
+tstring StrToUpper(const tstring& strSource //[in] string to be converted
+                  )
 {
 using namespace std;
 TCHAR cChar;
-string strResult = strSource;
+tstring strResult = strSource;
 
-string::iterator i = strResult.begin();
+tstring::iterator i = strResult.begin();
 while(i != strResult.end())
   {
   cChar = toupper(*i);
@@ -57,12 +58,19 @@ return strResult;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log:
- *  4    Biblioteka1.3         1/29/2002 11:22:11 PMDarko           Used lbraries
- *       notes
- *  3    Biblioteka1.2         1/25/2002 4:58:47 PM Darko           Updated
+ * $Log: 
+ *  8    Biblioteka1.7         2007-07-17 12:01:55  Darko Kolakovic fixed wchar_t
+ *       strings
+ *  7    Biblioteka1.6         2007-07-17 09:21:47  Darko Kolakovic Argument
+ *       comment
+ *  6    Biblioteka1.5         2005-05-11 22:33:34  Darko           Unicode
+ *  5    Biblioteka1.4         2004-06-01 18:03:52  Darko           STLport
+ *       included
+ *  4    Biblioteka1.3         2002-01-29 23:22:11  Darko           Used libraries
+ *       notes 
+ *  3    Biblioteka1.2         2002-01-25 16:58:47  Darko           Updated
  *       comments
- *  2    Biblioteka1.1         12/23/2001 1:21:57 AMDarko           _DEBUG
- *  1    Biblioteka1.0         7/18/2001 11:32:11 PMDarko
+ *  2    Biblioteka1.1         2001-12-23 01:21:57  Darko           _DEBUG
+ *  1    Biblioteka1.0         2001-07-18 23:32:11  Darko           
  * $
  *****************************************************************************/
