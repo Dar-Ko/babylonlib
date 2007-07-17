@@ -1,5 +1,5 @@
 /*$Workfile: TestCommonStlTools.cpp$: implementation file
-  $Revision: 2$ $Date: 2007-07-16 17:53:29$
+  $Revision: 3$ $Date: 2007-07-17 12:02:36$
   $Author: Darko Kolakovic$
 
   Test system service (deamon) routines.
@@ -14,6 +14,8 @@
 extern bool TestStlLimits();
 extern bool TestStlStringCfg();
 extern bool TestReplaceEol();
+extern bool TestStrToUpper();
+extern bool TestUcstoHex();
 
 int TestCommonStlTools();
 
@@ -33,7 +35,9 @@ PFUNC_TEST funcTest[] =
   {
   TestStlLimits,
   TestStlStringCfg,
-  TestReplaceEol
+  TestReplaceEol,
+  TestStrToUpper,
+  TestUcstoHex
   };
 
 if (funcTest != NULL)
@@ -61,6 +65,7 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  3    Biblioteka1.2         2007-07-17 12:02:36  Darko Kolakovic UscToHex()
  *  2    Biblioteka1.1         2007-07-16 17:53:29  Darko Kolakovic TestStlLimits()
  *  1    Biblioteka1.0         2007-07-10 17:46:49  Darko Kolakovic 
  * $

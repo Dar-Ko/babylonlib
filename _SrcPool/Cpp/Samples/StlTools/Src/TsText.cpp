@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Common\Src\TsText.c$: implementation file
-  $Revision: 1$ $Date: 2007-07-16 17:54:07$
+/*$Workfile: TsText.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-07-17 09:31:18$
   $Author: Darko Kolakovic$
 
   Text samples used to test string manipulators

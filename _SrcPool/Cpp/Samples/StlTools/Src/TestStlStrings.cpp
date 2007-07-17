@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\StlTools\Src\TestStlStrings.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-07-16 17:51:51$
+/*$Workfile: TestStlStrings.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-07-17 12:02:37$
   $Author: Darko Kolakovic$
 
   Test string manipulation methods
@@ -15,7 +15,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TsWriteToView(const int& iValue);
 extern bool TsWriteToViewLn(const int& iValue);
 
-extern "C" LPCTSTR g_szText[]; //test cases
+extern LPCTSTR g_szText[]; //test cases
 
 #ifdef _DEBUG
   #undef THIS_FILE
@@ -91,9 +91,91 @@ TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 
+//-----------------------------------------------------------------------------
+/*Validates conversion to all upper case string.
+
+  Returns: true if successful, otherwise returns false.
+
+  Note: uses Standard Template Library (STL).
+*/
+bool TestStrToUpper()
+{
+TsWriteToViewLn(_T("TestStrToUpper()"));
+
+//Test object creation
+TESTENTRY logEntry =
+  {_T("StrToUpper()"), _T("KStrUppr.cpp"), false};
+
+extern tstring StrToUpper(const tstring& strSource);
+
+bool bRes = true;
+
+int i = 0;
+tstring strResult;
+while (g_szText[i] != NULL)
+  {
+  strResult = StrToUpper(g_szText[i]);
+  std::_tcout << strResult << std::endl;
+  i++;
+  }
+
+//Write test log
+logEntry.m_bResult = bRes;
+LogTest(&logEntry);
+
+
+TsWriteToViewLn(LOG_EOT);
+return bRes;
+}
+
+//-----------------------------------------------------------------------------
+/*Validates writing 32-bit characters to the stream.
+
+  Returns: true if successful, otherwise returns false.
+
+  Note: uses Standard Template Library (STL).
+*/
+bool TestUcstoHex()
+{
+TsWriteToViewLn(_T("TestUcstoHex()"));
+
+//Test object creation
+TESTENTRY logEntry =
+  {_T("UcstoHex(tostream&, UCS4)"), _T("KUcstoHex.cpp"), false};
+
+extern tostream& UcstoHex(tostream& outStream, UCS4 ucsValue);
+
+bool bRes = true;
+
+UCS4 uscChar[] =
+  {
+  0x0, 0x1, 0x8, 0xF, 0x10, 0xFF, 0x100, 0xFFF, 0x1000, 0xFFFF,
+  0x10000, 0XFFFFF, 0x100000, 0xFFFFFF, 0X1000000, 0xFFFFFFF,
+  0x10000000, 0xFFFFFFFF, 3435973836
+  };
+  
+int i = 0;
+tstring strResult;
+while (i < (sizeof(uscChar)/sizeof(UCS4)))
+  {
+  std::_tcout << i << _T(". ");
+  UcstoHex(std::_tcout, uscChar[i]) << std::endl;
+  i++;
+  }
+
+//Write test log
+logEntry.m_bResult = bRes;
+LogTest(&logEntry);
+
+
+TsWriteToViewLn(LOG_EOT);
+return bRes;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-07-17 12:02:37  Darko Kolakovic UscToHex()
  *  1    Biblioteka1.0         2007-07-16 17:51:51  Darko Kolakovic 
  * $
  *****************************************************************************/

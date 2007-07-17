@@ -785,8 +785,7 @@
 			<File
 				RelativePath="..\..\STL\KStrUppr.cpp">
 				<FileConfiguration
-					Name="Debug_SBCS|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
@@ -796,8 +795,7 @@
 						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_Unicode|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
@@ -908,6 +906,9 @@
 						PreprocessorDefinitions=""
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Stl\KUcsToHex.cpp">
 			</File>
 			<File
 				RelativePath="Src\main.cpp">
@@ -1081,45 +1082,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\Common\Src\TsText.c">
-				<FileConfiguration
-					Name="Debug_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
+				RelativePath=".\Src\TsText.cpp">
 			</File>
 			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
