@@ -277,7 +277,8 @@ return hRes;
   
   Returns: S_OK or E_POINTER and test counter value.
 */
-STDMETHODIMP CTestAtl7Web::put_String(BSTR newVal //[in]
+STDMETHODIMP CTestAtl7Web::put_String(BSTR newVal //[in] new value  as 
+                                      //a length-prefixed string
                                      )
 {
 ATLASSERT(g_nDbgBreak != 2); //debugger breakpoint
@@ -298,13 +299,33 @@ catch (...)
 return S_OK;
 }
 
-STDMETHODIMP CTestAtl7Web::GetString(BSTR* pVal//[out]
+//-----------------------------------------------------------------------------
+/*Obtains a string. To create a method that returns a value to JavaScript or 
+  VBScript, make the return value be the last parameter to the method and
+  declare it as [out, retval].
+
+  A binary string BSTR is a length-prefixed string and is null-terminated after
+  the last counted character but may also contain null characters embedded within
+  the string. The string length is an integer representing the character count
+  and preceding the character data in the string.
+ 
+  Returns S_OK or E_POINTER if argument is not valider pointer.
+ */
+STDMETHODIMP CTestAtl7Web::GetString(BSTR* pVal//[out, retval] result as 
+                                               //a length-prefixed string
                                     )
 {
+if (pVal == NULL)
+  return E_POINTER; //Null pointer error
+
 return get_String(pVal);
 }
 
-STDMETHODIMP CTestAtl7Web::SetString(BSTR newVal //[in]
+//-----------------------------------------------------------------------------
+/*Initializes the string property.
+ */
+STDMETHODIMP CTestAtl7Web::SetString(BSTR newVal //[in] new value  as 
+                                                 //a length-prefixed string
                                     )
 {
 return put_String(newVal);
