@@ -15,16 +15,17 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 #ifdef _WIN32
   extern bool TestSerialIo(const unsigned int nPortNo = 1);
 #endif
+extern bool TestUsbEnumeration();
 
 int TestCommonSerialIo(int argc, TCHAR* argv[]);
 int TestCommonSerialIo();
 
 //-----------------------------------------------------------------------------
 /*Validates different system service (deamon) routines.
-Defines the entry point for an automated test.
+  Defines the entry point for an automated test.
 
-Returns: EXIT_SUCCESS, which represents a value of 0, if successful. Otherwise
-a non-zero error code is returned.
+  Returns: EXIT_SUCCESS, which represents a value of 0, if successful. Otherwise
+  a non-zero error code is returned.
 */
 int TestCommonSerialIo()
 {
@@ -51,7 +52,8 @@ TsWriteToViewLn(_T("Validation of serial port I/O methods"));
 TsWriteToViewLn(_T(""));
 int iTestCount = 0;
 
-if (TestSerialIo())
+if(TestUsbEnumeration())
+//if (TestSerialIo())
   {
   TsWriteToViewLn(LOG_SUCCESS);
   TsWriteToViewLn(_T(""));

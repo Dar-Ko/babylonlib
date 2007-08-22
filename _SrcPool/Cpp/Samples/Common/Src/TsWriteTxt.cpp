@@ -1,5 +1,5 @@
 /*$Workfile: TsWriteTxt.cpp$: implementation file
-  $Revision: 11$ $Date: 2007-07-16 17:54:52$
+  $Revision: 12$ $Date: 22/08/2007 7:24:04 PM$
   $Author: Darko Kolakovic$
 
   Outputs text to stdout stream
@@ -118,6 +118,20 @@ bool TsWriteToView(const int& iValue  //[in] integer number to output
                      )
 {
 std::_tcout << iValue;
+return true;
+}
+
+bool TsWriteToViewLn(const unsigned int& nValue  //[in] integer number to output
+                     )
+{
+std::_tcout << nValue << std::endl;
+return true;
+}
+
+bool TsWriteToView(const unsigned int& nValue  //[in] integer number to output
+                     )
+{
+std::_tcout << nValue;
 return true;
 }
   #endif //#ifndef KSTL_IO

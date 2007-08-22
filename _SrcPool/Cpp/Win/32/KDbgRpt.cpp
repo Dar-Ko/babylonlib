@@ -1,5 +1,5 @@
 /*$Workfile: KDbgRpt.cpp$: implementation file
-  $Revision: 4$ $Date: 2007-05-22 17:41:47$
+  $Revision: 5$ $Date: 22/08/2007 7:29:01 PM$
   $Author: Darko Kolakovic$
 
   Unicode Debug C Run-time Reporting Functions, required by
@@ -8,6 +8,8 @@
   Copyright: Microsoft Corporation.
   2005-04-01 Darko Kolakovic
 */
+
+/*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #ifdef _DEBUG
   #ifdef _UNICODE

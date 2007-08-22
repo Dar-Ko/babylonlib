@@ -1,6 +1,7 @@
 
 $Workfile: SerialIO.txt$: developer's note
-$Revision: 2$ $Date: 2007-03-16 22:21:40$
+$Revision: 3$ $Date: 22/08/2007 7:24:00 PM$
 $Author: Darko Kolakovic$
 
 \	SerialIO.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
+TODO: SBCS Builds! D.K.
