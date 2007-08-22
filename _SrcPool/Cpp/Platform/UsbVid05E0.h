@@ -1,5 +1,5 @@
-/*$Workfile: UsbVid05E0.h,v $: header file
-  $Revision: 1.2 $ $Date: 2007/08/20 19:38:21 $
+/*$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid05E0.h$: header file
+  $Revision: 1.3 $ $Date: 2007/08/22 23:32:50 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -8,10 +8,10 @@
  */
 
 #ifndef _USBVID05E0_H_
-  //$Workfile: UsbVid05E0.h$ sentry
+  //$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid05E0.h$ sentry
   #define _USBVID05E0_H_
 
-/*1504.USB device vendor identification (VID) number	Motorola Symbol Technologies	http://www.symbol.com/
+/*1504.	USB device vendor identification (VID) number	Motorola Symbol Technologies	http://www.symbol.com/
 
   See also: usb-if.tsv, USB Implementers Forum, Inc (USB-IF) at http://www.usb.org
  */
@@ -52,8 +52,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_USBVID05E0_H_
 /*****************************************************************************
- * $Log: UsbVid05E0.h,v $
- * Revision 1.2  2007/08/20 19:38:21  ddarko
- * PID for different revisions
- *
+ * $Log: 
+ *  1    Biblioteka1.0         22/08/2007 10:51:37 AMDarko Kolakovic 
+ * $
  *****************************************************************************/

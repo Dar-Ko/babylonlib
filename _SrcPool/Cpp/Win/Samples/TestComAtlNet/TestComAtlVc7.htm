@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: TestComAtlVc7.htm$: documentation" />
-<meta name="Revision" content="$Revision: 17$" />
+<meta name="Revision" content="$Revision: 18$" />
 <meta name="robots" content="index" />
 <meta name="keywords" content="compiler, ATL, COM" />
 <!-- Dublin Core Metadata Package -->
@@ -20,11 +20,11 @@
 <meta name="DC.subject" content="ATL COM" />
 <meta name="DC.description.abstract" content="COM project setup" />
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
-<meta name="DC.date" content="$Date: 2007-07-31 16:22:11$" />
+<meta name="DC.date" content="$Date: 2007-08-09 15:09:37$" />
 <meta name="DC.type" content="Text.Article" />
 <meta name="DC.format" content="application/html" />
 <meta name="DC.language" content="en_ca" />
-<meta name="DC.identifier.Revision" content="$Revision: 17$" />
+<meta name="DC.identifier.Revision" content="$Revision: 18$" />
 <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
@@ -262,13 +262,20 @@ coclass <b>CTestAtlObj</b> {
   {<br />
   *pResult = 2 + lInput;<br />
   return S_OK;<br />
-  }</code></li>
+  }<br>
+  </code><span class="bodycopy">It is possible to pass data structures, arrays 
+  or any other complex datatypes, but in that case the custom <i>marshaler</i> 
+  is required. It is simpler to use build-in <i>OLE marshaler</i> with choice 
+  limited to <code>VARIANT</code> structure allowing an element <code>SAFEARRAY</code>.</span></li>
   <li>To create a method that returns a value to JavaScript or VBScript, make 
   the return value be the last parameter to the method and declare it as <b>
   [out, retval]</b>.<br>
   <img border="0" src="Res/ComAtlVc7Ba.gif" width="425" height="141" /><br>
-  <span class="Note">JavaScript does not support <code>ByRef</code> parameters 
-  of any type.</span></li>
+  <span class="Note">JavaScript does not support parameters declared [out], [in, 
+  out] or <code>ByRef</code> parameters of any type.<br>
+  </span>Output parameters that are not marked [retval], particularly <code>
+  VARIANTs</code>, have to be freed with <code>VariantClear()</code>.&nbsp;VBScript 
+  does not free memory before calling methods.</li>
   <li>Build the project. The compiler will register your new COM exe so it could 
   be used by container application. To unregister the COM dll server use command
   <code>regsvr32 /u ComName</code>. For COM exe use <code>ComName /UnregServer</code>. 

@@ -1,5 +1,5 @@
-/*$Workfile: UsbVid046D.h $: header file
-  $Revision: 1.1 $ $Date: 2007/08/17 21:15:42 $
+/*$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid046D.h$: header file
+  $Revision: 1.2 $ $Date: 2007/08/22 23:32:50 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -7,8 +7,10 @@
   2004-03-10 Darko Kolakovic
  */
 
+/* Group=USB ID                                                              */
+
 #ifndef _USBVID046D_H_
-  //$Workfile: UsbVid046D.h$ sentry
+  //$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid046D.h$ sentry
   #define _USBVID046D_H_
 
 /*1133.	USB device vendor identification (VID) number	Logitech Inc.	http://www.logitech.com/
@@ -107,7 +109,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_USBVID046D_H_
 /*****************************************************************************
- * $Log: UsbVid046D.h,v $
+ * $Log: 
+ *  1    Biblioteka1.0         22/08/2007 10:51:35 AMDarko Kolakovic 
+ * $
  * Revision 1.1  2007/08/17 21:15:42  ddarko
  * Created
  *

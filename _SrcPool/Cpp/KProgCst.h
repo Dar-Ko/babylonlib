@@ -131,7 +131,7 @@
 #endif
 
   /*-------------------------------------------------------------------------*/
-#else /*_cplusplus  C++ compilation                                          */
+#else /*__cplusplus  C++ compilation                                         */
   #pragma message ("   C++ compilation " __FILE__ )
   /*Byte Order Mark (BOM) indicates a Unicode file. The value FFFE is not
     a character at all. If an Unicode a file begins with this mark, byte order
@@ -202,7 +202,7 @@ const unsigned long GiB = 0x40000000UL;
     */
     const uint64 TiB = 0x10000000000UL;
   #endif //uint64
-#endif /*!_cplusplus                                                         */
+#endif /*!__cplusplus                                                        */
 
 #ifndef NaN_NUMBER
  #pragma message ("   8 byte double " __FILE__ )
@@ -212,7 +212,7 @@ const unsigned long GiB = 0x40000000UL;
 
       quiet NaN         -1.#IND,
       signaling NaN     -1.#INF, //TODO: Check this D.K.
-      positive infinity  1.#INF                                              
+      positive infinity  1.#INF
    */
   typedef union tagNaN_NUMBER
     {
@@ -262,25 +262,25 @@ const unsigned long GiB = 0x40000000UL;
     #define _GET_DWORD_ALIGNP(pBYTE) (*((DWORD*)pBYTE))
   #endif
 
-    /*QNaN High-order long for double quiet NaN (not a number)                    
+    /*QNaN High-order long for double quiet NaN (not a number)
       denotes indeterminate operations.
 
       See also: CST_dQNaN
      */
   #define NaN_DQUIET       0xFFF80000
-    /*SNaN High-order long for double signaling NaN (not a number) 
+    /*SNaN High-order long for double signaling NaN (not a number)
       denotes invalid operations.
 
       See also: CST_dSNaN
      */
   #define NaN_DSIGNAL      0xFFF00000
     /*High-order long for double positive infinity.
-    
+
       See also: CST_dINF
      */
   #define NaN_DPOSINFINITY 0x7FF00000
-    /*High-order long for double negative infinity.                           
-      The sign bit distinguishes between negative infinity and positive infinity. 
+    /*High-order long for double negative infinity.
+      The sign bit distinguishes between negative infinity and positive infinity.
      */
   #define NaN_DNEGINFINITY (-NaN_DPOSINFINITY)
 

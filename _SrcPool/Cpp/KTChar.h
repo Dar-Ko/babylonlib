@@ -1,5 +1,5 @@
 /*$Workfile: KTChar.h$: header file
-  $Revision: 21$ $Date: 2004-11-23 16:49:35$
+  $Revision: 23$ $Date: 2007-08-09 15:07:42$
   $Author: Darko Kolakovic$
 
   Unicode mapping layer for the standard C library with definitions for generic
@@ -117,19 +117,6 @@ extern "C"
         _TXCHAR      char           unsigned char  wchar_t
         _T or _TEXT  No effect      No effect      L()
         _TEOF        EOF            EOF            WEOF
-
-        Note: Depending on the platform, wchar_t and L"String literals" may or
-              may not be Unicode, and if they are Unicode, they could be
-              UTF-16 or UCS-4. Non-Unicode forms can crop up on some platforms
-              in some Asian locales, and sometimes on EBCDIC based mainframes.
-              Portable Unicode based applications need to stay away from any
-              use of wchar_t and the wwhatever() family of functions that
-              support wchar_t. Setting up Unicode string constants in portable
-              C or C++ has no language support at all, and is a complete pain.
-              The usual approach is to define a series of individual numeric
-              constants for each character needed, then use a C array initializer
-              to put together the string.
-              2004-03-12 Andy Heninger, heninger@us.ibm.com, ICU Project
     */
     typedef char            TCHAR;
 
@@ -500,7 +487,7 @@ extern "C"
   #ifndef _tcsinc
     #define _tcsinc(pChar)     ((TCHAR*)((TCHAR*)(pChar)+1)) /*Incremets a pointer
                                                   to a character for one.
-                                                  Added for compatiblity with MS
+                                                  Added for compatability with MS
                                                   multibyte _mbsinc().
                                                   */
   #endif
@@ -836,6 +823,7 @@ extern "C"
   #define LPTSTR LPTSTR
 #endif
 
+/* ......................................................................... */
 #ifndef _WIN32
   #ifndef PCSTR
     typedef const char*    PCSTR; /*Pointer to character string constant*/
@@ -863,7 +851,7 @@ extern "C"
     typedef       wchar_t  OLECHAR;
     #define OLECHAR OLECHAR
   #endif
-
+/* ......................................................................... */
 #endif /*!_WIN32*/
 
 /* ///////////////////////////////////////////////////////////////////////// */
@@ -935,8 +923,49 @@ extern "C"
 #ifdef  __cplusplus
   } //extern "C"
 #endif
+
 /* ////////////////////////////////////////////////////////////////////////// */
 #endif //__KTCHAR_H__ < 1300
+
+  //Unicode Transformation Formats
+#ifndef UCS1
+  //Single Byte Character Set (SBCS) characters has to be of char type
+  typedef char UCS1;
+#define UCS1 UCS1
+#endif
+#ifndef UCS2
+  #include "KTypedef.h" //ISO C99: 7.18 Integer types
+  /*Universal Character Set UCS-2 or Double Byte Character Set (DBCS) format.
+    UCS-2 is identical with the Basic Multilingual Plane of the original 
+    Unicode set.
+
+    Note: Depending on the platform, wchar_t and L"String literals" may or
+    may not be Unicode, and if they are Unicode, they could be
+    UTF-16 or UCS-4. Non-Unicode forms can crop up on some platforms
+    in some Asian locales, and sometimes on EBCDIC based mainframes.
+    Portable Unicode based applications need to stay away from any
+    use of wchar_t and the wwhatever() family of functions that
+    support wchar_t. Setting up Unicode string constants in portable
+    C or C++ has no language support at all, and is a complete pain.
+    The usual approach is to define a series of individual numeric
+    constants for each character needed, then use a C array initializer
+    to put together the string.
+    2004-03-12 Andy Heninger, heninger@us.ibm.com, ICU Project
+
+    See also: ISO 10646
+  */
+  typedef uint16_t UCS2;
+  #define UCS2 UCS2
+#endif
+#ifndef UCS4
+  #include "KTypedef.h" //ISO C99: 7.18 Integer types
+  /*Universal Character Set UCS-4 format.
+    See also: ISO 10646
+  */
+  typedef uint32_t UCS4;
+  #define UCS4 UCS4
+#endif
+
 /*****************************************************************************
  * $Log:
  *  11   Biblioteka1.10        2004-06-08 16:43:24  Darko           Note UTF-8

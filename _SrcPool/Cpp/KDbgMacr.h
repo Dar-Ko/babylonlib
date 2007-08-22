@@ -576,7 +576,7 @@
       #pragma message ("  ver. unknown")
     #endif
   #endif
-  
+
   #ifdef _AFX
     #pragma message ("Included Microsoft Application Framework Classes afxver_.h (AFX/MFC).")
   #endif
@@ -895,7 +895,7 @@
     #elif WINVER == 0x0400
       #pragma message ("Target OS is MS Windows NT 4.0.")
     #elif WINVER == 0x0500
-      #pragma message ("Target OS is MS Windows 2000.")
+      #pragma message ("Target OS is MS Windows 2000 or 98.")
     #elif WINVER == 0x0501
       #pragma message ("Target OS is MS Windows XP.")
     #else
@@ -905,7 +905,7 @@
 
   #ifdef _WIN32_WINDOWS
     #if _WIN32_WINDOWS == 0x0410
-      #pragma message ("Target OS is MS Windows 98 (9x).")
+     #pragma message ("Target OS is MS Windows 98 (9x).")
     #elif _WIN32_WINDOWS == 0x0490
       #pragma message ("Target OS is MS Windows Me (9x).")
     #else

@@ -1,6 +1,6 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.1 $ $Date: 2007/08/17 17:55:39 $
-  $Author: dkolakovic $
+  $Revision: 2$ $Date: 22/08/2007 7:28:02 PM$
+  $Author: Darko Kolakovic$
 
   Universal Serial Bus (USB) device data structures
   Copyright: babylonlib@sourceforge.net CommonSoft Inc.
@@ -21,9 +21,9 @@
 #pragma include_alias( "stdint.h", "KType32.h" )
 #include "stdint.h" //ISO C99 type definitions
 
-#ifndef LPCTSTR
-  #include "KTChar.h"
-#endif
+//#ifndef LPCTSTR
+//  #include "KTChar.h"
+//#endif
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
@@ -36,6 +36,47 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Macros
 
+//-----------------------------------------------------------------------------
+//Standard Request Codes USB 2.0 Specification Table 9-4
+#define USB_GET_STATUS         0
+#define USB_CLEAR_FEATURE      1
+#define USB_SET_FEATURE        3
+#define USB_SET_ADDRESS        5
+#define USB_GET_DESCRIPTOR     6
+#define USB_SET_DESCRIPTOR     7
+#define USB_GET_CONFIGURATION  8
+#define USB_SET_CONFIGURATION  9
+#define USB_GET_INTERFACE     10
+#define USB_SET_INTERFACE     11
+#define USB_SYNCH_FRAME       12
+
+//Descriptor Types
+#define USBDESCRIPTOR_DEVICE        0x01
+#define USBDESCRIPTOR_CONFIGURATION 0x02
+#define USBDESCRIPTOR_STRING        0x03
+#define USBDESCRIPTOR_INTERFACE     0x04
+#define USBDESCRIPTOR_ENDPOINT      0x05
+
+//-----------------------------------------------------------------------------
+//Device Class Definition for Human Interface Devices (HID) v.1.11
+
+//Class Descriptor Types
+#define USBCLASSDESCRIPTOR_HID      0x21
+#define USBCLASSDESCRIPTOR_REPORT   0x22
+#define USBCLASSDESCRIPTOR_PHYSICAL 0x23
+
+//HID Class specific requests
+#define HID_GET_REPORT      0x01
+#define HID_GET_IDLE        0x02
+#define HID_GET_PROTOCOL    0x03
+#define HID_SET_REPORT      0x09
+#define HID_SET_IDLE        0x0A
+#define HID_SET_PROTOCOL    0x0B
+
+//Standard Feature Selectors
+#define DEVICE_REMOTE_WAKEUP    0x01
+#define ENDPOINT_HALT           0x00
+
 #ifndef USBVID_ANY
   #define USBVID_ANY 0x0000 //undefined or unspecified USB vendor
 #endif
@@ -44,26 +85,46 @@
 #endif
 
 #ifndef USBVID_TEST
-  #define USBVID_TEST 0xFEED //USB vendor ID used for prototypes (not assigned by USB-IF)
+  #define USBVID_TEST 0x1A0A //6666 USB-IF non-workshop ID used customarily
+                             //for prototypes
 #endif
 #ifndef USBPID_TEST
   #define USBPID_TEST 0xBEEF //prototype USB product ID (not assigned by USB-IF)
 #endif
 
 #ifdef _MSC_VER
-  #pragma pack(push, 1)  //Specifies packing alignment for structure,
+  #pragma pack(push, 1)  //Specifies packing alignment for structure, 
                          //union and class members.
 #endif
 
+#ifdef _WIN32
+  #ifndef SYMBOLICLINK_HDC
+    /*Symbolic name for Host Controller Driver (HCD) modules have following
+      form: 
+          \\.\HCDn
+          where n (0,...,k) is module instance number in the driver's stack.
+          
+      Note: USB driver uses two different stacks for USB 1.1 and USB 2.0 host
+      controllers.
+      Note: Microsoft Windows specific (Win32).
+      
+      See also: MSDN KB838100,  "The USBView.exe sample program does not 
+      enumerate devices on pre-Windows XP SP1-based computers".
+    */
+    #define SYMBOLICLINK_HDC "\\\\.\\HCD%d"
+  #endif
+#endif
 ///////////////////////////////////////////////////////////////////////////////
-/*Universal Serial Bus (USB) device type identification consists of
-    16 bit wide Vendor ID assigned by the USB-IF and
-    16 bit wide Product ID assigned by the manufacturer.
+/*Universal Serial Bus (USB) device type identification consists of:
+    16 bit wide Vendor ID (VID) assigned by the USB-IF and
+    16 bit wide Product ID (PID) assigned by the manufacturer.
 
-  USB ID numbers is the part of Standard Device Descriptor data structure.
-
+  A VID/PID unique to a particular USB device must be contained within
+  the device hardware to comply with the USB specification.
+  USB ID numbers are the part of Standard Device Descriptor data structure.
+  
   See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org;
-  Universal Serial Bus Specification Revision 2.0, 9.6 Standard USB Descriptor
+  Universal Serial Bus Specification Revision 2.0, 9.6 Standard USB Descriptor 
   Definitions.
  */
 struct tagUsbId
@@ -78,10 +139,10 @@ uint16_t  m_wPid; //USB product identification (PID) number
 
 #if !defined(USBID)
 
-  //Globally Unique Identifier (USBID). See also: tagUUID, tagUsbId
+  //Globally Unique Identifier (USBID). See also: tagUUID, tagUsbId             
   typedef tagUsbId  USBID;
 
-  //Pointer to Globally Unique Identifier (USBID). See also: tagUsbId
+  //Pointer to Globally Unique Identifier (USBID). See also: tagUsbId           
   typedef tagUsbId* LPUSBID;
 
   //Constant pointer to Globally Unique Identifier (USBID). See also: tagUsbId
@@ -91,9 +152,13 @@ uint16_t  m_wPid; //USB product identification (PID) number
   #define USBID USBID
 #endif /*tagUsbId*/
 
-#ifdef _cplusplus
+#ifdef __cplusplus
 ///////////////////////////////////////////////////////////////////////////////
-/*
+/*Encapsulates common operations with USB device identification numbers 
+  (VID, PID).
+  
+  See also: tagUsbId struct, LPUSBID, Standard USB Descriptor Definitions,
+  USB Implementers Forum, Inc (USB-IF) at http://www.usb.org;
  */
 class CUsbId: public USBID
 {
@@ -101,13 +166,14 @@ public:
   CUsbId();
   CUsbId(const USBID& usbId);
   CUsbId(const CUsbId& usbId);
+  CUsbId(const uint16_t wVendorId, const uint16_t wProductId);
   virtual ~CUsbId();
   CUsbId& operator =(const USBID& usbId);
   bool operator==(const CUsbId& usbId) const;
   bool operator!=(const CUsbId& usbId) const;
   bool IsVendor(const uint16_t wVendorId);
   bool IsProduct(const uint16_t wProductId);
-
+  
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -116,45 +182,54 @@ public:
 //-----------------------------------------------------------------------------
 /*Default constructor
  */
-CUsbId::CUsbId() :
-  m_wVid(USBVID_ANY),
-  m_wPid(USBPID_ANY)
+inline CUsbId::CUsbId()
 {
+m_wVid = USBVID_ANY;
+m_wPid = USBPID_ANY;
 }
 
-CUsbId::CUsbId(const USBID& usbId) :
-m_wVid(usbId.m_wVid),
-m_wPid(usbId.m_wPid)
+inline CUsbId::CUsbId(const USBID& usbId)
 {
+m_wVid = usbId.m_wVid;
+m_wPid = usbId.m_wPid;
 }
 
-CUsbId::CUsbId(const CUsbId& usbId) :
-m_wVid(usbId.m_wVid),
-m_wPid(usbId.m_wPid)
+inline CUsbId::CUsbId(const CUsbId& usbId)
 {
+m_wVid = usbId.m_wVid;
+m_wPid = usbId.m_wPid;
 }
 
-CUsbId::~CUsbId()
+inline 
+CUsbId::CUsbId(const uint16_t wVendorId, //[in] USB device vendor identification (VID) number
+               const uint16_t wProductId //[in] USB product identification (PID) number
+               )
+{
+m_wVid = wVendorId;
+m_wPid = wProductId;
+}
+
+inline CUsbId::~CUsbId()
 {
 }
 
 //-----------------------------------------------------------------------------
 /*Assignment operator
  */
-CUsbId& CUsbId::operator =(const USBID& usbId //[in] value to assign
-                          )
+inline CUsbId& CUsbId::operator =(const USBID& usbId //[in] value to assign
+                                 )
 {
 m_wVid = usbId.m_wVid;
 m_wPid = usbId.m_wPid;
 return (*this);
-}
+}                          
 
 //-----------------------------------------------------------------------------
 /*Equality operator.
 
   Returns: true if two objects are the same.
  */
-bool CUsbId::operator==(const CUsbId& usbId) const
+inline bool CUsbId::operator==(const CUsbId& usbId) const
 {
 return ((m_wVid == usbId.m_wVid) && (m_wPid == usbId.m_wPid));
 }
@@ -163,7 +238,7 @@ return ((m_wVid == usbId.m_wVid) && (m_wPid == usbId.m_wPid));
 
   Returns: true if two objects are not the same.
  */
-bool CUsbId::operator!=(const CUsbId& usbId) const
+inline bool CUsbId::operator!=(const CUsbId& usbId) const
 {
 return ((m_wVid != usbId.m_wVid) || (m_wPid != usbId.m_wPid));
 }
@@ -173,20 +248,20 @@ return ((m_wVid != usbId.m_wVid) || (m_wPid != usbId.m_wPid));
 
   Returns true if USB vendor have appropriate ID.
  */
-bool CUsbId::IsVendor(const uint16_t wVendorId //[in] USB device vendor
-                      //identification number assigned by the
+inline bool CUsbId::IsVendor(const uint16_t wVendorId //[in] USB device vendor 
+                      //identification number assigned by the 
                       //USB Implementers Forum (USB-IF)
                      )
 {
 return (m_wVid == wVendorId);
-}
+}                     
 
 //-----------------------------------------------------------------------------
 /*Validates USB product identification (PID) number.
 
   Returns true if USB product have appropriate ID.
 */
-bool CUsbId::IsProduct(const uint16_t wProductId //[in] USB product
+inline bool CUsbId::IsProduct(const uint16_t wProductId //[in] USB product 
                       //identification number assigned by the manufacturer
                       )
 {
@@ -198,8 +273,14 @@ return (m_wPid == wProductId);
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_KUSB_H_
 /*****************************************************************************
- * $Log: KUsb.h,v $
- * Revision 1.1  2004/02/17 17:55:39  dkolakovic
- * Created
+ * $Log: 
+ *  2    Biblioteka1.1         22/08/2007 7:28:02 PMDarko Kolakovic USB
+ *  1    Biblioteka1.0         22/08/2007 10:50:52 AMDarko Kolakovic 
+ * $
+ * Revision 1.2  2007/08/21 14:46:24  dkolakovic
+ * IsConnected()
+ *
+ * Revision 1.1  2007/08/17 17:55:39  dkolakovic
+ * Copied from BabylonLib
  *
  *****************************************************************************/
