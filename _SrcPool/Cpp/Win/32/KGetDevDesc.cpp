@@ -1,5 +1,5 @@
 /*$Workfile: KGetDevDesc.cpp$: implementation file
-  $Revision: 2$ $Date: 2007-08-24 10:53:19$
+  $Revision: 3$ $Date: 2007-08-24 16:10:11$
   $Author: Darko Kolakovic$
 
   Universal Serial Bus (USB) Host Controller
@@ -20,6 +20,7 @@
   #ifndef TRACE
     #define TRACE ATLTRACE
     #define TRACE1 ATLTRACE
+    #define TRACE2 ATLTRACE
   #endif
 #else
   #include <windows.h>
@@ -68,19 +69,24 @@ LPCTSTR GetDeviceDesc(const WCHAR* szDriverRegistryName //[in] driver registry
 {
 TRACE1(_T("GetDeviceDesc(%ws)\n"),szDriverRegistryName);
 
-DEVINST     devInst;
-DEVINST     devInstNext;
-CONFIGRET   cr;
-ULONG       walkDone = 0;
+DEVINST     diRoot;
+DEVINST     diNode;
+CONFIGRET   crResult;
+ULONG       bCompleted = 0;
 ULONG       len;
+
+#ifdef _DEBUG
+  extern LPCTSTR DumpConfigRet(const CONFIGRET crCode);
+  short dbgInsane = 0; //Sanity checking
+#endif
 
 // Get Root DevNode
 //
-cr = CM_Locate_DevNode(&devInst,
+crResult = CM_Locate_DevNode(&diRoot,
                         NULL,
                         0);
 
-if (cr != CR_SUCCESS)
+if (crResult != CR_SUCCESS)
 {
     return NULL;
 }
@@ -88,12 +94,22 @@ if (cr != CR_SUCCESS)
 // Do a depth first search for the DevNode with a matching
 // szDriverRegistryName value
 //
-while (!walkDone)
+while (!bCompleted)
 {
+    #ifdef _DEBUG
+    if (++dbgInsane < 0) //Break endless loop
+      {
+      bCompleted = true;
+      crResult = CR_INVALID_DATA;
+      TRACE(_T("  Failure: browsing the device tree have too many iterations!\n"));
+      break;
+      }
+    #endif
+
     // Get the szDriverRegistryName value
     //
     len = sizeof(buf);
-    cr = CM_Get_DevNode_Registry_Property(devInst,
+    crResult = CM_Get_DevNode_Registry_Property(diRoot,
                                           CM_DRP_DRIVER,
                                           NULL,
                                           buf,
@@ -102,17 +118,17 @@ while (!walkDone)
 
     // If the szDriverRegistryName value matches, return the DeviceDescription
     //
-    if (cr == CR_SUCCESS && _tcsicmp(szDriverRegistryName, buf) == 0)
+    if (crResult == CR_SUCCESS && _tcsicmp(szDriverRegistryName, buf) == 0)
     {
         len = sizeof(buf);
-        cr = CM_Get_DevNode_Registry_Property(devInst,
+        crResult = CM_Get_DevNode_Registry_Property(diRoot,
                                               CM_DRP_DEVICEDESC,
                                               NULL,
                                               buf,
                                               &len,
                                               0);
 
-        if (cr == CR_SUCCESS)
+        if (crResult == CR_SUCCESS)
         {
             return buf;
         }
@@ -122,15 +138,22 @@ while (!walkDone)
         }
     }
 
-    // This DevNode didn't match, go down a level to the first child.
-    //
-    cr = CM_Get_Child(&devInstNext,
-                      devInst,
+    //Failed to match device node, try with a child node
+    #ifdef _DEBUG
+      TRACE2(_T("  %d. Failed to match device node (%ws)!\n"), dbgInsane, DumpConfigRet(crResult));
+      if (crResult == CR_SUCCESS)
+        TRACE(buf);
+    #endif
+    crResult = CM_Get_Child(&diNode,
+                      diRoot,
                       0);
 
-    if (cr == CR_SUCCESS)
+    if (crResult == CR_SUCCESS)
     {
-        devInst = devInstNext;
+    #ifdef _DEBUG
+      TRACE1(_T("  %d. Get child node\n"), dbgInsane);
+    #endif
+        diRoot = diNode;
         continue;
     }
 
@@ -141,28 +164,35 @@ while (!walkDone)
     //
     for (;;)
     {
-        cr = CM_Get_Sibling(&devInstNext,
-                            devInst,
+        crResult = CM_Get_Sibling(&diNode,
+                            diRoot,
                             0);
 
-        if (cr == CR_SUCCESS)
+        if (crResult == CR_SUCCESS)
         {
-            devInst = devInstNext;
-            break;
+        #ifdef _DEBUG
+          TRACE1(_T("  %d. Get sibling node\n"), dbgInsane);
+        #endif
+
+        diRoot = diNode;
+        break;
         }
 
-        cr = CM_Get_Parent(&devInstNext,
-                            devInst,
+        crResult = CM_Get_Parent(&diNode,
+                            diRoot,
                             0);
 
 
-        if (cr == CR_SUCCESS)
+        if (crResult == CR_SUCCESS)
         {
-            devInst = devInstNext;
+        #ifdef _DEBUG
+          TRACE1(_T("  %d. Get parent node\n"), dbgInsane);
+        #endif
+            diRoot = diNode;
         }
         else
         {
-            walkDone = 1;
+            bCompleted = 1;
             break;
         }
     }
@@ -175,6 +205,7 @@ return NULL;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  3    Biblioteka1.2         2007-08-24 16:10:11  Darko Kolakovic Debug commands
  *  2    Biblioteka1.1         2007-08-24 10:53:19  Darko Kolakovic Unicode build
  *  1    Biblioteka1.0         2007-08-23 16:57:58  Darko Kolakovic 
  * $
