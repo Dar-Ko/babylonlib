@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 2$ $Date: 22/08/2007 7:28:02 PM$
+  $Revision: 3$ $Date: 2007-08-24 18:17:11$
   $Author: Darko Kolakovic$
 
   Universal Serial Bus (USB) device data structures
@@ -97,23 +97,6 @@
                          //union and class members.
 #endif
 
-#ifdef _WIN32
-  #ifndef SYMBOLICLINK_HDC
-    /*Symbolic name for Host Controller Driver (HCD) modules have following
-      form: 
-          \\.\HCDn
-          where n (0,...,k) is module instance number in the driver's stack.
-          
-      Note: USB driver uses two different stacks for USB 1.1 and USB 2.0 host
-      controllers.
-      Note: Microsoft Windows specific (Win32).
-      
-      See also: MSDN KB838100,  "The USBView.exe sample program does not 
-      enumerate devices on pre-Windows XP SP1-based computers".
-    */
-    #define SYMBOLICLINK_HDC "\\\\.\\HCD%d"
-  #endif
-#endif
 ///////////////////////////////////////////////////////////////////////////////
 /*Universal Serial Bus (USB) device type identification consists of:
     16 bit wide Vendor ID (VID) assigned by the USB-IF and
@@ -274,8 +257,10 @@ return (m_wPid == wProductId);
 #endif //_KUSB_H_
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         22/08/2007 7:28:02 PMDarko Kolakovic USB
- *  1    Biblioteka1.0         22/08/2007 10:50:52 AMDarko Kolakovic 
+ *  3    Biblioteka1.2         2007-08-24 18:17:11  Darko Kolakovic Extracted
+ *       Windows specifics
+ *  2    Biblioteka1.1         2007-08-22 19:28:02  Darko Kolakovic USB
+ *  1    Biblioteka1.0         2007-08-22 10:50:52  Darko Kolakovic 
  * $
  * Revision 1.2  2007/08/21 14:46:24  dkolakovic
  * IsConnected()
