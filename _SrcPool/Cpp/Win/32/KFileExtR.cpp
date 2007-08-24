@@ -1,5 +1,5 @@
 /*$Workfile: KFileExtR.cpp$: implementation file
-  $Revision: 1$ $Date: 2002-08-27 17:04:23$
+  $Revision: 1$ $Date: 27/08/2002 5:04:23 PM$
   $Author: Darko Kolakovic$
 
   CStdioFile class extension: I/O  operators
@@ -76,6 +76,6 @@ return fileSource;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: 
- * 1    Biblioteka1.0         2002-08-27 17:04:23  Darko Kolakovic 
+ * 1    Biblioteka1.0         27/08/2002 5:04:23 PMDarko Kolakovic 
  *$
  *****************************************************************************/

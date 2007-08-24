@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KUsbHub.cpp$: implementation file
-  $Revision: 1$ $Date: 22/08/2007 7:29:10 PM$
+/*$Workfile: KUsbHub.cpp$: implementation file
+  $Revision: 3$ $Date: 2007-08-24 10:53:52$
   $Author: Darko Kolakovic$
 
   Universal Serial Bus (USB) Host Controller
@@ -37,7 +37,9 @@
   #endif
   #include "KTrace.h"
 #endif
+
 #include "KUsb.h"
+#include "KWinUsb.h" //USB structures and enumerations
 
 //-----------------------------------------------------------------------------
 /*Enumerate Host Controllers
@@ -78,30 +80,20 @@ do
   //opening files streams only.
   if (hHcd != INVALID_HANDLE_VALUE)
     {
-    //Get the system name of the host controller
-    USB_HCD_DRIVERKEY_NAME sUnicodeName;
-    DWORD dwBytesReturned; 
-    bool bRes = DeviceIoControl(hHcd, //handle to the device 
-                              IOCTL_GET_HCD_DRIVERKEY_NAME, //control code for the operation
-                              &sUnicodeName, //input buffer 
-                              sizeof(sUnicodeName), //size of input buffer 
-                              &sUnicodeName, //output buffer
-                              sizeof(sUnicodeName), //size of output buffer
-                              &dwBytesReturned, //size of the data stored in 
-                                                //the output buffer
-                              NULL //lpOverlapped is ignored
-                             );
-  if (!bRes)
-    {
-    CloseHandle(hHcd);
-    DWORD dwError = GetLastError();
-    
-    //TODO: report the error!
-    break;
-    }
-    
-  TRACE1(_T("System name is %ws\n"), &UnicodeName.Name[0]);
-
+    //Retrieve the driver key name in the registry for a USB host controller driver.
+    CUsbDriverKeyName usbDriverKeyName(hHcd);
+    bool bRes = usbDriverKeyName.LoadKeyName(hHcd);
+    if (!bRes)
+      {
+      CloseHandle(hHcd);
+      DWORD dwError = GetLastError();
+      
+      //TODO: report the error!
+      break;
+      }
+      
+    TRACE1(_T("System name is %ws\n"), (const WCHAR*)usbDriverKeyName);
+    GetDeviceDesc((const WCHAR*)usbDriverKeyName);
     nResult++;
     CloseHandle(hHcd);
     }
@@ -123,9 +115,11 @@ return nResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  1    Biblioteka1.0         22/08/2007 7:29:10 PMDarko Kolakovic 
+ *  3    Biblioteka1.2         2007-08-24 10:53:52  Darko Kolakovic Unicode build
+ *  2    Biblioteka1.1         2007-08-23 17:21:17  Darko Kolakovic GetDevDesc()
+ *  1    Biblioteka1.0         2007-08-22 19:29:10  Darko Kolakovic 
  * $
  *****************************************************************************/
 
-/*Note:Used code from Microsoft Windows DDK sample USBView
+/*Note: Used code from Microsoft Windows DDK sample USBView
  */

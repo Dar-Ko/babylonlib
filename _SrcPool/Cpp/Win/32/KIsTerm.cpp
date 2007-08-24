@@ -1,5 +1,5 @@
 /*$Workfile: KIsTerm.cpp$: implementation file
-  $Revision: 2$ $Date: 2005-04-28 20:46:46$
+  $Revision: 2$ $Date: 28/04/2005 8:46:46 PM$
   $Author: Darko$
 
   Checks if application is about to terminate.
@@ -44,7 +44,7 @@ return FALSE;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  2    Biblioteka1.1         2005-04-28 20:46:46  Darko           Comments
- *  1    Biblioteka1.0         2002-03-08 02:40:09  Darko Kolakovic 
+ *  2    Biblioteka1.1         28/04/2005 8:46:46 PMDarko           Comments
+ *  1    Biblioteka1.0         08/03/2002 2:40:09 AMDarko Kolakovic 
  * $
  *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$Workfile: KDirGetExe.cpp$: implementation file
-  $Revision: 3$ $Date: 2005-05-02 21:38:08$
+  $Revision: 3$ $Date: 02/05/2005 9:38:08 PM$
   $Author: Darko$
 
   Get directory of from the full executable file path.
@@ -39,9 +39,9 @@ return strResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
- *  3    Biblioteka1.2         2005-05-02 21:38:08  Darko           Comments
- *  2    Biblioteka1.1         2005-05-02 20:46:35  Darko           
- *  1    Biblioteka1.0         2005-05-02 20:44:32  Darko           
+ *  3    Biblioteka1.2         02/05/2005 9:38:08 PMDarko           Comments
+ *  2    Biblioteka1.1         02/05/2005 8:46:35 PMDarko           
+ *  1    Biblioteka1.0         02/05/2005 8:44:32 PMDarko           
  * $
  * 0:   Jan 98 Darko Kolakovic
  *****************************************************************************/
