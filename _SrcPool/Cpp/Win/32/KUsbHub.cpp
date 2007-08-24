@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 3$ $Date: 2007-08-24 10:53:52$
+  $Revision: 5$ $Date: 2007-08-24 18:15:43$
   $Author: Darko Kolakovic$
 
   Universal Serial Bus (USB) Host Controller
@@ -93,7 +93,7 @@ do
       }
       
     TRACE1(_T("System name is %ws\n"), (const WCHAR*)usbDriverKeyName);
-    GetDeviceDesc((const WCHAR*)usbDriverKeyName);
+    TRACE(GetDeviceDesc(usbDriverKeyName));
     nResult++;
     CloseHandle(hHcd);
     }
@@ -115,6 +115,9 @@ return nResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  5    Biblioteka1.4         2007-08-24 18:15:43  Darko Kolakovic SBCS build
+ *  4    Biblioteka1.3         2007-08-24 17:28:43  Darko Kolakovic Debug
+ *       information
  *  3    Biblioteka1.2         2007-08-24 10:53:52  Darko Kolakovic Unicode build
  *  2    Biblioteka1.1         2007-08-23 17:21:17  Darko Kolakovic GetDevDesc()
  *  1    Biblioteka1.0         2007-08-22 19:29:10  Darko Kolakovic 

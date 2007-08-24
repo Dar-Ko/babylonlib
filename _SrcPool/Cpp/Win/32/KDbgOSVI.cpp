@@ -1,5 +1,5 @@
 /*$Workfile: KDbgOSVI.cpp$: implementation file
-  $Revision: 10$ $Date: 2005-06-21 11:12:58$
+  $Revision: 11$ $Date: 2007-08-24 17:28:11$
   $Author: Darko Kolakovic$
 
   Dumps operating system version information
@@ -435,7 +435,7 @@ switch(osviInfo.dwPlatformId)
 ///////////////////////////////////////////////////////////////////////////////
 #endif  // _DEBUG
 
-/*Note: as definrd in WinNT.h build 087 (_VER_osviInfoEX = 3)
+/*Note: as defined in WinNT.h build 087 (_VER_osviInfoEX = 3)
 
   typedef struct _OSVERSIONINFOEXA {
     DWORD dwOSVersionInfoSize;
@@ -443,10 +443,10 @@ switch(osviInfo.dwPlatformId)
     DWORD dwMinorVersion;
     DWORD dwBuildNumber;
     DWORD dwPlatformId;
-    CHAR   szCSDVersion[ 128 ];     // Maintenance string for PSS usage
-    WORD   wServicePackMajor;
-    WORD   wServicePackMinor;
-    WORD   wSuiteMask;
+    CHAR  szCSDVersion[ 128 ];     // Maintenance string for PSS usage
+    WORD  wServicePackMajor;
+    WORD  wServicePackMinor;
+    WORD  wSuiteMask;
     BYTE  wProductType;
     BYTE  wReserved;
   } OSVERSIONINFOEXA, *POSVERSIONINFOEXA, *LPOSVERSIONINFOEXA;

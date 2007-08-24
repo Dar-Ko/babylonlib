@@ -1,5 +1,5 @@
 /*$Workfile: KWinUsb.h$: header file
-  $Revision: 3$ $Date: 2007-08-24 10:54:17$
+  $Revision: 4$ $Date: 2007-08-24 18:15:44$
   $Author: Darko Kolakovic$
 
   Constants related to Windows platform version
@@ -49,7 +49,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 
-LPCTSTR GetDeviceDesc(const WCHAR* szDriverRegistryName);
+LPCTSTR GetDeviceDesc(LPCTSTR szDriverRegistryName);
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Handles driver registry key name used for the USB host controller driver.

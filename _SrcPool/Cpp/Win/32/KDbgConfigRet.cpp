@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgConfigRet.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-08-24 15:08:05$
+/*$Workfile: KDbgConfigRet.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-08-24 18:15:41$
   $Author: Darko Kolakovic$
 
   Dumps the PnP Configuration Manager return status codes
@@ -23,16 +23,11 @@
   #endif
 #else
   #include <windows.h>
-//  #include <basetyps.h>
 #endif
-
 #include <cfgmgr32.h> //PnP Configuration Manager Functions, Windows Platform DDK
 
-#ifndef TRACE
-  #ifndef _T
-    #include "KTChar.h"
-  #endif
-  #include "KTrace.h"
+#ifndef _T
+  #include <tchar.h>
 #endif
 
 #ifdef _DEBUG
@@ -52,7 +47,7 @@ LPCTSTR DumpConfigRet(const CONFIGRET crCode //[in] Configuration Manager
                                              //return status code
                      )
 {
-LPCTSTR szRes;
+LPTSTR szRes;
 switch(crCode)
   {
   case CR_SUCCESS                  : szRes = _T("CR_SUCCESS")                  ; break;  //0x00
@@ -194,6 +189,7 @@ return szRes;
  */
 /*****************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-08-24 18:15:41  Darko Kolakovic SBCS build
  *  1    Biblioteka1.0         2007-08-24 15:08:05  Darko Kolakovic 
  * $
  *****************************************************************************/

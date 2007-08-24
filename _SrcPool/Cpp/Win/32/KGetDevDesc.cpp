@@ -1,5 +1,5 @@
 /*$Workfile: KGetDevDesc.cpp$: implementation file
-  $Revision: 3$ $Date: 2007-08-24 16:10:11$
+  $Revision: 5$ $Date: 2007-08-24 18:15:42$
   $Author: Darko Kolakovic$
 
   Universal Serial Bus (USB) Host Controller
@@ -48,54 +48,55 @@
 #pragma comment( lib, "cfgmgr32" )
 
 //*****************************************************************************
-// G L O B A L S
-//*****************************************************************************
-
-TCHAR buf[512];  // XXXXX How big does this have to be? Dynamically size it? Dynamically allocate return buffer?
-
+// MS Code sample
+TCHAR buf[512];  //  How big does this have to be? Dynamically size it? 
+// TODO: Dynamically allocate return buffer
 // The caller should copy the returned string buffer instead of just saving
-// the pointer value.  XXXXX 
+// the pointer value.   
 //*****************************************************************************
 
 //-----------------------------------------------------------------------------
-/*Obtains description of the PnP device represented by the driver registry key.
+/*Obtains description of the PnP device on the local machine represented by 
+  the driver registry key.
 
-  Returns: Device Description string or NULL if the matching DevNode is not 
+  Returns: Device Description string or NULL if the matching device is not 
   found.
  */
-LPCTSTR GetDeviceDesc(const WCHAR* szDriverRegistryName //[in] driver registry 
-                                                        //key name 
+LPCTSTR GetDeviceDesc(LPCTSTR szDriverRegistryName //[in] driver registry 
+                                                   //key name 
                      )
 {
-TRACE1(_T("GetDeviceDesc(%ws)\n"),szDriverRegistryName);
+#ifdef _UNICODE
+  TRACE1(_T("GetDeviceDesc(%ws)\n"),szDriverRegistryName);
+#else
+  TRACE1(_T("GetDeviceDesc(%s)\n"),szDriverRegistryName);
+#endif
 
-DEVINST     diRoot;
-DEVINST     diNode;
-CONFIGRET   crResult;
-ULONG       bCompleted = 0;
-ULONG       len;
+LPTSTR    szResult = NULL; //device description
+DEVINST   diRoot;          //root device instance handle
+CONFIGRET crResult;        //result of Configuration Manager function
 
 #ifdef _DEBUG
   extern LPCTSTR DumpConfigRet(const CONFIGRET crCode);
   short dbgInsane = 0; //Sanity checking
 #endif
-
-// Get Root DevNode
-//
-crResult = CM_Locate_DevNode(&diRoot,
-                        NULL,
-                        0);
-
-if (crResult != CR_SUCCESS)
-{
-    return NULL;
-}
-
-// Do a depth first search for the DevNode with a matching
-// szDriverRegistryName value
-//
-while (!bCompleted)
-{
+/*Obtain a device instance handle to the device node that is associated with
+  a specified device instance identifier, on the local machine.
+ */
+if((crResult = CM_Locate_DevNode(&diRoot, //[out] device instance handle
+                                //on local machine
+                       NULL,    //if NULL, get the device 
+                                //at the root of the device tree.
+                       CM_LOCATE_DEVNODE_NORMAL //get the device that is 
+                                //currently configured in the device tree
+                       )) == CR_SUCCESS)
+  {
+  //Browse through the device tree until matched device registry key is not found
+  //See also: http://msdn2.microsoft.com/en-us/library/aa489660.aspx 
+  //"Windows Driver Kit: Kernel-Mode Driver Architecture", "Device Tree"
+  bool bCompleted = false;
+  do
+    {
     #ifdef _DEBUG
     if (++dbgInsane < 0) //Break endless loop
       {
@@ -105,106 +106,129 @@ while (!bCompleted)
       break;
       }
     #endif
+    ULONG nSize = sizeof(buf); //size of output buffer in bytes
 
-    // Get the szDriverRegistryName value
-    //
-    len = sizeof(buf);
-    crResult = CM_Get_DevNode_Registry_Property(diRoot,
-                                          CM_DRP_DRIVER,
-                                          NULL,
+    //Get the device driver property from the registry
+    /*TODO: Do not use CM_Get_DevNode_Registry_Property function. 
+      Use SetupDiGetDeviceRegistryProperty function instead (Windows Driver Kit note).
+     */
+    crResult = CM_Get_DevNode_Registry_Property(diRoot, //device instance handle
+                                               //of a node from the device tree
+                                          CM_DRP_DRIVER, //device driver property
+                                          NULL, //registry data type
                                           buf,
-                                          &len,
-                                          0);
-
-    // If the szDriverRegistryName value matches, return the DeviceDescription
-    //
-    if (crResult == CR_SUCCESS && _tcsicmp(szDriverRegistryName, buf) == 0)
-    {
-        len = sizeof(buf);
-        crResult = CM_Get_DevNode_Registry_Property(diRoot,
+                                          &nSize, //[IN, OUT] size of 
+                                        //the requested device property in bytes
+                                          0    //not used
+                                          );
+    if (crResult == CR_SUCCESS)
+      {
+      //Get the required device description
+      if(_tcsicmp(szDriverRegistryName, buf) == 0)
+        {
+        nSize = sizeof(buf);
+        if((crResult = CM_Get_DevNode_Registry_Property(diRoot,
                                               CM_DRP_DEVICEDESC,
                                               NULL,
                                               buf,
-                                              &len,
-                                              0);
-
-        if (crResult == CR_SUCCESS)
-        {
-            return buf;
+                                              &nSize,
+                                              0
+                                              )) == CR_SUCCESS)
+          {
+          szResult = buf; //Return success
+          }
+        break; //Registry key found with or without the description
         }
-        else
-        {
-            return NULL;
-        }
-    }
-
+      }
+ 
     //Failed to match device node, try with a child node
-    #ifdef _DEBUG
-      TRACE2(_T("  %d. Failed to match device node (%ws)!\n"), dbgInsane, DumpConfigRet(crResult));
+    #ifdef _DEBUG_GDD
+      #ifdef _UNICODE
+        #define DBG_FORMAT_A _T("  %d. Failed to match device node (%ws)!\n")
+      #else
+        #define DBG_FORMAT_A _T("  %d. Failed to match device node (%s)!\n")
+      #endif
+
+      TRACE2(DBG_FORMAT_A, 
+             dbgInsane, 
+             DumpConfigRet(crResult));
       if (crResult == CR_SUCCESS)
         TRACE(buf);
     #endif
-    crResult = CM_Get_Child(&diNode,
+      
+    DEVINST diNode;
+    if ((crResult = CM_Get_Child(&diNode,
                       diRoot,
-                      0);
+                      0 //not used
+                      )) == CR_SUCCESS)
+      {
+      #ifdef _DEBUG_GDD
+        TRACE1(_T("  %d. Get child node\n"), dbgInsane);
+      #endif
 
-    if (crResult == CR_SUCCESS)
-    {
-    #ifdef _DEBUG
-      TRACE1(_T("  %d. Get child node\n"), dbgInsane);
-    #endif
-        diRoot = diNode;
-        continue;
-    }
-
-    // Can't go down any further, go across to the next sibling.  If
-    // there are no more siblings, go back up until there is a sibling.
-    // If we can't go up any further, we're back at the root and we're
-    // done.
-    //
-    for (;;)
-    {
-        crResult = CM_Get_Sibling(&diNode,
-                            diRoot,
-                            0);
-
-        if (crResult == CR_SUCCESS)
+      diRoot = diNode; //Set new search starting point
+      }
+    else //Failed to find a child node, try with a sibling node
+      {
+      do
         {
-        #ifdef _DEBUG
+        if ((crResult = CM_Get_Sibling(&diNode,
+                            diRoot,
+                            0
+                            )) != CR_SUCCESS)
+          {
+          //No more sibling nodes, try with the parent's sibling
+          if((crResult = CM_Get_Parent(&diNode,
+                            diRoot,
+                            0
+                            )) == CR_SUCCESS)
+            {
+            crResult = CR_DEFAULT; //Do one more loop to get parent's sibling
+            #ifdef _DEBUG_GDD
+              TRACE1(_T("  %d. Get parent node\n"), dbgInsane);
+            #endif
+            }
+          else
+            {
+            //No more parents, requested device node is not found
+            bCompleted = true;
+            break;
+            }
+
+          }
+        #ifdef _DEBUG_GDD
+        else
           TRACE1(_T("  %d. Get sibling node\n"), dbgInsane);
         #endif
 
-        diRoot = diNode;
-        break;
-        }
+        diRoot = diNode; //Set new search starting point
+        } while(crResult != CR_SUCCESS);
+      }
+    } while (!bCompleted);
+  }
 
-        crResult = CM_Get_Parent(&diNode,
-                            diRoot,
-                            0);
+#ifdef _DEBUG
+if (crResult != CR_SUCCESS)
+  {
+  //A PnP Configuration Manager function returned one of the CR_Xxx error codes
+  //that are defined in cfgmgr32.h.
+  #ifdef _UNICODE
+    TRACE1(_T("  Failed (%ws)!\n"), DumpConfigRet(crResult));
+  #else
+    TRACE1(_T("  Failed (%s)!\n"), DumpConfigRet(crResult));
+  #endif
+  }
+#endif
 
-
-        if (crResult == CR_SUCCESS)
-        {
-        #ifdef _DEBUG
-          TRACE1(_T("  %d. Get parent node\n"), dbgInsane);
-        #endif
-            diRoot = diNode;
-        }
-        else
-        {
-            bCompleted = 1;
-            break;
-        }
-    }
-}
-
-return NULL;
+return szResult;
 }
 
 #endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
+ *  5    Biblioteka1.4         2007-08-24 18:15:42  Darko Kolakovic SBCS build
+ *  4    Biblioteka1.3         2007-08-24 17:29:55  Darko Kolakovic Redesigned
  *  3    Biblioteka1.2         2007-08-24 16:10:11  Darko Kolakovic Debug commands
  *  2    Biblioteka1.1         2007-08-24 10:53:19  Darko Kolakovic Unicode build
  *  1    Biblioteka1.0         2007-08-23 16:57:58  Darko Kolakovic 

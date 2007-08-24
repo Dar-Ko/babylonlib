@@ -20,7 +20,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..;S:\_SrcPool\Cpp\Samples\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\..\Win\32;..\Common\Src\Win"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL;_UNICODE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -71,8 +71,111 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..;S:\_SrcPool\Cpp\Samples\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\..\Win\32;..\Common\Src\Win"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL;_UNICODE"
+				RuntimeLibrary="4"
+				UsePrecompiledHeader="3"
+				AssemblerListingLocation="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/$(ProjectName).pdb"
+				BrowseInformationFile="$(IntDir)/"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
+				LinkIncremental="1"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
+				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Debug_SBCS|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="0">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\..;..\..\Win\32;..\Common\Src\Win"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL;_SBCS"
+				MinimalRebuild="TRUE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				UsePrecompiledHeader="3"
+				AssemblerListingLocation="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/$(ProjectName).pdb"
+				BrowseInformationFile="$(IntDir)/"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
+				LinkIncremental="2"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
+				SubSystem="1"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release_SBCS|Win32"
+			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="1"
+			CharacterSet="0">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\..;..\..\Win\32;..\Common\Src\Win"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL;_SBCS"
 				RuntimeLibrary="4"
 				UsePrecompiledHeader="3"
 				AssemblerListingLocation="$(IntDir)/"
@@ -123,9 +226,81 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath="..\..\Win\32\KDbgConfigRet.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\Win\32\KDbgRpt.cpp">
 				<FileConfiguration
 					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KGetDevDesc.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -147,6 +322,20 @@
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\KTestLog.cpp">
@@ -162,6 +351,18 @@
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\Win\32\KUsbHub.cpp">
@@ -173,6 +374,18 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -197,6 +410,20 @@
 						UsePrecompiledHeader="1"
 						PrecompiledHeaderThrough="stdafx.h"/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"
+						PrecompiledHeaderThrough="stdafx.h"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Src\TestCommonSerialIo.cpp">
@@ -211,6 +438,18 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
 					ExcludedFromBuild="TRUE">
 					<Tool
 						Name="VCCLCompilerTool"/>
@@ -233,6 +472,18 @@
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -244,6 +495,9 @@
 			</File>
 			<File
 				RelativePath="..\..\KUsb.h">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KWinUsb.h">
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.h">
@@ -264,6 +518,20 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						Culture="4105"
+						AdditionalIncludeDirectories="\_SrcPool\Cpp\Samples\Common\Res\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCResourceCompilerTool"
+						Culture="4105"
+						AdditionalIncludeDirectories="\_SrcPool\Cpp\Samples\Common\Res\Win\32"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
 						Culture="4105"
