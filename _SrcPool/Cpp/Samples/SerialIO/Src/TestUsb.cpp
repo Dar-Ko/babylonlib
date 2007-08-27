@@ -13,6 +13,7 @@
 
 #include "KUsb.h" //USBID struct
 #include "KWinUsb.h"
+#include "KUsbHub.h" //CUsbHub class
 
 extern CTestLog g_logTest;   //general test logger
 extern bool TsWriteToViewLn(LPCTSTR lszText);
@@ -54,6 +55,9 @@ try
   TsWriteToView(_T("USB Host Controllers: "));
   TsWriteToViewLn(nUsbHostControllerCount);
   bResult = true;
+
+  CUsbHub usbHub;
+  usbHub.Enumerate();
   }
 catch(...)
   {
