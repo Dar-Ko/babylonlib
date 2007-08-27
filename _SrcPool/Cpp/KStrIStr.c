@@ -41,7 +41,7 @@ if ((szToken == NULL) || (szToken[0] == _T('\0')))
 
 while(*szTemp != _T('\0'))
   {
-  if( _tcsnicmp(szTemp, szToken, nLength) != 0 )
+  if( _tcsnicmp(szTemp, szToken, nLength) == 0 )
     break;
   szTemp++;
   }
