@@ -46,6 +46,12 @@
   #define SYMBOLICLINK_HDC "\\\\.\\HCD%d"
 #endif
 
+#ifndef USB_ROOTHUBNAME
+  /*
+    Note: Microsoft Windows specific (Win32).
+   */
+  #define USB_ROOTHUBNAME _T("ROOT_HUB")
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 
@@ -76,6 +82,10 @@ public:
 public:
   PUSB_HCD_DRIVERKEY_NAME m_pKeyName; //dynamically allocated string
                                       //holding registry key name
+protected:
+  char* m_szDriverKeyNameA;           //SBCS driver registry key name. The string
+                                      //is created after first usage of
+                                      //operator const char*()
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -85,10 +95,9 @@ public:
 /*Default constructor
  */
 inline CUsbDriverKeyName::CUsbDriverKeyName() :
-  m_pKeyName(NULL)
+  m_pKeyName(NULL),
+  m_szDriverKeyNameA(NULL)
 {
-//ActualLength = sizeof(DriverKeyName); //length, in bytes, of the string holding
-                                        //driver registry key name
 }
 
 /*Allocates the space required for the USB driver registry key name.
@@ -97,7 +106,8 @@ inline CUsbDriverKeyName::CUsbDriverKeyName() :
  */
 inline CUsbDriverKeyName::CUsbDriverKeyName(const ULONG lSize //[in] buffer size
                                             //in bytes
-                                           )
+                                            ) :
+  m_szDriverKeyNameA(NULL)
 {
 m_pKeyName = (PUSB_HCD_DRIVERKEY_NAME)new char[lSize];
 if (m_pKeyName != NULL)
@@ -118,7 +128,8 @@ if (m_pKeyName != NULL)
 inline CUsbDriverKeyName::CUsbDriverKeyName(const HANDLE hHcd //[in] handle
                                           //to USB Host Controller Driver (HCD)
                                             ) :
-  m_pKeyName(NULL)
+  m_pKeyName(NULL),
+  m_szDriverKeyNameA(NULL)
 {
 SetSize(hHcd);
 }
@@ -127,6 +138,8 @@ inline CUsbDriverKeyName::~CUsbDriverKeyName()
 {
 if (m_pKeyName != NULL)
   delete[] m_pKeyName;
+if (m_szDriverKeyNameA != NULL)
+  delete[] m_szDriverKeyNameA;
 }
 
 //-----------------------------------------------------------------------------
@@ -199,9 +212,10 @@ if (hHcd != NULL)
   USB_HCD_DRIVERKEY_NAME sUnicodeName; //Unicode driver registry key
   DWORD dwBytesReturned;
   bool bRes = (DeviceIoControl(hHcd, //handle to the device
-                            IOCTL_GET_HCD_DRIVERKEY_NAME, //control code for the operation
+                            IOCTL_GET_HCD_DRIVERKEY_NAME, //control code for
+                                                          //the operation
                             &sUnicodeName, //input buffer; NULL is not allowed
-                            sizeof(sUnicodeName), //size of input buffer 
+                            sizeof(sUnicodeName), //size of input buffer
                             &sUnicodeName, //output buffer; NULL is not allowed
                             sizeof(sUnicodeName), //size of output buffer
                             &dwBytesReturned, //size of the data stored in
@@ -239,7 +253,7 @@ if (hHcd != NULL)
                                 NULL);
       if (hHcd != INVALID_HANDLE_VALUE)
         {
-        //Retrieve the driver key name in the registry 
+        //Retrieve the driver key name in the registry
         //for a USB host controller driver.
         CUsbDriverKeyName usbDriverKeyName(hHcd);
         bool bRes = usbDriverKeyName.LoadKeyName(hHcd);
@@ -260,7 +274,7 @@ inline bool CUsbDriverKeyName::LoadKeyName(const HANDLE hHcd //[in] handle
                                           )
 {
 ASSERT(hHcd != NULL);
-if (hHcd != NULL) 
+if (hHcd != NULL)
   {
   if ((m_pKeyName == NULL) || (m_pKeyName->ActualLength == 0))
     {
@@ -270,9 +284,10 @@ if (hHcd != NULL)
 
   DWORD dwBytesReturned = GetSize();
   return (DeviceIoControl(hHcd, //handle to the device
-                            IOCTL_GET_HCD_DRIVERKEY_NAME, //control code for the operation
+                            IOCTL_GET_HCD_DRIVERKEY_NAME, //control code for
+                                                          //the operation
                             m_pKeyName, //input buffer; NULL is not allowed
-                            dwBytesReturned, //size of input buffer 
+                            dwBytesReturned, //size of input buffer
                             m_pKeyName, //output buffer; NULL is not allowed
                             dwBytesReturned, //size of output buffer
                             &dwBytesReturned, //size of the data stored in
@@ -291,7 +306,11 @@ inline CUsbDriverKeyName::operator const char*()
 {
 if (m_pKeyName != NULL)
   {
-  return "TODO:";
+  extern LPSTR WtoA(LPWSTR szWideCharStr);
+  if (m_szDriverKeyNameA != NULL)
+    delete[] m_szDriverKeyNameA;
+  m_szDriverKeyNameA = WtoA(m_pKeyName->DriverKeyName);
+  return m_szDriverKeyNameA;
   }
 return NULL;
 }

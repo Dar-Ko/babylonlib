@@ -91,7 +91,7 @@ if (szWideCharStr != NULL)
               TRACE0(_T("  ERROR_INVALID_PARAMETER\n"));
               break;
             default:
-              TRACE1("  unknown error (%d)\n", (DWORD)iRes);
+              TRACE1(_T("  unknown error (%d)\n"), (DWORD)iRes);
             }
         #endif
 

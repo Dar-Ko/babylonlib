@@ -43,7 +43,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation
  */
-#define SYSTEMENUM_PCI "PCI"
+#define SYSTEMENUM_PCI _T("PCI")
 
 /*System-supplied PnP enumerator name for for a Small Computer System Interface
   (SCSI) devices.
@@ -54,7 +54,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation
  */
-#define SYSTEMENUM_SCSI "SCSI"
+#define SYSTEMENUM_SCSI _T("SCSI")
 
 /*System-supplied PnP enumerator name for Integrated Device Electronics (IDE)
   devices.
@@ -65,7 +65,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation
  */
-#define SYSTEMENUM_IDE "IDE"
+#define SYSTEMENUM_IDE _T("IDE")
 
 /*System-supplied PnP enumerator name for Personal Computer Memory Card
   International Association (PCMCIA) devices.
@@ -78,7 +78,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation
  */
-#define SYSTEMENUM_PCMCIA "PCMCIA"
+#define SYSTEMENUM_PCMCIA _T("PCMCIA")
 
 /*System-supplied PnP enumerator name for Industry Standard Architecture (ISA)
   devices.
@@ -89,7 +89,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation
  */
-#define SYSTEMENUM_ISA "ISAPNP"
+#define SYSTEMENUM_ISA _T("ISAPNP")
 
 
 /*System-supplied PnP enumerator name for Apple Computer's FireWire devices
@@ -102,7 +102,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation; IEEE 1394, FireWire
  */
-#define SYSTEMENUM_1394 "1394"
+#define SYSTEMENUM_1394 _T("1394")
 /*System-supplied PnP enumerator name for Apple Computer's FireWire devices
   as described by IEEE 1394 standard.
 
@@ -123,7 +123,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation
  */
-#define SYSTEMENUM_SD "SD"
+#define SYSTEMENUM_SD _T("SD")
 
 /*System-supplied PnP enumerator name for Universal Serial Bus (USB)
   devices.
@@ -139,7 +139,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation
  */
-#define SYSTEMENUM_USB "USB"
+#define SYSTEMENUM_USB _T("USB")
 
 /*System-supplied PnP enumerator name for priners using Universal Serial Bus
   (USB).
@@ -150,7 +150,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation
  */
-#define SYSTEMENUM_USBPRINT "USBPRINT"
+#define SYSTEMENUM_USBPRINT _T("USBPRINT")
 
 /*System-supplied PnP enumerator name for mass storage devices using Universal
   Serial Bus (USB).
@@ -161,7 +161,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation
  */
-#define SYSTEMENUM_USBSTOR "USBSTOR"
+#define SYSTEMENUM_USBSTOR _T("USBSTOR")
 
 #endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////

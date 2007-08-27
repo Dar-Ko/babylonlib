@@ -81,6 +81,7 @@ do
   if (hHcd != INVALID_HANDLE_VALUE)
     {
     //Retrieve the driver key name in the registry for a USB host controller driver.
+    //The name is in the form: GUID\InstanceNo
     CUsbDriverKeyName usbDriverKeyName(hHcd);
     bool bRes = usbDriverKeyName.LoadKeyName(hHcd);
     if (!bRes)
@@ -93,7 +94,6 @@ do
       }
       
     TRACE1(_T("System name is %ws\n"), (const WCHAR*)usbDriverKeyName);
-    TRACE(GetDeviceDesc(usbDriverKeyName));
     nResult++;
     CloseHandle(hHcd);
     }
@@ -111,7 +111,92 @@ while (wInstance < ARBITRARY_NO);
 
 return nResult;
 }
-#endif
+
+///////////////////////////////////////////////////////////////////////////////
+//CUsbHub class implementation
+
+#include <setupapi.h> //Device Management Structures
+#include "KUsbHub.h" //CUsbHub class
+#include "KSysPnP.h" //USB device system name
+
+/*Requires setupapi.lib
+
+  Note: If you intend that your device installation application run on 
+  Windows 9x/Me, or Windows NT 4.0 or earlier, and you use the CM_Xxx functions, 
+  be sure that cfgmgr32.lib appears before setupapi.lib in the sources file.
+  If your application is intended to run only on Windows 2000 or 
+  a later NT-based operating system, you can omit cfgmgr32.lib.
+ */
+#pragma comment( lib, "setupapi" )
+
+//-----------------------------------------------------------------------------
+/*
+  See also : EnumerateHostControllers()
+ */
+uint_fast32_t CUsbHub::Enumerate()
+{
+TRACE(_T("CUsbHub::Enumerate()\n"));
+uint_fast32_t nCount = 0; //number of USB host controllers
+SP_DEVINFO_DATA dev_info_data; //device instance that is a member of 
+                          //a device information set.
+dev_info_data.cbSize = sizeof(SP_DEVINFO_DATA);
+HDEVINFO hDevInfo = SetupDiGetClassDevs(NULL, //a setup class GUID
+                                        SYSTEMENUM_USB, //PnP name of the device
+                                        NULL, //user interface window
+                                        DIGCF_ALLCLASSES | //list of installed 
+                                                      //devices for all classes
+                                        DIGCF_PRESENT      //currently present
+                                                      //devices
+                                        );
+if (hDevInfo != INVALID_HANDLE_VALUE)
+  {
+  //Get a context structure for a device information element of 
+  //the specified device information set.
+  int dev_index = 0;
+  while(SetupDiEnumDeviceInfo(hDevInfo, //handle to the device information set 
+                              dev_index, //index to the list of interfaces
+                              &dev_info_data //[out] device information
+                              ))
+    {
+    if (IsWinNt())
+      {
+      DWORD dwLen = 0;
+      TCHAR szBuff[MAX_PATH];
+      if(SetupDiGetDeviceRegistryProperty(hDevInfo, //handle to the device 
+                                                //information
+                                           &dev_info_data, //device instance
+                                           SPDRP_HARDWAREID, //property to 
+                                                //be retrieved
+                                           NULL, //registry data type
+                                           (BYTE*)szBuff,//requested device 
+                                              //property
+                                           sizeof(szBuff), //size of 
+                                           //the buffer, in bytes
+                                           &dwLen //required buffer
+                                           //size, in bytes
+                                           ))
+        {
+        if(IsRootHub(szBuff))
+          {
+          nCount++;
+          TRACE2(_T("  %d. %s\n"),nCount, szBuff);
+          }
+        }
+      else
+        {
+        TRACE1(_T(" SetupDiGetDeviceRegistryProperty() Failed #%X!\n"), 
+               GetLastError());
+        }
+      }
+    dev_index++;
+    }
+
+  SetupDiDestroyDeviceInfoList(hDevInfo);
+  }
+return nCount;
+}
+
+#endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 
