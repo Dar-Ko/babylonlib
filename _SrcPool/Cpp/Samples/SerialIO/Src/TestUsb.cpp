@@ -49,22 +49,27 @@ try
 
   g_logTest.m_szObjectName = _T("EnumerateHostControllers()");
   g_logTest.m_szFileName   = _T("KUsbHub.cpp");//function or object file name
-  g_logTest.m_bResult      = false;              //result of the test
 
   unsigned nUsbHostControllerCount = EnumerateHostControllers();
   TsWriteToView(_T("USB Host Controllers: "));
   TsWriteToViewLn(nUsbHostControllerCount);
   bResult = true;
+  g_logTest.LogResult(bResult);
+
+  g_logTest.m_szObjectName = _T("CUsbHub::Enumerate()");
+  g_logTest.m_szFileName   = _T("KUsbHub.cpp");//function or object file name
 
   CUsbHub usbHub;
-  usbHub.Enumerate();
+  bResult = (usbHub.Enumerate() == nUsbHostControllerCount);
+  g_logTest.LogResult(bResult);
+
   }
 catch(...)
   {
   bResult = false;
+  g_logTest.LogResult(bResult);
   }
 
-g_logTest.LogResult(bResult);
 return bResult;
 }
 

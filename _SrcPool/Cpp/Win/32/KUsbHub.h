@@ -48,6 +48,8 @@ public:
   ~CUsbHub();
   uint_fast32_t Enumerate();
   bool IsWinNt() const;
+  bool GetDeviceProperty(HDEVINFO hDevInfo,SP_DEVINFO_DATA* psdiDevinfo,
+                         const DWORD dwProperty, TCHAR* szBuff, DWORD& dwLen);
 protected:
   bool IsRootHub(const TCHAR* szUsbDriverKeyName) const;
 };

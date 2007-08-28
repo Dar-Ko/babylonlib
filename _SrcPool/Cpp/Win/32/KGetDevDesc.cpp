@@ -55,6 +55,87 @@ TCHAR buf[512];  //  How big does this have to be? Dynamically size it?
 // the pointer value.   
 //*****************************************************************************
 
+class CCmMachine
+  {
+  public:
+    CCmMachine(LPCTSTR szUncServerName = NULL//[in] Caller-supplied pointer to a text 
+      //string representing the UNC name, including the \\ prefix, of the 
+      //system for which a connection will be made. 
+      //If the pointer is NULL, the local system is used. 
+       )
+      {
+      //Note: use machine handles obtained with this function only with 
+      //the PnP configuration manager functions.
+      CONFIGRET crRes = CM_Connect_Machine(szUncServerName, &m_hMachine);
+      if (crRes != CR_SUCCESS)
+        m_hMachine = INVALID_HANDLE_VALUE;
+      };
+    ~CCmMachine()
+      {
+      CONFIGRET crRes;
+      if (m_hMachine != INVALID_HANDLE_VALUE)
+        crRes = CM_Disconnect_Machine(m_hMachine);
+      };
+    operator HMACHINE()
+      {
+      return m_hMachine;
+      };
+    HMACHINE m_hMachine; //machine handle required by the PnP configuration 
+                         //manager functions
+  };
+
+//-----------------------------------------------------------------------------
+/*Obtains description of a node on the PnP device tree. The function allocates 
+  memory space required to hold the description by using new[] operator.
+  Caller is responsible for deleting allocated memory.
+  
+  Returns: true and Device Description string or false in case of a failure.
+  found.
+ */
+bool GetDeviceDesc(const DEVNODE* pDevNode, //[in]
+                   TCHAR* szBuff //[out]
+                   )
+{
+if ((pDevNode == NULL) || (szBuff == NULL))
+  return false;
+
+const int BUFFERSIZE = MAX_PATH + MAX_DEVICE_ID_LEN;
+szBuff = new TCHAR[BUFFERSIZE];
+DWORD dwLen = BUFFERSIZE * sizeof(TCHAR);
+if (szBuff != NULL)
+  {
+  CCmMachine hLocalMachine;
+  /*TODO: Do not use CM_Get_DevNode_Registry_Property_Ex function. 
+    Use SetupDiGetDeviceRegistryProperty function instead (Windows Driver Kit note).
+    */
+  if (CM_Get_DevNode_Registry_Property_Ex(*pDevNode,
+                                          CM_DRP_FRIENDLYNAME, 
+                                          NULL,
+                                          szBuff, 
+                                          &dwLen, 
+                                          0, 
+                                          hLocalMachine) == CR_SUCCESS)
+    {
+    return true;
+    }
+  
+  dwLen = BUFFERSIZE * sizeof(TCHAR);
+  if (CM_Get_DevNode_Registry_Property_Ex(*pDevNode,
+                                          CM_DRP_DEVICEDESC, 
+                                          NULL,
+                                          szBuff, 
+                                          &dwLen, 
+                                          0, 
+                                          hLocalMachine) == CR_SUCCESS)
+    {
+    return true;
+    }
+  }
+
+szBuff[0] = 0; //Return empty string
+return false;
+}
+
 //-----------------------------------------------------------------------------
 /*Obtains description of the PnP device on the local machine represented by 
   the driver registry key.

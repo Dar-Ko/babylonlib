@@ -80,20 +80,27 @@ do
   //opening files streams only.
   if (hHcd != INVALID_HANDLE_VALUE)
     {
-    //Retrieve the driver key name in the registry for a USB host controller driver.
-    //The name is in the form: GUID\InstanceNo
-    CUsbDriverKeyName usbDriverKeyName(hHcd);
-    bool bRes = usbDriverKeyName.LoadKeyName(hHcd);
-    if (!bRes)
-      {
-      CloseHandle(hHcd);
-      DWORD dwError = GetLastError();
-      
-      //TODO: report the error!
-      break;
-      }
-      
-    TRACE1(_T("System name is %ws\n"), (const WCHAR*)usbDriverKeyName);
+    #ifdef _DEBUG
+      /*Retrieve the driver key name in the registry for a USB host controller 
+        driver. The name is in the form: GUID\InstanceNo, where GUID is 'USB device
+        setup' class GUID. 
+        See also: MSDN, Windows Driver Kit: Device Installation, Device Setup
+        Classes
+       */
+      CUsbDriverKeyName usbDriverKeyName(hHcd);
+      bool bRes = usbDriverKeyName.LoadKeyName(hHcd);
+      if (!bRes)
+        {
+        CloseHandle(hHcd);
+        DWORD dwError = GetLastError();
+        
+        //TODO: report the error!
+        break;
+        }
+        
+      TRACE1(_T("System name is %ws\n"), (const WCHAR*)usbDriverKeyName);
+    #endif
+
     nResult++;
     CloseHandle(hHcd);
     }
@@ -116,8 +123,15 @@ return nResult;
 //CUsbHub class implementation
 
 #include <setupapi.h> //Device Management Structures
-#include "KUsbHub.h" //CUsbHub class
-#include "KSysPnP.h" //USB device system name
+#include <usbiodef.h> //USB specific GUID; Windows DDK
+#include <devguid.h> //USB specific GUID; Windows DDK
+//See also: MSDN Article ID: 130869 "How to avoid error 'LNK2001 unresolved external'
+//by using DEFINE_GUID"
+#include "KUsbHub.h"  //CUsbHub class
+
+#ifndef GUID_CLASS_USB_HOST_CONTROLLER
+  #include "KSysPnP.h" //USB device system name
+#endif
 
 /*Requires setupapi.lib
 
@@ -129,17 +143,114 @@ return nResult;
  */
 #pragma comment( lib, "setupapi" )
 
+#ifdef GUID_CLASS_USB_HOST_CONTROLLER
+
 //-----------------------------------------------------------------------------
-/*
+/*Enumerates USB Host Controllers.
+
+  Return: number of USB host controllers found on the system.
+
   See also : EnumerateHostControllers()
  */
 uint_fast32_t CUsbHub::Enumerate()
 {
 TRACE(_T("CUsbHub::Enumerate()\n"));
-uint_fast32_t nCount = 0; //number of USB host controllers
-SP_DEVINFO_DATA dev_info_data; //device instance that is a member of 
-                          //a device information set.
-dev_info_data.cbSize = sizeof(SP_DEVINFO_DATA);
+uint_fast32_t nCount = 0;   //number of USB host controllers
+//Note: requires <usbiodef.h>
+HDEVINFO hDevInfo = SetupDiGetClassDevs((LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER, //a setup class GUID
+                                        NULL, //PnP name of the device
+                                        NULL, //user interface window
+                                        DIGCF_DEVICEINTERFACE | //list of installed 
+                                                      //interface class devices
+                                        DIGCF_PRESENT      //currently present
+                                                      //devices
+                                        );
+
+if (hDevInfo != INVALID_HANDLE_VALUE)
+  {
+  //Get a context structure for a device information element of 
+  //the specified device information set.
+  int iDevCount = 0;
+  SP_DEVICE_INTERFACE_DATA sdiDevinfo; //device instance that is a member of 
+                            //a device information set.
+  sdiDevinfo.cbSize = sizeof(SP_DEVICE_INTERFACE_DATA);
+
+  while(SetupDiEnumDeviceInterfaces(hDevInfo,//handle to the device information set 
+                                    NULL, //search for specific interface
+                                    (LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER, //a setup class GUID
+                                         //device interface class 
+                                    iDevCount, //index to the list of interfaces
+                                    &sdiDevinfo //[out] device information
+                                    ))
+    {
+    /*Obtain information from Windows Driver Model (WDM) Device Object.
+      The WDM stack for a USB device have following layers:
+         
+         4. USB Device stack
+         3. USB Hub Device stack
+         2. USB Host Controller Device stack
+         1. PCI Bus Device Stack
+     */
+    PSP_DEVICE_INTERFACE_DETAIL_DATA psdiDevDetail = NULL;
+    DWORD dwSize = 0;
+    SetupDiGetDeviceInterfaceDetail(hDevInfo,
+                                    &sdiDevinfo,
+                                    NULL,
+                                    0,
+                                    &dwSize,
+                                    NULL
+                                    );
+    psdiDevDetail = (PSP_DEVICE_INTERFACE_DETAIL_DATA)GlobalAlloc(GPTR, dwSize);
+    psdiDevDetail->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA);
+    SetupDiGetDeviceInterfaceDetail(hDevInfo,
+                                    &sdiDevinfo,
+                                    psdiDevDetail,
+                                    dwSize,
+                                    &dwSize,
+                                    NULL
+                                    );
+    //Opened a USB Host Controller.
+    HANDLE hHcd = CreateFile(psdiDevDetail->DevicePath,
+                             GENERIC_WRITE,
+                             FILE_SHARE_WRITE,
+                             NULL,//if lpSecurityAttributes is NULL, 
+                                  //the handle cannot be inherited.
+                             OPEN_EXISTING,
+                             0,
+                             NULL);
+    if (hHcd != INVALID_HANDLE_VALUE)
+      {
+      nCount++; //Count existing host controllers
+      #ifdef _UNICODE
+        TRACE2(_T("  %d. %ws\n"), nCount, psdiDevDetail->DevicePath);
+      #else
+        TRACE2(_T("  %d. %s\n"), nCount, psdiDevDetail->DevicePath);
+      #endif
+      CloseHandle(hHcd);
+      }
+
+    GlobalFree(psdiDevDetail);
+    iDevCount++;
+    }
+
+  SetupDiDestroyDeviceInfoList(hDevInfo);
+  }
+return nCount;
+}
+
+#else
+
+//-----------------------------------------------------------------------------
+/*Enumerates USB Host Controllers.
+
+  Return: number of USB host controllers found on the system.
+
+  See also: EnumerateHostControllers()
+ */
+uint_fast32_t CUsbHub::Enumerate()
+{
+TRACE(_T("CUsbHub::Enumerate()\n"));
+uint_fast32_t nCount = 0;   //number of USB host controllers
 HDEVINFO hDevInfo = SetupDiGetClassDevs(NULL, //a setup class GUID
                                         SYSTEMENUM_USB, //PnP name of the device
                                         NULL, //user interface window
@@ -148,33 +259,32 @@ HDEVINFO hDevInfo = SetupDiGetClassDevs(NULL, //a setup class GUID
                                         DIGCF_PRESENT      //currently present
                                                       //devices
                                         );
+
 if (hDevInfo != INVALID_HANDLE_VALUE)
   {
   //Get a context structure for a device information element of 
   //the specified device information set.
-  int dev_index = 0;
+  SP_DEVINFO_DATA sdiDevinfo; //device instance that is a member of 
+                              //a device information set.
+  sdiDevinfo.cbSize = sizeof(SP_DEVINFO_DATA);
+  int iDevCount = 0;
   while(SetupDiEnumDeviceInfo(hDevInfo, //handle to the device information set 
-                              dev_index, //index to the list of interfaces
-                              &dev_info_data //[out] device information
+                              iDevCount, //index to the list of interfaces
+                              &sdiDevinfo //[out] device information
                               ))
     {
     if (IsWinNt())
       {
-      DWORD dwLen = 0;
       TCHAR szBuff[MAX_PATH];
-      if(SetupDiGetDeviceRegistryProperty(hDevInfo, //handle to the device 
-                                                //information
-                                           &dev_info_data, //device instance
-                                           SPDRP_HARDWAREID, //property to 
-                                                //be retrieved
-                                           NULL, //registry data type
-                                           (BYTE*)szBuff,//requested device 
-                                              //property
-                                           sizeof(szBuff), //size of 
-                                           //the buffer, in bytes
-                                           &dwLen //required buffer
-                                           //size, in bytes
-                                           ))
+      DWORD dwLen = sizeof(szBuff);
+      //Get a REG_MULTI_SZ string containing the list of hardware IDs for 
+      //a USB device
+      if(GetDeviceProperty(hDevInfo, //handle to the device information
+                           &sdiDevinfo, //device instance
+                           SPDRP_HARDWAREID, //property to be retrieved
+                           szBuff,//requested device property
+                           dwLen //required buffer size, in bytes
+                          ))
         {
         if(IsRootHub(szBuff))
           {
@@ -184,18 +294,101 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
         }
       else
         {
-        TRACE1(_T(" SetupDiGetDeviceRegistryProperty() Failed #%X!\n"), 
+        TRACE1(_T("  SetupDiGetDeviceRegistryProperty() Failed #%X!\n"), 
                GetLastError());
         }
       }
-    dev_index++;
+    iDevCount++;
     }
 
   SetupDiDestroyDeviceInfoList(hDevInfo);
   }
 return nCount;
 }
+#endif
 
+//-----------------------------------------------------------------------------
+/*
+ */
+bool CUsbHub::GetDeviceProperty(HDEVINFO hDevInfo, //[in]
+                                SP_DEVINFO_DATA* psdiDevinfo, //[in]
+                                const DWORD dwProperty, //[in]
+                                TCHAR* szBuff, //[out]
+                                DWORD& dwLen //[in, out]
+                                ) 
+{
+if (IsWinNt())
+  {
+  //Get a REG_MULTI_SZ string containing the list of hardware IDs for 
+  //a USB device
+  DWORD dwSize  = dwLen;
+  if(SetupDiGetDeviceRegistryProperty(hDevInfo, //handle to the device 
+                                            //information
+                                      psdiDevinfo, //device instance
+                                      SPDRP_HARDWAREID, //property to 
+                                          //be retrieved
+                                      NULL, //registry data type
+                                      (BYTE*)szBuff,//requested device 
+                                        //property
+                                      dwSize, //size of 
+                                      //the buffer, in bytes
+                                      &dwLen //required buffer
+                                      //size, in bytes
+                                     ))
+  return true;
+  }
+else //Win98 TODO: test on old Win9x!
+  {
+  HKEY hDevKey = SetupDiOpenDevRegKey(hDevInfo, 
+                                      psdiDevinfo,
+                                      DICS_FLAG_GLOBAL,
+                                      0, 
+                                      DIREG_DEV, 
+                                      KEY_ALL_ACCESS
+                                      );
+  if( hDevKey != INVALID_HANDLE_VALUE )
+    {
+    TCHAR* szPropertyKey = NULL;
+    switch(dwProperty)
+      {
+      case SPDRP_LOWERFILTERS: szPropertyKey = _T("LowerFilters"); break;
+      case SPDRP_UPPERFILTERS: szPropertyKey = _T("UpperFilters"); break;
+      case SPDRP_SERVICE:      szPropertyKey = _T("NTMPDriver")  ; break;
+      case SPDRP_CLASS:        szPropertyKey = _T("Class")       ; break;
+      case SPDRP_HARDWAREID:   szPropertyKey = _T("HardwareID")  ; break;
+      case SPDRP_DEVICEDESC:   szPropertyKey = _T("DeviceDesc")  ; break;
+      case SPDRP_MFG:          szPropertyKey = _T("Mfg")         ; break;
+      default: return false;
+      }
+    DWORD dwType;
+    if( RegQueryValueEx(hDevKey, 
+                        szPropertyKey, 
+                        NULL, 
+                        &dwType,
+                        (BYTE*)szBuff, 
+                        &dwLen) == ERROR_SUCCESS)
+      {
+      if(dwType == REG_MULTI_SZ)
+        {
+        //Truncate resulting string
+        DWORD i = 0;
+        while((szBuff[i] != 0) && (i < dwLen))
+          {
+          if(szBuff[i] == _T(','))
+            {
+            szBuff[i] = 0;
+            break;
+            }
+          i++;
+          }
+        }
+      return true;
+      }
+    RegCloseKey(hDevKey);
+    }
+  }
+return false;
+}
 #endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
