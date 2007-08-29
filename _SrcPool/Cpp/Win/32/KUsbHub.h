@@ -2,7 +2,7 @@
   $Revision: 4$ $Date: 2007-08-24 18:15:44$
   $Author: Darko Kolakovic$
 
-  Constants related to Windows platform version
+  USB Hub handler
   Note: Microsoft Windows specific (Win).
   Copyright: CommonSoft Inc
   2004-03-09 Darko Kolakovic
@@ -22,6 +22,7 @@
 #ifndef _USE_ATL
   #include <windows.h>
 #endif
+#include <setupapi.h> //Device Management Structures
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -33,9 +34,9 @@ LPCTSTR GetDeviceDesc(LPCTSTR szDriverRegistryName);
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Handles the USB hub.
-  A USB hub is a device that allows many USB devices to be connected to a 
+  A USB hub is a device that allows many USB devices to be connected to a
   single USB port on the host computer or another hub.
-  
+
   Note: Microsoft Windows specific (Win32).
 
   See also:

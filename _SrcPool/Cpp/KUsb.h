@@ -73,6 +73,21 @@
 #define HID_SET_IDLE        0x0A
 #define HID_SET_PROTOCOL    0x0B
 
+  /*
+#define USB_HID_OK             0
+#define USB_HID_OPEN_ERROR     1
+#define USB_HID_WRITE_ERROR    2
+#define USB_HID_READ_ERROR     3
+#define USB_HID_INVALID_VALUE  4
+#define USB_HID_ALREADY_OPENED 5
+#define USB_HID_NOT_CONFIGURED 6
+#define USB_HID_NOT_OPENED     7
+#define USB_HID_READ_TIMEOUT   8
+
+#define MAX_USB_HID_SIZE 64
+#define DEVICE_LENGTH 255
+*/
+
 //Standard Feature Selectors
 #define DEVICE_REMOTE_WAKEUP    0x01
 #define ENDPOINT_HALT           0x00
@@ -184,8 +199,10 @@ m_wPid = usbId.m_wPid;
 }
 
 inline 
-CUsbId::CUsbId(const uint16_t wVendorId, //[in] USB device vendor identification (VID) number
-               const uint16_t wProductId //[in] USB product identification (PID) number
+CUsbId::CUsbId(const uint16_t wVendorId, //[in] USB device vendor identification
+                                         //(VID) number
+               const uint16_t wProductId //[in] USB product identification (PID)
+                                         //number
                )
 {
 m_wVid = wVendorId;

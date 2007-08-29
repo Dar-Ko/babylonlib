@@ -14,6 +14,9 @@
 #include "KUsb.h" //USBID struct
 #include "KWinUsb.h"
 #include "KUsbHub.h" //CUsbHub class
+#include "KUsbHid.h" //CUsbHid class
+#include "Platform/UsbVid8086.h" //Intel Corp. devices
+#include "Platform/UsbVid05E0.h"
 
 extern CTestLog g_logTest;   //general test logger
 extern bool TsWriteToViewLn(LPCTSTR lszText);
@@ -63,6 +66,13 @@ try
   bResult = (usbHub.Enumerate() == nUsbHostControllerCount);
   g_logTest.LogResult(bResult);
 
+  g_logTest.m_szObjectName = _T("CUsbHid::Find()");
+  g_logTest.m_szFileName   = _T("KWinUsbHid.cpp");//function or object file name
+
+  CUsbHid usbHid;
+  bResult = usbHid.Find(USBVID_SYMBOL, USBPID_MS4407KBD);
+  bResult = usbHid.Find(USBVID_ANY, USBPID_ANY);
+  g_logTest.LogResult(bResult);
   }
 catch(...)
   {

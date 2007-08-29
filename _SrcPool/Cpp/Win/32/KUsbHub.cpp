@@ -11,17 +11,17 @@
 #ifdef _WIN32
 
 #ifdef _USE_ATL
-  //Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option) 
+  //Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)
   //or preprocessor reports unpaired #endif directive
 
   #include "stdafx.h" //Standard system header files
 #endif
-  
+
 #pragma include_alias( "stdint.h", "KType32.h" )
 #include "stdint.h" //ISO C99 type definitions
 
 
-#if defined _ATL_VER 
+#if defined _ATL_VER
   #ifndef TRACE
     #define TRACE ATLTRACE
     #define TRACE1 ATLTRACE
@@ -54,7 +54,7 @@
 
   Note: Microsoft Windows specific (Win32).
 
-  See also: MSDN KB838100: The USBView.exe sample program does not enumerate 
+  See also: MSDN KB838100: The USBView.exe sample program does not enumerate
   devices on pre-Windows XP SP1-based computers.
  */
 uint_fast32_t EnumerateHostControllers()
@@ -64,14 +64,14 @@ unsigned short wInstance = 0; //HCD module instance number
 char szHostControllerName[16]; //Host Controller Driver (HCD) symbolic name
 const unsigned short ARBITRARY_NO = 12; //arbitrary maximum of instances
 uint_fast32_t nResult = 0;
-do 
+do
   {
   //Create a symbolic link and open communication with HCD
   wsprintfA(szHostControllerName, SYMBOLICLINK_HDC , wInstance);
   HANDLE hHcd = CreateFileA(szHostControllerName,
                             GENERIC_WRITE,
                             FILE_SHARE_WRITE,
-                            NULL, //if lpSecurityAttributes is NULL, 
+                            NULL, //if lpSecurityAttributes is NULL,
                                   //the handle cannot be inherited.
                             OPEN_EXISTING,
                             0,
@@ -81,9 +81,9 @@ do
   if (hHcd != INVALID_HANDLE_VALUE)
     {
     #ifdef _DEBUG
-      /*Retrieve the driver key name in the registry for a USB host controller 
+      /*Retrieve the driver key name in the registry for a USB host controller
         driver. The name is in the form: GUID\InstanceNo, where GUID is 'USB device
-        setup' class GUID. 
+        setup' class GUID.
         See also: MSDN, Windows Driver Kit: Device Installation, Device Setup
         Classes
        */
@@ -93,11 +93,11 @@ do
         {
         CloseHandle(hHcd);
         DWORD dwError = GetLastError();
-        
+
         //TODO: report the error!
         break;
         }
-        
+
       TRACE1(_T("System name is %ws\n"), (const WCHAR*)usbDriverKeyName);
     #endif
 
@@ -107,7 +107,7 @@ do
   #ifdef _DEBUG
     else
       {
-      //TODO: verify if instance numbers are always sequential; 
+      //TODO: verify if instance numbers are always sequential;
       //in that case break the loop when CreateFile fails. D.K.
       TRACE1(_T("  Failed to open \\\\.\\HCD%d!\n"), wInstance);
       }
@@ -122,7 +122,6 @@ return nResult;
 ///////////////////////////////////////////////////////////////////////////////
 //CUsbHub class implementation
 
-#include <setupapi.h> //Device Management Structures
 #include <usbiodef.h> //USB specific GUID; Windows DDK
 #include <devguid.h> //USB specific GUID; Windows DDK
 //See also: MSDN Article ID: 130869 "How to avoid error 'LNK2001 unresolved external'
@@ -135,10 +134,10 @@ return nResult;
 
 /*Requires setupapi.lib
 
-  Note: If you intend that your device installation application run on 
-  Windows 9x/Me, or Windows NT 4.0 or earlier, and you use the CM_Xxx functions, 
+  Note: If you intend that your device installation application run on
+  Windows 9x/Me, or Windows NT 4.0 or earlier, and you use the CM_Xxx functions,
   be sure that cfgmgr32.lib appears before setupapi.lib in the sources file.
-  If your application is intended to run only on Windows 2000 or 
+  If your application is intended to run only on Windows 2000 or
   a later NT-based operating system, you can omit cfgmgr32.lib.
  */
 #pragma comment( lib, "setupapi" )
@@ -160,7 +159,7 @@ uint_fast32_t nCount = 0;   //number of USB host controllers
 HDEVINFO hDevInfo = SetupDiGetClassDevs((LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER, //a setup class GUID
                                         NULL, //PnP name of the device
                                         NULL, //user interface window
-                                        DIGCF_DEVICEINTERFACE | //list of installed 
+                                        DIGCF_DEVICEINTERFACE | //list of installed
                                                       //interface class devices
                                         DIGCF_PRESENT      //currently present
                                                       //devices
@@ -168,24 +167,24 @@ HDEVINFO hDevInfo = SetupDiGetClassDevs((LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER,
 
 if (hDevInfo != INVALID_HANDLE_VALUE)
   {
-  //Get a context structure for a device information element of 
+  //Get a context structure for a device information element of
   //the specified device information set.
   int iDevCount = 0;
-  SP_DEVICE_INTERFACE_DATA sdiDevinfo; //device instance that is a member of 
+  SP_DEVICE_INTERFACE_DATA sdiDevinfo; //device instance that is a member of
                             //a device information set.
   sdiDevinfo.cbSize = sizeof(SP_DEVICE_INTERFACE_DATA);
 
-  while(SetupDiEnumDeviceInterfaces(hDevInfo,//handle to the device information set 
+  while(SetupDiEnumDeviceInterfaces(hDevInfo,//handle to the device information set
                                     NULL, //search for specific interface
                                     (LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER, //a setup class GUID
-                                         //device interface class 
+                                         //device interface class
                                     iDevCount, //index to the list of interfaces
                                     &sdiDevinfo //[out] device information
                                     ))
     {
     /*Obtain information from Windows Driver Model (WDM) Device Object.
       The WDM stack for a USB device have following layers:
-         
+
          4. USB Device stack
          3. USB Hub Device stack
          2. USB Host Controller Device stack
@@ -209,11 +208,11 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
                                     &dwSize,
                                     NULL
                                     );
-    //Opened a USB Host Controller.
+    //Open a USB Host Controller.
     HANDLE hHcd = CreateFile(psdiDevDetail->DevicePath,
                              GENERIC_WRITE,
                              FILE_SHARE_WRITE,
-                             NULL,//if lpSecurityAttributes is NULL, 
+                             NULL,//if lpSecurityAttributes is NULL,
                                   //the handle cannot be inherited.
                              OPEN_EXISTING,
                              0,
@@ -254,7 +253,7 @@ uint_fast32_t nCount = 0;   //number of USB host controllers
 HDEVINFO hDevInfo = SetupDiGetClassDevs(NULL, //a setup class GUID
                                         SYSTEMENUM_USB, //PnP name of the device
                                         NULL, //user interface window
-                                        DIGCF_ALLCLASSES | //list of installed 
+                                        DIGCF_ALLCLASSES | //list of installed
                                                       //devices for all classes
                                         DIGCF_PRESENT      //currently present
                                                       //devices
@@ -262,13 +261,13 @@ HDEVINFO hDevInfo = SetupDiGetClassDevs(NULL, //a setup class GUID
 
 if (hDevInfo != INVALID_HANDLE_VALUE)
   {
-  //Get a context structure for a device information element of 
+  //Get a context structure for a device information element of
   //the specified device information set.
-  SP_DEVINFO_DATA sdiDevinfo; //device instance that is a member of 
+  SP_DEVINFO_DATA sdiDevinfo; //device instance that is a member of
                               //a device information set.
   sdiDevinfo.cbSize = sizeof(SP_DEVINFO_DATA);
   int iDevCount = 0;
-  while(SetupDiEnumDeviceInfo(hDevInfo, //handle to the device information set 
+  while(SetupDiEnumDeviceInfo(hDevInfo, //handle to the device information set
                               iDevCount, //index to the list of interfaces
                               &sdiDevinfo //[out] device information
                               ))
@@ -277,7 +276,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
       {
       TCHAR szBuff[MAX_PATH];
       DWORD dwLen = sizeof(szBuff);
-      //Get a REG_MULTI_SZ string containing the list of hardware IDs for 
+      //Get a REG_MULTI_SZ string containing the list of hardware IDs for
       //a USB device
       if(GetDeviceProperty(hDevInfo, //handle to the device information
                            &sdiDevinfo, //device instance
@@ -294,7 +293,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
         }
       else
         {
-        TRACE1(_T("  SetupDiGetDeviceRegistryProperty() Failed #%X!\n"), 
+        TRACE1(_T("  SetupDiGetDeviceRegistryProperty() Failed #%X!\n"),
                GetLastError());
         }
       }
@@ -315,22 +314,22 @@ bool CUsbHub::GetDeviceProperty(HDEVINFO hDevInfo, //[in]
                                 const DWORD dwProperty, //[in]
                                 TCHAR* szBuff, //[out]
                                 DWORD& dwLen //[in, out]
-                                ) 
+                                )
 {
 if (IsWinNt())
   {
-  //Get a REG_MULTI_SZ string containing the list of hardware IDs for 
+  //Get a REG_MULTI_SZ string containing the list of hardware IDs for
   //a USB device
   DWORD dwSize  = dwLen;
-  if(SetupDiGetDeviceRegistryProperty(hDevInfo, //handle to the device 
+  if(SetupDiGetDeviceRegistryProperty(hDevInfo, //handle to the device
                                             //information
                                       psdiDevinfo, //device instance
-                                      SPDRP_HARDWAREID, //property to 
+                                      SPDRP_HARDWAREID, //property to
                                           //be retrieved
                                       NULL, //registry data type
-                                      (BYTE*)szBuff,//requested device 
+                                      (BYTE*)szBuff,//requested device
                                         //property
-                                      dwSize, //size of 
+                                      dwSize, //size of
                                       //the buffer, in bytes
                                       &dwLen //required buffer
                                       //size, in bytes
@@ -339,11 +338,11 @@ if (IsWinNt())
   }
 else //Win98 TODO: test on old Win9x!
   {
-  HKEY hDevKey = SetupDiOpenDevRegKey(hDevInfo, 
+  HKEY hDevKey = SetupDiOpenDevRegKey(hDevInfo,
                                       psdiDevinfo,
                                       DICS_FLAG_GLOBAL,
-                                      0, 
-                                      DIREG_DEV, 
+                                      0,
+                                      DIREG_DEV,
                                       KEY_ALL_ACCESS
                                       );
   if( hDevKey != INVALID_HANDLE_VALUE )
@@ -361,11 +360,11 @@ else //Win98 TODO: test on old Win9x!
       default: return false;
       }
     DWORD dwType;
-    if( RegQueryValueEx(hDevKey, 
-                        szPropertyKey, 
-                        NULL, 
+    if( RegQueryValueEx(hDevKey,
+                        szPropertyKey,
+                        NULL,
                         &dwType,
-                        (BYTE*)szBuff, 
+                        (BYTE*)szBuff,
                         &dwLen) == ERROR_SUCCESS)
       {
       if(dwType == REG_MULTI_SZ)
@@ -392,13 +391,13 @@ return false;
 #endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  5    Biblioteka1.4         2007-08-24 18:15:43  Darko Kolakovic SBCS build
  *  4    Biblioteka1.3         2007-08-24 17:28:43  Darko Kolakovic Debug
  *       information
  *  3    Biblioteka1.2         2007-08-24 10:53:52  Darko Kolakovic Unicode build
  *  2    Biblioteka1.1         2007-08-23 17:21:17  Darko Kolakovic GetDevDesc()
- *  1    Biblioteka1.0         2007-08-22 19:29:10  Darko Kolakovic 
+ *  1    Biblioteka1.0         2007-08-22 19:29:10  Darko Kolakovic
  * $
  *****************************************************************************/
 

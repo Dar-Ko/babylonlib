@@ -55,6 +55,12 @@ TCHAR buf[512];  //  How big does this have to be? Dynamically size it?
 // the pointer value.   
 //*****************************************************************************
 
+        #ifdef _UNICODE
+          #define DBGFORMATACMM _T("  Failure: %ws!")
+        #else
+          #define DBGFORMATACMM _T("  Failure: %s!")
+        #endif
+
 class CCmMachine
   {
   public:
@@ -69,12 +75,27 @@ class CCmMachine
       CONFIGRET crRes = CM_Connect_Machine(szUncServerName, &m_hMachine);
       if (crRes != CR_SUCCESS)
         m_hMachine = INVALID_HANDLE_VALUE;
+      #ifdef _DEBUG
+      else
+        {
+        extern LPCTSTR DumpConfigRet(const CONFIGRET crCode);
+        TRACE1(DBGFORMATACMM, DumpConfigRet(crRes));
+        }
+      #endif
       };
     ~CCmMachine()
       {
       CONFIGRET crRes;
       if (m_hMachine != INVALID_HANDLE_VALUE)
         crRes = CM_Disconnect_Machine(m_hMachine);
+      #ifdef _DEBUG
+      if (crRes != CR_SUCCESS)
+        {
+        extern LPCTSTR DumpConfigRet(const CONFIGRET crCode);
+        TRACE1(DBGFORMATACMM, DumpConfigRet(crRes));
+        }
+      #endif
+
       };
     operator HMACHINE()
       {

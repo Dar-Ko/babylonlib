@@ -446,6 +446,33 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KWinUsbHid.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Src\main.cpp">
 			</File>
 			<File
@@ -513,6 +540,33 @@
 				RelativePath=".\Src\TestUsb.cpp">
 			</File>
 			<File
+				RelativePath=".\Src\TestUsbGuid.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
 				<FileConfiguration
 					Name="Debug_Unicode|Win32">
@@ -554,6 +608,9 @@
 				RelativePath="..\..\KUsb.h">
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KUsbHid.h">
+			</File>
+			<File
 				RelativePath="..\..\Win\32\KUsbHub.h">
 			</File>
 			<File
@@ -561,6 +618,12 @@
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.h">
+			</File>
+			<File
+				RelativePath="..\..\Platform\UsbVid05E0.h">
+			</File>
+			<File
+				RelativePath="..\..\Platform\UsbVid8086.h">
 			</File>
 		</Filter>
 		<Filter
