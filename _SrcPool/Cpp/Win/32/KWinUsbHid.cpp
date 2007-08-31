@@ -37,17 +37,6 @@
 #endif
 
 #include <setupapi.h> //Device Management Structures
-
-//#include <wtypes.h">
-
-//#include <windef.h>
-//#include <win32.h>
-//#include <basetyps.h>
-
-extern "C"
-  {
-  #include <hidsdi.h>//USB specific HID class GUID; Windows DDK
-  }
 #include "KUsbHid.h" //CUsbHid class
 #ifndef USBVID_ANY
   #include "KUsb.h"
@@ -59,46 +48,18 @@ extern "C"
  */
 #pragma comment( lib, "hid" )
 
-///#include <winioctl.h>
-///#include <wtypes.h>
-//#include <initguid.h>
-extern "C"
-{
-///
-///
-}
-
-/*
-typedef struct StructParamTag
-{
-  //Application global variables
-  HIDP_CAPS   Capabilities;
-  int     DeviceDetected;
-  HANDLE    DeviceHandle;
-  HANDLE    hDevInfo;
-  GUID      HidGuid;
-  ULONG     Length;
-  ULONG     Required;
-  HANDLE    WriteHandle;
-}StructParam;
-
-
-void GetDeviceCapabilities();
-int FindTheHID();
-*/
-
 ///////////////////////////////////////////////////////////////////////////////
 // CUsbHid Class implementation
-
 
 //-----------------------------------------------------------------------------
 /*Default constructor
  */
 CUsbHid::CUsbHid() :
-  m_hHid(INVALID_HANDLE_VALUE)
+  m_hHid(INVALID_HANDLE_VALUE),
+  m_szDevicePath(NULL),
+  m_phidCapabilities(NULL),
+  m_psdiDevinfo(NULL)
 {
-//  StructParamPtr = new StructParam;
-//  ((StructParam *)StructParamPtr)->DeviceDetected=FALSE;
 }
 
 CUsbHid::~CUsbHid()
@@ -108,31 +69,30 @@ if (m_hHid != INVALID_HANDLE_VALUE)
   CloseHandle(m_hHid);
   m_hHid = INVALID_HANDLE_VALUE;
   }
-//  Close();
-//  if (StructParamPtr != NULL)
-//  {
-//    delete StructParamPtr;
-//    StructParamPtr = NULL;
-//  }
+if (m_szDevicePath != NULL)
+  delete[] m_szDevicePath;
+if (m_phidCapabilities != NULL)
+  delete m_phidCapabilities;
+if (m_psdiDevinfo != NULL)
+  delete m_psdiDevinfo;
 }
 
-
 //-----------------------------------------------------------------------------
-/*Find a HID specified by a vendor (VID) and product identification 
+/*Find a HID specified by a vendor (VID) and product identification
   (PID) number. If the vendor is not specified (VID is USBVID_ANY), the method
   return true when first HID class object is found in the device tree. If PID
   is USBPID_ANY, the method searches for any device from the specified vendor
   and returns true when the first HID is found. If the required device is found,
   handle to the object is preserved as the m_hHid member of the CUsbHid class.
 
-  Returns: true if the requested device of the HID class is found in the 
+  Returns: true if the requested device of the HID class is found in the
   USB device tree. Returns false if the device is not present.
 
   See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId
  */
-bool CUsbHid::Find(const uint16_t wVendorId, //[in] USB device vendor 
+bool CUsbHid::Find(const uint16_t wVendorId, //[in] USB device vendor
                                              //identification (VID) number
-                   const uint16_t wProductId //[in] USB product identification 
+                   const uint16_t wProductId //[in] USB product identification
                                              //(PID) number
                   )
 {
@@ -180,6 +140,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
                                     &dwSize, //required size for the buffer
                                     NULL
                                     );
+    //Allocate space for the string that specifies the device path
     psdiDevDetail = (PSP_DEVICE_INTERFACE_DETAIL_DATA) new char[dwSize];
     psdiDevDetail->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA);
     SetupDiGetDeviceInterfaceDetail(hDevInfo,
@@ -190,10 +151,10 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
                                     NULL
                                     );
     //Open a HID
-    //Note: generic keyborad or pointing device driver does not allow 
+    //Note: generic keyboard or pointing device driver does not allow
     //read nor write access to the device.
     HANDLE hHid = CreateFile(psdiDevDetail->DevicePath,
-                             0, //query device existence without 
+                             0, //query device existence without
                                 //accessing the device.
                             FILE_SHARE_READ | FILE_SHARE_WRITE,
                             NULL,//if lpSecurityAttributes is NULL,
@@ -208,7 +169,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
       #else
         TRACE2(_T("  %d. %s\n"), iDevCount, psdiDevDetail->DevicePath);
       #endif
-      
+
       if ( wVendorId != USBVID_ANY )
         {
         //Get the attributes of a specified top-level collection.
@@ -217,7 +178,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
         if ( HidD_GetAttributes(hHid, &hiddAttributes) )
           {
           if (hiddAttributes.VendorID == wVendorId)
-            if (( wProductId != USBPID_ANY ) && 
+            if (( wProductId != USBPID_ANY ) &&
                 ( hiddAttributes.ProductID != wProductId ))
               {
               CloseHandle(hHid);
@@ -236,245 +197,295 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
         }
     #endif
 
-    delete[] psdiDevDetail;
-    
     if(bResult) //Desired device is found
       {
       if (m_hHid != INVALID_HANDLE_VALUE)
         CloseHandle(m_hHid);
       m_hHid = hHid; //Preserve the device handle
-      break; //Return the result
-      }
+      if(m_szDevicePath != NULL)
+        delete[] m_szDevicePath;
+      size_t nLen = _tcsclen(psdiDevDetail->DevicePath) + 1;
+      m_szDevicePath = new TCHAR[nLen];
+      if(m_szDevicePath != NULL)
+        _tcsncpy(m_szDevicePath, psdiDevDetail->DevicePath, nLen);
+      delete[] psdiDevDetail;
       
+      if (m_psdiDevinfo == NULL)
+        m_psdiDevinfo = new SP_DEVINFO_DATA();
+      if (m_psdiDevinfo != NULL)
+        {
+        m_psdiDevinfo->cbSize = sizeof(SP_DEVINFO_DATA);
+        //Get context structure for a device information element of 
+        //the specified device information set.
+        if (!SetupDiEnumDeviceInfo(hDevInfo, iDevCount, m_psdiDevinfo))
+          {
+          TRACE1(_T("  Failed to get SP_DEVINFO_DATA: #%0.8d!"), 
+                 GetLastError());
+          delete m_psdiDevinfo;
+          m_psdiDevinfo = NULL;
+          }
+        }
+      break; //Return the result
+      
+      }
+
+     delete[] psdiDevDetail;
     iDevCount++;
     }
-    
+
   SetupDiDestroyDeviceInfoList(hDevInfo);
   }
 return bResult;
 }
+#include "KWinUsb.h"
+#include "KUsbHub.h"
+//-----------------------------------------------------------------------------
+/*Enumerates USB Host Controllers.
 
-// configuration functions
+  Return: number of USB host controllers found on the system.
+
+  See also: EnumerateHostControllers()
+ */
+uint_fast32_t CUsbHid::Enumerate()
+{
+TRACE(_T("CUsbHub::Enumerate()\n"));
+uint_fast32_t nCount = 0;   //number of USB host controllers
+
+//Get the top HIDClass device interface GUID
+GUID guidHid;  //device interface GUID for HIDClass devices
+HidD_GetHidGuid(&guidHid);
+
+HDEVINFO hDevInfo = SetupDiGetClassDevs(&guidHid, //a interface class GUID
+                                        NULL, //PnP name of the device
+                                        NULL, //user interface window
+                                        DIGCF_ALLCLASSES |//DIGCF_DEVICEINTERFACE | //list of installed
+                                                      //devices for all classes
+                                        DIGCF_PRESENT      //currently present
+                                                      //devices
+                                        );
+
+if (hDevInfo != INVALID_HANDLE_VALUE)
+  {
+  //Get a context structure for a device information element of
+  //the specified device information set.
+  SP_DEVINFO_DATA sdiDevinfo; //device instance that is a member of
+                              //a device information set.
+  sdiDevinfo.cbSize = sizeof(SP_DEVINFO_DATA);
+  int iDevCount = 0;
+  while(SetupDiEnumDeviceInfo(hDevInfo, //handle to the device information set
+                              iDevCount, //index to the list of interfaces
+                              &sdiDevinfo //[out] device information
+                              ))
+    {
+    CUsbHub usbDev;
+      TCHAR szBuff[MAX_PATH];
+      DWORD dwLen = sizeof(szBuff);
+      //Get a REG_MULTI_SZ string containing the list of hardware IDs for
+      //a USB device
+      if(usbDev.GetDeviceProperty(hDevInfo, //handle to the device information
+                           &sdiDevinfo, //device instance
+                           SPDRP_HARDWAREID, //property to be retrieved
+                           szBuff,//requested device property
+                           dwLen //required buffer size, in bytes
+                          ))
+        {
+        if(IsHid(szBuff))
+          {
+          //TODO: check VID/pid
+          nCount++;
+          TRACE2(_T("  %d. %s\n"),nCount, szBuff);
+          if (m_psdiDevinfo == NULL)
+            m_psdiDevinfo = new SP_DEVINFO_DATA();
+          if (m_psdiDevinfo != NULL)
+            memcpy(m_psdiDevinfo, &sdiDevinfo, sizeof(&sdiDevinfo));
+          break;
+          }
+        }
+      else
+        {
+        TRACE1(_T("  SetupDiGetDeviceRegistryProperty() Failed #%X!\n"),
+               GetLastError());
+        }
+    iDevCount++;
+    }
+
+  SetupDiDestroyDeviceInfoList(hDevInfo);
+  }
+return nCount;
+}
+
+//-----------------------------------------------------------------------------
+/*Obtains device's capabilites.
+  Search for the device before querying device's capabilites.
+
+  Returns: pointer to device's HIDP_CAPS structure or NULL in case of a failure.
+ */
+const PHIDP_CAPS CUsbHid::GetDeviceCapabilities()
+{
+TRACE(_T("CUsbHid::GetDeviceCapabilities()\n"));
+
+  //Get top-level collection's preparsed data.
+PHIDP_PREPARSED_DATA  phidPreparsedData;
+
+if((m_hHid != INVALID_HANDLE_VALUE) &&  //handle to a top-level collection
+   HidD_GetPreparsedData (m_hHid, &phidPreparsedData))
+  {
+  //Obtain generic HID class device capability information
+  if (m_phidCapabilities == NULL)
+    m_phidCapabilities = new HIDP_CAPS();
+
+  if ( (m_phidCapabilities != NULL) &&
+       HidP_GetCaps (phidPreparsedData, m_phidCapabilities) == HIDP_STATUS_SUCCESS)
+    {
+    return m_phidCapabilities;
+    }
+  HidD_FreePreparsedData(phidPreparsedData);
+  }
+return NULL;
+}
+
+//-----------------------------------------------------------------------------
 /*
-int CUsbHid::SetDevice(char *UsbDevice)
+  
+  Device state can be one of the following values:
+
+    DICS_ENABLE      The device is being enabled.
+                     For this state change, Setup enables the device if the 
+                     DICS_FLAG_GLOBAL flag is specified. If the D
+                     ICS_FLAG_CONFIGSPECIFIC flag is specified and the current 
+                     hardware profile is specified then Setup enables the device. 
+                     If the DICS_FLAG_CONFIGSPECIFIC is specified and not the 
+                     current hardware profile then Setup sets some flags in 
+                     the registry and does not change the device's state. 
+                     Setup will change the device state when the specified 
+                     profile becomes the current profile.
+    DICS_DISABLE     The device is being disabled.
+                     For this state change, Setup disables the device if 
+                     the DICS_FLAG_GLOBAL flag is specified. If the 
+                     DICS_FLAG_CONFIGSPECIFIC flag is specified and the current 
+                     hardware profile is specified then Setup disables the device. 
+                     If the DICS_FLAG_CONFIGSPECIFIC is specified and not the 
+                     current hardware profile then Setup sets some flags in the 
+                     registry and does not change the device's state.
+    DICS_PROPCHANGE  The properties of the device have changed.
+                     For this state change, Setup ignores the Scope information 
+                     and stops and restarts the device.
+    DICS_START       The device is being started (if the request is for the 
+                     currently active hardware profile). Make the change in 
+                     the specified profile only; you cannot perform this
+                     change globally. Setup only starts the device if the current 
+                     hardware profile is specified, otherwise Setup sets a 
+                     registry flag and does not change the state of the device.
+    DICS_STOP        The device is being stopped. The driver stack will be 
+                     unloaded and the CSCONFIGFLAG_DO_NOT_START flag will be set
+                     for the device. Make the change in the specified profile 
+                     only; you cannot perform this change globally. Setup only 
+                     stops the device if the current hardware profile is 
+                     specified, otherwise Setup sets a registry flag and does 
+                     not change the state of the device.
+
+ */
+bool CUsbHid::SetDeviceState(const DWORD dwState, //[IN] new device state
+                             const PSP_DEVINFO_DATA psdiDevInfo //[in]
+                            )
 {
-  return USB_HID_OK;
+TRACE1(_T("CUsbHid::SetDeviceState(dwState = %d)\n"), dwState);
+
+/*The scope of a device property change:
+  DICS_FLAG_GLOBAL         0x00000001  make change in all hardware profiles
+  DICS_FLAG_CONFIGSPECIFIC 0x00000002  make change in specified profile only
+  DICS_FLAG_CONFIGGENERAL  0x00000004  one or more hardware profile-specific
+                                       changes to follow.
+ */
+
+//Get the top HIDClass device interface GUID
+GUID guidHid;  //device interface GUID for HIDClass devices
+HidD_GetHidGuid(&guidHid);
+
+//Get handle to the device information set
+HDEVINFO hDevinfo = SetupDiGetClassDevs(&guidHid, //a interface class GUID
+                                        NULL, //PnP name of the device
+                                        NULL, //user interface window
+                                        DIGCF_DEVICEINTERFACE | //list of installed
+                                        //interface class devices
+                                        DIGCF_PRESENT      //currently present
+                                        //devices
+                                        );
+Enumerate();
+SP_PROPCHANGE_PARAMS spPropChangeParams;
+memset(&spPropChangeParams, 0, sizeof(spPropChangeParams));
+spPropChangeParams.ClassInstallHeader.cbSize = sizeof(SP_CLASSINSTALL_HEADER);
+spPropChangeParams.ClassInstallHeader.InstallFunction = DIF_PROPERTYCHANGE;
+spPropChangeParams.Scope = ((dwState == DICS_START) || 
+                            (dwState == DICS_STOP)) ? 
+                            DICS_FLAG_CONFIGSPECIFIC : DICS_FLAG_GLOBAL;
+spPropChangeParams.StateChange = dwState;
+spPropChangeParams.HwProfile = 0; //Zero specifies the current hardware profile
+
+if(SetupDiSetClassInstallParams(hDevinfo, //handle to the device information set 
+                               psdiDevInfo, //device install class to set
+                               (SP_CLASSINSTALL_HEADER*) &spPropChangeParams,
+                                 //new class install parameters 
+                               sizeof(SP_PROPCHANGE_PARAMS)) )
+  {
+  //Call the appropriate class installer and any registered co-installers
+  if(SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, 
+                               hDevinfo,
+                               psdiDevInfo))
+    {
+    return true;
+    }
+  }
+
+TRACE1(_T("  Failed: #%0.8d!\n"), GetLastError());
+return false;
 }
 
-int CUsbHid::GetDevice(char *UsbDevice)
+//-----------------------------------------------------------------------------
+/*
+ */
+bool CUsbHid::Enable(bool bEnable //[in] = true
+                    )
 {
-  return USB_HID_OK;
+TRACE1(_T("CUsbHid::Enable(%d)\n"),(bEnable ? DICS_ENABLE : DICS_DISABLE));
+if(m_psdiDevinfo != NULL)
+  {
+  return SetDeviceState( (bEnable ? DICS_ENABLE : DICS_DISABLE),
+                         m_psdiDevinfo );
+  }
+return false;
 }
-*/
-// IO functions
-/*int CUsbHid::Open()
+
+//-----------------------------------------------------------------------------
+/*
+ */
+bool CUsbHid::Start(bool bStart //[in] = true
+                     )
 {
-  if (((StructParam *)StructParamPtr)->DeviceDetected == TRUE) return USB_HID_OK;
-  ((StructParam *)StructParamPtr)->DeviceDetected=FALSE;
-
-  // Open the driver
-  ((StructParam *)StructParamPtr)->DeviceDetected = FindTheHID();
-  if (((StructParam *)StructParamPtr)->DeviceDetected == TRUE)
+TRACE1(_T("CUsbHid::Enable(%d)\n"),(bStart ? DICS_START : DICS_STOP));
+if(m_psdiDevinfo != NULL)
   {
-    // let's now try to set the report buffer queue to 2 reports.
-    HidD_SetNumInputBuffers(hHid, 2);
-    return USB_HID_OK;
+  return SetDeviceState( (bStart ? DICS_START : DICS_STOP),
+                         m_psdiDevinfo );
   }
-  else
-  {
-    return USB_HID_NOT_OPENED;
-  }
-/ *  DeviceDetected=FALSE;
+return false;
+}
 
-  // Open the driver
-  DeviceDetected = FindTheHID();
-  if (DeviceDetected == TRUE)
-  {
-    return USB_HID_OK;
-  }
-  else
-  {
-    return USB_HID_NOT_OPENED;
-  }* /
-}*/
-
-/*int CUsbHid::Close()
+//-----------------------------------------------------------------------------
+/*
+ */
+bool CUsbHid::Restart()
 {
-  if (((StructParam *)StructParamPtr)->DeviceDetected == TRUE)
+TRACE(_T("CUsbHid::Restart()\n"));
+if(m_psdiDevinfo != NULL)
   {
-    //Close open handles.
-    CloseHandle(hHid);
-    ((StructParam *)StructParamPtr)->DeviceDetected = FALSE;
+  return SetDeviceState( DICS_PROPCHANGE, m_psdiDevinfo );
   }
+return false;
+}
 
-  return USB_HID_OK;
-}*/
-
-/*int CUsbHid::Write(void *Buffer, int Size)
-{
-  UCHAR *OutputReport = (UCHAR *)Buffer;
-  DWORD BytesWritten = 0;
-  ULONG Result = 0;
-
-  //If the device hasn't been detected already, look for it.
-  if (((StructParam *)StructParamPtr)->DeviceDetected==FALSE)
-  {
-    ((StructParam *)StructParamPtr)->DeviceDetected=FindTheHID();
-  }
-
-  if (((StructParam *)StructParamPtr)->DeviceDetected==TRUE)
-  {
-    // Write a report to the device.
-    Result = WriteFile(hHid, OutputReport, ((StructParam *)StructParamPtr)->Capabilities.OutputReportByteLength, &BytesWritten, NULL);
-
-    // Test the result
-    if (Result == 0)
-    {
-      //The WriteFile failed, so close the handle, display a message,
-      //and set DeviceDetected to FALSE so the next attempt will look for the device.
-      CloseHandle(hHid);
-      ((StructParam *)StructParamPtr)->DeviceDetected = FALSE;
-      return USB_HID_NOT_OPENED;
-    }
-  }
-  else
-  {
-    return USB_HID_NOT_OPENED;
-  }
-
-  return USB_HID_OK;
-}*/
-
-/*int CUsbHid::Read(void *Buffer, int Size)
-{
-  UCHAR *OutputReport = (UCHAR *)Buffer;
-  DWORD BytesWritten = 0;
-  ULONG Result = 0;
-
-  //If the device hasn't been detected already, look for it.
-  if (((StructParam *)StructParamPtr)->DeviceDetected==FALSE)
-  {
-    ((StructParam *)StructParamPtr)->DeviceDetected=FindTheHID();
-  }
-
-  if (((StructParam *)StructParamPtr)->DeviceDetected==TRUE)
-  {
-    // Write a report to the device.
-    Result = ReadFile(hHid, OutputReport, ((StructParam *)StructParamPtr)->Capabilities.OutputReportByteLength, &BytesWritten, NULL);
-
-    // Test the result
-    if (Result == 0)
-    {
-      //The WriteFile failed, so close the handle, display a message,
-      //and set DeviceDetected to FALSE so the next attempt will look for the device.
-      CloseHandle(hHid);
-      //wxMessageBox("Cannot write to device");
-      ((StructParam *)StructParamPtr)->DeviceDetected = FALSE;
-      return USB_HID_NOT_OPENED;
-    }
-  }
-  else
-  {
-    return USB_HID_NOT_OPENED;
-  }
-
-  return USB_HID_OK;
-}*/
-
-/*CUsbHid::ReadWrite(void *Buffer, int Size)
-{
-  UCHAR *OutputReport = (UCHAR *)Buffer;
-  DWORD BytesWritten = 0;
-  ULONG Result = 0;
-
-  //If the device hasn't been detected already, look for it.
-  if (((StructParam *)StructParamPtr)->DeviceDetected==FALSE)
-  {
-    ((StructParam *)StructParamPtr)->DeviceDetected=FindTheHID();
-  }
-
-  if (((StructParam *)StructParamPtr)->DeviceDetected==TRUE)
-  {
-    // Write a report to the device.
-    Result = WriteFile(hHid, OutputReport, ((StructParam *)StructParamPtr)->Capabilities.OutputReportByteLength, &BytesWritten, NULL);
-
-    // Test the result
-    if (Result == 0)
-    {
-      //The WriteFile failed, so close the handle, display a message,
-      //and set DeviceDetected to FALSE so the next attempt will look for the device.
-      CloseHandle(hHid);
-      //wxMessageBox("Cannot write to device");
-      ((StructParam *)StructParamPtr)->DeviceDetected = FALSE;
-      return USB_HID_NOT_OPENED;
-    }
-
-    // Write a report to the device.
-    Result = ReadFile(hHid, OutputReport, ((StructParam *)StructParamPtr)->Capabilities.OutputReportByteLength, &BytesWritten, NULL);
-
-    // Test the result
-    if (Result == 0)
-    {
-      //The WriteFile failed, so close the handle, display a message,
-      //and set DeviceDetected to FALSE so the next attempt will look for the device.
-      CloseHandle(hHid);
-      ((StructParam *)StructParamPtr)->DeviceDetected = FALSE;
-      return USB_HID_NOT_OPENED;
-    }
-  }
-  else
-  {
-    return USB_HID_NOT_OPENED;
-  }
-
-  return USB_HID_OK;
-}*/
-
-// initialize the function to intercept SIGIO
-//int SetReadSignal(ReadSignalType iRSFunc){
-  // reading not implemented so this is not !
-  //return USB_HID_READ_ERROR;;
-//}
-
-/*void CUsbHid::GetDeviceCapabilities()
-{
-  //Get the Capabilities structure for the device.
-  PHIDP_PREPARSED_DATA  PreparsedData;
-
-  / *
-  API function: HidD_GetPreparsedData
-  Returns: a pointer to a buffer containing the information about the device's capabilities.
-  Requires: A handle returned by CreateFile.
-  There's no need to access the buffer directly,
-  but HidP_GetCaps and other API functions require a pointer to the buffer.
-  * /
-
-  HidD_GetPreparsedData \
-    (hHid, \
-    &PreparsedData);
-//  DisplayLastError("HidD_GetPreparsedData: ");
-
-  / *
-  API function: HidP_GetCaps
-  Learn the device's capabilities.
-  For standard devices such as joysticks, you can find out the specific
-  capabilities of the device.
-  For a custom device, the software will probably know what the device is capable of,
-  and the call only verifies the information.
-  Requires: the pointer to the buffer returned by HidD_GetPreparsedData.
-  Returns: a Capabilities structure containing the information.
-  * /
-
-  HidP_GetCaps \
-    (PreparsedData, \
-    &(((StructParam *)StructParamPtr)->Capabilities));
-
-  //No need for PreparsedData any more, so free the memory it's using.
-  HidD_FreePreparsedData(PreparsedData);
-}*/
 #endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: $
  *****************************************************************************/
-

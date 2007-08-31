@@ -70,9 +70,27 @@ try
   g_logTest.m_szFileName   = _T("KWinUsbHid.cpp");//function or object file name
 
   CUsbHid usbHid;
-  bResult = usbHid.Find(USBVID_SYMBOL, USBPID_MS4407KBD);
   bResult = usbHid.Find(USBVID_ANY, USBPID_ANY);
-  g_logTest.LogResult(bResult);
+  if (bResult)
+    {
+    g_logTest.LogResult(bResult);
+    TsWriteToViewLn(_T("Found a USB HID class device."));
+    TsWriteToViewLn(usbHid.GetDevicePath());
+
+    g_logTest.m_szObjectName = _T("CUsbHid::GetDeviceCapabilities()");
+    g_logTest.m_szFileName   = _T("KWinUsbHid.cpp");//function or object file name
+    const PHIDP_CAPS phidCapabilities = usbHid.GetDeviceCapabilities();
+    bResult = (phidCapabilities != NULL);
+    g_logTest.LogResult(bResult);
+
+    bResult = usbHid.Enable(false); //Stop the device
+    bResult = usbHid.Restart();      //Start the device
+    }
+  else
+    {
+    TsWriteToViewLn(_T("Not found a single USB HID class device."));
+    g_logTest.LogResult(true);
+    }
   }
 catch(...)
   {

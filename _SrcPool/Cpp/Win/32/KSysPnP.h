@@ -163,6 +163,15 @@
  */
 #define SYSTEMENUM_USBSTOR _T("USBSTOR")
 
+/*Human Interface Device (HID) class
+ */
+#define SYSTEMENUM_HID _T("HID")
+
+/*Advanced Configuration and Power Interface (ACPI) device class
+ */
+#define SYSTEMENUM_ACPI _T("ACPI")
+
+#define SYSTEMENUM_LPT _T("LPTENUM")
 #endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KSYSPNP_H_

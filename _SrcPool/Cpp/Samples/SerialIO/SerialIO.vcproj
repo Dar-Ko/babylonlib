@@ -614,13 +614,13 @@
 				RelativePath="..\..\Win\32\KUsbHub.h">
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KWinSerial.h">
+			</File>
+			<File
 				RelativePath="..\..\Win\32\KWinUsb.h">
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.h">
-			</File>
-			<File
-				RelativePath="..\..\Platform\UsbVid05E0.h">
 			</File>
 			<File
 				RelativePath="..\..\Platform\UsbVid8086.h">

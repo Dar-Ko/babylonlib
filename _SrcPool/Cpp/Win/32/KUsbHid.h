@@ -21,12 +21,23 @@
   #ifndef _USE_ATL
     #include <windows.h>
   #endif
+  extern "C"
+  {
+  #include <hidsdi.h>//USB specific HID class GUID; Windows DDK
+                     //to use in the user space
+  //Note: include <hidpddi.h> to use in the kernel space 
+  LPTSTR StrIStr(LPCTSTR szSource, LPCTSTR szToken);
+  }  
+  #include <hidpi.h> //HIDP_CAPS struct; Windows DDK
 #endif
 
 #ifdef _MSC_VER
   //Microsoft Visual C/C++ compiler
   #pragma include_alias( "stdint.h", "KType32.h" )
   #include "stdint.h" //ISO C99 type definitions
+#endif
+#ifndef SYSTEMENUM_HID
+  #include "KSysPnP.h"
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -47,36 +58,52 @@ public:
   CUsbHid();
   virtual ~CUsbHid();
 
+public:
   bool Find(const uint16_t wVendorId, const uint16_t wProductId);
-  // configuration functions
-  ///int SetDevice(char *UsbDevice);
-  ///int GetDevice(char *UsbDevice);
-
-  // IO functions
-  ///int Open();
-  ///int Close();
-  ///int Write(void *Buffer, int Size=MAX_USB_HID_SIZE);
-  ///int Read(void *Buffer, int Size=MAX_USB_HID_SIZE);
-  ///int ReadWrite(void *Buffer, int Size=MAX_USB_HID_SIZE);
-
-  // initialize the function to intercept SIGIO
-  //int SetReadSignal(ReadSignalType iRSFunc);
-
+  const TCHAR* GetDevicePath() const;
+  const PHIDP_CAPS GetDeviceCapabilities();
+  bool Enable(bool bStart = true);
+  bool Start(bool bStart = true);
+  bool Restart();
+  bool IsHid(const TCHAR* szHardwareId) const;
+protected:
+  bool SetDeviceState(const DWORD dwState, 
+                      const PSP_DEVINFO_DATA psdiDevInfo);
+  uint_fast32_t Enumerate();
 protected:
   HANDLE m_hHid; //handle to requested device of the HID class
-  // usb file descriptor;
-#ifdef WIN32
-  ///void *StructParamPtr;
-  ///
-  ///void GetDeviceCapabilities();
-#else
-  ///int fd;
-  ///bool IsOpened;
-#endif
-
+  TCHAR* m_szDevicePath; //zero-terminated string specifying the HID path
+  PHIDP_CAPS m_phidCapabilities;  //device capability information
+  PSP_DEVINFO_DATA m_psdiDevinfo; //device instance information
 };
-///////////////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////////
+// Inlines
+
+//-----------------------------------------------------------------------------
+/*
+  Returns: zero-terminated string or NULL if device is not discovered with
+  CUsbHid::Find() method.
+ */
+inline const TCHAR* CUsbHid::GetDevicePath() const
+{
+return m_szDevicePath;
+}
+
+//-----------------------------------------------------------------------------
+/*Verifies if hardware is of HID class.
+  Hardware ID have following format:
+    HID\Vid_mmmm&Pid_nnnn&...
+ */
+inline bool CUsbHid::IsHid(const TCHAR* szHardwareId //[in]
+              ) const
+{
+if ((szHardwareId != NULL) && (szHardwareId[0] != '\0'))
+  {
+  return (StrIStr(szHardwareId, SYSTEMENUM_HID) == szHardwareId);
+  }
+return false;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KUSBHID_H_

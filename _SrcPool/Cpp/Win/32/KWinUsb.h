@@ -41,7 +41,8 @@
     Note: Microsoft Windows specific (Win32).
 
     See also: MSDN KB838100,  "The USBView.exe sample program does not
-    enumerate devices on pre-Windows XP SP1-based computers".
+    enumerate devices on pre-Windows XP SP1-based computers";
+    CreateSymbolicLink().
   */
   #define SYMBOLICLINK_HDC "\\\\.\\HCD%d"
 #endif

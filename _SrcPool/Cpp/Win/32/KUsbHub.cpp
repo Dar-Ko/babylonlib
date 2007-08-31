@@ -272,31 +272,29 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
                               &sdiDevinfo //[out] device information
                               ))
     {
-    if (IsWinNt())
+    TCHAR szBuff[MAX_PATH];
+    DWORD dwLen = sizeof(szBuff);
+    //Get a REG_MULTI_SZ string containing the list of hardware IDs for
+    //a USB device
+    if(GetDeviceProperty(hDevInfo, //handle to the device information
+                          &sdiDevinfo, //device instance
+                          SPDRP_HARDWAREID, //property to be retrieved
+                          szBuff,//requested device property
+                          dwLen //required buffer size, in bytes
+                        ))
       {
-      TCHAR szBuff[MAX_PATH];
-      DWORD dwLen = sizeof(szBuff);
-      //Get a REG_MULTI_SZ string containing the list of hardware IDs for
-      //a USB device
-      if(GetDeviceProperty(hDevInfo, //handle to the device information
-                           &sdiDevinfo, //device instance
-                           SPDRP_HARDWAREID, //property to be retrieved
-                           szBuff,//requested device property
-                           dwLen //required buffer size, in bytes
-                          ))
+      if(IsRootHub(szBuff))
         {
-        if(IsRootHub(szBuff))
-          {
-          nCount++;
-          TRACE2(_T("  %d. %s\n"),nCount, szBuff);
-          }
-        }
-      else
-        {
-        TRACE1(_T("  SetupDiGetDeviceRegistryProperty() Failed #%X!\n"),
-               GetLastError());
+        nCount++;
+        TRACE2(_T("  %d. %s\n"),nCount, szBuff);
         }
       }
+    else
+      {
+      TRACE1(_T("  SetupDiGetDeviceRegistryProperty() Failed #%0.8d!\n"),
+              GetLastError());
+      }
+      
     iDevCount++;
     }
 
@@ -324,7 +322,7 @@ if (IsWinNt())
   if(SetupDiGetDeviceRegistryProperty(hDevInfo, //handle to the device
                                             //information
                                       psdiDevinfo, //device instance
-                                      SPDRP_HARDWAREID, //property to
+                                      dwProperty, //property to
                                           //be retrieved
                                       NULL, //registry data type
                                       (BYTE*)szBuff,//requested device
