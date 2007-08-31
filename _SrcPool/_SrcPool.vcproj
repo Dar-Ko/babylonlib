@@ -426,6 +426,75 @@
 			<Filter
 				Name="STL"
 				Filter="">
+				<File
+					RelativePath=".\Cpp\Stl\KBoolStream.h">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KDateStr.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KDbgLimits.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KDbgStlA.h">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KFileRead.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KGetFileExtn.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KGetFileName.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KGetLines.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KHexStream.h">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KIntStream.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KOStream.h">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KSkipWSp.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KStrAtoWChar.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KStringStl.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KStrRplEOL.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KStrStream.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KStrUppr.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KStrWtoChar.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KTString.h">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KUcsToHex.cpp">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KXmlAttributeVector.h">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KXmlElementVector.h">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KXmlTypeStl.h">
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -577,7 +646,22 @@
 				RelativePath=".\Cpp\KTypedef.h">
 			</File>
 			<File
+				RelativePath=".\Cpp\KUsb.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\Win\Res\Win\Resource.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\Platform\UsbVid0000.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\Platform\UsbVid046D.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\Platform\UsbVid04CF.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\Platform\UsbVid05E0.h">
 			</File>
 			<Filter
 				Name="STL Header Files"

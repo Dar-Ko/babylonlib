@@ -237,82 +237,6 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
   }
 return bResult;
 }
-#include "KWinUsb.h"
-#include "KUsbHub.h"
-//-----------------------------------------------------------------------------
-/*Enumerates USB Host Controllers.
-
-  Return: number of USB host controllers found on the system.
-
-  See also: EnumerateHostControllers()
- */
-uint_fast32_t CUsbHid::Enumerate()
-{
-TRACE(_T("CUsbHub::Enumerate()\n"));
-uint_fast32_t nCount = 0;   //number of USB host controllers
-
-//Get the top HIDClass device interface GUID
-GUID guidHid;  //device interface GUID for HIDClass devices
-HidD_GetHidGuid(&guidHid);
-
-HDEVINFO hDevInfo = SetupDiGetClassDevs(&guidHid, //a interface class GUID
-                                        NULL, //PnP name of the device
-                                        NULL, //user interface window
-                                        DIGCF_ALLCLASSES |//DIGCF_DEVICEINTERFACE | //list of installed
-                                                      //devices for all classes
-                                        DIGCF_PRESENT      //currently present
-                                                      //devices
-                                        );
-
-if (hDevInfo != INVALID_HANDLE_VALUE)
-  {
-  //Get a context structure for a device information element of
-  //the specified device information set.
-  SP_DEVINFO_DATA sdiDevinfo; //device instance that is a member of
-                              //a device information set.
-  sdiDevinfo.cbSize = sizeof(SP_DEVINFO_DATA);
-  int iDevCount = 0;
-  while(SetupDiEnumDeviceInfo(hDevInfo, //handle to the device information set
-                              iDevCount, //index to the list of interfaces
-                              &sdiDevinfo //[out] device information
-                              ))
-    {
-    CUsbHub usbDev;
-      TCHAR szBuff[MAX_PATH];
-      DWORD dwLen = sizeof(szBuff);
-      //Get a REG_MULTI_SZ string containing the list of hardware IDs for
-      //a USB device
-      if(usbDev.GetDeviceProperty(hDevInfo, //handle to the device information
-                           &sdiDevinfo, //device instance
-                           SPDRP_HARDWAREID, //property to be retrieved
-                           szBuff,//requested device property
-                           dwLen //required buffer size, in bytes
-                          ))
-        {
-        if(IsHid(szBuff))
-          {
-          //TODO: check VID/pid
-          nCount++;
-          TRACE2(_T("  %d. %s\n"),nCount, szBuff);
-          if (m_psdiDevinfo == NULL)
-            m_psdiDevinfo = new SP_DEVINFO_DATA();
-          if (m_psdiDevinfo != NULL)
-            memcpy(m_psdiDevinfo, &sdiDevinfo, sizeof(&sdiDevinfo));
-          break;
-          }
-        }
-      else
-        {
-        TRACE1(_T("  SetupDiGetDeviceRegistryProperty() Failed #%X!\n"),
-               GetLastError());
-        }
-    iDevCount++;
-    }
-
-  SetupDiDestroyDeviceInfoList(hDevInfo);
-  }
-return nCount;
-}
 
 //-----------------------------------------------------------------------------
 /*Obtains device's capabilites.
@@ -345,7 +269,8 @@ return NULL;
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Configures installation parameters for a particular device information 
+  element. 
   
   Device state can be one of the following values:
 
@@ -384,6 +309,11 @@ return NULL;
                      specified, otherwise Setup sets a registry flag and does 
                      not change the state of the device.
 
+  Note: installation parameters for generic keyboard or pointing device driver
+  could not be changed.
+
+  Returns: true if successful or false in case of a failure. To get extended
+  error information, call GetLastError().
  */
 bool CUsbHid::SetDeviceState(const DWORD dwState, //[IN] new device state
                              const PSP_DEVINFO_DATA psdiDevInfo //[in]
@@ -391,27 +321,19 @@ bool CUsbHid::SetDeviceState(const DWORD dwState, //[IN] new device state
 {
 TRACE1(_T("CUsbHid::SetDeviceState(dwState = %d)\n"), dwState);
 
+if (psdiDevInfo == NULL)
+  {
+  SetLastError(E_POINTER);  
+  return false;
+  }
+
 /*The scope of a device property change:
   DICS_FLAG_GLOBAL         0x00000001  make change in all hardware profiles
   DICS_FLAG_CONFIGSPECIFIC 0x00000002  make change in specified profile only
   DICS_FLAG_CONFIGGENERAL  0x00000004  one or more hardware profile-specific
                                        changes to follow.
  */
-
-//Get the top HIDClass device interface GUID
-GUID guidHid;  //device interface GUID for HIDClass devices
-HidD_GetHidGuid(&guidHid);
-
-//Get handle to the device information set
-HDEVINFO hDevinfo = SetupDiGetClassDevs(&guidHid, //a interface class GUID
-                                        NULL, //PnP name of the device
-                                        NULL, //user interface window
-                                        DIGCF_DEVICEINTERFACE | //list of installed
-                                        //interface class devices
-                                        DIGCF_PRESENT      //currently present
-                                        //devices
-                                        );
-Enumerate();
+HDEVINFO hDevinfo = *this; //Get handle to the device information set
 SP_PROPCHANGE_PARAMS spPropChangeParams;
 memset(&spPropChangeParams, 0, sizeof(spPropChangeParams));
 spPropChangeParams.ClassInstallHeader.cbSize = sizeof(SP_CLASSINSTALL_HEADER);
@@ -426,7 +348,7 @@ if(SetupDiSetClassInstallParams(hDevinfo, //handle to the device information set
                                psdiDevInfo, //device install class to set
                                (SP_CLASSINSTALL_HEADER*) &spPropChangeParams,
                                  //new class install parameters 
-                               sizeof(SP_PROPCHANGE_PARAMS)) )
+                               sizeof(spPropChangeParams)) )
   {
   //Call the appropriate class installer and any registered co-installers
   if(SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, 
@@ -442,9 +364,13 @@ return false;
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Start or stop previuosly discovered device driver.
+
+  Returns: true if successful or false in case of a failure. To get extended
+  error information, call GetLastError().
  */
-bool CUsbHid::Enable(bool bEnable //[in] = true
+bool CUsbHid::Enable(bool bEnable //[in] = true enable or disable device
+                     //driver
                     )
 {
 TRACE1(_T("CUsbHid::Enable(%d)\n"),(bEnable ? DICS_ENABLE : DICS_DISABLE));
@@ -457,9 +383,13 @@ return false;
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Start or stop previuosly discovered device driver.
+
+  Returns: true if successful or false in case of a failure. To get extended
+  error information, call GetLastError().
  */
-bool CUsbHid::Start(bool bStart //[in] = true
+bool CUsbHid::Start(bool bStart //[in] = true start or stop discovered device
+                    //driver
                      )
 {
 TRACE1(_T("CUsbHid::Enable(%d)\n"),(bStart ? DICS_START : DICS_STOP));
@@ -472,7 +402,10 @@ return false;
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Restart driver of the previuosly discovered device.
+
+  Returns: true if successful or false in case of a failure. To get extended
+  error information, call GetLastError().
  */
 bool CUsbHid::Restart()
 {
