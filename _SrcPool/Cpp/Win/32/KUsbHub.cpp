@@ -305,15 +305,23 @@ return nCount;
 #endif
 
 //-----------------------------------------------------------------------------
-/*
+/*Retrieves the specified device property.
+
+  Returns: true if successful and requested device property or false in 
+  case of a failure. To get extended error information, call GetLastError().
  */
-bool CUsbHub::GetDeviceProperty(HDEVINFO hDevInfo, //[in]
-                                SP_DEVINFO_DATA* psdiDevinfo, //[in]
-                                const DWORD dwProperty, //[in]
-                                TCHAR* szBuff, //[out]
-                                DWORD& dwLen //[in, out]
+bool CUsbHub::GetDeviceProperty(HDEVINFO hDevInfo, //[in] handle to the device
+                                //information set that contains the interface
+                                SP_DEVINFO_DATA* psdiDevinfo, //[in] structure
+                                //that defines the device instance
+                                const DWORD dwProperty, //[in] property
+                                //to be retrieved
+                                TCHAR* szBuff, //[out] requested device property
+                                DWORD& dwLen //[in, out] availabile and required
+                                //buffer size in bytes
                                 )
 {
+TRACE1(_T("CUsbHub::GetDeviceProperty(dwProperty = %d)\n"), dwProperty);
 if (IsWinNt())
   {
   //Get a REG_MULTI_SZ string containing the list of hardware IDs for
@@ -384,6 +392,8 @@ else //Win98 TODO: test on old Win9x!
     RegCloseKey(hDevKey);
     }
   }
+
+TRACE1(_T("  Failed to obtain the property: #%0.8d!\n"), GetLastError());
 return false;
 }
 #endif //_WIN32

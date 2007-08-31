@@ -83,8 +83,54 @@ try
     bResult = (phidCapabilities != NULL);
     g_logTest.LogResult(bResult);
 
-    bResult = usbHid.Enable(false); //Stop the device
-    bResult = usbHid.Restart();      //Start the device
+    g_logTest.m_szObjectName = _T("CUsbHud::GetDeviceProperty()");
+    g_logTest.m_szFileName   = _T("KUsbHud.cpp");//function or object file name
+
+    TCHAR szProperty[MAX_PATH];
+    DWORD dwLen = sizeof(szProperty);
+    bResult = usbHub.GetDeviceProperty(usbHid, 
+                                       usbHid.GetDevInfo(), 
+                                       SPDRP_HARDWAREID,
+                                       szProperty,
+                                       dwLen
+                                       );
+    if (bResult)
+      {
+      TsWriteToViewLn(szProperty);
+      bResult = usbHub.GetDeviceProperty(usbHid, 
+                                         usbHid.GetDevInfo(), 
+                                         SPDRP_DEVICEDESC,
+                                         szProperty,
+                                         dwLen
+                                         );
+      if (bResult)
+        {
+        TsWriteToViewLn(szProperty);
+        bResult = usbHub.GetDeviceProperty(usbHid, 
+                                          usbHid.GetDevInfo(), 
+                                          SPDRP_CLASS,
+                                          szProperty,
+                                          dwLen
+                                          );
+
+        }
+      if (bResult)
+        TsWriteToViewLn(szProperty);
+      }
+    g_logTest.LogResult(bResult);
+
+    g_logTest.m_szObjectName = _T("CUsbHid::Stop()");
+    g_logTest.m_szFileName   = _T("KWinUsbHid.cpp");//function or object file name
+
+    bResult = usbHid.Start(false);  //Stop the device
+    if (bResult)
+      TsWriteToViewLn(_T("Stopped the device."));
+    else
+      TsWriteToViewLn(_T("Failed to stop the device."));
+    g_logTest.LogResult(true);
+
+    if (bResult)
+      bResult = usbHid.Start();       //Start the device
     }
   else
     {

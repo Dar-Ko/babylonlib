@@ -66,10 +66,11 @@ public:
   bool Start(bool bStart = true);
   bool Restart();
   bool IsHid(const TCHAR* szHardwareId) const;
+  operator HDEVINFO() const;
+  const PSP_DEVINFO_DATA GetDevInfo() const;
 protected:
   bool SetDeviceState(const DWORD dwState, 
                       const PSP_DEVINFO_DATA psdiDevInfo);
-  uint_fast32_t Enumerate();
 protected:
   HANDLE m_hHid; //handle to requested device of the HID class
   TCHAR* m_szDevicePath; //zero-terminated string specifying the HID path
@@ -103,6 +104,47 @@ if ((szHardwareId != NULL) && (szHardwareId[0] != '\0'))
   return (StrIStr(szHardwareId, SYSTEMENUM_HID) == szHardwareId);
   }
 return false;
+}
+
+//-----------------------------------------------------------------------------
+/*Get handle to the HID class device information set for the installed and 
+  present devices.
+
+  Returns: a handle to a device information set containing all installed 
+  and present devices. In case of a failure, the return value is 
+  INVALID_HANDLE_VALUE. To get extended error information, call GetLastError().
+ */
+inline CUsbHid::operator HDEVINFO() const
+{
+//Get the top HIDClass device interface GUID
+GUID guidHid;  //device interface GUID for HIDClass devices
+HidD_GetHidGuid(&guidHid);
+
+//Get handle to the device information set
+HDEVINFO hDevInfo = SetupDiGetClassDevs(&guidHid, //a interface class GUID
+                                        NULL, //PnP name of the device
+                                        NULL, //user interface window
+                                        DIGCF_DEVICEINTERFACE | //list of installed
+                                        //interface class devices
+                                        DIGCF_PRESENT      //currently present
+                                        //devices
+                                        );
+#ifdef _DEBUG
+  if (hDevInfo == INVALID_HANDLE_VALUE)
+    TRACE1(_T("  hDevInfo = INVALID_HANDLE_VALUE (Error #%0.8d)!\n"), 
+           GetLastError());
+#endif
+return hDevInfo;
+}
+
+//-----------------------------------------------------------------------------
+/*
+  Returns: structure that defines the previuosly discovered device instance or
+  NULL.
+ */
+inline const PSP_DEVINFO_DATA CUsbHid::GetDevInfo() const
+{
+return m_psdiDevinfo;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

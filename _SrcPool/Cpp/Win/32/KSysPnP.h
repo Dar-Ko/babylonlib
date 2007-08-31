@@ -163,7 +163,10 @@
  */
 #define SYSTEMENUM_USBSTOR _T("USBSTOR")
 
-/*Human Interface Device (HID) class
+/*Human Interface Device (HID) class.
+  The device ID format is:
+
+    HID\Vid_v(4)&Pid_d(4)&REV_r(4)
  */
 #define SYSTEMENUM_HID _T("HID")
 
