@@ -88,8 +88,11 @@ try
 
     TCHAR szProperty[MAX_PATH];
     DWORD dwLen = sizeof(szProperty);
-    bResult = usbHub.GetDeviceProperty(usbHid, 
-                                       usbHid.GetDevInfo(), 
+    //FixMe! GetDeviceProperty is successful inside Enumerate() loop
+    //(see  KWinUsbHid.cpp CVS Revision 1.2), but fails
+    //in the test. Verify persistance of  usbHid.GetDevInfo() pointer. D.K.
+    bResult = usbHub.GetDeviceProperty(usbHid,
+                                       usbHid.GetDevInfo(),
                                        SPDRP_HARDWAREID,
                                        szProperty,
                                        dwLen
@@ -97,8 +100,8 @@ try
     if (bResult)
       {
       TsWriteToViewLn(szProperty);
-      bResult = usbHub.GetDeviceProperty(usbHid, 
-                                         usbHid.GetDevInfo(), 
+      bResult = usbHub.GetDeviceProperty(usbHid,
+                                         usbHid.GetDevInfo(),
                                          SPDRP_DEVICEDESC,
                                          szProperty,
                                          dwLen
@@ -106,8 +109,8 @@ try
       if (bResult)
         {
         TsWriteToViewLn(szProperty);
-        bResult = usbHub.GetDeviceProperty(usbHid, 
-                                          usbHid.GetDevInfo(), 
+        bResult = usbHub.GetDeviceProperty(usbHid,
+                                          usbHid.GetDevInfo(),
                                           SPDRP_CLASS,
                                           szProperty,
                                           dwLen
@@ -149,7 +152,7 @@ return bResult;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2007-08-24 17:31:10  Darko Kolakovic 
+ * $Log:
+ *  1    Biblioteka1.0         2007-08-24 17:31:10  Darko Kolakovic
  * $
  *****************************************************************************/
