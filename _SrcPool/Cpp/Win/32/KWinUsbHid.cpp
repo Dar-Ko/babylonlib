@@ -36,11 +36,20 @@
   #include "KTrace.h"
 #endif
 
-#include <setupapi.h> //Device Management Structures
 #include "KUsbHid.h" //CUsbHid class
 #ifndef USBVID_ANY
   #include "KUsb.h"
 #endif
+
+/*Requires setupapi.lib
+
+  Note: If you intend that your device installation application run on
+  Windows 9x/Me, or Windows NT 4.0 or earlier, and you use the CM_Xxx functions,
+  be sure that cfgmgr32.lib appears before setupapi.lib in the sources file.
+  If your application is intended to run only on Windows 2000 or
+  a later NT-based operating system, you can omit cfgmgr32.lib.
+ */
+#pragma comment( lib, "setupapi" )
 
 /*Requires hid.lib
 
@@ -209,24 +218,24 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
       if(m_szDevicePath != NULL)
         _tcsncpy(m_szDevicePath, psdiDevDetail->DevicePath, nLen);
       delete[] psdiDevDetail;
-      
+
       if (m_psdiDevinfo == NULL)
         m_psdiDevinfo = new SP_DEVINFO_DATA();
       if (m_psdiDevinfo != NULL)
         {
         m_psdiDevinfo->cbSize = sizeof(SP_DEVINFO_DATA);
-        //Get context structure for a device information element of 
+        //Get context structure for a device information element of
         //the specified device information set.
         if (!SetupDiEnumDeviceInfo(hDevInfo, iDevCount, m_psdiDevinfo))
           {
-          TRACE1(_T("  Failed to get SP_DEVINFO_DATA: #%0.8d!"), 
+          TRACE1(_T("  Failed to get SP_DEVINFO_DATA: #%0.8d!"),
                  GetLastError());
           delete m_psdiDevinfo;
           m_psdiDevinfo = NULL;
           }
         }
       break; //Return the result
-      
+
       }
 
      delete[] psdiDevDetail;
@@ -269,44 +278,44 @@ return NULL;
 }
 
 //-----------------------------------------------------------------------------
-/*Configures installation parameters for a particular device information 
-  element. 
-  
+/*Configures installation parameters for a particular device information
+  element.
+
   Device state can be one of the following values:
 
     DICS_ENABLE      The device is being enabled.
-                     For this state change, Setup enables the device if the 
+                     For this state change, Setup enables the device if the
                      DICS_FLAG_GLOBAL flag is specified. If the D
-                     ICS_FLAG_CONFIGSPECIFIC flag is specified and the current 
-                     hardware profile is specified then Setup enables the device. 
-                     If the DICS_FLAG_CONFIGSPECIFIC is specified and not the 
-                     current hardware profile then Setup sets some flags in 
-                     the registry and does not change the device's state. 
-                     Setup will change the device state when the specified 
+                     ICS_FLAG_CONFIGSPECIFIC flag is specified and the current
+                     hardware profile is specified then Setup enables the device.
+                     If the DICS_FLAG_CONFIGSPECIFIC is specified and not the
+                     current hardware profile then Setup sets some flags in
+                     the registry and does not change the device's state.
+                     Setup will change the device state when the specified
                      profile becomes the current profile.
     DICS_DISABLE     The device is being disabled.
-                     For this state change, Setup disables the device if 
-                     the DICS_FLAG_GLOBAL flag is specified. If the 
-                     DICS_FLAG_CONFIGSPECIFIC flag is specified and the current 
-                     hardware profile is specified then Setup disables the device. 
-                     If the DICS_FLAG_CONFIGSPECIFIC is specified and not the 
-                     current hardware profile then Setup sets some flags in the 
+                     For this state change, Setup disables the device if
+                     the DICS_FLAG_GLOBAL flag is specified. If the
+                     DICS_FLAG_CONFIGSPECIFIC flag is specified and the current
+                     hardware profile is specified then Setup disables the device.
+                     If the DICS_FLAG_CONFIGSPECIFIC is specified and not the
+                     current hardware profile then Setup sets some flags in the
                      registry and does not change the device's state.
     DICS_PROPCHANGE  The properties of the device have changed.
-                     For this state change, Setup ignores the Scope information 
+                     For this state change, Setup ignores the Scope information
                      and stops and restarts the device.
-    DICS_START       The device is being started (if the request is for the 
-                     currently active hardware profile). Make the change in 
+    DICS_START       The device is being started (if the request is for the
+                     currently active hardware profile). Make the change in
                      the specified profile only; you cannot perform this
-                     change globally. Setup only starts the device if the current 
-                     hardware profile is specified, otherwise Setup sets a 
+                     change globally. Setup only starts the device if the current
+                     hardware profile is specified, otherwise Setup sets a
                      registry flag and does not change the state of the device.
-    DICS_STOP        The device is being stopped. The driver stack will be 
+    DICS_STOP        The device is being stopped. The driver stack will be
                      unloaded and the CSCONFIGFLAG_DO_NOT_START flag will be set
-                     for the device. Make the change in the specified profile 
-                     only; you cannot perform this change globally. Setup only 
-                     stops the device if the current hardware profile is 
-                     specified, otherwise Setup sets a registry flag and does 
+                     for the device. Make the change in the specified profile
+                     only; you cannot perform this change globally. Setup only
+                     stops the device if the current hardware profile is
+                     specified, otherwise Setup sets a registry flag and does
                      not change the state of the device.
 
   Note: installation parameters for generic keyboard or pointing device driver
@@ -323,7 +332,7 @@ TRACE1(_T("CUsbHid::SetDeviceState(dwState = %d)\n"), dwState);
 
 if (psdiDevInfo == NULL)
   {
-  SetLastError(E_POINTER);  
+  SetLastError(E_POINTER);
   return false;
   }
 
@@ -338,20 +347,20 @@ SP_PROPCHANGE_PARAMS spPropChangeParams;
 memset(&spPropChangeParams, 0, sizeof(spPropChangeParams));
 spPropChangeParams.ClassInstallHeader.cbSize = sizeof(SP_CLASSINSTALL_HEADER);
 spPropChangeParams.ClassInstallHeader.InstallFunction = DIF_PROPERTYCHANGE;
-spPropChangeParams.Scope = ((dwState == DICS_START) || 
-                            (dwState == DICS_STOP)) ? 
+spPropChangeParams.Scope = ((dwState == DICS_START) ||
+                            (dwState == DICS_STOP)) ?
                             DICS_FLAG_CONFIGSPECIFIC : DICS_FLAG_GLOBAL;
 spPropChangeParams.StateChange = dwState;
 spPropChangeParams.HwProfile = 0; //Zero specifies the current hardware profile
 
-if(SetupDiSetClassInstallParams(hDevinfo, //handle to the device information set 
+if(SetupDiSetClassInstallParams(hDevinfo, //handle to the device information set
                                psdiDevInfo, //device install class to set
                                (SP_CLASSINSTALL_HEADER*) &spPropChangeParams,
-                                 //new class install parameters 
+                                 //new class install parameters
                                sizeof(spPropChangeParams)) )
   {
   //Call the appropriate class installer and any registered co-installers
-  if(SetupDiCallClassInstaller(DIF_PROPERTYCHANGE, 
+  if(SetupDiCallClassInstaller(DIF_PROPERTYCHANGE,
                                hDevinfo,
                                psdiDevInfo))
     {
@@ -364,7 +373,7 @@ return false;
 }
 
 //-----------------------------------------------------------------------------
-/*Start or stop previuosly discovered device driver.
+/*Start or stop previously discovered device driver.
 
   Returns: true if successful or false in case of a failure. To get extended
   error information, call GetLastError().
@@ -383,7 +392,7 @@ return false;
 }
 
 //-----------------------------------------------------------------------------
-/*Start or stop previuosly discovered device driver.
+/*Start or stop previously discovered device driver.
 
   Returns: true if successful or false in case of a failure. To get extended
   error information, call GetLastError().
@@ -402,7 +411,7 @@ return false;
 }
 
 //-----------------------------------------------------------------------------
-/*Restart driver of the previuosly discovered device.
+/*Restart driver of the previously discovered device.
 
   Returns: true if successful or false in case of a failure. To get extended
   error information, call GetLastError().

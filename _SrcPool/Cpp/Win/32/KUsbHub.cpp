@@ -25,6 +25,7 @@
   #ifndef TRACE
     #define TRACE ATLTRACE
     #define TRACE1 ATLTRACE
+    #define TRACE2 ATLTRACE
   #endif
 #else
   #include <windows.h>
@@ -294,7 +295,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
       TRACE1(_T("  SetupDiGetDeviceRegistryProperty() Failed #%0.8d!\n"),
               GetLastError());
       }
-      
+
     iDevCount++;
     }
 
@@ -307,7 +308,7 @@ return nCount;
 //-----------------------------------------------------------------------------
 /*Retrieves the specified device property.
 
-  Returns: true if successful and requested device property or false in 
+  Returns: true if successful and requested device property or false in
   case of a failure. To get extended error information, call GetLastError().
  */
 bool CUsbHub::GetDeviceProperty(HDEVINFO hDevInfo, //[in] handle to the device

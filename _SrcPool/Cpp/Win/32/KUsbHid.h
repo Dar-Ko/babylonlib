@@ -21,13 +21,14 @@
   #ifndef _USE_ATL
     #include <windows.h>
   #endif
+  #include <setupapi.h> //Device Management Structures
   extern "C"
   {
   #include <hidsdi.h>//USB specific HID class GUID; Windows DDK
                      //to use in the user space
-  //Note: include <hidpddi.h> to use in the kernel space 
+  //Note: include <hidpddi.h> to use in the kernel space
   LPTSTR StrIStr(LPCTSTR szSource, LPCTSTR szToken);
-  }  
+  }
   #include <hidpi.h> //HIDP_CAPS struct; Windows DDK
 #endif
 
@@ -69,7 +70,7 @@ public:
   operator HDEVINFO() const;
   const PSP_DEVINFO_DATA GetDevInfo() const;
 protected:
-  bool SetDeviceState(const DWORD dwState, 
+  bool SetDeviceState(const DWORD dwState,
                       const PSP_DEVINFO_DATA psdiDevInfo);
 protected:
   HANDLE m_hHid; //handle to requested device of the HID class
@@ -107,11 +108,11 @@ return false;
 }
 
 //-----------------------------------------------------------------------------
-/*Get handle to the HID class device information set for the installed and 
+/*Get handle to the HID class device information set for the installed and
   present devices.
 
-  Returns: a handle to a device information set containing all installed 
-  and present devices. In case of a failure, the return value is 
+  Returns: a handle to a device information set containing all installed
+  and present devices. In case of a failure, the return value is
   INVALID_HANDLE_VALUE. To get extended error information, call GetLastError().
  */
 inline CUsbHid::operator HDEVINFO() const
@@ -130,8 +131,14 @@ HDEVINFO hDevInfo = SetupDiGetClassDevs(&guidHid, //a interface class GUID
                                         //devices
                                         );
 #ifdef _DEBUG
+  #if defined _ATL_VER
+    #ifndef TRACE1
+      #define TRACE1 ATLTRACE
+    #endif
+  #endif
+
   if (hDevInfo == INVALID_HANDLE_VALUE)
-    TRACE1(_T("  hDevInfo = INVALID_HANDLE_VALUE (Error #%0.8d)!\n"), 
+    TRACE1(_T("  hDevInfo = INVALID_HANDLE_VALUE (Error #%0.8d)!\n"),
            GetLastError());
 #endif
 return hDevInfo;
@@ -139,7 +146,7 @@ return hDevInfo;
 
 //-----------------------------------------------------------------------------
 /*
-  Returns: structure that defines the previuosly discovered device instance or
+  Returns: structure that defines the previously discovered device instance or
   NULL.
  */
 inline const PSP_DEVINFO_DATA CUsbHid::GetDevInfo() const
