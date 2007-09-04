@@ -20,9 +20,9 @@
 #define _LIST_TERMINATOR  0x0
 
 /*StrCatV()------------------------------------------------------------------*/
-/*The StrCatV function appends one or more null-terminated strings to 
-  szDestination and terminates the resulting string with a null character. 
-  No overflow checking is performed when strings are copied or appended. 
+/*The StrCatV function appends one or more null-terminated strings to
+  szDestination and terminates the resulting string with a null character.
+  No overflow checking is performed when strings are copied or appended.
   The behavior of StrCatV is undefined if the source and szRes strings overlap.
   The last item in the variable-argument list have to be zero.
 
@@ -35,32 +35,44 @@
       TCHAR szOutput[64];
       szOutput[0] = _T('\0');  / *Empty string* /
       StrCatV(szOutput, _T("The "), _T("quick "), _T("brown "), _T("dog "),
-                        _T("jumps "), _T("over "), 
-                        _T("the "), _T("lazy "), _T("fox."), 
+                        _T("jumps "), _T("over "),
+                        _T("the "), _T("lazy "), _T("fox."),
                         0 );
       wprintf(szOutput);
       }
 
   See also: KStrings.h
  */
-TCHAR* StrCatV(TCHAR* szDestination  /*result                                       */, 
-               const TCHAR* szSource /*pointer to a null-terminated string to append*/, 
+TCHAR* StrCatV(TCHAR* szDestination  /*result                                       */,
+               const TCHAR* szSource /*pointer to a null-terminated string to append*/,
                ...                   /*variable-argument list, last item have to be zero*/
                )
 {
 TCHAR* szRes = szDestination;      /*Resulting string                           */
-va_list varargList;
-va_start(varargList, szSource);   /*Sets arg_ptr to the first optional argument*/
-
-while (szSource != _LIST_TERMINATOR)
+if (szDestination != NULL)
   {
-  while (*szSource != _T('\0'))
-          *szDestination++ = *szSource++;
-  szSource = va_arg(varargList, TCHAR*);
+  if (szSource != NULL)
+    {
+    va_list varargList;
+      va_start(varargList, szSource);   /*Sets arg_ptr to the first optional argument*/
+
+    while (szSource != _LIST_TERMINATOR)
+      {
+      while (*szSource != _T('\0'))
+              *szDestination++ = *szSource++;
+      szSource = va_arg(varargList, TCHAR*);
+      }
+    *szDestination = _T('\0');
+
+    va_end(varargList);              /*Reset variable arguments.                   */
+    }
+  else
+    szRes = NULL; //Invalid argument error
   }
-*szDestination = _T('\0');
-
-va_end(varargList);              /*Reset variable arguments.                   */
-
 return szRes;
 }
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/*****************************************************************************
+ * $Log: $
+ *****************************************************************************/
