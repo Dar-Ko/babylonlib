@@ -23,7 +23,8 @@
 /*Convert a range of bits to a binary string. Presentation of the binary values is
   specified with parameters iTrueChar and iFalseChar. Range limit is 32 bits
   (size of double word).
-  Returns resulting string as a pointer to  to a caller-supplied
+
+  Returns resulting zero-terminated string as a pointer to to a caller-supplied
   buffer. Function does not test buffer overflow.
 
   Example:

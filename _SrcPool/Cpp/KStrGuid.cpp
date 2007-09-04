@@ -9,12 +9,18 @@
 
 /* Group=Strings                                                             */
 
-#include "stdafx.h"
-#ifndef _USE_MFC
+#if defined _USE_MFC || defined _USE_ATL
+  #include "stdafx.h"
+  //Use Microsoft implementation of CString
+  #define USE_MSCSTRING  20050708
+#enfif
+
+#ifndef USE_MSCSTRING
   #include "KStringHandler.h"
   #include "KString.h"  //CString class
 #endif //_USE_MFC
-#ifdef _USE_MFC
+
+#if defined USE_MSCSTRING
 //GuidToStr()-----------------------------------------------------------------
 /*Converts globally unique identifier (GUID) to a string.
   GUID is a pseudo-random number "statistically guaranteed" to be unique.
@@ -31,7 +37,7 @@
 
   Returns: GUID as formatted string.
 
-  See also: tagGUID, tagUUID
+  See also: tagGUID, tagUUID, GuidToA(), CGuid
  */
 CString GuidToStr(const GUID& iid //[in] 128-bit number representing GUID
                  )
@@ -44,7 +50,7 @@ strGUID.Format(_T("%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x"),
 return strGUID;
 }
 #else
-#pragma message ("Warning: TODO CString")
+  #pragma message ("Warning: TODO CString")
 #endif
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
