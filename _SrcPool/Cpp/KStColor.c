@@ -42,32 +42,35 @@
 COLOR StrToColor(LPCTSTR szColor /*[in] one of the 16 possible colors*/
                   )
 {
-_totlower(szColor);
-if( str_cmp(str, _T("black")       ) == 0) return(black       );
-if( str_cmp(str, _T("blue")        ) == 0) return(blue        );
-if( str_cmp(str, _T("green")       ) == 0) return(green       );
-if( str_cmp(str, _T("cyan")        ) == 0) return(cyan        );
-if( str_cmp(str, _T("red")         ) == 0) return(red         );
-if( str_cmp(str, _T("magenta")     ) == 0) return(magenta     );
-if( str_cmp(str, _T("brown")       ) == 0) return(brown       );
-if( str_cmp(str, _T("white")       ) == 0) return(white       );
-if( str_cmp(str, _T("lightgray")   ) == 0) return(white       );
-if( str_cmp(str, _T("gray")        ) == 0) return(grey        );
-if( str_cmp(str, _T("darkgray")    ) == 0) return(grey        );
-if( str_cmp(str, _T("lightblue")   ) == 0) return(lightblue   );
-if( str_cmp(str, _T("lightgreen")  ) == 0) return(lightgreen  );
-if( str_cmp(str, _T("lightcyan")   ) == 0) return(lightcyan   );
-if( str_cmp(str, _T("lightred")    ) == 0) return(lightred    );
-if( str_cmp(str, _T("lightmagenta")) == 0) return(lightmagenta);
-if( str_cmp(str, _T("yellow")      ) == 0) return(yellow      );
-if( str_cmp(str, _T("brightwhite") ) == 0) return(brightwhite );
+if (szColor != NULL)
+  {
+  _totlower(szColor);
+  if( str_cmp(str, _T("black")       ) == 0) return(black       );
+  if( str_cmp(str, _T("blue")        ) == 0) return(blue        );
+  if( str_cmp(str, _T("green")       ) == 0) return(green       );
+  if( str_cmp(str, _T("cyan")        ) == 0) return(cyan        );
+  if( str_cmp(str, _T("red")         ) == 0) return(red         );
+  if( str_cmp(str, _T("magenta")     ) == 0) return(magenta     );
+  if( str_cmp(str, _T("brown")       ) == 0) return(brown       );
+  if( str_cmp(str, _T("white")       ) == 0) return(white       );
+  if( str_cmp(str, _T("lightgray")   ) == 0) return(white       );
+  if( str_cmp(str, _T("gray")        ) == 0) return(grey        );
+  if( str_cmp(str, _T("darkgray")    ) == 0) return(grey        );
+  if( str_cmp(str, _T("lightblue")   ) == 0) return(lightblue   );
+  if( str_cmp(str, _T("lightgreen")  ) == 0) return(lightgreen  );
+  if( str_cmp(str, _T("lightcyan")   ) == 0) return(lightcyan   );
+  if( str_cmp(str, _T("lightred")    ) == 0) return(lightred    );
+  if( str_cmp(str, _T("lightmagenta")) == 0) return(lightmagenta);
+  if( str_cmp(str, _T("yellow")      ) == 0) return(yellow      );
+  if( str_cmp(str, _T("brightwhite") ) == 0) return(brightwhite );
+  }
 return(error);
 
 }
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
- *$Log: 
- * 1    Biblioteka1.0         2004-11-12 17:55:54  Darko Kolakovic 
+ *$Log:
+ * 1    Biblioteka1.0         2004-11-12 17:55:54  Darko Kolakovic
  *$
  *****************************************************************************/
