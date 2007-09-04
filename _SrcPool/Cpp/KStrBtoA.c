@@ -51,20 +51,22 @@ TCHAR* BintoA(TCHAR* szResult,/*string result         */
 TCHAR* lpszRes = szResult;  /*Start position */
 DWORD  dwBitMask;      /*Selection mask */
 DWORD  dwFirstBit;     /*Start position */
-DWORD  dwLastBit;     /*End position   */
+DWORD  dwLastBit;      /*End position   */
 
-*szResult = _T('\0');                        /*Erase string      */
-dwFirstBit = (DWORD) 0x01 << (iMsBit - 1);   /*Set start position*/
-dwLastBit  = (DWORD) 0x01 << iLsBit;         /*Set end position  */
-dwBitMask = dwFirstBit;
-while(dwBitMask >= dwLastBit)
+if(szResult != NULL)
   {
-  *szResult++ = (TCHAR)((dwValue & dwBitMask) ? iTrueChar : iFalseChar);
-  dwBitMask >>= 1;
+  *szResult = _T('\0');                        /*Erase string      */
+  dwFirstBit = (DWORD) 0x01 << (iMsBit - 1);   /*Set start position*/
+  dwLastBit  = (DWORD) 0x01 << iLsBit;         /*Set end position  */
+  dwBitMask = dwFirstBit;
+  while(dwBitMask >= dwLastBit)
+    {
+    *szResult++ = (TCHAR)((dwValue & dwBitMask) ? iTrueChar : iFalseChar);
+    dwBitMask >>= 1;
+    }
+  *szResult = _T('\0');    /*Terminate string*/
   }
-
-*szResult = _T('\0');    /*Terminate string*/
-return lpszRes;          /*Result          */
+return lpszRes;            /*Result          */
 }
 
 /* ///////////////////////////////////////////////////////////////////////// */

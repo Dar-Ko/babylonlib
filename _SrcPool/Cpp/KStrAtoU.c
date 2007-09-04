@@ -15,7 +15,7 @@
 #include "KTChar.h"
 
 //-----------------------------------------------------------------------------
-/*Convert an array of decimal digits to unsigned integer. 
+/*Convert an array of decimal digits to unsigned integer.
   Function parses until last digit found up to maximum nLen characters.
   The string could contain only decimal digits.
   The function stops reading the input string at the first character that it
@@ -25,27 +25,45 @@
   as a number or 0 if the input cannot be converted and number of characters
   successfuly parsed. The return value is undefined in case of overflow.
  */
-unsigned AtoU(LPCTSTR strSource, uint_fast16_t* pnLen)
+unsigned AtoU(LPCTSTR strSource, /*[in] text to be converted*/
+              uint_fast16_t* pnLen /*[in, out] number of letters to convert.
+              If it is NULL, all characters until first non-digit will be
+              considered.*/
+              )
 {
 unsigned nResult = 0;
 uint_fast16_t nCount = 0; //parsed characters count
 
-while ((*strSource >= _T('0')) && 
-       (*strSource <= _T('9')) &&
-       (nCount < *pnLen)          )
+if (pnLen != NULL)
   {
-  nResult = 10 * nResult + *strSource++ - _T('0');
-  nCount++;
-  }
+  //Parse specified number of charactes until first non-digit character is found
+  while ((*strSource >= _T('0')) &&
+         (*strSource <= _T('9')) &&
+         (nCount < *pnLen)          )
+    {
+    nResult = 10 * nResult + *strSource++ - _T('0');
+    nCount++;
+    }
 
-*pnLen = nCount;
+  *pnLen = nCount;
+  }
+else
+  {
+  //Parse until first non-digit character is found
+  while ((*strSource >= _T('0')) &&
+         (*strSource <= _T('9'))   )
+    {
+    nResult = 10 * nResult + *strSource++ - _T('0');
+    nCount++;
+    }
+  }
 return nResult;
 }
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  2    Biblioteka1.1         2004-06-01 16:52:56  Darko           time sync
- *  1    Biblioteka1.0         2003-09-24 17:41:34  Darko           
+ *  1    Biblioteka1.0         2003-09-24 17:41:34  Darko
  * $
  *****************************************************************************/
