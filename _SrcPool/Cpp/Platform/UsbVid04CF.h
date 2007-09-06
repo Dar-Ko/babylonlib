@@ -1,5 +1,5 @@
-/*$Workfile: $: header file
-  $Revision: 1.1 $ $Date: 2007/08/20 18:55:32 $
+/*$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid04CF.h$: header file
+  $Revision: 1.2 $ $Date: 2007/09/06 01:20:34 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -10,7 +10,7 @@
 /* Group=USB ID                                                              */
 
 #ifndef _USBVID04CF_H_
-  //$Workfile: UsbVid04CF.h$ sentry
+  //$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid04CF.h$ sentry
   #define _USBVID04CF_H_
 
 /*1231.	USB device vendor identification (VID) number	Myson Century, Inc.	http://www.myson.com.tw/
@@ -18,6 +18,7 @@
   See also: usb-if.tsv, USB Implementers Forum, Inc (USB-IF) at http://www.usb.org
  */
 #define USBVID_MYSON 0x04CF
+#define USBVID_04CF _T("Myson Century, Inc.") //VID 1231 Vendor name
 
 #define USBPID_MTM808 0x0808 //MTM808 USB Mass Storage Device
 #define USBPID_MTM809 0x0809 //MTM809 USB Mass Storage Device
@@ -33,7 +34,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_USBVID04CF_H_
 /*****************************************************************************
- * $Log: UsbVid04CF.h,v $
+ * $Log:
+ *  1    Biblioteka1.0         22/08/2007 10:51:36 AMDarko Kolakovic
+ * $
  * Revision 1.1  2007/08/20 18:55:32  ddarko
  * Created
  *

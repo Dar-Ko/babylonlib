@@ -1,5 +1,5 @@
 /*$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid046D.h$: header file
-  $Revision: 1.2 $ $Date: 2007/08/22 23:32:50 $
+  $Revision: 1.3 $ $Date: 2007/09/06 01:20:34 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -18,6 +18,7 @@
   See also: usb-if.tsv, USB Implementers Forum, Inc (USB-IF) at http://www.usb.org
  */
 #define USBVID_LOGITECH 0x046D
+#define USBVID_046D _T("Logitech Inc.") //VID 1133 Vendor name
 
 #define USBPID_M2452KBD                      0x0203 //M2452 Keyboard
 #define USBPID_M4848MOUSE                    0x0301 //M4848 Mouse
@@ -109,8 +110,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_USBVID046D_H_
 /*****************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         22/08/2007 10:51:35 AMDarko Kolakovic 
+ * $Log:
+ *  1    Biblioteka1.0         22/08/2007 10:51:35 AMDarko Kolakovic
  * $
  * Revision 1.1  2007/08/17 21:15:42  ddarko
  * Created
