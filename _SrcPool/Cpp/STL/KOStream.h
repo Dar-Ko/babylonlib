@@ -118,6 +118,10 @@
   typedef std::wofstream      tofstream;
     //Provides a stream interface to read data from files.
   typedef std::wifstream      tifstream;
+    //A type basic_fstream specialized on TCHAR template parameters. 
+    //See also: fstream, wfstream 
+  typedef std::wfstream       tfstream;
+
     //Represents the standard input. It corresponds to the cstdio stream stdin.
   #define _tcin  wcin
     //Represents the standard output stream.
@@ -135,6 +139,7 @@
   typedef std::istream       tistream;
   typedef std::ofstream      tofstream;
   typedef std::ifstream      tifstream;
+  typedef std::fstream       tfstream;
 
   #define _tcin  cin
   #define _tcout cout

@@ -357,6 +357,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\Stl\KFileExistStl.cpp">
+			</File>
+			<File
 				RelativePath="..\..\STL\KFileRead.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32"

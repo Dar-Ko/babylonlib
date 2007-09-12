@@ -335,6 +335,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KFileExist.cpp">
+			</File>
+			<File
 				RelativePath="..\..\Win\32\KFileFindOld.cpp">
 			</File>
 			<File
