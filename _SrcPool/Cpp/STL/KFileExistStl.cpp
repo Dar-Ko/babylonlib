@@ -1,5 +1,5 @@
 /*$Workfile: KFileRead.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2007/09/12 20:40:58 $
+  $Revision: 1.2 $ $Date: 2007/09/12 20:47:22 $
   $Author: ddarko $
 
   Checks if file exist.
@@ -23,11 +23,9 @@
 #include <string>
 #include <fstream>  //std::fstream
 
-#ifndef _T
-  #include "KTChar.h" //_T macro
-#endif
+#include "KTString.h" //tstring typedef
+#include "KOStream.h" //tfstream typedef
 
-//#include <new>      //std::nothrow
 
 using namespace std;
 
@@ -38,28 +36,12 @@ using namespace std;
 
   Note: uses Standard Template Library (STL).
  */
-bool IsFileExisting(string strFileName //[in] file name
-                   )
-{
-if (strFileName.length() > 0 )
-  {
-  fstream fsFile(strFileName.c_str(), ios::in);
-  if(fsFile.is_open())
-    {
-    fsFile.close();
-    return true;
-    }
-  }
-return false;
-}
-
-#include "KTString.h"
 bool IsFileExisting(tstring strFileName //[in] file name
                    )
 {
 if (strFileName.length() > 0 )
   {
-  fstream fsFile(strFileName.c_str(), ios::in);
+  tfstream fsFile(strFileName.c_str(), ios::in);
   if(fsFile.is_open())
     {
     fsFile.close();
@@ -72,6 +54,9 @@ return false;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: KFileExistStl.cpp,v $
+ * Revision 1.2  2007/09/12 20:47:22  ddarko
+ * Unicode
+ *
  * Revision 1.1  2007/09/12 20:40:58  ddarko
  * Moved IsFileExisting()
  *
