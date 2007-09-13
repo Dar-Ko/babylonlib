@@ -13,7 +13,7 @@
 		<Configuration
 			Name="Release_Unicode|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
-			IntermediateDirectory=".\..\Obj\Release_Unicode\StdLib\Win32"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -73,7 +73,7 @@
 		<Configuration
 			Name="Debug_Unicode|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
-			IntermediateDirectory=".\..\Obj\Debug_Unicode\StdLib\Win32"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -137,7 +137,7 @@
 		<Configuration
 			Name="Release_SBCS|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
-			IntermediateDirectory=".\..\Obj\Release_SBCS\StdLib\Win32"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
@@ -258,8 +258,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_MBCS|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
