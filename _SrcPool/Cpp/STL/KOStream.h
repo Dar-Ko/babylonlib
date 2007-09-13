@@ -118,11 +118,11 @@
   typedef std::wofstream      tofstream;
     //Provides a stream interface to read data from files.
   typedef std::wifstream      tifstream;
-    //A type basic_fstream specialized on TCHAR template parameters. 
-    //See also: fstream, wfstream 
+    //A type basic_fstream specialized on TCHAR template parameters.
+    //See also: fstream, wfstream
   typedef std::wfstream       tfstream;
 
-    //Represents the standard input. It corresponds to the cstdio stream stdin.
+  //Represents the standard input. It corresponds to the cstdio stream stdin.
   #define _tcin  wcin
     //Represents the standard output stream.
   #define _tcout wcout
@@ -152,7 +152,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  17   Biblioteka1.16        2007-07-16 18:02:59  Darko Kolakovic ToDo!
  *  16   Biblioteka1.15        2007-07-10 17:54:46  Darko Kolakovic pragma
  *  15   Biblioteka1.14        2007-05-03 15:50:12  Darko Kolakovic KSTL_IO 1400
@@ -175,6 +175,6 @@
  *  4    Biblioteka1.3         2003-09-30 09:12:42  Darko           tbool
  *  3    Biblioteka1.2         2003-09-22 22:26:26  Darko           formatting
  *  2    Biblioteka1.1         2003-09-22 21:26:34  Darko           Unicode
- *  1    Biblioteka1.0         2003-09-22 18:34:47  Darko           
+ *  1    Biblioteka1.0         2003-09-22 18:34:47  Darko
  * $
  *****************************************************************************/
