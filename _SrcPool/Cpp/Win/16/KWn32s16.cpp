@@ -14,7 +14,7 @@
   #include <Windows.h>
 #endif
 
-#ifndef _WIN32 //~_Win32 for  16-bit application
+#ifndef _WIN32 //~_Win32 for 16-bit application
                //32-bit application should use GetVersionEx()
 ///////////////////////////////////////////////////////////////////////////////
 // 16-bit application
