@@ -49,7 +49,9 @@
 
   Returns: string with unique file name or NULL in case of a failure.
 
-  Note: Microsoft Windows specific (Win).
+  Note: uses Microsoft Foundation Library (MFC) or
+        uses Microsoft Active Template Library (ATL);
+        Microsoft Windows specific (Win32).
  */
 LPCTSTR CreateUniqueFileName(CString& strResult,//[out] unique filename
                              LPCTSTR szFilePath,//[in] directory path or NULL.
