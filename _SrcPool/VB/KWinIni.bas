@@ -109,7 +109,7 @@ Public Declare Function GetPrivateProfileInt Lib "kernel32" Alias _
                            ByVal lpKeyName As Any, _
                            ByVal nDefault As Long, _
                            ByVal lpFileName As String) As Long
-                           
+
 'Retrieves the data associated with a key in the specified section of
 'an initialization file. As it retrieves the data, the function calculates
 'a checksum and compares it with the checksum calculated by
@@ -143,7 +143,7 @@ Public Declare Function WritePrivateProfileSection Lib "kernel32" Alias _
   "WritePrivateProfileSectionA" (ByVal lpSectionName As String, _
                                  ByVal lpString As String, _
                                  ByVal lpFileName As String) As Long
-                                 
+
 'Copies a string into the specified section of an initialization file.
 ' lpSectionName [in] The name of the section to which the string will be copied.
 '                If the section does not exist, it is created. The name of the section is case-independent; the string can be any combination of uppercase and lowercase letters.
@@ -163,6 +163,8 @@ Public Declare Function WritePrivateProfileString Lib "kernel32" Alias _
 '-------------------------------------------------------------------------------
 'Retrieves all the keys and values for the specified section of an initialization
 'file. The string is limited to the 256 characters.
+'The function is not case-sensitive; the section name can be a combination
+'of uppercase and lowercase letters.
 'Initialization file have following format:
 '   [Section1]
 '   Key1=Value1
@@ -179,7 +181,6 @@ Public Function GetIniSection(szFilename As String, _
   Dim szResult As String * VAL_SIZE
   Dim lCount As Long
   lCount = GetPrivateProfileSection(szSection, szResult, VAL_SIZE, szFilename)
-  GetIniSection = Left(szResult, lCount - 1)
   If (lCount > 0) Then
     GetIniSection = Left(szResult, lCount - 1)
   Else
@@ -221,13 +222,15 @@ End Function
 '
 'Returns value of the specified initialization key or the empty string if the file
 'or the key could not be found.
+'
+'Author Bernie Madigan <bernie@ testrun.cjb.net>
 Public Function ReadIniValue(ByVal szFilename As String, _
                              ByVal strSection As String, _
                              ByVal strKey As String) As String
   ReadIniValue = ""
-  If szFilename <> "" Then 'File is not specified
-    If ((strKey = "") And (strSection = "")) Then Exit Function 'Nothing to do
-    
+  If szFilename <> "" Then 'File is specified
+    If (strKey = "") Then Exit Function 'Nothing to do
+
     Dim bBrowseSections As Boolean
     'Normalize search strings to lower case
     strKey = LCase$(strKey)
@@ -239,12 +242,12 @@ Public Function ReadIniValue(ByVal szFilename As String, _
       'Find the fist occurrence of the key
       bBrowseSections = False
     End If
-    
+
     Dim strLine As String 'line of text
     Dim strNormalizedLine As String 'line of text in lower case
     Dim bFoundSection As Boolean 'line contains a section name
     bFoundSection = False
-    
+
     Dim hFile As Integer 'file handle
     hFile = FreeFile
     SetAttr szFilename, vbArchive
@@ -254,7 +257,7 @@ Public Function ReadIniValue(ByVal szFilename As String, _
       Line Input #hFile, strLine
       strNormalizedLine = LCase$(strLine)
       'Find the section name
-      
+
       If bBrowseSections Then 'Find the section
         If Not bFoundSection And (InStr(strNormalizedLine, strSection) <> 0) Then
           bFoundSection = True 'Found a section
@@ -322,22 +325,22 @@ Public Function WriteIniValue(szFilename As String, _
   Dim strSectionName As String 'normalized section name
   Dim iSectionNameLen As Integer
   Dim strKeyName As String 'normalized key name
-  
+
   If (szFilename = "") Then
     Err.Raise ERROR_INVALID_DATA, App.Title, "Invalid filename"
     Exit Function 'Nothing to do
   End If
-  
+
   hFile = FreeFile
   strSectionName = vbCrLf & "[" & LCase$(strSection) & "]" & Chr$(13)
   iSectionNameLen = Len(strSectionName)
   strKeyName = Chr$(10) & LCase$(strKey) & "="
-        
+
   'Create file if not exist
   Open szFilename For Binary As hFile
   Close hFile
   SetAttr szFilename, vbArchive
-    
+
   'Read the file
   Dim strFileContent As String
   Dim strNormalizedContent As String
@@ -346,35 +349,35 @@ Public Function WriteIniValue(szFilename As String, _
   strFileContent = vbCrLf & strFileContent & "[]"
   Close hFile
   strNormalizedContent = LCase$(strFileContent)
-    
+
   'Get position of the elements
   Dim iSectionStart As Integer 'section start position
   iSectionStart = InStr(strNormalizedContent, strSectionName)
   If iSectionStart = 0 Then GoTo INSERT_KEY:
-  
+
   Dim iSectionEnd As Integer 'section end position
   iSectionEnd = InStr(iSectionStart + iSectionNameLen, strNormalizedContent, "[")
-  
+
   Dim iKeyEnd As Integer 'key name end position
   iKeyEnd = InStr(iSectionStart, strNormalizedContent, strKeyName)
   If iKeyEnd > iSectionEnd Or iKeyEnd < iSectionStart Then GoTo INSERT_VALUE:
-  
+
   GoTo CHANGE_VALUE:
-    
+
 INSERT_KEY:
   strFileContent = Left$(strFileContent, Len(strFileContent) - 2)
   strFileContent = strFileContent & vbCrLf & vbCrLf & _
                    "[" & strSection & "]" & vbCrLf & _
                    strKey & "=" & strValue
   GoTo FORMAT_OUTPUT:
-        
+
 INSERT_VALUE:
   strFileContent = Left$(strFileContent, Len(strFileContent) - 2)
   strFileContent = Left$(strFileContent, iSectionStart + iSectionNameLen) & _
                    strKey & "=" & strValue & vbCrLf & _
                    Mid$(strFileContent, iSectionStart + iSectionNameLen + 1)
   GoTo FORMAT_OUTPUT:
-        
+
 CHANGE_VALUE:
   Dim iValueEnd As Integer 'text value end position
   strFileContent = Left$(strFileContent, Len(strFileContent) - 2)
@@ -389,20 +392,20 @@ FORMAT_OUTPUT:
   Do Until InStr(strFileContent, vbCrLf & vbCrLf & vbCrLf) = 0
     strFileContent = Replace(strFileContent, vbCrLf & vbCrLf & vbCrLf, vbCrLf & vbCrLf)
   Loop
-  
+
   Do Until Right$(strFileContent, 1) > Chr$(13)
     strFileContent = Left$(strFileContent, Len(strFileContent) - 1)
   Loop
-  
+
   Do Until Left$(strFileContent, 1) > Chr$(13)
     strFileContent = Mid$(strFileContent, 2)
   Loop
-    
+
   'Save the result
   Open szFilename For Output As hFile
   Print #hFile, strFileContent
   Close hFile
-    
+
 End Function
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************

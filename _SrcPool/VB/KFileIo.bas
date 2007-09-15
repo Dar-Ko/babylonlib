@@ -7,9 +7,10 @@ Attribute VB_Name = "KFileIo"
 '2003-12-29
 Option Explicit
 '-------------------------------------------------------------------------------
-'Verifies if file eixts in the current folder.
+'Verifies if file exists in the current folder.
 'Returns True if file exist or False if not.
 Public Function IsFileExisting(strFileName As String) As Boolean
+  'Is the file one of the existing files?
   If Dir(strFileName) <> "" Then
     IsFileExisting = True
   Else
@@ -34,7 +35,7 @@ End Function
 Public Function ExtractDir(strFileName As String) As String
   Dim iLength As Integer
   iLength = Len(strFileName)
-  
+
   While iLength > 0
     'Get last directory delimiter
     If Mid(strFileName, iLength, 1) = "\" Then
@@ -65,7 +66,7 @@ Public Function CreateTmpFile(Optional strPrefix As String) As String
   Dim strPath As String
   Dim strResult As String
   strResult = Space$(MAX_PATH) 'Create a buffer
-  
+
   strPath = Environ$("temp")
   If GetTempFileName(strPath, strPrefix, 0, strResult) <> 0 Then
     CreateTmpFile = Left(strResult, InStr(1, strResult, Chr(0)) - 1)

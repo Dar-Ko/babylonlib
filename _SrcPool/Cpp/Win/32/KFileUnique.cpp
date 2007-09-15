@@ -14,15 +14,28 @@
   #define USE_KCSTRING 20070505
 #endif
 
+#if defined _ATL_VER
+  #undef USE_KCSTRING
+  #ifndef TRACE
+    #define TRACE ATLTRACE
+    #define TRACE1 ATLTRACE
+    #define TRACE2 ATLTRACE
+    #define ASSERT ATLASSERT
+  #endif
+#endif
+
+#ifndef TRACE
+  #include "KTrace.h" //Debugging macros
+#endif
+
 #ifdef USE_KCSTRING
   #ifndef TRACE0
     #ifndef _T
       #include "KTChar.h"
     #endif
-    #include "KTrace.h" //Debugging macros
   #endif
 
-  #ifdef _STL
+  #ifdef _USE_STL
     #include <string> //base string class
   #endif
   #include "KString.h" //CString class
