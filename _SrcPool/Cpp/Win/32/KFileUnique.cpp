@@ -9,6 +9,8 @@
 
 #include "stdafx.h"
 #include <errno.h>
+#include <io.h> //_access() (_taccess is in tchar.h)
+
 #include "KFileSys.h"
 #ifndef _AFXDLL
   #define USE_KCSTRING 20070505
@@ -85,7 +87,7 @@ const int ACCESS_OK = 0; //File has required access rights
 const int EOK = 0; //no error occured
 const int NAMESIZE = 8; //size of variable part of the file name is 32-bit
                         //hexadecimal number
-int iPos;    //space required for the file name
+int iPos = MAX_PATH;    //space required for the file name
 if((szFilePath != NULL) && (szFilePath[0] != _T('\0')))
   {
   iPos = _tcslen(szFilePath);
@@ -121,7 +123,7 @@ if ((szFilePath != NULL) && (szFilePath[0] != _T('\0')))
     iPos++;
     }
 
-  if (!IsPathDelim(szResult[iPos]))  //Append directory delimiter
+  if (!IsPathDelim(szResult[iPos - 1]))  //Append directory delimiter
     {
     szResult[iPos] = PATHDELIM;
     iPos++;
@@ -165,6 +167,7 @@ if ((szExtension != NULL) && (szExtension[0] != _T('\0')))
     i++;
     }
   }
+szResult[iPos] = _T('\0'); //Append terminating zero
 ASSERT((MAX_PATH - iPos) > 0); //Check if enough space is allocated
 //Save the character after variable part of filename
 TCHAR chNameEnd = szResult[iNamePos + NAMESIZE];
