@@ -321,8 +321,17 @@ return NULL;
   Note: installation parameters for generic keyboard or pointing device driver
   could not be changed.
 
+  Note: The generic USB keyboard driver kbdclass.sys have default state
+  PNP_DEVICE_NOT_DISABLEABLE, because it is required for proper system operation.
+  To allow disabling the device create DWORD registry key value AllowDisable in
+  following registry Key:
+  HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Kbdclass\Parameters\
+  To disallow disabling it is required to delete or rename previous key value.
+
   Returns: true if successful or false in case of a failure. To get extended
   error information, call GetLastError().
+
+  See also: PNP_DEVICE_STATE
  */
 bool CUsbHid::SetDeviceState(const DWORD dwState, //[IN] new device state
                              const PSP_DEVINFO_DATA psdiDevInfo //[in]
