@@ -307,6 +307,9 @@
 				RelativePath=".\Cpp\KMatFact.cpp">
 			</File>
 			<File
+				RelativePath=".\Cpp\KMod10.cpp">
+			</File>
+			<File
 				RelativePath=".\Cpp\KRandomGauss.cpp">
 			</File>
 			<File
@@ -317,6 +320,9 @@
 			</File>
 			<File
 				RelativePath=".\Cpp\KStrAtoU.c">
+			</File>
+			<File
+				RelativePath=".\Cpp\KStrBool.cpp">
 			</File>
 			<File
 				RelativePath=".\Cpp\KStrBtoA.c">
