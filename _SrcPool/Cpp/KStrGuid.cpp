@@ -13,9 +13,11 @@
   #include "stdafx.h"
   //Use Microsoft implementation of CString
   #define USE_MSCSTRING  20050708
-#enfif
+#endif
 
 #ifndef USE_MSCSTRING
+  #include "KTChar.h"    //TCHAR typedef
+
   #include "KStringHandler.h"
   #include "KString.h"  //CString class
 #endif //_USE_MFC

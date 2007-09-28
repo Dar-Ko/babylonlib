@@ -445,6 +445,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\KGetLRC.cpp">
+			</File>
+			<File
+				RelativePath="..\..\KIsLRC.cpp">
+			</File>
+			<File
 				RelativePath="..\..\KIsPrimeNo.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
@@ -500,6 +506,9 @@
 				RelativePath="..\..\KMatGcd.c">
 			</File>
 			<File
+				RelativePath="..\..\KMod10.cpp">
+			</File>
+			<File
 				RelativePath="..\..\KTestLog.cpp">
 			</File>
 			<File
@@ -553,6 +562,9 @@
 			</File>
 			<File
 				RelativePath="..\Common\Res\Win\32\Test.rc">
+			</File>
+			<File
+				RelativePath=".\Src\TestChecksum.cpp">
 			</File>
 			<File
 				RelativePath=".\Src\TestCommonNumeric.cpp">
@@ -620,6 +632,9 @@
 			</File>
 			<File
 				RelativePath=".\Src\TestLinkedList.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestNaN.cpp">
 			</File>
 			<File
 				RelativePath=".\Src\TestNetByteOrder.cpp">
@@ -927,6 +942,9 @@
 			Name="Logs">
 			<File
 				RelativePath=".\LibraryTest.log">
+			</File>
+			<File
+				RelativePath=".\LibraryTestUni.log">
 			</File>
 		</Filter>
 		<File

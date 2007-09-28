@@ -9,20 +9,13 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#ifndef _KCHARCST_H_
+
+#ifndef ETX
   #include "KCharCst.h" //ETX
 #endif
 
-#ifdef _DEBUG
-  #ifdef _USE_MFC
-    #define new DEBUG_NEW
-  #endif //_USE_MFC
-  #undef THIS_FILE
-  static char THIS_FILE[] = __FILE__;
-#endif
-
-#ifndef BYTE
-  #define BYTE unsigned char
+#ifndef uint8_t
+  #include "KTypedef.h"
 #endif
 
 #ifndef NULL
@@ -35,7 +28,7 @@
   #endif
 #endif
 
-extern "C" BYTE GetLRC(BYTE* pbData,int iCount);
+extern "C" uint8_t GetLRC(uint8_t* pbData,int iCount);
 
 //IsLRCValid()-----------------------------------------------------------------
 /*Validates Longitudinal Redundancy Checksum (LRC).
@@ -48,16 +41,20 @@ extern "C" BYTE GetLRC(BYTE* pbData,int iCount);
 
       {
       ...
-      BYTE chData[10] = {STX,'1','2','3','4','5','6','7',EOT};
-      chData[9] = GetLRC(&chData[1],8);
+      const int SIZE = 10;
+      BYTE chData[SIZE] = {STX,'1','2','3','4','5','6','7',EOT};
+                          //   +------------------------------+ data
+      chData[SIZE - 1]  = GetLRC(&chData[1],8);
       ...
       if(IsLRCValid(chData[9],&chData[1],8))
           TRACE0("LRC is valid\n");
+      else
+          TRACE0("LRC is not valid\n");
       }
  */
-bool IsLRCValid(const BYTE chReceivedLRC, //[in] value to be verified
-                BYTE* pbData,             //[in] data buffer including
-                                          //termination character (EOT/ETB/ETX)
+bool IsLRCValid(const uint8_t chReceivedLRC, //[in] value to be verified
+                uint8_t* pbData,             //[in] data buffer including
+                                     //termination character (EOT/ETB/ETX)
                 int iCount    //[in] size of data in bytes including
                               //termination character (minimum value is 1)
                 )

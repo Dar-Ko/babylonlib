@@ -19,7 +19,7 @@
 
 #ifdef _DEBUG
   #ifndef THIS_FILE
-    static TCHAR THIS_FILE[] = __FILE__;
+    static TCHAR THIS_FILE[] = __TFILE__;
   #endif
 #endif
 

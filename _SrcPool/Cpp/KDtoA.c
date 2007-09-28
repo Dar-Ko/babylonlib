@@ -126,7 +126,7 @@ LPTSTR DtoA(double dValue,   /*[in] real number to be converted               */
                         0,                /*character-type options*/
                         szTemp,           /*string to map*/
                         (int)strlen(szTemp)+1, /*number of bytes in string*/
-                        szResult,         /*wide-character buffer*/
+                        (LPWSTR)szResult,         /*wide-character buffer*/
                         iSize             /*size of buffer*/
                         );
     /*Note: If the MultiByteToWideChar() fails, the return value is zero.

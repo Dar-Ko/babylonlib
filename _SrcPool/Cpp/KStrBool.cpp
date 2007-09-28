@@ -10,11 +10,14 @@
 /* Group=Strings                                                             */
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
+#include "KTypedef.h"
+#include "KTChar.h"
+
 LPCTSTR BooltoA(const bool bValue, LPCTSTR szTrue = NULL, LPCTSTR szFalse = NULL);
 
 //-----------------------------------------------------------------------------
-/*Obatins tesxtual representation of a boolean value.
-  Deafult representation for logical true is the symbol T and for logical false
+/*Obtains textual representation of a boolean value.
+  Default representation for logical true is the symbol T and for logical false
   is the symbol F:
 
       true  T
@@ -24,7 +27,9 @@ LPCTSTR BooltoA(const bool bValue, LPCTSTR szTrue = NULL, LPCTSTR szFalse = NULL
     ...
     int i = 100;
     bool bRes = (i != 0);
-    std::_tcout << _T("i is equal to null: ") << BooltoA(bRes, "Yes", "No") << std::endl;
+    std::_tcout << _T("i is equal to null: ") 
+                << BooltoA(bRes, _T("Yes"), _T("No")) 
+                << std::endl;
     ...
     Output: i is equal to null: Yes
  */

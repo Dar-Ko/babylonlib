@@ -8,10 +8,21 @@
  */
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
+#ifdef _MSC_VER
+  #if defined _UNICODE
+    //To enable Unicode for some Microsoft Visual C/C++ header files,
+    //the UNICODE definition is required
+    #ifndef UNICODE
+      #define UNICODE 12994
+    #endif
+    #pragma message("Unicode literals")
+  #endif
+#endif
 
 #ifndef ASSERT
   #include "KTrace.h"
 #endif
+
 #include "KTChar.h"    //TCHAR typedef
 
   //warning C4127: conditional expression is constant
@@ -30,9 +41,10 @@ CStringHandler::CStringHandler(LPCTSTR szSource //[in]= NULL a zero-terminated
                                          //string to be copied into this object
                                )
 {
+const TCHAR* a = szSource;
 if( (szSource != NULL ) && (szSource[0] != _T('\0')) )
   {
-  m_nLength = (unsigned int)_tcslen((TCHAR*)szSource);
+  m_nLength = (unsigned int)_tcsclen(szSource);
   m_nSize = m_nLength + 1;
   m_pData = new TCHAR[m_nSize];
   if (m_pData != NULL)

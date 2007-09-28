@@ -194,6 +194,14 @@
    */
   #ifdef _MSC_VER /*Microsoft Visual C/C++*/
 
+    #ifdef _UNICODE
+      #ifndef UNICODE
+        //To enable Unicode for some Microsoft Visual C/C++ header files,
+        //the UNICODE definition is required
+        #define UNICODE
+      #endif
+    #endif
+
     #if (_MSC_VER < 1400) //Less than Visual C++ 2005
       #ifdef _UNICODE
         #ifndef _TCRTDBGREPORT

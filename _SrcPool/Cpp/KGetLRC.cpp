@@ -19,17 +19,20 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
-#ifndef BYTE
-  #define BYTE unsigned char
+#ifndef uint8_t
+  #include "KTypedef.h"
 #endif
 
-extern "C" BYTE GetLRC(BYTE* pbData,int iCount);
+extern "C" uint8_t GetLRC(uint8_t* pbData,int iCount);
 
 //GetLRC()---------------------------------------------------------------------
-/*Calculates one byte Longitudinal Redundancy Checksum (LRC). The LRC is an 
-  exclusive-or calculation on all data bytes. The LRC is calculated from the 
-  begining of data buffer to the termination character, including termination 
-  character itself. 
+/*Calculates one byte Longitudinal Redundancy Checksum (LRC). The LRC is an
+  exclusive-or calculation on all data bytes. While is possible to obtain
+  the checksum of any array of bytes, the LRC is usually calculated from the
+  beginning of data buffer to the termination character, including termination
+  character itself.
+  The termination character for data transfer is either end of text (ETX),
+  end of transmission block (ETB) or end of transmission (EOT) character.
 
   Returns: Longitudinal Redundancy Checksum (LRC).
 
@@ -51,13 +54,13 @@ extern "C" BYTE GetLRC(BYTE* pbData,int iCount);
                  iCount = N+1 [byte]
 
  */
-BYTE GetLRC(BYTE* pbData, //[in] data buffer including 
+uint8_t GetLRC(uint8_t* pbData, //[in] data buffer including
                           //termination character (ETB/ETX/EOT)
-            int iCount    //[in] size of data in bytes including
+              int iCount    //[in] size of data in bytes including
                           //termination character
-            )
+              )
 {
-BYTE chLRC = 0;
+uint8_t chLRC = 0;
 while(iCount > 0)
   {
   chLRC ^= *pbData++;
@@ -69,13 +72,12 @@ return chLRC;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log: 
+ * $Log:
  *  4    Biblioteka1.3         2004-06-01 17:50:31  Darko           time sync
  *  3    Biblioteka1.2         2002-01-29 15:40:00  Darko           Tag update
  *  2    Biblioteka1.1         2001-10-05 10:16:55  Darko           Comments
- *  1    Biblioteka1.0         2001-08-11 01:07:03  Darko           
+ *  1    Biblioteka1.0         2001-08-11 01:07:03  Darko
  * $
  *
  * Revision 0  1989 D.K.  Created
  * *****************************************************************************/
-

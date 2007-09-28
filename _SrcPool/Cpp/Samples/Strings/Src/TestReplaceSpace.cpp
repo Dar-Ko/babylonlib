@@ -36,8 +36,8 @@ int iTextLen = (unsigned int)_tcslen(szText);
 LPTSTR szBuffer = new TCHAR[iTextLen + 1];
 
   //Test trimming a string with spaces only
-std::_tcout << "Trim spaces from a string with blanks only." << std::endl;
-_tcscpy(szBuffer, "  \t  \v\f  \r");
+std::_tcout << _T("Trim spaces from a string with blanks only.") << std::endl;
+_tcscpy(szBuffer, _T("  \t  \v\f  \r"));
 StrTrim(szBuffer);
 unsigned int iResultLen = (unsigned int)_tcslen(szBuffer);
 if (iResultLen != 0)

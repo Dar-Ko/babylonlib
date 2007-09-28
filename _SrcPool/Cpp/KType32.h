@@ -1,5 +1,5 @@
 /*$Workfile: KType32.h$: header file
-  $Revision: 9$ $Date: 2004-10-21 13:18:50$
+  $Revision: 10$ $Date: 22/08/2007 7:28:13 PM$
   $Author: Darko Kolakovic$
 
   ISO C99 type definitions ISO/IEC 9899:1999
@@ -63,6 +63,7 @@
       #ifndef __uint8_t_defined
         #define __uint8_t_defined
         typedef unsigned char          uint8_t;
+        #define uint8_t uint8_t
         typedef unsigned short int     uint16_t;
         typedef unsigned long          uint32_t;
   #if defined(__GNUC__)

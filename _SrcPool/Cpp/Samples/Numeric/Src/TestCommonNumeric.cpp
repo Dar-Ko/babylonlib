@@ -41,6 +41,7 @@ extern bool TestNaN();
 extern bool TestPoint();
 extern bool TestQuadraticEquation();
 extern bool TestRealConversion();
+extern bool TestChecksum();
 
 
 //-----------------------------------------------------------------------------
@@ -58,9 +59,12 @@ PFUNC_TEST funcTest[] =
   {
   TestEndian,
   TestNaN,
-  TestRealConversion,
-  TestPoint,
-  TestQuadraticEquation,
+  #pragma TODO(TestRealConversion)
+#pragma todo(TestPoint)
+#pragma todo(TestQuadraticEquation)
+  //TestRealConversion,
+  //TestPoint,
+  //TestQuadraticEquation,
   TestGcd,
   TestLcm,
   TestFactorial,
@@ -71,7 +75,8 @@ PFUNC_TEST funcTest[] =
   TestNewtonRaphson,
   TestPrimes,
   TestRound,
-  TestFibonnaci
+  TestFibonnaci,
+  TestChecksum
   };
 
 int iTestCount = 0;

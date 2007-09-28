@@ -238,9 +238,14 @@
    */
   const int EOLMAC  = CR;//end of line in MacOS
   const int EOLUNIX = LF;//end of line in Unix, Linux, QNX
-  const char * const EOLDOSA = "\r\n"; //CR LF pair is end of line in DOS, MS Windows
-  const char * const EOLWINA = "\r\n"; //CR LF pair is end of line in DOS, MS Windows
+  const char* const EOLDOSA = "\r\n"; //CR LF pair is end of line in DOS, MS Windows
+  const char* const EOLWINA = "\r\n"; //CR LF pair is end of line in DOS, MS Windows
   #ifdef _UNICODE
+    #ifndef _WCHAR_T_DEFINED
+      typedef unsigned short wchar_t;
+      #define wchar_t wchar_t
+      #define _WCHAR_T_DEFINED
+    #endif
     const wchar_t* const EOLDOSW = L"\r\n"; //CR LF pair is end of line in DOS, MS Windows
     const wchar_t* const EOLWINW = L"\r\n"; //CR LF pair is end of line in DOS, MS Windows
     #define EOLDOS EOLDOSW

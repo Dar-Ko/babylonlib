@@ -16,6 +16,7 @@
 #endif
 
 #ifndef ASSERT
+  #include "KTypedef.h"
   #include "KTrace.h" //ASSERT macro
 #endif
 

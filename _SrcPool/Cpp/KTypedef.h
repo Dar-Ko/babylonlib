@@ -205,6 +205,15 @@
     #ifndef __NATIVE_32_BIT__
       #define __NATIVE_32_BIT__ 32
     #endif
+
+    #ifdef _UNICODE
+      #ifndef UNICODE
+        //To enable Unicode for some Microsoft Visual C/C++ header files,
+        //the UNICODE definition is required
+        #define UNICODE
+      #endif
+    #endif
+
     #include "KType32.h" /*ISO C99: 7.18 Integer types included              */
 
     #ifndef __KMS_WTYPES_H__

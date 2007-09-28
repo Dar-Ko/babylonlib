@@ -10,17 +10,21 @@
 /* Group=Strings                                                             */
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
+#ifdef _MSC_VER //Microsoft C++ compiler
+  #ifdef _UNICODE
+    #ifndef UNICODE
+      //To enable Unicode for some Microsoft Visual C/C++ header files,
+      //the UNICODE definition is required
+      #define UNICODE
+    #endif
+    #pragma message("Unicode literals")
+  #endif
+#endif
+
 /*Replaces library header file names with the compiler's aliases*/
 #ifdef _USE_STD_HEADERS
   #ifdef _WIN32
     #ifdef _MSC_VER //Microsoft C++ compiler
-      #ifdef _UNICODE
-        #ifndef UNICODE
-          //To enable Unicode for some Microsoft Visual C/C++ header files,
-          //the UNICODE definition is required
-          #define UNICODE
-        #endif
-      #endif
       #pragma include_alias("KTChar.h", "wtypes.h")
       #if _MSC_VER < 1300
         #pragma include_alias("KTrace.h", "trace.h")

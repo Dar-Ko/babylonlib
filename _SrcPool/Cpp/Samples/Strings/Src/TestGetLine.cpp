@@ -44,11 +44,11 @@ LPTSTR szLine;
 while(GetLine(szSource, szLine) > 0)
   {
   iLineCount++;
-  TsWriteToView("Empty Line test failed!\n");
+  TsWriteToView(_T("Empty Line test failed!\n"));
   if(szLine != NULL)
     {
     TsWriteToView(szLine);
-    TsWriteToView("<EOL>\n");
+    TsWriteToView(_T("<EOL>\n"));
     delete[] szLine;
     }
   bRes = false;
@@ -67,14 +67,14 @@ if(bRes)
     if(szLine != NULL)
       {
       TsWriteToView(szLine);
-      TsWriteToView("<EOL>\n");
+      TsWriteToView(_T("<EOL>\n"));
       delete[] szLine;
       }
     }
 
   if(iLineCount != 1)
     {
-    TsWriteToView("szTestNoEol Line test failed!\n");
+    TsWriteToView(_T("szTestNoEol Line test failed!\n"));
     bRes = false;
     }
   }
@@ -91,14 +91,14 @@ if(bRes)
     if(szLine != NULL)
       {
       TsWriteToView(szLine);
-      TsWriteToView("<EOL>\n");
+      TsWriteToView(_T("<EOL>\n"));
       delete[] szLine;
       }
     }
 
   if(iLineCount != 1)
     {
-    TsWriteToView("szTestOneLf Line test failed!\n");
+    TsWriteToView(_T("szTestOneLf Line test failed!\n"));
     bRes = false;
     }
   }
@@ -115,14 +115,14 @@ if(bRes)
     if(szLine != NULL)
       {
       TsWriteToView(szLine);
-      TsWriteToView("<EOL>\n");
+      TsWriteToView(_T("<EOL>\n"));
       delete[] szLine;
       }
     }
 
   if(iLineCount != 1)
     {
-    TsWriteToView("szTestOneCr Line test failed!\n");
+    TsWriteToView(_T("szTestOneCr Line test failed!\n"));
     bRes = false;
     }
   }
@@ -139,14 +139,14 @@ if(bRes)
     if(szLine != NULL)
       {
       TsWriteToView(szLine);
-      TsWriteToView("<EOL>\n");
+      TsWriteToView(_T("<EOL>\n"));
       delete[] szLine;
       }
     }
 
   if(iLineCount != 1)
     {
-    TsWriteToView("szTestOneCrLf Line test failed!\n");
+    TsWriteToView(_T("szTestOneCrLf Line test failed!\n"));
     bRes = false;
     }
   }
@@ -163,14 +163,14 @@ if(bRes)
     if(szLine != NULL)
       {
       TsWriteToView(szLine);
-      TsWriteToView("<EOL>\n");
+      TsWriteToView(_T("<EOL>\n"));
       delete[] szLine;
       }
     }
 
   if(iLineCount != 1)
     {
-    TsWriteToView("szTestLfEnd Line test failed!\n");
+    TsWriteToView(_T("szTestLfEnd Line test failed!\n"));
   bRes = false;
     }
   }
@@ -187,14 +187,14 @@ if(bRes)
     if(szLine != NULL)
       {
       TsWriteToView(szLine);
-      TsWriteToView("<EOL>\n");
+      TsWriteToView(_T("<EOL>\n"));
       delete[] szLine;
       }
     }
 
   if(iLineCount != 1)
     {
-    TsWriteToView("szTestCrEnd Line test failed!\n");
+    TsWriteToView(_T("szTestCrEnd Line test failed!\n"));
     bRes = false;
     }
   }
@@ -211,14 +211,14 @@ if (bRes)
     if(szLine != NULL)
       {
       TsWriteToView(szLine);
-      TsWriteToView("<EOL>\n");
+      TsWriteToView(_T("<EOL>\n"));
       delete[] szLine;
       }
     }
 
   if(iLineCount != 1)
     {
-    TsWriteToView("szTestCrLfEnd Line test failed!\n");
+    TsWriteToView(_T("szTestCrLfEnd Line test failed!\n"));
     bRes = false;
     }
   }
@@ -235,14 +235,14 @@ if(bRes)
     if(szLine != NULL)
       {
       TsWriteToView(szLine);
-      TsWriteToView("<EOL>\n");
+      TsWriteToView(_T("<EOL>\n"));
       delete[] szLine;
       }
     }
 
   if(iLineCount != 2)
     {
-    TsWriteToView("szTestLfCrEnd Line test failed!\n");
+    TsWriteToView(_T("szTestLfCrEnd Line test failed!\n"));
     bRes = false;
     }
   }
@@ -253,9 +253,9 @@ if(bRes)
   TCHAR* szText = FileRead(szFileName);
   if(szText == NULL)
     {
-    TsWriteToView("Cannot open file ");
+    TsWriteToView(_T("Cannot open file "));
     TsWriteToView(szFileName);
-    TsWriteToView("\n");
+    TsWriteToView(_T("\n"));
     bRes =  false;
     }
   if (bRes)
@@ -268,15 +268,15 @@ if(bRes)
       if(szLine != NULL)
         {
         TsWriteToView(szLine);
-        TsWriteToView("<EOL>\n");
+        TsWriteToView(_T("<EOL>\n"));
         delete[] szLine;
         }
       }
 
     TsWriteToView(szFileName);
-    TsWriteToView(" has ");
+    TsWriteToView(_T(" has "));
     TsWriteToView(_itot(iLineCount, szText, 10));
-    TsWriteToView(" lines.\r\n");
+    TsWriteToView(_T(" lines.\r\n"));
     delete szText;
     if ((iNoofLines >=0 ) && (iLineCount != iNoofLines))
       bRes = false;
