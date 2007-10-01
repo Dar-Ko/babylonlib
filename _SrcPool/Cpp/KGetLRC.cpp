@@ -56,7 +56,7 @@ extern "C" uint8_t GetLRC(uint8_t* pbData,int iCount);
  */
 uint8_t GetLRC(uint8_t* pbData, //[in] data buffer including
                           //termination character (ETB/ETX/EOT)
-              int iCount    //[in] size of data in bytes including
+              int iCount  //[in] size of data in bytes including
                           //termination character
               )
 {
@@ -80,4 +80,4 @@ return chLRC;
  * $
  *
  * Revision 0  1989 D.K.  Created
- * *****************************************************************************/
+ ******************************************************************************/
