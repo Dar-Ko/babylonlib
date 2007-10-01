@@ -344,6 +344,9 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat">
 			<File
+				RelativePath="..\..\Win\32\KDbgRpt.cpp">
+			</File>
+			<File
 				RelativePath="..\..\KfFibonacci.cpp">
 			</File>
 			<File
@@ -562,6 +565,9 @@
 			</File>
 			<File
 				RelativePath="..\Common\Res\Win\32\Test.rc">
+			</File>
+			<File
+				RelativePath=".\Src\TestCalc.cpp">
 			</File>
 			<File
 				RelativePath=".\Src\TestChecksum.cpp">

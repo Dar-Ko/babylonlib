@@ -59,12 +59,9 @@ PFUNC_TEST funcTest[] =
   {
   TestEndian,
   TestNaN,
-  #pragma TODO(TestRealConversion)
-#pragma todo(TestPoint)
-#pragma todo(TestQuadraticEquation)
-  //TestRealConversion,
-  //TestPoint,
-  //TestQuadraticEquation,
+  TestRealConversion,
+  TestPoint,
+  TestQuadraticEquation,
   TestGcd,
   TestLcm,
   TestFactorial,
