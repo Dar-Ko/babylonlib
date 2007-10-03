@@ -5,11 +5,12 @@
   Display a logo in the window client area
   Copyright: CommonSoft Inc.
   Jun. '95 D.Kolakovic
- */ 
+ */
 
+// Group=Windows
 
 #ifndef __AFXWIN_H__
-  #include <AfxWin.h> // MFC core and standard components
+  #include <afxwin.h> // MFC core and standard components
 #endif
 
 #ifdef _DEBUG
@@ -19,8 +20,8 @@
 #endif
 
 //DisplayBackgroundLogo()------------------------------------------------------
-#include "UTextMtr.h" //CTextMetric class
-#include "D_GFont.h"  //font name
+#include "UTextMtr.h" //CTextMetric class TODO: FixMe!
+#include "D_GFont.h"  //font name TODO: FixMe!
 /*Call this function as part of the WM_ERASEBKGND message handling to display
   a logo in the right bottom corner of the frame client area.
   Returns allways TRUE to signal tha no further background painting is required.
@@ -44,7 +45,8 @@
   See also: KB Q129471 article.
 
   Note: uses Microsoft Fundation Library (MFC).
-  
+  Note: Microsoft Windows specific (Win).
+
   Example:
     class CMyFrame: public CFrameWnd
       {
@@ -157,13 +159,13 @@ return TRUE;
 }
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  6    Biblioteka1.5         2002-01-29 23:21:26  Darko           Used lbraries
- *       notes 
+ *       notes
  *  5    Biblioteka1.4         2002-01-29 15:40:41  Darko           Tag update
  *  4    Biblioteka1.3         2001-08-19 23:54:05  Darko           Butyfier
- *  3    Biblioteka1.2         2001-07-11 22:51:50  Darko           
+ *  3    Biblioteka1.2         2001-07-11 22:51:50  Darko
  *  2    Biblioteka1.1         2001-06-08 23:51:01  Darko           VSS
- *  1    Biblioteka1.0         2000-08-13 15:56:45  Darko           
+ *  1    Biblioteka1.0         2000-08-13 15:56:45  Darko
  * $
  *****************************************************************************/
