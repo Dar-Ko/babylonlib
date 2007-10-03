@@ -38,7 +38,8 @@
        char szCom[MAX_PATH];
        sprintf(szCom, SYMBOLICLINK_COM, 10);
        
-    See also: CreateFile(), CreateSymbolicLink().
+    See also: CreateFile(), CreateSymbolicLink(), g_listReservedFileNames,
+    IsPathNameValid()
   */
     #define SYMBOLICLINK_COM "\\\\.\\COM%d"
   #else
