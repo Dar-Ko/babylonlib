@@ -67,7 +67,7 @@
   UnregisterDeviceNotification(), WM_DEVICECHANGE.
  */
 LPCTSTR DumpDeviceBroadcastEvent(UINT nEventType, //[in] event type received
-                                 //through message parameter wParam
+                                 //through WM_DEVICECHANGE message parameter wParam
                                 )
 {
 LPCTSTR szResult;

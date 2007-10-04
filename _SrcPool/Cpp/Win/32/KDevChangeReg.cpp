@@ -32,7 +32,7 @@
 #else
   #if(_WIN32_WINNT < 0x0501)
     #pragma message(__FILE__ "(34) : warning: DEVICE_NOTIFY_ALL_INTERFACE_CLASSES requires Windows Vista or Windows XP.")
-    #define DEVICE_NOTIFY_ALL_INTERFACE_CLASSES  0x00000000 //Dummy flag
+    #define DEVICE_NOTIFY_ALL_INTERFACE_CLASSES  0x00000004 //Unused flag
   #endif
 #endif
 
@@ -49,8 +49,8 @@
   #ifndef DEVICE_NOTIFY_ALL_INTERFACE_CLASSES
     #define DEVICE_NOTIFY_ALL_INTERFACE_CLASSES  0x00000004
   #endif
-  typedef  PVOID           HDEVNOTIFY;
-  typedef  HDEVNOTIFY     *PHDEVNOTIFY;
+  typedef  PVOID        HDEVNOTIFY;
+  typedef  HDEVNOTIFY *PHDEVNOTIFY;
 
   WINUSERAPI HDEVNOTIFY WINAPI RegisterDeviceNotificationA(IN HANDLE hRecipient,
                                                    IN LPVOID NotificationFilter,
@@ -91,6 +91,21 @@
   calling the UnregisterDeviceNotification() function when they are
   no longer needed.
 
+  Any application with a top-level window can receive basic notifications by
+  processing the WM_DEVICECHANGE message. Event DBT_DEVTYP_VOLUME for sound
+  notifucation and DBT_DEVICEARRIVAL, DBT_DEVICEREMOVECOMPLETE events for
+  devices using ports are also automatically  broadcast to all top-level windows.
+  Other types of application, like services, have to be registered to PnP
+  manager for device notifications.
+
+  Note: Be sure to handle Plug and Play device events as quickly as possible,
+  even in another thread. Otherwise, the system may become unresponsive.
+
+  Note: For Microsoft Windows XP, 2003, Vista and later, recipient will be notified
+  of device interface events for all device interface classes and guidInterfaceClass
+  parameter is ignored. This parameter have to be specified for Microsoft
+  Windows 98 and 2000.
+
   Returns: the device notification handle or NULL in case of a failure.
   To get extended error information, call GetLastError().
 
@@ -98,10 +113,13 @@
         Microsoft Windows 2000 specific (Win2k).
 
   See also: RegisterDeviceNotification(), UnregisterDeviceNotification(),
-  <winioctl.h> for GUID
+  WM_DEVICECHANGE, OnDeviceChange(), <winioctl.h> for GUID
  */
 HDEVNOTIFY DeviceInterfaceRegister(HWND hRecipient, //[in] window handle to send
-                              //notifications to
+                              //notifications to. If hRecipient is a service
+                              //status handle, SERVICE_CONTROL_DEVICEEVENT
+                              //notifications are sent to the service control
+                              //handler
                                GUID guidInterfaceClass //[in] interface class
                               //GUID for the device interfaces
                               )
@@ -112,6 +130,9 @@ TRACE(_T("DeviceInterfaceRegister()\n"));
   ZeroMemory( &NotificationFilter, sizeof(NotificationFilter) );
   //Configure event filter
   NotificationFilter.dbcc_size = sizeof(DEV_BROADCAST_DEVICEINTERFACE);
+  /*Fails if the dbch_devicetype member is DBT_DEVTYP_PORT, DBT_DEVTYP_VOLUME
+    or DBT_DEVTYP_OEM. This types are handled differently by the system.
+   */
   NotificationFilter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
   NotificationFilter.dbcc_classguid = guidInterfaceClass;
 #else
@@ -126,10 +147,17 @@ HDEVNOTIFY hDevNotify =
                             //to RegisterDeviceNotification.
                             //Services can specify either a window handle
                             //or service status handle.
+
                                         &NotificationFilter, //type of device for
                             //which notifications should be sent
-                                        DEVICE_NOTIFY_WINDOW_HANDLE | //The hRecipient
-                            //parameter is a window or a service handle.
+
+                                        DEVICE_NOTIFY_WINDOW_HANDLE | //Type of
+                            //recipient.
+                            //DEVICE_NOTIFY_WINDOW_HANDLE recipient parameter
+                            //is a window handle.
+                            //DEVICE_NOTIFY_SERVICE_HANDLE recipient parameter
+                            //is a service status handle
+
                                         DEVICE_NOTIFY_ALL_INTERFACE_CLASSES //Notifies
                             //the recipient of device interface events for
                             //all device interface classes.
