@@ -47,7 +47,7 @@
 
 //-----------------------------------------------------------------------------
 /*Call this function as part of the WM_DEVICECHANGE message processing for
-  devices using file system handles (DBT_DEVTYP_HANDLE).
+  change of device interfaces (DBT_DEVTYP_DEVICEINTERFACE).
   The WM_DEVICECHANGE device message notifies an application of a change to
   the hardware configuration of a device or the computer.
 
@@ -130,15 +130,15 @@
   Returns: true
 
   See also: DeviceInterfaceRegister(), RegisterDeviceNotification(),
-  UnregisterDeviceNotification(), WM_DEVICECHANGE, DBT_DEVTYP_HANDLE.
+  UnregisterDeviceNotification(), WM_DEVICECHANGE, DBT_DEVTYP_DEVICEINTERFACE.
  */
-bool DeviceChange(UINT nEventType, //[in] event type received
+bool DeviceInterfaceChange(UINT nEventType, //[in] event type received
                     //through message parameter wParam
-                     PDEV_BROADCAST_HANDLE pdwData  //[in] event-specific data
+                     PDEV_BROADCAST_DEVICEINTERFACE pdwData  //[in] event-specific data
                     // received through message parameter lParam
                     )
 {
-TRACE(_T("DeviceChange()\n"));
+TRACE(_T("DeviceInterfaceChange()\n"));
 #ifdef _DEBUG
   extern LPCTSTR DumpDeviceBroadcastEvent(UINT nEventType);
   extern LPCTSTR DumpDeviceType(PDEV_BROADCAST_HDR pdwData);
@@ -151,9 +151,10 @@ TRACE(_T("DeviceChange()\n"));
                        DumpDeviceType(pdwData));
 #endif
 
-if((pdwData != NULL) && (pdwData->dbch_devicetype == DBT_DEVTYP_HANDLE))
+if((pdwData != NULL) &&
+   (pdwData->dbcc_devicetype == DBT_DEVTYP_DEVICEINTERFACE))
   {
-  //Handle device change
+  //Handle device interface change
   switch(nEventType)
     {
     case DBT_APPYBEGIN:
@@ -182,7 +183,10 @@ if((pdwData != NULL) && (pdwData->dbch_devicetype == DBT_DEVTYP_HANDLE))
         break; //0x8006
     #endif
     case DBT_DEVICEARRIVAL:
-        //TRACE(_T("  New device: %ws"), pdwData->dbch_devicetype);
+      #ifdef _UNICODE
+        TRACE(_T("  New device: %ws\n"), pdwData->dbcc_name);
+      #else
+        TRACE(_T("  New device: %s\n"), pdwData->dbcc_name);
       break; //0x8000
     case DBT_DEVICEQUERYREMOVE:
       break; //0x8001

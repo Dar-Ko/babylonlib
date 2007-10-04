@@ -51,6 +51,10 @@
   #endif
 #endif
 
+#ifndef DBT_DEVNODES_CHANGED
+  #define DBT_DEVNODES_CHANGED 7
+#endif
+
 //-----------------------------------------------------------------------------
 /*Dumps the PnP Device Broadcast Notification Event types.
 
@@ -66,7 +70,7 @@
   See also: DeviceInterfaceRegister(), RegisterDeviceNotification(),
   UnregisterDeviceNotification(), WM_DEVICECHANGE.
  */
-LPCTSTR DumpDeviceBroadcastEvent(UINT nEventType, //[in] event type received
+LPCTSTR DumpDeviceBroadcastEvent(UINT nEventType //[in] event type received
                                  //through WM_DEVICECHANGE message parameter wParam
                                 )
 {
@@ -75,7 +79,7 @@ switch(nEventType)
   {
   case DBT_APPYBEGIN:               szResult = _T("  DBT_APPYBEGIN");               break; // 0
   case DBT_APPYEND:                 szResult = _T("  DBT_APPYEND");                 break; // 1
-  case DBT_DEVNODES_CHANGED:        szResult = _T("  DBT_DEVNODES_CHANGED");        break; // 7
+  case DBT_DEVNODES_CHANGED:        szResult = _T("  DBT_DEVNODES_CHANGED");        break; // 7 Win2k or later device manger
   case DBT_QUERYCHANGECONFIG:       szResult = _T("  DBT_QUERYCHANGECONFIG");       break; //23
   case DBT_CONFIGCHANGED:           szResult = _T("  DBT_CONFIGCHANGED");           break; //24
   case DBT_CONFIGCHANGECANCELED:    szResult = _T("  DBT_CONFIGCHANGECANCELED");    break; //25
