@@ -30,7 +30,8 @@ std::string WtoChar(const wchar_t* lpWideCharStr, //[in] string to be converted
                              //to be converted. If this value is –1, the string
                              //is assumed to be zero-terminated and the size of
                              //the string is calculated. The size includes
-                             //the null-terminator.
+                             //the null-terminator. The length of the string is
+                             //limited to INT_MAX.
                    )
 {
 ASSERT(lpWideCharStr != NULL);
@@ -38,7 +39,8 @@ std::string strResult;
 if ( lpWideCharStr != NULL)
   {
   if (iLen == -1)
-    iLen = wcslen(lpWideCharStr);
+    iLen = (int)wcslen(lpWideCharStr); //The length of the string is
+                                       //limited to INT_MAX.
   size_t nSize;
   char* szTemp = new char[nSize = (size_t)iLen + 1];
   wcstombs(szTemp, lpWideCharStr, iLen);

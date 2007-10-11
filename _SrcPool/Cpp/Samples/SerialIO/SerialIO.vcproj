@@ -623,6 +623,9 @@
 				RelativePath="..\Common\Src\Win\stdafx.h">
 			</File>
 			<File
+				RelativePath="..\..\Platform\UsbVid152D.h">
+			</File>
+			<File
 				RelativePath="..\..\Platform\UsbVid8086.h">
 			</File>
 		</Filter>
@@ -674,6 +677,12 @@
 		</Filter>
 		<File
 			RelativePath=".\SerialIO.txt">
+		</File>
+		<File
+			RelativePath="..\..\Platform\usb-if.tsv">
+		</File>
+		<File
+			RelativePath="..\..\Platform\usb.ids.txt">
 		</File>
 	</Files>
 	<Globals>

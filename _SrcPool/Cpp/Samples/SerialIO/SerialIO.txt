@@ -4,4 +4,14 @@ $Revision: 3$ $Date: 22/08/2007 7:24:00 PM$
 $Author: Darko Kolakovic$
 
 \	SerialIO.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
-TODO: SBCS Builds! D.K.
+
+
+USB Concerns
+  Microsoft Windows Driver Development Kit (DDK) 2600.1106 is used to build USB test
+
+  Use Microsoft devcon command-line tool to browse and manipulate devices:
+    devcon listclass HIDclass
+    devcon listclass USB
+    devcon disable *PID_4308*
+ Device driver instances are prefixed with '@'
+ Use '^' to escape '&' characters: '^&'
