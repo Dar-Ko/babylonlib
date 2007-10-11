@@ -131,13 +131,6 @@
   //One one-thousandth part[‰]=ANSI(TTF)137
 #define CST_PERMILL = 1.0/1000.0;
 
-  //Time
-
-const double CST_SpMIN = 60.0; //second per minute
-const double CST_MINpH = 60.0; //minute per hour
-const double CST_HpDAY = 24.0; //hours per day
-
-
   /*decibel per neper
           [dB]/[Np] = 20*log(e) = 20/ln(10).
 

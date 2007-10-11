@@ -16,8 +16,8 @@
 #include "KTime.h"  /*date, time struct                                      */
   /*Abbreviated weekday names used in some protocols
    */
-LPCTSTR g_szDayNameAbr[] = 
-  { 
+LPCTSTR g_szDayNameAbr[] =
+  {
   _T("Sun"), /*0*/
   _T("Mon"), /*1*/
   _T("Tue"), /*2*/
@@ -29,7 +29,7 @@ LPCTSTR g_szDayNameAbr[] =
 
   /*Abbreviated month names used in some protocols
    */
-LPCTSTR g_szMonthAbr[] = 
+LPCTSTR g_szMonthAbr[] =
   {
   _T("Jan"), /* 0*/
   _T("Feb"), /* 1*/
@@ -47,17 +47,17 @@ LPCTSTR g_szMonthAbr[] =
 
   /*Length of months in days
    */
-int g_iMonthLen[] = 
-  { 
-  /* 0   1   2   3   4   5   6   7   8   9  10  11 */ 
+int g_iMonthLen[] =
+  {
+  /* 0   1   2   3   4   5   6   7   8   9  10  11 */
     31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
   };
 
 #if LANG_CURRENT == LANG_ENGLISH
     /*Weekday names
-    */
-  LPCTSTR g_szDayName[] = 
-    { 
+     */
+  LPCTSTR g_szDayName[] =
+    {
     _T("Sunday"   ), /*0*/
     _T("Monday"   ), /*1*/
     _T("Tuesday"  ), /*2*/
@@ -68,8 +68,8 @@ int g_iMonthLen[] =
     };
 
     /*Month names
-    */
-  LPCTSTR g_szMonth[] = 
+     */
+  LPCTSTR g_szMonth[] =
     {
     _T("January" ),  /* 0*/
     _T("February" ), /* 1*/
@@ -90,18 +90,18 @@ int g_iMonthLen[] =
 #pragma warning(disable: 4127) /*warning C4127: conditional expression is constant*/
 #include "KTrace.h" //ASSERT()
 /*---------------------------------------------------------------------------*/
-/*Range of month index is not validated. In case of overflow returns 
+/*Range of month index is not validated. In case of overflow returns
   number of days in February.
  */
 uint_fast16_t GetDaysInMonth(uint_fast16_t nYear, /*[in] year */
-                             uint_fast16_t nMonth /*[in] index of the 
+                             uint_fast16_t nMonth /*[in] index of the
                                                     month [0,11]*/
                             )
 {
 ASSERT(nMonth <= 11);
 nMonth %= 12; /*Limit the range of the months*/
 
-if (nMonth != 1) 
+if (nMonth != 1)
   return g_iMonthLen[nMonth];
  /*Return number of days in February */
 #ifndef __cplusplus
@@ -142,7 +142,7 @@ uint_fast16_t GetDaysInYear(uint_fast16_t nYear /*[in] year */
 uint_fast16_t nResult = 365;
 if (nYear == YEAR_GREGORIAN)
   nResult -= 10; /*10 days are cancelled by the Gregorian reform*/
-else 
+else
   if (nYear > YEAR_GREGORIAN)
     {
     if (IS_LEAP_YEAR(nYear) != 0)
@@ -200,13 +200,13 @@ unsigned long yy;
         t.da_year += 1900;
     if (s.da_day <= 0 || s.da_day > (int)GetDaysInMonth (s.da_year, s.da_mon))
         return -1;
-        
-    if (t.da_mon > 2)        
+
+    if (t.da_mon > 2)
         t.da_mon = /*(eMonth)*/ (t.da_mon - 3);
     else {
         t.da_mon = /*(eMonth) */(t.da_mon + 9);
         t.da_year--;
-    } 
+    }
     c  = t.da_year / 100;
     yy = t.da_year - 100*c;
     return ((146097L * c)>>2) + ((1461*yy)>>2) + (153*t.da_mon + 2)/5 + t.da_day
@@ -224,9 +224,9 @@ unsigned long yy;
  *  xBase    (YYYYMMDD)
  */
 
-time_t shifttime(time_t timer, 
+time_t shifttime(time_t timer,
                  int diff //[min]
-                 ) 
+                 )
   {
   /* Surprisingly, there is no ANSI C function to do this */
   struct tm *lt = localtime(&timer);
@@ -252,12 +252,12 @@ TimeSpan::Age(const zDate &birthday) const
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  5    Biblioteka1.4         2004-10-06 22:43:03  Darko           Unicode fixes
  *  4    Biblioteka1.3         2003-09-27 11:06:41  Darko           draft v2
  *  3    Biblioteka1.2         2003-09-27 11:05:21  Darko           draft v2
  *  2    Biblioteka1.1         2003-09-23 16:09:02  Darko           draft
- *  1    Biblioteka1.0         2003-09-18 16:48:35  Darko           
+ *  1    Biblioteka1.0         2003-09-18 16:48:35  Darko
  * $
  *****************************************************************************/
 
@@ -286,7 +286,7 @@ class Date : public Base {
     void setUnixTime()              { t_ime=time(0); }
     QDateTime qdt();
     int ageInDays();
-    
+
   protected:
     time_t t_ime;
 
@@ -638,7 +638,7 @@ KRFCDate::parseDate(const QString &_date)
 
      // If epoch 0 return epoch +1 which is Thu, 01-Jan-70 00:00:01 GMT
      // This is so that parse error and valid epoch 0 return values won't
-     // be the same for sensitive applications...     
+     // be the same for sensitive applications...
      if (result < 1) result = 1;
 
      return result;
@@ -701,7 +701,7 @@ QCString KRFCDate::rfc2822DateString(time_t utcTime)
 /*
  *
  *          Copyright (C) 1995, M. A. Sridhar
- *  
+ *
  *
  *     This software is Copyright M. A. Sridhar, 1995. You are free
  *     to copy, modify or distribute this software  as you see fit,
@@ -770,7 +770,7 @@ public:
                       Thursday, Friday, Saturday};
    * /
     //] Local
-    
+
     //
     // ------------- Constructors and destructors ----------------------
     //
@@ -793,7 +793,7 @@ public:
     // Construct a date from the given string containing the
     // representation, in one of the forms {\tt Date_American}, {\tt
     // Date_Terse} or {\tt Date_Numbers}.
-    
+
 
     CL_Date (const CL_Date&);
 
@@ -805,7 +805,7 @@ public:
 
     bool IsLegal () const;
     // Is this a legal date?
-    
+
     short Year() const;
     // Return our year.
 
@@ -817,13 +817,13 @@ public:
 
     WeekdayEnum DayOfWeek () const;
     // Return our day of week as a {\tt WeekdayEnum}.
-    
+
     CL_String WeekdayName () const {return DayName (DayOfWeek());}
     // Return the name of the weekday of this Date.
-    
+
     short DaysInMonth () const;
     // Return the number of days in our month.
-    
+
     CL_String PrintString (DatePrintForm form = Date_American) const;
     // Return a printable form of this object, according to the
     // parameter.
@@ -843,7 +843,7 @@ public:
     // The method returns an invalid Date if {\tt weekday_name} is not one
     // of the currently-recognized week-day names (as specified by the {\tt
     // SetWeekdayNames} method).
-    
+
 
     CL_Date PreviousWeekday (const char* weekday_name) const;
     // Return the date of the previous weekday given. For example, since July
@@ -853,7 +853,7 @@ public:
     // \end{verbatim}
     // \par\noindent
     // returns a Date object containing July 10, 1995.
-    
+
     CL_Date NextWeekday (WeekdayEnum weekday_num) const;
     // Return the date of the next weekday given. For example, since July
     // 11, 1995 was a Tuesday, the expression
@@ -871,7 +871,7 @@ public:
     // \end{verbatim}
     // \par\noindent
     // returns a Date object containing July 10, 1995.
-    
+
 
     //
     // --------------------- Comparison ------------------------------
@@ -881,12 +881,12 @@ public:
         {return _days < d._days ? TRUE : FALSE;};
     // Return TRUE if this Date is earlier than the parameter, and FALSE
     // otherwise.
-    
+
     bool operator<= (const CL_Date& d) const
         {return _days <= d._days ? TRUE : FALSE;};
     // Return TRUE if this Date is earlier than or equal to the parameter,
     // and FALSE otherwise.
-    
+
     bool operator>  (const CL_Date& d) const
         {return _days > d._days ? TRUE : FALSE;};
     // Return TRUE if this Date is later than the parameter, and FALSE
@@ -942,13 +942,13 @@ public:
     bool IsBetween (const CL_Date& d1, const CL_Date& d2) const;
     // Return TRUE if this date is between the two given dates. The two
     // parameters need not be in ascending order.
-    
+
     //
     // -------------------------- Modification ----------------------
     //
 
     // Assignment
-    
+
     virtual void operator= (const CL_Date&);
     // Assign the given date to this object.
 
@@ -963,7 +963,7 @@ public:
     // -------------------------- Date arithmetic -------------------
     //
 
-    
+
     CL_Date  operator+  (short num_days) const;
     // Return the result of adding  {\tt num_days} days to this Date.
 
@@ -979,7 +979,7 @@ public:
     long operator-   (const CL_Date& date) const;
     // Return the number of days between us and the given date (which
     // may be positive or negative).
-    
+
     CL_Date AddMonths (short num_months) const;
     // Return the Date obtained by adding {\tt num_months} to this Date's
     // month. The parameter can be positive or negative.
@@ -1001,7 +1001,7 @@ public:
     // setting. Returns the empty string if the parameter is invalid.
 
     static WeekdayEnum  DayNumber (const char* weekday_name);
-    // Return the week-day with name {\tt weekday_name}. 
+    // Return the week-day with name {\tt weekday_name}.
 
     static CL_String MonthName (short month_num);
     // Return month name of given month (1 = ``{\tt January},'' etc.).
@@ -1009,7 +1009,7 @@ public:
 
     static CL_String ShortMonthName (short month_num);
     // Return the short (3-character) month name of given month.
-    // Return the empty string for an invalid month number. 
+    // Return the empty string for an invalid month number.
 
     static MonthEnum MonthNumber (const char* month_name);
     // Return the month with name {\tt month_name}. Return $-1$ for an
@@ -1021,7 +1021,7 @@ public:
     static short DaysInMonth  (short month, short year);
     // Return the number of days in the given month and year. For example,
     // {\tt CL_Date::DaysInMonth (2, 1996)} returns 29.
-    
+
     static long ParseAndConvert (const char* date);
     // Validate the given string as representing a date, and return
     // either $-1$ if it's not a valid date, and a positive value otherwise.
@@ -1075,9 +1075,9 @@ public:
     // passed pointers into a local data structure; so the storage for the
     // character strings is still owned by the caller of this method.
 
-    
+
     // ----------------------- Storage and restoration ----------------
-    
+
     CL_String AsString () const
         { return PrintString (Date_Numbers);};
     // Return a String that contains this Date's value in {\tt Date_Numbers}
@@ -1087,11 +1087,11 @@ public:
     void FromStream (istream& strm);
     // Overrides the method inherited from Object. The
     // implementation skips fill characters, and then collects slashes,
-    // dashes, and alphabetic and numeric 
+    // dashes, and alphabetic and numeric
     // characters and attempts to parse the result as a date. If successful,
     // this date is modified; otherwise, the collected characters are put
     // back and this date becomes invalid.
-    
+
     long StorableFormWidth () const;
     // Overrides the method inherited from Object.
 
@@ -1103,17 +1103,17 @@ public:
 
 
     // -------------------------- Assignment ------------------------
-    
+
 
     virtual void operator= (const CL_Object&);
     // Overrides the method inherited from Object.
 
     // ------------------------ Basic methods ----------------------
-    
+
     const char* ClassName() const { return "CL_Date";};
     // Overrides the method inherited from Object. Returns the
     // string ``{\tt CL_Date}.''
-    
+
     CL_ClassId ClassId () const {return _CL_Date_CLASSID;};
     // Overrides the method inherited from Object.
 
@@ -1121,15 +1121,15 @@ public:
     // Overrides the method inherited from Object.
 
 
-    
+
 protected:
 
     // The representation used is the number of days since Jan 1,
     // 1752??
     long _days;
-    
+
     CL_Date (long num_days);
-    
+
 };
 
 
@@ -1145,7 +1145,7 @@ inline void CL_Date::operator= (const CL_Object& obj)
 
 inline short CL_Date::Compare (const CL_Object& obj) const
 {
-    return !IsA(obj) ? (this < (CL_Date*) &obj ? -1 :  1) 
+    return !IsA(obj) ? (this < (CL_Date*) &obj ? -1 :  1)
         : Compare ((const CL_Date&) obj);
 }
 
@@ -1222,7 +1222,7 @@ bool CL_Date::SetMonthNames (char* month_names[12])
     }
     return TRUE;
 }
-    
+
 
 bool CL_Date::SetShortMonthNames (char* month_names[12])
 {
@@ -1278,7 +1278,7 @@ CL_Date::CL_Date (short year, short month, short day)
         _days = 0;
         return;
     }
-    
+
     DateStruct dt;
     dt.y = year;
     dt.m = (MonthEnum) month;
@@ -1314,7 +1314,7 @@ CL_Date::CL_Date (short year, const char* month, short day)
         _days = 0;
         return;
     }
-    
+
     _days = IntoDays (dt);
 }
 
@@ -1359,7 +1359,7 @@ long CL_Date::ParseAndConvert (const char* strg)
 
     if (s.Split (fld, 4, " ,") == 3) { // Date_American
         long l;
-        
+
         fld[0].WordCapitalize ();
         dt.m = MonthNumber (fld[0]);
         short yr = fld[2].ConvertToLong (l) ? (short) l : (short) -1;
@@ -1418,7 +1418,7 @@ long CL_Date::ParseAndConvert (const char* strg)
     if (dt.d <= 0 || dt.d >= 32) {
         return -1;
     }
-    
+
     return IntoDays (dt);
 }
 /*---------------------------------------------------*
@@ -1485,18 +1485,18 @@ CL_String CL_Date::PrintString (DatePrintForm form) const
 
     case Date_American:
         s =  MonthName (dt.m);
-        t.AssignWithFormat ("%s %d, %d", s.AsPtr(), dt.d, dt.y); 
+        t.AssignWithFormat ("%s %d, %d", s.AsPtr(), dt.d, dt.y);
         return t;
 
     case Date_Terse:
         s =  ShortMonthName (dt.m);
-        t.AssignWithFormat ("%02d-%s-%02d", dt.d, s.AsPtr(), dt.y); 
+        t.AssignWithFormat ("%02d-%s-%02d", dt.d, s.AsPtr(), dt.y);
         return t;
 
     case Date_Numbers:
         t.AssignWithFormat ("%02d/%02d/%02d", dt.m, dt.d,
                             (dt.y >= 0 && dt.y <= 1999) ? (dt.y - 1900)
-                            : dt.y); 
+                            : dt.y);
         return t;
 
     case Date_European:
@@ -1507,7 +1507,7 @@ CL_String CL_Date::PrintString (DatePrintForm form) const
     case Date_EuroNumbers:
         t.AssignWithFormat ("%02d/%02d/%02d", dt.d, dt.m,
                             (dt.y >= 0 && dt.y <= 1999) ? (dt.y - 1900)
-                            : dt.y); 
+                            : dt.y);
         return t;
 
     default:
@@ -1526,9 +1526,9 @@ void CL_Date::FromStream (istream& s)
     CL_String rep;
     char c;
     long count = 0;
-    
+
     char fill_char = s.fill ();
-    
+
     while (s.get (c) && c == fill_char);
     if (!s.good() || s.eof()) {
         _days = 0;
@@ -1624,7 +1624,7 @@ CL_Date  CL_Date::operator+  (short num_days) const
 
 *---------------------------------------------------*
 
-CL_Date& CL_Date::operator+= (short num_days) 
+CL_Date& CL_Date::operator+= (short num_days)
 {
     if (!PrepareToChange())
         return *this;
@@ -1676,7 +1676,7 @@ CL_Date CL_Date::AddMonths (short num_months) const
 }
 
 
-        
+
 CL_Date CL_Date::AddYears (short num_years) const
 {
     DateStruct dt = IntoYMD (_days);
@@ -1703,7 +1703,7 @@ CL_Date CL_Date::Today ()
 
     timer = time ((time_t*) NULL);
     tblock = localtime (&timer);
-    dt.y = tblock->tm_year + 1900; 
+    dt.y = tblock->tm_year + 1900;
     dt.m = (MonthEnum) (tblock->tm_mon + 1); // Correct for 0-11
     dt.d = tblock->tm_mday;
     return CL_Date (IntoDays (dt));
@@ -1744,8 +1744,8 @@ CL_String CL_Date::MonthName (short month_num)
 
 CL_String CL_Date::ShortMonthName (short month_num)
 {
-    return (month_num >= 1 && month_num <= 12) ? 
-        (short_months[month_num-1]) : ""; 
+    return (month_num >= 1 && month_num <= 12) ?
+        (short_months[month_num-1]) : "";
 }
 
 // And the opposite of the above:
@@ -1927,13 +1927,13 @@ static long       IntoDays  (const DateStruct& s)
         t.y += 1900;
     if (s.d <= 0 || s.d > CL_Date::DaysInMonth (s.m, s.y))
         return -1;
-        
-    if (t.m > 2)        
+
+    if (t.m > 2)
         t.m = (CL_Date::MonthEnum) (t.m - 3);
     else {
         t.m = (CL_Date::MonthEnum) (t.m + 9);
         t.y--;
-    } 
+    }
     ulong c  = t.y / 100;
     ulong yy = t.y - 100*c;
     return ((146097L * c)>>2) + ((1461*yy)>>2) + (153*t.m + 2)/5 + t.d
@@ -1947,11 +1947,11 @@ static long       IntoDays  (const DateStruct& s)
 // {
 //     DateStruct date;
 //     long temp_days;
-// 
-//     temp_days = num_days - (num_days / 1460)   
+//
+//     temp_days = num_days - (num_days / 1460)
 //                          + (num_days / 36500L)
 //                          - (num_days / 146000L);
-// 
+//
 //     date.y = (short) (temp_days / 365);
 //     num_days -= (date.y * 365L) + (date.y / 4) - date.y/100 + date.y /
 //         400;
@@ -1975,7 +1975,7 @@ static long       IntoDays  (const DateStruct& s)
 // {
 //     long n, p;
 //     short i;
-// 
+//
 //     if (s.m < CL_Date::January || s.m > CL_Date::December)
 //         return 0;
 //     if (s.y < 1901 || s.y > 10000) // Wonder if this library will be around
@@ -3159,7 +3159,7 @@ Boolean_T valiDate(unsigned yr, unsigned mo, unsigned day)
 
 unsigned dow(unsigned yr, unsigned mo, unsigned day)
 {
- 
+
 #if (!ISO_CAL)    /* Sunday(0) -> Saturday(6) (i.e. U.S.) calendars  */
       return (unsigned)(ymd_to_scalar(yr, mo, day) % 7L);
 #else             /* International Monday(0) -> Sunday(6) calendars  */
@@ -3265,7 +3265,7 @@ main(int argc, char *argv[])
 /*
 ** scalar date routines    --    public domain by Ray Gardner
 ** Numerically, these will work over the range 1/01/01 thru 14699/12/31.
-** Practically, these only work from the beginning of the Gregorian 
+** Practically, these only work from the beginning of the Gregorian
 ** calendar thru 14699/12/31.  The Gregorian calendar took effect in
 ** much of Europe in about 1582, some parts of Germany in about 1700, in
 ** England and the colonies in about 1752ff, and in Russia in 1918.
@@ -4326,7 +4326,7 @@ timezone_string (void)
         minutes;                        /*  TIMEZONE is in seconds           */
 
     minutes = 0 - (int) (TIMEZONE / 60);
-    snprintf (formatted_string, sizeof (formatted_string), 
+    snprintf (formatted_string, sizeof (formatted_string),
               "%03d%02d", minutes / 60, abs (minutes % 60));
     if (*formatted_string == '0')
         *formatted_string = '+';
@@ -4360,7 +4360,7 @@ local_to_gmt (long date, long time, long *gmt_date, long *gmt_time)
     Function: gmt_to_local
 
     Synopsis: Converts the specified GMT date and time to the local time.
-    Returns the local date and time in two arguments.  If the supplied value 
+    Returns the local date and time in two arguments.  If the supplied value
     is out of range, returns 00:00 on 1 January, 1970 (19700101).
     ---------------------------------------------------------------------[>]-*/
 
@@ -6120,7 +6120,7 @@ GDateTimeSpan GDateTime::GetDateTimeSpanTo(GDateTime dt2) const
     }
   else
     {
-    
+
     }
 
 
@@ -6639,7 +6639,7 @@ int GDateTime::IsValidDate(const char* pszDateString)
     return FALSE;
 
   if (dtTest.IsNullDate())
-    return FALSE; 
+    return FALSE;
 
   // All okay:
 
@@ -7902,7 +7902,7 @@ Date::Date(const int mn,const int dy, const int yr) throw (IllegalException)
 
 { //month,day,and year are assigned and their corresponding exceptions are
  //throw.  This also take into consider leapyear
-  const int daysmonth[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};  
+  const int daysmonth[] = {0,31,28,31,30,31,30,31,31,30,31,30,31};
   if (mn >=1 && mn<=12)
   month = mn; else throw IllegalException("Invalid Month\n\n");
   if (yr >=1900 && yr <=2100)
@@ -7911,7 +7911,7 @@ Date::Date(const int mn,const int dy, const int yr) throw (IllegalException)
   if ((month == 2) && (dy==29) && notleapyear(year))
      throw IllegalException("Invalid Day: Not a leapyear \n\n");
   if (dy >=1 && dy <= daysmonth[month])
-      day = dy;else throw IllegalException("Invalid Day\n\n");  
+      day = dy;else throw IllegalException("Invalid Day\n\n");
   monthday = month * pow(10,2) + day;}//convert month and day into one field.
                                         //easier to compare combined fields than to each one separately.
 bool Date::operator <  (const Date& rhs) const
@@ -7935,7 +7935,7 @@ return *this;
 #endif //0 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 #if 0  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 /********************************************************************\
- * date.h -- utility functions to handle the date (adjusting, get   * 
+ * date.h -- utility functions to handle the date (adjusting, get   *
  *           current date, etc.) for xacc (X-Accountant)            *
  * Copyright (C) 1997 Robin D. Clark (rclark@cs.hmc.edu)            *
  * Copyright (C) 1998, 1999 Linas Vepstas                           *
@@ -7955,9 +7955,9 @@ return *this;
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.        *
 \********************************************************************/
 
-/* 
- * hack alert -- the scan and print routines should probably be moved 
- * to somewhere else ... the engine really isn't involved with things 
+/*
+ * hack alert -- the scan and print routines should probably be moved
+ * to somewhere else ... the engine really isn't involved with things
  * like printing formats.  This is needed mostl;y by the GUI and so on.
  * If a file-io thing needs date handling, it should do it itself, instead
  * of depending on the routines here ...
@@ -8045,7 +8045,7 @@ extern DateFormat dateFormat;
 #endif /* __XACC_DATE_H__ */
 
 /********************************************************************\
- * date.c -- utility functions to handle the date (adjusting, get   * 
+ * date.c -- utility functions to handle the date (adjusting, get   *
  *           current date, etc.) for xacc (X-Accountant)            *
  * Copyright (C) 1997 Robin D. Clark                                *
  * Copyright (C) 1998 Linas Vepstas                                 *
@@ -8069,9 +8069,9 @@ extern DateFormat dateFormat;
  *  Address: 609 8th Street                                         *
  *           Huntington Beach, CA 92648-4632                        *
  *                                                                  *
- *                                                                  * 
- * TODO: - for now, every year is leap year                         * 
- *                                                                  * 
+ *                                                                  *
+ * TODO: - for now, every year is leap year                         *
+ *                                                                  *
 \********************************************************************/
 
 #include <stdio.h>
@@ -8103,17 +8103,17 @@ DateFormat dateFormat = DATE_FORMAT_US;
  *
  * Globals: global dateFormat value
  */
-void 
+void
 printDate (char * buff, int day, int month, int year)
 {
   if (!buff) return;
 
   /* Note that when printing year, we use %-4d in format string;
    * this causes a one, two or three-digit year to be left-adjusted
-   * when printed (i.e. padded with blanks on the right).  This is 
-   * important while the user is editing the year, since erasing a 
-   * digit can temporarily cause a three-digit year, and having the 
-   * blank on the left is a real pain for the user.  So pad on the 
+   * when printed (i.e. padded with blanks on the right).  This is
+   * important while the user is editing the year, since erasing a
+   * digit can temporarily cause a three-digit year, and having the
+   * blank on the left is a real pain for the user.  So pad on the
    * right.
    */
   switch(dateFormat)
@@ -8134,21 +8134,21 @@ printDate (char * buff, int day, int month, int year)
     }
 }
 
-void 
+void
 printDateSecs (char * buff, time_t t)
 {
   struct tm *theTime;
   if (!buff) return;
-  
+
   theTime = localtime(&t);
-  
-  printDate (buff, theTime->tm_mday, 
+
+  printDate (buff, theTime->tm_mday,
                    theTime->tm_mon + 1,
                    theTime->tm_year + 1900);
 }
 
 
-char * 
+char *
 xaccPrintDateSecs (time_t t)
 {
    char buff[100];
@@ -8170,7 +8170,7 @@ xaccPrintDateSecs (time_t t)
  *
  * Globals: global dateFormat value
  */
-void 
+void
 scanDate(const char *buff, int *day, int *month, int *year)
 {
    char *dupe, *tmp, *first_field, *second_field, *third_field;
@@ -8195,11 +8195,11 @@ scanDate(const char *buff, int *day, int *month, int *year)
          }
       }
    }
-   
+
    /* if any fields appear blank, use today's date */
    time (&secs);
    now = localtime (&secs);
-   iday = now->tm_mday; 
+   iday = now->tm_mday;
    imonth = now->tm_mon+1;
    iyear = now->tm_year+1900;
 
@@ -8292,13 +8292,13 @@ xaccTransSetDateStr (Transaction *trans, char *str)
    int day, month, year;
 
    /* hack alert -- the date string should be parsed for time values */
-   /* cvs has some cool date parsing/guessing code .. maybe steal 
+   /* cvs has some cool date parsing/guessing code .. maybe steal
     * that code from there ...  */
    scanDate(str, &day, &month, &year);
    xaccTransSetDate (trans, day, month, year);
 }
 
-time_t 
+time_t
 xaccDMYToSec (int day, int month, int year)
 {
    struct tm stm;
@@ -8328,7 +8328,7 @@ xaccScanDateS (const char *str)
 /********************** END OF FILE *********************************\
 \********************************************************************/
 
-      
+
 /*
   Local Variables:
   tab-width: 2
@@ -8338,7 +8338,7 @@ xaccScanDateS (const char *str)
   eval: (c-set-offset 'block-open '-)
   End:
 */
-      
+
 #endif //0 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 #if 0  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 /*********************************************************
@@ -9159,7 +9159,7 @@ uint32  DateToDays (uint32  year, uint32  month, uint32  day)
         days++;
 
     return days;
-} 
+}
 
 
 /*
@@ -9194,11 +9194,11 @@ extern "C" {
 
   DayTy DaysToDate(YearTy, MonthTy, DayTy);
   JulTy DaysToYear(YearTy);
-    
+
   void Encode(YearTy, MonthTy, DayTy, JulTy&);
   void Decode(YearTy&, MonthTy&, DayTy&, const JulTy);
 
-  int DayOfWeek(YearTy, MonthTy, DayTy);    
+  int DayOfWeek(YearTy, MonthTy, DayTy);
 
   char* d2xbase(YearTy year, MonthTy month, DayTy day, char* buffer);
 
@@ -9239,7 +9239,7 @@ extern "C" {
   MonthTy Month() const;
   YearTy Year(bool century = true) const;
   DayTy DaysInMonth() const;
-  DayTy LastWorkDay() const;   
+  DayTy LastWorkDay() const;
 
   DateTy& FirstMonthDay();
   DateTy& LastMonthDay();
@@ -9303,7 +9303,7 @@ class DateMY {
 private:
   MonthTy month;
   YearTy year;
-   
+
 public:
   DateMY(JulTy date) : month(DateTy(date).Month()), year(DateTy(date).Year()) {}
   DateMY(const DateTy& date) : month(date.Month()), year(date.Year()) {}
@@ -9354,7 +9354,7 @@ static const char* MonthNames[12] = {
 //static const char* WeekDayNames[7] = {
 //  "Su", "Mn", "Tu", "We", "Th", "Fr", "St" };
 /*
-DateTy::DateTy(bool use_global) 
+DateTy::DateTy(bool use_global)
   {
   if(!use_global) {
     long clk = ::time(0);
@@ -9372,7 +9372,7 @@ DateTy::DateTy(JulTy JulDate) {
   JulNum = JulDate;
 }
 
-DateTy::DateTy(const char* date, DateTy::Formats _mode) 
+DateTy::DateTy(const char* date, DateTy::Formats _mode)
   {
   DayTy day; MonthTy month; YearTy year;
   char c1 = '\0', c2 = '\0';
@@ -9865,7 +9865,7 @@ unsigned int daysbefore[12] = {0, 31, 59, 90, 120, 151, 181, 212, 243, 273,
 //unsigned int monthlength[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30,
 //        31};
 
-/* 
+/*
 void code2date(datecode_t code, unsigned int *date, unsigned int *month,
          unsigned int *year) {
   / * not most efficient possible, but only used in output so doesn't need to
@@ -9900,7 +9900,7 @@ time_t shifttime(time_t timer, int diff) {
 */
 
 choice parsedate(time_t starttime, char *s, timecode_t *date, logical from,
-     logical unixtime) 
+     logical unixtime)
   {
   struct tm *st;
   int y, m, d, h, n;
@@ -9912,7 +9912,7 @@ choice parsedate(time_t starttime, char *s, timecode_t *date, logical from,
   else
 #endif
     st = localtime(&starttime);
-  if (ISDIGIT(*s) && ISDIGIT(*(s + 1))) 
+  if (ISDIGIT(*s) && ISDIGIT(*(s + 1)))
     {
     y = 10 * (*s - '0') + (*(s + 1) - '0');
     s += 2;
@@ -10763,7 +10763,7 @@ char FAR * GetDateToken(char FAR * lpszDate, char * szBuffer,
   i = 0;
   while (1) {
     c = *lpszDate;
-    if ((unsigned)i == (uMaxLen - 1) || 
+    if ((unsigned)i == (uMaxLen - 1) ||
       bAlphaMode && !IsALPHA(c) ||
       !bAlphaMode && !IsDIGIT(c))
       break;
@@ -11395,9 +11395,9 @@ int  __cdecl _gx_get_date(int si, LPCTSTR date_str, int *mp, int *dp, int *yp, i
     *fmtp = GX_FMT_DATE;
 
     return 1;
-  }                 
-#else                                     
-  TIMESTAMP_STRUCT tm;  
+  }
+#else
+  TIMESTAMP_STRUCT tm;
   if (GXParseDateTime(&tm, date_str))
   {
     *mp = tm.month;
@@ -11407,7 +11407,7 @@ int  __cdecl _gx_get_date(int si, LPCTSTR date_str, int *mp, int *dp, int *yp, i
     *fmtp = GX_FMT_DATE;
 
     return 1;
-  }                 
+  }
 #endif
   return 0;
 }
@@ -11425,7 +11425,7 @@ int  __cdecl _gx_get_time(LPCTSTR time_str, int *hp, int *mp, int *sp)
     return 1;
   }
 #else
-  TIMESTAMP_STRUCT tm;  
+  TIMESTAMP_STRUCT tm;
   if (GXParseDateTime(&tm, time_str))
   {
     *hp = tm.hour;
@@ -11433,7 +11433,7 @@ int  __cdecl _gx_get_time(LPCTSTR time_str, int *hp, int *mp, int *sp)
     *sp = tm.second;
 
     return 1;
-  }                 
+  }
 #endif
   return 0;
 }
@@ -11617,9 +11617,9 @@ static const TCHAR cYear    = _T('y');        // Year
 static const TCHAR cEra     = _T('g');        // Era
 
 // List of type codes for Am/Pm strings
-static const LCTYPE AmPmIds[2] = 
+static const LCTYPE AmPmIds[2] =
 {
-  LOCALE_S1159,                  // Am 
+  LOCALE_S1159,                  // Am
   LOCALE_S2359                  // Pm
 };
 
@@ -11633,7 +11633,7 @@ void CGXBDateTimeCtrl::ParseDateTimeFormat()
 {
   // Table mapping date/time format characters onto correct function for
   // parsing that format.
-  struct 
+  struct
   {
     TCHAR c;
     void (CGXBDateTimeCtrl::*fn)(LPCTSTR&, LPCTSTR&, UINT);
@@ -11661,7 +11661,7 @@ void CGXBDateTimeCtrl::ParseDateTimeFormat()
 
   m_bDateTokens = FALSE;
 
-  // We loop down the date/time format string. For each character we 
+  // We loop down the date/time format string. For each character we
   // recognise, we call a function for parsing that format string. This
   // function will add any text not recognised since the last recognised
   // character as a static gadget, before adding a gadget to handle the
@@ -11676,7 +11676,7 @@ void CGXBDateTimeCtrl::ParseDateTimeFormat()
       if(DTFormatTable[i].c == *lpsz)
       {
         // We know about it, so call it's parsing function.
-        (this->*DTFormatTable[i].fn)(lpszStart, lpsz, 
+        (this->*DTFormatTable[i].fn)(lpszStart, lpsz,
                        DTFormatTable[i].u);
 
         m_bDateTokens |= DTFormatTable[i].bDate;
@@ -11687,7 +11687,7 @@ void CGXBDateTimeCtrl::ParseDateTimeFormat()
 
     lpsz = _tcsinc(lpsz);        // Move forward to next character
   }
-  
+
   // Flush any text not since the last handled sequence.
   FlushStatic(lpszStart, lpsz);
 
@@ -11705,7 +11705,7 @@ void CGXBDateTimeCtrl::ParseDateTimeFormat()
 //               H  hours (24 hour clock) with no lead zero
 //              HH  hours (24 hour clock) with lead zero
 //
-void CGXBDateTimeCtrl::ParseHours(LPCTSTR& lpszStart, LPCTSTR& lpsz, 
+void CGXBDateTimeCtrl::ParseHours(LPCTSTR& lpszStart, LPCTSTR& lpsz,
                  UINT uParam)
 {
   // Add any unrecognised text as static gadget
@@ -11726,7 +11726,7 @@ void CGXBDateTimeCtrl::ParseHours(LPCTSTR& lpszStart, LPCTSTR& lpsz,
     BOOL bLeadZero = CheckLeadZero(lpsz, cHours12);
     pGadget->Initialise(this, 1, 12, 0, bLeadZero, GXDT_DTID_12HOUR);
   }
-  
+
   if(m_nNoEdit & FixedHour)
   {
     // The user is not allowed to change the hour, so ensure this field
@@ -11748,7 +11748,7 @@ void CGXBDateTimeCtrl::ParseHours(LPCTSTR& lpszStart, LPCTSTR& lpsz,
 //    Formats:   m  minutes with no lead zero
 //              mm  minutes with lead zero
 //
-void CGXBDateTimeCtrl::ParseMinutes(LPCTSTR& lpszStart, LPCTSTR& lpsz, 
+void CGXBDateTimeCtrl::ParseMinutes(LPCTSTR& lpszStart, LPCTSTR& lpsz,
                    UINT / * uParam * /)
 {
   // Add any unrecognised text as static gadget
@@ -11780,7 +11780,7 @@ void CGXBDateTimeCtrl::ParseMinutes(LPCTSTR& lpszStart, LPCTSTR& lpsz,
 //    Formats:   s  seconds with no lead zero
 //              ss  seconds with lead zero
 //
-void CGXBDateTimeCtrl::ParseSeconds(LPCTSTR& lpszStart, LPCTSTR& lpsz, 
+void CGXBDateTimeCtrl::ParseSeconds(LPCTSTR& lpszStart, LPCTSTR& lpsz,
                    UINT / * uParam * /)
 {
   // Add any unrecognised text as static gadget
@@ -11812,7 +11812,7 @@ void CGXBDateTimeCtrl::ParseSeconds(LPCTSTR& lpszStart, LPCTSTR& lpsz,
 //    Formats:   t  One digit Am/Pm designator
 //              tt  Complete Am/Pm designator
 //
-void CGXBDateTimeCtrl::ParseAmPm(LPCTSTR& lpszStart, LPCTSTR& lpsz, 
+void CGXBDateTimeCtrl::ParseAmPm(LPCTSTR& lpszStart, LPCTSTR& lpsz,
                 UINT / * uParam * /)
 {
   // Add any unrecognised text as static gadget
@@ -11866,7 +11866,7 @@ void CGXBDateTimeCtrl::ParseAmPm(LPCTSTR& lpszStart, LPCTSTR& lpsz,
 //             ddd  abbreviated day of week
 //            dddd  full day of week
 //
-void CGXBDateTimeCtrl::ParseDay(LPCTSTR& lpszStart, LPCTSTR& lpsz, 
+void CGXBDateTimeCtrl::ParseDay(LPCTSTR& lpszStart, LPCTSTR& lpsz,
                  UINT / * uParam * /)
 {
   // Add any unrecognised text as static gadget
@@ -11914,7 +11914,7 @@ void CGXBDateTimeCtrl::ParseDay(LPCTSTR& lpszStart, LPCTSTR& lpsz,
     for(int i=1; i<=7; i++)
     {
       VERIFY(CGXBLocale::GetDayName(strDay, i, bLong));
-      list.Add(strDay);    
+      list.Add(strDay);
     }
 
     // Create and initialise a list gadget (with these day names)
@@ -11945,7 +11945,7 @@ void CGXBDateTimeCtrl::ParseDay(LPCTSTR& lpszStart, LPCTSTR& lpsz,
 //             MMM  Abbreviated month name
 //            MMMM  Full month name
 //
-void CGXBDateTimeCtrl::ParseMonth(LPCTSTR& lpszStart, LPCTSTR& lpsz, 
+void CGXBDateTimeCtrl::ParseMonth(LPCTSTR& lpszStart, LPCTSTR& lpsz,
                  UINT / * uParam * /)
 {
   // Add any unrecognised text as static gadget
@@ -11977,7 +11977,7 @@ void CGXBDateTimeCtrl::ParseMonth(LPCTSTR& lpszStart, LPCTSTR& lpsz,
 
     if(m_nNoEdit & FixedMonth)
     {
-      // The user is not allowed to change the month, so ensure this 
+      // The user is not allowed to change the month, so ensure this
       // field can't receive focus
       pGadget->SetStyle(pGadget->GetStyle() & (~CGXBDTGadget::WantFocus));
     }
@@ -11993,7 +11993,7 @@ void CGXBDateTimeCtrl::ParseMonth(LPCTSTR& lpszStart, LPCTSTR& lpsz,
     for(int i=1; i<=12; i++)
     {
       VERIFY(CGXBLocale::GetMonthName(strMonth, i, bLong));
-      list.Add(strMonth);    
+      list.Add(strMonth);
     }
 
     // Create and initialise a list gadget (with these month names)
@@ -12002,7 +12002,7 @@ void CGXBDateTimeCtrl::ParseMonth(LPCTSTR& lpszStart, LPCTSTR& lpsz,
 
     if(m_nNoEdit & FixedMonth)
     {
-      // The user is not allowed to change the month, so ensure this 
+      // The user is not allowed to change the month, so ensure this
       // field can't receive focus
       pGadget->SetStyle(pGadget->GetStyle() & (~CGXBDTGadget::WantFocus));
     }
@@ -12024,7 +12024,7 @@ void CGXBDateTimeCtrl::ParseMonth(LPCTSTR& lpszStart, LPCTSTR& lpsz,
 //             yyy  Year as 4 digits
 //            yyyy  Year as 4 digits (same as yyy)
 //
-void CGXBDateTimeCtrl::ParseYear(LPCTSTR& lpszStart, LPCTSTR& lpsz, 
+void CGXBDateTimeCtrl::ParseYear(LPCTSTR& lpszStart, LPCTSTR& lpsz,
                 UINT / * uParam * /)
 {
   // Add any unrecognised text as static gadget
@@ -12059,7 +12059,7 @@ void CGXBDateTimeCtrl::ParseYear(LPCTSTR& lpszStart, LPCTSTR& lpsz,
 
   if(m_nNoEdit & FixedYear)
   {
-    // The user is not allowed to change the year, so ensure this 
+    // The user is not allowed to change the year, so ensure this
     // field can't receive focus
     pGadget->SetStyle(pGadget->GetStyle() & (~CGXBDTGadget::WantFocus));
   }
@@ -12105,7 +12105,7 @@ void CGXBDateTimeCtrl::ParseQuotedText(LPCTSTR& lpszStart, LPCTSTR& lpsz, UINT /
   TCHAR cQuote = *lpsz;
 
   lpszStart = lpsz = _tcsinc(lpsz);
-  
+
   while(*lpsz && *lpsz != cQuote)
     lpsz = _tcsinc(lpsz);
 
@@ -12710,7 +12710,7 @@ public:
 // Author: Stefan Hoenig
 //
 
-// gxtime.cpp : date and time parsing and formatting 
+// gxtime.cpp : date and time parsing and formatting
 //              (without using COleDateTime class)
 
 #include "stdafx.h"
@@ -12934,7 +12934,7 @@ BOOL CGXNoOleDateTimeImp::ParseDateTime(struct tm* ptm, LPCTSTR szValue, GXDateF
       if ((sTime.Right(2)).CompareNoCase(_T("PM")) == 0 || (sTime.Right(1)).CompareNoCase(_T("P")) == 0)
       {
         ptm->tm_hour = _ttoi(sTime.Left(nColon1)) + 12;
-        if (ptm->tm_hour == 24)  // 12:mm PM 
+        if (ptm->tm_hour == 24)  // 12:mm PM
           ptm->tm_hour = 12;
       }
       else
@@ -13091,7 +13091,7 @@ BOOL CGXNoOleDateTimeImp::ParseDateTime(TIMESTAMP_STRUCT* ptm, LPCTSTR szValue, 
       if ((sTime.Right(2)).CompareNoCase(_T("PM")) == 0 || (sTime.Right(1)).CompareNoCase(_T("P")) == 0)
       {
         ptm->hour = (UWORD) (_ttoi(sTime.Left(nColon1)) + 12);
-        if (ptm->hour == 24)  // 12:mm PM 
+        if (ptm->hour == 24)  // 12:mm PM
           ptm->hour = 12;
       }
       else
@@ -13467,7 +13467,7 @@ static int AFXAPI GetMM (CString& strDate)
 
 #include "stdafx.h"
 
-#if _MFC_VER >= 0x0400 
+#if _MFC_VER >= 0x0400
 
 #ifdef _GXDLL
 #undef AFXAPI_DATA
@@ -13661,24 +13661,24 @@ void CGXOleDateTimeImp::FormatTimeStamp(CString& strRet, const TIMESTAMP_STRUCT*
 }
 
 
-#endif // _MFC_VER 
+#endif // _MFC_VER
 #endif
 #endif //0 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 #if 0  //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // ----------------------------------------------------------- //
-// C++ Header File Name: cdate.h 
-// C++ Compiler Used: Microsoft visual C/C++ version 4.0 
-// Produced By: Doug Gaer   
-// File Creation Date: 09/21/1997 
+// C++ Header File Name: cdate.h
+// C++ Compiler Used: Microsoft visual C/C++ version 4.0
+// Produced By: Doug Gaer
+// File Creation Date: 09/21/1997
 // Date Last Modified: 03/15/1999
-// ----------------------------------------------------------- // 
-// ---------- Include File Description and Details  ---------- // 
-// ----------------------------------------------------------- // 
+// ----------------------------------------------------------- //
+// ---------- Include File Description and Details  ---------- //
+// ----------------------------------------------------------- //
 /*
 The CDate class is used turn a date string into into concrete
 data type.
 */
-// ----------------------------------------------------------- //   
+// ----------------------------------------------------------- //
 /*#ifndef __CDATE_HPP
 #define __CDATE_HPP
 
@@ -13701,14 +13701,14 @@ public:
   }
   CDate(const CDate& ob);
   CDate& operator=(const CDate& ob);
-  
+
 public:
   void SetDay(__UBYTE__ byte) { Day = byte; }
   void SetMonth(__UBYTE__ byte) { Month = byte; }
   void SetYear(UINT16 uint16) { Year = uint16; }
   void SetDate(__UBYTE__ month, __UBYTE__ day, UINT16 year) {
     Month = month, Day = day, Year = year;
-  
+
   __UBYTE__ GetDay() { return Day; }
   __UBYTE__ GetMonth() { return Month; }
   UINT16 GetYear() { return Year; }
@@ -13721,18 +13721,18 @@ public:
   char *year_c_str();
   const char *year_c_str() const;
   unsigned SizeOf() { return sizeof(Month)+sizeof(Day)+sizeof(Year); }
-  
+
 public: // Overloaded operators
   friend int operator==(const CDate &a, const CDate &b);
   friend int operator!=(const CDate &a, const CDate &b);
   friend int operator<(const CDate &a, const CDate &b);
-  
+
 public:
 #ifdef __USE_CPP_IOSTREAM__
   friend ostream &operator<<(ostream &os, const CDate &ob);
   friend void operator>>(istream &is, CDate &ob);
 #endif
-  
+
 private:
   __UBYTE__ Month;
   __UBYTE__ Day;
@@ -13741,20 +13741,20 @@ private:
 
 #endif  // __CDATE_HPP
 */
-  // ----------------------------------------------------------- // 
-// C++ Source Code File Name: cdate.cpp 
-// C++ Compiler Used: Microsoft visual C/C++ version 4.0 
-// Produced By: Doug Gaer   
-// File Creation Date: 09/21/1997 
+  // ----------------------------------------------------------- //
+// C++ Source Code File Name: cdate.cpp
+// C++ Compiler Used: Microsoft visual C/C++ version 4.0
+// Produced By: Doug Gaer
+// File Creation Date: 09/21/1997
 // Date Last Modified: 03/15/1999
-// ----------------------------------------------------------- // 
-// ------------- Program Description and Details ------------- // 
-// ----------------------------------------------------------- // 
+// ----------------------------------------------------------- //
+// ------------- Program Description and Details ------------- //
+// ----------------------------------------------------------- //
 /*
 The CDate class is used turn a date string into into concrete
 data type.
 */
-// ----------------------------------------------------------- // 
+// ----------------------------------------------------------- //
 /*#include "string.h"
 #include "stdio.h"
 #include "cdate.h"
@@ -13935,7 +13935,7 @@ int operator<(const CDate &a, const CDate &b)
       if(a.Day < b.Day) return 1;
     }
   }
-  
+
   return 0;
 }
 */

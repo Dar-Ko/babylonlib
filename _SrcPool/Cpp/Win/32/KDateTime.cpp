@@ -205,7 +205,7 @@ return tmResult;
   VARIANT dates are represented as 64-bit real numbers where
   1900-01-01T00:00:00 is 2.0.
 
-  Note: 1899-12-30T00:00:00 is DATE with valie 0.0
+  Note: 1899-12-30T00:00:00 is DATE with value 0.0
 
   See also: oaidl.h
  */

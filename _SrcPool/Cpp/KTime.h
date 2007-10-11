@@ -531,7 +531,7 @@ return (nMonthId / 3 + 1);
 
   Returns: DATE as real number
 
- History: Microsoft COleDateTime::DoubleFromDate, ATLComTime.inl
+  History: Microsoft COleDateTime::DoubleFromDate, ATLComTime.inl
  */
 inline double DateToD(const DATE dateValue //[in] date to convert to double
                      )

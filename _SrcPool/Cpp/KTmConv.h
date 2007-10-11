@@ -36,12 +36,14 @@
 #endif
 
 #include <time.h>     /*tm struct                                            */
+#include "KTimeCst.h"
 
 #ifndef _KTIME_H_ //#include "KTime.h"
   #ifndef YEAR_EPOCH_TM
     #define YEAR_EPOCH_TM   1900 /*staring year for tm structure             */
   #endif
 #endif
+
 ///////////////////////////////////////////////////////////////////////////////
 //CTm encapsulates tm structure used in various date and time functions.
 //Structure tm holds date and time and has following members as defined
@@ -172,7 +174,7 @@ return _mktime64((tm *)this);
  */
 time_t CTm::GmTime() const
 {
-const int_least32_t SpDAY = 60*60*24;     //[s/day]
+const int_least32_t SpDAY = (int_least32_t)CST_SpDAY;     //[s/day]
 const int_least32_t DAY19700101 = 719469; //number of days on 1970-01-01
                                           //according to Julian Day counting [day]
 const int ID_FEBRUARY = 1;
@@ -189,16 +191,16 @@ if (tm_mon > ID_FEBRUARY)
   iMonth = tm_mon + 1;
 else
   {
-  iMonth = tm_mon + 1 + 12; //add one year in the month count
+  iMonth = tm_mon + 1 + CST_MpYEAR; //add one year in the month count
   iYear--; //decrease year count for one
   }
   //Get number of days since 1970-01-01, including leap days
-iYear = 365 * iYear + iYear / 4 - iYear / 100 + iYear / 400 - DAY19700101; //[day]
+iYear = CST_DAYpYEAR * iYear + iYear / 4 - iYear / 100 + iYear / 400 - DAY19700101; //[day]
   //Get number of seconds in whole days since 1970-01-01 00:00:00
 time_t timeResult =
         SpDAY * (tm_mday + (153 * iMonth - 457) / 5 + iYear);//[s]
   //Add remaining part of the day
-timeResult += 3600 * tm_hour + 60 * tm_min + tm_sec;
+timeResult += CST_SpH * tm_hour + CST_SpMIN * tm_min + tm_sec;
 return timeResult;
 }
 
@@ -206,19 +208,20 @@ return timeResult;
 extern "C" int g_iMonthLen[];
 /*Validates date and time range.
 
-  Note: the day of the month is valid if it is in [1, 31] range. Leap years or
-  number of days for the particular month are not accounted into validation.
+  Note: the day of the month is valid if it is in [1, 31] range. Days for the
+  particular month are not accounted into validation.
+  Valid range for seconds and day include the leap second and day.
 
   Returns: true if date and time are in valid range, othervise returns false.
  */
 inline bool CTm::IsValid() const
 {
-if ((tm_sec >= 0) && (tm_sec <= 61))        //seconds after the minute [0, 61]
-  if ((tm_min >= 0) && (tm_min < 60))       //minutes after the hour   [0, 59]
-    if ((tm_hour >= 0) && (tm_hour < 24))   //hours after 00:00:00     [0, 23]
-      if ((tm_mday > 0) && (tm_mday <= 31)) //day of the month         [1, 31]
-        if ((tm_wday >= 0) && (tm_wday < 7))     //day of the week     [0,  6]
-          if ((tm_yday >= 0) && (tm_yday < 366)) //day of the year     [0,365]
+if ((tm_sec >= 0) && (tm_sec <= 61))                       //seconds after the minute [0, 61]
+  if ((tm_min >= 0) && (tm_min < CST_MINpH))               //minutes after the hour   [0, 59]
+    if ((tm_hour >= 0) && (tm_hour < CST_HpDAY))           //hours after 00:00:00     [0, 23]
+      if ((tm_mday > 0) && (tm_mday <= 31))                //day of the month         [1, 31]
+        if ((tm_wday >= 0) && (tm_wday < CST_DAYpWEEK))    //day of the week     [0,  6]
+          if ((tm_yday >= 0) && (tm_yday <= CST_DAYpYEAR)) //day of the year     [0,365]
             return true;
 return false;
 }
