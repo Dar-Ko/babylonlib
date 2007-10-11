@@ -13,7 +13,8 @@
 #include "KTrace.h"
 
 #include <new>      //std::nothrow
-#include <fstream>  //std::ifstream
+#include <fstream>  //std::ifstream or wifstream
+#include "KOStream.h"
 using namespace std;
 
 LPTSTR FileRead(LPCTSTR szFileName,LPTSTR szBuffer = NULL,int iCount = -1);
@@ -65,8 +66,20 @@ if(iCount == 0)
 
 if (szFileName != NULL)
   {
-  ifstream fileInput;  //Input stream
-  fileInput.open(szFileName, ios::in | ios::binary );
+  tifstream fileInput;  //Input stream
+
+  #ifdef _UNICODE
+    //Convert file name to SBCS text
+    /*Note: wide characters STL streams does not have a constructor 
+      with wide character file name.
+     */
+    extern std::string WtoChar(const wchar_t* lpWideCharStr, int iLen = -1);
+    string strFileName = WtoChar(szFileName);
+    fileInput.open(strFileName.c_str(), ios::in | ios::binary );
+  #else //ASCII file
+    fileInput.open(szFileName, ios::in | ios::binary );
+  #endif
+
   if(fileInput.is_open())
     {
     if (iCount < 0) //Get length of file
