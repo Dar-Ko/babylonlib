@@ -744,7 +744,7 @@
     const int g__M_IX86 = 200;
   #endif
   #ifdef _M_IA64
-    #pragma message ("Compiling for for	Intel Itanium platform.")
+    #pragma message ("Compiling for for Intel Itanium platform.")
   #endif
   #ifdef _M_X64
     #pragma message ("Compiling for for 64-bit platform.")
@@ -857,6 +857,10 @@
      |                     |                                 |
      |_WIN32_WINDOWS=0x0490|Windows Millenium                |
      |                     |                                 |
+     |WINVER=0x040A        |Windows 98 4.10                  |
+     |                     |                                 |
+     |WINVER=0x045A        |Windows Millenium 4.90           |
+     |                     |                                 |
      |WINVER=0x0500        |Windows 98 and Windows 2000      |
      |                     |                                 |
      |_WIN32_WINNT=0x0500  |Windows 2000                     |
@@ -866,6 +870,8 @@
      |WINVER=0x0501        |                                 |
      |                     |                                 |
      |_WIN32_WINNT=0x0502  |Windows Server 2003 family       |
+     |                     |                                 |
+     |WINVER=0x0600        |Windows Vista                    |
      |                     |                                 |
      |_WIN64               |                                 |
      +---------------------+---------------------------------+
@@ -877,9 +883,13 @@
      |                     |                                 |
      |_WIN32_IE=0x0500     |Internet Explorer 5.0, 5.0a, 5.0b|
      |                     |                                 |
-     |_WIN32_IE=0x0501     |Internet Explorer 5.01, 5.5      |
+     |_WIN32_IE=0x0501     |Internet Explorer 5.01           |
+     |                     |                                 |
+     |_WIN32_IE=0x0532     |Internet Explorer 5.5            |
      |                     |                                 |
      |_WIN32_IE=0x0600     |Internet Explorer 6.00           |
+     |                     |                                 |
+     |_WIN32_IE=0x0700     |Internet Explorer 7.00           |
      +---------------------+---------------------------------+
 
     Note: Setting WINVER to 0x0500 implies _WIN32_IE=0x0400
@@ -894,10 +904,18 @@
       #pragma message ("Target OS is MS Windows 3.1.")
     #elif WINVER == 0x0400
       #pragma message ("Target OS is MS Windows NT 4.0.")
+    #elif WINVER == 0x040A
+      #pragma message ("Target OS is MS Windows 98 4.10.")
+    #elif WINVER == 0x045A
+      #pragma message ("Target OS is MS Windows Millenium 4.90.")
     #elif WINVER == 0x0500
       #pragma message ("Target OS is MS Windows 2000 or 98.")
     #elif WINVER == 0x0501
       #pragma message ("Target OS is MS Windows XP.")
+    #elif WINVER == 0x0502
+      #pragma message ("Target OS is MS Windows 2003 5.2.")
+    #elif WINVER == 0x0600
+      #pragma message ("Target OS is MS Windows Vista.")
     #else
       #pragma message ("Target OS is MS Windows ?.?.")
     #endif
@@ -976,6 +994,7 @@
         Internet Explorer 5.0, 5.0a, 5.0b       0x0500
         Internet Explorer 5.01, 5.5             0x0501
         Internet Explorer 6.0                   0x0600
+        Internet Explorer 7.0                   0x0700
 
         _WIN32_IE value    Description
          0x0200            The application will be compatible with Comctl32.dll
@@ -1007,29 +1026,32 @@
                            Comctl32.dll or version 5.0 of Shell32.dll and Shlwapi.dll.
      */
     const int g__WIN32_IE = _WIN32_IE;
-    #if _WIN32_IE >= 0x0600
-      #pragma message ("  6.00 and later.")
+    #if _WIN32_IE >= 0x0700
+      #pragma message ("  7.00 and later.")
     #else
-      #if _WIN32_IE >= 0x0500
-        #pragma message ("  5.00 and later.")
+      #if _WIN32_IE >= 0x0600
+        #pragma message ("  6.00 and later.")
       #else
-        #if _WIN32_IE >= 0x0400
-            #pragma message ("  4.0 and later.")
+        #if _WIN32_IE >= 0x0500
+          #pragma message ("  5.00 and later.")
         #else
-          #if _WIN32_IE >= 0x0300
-            #pragma message ("  3.0 and later.")
-           #else
-             #if _WIN32_IE >= 0x0200
-               #pragma message ("  2.0 and later.")
+          #if _WIN32_IE >= 0x0400
+              #pragma message ("  4.0 and later.")
+          #else
+            #if _WIN32_IE >= 0x0300
+              #pragma message ("  3.0 and later.")
              #else
-               #pragma message ("  unknown.")
+               #if _WIN32_IE >= 0x0200
+                 #pragma message ("  2.0 and later.")
+               #else
+                 #pragma message ("  unknown.")
+              #endif
             #endif
           #endif
         #endif
       #endif
     #endif
-  #endif
-
+  #endif /*_WIN32_IE*/
 /* ========================================================================= */
 #endif /*_MSC_VER                                                            */
 
@@ -1820,7 +1842,7 @@ M_I86HM, __HUGE__
     _M_IX86 Defined for 32 bit targets. Set to: 300 for 386 targets, 400 for 486,
           500 for Pentium, 600 for P6.
     _M_X64  Defined for 64 bit targets.
-    _M_IA64	Intel Itanium
+    _M_IA64 Intel Itanium
    */
 #endif
 
