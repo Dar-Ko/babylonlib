@@ -104,7 +104,7 @@ switch(nEventType)
 
   default:
     {
-    TRACE(_T("  Device change event 0x%.8X "), nEventType);
+    TRACE(_T("  Device change event 0x%0.8X "), nEventType);
     szResult = _T("  Unknown event");
     }
   }

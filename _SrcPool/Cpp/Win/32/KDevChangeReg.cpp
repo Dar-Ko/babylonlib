@@ -120,23 +120,39 @@ HDEVNOTIFY DeviceInterfaceRegister(HWND hRecipient, //[in] window handle to send
                               //status handle, SERVICE_CONTROL_DEVICEEVENT
                               //notifications are sent to the service control
                               //handler
-                               GUID guidInterfaceClass //[in] interface class
-                              //GUID for the device interfaces
+                                GUID* pguidInterfaceClass //[in] interface class
+                              //GUID for the device interfaces or NULL to receive
+                              //notifications for all device interface classes.
                               )
 {
 TRACE(_T("DeviceInterfaceRegister()\n"));
 #if(WINVER >= 0x040A) //Requires Windows Millenium or later
   DEV_BROADCAST_DEVICEINTERFACE NotificationFilter;
   ZeroMemory( &NotificationFilter, sizeof(NotificationFilter) );
+  DWORD dwFlags = DEVICE_NOTIFY_WINDOW_HANDLE;  //the hRecipient parameter is 
+                 //a window. For a service use DEVICE_NOTIFY_SERVICE_HANDLE.
+                 
   //Configure event filter
   NotificationFilter.dbcc_size = sizeof(DEV_BROADCAST_DEVICEINTERFACE);
   /*Fails if the dbch_devicetype member is DBT_DEVTYP_PORT, DBT_DEVTYP_VOLUME
     or DBT_DEVTYP_OEM. This types are handled differently by the system.
    */
   NotificationFilter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
-  NotificationFilter.dbcc_classguid = guidInterfaceClass;
+  if (pguidInterfaceClass != NULL)
+    NotificationFilter.dbcc_classguid = *pguidInterfaceClass;
+  else
+    {
+    GUID guidDummy = { 0x0, 0x0, 0x0, 0x01,0x02,0x03,0x04,0x05,0x06,0x07,0x08 };
+    NotificationFilter.dbcc_classguid = guidDummy;
+    dwFlags = dwFlags | DEVICE_NOTIFY_ALL_INTERFACE_CLASSES; //Notifies 
+                                     //the recipient of device interface events about
+                                     //all device interface classes. 
+                                     //The dbcc_classguid member is ignored 
+                                     //(WinXP and above only).
+    } 
 #else
-  #pragma message(__FILE__ "(112) : warning: Requires Windows 2000 Professional, Windows 98 4.10 or later.")
+  #pragma message(__FILE__ "(153) : warning: Requires Windows 2000 Professional, Windows 98 4.10 or later.")
+  SetLastError(ERROR_NOT_SUPPORTED); //The function is replaced with NULL; see the prolog.
 #endif
 
 HDEVNOTIFY hDevNotify =
@@ -150,19 +166,12 @@ HDEVNOTIFY hDevNotify =
 
                                         &NotificationFilter, //type of device for
                             //which notifications should be sent
-
-                                        DEVICE_NOTIFY_WINDOW_HANDLE | //Type of
-                            //recipient.
-                            //DEVICE_NOTIFY_WINDOW_HANDLE recipient parameter
-                            //is a window handle.
-                            //DEVICE_NOTIFY_SERVICE_HANDLE recipient parameter
-                            //is a service status handle
-
-                                        DEVICE_NOTIFY_ALL_INTERFACE_CLASSES //Notifies
-                            //the recipient of device interface events for
-                            //all device interface classes.
-                            //The dbcc_classguid member is ignored (WinXP only).
+                                        dwFlags //type recipient handle.
                                       );
+#ifdef _DEBUG
+  if (hDevNotify == NULL)
+    TRACE(_T("  Failed to register: 0x%0.8X!\n"), GetLastError());
+#endif
 
 return hDevNotify;
 }

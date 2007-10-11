@@ -183,6 +183,7 @@ if((pdwData != NULL) &&
         break; //0x8006
     #endif
     case DBT_DEVICEARRIVAL:
+      //Usually two notifications are sent in the sequence
       #ifdef _UNICODE
         TRACE(_T("  New device: %ws\n"), pdwData->dbcc_name);
       #else
@@ -199,7 +200,7 @@ if((pdwData != NULL) &&
         //Check the required GUID
         //if (memcmp(&pdwData->dbcc_classguid,
         //                   &myGUID,
-        //                   sizeof WmyGUID)==0)
+        //                   sizeof myGUID)==0)
         //  {
         //  }
         }

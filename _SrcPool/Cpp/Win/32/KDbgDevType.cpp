@@ -69,8 +69,9 @@
   See also: DeviceInterfaceRegister(), RegisterDeviceNotification(),
   UnregisterDeviceNotification(), WM_DEVICECHANGE.
  */
-LPCTSTR DumpDeviceType(PDEV_BROADCAST_HDR pdwData //[in] device  type
+LPCTSTR DumpDeviceType(PDEV_BROADCAST_HDR pdwData //[in] device type
                     //received through WM_DEVICECHANGE message parameter lParam
+                    //or NULL
                       )
 {
 LPCTSTR szResult = _T("<null>");
@@ -87,8 +88,8 @@ if (pdwData != NULL)
     case DBT_DEVTYP_HANDLE:          szResult = _T("  DBT_DEVTYP_HANDLE");          break; // 6 file system handle
     case DBT_USERDEFINED:            szResult = _T("  DBT_USERDEFINED");            break; //0xFFFF
     default:
-      TRACE(_T("  Device type 0x%.8X",pdwData->dbch_devicetype));
-      szResult = _T(("Unknown device type"));
+      TRACE(_T("  Device type 0x%0.8X"),pdwData->dbch_devicetype);
+      szResult = _T("Unknown device type");
     }
   }
 return szResult;
