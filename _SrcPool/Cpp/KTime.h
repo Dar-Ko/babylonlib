@@ -253,9 +253,9 @@ enum eWeekday
         bLeap = true;
 
     See also: International Standard
-    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
+    {html: <a href="../Doc/Std/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
+    {html: <a href="../Doc/Std/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
    */
   #define IS_LEAP_YEAR(year)  \
@@ -269,9 +269,9 @@ enum eWeekday
     DD is the day of the month [01,31].
 
     See also: _DATE_FORMAT_STD, International Standard
-    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
+    {html: <a href="../Doc/Std/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
+    {html: <a href="../Doc/Std/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
   */
 #define _DATE_FORMAT_STD_BASIC  _T("%04d%02d%02d")
@@ -283,9 +283,9 @@ enum eWeekday
     DD is the day of the month [01,31].
 
     See also: _DATE_FORMAT_STD_BASIC, International Standard
-    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
+    {html: <a href="../Doc/Std/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
+    {html: <a href="../Doc/Std/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
   */
 #define _DATE_FORMAT_STD  _T("%04d-%02d-%02d")
@@ -307,9 +307,9 @@ enum eWeekday
     The value 60 for ss is allowed for the occasional leap second.
 
     See also: _TIME_FORMAT_STD, International Standard
-    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
+    {html: <a href="../Doc/Std/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
+    {html: <a href="../Doc/Std/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
    */
 #define _TIME_FORMAT_STD_BASIC _T("%02d%02d%02d")
@@ -324,12 +324,60 @@ enum eWeekday
     The value 60 for ss is allowed for the occasional leap second.
 
     See also: _TIME_FORMAT_STD_BASIC, International Standard
-    {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
+    {html: <a href="../Doc/Std/ISO8601.htm">ISO 8601:2000</a>}
     Data elements and interchange formats,
-    {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
+    {html: <a href="../Doc/Std/RFC3339.htm">RFC 3339</a>}
     Date and Time on the Internet: Timestamps
    */
 #define _TIME_FORMAT_STD  _T("%02d:%02d:%02d")
+
+  /*The basic form of the international standard notation for the time of
+    day is {HTML:<B>}YYYYMMDDThhmmss,fff{HTML:</B>}
+    where:
+        - YYYY is the year in the usual Gregorian calendar,
+        - MM is the month of the year [01,12] (January is 01)
+        - DD is the day of the month [01,31].
+        - T is time designator
+        - hh is the number of complete hours that have passed since midnight [00,24],
+        - mm is the number of complete minutes that have passed since the start of
+             the hour [00,59], and
+        - ss is the number of complete seconds since the start of the minute [00-60].
+        - fff is the decimal fraction of the second
+
+    If the hour value is 24, then the minute and second values must be zero.
+    The value 60 for ss is allowed for the occasional leap second.
+
+    See also: _TIME_FORMAT_STD, International Standard
+    {html: <a href="../Doc/Std/ISO8601.htm">ISO 8601:2000</a>}
+    Data elements and interchange formats,
+    {html: <a href="../Doc/Std/RFC3339.htm">RFC 3339</a>}
+    Date and Time on the Internet: Timestamps
+   */
+#define _DATETIME_FORMAT_STD_BASIC _T("%0.4d%0.2d%0.2dT%0.2d%0.2d%0.2d,%0.3d")
+
+  /*The extended form of the international standard notation for the time of
+    day is {HTML:<B>}YYYY-MM-DDThh:mm:ss,fff{HTML:</B>}
+    where:
+        - YYYY is the year in the usual Gregorian calendar,
+        - MM is the month of the year [01,12] (January is 01)
+        - DD is the day of the month [01,31].
+        - T is time designator
+        - hh is the number of complete hours that have passed since midnight [00,24],
+        - mm is the number of complete minutes that have passed since the start of
+             the hour [00,59], and
+        - ss is the number of complete seconds since the start of the minute [00-60].
+        - fff is the decimal fraction of the second
+
+    If the hour value is 24, then the minute and second values must be zero.
+    The value 60 for ss is allowed for the occasional leap second.
+
+    See also: _TIME_FORMAT_STD_BASIC, International Standard
+    {html: <a href="../Doc/Std/ISO8601.htm">ISO 8601:2000</a>}
+    Data elements and interchange formats,
+    {html: <a href="../Doc/Std/RFC3339.htm">RFC 3339</a>}
+    Date and Time on the Internet: Timestamps
+   */
+#define _DATETIME_FORMAT_STD _T("%0.4d-%0.2d-%0.2dT%0.2d:%0.2d:%0.2d,%0.3d")
 
    /*Default keyword used to tag date in some protocols.*/
 #define _DATE_STR         _T("Date")
@@ -493,9 +541,9 @@ return false;
   Return: true if a year is a leap year; otherwise returns false.
 
   See also: International Standard
-  {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
+  {html: <a href="../Doc/Std/ISO8601.htm">ISO 8601:2000</a>}
   Data elements and interchange formats,
-  {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
+  {html: <a href="../Doc/Std/RFC3339.htm">RFC 3339</a>}
   Date and Time on the Internet: Timestamps, YEAR_GREGORIAN, YEAR_GREGORIAN4,
   IS_LEAP_YEAR , proleptic calendar
  */
