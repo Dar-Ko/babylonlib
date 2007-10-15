@@ -20,6 +20,8 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
+#include "KDbgMAns.h" /*Validate ANSI/ISO Standard macro names*/
+
 /* ========================================================================= */
 #ifdef GCCx86 /*GNU C Compiler on Intel x86                                  */
   #ifdef VXWORKS
@@ -28,37 +30,6 @@
 #endif /*GCCx86                                                              */
 
 #ifdef __GNUC__  /*GNU C/C++ Compiler                                        */
-  /*ANSI C macros ---------------------------------------------------------- */
-  #ifdef __DATE__
-    /*Macro expands to a string constant that describes the date on which
-      the preprocessor is being run. The format is as following:
-      "Mon dd yyyy".                                                         */
-    //#pragma message ("Date: " __DATE__)
-  #endif
-  #ifdef __TIME__
-    /*Macro expands to a string constant that describes the time at which
-      the preprocessor is being run. The format is 24 hour clock and looks
-      like "hh:mm:ss".                                                       */
-    //#pragma message ("Time: " __TIME__)
-  #endif
-  #ifdef __FILE__
-    /*Always defined. Set to name of file being compiled enclosed in "".
-     */
-    #pragma message ("File: " __FILE__)
-  #endif
-  #ifdef __STDC__
-    /*Macro expands to the constant 1, to signify that this is
-      ANSI Standard C. (Whether that is actually true depends on what
-      C compiler will operate on the output from the preprocessor.)          */
-    #warning "ANSI C compliance"
-  #endif
-  #ifdef __STDC_VERSION__
-    /*C Standard's version number is a long integer in form: yyyymm where
-      yyyy and mm are the year and month of the Standard version.
-      This signifies which version of the C Standard the preprocessor
-      conforms to.                                                           */
-    const long g___STDC_VERSION__ = __STDC_VERSION__;
-  #endif
   /*GNU-Specific macros ---------------------------------------------------- */
   #ifdef __GNUG__
     /*GNU C compiler defines this when the compilation language is C++       */
@@ -130,25 +101,6 @@
     #warning  "minor ver. unknown"
   #endif
 
-  #ifdef __cplusplus
-    #warning "C++ compilation."
-  #else
-    #warning "C compilation."
-  #endif
-
-  #ifdef __STRICT_ANSI__
-    /*Macro is defined if and only if the "-ansi" switch was specified when
-      GNU C was invoked. Its definition is the null string. This macro exists
-      primarily to direct certain GNU header files not to define certain
-      traditional Unix constructs which are incompatible with ANSI C.        */
-   #warning  "strict ANSI"
-  #endif
-  #ifdef __CHAR_UNSIGNED__
-    /*Macro is defined if and only if the data type char is unsigned on the
-      target machine. It exists to cause the standard header file limit.h to
-      work correctly.                                                        */
-    #warning  "char type defined as unsigned char"
-  #endif
     /*Byte order                                                             */
   #ifdef BIG_ENDIAN
     #warning  "Big Endian byte order"
@@ -453,24 +405,6 @@
 #endif
 
 #ifdef _MSC_VER /*Microsoft Visual C/C++ Compiler                            */
-  /*ANSI C macros ---------------------------------------------------------- */
-  #ifdef __DATE__
-    #pragma message ("Date: " __DATE__)
-  #endif
-  #ifdef __TIME__
-    #pragma message ("Time: " __TIME__)
-  #endif
-  #ifdef __FILE__
-    #pragma message ("File: " __FILE__)
-  #endif
-  #ifdef __STDC__
-    /*Indicates full conformance with the ANSI C standard.                   */
-    #pragma message ("ANSI C compliance")
-  #endif
-  #ifdef __STDC_VERSION__
-    /*C Standard's version number                                            */
-    const long g___STDC_VERSION__ = __STDC_VERSION__;
-  #endif
   /*Microsoft-Specific macros ---------------------------------------------- */
   #ifdef _MSC_VER
     #ifdef _DEBUG
@@ -673,14 +607,6 @@
 
   #ifdef _MSC_EXTENSIONS
     #pragma message ("Enabled compiler extensions.")
-  #endif
-  #ifdef _CHAR_UNSIGNED
-    #pragma message ("Default char type is unsigned.")
-  #endif
-  #ifdef __cplusplus
-    #pragma message ("C++ compilation.")
-  #else
-    #pragma message ("C compilation.")
   #endif
   #ifdef _CPPUNWIND
     #pragma message ("Enabled Exception Handling.")
@@ -1207,137 +1133,40 @@
   /*The WATCOM C/C++ compilers support both 16-bit and 32-bit application development.  The following macros are defined for 16-bit and 32-bit target systems.
 
 
-M_I86
-
-WATCOM C/C++ predefines the macro M_I86 to identify the target as a 16-bit Intel 80x86 compatible environment (defined by the WATCOM C/C++16 compilers).
-
-
-M_I386
-
-WATCOM C/C++ predefines the macro M_I386 to identify the target as a 32-bit Intel 386 compatible environment (defined by the WATCOM C/C++32 compilers).
-
-
-__386__
-
-WATCOM C/C++ predefines the macro __386__ to identify the target as a 32-bit Intel 386 compatible environment (defined by the WATCOM C/C++32 compilers).
+M_I86 WATCOM C/C++ predefines the macro M_I86 to identify the target as a 16-bit Intel 80x86 compatible environment (defined by the WATCOM C/C++16 compilers).
+M_I386 WATCOM C/C++ predefines the macro M_I386 to identify the target as a 32-bit Intel 386 compatible environment (defined by the WATCOM C/C++32 compilers).
+__386__ WATCOM C/C++ predefines the macro __386__ to identify the target as a 32-bit Intel 386 compatible environment (defined by the WATCOM C/C++32 compilers).
 
 The WATCOM C/C++ compilers support application development for a variety of operating systems.  The following macros are defined for particular target operating systems.
-
-
-__DOS__
-
-WATCOM C/C++ predefines the macro __DOS__ to identify the target operating system as MS/DOS (including DOS Extenders).
-
-
-MSDOS
-
-WATCOM C/C++ predefines the macro MSDOS to identify the target operating system as MS/DOS (including DOS Extenders).
-
-
-__OS2__
-
-WATCOM C/C++ predefines the macro __OS2__ to identify the target operating system as OS/2 (1.x or 2.x).
-
-
-__QNX__
-
-WATCOM C/C++ predefines the macro __QNX__ to identify the target operating system as QNX.
-
-
-__NETWARE_386__
-
-WATCOM C/C++ predefines the macro __NETWARE_386__ to identify the target operating system as Novell NetWare 386.
-
-
-__NT__
-
-WATCOM C/C++ predefines the macro __NT__ to identify the target operating system as NT.
-
-
-__WINDOWS__
-
-WATCOM C/C++ predefines the macro __WINDOWS__ to identify the target operating system as Microsoft Windows.
-
+__DOS__ WATCOM C/C++ predefines the macro __DOS__ to identify the target operating system as MS/DOS (including DOS Extenders).
+MSDOS WATCOM C/C++ predefines the macro MSDOS to identify the target operating system as MS/DOS (including DOS Extenders).
+__OS2__ WATCOM C/C++ predefines the macro __OS2__ to identify the target operating system as OS/2 (1.x or 2.x).
+__QNX__ WATCOM C/C++ predefines the macro __QNX__ to identify the target operating system as QNX.
+__NETWARE_386__ WATCOM C/C++ predefines the macro __NETWARE_386__ to identify the target operating system as Novell NetWare 386.
+__NT__ WATCOM C/C++ predefines the macro __NT__ to identify the target operating system as NT.
+__WINDOWS__ WATCOM C/C++ predefines the macro __WINDOWS__ to identify the target operating system as Microsoft Windows.
 (16-bit only) This macro is defined when the "zw", "zW", "zWs", or "bt=windows" option is specified.
-
 (32-bit only) This macro is defined when the "zw" or "bt=windows" option is specified.
-
-
-__WINDOWS_386__
-
-WATCOM C/C++ predefines the macro __WINDOWS_386__ to identify the target operating system as 32-bit Microsoft Windows.
+__WINDOWS_386__ WATCOM C/C++ predefines the macro __WINDOWS_386__ to identify the target operating system as 32-bit Microsoft Windows.
 This macro is defined when the "zw" or "bt=windows" option is specified and you are using a 32-bit compiler.
 
 The following macros indicate which compiler is compiling the C/C++ source code.
-
-
-__cplusplus
-
-WATCOM C++ predefines the macro __cplusplus to identify the compiler as a C++ compiler.
-
-
-__WATCOMC__
-
-WATCOM C/C++ predefines the macro __WATCOMC__ to identify the compiler as one of the WATCOM C/C++ compilers.
-
+__cplusplus WATCOM C++ predefines the macro __cplusplus to identify the compiler as a C++ compiler.
+__WATCOMC__ WATCOM C/C++ predefines the macro __WATCOMC__ to identify the compiler as one of the WATCOM C/C++ compilers.
 The value of the macro depends on the version number of the compiler.  The value is 100 times the version number (version 8.5 yields 850, version 9.0 yields 900, etc.).
 
 The following macros are defined under the conditions described.
-
-
-__FPI__
-
-WATCOM C/C++ predefines the macro __FPI__ when the "fpi" or "fpi87" option is used.
-
-
-__CHAR_SIGNED__
-
-WATCOM C/C++ predefines the macro __CHAR_SIGNED__ when the "j" option is used.
-
-
-__CHEAP_WINDOWS__
-
-(16-bit only) WATCOM C/C++ predefines the macro __CHEAP_WINDOWS__ when the "zW" option is used.
-
-
-__INLINE_FUNCTIONS__
-
-WATCOM C/C++ predefines the macro __INLINE_FUNCTIONS__ when the "oi" option is used.
-
-
-NO_EXT_KEYS
-
-WATCOM C/C++ predefines the macro NO_EXT_KEYS when the "za" option is used.
-
-
-__FLAT__
-
-(32-bit only) WATCOM C/C++ predefines the macro __FLAT__ when the "mf" option is used.
-
-
-M_I86SM, __SMALL__
-
-WATCOM C/C++ predefines the macros M_I86SM and __SMALL__ when the "ms" option is used.
-
-
-M_I86MM, __MEDIUM__
-
-WATCOM C/C++ predefines the macros M_I86MM and __MEDIUM__ when the "mm" option is used.
-
-
-M_I86CM, __COMPACT__
-
-WATCOM C/C++ predefines the macros M_I86CM and __COMPACT__ when the "mc" option is used.
-
-
-M_I86LM, __LARGE__
-
-WATCOM C/C++ predefines the macros M_I86LM and __LARGE__ when the "ml" option is used.
-
-
-M_I86HM, __HUGE__
-
-(16-bit only) WATCOM C/C++ predefines the macros M_I86HM and __HUGE__ when the "mh" option is used.
+__FPI__ WATCOM C/C++ predefines the macro __FPI__ when the "fpi" or "fpi87" option is used.
+__CHAR_SIGNED__ WATCOM C/C++ predefines the macro __CHAR_SIGNED__ when the "j" option is used.
+__CHEAP_WINDOWS__ (16-bit only) WATCOM C/C++ predefines the macro __CHEAP_WINDOWS__ when the "zW" option is used.
+__INLINE_FUNCTIONS__ WATCOM C/C++ predefines the macro __INLINE_FUNCTIONS__ when the "oi" option is used.
+NO_EXT_KEYS WATCOM C/C++ predefines the macro NO_EXT_KEYS when the "za" option is used.
+__FLAT__ (32-bit only) WATCOM C/C++ predefines the macro __FLAT__ when the "mf" option is used.
+M_I86SM, __SMALL__ WATCOM C/C++ predefines the macros M_I86SM and __SMALL__ when the "ms" option is used.
+M_I86MM, __MEDIUM__ WATCOM C/C++ predefines the macros M_I86MM and __MEDIUM__ when the "mm" option is used.
+M_I86CM, __COMPACT__ WATCOM C/C++ predefines the macros M_I86CM and __COMPACT__ when the "mc" option is used.
+M_I86LM, __LARGE__ WATCOM C/C++ predefines the macros M_I86LM and __LARGE__ when the "ml" option is used.
+M_I86HM, __HUGE__ (16-bit only) WATCOM C/C++ predefines the macros M_I86HM and __HUGE__ when the "mh" option is used.
 */
 /* ========================================================================= */
 #endif /*__WATCOMC__                                                         */
@@ -1380,12 +1209,137 @@ M_I86HM, __HUGE__
                      and it is not defined on older compilers like C Set 3.1
  */
 #if defined(__IBMCPP__)/* IBM C++ Compiler                                   */
-  #pragma message ("IBM C++ Compiler")
+  #pragma comment ("IBM C++ Compiler")
+
+
+/*
+IBM Integrated Language Environment (ILE) C/C++ for iSeries Predefined Macros
+
+The ILE C/C++ compiler provides the predefined macros described in this section. These macros are defined when their corresponding pragmas are invoked in program source, or when their corresponding compiler options for the Create Module and Create Bound Program commands are specified. Unless otherwise specified, macros when defined have a value of 1.
+
+ __ANSI__
+    Defined when the LANGLVL(*ANSI) compiler option is in effect. When this macro is defined, the compiler allows only language constructs that conform to the ANSI/ISO C and C++ standards.
+
+ __ASYNC_SIG__
+    C: Defined when the SYSIFCOPT(*ASYNCSIGNAL) compiler option is in effect.
+
+    C++: Defined when TERASPACE(*YES *TSIFC) STGMDL(*TERASPACE) DTAMDL(*LLP64) RTBND(*LLP64) is in effect.
+
+ _CHAR_SIGNED
+    Defined when the #pragma chars(signed) directive is in effect, or when the DFTCHAR compiler option is set to *SIGNED. If this macro is defined, the default character type is signed.
+
+ _CHAR_UNSIGNED
+    Defined when the #pragma chars(unsigned) directive is in effect, or when the DFTCHAR compiler option is set to *UNSIGNED. Indicates default character type is unsigned.
+
+ __cplusplus98__interface__
+    Defined by C++ compiler when the LANGLVL(*ANSI) compiler option is specified.
+
+ __EXTENDED__
+    Defined when the LANGLVL(*ANSI) compiler option is not in effect. When this macro is defined, the compiler allows language extensions provided by the ILE C/C++ compiler implementation.
+
+ __FUNCTION__
+    Indicates the name of the function currently being compiled. For C++ programs, expands to the actual function prototype.
+
+ __HHW_AS400__
+    Indicates that the host hardware is an iSeries processor.
+
+ __HOS_OS400__
+    C++: Indicates that the host operating system is OS/400.
+
+ __IBMCPP__
+    C++: Indicates the version number of the ILE C/C++ compiler.
+
+ __IFS_IO__
+    Defined when SYSIFCOPT(*IFSIO) or SYSIFCOPT(*IFS64IO) is specified on the Create Module or Create Bound Program commands.
+
+ __IFS64_IO__
+    Defined when SYSIFCOPT(*IFS64IO) is specified on the Create Module or Create Bound Program commands. When this macro is defined, _LARGE_FILES and _LARGE_FILE_API are also defined in the relevant IBM-supplied header files.
+
+ __ILEC400__
+    C: Defined only by the compiler. You can use this macro in source code that is compiled for several platforms. Mark code that is to be compiled only for the iSeries platform with #ifdef __ILEC400__ or, #if defined(__ILEC400__) preprocessor directives.
+
+ __ILEC400_TGTVRM__
+    C: Defined by the compiler as an integral value that maps to the version/release/modification of the OS/400(R) that the module or program being compiled is intended to run on. The target release, VxRyMz, translates to an __ILEC400_TGTVRM__ value of xyz, where x, y, and z are integer values. For example, a target release of V3R7M0 will cause the macro to have an integral value of 370.
+
+ _LARGE_FILES
+    Defined when the SYSIFCOPT(*IFS64IO) compiler option is in effect and system header file types.h is included.
+
+ _LARGE_FILE_API
+    Defined when the SYSIFCOPT(*IFS64IO) compiler option is in effect and system header file types.h is included.
+
+ __LLP64_IFC__
+    Defined when the DTAMDL(*LLP64) compiler option is in effect.
+
+ __LLP64_RTBND__
+    C++: Defined when the RTBND(*LLP64) compiler option is in effect.
+
+ __OS400__
+    This macro is always defined when the compiler is used with the OS/400 operating system.
+
+ __OS400_TGTVRM__
+    Defined only by the compiler as an integral value that maps to the version/release/modification of the OS/400(R) that the module or program being compiled is intended to run on. The target release, VxRyMz, translates to an __OS400_TGTVRM__ value of xyz, where x, y, and z are integer values.
+
+ __POSIX_LOCALE__
+    Defined when the LOCALETYPE(*LOCALE) or LOCALETYPE(*LOCALEUCS2) compiler options are specified.
+
+ __RTTI_DYNAMIC_CAST__
+    Defined when the OPTION(*RTTIALL) or OPTION(*RTTICAST) compiler options are specified, for C++ programs only. This macro is not defined for C.
+
+ __SRCSTMF__
+    C: Defined when the SRCSTMF compiler option specifies the location of the source file being compiled.
+
+ __TERASPACE__
+    Defined when the TERASPACE(*YES *TSIFC) compiler option is specified.
+
+ __THW_AS400__
+    Indicates that the target hardware is an iSeries processor.
+
+ __TIMESTAMP__
+    A character string literal containing the date and time when the source file was last changed.
+
+    The date and time will be in the form:
+
+       "Day Mmm dd hh:mm:ss yyyy"
+
+    where:
+
+    Day represents the day of the week (Mon, Tue, Wed, Thu, Fri, Sat, or Sun).
+
+    Mmm represents the month in an abbreviated form (Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, or Dec).
+
+    dd represents the day. If the day is less than 10, the first d will be a blank character.
+
+    hh represents the hour.
+
+    mm represents the minutes.
+
+    ss represents the seconds.
+
+    yyyy represents the year.
+
+    Note:
+        Other compilers may not supported this macro. If the macro is supported on other compilers, the date and time values may be different than those that are shown here.
+
+ __TOS_OS400__
+    Indicates that the target operating system is OS/400.
+
+ __UCS2__
+    Defined when LOCALETYPE(*LOCALEUCS2) is specified on the Create Module or Create Bound Program commands.
+
+ __UTF32__
+    Defined when LOCALETYPE(*LOCALEUTF) is specified on the Create Module or Create Bound Program commands.
+
+ __wchar_t
+    C: Defined by the standard header file stddef.h.
+    C++: Defined by the C++ compiler.
+    */
+
+
 
 /* ========================================================================= */
 #endif /*__IBMCPP__                                                          */
 
-/*IBM ILE C++ for AS/400                                                     */
+/*IBM Integrated Language Environment (ILE) C++ for AS/400                   */
 /* ========================================================================= */
 #if defined(__OS400_TGTVRM__)
 /*Note: A macro defined only by the C++ compiler, as an integral value that
@@ -1754,8 +1708,29 @@ M_I86HM, __HUGE__
 
 #if defined(__COMO__) /*Comeau C++ Compiler */
   #warning "Comeau C++ Compiler"
+
+/*Comeau C++ 4.0
+# __STDC__ Defined in ANSI C mode and in C++ mode. In C++ mode the value may be redefined. Not defined in Microsoft compatibility mode.
+# __cplusplus Defined in C++ mode.
+# c_plusplus Defined in default C++ mode, but not in strict mode.
+# __STDC_VERSION__ Defined in ANSI C mode with the value 199409L. The name of this macro, and its value, are specified in Normative Addendum 1 of the ISO C Standard.
+# __SIGNED_CHARS__ Defined when plain char is signed. This is used in the <limits.h> header file to get the proper definitions of CHAR_MAX and CHAR_MIN.
+# _WCHAR_T Defined in C++ mode when wchar_t is a keyword. The name of this predefined macro is specified by a configuration flag. _WCHAR_T is the default.
+# _BOOL Defined in C++ mode when bool is a keyword. The name of this predefined macro is specified by a configuration flag. _BOOL is the default.
+# __ARRAY_OPERATORS Defined in C++ mode when array new and delete are enabled. The name of this predefined macro is specified by a configuration flag. __ARRAY_OPERATORS is the default.
+# __EDG_RUNTIME_USES_NAMESPACES When the runtime uses namespaces, this macro name is also defined by default (by default, the runtime does use namespaces -- both this default and the macro name default can be changed under a custom porting arrangement).
+# __EDG_IMPLICIT_USING_STD By default (this can be changed under a custom porting arrangement), the runtime does use namespaces however by default (this too can be changed under a custom porting arrangement, or by using the --using_std command line option) it does not emit an implicit using directive on the std namespace (that is, by default it does not effectively emit a using namespace std;) When it does, this macro name (which can be changed under a custom porting arrangement) is emitted.
+# __EDG__ Always defined.
+# __COMO__ Always defined.
+# __EDG_VERSION_ Defined to an integral value that represents the version number of the front end. For example. version 2.30 is represented as 230.
+# __COMO_VERSION__ Defined to an integral value that represents the version number.
+
+ */
 #endif
 
+/*HP OpenVMS Systems - Compaq C
+__STDC_ISO_10646__ macro evaluates to an integer constant of the form yyyymmL (for example, 199712L), intended to indicate that values of type wchar_t  are the coded representations of the characters defined by ISO/IEC 10646, along with all amendments and technical corrigenda as of the specified year and month.
+ */
 #if defined(__ZTC__) /*Digital Mars C/C++ Compiler */
   /*Always defined. Set to same value as __DMC__. Obsolete(use __DMC__ instead).*/
   #pragma message "Digital Mars C/C++ Compiler"
@@ -1850,9 +1825,100 @@ M_I86HM, __HUGE__
   #warning "KAI C++ Compiler"
 #endif
 
+/* ========================================================================= */
+
 #if defined(__INTEL_COMPILER)/*Intel C++ Compiler */
   #warning      "Intel C++ Compiler"
 #endif
+
+/*The Intel® C++ Compiler 10.0 for Linux supports the predefined macros listed in the table below. The compiler also includes predefined macros specified by the ISO/ANSI standard.
+
+The following designations apply:
+Label 	Meaning
+i32 	Included on systems based on IA-32 architecture.
+i64em 	Included on systems based on Intel® 64 architecture.
+i64 	Included on systems based on IA-64 architecture.
+
+Macro Name 	Value 	i32 	i64em 	i64
+__ARRAY_OPERATORS 	1 	X 	X 	X
+__BASE_FILE__ 	Name of source file 	X 	X 	X
+_BOOL 	1 	X 	X 	X
+__cplusplus 	1 (with C++ compiler) 	X 	X 	X
+_CLUSTER_OPENMP 	Defined as 1 when the -cluster-openmp or -cluster-openmp-profile compiler option is used. 	  	X 	X
+__DEPRECATED 	1 	X 	X 	X
+__ECC 	Intel Compiler Version 	  	  	X
+__EDG__ 	1 	X 	X 	X
+__EDG_VERSION__ 	EDG version 	X 	X 	X
+__ELF__ 	1 	X 	X 	X
+__extension__ 	  	X 	X 	X
+__EXCEPTIONS 	Defined as 1 when -fno-exceptions is not used. 	X 	X 	X
+__GNUC__ 	The major version number of gcc installed on the system. 	X 	X 	X
+__GNUG__ 	The major version number of g++ installed on the system. 	X 	X 	X
+__gnu_linux__ 	1 	X 	X 	X
+__GNUC_MINOR__ 	The minor version number of gcc or g++ installed on the system. 	X 	X 	X
+__GNUC_PATCHLEVEL__ 	The patch level version number of gcc or g++ installed on the system. 	X 	X 	X
+__GXX_ABI_VERSION 	102 	X 	X 	X
+__HONOR_STD 	1 	X 	X
+__i386 	1 	X
+__i386__ 	1 	X
+i386 	1 	X
+__ia64 	1 	  	  	X
+__ia64__ 	1 	  	  	X
+__ICC 	Intel compiler version 	X 	X
+_INTEGRAL_MAX_BITS 	64 	  	  	X
+__INTEL_COMPILER 	Intel compiler version 	X 	X 	X
+__INTEL_COMPILER_BUILD_DATE 	YYYYMMDD 	X 	X 	X
+__INTEL_RTTI__ 	Defined as 1 when -fno-rtti is not specified. 	X 	X 	X
+__INTEL_STRICT_ANSI__ 	Defined as 1 when -strict-ansi is specified. 	X 	X 	X
+__itanium__ 	1 	  	  	X
+__linux 	1 	X 	X 	X
+__linux__ 	1 	X 	X 	X
+linux 	1 	X 	X 	X
+__LONG_DOUBLE_SIZE__ 	80 	X 	X 	X
+__LONG_MAX__ 	9223372036854775807L 	  	X 	X
+__lp64 	1 	  	  	X
+__LP64__ 	1 	  	X 	X
+_LP64 	1 	  	X 	X
+_MT 	1 	  	X
+__MMX__ 	1 	  	X
+__NO_INLINE__ 	1 	X 	X 	X
+__NO_MATH_INLINES 	1 	X 	X 	X
+__NO_STRING_INLINES 	1 	X 	X 	X
+_OPENMP 	Defined as 200505 when -openmp is specified. 	X 	X 	X
+__OPTIMIZE__ 	1 	X 	X 	X
+__pentium4 	1 	X 	X
+__pentium4__ 	1 	X 	X
+__PIC__ 	Defined as 1 when -fPIC is specified. 	X 	X 	X
+__pic__ 	Defined as 1 when -fPIC is specified. 	X 	X 	X
+_PGO_INSTRUMENT 	Defined as 1 when -prof-gen[x] is specified. 	X 	X 	X
+_PLACEMENT_DELETE 	1 	X 	X 	X
+__PTRDIFF_TYPE__ 	int on IA-32 architecture
+long on Intel® 64 architecture
+long on IA-64 architecture 	X 	X 	X
+__REGISTER_PREFIX__ 	  	X 	X 	X
+__SIGNED_CHARS__ 	1 	X 	X 	X
+__SIZE_TYPE__ 	unsigned on IA-32 architecture
+unsigned long on Intel® 64 architecture
+unsigned long on IA-64 architecture 	X 	X 	X
+__SSE__ 	Defined as 1 for processors that support SSE instructions. 	X 	X
+__SSE2__ 	Defined as 1 for processors that support SSE2 instructions. 	X 	X
+__SSE3__ 	Defined as 1 for processors that support SSE3 instructions. 	X 	X
+__SSSE3__ 	Defined as 1 for processors that support SSSE3 instructions. 	X 	X
+__unix 	1 	X 	X 	X
+__unix__ 	1 	X 	X 	X
+unix 	1 	X 	X 	X
+__USER_LABEL_PREFIX__ 	  	X 	X 	X
+__VERSION__ 	Intel version string 	X 	X 	X
+__WCHAR_T 	1 	X 	X 	X
+__WCHAR_TYPE__ 	long int on IA-32
+int on Intel® 64 architecture
+int on IA-64 architecture 	X 	X 	X
+__WINT_TYPE__ 	unsigned int 	X 	X 	X
+__x86_64 	1 	  	X
+__x86_64__ 	1 	  	X
+ */
+
+/* ========================================================================= */
 
 #if defined(__USLC__)/*SCO UnixWare C++ Compiler */
   #warning "SCO UnixWare C++ Compiler"
@@ -1914,7 +1980,67 @@ M_I86HM, __HUGE__
 /* ========================================================================= */
 #endif /*UFST_ALPHA_UNIX                                                     */
 
+/*DEC C compiler defines other preprocessor macros for various identification purposes.
 
+ Each DEC C platform can have additional predefined macros. See your platform-specific DEC C documentation for more information.
+
+ Digital UNIX Predefined Macro Names
+  	Macro Name
+Operating system name:  	unix
+  	__unix__
+  	__osf
+  	SYSTYPE_BSD
+  	_ SYSTYPE_BSD
+Architecture name:  	__alpha
+Product name:   	__DECC
+  	__DECC_ VER
+  	LANGUAGE_C
+  	__LANGUAGE_C__
+
+OpenVMS VAX and Alpha Predefined Macro Names
+  	New Spelling  	Traditional Spelling
+Operating system name:  	__vms  	vms
+  	__VMS  	VMS
+  	__vms_version  	vms_version
+  	__VMS_VERSION  	VMS_ VERSION
+Architecture name:  	__vax (VAX)  	vax (VAX)
+  	__VAX (VAX)  	VAX (VAX)
+  	__alpha (Alpha)  	-
+  	__ALPHA (Alpha)  	-
+  	__Alpha_AXP (Alpha)  	-
+  	__32BITS (Alpha)  	-
+Product name:   	__vaxc  	vaxc
+  	__VAXC  	VAXC
+  	__vax11c  	vax11c
+  	__VAX11C  	VAX11C
+  	__STDC__  	-
+  	__DECC  	-
+  	__DECC_VER  	-
+  	__VMS_V6_RTL_ COMPAT  	-
+Compiler Mode:   	__DECC_MODE_STRICT  	-
+  	__DECC_MODE_RELAXED  	-
+  	__DECC_MODE_ VAXC  	-
+  	__DECC_MODE_COMMON  	-
+Floating-Point:   	__D_FLOAT  	-
+  	__G_FLOAT  	-
+  	__IEEE_FLOAT (Alpha)  	-
+  	__X_FLOAT (Alpha)  	-
+Other:   	__HIDE_FORBIDDEN_NAMES  	-
+  	__INITIAL_POINTER_ SIZE (Alpha)  	-
+
+
+Library Routine Standards Conformance Macros-All platforms
+Macro  	Standard
+_XOPEN_SOURCE_EXTENDED  	XPG4-UNIX
+_XOPEN_SOURCE  	XPG4
+_POSIX_C_SOURCE  	POSIX
+_ANSI_C_SOURCE  	ISO C and ANSI C
+_AES_SOURCE (Digital UNIX)  	Application Environment Services
+_OSF_SOURCE (Digital UNIX)  	OSF compatibility
+_VMS_V6_SOURCE (OpenVMS)  	OpenVMS Version 6 compatibility
+_DECC_V4_SOURCE (OpenVMS)  	DEC C Version 4 compatibility
+
+ */
 #if defined(DOS386)
   #warning "Target OS is extended DOS."
 #endif
@@ -2052,104 +2178,6 @@ M_I86HM, __HUGE__
   #warning "defined __svr4__"
 #endif
 
-/* ////////////////////////////////////////////////////////////////////////// */
-/* C++98 Predefined Macros
-   Defined per the C++98 Standard 16.8-1 when compiling C++ programs          */
-
-#ifdef __STDC__
-  /*C++98 conformance.
-   */
-  #pragma message ("__STDC__: C98, C99 or newer conformance.")
-#else
-  #pragma message ("Non-ANSI C conformance.")
-#endif
-
-#ifdef __DATE__
-  /*Always defined. Set to compilation date in the form "Mmm dd yyyy".
-   */
-  // #pragma message ("Date: " __DATE__) TODO: compiler idenpendent warning D.K.
-#endif
-#ifdef  __TIME__
-  /*Always defined. Set to compilation time in the form "hh:mm:ss".
-   */
-#endif
-
-#ifdef __FILE__
-  /*Always defined. Set to name of file being compiled enclosed in "".
-   */
-#endif
-
-#ifdef __LINE__
-  /*Always defined. Set to current line of source file.
-   */
-#endif
-
-#ifdef __cplusplus
-  /*Always defined and set to 199711L.
-   */
-  const long g__cplusplus_VER = __cplusplus;
-  #if __cplusplus < 199711L
-    #pragma message ("C++: non-standard conformance.")
-  #endif
-  #if __cplusplus == 199711L
-    #pragma message ("C++: ISO 199711 conformance.")
-  #endif
-  #if __cplusplus > 199711L
-    #pragma message ("C++: unknown conformance.")
-  #endif
-#endif
-
-#ifdef __STDC_IEC_559__
-  /*IEC 60559 floating point arithmetic conformance.
-   */
-  #pragma message ("IEC 60559 floating point arithmetic conformance.")
-#endif
-
-#ifdef __STDC_IEC_559_COMPLEX__
-  /*IEC 60559 complex floating point arithmetic conformance.
-   */
-  #pragma message ("IEC 60559 complex floating point arithmetic conformance.")
-#endif
-
-/*---------------------------------------------------------------------------*/
-/*C99 Predefined Macros
-  Defined per the C99 Standard 6.10.8 when compiling C programs.
- */
-
-/*__STDC__ If defined, ANSI C (C98+,C99) conformance enabled
-  __DATE__ Always defined. Set to compilation date in the form "Mmm dd yyyy".
-  __FILE__ Always defined. Set to name of file being compiled enclosed in "".
-  __LINE__Always defined. Set to current line of source file.
-  __STDC_HOSTED__ Always defined and set to 0.
-  __TIME__  Always defined. Set to compilation time in the form "hh:mm:ss".
-  __STDC_IEC_559__  IEC 60559 floating point arithmetic conformance.
-  __STDC_IEC_559_COMPLEX__ IEC 60559 complex floating point arithmetic conformance.
-  For ANSI C99 __STDC_VERSION__ is 199901L
-  For ANSI C95 __STDC_VERSION__ is 199409L.
- */
-
-#ifdef __STDC_VERSION__
-  /*Always defined and set to 19990L.
-   */
-  const long g__STDC_VERSION__ = __STDC_VERSION__;
-
-  #if __STDC_VERSION__ > 199900
-    #pragma message ("C99: 19990 conformance.")
-  #else
-    #if __STDC_VERSION__ > 199400
-      #pragma message ("C95: 19940 conformance.")
-    #else
-      #pragma message ("C??: 19??0 conformance.")
-    #endif
-  #endif
-
-#endif
-#ifdef __STDC_ISO_10646__
-  /*ISO 10646 conformance.
-   */
-  #pragma message ("ISO 10646 conformance.")
-#endif
-
 /*---------------------------------------------------------------------------*/
 /*Portable Operating System Interface for Computer Environments (POSIX)
   is an IEEE standard that defines the open systems environment standards
@@ -2221,7 +2249,7 @@ M_I86HM, __HUGE__
 #endif /*true/false*/
 
 #if defined (TRUE) || defined (FALSE)
-  #pragma message ("Boolean TRUE/FALSE is defined.")
+ #pragma message ("Boolean TRUE/FALSE is defined.")
 #else
   #pragma message ("Boolean TRUE, FALSE are not defined.")
 #endif /*TRUE/FALSE*/
