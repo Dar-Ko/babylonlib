@@ -442,6 +442,21 @@ const unsigned long GiB = 0x40000000UL;
   #define MAKELOWORD(x) ( ((DWORD)((WORD)(x))) << 16 )
 #endif /*_ENDIAN_LITTLE_                                                     */
 
+/*Verifies if one set of numbers defined with range boundaries [n1, n2] is
+  included in the other. Only range boundaries are examined; it is assumed that
+  set elements are within range boundaries and the boudaries are elemenets of sets.
+  Returns true if one of the sets includes boundaries of the other.
+*/
+#define ISRANGEINCLUDED(nA1, nA2, nB1, nB2) \
+    ((nA2) >= (nB1) && (nB2) >= (nA1))
+
+/*Verifies if one set of numbers defined with range boundaries (n1, n2) is
+  included in the other. Only elements within range boundaries are examined; it
+  is assumed that set elements are within range boundaries.
+  Returns true if one of the sets includes elements within boundaries of the other.
+*/
+#define ISRANGEEINCLUDED(nA1, nA2, nB1, nB2) \
+    ((nA2) > (nB1) && (nB2) > (nA1))
 
 #ifndef __cplusplus
 /* ///////////////////////////////////////////////////////////////////////// */
