@@ -154,7 +154,7 @@
    /*Defined to be an integer representing the current source line number.
      See also: #line preprocessor directive.
     */
-    #warning  "Line: __LINE__"
+    #warning "Line: __LINE__"
   #else
     #warning "__LINE__: <undefined>."
   #endif
@@ -163,7 +163,7 @@
     /*__FUNC__ is the name of the function as a literal. This validates if
       the macro is defined also.
      */
-    #warning  "Fuction: __FUNC__"
+    #warning "Fuction: __FUNC__"
   #else
     #warning "__FUNC__: <undefined>."
   #endif
@@ -196,7 +196,7 @@
       traditional Unix constructs which are incompatible with ANSI C.
       Note: GNU C Compiler specific.
      */
-    #warning  "Strict ANSI defined."
+    #warning "Strict ANSI defined."
   #else
     #warning "__STRICT_ANSI__: <undefined>."
   #endif
@@ -205,19 +205,20 @@
     /*ISO C and ANSI C Standards Conformance.
       Note: DEC C Compiler specific
      */
-    #warning  "_ANSI_C_SOURCE: ISO/ANSI C conformance."
+    #warning "_ANSI_C_SOURCE: ISO/ANSI C conformance."
   #else
     #warning "_ANSI_C_SOURCE: <undefined>."
   #endif
 
 /* -------------------------------------------------------------------------- */
-TODO: FixMe!
 /* Data types validation                                                     */
   #ifdef __CHAR_UNSIGNED__
     /*Macro is defined if and only if the data type char is unsigned on the
       target machine. It exists to cause the standard header file limit.h to
       work correctly.                                                        */
-    #warning  "char type defined as unsigned char"
+    #warning "__CHAR_UNSIGNED__: char type defined as unsigned char"
+  #else
+    #warning "__CHAR_UNSIGNED__: <undefined>."
   #endif
 
  #ifdef __SIGNED_CHARS__
@@ -225,18 +226,25 @@ TODO: FixMe!
      file to get the proper definitions of CHAR_MAX and CHAR_MIN.
      Note: Comeau C++ 4.0 Compiler specific
     */
+    #warning "__SIGNED_CHARS__: char type defined as signed char"
+  #else
+    #warning "__SIGNED_CHARS__: <undefined>."
   #endif
 
 #ifdef __STDC_IEC_559__
   /*IEC 60559 floating point arithmetic conformance.
    */
-  #pragma message ("IEC 60559 floating point arithmetic conformance.")
+    #warning "IEC 60559 floating point arithmetic conformance."
+  #else
+    #warning "__STDC_IEC_559__: <undefined>."
 #endif
 
 #ifdef __STDC_IEC_559_COMPLEX__
   /*IEC 60559 complex floating point arithmetic conformance.
    */
-  #pragma message ("IEC 60559 complex floating point arithmetic conformance.")
+    #warning "IEC 60559 complex floating point arithmetic conformance."
+  #else
+    #warning "__STDC_IEC_559_COMPLEX__: <undefined>."
 #endif
 
 #ifdef __STDC_ISO_10646__
@@ -245,7 +253,9 @@ TODO: FixMe!
       yyyymmL indicating all amendments to standard and
       technical corrigenda as of the specified year and month.
    */
-  #pragma message ("ISO 10646 conformance.")
+    #warning "ISO 10646 conformance."
+  #else
+    #warning "__STDC_ISO_10646__: <undefined>."
 #endif
 
 /* ========================================================================= */
@@ -253,7 +263,7 @@ TODO: FixMe!
 
 /* ========================================================================= */
 #ifdef _MSC_VER  /*Microsoft C/C++ Compiler                                  */
-TODO: FixMe!
+//TODO: FixMe!
 /* ========================================================================= */
 #endif /*_MSC_VER                                                            */
 

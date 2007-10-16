@@ -27,13 +27,20 @@ bool bResult = true;
 TsWriteToViewLn(_T("TestAssertC()"));
 //TESTENTRY logEntry = {_T(""), _T(""), false};
 
+/*Note: For all report destinations, _CrtDbgReport returns –1 if an error occurs
+  and 0 if no errors are encountered. However, when the report destination is 
+  a debug message window and the user chooses the Retry button, _CrtDbgReport 
+  returns 1. If the user chooses the Abort button in the debug message window,
+  _CrtDbgReport immediately aborts and does not return a value.
+ */
+
 #ifdef _UNICODE
   #ifdef _DEBUG
     TsWriteToViewLn(_T("Write a message to the debugger"));
     //logEntry.m_szFileName = _T("KDbgRpt.cpp");
     //logEntry.m_szObjectName = _T("tCrtDbgReport(_CRT_WARN)");
     bResult = (tCrtDbgReport( _CRT_WARN, __TFILE__, __LINE__, _T("TestAssertC()"),
-              _T("Test Unicode message with %s\n"), _T("tCrtDbgReport()")) > 0);
+              _T("Test Unicode message with %s\n"), _T("tCrtDbgReport()")) >= 0);
     //logEntry.m_bResult = bResult;
     //LogTest(&logEntry);
   #endif
@@ -43,7 +50,7 @@ TsWriteToViewLn(_T("TestAssertC()"));
     //logEntry.m_szFileName = _T("crt/src/dbgrpt.c"); //Microsoft CRT
     //logEntry.m_szObjectName = _T("_CrtDbgReport(_CRT_WARN)");
     bResult = (_CrtDbgReport( _CRT_WARN, __TFILE__, __LINE__, _T("TestAssertC()"),
-              _T("Test SBCS message with %s\n"), _T("_CrtDbgReport()")) > 0);
+              _T("Test SBCS message with %s\n"), _T("_CrtDbgReport()")) >= 0);
     //logEntry.m_bResult = bResult;
     //LogTest(&logEntry);
   #endif

@@ -20,13 +20,13 @@
 #endif
 
 #ifdef _INC_IOSTREAM //MSVC v6.0 iostream.h
-  #if !defined KSTL_IO
+  #ifndef KSTL_IO
     #define KSTL_IO 1301
   #endif
 #endif
 
 #ifdef _IOSTREAM_ //MSVC v6.0 iostream
-  #if !defined KSTL_IO
+  #ifndef KSTL_IO
     #define KSTL_IO 1300
   #endif
 #endif

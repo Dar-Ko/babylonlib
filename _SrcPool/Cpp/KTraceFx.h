@@ -32,7 +32,7 @@
         is equivalent to
         #pragma message(Your message)
      */
-    #define _PRAGMAMESSAGE(Msg) message(#Msg)
+    #define _PRAGMAMESSAGE(Msg) message(Msg)
   #endif
 #endif /*_MSC_VER*/
 
@@ -44,28 +44,26 @@
         is equivalent to
         #warning "Your message"
      */
-    #define _PRAGMAMESSAGE(Msg) "#Msg"
+    #define _PRAGMAMESSAGE(Msg) "Msg"
   #endif
 #endif /*__GNUC__*/
 /* ========================================================================= */
 
+/*_MESSAGE preprocessor directive -----------------------------------------*/
+/*Helper to macro converting argument into a string constant.                        */
+#define _MESSAGE0(Msg)     #Msg
+/*Converts a macro argument into a string constant.                        */
+#define _STRINGCST(Msg)    _MESSAGE0(Msg)
+
 #ifndef KMESSAGE
-  /*_MESSAGE preprocessor directive -----------------------------------------*/
-  /*reserved: preprocessor needs two indirections to replace __LINE__ with
-    actual string                                                            */
-  #define _MESSAGE0(Msg)     #Msg
-  /*Preprocessor needs two indirections to replace __LINE__ or __FILE__ with
-    actual string.
-
-    Note: Microsoft Visual Studio (MSVC) specific.                           */
-  #define _MESSAGE1(Msg)    _MESSAGE0(Msg)
-
     /*Microsoft Visual Studio C/C++ compiler
      */
   #if defined (_MSC_VER)
     /*Creates message prolog with the name of the source file and the line
       number where a preprocessor message has been inserted.
-
+      Preprocessor needs two indirections to replace __LINE__ or __FILE__ with
+      actual string.      
+      
       Note: Microsoft Visual Studio (MSVC) specific.
 
       Example:
@@ -73,7 +71,7 @@
           Output:
           C:\MyCode.cpp(111) : Your message
      */
-    #define _MESSAGELINENO __FILE__ "(" _MESSAGE1(__LINE__) ") : "
+    #define _MESSAGELINENO __FILE__ "(" _STRINGCST(__LINE__) ") : "
   #endif /*_MSC_VER*/
 
     /*Metrowerks CodeWarrior Compiler
@@ -81,6 +79,8 @@
   #if defined (__MWERKS__)
     /*Creates message prolog with the name of the source file and the line
       number where a preprocessor message has been inserted.
+      Preprocessor needs two indirections to replace __LINE__ or __FILE__ with
+      actual string.      
 
       Note: Metrowerks CodeWarrior (MWERKS) specific.
 
@@ -89,7 +89,7 @@
          Output:
          MyCode.cpp line 111   Your message
      */
-    #define _MESSAGELINENO __FILE__ " line " _MESSAGE1(__LINE__) "   "
+    #define _MESSAGELINENO __FILE__ " line " _STRINGCST(__LINE__) "   "
   #endif /*__MWERKS__*/
 
   /*Inserts the name of the source file and the line number where
@@ -224,47 +224,52 @@
 #endif /*__func__*/
 
 #ifndef TRACEMETHOD
-  /*Function Names:
-    __func__  C99 standard: The identifier __func__ is implicitly declared by
-              the translator as if, immediately following the opening brace of
-              each function definition, the declaration:
-              static const char __func__[] = "function-name";
-              It is the undecorated name of the enclosing function.
+  #ifdef __FUNCTION__
+    /*Function Names:
+      __func__  C99 standard: The identifier __func__ is implicitly declared by
+                the translator as if, immediately following the opening brace of
+                each function definition, the declaration:
+                static const char __func__[] = "function-name";
+                It is the undecorated name of the enclosing function.
 
-    __FUNCTION__  MSVC 7.0 and later: __FUNCTION__ is Valid only within a function
-              and returns the undecorated name of the enclosing function
-              (as a string). __FUNCTION__ is not expanded if you use
-              the /EP or /P compiler option.
-              GCC: __FUNCTION__ is another name for __func__, recognized by
-              older version of the compiler, when __func__ was not been
-              standardized.
-              GCC C compiler 3.3 and earlier: __FUNCTION__ is string literal
-              (it not preprocessor macro).
-              GCC C compiler 3.4 and later: __FUNCTION__ is string variable
-              like __func__ (it not preprocessor macro).
-              GCC C++ compiler: __FUNCTION__ is string variable like __func__.
+      __FUNCTION__  MSVC 7.0 and later: __FUNCTION__ is Valid only within a
+                function and returns the undecorated name of the enclosing 
+                function (as a string). __FUNCTION__ is not expanded if you 
+                use the /EP or /P compiler option.
+                GCC: __FUNCTION__ is another name for __func__, recognized by
+                older version of the compiler, when __func__ was not been
+                standardized.
+                GCC C compiler 3.3 and earlier: __FUNCTION__ is string literal
+                (it not preprocessor macro).
+                GCC C compiler 3.4 and later: __FUNCTION__ is string variable
+                like __func__ (it not preprocessor macro).
+                GCC C++ compiler: __FUNCTION__ is string variable like __func__.
 
-    __PRETTY_FUNCTION__  GCC C compiler 3.3 and earlier: __PRETTY_FUNCTION__
-              is string literal with the name of the enclosing function (it not
-              preprocessor macro).
-              GCC C compiler 3.4 and later: __PRETTY_FUNCTION__ is string variable
-              like __func__ with the name of the enclosing function (it not
-              preprocessor macro).
-              GCC C++ compiler: __PRETTY_FUNCTION__ is string variable like
-              __func__ with the name and type of the enclosing function.
+      __PRETTY_FUNCTION__  GCC C compiler 3.3 and earlier: __PRETTY_FUNCTION__
+                is string literal with the name of the enclosing function (it not
+                preprocessor macro).
+                GCC C compiler 3.4 and later: __PRETTY_FUNCTION__ is string variable
+                like __func__ with the name of the enclosing function (it not
+                preprocessor macro).
+                GCC C++ compiler: __PRETTY_FUNCTION__ is string variable like
+                __func__ with the name and type of the enclosing function.
 
-    __FUNCDNAME__  MSVC 7.0 and later: Valid only within a function and returns
-              the decorated name of the enclosing function (as a string).
-              __FUNCDNAME__ is not expanded if you use the /EP or /P compiler
-              option.
+      __FUNCDNAME__  MSVC 7.0 and later: Valid only within a function and returns
+                the decorated name of the enclosing function (as a string).
+                __FUNCDNAME__ is not expanded if you use the /EP or /P compiler
+                option.
 
-    __FUNCSIG__  MSVC 7.0 and later: Valid only within a function and returns
-              the signature of the enclosing function (as a string). __FUNCSIG__
-              is not expanded if you use the /EP or /P compiler option.
-              On a 64-bit operating system, the calling convention is __cdecl
-              by default.
-   */
-  #define TRACEMETHOD() TRACE(_T("%s()\n"), __FUNCTION__)
+      __FUNCSIG__  MSVC 7.0 and later: Valid only within a function and returns
+                the signature of the enclosing function (as a string). __FUNCSIG__
+                is not expanded if you use the /EP or /P compiler option.
+                On a 64-bit operating system, the calling convention is __cdecl
+                by default.
+     */
+    #define TRACEMETHOD() TRACE1(_T("%s()\n"), __FUNCTION__)
+  #else
+    #define __FUNCTION__ _MESSAGELINENO
+    #define TRACEMETHOD() TRACE1(_T("%sfunc()\n"), __FUNCTION__)
+  #endif
 #endif /*TRACEMETHOD*/
 
 #endif /*_KTRACEFX_H_*/

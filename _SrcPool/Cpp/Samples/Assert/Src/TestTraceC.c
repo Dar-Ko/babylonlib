@@ -23,13 +23,18 @@ bool TestTraceC()
 {
 bool bResult = true;
 TsWriteToViewLn(_T("TestTraceC()"));
+/*Test trace of the function name */
+TRACEMETHOD();
 
 /*Testing preprocessor's message output*/
 #if defined (_MSC_VER) || defined (__MWERKS__)
   /*Microsoft Visual Studio C/C++ or
     *Metrowerks CodeWarrior preprocessor
    */
-  #pragma message( __FILE__ " Your pragma message ") 
+  #pragma message( __FILE__ " Your pragma message ")
+
+  #pragma FIXME(Test FIXME message) 
+  #pragma todo(Test todo mesage)
 #else
   /*Unknown preprocessor*/
   #pragma message( __FILE__ " Your pragma message ") 
@@ -39,7 +44,7 @@ TsWriteToViewLn(_T("TestTraceC()"));
 #pragma KMESSAGE(Your KMESSAGE message)
  
 TRACEINFO(_T("This is a TRACEINFO message (200)\n"));
-TRACEINFO(_T("This is a TRACEINFO(%s, %d)\n"), _T("message"), 201);
+TRACEINFO(_T("This is a TRACEINFO\n"));
 TRACE(_T("This is TRACE message\n"));
 TRACE(_T("This is TRACE(%s, %d, %d, %d)\n"), _T("message"), 202, 1, 2);
 

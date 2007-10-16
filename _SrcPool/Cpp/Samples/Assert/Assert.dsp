@@ -436,7 +436,7 @@ SOURCE=..\Common\Src\TsWriteT.c
 # Begin Source File
 
 SOURCE=..\Common\Src\TsWriteTxt.cpp
-# ADD CPP /Yu"stdafx.h"
+# SUBTRACT CPP /YX /Yc /Yu
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -448,11 +448,19 @@ SOURCE=..\..\KDbgMacr.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\..\KDbgMAns.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KTestLog.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\..\KTrace.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KTraceFx.h
 # End Source File
 # Begin Source File
 

@@ -30,6 +30,8 @@ bool TestTrace()
 {
 bool bResult = true;
 TsWriteToViewLn(_T("TestTrace()"));
+//Test trace of the function name
+TRACEMETHOD();
 
 /*Testing preprocessor's message output*/
 #if defined (_MSC_VER) || defined (__MWERKS__)
@@ -37,6 +39,10 @@ TsWriteToViewLn(_T("TestTrace()"));
     *Metrowerks CodeWarrior preprocessor
    */
   #pragma message( __FILE__ " Your pragma message ")
+
+  #pragma fixme(Test fixme message) 
+  #pragma TODO(Test TODO mesage)
+
 #else
   /*Unknown preprocessor*/
   #pragma message( __FILE__ " Your pragma message ")
