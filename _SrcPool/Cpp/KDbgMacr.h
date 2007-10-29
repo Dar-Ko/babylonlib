@@ -636,7 +636,7 @@
      */
     const int g__M_IX86 = _M_IX86;
     #if _M_IX86 < 300
-      #pragma message ("CPU: unknown)
+      #pragma message ("CPU: unknown")
     #endif
     #if _M_IX86 == 300
       #pragma message ("CPU: 80386")
