@@ -49,6 +49,13 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
+#ifdef _MSC_VER
+  #define ItoA(iValue, szResult, iRadix)  _itot(iValue, szResult, iRadix)
+#else
+  extern LPTSTR ItoA(int iValue, LPTSTR szResult, int iRadix);
+#endif
+
+
 //-----------------------------------------------------------------------------
 /*Creates unique name for a file in the given folder. Filename is generated
   from the current time and has minimum length of 8 characters.
