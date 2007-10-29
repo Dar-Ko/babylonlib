@@ -1,5 +1,5 @@
 /*$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid0801.h$: header file
-  $Revision: 1.1 $ $Date: 2007/10/29 19:05:25 $
+  $Revision: 1.2 $ $Date: 2007/10/29 19:08:51 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -26,7 +26,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_USBVID0801_H_
 /*****************************************************************************
- * $Log:
- *  1    Biblioteka1.0         22/08/2007 10:51:35 AMDarko Kolakovic
- * $
+ * $Log: UsbVid0801.h,v $
+ * Revision 1.2  2007/10/29 19:08:51  ddarko
+ * *** empty log message ***
+ *
  *****************************************************************************/
