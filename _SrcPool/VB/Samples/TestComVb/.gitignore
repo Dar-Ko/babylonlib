@@ -1,0 +1,41 @@
+*.plg
+*.pch
+*.obj
+obj
+Obj
+bin
+Bin
+idl
+*.res
+*.ncb
+*.opt
+*.ilk
+*.pdb
+*.aps
+~*
+~*.*
+*.~*
+*.tmp
+*.old
+*.bak
+ *.sbr
+ *.idb
+*.bsc
+*.log
+*.lst
+*.cvs
+*.suo
+*.sln
+*.clw
+*.vcb
+*.vco
+ Thumbs.db
+*.vcl
+*.vic
+*.dump
+*.vspscc
+dlldata.c
+*_p.c
+*_i.c
+*.ctx
+*.vbw
