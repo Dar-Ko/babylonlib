@@ -13,11 +13,48 @@ Public Type ULARGE_INTEGER
   dwHigh As Long
 End Type
 
+Public Type SECURITY_ATTRIBUTES
+  nLength As Long
+  lpSecurityDescriptor As Long
+  bInheritHandle As Long
+End Type
+
+'winbase.h
+Public Const INVALID_HANDLE_VALUE = &HFFFFFFFF
+
+
+Public Type OVER_LAPPED
+  Internal As Long
+  InternalHigh As Long
+  Offset As Long
+  OffsetHigh As Long
+  hEvent As Long
+End Type
+
+Public Type GUID
+  Data1 As Long
+  Data2 As Integer
+  Data3 As Integer
+  Data4(7) As Byte
+End Type
+
+
 Public Const EVENT_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED Or SYNCHRONIZE Or &H3&)
 Public Const EVENT_MODIFY_STATE = &H2&
 Public Const MUTEX_QUERY_STATE = &H1&
 Public Const MUTEX_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED Or SYNCHRONIZE Or MUTEX_QUERY_STATE)
 
+Public Const OPEN_EXISTING = 3
+
+Public Const FORMAT_MESSAGE_FROM_SYSTEM = &H1000
+Public Const GENERIC_READ = &H80000000
+Public Const GENERIC_WRITE = &H40000000
+
+Public Const GENERIC_NOACCESS = 0
+
+Public Const FILE_SHARE_READ = &H1
+Public Const FILE_SHARE_WRITE = &H2
+Public Const FILE_FLAG_OVERLAPPED = &H40000000
 
 Public Declare Function CloseHandle Lib "kernel32" (ByVal hObject As Long) As Long
 Public Declare Function CompareFileTime Lib "kernel32" (lpFileTime1 As FILETIME, lpFileTime2 As FILETIME) As Long
@@ -25,7 +62,7 @@ Public Declare Function ConnectNamedPipe Lib "kernel32" (ByVal hNamedPipe As Lon
 Public Declare Function CopyFile Lib "kernel32" Alias "CopyFileA" (ByVal lpExistingFileName As String, ByVal lpNewFileName As String, ByVal bFailIfExists As Long) As Long
 Public Declare Function CreateDirectory Lib "kernel32" Alias "CreateDirectoryA" (ByVal lpPathName As String, lpSecurityAttributes As SECURITY_ATTRIBUTES) As Long
 Public Declare Function CreateEvent Lib "kernel32" Alias "CreateEventA" (ByVal lpEventAttributes As Long, ByVal bManualReset As Long, ByVal bInitialState As Long, ByVal lpName As String) As Long
-Public Declare Function CreateFile Lib "kernel32" Alias "CreateFileA" (ByVal lpFileName As String, ByVal dwDesiredAccess As Long, ByVal dwShareMode As Long, ByVal lpSecurityAttributes As Long, ByVal dwCreationDisposition As Long, ByVal dwFlagsAndAttributes As Long, ByVal hTemplateFile As Long) As Long
+Public Declare Function CreateFile Lib "kernel32" Alias "CreateFileA" (ByVal lpFileName As String, ByVal dwDesiredAccess As Long, ByVal dwShareMode As Long, ByVal lpSecurityAttributes As SECURITY_ATTRIBUTES, ByVal dwCreationDisposition As Long, ByVal dwFlagsAndAttributes As Long, ByVal hTemplateFile As Long) As Long
 Public Declare Function CreateFileMapping Lib "kernel32" Alias "CreateFileMappingA" (ByVal hFile As Long, ByVal lpFileMappingAttributes As Long, ByVal flProtect As Long, ByVal dwMaximumSizeHigh As Long, ByVal dwMaximumSizeLow As Long, ByVal lpName As String) As Long
 Public Declare Function CreateMutex Lib "kernel32" Alias "CreateMutexA" (ByVal lpMutexAttributes As Long, ByVal bInitialOwner As Long, ByVal lpName As String) As Long
 Public Declare Function CreateNamedPipe Lib "kernel32" Alias "CreateNamedPipeA" (ByVal lpName As String, ByVal dwOpenMode As Long, ByVal dwPipeMode As Long, ByVal nMaxInstances As Long, ByVal nOutBufferSize As Long, ByVal nInBufferSize As Long, ByVal nDefaultTimeOut As Long, ByVal lpSecurityAttributes As Long) As Long
@@ -87,7 +124,7 @@ Public Declare Function ProcessNext Lib "kernel32" Alias "Process32Next" (ByVal 
 Public Declare Function ReadFile Lib "kernel32" (ByVal hFile As Long, lpBuffer As Any, ByVal cb As Long, lpNumberOfBytesRead As Long, ByVal lpOverlapped As Long) As Long
 Public Declare Function ReadProcessMemory Lib "kernel32" (ByVal hprocess As Long, ByVal lpBaseAddress As Long, lpBuffer As Any, ByVal nSize As Long, lpNumberOfBytesWritten As Long) As Long
 Public Declare Function ReleaseMutex Lib "kernel32" (ByVal hmutex As Long) As Long
-Public Declare Function ResetEvent Lib "kernel32" (ByVal hevent As Long) As Long
+Public Declare Function ResetEvent Lib "kernel32" (ByVal hEvent As Long) As Long
 Public Declare Function SendMessageTimeout Lib "user32" Alias "SendMessageTimeoutA" (ByVal hwnd As Long, ByVal msg As Long, ByVal wparam As Long, ByVal lparam As Long, ByVal fuFlags As Long, ByVal uTimeout As Long, pdwResult As Long) As Long
 Public Declare Function SetCurrentDirectory Lib "kernel32" Alias "SetCurrentDirectoryA" (ByVal lpPathName As String) As Long
 Public Declare Function SetEndOfFile Lib "kernel32" (ByVal hFile As Long) As Long
@@ -115,6 +152,41 @@ Public Declare Sub GetSystemTimeAsFileTime Lib "kernel32" (lpFileTime As FILETIM
 Public Declare Sub OutputDebugString Lib "kernel32" Alias "OutputDebugStringA" (ByVal lpOutputString As String)
 Public Declare Sub Sleep Lib "kernel32" (ByVal dwMilliseconds As Long)
 Public Declare Sub ZeroMemory Lib "kernel32" Alias "RtlZeroMemory" (dest As Any, ByVal cb As Long)
+Public Declare Function GetOverlappedResult _
+  Lib "kernel32" _
+  (ByVal hFile As Long, _
+  ByRef lpOverlapped As OVER_LAPPED, _
+  ByRef lpNumberOfBytesRead As Long, _
+  ByVal bWait As Long) _
+  As Long
+Public Declare Function CancelIo _
+  Lib "kernel32" _
+  (ByVal hFile As Long) _
+  As Long
+Public Declare Function lstrlen _
+  Lib "kernel32" _
+  Alias "lstrlenA" _
+  (ByVal source As Long) _
+  As Long
+Public Declare Function lstrcpy _
+  Lib "kernel32" _
+  Alias "lstrcpyA" _
+  (ByVal dest As String, _
+  ByVal source As Long) _
+  As String
+
+Public Declare Function FormatMessage _
+  Lib "kernel32" _
+  Alias "FormatMessageA" _
+  (ByVal dwFlags As Long, _
+  ByRef lpSource As Any, _
+  ByVal dwMessageId As Long, _
+  ByVal dwLanguageZId As Long, _
+  ByVal lpBuffer As String, _
+  ByVal nSize As Long, _
+  ByVal Arguments As Long) _
+  As Long
+
 
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
