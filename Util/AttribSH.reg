@@ -3,19 +3,56 @@ Windows Registry Editor Version 5.00
 ;$Revision: 1.1 $ $Date: 2007/07/19 16:46:11 $
 ;$Author: dkolakovic $
 ;
-;Extends Windows shell with command 'Visible'.
+;Extends Windows shell with commands 'Visible' and 'Hide'.
 ;Makes an image file created by Windows Media Player v.10.0+ visible by clearing
-;hidden and system file attributes.
+;hidden and system file attributes. Also hides folder's customizes outlook files
+;like desktop.ini.
 ;Note: Win32 specific
 ;Copyright: CommonSoft Inc
 ;2007-11-10 Darko Kolakovic
 
-;Handle AlbumArt_{...}_Large.jpg filles
+;Handle AlbumArt_{...}_Large.jpg files
 [HKEY_CLASSES_ROOT\.jpg]
 @="OISjpegfile"
 ;Create 'Visible' command
 [HKEY_CLASSES_ROOT\OISjpegfile\shell\Visible\command]
 @="attrib -s -h \"%1\""
+;Create 'Hide system file' command
+[HKEY_CLASSES_ROOT\OISjpegfile\shell\Hide\command]
+@="attrib +s +h \"%1\""
+
+;Handle folder icon .ico files
+[HKEY_CLASSES_ROOT\.ico]
+@="icofile"
+;Create 'Visible' command
+[HKEY_CLASSES_ROOT\icofile\shell\Visible\command]
+@="attrib -s -h \"%1\""
+;Create 'Hide system file' command
+[HKEY_CLASSES_ROOT\icofile\shell\Hide\command]
+@="attrib +s +h \"%1\""
+
+;Handle folder descktop.ini files
+;[HKEY_CLASSES_ROOT\.ini]
+;@="inifile"
+;@="UltraEdit.ini"
+
+;Create 'Visible' command
+[HKEY_CLASSES_ROOT\inifile\shell\Visible\command]
+@="attrib -s -h \"%1\""
+;Create 'Hide system file' command
+[HKEY_CLASSES_ROOT\inifile\shell\Hide\command]
+@="attrib +s +h \"%1\""
+
+[HKEY_CLASSES_ROOT\UltraEdit.ini\shell\Visible\command]
+@="attrib -s -h \"%1\""
+;Create 'Hide system file' command
+[HKEY_CLASSES_ROOT\UltraEdit.ini\shell\Hide\command]
+@="attrib +s +h \"%1\""
+
+;Create 'System folder' command
+[HKEY_CLASSES_ROOT\Directory\shell\Set as System ]
+[HKEY_CLASSES_ROOT\Directory\shell\Set as System\command]
+@="attrib +s \"%1\""
 
 ;------------------------------------------------------------------------------
 ;$Log: $
