@@ -1,0 +1,21 @@
+Windows Registry Editor Version 5.00
+;$Workfile: S:\Util\RegsvrAdd.reg$: Windows Registry configuration file
+;$Revision: 1.1 $ $Date: 2007/07/19 16:46:11 $
+;$Author: dkolakovic $
+;
+;Extends Windows shell with command 'Visible'.
+;Makes an image file created by Windows Media Player v.10.0+ visible by clearing
+;hidden and system file attributes.
+;Note: Win32 specific
+;Copyright: CommonSoft Inc
+;2007-11-10 Darko Kolakovic
+
+;Handle AlbumArt_{...}_Large.jpg filles
+[HKEY_CLASSES_ROOT\.jpg]
+@="OISjpegfile"
+;Create 'Visible' command
+[HKEY_CLASSES_ROOT\OISjpegfile\shell\Visible\command]
+@="attrib -s -h \"%1\""
+
+;------------------------------------------------------------------------------
+;$Log: $
