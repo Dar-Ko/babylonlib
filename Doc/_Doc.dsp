@@ -62,7 +62,7 @@ InputPath=.\Library\HTMLHelp.tmp\_Doc.exe
 SOURCE="$(InputPath)"
 
 "Bogus.Target" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	"S:\_SrcPool\Cpp\Documentation\MakeDoc.cmd"
+	"S:\Doc\MakeDoc.cmd"
 
 # End Custom Build
 
@@ -97,7 +97,7 @@ InputPath=.\Library\HTMLHelp.tmp\_Doc.exe
 SOURCE="$(InputPath)"
 
 "Bogus.Target" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	"S:\_SrcPool\Cpp\Documentation\MakeDoc.cmd"
+	"S:\Doc\MakeDoc.cmd"
 
 # End Custom Build
 
@@ -132,7 +132,7 @@ InputPath=.\Library\HTMLHelp.tmp\_Doc.exe
 SOURCE="$(InputPath)"
 
 "Bogus.Target" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	"S:\_SrcPool\Cpp\Documentation\MakeDoc.cmd"
+	"S:\Doc\MakeDoc.cmd"
 
 # End Custom Build
 
@@ -167,7 +167,7 @@ InputPath=.\Library\HTMLHelp.tmp\_Doc.exe
 SOURCE="$(InputPath)"
 
 "Bogus.Target" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	"S:\_SrcPool\Cpp\Documentation\MakeDoc.cmd"
+	"S:\Doc\MakeDoc.cmd"
 
 # End Custom Build
 
@@ -265,7 +265,7 @@ InputPath=.\Library\HTMLHelp.tmp\_SrcPool.hhp
 InputName=_SrcPool
 
 "$(OutDir)\$(InputName).chm" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(ProjDir)\MakeHelp.cmd S:\_SrcPool\Cpp\Documentation\$(IntDir)\$(InputName)
+	$(ProjDir)\MakeHelp.cmd S:\Doc\$(IntDir)\$(InputName)
 
 # End Custom Build
 
@@ -281,7 +281,7 @@ InputPath=.\Library\HTMLHelp.tmp\_SrcPool.hhp
 InputName=_SrcPool
 
 "$(OutDir)\$(InputName).chm" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(ProjDir)\MakeHelp.cmd S:\_SrcPool\Cpp\Documentation\$(IntDir)\$(InputName)
+	$(ProjDir)\MakeHelp.cmd S:\Doc\$(IntDir)\$(InputName)
 
 # End Custom Build
 
@@ -297,7 +297,7 @@ InputPath=.\Library\HTMLHelp.tmp\_SrcPool.hhp
 InputName=_SrcPool
 
 "$(OutDir)\$(InputName).chm" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(ProjDir)\MakeHelp.cmd S:\_SrcPool\Cpp\Documentation\$(IntDir)\$(InputName)
+	$(ProjDir)\MakeHelp.cmd S:\Doc\$(IntDir)\$(InputName)
 
 # End Custom Build
 
@@ -313,7 +313,7 @@ InputPath=.\Library\HTMLHelp.tmp\_SrcPool.hhp
 InputName=_SrcPool
 
 "$(OutDir)\$(InputName).chm" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	$(ProjDir)\MakeHelp.cmd S:\_SrcPool\Cpp\Documentation\$(IntDir)\$(InputName)
+	$(ProjDir)\MakeHelp.cmd S:\Doc\$(IntDir)\$(InputName)
 
 # End Custom Build
 
@@ -589,6 +589,34 @@ SOURCE=.\Res\imgUgaritTable.jpg
 # End Source File
 # Begin Source File
 
+SOURCE=.\Res\KBckgGray.jpg
+# End Source File
+# Begin Source File
+
+SOURCE=.\Res\KBook.ico
+# End Source File
+# Begin Source File
+
+SOURCE=.\Res\KFootnote.cur
+# End Source File
+# Begin Source File
+
+SOURCE=.\Res\KHelp.cur
+# End Source File
+# Begin Source File
+
+SOURCE=.\Res\KReference.cur
+# End Source File
+# Begin Source File
+
+SOURCE=.\Res\SrcPool.ico
+# End Source File
+# End Group
+# Begin Group "Web Files"
+
+# PROP Default_Filter "htm;html;css;dtd;xml;xhtm;htt"
+# Begin Source File
+
 SOURCE=.\Html\KAbstract.htm
 # End Source File
 # Begin Source File
@@ -597,19 +625,15 @@ SOURCE=.\Html\KArticles.htm
 # End Source File
 # Begin Source File
 
+SOURCE=.\Res\KASCIIChar.css
+# End Source File
+# Begin Source File
+
 SOURCE=.\Html\KASCIICharTable.htm
 # End Source File
 # Begin Source File
 
 SOURCE=.\Html\KASCIIOem.htm
-# End Source File
-# Begin Source File
-
-SOURCE=.\Res\KBckgGray.jpg
-# End Source File
-# Begin Source File
-
-SOURCE=.\Res\KBook.ico
 # End Source File
 # Begin Source File
 
@@ -649,7 +673,7 @@ SOURCE=.\Html\KDirTree.htm
 # End Source File
 # Begin Source File
 
-SOURCE=.\Res\KFootnote.cur
+SOURCE=.\Res\KDocument.css
 # End Source File
 # Begin Source File
 
@@ -657,19 +681,19 @@ SOURCE=.\Html\KGifFormat.htm
 # End Source File
 # Begin Source File
 
-SOURCE=.\Res\KHelp.cur
-# End Source File
-# Begin Source File
-
 SOURCE=.\Html\KHtmlCharEntity.htm
 # End Source File
 # Begin Source File
 
-SOURCE=.\Html\KMusicScale.htm
+SOURCE=.\Res\KImages.css
 # End Source File
 # Begin Source File
 
-SOURCE=.\Res\KReference.cur
+SOURCE=.\Res\KLists.css
+# End Source File
+# Begin Source File
+
+SOURCE=.\Html\KMusicScale.htm
 # End Source File
 # Begin Source File
 
@@ -689,7 +713,15 @@ SOURCE=.\Html\KRepository.htm
 # End Source File
 # Begin Source File
 
+SOURCE=.\Res\KRfcDoc.css
+# End Source File
+# Begin Source File
+
 SOURCE=.\Html\KStandards.htm
+# End Source File
+# Begin Source File
+
+SOURCE=.\Res\KTables.css
 # End Source File
 # Begin Source File
 
@@ -702,10 +734,6 @@ SOURCE=.\Html\KXModemProtocol.htm
 # Begin Source File
 
 SOURCE=.\Html\KYModemProtocol.htm
-# End Source File
-# Begin Source File
-
-SOURCE=.\Res\SrcPool.ico
 # End Source File
 # End Group
 # Begin Source File

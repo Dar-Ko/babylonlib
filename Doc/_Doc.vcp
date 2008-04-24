@@ -869,147 +869,147 @@ LINK32=link.exe
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
 # Begin Source File
 
-SOURCE=.\Resources\icoDocumentation.gif
+SOURCE=.\Res\icoDocumentation.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoDocumentation.ico
+SOURCE=.\Res\icoDocumentation.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoDOS.gif
+SOURCE=.\Res\icoDOS.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoFolderClosed.gif
+SOURCE=.\Res\icoFolderClosed.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoFolderOpen.gif
+SOURCE=.\Res\icoFolderOpen.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoHlpS.gif
+SOURCE=.\Res\icoHlpS.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoHtm.gif
+SOURCE=.\Res\icoHtm.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoHtmS.gif
+SOURCE=.\Res\icoHtmS.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoImage.gif
+SOURCE=.\Res\icoImage.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoJava.gif
+SOURCE=.\Res\icoJava.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoLinux.gif
+SOURCE=.\Res\icoLinux.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoMac.gif
+SOURCE=.\Res\icoMac.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoMfc.gif
+SOURCE=.\Res\icoMfc.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoPalm.gif
+SOURCE=.\Res\icoPalm.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoPalm.ico
+SOURCE=.\Res\icoPalm.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoSTL.gif
+SOURCE=.\Res\icoSTL.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoSTL.ico
+SOURCE=.\Res\icoSTL.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoStlPort.ico
+SOURCE=.\Res\icoStlPort.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoTxtS.gif
+SOURCE=.\Res\icoTxtS.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoVcProj.gif
+SOURCE=.\Res\icoVcProj.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoVcSln.gif
+SOURCE=.\Res\icoVcSln.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoVxWorks.gif
+SOURCE=.\Res\icoVxWorks.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoWin16.gif
+SOURCE=.\Res\icoWin16.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoWin16.ico
+SOURCE=.\Res\icoWin16.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoWin32.gif
+SOURCE=.\Res\icoWin32.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoWin32.ico
+SOURCE=.\Res\icoWin32.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoWin9x.gif
+SOURCE=.\Res\icoWin9x.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoWinCE.gif
+SOURCE=.\Res\icoWinCE.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoWinCE.ico
+SOURCE=.\Res\icoWinCE.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoWinXP.gif
+SOURCE=.\Res\icoWinXP.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\icoWinXP.ico
+SOURCE=.\Res\icoWinXP.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\KBook.ico
+SOURCE=.\Res\KBook.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\KSrcPl16.ico
+SOURCE=.\Res\KSrcPl16.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\logoApplet.gif
+SOURCE=.\Res\logoApplet.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\logoInternetSociety.gif
+SOURCE=.\Res\logoInternetSociety.gif
 # End Source File
 # Begin Source File
 
-SOURCE=.\Resources\logoStlPort.gif
+SOURCE=.\Res\logoStlPort.gif
 # End Source File
 # End Group
 # End Target
