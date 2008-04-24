@@ -17,7 +17,8 @@
 class ATL_NO_VTABLE CTestAtlObj :
   public CComObjectRootEx<CComSingleThreadModel>,
   public CComCoClass<CTestAtlObj, &CLSID_TestAtlObj>,
-  public ITestAtlObj
+  public ITestAtlObj,
+  public IObjectWithSite
 {
 public:
   CTestAtlObj()
@@ -31,11 +32,20 @@ DECLARE_PROTECT_FINAL_CONSTRUCT()
 
 BEGIN_COM_MAP(CTestAtlObj)
   COM_INTERFACE_ENTRY(ITestAtlObj)
+  COM_INTERFACE_ENTRY(IObjectWithSite)
 END_COM_MAP()
+
+// IObjectWithSite
+// Note: the interface is added after the wizard created the project files.
+// The interface is required for occasion of a dynamically created control.
+public:
+  STDMETHOD(SetSite)(IUnknown* pUnkSite);
+  STDMETHOD(GetSite)(REFIID riid, void** ppvSite);
 
 // ITestAtlObj
 public:
   STDMETHOD(TestMethod)(/*[in]*/ long lInput, /*[out]*/ long* pResult);
+
 };
 
 #endif //__TESTATLOBJ_H_
