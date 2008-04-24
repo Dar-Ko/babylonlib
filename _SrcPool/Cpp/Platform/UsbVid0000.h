@@ -15,7 +15,9 @@
 
 /*$VID.	USB device vendor identification (VID) number	$VENDOR	$VENDORADR
 
-  See also: usb-if.tsv, USB Implementers Forum, Inc (USB-IF) at http://www.usb.org
+  See also: usb-if.tsv (usb.if), Company List by USB Implementers Forum, Inc
+  (USB-IF) at http://www.usb.org/developers/tools/comp_dump;
+  usb.ids, List of USB ID's by Stephen J. Gowdy at http://www.linux-usb.org/usb.ids.
  */
 #define USBVID_$VENDOR 0x0000
 #define USBVID_0000 _T("$VENDOR") //TODO: VID $VID Vendor name
