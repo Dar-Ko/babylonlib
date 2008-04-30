@@ -29,9 +29,6 @@
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
 				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
-				AssemblerListingLocation=".\..\Obj\Release_Unicode\StreamIO\Win32/"
-				ObjectFile=".\..\Obj\Release_Unicode\StreamIO\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_Unicode\StreamIO\Win32/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="0"/>
@@ -39,10 +36,8 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_Unicode\Win32/StreamIO.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\..\bin\Release_Unicode\Win32/StreamIO.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -86,9 +81,6 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
 				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
-				AssemblerListingLocation=".\..\Obj\Debug_Unicode\StdLib\Win32/"
-				ObjectFile=".\..\Obj\Debug_Unicode\StdLib\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode\StdLib\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -98,11 +90,9 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_Unicode\Win32/StreamIO.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_Unicode\Win32/StreamIO.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -139,15 +129,13 @@
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/verbose:lib"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win,..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
 				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
-				AssemblerListingLocation=".\..\Obj\Debug_SBCS\StreamIO\Win32/"
-				ObjectFile=".\..\Obj\Debug_SBCS\StreamIO\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS\StreamIO\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -157,11 +145,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_SBCS\Win32/StreamIO.exe"
+				AdditionalOptions="/verbose:lib"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/StreamIO.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -206,9 +193,6 @@
 				RuntimeLibrary="4"
 				EnableFunctionLevelLinking="TRUE"
 				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
-				AssemblerListingLocation=".\..\Obj\Release_SBCS\StreamIO\Win32/"
-				ObjectFile=".\..\Obj\Release_SBCS\StreamIO\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_SBCS\StreamIO\Win32/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="0"/>
@@ -216,10 +200,8 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_SBCS\Win32/StreamIO.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\..\bin\Release_SBCS\Win32/StreamIO.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -262,9 +244,6 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
 				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
-				AssemblerListingLocation=".\..\Obj\Debug_SBCS\StreamIO\Win32/"
-				ObjectFile=".\..\Obj\Debug_SBCS\StreamIO\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS\StreamIO\Win32/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -274,11 +253,9 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Debug_SBCS\Win32/StreamIO.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/StreamIO.pdb"
 				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
@@ -710,7 +687,9 @@
 					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories="..\..\Win\32"/>
+						AdditionalIncludeDirectories="..\..\Win\32"
+						PreprocessorDefinitions="_DEBUG_INCL_PREPROCESS"
+						ShowIncludes="FALSE"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_SBCS|Win32">
@@ -751,7 +730,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="0"
 						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						PreprocessorDefinitions="_DEBUG_INCL_PREPROCESS"
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
@@ -835,6 +814,9 @@
 			</File>
 			<File
 				RelativePath="..\..\Stl\KOStream.h">
+			</File>
+			<File
+				RelativePath="..\Common\Src\Win\stdafx.h">
 			</File>
 		</Filter>
 		<Filter

@@ -9,15 +9,24 @@
 
 // Group=Examples
 
-#include "stdafx.h"
+#include "../../../Common/Src/Win/stdafx.h"
+#if !defined _KTESTLOG_H_
+ #error wrong stdafx.h header is included!
+ //The project options for this module have "..\..\Win\32" in 
+ //additional include path
+#endif
 extern CTestLog g_logTest;   //general test logger
 
+/*Note: A MSVC LNK2005 error occurs when the CRT library and MFC libraries 
+  (nafxcwd.lib, libcmtd.lib) are linked in the wrong order in Visual C++
+  See also: MSDN Article ID: 148652 http://support.microsoft.com/kb/148652
+ */
 #ifdef _DEBUG
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 
   #ifdef _MSC_VER /*MS VC/C++ - Disable warning */
-    //Fix for the warning(4786) cannot debug code with symbols longer 
+    //Fix for the warning(4786) cannot debug code with symbols longer
     //than 255 characters
   #pragma warning (disable: 4786)
   #endif
@@ -26,8 +35,13 @@ extern CTestLog g_logTest;   //general test logger
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 #include <vector>
-#include <iostream>
-//#include <iomanip.h>  //std::endl 
+
+#if _MSC_VER < 1300
+  //MSVC/C++ 6.0 or lesser
+  #pragma include_alias(<iostream>, <iomanip.h>)
+#endif
+#include <iostream> //std::endl
+
 #include "KString.h"  //CString class
 #include "KFileNmB.h" //CFileNameBrowser class
 
@@ -35,7 +49,7 @@ extern CString FindOldestFile(LPCTSTR strDirectoryPath, LPCTSTR strFileExt);
 extern LPCTSTR CreateTmpFile(CString& strResult, LPCTSTR strPrefix);
 extern LPCTSTR CreateUniqueFileName(CString& strResult,
                                     LPCTSTR szFilePath,
-                                    LPCTSTR szPrefix,  
+                                    LPCTSTR szPrefix,
                                     LPCTSTR szExtension);
 
 //-----------------------------------------------------------------------------
@@ -54,7 +68,7 @@ std::vector<tstring> listFileNames;
 
 //Test log  creation
 g_logTest.m_szObjectName = _T("CFileNameBrowser::CFileNameBrowser(LPCTSTR)");
-g_logTest.m_szFileName   = _T("KFileNmB.cpp");//function or object file name
+g_logTest.m_szFileName   = _T("KFileNmB.cpp"); //function or object file name
 g_logTest.m_bResult      = false;              //result of the test
 
 //Test browsing a directory
@@ -71,8 +85,8 @@ while(!FileName.IsLastFileFound())
   {
   listFileNames.push_back(++FileName);
   std::_tcout << listFileNames.size() << _T(".\t" )
-    << (LPCTSTR)FileName 
-    << (FileName.IsDirectory()? _T(" directory ") : _T("")) 
+    << (LPCTSTR)FileName
+    << (FileName.IsDirectory()? _T(" directory ") : _T(""))
     << std::endl;
   }
 g_logTest.LogResult(bResult);
@@ -99,9 +113,9 @@ else
   std::_tcout << _T("Failure!")<< std::endl;
   bResult = false;
   }
-  
+
 g_logTest.LogResult(bResult);
-  
+
 //Test creating a temporary file
 TsWriteToViewLn(_T("CreateTmpFile()"));
 g_logTest.m_szObjectName = _T("CreateTmpFile(CString&, LPCTSTR)");
@@ -141,15 +155,15 @@ return bResult;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- *$Log: 
+ *$Log:
  * 6    Biblioteka1.5         2007-05-04 17:53:43  Darko Kolakovic
  *      CreateUniqueFilename()
  * 5    Biblioteka1.4         2007-05-03 15:57:34  Darko Kolakovic TestFilename()
- * 4    Biblioteka1.3         2007-05-03 11:25:05  Darko Kolakovic 
- * 3    Biblioteka1.2         2002-07-16 01:41:55  Darko           Fixed VSS Log 
+ * 4    Biblioteka1.3         2007-05-03 11:25:05  Darko Kolakovic
+ * 3    Biblioteka1.2         2002-07-16 01:41:55  Darko           Fixed VSS Log
  *      tag
- * 2    Biblioteka1.1         2002-04-05 00:49:18  Darko          
+ * 2    Biblioteka1.1         2002-04-05 00:49:18  Darko
  *      CreateTmpFileName()
- * 1    Biblioteka1.0         2002-03-12 23:01:17  Darko           
+ * 1    Biblioteka1.0         2002-03-12 23:01:17  Darko
  *$
  *****************************************************************************/
