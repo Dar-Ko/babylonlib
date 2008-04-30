@@ -79,17 +79,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SerialIO", "SerialIO\Serial
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 2
-		SccProjectUniqueName0 = Strings\\Strings.vcproj
-		SccProjectName0 = Strings
-		SccLocalPath0 = Strings
-		SccProvider0 = MSSCCI:Jalindi\u0020Igloo
-		SccProjectUniqueName1 = StlTools\\StlTools.vcproj
-		SccProjectName1 = <[SrcPool]\u0020Biblioteka|Biblioteka>Biblioteka\\BabylonLib\\_SrcPool\\Cpp\\Samples\\StlTools
-		SccLocalPath1 = StlTools
-		SccProvider1 = MSSCCI:StarTeam
-	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug_SBCS = Debug_SBCS
 		Debug_SBCS_MFC = Debug_SBCS_MFC

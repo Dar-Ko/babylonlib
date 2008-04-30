@@ -5,10 +5,10 @@
 	Name="StlTools"
 	ProjectGUID="{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}"
 	RootNamespace="StlTools"
-	SccProjectName="&lt;[SrcPool] Biblioteka|Biblioteka&gt;Biblioteka\BabylonLib\_SrcPool\Cpp\Samples\StlTools"
+	SccProjectName=""
 	SccAuxPath=""
-	SccLocalPath="."
-	SccProvider="MSSCCI:StarTeam">
+	SccLocalPath=""
+	SccProvider="">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
