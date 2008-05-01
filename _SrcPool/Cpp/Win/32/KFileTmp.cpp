@@ -41,7 +41,7 @@
   characters. If strPrefix is NULL, the default prefix '~Pr' is used.
 
   Returns: NULL if function is not succesful, otherwise returns null-terminated
-  (TODO: ANSI character) string with full default file path. To get extended error
+  string with full default file path. To get extended error
   information, call GetLastError() or SystemErrMessage().
 
 
@@ -57,9 +57,6 @@ TRACE(_T("CreateTmpFileName()\n"));
 
   //Set the file prefix
 TCHAR  szPrefix[4];
-szPrefix[0] = _T('~');
-szPrefix[1] = _T('P');
-szPrefix[2] = _T('r');
 szPrefix[3] = _T('\0');
 
 if (strPrefix != NULL)
@@ -70,6 +67,12 @@ if (strPrefix != NULL)
     szPrefix[1] = strPrefix[1];
   if (strPrefix[2] != '\0')
     szPrefix[2] = strPrefix[2];
+  }
+else
+  {
+  szPrefix[0] = _T('~');
+  szPrefix[1] = _T('P');
+  szPrefix[2] = _T('r');
   }
 
   //Set temporary file name
