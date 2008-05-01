@@ -55,7 +55,7 @@
   extern LPTSTR ItoA(int iValue, LPTSTR szResult, int iRadix);
 #endif
 
-
+#pragma message("yyyyyyyyyyyyyyyyyyyyyyy")
 //-----------------------------------------------------------------------------
 /*Creates unique name for a file in the given folder. Filename is generated
   from the current time and has minimum length of 8 characters.

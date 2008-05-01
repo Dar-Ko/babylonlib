@@ -129,7 +129,6 @@
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalOptions="/verbose:lib"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win,..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"

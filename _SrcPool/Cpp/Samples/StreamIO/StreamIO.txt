@@ -10,6 +10,16 @@ Stream I/O
 Samples and test suite for various functions using Standard Template Library (STL) streams
 Requires predefined macro _STL
 
+MSDN ID: 148652 http://support.microsoft.com/kb/148652
+A LNK2005 error occurs when the CRT library and MFC libraries are linked in the wrong order in Visual C++
+
+When the C Run-Time (CRT) library and Microsoft Foundation Class (MFC) libraries are linked in the wrong order, you may receive one of the following LNK2005 errors:
+    nafxcwd.lib(afxmem.obj) : error LNK2005:
+    "void * __cdecl operator new(unsigned int)"(??2@YAPAXI@Z) already defined in LIBCMTD.lib(new.obj) 
+When you use the MFC libraries, you must make sure that they are linked before the CRT library is linked. You can do this by making sure that every file in your project includes Msdev\Mfc\Include\Afx.h first, either directly (#include <Afx.h>) or indirectly (#include <Stdafx.h>). The Afx.h include file forces the correct order of the libraries, by using the #pragma comment (lib,"<libname>") directive.
+If the source file has a .c extension, or the file has a .cpp extension but does not use MFC, you can create and include a small header file (KAfxLib.h) at the top of the module.
+This new header makes sure that the library search order is correct.
+
 Test files:
 
   Res/Test0b.txt

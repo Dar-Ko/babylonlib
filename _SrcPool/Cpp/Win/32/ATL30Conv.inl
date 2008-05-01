@@ -30,7 +30,7 @@
   Note: Microsoft Windows specific (Win32)
         and uses Active Template Library (ATL).
 
-  See also: article KB241857.
+  See also: MSDN article KB241857.
  */
 inline BSTR A2WBSTR(LPCSTR lp, int nLen = -1)
 {
