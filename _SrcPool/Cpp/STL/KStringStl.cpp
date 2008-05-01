@@ -100,18 +100,19 @@ if(m_pData != NULL)
   Copy(szString);
 }
 
-//::~CString()-----------------------------------------------------------------
-/*
- */
-CString::~CString()
-{
-if(m_pData != NULL)
+#ifndef _KSTRING_H_
+  //::~CString()---------------------------------------------------------------
+  /*Destructor
+   */
+  CString::~CString()
   {
-  delete m_pData;
-  m_pData = NULL;
+  if(m_pData != NULL)
+    {
+    delete m_pData;
+    m_pData = NULL;
+    }
   }
-}
-
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 // Indexed access
 
