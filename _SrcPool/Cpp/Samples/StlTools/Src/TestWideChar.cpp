@@ -1,5 +1,5 @@
 /*$Workfile: TestWideChar.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2008/05/02 15:50:49 $
+  $Revision: 1.3 $ $Date: 2008/05/02 21:01:33 $
   $Author: ddarko $
 
   Test STL wchar_t capabilites
@@ -91,24 +91,25 @@ try
   logEntry.m_szFileName   = _T("<streambuf>");//function or object file name
   logEntry.m_bResult      = false;              //result of the test
 
-  #ifdef MSVC
+  #ifdef _MSC_VER
       //MS Visual Studio STL implementation
       std::string strLocaleName("Greek_Greece.1253");
   #else
       std::string strLocaleName("gr_GR");
   #endif
   std::cout << "New locale:" << std::endl;
-  std::locale localeNew(strLocaleName);
-  std::wcout.imbue(localeNew);
-  std::cout.imbue(localeNew);
+
+  std::wcout.imbue(std::locale (strLocaleName.c_str()));
+  std::cout.imbue(std::locale (strLocaleName.c_str()));
+
+  std::cout << "cout: "  <<  std::cout.getloc().name() << std::endl;
+  std::cout << "wcout: " <<  std::wcout.getloc().name() << std::endl << std::flush;
 
     //Fixme! Win32 select a monospaced TrueType font, such as "Lucida Console"
     //for the console (command line window )
     //or/and type (UTF-8 code page) type c:\> chcp 65001
 
   _cwprintf(L"%s\n",szGreek);
-
-
 
   std::wstring wString2 = szGreek;
   std::wcout << wString2 << std::endl;
