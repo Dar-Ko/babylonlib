@@ -596,7 +596,7 @@ CString CString::Mid(int iFirst //[in]zero-based index of the first character
                      //that is to be included in the extracted substring.
                      ) const
 {
-return Mid(iFirst, m_pData->length() - iFirst);
+return Mid(iFirst, (int)m_pData->length() - iFirst);
 }
 
 //::Left()---------------------------------------------------------------------
@@ -667,7 +667,7 @@ CString CString::SpanIncluding(LPCTSTR lpszCharSet //[in] a set of characters
                                //to be excluded
                               ) const
 {
-return( Left( _tcsspn(m_pData->c_str(), lpszCharSet)) );
+return( Left( (int)_tcsspn(m_pData->c_str(), lpszCharSet)) );
 }
 
 //::SpanExcluding()------------------------------------------------------------
@@ -688,7 +688,7 @@ CString CString::SpanExcluding(LPCTSTR lpszCharSet //[in] a set of delimiting
                                                    //characters
                                ) const
 {
-return( Left(_tcscspn(m_pData->c_str(), lpszCharSet)) );
+return( Left( (int)_tcscspn(m_pData->c_str(), lpszCharSet)) );
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -725,7 +725,7 @@ std::ctype<TCHAR>().tolower(m_pData->begin(), m_pData->end() );
 void CString::MakeReverse()
 {
 long lLeftIndex  = 0;
-long lRightIndex = m_pData->length() - 1;
+long lRightIndex = (long)(m_pData->length() - 1);
 while( lLeftIndex++ < lRightIndex-- )
   {
   TCHAR chSwap = m_pData->at(lLeftIndex);
@@ -776,7 +776,8 @@ void CString::FormatV(LPCTSTR lpszFormat, //[in] format-control string
 {
 try
   {
-  long buffer_size = _tcslen( lpszFormat ) * 2;
+  ASSERT(LONG_MAX > (_tcslen( lpszFormat )/2));
+  long buffer_size = (long)(_tcslen( lpszFormat ) * 2);
   CString format_object( lpszFormat );
 
   int string_index = 0;
@@ -995,7 +996,7 @@ void CString::Copy(LPCWSTR string_p,
 void CString::TrimRight()
 {
   //Find index of first non-white character
-long lIndex = m_pData->length() - 1;
+long lIndex = (long)(m_pData->length() - 1);
 if ( _istspace( m_pData->at(lIndex)))
   {
   while(_istspace( m_pData->at(--lIndex)) )
@@ -1028,7 +1029,7 @@ void CString::TrimRight(LPCTSTR lpszTargets)
  */
 void CString::TrimLeft()
 {
-long lLen = m_pData->length();
+long lLen = (long)m_pData->length();
 
 if( lLen > 0 )
   {
@@ -1049,7 +1050,7 @@ if( lLen > 0 )
  */
 void CString::TrimLeft(TCHAR chTarget)
 {
-long lLen = m_pData->length();
+long lLen = (long)m_pData->length();
 
 if ( lLen > 0 )
   {
@@ -1138,7 +1139,8 @@ return static_cast<int>(m_pData->find_first_of(lpszCharSet));
 int CString::ReverseFind(TCHAR ch //[in] character to search
                         ) const
 {
-return m_pData->rfind(ch);
+ASSERT(INT_MAX > m_pData->length());
+return (int)m_pData->rfind(ch);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
