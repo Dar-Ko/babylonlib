@@ -52,6 +52,12 @@ if (szFileName != NULL)
 return (false);
 }
 #else /*_WIN32*/
+  #if defined (_USE_MFC) || defined (_USE_AFX)
+    //If MFC library is used thorough the project, it is required to link libraries in 
+    //the right sequence in order to avoid LNK2005 error
+    #include "KAfxLib.h"
+  #endif
+
 #include <tchar.h> //_tfopen()
 //-----------------------------------------------------------------------------
 /*Verifies if file exist in the current folder.
