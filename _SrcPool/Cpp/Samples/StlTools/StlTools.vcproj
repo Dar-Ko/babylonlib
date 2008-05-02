@@ -1087,6 +1087,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Src\TestWideChar.cpp">
+			</File>
+			<File
 				RelativePath=".\Src\TsText.cpp">
 			</File>
 			<File

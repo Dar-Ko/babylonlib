@@ -1,15 +1,15 @@
 /*$Workfile: TestWideChar.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2008/05/02 14:49:27 $
+  $Revision: 1.2 $ $Date: 2008/05/02 15:50:49 $
   $Author: ddarko $
 
-  Test wchar_t capabilites
+  Test STL wchar_t capabilites
   Copyright: CommonSoft Inc.
   2004-06-06 Darko Kolakovic
 */
 
 // Group=Examples
 
-#include "stdafx.h"
+#include "stdstl.h"
 #include <locale>
 
 extern bool TsWriteToView(LPCTSTR lszText);
@@ -23,74 +23,113 @@ extern bool TsWriteToViewLn(const int& iValue);
 #endif
 
 //-----------------------------------------------------------------------------
-/*Validates CStringHandler class creation and IsPalindrome methods.
+/*Validates Standard Template Library std::wstring class and locale information.
 
   Returns: true if successful, otherwise returns false.
+
+  Note: uses Standard Template Library (STL).
  */
 bool TestWideChar()
 {
 TsWriteToView(_T("TestWideChar()\r\n"));
-
-  //Verify if the compiler supports wide characters
-wchar_t w = L'w';
-std::wstring wString = L"This is a wide character string";
-std::wcout << wString << std::endl;
-  /*Note: Microsoft's std::wcout uses wctomb() to convert a wide character
-          to the corresponding multibyte character. If the conversion is not
-          possible in the current locale, wctomb() returns –1, closes the
-          stream with WEOF, sets stream state to ios_base::badbit and sets
-          errno to EILSEQ = 42. In other hand, _cwprintf() uses _cputws()
-          to writes a wide character string directly to the console.
-   */
-
-  //Single-byte character set (SBCS)
-char c = 'c';
-std::string cString = "This is a SBCS string";
-std::cout << cString << std::endl;
-
-  /*Wash my transgressions, not only my face
-    palindrome on the font of St. Sophia, Constantinople
-   */
-wchar_t szGreek[] =
+bool bRes = false;
+TESTENTRY logEntry =
+  {_T("std::wstring()"), _T("<string>"), bRes};
+try
   {
-  0x039D, 0x0399, 0x03A8, 0x039F, 0x039D, 0x0020, 0x0391, 0x039D, 0x039F,
-  0x039C, 0x0397, 0x039C, 0x0391, 0x03A4, 0x0391, 0x0020, 0x039C, 0x0397,
-  0x0020, 0x039C, 0x039F, 0x039D, 0x0391, 0x039D, 0x0020, 0x039F, 0x03A8,
-  0x0399, 0x039D, 0x0000
-  };
+    //Verify if the compiler supports wide characters
+  wchar_t w = L'w';
+  std::wstring wString = L"This is a wide character string";
+  std::wcout << wString << std::endl;
+    /*Note: Microsoft's std::wcout uses wctomb() to convert a wide character
+            to the corresponding multibyte character. If the conversion is not
+            possible in the current locale, wctomb() returns –1, closes the
+            stream with WEOF, sets stream state to ios_base::badbit and sets
+            errno to EILSEQ = 42. In other hand, _cwprintf() uses _cputws()
+            to writes a wide character string directly to the console.
+     */
+  bRes = true; //TODO: do some validation here. D.K.
+  //Write test log
+  logEntry.m_bResult = bRes;
+  LogTest(&logEntry);
 
-  //Get current locale
-std::cout << "Current locale:" << std::endl;
-  /*The "C" locale is defined by ANSI to correspond to the locale in which
-    C programs have traditionally executed. The code page for the "C" locale
-    ("C" code page) corresponds to the ASCII character set.
-   */
-std::cout << "cout: "  <<  std::cout.getloc().name() << std::endl;
-std::cout << "wcout: " <<  std::wcout.getloc().name() << std::endl << std::flush;
+    //Single-byte character set (SBCS)
+  char c = 'c';
+  std::string cString = "This is a SBCS string";
+  std::cout << cString << std::endl;
 
-#ifdef MSVC
-    //MS Visual Studio STL implementation
-    std::string strLocaleName("Greek_Greece.1253");
-#else
-    std::string strLocaleName("gr_GR");
+    /*Wash my transgressions, not only my face
+      palindrome on the font of St. Sophia, Constantinople
+     */
+  wchar_t szGreek[] =
+    {
+    0x039D, 0x0399, 0x03A8, 0x039F, 0x039D, 0x0020, 0x0391, 0x039D, 0x039F,
+    0x039C, 0x0397, 0x039C, 0x0391, 0x03A4, 0x0391, 0x0020, 0x039C, 0x0397,
+    0x0020, 0x039C, 0x039F, 0x039D, 0x0391, 0x039D, 0x0020, 0x039F, 0x03A8,
+    0x0399, 0x039D, 0x0000
+    };
 
-#endif
+    //Get current locale
+  logEntry.m_szObjectName = _T("std::wcout.getloc().name()");
+  logEntry.m_szFileName   = _T("<locale>");//function or object file name
+  logEntry.m_bResult      = false;              //result of the test
 
-std::wcout.imbue(strLocaleName);
-std::cout.imbue(strLocaleName);
+  std::cout << "Current locale:" << std::endl;
+    /*The "C" locale is defined by ANSI to correspond to the locale in which
+      C programs have traditionally executed. The code page for the "C" locale
+      ("C" code page) corresponds to the ASCII character set.
+     */
+  std::cout << "cout: "  <<  std::cout.getloc().name() << std::endl;
+  std::cout << "wcout: " <<  std::wcout.getloc().name() << std::endl << std::flush;
+  bRes = true; //TODO: do some validation here. D.K.
+  //Write test log
+  logEntry.m_bResult = bRes;
+  LogTest(&logEntry);
 
-  //Fixme! Win32 select a monospaced TrueType font, such as "Lucida Console"
-  //for the console (command line window )
-  //or/and type (UTF-8 code page) type c:\> chcp 65001
+  //Change current locale
+  logEntry.m_szObjectName = _T("std::wcout.imbue(string)");
+  logEntry.m_szFileName   = _T("<streambuf>");//function or object file name
+  logEntry.m_bResult      = false;              //result of the test
 
-_cwprintf(L"%s\n",szGreek);
+  #ifdef MSVC
+      //MS Visual Studio STL implementation
+      std::string strLocaleName("Greek_Greece.1253");
+  #else
+      std::string strLocaleName("gr_GR");
+  #endif
+  std::cout << "New locale:" << std::endl;
+  std::locale localeNew(strLocaleName);
+  std::wcout.imbue(localeNew);
+  std::cout.imbue(localeNew);
+
+    //Fixme! Win32 select a monospaced TrueType font, such as "Lucida Console"
+    //for the console (command line window )
+    //or/and type (UTF-8 code page) type c:\> chcp 65001
+
+  _cwprintf(L"%s\n",szGreek);
 
 
 
-std::wstring wString2 = szGreek;
-std::wcout << wString2 << std::endl;
+  std::wstring wString2 = szGreek;
+  std::wcout << wString2 << std::endl;
 
-std::wcout << szGreek << std::endl;
+  std::wcout << szGreek << std::endl;
+
+  bRes = true; //TODO: do some validation here. D.K.
+  //Write test log
+  logEntry.m_bResult = bRes;
+  LogTest(&logEntry);
+
+  }
+catch(...)
+  {
+  TsWriteToView(_T("Test failed: exception occurrence!\r\n"));
+  bRes = false;
+  //Write test log
+  logEntry.m_bResult = bRes;
+  LogTest(&logEntry);
+  }
+
 
 TsWriteToView(LOG_EOT);
 TsWriteToView(_T("\r\n"));
@@ -99,7 +138,7 @@ return bRes;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2004-10-01 22:55:32  Darko           
+ * $Log:
+ *  1    Biblioteka1.0         2004-10-01 22:55:32  Darko
  * $
  *****************************************************************************/

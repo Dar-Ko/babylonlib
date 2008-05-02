@@ -16,6 +16,7 @@ extern bool TestStlStringCfg();
 extern bool TestReplaceEol();
 extern bool TestStrToUpper();
 extern bool TestUcstoHex();
+extern bool TestWideChar();
 
 int TestCommonStlTools();
 
@@ -35,6 +36,7 @@ PFUNC_TEST funcTest[] =
   {
   TestStlLimits,
   TestStlStringCfg,
+  TestWideChar,
   TestReplaceEol,
   TestStrToUpper,
   TestUcstoHex
