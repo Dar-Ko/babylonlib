@@ -55,7 +55,6 @@
   extern LPTSTR ItoA(int iValue, LPTSTR szResult, int iRadix);
 #endif
 
-#pragma message("yyyyyyyyyyyyyyyyyyyyyyy")
 //-----------------------------------------------------------------------------
 /*Creates unique name for a file in the given folder. Filename is generated
   from the current time and has minimum length of 8 characters.
@@ -95,9 +94,13 @@ const int EOK = 0; //no error occured
 const int NAMESIZE = 8; //size of variable part of the file name is 32-bit
                         //hexadecimal number
 int iPos = MAX_PATH;    //space required for the file name
+ASSERT(MAX_PATH > NAMESIZE);
+
 if((szFilePath != NULL) && (szFilePath[0] != _T('\0')))
   {
-  iPos = _tcslen(szFilePath);
+  ASSERT(INT_MAX >  _tcslen(szFilePath));
+  iPos = (int)_tcslen(szFilePath);
+  ASSERT((iPos-1) >0);
   if (!IsPathDelim(szFilePath[iPos-1]))
     iPos++; //Add space for directory delimiter
   }
@@ -105,13 +108,13 @@ if (iPos > (MAX_PATH - NAMESIZE))
   return NULL; //This part of the file path is too long
 
 if(szPrefix != NULL)
-  iPos += _tcslen(szPrefix);
+  iPos += (int)_tcslen(szPrefix);
 if (iPos > (MAX_PATH - NAMESIZE))
   return NULL; //This part of the file path is too long
 
 if((szExtension != NULL) && (szExtension[0] != _T('\0')))
   {
-  iPos += _tcslen(szExtension);
+  iPos += (int)_tcslen(szExtension);
   if (szExtension[0] != FILEEXTDELIM)
     iPos++; //Add space for extension separator
   }
