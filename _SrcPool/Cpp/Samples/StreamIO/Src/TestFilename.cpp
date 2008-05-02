@@ -9,7 +9,7 @@
 
 // Group=Examples
 
-#include "../../../Common/Src/Win/stdafx.h"
+#include "stdafx.h"
 #if !defined _KTESTLOG_H_
  #error wrong stdafx.h header is included!
  //The project options for this module have "..\..\Win\32" in 
@@ -84,7 +84,7 @@ g_logTest.m_szObjectName = _T("CFileNameBrowser::operator ++()");
 while(!FileName.IsLastFileFound())
   {
   listFileNames.push_back(++FileName);
-  std::_tcout << listFileNames.size() << _T(".\t" )
+  std::_tcout << (unsigned int)listFileNames.size() << _T(".\t" )
     << (LPCTSTR)FileName
     << (FileName.IsDirectory()? _T(" directory ") : _T(""))
     << std::endl;

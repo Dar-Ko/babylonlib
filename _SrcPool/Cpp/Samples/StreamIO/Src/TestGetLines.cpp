@@ -67,7 +67,9 @@ if(fileSource != NULL)
   {
   //Test text line counting
   GetLines(fileSource, arrayLine);
-  const int iLineCount = arrayLine.size();
+  
+  ASSERT(INT_MAX > arrayLine.size());
+  const int iLineCount = (int)arrayLine.size();
 
   std::_tcout << _T("File ") << szFileName << _T(" has ")
     << iLineCount << ((iLineCount != 1) ? _T(" lines.") : _T(" line.")) 
@@ -284,8 +286,8 @@ getstr (char **lineptr, size_t *n, FILE *stream, char terminator, size_t offset)
       if (!*lineptr)
 	return -1;
     }
-
-  nchars_avail = *n - offset;
+  ASSERT(INT_MAX > (*n - offset));
+  nchars_avail = (int)(*n - offset);
   read_pos = *lineptr + offset;
 
   for (;;)
@@ -304,7 +306,7 @@ getstr (char **lineptr, size_t *n, FILE *stream, char terminator, size_t offset)
 	  else
 	    *n += MIN_CHUNK;
 
-	  nchars_avail = *n + *lineptr - read_pos;
+	  nchars_avail = (int)(*n + *lineptr - read_pos);
 	  *lineptr = (char*)realloc (*lineptr, *n);
 	  if (!*lineptr)
 	    return -1;
@@ -332,7 +334,7 @@ getstr (char **lineptr, size_t *n, FILE *stream, char terminator, size_t offset)
   /* Done - NUL terminate and return the number of chars read.  */
   *read_pos = '\0';
 
-  ret = read_pos - (*lineptr + offset);
+  ret = (int)(read_pos - (*lineptr + offset));
   return ret;
 }
 
@@ -376,7 +378,7 @@ char *getline(FILE *fp)
 
     while (1) {
         int length;
-        length = strlen(buffer);
+        length = (int)strlen(buffer);
         if (length < capacity -1 || buffer[length-1] == '\n')
             break;
         capacity = (capacity * 2 + BUFSIZ - 1) / BUFSIZ * BUFSIZ;
