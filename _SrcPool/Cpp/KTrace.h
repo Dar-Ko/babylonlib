@@ -33,7 +33,7 @@
 #endif /*WIDECHAR*/
 
 /* ------------------------------------------------------------------------- */
-#if (defined _UNICODE) || (defined UNICODE) || (defined _MBCS)
+#if (defined _UNICODE) || (defined UNICODE)
   #ifndef __TFILE__
     /*Wide string version of __FILE__ */
     #define __TFILE__ WIDECHAR(__FILE__)
@@ -44,7 +44,8 @@
     #define _TSFORMAT_ "%ws"
   #endif /*_TSFORMAT_*/
 
-#else /*!_UNICODE == Singlebyte-character (SBCS or ASCII) text mapping*/
+#else /*!_UNICODE == Singlebyte-character (SBCS or ASCII) or multibyte-character
+        (_MBCS) text mapping*/
   #ifndef __TFILE__
     #define __TFILE__ __FILE__
   #endif /*__TFILE__*/

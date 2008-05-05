@@ -180,6 +180,17 @@ try
   }
 catch(std::out_of_range e)
   {
+  #ifdef _DEBUG
+    CStringHandler strMsg = _T("CString::GetAt(");
+    TCHAR szIndex[32];
+    strMsg += _itot(iIndex, szIndex, 10);
+    strMsg += _T("):\r\n  out of range exception; ");
+    #ifndef _UNICODE
+      strMsg += e.what();
+    #endif
+    strMsg += _T("\r\n");
+    TRACE0(strMsg.c_str());
+  #endif
   return _T('\0');
   }
 }
@@ -200,6 +211,17 @@ try
   }
 catch(std::out_of_range e)
   {
+  #ifdef _DEBUG
+    CStringHandler strMsg = _T("CString::SetAt(");
+    TCHAR szIndex[32];
+    strMsg += _itot(iIndex, szIndex, 10);
+    strMsg += _T(", ch):\r\n  out of range exception; ");
+    #ifndef _UNICODE
+      strMsg += e.what();
+    #endif
+    strMsg += _T("\r\n");
+    TRACE0(strMsg.c_str());
+  #endif
   ASSERT(false);
   }
 }
@@ -242,6 +264,17 @@ try
   }
 catch(std::out_of_range e)
   {
+  #ifdef _DEBUG
+    CStringHandler strMsg = _T("CString::operator[");
+    TCHAR szIndex[32];
+    strMsg += _itot(iIndex, szIndex, 10);
+    strMsg += _T("]:\r\n  out of range exception; ");
+    #ifndef _UNICODE
+      strMsg += e.what();
+    #endif
+    strMsg += _T("\r\n");
+    TRACE0(strMsg.c_str());
+  #endif
   return _T('\0');
   }
 }
@@ -301,8 +334,8 @@ return *this;
 bool CString::LoadString(UINT nID //string resource ID
                         )
 {
-
-//TOdo
+TRACE0(_T("TODO: CString::LoadString()\n"));
+//TODO:
 return false;
 /*
   static int __stdcall _LoadString(UINT nID, LPTSTR lpszBuf, UINT nMaxBuf)
@@ -970,6 +1003,7 @@ return 0;
 
 void CString::Append(TCHAR text_character, int number_of_times )
 {
+TRACE0(_T("TODO: CString::Append()\n"));
 //TODO:
 }
 void CString::Copy(LPCSTR string_p, 
@@ -977,6 +1011,7 @@ void CString::Copy(LPCSTR string_p,
                    long beginning_at // = 0 
                   )
 {
+TRACE0(_T("TODO: CString::Copy(LPCSTR)\n"));
   //TODO:
 }
 
@@ -986,6 +1021,7 @@ void CString::Copy(LPCWSTR string_p,
                    )
 
 {
+TRACE0(_T("TODO: CString::Copy(LPCWSTR)\n"));
   //TODO:
 }
 
@@ -1219,10 +1255,12 @@ if (m_pData->capacity() > m_pData->length())
 
 //::LockBuffer()---------------------------------------------------------------
 /*Ensures that the string’s exclusive hold on the internal data storage will
-  remain intact. Call UnlockBuffer to allow refernce counting.
+  remain intact. Call UnlockBuffer to allow reference counting.
  */
 LPTSTR CString::LockBuffer()
 {
+TRACE0(_T("TODO: CString::LockBuffer()\n"));
+
 //TODO:
   LPTSTR lpsz = GetBuffer(0);
 //  GetData()->nRefs = -1;
@@ -1236,6 +1274,7 @@ LPTSTR CString::LockBuffer()
  */
 void CString::UnlockBuffer()
 {
+TRACE0(_T("TODO: CString::UnlockBuffer()\n"));
 //TODO:
 //  ASSERT(GetData()->nRefs == -1);
 //  if (GetData() != _afxDataNil)

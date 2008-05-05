@@ -64,90 +64,109 @@ bool TestFilename()
 TsWriteToViewLn(_T("Start validation of various file name manipulators"));
 
 bool bResult = true;
-std::vector<tstring> listFileNames;
-
-//Test log  creation
-g_logTest.m_szObjectName = _T("CFileNameBrowser::CFileNameBrowser(LPCTSTR)");
-g_logTest.m_szFileName   = _T("KFileNmB.cpp"); //function or object file name
-g_logTest.m_bResult      = false;              //result of the test
-
-//Test browsing a directory
-TsWriteToViewLn(_T("CFileNameBrowser()"));
-CFileNameBrowser FileName(_T("*")); //Find any file in the working directory
-bResult = FileName.IsFileFound();
-g_logTest.LogResult(bResult);
-g_logTest.m_szObjectName = _T("CFileNameBrowser::IsFileFound()");
-g_logTest.LogResult(bResult);
-
-//Browse working folder
-g_logTest.m_szObjectName = _T("CFileNameBrowser::operator ++()");
-while(!FileName.IsLastFileFound())
+try
   {
-  listFileNames.push_back(++FileName);
-  std::_tcout << (unsigned int)listFileNames.size() << _T(".\t" )
-    << (LPCTSTR)FileName
-    << (FileName.IsDirectory()? _T(" directory ") : _T(""))
-    << std::endl;
+  std::vector<tstring> listFileNames;
+
+  //Test log  creation
+  g_logTest.m_szObjectName = _T("CFileNameBrowser::CFileNameBrowser(LPCTSTR)");
+  g_logTest.m_szFileName   = _T("KFileNmB.cpp"); //function or object file name
+  g_logTest.m_bResult      = false;              //result of the test
+
+  //Test browsing a directory
+  TsWriteToViewLn(_T("CFileNameBrowser()"));
+  CFileNameBrowser FileName(_T("*")); //Find any file in the working directory
+  bResult = FileName.IsFileFound();
+  g_logTest.LogResult(bResult);
+  g_logTest.m_szObjectName = _T("CFileNameBrowser::IsFileFound()");
+  g_logTest.LogResult(bResult);
+
+  //Browse working folder
+  g_logTest.m_szObjectName = _T("CFileNameBrowser::operator ++()");
+  while(!FileName.IsLastFileFound())
+    {
+    listFileNames.push_back(++FileName);
+    std::_tcout << (unsigned int)listFileNames.size() << _T(".\t" )
+      << (LPCTSTR)FileName
+      << (FileName.IsDirectory()? _T(" directory ") : _T(""))
+      << std::endl;
+    }
+  g_logTest.LogResult(bResult);
+
+  g_logTest.m_szObjectName = _T("CFileNameBrowser::IsLastFileFound()");
+  bResult = FileName.IsLastFileFound();
+  g_logTest.LogResult(bResult);
+
+  //Test searching for the oldest file
+  TsWriteToViewLn(_T("FindOldestFile()"));
+  g_logTest.m_szObjectName = _T("FindOldestFile(LPCTSTR, LPCTSTR)");
+  g_logTest.m_szFileName   = _T("KFileFindOld.cpp");//function or object file name
+
+  CString strOldFile;
+  CString strDirectory = "./";
+
+  strOldFile = FindOldestFile(strDirectory,NULL);
+  if ((GetLastError() == ERROR_SUCCESS) && !strOldFile.IsEmpty())
+    {
+    strDirectory += strOldFile;
+    std::_tcout << _T("oldest file is ") << (LPCTSTR)strDirectory << std::endl;
+    }
+  else
+    {
+    std::_tcout << _T("Failure!")<< std::endl;
+    bResult = false;
+    }
+
+  g_logTest.LogResult(bResult);
+
+  //Test creating a temporary file
+  TsWriteToViewLn(_T("CreateTmpFile()"));
+  g_logTest.m_szObjectName = _T("CreateTmpFile(CString&, LPCTSTR)");
+  g_logTest.m_szFileName   = _T("KFileTmp.cpp");//function or object file name
+
+  LPCTSTR szTmpFileName = CreateTmpFile(strDirectory,_T("New"));
+  if( szTmpFileName != NULL )
+    std::_tcout << _T("Temporary file is ") << szTmpFileName << std::endl;
+  else
+    {
+    std::_tcout << _T("Failure!")<< std::endl;
+    bResult = false;
+    }
+  g_logTest.LogResult(bResult);
+
+  //Test creating an unique file name
+  TsWriteToViewLn(_T("CreateUniqueFileName()"));
+  g_logTest.m_szObjectName = _T("CreateUniqueFileName(LPCTSTR, LPCTSTR)");
+  g_logTest.m_szFileName   = _T("KFileUnique.cpp");//function or object file name
+
+  szTmpFileName = CreateUniqueFileName(strDirectory, _T(".\\."),_T("New"), _T("bak"));
+  if( szTmpFileName != NULL )
+    {
+    std::_tcout << _T("File name is ") << szTmpFileName << std::endl;
+    }
+  else
+    {
+    std::_tcout << _T("Failure!")<< std::endl;
+    bResult = false;
+    }
+  g_logTest.LogResult(bResult);
+
   }
-g_logTest.LogResult(bResult);
-
-g_logTest.m_szObjectName = _T("CFileNameBrowser::IsLastFileFound()");
-bResult = FileName.IsLastFileFound();
-g_logTest.LogResult(bResult);
-
-//Test searching for the oldest file
-TsWriteToViewLn(_T("FindOldestFile()"));
-g_logTest.m_szObjectName = _T("FindOldestFile(LPCTSTR, LPCTSTR)");
-g_logTest.m_szFileName   = _T("KFileFindOld.cpp");//function or object file name
-
-CString strOldFile;
-CString strDirectory = "./";
-strOldFile = FindOldestFile(strDirectory,NULL);
-if ((GetLastError() == ERROR_SUCCESS) && !strOldFile.IsEmpty())
+catch(std::out_of_range& eoor)
   {
-  strDirectory += strOldFile;
-  std::_tcout << _T("oldest file is ") << (LPCTSTR)strDirectory << std::endl;
-  }
-else
-  {
-  std::_tcout << _T("Failure!")<< std::endl;
+  std::_tcout << _T("STL out of range error occured! ") << eoor.what() << std::endl;
   bResult = false;
   }
-
-g_logTest.LogResult(bResult);
-
-//Test creating a temporary file
-TsWriteToViewLn(_T("CreateTmpFile()"));
-g_logTest.m_szObjectName = _T("CreateTmpFile(CString&, LPCTSTR)");
-g_logTest.m_szFileName   = _T("KFileTmp.cpp");//function or object file name
-
-LPCTSTR szTmpFileName = CreateTmpFile(strDirectory,_T("New"));
-if( szTmpFileName != NULL )
-  std::_tcout << _T("Temporary file is ") << szTmpFileName << std::endl;
-else
+catch(const std::exception& e)  
   {
-  std::_tcout << _T("Failure!")<< std::endl;
+  std::_tcout << _T("STL exception error occured! ") << e.what() << std::endl;
   bResult = false;
   }
-g_logTest.LogResult(bResult);
-
-//Test creating an unique file name
-TsWriteToViewLn(_T("CreateUniqueFileName()"));
-g_logTest.m_szObjectName = _T("CreateUniqueFileName(LPCTSTR, LPCTSTR)");
-g_logTest.m_szFileName   = _T("KFileUnique.cpp");//function or object file name
-
-szTmpFileName = CreateUniqueFileName(strDirectory, _T(".\\."),_T("New"), _T("bak"));
-if( szTmpFileName != NULL )
+catch(...)
   {
-  std::_tcout << _T("File name is ") << szTmpFileName << std::endl;
-  }
-else
-  {
-  std::_tcout << _T("Failure!")<< std::endl;
+  TsWriteToViewLn(_T("An exception error occured!"));
   bResult = false;
   }
-g_logTest.LogResult(bResult);
-
 TsWriteToViewLn(LOG_EOT);
 
 return bResult;

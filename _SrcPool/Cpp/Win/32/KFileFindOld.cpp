@@ -38,8 +38,8 @@
 
 //FindOldestFile()-------------------------------------------------------------
 /*Searches for the oldest file on the specified directory. Age of the file
-  is based on the last time file has been written. To get extended error
-  information, call GetLastError().
+  is based on the last time file has been written. 
+  To get extended error information, call GetLastError().
 
   Note: Microsoft Windows specific (Win).
 
@@ -54,7 +54,7 @@
       }
  */
 CString FindOldestFile(LPCTSTR strDirectoryPath, //[in] root directory
-                       LPCTSTR strFileExt //File name extension; if NULL or empty
+                       LPCTSTR strFileExt //File name extension; if NULL or empty,
                                           //functions searches for any file
                       )
 {
@@ -63,6 +63,8 @@ TRACE1(_T("FindOldestFile() in %s\n"),strDirectoryPath);
   //Create file name
 CString strFileName;
 strFileName = strDirectoryPath;
+if (strFileName.GetLength() == 0)
+  strFileName = _T("."); //Set current working directory as 
 TCHAR chTmp = strFileName[strFileName.GetLength()-1];
 if (chTmp != _T('\\') && chTmp != _T('/') )
   {
@@ -125,7 +127,6 @@ if (GetLastError() == ERROR_NO_MORE_FILES) //Not considered as an error
   {
   SetLastError(ERROR_SUCCESS);
   }
-
 return strFileName;
 }
 

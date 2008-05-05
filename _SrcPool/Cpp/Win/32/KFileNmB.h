@@ -1,5 +1,5 @@
 /*$Workfile: KFileNmB.h$: header file
-  $Revision: 1.2 $ $Date: 2007/05/03 20:06:34 $
+  $Revision: 1.3 $ $Date: 2008/05/05 21:09:54 $
   $Author: ddarko $
 
   File Name Browser
