@@ -932,6 +932,7 @@ lpszFormat.LoadString(nFormatId);
 va_list argList;
 va_start(argList, lpszFormat);
 LPTSTR szTemp = NULL;
+
 if ((::FormatMessage(FORMAT_MESSAGE_FROM_STRING|
                      FORMAT_MESSAGE_ALLOCATE_BUFFER,
                      lpszFormat,
@@ -955,6 +956,8 @@ int CString::Replace(TCHAR chOld, //[in] character to be replaced
                      TCHAR chNew  //[in] character replacing chOld
                      )
 {
+TRACE0(_T("TODO: CString::Replace(TCHAR, TCHAR)\n"));
+  //TODO:
 return 0;
 }
 
@@ -965,6 +968,8 @@ int CString::Replace(LPCTSTR lpszOld, //[in] token string to be replaced
                                       //or NULL
                     )
 {
+TRACE0(_T("TODO: CString::Replace(LPCTSTR, LPCTSTR)\n"));
+  //TODO:
 return 0;
 }
 
@@ -973,6 +978,8 @@ return 0;
  */
 int CString::Remove(TCHAR chRemove)
 {
+TRACE0(_T("TODO: CString::Remove(TCHAR)\n"));
+  //TODO:
 return 0;
 }
 
@@ -981,6 +988,8 @@ return 0;
  */
 int CString::Insert(int iIndex, TCHAR ch)
 {
+TRACE0(_T("TODO: CString::Insert(TCHAR)\n"));
+  //TODO:
 return 0;
 }
 
@@ -988,6 +997,8 @@ return 0;
  */
 int CString::Insert(int iIndex, LPCTSTR pstr)
 {
+TRACE0(_T("TODO: CString::Insert(LPCTSTR)\n"));
+  //TODO:
 return 0;
 }
 
@@ -998,6 +1009,8 @@ int CString::Delete(int iIndex, //[in]
                     int iCount  //[in] = 1
                     )
 {
+TRACE0(_T("TODO: CString::Delete()\n"));
+  //TODO:
 return 0;
 }
 
@@ -1006,25 +1019,82 @@ void CString::Append(TCHAR text_character, int number_of_times )
 TRACE0(_T("TODO: CString::Append()\n"));
 //TODO:
 }
-void CString::Copy(LPCSTR string_p, 
-                   long number_of_characters, // = (-1), 
-                   long beginning_at // = 0 
+
+//-----------------------------------------------------------------------------
+/*Copies number of single byte characters from a source.
+ */
+void CString::Copy(LPCSTR pchSrc, //[in] pointer to a string containing 
+                                  //the single byte characters to be copied.
+                   long nChars,   //[in] = (-1) number of characters to be copied
+   //from the source. If the number is negative, all characters until terminating
+   //zero will be copied. For positive numbers, nChars will be copied disregarding
+   //terminating zero if the source have one. It is assumed that the sum of nIndex
+   //and nChars is less or equal to the length of the string source.
+               unsigned long nIndex    //[in] = 0 zero-based starting position in 
+   //source string from where characters will be copied. It is assumed that index
+   //of the beginning point is less than length of the string source.
                   )
 {
-TRACE0(_T("TODO: CString::Copy(LPCSTR)\n"));
-  //TODO:
+TRACE0(_T("CString::Copy(LPCSTR)\n"));
+ASSERT(m_pData != NULL);
+if ((pchSrc != NULL) && (nChars != 0))
+  {
+  #ifndef _UNICODE
+    //String handler is of SBCS type
+    if (nChars < 0) //Treat source as zero-terminated string
+      {
+      ASSERT((unsigned long)strlen(pchSrc) > nIndex);
+      *m_pData = &pchSrc[nIndex];
+      }
+    else //Copy given number of characters
+      {
+      ASSERT(strlen(pchSrc) > (nIndex + nChars));
+      m_pData->assign(&pchSrc[nIndex], nChars);
+      }
+  #else
+    //String handler is of wchar_t type
+
+  #endif
+  }
 }
 
-void CString::Copy(LPCWSTR string_p,
-                   long number_of_characters, // = (-1), 
-                   long beginning_at // = 0 
+/*Copies number of wide (wchar_t) characters from a source.
+*/
+void CString::Copy(LPCWSTR pchSrc, //[in] pointer to a string containing 
+                   //the wide characters to be copied.
+                   long nChars,   //[in] = (-1) number of characters to be copied
+  //from the source. If the number is negative, all characters until terminating
+  //zero will be copied. For positive numbers, nChars will be copied disregarding
+  //terminating zero if the source have one. It is assumed that the sum of nIndex
+  //and nChars is less or equal to the length of the string source.
+                   unsigned long nIndex//[in] = 0 zero-based starting position in 
+  //source string from where characters will be copied. It is assumed that index
+  //of the beginning point is less than length of the string source.
                    )
 
 {
-TRACE0(_T("TODO: CString::Copy(LPCWSTR)\n"));
-  //TODO:
-}
+TRACE0(_T("CString::Copy(LPCWSTR)\n"));
+ASSERT(m_pData != NULL);
+if ((pchSrc != NULL) && (nChars != 0))
+  {
+  #ifdef _UNICODE
+    //String handler is of wchar_t type
+    if (nChars < 0) //Treat source as zero-terminated string
+      {
+      ASSERT((unsigned long)wcslen(pchSrc) > nIndex);
+      *m_pData = &pchSrc[nIndex];
+      }
+    else //Copy given number of characters
+      {
+      ASSERT(wcslen(pchSrc) > (nIndex + nChars));
+      m_pData->assign(&pchSrc[nIndex], nChars);
+      }
+  #else
+    //String handler is of SBCS type
 
+  #endif
+  }
+}
 
 //::TrimRight()----------------------------------------------------------------
 /*
@@ -1285,7 +1355,7 @@ TRACE0(_T("TODO: CString::UnlockBuffer()\n"));
 //::AnsiToOem()----------------------------------------------------------------
 #ifndef _UNICODE
   #ifdef _WIN32
-    #include <Windows.h> //CharToOem()
+    #include <windows.h> //CharToOem()
   #endif
 /*Converts all the characters in this string from the American National
   Standards Institute (ANSI) character set to the original equipment

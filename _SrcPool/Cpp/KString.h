@@ -226,13 +226,13 @@ public:
   friend CString operator+(LPCTSTR lpsz, const CString& string);
 
 private:
-
+  //Implementation helpers
   //I
   void Append(LPCTSTR string_p );
   void Append(TCHAR text_character, int number_of_times );
   void Append(const CString& source );
-  void Copy(LPCSTR string_p, long number_of_characters = (-1), long beginning_at = 0 );
-  void Copy(LPCWSTR string_p, long number_of_characters = (-1), long beginning_at = 0 );
+  void Copy(LPCSTR pchSrc, long nChars = (-1), unsigned long nIndex = 0 );
+  void Copy(LPCWSTR pchSrc, long nChars = (-1), unsigned long nIndex = 0 );
   int  GetSize( void ) const;
   void SetLength( long new_length );
 

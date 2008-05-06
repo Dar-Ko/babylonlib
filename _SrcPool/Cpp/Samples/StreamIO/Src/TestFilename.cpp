@@ -103,7 +103,7 @@ try
   g_logTest.m_szFileName   = _T("KFileFindOld.cpp");//function or object file name
 
   CString strOldFile;
-  CString strDirectory = "./";
+  CString strDirectory = _T("./");
 
   strOldFile = FindOldestFile(strDirectory,NULL);
   if ((GetLastError() == ERROR_SUCCESS) && !strOldFile.IsEmpty())

@@ -49,8 +49,8 @@ if( (szSource != NULL ) && (szSource[0] != _T('\0')) )
   m_pData = new TCHAR[m_nSize];
   if (m_pData != NULL)
     {
-      //Copy source, including the terminating null character
-     _tcscpy(m_pData, szSource);
+    //Copy source, including the terminating null character
+    _tcscpy(m_pData, szSource);
     }
   else
     {
@@ -154,7 +154,7 @@ return *this;
 }
 
 //-----------------------------------------------------------------------------
-/*Assigns a zero-terminated string to a string object. If szSource is NULL, 
+/*Assigns a zero-terminated string to a string object. If szSource is NULL,
   string object will be erased.
 
   Note: This method makes a new copy of the source object.
@@ -357,12 +357,12 @@ return (int)m_nSize;
 ///////////////////////////////////////////////////////////////////////////////
 #pragma warning (default: 4127)
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  4    Biblioteka1.3         2007-06-27 16:45:58  Darko Kolakovic typecast
  *  3    Biblioteka1.2         2004-06-08 16:42:26  Darko           Deleted friend
  *       operator<<()
  *  2    Biblioteka1.1         2004-06-06 22:54:35  Darko           Fixed data
  *       holder size in operator=()
- *  1    Biblioteka1.0         2004-06-04 16:57:20  Darko           
+ *  1    Biblioteka1.0         2004-06-04 16:57:20  Darko
  * $
  *****************************************************************************/
