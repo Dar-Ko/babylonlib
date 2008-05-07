@@ -1,5 +1,5 @@
 /*$Workfile: $: implementation file
-  $Revision: 1.3 $ $Date: 2007/09/13 21:42:52 $
+  $Revision: 1.4 $ $Date: 2008/05/07 14:44:14 $
   $Author: ddarko $
 
   Checks if file exist.
@@ -66,6 +66,9 @@ return false;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: KFileExistStl.cpp,v $
+ * Revision 1.4  2008/05/07 14:44:14  ddarko
+ * EOL replaced
+ *
  * Revision 1.3  2007/09/13 21:42:52  ddarko
  * IsFileExisting
  *
