@@ -831,8 +831,7 @@
 			<File
 				RelativePath="..\..\STL\KStrWtoChar.cpp">
 				<FileConfiguration
-					Name="Debug_SBCS|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
@@ -842,8 +841,7 @@
 						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_Unicode|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
@@ -1148,6 +1146,9 @@
 			</File>
 			<File
 				RelativePath="..\..\STL\KOStream.h">
+			</File>
+			<File
+				RelativePath="..\..\KString.h">
 			</File>
 			<File
 				RelativePath="..\..\KTestLog.h">

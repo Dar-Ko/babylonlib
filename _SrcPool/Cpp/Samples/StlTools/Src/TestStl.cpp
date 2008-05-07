@@ -49,6 +49,37 @@ TsWriteToViewLn(LOG_EOT);
 return bRes;
 }
 
+//-----------------------------------------------------------------------------
+/*Test handling strings with null characters.
+
+  Returns: true if successful, otherwise returns false.
+  
+  Note: uses Standard Template Library (STL).
+*/
+bool TestNullChar() 
+{
+TsWriteToViewLn(_T("TestNullChar()"));
+
+  //Test object creation
+TESTENTRY logEntry =
+  {_T("tstring::operator=(text\\0text\\0)"), _T("KTString.h"), false};
+  
+bool bRes = true;
+LPCTSTR pszTestNull = _T("Null after this\001and after this.");
+
+tstring strTest = pszTestNull;
+
+//Output to the console
+std::_tcout << pszTestNull << std::endl;
+
+//Write test log
+logEntry.m_bResult = bRes;
+LogTest(&logEntry);
+
+
+TsWriteToViewLn(LOG_EOT);
+return bRes;
+}
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: 

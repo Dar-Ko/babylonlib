@@ -12,6 +12,7 @@
 #include "stdstl.h"
 
 extern bool TestStlLimits();
+extern bool TestNullChar();
 extern bool TestStlStringCfg();
 extern bool TestReplaceEol();
 extern bool TestStrToUpper();
@@ -35,6 +36,7 @@ std::_tcout << _T("TestCommonStlTools()") << std::endl << std::endl;
 PFUNC_TEST funcTest[] =
   {
   TestStlLimits,
+  TestNullChar,
   TestStlStringCfg,
   TestWideChar,
   TestReplaceEol,
