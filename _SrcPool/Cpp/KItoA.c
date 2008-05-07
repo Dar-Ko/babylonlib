@@ -84,15 +84,15 @@ do
   nDigit = iValue % iRadix;
 
   *pTemp++ = (nDigit < 10) ?
-         ((char)(nDigit + '0')) :
-           (char) (nDigit - 10 + 'A'); /*If radix > 10 use letters */
+         ((TCHAR)(nDigit + _T('0'))) :
+           (TCHAR) (nDigit - 10 + _T('A')); /*If radix > 10 use letters */
 
   } while ((iValue = iValue / iRadix) > 0);
 
 if ((bIsNegative) && (iRadix == 10))  /*Append sign, if necessary  */
- *pTemp++ = '-';
+ *pTemp++ = _T('-');
 
-*pTemp = '\0';
+*pTemp = _T('\0');
 
 /*Reverse string in place*/
 pTemp--; /*Pointer to the last character*/

@@ -105,7 +105,10 @@
 ///////////////////////////////////////////////////////////////////////////////
 // STL stream classes with generic character code (width) mapping
 #if defined _UNICODE || defined UNICODE
-  typedef std::wstring        tstring;
+  #ifndef tstring //Note: see also KTString.h for tstring type definition
+    typedef std::wstring        tstring;
+    #define tstring tstring
+  #endif
   typedef std::wostringstream tostringstream;
   typedef std::wistringstream tistringstream;
     //Provides a stream interface to read or write characters from or to strings.
@@ -131,7 +134,10 @@
     //Represents the standard log stream.
   #define _tclog wclog
 #else
-  typedef std::string        tstring;
+  #ifndef tstring //Note: see also KTString.h for tstring type definition
+    typedef std::string        tstring;
+    #define tstring tstring
+  #endif
   typedef std::ostringstream tostringstream;
   typedef std::istringstream tistringstream;
   typedef std::streambuf     tstreambuf;

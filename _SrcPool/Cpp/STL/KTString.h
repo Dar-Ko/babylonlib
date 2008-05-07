@@ -30,13 +30,16 @@
   #include "KTChar.h"  //TCHAR definition
 #endif
 
-/*The class based for handling TCHAR string objects.
+#ifndef tstring //Note: see also KOStream.h for tstring type definition
+  /*The class based for handling TCHAR string objects.
 
-  Note: uses Standard Template Library (STL).
+    Note: uses Standard Template Library (STL).
 
-  See also: TCHAR, KTChar.h, std::string
- */
-typedef std::basic_string<TCHAR> tstring;
+    See also: TCHAR, KTChar.h, std::string, std::basic_string
+  */
+  typedef std::basic_string<TCHAR> tstring;
+  #define tstring tstring
+#endif
 
 /*Single byte character set
  */
@@ -44,11 +47,11 @@ typedef std::basic_string<UCS1> ucs1string;
 /*Universal Character Set UCS-2 string.
   UCS-2 characters are the subset of Unicode set equal to the Basic Multilingual 
   Plane. Characters are 16 bit wide
-  See also: ISO 10646-1:1993
+  See also: ISO 10646-1:1993, std::basic_string
  */
 typedef std::basic_string<UCS2> ucs2string;
 /*Universal Character Set UCS-4 string has characters 32-bit wide.
-  See also: ISO 10646
+  See also: ISO 10646, std::basic_string
 */
 typedef std::basic_string<UCS4> ucs4string;
 

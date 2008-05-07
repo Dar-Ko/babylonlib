@@ -19,9 +19,16 @@
   #endif
 #endif
 
-#include <afxwin.h>
-#include <iostream.h>
-#include <iomanip.h>
+#include <afxwin.h> //Microsoft MFC/ATL TODO: replace MFC D.K.
+
+
+#if _MSC_VER < 1300
+  //MSVC/C++ 6.0 STL implementation or lesser
+  #pragma include_alias(<iostream>, <iostream.h>)
+  #pragma include_alias(<iomanip>, <iomanip.h>)
+#endif
+#include <iostream>
+#include <iomanip> //setw()
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -38,19 +45,20 @@
 /*The operator>> is used to populate a string with the contents of an input
   stream. Input buffer is limited to MINIMUMLENGHT characters.
 
-  Note: uses Microsoft Foundation Library (MFC) and Standard Template Library
-       (STL).
+  Note: uses Microsoft Foundation Library (MFC) or
+        Microsoft Active Template Library (ATL) and
+        uses Standard Template Library (STL).
 
   TODO: replace MFC D.K.
  */
-istream& operator>>(istream& cInput,   //[in] input stream
+std::istream& operator>>(std::istream& cInput,   //[in] input stream
                     CString& strTarget //[out] resulting string
                     )
 {
 const int MINIMUMLENGHT = 256;
 char strTemp[MINIMUMLENGHT];
 //Pad the field with the stream’s fill character, up to MINIMUMLENGHT
-cInput >> setw(MINIMUMLENGHT) >> strTemp;
+cInput >> std::setw(MINIMUMLENGHT) >> strTemp;
 strTarget = CString(strTemp);
 return cInput;
 }
@@ -58,12 +66,13 @@ return cInput;
 //operator<<()-----------------------------------------------------------------
 /*The operator<< is used to insert a string into an output stream.
 
-  Note: uses Microsoft Foundation Library (MFC) and Standard Template Library
-       (STL).
+  Note: uses Microsoft Foundation Library (MFC) or
+        Microsoft Active Template Library (ATL) and
+        uses Standard Template Library (STL).
 
   TODO: replace MFC D.K.
  */
-ostream& operator<<(ostream& cOutput,        //[out] output stream
+std::ostream& operator<<(std::ostream& cOutput,        //[out] output stream
                     const CString& strSource //[in] string to output
                     )
 {

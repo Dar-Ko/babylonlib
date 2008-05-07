@@ -252,9 +252,12 @@ extern "C"
     #define _tcstoul    strtoul     //Convert strings to an unsigned
                                     //long-integer value.
   #endif
-  #ifndef _itoa
-    #define _itoa       ItoA        //Convert an integer to a string
-                                    //(non-ANSI declaration).
+  
+  #ifdef _MSC_VER
+    #ifndef _itoa
+      #define _itoa       ItoA        //Convert an integer to a string
+                                      //(non-ANSI declaration).
+    #endif
   #endif
   #ifndef _itot
     #define _itot       _itoa       //Convert an integer to a string.

@@ -10,7 +10,10 @@
 /* Group=Strings                                                             */
 
 #include <string>
-
+#ifndef ASSERT
+  #include "KTChar.h"
+  #include "KTrace.h"
+#endif
 std::wstring AtoWChar(const char* lpString, int iLen = -1);
 
 //-----------------------------------------------------------------------------
