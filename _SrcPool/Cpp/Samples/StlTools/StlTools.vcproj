@@ -357,6 +357,32 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KDbgRpt.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\Stl\KFileExistStl.cpp">
 			</File>
 			<File

@@ -64,13 +64,15 @@ TsWriteToViewLn(_T("TestNullChar()"));
 TESTENTRY logEntry =
   {_T("tstring::operator=(text\\0text\\0)"), _T("KTString.h"), false};
   
-bool bRes = true;
-LPCTSTR pszTestNull = _T("Null after this\001and after this.");
+bool bRes = false;
+LPCTSTR pszTestNull = _T("Null after this\00and after this.");
 
 tstring strTest = pszTestNull;
 
 //Output to the console
 std::_tcout << pszTestNull << std::endl;
+
+bRes = (strTest ==  _T("Null after this"));
 
 //Write test log
 logEntry.m_bResult = bRes;
