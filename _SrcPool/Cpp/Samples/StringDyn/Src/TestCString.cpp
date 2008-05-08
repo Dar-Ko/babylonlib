@@ -10,6 +10,10 @@
 
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+#if defined (_USE_MFC) || defined (_USE_AFX)
+  //Use Microsoft Foundation Class (MFC) library
+  #include "stdafx.h"
+#endif
 
 #ifndef _MFC_VER //Microsoft MFC library
   //include STL implementation for CString
@@ -23,9 +27,10 @@
 #endif
 
 #include "KTypedef.h"  //BOOL typedef
-#include "KString.h"   //CString class
+//#include "KString.h"   //CString class
 
-extern BOOL TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 //TestStringClass()------------------------------------------------------------
 /*Function shows how to use CString object.
@@ -36,10 +41,17 @@ extern BOOL TsWriteToView(LPCTSTR lszText);
  */
 bool TestStringClass()
 {
-TsWriteToView("TestStringClass()\r\n");
-TsWriteToView("TODO:\r\n");
-TsWriteToView("======================\r\n");
-return true;
+TsWriteToView(_T("TestStringClass()\r\n"));
+bool bRes = true;
+
+//Test object creation
+TESTENTRY logEntry =
+{_T("CString::CString()"), _T("KString.h"), false};
+
+
+
+TsWriteToViewLn(LOG_EOT);
+return bRes;
 }
 
 //////////////////////////////////////////////////////////////////////////////
