@@ -10,21 +10,13 @@
 
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
-#if defined (_USE_MFC) || defined (_USE_AFX)
-  //Use Microsoft Foundation Class (MFC) library
-  #include "stdafx.h"
-#endif
+#include "stdafx.h" //TCHAR(), TESTENTRY
 
 #ifndef _MFC_VER //Microsoft MFC library
   //include STL implementation for CString
   #include <string> //std::basic_string template
 #endif
 
-#ifdef __INCvxWorksh  //VxWorks OS
-  #if CPU == SIMNT //target is simulator on WinNT
-    #include <stdarg.h>   //va_list
-  #endif
-#endif
 
 #include "KTypedef.h"  //BOOL typedef
 //#include "KString.h"   //CString class

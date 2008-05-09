@@ -112,10 +112,10 @@ struct tagTestPalindromeAtoi
   _T("2147483647"),                               false,  // 5
   _T("  -123454321."),                             true,  // 6
   _T("racecar"),                                   true,  // 7
-  _T("Able was I ere I saw Elba"),                 true,  // 8 mixed case
+  _T("Able was I ere I saw Elba"),                 true,  // 8 mixed case palindrome (EN)
   _T("A man, a plan, a canal, Panama."),           true,  // 9 sentence
   _T("Roma tibi subito motibus ibit amor."),       true,  // A
-  _T("Wash my transgressions, not only my face."),false,  // B palindrome (EN)
+  _T("Wash my transgressions, not only my face."),false,  // B not palindrome (EN)
   #ifndef _UNICODE
     #ifdef _DEBUG
        //Note: in debug mode characters > 127 generates assertions,
@@ -128,7 +128,7 @@ struct tagTestPalindromeAtoi
     szGreek,                                       true,  // C palindrome (GR)
   #endif
   _T("Otto"),                                      true,  // D
-  _T("Go hang a salami, I'm a lasagna hog."),      true   // E
+  _T("Go hang a salami, I'm a lasagna hog."),      true   // E punctuation palindrome (EN)
   };
 
   //Test object creation
