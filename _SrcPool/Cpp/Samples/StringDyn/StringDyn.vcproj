@@ -3,13 +3,119 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="StringDyn"
-	ProjectGUID="{7608A157-256D-4D0B-989B-F3FEB925844D}"
+	ProjectGUID="{8BEACBDB-5DBB-4086-AAE1-D2DBE5DBF05F}"
 	Keyword="Win32Proj">
 	<Platforms>
 		<Platform
 			Name="Win32"/>
 	</Platforms>
 	<Configurations>
+		<Configuration
+			Name="Debug_MBCS|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
+			ConfigurationType="1"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\..,..\..\NOSTL\STLport\stlport,..\Common\Src\Win,..\..\Win\32"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_MBCS;LANG_CURRENT=LANG_ENGLISH;NDEBUG_INCL_PREPROCESS"
+				MinimalRebuild="TRUE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				BufferSecurityCheck="TRUE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="stdafx.h"
+				BrowseInformation="1"
+				BrowseInformationFile="$(IntDir)/"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
+				SubSystem="1"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release_MBCS|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
+			ConfigurationType="1"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="..\..,..\..\NOSTL\STLport\stlport,..\Common\Src\Win,..\..\Win\32"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_MBCS;LANG_CURRENT=LANG_ENGLISH;NDEBUG_INCL_PREPROCESS"
+				RuntimeLibrary="4"
+				BufferSecurityCheck="TRUE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="stdafx.h"
+				BrowseInformationFile="$(IntDir)/"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="3"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
+				LinkIncremental="1"
+				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
+				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
 		<Configuration
 			Name="Debug_SBCS|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
@@ -20,13 +126,15 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..,..\..\NOSTL\STLport\stlport,..\Common\Src\Win,..\..\Win\32"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;LANG_CURRENT=LANG_ENGLISH;NDEBUG_INCL_PREPROCESS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_SBCS;LANG_CURRENT=LANG_ENGLISH;NDEBUG_INCL_PREPROCESS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
-				UsePrecompiledHeader="0"
+				BufferSecurityCheck="TRUE"
+				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
 				BrowseInformation="1"
+				BrowseInformationFile="$(IntDir)/"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"/>
@@ -34,6 +142,61 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
+				LinkIncremental="2"
+				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
+				SubSystem="1"
+				TargetMachine="1"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Debug_Unicode|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
+			ConfigurationType="1"
+			CharacterSet="1">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\..,..\..\NOSTL\STLport\stlport,..\Common\Src\Win,..\..\Win\32"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;LANG_CURRENT=LANG_ENGLISH;NDEBUG_INCL_PREPROCESS"
+				MinimalRebuild="TRUE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="5"
+				BufferSecurityCheck="TRUE"
+				UsePrecompiledHeader="3"
+				PrecompiledHeaderThrough="stdafx.h"
+				BrowseInformation="1"
+				BrowseInformationFile="$(IntDir)/"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
 				GenerateDebugInformation="TRUE"
@@ -70,10 +233,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..,..\..\NOSTL\STLport\stlport,..\Common\Src\Win,..\..\Win\32"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;LANG_CURRENT=LANG_ENGLISH"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_SBCS;LANG_CURRENT=LANG_ENGLISH;NDEBUG_INCL_PREPROCESS"
 				RuntimeLibrary="4"
-				UsePrecompiledHeader="0"
+				BufferSecurityCheck="TRUE"
+				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
+				BrowseInformationFile="$(IntDir)/"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="3"/>
@@ -81,64 +246,14 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
-				GenerateDebugInformation="FALSE"
-				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="1"/>
-			<Tool
-				Name="VCMIDLTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
-		</Configuration>
-		<Configuration
-			Name="Debug_Unicode|Win32"
-			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
-			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
-			ConfigurationType="1"
-			CharacterSet="1">
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\..\NOSTL\STLport\stlport,..\Common\Src\Win,..\..\Win\32"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;LANG_CURRENT=LANG_ENGLISH"
-				MinimalRebuild="TRUE"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough="stdafx.h"
-				BrowseInformation="1"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLinkerTool"
-				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -170,10 +285,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..,..\..\NOSTL\STLport\stlport,..\Common\Src\Win,..\..\Win\32"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;LANG_CURRENT=LANG_ENGLISH"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;LANG_CURRENT=LANG_ENGLISH;NDEBUG_INCL_PREPROCESS"
 				RuntimeLibrary="4"
-				UsePrecompiledHeader="0"
+				BufferSecurityCheck="TRUE"
+				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
+				BrowseInformationFile="$(IntDir)/"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="3"/>
@@ -181,64 +298,14 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
-				GenerateDebugInformation="FALSE"
-				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
-				SubSystem="1"
-				OptimizeReferences="2"
-				EnableCOMDATFolding="2"
-				TargetMachine="1"/>
-			<Tool
-				Name="VCMIDLTool"/>
-			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
-			<Tool
-				Name="VCPreLinkEventTool"/>
-			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
-		</Configuration>
-		<Configuration
-			Name="Debug_MBCS|Win32"
-			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
-			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
-			ConfigurationType="1"
-			CharacterSet="0">
-			<Tool
-				Name="VCCLCompilerTool"
-				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\..\NOSTL\STLport\stlport,..\Common\Src\Win,..\..\Win\32"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;LANG_CURRENT=LANG_ENGLISH;NDEBUG_INCL_PREPROCESS"
-				MinimalRebuild="TRUE"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
-				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough="stdafx.h"
-				BrowseInformation="1"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
-			<Tool
-				Name="VCCustomBuildTool"/>
-			<Tool
-				Name="VCLinkerTool"
-				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\STL\STLport\lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"
+				OptimizeReferences="2"
+				EnableCOMDATFolding="2"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -272,13 +339,22 @@
 			<File
 				RelativePath="..\..\Win\32\KDbgRpt.cpp">
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_MBCS|Win32"
+					ExcludedFromBuild="TRUE">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_MBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -290,13 +366,14 @@
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_MBCS|Win32">
+					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -305,13 +382,19 @@
 			<File
 				RelativePath="..\..\KStringHandler.cpp">
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_MBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -323,13 +406,13 @@
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_MBCS|Win32">
+					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -338,13 +421,19 @@
 			<File
 				RelativePath="..\..\KStrPalindrome.cpp">
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_MBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -356,13 +445,13 @@
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_MBCS|Win32">
+					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -371,13 +460,19 @@
 			<File
 				RelativePath="..\..\KStrVowel.cpp">
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_MBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -389,13 +484,13 @@
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_MBCS|Win32">
+					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -404,13 +499,19 @@
 			<File
 				RelativePath="..\..\KTestLog.cpp">
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_MBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -422,13 +523,13 @@
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_MBCS|Win32">
+					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
@@ -436,47 +537,23 @@
 			</File>
 			<File
 				RelativePath=".\Src\main.cpp">
-				<FileConfiguration
-					Name="Debug_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						PrecompiledHeaderThrough="stdafx.h"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						PrecompiledHeaderThrough="stdafx.h"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						PrecompiledHeaderThrough="stdafx.h"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						PrecompiledHeaderThrough="stdafx.h"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_MBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						PrecompiledHeaderThrough="stdafx.h"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.cpp">
 				<FileConfiguration
-					Name="Debug_SBCS|Win32">
+					Name="Debug_MBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_SBCS|Win32">
+					Name="Release_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"/>
@@ -488,13 +565,13 @@
 						UsePrecompiledHeader="1"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32">
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_MBCS|Win32">
+					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"/>
@@ -506,49 +583,40 @@
 			<File
 				RelativePath=".\Src\TestCString.cpp">
 				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="_USE_AFX"
-						UsePrecompiledHeader="0"
-						PrecompiledHeaderThrough="stdafx.h"
-						PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="_USE_AFX"
-						UsePrecompiledHeader="0"
-						PrecompiledHeaderThrough="stdafx.h"
-						PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"/>
+						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="_USE_AFX"
-						UsePrecompiledHeader="0"
-						PrecompiledHeaderThrough="stdafx.h"
-						PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"/>
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="_USE_AFX"
-						UsePrecompiledHeader="0"
-						PrecompiledHeaderThrough="stdafx.h"
-						PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_MBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="_USE_AFX"
-						UsePrecompiledHeader="0"
-						PrecompiledHeaderThrough="stdafx.h"
-						PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"/>
+						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -563,39 +631,40 @@
 			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
 				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
 					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_MBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 			</File>
 		</Filter>
@@ -604,16 +673,13 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
-				RelativePath="..\..\Win\32\KAfxLib.h">
-			</File>
-			<File
-				RelativePath="..\..\Stl\KBoolStream.h">
-			</File>
-			<File
 				RelativePath="..\..\KString.h">
 			</File>
 			<File
 				RelativePath="..\..\KStringHandler.h">
+			</File>
+			<File
+				RelativePath="..\Common\Src\Win\stdafx.h">
 			</File>
 			<File
 				RelativePath=".\Src\TestCptString.h">
@@ -628,7 +694,8 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Logs">
+			Name="Logs"
+			Filter="log;">
 			<File
 				RelativePath=".\LibraryTest.log">
 			</File>
