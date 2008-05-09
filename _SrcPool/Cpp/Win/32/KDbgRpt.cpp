@@ -16,7 +16,7 @@
     #if (_MSC_VER < 1400) //Less than Visual C++ 2005 v8.0
   
   #ifndef UNICODE //Fix Microsoft macro mixed definitions
-    #define UNICODE
+    #define UNICODE 20070822
   #endif
 
   #include <crtdbg.h>
