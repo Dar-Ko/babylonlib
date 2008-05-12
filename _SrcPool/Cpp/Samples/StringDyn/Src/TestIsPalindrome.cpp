@@ -133,7 +133,7 @@ struct tagTestPalindromeAtoi
 
   //Test object creation
 TESTENTRY logEntry =
-  {_T("CStringHandler::CStringHandler()"), _T("KStringHandler.h"), false};
+  {_T("CStringHandler::GetLength()"), _T("KStringHandler.h"), false};
 
 bool bRes = true;
 CPTString strPalindrome;
