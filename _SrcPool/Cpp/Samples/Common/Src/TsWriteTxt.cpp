@@ -134,6 +134,21 @@ bool TsWriteToView(const unsigned int& nValue  //[in] integer number to output
 std::_tcout << nValue;
 return true;
 }
+
+bool TsWriteToViewLn(const bool& bValue  //[in] boolean value to output
+                     )
+  {
+  std::_tcout << (bValue ? _T("T") : _T("F")) << std::endl;
+  return true;
+  }
+
+bool TsWriteToView(const bool& bValue  //[in] boolean value to output
+                   )
+  {
+  std::_tcout << (bValue ? _T("T") : _T("F"));
+  return true;
+  }
+  
   #endif //#ifndef KSTL_IO
 #endif //_CONSOLE
 ///////////////////////////////////////////////////////////////////////////////

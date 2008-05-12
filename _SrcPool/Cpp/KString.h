@@ -17,36 +17,62 @@
   #endif // _MSC_VER > 1000
 #endif
 
-#ifdef _STLP_STRING
-  #if !definded _STLP_USE_NATIVE_STRING
-    //included STLport std::string
-    #define _STRING_ 14
+#if defined _USE_ATL
+  //Use Microsoft Active Template Library (ATL) CString implementation
+  #define NKSTRING 2008
+  #include <atlstr.h> //Non-MFC string objects
+#endif
+
+#if defined _USE_MFC || defined _USE_AFX
+  #if _MSC_VER > 1210
+    //Use Microsoft Fundation Classes (MFC) library
+    #define NKSTRING 1998
+    #include <cstringt.h> //MFC-only string objects
+  #else
+    //Use Microsoft Fundation Classes (MFC) library
+    #define NKSTRING 1996
+    //...Include
   #endif
 #endif
-#ifdef __STRING__
-  //included STL std::string
-  #define _STRING_ 12
-#endif
 
-#ifdef __GNUG__ //GNU C++ compiler
-  #ifdef __BASTRING__
-    //included <std/bastring.h> with Free Software Foundation version of STL
-    #define char_traits string_char_traits
-  #endif //__BASTRING__
-  #define _cdecl
-#endif
+///////////////////////////////////////////////////////////////////////////////
+// Interface for the CString class
+#if !defined NKSTRING
 
-#include "KTChar.h" //TCHAR
-#include "KTrace.h" //ASSERT
+  #if defined _USE_STL
+    //Use Standard Template Library (STL)
+    #ifdef _STLP_STRING
+      #if !definded _STLP_USE_NATIVE_STRING
+        //included STLport std::string
+        #define _STRING_ 14
+      #endif
+    #endif
+    #ifdef __STRING__
+      //included STL std::string
+      #define _STRING_ 12
+    #endif
 
-#ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
-  #pragma message ("   #include " __FILE__ )
-#endif
+    #ifdef __GNUG__ //GNU C++ compiler
+      #ifdef __BASTRING__
+        //included <std/bastring.h> with Free Software Foundation version of STL
+        #define char_traits string_char_traits
+      #endif //__BASTRING__
+      #define _cdecl
+    #endif
+  #endif //_USE_STL
 
-#ifdef __BORLANDC__
-  #pragma option push -w-inl
-//  #pragma warn -inl   // Turn off inline function warnings
-#endif
+
+  #include "KTChar.h" //TCHAR
+  #include "KTrace.h" //ASSERT
+
+  #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
+    #pragma message ("   #include " __FILE__ )
+  #endif
+
+  #ifdef __BORLANDC__
+    #pragma option push -w-inl
+  //  #pragma warn -inl   // Turn off inline function warnings
+  #endif
 
 /*
 #define TCHAR char
@@ -393,11 +419,12 @@ return s2.Compare(s1) != 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-#ifdef __BORLANDC__
-  #pragma option pop  // Turn back on inline function warnings
-  //#pragma warn +inl   // Turn back on inline function warnings
-#endif
-
+  #ifdef __BORLANDC__
+    #pragma option pop  // Turn back on inline function warnings
+    //#pragma warn +inl   // Turn back on inline function warnings
+  #endif
+///////////////////////////////////////////////////////////////////////////////
+#endif // NKSTRING
 #endif // _KSTRING_H_
 /******************************************************************************
  * $Log: 

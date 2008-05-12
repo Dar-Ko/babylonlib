@@ -151,8 +151,8 @@
 //Threading model
 #ifndef _MT /*Defined when /MD or /MDd (Multithreaded DLL) or
              /MT or /MTd (Multithreaded) is specified.*/
-  #ifndef _ST
-    #define _ST 1998  /*singlethreaded application*/
+  #ifndef _STH
+    #define _STH 1998  /*singlethreaded application*/
   #endif
 #endif
 
@@ -189,4 +189,5 @@
  *       enclosed with ifdef
  *  1    Biblioteka1.0         2004-08-17 18:30:28  Darko
  * $
+ * 2008-05-09 Fixed atlsimpstr.h(166) : warning C4005: '_ST' : macro redefinition
  *****************************************************************************/

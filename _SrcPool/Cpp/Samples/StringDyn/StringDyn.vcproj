@@ -629,6 +629,9 @@
 				RelativePath=".\Src\TestStringHandler.cpp">
 			</File>
 			<File
+				RelativePath=".\Src\TestStrSamples.cpp">
+			</File>
+			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
 				<FileConfiguration
 					Name="Debug_MBCS|Win32">

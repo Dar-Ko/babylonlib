@@ -619,8 +619,8 @@
      or /MTd (Multithreaded) is specified.*/
     #pragma message ("Enabled Multithreading.")
   #else
-    #ifndef _ST
-      #define _ST 1998
+    #ifndef _STH
+      #define _STH 1998
     #endif
     #pragma message ("Single-threaded application.")
   #endif
