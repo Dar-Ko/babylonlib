@@ -1,5 +1,5 @@
 /*$Workfile: TestStrSamples.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2008/05/12 21:35:59 $
+  $Revision: 1.2 $ $Date: 2008/05/13 22:21:26 $
   $Author: ddarko $
 
   Literals used in various test methods
@@ -9,16 +9,25 @@
 */
 
 // Group=Examples
+#ifdef _USE_STL
+  #ifdef _MSC_VER
+    //MSVC/C++
+    #pragma include_alias("stdafx.h", "stdstl.h")
+  #endif
+#endif
 
 #include "stdafx.h"
 
 #ifdef _DEBUG
-  #undef THIS_FILE
+ #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
 
+extern "C"
+{
 //-----------------------------------------------------------------------------
- TCHAR g_szTestString[] = 
+//Test zero-terminated string with ANSI characters
+TCHAR g_szTestString[] =
   {_T('T'), _T('e'), _T('s'), _T('t'), _T(':'), _T(' '),
    (TCHAR)0xE4/*ae*/,     (TCHAR)0xF6/*oe*/,      (TCHAR)0xFC/*ue*/,
    (TCHAR)0xC4/*AE*/,     (TCHAR)0xD6/*OE*/,      (TCHAR)0xDC/*UE*/,
@@ -31,7 +40,8 @@
    (TCHAR)0x00
   };
 
-TCHAR g_szTestStringOem[] = 
+//Test zero-terminated string with OEM characters
+TCHAR g_szTestStringOem[] =
   {_T('T'), _T('e'), _T('s'), _T('t'), _T(':'), _T(' '),
    (TCHAR)0x84/*ae*/,     (TCHAR)0x94/*oe*/,      (TCHAR)0x81/*ue*/,
    (TCHAR)0x8E/*AE*/,     (TCHAR)0x99/*OE*/,      (TCHAR)0x9A/*UE*/,
@@ -44,13 +54,18 @@ TCHAR g_szTestStringOem[] =
    (TCHAR)0x00
   };
 
+ //Test sentences
 LPCTSTR g_szTest[] =
   {
   _T("Faber est suae quisque fortunae") // 0. Every man is the artisan of his own fortune
   };
+}
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: TestStrSamples.cpp,v $
+ * Revision 1.2  2008/05/13 22:21:26  ddarko
+ * CString test cases
+ *
  * Revision 1.1  2008/05/12 21:35:59  ddarko
  * Created
  *

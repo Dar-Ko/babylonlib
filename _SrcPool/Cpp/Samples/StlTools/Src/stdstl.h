@@ -24,11 +24,41 @@
 #include <stdio.h>
 
 #ifdef __cplusplus
-  #include <string>     //std::string
-  #include "STL/KOStream.h" //std::_tcout
-  #if _MSC_VER <= 1200
-    #include <iomanip.h>  //std::endl
+  //===========================================================================
+  //Standard Template Library header files
+  //For build dependant of the Standard Template Library (STL)
+  #if defined (_STL) || defined (_USE_STL)
+    #if !defined (_STL)
+      #define _STL 19080505
+    #endif
+    #if !defined (_USE_STL)
+      #define _USE_STL 19080505
+    #endif
+
+    #ifdef _DEBUG
+      #ifndef _STLP_DEBUG
+        //#define _STLP_DEBUG 1  //Debug STLPort library
+                                 //Note: have to be defined before STL header
+                                 //files
+      #endif
+    #else
+      #ifdef _STLP_DEBUG
+        #undef _STLP_DEBUG
+      #endif
+    #endif
+    /*Note: Include additional directory /I "..\..\STL\STLport\stlport" and
+      appropriate STLport library in your make file, in order to replace
+      compiler's native Standard Template Library.
+     */
+
+    #include <string>     //std::string
+    #include "STL/KOStream.h" //std::_tcout
+    #if _MSC_VER <= 1200
+      #include <iomanip.h>  //std::endl
   #endif
+
+  //===========================================================================
+  #endif //_STL
 #endif //__cplusplus
 
 #include "KTypedef.h" //Type definitions
@@ -36,3 +66,4 @@
 #include "KTrace.h"   //debugging tools
 #include "KTestLog.h" //CTestLog
 // TODO: reference additional headers your program requires here
+

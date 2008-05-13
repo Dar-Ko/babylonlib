@@ -586,36 +586,42 @@
 					Name="Debug_MBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\Common\Res\Win"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_MBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\Common\Res\Win"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\Common\Res\Win"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\Common\Res\Win"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\Common\Res\Win"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\Common\Res\Win"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 			</File>
