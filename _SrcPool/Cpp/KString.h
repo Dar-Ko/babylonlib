@@ -239,15 +239,17 @@ public:
     void OemToAnsi();
   #endif
 
+  //Microsoft OLE BSTR support
+  BSTR AllocSysString() const;
+  BSTR SetSysString(BSTR* pbstr) const;
+
   //Operators
 
   friend CString operator+(const CString& string1,  const CString& string2);
-  friend CString operator+(const CString& string, TCHAR ch);
-  friend CString operator+(TCHAR ch, const CString& string); 
-  #ifdef _UNICODE
-    friend CString operator+(const CString& string, char ch);
-    friend CString operator+(char ch, const CString& string);
-  #endif
+  friend CString operator+(const CString& string, char ch);
+  friend CString operator+(char ch, const CString& string);
+  friend CString operator+(const CString& string, wchar_t ch);
+  friend CString operator+(wchar_t ch, const CString& string);
   friend CString operator+(const CString& string, LPCTSTR lpsz);
   friend CString operator+(LPCTSTR lpsz, const CString& string);
 
@@ -416,6 +418,85 @@ return s1.Compare(s2) != 0;
 inline bool operator!=(LPCTSTR s1, const CString& s2)
 {
 return s2.Compare(s1) != 0;
+}
+
+//-----------------------------------------------------------------------------
+/*Operator concatenates two strings or a character and a string.
+  Returns new string representing the result of the operation.
+ */
+inline CString operator+(const CString& str1, const CString& str2)
+{
+CString strResult(str1);
+strResult.Append(str2);
+return strResult;
+}
+
+inline CString operator+(const CString& str1, char ch2)
+{
+CString strResult(str1);
+
+#ifdef _UNICODE
+  TCHAR chTemp = TCHAR(ch2);
+  strResult.Append(chTemp, 1);
+#else //SBCS
+  ASSERT(sizeof(TCHAR) == 1);
+  strResult.Append(ch2, 1);
+#endif
+return strResult;
+}
+
+inline CString operator+(char ch1, const CString& str2)
+{
+CString strResult;
+#ifdef _UNICODE
+  TCHAR chTemp = TCHAR(ch1);
+  strResult.Append(chTemp, 1);
+#else //SBCS
+  ASSERT(sizeof(TCHAR) == 1);
+  strResult.Append(ch1, 1);
+#endif
+strResult += str2;
+return strResult ;
+}
+
+inline CString operator+(const CString& str1, wchar_t ch2)
+{
+CString strResult(str1);
+
+TCHAR chTemp = TCHAR(ch2); //Fix me!; TODO: this works only for first 256 characters
+
+strResult.Append(chTemp, 1);
+return strResult;
+}
+
+inline CString operator+(wchar_t ch1, const CString& str2)
+{
+CString strResult;
+
+TCHAR chTemp = TCHAR(ch1); //Fix me!; TODO: this works only for first 256 characters
+
+strResult.Append(chTemp, 1);
+
+strResult += str2;
+return strResult;
+}
+
+inline CString operator+(const CString& str1, LPCTSTR psz2)
+{
+CString strResult(str1);
+if ((psz2 != NULL) && (psz2[0] != _T('\0')))
+  strResult.Append(psz2);
+return strResult;
+}
+
+inline CString operator+(LPCTSTR psz1, const CString& str2)
+{
+CString strResult;
+if ((psz1 != NULL) && (psz1[0] != _T('\0')))
+  strResult = psz1;
+
+strResult += str2;
+return strResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

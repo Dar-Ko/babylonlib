@@ -31,6 +31,7 @@
 #endif
 
 #ifdef _WIN32
+  #include <oleauto.h>  //SysFreeString()
   #include "Resource.h" //IDS_TESTSTRING
 #endif
 #include "KTypedef.h"  //BOOL typedef

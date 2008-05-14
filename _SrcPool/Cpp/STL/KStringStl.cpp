@@ -338,6 +338,29 @@ TRACE0(_T("TODO: CString::LoadString()\n"));
 //TODO:
 return false;
 /*
+// Load the string from resource 'nID' cstringt.h ATL
+BOOL LoadString( UINT nID )
+{
+HINSTANCE hInstance = StringTraits::FindStringResourceInstance( nID );
+if( hInst == NULL )
+{
+return( FALSE );
+}
+
+const ATLSTRINGRESOURCEIMAGE* pImage = AtlGetStringResourceImage( hInstance, nID );
+if( pImage == NULL )
+{
+return( FALSE );
+}
+
+int nLength = StringTraits::GetBaseTypeLength( pImage->achString, pImage->nLength );
+PXSTR pszBuffer = GetBuffer( nLength );
+StringTraits::ConvertToBaseType( pszBuffer, nLength, pImage->achString, pImage->nLength );
+ReleaseBufferSetLength( nLength );
+
+return( TRUE );
+}
+
   static int __stdcall _LoadString(UINT nID, LPTSTR lpszBuf, UINT nMaxBuf)
   {
 #ifdef _DEBUG
@@ -1014,6 +1037,21 @@ TRACE0(_T("TODO: CString::Delete()\n"));
 return 0;
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
+void CString::Append(const CString& source )
+{
+TRACE0(_T("TODO: CString::Append()\n"));
+  //TODO:
+}
+
+void CString::Append(LPCTSTR string_p )
+{
+TRACE0(_T("TODO: CString::Append()\n"));
+  //TODO:
+}
+
 void CString::Append(TCHAR text_character, int number_of_times )
 {
 TRACE0(_T("TODO: CString::Append()\n"));
@@ -1422,7 +1460,82 @@ void CString::OemToAnsi()
 
 }
 #endif //_UNICODE
+//-----------------------------------------------------------------------------
+/*Allocates an Automation–compatible (OLE) length-prefixed string of the type
+  BSTR and copies the contents of the CString object into it, including the 
+  terminating zero character. 
+  Commonly, if this string is passed to a Component Object Model (COM) function 
+  (as an [in] parameter) this requires the caller to free the string, usually 
+  with ::SysFreeString().
+  
+  Returns: The newly allocated string.
 
+  Note: Microsoft Windows specific (Win).
+  
+  Example:
+      CString strTest = _T("Testing");
+      BSTR bstr = strTest.AllocSysString(); //Create and copy string to BST
+      #ifndef _UNICODE
+        //Convert a sequence of wide characters to a corresponding sequence of
+        //multibyte characters.
+        char szBuf[40];
+        wcstombs(szBuf, bstr, sizeof(szBuf));
+      #else
+        LPWSTR szBuf = bstr;
+      #endif
+      ASSERT(_tcscmp(szBuf, _T("Testing")) == 0);
+      ...
+      ::SysFreeString(bstr);
+    
+  See also: BSTR, CComBSTR, SysFreeString(), SysAllocString(), 
+  Object Linking and Embedding (OLE), Component Object Model (COM).
+ */
+BSTR CString::AllocSysString() const
+{
+//TODO:
+return NULL;
+}
+
+//-----------------------------------------------------------------------------
+/*Copies the contents of the CString object, including the terminating zero 
+  character, into the Automation–compatible (OLE) length-prefixed string of 
+  the type BSTR pointed to by pbstr. If it is required the BSTR referenced by 
+  pbstr may be reallocated and previous content may be freed.
+
+  Returns: The newly allocated string.
+
+  Note: Microsoft Windows specific (Win).
+
+  Example:
+      CString strTest = _T("Testing");
+      BSTR bstr = strTest.AllocSysString(); //Create and copy string to BST
+      
+      strTest = _T("More testing");
+      strTest.SetSysString(&bstr); //Copy new value to BST
+      
+      #ifndef _UNICODE
+        //Convert a sequence of wide characters to a corresponding sequence of
+        //multibyte characters.
+        char szBuf[40];
+        wcstombs(szBuf, bstr, sizeof(szBuf));
+      #else
+        LPWSTR szBuf = bstr;
+      #endif
+      ASSERT(_tcscmp(szBuf, _T("More testing")) == 0);
+      ...
+      ::SysFreeString(bstr);
+
+  See also: BSTR, CComBSTR, SysFreeString(), SysAllocString(), 
+  Object Linking and Embedding (OLE), Component Object Model (COM).
+
+ */
+BSTR CString::SetSysString(BSTR* pbstr //[in] length-prefixed string where
+                           //contents of the CString will be copied.
+                          ) const
+{
+//TODO:
+return *pbstr;
+}
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_STRING_
 /******************************************************************************
