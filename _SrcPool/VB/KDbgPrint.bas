@@ -1,6 +1,6 @@
 Attribute VB_Name = "KDbgPrint"
-'$Workfile: KFileIo.bas$: implementation file
-'$Revision: 1.1 $ $Date: 2008/05/16 18:44:33 $
+'$Workfile: KDbgPrint.bas$: implementation file
+'$Revision: 1.2 $ $Date: 2008/05/16 18:46:28 $
 '$Author: ddarko $
 '
 'File I/O/ handling helpers
@@ -18,6 +18,9 @@ End Sub
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
 '$Log: KDbgPrint.bas,v $
+'Revision 1.2  2008/05/16 18:46:28  ddarko
+'Comment
+'
 'Revision 1.1  2008/05/16 18:44:33  ddarko
 'Created
 '
