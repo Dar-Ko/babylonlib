@@ -29,6 +29,7 @@ Module=KWinError; VB\KWinError.bas
 Module=KGetMyDocs; VB\KGetMyDocs.bas
 Module=KXmlExt; VB\KXmlExt.bas
 Module=KWinComDlg32; VB\KWinComDlg32.bas
+Module=KDbgPrint; VB\KDbgPrint.bas
 IconForm="frmSrcPool"
 Startup="Sub Main"
 HelpFile=""
