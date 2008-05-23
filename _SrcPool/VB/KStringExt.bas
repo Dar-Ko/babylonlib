@@ -19,8 +19,8 @@ Private Declare Sub CopyMem Lib "kernel32" Alias _
   "RtlMoveMemory" (pTo As Any, uFrom As Any, ByVal lSize As Long)
 Private Declare Function lstrlenW Lib "kernel32" (ByVal lpString As Long) As Long
 Private Declare Function lstrlenA Lib "kernel32" (ByVal lpString As Long) As Long
-Private Declare Function lstrcpyW Lib "kernel32" (lpString1 As Byte, _
-                                                  ByVal lpString2 As Long) As Long
+'Private Declare Function lstrcpyW Lib "kernel32" (lpString1 As Byte, _
+'                                                  ByVal lpString2 As Long) As Long
 
 Public Const ASCII_SP    As Integer = 32
 Public Const ASCII_QUOTE As Integer = 34
@@ -30,8 +30,8 @@ Public Function TrimRight(strText As String) As String
   Dim strResult As String
   If Len(strText) > 0 Then
     strResult = strText
-    Do While Asc(Right$(strResult, 1)) <= ASCII_SP 'Less or equal to SPACE
-      strResult = Left$(strResult, Len(strResult) - 1)
+    Do While Asc(right$(strResult, 1)) <= ASCII_SP 'Less or equal to SPACE
+      strResult = left$(strResult, Len(strResult) - 1)
     Loop
     TrimRight = strResult
   End If
@@ -66,7 +66,7 @@ Public Function BytesToString(pByteArray As Byte, _
   CopyMemory ByVal strTemp, pByteArray, lByteArraySize
 
   lLength = InStr(strTemp, Chr$(0)) - 1
-  BytesToString = Left$(strTemp, lLength) 'Return the string
+  BytesToString = left$(strTemp, lLength) 'Return the string
 End Function
 '-------------------------------------------------------------------------------
 'Find the next token in a string. The strDelimiter specifies
@@ -88,7 +88,7 @@ Function StrToken(ByRef strSource As String, _
     If Mid$(strSource, iPos, 1) = strDelimiter Then
       sToken = Mid$(strSource, 1, iPos)
       strSource = Mid$(strSource, iPos + 1, Len(strSource))
-      StrToken = Left(sToken, Len(sToken) - Len(strDelimiter))
+      StrToken = left(sToken, Len(sToken) - Len(strDelimiter))
       Exit Function
     End If
     iPos = iPos + 1
@@ -107,7 +107,7 @@ Public Function StrReplace(ByVal strSource, _
                            ByVal strSearch, _
                            ByVal strReplacement)
   Do Until InStr(1, strSource, strSearch) = 0
-    strSource = Left(strSource, InStr(1, strSource, strSearch) - 1) + _
+    strSource = left(strSource, InStr(1, strSource, strSearch) - 1) + _
                 strReplacement + _
                 Mid(strSource, InStr(1, strSource, strSearch) + Len(strSearch))
   Loop
@@ -168,8 +168,8 @@ Public Function StrTrimSlash(ByVal strPath As String) As String
   'Trim and remove any trailing slash
   strPath = Trim$(strPath)
 
-  If Right$(strPath, 1) = "\" Then
-    StrTrimSlash = Left$(strPath, Len(strPath) - 1)
+  If right$(strPath, 1) = "\" Then
+    StrTrimSlash = left$(strPath, Len(strPath) - 1)
   Else
     StrTrimSlash = strPath
   End If
@@ -202,7 +202,7 @@ Public Function SzToString(ByVal szText As String) As String
   Dim iZero As Integer
   iZero = InStr(szText, Chr$(0))
   If iZero <> 0 Then
-    SzToString = Left$(szText, iZero - 1) 'Cut-off terminating zero
+    SzToString = left$(szText, iZero - 1) 'Cut-off terminating zero
   Else
     SzToString = szText
   End If

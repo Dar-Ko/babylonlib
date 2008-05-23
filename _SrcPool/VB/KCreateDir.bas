@@ -6,7 +6,6 @@ Attribute VB_Name = "KCreateDir"
 'Create directory tree
 '2003-12-29
 
-Private Const INVALID_HANDLE_VALUE As Long = -1
 Private Const MAX_PATH As Long = 260
 
 Private Type SECURITY_ATTRIBUTES
@@ -29,35 +28,40 @@ Private Declare Function CreateDirectory Lib "kernel32" Alias _
 'Returns number of folders specified directory path has.
 Public Function CreateDir(ByVal strDirPath As String) As Integer
 
-  If Right$(strDirPath, 1) <> "\" Then
-    'Append directory delimiter
-    strDirPath = strDirPath & "\"
-  End If
+  If LenB(strDirPath) <= MAX_PATH Then
+    If right$(strDirPath, 1) <> "\" Then
+      'Append directory delimiter
+      strDirPath = strDirPath & "\"
+    End If
+    
+    Dim iPos As Integer 'current character position in the path string
+    iPos = InStr(strDirPath, ":") 'Find drive delimiter
   
-  Dim iPos As Integer 'current character position in the path string
-  iPos = InStr(strDirPath, ":") 'Find drive delimiter
-
-  Dim strNewFolder  As String 'directory to be created, if not exist
-  'Get the drive name
-  If iPos Then
-    strNewFolder = strToken(strDirPath, "\")
+    Dim strNewFolder  As String 'directory to be created, if not exist
+    'Get the drive name
+    If iPos Then
+      strNewFolder = StrToken(strDirPath, "\")
+    Else
+      strNewFolder = ""
+    End If
+  
+    Dim strSubdir As String 'name of the parent folder
+    Dim iSubdirCount As Integer
+    Dim saDir As SECURITY_ATTRIBUTES
+    saDir.nLength = LenB(saDir) 'Initialize structure with required version
+    
+    Do Until strDirPath = ""
+      strSubdir = StrToken(strDirPath, "\") 'Extract one of subfolders
+      strNewFolder = strNewFolder & strSubdir 'Form path to parent folder
+      Call CreateDirectory(strNewFolder, saDir)
+  
+      iSubdirCount = iSubdirCount + 1
+    Loop
+    CreateDir = iSubdirCount + 1
+    
   Else
-    strNewFolder = ""
+    Err.Raise ERROR_BAD_PATHNAME, App.EXEName, "The specified path is too long."
   End If
-
-  Dim strSubdir As String 'name of the parent folder
-  Dim iSubdirCount As Integer
-  Dim saDir As SECURITY_ATTRIBUTES
-  saDir.nLength = LenB(saDir) 'Initialize structure with required version
-  
-  Do Until strDirPath = ""
-    strSubdir = strToken(strDirPath, "\") 'Extract one of subfolders
-    strNewFolder = strNewFolder & strSubdir 'Form path to parent folder
-    Call CreateDirectory(strNewFolder, saDir)
-
-    iSubdirCount = iSubdirCount + 1
-  Loop
-  CreateDir = iSubdirCount + 1
 
 End Function
 

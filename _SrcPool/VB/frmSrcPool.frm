@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.Form frmSrcPool 
+Begin VB.Form frmSrcPool
    Caption         =   "SrcPool"
    ClientHeight    =   3090
    ClientLeft      =   60
@@ -16,7 +16,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
-'$Workfile: KWinUser32.bas$: implementation file
+'$Workfile: frmSrcPool.frm$: implementation file
 '$Revision: 2$ $Date: 2007-04-20 14:28:36$
 '$Author: Darko Kolakovic$
 '

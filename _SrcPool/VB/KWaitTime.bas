@@ -12,13 +12,13 @@ Private Type FILETIME
   dwHighDateTime As Long
 End Type
 
-Private Const WAIT_ABANDONED& = &H80&
-Private Const WAIT_ABANDONED_0& = &H80&
-Private Const WAIT_FAILED& = -1&
-Private Const WAIT_IO_COMPLETION& = &HC0&
+'Private Const WAIT_ABANDONED& = &H80&
+'Private Const WAIT_ABANDONED_0& = &H80&
+'Private Const WAIT_FAILED& = -1&
+'Private Const WAIT_IO_COMPLETION& = &HC0&
 Private Const WAIT_OBJECT_0& = 0
-Private Const WAIT_OBJECT_1& = 1
-Private Const WAIT_TIMEOUT& = &H102&
+'Private Const WAIT_OBJECT_1& = 1
+'Private Const WAIT_TIMEOUT& = &H102&
 
 Private Const INFINITE = &HFFFF
 Private Const ERROR_ALREADY_EXISTS = 183&
@@ -31,15 +31,15 @@ Private Const QS_PAINT& = &H20
 Private Const QS_POSTMESSAGE& = &H8
 Private Const QS_SENDMESSAGE& = &H40
 Private Const QS_TIMER& = &H10
-Private Const QS_MOUSE& = (QS_MOUSEMOVE Or _
-                           QS_MOUSEBUTTON)
-Private Const QS_INPUT& = (QS_MOUSE Or _
-                           QS_KEY)
-Private Const QS_ALLEVENTS& = (QS_INPUT Or _
-                               QS_POSTMESSAGE Or _
-                               QS_TIMER Or _
-                               QS_PAINT Or _
-                               QS_HOTKEY)
+'Private Const QS_MOUSE& = (QS_MOUSEMOVE Or _
+'                           QS_MOUSEBUTTON)
+'Private Const QS_INPUT& = (QS_MOUSE Or _
+'                           QS_KEY)
+'Private Const QS_ALLEVENTS& = (QS_INPUT Or _
+'                               QS_POSTMESSAGE Or _
+'                               QS_TIMER Or _
+'                               QS_PAINT Or _
+'                               QS_HOTKEY)
 Private Const QS_ALLINPUT& = (QS_SENDMESSAGE Or _
                               QS_PAINT Or _
                               QS_TIMER Or _
@@ -55,11 +55,11 @@ Private Declare Function CreateWaitableTimer Lib "kernel32" _
                       ByVal bManualReset As Long, _
                       ByVal lpName As String) As Long
 
-Private Declare Function OpenWaitableTimer Lib "kernel32" _
-                      Alias "OpenWaitableTimerA" ( _
-                      ByVal dwDesiredAccess As Long, _
-                      ByVal bInheritHandle As Long, _
-                      ByVal lpName As String) As Long
+'Private Declare Function OpenWaitableTimer Lib "kernel32" _
+'                      Alias "OpenWaitableTimerA" ( _
+'                      ByVal dwDesiredAccess As Long, _
+'                      ByVal bInheritHandle As Long, _
+'                      ByVal lpName As String) As Long
 
 Private Declare Function SetWaitableTimer Lib "kernel32" ( _
                       ByVal hTimer As Long, _
@@ -69,12 +69,12 @@ Private Declare Function SetWaitableTimer Lib "kernel32" ( _
                       ByVal lpArgToCompletionRoutine As Long, _
                       ByVal fResume As Long) As Long
 
-Private Declare Function CancelWaitableTimer Lib "kernel32" ( _
-                      ByVal hTimer As Long)
+'Private Declare Function CancelWaitableTimer Lib "kernel32" ( _
+'                      ByVal hTimer As Long)
 
-Private Declare Function WaitForSingleObject Lib "kernel32" ( _
-                      ByVal hHandle As Long, _
-                      ByVal dwMilliseconds As Long) As Long
+'Private Declare Function WaitForSingleObject Lib "kernel32" ( _
+'                      ByVal hHandle As Long, _
+'                      ByVal dwMilliseconds As Long) As Long
 
 Private Declare Function MsgWaitForMultipleObjects Lib "user32" ( _
                       ByVal nCount As Long, _
@@ -153,9 +153,9 @@ Public Sub Wait(lInterval As Long)
 End Sub
 '///////////////////////////////////////////////////////////////////////////////
 '*****************************************************************************
-'$Log: 
+'$Log:
 ' 2    Biblioteka1.1         2007-05-08 10:14:27  Darko Kolakovic Cleanup
-' 1    Biblioteka1.0         2007-04-13 09:23:59  Darko Kolakovic 
+' 1    Biblioteka1.0         2007-04-13 09:23:59  Darko Kolakovic
 '$
 'Revision 1.1  2007/04/11 13:36:37  dkolakovic
 'Timer

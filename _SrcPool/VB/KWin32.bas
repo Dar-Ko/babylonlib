@@ -78,25 +78,9 @@ Public Type GENERIC_MAPPING
   GenericExecute  As Long 'ACCESS_MASK
   GenericAll      As Long 'ACCESS_MASK
 End Type
+
 '==============================================================================
-
-'-------------------------------------------------------------------------------
-' Microsoft Windows Data types [Data Structures] WTypes.h , Win32.h
-
-'Security information for a securable object. A security descriptor identifies
-'the object's owner and primary group. It can also contain a DACL that controls
-'access to the object, and a SACL that controls the logging of attempts to access
-'the object.
-Public Type SECURITY_ATTRIBUTES
-  nLength As Long   'size, in bytes, of this structure. Set this value to
-                    'the size of the SECURITY_ATTRIBUTES structure.
-  lpSecurityDescriptor As Long 'security descriptor for the object that
-                               'controls the sharing of it.
-  bInheritHandle As Long 'TRUE specifies whether the returned handle is
-                         'inherited when a new process is created.
-End Type
-'==============================================================================
-
+' Microsoft Windows Win32.h
 
 Public Const MAX_COMPUTERNAME_LENGTH = 31
 Public Const MAX_PATH = 260
@@ -168,80 +152,36 @@ Public Type GUID
   Data4(7) As Byte
 End Type
 
-Public Const EWX_LOGOFF As Long = 0
+Public Const EWX_LOGOFF   As Long = 0
 Public Const EWX_SHUTDOWN As Long = 1
-Public Const EWX_REBOOT = 2
-Public Const EWX_FORCE As Long = 4
+Public Const EWX_REBOOT   As Long = 2
+Public Const EWX_FORCE    As Long = 4
 Public Const EWX_POWEROFF As Long = 8
-
-'Pointer to string (SBCS)
-Public Type LPSTR
-  Ptr As Long
-End Type
-'Pointer to wide-character string
-Public Type LPWSTR
-  Ptr As Long
-End Type
-
-'Unsigned integer 32-bit
-Public Type DWORD
-  m_Byte0 As Byte
-  m_Byte1 As Byte
-  m_Byte2 As Byte
-  MByte3 As Byte
-End Type
-
-'Filetime 64-bit unsigned integer
-Public Type FILETIME
-  dwLowDateTime As Long
-  dwHighDateTime As Long
-End Type
-
-Public Type SYSTEMTIME
-  wYear As Integer
-  wMonth As Integer
-  wDayOfWeek As Integer
-  wDay As Integer
-  wHour As Integer
-  wMinute As Integer
-  wSecond As Integer
-  wMilliseconds As Integer
-End Type
-
-'Point structure
-Public Type POINTAPI
-  x As Long
-  Y As Long
-End Type
-
-'Rectangle structure
-Public Type RECT
-  Left As Long
-  Top  As Long
-  Right As Long
-  Bottom As Long
-End Type
 
 'Color quadruplet
 Public Type RGBQUAD
   rgbBlue   As Byte
   rgbGreen  As Byte
-  rgbRed  As Byte
+  rgbRed    As Byte
   rgbReserved As Byte
+End Type
+  
+Public Type HRESULT
+  m_hResult As Long
 End Type
 
 'Windows-OS/2 Bitmap Header structure sizeof = 40 bytes
 Public Type BITMAPINFOHEADER
-  biSize    As Long
-  biWidth   As Long
-  biHeight  As Long
-  biPlanes  As Integer
-  biBitCount  As Integer
+  biSize          As Long
+  biWidth         As Long
+  biHeight        As Long
+  biPlanes        As Integer
+  biBitCount      As Integer
   biCompression   As Long
-  biSizeImage   As Long
+  biSizeImage     As Long
   biXPelsPerMeter As Long
   biYPelsPerMeter As Long
-  biClrUsed   As Long
+  biClrUsed       As Long
   biClrImportant  As Long
 End Type
 
@@ -565,10 +505,10 @@ Public Const WAIT_ABANDONED As Long = &H80&
 
 Public Type WINDOWPLACEMENT
   Length As Long
-  flags As Long
+  Flags As Long
   showCmd As Long
-  ptMinPosition As POINTAPI
-  ptMaxPosition As POINTAPI
+  ptMinPosition As POINT
+  ptMaxPosition As POINT
   rcNormalPosition As RECT
 End Type
 
@@ -667,7 +607,7 @@ Public Const FILE_FLAG_DELETE_ON_CLOSE = &H4000000
 Public Type OVERLAPPED
   Internal      As Long
   InternalHigh  As Long
-  offset        As Long
+  Offset        As Long
   OffsetHigh    As Long
   hEvent        As Long
 End Type

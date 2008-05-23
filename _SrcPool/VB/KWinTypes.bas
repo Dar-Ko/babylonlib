@@ -1,6 +1,6 @@
 Attribute VB_Name = "KWinTypes"
 '$Workfile: KWinTypes.bas$: implementation file
-'$Revision: 1.1 $ $Date: 2008/05/23 20:30:53 $
+'$Revision: 1.2 $ $Date: 2008/05/23 21:49:10 $
 '$Author: ddarko $
 '
 'Microsoft Windows Data types [Data Structures] WTypes.h
@@ -38,6 +38,10 @@ End Type
 
 Public Type LPSIZE
   Ptr As Long
+End Type
+
+Public Type UCHAR
+  m_UChar As Byte
 End Type
 
 Public Type SHORT
@@ -129,7 +133,7 @@ End Type
     
 Public Type PACL
   Ptr As Long
-End If
+End Type
 
 'Public Type SECURITY_DESCRIPTOR
 '    UCHAR Revision;
@@ -142,13 +146,13 @@ End If
 'End Type
     
 Public Type COAUTHIDENTITY
-    User As LPUSHORT
-    UserLength  As ULONG
-    Domain As LPUSHORT
-    DomainLength  As ULONG
-    Password asLPUSHORT
-    PasswordLength  As ULONG
-    Flags As ULONG
+  User            As LPUSHORT
+  UserLength      As ULONG
+  Domain          As LPUSHORT
+  DomainLength    As ULONG
+  Password        As LPUSHORT
+  PasswordLength  As ULONG
+  Flags           As ULONG
 End Type
 
 Public Type PCOAUTHIDENTITY
@@ -206,7 +210,7 @@ End Type
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
 '$Log: KWinTypes.bas,v $
-'Revision 1.1  2008/05/23 20:30:53  ddarko
-'Moved data types from KWin32
+'Revision 1.2  2008/05/23 21:49:10  ddarko
+'new Windows types
 '
 '*******************************************************************************

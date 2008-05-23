@@ -7295,7 +7295,7 @@ End Function
 
 'Generic test for error on any status value.
 Public Function IS_ERROR(Status) As Boolean
-  'IS_ERROR = ((Status) >> 31 == SEVERITY_ERROR)
+  IS_ERROR = (((Status) / &H80000000) > SEVERITY_ERROR)
 End Function
 
 'Return the code
@@ -7312,11 +7312,11 @@ End Function
 'Return the facility
 
 Public Function HRESULT_FACILITY(hr) As Long
-  'HRESULT_FACILITY =  (((hr) >> 16) & &H1fff)
+  HRESULT_FACILITY = (((hr) / &H10000) And &H1FFF)
 End Function
 
 Public Function SCODE_FACILITY(sc) As Long
-' SCODE_FACILITY=    (((sc) >> 16) & &H1fff)
+  SCODE_FACILITY = (((sc) / &H10000) And &H1FFF)
 End Function
 
 
@@ -7332,24 +7332,28 @@ End Function
 'Public Function MAKE_SCODE(sev,fac,code) = \
 '    ((SCODE) (((unsigned long)(sev)<<31) | ((unsigned long)(fac)<<16) | ((unsigned long)(code))) )
 
-
-'Since these error codes aren't in the standard Win32 range (i.e., 0-64K), define a
-'macro to map either Win32 or SetupAPI error codes into an HRESULT.
-Public Function HRESULT_FROM_SETUPAPI(x) As Long
-'HRESULT_FROM_SETUPAPI = ((((x) & (APPLICATION_ERROR_MASK|ERROR_SEVERITY_ERROR)) == (APPLICATION_ERROR_MASK|ERROR_SEVERITY_ERROR)) \
-'                                 ? ((HRESULT) (((x) & &H0000FFFF) | (FACILITY_SETUPAPI << 16) | &H80000000))                               \
-'                                 : HRESULT_FROM_WIN32(x))
-
-
-End Function
-
+'-------------------------------------------------------------------------------
 '__HRESULT_FROM_WIN32 will always be a macro.
 'The goal will be to enable INLINE_HRESULT_FROM_WIN32 all the time,
 'but there's too much code to change to do that at this time.
-
-'Public Function __HRESULT_FROM_WIN32(x) = ((HRESULT)(x) <= 0 ? ((HRESULT)(x)) : ((HRESULT) (((x) & &H0000FFFF) | (FACILITY_WIN32 << 16) | &H80000000)))
-
-
+Public Function HRESULT_FROM_WIN32(x) ' As HRESULT
+  If (x <= 0) Then
+    HRESULT_FROM_WIN32 = x
+  Else
+    HRESULT_FROM_WIN32 = ((((x) And &HFFFF) Or (FACILITY_WIN32 * &H10000) Or &H80000000))
+  End If
+End Function
+'-------------------------------------------------------------------------------
+'Since these error codes aren't in the standard Win32 range (i.e., 0-64K), define a
+'macro to map either Win32 or SetupAPI error codes into an HRESULT.
+Public Function HRESULT_FROM_SETUPAPI(x) ' As HRESULT
+  If ((x) And (APPLICATION_ERROR_MASK Or ERROR_SEVERITY_ERROR)) = _
+       (APPLICATION_ERROR_MASK Or ERROR_SEVERITY_ERROR) Then
+    HRESULT_FROM_SETUPAPI = ((((x) And &HFFFF) Or (FACILITY_SETUPAPI * &H10000) Or &H80000000))
+  Else
+    HRESULT_FROM_SETUPAPI = HRESULT_FROM_WIN32(x)
+  End If
+End Function
 
 'Map an NT status value into a HRESULT
 

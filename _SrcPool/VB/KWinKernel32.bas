@@ -7,18 +7,6 @@ Attribute VB_Name = "KWinKernel32"
 '2004-06-11
 Option Explicit
 
-'wtypes.h
-Public Type ULARGE_INTEGER
-  dwLow As Long
-  dwHigh As Long
-End Type
-
-Public Type SECURITY_ATTRIBUTES
-  nLength As Long
-  lpSecurityDescriptor As Long
-  bInheritHandle As Long
-End Type
-
 'winbase.h
 Public Const INVALID_HANDLE_VALUE = &HFFFFFFFF
 
@@ -129,7 +117,7 @@ Public Declare Function SendMessageTimeout Lib "user32" Alias "SendMessageTimeou
 Public Declare Function SetCurrentDirectory Lib "kernel32" Alias "SetCurrentDirectoryA" (ByVal lpPathName As String) As Long
 Public Declare Function SetEndOfFile Lib "kernel32" (ByVal hFile As Long) As Long
 Public Declare Function SetEnvironmentVariable Lib "kernel32.dll" Alias "SetEnvironmentVariableA" (ByVal lpName As String, ByVal lpValue As String) As Long
-Public Declare Function SetEvent Lib "kernel32" (ByVal hevent As Long) As Long
+Public Declare Function SetEvent Lib "kernel32" (ByVal hEvent As Long) As Long
 Public Declare Function SetFilePointer Lib "kernel32" (ByVal hFile As Long, ByVal lDistanceToMove As Long, lpDistanceToMoveHigh As Long, ByVal dwMoveMethod As Long) As Long
 Public Declare Function SetNamedPipeHandleState Lib "kernel32" (ByVal hNamedPipe As Long, lpMode As Long, lpMaxCollectionCount As Long, lpCollectDataTimeout As Long) As Long
 Public Declare Function SetPriorityClass Lib "kernel32" (ByVal hprocess As Long, ByVal dwPriorityClass As Long) As Long
@@ -143,7 +131,7 @@ Public Declare Function WriteFile Lib "kernel32" (ByVal hFile As Long, lpBuffer 
 Public Declare Function WritePrivateProfileSection Lib "kernel32" Alias "WritePrivateProfileSectionA" (ByVal lpSectionName As String, ByVal lpString As String, ByVal lpFileName As String) As Long
 Public Declare Function WritePrivateProfileString Lib "kernel32" Alias "WritePrivateProfileStringA" (ByVal lpSectionName As String, ByVal lpKeyName As Any, ByVal lpString As Any, ByVal lpFileName As String) As Long
 Public Declare Function WriteProcessMemory Lib "kernel32" (ByVal hprocess As Long, ByVal lpBaseAddress As Long, lpBuffer As Any, ByVal nSize As Long, lpNumberOfBytesWritten As Long) As Long
-Public Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (Destination As Any, Source As Any, ByVal cb As Long)
+Public Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (Destination As Any, source As Any, ByVal cb As Long)
 Public Declare Sub CopyPv Lib "kernel32" Alias "RtlMoveMemory" (ByVal pvDst As Long, ByVal pvSource As Long, ByVal cb As Long)
 Public Declare Sub CopySzFromPv Lib "kernel32" Alias "RtlMoveMemory" (ByVal szDst As String, ByVal pvSource As Long, ByVal cb As Long)
 Public Declare Sub FillMemory Lib "kernel32" Alias "RtlFillMemory" (dest As Any, ByVal cb As Long, ByVal bFill As Long)
