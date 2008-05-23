@@ -6,7 +6,7 @@ Begin VB.Form frmSrcPool
    ClientTop       =   450
    ClientWidth     =   4680
    Icon            =   "frmSrcPool.frx":0000
-   LinkTopic       =   "Form1"
+   LinkTopic       =   "frmSrcPool"
    ScaleHeight     =   3090
    ScaleWidth      =   4680
    StartUpPosition =   3  'Windows Default
