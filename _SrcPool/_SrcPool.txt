@@ -21,3 +21,5 @@ Portable Unicode based applications need to stay away from any use of wchar_t an
 Setting up Unicode string constants in portable C or C++ has no language support at all, and is a complete pain.
 The usual approach is to define a series of individual numeric constants for each character needed, then use a C array initializer to put together the string.
   2004-03-12 Andy Heninger, heninger@us.ibm.com, ICU Project
+
+Note: Visual Basic 6 reports an error in temporary files if forms contain an icon with images ordered as in Doc/Res/SrcPool.ico. Forms with the icon Cpp/Win/Res/Win/SrcPool.ico are compiled without errors.

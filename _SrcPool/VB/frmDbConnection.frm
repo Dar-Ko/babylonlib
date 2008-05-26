@@ -1,12 +1,11 @@
 VERSION 5.00
-Begin VB.Form frmDbConnection
+Begin VB.Form frmDbConnection 
    BorderStyle     =   3  'Fixed Dialog
-   Caption         =   "ODBC Logon"
+   Caption         =   "Database Connection"
    ClientHeight    =   3180
    ClientLeft      =   2850
    ClientTop       =   1755
    ClientWidth     =   4470
-   ControlBox      =   0   'False
    Icon            =   "frmDbConnection.frx":0000
    LinkTopic       =   "frmDbConnection"
    MaxButton       =   0   'False
@@ -15,7 +14,7 @@ Begin VB.Form frmDbConnection
    ScaleWidth      =   4470
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
-   Begin VB.CommandButton cmdCancel
+   Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "Cancel"
       Height          =   450
@@ -24,7 +23,7 @@ Begin VB.Form frmDbConnection
       Top             =   2655
       Width           =   1440
    End
-   Begin VB.CommandButton cmdOK
+   Begin VB.CommandButton cmdOK 
       Caption         =   "&OK"
       Height          =   450
       Left            =   915
@@ -32,7 +31,7 @@ Begin VB.Form frmDbConnection
       Top             =   2655
       Width           =   1440
    End
-   Begin VB.Frame fraStep3
+   Begin VB.Frame fraStep3 
       Caption         =   "Connection Values"
       Height          =   2415
       Index           =   0
@@ -40,39 +39,39 @@ Begin VB.Form frmDbConnection
       TabIndex        =   14
       Top             =   120
       Width           =   4230
-      Begin VB.TextBox txtUID
+      Begin VB.TextBox txtUID 
          Height          =   300
          Left            =   1125
          TabIndex        =   3
          Top             =   600
          Width           =   3015
       End
-      Begin VB.TextBox txtPWD
+      Begin VB.TextBox txtPWD 
          Height          =   300
          Left            =   1125
          TabIndex        =   5
          Top             =   930
          Width           =   3015
       End
-      Begin VB.TextBox txtDatabase
+      Begin VB.TextBox txtDatabase 
          Height          =   300
          Left            =   1125
          TabIndex        =   7
          Top             =   1260
          Width           =   3015
       End
-      Begin VB.ComboBox cboDSNList
+      Begin VB.ComboBox cboDSNList 
          Height          =   315
-         ItemData        =   "frmDbConnection.frx":133B
+         ItemData        =   "frmDbConnection.frx":1CF2
          Left            =   1125
-         List            =   "frmDbConnection.frx":133D
+         List            =   "frmDbConnection.frx":1CF4
          Sorted          =   -1  'True
          Style           =   2  'Dropdown List
          TabIndex        =   1
          Top             =   240
          Width           =   3000
       End
-      Begin VB.TextBox txtServer
+      Begin VB.TextBox txtServer 
          Enabled         =   0   'False
          Height          =   330
          Left            =   1125
@@ -80,7 +79,7 @@ Begin VB.Form frmDbConnection
          Top             =   1935
          Width           =   3015
       End
-      Begin VB.ComboBox cboDrivers
+      Begin VB.ComboBox cboDrivers 
          Enabled         =   0   'False
          Height          =   315
          Left            =   1125
@@ -90,7 +89,7 @@ Begin VB.Form frmDbConnection
          Top             =   1590
          Width           =   3015
       End
-      Begin VB.Label lblStep3
+      Begin VB.Label lblStep3 
          AutoSize        =   -1  'True
          Caption         =   "&DSN:"
          Height          =   195
@@ -100,7 +99,7 @@ Begin VB.Form frmDbConnection
          Top             =   285
          Width           =   390
       End
-      Begin VB.Label lblStep3
+      Begin VB.Label lblStep3 
          AutoSize        =   -1  'True
          Caption         =   "&UID:"
          Height          =   195
@@ -110,7 +109,7 @@ Begin VB.Form frmDbConnection
          Top             =   630
          Width           =   330
       End
-      Begin VB.Label lblStep3
+      Begin VB.Label lblStep3 
          AutoSize        =   -1  'True
          Caption         =   "&Password:"
          Height          =   195
@@ -120,7 +119,7 @@ Begin VB.Form frmDbConnection
          Top             =   975
          Width           =   735
       End
-      Begin VB.Label lblStep3
+      Begin VB.Label lblStep3 
          AutoSize        =   -1  'True
          Caption         =   "Data&base:"
          Height          =   195
@@ -130,7 +129,7 @@ Begin VB.Form frmDbConnection
          Top             =   1320
          Width           =   735
       End
-      Begin VB.Label lblStep3
+      Begin VB.Label lblStep3 
          AutoSize        =   -1  'True
          Caption         =   "Dri&ver:"
          Height          =   195
@@ -140,7 +139,7 @@ Begin VB.Form frmDbConnection
          Top             =   1665
          Width           =   465
       End
-      Begin VB.Label lblStep3
+      Begin VB.Label lblStep3 
          AutoSize        =   -1  'True
          Caption         =   "&Server:"
          Height          =   195
@@ -159,7 +158,7 @@ Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
 
 '$Workfile: frmDbConnection.frm$: implementation file
-'$Revision: 1.1 $ $Date: 2008/05/23 21:49:10 $
+'$Revision: 1.2 $ $Date: 2008/05/26 21:55:29 $
 '$Author: ddarko $
 '
 'Creating ODBC/OLE database connection string
@@ -281,6 +280,9 @@ End Sub
 '///////////////////////////////////////////////////////////////////////////////
 '*******************************************************************************
 '$Log: frmDbConnection.frm,v $
+'Revision 1.2  2008/05/26 21:55:29  ddarko
+'Added icon
+'
 'Revision 1.1  2008/05/23 21:49:10  ddarko
 'new Windows types
 '

@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.Form frmSrcPool
+Begin VB.Form frmSrcPool 
    Caption         =   "SrcPool"
    ClientHeight    =   3090
    ClientLeft      =   60
