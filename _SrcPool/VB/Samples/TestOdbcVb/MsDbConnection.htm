@@ -1,0 +1,215 @@
+<html lang="en-ca">
+
+<!--/* Group=Papers*/ -->
+
+<head>
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0" />
+<meta name="ProgId" content="FrontPage.Editor.Document" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-ca" />
+<meta name="Workfile" content="$Workfile: TestComAtlVc6.htm$: documentation" />
+<meta name="Revision" content="$Revision: 1.1 $" />
+<meta name="robots" content="index" />
+<meta name="keywords" content="database, ODBC, ADO, connectivity" />
+<!-- Dublin Core Metadata Package -->
+<meta name="DC.title" content="Microsoft Database Connectivity" />
+<meta name="DC.creator" content="Darko Kolaković" />
+<meta name="DC.creator.vCard.EMAIL.internet" content="ddarko @ sourceforge.net" />
+<meta name="DC.Contributor" content="$Author: ddarko $" />
+<meta name="DC.Rights" content="© CommonSoft Inc" />
+<meta name="DC.subject" content="ATL COM" />
+<meta name="DC.description.abstract" content="Microsoft Database Connectivity" />
+<meta name="DC.publisher" content="CommonSoft Incorporated" />
+<meta name="DC.date" content="$Date: 2008/05/27 21:15:10 $" />
+<meta name="DC.type" content="Text.Article" />
+<meta name="DC.format" content="application/html" />
+<meta name="DC.language" content="en_ca" />
+<meta name="DC.identifier.Revision" content="$Revision: 1.1 $ $CVSfile: $" />
+<meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+<link rel="stylesheet" type="text/css" href="../../../../Doc/Res/KDocument.css">
+<link rel="stylesheet" type="text/css" href="../../../../Doc/Res/KTables.css">
+<link rel="icon" href="../../../../Doc/Res/KBook.ico" type="image/ico" />
+<title>Microsoft Database Connectivity</title>
+<base target="_self" />
+<style type="text/css">
+    dt
+      {
+      font-weight: bold;
+      }
+    table
+      {
+      border-collapse: collapse;
+      }
+    body
+      {
+      background-image: url('../../../../Doc/Res/KBckgGray.jpg');
+      }
+  </style>
+</head>
+
+<body>
+
+<h1>Microsoft Database Connectivity</h1>
+<h2>Database Connection Strings</h2>
+<p>ODBC<a href="#Footnote1"><sup class="Footnote">1</sup></a> driver connection 
+string format:</p>
+<p><code>&quot;Keyword1=<i>value1</i>;Keyword2=<i>value2; ... </i>KeywordN=<i>valueN</i>&quot;</code></p>
+<p>Example:<br />
+<code>&quot;Driver={<i>Driver_Name</i>};Server=<i>Server_Name</i>;Database=<i>Database_Name</i>;Uid=<i>Username</i>;Pwd=<i>Password</i>;&quot;
+</code></p>
+<p>The following table lists common connection string keywords that are 
+recognized by an ODBC driver:</p>
+<table summary="Microsoft ODBC string keywords" id="ID_TABLE1" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="60%">
+  <caption><a name="Table1">Table 1</a>: Microsoft ODBC Driver Keywords
+  </caption>
+  <tr>
+    <th width="12%" bgcolor="#FF9933">Keyword</th>
+    <th width="43%" bgcolor="#FF9933">Description</th>
+  </tr>
+  <tr>
+    <td width="12%">DSN<a href="#Footnote5"><sup class="Footnote">5</sup></a></td>
+    <td width="43%">name of the ODBC data source pointing to required connection 
+    information</td>
+  </tr>
+  <tr>
+    <td width="12%">Driver</td>
+    <td width="43%">name of the ODBC driver that you want to use, to be used 
+    only if DSN is not specified </td>
+  </tr>
+  <tr>
+    <td width="12%">Database</td>
+    <td width="43%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="12%">UserID or UID</td>
+    <td width="43%">specifies the user identity</td>
+  </tr>
+  <tr>
+    <td width="12%">Password or Pwd</td>
+    <td width="43%">specifies user&#39;s password</td>
+  </tr>
+</table>
+<p><br />
+</p>
+<table summary="ODBC driver name" id="ID_TABLE2" border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%">
+  <caption><a name="Table2">Table 2</a>: ODBC Driver Names </caption>
+  <tr>
+    <th width="33%" bgcolor="#FF3300">Database Source</th>
+    <th width="33%" bgcolor="#FF9933">ODBC Driver Name</th>
+    <th width="34%" bgcolor="#FF9933">Custom Parameters</th>
+  </tr>
+  <tr>
+    <td width="33%">IBM DB2 Universal Database (UDB) for iSeries database v5</td>
+    <td width="33%">&quot;iSeries Access ODBC Driver&quot;</td>
+    <td width="34%">See also:&nbsp;
+    <a href="http://publib.boulder.ibm.com/infocenter/iseries/v5r4/topic/rzaik/connectkeywords.htm">
+    Connection string keywords</a>
+    <img border="0" src="../../../../Doc/Symbol/extern.gif" width="14" height="22"> 
+    [IBM i5/OS Information Center]</td>
+  </tr>
+  <tr>
+    <td width="33%">&nbsp;</td>
+    <td width="33%">&nbsp;</td>
+    <td width="34%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="33%">&nbsp;</td>
+    <td width="33%">&nbsp;</td>
+    <td width="34%">&nbsp;</td>
+  </tr>
+</table>
+<p>An ODBC driver also could recognize a number of custom keywords.</p>
+<hr />
+<p><a name="Footnote1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a> 
+Microsoft ActiveX Data Objects (ADO) is a set of COM
+<a href="../../../Cpp/Win/Samples/TestComAtlNet/TestComAtlVc7.htm#Footnote2">
+<sup class="Footnote">[2]</sup></a> objects that provides an interface to OLE DB 
+provider, enabling database client applications to access and manage data from a 
+range of sources.</p>
+<table summary="Microsoft database interfaces" id="ID_TABLE3" border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="35%">
+  <caption><a name="Table3">Table 3</a>: Microsoft database interfaces </caption>
+  <tr>
+    <th width="100%" colspan="5" bgcolor="#0099CC" align="center" title="Application">
+    Database Client</th>
+  </tr>
+  <tr>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+  </tr>
+  <tr>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="40%" colspan="2" bgcolor="#66CCFF" align="center" title="ActiveX Data Objects">
+    ADO</td>
+    <td width="20%" align="center">↓</td>
+  </tr>
+  <tr>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+  </tr>
+  <tr>
+    <td width="20%" align="center">↓</td>
+    <td width="80%" colspan="4" bgcolor="#CC66FF" align="center" title="Object 
+Linking and Embedding Database">OLE DB</td>
+  </tr>
+  <tr>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+  </tr>
+  <tr>
+    <td width="60%" colspan="3" bgcolor="#FF9933" align="center" title="Open 
+Database Connectivity">ODBC driver</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+  </tr>
+  <tr>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+    <td width="20%" align="center">↓</td>
+  </tr>
+  <tr>
+    <td width="100%" colspan="5" bgcolor="#FF3300" align="center" title="Database">
+    Data Source</td>
+  </tr>
+</table>
+<p><a name="Footnote2" class="Footnote" id="ID_FOOTNOTE2"><sup>2</sup></a> 
+Microsoft Open Database Connectivity (ODBC) is a programming interface between 
+client application and database driver. Database driver is used to access and 
+query specified databases.<br />
+<a name="Footnote3" class="Footnote" id="ID_FOOTNOTE3"><sup>3</sup></a> 
+Microsoft Object Linking and Embedding Database (OLE DB) is a set of COM
+<sup class="Footnote">
+<a href="../../../Cpp/Win/Samples/TestComAtlNet/TestComAtlVc7.htm#Footnote2">[2]</a></sup><font color="#000099"><sup class="Footnote">
+</sup></font>interfaces allowing access to different types of data sources like 
+databases, spreadsheets or plain text files.<br />
+<a name="Footnote4" class="Footnote" id="ID_FOOTNOTE4"><sup>4</sup></a> 
+Microsoft Data Access Objects (DAO) is a COM programming interface for accessing 
+Jet databases (DAO/Jet) or any other database using ODBC (DAO/ODBC) through 
+Remote Data Objects (RDO).<br />
+<a name="Footnote5" class="Footnote" id="ID_FOOTNOTE5"><sup>5</sup></a> Data 
+Source Name (DSN) is a shortcut name for an ODBC driver, providing all necessary 
+database connection information like database name, directory, database driver, 
+user ID, password, etc.</p>
+
+</body>
+<!-- ===========================================================================
+  $Log: MsDbConnection.htm,v $
+  Revision 1.1  2008/05/27 21:15:10  ddarko
+  Created
+
+-->
+
+</html>
