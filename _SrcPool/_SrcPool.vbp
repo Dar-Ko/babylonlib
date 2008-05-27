@@ -30,6 +30,7 @@ Module=KXmlExt; VB\KXmlExt.bas
 Module=KWinTypes; VB\KWinTypes.bas
 Module=KWinChar; VB\KWinChar.bas
 Form=VB\frmDbConnection.frm
+RelatedDoc=_SrcPool.txt
 IconForm="frmSrcPool"
 Startup="frmSrcPool"
 HelpFile=""
