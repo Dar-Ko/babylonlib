@@ -1,4 +1,5 @@
-<html lang="en-ca">
+<!doctype html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en-ca">
 
 <!--/* Group=Papers*/ -->
 
@@ -7,8 +8,8 @@
 <meta name="ProgId" content="FrontPage.Editor.Document" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
-<meta name="Workfile" content="$Workfile: TestComAtlVc6.htm$: documentation" />
-<meta name="Revision" content="$Revision: 1.1 $" />
+<meta name="Workfile" content="$Workfile: MsDbConnection.htm$: documentation" />
+<meta name="Revision" content="$Revision: 1.2 $" />
 <meta name="robots" content="index" />
 <meta name="keywords" content="database, ODBC, ADO, connectivity" />
 <!-- Dublin Core Metadata Package -->
@@ -20,16 +21,16 @@
 <meta name="DC.subject" content="ATL COM" />
 <meta name="DC.description.abstract" content="Microsoft Database Connectivity" />
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
-<meta name="DC.date" content="$Date: 2008/05/27 21:15:10 $" />
+<meta name="DC.date" content="$Date: 2008/05/27 21:49:40 $" />
 <meta name="DC.type" content="Text.Article" />
 <meta name="DC.format" content="application/html" />
 <meta name="DC.language" content="en_ca" />
-<meta name="DC.identifier.Revision" content="$Revision: 1.1 $ $CVSfile: $" />
+<meta name="DC.identifier.Revision" content="$Revision: 1.2 $" />
 <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
 <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
-<link rel="stylesheet" type="text/css" href="../../../../Doc/Res/KDocument.css">
-<link rel="stylesheet" type="text/css" href="../../../../Doc/Res/KTables.css">
+<link rel="stylesheet" type="text/css" href="../../../../Doc/Res/KDocument.css" />
+<link rel="stylesheet" type="text/css" href="../../../../Doc/Res/KTables.css" />
 <link rel="icon" href="../../../../Doc/Res/KBook.ico" type="image/ico" />
 <title>Microsoft Database Connectivity</title>
 <base target="_self" />
@@ -79,10 +80,6 @@ recognized by an ODBC driver:</p>
     only if DSN is not specified </td>
   </tr>
   <tr>
-    <td width="12%">Database</td>
-    <td width="43%">&nbsp;</td>
-  </tr>
-  <tr>
     <td width="12%">UserID or UID</td>
     <td width="43%">specifies the user identity</td>
   </tr>
@@ -91,36 +88,112 @@ recognized by an ODBC driver:</p>
     <td width="43%">specifies user&#39;s password</td>
   </tr>
 </table>
-<p><br />
+<p>An ODBC driver also could recognize a number of custom keywords.<br />
 </p>
 <table summary="ODBC driver name" id="ID_TABLE2" border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="100%">
   <caption><a name="Table2">Table 2</a>: ODBC Driver Names </caption>
   <tr>
     <th width="33%" bgcolor="#FF3300">Database Source</th>
     <th width="33%" bgcolor="#FF9933">ODBC Driver Name</th>
-    <th width="34%" bgcolor="#FF9933">Custom Parameters</th>
+    <th width="34%" bgcolor="#FF9933" colspan="2">Custom Parameters</th>
+  </tr>
+  <tr>
+    <td width="33%" rowspan="5">Microsoft SQL Server</td>
+    <td width="33%" rowspan="5"><span class="main">&quot;{SQLServer}&quot;</span></td>
+    <td width="6%"><span class="main">Server</span></td>
+    <td width="28%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="6%"><span class="main">Database</span></td>
+    <td width="28%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="6%"><span class="main">Trusted_Connection</span></td>
+    <td width="28%"><span class="main">&quot;yes&quot;/&quot;no&quot;</span></td>
+  </tr>
+  <tr>
+    <td width="6%">&nbsp;</td>
+    <td width="28%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="6%">&nbsp;</td>
+    <td width="28%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="33%" rowspan="5">Microsoft Access</td>
+    <td width="33%" rowspan="5">&quot;<span class="main">{MicrosoftAccessDriver(*.mdb)}&quot;</span></td>
+    <td width="11%"><span class="main">DBQ</span></td>
+    <td width="23%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="11%"><span class="main">SystemDB</span></td>
+    <td width="23%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="11%"><span class="main">Exclusive</span></td>
+    <td width="23%"><span class="main">1/0</span></td>
+  </tr>
+  <tr>
+    <td width="11%">&nbsp;</td>
+    <td width="23%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="11%">&nbsp;</td>
+    <td width="23%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="33%">Oracle</td>
+    <td width="33%">&quot;<span class="main">{Microsoft ODBCforOracle}&quot;</span></td>
+    <td width="12%"><span class="main">Server</span></td>
+    <td width="22%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="33%" rowspan="4">MySQL</td>
+    <td width="33%" rowspan="4">&quot;<span class="main">{MySQL ODBC 3.51Driver}&quot;</span></td>
+    <td width="12%"><span class="main">Provider</span></td>
+    <td width="22%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="12%"><span class="main">Server</span></td>
+    <td width="22%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="12%"><span class="main">Database</span></td>
+    <td width="22%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="12%"><span class="main">OPTION</span></td>
+    <td width="22%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="33%">&nbsp;</td>
+    <td width="33%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+    <td width="22%">&nbsp;</td>
   </tr>
   <tr>
     <td width="33%">IBM DB2 Universal Database (UDB) for iSeries database v5</td>
     <td width="33%">&quot;iSeries Access ODBC Driver&quot;</td>
-    <td width="34%">See also:&nbsp;
+    <td width="34%" colspan="2">See also:&nbsp;
     <a href="http://publib.boulder.ibm.com/infocenter/iseries/v5r4/topic/rzaik/connectkeywords.htm">
     Connection string keywords</a>
-    <img border="0" src="../../../../Doc/Symbol/extern.gif" width="14" height="22"> 
+    <img border="0" src="../../../../Doc/Symbol/extern.gif" alt="Extern link" width="14" height="22" /> 
     [IBM i5/OS Information Center]</td>
   </tr>
   <tr>
     <td width="33%">&nbsp;</td>
     <td width="33%">&nbsp;</td>
-    <td width="34%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+    <td width="22%">&nbsp;</td>
   </tr>
   <tr>
     <td width="33%">&nbsp;</td>
     <td width="33%">&nbsp;</td>
-    <td width="34%">&nbsp;</td>
+    <td width="12%">&nbsp;</td>
+    <td width="22%">&nbsp;</td>
   </tr>
 </table>
-<p>An ODBC driver also could recognize a number of custom keywords.</p>
+<p>&nbsp;</p>
 <hr />
 <p><a name="Footnote1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a> 
 Microsoft ActiveX Data Objects (ADO) is a set of COM
@@ -157,7 +230,7 @@ range of sources.</p>
   </tr>
   <tr>
     <td width="20%" align="center">↓</td>
-    <td width="80%" colspan="4" bgcolor="#CC66FF" align="center" title="Object 
+    <td width="80%" colspan="4" bgcolor="#CC66FF" align="center" title="Object
 Linking and Embedding Database">OLE DB</td>
   </tr>
   <tr>
@@ -168,7 +241,7 @@ Linking and Embedding Database">OLE DB</td>
     <td width="20%" align="center">↓</td>
   </tr>
   <tr>
-    <td width="60%" colspan="3" bgcolor="#FF9933" align="center" title="Open 
+    <td width="60%" colspan="3" bgcolor="#FF9933" align="center" title="Open
 Database Connectivity">ODBC driver</td>
     <td width="20%" align="center">↓</td>
     <td width="20%" align="center">↓</td>
@@ -207,6 +280,9 @@ user ID, password, etc.</p>
 </body>
 <!-- ===========================================================================
   $Log: MsDbConnection.htm,v $
+  Revision 1.2  2008/05/27 21:49:40  ddarko
+  Driver names
+
   Revision 1.1  2008/05/27 21:15:10  ddarko
   Created
 
