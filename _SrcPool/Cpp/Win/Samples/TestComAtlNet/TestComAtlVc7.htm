@@ -1,4 +1,6 @@
-<html lang="en-ca">
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en-ca">
 
 <!--/* Group=Papers*/ -->
 
@@ -52,11 +54,12 @@
 
 <h1>Creating an ATL COM project with Visual Studio .Net 2003 v7.1</h1>
 <p>See also: <a href="../TestComAtl/TestComAtlVc6.htm">Creating an </a>
-<a href="#Footnote1"><sup class="Footnote">1</sup></a>
-<a href="../TestComAtl/TestComAtlVc6.htm">COM</a><a href="#Footnote2">
+<a href="#ID_FOOTNOTE1"><sup class="Footnote">1</sup></a>
+<a href="../TestComAtl/TestComAtlVc6.htm">COM</a><a href="#ID_FOOTNOTE2">
 <sup class="Footnote">2</sup></a><a href="../TestComAtl/TestComAtlVc6.htm">
 project with Visual C++ 6.0</a>
-<img border="0" src="../../../../../Doc/Symbol/extern.gif" width="14" height="22" /></p>
+<img border="0" src="../../../../../Doc/Symbol/extern.gif" alt="Extern link"
+width="14" height="22" /></p>
 <ol>
   <li>Select new Visual C++ ATL project and choose &quot;ATL Project&quot; template:<br />
   <img border="0" src="Res/ComAtlVc71.gif" width="530" height="144" /></li>
@@ -133,7 +136,7 @@ project with Visual C++ 6.0</a>
       <a href="Res/ComAtlXVc7L.gif">example</a> of container using ActiveX
       controls to enhance HTML documents.<p>
       <img border="0" src="Res/ComAtlVc75b.gif" align="left" width="60" height="47">This
-      wizard inserts into an ATL project (or an MFC<a href="#Footnote3"><sup class="Footnote">3</sup></a>
+      wizard inserts into an ATL project (or an MFC<a href="#ID_FOOTNOTE3"><sup class="Footnote">3</sup></a>
       project with ATL support) an <i>ATL ActiveX Control</i>. You can use this
       wizard to insert one of three types of controls: </p>
       <ul type="disc">
@@ -169,10 +172,12 @@ project with Visual C++ 6.0</a>
     <li><tt>HRESULT QueryInterface(REFIID id, void **ipv)</tt> </li>
   </ul>
   <p>
-  <img border="0" src="../../../../../Doc/Images/diagIConnectionPoint.gif" align="right" width="360" height="140" />However,
+  <img border="0" src="../../../../../Doc/Images/diagIConnectionPoint.gif"
+  align="right" width="360" height="140" />However,
   scripting engines like JavaScript
   <a href="../TestComContainer/Src/TestComContainer.htm" title="Test embedded ActiveX objects">
-  <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8"></a>
+  <img border="0" src="../../../../../Doc/Symbol/externS.gif" alt="Extern link"
+  width="8" height="8"></a>
   could not access exported methods through the <i>vtable</i> and <i>IDispatch<b>
   </b></i>interface is required. The new interface will be added if <i>Dual </i>
   Interface is selected in the wizard form.<br />
@@ -182,7 +187,7 @@ project with Visual C++ 6.0</a>
   <a name="IProvideClassInfo2" href="../TestComContainer/scripting_events.htm#IProvideClassInfo2">
   IProvideClassInfo2</a></b> interface, because Internet Explorer relies on
   those interfaces to obtain type library. <a href="#ATLControlTemplate">ATL
-  Control</a>, Visual Basic and MFC<a href="#Footnote3"><sup class="Footnote">3</sup></a>
+  Control</a>, Visual Basic and MFC<a href="#ID_FOOTNOTE3"><sup class="Footnote">3</sup></a>
   wizards will add the interfaces by default, but for <i>ATL Simple Object</i><sup><a class="Ref" href="#200839">[Q200839]</a></sup>
   add following code to the object:<br />
   </p>
@@ -427,14 +432,14 @@ C:\&gt;</font></pre>
     </li>
     </ol>
     <hr />
-    <p><a name="Footnote1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a>Active
+    <p><a name="ID_FOOTNOTE1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a>Active
     Template Library (ATL) is Microsoft C++ library usually used to create
     ActiveX and other software components based on Component Object Model.<br />
-    <a name="Footnote2" class="Footnote" id="ID_FOOTNOTE2"><sup>2</sup></a>Component
+    <a name="ID_FOOTNOTE2" class="Footnote" id="ID_FOOTNOTE2"><sup>2</sup></a>Component
     Object Model (COM) defines how an object exposes its functionality, allowing
     to be accessed from other processes and across networks. A COM Object must
     support the <b>IUnknown</b> interface.<br />
-    <a name="Footnote3" class="Footnote" id="ID_FOOTNOTE3"><sup>3</sup></a><font size="-1">Microsoft
+    <a name="ID_FOOTNOTE3" class="Footnote" id="ID_FOOTNOTE3"><sup>3</sup></a><font size="-1">Microsoft
     Foundation Class Library (MFC)</font>. </p>
     <p><a name="200839" class="Ref">Q200839</a> Article ID:200839
     <a href="http://support.microsoft.com/kb/200839">How To Enable ActiveX
