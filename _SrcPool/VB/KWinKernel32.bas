@@ -26,6 +26,27 @@ Public Type GUID
   Data4(7) As Byte
 End Type
 
+'-------------------------------------------------------------------------------
+'
+'Example:
+'   Dim msData as MEMORYSTATUS
+'   Dim strPageFile as String
+'   msData.dwLength = 32
+'   Call GlobalMemoryStatus(msData)
+'   strPageFile = "Page File Size: " & _
+'       Format(msData.dwTotalPageFile, "###,###,###") & vbCRLf & _
+'       "Available: " & Format(msData.dwAvailPageFile, "###,###,###") & vbCRLf & _
+'       "Total Available Virtual:" & Format(msData.dwAvailVirtual, "###,###,###,###,###")
+Type MEMORYSTATUS
+  dwLength        As Long
+  dwMemoryLoad    As Long
+  dwTotalPhys     As Long
+  dwAvailPhys     As Long
+  dwTotalPageFile As Long
+  dwAvailPageFile As Long
+  dwTotalVirtual  As Long
+  dwAvailVirtual  As Long
+End Type
 
 Public Const EVENT_ALL_ACCESS = (STANDARD_RIGHTS_REQUIRED Or SYNCHRONIZE Or &H3&)
 Public Const EVENT_MODIFY_STATE = &H2&
@@ -135,6 +156,7 @@ Public Declare Sub CopyMemory Lib "kernel32" Alias "RtlMoveMemory" (Destination 
 Public Declare Sub CopyPv Lib "kernel32" Alias "RtlMoveMemory" (ByVal pvDst As Long, ByVal pvSource As Long, ByVal cb As Long)
 Public Declare Sub CopySzFromPv Lib "kernel32" Alias "RtlMoveMemory" (ByVal szDst As String, ByVal pvSource As Long, ByVal cb As Long)
 Public Declare Sub FillMemory Lib "kernel32" Alias "RtlFillMemory" (dest As Any, ByVal cb As Long, ByVal bFill As Long)
+Public Declare Sub GlobalMemoryStatus Lib "kernel32" (lpBuffer As MEMORYSTATUS)
 Public Declare Sub GetSystemTime Lib "kernel32" (ByRef lpSystemTime As SYSTEMTIME)
 Public Declare Sub GetSystemTimeAsFileTime Lib "kernel32" (lpFileTime As FILETIME)
 Public Declare Sub OutputDebugString Lib "kernel32" Alias "OutputDebugStringA" (ByVal lpOutputString As String)
