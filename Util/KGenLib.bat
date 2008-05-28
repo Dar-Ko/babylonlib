@@ -56,10 +56,10 @@ goto END
 :END
 SET KESC=
 
-REM ---------------------------------------------------------------------------
+REM ----------------------------------------------------------------------------
 REM $Log: KGenLib.bat,v $
 REM Revision 1.2  2007/07/27 19:49:44  dkolakovic
-REM Creating Import Library fro a .DLL
+REM Creating Import Library from a .DLL
 REM
 
 REM Microsoft Library Manager Version 6.00.8447
