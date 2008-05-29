@@ -10,7 +10,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="en-ca" />
 <meta name="Workfile" content="$Workfile: MsDbConnection.htm$: documentation" />
-<meta name="Revision" content="$Revision: 1.4 $" />
+<meta name="Revision" content="$Revision: 1.5 $" />
 <meta name="robots" content="index" />
 <meta name="keywords" content="database, ODBC, ADO, connectivity" />
 <!-- Dublin Core Metadata Package -->
@@ -24,11 +24,11 @@ content="ddarko @ sourceforge.net" />
 <meta name="DC.description.abstract"
 content="Microsoft Database Connectivity" />
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
-<meta name="DC.date" content="$Date: 2008/05/28 21:24:26 $" />
+<meta name="DC.date" content="$Date: 2008/05/29 21:50:36 $" />
 <meta name="DC.type" content="Text.Article" />
 <meta name="DC.format" content="application/html" />
 <meta name="DC.language" content="en_ca" />
-<meta name="DC.identifier.Revision" content="$Revision: 1.4 $" />
+<meta name="DC.identifier.Revision" content="$Revision: 1.5 $" />
 <meta name="DC.relation.HasVersion"
 content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
@@ -59,12 +59,11 @@ href="../../../../Doc/Res/KDocument.css" />
 
 <h1>Microsoft Database Connectivity</h1>
 <h2>Database Connection Strings</h2>
-<p>ODBC<a href="#ID_FOOTNOTE1"><sup class="Footnote">1</sup></a> driver connection
+<p>ODBC<sup class="Footnote"><a href="#ID_FOOTNOTE2">2</a></sup> driver connection
 string format:</p>
 <p><code>&quot;Keyword1=<i>value1</i>;Keyword2=<i>value2; ... </i>KeywordN=<i>valueN</i>&quot;</code></p>
 <p>Example:<br />
-<code>&quot;Driver={<i>Driver_Name</i>};Server=<i>Server_Name</i>;Database=<i>Database_Name</i>;Uid=<i>Username</i>;Pwd=<i>Password</i>;&quot;
-</code></p>
+<code>&quot;Driver=<i>DriverName</i>;Server=<i>DbServer</i>;Database=<i>DbName</i>; Uid=<i>AuthorizationName</i>;Pwd=<i>AuthenticationString</i>;&quot;</code></p>
 <p>The following table lists common connection string keywords that are
 recognized by an ODBC driver:</p>
 <table summary="Microsoft ODBC string keywords" id="ID_TABLE1" border="0"
@@ -77,7 +76,7 @@ cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="60%">
   </tr>
   <tr>
     <td width="12%">DSN<a href="#ID_FOOTNOTE5"><sup class="Footnote">5</sup></a></td>
-    <td width="43%">name of the ODBC data source pointing to required connection
+    <td width="43%">ODBC data source name is an alias name of the database pointing to required connection
     information</td>
   </tr>
   <tr>
@@ -87,126 +86,318 @@ cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="60%">
   </tr>
   <tr>
     <td width="12%">UserID or UID</td>
-    <td width="43%">specifies the user identity</td>
+    <td width="43%">authorization name (user identifier) specifies the user identity</td>
   </tr>
   <tr>
     <td width="12%">Password or Pwd</td>
-    <td width="43%">specifies user&#39;s password</td>
+    <td width="43%">authentication string specifies user&#39;s password</td>
   </tr>
 </table>
 <p>An ODBC driver also could recognize a number of custom keywords.<br />
 </p>
-<table summary="ODBC driver name" id="ID_TABLE2" border="1" cellpadding="0"
+<!-- ODBC connection string examples -->
+<table summary="ODBC driver name" id="ID_TABLE1_1" border="1" cellpadding="0"
 cellspacing="0" style="border-collapse: collapse" width="100%">
-  <caption><a name="Table2">Table 2</a>: ODBC Driver Names </caption>
+  <caption><a name="Table1_1">Table 1.1</a>: ODBC Driver Names</caption>
   <tr>
-    <th width="33%" bgcolor="#FF3300">Database Source</th>
-    <th width="33%" bgcolor="#FF9933">ODBC Driver Name</th>
-    <th width="34%" bgcolor="#FF9933" colspan="2">Custom Parameters</th>
+    <th width="23%" bgcolor="#FF3300">Database Source</th>
+    <th width="22%" bgcolor="#FF9933">ODBC Driver Name</th>
+    <th width="55%" bgcolor="#FF9933" colspan="2">Custom Parameters</th>
   </tr>
   <tr>
-    <td width="33%" rowspan="5">Microsoft SQL Server</td>
-    <td width="33%" rowspan="4"><span class="main">&quot;{SQLServer}&quot;</span></td>
-    <td width="6%"><span class="main">Server</span></td>
-    <td width="28%">&nbsp;</td>
+    <td width="23%" rowspan="5">Microsoft SQL Server</td>
+    <td width="22%" rowspan="4">{SQLServer}</td>
+    <td width="9%">Server</td>
+    <td width="46%">database server name</td>
   </tr>
   <tr>
-    <td width="6%"><span class="main">Database</span></td>
-    <td width="28%">&nbsp;</td>
+    <td width="9%">Database</td>
+    <td width="46%">database name</td>
   </tr>
   <tr>
-    <td width="6%"><span class="main">Trusted_Connection</span></td>
-    <td width="28%"><span class="main">&quot;yes&quot;/&quot;no&quot;</span></td>
+    <td width="9%">Trusted_Connection</td>
+    <td width="46%">yes/no</td>
   </tr>
   <tr>
-    <td width="6%">&nbsp;</td>
-    <td width="28%">&nbsp;</td>
+    <td width="9%">&nbsp;</td>
+    <td width="46%">&nbsp;</td>
   </tr>
   <tr>
-    <td width="67%" colspan="3">
+    <td width="77%" colspan="3">
       <dl>
         <dt>Example</dt>
-        <dd><code>ODBC</code><br /></dd>
+        <dd><code>&quot;Driver={SQLServer};Server=<i>DbServer</i>;Database=<i>DbName</i>; Trusted_Connection=yes;&quot;</code></dd>
+        <dd><code>&quot;Driver={SQLServer};Server=<i>DbServer</i>;Database=<i>DbName</i>; Uid=<i>AuthorizationName</i>;Pwd=<i>AuthenticationString</i>;&quot;</code>
+        </dd>
       </dl>
     </td>
     </tr>
     <tr>
-      <td width="33%" rowspan="5">Microsoft Access</td>
-      <td width="33%" rowspan="4">&quot;<span class="main">{MicrosoftAccessDriver(*.mdb)}&quot;</span></td>
-      <td width="11%"><span class="main">DBQ</span></td>
-      <td width="23%">&nbsp;</td>
+      <td width="23%" rowspan="5">Microsoft Access</td>
+      <td width="22%" rowspan="4">{MicrosoftAccessDriver(*.mdb)}</td>
+      <td width="14%">DBQ</td>
+      <td width="41%">database name</td>
     </tr>
     <tr>
-      <td width="11%"><span class="main">SystemDB</span></td>
-      <td width="23%">&nbsp;</td>
+      <td width="14%">SystemDB</td>
+      <td width="41%">system (workgroup) database</td>
     </tr>
     <tr>
-      <td width="11%"><span class="main">Exclusive</span></td>
-      <td width="23%"><span class="main">1/0</span></td>
+      <td width="14%">Exclusive</td>
+      <td width="41%">1/0</td>
     </tr>
     <tr>
-      <td width="11%">&nbsp;</td>
-      <td width="23%">&nbsp;</td>
+      <td width="14%">&nbsp;</td>
+      <td width="41%">&nbsp;</td>
     </tr>
     <tr>
-      <td width="67%" colspan="3">&nbsp;</td>
+      <td width="77%" colspan="3">
+      <dl>
+        <dt>Example</dt>
+        <dd><code>&quot;Driver={MicrosoftAccessDriver(*.mdb)};DBQ=<i>FilePath\DbName.mdb</i>; Uid=<i>AuthorizationName</i>;Pwd=<i>AuthenticationString</i>;&quot;</code></dd>
+        <dd><code>&quot;Driver={Microsoft Access Driver (*.mdb)};Dbq=<i>FilePath\DbName.mdb</i>; SystemDB=<i>FilePath\WorkgroupName.mdw</i>;&quot;</code></dd>
+        <dd><code>&quot;Driver={Microsoft Access Driver (*.mdb)};<i>DBQ=FilePath\DbName.mdb</i>;Exclusive=1; Uid=<i>AuthorizationName</i>;Pwd=<i>AuthenticationString</i>;&quot;</code></dd>
+      </dl>
+      </td>
     </tr>
     <tr>
-      <td width="33%">Oracle</td>
-      <td width="33%">&quot;<span class="main">{Microsoft ODBCforOracle}&quot;</span></td>
-      <td width="12%"><span class="main">Server</span></td>
-      <td width="22%">&nbsp;</td>
+      <td width="23%" rowspan="2">Oracle</td>
+      <td width="22%">{Microsoft ODBCforOracle}</td>
+      <td width="15%">Server</td>
+      <td width="40%">database server name</td>
     </tr>
     <tr>
-      <td width="33%" rowspan="5">MySQL</td>
-      <td width="33%" rowspan="4">&quot;<span class="main">{MySQL ODBC 3.51Driver}&quot;</span></td>
-      <td width="12%"><span class="main">Provider</span></td>
-      <td width="22%">&nbsp;</td>
-    </tr>
+      <td width="77%" colspan="3">
+      <dl>
+        <dt>Example</dt>
+        <dd><code>&quot;Driver={Microsoft ODBCforOracle};Server=<i>DbServer</i>; Uid=<i>AuthorizationName</i>;Pwd=<i>AuthenticationString</i>;&quot;</code></dd>
+      </dl>
+      </td>
+      </tr>
     <tr>
-      <td width="12%"><span class="main">Server</span></td>
-      <td width="22%">&nbsp;</td>
-    </tr>
-    <tr>
-      <td width="12%"><span class="main">Database</span></td>
-      <td width="22%">&nbsp;</td>
-    </tr>
-    <tr>
-      <td width="12%"><span class="main">OPTION</span></td>
-      <td width="22%">&nbsp;</td>
-    </tr>
-    <tr>
-      <td width="67%" colspan="3">&nbsp;</td>
-    </tr>
-    <tr>
-      <td width="33%" rowspan="2">IBM DB2 Universal Database (UDB) for iSeries
+      <td width="23%" rowspan="3">IBM DB2 Universal Database (UDB) for iSeries
       database v5</td>
-      <td width="33%">&quot;iSeries Access ODBC Driver&quot;</td>
-      <td width="34%" colspan="2">See also:&nbsp;
+      <td width="22%">iSeries Access ODBC Driver</td>
+      <td width="15%">SYSTEM</td>
+      <td width="40%">database server name or network address</td>
+    </tr>
+    <tr>
+      <td width="22%">&nbsp;</td>
+      <td width="55%" colspan="2">See also:&nbsp;
       <a href="http://publib.boulder.ibm.com/infocenter/iseries/v5r4/topic/rzaik/connectkeywords.htm">
       Connection string keywords</a> <img border="0"
       src="../../../../Doc/Symbol/extern.gif" alt="Extern link" width="14"
       height="22" /> [IBM i5/OS Information Center]</td>
     </tr>
     <tr>
-      <td width="33%">&nbsp;</td>
-      <td width="34%" colspan="2">&nbsp;</td>
+      <td width="77%" colspan="3">
+      <dl>
+        <dt>Example</dt>
+        <dd><code>&quot;DSN=<i>DbAlias</i>; Uid=AuthorizationName;Pwd=AuthenticationString;&quot;</code></dd>
+        <dd><code>&quot;DRIVER=iSeries Access ODBC Driver;SYSTEM=<i>DbServer</i>; UserID=<i>AuthorizationName</i>;Pwd=<i>AuthenticationString</i>;&quot;</code></dd>
+      </dl>
+      </td>
     </tr>
     <tr>
-      <td width="33%">&nbsp;</td>
-      <td width="33%">&nbsp;</td>
-      <td width="12%">&nbsp;</td>
-      <td width="22%">&nbsp;</td>
+      <td width="23%" rowspan="4">MySQL</td>
+      <td width="22%" rowspan="3">{MySQL ODBC 3.51Driver}</td>
+      <td width="15%">Server</td>
+      <td width="40%">database server name or network address</td>
     </tr>
     <tr>
-      <td width="33%">&nbsp;</td>
-      <td width="33%">&nbsp;</td>
-      <td width="12%">&nbsp;</td>
+      <td width="15%">Database</td>
+      <td width="40%">database name</td>
+    </tr>
+  <tr>
+      <td width="15%">OPTION</td>
+      <td width="40%">&nbsp;</td>
+    </tr>
+  <tr>
+      <td width="77%" colspan="3">
+      <dl>
+        <dt>Example</dt>
+        <dd><code>&quot;DRIVER={MySQL ODBC 3.51Driver};SERVER=<i>DbServer</i>;DATABASE=<i>DbName</i>;OPTION=3; UID=<i>AuthorizationName</i>;PASSWORD=<i>AuthenticationString</i>;&quot;</code></dd>
+      </dl>
+      </td>
+      </tr>
+    <tr>
+      <td width="23%">&nbsp;</td>
       <td width="22%">&nbsp;</td>
+      <td width="15%">&nbsp;</td>
+      <td width="40%">&nbsp;</td>
+    </tr>
+  </table>
+<p>OLE DB<sup class="Footnote"><a href="#ID_FOOTNOTE3">3</a></sup> provider connection
+string format:</p>
+<p><code>&quot;Keyword1=<i>value1</i>;Keyword2=<i>value2; ... </i>KeywordN=<i>valueN</i>&quot;</code></p>
+<p>Example:<br />
+<code>&quot;Provider=<i>ProviderName</i>;Driver=<i>DriverName</i>;Server=<i>DbServer</i>;Database=<i>DbName</i>; Uid=<i>AuthorizationName</i>;Pwd=<i>AuthenticationString</i>;&quot;
+</code></p>
+<p>The following table lists common connection string keywords that are
+recognized by an ODBC driver:</p>
+<table summary="Microsoft ODBC string keywords" id="ID_TABLE4" border="0"
+cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="60%">
+  <caption><a name="Table2">Table 2</a>: Microsoft OLE DB Provider Keywords
+  </caption>
+  <tr>
+    <th width="12%" bgcolor="#CC66FF">Keyword</th>
+    <th width="43%" bgcolor="#CC66FF">Description</th>
+  </tr>
+  <tr>
+    <td width="12%">Provider</td>
+    <td width="43%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="12%"><span class="main">Data Source</span></td>
+    <td width="43%">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="12%">UserID or UID</td>
+    <td width="43%">authorization name (user identifier) specifies the user identity</td>
+  </tr>
+  <tr>
+    <td width="12%">Password or Pwd</td>
+    <td width="43%">authentication string specifies user&#39;s password</td>
+  </tr>
+  </table>
+  <p>&nbsp;</p>
+    
+<!-- OLE DB connection string examples -->
+<table summary="OLE DB provider name" id="ID_TABLE2_1" border="1" cellpadding="0"
+cellspacing="0" style="border-collapse: collapse" width="100%" height="1">
+  <caption><a name="Table2_1">Table 2.1</a>: OLE DB Provider Names</caption>
+  <tr>
+    <th width="23%" bgcolor="#FF3300" height="16">Database Source</th>
+    <th width="22%" bgcolor="#CC66FF" height="16">OLE DB provider</th>
+    <th width="55%" bgcolor="#CC66FF" colspan="2" height="16">Custom Parameters</th>
+  </tr>
+  <tr>
+    <td width="23%" rowspan="3" height="34">Microsoft SQL Server</td>
+    <td width="22%" rowspan="2" height="17"><span class="main">SQLOLEDB</span></td>
+    <td width="9%" height="16"><span class="main">Initial Catalog</span></td>
+    <td width="46%" height="16">database name</td>
+  </tr>
+  <tr>
+    <td width="9%" height="1">Integrated Security</td>
+    <td width="46%" height="1"></td>
+  </tr>
+  <tr>
+    <td width="77%" colspan="3" height="16">
+      <dl>
+        <dt>Example</dt>
+        <dd><code>&quot;Provider=SQLOLEDB;Data Source=<i>DbServer</i>;Initial 
+        Catalog=<i>DbName</i>; Integrated Security=SSPI;&quot;</code></dd>
+        <dd><code>&quot;Provider=SQLOLEDB;Data Source=<i>DbServer</i>;Initial Catalog=<i>DbName</i>; 
+        UserId=<i>AuthorizationName</i>;Password=<i>AuthenticationString</i>;&quot;</code></dd>
+      </dl>
+      </td>
+  </tr>
+      <tr>
+    <td width="23%" rowspan="5" height="68">Microsoft Access</td>
+    <td width="22%" rowspan="2" height="64">Microsoft.Jet.OLEDB.4.0</td>
+    <td width="9%" height="16">Jet OLEDB:System Database</td>
+    <td width="46%" height="16">system (workgroup) database</td>
+  </tr>
+  <tr>
+    <td width="9%" height="16">Jet OLEDB:Database Password</td>
+    <td width="46%" height="16">authentication string specifies user&#39;s password 
+    for a protected database</td>
+  </tr>
+  <tr>
+    <td width="22%" rowspan="2" height="32">MS Remote</td>
+    <td width="9%" height="6">Remote Provider</td>
+    <td width="46%" height="6">OLE DB provider name</td>
+  </tr>
+  <tr>
+    <td width="9%" height="7">Remote Server</td>
+    <td width="46%" height="7">database server name or network address</td>
+  </tr>
+  <tr>
+    <td width="77%" colspan="3" height="16">
+      <dl>
+        <dt>Example</dt>
+        <dd><code>&quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=<i>FilePath\DbName</i>.mdb; 
+        UserId==<i>AuthorizationName</i>;Password=<i>AuthenticationString</i>;&quot;</code></dd>
+        <dd><code>&quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=<i>FilePath\DbName</i>.mdb; 
+        Jet OLEDB:System Database=<i>FilePath\WorkgroupName</i>.mdw;&quot;</code></dd>
+        <dd><code>&quot;Provider=Microsoft.Jet.OLEDB.4.0; Data Source=<i>FilePath\DbName</i>.mdb; 
+        Jet OLEDB:Database Password=<i>AuthenticationString</i>&quot;</code></dd>
+        <dd><code>&quot;Provider=MS Remote;Data Source=<i>FilePath\RemoteDbName.mdb</i>; 
+        Remote Provider=Microsoft.Jet.OLEDB.4.0;Remote Server=<i>http://DbServerIp</i>;&quot;</code></dd>
+      </dl>
+      </td>
+  </tr>
+  <tr>
+    <td width="23%" rowspan="4" height="68">Oracle</td>
+    <td width="22%" rowspan="2" height="32">OraOLEDB</td>
+    <td width="9%" height="16">OSAuthent</td>
+    <td width="46%" height="16"></td>
+  </tr>
+  <tr>
+    <td width="9%" height="16"></td>
+    <td width="46%" height="16"></td>
+  </tr>
+  <tr>
+    <td width="22%" height="15"><span class="main">MSDAORA</span></td>
+    <td width="9%" height="17"></td>
+    <td width="46%" height="17"></td>
+  </tr>
+  <tr>
+    <td width="77%" colspan="3" height="16">
+      <dl>
+        <dt>Example</dt>
+        <dd><code>&quot;Provider=OraOLEDB.Oracle;Data Source=<i>DbName</i>; UserId=<i>AuthorizationName</i>;Password=<i>AuthenticationString</i>;&quot;</code></dd>
+        <dd><code>&quot;Provider=OraOLEDB.Oracle;DataSource=<i>DbName</i>;OSAuthent=1;&quot;</code></dd>
+        <dd><code>&quot;Provider=MSDAORA;Data Source=<i>DbName</i>; UserId=<i>AuthorizationName</i>;Password=<i>AuthenticationString</i>;&quot;</code></dd>
+      </dl>
+      </td>
+  </tr>
+  <tr>
+    <td width="23%" rowspan="2" height="30">MySQL</td>
+    <td width="22%" height="13">MySQLProv</td>
+    <td width="9%" height="1"></td>
+    <td width="46%" height="1"></td>
+  </tr>
+  <tr>
+    <td width="77%" colspan="3" height="16">
+      <dl>
+        <dt>Example</dt>
+        <dd><code>&quot;Provider=MySQLProv;Data Source=<i>DbName</i>; UserId=<i>AuthorizationName</i>;Password=<i>AuthenticationString</i>;&quot;</code></dd>
+      </dl>
+      </td>
+  </tr>
+      <tr>
+      <td width="23%" height="16"></td>
+      <td width="22%" height="16"></td>
+      <td width="15%" height="16"></td>
+      <td width="40%" height="16"></td>
+    </tr>
+      <tr>
+    <td width="23%" rowspan="2" height="34" bgcolor="#FF9933">ODBC driver</td>
+    <td width="22%" height="17"><span class="main">MSDASQL</span></td>
+    <td width="55%" height="15" colspan="2">To access a data source through an 
+    ODBC driver, an application needs to specify the MSDASQL provider.</td>
+  </tr>
+  <tr>
+    <td width="77%" colspan="3" height="16">
+      <dl>
+        <dt>Example</dt>
+        <dd><code>&quot;Provider=MSDASQL;Driver={MySQL ODBC 3.51Driver};Server=<i>DbServer</i>;Database=<i>DbName</i>; 
+        Uid=<i>AuthorizationName</i>;Pwd=<i>AuthenticationString</i>;&quot;</code></dd>
+      </dl>
+      </td>
+  </tr>
+      <tr>
+      <td width="23%" height="16"></td>
+      <td width="22%" height="16"></td>
+      <td width="15%" height="16"></td>
+      <td width="40%" height="16"></td>
     </tr>
   </table>
   <p>&nbsp;</p>
-  <hr /><p><a name="ID_FOOTNOTE1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a>
+  
+  <hr />
+  <p><a name="ID_FOOTNOTE1" class="Footnote" id="ID_FOOTNOTE1"><sup>1</sup></a>
   Microsoft ActiveX Data Objects (ADO) is a set of COM
   <a href="../../../Cpp/Win/Samples/TestComAtlNet/TestComAtlVc7.htm#ID_FOOTNOTE2">
   <sup class="Footnote">2[&#x2191;]</sup></a> objects that provides an interface to OLE
@@ -244,7 +435,7 @@ cellspacing="0" style="border-collapse: collapse" width="100%">
     <tr>
       <td width="20%" align="center">&#x2193;</td>
       <td width="80%" colspan="4" bgcolor="#CC66FF" align="center" title="Object
-Linking and Embedding Database">OLE DB</td>
+Linking and Embedding Database">OLE DB provider</td>
     </tr>
     <tr>
       <td width="20%" align="center">&#x2193;</td>
@@ -287,13 +478,16 @@ Database Connectivity">ODBC driver</td>
   accessing Jet databases (DAO/Jet) or any other database using ODBC (DAO/ODBC)
   through Remote Data Objects (RDO).<br />
   <a name="ID_FOOTNOTE5" class="Footnote" id="ID_FOOTNOTE5"><sup>5</sup></a> Data
-  Source Name (DSN) is a shortcut name for an ODBC driver, providing all
+  Source Name (DSN) is an alias name for an ODBC driver, providing all
   necessary database connection information like database name, directory,
   database driver, user ID, password, etc.</p>
 
   </body>
   <!-- ===========================================================================
   $Log: MsDbConnection.htm,v $
+  Revision 1.5  2008/05/29 21:50:36  ddarko
+  Updated OLE DB information
+
   Revision 1.4  2008/05/28 21:24:26  ddarko
   Update
 
