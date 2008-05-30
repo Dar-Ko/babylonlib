@@ -18,7 +18,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD
 <meta name="DC.creator" content="Darko Kolaković" />
 <meta name="DC.creator.vCard.EMAIL.internet" content="DarkoKolakovic @ yahoo" />
 <meta name="DC.Contributor" content="$Author: Darko Kolakovic$" />
-<meta name="DC.Rights" content="© CommonSoft Inc" />
+<meta name="DC.Rights" content="&copy; CommonSoft Inc" />
 <meta name="DC.subject" content="ATL COM" />
 <meta name="DC.description.abstract" content="COM project setup" />
 <meta name="DC.publisher" content="CommonSoft Incorporated" />
@@ -62,31 +62,31 @@ project with Visual C++ 6.0</a>
 width="14" height="22" /></p>
 <ol>
   <li>Select new Visual C++ ATL project and choose &quot;ATL Project&quot; template:<br />
-  <img border="0" src="Res/ComAtlVc71.gif" width="530" height="144" /></li>
+  <img border="0" src="Res/ComAtlVc71.gif" alt="gif" width="530" height="144" /></li>
   <li>Type desired project name</li>
   <li>Specify applications settings. If Attributed is checked, the compiler will
   parse and validate attributes found in a source file. A Service has benefits
   of running non-interactively immediately after system starts.<br />
-&nbsp;<table border="0" cellpadding="0" cellspacing="15" style="border-collapse: collapse" bordercolor="#111111">
+&nbsp;<table border="0" cellpadding="0" cellspacing="15" style="border-collapse: collapse">
     <tr>
-      <td><img border="0" src="Res/ComAtlVc72.gif" width="223" height="232" /></td>
+      <td><img border="0" src="Res/ComAtlVc72.gif" alt="gif" width="223" height="232" /></td>
       <td style="font-size: 80%">
-      <img border="0" src="Res/ComAtlVc72b.gif" align="left" width="189" height="215">Purpose
+      <img border="0" src="Res/ComAtlVc72b.gif" alt="gif" align="left" width="189" height="215" />Purpose
       of attributes is to simplify the authoring of COM components by replacing
       the large amount of IDL code required by a COM component with a few
       concise attributes. There are attributes that aid in the creation of .idl
       files, interfaces, type libraries, and other COM elements. In the
       integrated development environment (IDE), attributes are supported by the
       wizards and by the Properties window.<p class="Note">Attribute generated
-      code is known to be buggy and&nbsp;&nbsp;&nbsp; <br>
-      since it&#39;s automatically generated the bugs are very hard to fix. </td>
+      code is known to be buggy and
+      since it&#39;s automatically generated the bugs are very hard to fix.</p></td>
     </tr>
     <tr>
       <td class="Caption">.exe COM as a Windows service</td>
       <td class="Caption">.dll COM</td>
     </tr>
   </table>
-  <p>Be aware that:
+  Be aware that:
   <ul>
     <li>.exe COM server will run only as a <i>local</i> or <i>remote</i> <i>
     out-of-process</i> server and an additional <i>Proxy/Stub DLL</i> is
@@ -97,7 +97,7 @@ width="14" height="22" /></p>
   </li>
   <li>After finishing with the wizard, the result will be displayed in the
   Solution Explorer:<br />
-  <img border="0" src="Res/ComAtlVc73.gif" width="257" height="447" /></li>
+  <img border="0" src="Res/ComAtlVc73.gif" alt="gif" width="257" height="447" /></li>
   <li>Provide the appropriate security settings for your service by replacing
   default code in <code>YourAtlModule::InitializeSecurity()</code> with the
   following:<pre><code>HRESULT InitializeSecurity() <span class="SKeyword">throw()</span>
@@ -120,22 +120,22 @@ width="14" height="22" /></p>
 
  <span class="Skeyword">return</span> hResult;
 }</code></pre>
-  <p><br />
+  <br />
   </li>
   <li>To add new ATL object in Class View, after right mouse click, select &quot;Add
   Class&quot;<br />
-  <img border="0" src="Res/ComAtlVc74.gif" width="288" height="161" /></li>
+  <img border="0" src="Res/ComAtlVc74.gif" alt="gif" width="288" height="161" /></li>
   <li>Choose <i>ATL Simple Object</i> from Visual C++ ATL categories:<br />
-&nbsp;<table border="0" cellpadding="0" cellspacing="10" style="border-collapse: collapse" bordercolor="#111111">
+&nbsp;<table border="0" cellpadding="0" cellspacing="10" style="border-collapse: collapse">
     <tr>
-      <td><img border="0" src="Res/ComAtlVc75.gif" width="240" height="208" /></td>
+      <td><img border="0" src="Res/ComAtlVc75.gif" alt="gif" width="240" height="208" /></td>
       <td valign="top" style="font-size: 80%">If it is required to use COM
       object within an <u>OLE Container</u>, select <a name="ATLControlTemplate">
       <i>ATL Control</i> template</a> to add an ATL <i>ActiveX Control </i>
       (formerly known as custom or OLE controls). Microsoft FrontPage is an
       <a href="Res/ComAtlXVc7L.gif">example</a> of container using ActiveX
       controls to enhance HTML documents.<p>
-      <img border="0" src="Res/ComAtlVc75b.gif" align="left" width="60" height="47">This
+      <img border="0" src="Res/ComAtlVc75b.gif" alt="gif" align="left" width="60" height="47" />This
       wizard inserts into an ATL project (or an MFC<a href="#ID_FOOTNOTE3"><sup class="Footnote">3</sup></a>
       project with ATL support) an <i>ATL ActiveX Control</i>. You can use this
       wizard to insert one of three types of controls: </p>
@@ -148,20 +148,20 @@ width="14" height="22" /></p>
       interfaces from the Interfaces list, which are provided as defaults for
       controls to open in most containers. You can set the interfaces you want
       supported for the control in the <b>Interfaces</b> page of the wizard.</p>
-      <p>&nbsp;</td>
+      </td>
     </tr>
   </table>
   </li>
   <li>Insert the name for the object<br />
-  <img border="0" src="Res/ComAtlVc76.gif" width="615" height="437" /><br />
+  <img border="0" src="Res/ComAtlVc76.gif" alt="gif" width="615" height="437" /><br />
   If <i>Attributed</i> is selected, the .idl file will be automatically created
   by the compiler, based on
   <a href="http://msdn2.microsoft.com/en-us/library/aa367042.aspx" title="IDL Atributes">
   attribute blocks</a> inserted by this wizard.<br />
   </li>
   <li>Also set desired options in the same wizard dialog:<br />
-  <img border="0" src="Res/ComAtlVc79.gif" width="506" height="339" /><br />
-  <img border="0" src="Res/ComAtlVc75c.gif" align="left" width="55" height="61">If
+  <img border="0" src="Res/ComAtlVc79.gif" alt="gif" width="506" height="339" /><br />
+  <img border="0" src="Res/ComAtlVc75c.gif" alt="gif" align="left" width="55" height="61" />If
   this COM object is not going to be aggregated inside another, select <i>No</i>
   for Aggregation. For the simplest interface option is <i>Custom</i>. This will
   add smallest common denominator for COM objects: <i>IUknown</i> interface and
@@ -172,14 +172,14 @@ width="14" height="22" /></p>
     <li><tt>HRESULT QueryInterface(REFIID id, void **ipv)</tt> </li>
   </ul>
   <p>
-  <img border="0" src="../../../../../Doc/Images/diagIConnectionPoint.gif"
+  <img border="0" src="../../../../../Doc/Images/diagIConnectionPoint.gif" alt="gif"
   align="right" width="360" height="140" />However,
   scripting engines like JavaScript
   <a href="../TestComContainer/Src/TestComContainer.htm" title="Test embedded ActiveX objects">
   <img border="0" src="../../../../../Doc/Symbol/externS.gif" alt="Extern link"
-  width="8" height="8"></a>
-  could not access exported methods through the <i>vtable</i> and <i>IDispatch<b>
-  </b></i>interface is required. The new interface will be added if <i>Dual </i>
+  width="8" height="8" /></a>
+  could not access exported methods through the <i>vtable</i> and <i>IDispatch</i>
+  interface is required. The new interface will be added if <i>Dual </i>
   Interface is selected in the wizard form.<br />
   With <i>Connection points</i> support the COM server will fire events back to
   the client, with help of another interface - <i>IConnectionPointContainer</i>.
@@ -188,7 +188,8 @@ width="14" height="22" /></p>
   IProvideClassInfo2</a></b> interface, because Internet Explorer relies on
   those interfaces to obtain type library. <a href="#ATLControlTemplate">ATL
   Control</a>, Visual Basic and MFC<a href="#ID_FOOTNOTE3"><sup class="Footnote">3</sup></a>
-  wizards will add the interfaces by default, but for <i>ATL Simple Object</i><sup><a class="Ref" href="#200839">[Q200839]</a></sup>
+  wizards will add the interfaces by default, but for <i>ATL Simple Object</i><sup>
+  <a class="Ref" href="#Q200839">[Q200839]</a></sup>
   add following code to the object:<br />
   </p>
   <pre><code> public IProvideClassInfo2Impl&lt;&amp;CLSID_TestAtlObj, NULL,
@@ -200,25 +201,26 @@ width="14" height="22" /></p>
    COM_INTERFACE_ENTRY(IProvideClassInfo2)
    ...
    }</code></pre>
-  <table border="0" cellpadding="0" cellspacing="5" style="border-collapse: collapse; font-size: 90%" bordercolor="#111111">
+  <table border="0" cellpadding="0" cellspacing="5" style="border-collapse: collapse; font-size: 90%">
     <tr>
       <td width="50%">
-      <img border="0" src="Res/ComAtlVc75b.gif" align="left" width="60" height="47"><b><a href="#ATLControlTemplate">ATL
+      <img border="0" src="Res/ComAtlVc75b.gif" alt="gif" align="left" width="60" height="47" />
+      <b><a href="#ATLControlTemplate">ATL
       Control Wizard</a></b>, in other hand, will add a user interface object
       that supports interfaces required for all potential containers.</td>
       <td width="50%">
-      <img border="0" src="Res/ComAtlVc79b.gif" width="313" height="177"></td>
+      <img border="0" src="Res/ComAtlVc79b.gif" alt="gif" width="313" height="177" /></td>
     </tr>
     <tr>
       <td width="50%">
-      <img border="0" src="Res/ComAtlVc79c.gif" width="310" height="154"></td>
+      <img border="0" src="Res/ComAtlVc79c.gif" alt="gif" width="310" height="154" /></td>
       <td width="50%">
-      <img border="0" src="Res/ComAtlVc79d.gif" width="256" height="153"></td>
+      <img border="0" src="Res/ComAtlVc79d.gif" alt="gif" width="256" height="153" /></td>
     </tr>
   </table>
   <p>After finishing with options, the result will be presented in the Solution
   Explorer:<br />
-  <img border="0" src="Res/ComAtlVc78.gif" width="228" height="380" /><br />
+  <img border="0" src="Res/ComAtlVc78.gif" alt="gif" width="228" height="380" /><br />
   The IDL file will contain following snippet:</p>
   <pre><code>  [
     uuid(8CFF83A5-6A5F-4AE7-BDB5-45E8532AC543),
@@ -257,27 +259,27 @@ coclass <b>CTestAtlObj</b> {
 };</code></pre>
   </li>
   <li>Add new method to the newly created object<br />
-  <img border="0" src="Res/ComAtlVc7A.gif" width="343" height="116" /><br />
+  <img border="0" src="Res/ComAtlVc7A.gif" alt="gif" width="343" height="116" /><br />
   and define parameters and result type<br />
-  <img border="0" src="Res/ComAtlVc7B.gif" width="615" height="437" /></li>
+  <img border="0" src="Res/ComAtlVc7B.gif" alt="gif" width="615" height="437" /></li>
   <li>Change default implementation of the newly added method:<br />
-  <img border="0" src="Res/ComAtlVc7C.gif" width="274" height="140" /><br />
+  <img border="0" src="Res/ComAtlVc7C.gif" alt="gif" width="274" height="140" /><br />
   <code><br />
   STDMETHODIMP CTestAtlObj::TestMethod(long lInput, long* pResult)<br />
   {<br />
   *pResult = 2 + lInput;<br />
   return S_OK;<br />
-  }<br>
+  }<br />
   </code><span class="bodycopy">It is possible to pass data structures, arrays
   or any other complex datatypes, but in that case the custom <i>marshaler</i>
   is required. It is simpler to use build-in <i>OLE marshaler</i> with choice
   limited to <code>VARIANT</code> structure allowing an element <code>SAFEARRAY</code>.</span></li>
   <li>To create a method that returns a value to JavaScript or VBScript, make
   the return value be the last parameter to the method and declare it as <b>
-  [out, retval]</b>.<br>
-  <img border="0" src="Res/ComAtlVc7Ba.gif" width="425" height="141" /><br>
+  [out, retval]</b>.<br />
+  <img border="0" src="Res/ComAtlVc7Ba.gif" alt="gif" width="425" height="141" /><br />
   <span class="Note">JavaScript does not support parameters declared [out], [in,
-  out] or <code>ByRef</code> parameters of any type.<br>
+  out] or <code>ByRef</code> parameters of any type.<br />
   </span>Output parameters that are not marked [retval], particularly <code>
   VARIANTs</code>, have to be freed with <code>VariantClear()</code>.&nbsp;VBScript
   does not free memory before calling methods.</li>
@@ -286,7 +288,7 @@ coclass <b>CTestAtlObj</b> {
   <code>regsvr32 /u ComName</code>. For COM exe use <code>ComName /UnregServer</code>.
   Also, to obtain more insight into build process, replace the command-line of
   Post-Build Event
-  <img border="0" src="Res/ComAtlVc7H.gif" width="644" height="440" /><br />
+  <img border="0" src="Res/ComAtlVc7H.gif" alt="gif" width="644" height="440" /><br />
   with following script:
   <pre><b>@echo off
 &quot;$(TargetPath)&quot; /RegServer
@@ -303,33 +305,33 @@ goto VCReportError
   have to be defined.
   <ol>
     <li>Add new method to the event source interface<br />
-    <img border="0" src="Res/ComAtlVc7D.gif" width="328" height="453" /></li>
+    <img border="0" src="Res/ComAtlVc7D.gif" alt="gif" width="328" height="453" /></li>
     <li>Also, add parameters to the method. Use COM-compatible string type for
     the text handling.<br />
-    <img border="0" src="Res/ComAtlVc7F.gif" width="420" height="213" /><br />
+    <img border="0" src="Res/ComAtlVc7F.gif" alt="gif" width="420" height="213" /><br />
     In the Solution Explorer find the <i>.idl</i> file
     <a href="Src/TestComAtlNet.idl">
-    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a>
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" alt="Extern link" width="8" height="8" /></a>
     and compile it. The MIDL complier will generate some files required for the
     final build.</li>
     <li>Add the new connection point to the main class, by inserting it from the
     interface<br />
-    <img border="0" src="Res/ComAtlVc7G.gif" width="316" height="206" /><br />
+    <img border="0" src="Res/ComAtlVc7G.gif" alt="gif" width="316" height="206" /><br />
     Use the <i>Implement Connection Point Wizard</i> to select the interface for
     the new connection point <a href="Src/DITestAtl7WebEvents_CP.cpp">
-    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a><br />
-    <img border="0" src="Res/ComAtlVc7E.gif" width="406" height="387" /></li>
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" alt="Extern link" width="8" height="8" /></a><br />
+    <img border="0" src="Res/ComAtlVc7E.gif" alt="gif" width="406" height="387" /></li>
     </ol>
     </li>
     <li>Build Proxy/Stub DLL and register it. With the <i>OLE/COM Object Viewer</i>
     tool all registered automation components could be browsed:<br />
-    <img border="0" src="Res/ComAtlVc7J.gif" width="801" height="430" /></li>
+    <img border="0" src="Res/ComAtlVc7J.gif" alt="gif" width="801" height="430" /></li>
     <li>To test the the COM object, create new &quot;Win32 Console Application&quot;
     project for example.<br />
-    <img border="0" src="Res/ComAtlVc7I.gif" width="531" height="157" /></li>
+    <img border="0" src="Res/ComAtlVc7I.gif" alt="gif" width="531" height="157" /></li>
     <li>Insert following code in the file
     <a href="../TestComContainer/Src/main.cpp">
-    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a>
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" alt="Extern link" width="8" height="8" /></a>
     created by the project wizard:
     <pre><code>#include &quot;STL/KOStream.h&quot; //_tcout
 //Files generated by MIDL compiler
@@ -402,31 +404,32 @@ return nRetCode;
 }</code></pre>
     </li>
     <li>Compile and run the test application. Expected output is:<br />
-    <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" bordercolor="#111111" width="31%">
+    <table border="1" cellpadding="0" cellspacing="0" style="border-collapse: collapse" width="31%">
       <tr>
-        <td width="100%" bgcolor="#000000"><font color="#FFFFFF"></font>
-        <pre><font color="#FFFFFF">C:\&gt;TestComContainer.exe
-Creating COM object...
-2 + 7 = 9
-C:\&gt;</font></pre>
-        <font color="#FFFFFF"></font></td>
+        <td width="100%" bgcolor="#000000">
+        <p>
+        <code><font color="#FFFFFF">C:\&gt;TestComContainer.exe<br />
+         Creating COM object...<br />
+         2 + 7 = 9<br />
+         C:\&gt;<br /></font></code>
+        </p></td>
       </tr>
     </table>
     </li>
     <li>Testing event sink
     <a href="../TestComContainer/Src/TestComWebEventHandlerRt.h">
-    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a>
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" alt="Extern link" width="8" height="8" /></a>
     in the single-threaded apartment model requires a message loop
     <a href="../TestComContainer/Src/TestComEvent.cpp">
-    <img border="0" src="../../../../../Doc/Symbol/externS.gif" width="8" height="8" /></a>
+    <img border="0" src="../../../../../Doc/Symbol/externS.gif" alt="Extern link" width="8" height="8" /></a>
     with help of <code>MsgWaitForMultipleObjects</code> synchronization
     mechanism.</li>
     <li>In order to debug the COM Server, the process have to be attached to the
     debugger. Select <i>Debug | Processes...</i> menu item and select the
     process in question.<br />
-    <img border="0" src="Res/ComAtlVc7K.gif" width="540" height="244" /><br />
+    <img border="0" src="Res/ComAtlVc7K.gif" alt="gif" width="540" height="244" /><br />
     The program type is, of course, <i>Native</i>:<br />
-    <img border="0" src="Res/ComAtlVc7L.gif" width="305" height="148" /><br />
+    <img border="0" src="Res/ComAtlVc7L.gif" alt="gif" width="305" height="148" /><br />
     If the code has hardcoded breakpoints (for example <code>ATLASSERT(false)</code>),
     the debugger will interrupt the execution.<br />
     </li>
@@ -441,9 +444,9 @@ C:\&gt;</font></pre>
     support the <b>IUnknown</b> interface.<br />
     <a name="ID_FOOTNOTE3" class="Footnote" id="ID_FOOTNOTE3"><sup>3</sup></a><font size="-1">Microsoft
     Foundation Class Library (MFC)</font>. </p>
-    <p><a name="200839" class="Ref">Q200839</a> Article ID:200839
+    <p><a name="Q200839" id="Q200839" class="Ref">Q200839</a> Article ID:200839
     <a href="http://support.microsoft.com/kb/200839">How To Enable ActiveX
-    Control Event Handling on a Web Page</a><a></a></p>
+    Control Event Handling on a Web Page</a></p>
 
     </body>
 
