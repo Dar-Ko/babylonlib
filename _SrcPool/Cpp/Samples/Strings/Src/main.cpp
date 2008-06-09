@@ -44,7 +44,7 @@ if(argc >= 2) //Get file name from command line
   TsSetTesFile(argv[1]);
   }
 
-if(argc >= 3) //Get file name from command line
+if(argc >= 3) //Get number of lines from command line
   g_iNoofLines = _ttoi(argv[2]);
 
 TsWriteToViewLn(_T("Start String Tests"));
