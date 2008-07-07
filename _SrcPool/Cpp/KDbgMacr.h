@@ -562,48 +562,7 @@
     #endif
   #endif
 
-  #ifdef _ATL
-    #pragma message ("Included Active Template Library atldef.h (ATL).")
-  #endif
-  #ifdef _ATL_VER
-    #ifdef __cplusplus
-      #pragma message ("Included Active Template Library (ATL).")
-    #else
-      #pragma message (__FILE__ " : warning: Specified use of ATL in a C code.")
-    #endif
-
-     /*Current version of Active Template Library (ATL).
-      */
-    const int g__ATL_VER = _ATL_VER;
-    #if _ATL_VER < 0x0100
-      #pragma message ("  ver. unknown")
-    #endif
-    #if _ATL_VER == 0x0100 /*Active Template Library version 1.0*/
-      #pragma message ("  ver. 1.00")
-    #endif
-    #if _ATL_VER == 0x0200 /*Active Template Library version 2.0*/
-      #pragma message ("  ver. 2.00")
-    #endif
-    #if _ATL_VER == 0x0300 /*Active Template Library version 3.0*/
-      #pragma message ("  ver. 3.00")
-    #endif
-    #if _ATL_VER == 0x0700
-      #pragma message ("  ver. 7.00")
-    #endif
-    #if _ATL_VER == 0x0710
-      #pragma message ("  ver. 7.10")
-    #endif
-    #if _ATL_VER > 0x0710
-      #pragma message ("  ver. unknown")
-    #endif
-  #endif
-
-  #ifdef _ATL_DLL
-    #pragma message ("Dynamic Link to ATL.")
-  #endif
-  #ifdef _ATL_STATIC_REGISTRY
-    #pragma message ("Static Link to ATL.")
-  #endif
+  #include "KDbgMacrAtl.h" /*List Active Template Library macros*/
 
   #ifdef _MSC_EXTENSIONS
     #pragma message ("Enabled compiler extensions.")
