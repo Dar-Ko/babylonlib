@@ -2,21 +2,76 @@
   $Revision: 1$ $Date: 2007-03-06 14:36:11$
   $Author: Darko Kolakovic$
 
-  Dumps values of some compiler-specific predefined macros
+  Dumps values of some Microsoft specific predefined macros
   Copyright: CommonSoft Inc.
   Darko Kolakovic April 1988
 */
 /* Group=Diagnostic                                                          */
 
-#ifndef _KDBGMACR_H_
+#ifndef _KDBGMACRATL_H_
     /*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgMacrAtl.h$ sentry */
-  #define _KDBGMACR_H_
+  #define _KDBGMACRATL_H_
 
-#if _MSC_VER > 1000
-  #pragma once
-#endif // _MSC_VER > 1000
+#ifdef _MSC_VER /*Microsoft Visual C/C++ Compiler pragmas                     */
 
-#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
-  #pragma message ("   #include " __FILE__ )
-#endif
+  #if _MSC_VER > 1000
+    #pragma once
+  #endif // _MSC_VER > 1000
+
+  #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+    #pragma message ("   #include " __FILE__ )
+  #endif
+
+
+  /*List Microsoft  Active Template Library macros*/
+  #ifdef _ATL
+    #pragma message ("Included Active Template Library atldef.h (ATL).")
+  #endif
+  #ifdef _ATL_VER
+    #ifdef __cplusplus
+      #pragma message ("Included Active Template Library (ATL).")
+    #else
+      #pragma message (__FILE__ " : warning: Specified use of ATL in a C code.")
+    #endif
+
+     /*Current version of Active Template Library (ATL).
+      */
+    const int g__ATL_VER = _ATL_VER;
+    #if _ATL_VER < 0x0100
+      #pragma message ("  ver. unknown")
+    #endif
+    #if _ATL_VER == 0x0100 /*Active Template Library version 1.0*/
+      #pragma message ("  ver. 1.00")
+    #endif
+    #if _ATL_VER == 0x0200 /*Active Template Library version 2.0*/
+      #pragma message ("  ver. 2.00")
+    #endif
+    #if _ATL_VER == 0x0300 /*Active Template Library version 3.0*/
+      #pragma message ("  ver. 3.00")
+    #endif
+    #if _ATL_VER == 0x0700
+      #pragma message ("  ver. 7.00")
+    #endif
+    #if _ATL_VER == 0x0710
+      #pragma message ("  ver. 7.10")
+    #endif
+    #if _ATL_VER > 0x0710
+      #pragma message ("  ver. unknown")
+    #endif
+  #endif
+
+  #ifdef _ATL_DLL
+    #pragma message ("Dynamic Link to ATL.")
+  #endif
+  #ifdef _ATL_STATIC_REGISTRY
+    #pragma message ("Static Link to ATL.")
+  #endif
+
+#endif /*_MSC_VER */
+
+/* ///////////////////////////////////////////////////////////////////////// */
+#endif /*_KDBGMACRATL_H_                                                        */
+/*****************************************************************************
+ * $Log: * $
+ *****************************************************************************/
 
