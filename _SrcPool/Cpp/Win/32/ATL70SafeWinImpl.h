@@ -1,5 +1,5 @@
 /*$RCSfile: ATL70SafeWinImpl.h,v $: header file
-  $Revision: 1.1 $ $Date: 2008/07/07 21:37:41 $
+  $Revision: 1.2 $ $Date: 2008/07/09 14:19:56 $
   $Author: ddarko $
 
   Fix: ATL's CWindowImpl crashes when OnFinalMessage contains code to destroy
@@ -19,10 +19,13 @@
 
 
 /////////////////////////////////////////////////////////////////////////////
-// CWindowImpl fix
-/*Defines a class to be used in place of CWindowImpl.
-  It adds 4 bytes overhead to the window class instance data, otherwise it's
-  completely equivalent to CWindowImpl.
+/*This class allows you to create a new window or to make an existing windows
+  into a subclass.The window procedure uses a message map to direct messages
+  to the appropriate handlers.
+
+  FIX: The class is to be used in place of CWindowImpl.It adds 4 bytes overhead
+  to the window class instance data, otherwise it's completely equivalent to
+  ATL CWindowImpl.
   You can simply include this header it in stdsfx.h after atlwin.h and replace
   all instances of CWindowImpl with CWindowImplSafe.
   In ATL 3 fixes crashes when OnFinalMessage destroys the class instance.
@@ -65,6 +68,17 @@
   m_hWnd. This wouldn't be a big problem if all programmers always checked if
   the window is valid via IsWindow(). Unfortunately, it's a mass practice to
   write that test as m_hWnd == NULL.
+
+  Parameters:
+  T        Your class, derived from CWindowImplSafe.
+  Base     The base class of your new class. The default base class is CWindow.
+  Traits   A traits class that defines styles for your window. The default is
+           CControlWinTraits.
+
+  Note: Microsoft Windows specific (Win32)
+        and uses Active Template Library (ATL).
+
+  See also: CWindowImpl template, CWindow, CWindowImplBaseT methods
  */
 template<typename T, typename Base = CWindow, typename Traits = CControlWinTraits>
 class CWindowImplSafe :
@@ -77,10 +91,13 @@ public:
   }
 
 public:
+  /*Returns WindowProc, the current window procedure. Override this method to
+    replace the window procedure with your own.
+   */
   virtual WNDPROC GetWindowProc()
-  {
+    {
     return WindowProcSafe;
-  }
+    }
   static LRESULT CALLBACK WindowProcSafe(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 // Implementation helpers
@@ -89,39 +106,55 @@ protected:
 };
 
 #if (_ATL_VER >= 0x0700) /*Active Template Library version 7.0*/
+//------------------------------------------------------------------------------
+/*This static function implements the window procedure.
+  Method uses the default message map (declared with BEGIN_MSG_MAP) to direct
+  messages to the appropriate handlers. If necessary, method calls
+  DefWindowProc for additional message processing. If the final message is not
+  handled, procedure does the following:
+  - Performs unsubclassing if the window was unsubclassed.
+  - Clears m_hWnd.
+  - Calls OnFinalMessage before the window is destroyed.
+  You can override this method to provide a different mechanism for handling
+  messages.
 
+  Returns: result of the message processing.
+
+  See also: CWindowImpl::WindowProc()
+ */
 template <typename T, typename Base, typename Traits>
-LRESULT CALLBACK CWindowImplSafe<T, Base, Traits>::WindowProcSafe(HWND hWnd, //[in]
-                                                                  UINT uMsg,  //[in]
-                                                                  WPARAM wParam, //[in]
-                                                                  LPARAM lParam //[in]
+LRESULT CALLBACK CWindowImplSafe<T, Base, Traits>::WindowProcSafe(
+                             HWND hWnd,     //[in] handle to the window
+                             UINT uMsg,     //[in] message sent to the window
+                             WPARAM wParam, //[in] additional message-specific information
+                             LPARAM lParam  //[in] additional message-specific information
                                                                   )
 {
   CWindowImplSafe<T, Base, Traits>* pThis = (CWindowImplSafe<T, Base, Traits>*)hWnd;
-  // set a ptr to this message and save the old value
+  //Set a ptr to this message and save the old value
   _ATL_MSG msg(pThis->m_hWnd, uMsg, wParam, lParam);
   const _ATL_MSG* pOldMsg = pThis->m_pCurrentMsg;
   pThis->m_pCurrentMsg = &msg;
   // pass to the message map to process
   LRESULT lRes;
   BOOL bRet = pThis->ProcessWindowMessage(pThis->m_hWnd, uMsg, wParam, lParam, lRes, 0);
-  // restore saved value for the current message
+  //Restore saved value for the current message
   ATLASSERT(pThis->m_pCurrentMsg == &msg);
   pThis->m_pCurrentMsg = pOldMsg;
-  // do the default processing if message was not handled
+  //Do the default processing if message was not handled
   if(!bRet)
     {
     if(uMsg != WM_NCDESTROY)
       lRes = pThis->DefWindowProc(uMsg, wParam, lParam);
     else
       {
-      // unsubclass, if needed
+      //Unsubclass, if needed
       LONG_PTR pfnWndProc = ::GetWindowLongPtr(pThis->m_hWnd, GWLP_WNDPROC);
       lRes = pThis->DefWindowProc(uMsg, wParam, lParam);
       if(pThis->m_pfnSuperWindowProc != ::DefWindowProc &&
          ::GetWindowLongPtr(pThis->m_hWnd, GWLP_WNDPROC) == pfnWndProc)
         ::SetWindowLongPtr(pThis->m_hWnd, GWLP_WNDPROC, (LONG_PTR)pThis->m_pfnSuperWindowProc);
-      // mark window as destryed
+      //Mark window as destroyed
       pThis->m_dwState |= WINSTATE_DESTROYED;
       pThis->m_hwndSave = pThis->m_hWnd;
       pThis->m_hWnd     = NULL;
@@ -129,11 +162,11 @@ LRESULT CALLBACK CWindowImplSafe<T, Base, Traits>::WindowProcSafe(HWND hWnd, //[
     }
   if((pThis->m_dwState & WINSTATE_DESTROYED) && (pThis->m_pCurrentMsg == NULL))
     {
-    // clear out the saved handle
+    //Clear out the saved handle
     HWND hWnd = pThis->m_hwndSave;
     pThis->m_hwndSave = NULL;
     pThis->m_dwState &= ~WINSTATE_DESTROYED;
-    // clean up after window is destroyed
+    //Clean up after window is destroyed
     pThis->OnFinalMessage(hWnd);
     }
   return lRes;
@@ -141,48 +174,65 @@ LRESULT CALLBACK CWindowImplSafe<T, Base, Traits>::WindowProcSafe(HWND hWnd, //[
 
 #else /*Active Template Library version 3.0*/
 
+//------------------------------------------------------------------------------
+/*This static function implements the window procedure.
+  Method uses the default message map (declared with BEGIN_MSG_MAP) to direct
+  messages to the appropriate handlers. If necessary, method calls
+  DefWindowProc for additional message processing. If the final message is not
+  handled, procedure does the following:
+  - Performs unsubclassing if the window was unsubclassed.
+  - Clears m_hWnd.
+  - Calls OnFinalMessage before the window is destroyed.
+  You can override this method to provide a different mechanism for handling
+  messages.
+
+  Returns: result of the message processing.
+
+  See also: CWindowImpl::WindowProc()
+ */
 template <typename T, typename Base, typename Traits>
-LRESULT CALLBACK CWindowImplSafe<T, Base, Traits>::WindowProcSafe(HWND hWnd, //[in]
-                                                                  UINT uMsg, //[in]
-                                                                  WPARAM wParam, //[in]
-                                                                  LPARAM lParam //[in]
+LRESULT CALLBACK CWindowImplSafe<T, Base, Traits>::WindowProcSafe(
+                             HWND hWnd,     //[in] handle to the window
+                             UINT uMsg,     //[in] message sent to the window
+                             WPARAM wParam, //[in] additional message-specific information
+                             LPARAM lParam  //[in] additional message-specific information
                                                                   )
 {
 CWindowImplSafe<T, Base, Traits>* pThis = (CWindowImplSafe<T, Base, Traits>*)hWnd;
-// set a ptr to this message and save the old value
+//Set a ptr to this message and save the old value
 MSG msg = { pThis->m_hWnd, uMsg, wParam, lParam, 0, { 0, 0 } };
 const MSG* pOldMsg = pThis->m_pCurrentMsg;
 pThis->m_pCurrentMsg = &msg;
-// pass to the message map to process
+//Pass to the message map to process
 LRESULT lRes;
 BOOL bRet = pThis->ProcessWindowMessage(pThis->m_hWnd, uMsg, wParam, lParam, lRes, 0);
-// restore saved value for the current message
+//Restore saved value for the current message
 ATLASSERT(pThis->m_pCurrentMsg == &msg);
 pThis->m_pCurrentMsg = pOldMsg;
-// do the default processing if message was not handled
+//Do the default processing if message was not handled
 if(!bRet)
   {
   if(uMsg != WM_NCDESTROY)
     lRes = pThis->DefWindowProc(uMsg, wParam, lParam);
   else
     {
-    // unsubclass, if needed
+    //Unsubclass, if needed
     LONG pfnWndProc = ::GetWindowLong(pThis->m_hWnd, GWL_WNDPROC);
     lRes = pThis->DefWindowProc(uMsg, wParam, lParam);
     if(pThis->m_pfnSuperWindowProc != ::DefWindowProc &&
        ::GetWindowLong(pThis->m_hWnd, GWL_WNDPROC) == pfnWndProc)
       ::SetWindowLong(pThis->m_hWnd, GWL_WNDPROC, (LONG)pThis->m_pfnSuperWindowProc);
-    // clear out window handle
+    //Clear out window handle
     pThis->m_hwndSave = pThis->m_hWnd;
     pThis->m_hWnd     = NULL;
     }
   }
 if ((pThis->m_hwndSave != NULL) && (pThis->m_pCurrentMsg == NULL))
   {
-  // clear out the saved handle
+  //Clear out the saved handle
   HWND hWnd = pThis->m_hwndSave;
   pThis->m_hwndSave = NULL;
-  // clean up after window is destroyed
+  //Clean up after window is destroyed
   pThis->OnFinalMessage(hWnd);
   }
 return lRes;
@@ -194,6 +244,9 @@ return lRes;
 #endif /* !_KSAFEWINIMPL_H_ */
 /*****************************************************************************
  * $Log: ATL70SafeWinImpl.h,v $
+ * Revision 1.2  2008/07/09 14:19:56  ddarko
+ * Comments
+ *
  * Revision 1.1  2008/07/07 21:37:41  ddarko
  * Bug fix: ATL3.0 /ATL 7.0
  *
