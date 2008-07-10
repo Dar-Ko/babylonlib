@@ -25,7 +25,6 @@ EXTERN_C const IID IID_ITargetFrame;
 
 namespace ATL
 {
-
 #define CComConnectionPointContainerImpl IConnectionPointContainerImpl
 #define CComISupportErrorInfoImpl ISupportErrorInfoImpl
 #define CComProvideClassInfo2Impl IProvideClassInfoImpl
@@ -68,17 +67,36 @@ inline HRESULT WINAPI AtlReportError(const CLSID& clsid, LPCSTR lpszDesc,
         DWORD dwHelpID, LPCSTR lpszHelpFile, const IID& iid, HRESULT hRes)
 {
         ATLASSERT(lpszDesc != NULL);
-        USES_CONVERSION;
-        return AtlSetErrorInfo(clsid, A2COLE(lpszDesc), dwHelpID, A2CW(lpszHelpFile),
-                iid, hRes, NULL);
+        if (lpszDesc == NULL)
+                return E_POINTER;
+        USES_CONVERSION_EX;
+        LPCOLESTR pwszDesc = A2COLE_EX(lpszDesc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+        if(pwszDesc == NULL)
+                return E_OUTOFMEMORY;
+        
+        LPCWSTR pwzHelpFile = NULL;
+        if(lpszHelpFile != NULL)
+        {
+                pwzHelpFile = A2CW_EX(lpszHelpFile, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+                if(pwzHelpFile == NULL)
+                        return E_OUTOFMEMORY;
+        }
+                
+        return AtlSetErrorInfo(clsid, pwszDesc, dwHelpID, pwzHelpFile, iid, hRes, NULL);
 }
 
 inline HRESULT WINAPI AtlReportError(const CLSID& clsid, LPCSTR lpszDesc,
         const IID& iid, HRESULT hRes)
 {
         ATLASSERT(lpszDesc != NULL);
-        USES_CONVERSION;
-        return AtlSetErrorInfo(clsid, A2COLE(lpszDesc), 0, NULL, iid, hRes, NULL);
+        if (lpszDesc == NULL)
+                return E_POINTER;
+        USES_CONVERSION_EX;
+        LPCOLESTR pwszDesc = A2COLE_EX(lpszDesc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+        if(pwszDesc == NULL)
+                return E_OUTOFMEMORY;
+                
+        return AtlSetErrorInfo(clsid, pwszDesc, 0, NULL, iid, hRes, NULL);
 }
 #endif
 
@@ -213,6 +231,9 @@ public:
         // Invoke a method by DISPID with two parameters
         HRESULT Invoke2(DISPID dispid, VARIANT* pvarParam1, VARIANT* pvarParam2, VARIANT* pvarRet = NULL)
         {
+                if(pvarParam1 == NULL || pvarParam2 == NULL)
+                        return E_INVALIDARG;
+                        
                 CComVariant varArgs[2] = { *pvarParam2, *pvarParam1 };
                 DISPPARAMS dispparams = { &varArgs[0], NULL, 2, 0};
                 return p->Invoke(dispid, IID_NULL, LOCALE_USER_DEFAULT, DISPATCH_METHOD, &dispparams, pvarRet, NULL, NULL);
@@ -247,6 +268,13 @@ public:
                 VARIANT* pVar)
         {
                 ATLTRACE2(atlTraceCOM, 0, _T("CPropertyHelper::GetProperty\n"));
+                ATLASSERT(pVar != NULL);
+                if (pVar == NULL)
+                        return E_POINTER;
+                
+                if(pDisp == NULL)
+                        return E_INVALIDARG;
+                        
                 DISPPARAMS dispparamsNoArgs = {NULL, NULL, 0, 0};
                 return pDisp->Invoke(dwDispID, IID_NULL,
                                 LOCALE_USER_DEFAULT, DISPATCH_PROPERTYGET,
@@ -257,6 +285,13 @@ public:
                 VARIANT* pVar)
         {
                 ATLTRACE2(atlTraceCOM, 0, _T("CPropertyHelper::PutProperty\n"));
+                ATLASSERT(pVar != NULL);
+                if (pVar == NULL)
+                        return E_POINTER;
+
+                if(pDisp == NULL)
+                        return E_INVALIDARG;
+                        
                 DISPPARAMS dispparams = {NULL, NULL, 1, 1};
                 dispparams.rgvarg = pVar;
                 DISPID dispidPut = DISPID_PROPERTYPUT;
@@ -363,6 +398,9 @@ ATLAPI AtlIPersistStreamInit_Load(LPSTREAM pStm, ATL_PROPMAP_ENTRY* pMap, void* 
 ATLINLINE ATLAPI AtlIPersistStreamInit_Load(LPSTREAM pStm, ATL_PROPMAP_ENTRY* pMap, void* pThis, IUnknown* pUnk)
 {
         ATLASSERT(pMap != NULL);
+        if (pStm == NULL || pMap == NULL || pThis == NULL || pUnk == NULL)
+                return E_INVALIDARG;
+
         HRESULT hr = S_OK;
         DWORD dwVer;
         hr = pStm->Read(&dwVer, sizeof(DWORD), NULL);
@@ -425,6 +463,8 @@ ATLINLINE ATLAPI AtlIPersistStreamInit_Save(LPSTREAM pStm,
         void* pThis, IUnknown* pUnk)
 {
         ATLASSERT(pMap != NULL);
+        if (pStm == NULL || pMap == NULL || pThis == NULL || pUnk == NULL)
+                return E_INVALIDARG;
         DWORD dw = _ATL_VER;
         HRESULT hr = pStm->Write(&dw, sizeof(DWORD), NULL);
         if (FAILED(hr))
@@ -481,7 +521,9 @@ ATLAPI AtlIPersistPropertyBag_Load(LPPROPERTYBAG pPropBag, LPERRORLOG pErrorLog,
 #else
 ATLINLINE ATLAPI AtlIPersistPropertyBag_Load(LPPROPERTYBAG pPropBag, LPERRORLOG pErrorLog, ATL_PROPMAP_ENTRY* pMap, void* pThis, IUnknown* pUnk)
 {
-        USES_CONVERSION;
+        if (pPropBag == NULL || pMap == NULL || pThis == NULL || pUnk == NULL)
+                return E_INVALIDARG;
+
         CComPtr<IDispatch> pDispatch;
         const IID* piidOld = NULL;
         for (int i = 0; pMap[i].pclsidPropPage != NULL; i++)
@@ -541,14 +583,23 @@ ATLINLINE ATLAPI AtlIPersistPropertyBag_Load(LPPROPERTYBAG pPropBag, LPERRORLOG 
                 HRESULT hr = pPropBag->Read(pMap[i].szDesc, &var, pErrorLog);
                 if (FAILED(hr))
                 {
+                        USES_CONVERSION_EX;
+                        LPCTSTR lp = OLE2CT_EX(pMap[i].szDesc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+                
                         if (hr == E_INVALIDARG)
                         {
-                                ATLTRACE2(atlTraceCOM, 0, _T("Property %s not in Bag\n"), OLE2CT(pMap[i].szDesc));
+                                if(lp == NULL)
+                                        ATLTRACE2(atlTraceCOM, 0, _T("Property not in Bag\n"));
+                                else
+                                        ATLTRACE2(atlTraceCOM, 0, _T("Property %s not in Bag\n"), lp);
                         }
                         else
                         {
                                 // Many containers return different ERROR values for Member not found
-                                ATLTRACE2(atlTraceCOM, 0, _T("Error attempting to read Property %s from PropertyBag \n"), OLE2CT(pMap[i].szDesc));
+                                if(lp == NULL)
+                                        ATLTRACE2(atlTraceCOM, 0, _T("Error attempting to read Property from PropertyBag \n"));
+                                else
+                                        ATLTRACE2(atlTraceCOM, 0, _T("Error attempting to read Property %s from PropertyBag \n"), lp);
                         }
                         continue;
                 }
@@ -573,9 +624,11 @@ ATLINLINE ATLAPI AtlIPersistPropertyBag_Save(LPPROPERTYBAG pPropBag,
         if (pPropBag == NULL)
         {
                 ATLTRACE2(atlTraceCOM, 0, _T("PropBag pointer passed in was invalid\n"));
-                return E_POINTER;
+                return E_INVALIDARG;
         }
-
+        if (pMap == NULL || pThis == NULL || pUnk == NULL)
+                return E_INVALIDARG;
+        
         CComPtr<IDispatch> pDispatch;
         const IID* piidOld = NULL;
         for (int i = 0; pMap[i].pclsidPropPage != NULL; i++)
@@ -668,6 +721,9 @@ public:
         STDMETHOD(GetClassID)(CLSID *pClassID)
         {
                 ATLTRACE2(atlTraceCOM, 0, _T("IPersistStreamInitImpl::GetClassID\n"));
+                ATLASSERT(pClassID != NULL);
+                if (pClassID == NULL)
+                        return E_POINTER;
                 *pClassID = T::GetObjectCLSID();
                 return S_OK;
         }
@@ -729,6 +785,9 @@ public:
         STDMETHOD(GetClassID)(CLSID *pClassID)
         {
                 ATLTRACE2(atlTraceCOM, 0, _T("IPersistStorageImpl::GetClassID\n"));
+                ATLASSERT(pClassID != NULL);
+                if (pClassID == NULL)
+                        return E_POINTER;
                 *pClassID = T::GetObjectCLSID();
                 return S_OK;
         }
@@ -751,6 +810,8 @@ public:
         STDMETHOD(Load)(IStorage* pStorage)
         {
                 ATLTRACE2(atlTraceCOM, 0, _T("IPersistStorageImpl::Load\n"));
+                if (pStorage == NULL)
+                        return E_INVALIDARG;
                 CComPtr<IPersistStreamInit> p;
                 p.p = IPSI_GetIPersistStreamInit();
                 HRESULT hr = E_FAIL;
@@ -767,6 +828,8 @@ public:
         STDMETHOD(Save)(IStorage* pStorage, BOOL fSameAsLoad)
         {
                 ATLTRACE2(atlTraceCOM, 0, _T("IPersistStorageImpl::Save\n"));
+                if (pStorage == NULL)
+                        return E_INVALIDARG;
                 CComPtr<IPersistStreamInit> p;
                 p.p = IPSI_GetIPersistStreamInit();
                 HRESULT hr = E_FAIL;
@@ -817,6 +880,9 @@ public:
         STDMETHOD(GetClassID)(CLSID *pClassID)
         {
                 ATLTRACE2(atlTraceCOM, 0, _T("IPersistPropertyBagImpl::GetClassID\n"));
+                ATLASSERT(pClassID != NULL);
+                if (pClassID == NULL)
+                        return E_POINTER;
                 *pClassID = T::GetObjectCLSID();
                 return S_OK;
         }
@@ -968,8 +1034,6 @@ inline HRESULT CSecurityDescriptor::Initialize()
                 ATLASSERT(FALSE);
                 return hr;
         }
-        // Set the DACL to allow EVERYONE
-        SetSecurityDescriptorDacl(m_pSD, TRUE, NULL, FALSE);
         return S_OK;
 }
 
@@ -977,9 +1041,10 @@ inline HRESULT CSecurityDescriptor::InitializeFromProcessToken(BOOL bDefaulted)
 {
         PSID pUserSid = NULL;
         PSID pGroupSid = NULL;
-        HRESULT hr;
-
-        Initialize();
+        
+        HRESULT hr = Initialize();
+        if (FAILED(hr))
+                return hr;
         hr = GetProcessSids(&pUserSid, &pGroupSid);
         if (SUCCEEDED(hr))
         {
@@ -991,6 +1056,17 @@ inline HRESULT CSecurityDescriptor::InitializeFromProcessToken(BOOL bDefaulted)
                 free(pUserSid);
         if (pGroupSid != NULL)
                 free(pGroupSid);
+
+        if (FAILED(hr))
+        {
+                delete m_pSD;
+                m_pSD = NULL;
+                
+                free(m_pOwner);
+                m_pOwner = NULL;
+                
+                ATLASSERT(FALSE);                
+        }
         return hr;
 }
 
@@ -998,9 +1074,11 @@ inline HRESULT CSecurityDescriptor::InitializeFromThreadToken(BOOL bDefaulted, B
 {
         PSID pUserSid = NULL;
         PSID pGroupSid = NULL;
-        HRESULT hr;
-
-        Initialize();
+        
+        HRESULT hr = Initialize();
+        if (FAILED(hr))
+                return hr;
+        
         hr = GetThreadSids(&pUserSid, &pGroupSid);
         if (HRESULT_CODE(hr) == ERROR_NO_TOKEN && bRevertToProcessToken)
                 hr = GetProcessSids(&pUserSid, &pGroupSid);
@@ -1014,6 +1092,17 @@ inline HRESULT CSecurityDescriptor::InitializeFromThreadToken(BOOL bDefaulted, B
                 free(pUserSid);
         if (pGroupSid != NULL)
                 free(pGroupSid);
+
+        if (FAILED(hr))
+        {
+                delete m_pSD;
+                m_pSD = NULL;
+                
+                free(m_pOwner);
+                m_pOwner = NULL;
+                
+                ATLASSERT(FALSE);                
+        }
         return hr;
 }
 
@@ -1039,6 +1128,11 @@ inline HRESULT CSecurityDescriptor::SetOwner(PSID pOwnerSid, BOOL bDefaulted)
         if (pOwnerSid == NULL)
                 return S_OK;
 
+        if (!IsValidSid(pOwnerSid))
+        {
+                return E_INVALIDARG;
+        }
+        
         // Make a copy of the Sid for the return value
         DWORD dwSize = GetLengthSid(pOwnerSid);
 
@@ -1090,6 +1184,11 @@ inline HRESULT CSecurityDescriptor::SetGroup(PSID pGroupSid, BOOL bDefaulted)
         if (pGroupSid == NULL)
                 return S_OK;
 
+        if (!IsValidSid(pGroupSid))
+        {
+                return E_INVALIDARG;
+        }
+        
         // Make a copy of the Sid for the return value
         DWORD dwSize = GetLengthSid(pGroupSid);
 
@@ -1123,7 +1222,12 @@ inline HRESULT CSecurityDescriptor::Allow(LPCTSTR pszPrincipal, DWORD dwAccessMa
 {
         HRESULT hr = AddAccessAllowedACEToACL(&m_pDACL, pszPrincipal, dwAccessMask);
         if (SUCCEEDED(hr))
-                SetSecurityDescriptorDacl(m_pSD, TRUE, m_pDACL, FALSE);
+        {
+                if (!SetSecurityDescriptorDacl(m_pSD, TRUE, m_pDACL, FALSE))
+                {
+                        hr = AtlHresultFromLastError();
+                }
+        }
         return hr;
 }
 
@@ -1131,7 +1235,12 @@ inline HRESULT CSecurityDescriptor::Deny(LPCTSTR pszPrincipal, DWORD dwAccessMas
 {
         HRESULT hr = AddAccessDeniedACEToACL(&m_pDACL, pszPrincipal, dwAccessMask);
         if (SUCCEEDED(hr))
-                SetSecurityDescriptorDacl(m_pSD, TRUE, m_pDACL, FALSE);
+        {
+                if (!SetSecurityDescriptorDacl(m_pSD, TRUE, m_pDACL, FALSE))
+                {
+                        hr = AtlHresultFromLastError();
+                }
+        }
         return hr;
 }
 
@@ -1139,7 +1248,12 @@ inline HRESULT CSecurityDescriptor::Revoke(LPCTSTR pszPrincipal)
 {
         HRESULT hr = RemovePrincipalFromACL(m_pDACL, pszPrincipal);
         if (SUCCEEDED(hr))
-                SetSecurityDescriptorDacl(m_pSD, TRUE, m_pDACL, FALSE);
+        {
+                if (!SetSecurityDescriptorDacl(m_pSD, TRUE, m_pDACL, FALSE))
+                {
+                        hr = AtlHresultFromLastError();
+                }
+        }
         return hr;
 }
 
@@ -1188,8 +1302,9 @@ inline HRESULT CSecurityDescriptor::GetThreadSids(PSID* ppUserSid, PSID* ppGroup
 
 inline HRESULT CSecurityDescriptor::GetTokenSids(HANDLE hToken, PSID* ppUserSid, PSID* ppGroupSid)
 {
-        DWORD dwSize;
-        HRESULT hr;
+        DWORD dwSize = 0;
+        HRESULT hr = E_FAIL;
+        DWORD dwErr;
         PTOKEN_USER ptkUser = NULL;
         PTOKEN_PRIMARY_GROUP ptkGroup = NULL;
 
@@ -1202,12 +1317,12 @@ inline HRESULT CSecurityDescriptor::GetTokenSids(HANDLE hToken, PSID* ppUserSid,
         {
                 // Get length required for TokenUser by specifying buffer length of 0
                 GetTokenInformation(hToken, TokenUser, NULL, 0, &dwSize);
-                hr = GetLastError();
-                if (hr != ERROR_INSUFFICIENT_BUFFER)
+                dwErr = GetLastError();
+                if (dwErr != ERROR_INSUFFICIENT_BUFFER)
                 {
                         // Expected ERROR_INSUFFICIENT_BUFFER
                         ATLASSERT(FALSE);
-                        hr = HRESULT_FROM_WIN32(hr);
+                        hr = AtlHresultFromWin32(dwErr);
                         goto failed;
                 }
 
@@ -1239,6 +1354,7 @@ inline HRESULT CSecurityDescriptor::GetTokenSids(HANDLE hToken, PSID* ppUserSid,
                 if (!CopySid(dwSize, pSid, ptkUser->User.Sid))
                 {
                         hr = HRESULT_FROM_WIN32(GetLastError());
+                        free(pSid);
                         ATLASSERT(FALSE);
                         goto failed;
                 }
@@ -1252,12 +1368,12 @@ inline HRESULT CSecurityDescriptor::GetTokenSids(HANDLE hToken, PSID* ppUserSid,
         {
                 // Get length required for TokenPrimaryGroup by specifying buffer length of 0
                 GetTokenInformation(hToken, TokenPrimaryGroup, NULL, 0, &dwSize);
-                hr = GetLastError();
-                if (hr != ERROR_INSUFFICIENT_BUFFER)
+                dwErr = GetLastError();
+                if (dwErr != ERROR_INSUFFICIENT_BUFFER)
                 {
                         // Expected ERROR_INSUFFICIENT_BUFFER
                         ATLASSERT(FALSE);
-                        hr = HRESULT_FROM_WIN32(hr);
+                        hr = AtlHresultFromWin32(dwErr);
                         goto failed;
                 }
 
@@ -1289,6 +1405,7 @@ inline HRESULT CSecurityDescriptor::GetTokenSids(HANDLE hToken, PSID* ppUserSid,
                 if (!CopySid(dwSize, pSid, ptkGroup->PrimaryGroup))
                 {
                         hr = HRESULT_FROM_WIN32(GetLastError());
+                        free(pSid);
                         ATLASSERT(FALSE);
                         goto failed;
                 }
@@ -1314,6 +1431,11 @@ failed:
 inline HRESULT CSecurityDescriptor::GetCurrentUserSID(PSID *ppSid)
 {
         HANDLE tkHandle;
+        
+        if (ppSid == NULL)
+        {
+                return E_POINTER;
+        }
 
         if (OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &tkHandle))
         {
@@ -1323,9 +1445,21 @@ inline HRESULT CSecurityDescriptor::GetCurrentUserSID(PSID *ppSid)
 
                 // Call to get size information for alloc
                 GetTokenInformation(tkHandle, TokenUser, NULL, 0, &tkSize);
+                DWORD dwErr = GetLastError();
+                if (dwErr != ERROR_INSUFFICIENT_BUFFER)
+                {
+                        // Expected ERROR_INSUFFICIENT_BUFFER
+                        HRESULT hr = AtlHresultFromWin32(dwErr);
+                        ATLASSERT(FALSE);                        
+                        CloseHandle(tkHandle);
+                        return hr;
+                }                
                 tkUser = (TOKEN_USER *) malloc(tkSize);
                 if (tkUser == NULL)
+                {
+                        CloseHandle(tkHandle);
                         return E_OUTOFMEMORY;
+                }
 
                 // Now make the real call
                 if (GetTokenInformation(tkHandle, TokenUser, tkUser, tkSize, &tkSize))
@@ -1333,18 +1467,31 @@ inline HRESULT CSecurityDescriptor::GetCurrentUserSID(PSID *ppSid)
                         sidLength = GetLengthSid(tkUser->User.Sid);
                         *ppSid = (PSID) malloc(sidLength);
                         if (*ppSid == NULL)
+                        {
+                                CloseHandle(tkHandle);
+                                free(tkUser);                                
                                 return E_OUTOFMEMORY;
+                        }
+                        if (!CopySid(sidLength, *ppSid, tkUser->User.Sid))
+                        {
+                                HRESULT hr = AtlHresultFromWin32(dwErr);
+                                CloseHandle(tkHandle);
+                                free(tkUser);
+                                free(*ppSid);
+                                *ppSid = NULL;
+                                return hr;
+                        }
 
-                        memcpy(*ppSid, tkUser->User.Sid, sidLength);
                         CloseHandle(tkHandle);
-
                         free(tkUser);
                         return S_OK;
                 }
                 else
                 {
+                        HRESULT hr = AtlHresultFromLastError();                
+                        CloseHandle(tkHandle);
                         free(tkUser);
-                        return HRESULT_FROM_WIN32(GetLastError());
+                        return hr;
                 }
         }
         return HRESULT_FROM_WIN32(GetLastError());
@@ -1353,18 +1500,28 @@ inline HRESULT CSecurityDescriptor::GetCurrentUserSID(PSID *ppSid)
 
 inline HRESULT CSecurityDescriptor::GetPrincipalSID(LPCTSTR pszPrincipal, PSID *ppSid)
 {
-        HRESULT hr;
         LPTSTR pszRefDomain = NULL;
         DWORD dwDomainSize = 0;
         DWORD dwSidSize = 0;
         SID_NAME_USE snu;
+        
+        if (ppSid == NULL)
+        {
+                return E_POINTER;
+        }
+        if (pszPrincipal == NULL)
+        {
+                return E_INVALIDARG;
+        }
+
+        *ppSid = NULL;
 
         // Call to get size info for alloc
         LookupAccountName(NULL, pszPrincipal, *ppSid, &dwSidSize, pszRefDomain, &dwDomainSize, &snu);
 
-        hr = GetLastError();
-        if (hr != ERROR_INSUFFICIENT_BUFFER)
-                return HRESULT_FROM_WIN32(hr);
+        DWORD dwErr = GetLastError();
+        if (dwErr != ERROR_INSUFFICIENT_BUFFER)
+                return HRESULT_FROM_WIN32(dwErr);
 
         ATLTRY(pszRefDomain = new TCHAR[dwDomainSize]);
         if (pszRefDomain == NULL)
@@ -1375,10 +1532,11 @@ inline HRESULT CSecurityDescriptor::GetPrincipalSID(LPCTSTR pszPrincipal, PSID *
         {
                 if (!LookupAccountName(NULL, pszPrincipal, *ppSid, &dwSidSize, pszRefDomain, &dwDomainSize, &snu))
                 {
+                        HRESULT hr = AtlHresultFromLastError();                
                         free(*ppSid);
                         *ppSid = NULL;
                         delete[] pszRefDomain;
-                        return HRESULT_FROM_WIN32(GetLastError());
+                        return hr;
                 }
                 delete[] pszRefDomain;
                 return S_OK;
@@ -1394,13 +1552,13 @@ inline HRESULT CSecurityDescriptor::Attach(PSECURITY_DESCRIPTOR pSelfRelativeSD)
         PACL    pSACL = NULL;
         BOOL    bDACLPresent, bSACLPresent;
         BOOL    bDefaulted;
-        PACL    m_pDACL = NULL;
-        ACCESS_ALLOWED_ACE* pACE;
-        HRESULT hr;
         PSID    pUserSid;
         PSID    pGroupSid;
+        
+        if (pSelfRelativeSD == NULL ||!IsValidSecurityDescriptor(pSelfRelativeSD))
+                return E_INVALIDARG;
 
-        hr = Initialize();
+        HRESULT hr = Initialize();
         if(FAILED(hr))
                 return hr;
 
@@ -1425,14 +1583,9 @@ inline HRESULT CSecurityDescriptor::Attach(PSECURITY_DESCRIPTOR pSelfRelativeSD)
                                 goto failed;
 
                         // copy the ACES
-                        for (int i = 0; i < pDACL->AceCount; i++)
-                        {
-                                if (!GetAce(pDACL, i, (void **)&pACE))
-                                        goto failed;
-
-                                if (!AddAccessAllowedAce(m_pDACL, ACL_REVISION, pACE->Mask, (PSID)&(pACE->SidStart)))
-                                        goto failed;
-                        }
+                        hr = CopyACL(m_pDACL, pDACL);
+                        if (FAILED(hr))
+                                goto failedMemory;
 
                         if (!IsValidAcl(m_pDACL))
                                 goto failed;
@@ -1464,14 +1617,9 @@ inline HRESULT CSecurityDescriptor::Attach(PSECURITY_DESCRIPTOR pSelfRelativeSD)
                                 goto failed;
 
                         // copy the ACES
-                        for (int i = 0; i < pSACL->AceCount; i++)
-                        {
-                                if (!GetAce(pSACL, i, (void **)&pACE))
-                                        goto failed;
-
-                                if (!AddAccessAllowedAce(m_pSACL, ACL_REVISION, pACE->Mask, (PSID)&(pACE->SidStart)))
-                                        goto failed;
-                        }
+                        hr = CopyACL(m_pSACL, pSACL);
+                        if (FAILED(hr))
+                                goto failedMemory;
 
                         if (!IsValidAcl(m_pSACL))
                                 goto failed;
@@ -1482,25 +1630,28 @@ inline HRESULT CSecurityDescriptor::Attach(PSECURITY_DESCRIPTOR pSelfRelativeSD)
                         goto failed;
         }
 
-        if (!GetSecurityDescriptorOwner(m_pSD, &pUserSid, &bDefaulted))
+        if (!GetSecurityDescriptorOwner(pSelfRelativeSD, &pUserSid, &bDefaulted))
                 goto failed;
 
         if (FAILED(SetOwner(pUserSid, bDefaulted)))
                 goto failed;
 
-        if (!GetSecurityDescriptorGroup(m_pSD, &pGroupSid, &bDefaulted))
+        if (!GetSecurityDescriptorGroup(pSelfRelativeSD, &pGroupSid, &bDefaulted))
                 goto failed;
 
         if (FAILED(SetGroup(pGroupSid, bDefaulted)))
                 goto failed;
 
         if (!IsValidSecurityDescriptor(m_pSD))
-                goto failed;
+        {
+                hr = E_FAIL;
+                goto failedMemory;
+        }
 
-        return hr;
+        return S_OK;
 
 failed:
-        hr = HRESULT_FROM_WIN32(hr);
+        hr = AtlHresultFromLastError();
 
 failedMemory:
         if (m_pDACL)
@@ -1508,9 +1659,14 @@ failedMemory:
                 free(m_pDACL);
                 m_pDACL = NULL;
         }
+        if (m_pSACL)
+        {
+                free(m_pSACL);
+                m_pSACL = NULL;
+        }
         if (m_pSD)
         {
-                free(m_pSD);
+                delete m_pSD;
                 m_pSD = NULL;
         }
         return hr;
@@ -1525,9 +1681,9 @@ inline HRESULT CSecurityDescriptor::AttachObject(HANDLE hObject)
         GetKernelObjectSecurity(hObject, OWNER_SECURITY_INFORMATION | GROUP_SECURITY_INFORMATION |
                 DACL_SECURITY_INFORMATION, pSD, 0, &dwSize);
 
-        hr = GetLastError();
-        if (hr != ERROR_INSUFFICIENT_BUFFER)
-                return HRESULT_FROM_WIN32(hr);
+        DWORD dwErr = GetLastError();
+        if (dwErr != ERROR_INSUFFICIENT_BUFFER)
+                return HRESULT_FROM_WIN32(dwErr);
 
         pSD = (PSECURITY_DESCRIPTOR) malloc(dwSize);
         if (pSD == NULL)
@@ -1553,12 +1709,14 @@ inline HRESULT CSecurityDescriptor::CopyACL(PACL pDest, PACL pSrc)
         LPVOID pAce;
         ACE_HEADER *aceHeader;
 
+        if (pDest == NULL)
+                return E_POINTER;
         if (pSrc == NULL)
                 return S_OK;
-
+        
         if (!GetAclInformation(pSrc, (LPVOID) &aclSizeInfo, sizeof(ACL_SIZE_INFORMATION), AclSizeInformation))
                 return HRESULT_FROM_WIN32(GetLastError());
-
+        
         // Copy all of the ACEs to the new ACL
         for (UINT i = 0; i < aclSizeInfo.AceCount; i++)
         {
@@ -1578,43 +1736,64 @@ inline HRESULT CSecurityDescriptor::AddAccessDeniedACEToACL(PACL *ppAcl, LPCTSTR
 {
         ACL_SIZE_INFORMATION aclSizeInfo;
         int aclSize;
-        DWORD returnValue;
         PSID principalSID;
         PACL oldACL, newACL = NULL;
+        
+        if (ppAcl == NULL)
+                return E_POINTER;
+                
+        if (pszPrincipal == NULL)
+                return E_INVALIDARG;
 
         oldACL = *ppAcl;
 
-        returnValue = GetPrincipalSID(pszPrincipal, &principalSID);
-        if (FAILED(returnValue))
-                return returnValue;
+        HRESULT hr = GetPrincipalSID(pszPrincipal, &principalSID);
+        if (FAILED(hr))
+                return hr;
 
         aclSizeInfo.AclBytesInUse = 0;
-        if (*ppAcl != NULL)
-                GetAclInformation(oldACL, (LPVOID) &aclSizeInfo, sizeof(ACL_SIZE_INFORMATION), AclSizeInformation);
+        if (*ppAcl != NULL && 
+                !GetAclInformation(oldACL, (LPVOID) &aclSizeInfo, sizeof(ACL_SIZE_INFORMATION), AclSizeInformation))
+        {
+                free(principalSID);        
+                return AtlHresultFromLastError();
+        }
 
-        aclSize = aclSizeInfo.AclBytesInUse + sizeof(ACL) + sizeof(ACCESS_DENIED_ACE) + GetLengthSid(principalSID) - sizeof(DWORD);
+        aclSize = aclSizeInfo.AclBytesInUse + sizeof(ACL) +        // size of original ACL
+                sizeof(ACCESS_DENIED_ACE) +                                         // size of ACE
+                GetLengthSid(principalSID) -                                         // Actual size of SID
+                sizeof(DWORD);                                                                        // subtract size of placeholder variable 
+                                                                                                                // for SID in ACCESS_*_ACE structure
 
-        ATLTRY(newACL = (PACL) new BYTE[aclSize]);
+        newACL = (PACL) malloc(aclSize);
         if (newACL == NULL)
+        {
+                free(principalSID);        
                 return E_OUTOFMEMORY;
+        }
 
         if (!InitializeAcl(newACL, aclSize, ACL_REVISION))
         {
+                hr = AtlHresultFromLastError();
+                free(newACL);
                 free(principalSID);
-                return HRESULT_FROM_WIN32(GetLastError());
+                return hr;
         }
 
         if (!AddAccessDeniedAce(newACL, ACL_REVISION2, dwAccessMask, principalSID))
         {
+                hr = AtlHresultFromLastError();
+                free(newACL);
                 free(principalSID);
-                return HRESULT_FROM_WIN32(GetLastError());
+                return hr;
         }
 
-        returnValue = CopyACL(newACL, oldACL);
-        if (FAILED(returnValue))
+        hr = CopyACL(newACL, oldACL);
+        if (FAILED(hr))
         {
+                free(newACL);
                 free(principalSID);
-                return returnValue;
+                return hr;
         }
 
         *ppAcl = newACL;
@@ -1630,43 +1809,61 @@ inline HRESULT CSecurityDescriptor::AddAccessAllowedACEToACL(PACL *ppAcl, LPCTST
 {
         ACL_SIZE_INFORMATION aclSizeInfo;
         int aclSize;
-        DWORD returnValue;
         PSID principalSID;
         PACL oldACL, newACL = NULL;
+        
+        if (ppAcl == NULL)
+                return E_POINTER;
+                
+        if (pszPrincipal == NULL)
+                return E_INVALIDARG;
 
         oldACL = *ppAcl;
 
-        returnValue = GetPrincipalSID(pszPrincipal, &principalSID);
-        if (FAILED(returnValue))
-                return returnValue;
+        HRESULT hr = GetPrincipalSID(pszPrincipal, &principalSID);
+        if (FAILED(hr))
+                return hr;
 
         aclSizeInfo.AclBytesInUse = 0;
-        if (*ppAcl != NULL)
-                GetAclInformation(oldACL, (LPVOID) &aclSizeInfo, (DWORD) sizeof(ACL_SIZE_INFORMATION), AclSizeInformation);
+        if (*ppAcl != NULL && 
+                !GetAclInformation(oldACL, (LPVOID) &aclSizeInfo, sizeof(ACL_SIZE_INFORMATION), AclSizeInformation))
+                return AtlHresultFromLastError();
 
-        aclSize = aclSizeInfo.AclBytesInUse + sizeof(ACL) + sizeof(ACCESS_ALLOWED_ACE) + GetLengthSid(principalSID) - sizeof(DWORD);
+        aclSize = aclSizeInfo.AclBytesInUse + sizeof(ACL) + // size of original ACL
+                sizeof(ACCESS_ALLOWED_ACE) +                                         // size of ACE
+                GetLengthSid(principalSID) -                                         // Actual size of SID
+                sizeof(DWORD);                                                                        // subtract size of placeholder variable 
+                                                                                                                // for SID in ACCESS_*_ACE structure
 
-        ATLTRY(newACL = (PACL) new BYTE[aclSize]);
+        newACL = (PACL) malloc(aclSize);
         if (newACL == NULL)
+        {
+                free(principalSID);        
                 return E_OUTOFMEMORY;
+        }
 
         if (!InitializeAcl(newACL, aclSize, ACL_REVISION))
         {
+                hr = AtlHresultFromLastError();
+                free(newACL);
                 free(principalSID);
-                return HRESULT_FROM_WIN32(GetLastError());
-        }
-
-        returnValue = CopyACL(newACL, oldACL);
-        if (FAILED(returnValue))
-        {
-                free(principalSID);
-                return returnValue;
+                return hr;
         }
 
         if (!AddAccessAllowedAce(newACL, ACL_REVISION2, dwAccessMask, principalSID))
         {
+                hr = AtlHresultFromLastError();
+                free(newACL);
                 free(principalSID);
-                return HRESULT_FROM_WIN32(GetLastError());
+                return hr;
+        }
+
+        hr = CopyACL(newACL, oldACL);
+        if (FAILED(hr))
+        {
+                free(newACL);
+                free(principalSID);
+                return hr;
         }
 
         *ppAcl = newACL;
@@ -1677,75 +1874,63 @@ inline HRESULT CSecurityDescriptor::AddAccessAllowedACEToACL(PACL *ppAcl, LPCTST
         return S_OK;
 }
 
-
 inline HRESULT CSecurityDescriptor::RemovePrincipalFromACL(PACL pAcl, LPCTSTR pszPrincipal)
 {
-        ACL_SIZE_INFORMATION aclSizeInfo;
-        ULONG i;
-        LPVOID ace;
-        ACCESS_ALLOWED_ACE *accessAllowedAce;
-        ACCESS_DENIED_ACE *accessDeniedAce;
-        SYSTEM_AUDIT_ACE *systemAuditAce;
+        if (pAcl == NULL || pszPrincipal == NULL)
+                return E_INVALIDARG;
+
         PSID principalSID;
-        DWORD returnValue;
-        ACE_HEADER *aceHeader;
+        HRESULT hr = GetPrincipalSID(pszPrincipal, &principalSID);
+        if (FAILED(hr))
+                return hr;
 
-        returnValue = GetPrincipalSID(pszPrincipal, &principalSID);
-        if (FAILED(returnValue))
-                return returnValue;
-
-        GetAclInformation(pAcl, (LPVOID) &aclSizeInfo, (DWORD) sizeof(ACL_SIZE_INFORMATION), AclSizeInformation);
-
-        for (i = 0; i < aclSizeInfo.AceCount; i++)
+        ACL_SIZE_INFORMATION aclSizeInfo;
+        if (!GetAclInformation(pAcl, (LPVOID) &aclSizeInfo, (DWORD) sizeof(ACL_SIZE_INFORMATION), AclSizeInformation))
         {
-                if (!GetAce(pAcl, i, &ace))
+                hr = AtlHresultFromLastError();
+                aclSizeInfo.AceCount = 0;
+        }
+                
+        for (ULONG i = aclSizeInfo.AceCount; i > 0; i--)
+        {
+                ULONG uIndex = i - 1;
+                LPVOID ace;        
+                if (!GetAce(pAcl, uIndex, &ace))
                 {
-                        free(principalSID);
-                        return HRESULT_FROM_WIN32(GetLastError());
+                        hr = AtlHresultFromLastError();
+                        break;
                 }
 
-                aceHeader = (ACE_HEADER *) ace;
+                ACE_HEADER *aceHeader = (ACE_HEADER *) ace;
 
                 if (aceHeader->AceType == ACCESS_ALLOWED_ACE_TYPE)
                 {
-                        accessAllowedAce = (ACCESS_ALLOWED_ACE *) ace;
-
+                        ACCESS_ALLOWED_ACE *accessAllowedAce = (ACCESS_ALLOWED_ACE *) ace;
                         if (EqualSid(principalSID, (PSID) &accessAllowedAce->SidStart))
                         {
-                                DeleteAce(pAcl, i);
-                                free(principalSID);
-                                return S_OK;
+                                DeleteAce(pAcl, uIndex);
                         }
-                } else
-
-                if (aceHeader->AceType == ACCESS_DENIED_ACE_TYPE)
+                } 
+                else if (aceHeader->AceType == ACCESS_DENIED_ACE_TYPE)
                 {
-                        accessDeniedAce = (ACCESS_DENIED_ACE *) ace;
-
+                        ACCESS_DENIED_ACE *accessDeniedAce = (ACCESS_DENIED_ACE *) ace;
                         if (EqualSid(principalSID, (PSID) &accessDeniedAce->SidStart))
                         {
-                                DeleteAce(pAcl, i);
-                                free(principalSID);
-                                return S_OK;
+                                DeleteAce(pAcl, uIndex);
                         }
-                } else
-
-                if (aceHeader->AceType == SYSTEM_AUDIT_ACE_TYPE)
+                } 
+                else if (aceHeader->AceType == SYSTEM_AUDIT_ACE_TYPE)
                 {
-                        systemAuditAce = (SYSTEM_AUDIT_ACE *) ace;
-
+                        SYSTEM_AUDIT_ACE *systemAuditAce = (SYSTEM_AUDIT_ACE *) ace;
                         if (EqualSid(principalSID, (PSID) &systemAuditAce->SidStart))
                         {
-                                DeleteAce(pAcl, i);
-                                free(principalSID);
-                                return S_OK;
+                                DeleteAce(pAcl, uIndex);
                         }
                 }
         }
         free(principalSID);
-        return S_OK;
+        return hr;
 }
-
 
 inline HRESULT CSecurityDescriptor::SetPrivilege(LPCTSTR privilege, BOOL bEnable, HANDLE hToken)
 {
@@ -1791,6 +1976,9 @@ inline HRESULT CSecurityDescriptor::SetPrivilege(LPCTSTR privilege, BOOL bEnable
                 return hr;
         }
 
+        if(tpPrevious.PrivilegeCount == 0)
+            tpPrevious.Privileges[0].Attributes = 0;
+
         tpPrevious.PrivilegeCount = 1;
         tpPrevious.Privileges[0].Luid = luid;
 
@@ -1823,7 +2011,7 @@ class CComCreator
 public:
         static HRESULT WINAPI CreateInstance(void* pv, REFIID riid, LPVOID* ppv)
         {
-                ATLASSERT(*ppv == NULL);
+                _ATL_VALIDATE_OUT_POINTER(ppv);
                 HRESULT hRes = E_OUTOFMEMORY;
                 T1* p = NULL;
                 ATLTRY(p = new T1(pv))
@@ -1831,7 +2019,11 @@ public:
                 {
                         p->SetVoid(pv);
                         p->InternalFinalConstructAddRef();
-                        hRes = p->FinalConstruct();
+#ifndef OLD_ATL_CRITSEC_CODE
+            			hRes = p->_AtlInitialConstruct();
+			            if (SUCCEEDED(hRes))
+#endif  /* OLD_ATL_CRITSEC_CODE */
+                            hRes = p->FinalConstruct();
                         p->InternalFinalConstructRelease();
                         if (hRes == S_OK)
                                 hRes = p->QueryInterface(riid, ppv);
@@ -1848,7 +2040,7 @@ class CComInternalCreator
 public:
         static HRESULT WINAPI CreateInstance(void* pv, REFIID riid, LPVOID* ppv)
         {
-                ATLASSERT(*ppv == NULL);
+                _ATL_VALIDATE_OUT_POINTER(ppv);
                 HRESULT hRes = E_OUTOFMEMORY;
                 T1* p = NULL;
                 ATLTRY(p = new T1(pv))
@@ -1856,7 +2048,11 @@ public:
                 {
                         p->SetVoid(pv);
                         p->InternalFinalConstructAddRef();
-                        hRes = p->FinalConstruct();
+#ifndef OLD_ATL_CRITSEC_CODE
+            			hRes = p->_AtlInitialConstruct();
+			            if (SUCCEEDED(hRes))
+#endif  /* OLD_ATL_CRITSEC_CODE */
+                            hRes = p->FinalConstruct();
                         p->InternalFinalConstructRelease();
                         if (hRes == S_OK)
                                 hRes = p->_InternalQueryInterface(riid, ppv);
@@ -1871,8 +2067,9 @@ template <HRESULT hr>
 class CComFailCreator
 {
 public:
-        static HRESULT WINAPI CreateInstance(void*, REFIID, LPVOID*)
+        static HRESULT WINAPI CreateInstance(void*, REFIID, LPVOID* ppv)
         {
+                _ATL_VALIDATE_OUT_POINTER(ppv);
                 return hr;
         }
 };
@@ -1883,9 +2080,10 @@ class CComCreator2
 public:
         static HRESULT WINAPI CreateInstance(void* pv, REFIID riid, LPVOID* ppv)
         {
-                ATLASSERT(*ppv == NULL);
-                return (pv == NULL) ?
-                        T1::CreateInstance(NULL, riid, ppv) :
+                // Assert Only. Validation done in functions called from here
+                ATLASSERT(ppv != NULL && *ppv == NULL);
+                return (pv == NULL) ? 
+                        T1::CreateInstance(NULL, riid, ppv) : 
                         T2::CreateInstance(pv, riid, ppv);
         }
 };
@@ -1953,8 +2151,13 @@ class CComAggregateCreator
 public:
         static HRESULT WINAPI CreateInstance(void* pv, REFIID/*riid*/, LPVOID* ppv)
         {
-                ATLASSERT(*ppv == NULL);
+                // Real check will be made in the call to CoCreateInstance
+                ATLASSERT(ppv != NULL && *ppv == NULL);
+
                 ATLASSERT(pv != NULL);
+                if (pv == NULL)
+                        return E_INVALIDARG;
+                
                 T* p = (T*) pv;
                 // Add the following line to your object if you get a message about
                 // GetControllingUnknown() being undefined
@@ -1992,8 +2195,15 @@ public:
         {\
                 _ComMapClass* p = (_ComMapClass*)pv;\
                 p->Lock();\
-                HRESULT hRes = CComObjectRootBase::_Cache(pv, iid, ppvObject, dw);\
-                p->Unlock();\
+                HRESULT hRes = E_FAIL; \
+                __try \
+                { \
+                        hRes = CComObjectRootBase::_Cache(pv, iid, ppvObject, dw);\
+                } \
+                __finally \
+                { \
+                        p->Unlock();\
+                } \
                 return hRes;\
         }\
         IUnknown* _GetRawUnknown() \
@@ -2281,7 +2491,11 @@ class CComObjectRootEx : public CComObjectRootBase
 {
 public:
         typedef ThreadModel _ThreadModel;
-        typedef _ThreadModel::AutoCriticalSection _CritSec;
+#ifdef OLD_ATL_CRITSEC_CODE
+        typename typedef _ThreadModel::AutoCriticalSection _CritSec;
+#else
+    	typename typedef _ThreadModel::AutoDeleteCriticalSection _AutoDelCritSec;
+#endif  /* OLD_ATL_CRITSEC_CODE */
         typedef CComObjectLockT<_ThreadModel> ObjectLock;
 
         ULONG InternalAddRef()
@@ -2295,10 +2509,20 @@ public:
                 return _ThreadModel::Decrement(&m_dwRef);
         }
 
+#ifndef OLD_ATL_CRITSEC_CODE
+    	HRESULT _AtlInitialConstruct()
+	    {
+		    return m_critsec.Init();
+	    }
+#endif  /* OLD_ATL_CRITSEC_CODE */
         void Lock() {m_critsec.Lock();}
         void Unlock() {m_critsec.Unlock();}
 private:
+#ifdef OLD_ATL_CRITSEC_CODE
         _CritSec m_critsec;
+#else
+    	_AutoDelCritSec m_critsec;
+#endif
 };
 
 template <>
@@ -2306,7 +2530,11 @@ class CComObjectRootEx<CComSingleThreadModel> : public CComObjectRootBase
 {
 public:
         typedef CComSingleThreadModel _ThreadModel;
+#ifdef OLD_ATL_CRITSEC_CODE
         typedef _ThreadModel::AutoCriticalSection _CritSec;
+#else
+    	typedef _ThreadModel::AutoDeleteCriticalSection _AutoDelCritSec;
+#endif  /* OLD_ATL_CRITSEC_CODE */
         typedef CComObjectLockT<_ThreadModel> ObjectLock;
 
         ULONG InternalAddRef()
@@ -2319,6 +2547,12 @@ public:
                 return _ThreadModel::Decrement(&m_dwRef);
         }
 
+#ifndef OLD_ATL_CRITSEC_CODE
+    	HRESULT _AtlInitialConstruct()
+	    {
+		    return S_OK;
+    	}
+#endif  /* OLD_ATL_CRITSEC_CODE */
         void Lock() {}
         void Unlock() {}
 };
@@ -2436,7 +2670,8 @@ public:
 template <class Base>
 HRESULT WINAPI CComObject<Base>::CreateInstance(CComObject<Base>** pp)
 {
-        ATLASSERT(pp != NULL);
+        _ATL_VALIDATE_OUT_POINTER(pp);
+        
         HRESULT hRes = E_OUTOFMEMORY;
         CComObject<Base>* p = NULL;
         ATLTRY(p = new CComObject<Base>())
@@ -2444,7 +2679,11 @@ HRESULT WINAPI CComObject<Base>::CreateInstance(CComObject<Base>** pp)
         {
                 p->SetVoid(NULL);
                 p->InternalFinalConstructAddRef();
-                hRes = p->FinalConstruct();
+#ifndef OLD_ATL_CRITSEC_CODE
+        		hRes = p->_AtlInitialConstruct();
+		        if (SUCCEEDED(hRes))
+#endif  /* OLD_ATL_CRITSEC_CODE */
+                    hRes = p->FinalConstruct();
                 p->InternalFinalConstructRelease();
                 if (hRes != S_OK)
                 {
@@ -2467,6 +2706,17 @@ public:
         typedef Base _BaseClass;
         CComObjectCached(void* = NULL){}
         // Set refcount to 1 to protect destruction
+#ifndef OLD_ATL_CRITSEC_CODE
+    	HRESULT _AtlInitialConstruct()
+	    {
+		    HRESULT hr = _BaseClass::_AtlInitialConstruct();
+    		if (SUCCEEDED(hr))
+	    	{
+		    	hr = m_csCached.Init();
+    		}
+	    	return hr;
+	    }
+#endif  /* OLD_ATL_CRITSEC_CODE */
         ~CComObjectCached()
         {
                 m_dwRef = 1L;
@@ -2479,19 +2729,14 @@ public:
         //doesn't derive from CComObjectRoot
         STDMETHOD_(ULONG, AddRef)()
         {
-                m_csCached.Lock();
                 ULONG l = InternalAddRef();
-                if (m_dwRef == 2)
+                if (l == 2)
                         _Module.Lock();
-                m_csCached.Unlock();
                 return l;
         }
         STDMETHOD_(ULONG, Release)()
         {
-                m_csCached.Lock();
-                InternalRelease();
-                ULONG l = m_dwRef;
-                m_csCached.Unlock();
+                ULONG l = InternalRelease();
                 if (l == 0)
                         delete this;
                 else if (l == 1)
@@ -2501,7 +2746,9 @@ public:
         //if _InternalQueryInterface is undefined then you forgot BEGIN_COM_MAP
         STDMETHOD(QueryInterface)(REFIID iid, void ** ppvObject)
         {return _InternalQueryInterface(iid, ppvObject);}
-        CComGlobalsThreadModel::AutoCriticalSection m_csCached;
+#ifndef OLD_ATL_CRITSEC_CODE
+    	CComGlobalsThreadModel::AutoDeleteCriticalSection m_csCached;
+#endif  /* OLD_ATL_CRITSEC_CODE */
 };
 
 //Base is the user's class that derives from CComObjectRoot and whatever
@@ -2544,7 +2791,14 @@ class CComObjectGlobal : public Base
 {
 public:
         typedef Base _BaseClass;
-        CComObjectGlobal(void* = NULL){m_hResFinalConstruct = FinalConstruct();}
+        CComObjectGlobal(void* = NULL)
+        {
+#ifndef OLD_ATL_CRITSEC_CODE
+			m_hResFinalConstruct = _AtlInitialConstruct();
+			if (SUCCEEDED(m_hResFinalConstruct))
+#endif  /* OLD_ATL_CRITSEC_CODE */
+                m_hResFinalConstruct = FinalConstruct();
+        }
         ~CComObjectGlobal()
         {
                 FinalRelease();
@@ -2567,7 +2821,14 @@ class CComObjectStack : public Base
 {
 public:
         typedef Base _BaseClass;
-        CComObjectStack(void* = NULL){m_hResFinalConstruct = FinalConstruct();}
+        CComObjectStack(void* = NULL)
+        {
+#ifndef OLD_ATL_CRITSEC_CODE
+			m_hResFinalConstruct = _AtlInitialConstruct();
+			if (SUCCEEDED(m_hResFinalConstruct))
+#endif  /* OLD_ATL_CRITSEC_CODE */
+                m_hResFinalConstruct = FinalConstruct();
+        }
         ~CComObjectStack()
         {
                 FinalRelease();
@@ -2631,7 +2892,7 @@ public:
 template <class contained>
 class CComAggObject :
         public IUnknown,
-        public CComObjectRootEx< contained::_ThreadModel::ThreadModelNoCS >
+        public CComObjectRootEx< typename contained::_ThreadModel::ThreadModelNoCS >
 {
 public:
         typedef contained _BaseClass;
@@ -2639,6 +2900,17 @@ public:
         {
                 _Module.Lock();
         }
+#ifndef OLD_ATL_CRITSEC_CODE
+    	HRESULT _AtlInitialConstruct()
+	    {
+		    HRESULT hr = m_contained._AtlInitialConstruct();
+    		if (SUCCEEDED(hr))
+	    	{
+		    	hr = CComObjectRootEx< typename contained::_ThreadModel::ThreadModelNoCS >::_AtlInitialConstruct();
+    		}
+	    	return hr;
+	    }
+#endif  /* OLD_ATL_CRITSEC_CODE */
         //If you get a message that this call is ambiguous then you need to
         // override it in your class and call each base class' version of this
         HRESULT FinalConstruct()
@@ -2694,7 +2966,8 @@ public:
         }
         static HRESULT WINAPI CreateInstance(LPUNKNOWN pUnkOuter, CComAggObject<contained>** pp)
         {
-                ATLASSERT(pp != NULL);
+                _ATL_VALIDATE_OUT_POINTER(pp);
+                        
                 HRESULT hRes = E_OUTOFMEMORY;
                 CComAggObject<contained>* p = NULL;
                 ATLTRY(p = new CComAggObject<contained>(pUnkOuter))
@@ -2702,7 +2975,11 @@ public:
                 {
                         p->SetVoid(NULL);
                         p->InternalFinalConstructAddRef();
-                        hRes = p->FinalConstruct();
+#ifndef OLD_ATL_CRITSEC_CODE
+            			hRes = p->_AtlInitialConstruct();
+			            if (SUCCEEDED(hRes))
+#endif  /* OLD_ATL_CRITSEC_CODE */
+                            hRes = p->FinalConstruct();
                         p->InternalFinalConstructRelease();
                         if (hRes != S_OK)
                         {
@@ -2723,7 +3000,7 @@ public:
 template <class contained>
 class CComPolyObject :
         public IUnknown,
-        public CComObjectRootEx< contained::_ThreadModel::ThreadModelNoCS >
+        public CComObjectRootEx< typename contained::_ThreadModel::ThreadModelNoCS >
 {
 public:
         typedef contained _BaseClass;
@@ -2731,6 +3008,17 @@ public:
         {
                 _Module.Lock();
         }
+#ifndef OLD_ATL_CRITSEC_CODE
+    	HRESULT _AtlInitialConstruct()
+	    {
+		    HRESULT hr = m_contained._AtlInitialConstruct();
+		    if (SUCCEEDED(hr))
+    		{
+	    		hr = CComObjectRootEx< typename contained::_ThreadModel::ThreadModelNoCS >::_AtlInitialConstruct();
+		    }
+    		return hr;
+	    }
+#endif  /* OLD_ATL_CRITSEC_CODE */
         //If you get a message that this call is ambiguous then you need to
         // override it in your class and call each base class' version of this
         HRESULT FinalConstruct()
@@ -2767,11 +3055,13 @@ public:
         }
         STDMETHOD(QueryInterface)(REFIID iid, void ** ppvObject)
         {
+                if (ppvObject == NULL)
+                    return E_POINTER;
+                *ppvObject = NULL;
+
                 HRESULT hRes = S_OK;
                 if (InlineIsEqualUnknown(iid))
                 {
-                        if (ppvObject == NULL)
-                                return E_POINTER;
                         *ppvObject = (void*)(IUnknown*)this;
                         AddRef();
 #ifdef _ATL_DEBUG_INTERFACES
@@ -2789,7 +3079,8 @@ public:
         }
         static HRESULT WINAPI CreateInstance(LPUNKNOWN pUnkOuter, CComPolyObject<contained>** pp)
         {
-                ATLASSERT(pp != NULL);
+                _ATL_VALIDATE_OUT_POINTER(pp);
+
                 HRESULT hRes = E_OUTOFMEMORY;
                 CComPolyObject<contained>* p = NULL;
                 ATLTRY(p = new CComPolyObject<contained>(pUnkOuter))
@@ -2797,7 +3088,11 @@ public:
                 {
                         p->SetVoid(NULL);
                         p->InternalFinalConstructAddRef();
-                        hRes = p->FinalConstruct();
+#ifndef OLD_ATL_CRITSEC_CODE
+                        hRes = p->_AtlInitialConstruct();
+                        if (SUCCEEDED(hRes))
+#endif
+                            hRes = p->FinalConstruct();
                         p->InternalFinalConstructRelease();
                         if (hRes != S_OK)
                         {
@@ -2850,7 +3145,7 @@ public:
 template <class contained>
 class CComCachedTearOffObject :
         public IUnknown,
-        public CComObjectRootEx<contained::_ThreadModel::ThreadModelNoCS>
+        public CComObjectRootEx<typename contained::_ThreadModel::ThreadModelNoCS>
 {
 public:
         typedef contained _BaseClass;
@@ -3189,6 +3484,7 @@ public:
                 CComBSTR bstr;
                 int nLen;
                 DISPID id;
+                stringdispid() : nLen(0), id(DISPID_UNKNOWN){}
         };
         stringdispid* m_pMap;
         int m_nCount;
@@ -3196,6 +3492,8 @@ public:
 public:
         HRESULT GetTI(LCID lcid, ITypeInfo** ppInfo)
         {
+                _ATL_VALIDATE_OUT_POINTER(ppInfo);
+                
                 HRESULT hr = S_OK;
                 if (m_pInfo == NULL)
                         hr = GetTI(lcid);
@@ -3211,7 +3509,7 @@ public:
         HRESULT EnsureTI(LCID lcid)
         {
                 HRESULT hr = S_OK;
-                if (m_pInfo == NULL)
+                if (m_pInfo == NULL || m_pMap == NULL)
                         hr = GetTI(lcid);
                 return hr;
         }
@@ -3220,6 +3518,10 @@ public:
         // It is registered through _Module.AddTermFunc()
         static void __stdcall Cleanup(DWORD_PTR dw)
         {
+                ATLASSERT(dw != 0);
+                if (dw == 0)
+                        return;
+                        
                 CComTypeInfoHolder* p = (CComTypeInfoHolder*) dw;
                 if (p->m_pInfo != NULL)
                         p->m_pInfo->Release();
@@ -3230,10 +3532,7 @@ public:
 
         HRESULT GetTypeInfo(UINT /* itinfo */, LCID lcid, ITypeInfo** pptinfo)
         {
-                HRESULT hRes = E_POINTER;
-                if (pptinfo != NULL)
-                        hRes = GetTI(lcid, pptinfo);
-                return hRes;
+                return GetTI(lcid, pptinfo);
         }
         HRESULT GetIDsOfNames(REFIID /* riid */, LPOLESTR* rgszNames, UINT cNames,
                 LCID lcid, DISPID* rgdispid)
@@ -3241,25 +3540,24 @@ public:
                 HRESULT hRes = EnsureTI(lcid);
                 if (m_pInfo != NULL)
                 {
-                        for (int i=0; i<(int)cNames; i++)
+                        hRes = E_FAIL;
+                        if (m_pMap != NULL && cNames == 1)
                         {
-                                int n = ocslen(rgszNames[i]);
-                                int j;
-                                for (j=m_nCount-1; j>=0; j--)
+                                int n = ocslen(rgszNames[0]);
+                                for (int j=m_nCount-1; j>=0; j--)
                                 {
                                         if ((n == m_pMap[j].nLen) &&
-                                                (memcmp(m_pMap[j].bstr, rgszNames[i], m_pMap[j].nLen * sizeof(OLECHAR)) == 0))
+                                                (memcmp(m_pMap[j].bstr, rgszNames[0], m_pMap[j].nLen * sizeof(OLECHAR)) == 0))
                                         {
-                                                rgdispid[i] = m_pMap[j].id;
+                                                rgdispid[0] = m_pMap[j].id;
+                                                hRes = S_OK;
                                                 break;
                                         }
                                 }
-                                if (j < 0)
-                                {
-                                        hRes = m_pInfo->GetIDsOfNames(rgszNames, cNames, rgdispid);
-                                        if (FAILED(hRes))
-                                                break;
-                                }
+                        }
+                        if (FAILED(hRes))
+                        {
+                                hRes = m_pInfo->GetIDsOfNames(rgszNames, cNames, rgdispid);
                         }
                 }
                 return hRes;
@@ -3274,37 +3572,62 @@ public:
                         hRes = m_pInfo->Invoke(p, dispidMember, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
                 return hRes;
         }
-#pragma warning(push)
-#pragma warning(disable: 4267)  //REVIEW operator new[] problem
+
         HRESULT LoadNameCache(ITypeInfo* pTypeInfo)
         {
+                ATLASSERT(m_pMap == NULL);
                 TYPEATTR* pta;
                 HRESULT hr = pTypeInfo->GetTypeAttr(&pta);
                 if (SUCCEEDED(hr))
                 {
                         m_nCount = pta->cFuncs;
-                        m_pMap = m_nCount == 0 ? 0 : new stringdispid[m_nCount];
+                        
+                        stringdispid* pMap = NULL;
+                        if (m_nCount != 0)
+                                ATLTRY(pMap = new stringdispid[m_nCount]);
+                        if (m_nCount != 0 && pMap == NULL)
+                        {
+                                m_nCount = 0;
+                                return E_OUTOFMEMORY;
+                        }
                         for (int i=0; i<m_nCount; i++)
                         {
                                 FUNCDESC* pfd;
-                                if (SUCCEEDED(pTypeInfo->GetFuncDesc(i, &pfd)))
+                                hr = pTypeInfo->GetFuncDesc(i, &pfd);
+                                if (SUCCEEDED(hr))
                                 {
                                         CComBSTR bstrName;
-                                        if (SUCCEEDED(pTypeInfo->GetDocumentation(pfd->memid, &bstrName, NULL, NULL, NULL)))
+                                        hr = pTypeInfo->GetDocumentation(pfd->memid, &bstrName, NULL, NULL, NULL);
+                                        if (SUCCEEDED(hr))
                                         {
-                                                m_pMap[i].bstr.Attach(bstrName.Detach());
-                                                m_pMap[i].nLen = SysStringLen(m_pMap[i].bstr);
-                                                m_pMap[i].id = pfd->memid;
+                                                pMap[i].bstr.Attach(bstrName.Detach());
+                                                pMap[i].nLen = SysStringLen(pMap[i].bstr);
+                                                pMap[i].id = pfd->memid;
+                                        }
+                                        else
+                                        {
+                                                delete [] m_pMap;
+                                                m_pMap = NULL;
+                                                m_nCount = 0;
+                                                pTypeInfo->ReleaseFuncDesc(pfd);
+                                                break;
                                         }
                                         pTypeInfo->ReleaseFuncDesc(pfd);
                                 }
+                                else
+                                {
+                                        delete [] m_pMap;
+                                        m_pMap = NULL;
+                                        m_nCount = 0;
+                                        break;
+                                }
                         }
+                        m_pMap = pMap;                        
                         pTypeInfo->ReleaseTypeAttr(pta);
                 }
-                return S_OK;
+                return hr;
         }
 };
-#pragma warning(pop)
 
 inline HRESULT CComTypeInfoHolder::GetTI(LCID lcid)
 {
@@ -3312,31 +3635,36 @@ inline HRESULT CComTypeInfoHolder::GetTI(LCID lcid)
         ATLASSERT(m_plibid != NULL && m_pguid != NULL);
         ATLASSERT(!InlineIsEqualGUID(*m_plibid, GUID_NULL) && "Did you forget to pass the LIBID to CComModule::Init?");
 
-        if (m_pInfo != NULL)
+        if (m_pInfo != NULL && m_pMap != NULL)
                 return S_OK;
-        HRESULT hRes;
+        HRESULT hRes = S_OK;
         EnterCriticalSection(&_Module.m_csTypeInfoHolder);
-
-        ITypeLib* pTypeLib;
-        hRes = LoadRegTypeLib(*m_plibid, m_wMajor, m_wMinor, lcid, &pTypeLib);
-        if (SUCCEEDED(hRes))
+        if (m_pInfo == NULL)
         {
-                CComPtr<ITypeInfo> spTypeInfo;
-                hRes = pTypeLib->GetTypeInfoOfGuid(*m_pguid, &spTypeInfo);
+                ITypeLib* pTypeLib;
+                hRes = LoadRegTypeLib(*m_plibid, m_wMajor, m_wMinor, lcid, &pTypeLib);
                 if (SUCCEEDED(hRes))
                 {
-                        CComPtr<ITypeInfo> spInfo(spTypeInfo);
-                        CComPtr<ITypeInfo2> spTypeInfo2;
-                        if (SUCCEEDED(spTypeInfo->QueryInterface(IID_ITypeInfo2, (void **)&spTypeInfo2)))
-                                spInfo = spTypeInfo2;
+                        CComPtr<ITypeInfo> spTypeInfo;
+                        hRes = pTypeLib->GetTypeInfoOfGuid(*m_pguid, &spTypeInfo);
+                        if (SUCCEEDED(hRes))
+                        {
+                                CComPtr<ITypeInfo> spInfo(spTypeInfo);
+                                CComPtr<ITypeInfo2> spTypeInfo2;
+                                if (SUCCEEDED(spTypeInfo->QueryInterface(&spTypeInfo2)))
+                                        spInfo = spTypeInfo2;
 
-                        LoadNameCache(spInfo);
-                        m_pInfo = spInfo.Detach();
+                                m_pInfo = spInfo.Detach();
+                                _Module.AddTermFunc(Cleanup, (DWORD_PTR)this);
+                        }
+                        pTypeLib->Release();
                 }
-                pTypeLib->Release();
+        }
+        if (m_pInfo != NULL && m_pMap == NULL)
+        {
+                LoadNameCache(m_pInfo);
         }
         LeaveCriticalSection(&_Module.m_csTypeInfoHolder);
-        _Module.AddTermFunc(Cleanup, (DWORD_PTR)this);
         return hRes;
 }
 
@@ -3405,6 +3733,7 @@ public:
         STDMETHOD(QueryService)(REFGUID guidService, REFIID riid, void** ppvObject)
         {
                 ATLTRACE2(atlTraceCOM, 0, _T("IServiceProviderImpl::QueryService\n"));
+                _ATL_VALIDATE_OUT_POINTER(ppvObject);
                 T* pT = static_cast<T*>(this);
                 return pT->_InternalQueryService(guidService, riid, ppvObject);
         }
@@ -3436,6 +3765,14 @@ ATLAPI AtlGetObjectSourceInterface(IUnknown* punkObj, GUID* plibid, IID* piid, u
 #else
 ATLINLINE ATLAPI AtlGetObjectSourceInterface(IUnknown* punkObj, GUID* plibid, IID* piid, unsigned short* pdwMajor, unsigned short* pdwMinor)
 {
+        if (plibid == NULL || piid == NULL || pdwMajor == NULL || pdwMinor == NULL)
+                return E_POINTER;
+                
+        *plibid = GUID_NULL;
+        *piid = IID_NULL;
+        *pdwMajor = 0;
+        *pdwMinor = 0;
+        
         HRESULT hr = E_FAIL;
         if (punkObj != NULL)
         {
@@ -3508,8 +3845,8 @@ ATLINLINE ATLAPI AtlGetObjectSourceInterface(IUnknown* punkObj, GUID* plibid, II
                                                                                                                                 if (pAttrIF != NULL)
                                                                                                                                 {
                                                                                                                                         memcpy(piid, &pAttrIF->guid, sizeof(GUID));
+                                                                                                                                        spInfo->ReleaseTypeAttr(pAttrIF);                                                                                                                                        
                                                                                                                                 }
-                                                                                                                                spInfo->ReleaseTypeAttr(pAttrIF);
                                                                                                                         }
                                                                                                                 }
                                                                                                                 break;
@@ -3530,7 +3867,6 @@ ATLINLINE ATLAPI AtlGetObjectSourceInterface(IUnknown* punkObj, GUID* plibid, II
         return hr;
 }
 #endif // _ATL_DLL
-
 
 #if defined(_M_IA64)
 template <class T>
@@ -3564,7 +3900,6 @@ public:
         TMFP pfn;
         void (__stdcall *pfnHelper)();
 
-        
         void Init(TMFP pf, void *p);
 };
 
@@ -3573,6 +3908,7 @@ public:
 extern "C" void CComStdCallThunkHelper(void);
 #else
 
+#pragma warning(disable:4740)       // flow in/out of inline disables global opts
 inline void __declspec(naked) __stdcall CComStdCallThunkHelper()
 {
         __asm
@@ -3584,6 +3920,7 @@ inline void __declspec(naked) __stdcall CComStdCallThunkHelper()
                 jmp eax;                // jump pfn
         };
 }
+#pragma warning(default:4740)
 #endif
 
 template <class T>
@@ -3615,6 +3952,7 @@ class ATL_NO_VTABLE _IDispEvent
 {
 public:
         _IDispEvent() {m_dwEventCookie = 0xFEFEFEFE;}
+        
         //this method needs a different name than QueryInterface
         STDMETHOD(_LocDEQueryInterface)(REFIID riid, void ** ppvObject) = 0;
         virtual ULONG STDMETHODCALLTYPE AddRef(void) = 0;
@@ -3649,13 +3987,13 @@ class ATL_NO_VTABLE IDispEventSimpleImpl : public _IDispEventLocator<nID, pdiid>
 public:
         STDMETHOD(_LocDEQueryInterface)(REFIID riid, void ** ppvObject)
         {
-                if (InlineIsEqualGUID(riid, *pdiid) ||
+                _ATL_VALIDATE_OUT_POINTER(ppvObject);
+                
+                if (InlineIsEqualGUID(riid, *pdiid) || 
                         InlineIsEqualUnknown(riid) ||
                         InlineIsEqualGUID(riid, IID_IDispatch) ||
                         InlineIsEqualGUID(riid, m_iid))
                 {
-                        if (ppvObject == NULL)
-                                return E_POINTER;
                         *ppvObject = this;
                         AddRef();
 #ifdef _ATL_DEBUG_INTERFACES
@@ -3708,7 +4046,6 @@ public:
                 if (pFound == NULL)
                         return S_OK;
                 
-
                 _ATL_FUNC_INFO info;
                 _ATL_FUNC_INFO* pInfo;
                 if (pFound->pInfo != NULL)
@@ -3720,15 +4057,23 @@ public:
                         if (FAILED(hr))
                                 return S_OK;
                 }
-                InvokeFromFuncInfo(pFound->pfn, *pInfo, pdispparams, pvarResult);
-                return S_OK;
+                return InvokeFromFuncInfo(pFound->pfn, *pInfo, pdispparams, pvarResult);
         }
 
         //Helper for invoking the event
         HRESULT InvokeFromFuncInfo(void (__stdcall T::*pEvent)(), _ATL_FUNC_INFO& info, DISPPARAMS* pdispparams, VARIANT* pvarResult)
         {
                 T* pT = static_cast<T*>(this);
-                VARIANTARG** pVarArgs = info.nParams ? (VARIANTARG**)alloca(sizeof(VARIANTARG*)*info.nParams) : 0;
+                // If this assert occurs, then add a #define _ATL_MAX_VARTYPES nnnn
+                // before including atlcom.h
+                ATLASSERT(info.nParams <= _ATL_MAX_VARTYPES);
+                if (info.nParams > _ATL_MAX_VARTYPES)
+                {
+                        return E_FAIL;
+                }
+                VARIANTARG* rgVarArgs[_ATL_MAX_VARTYPES];
+                VARIANTARG** pVarArgs = info.nParams ? rgVarArgs : 0;
+
                 for (int i=0; i<info.nParams; i++)
                         pVarArgs[i] = &pdispparams->rgvarg[info.nParams - i - 1];
 
@@ -3760,6 +4105,8 @@ public:
         HRESULT DispEventAdvise(IUnknown* pUnk, const IID* piid)
         {
                 ATLASSERT(m_dwEventCookie == 0xFEFEFEFE);
+                if (m_dwEventCookie != 0xFEFEFEFE)
+                        return E_UNEXPECTED;
                 return AtlAdvise(pUnk, (IUnknown*)this, *piid, &m_dwEventCookie);
         }
         HRESULT DispEventUnadvise(IUnknown* pUnk, const IID* piid)
@@ -3849,7 +4196,7 @@ public:
         }
 
         STDMETHOD(GetTypeInfoCount)(UINT* pctinfo)
-        {*pctinfo = 1; return S_OK;}
+        {if( pctinfo == NULL ) return E_INVALIDARG; *pctinfo = 1; return S_OK;}
 
         STDMETHOD(GetTypeInfo)(UINT itinfo, LCID lcid, ITypeInfo** pptinfo)
         {return _tih.GetTypeInfo(itinfo, lcid, pptinfo);}
@@ -3913,11 +4260,11 @@ public:
 
                 for (int i=0; i<pFuncDesc->cParams; i++)
                 {
-                        info.pVarTypes[i] = pFuncDesc->lprgelemdescParam[pFuncDesc->cParams - i - 1].tdesc.vt;
+                        info.pVarTypes[i] = pFuncDesc->lprgelemdescParam[i].tdesc.vt;
                         if (info.pVarTypes[i] == VT_PTR)
-                                info.pVarTypes[i] = pFuncDesc->lprgelemdescParam[pFuncDesc->cParams - i - 1].tdesc.lptdesc->vt | VT_BYREF;
+                                info.pVarTypes[i] = pFuncDesc->lprgelemdescParam[i].tdesc.lptdesc->vt | VT_BYREF;
                         if (info.pVarTypes[i] == VT_USERDEFINED)
-                                info.pVarTypes[i] = GetUserDefinedType(spTypeInfo,pFuncDesc->lprgelemdescParam[pFuncDesc->cParams-i-1].tdesc.hreftype);
+                                info.pVarTypes[i] = GetUserDefinedType(spTypeInfo,pFuncDesc->lprgelemdescParam[i].tdesc.hreftype);
                 }
 
                 VARTYPE vtReturn = pFuncDesc->elemdescFunc.tdesc.vt;
@@ -3944,6 +4291,9 @@ public:
         }
         VARTYPE GetUserDefinedType(ITypeInfo *pTI, HREFTYPE hrt)
         {
+                if (pTI == NULL)
+                    return VT_USERDEFINED;
+
                 CComPtr<ITypeInfo> spTypeInfo;
                 VARTYPE vt = VT_USERDEFINED;
                 HRESULT hr = E_FAIL;
@@ -3974,7 +4324,7 @@ protected:
 
 
 template <UINT nID, class T, const IID* piid, const GUID* plibid, WORD wMajor, WORD wMinor, class tihclass>
-IDispEventImpl<nID, T, piid, plibid, wMajor, wMinor, tihclass>::_tihclass
+typename IDispEventImpl<nID, T, piid, plibid, wMajor, wMinor, tihclass>::_tihclass
 IDispEventImpl<nID, T, piid, plibid, wMajor, wMinor, tihclass>::_tih =
         {piid, plibid, wMajor, wMinor, NULL, 0, NULL, 0};
 
@@ -3983,7 +4333,7 @@ struct _ATL_EVENT_ENTRY
 {
         UINT nControlID;                        //ID identifying object instance
         const IID* piid;                        //dispinterface IID
-        INT_PTR nOffset;                    //offset of dispinterface from this pointer
+        INT_PTR nOffset;                        //offset of dispinterface from this pointer
         DISPID dispid;                          //DISPID of method/property
         void (__stdcall T::*pfn)();     //method to invoke
         _ATL_FUNC_INFO* pInfo;
@@ -4016,6 +4366,8 @@ public:
 // IDispatch
         STDMETHOD(GetTypeInfoCount)(UINT* pctinfo)
         {
+                if( pctinfo == NULL ) 
+                        return E_INVALIDARG; 
                 *pctinfo = 1;
                 return S_OK;
         }
@@ -4044,7 +4396,7 @@ protected:
 };
 
 template <class T, const IID* piid, const GUID* plibid, WORD wMajor, WORD wMinor, class tihclass>
-IDispatchImpl<T, piid, plibid, wMajor, wMinor, tihclass>::_tihclass
+typename IDispatchImpl<T, piid, plibid, wMajor, wMinor, tihclass>::_tihclass
 IDispatchImpl<T, piid, plibid, wMajor, wMinor, tihclass>::_tih =
 {piid, plibid, wMajor, wMinor, NULL, 0, NULL, 0};
 
@@ -4068,7 +4420,7 @@ protected:
 };
 
 template <const CLSID* pcoclsid, const GUID* plibid, WORD wMajor, WORD wMinor, class tihclass>
-IProvideClassInfoImpl<pcoclsid, plibid, wMajor, wMinor, tihclass>::_tihclass
+typename IProvideClassInfoImpl<pcoclsid, plibid, wMajor, wMinor, tihclass>::_tihclass
 IProvideClassInfoImpl<pcoclsid, plibid, wMajor, wMinor, tihclass>::_tih =
 {pcoclsid,plibid, wMajor, wMinor, NULL, 0, NULL, 0};
 
@@ -4105,7 +4457,7 @@ protected:
 
 
 template <const CLSID* pcoclsid, const IID* psrcid, const GUID* plibid, WORD wMajor, WORD wMinor, class tihclass>
-IProvideClassInfo2Impl<pcoclsid, psrcid, plibid, wMajor, wMinor, tihclass>::_tihclass
+typename IProvideClassInfo2Impl<pcoclsid, psrcid, plibid, wMajor, wMinor, tihclass>::_tihclass
 IProvideClassInfo2Impl<pcoclsid, psrcid, plibid, wMajor, wMinor, tihclass>::_tih =
 {pcoclsid,plibid, wMajor, wMinor, NULL, 0, NULL, 0};
 
@@ -4277,12 +4629,12 @@ template <class Base, const IID* piid, class T, class Copy>
 STDMETHODIMP CComEnumImpl<Base, piid, T, Copy>::Next(ULONG celt, T* rgelt,
         ULONG* pceltFetched)
 {
-    if ((celt == 0) && (rgelt == NULL) && (NULL != pceltFetched))
-    {
-        // Return the number of remaining elements
-        *pceltFetched = (ULONG)(m_end - m_iter);
-        return S_OK;
-    }
+        if ((celt == 0) && (rgelt == NULL) && (NULL != pceltFetched))
+        {
+                // Return the number of remaining elements
+                *pceltFetched = (ULONG)(m_end - m_iter);
+                return S_OK;
+        }
         if (rgelt == NULL || (celt != 1 && pceltFetched == NULL))
                 return E_POINTER;
         if (m_begin == NULL || m_end == NULL || m_iter == NULL)
@@ -4431,7 +4783,7 @@ public:
 //Data
         CComPtr<IUnknown> m_spUnk;
         CollType* m_pcollection;
-        CollType::iterator m_iter;
+        typename CollType::iterator m_iter;
 };
 
 template <class Base, const IID* piid, class T, class Copy, class CollType>
@@ -4440,6 +4792,8 @@ STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, Copy, CollType>::Next(ULONG celt, T* 
 {
         if (rgelt == NULL || (celt != 1 && pceltFetched == NULL))
                 return E_POINTER;
+        if (pceltFetched != NULL)
+                *pceltFetched = 0;
         if (m_pcollection == NULL)
                 return E_FAIL;
 
@@ -4462,10 +4816,13 @@ STDMETHODIMP IEnumOnSTLImpl<Base, piid, T, Copy, CollType>::Next(ULONG celt, T* 
                         nActual++;
                 }
         }
-        if (pceltFetched)
-                *pceltFetched = nActual;
-        if (SUCCEEDED(hr) && (nActual < celt))
-                hr = S_FALSE;
+        if (SUCCEEDED(hr))
+        {
+                if (pceltFetched)
+                        *pceltFetched = nActual;
+                if (nActual < celt)
+                        hr = S_FALSE;
+        }                        
         return hr;
 }
 
@@ -4540,6 +4897,8 @@ public:
                 //Index is 1-based
                 if (pvar == NULL)
                         return E_POINTER;
+                if (Index < 1)
+                        return E_INVALIDARG;                        
                 HRESULT hr = E_FAIL;
                 Index--;
                 CollType::iterator iter = m_coll.begin();
@@ -4590,13 +4949,17 @@ public:
 protected:
         HRESULT GetPagesHelper(CAUUID* pPages, ATL_PROPMAP_ENTRY* pMap)
         {
+                if (pPages == NULL)
+                        return E_POINTER;
+
                 ATLASSERT(pMap != NULL);
                 if (pMap == NULL)
                         return E_POINTER;
 
                 int nCnt = 0;
+                int i;
                 // Get count of unique pages to alloc the array
-                for (int i = 0; pMap[i].pclsidPropPage != NULL; i++)
+                for (i = 0; pMap[i].pclsidPropPage != NULL; i++)
                 {
                         // only allow non data entry types
                         if (pMap[i].vt == 0)
@@ -4939,17 +5302,17 @@ public:
 template <class T, const IID* piid, class CDV = CComDynamicUnkArray >
 class ATL_NO_VTABLE IConnectionPointImpl : public _ICPLocator<piid>
 {
+public:
         typedef CComEnum<IEnumConnections, &IID_IEnumConnections, CONNECTDATA,
                 _Copy<CONNECTDATA> > CComEnumConnections;
         typedef CDV _CDV;
-public:
         ~IConnectionPointImpl();
         STDMETHOD(_LocCPQueryInterface)(REFIID riid, void ** ppvObject)
         {
+                _ATL_VALIDATE_OUT_POINTER(ppvObject);
+                
                 if (InlineIsEqualGUID(riid, IID_IConnectionPoint) || InlineIsEqualUnknown(riid))
                 {
-                        if (ppvObject == NULL)
-                                return E_POINTER;
                         *ppvObject = this;
                         AddRef();
 #ifdef _ATL_DEBUG_INTERFACES
@@ -4999,6 +5362,8 @@ STDMETHODIMP IConnectionPointImpl<T, piid, CDV>::Advise(IUnknown* pUnkSink,
         T* pT = static_cast<T*>(this);
         IUnknown* p;
         HRESULT hRes = S_OK;
+        if (pdwCookie != NULL)
+            *pdwCookie = 0;
         if (pUnkSink == NULL || pdwCookie == NULL)
                 return E_POINTER;
         IID iid;
@@ -5098,9 +5463,15 @@ public:
 
                 int nCPCount;
                 const _ATL_CONNMAP_ENTRY* pEntry = T::GetConnMap(&nCPCount);
-
+                
                 // allocate an initialize a vector of connection point object pointers
-                IConnectionPoint** ppCP = (IConnectionPoint**)alloca(sizeof(IConnectionPoint*)*nCPCount);
+                USES_ATL_SAFE_ALLOCA;
+                IConnectionPoint** ppCP = (IConnectionPoint**)_ATL_SAFE_ALLOCA(sizeof(IConnectionPoint*)*nCPCount, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+                if (ppCP == NULL)
+                {
+                        delete pEnum;
+                        return E_OUTOFMEMORY;
+                }
 
                 int i = 0;
                 while (pEntry->dwOffset != (DWORD_PTR)-1)
@@ -5167,7 +5538,12 @@ inline HRESULT CComAutoThreadModule<ThreadAllocator>::Init(_ATL_OBJMAP_ENTRY* p,
         if(m_pApartments == NULL)
                 return E_OUTOFMEMORY;
         for (int i = 0; i < nThreads; i++)
+        {
                 m_pApartments[i].m_hThread = CreateThread(NULL, 0, CComApartment::_Apartment, (void*)&m_pApartments[i], 0, &m_pApartments[i].m_dwThreadID);
+                if(m_pApartments[i].m_hThread == NULL)
+                        return AtlHresultFromLastError();
+        }
+                
         CComApartment::ATL_CREATE_OBJECT = RegisterWindowMessage(_T("ATL_CREATE_OBJECT"));
         return CComModule::Init(p, h, plibid);
 }
@@ -5214,8 +5590,23 @@ HRESULT CComAutoThreadModule<ThreadAllocator>::CreateInstance(void* pfnCreateIns
         data.hEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
         data.hRes = S_OK;
         int nThread = m_Allocator.GetThread(m_pApartments, m_nThreads);
-        ::PostThreadMessage(m_pApartments[nThread].m_dwThreadID, CComApartment::ATL_CREATE_OBJECT, 0, (LPARAM)&data);
-        AtlWaitWithMessageLoop(data.hEvent);
+        
+        int nIterations = 0;
+        while(::PostThreadMessage(m_pApartments[nThread].m_dwThreadID, CComApartment::ATL_CREATE_OBJECT, 0, (LPARAM)&data) == 0
+                        && ++ nIterations < 100)
+        {
+                Sleep(100);
+        }
+        
+        if (nIterations < 100)
+        {
+                AtlWaitWithMessageLoop(data.hEvent);
+        }
+        else
+        {
+                data.hRes = AtlHresultFromLastError();
+        }
+        
         CloseHandle(data.hEvent);
         if (SUCCEEDED(data.hRes))
                 data.hRes = CoGetInterfaceAndReleaseStream(data.pStream, riid, ppvObj);
@@ -5229,6 +5620,7 @@ CComAutoThreadModule<ThreadAllocator>::~CComAutoThreadModule()
         {
                 ::PostThreadMessage(m_pApartments[i].m_dwThreadID, WM_QUIT, 0, 0);
                 ::WaitForSingleObject(m_pApartments[i].m_hThread, INFINITE);
+                ::CloseHandle(m_pApartments[i].m_hThread);
         }
         delete[] m_pApartments;
 }

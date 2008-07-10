@@ -70,6 +70,9 @@
 
 #include <shlwapi.h>
 
+#define _ATL_TYPELIB_INDEX_LENGTH 10
+#define _ATL_QUOTES_SPACE 2
+
 #pragma pack(push, _ATL_PACKING)
 
 #if defined(_ATL_DLL)
@@ -267,7 +270,7 @@ struct _stdcallthunk
         DWORD   m_this;         //
         BYTE    m_jmp;          // jmp WndProc
         DWORD   m_relproc;      // relative jmp
-        void Init(DWORD_PTR proc, void* pThis)
+        BOOL Init(DWORD_PTR proc, void* pThis)
         {
                 m_mov = 0x042444C7;  //C7 44 24 0C
                 m_this = PtrToUlong(pThis);
@@ -276,9 +279,19 @@ struct _stdcallthunk
                 // write block from data cache and
                 //  flush from instruction cache
                 FlushInstructionCache(GetCurrentProcess(), this, sizeof(_stdcallthunk));
+                return TRUE;
         }
 };
 #pragma pack(pop)
+
+PVOID __stdcall __AllocStdCallThunk(VOID);
+VOID  __stdcall __FreeStdCallThunk(PVOID);
+
+#define AllocStdCallThunk() __AllocStdCallThunk()
+#define FreeStdCallThunk(p) __FreeStdCallThunk(p)
+
+#pragma comment(lib, "atlthunk.lib")
+
 #elif defined (_M_AMD64)
 #pragma pack(push,2)
 struct _stdcallthunk
@@ -288,7 +301,7 @@ struct _stdcallthunk
     USHORT  RaxMov;         // mov rax, target
     ULONG64 RaxImm;         //
     USHORT  RaxJmp;         // jmp target
-    void Init(DWORD_PTR proc, void *pThis)
+    BOOL Init(DWORD_PTR proc, void *pThis)
     {
         RcxMov = 0xb948;          // mov rcx, pThis
         RcxImm = (ULONG64)pThis;  // 
@@ -296,10 +309,19 @@ struct _stdcallthunk
         RaxImm = (ULONG64)proc;   //
         RaxJmp = 0xe0ff;          // jmp rax
         FlushInstructionCache(GetCurrentProcess(), this, sizeof(_stdcallthunk));
+        return TRUE;
     }
 };
 #pragma pack(pop)
+
+PVOID __AllocStdCallThunk(VOID);
+VOID  __FreeStdCallThunk(PVOID);
+
+#define AllocStdCallThunk() __AllocStdCallThunk()
+#define FreeStdCallThunk(p) __FreeStdCallThunk(p)
+
 #elif defined(_M_IA64)
+#pragma comment(lib, "atl21asm.lib")
 #pragma pack(push,8)
 extern "C" LRESULT CALLBACK _WndProcThunkProc( HWND, UINT, WPARAM, LPARAM );
 struct _FuncDesc
@@ -312,7 +334,7 @@ struct _stdcallthunk
         _FuncDesc m_funcdesc;
         void* m_pFunc;
         void* m_pThis;
-        void Init(DWORD_PTR proc, void* pThis)
+        BOOL Init(DWORD_PTR proc, void* pThis)
         {
                 const _FuncDesc* pThunkProc;
 
@@ -322,9 +344,12 @@ struct _stdcallthunk
                 m_pFunc = reinterpret_cast< void* >( proc );
                 m_pThis = pThis;
                 ::FlushInstructionCache( GetCurrentProcess(), this, sizeof( _stdcallthunk ) );
+                return TRUE;
         }
 };
 #pragma pack(pop)
+#define AllocStdCallThunk() HeapAlloc(GetProcessHeap(),0,sizeof(_stdcallthunk))
+#define FreeStdCallThunk(p) HeapFree(GetProcessHeap(), 0, p)
 #else
 #error Only AMD64, IA64, and X86 supported
 #endif
@@ -342,17 +367,23 @@ public:
         ~CDynamicStdCallThunk()
         {
                 if (pThunk)
-                        HeapFree(GetProcessHeap(), 0, pThunk);
+                        FreeStdCallThunk(pThunk);
         }
 
-        void Init(DWORD_PTR proc, void *pThis)
+        BOOL Init(DWORD_PTR proc, void *pThis)
         {
                 if (!pThunk) {
-                    pThunk = static_cast<_stdcallthunk *>(HeapAlloc(GetProcessHeap(), 
-                            HEAP_GENERATE_EXCEPTIONS, sizeof(_stdcallthunk)));
+                    pThunk = static_cast<_stdcallthunk *>(AllocStdCallThunk());
+                    if (pThunk == NULL) {
+                        return FALSE;
+                    }
                 }
-                ATLASSERT(pThunk);
-                pThunk->Init(proc, pThis);
+
+                if ((proc == 0) && (pThis == NULL)) {
+                    return TRUE;
+                }
+
+                return pThunk->Init(proc, pThis);
         }
 };
 typedef CDynamicStdCallThunk CStdCallThunk;
@@ -420,6 +451,25 @@ ATLAPI AtlModuleAddTermFunc(_ATL_MODULE* pM, _ATL_TERMFUNC* pFunc, DWORD_PTR dw)
 namespace ATL
 {
 
+/////////////////////////////////////////////////////////////////////////////
+// Error to HRESULT helpers
+
+inline HRESULT AtlHresultFromLastError()
+{
+        DWORD dwErr = ::GetLastError();
+        return HRESULT_FROM_WIN32(dwErr);
+}
+
+inline HRESULT AtlHresultFromWin32(DWORD nError)
+{
+        return( HRESULT_FROM_WIN32( nError ) );
+}
+
+inline void __declspec(noreturn) _AtlRaiseException( DWORD dwExceptionCode, DWORD dwExceptionFlags = EXCEPTION_NONCONTINUABLE )
+{
+        RaiseException( dwExceptionCode, dwExceptionFlags, 0, NULL );
+}
+
 enum atlTraceFlags
 {
         // Application defined categories
@@ -461,9 +511,17 @@ inline void _cdecl AtlTrace(LPCSTR lpszFormat, ...)
         char szBuffer[512];
 
         nBuf = _vsnprintf(szBuffer, sizeof(szBuffer), lpszFormat, args);
-        ATLASSERT(nBuf < sizeof(szBuffer)); //Output truncated as it was > sizeof(szBuffer)
-
+        szBuffer[sizeof(szBuffer)-1] = 0;
+        
+        if(nBuf == -1 || nBuf >= sizeof(szBuffer))
+        {
+                char szContinued[] = "...";
+                
+                lstrcpyA(szBuffer + sizeof(szBuffer) - sizeof(szContinued), szContinued);
+        }                
+        
         OutputDebugStringA(szBuffer);
+                
         va_end(args);
 }
 inline void _cdecl AtlTrace2(DWORD category, UINT level, LPCSTR lpszFormat, ...)
@@ -477,7 +535,14 @@ inline void _cdecl AtlTrace2(DWORD category, UINT level, LPCSTR lpszFormat, ...)
                 char szBuffer[512];
 
                 nBuf = _vsnprintf(szBuffer, sizeof(szBuffer), lpszFormat, args);
-                ATLASSERT(nBuf < sizeof(szBuffer)); //Output truncated as it was > sizeof(szBuffer)
+                szBuffer[sizeof(szBuffer)-1] = 0;
+
+                if(nBuf == -1 || nBuf >= sizeof(szBuffer))
+                {
+                        char szContinued[] = "...";
+                        
+                        lstrcpyA(szBuffer + sizeof(szBuffer) - sizeof(szContinued), szContinued);
+                }                
 
                 OutputDebugStringA("ATL: ");
                 OutputDebugStringA(szBuffer);
@@ -494,7 +559,14 @@ inline void _cdecl AtlTrace(LPCWSTR lpszFormat, ...)
         WCHAR szBuffer[512];
 
         nBuf = _vsnwprintf(szBuffer, sizeof(szBuffer) / sizeof(WCHAR), lpszFormat, args);
-        ATLASSERT(nBuf < sizeof(szBuffer));//Output truncated as it was > sizeof(szBuffer)
+        szBuffer[sizeof(szBuffer)/sizeof(WCHAR)-1] = 0;
+
+        if(nBuf == -1 || nBuf >= sizeof(szBuffer)/sizeof(WCHAR))
+        {
+                WCHAR szContinued[] = L"...";
+                
+                ocscpy(szBuffer + sizeof(szBuffer)/sizeof(WCHAR) - sizeof(szContinued)/sizeof(WCHAR), szContinued);
+        }                
 
         OutputDebugStringW(szBuffer);
         va_end(args);
@@ -510,7 +582,14 @@ inline void _cdecl AtlTrace2(DWORD category, UINT level, LPCWSTR lpszFormat, ...
                 WCHAR szBuffer[512];
 
                 nBuf = _vsnwprintf(szBuffer, sizeof(szBuffer) / sizeof(WCHAR), lpszFormat, args);
-                ATLASSERT(nBuf < sizeof(szBuffer));//Output truncated as it was > sizeof(szBuffer)
+                szBuffer[sizeof(szBuffer)/sizeof(WCHAR)-1] = 0;
+
+                if(nBuf == -1 || nBuf >= sizeof(szBuffer)/sizeof(WCHAR))
+                {
+                        WCHAR szContinued[] = L"...";
+                        
+                        ocscpy(szBuffer + sizeof(szBuffer)/sizeof(WCHAR) - sizeof(szContinued)/sizeof(WCHAR), szContinued);
+                }                
 
                 OutputDebugStringW(L"ATL: ");
                 OutputDebugStringW(szBuffer);
@@ -539,9 +618,12 @@ inline void _cdecl AtlTrace2(DWORD, UINT, LPCWSTR , ...){}
 #define ATLTRACENOTIMPL(funcname)   return E_NOTIMPL
 #endif //_DEBUG
 
-
-
-
+// Validation macro for OUT pointer
+// Used in QI and CreateInstance
+#define _ATL_VALIDATE_OUT_POINTER(x)        ATLASSERT(x != NULL);        \
+        if (x == NULL)        \
+                return E_POINTER;        \
+        *x = NULL
 
 /////////////////////////////////////////////////////////////////////////////
 // Win32 libraries
@@ -926,10 +1008,10 @@ public:
                 ATLASSERT(p==NULL);
                 return &p;
         }
-        _NoAddRefReleaseOnCComPtr<T>* operator->() const
+        _NoAddRefReleaseOnCComPtr<IUnknown>* operator->() const
         {
                 ATLASSERT(p!=NULL);
-                return (_NoAddRefReleaseOnCComPtr<T>*)p;
+                return (_NoAddRefReleaseOnCComPtr<IUnknown>*)p;
         }
         IUnknown* operator=(IUnknown* lp)
         {
@@ -973,7 +1055,7 @@ public:
                 p = NULL;
                 return pt;
         }
-        HRESULT CopyTo(T** ppT)
+        HRESULT CopyTo(IUnknown** ppT)
         {
                 ATLASSERT(ppT != NULL);
                 if (ppT == NULL)
@@ -994,7 +1076,7 @@ public:
         HRESULT CoCreateInstance(REFCLSID rclsid, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
         {
                 ATLASSERT(p == NULL);
-                return ::CoCreateInstance(rclsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&p);
+                return ::CoCreateInstance(rclsid, pUnkOuter, dwClsContext, __uuidof(IUnknown), (void**)&p);
         }
         HRESULT CoCreateInstance(LPCOLESTR szProgID, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
         {
@@ -1002,7 +1084,7 @@ public:
                 HRESULT hr = CLSIDFromProgID(szProgID, &clsid);
                 ATLASSERT(p == NULL);
                 if (SUCCEEDED(hr))
-                        hr = ::CoCreateInstance(clsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&p);
+                        hr = ::CoCreateInstance(clsid, pUnkOuter, dwClsContext, __uuidof(IUnknown), (void**)&p);
                 return hr;
         }
         template <class Q>
@@ -1067,17 +1149,6 @@ public:
 /////////////////////////////////////////////////////////////////////////////
 // GUID comparison
 
-#if 0
-inline BOOL InlineIsEqualGUID(REFGUID rguid1, REFGUID rguid2)
-{
-   return (
-          ((PLONG) &rguid1)[0] == ((PLONG) &rguid2)[0] &&
-          ((PLONG) &rguid1)[1] == ((PLONG) &rguid2)[1] &&
-          ((PLONG) &rguid1)[2] == ((PLONG) &rguid2)[2] &&
-          ((PLONG) &rguid1)[3] == ((PLONG) &rguid2)[3]);
-}
-#endif
-
 inline BOOL InlineIsEqualUnknown(REFGUID rguid1)
 {
    return (
@@ -1094,6 +1165,8 @@ inline BOOL InlineIsEqualUnknown(REFGUID rguid1)
 
 /////////////////////////////////////////////////////////////////////////////
 // Threading Model Support
+
+#ifdef OLD_ATL_CRITSEC_CODE
 
 class CComCriticalSection
 {
@@ -1164,6 +1237,165 @@ public:
         typedef CComMultiThreadModel CComObjectThreadModel;
         typedef CComMultiThreadModel CComGlobalsThreadModel;
 #endif
+#else  /* OLD_ATL_CRITSEC_CODE */
+
+class CComCriticalSection
+{
+public:
+
+	CComCriticalSection() throw()
+	{
+		memset(&m_sec, 0, sizeof(CRITICAL_SECTION));
+	}
+	HRESULT Lock() throw()
+	{
+		EnterCriticalSection(&m_sec);
+		return S_OK;
+	}
+	HRESULT Unlock() throw()
+	{
+		LeaveCriticalSection(&m_sec);
+		return S_OK;
+	}
+	HRESULT Init() throw()
+	{
+		HRESULT hRes = S_OK;
+		__try
+		{
+			InitializeCriticalSection(&m_sec);
+		}
+		// structured exception may be raised in low memory situations
+		__except(EXCEPTION_EXECUTE_HANDLER)
+		{
+			if (STATUS_NO_MEMORY == GetExceptionCode())
+				hRes = E_OUTOFMEMORY;
+			else
+				hRes = E_FAIL;
+		}
+		return hRes;
+	}
+
+	HRESULT Term() throw()
+	{
+		DeleteCriticalSection(&m_sec);
+		return S_OK;
+	}	
+	CRITICAL_SECTION m_sec;
+};
+
+class CComAutoCriticalSection : public CComCriticalSection
+{
+public:
+	CComAutoCriticalSection()
+	{
+		CComCriticalSection::Init();
+	}
+	~CComAutoCriticalSection() throw()
+	{
+		CComCriticalSection::Term();
+	}
+private :
+	HRESULT Init();	// Not implemented. CComAutoCriticalSection::Init should never be called
+	HRESULT Term(); // Not implemented. CComAutoCriticalSection::Term should never be called
+};
+
+class CComAutoDeleteCriticalSection : public CComCriticalSection
+{
+public:
+	CComAutoDeleteCriticalSection(): m_bInitialized(false) 
+	{
+	}
+
+	~CComAutoDeleteCriticalSection() throw()
+	{
+		if (!m_bInitialized)
+		{
+			return;
+		}
+		m_bInitialized = false;
+		CComCriticalSection::Term();
+	}
+
+	HRESULT Init() throw()
+	{
+		HRESULT hr = CComCriticalSection::Init();
+		if (SUCCEEDED(hr))
+		{
+			m_bInitialized = true;
+		}
+		return hr;
+	}
+
+	HRESULT Lock()
+	{
+		// CComAutoDeleteCriticalSection::Init not called or failed.
+		// m_critsec member of CComObjectRootEx is now of type 
+		// CComAutoDeleteCriticalSection. It has to be initialized
+		// by calling CComObjectRootEx::_AtlInitialConstruct
+		ATLASSERT(m_bInitialized);
+		return CComCriticalSection::Lock();
+	}
+
+private:
+	// CComAutoDeleteCriticalSection::Term should never be called
+	HRESULT Term() throw();
+	bool m_bInitialized;
+};
+
+class CComFakeCriticalSection
+{
+public:
+        HRESULT Lock() {return S_OK;}
+        HRESULT Unlock() {return S_OK;}
+        HRESULT Init() {return S_OK;}
+        HRESULT Term() {return S_OK;}
+};
+
+class CComMultiThreadModelNoCS
+{
+public:
+        static ULONG WINAPI Increment(LPLONG p) {return InterlockedIncrement(p);}
+        static ULONG WINAPI Decrement(LPLONG p) {return InterlockedDecrement(p);}
+        typedef CComFakeCriticalSection AutoCriticalSection;
+    	typedef CComFakeCriticalSection AutoDeleteCriticalSection;
+        typedef CComFakeCriticalSection CriticalSection;
+        typedef CComMultiThreadModelNoCS ThreadModelNoCS;
+};
+
+class CComMultiThreadModel
+{
+public:
+        static ULONG WINAPI Increment(LPLONG p) {return InterlockedIncrement(p);}
+        static ULONG WINAPI Decrement(LPLONG p) {return InterlockedDecrement(p);}
+        typedef CComAutoCriticalSection AutoCriticalSection;
+    	typedef CComAutoDeleteCriticalSection AutoDeleteCriticalSection;
+        typedef CComCriticalSection CriticalSection;
+        typedef CComMultiThreadModelNoCS ThreadModelNoCS;
+};
+
+class CComSingleThreadModel
+{
+public:
+        static ULONG WINAPI Increment(LPLONG p) {return ++(*p);}
+        static ULONG WINAPI Decrement(LPLONG p) {return --(*p);}
+        typedef CComFakeCriticalSection AutoCriticalSection;
+    	typedef CComFakeCriticalSection AutoDeleteCriticalSection;
+        typedef CComFakeCriticalSection CriticalSection;
+        typedef CComSingleThreadModel ThreadModelNoCS;
+};
+
+#if defined(_ATL_SINGLE_THREADED)
+        typedef CComSingleThreadModel CComObjectThreadModel;
+        typedef CComSingleThreadModel CComGlobalsThreadModel;
+#elif defined(_ATL_APARTMENT_THREADED)
+        typedef CComSingleThreadModel CComObjectThreadModel;
+        typedef CComMultiThreadModel CComGlobalsThreadModel;
+#else
+        typedef CComMultiThreadModel CComObjectThreadModel;
+        typedef CComMultiThreadModel CComGlobalsThreadModel;
+#endif
+
+#endif  /* OLD_ATL_CRITSEC_CODE */
 
 /////////////////////////////////////////////////////////////////////////////
 // CComModule
@@ -2315,23 +2547,12 @@ public:
         }
         BOOL RemoveAt(int nIndex)
         {
-
-                //---- always call the dtr ----
-#if _MSC_VER >= 1200
-                m_aT[nIndex].~T();
-#else
-                T* MyT;
-                MyT = &m_aT[nIndex];
-                MyT->~T();
-#endif
-
-                //---- if target entry is not at end, compact the array ----
-                if(nIndex != (m_nSize - 1))
-                {
+                if(nIndex < 0 || nIndex >= m_nSize)
+                        return FALSE;
                         
-                        memmove((void*)&m_aT[nIndex], (void*)&m_aT[nIndex + 1], (m_nSize - (nIndex + 1)) * sizeof(T));
-                }
-
+                m_aT[nIndex].~T();
+                if(nIndex != (m_nSize - 1))
+                        memmove((void*)(m_aT + nIndex), (void*)(m_aT + nIndex + 1), (m_nSize - (nIndex + 1)) * sizeof(T));
                 m_nSize--;
                 return TRUE;
         }
@@ -2339,15 +2560,10 @@ public:
         {
                 if(m_aT != NULL)
                 {
-                        for(int i = 0; i < m_nSize; i++) {
-#if _MSC_VER >= 1200
+                        for(int i = 0; i < m_nSize; i++) 
+                        {
                                 m_aT[i].~T();
-#else
-                T* MyT;
-                MyT = &m_aT[i];
-                MyT->~T();
-#endif
-            }
+                        }
                         free(m_aT);
                         m_aT = NULL;
                 }
@@ -2357,6 +2573,10 @@ public:
         T& operator[] (int nIndex) const
         {
                 ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
+                if(nIndex < 0 || nIndex >= m_nSize)
+                {
+                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);                                        
+                }
                 return m_aT[nIndex];
         }
         T* GetData() const
@@ -2458,18 +2678,12 @@ public:
                 int nIndex = FindKey(key);
                 if(nIndex == -1)
                         return FALSE;
+                m_aKey[nIndex].~TKey();
+                m_aVal[nIndex].~TVal();                        
                 if(nIndex != (m_nSize - 1))
                 {
-                        m_aKey[nIndex].~TKey();
-#if _MSC_VER >= 1200
-            m_aVal[nIndex].~TVal();
-#else
-            TVal * t1;
-            t1 = &m_aVal[nIndex];
-            t1->~TVal();
-#endif
-                        memmove((void*)&m_aKey[nIndex], (void*)&m_aKey[nIndex + 1], (m_nSize - (nIndex + 1)) * sizeof(TKey));
-                        memmove((void*)&m_aVal[nIndex], (void*)&m_aVal[nIndex + 1], (m_nSize - (nIndex + 1)) * sizeof(TVal));
+                        memmove((void*)(m_aKey + nIndex), (void*)(m_aKey + nIndex + 1), (m_nSize - (nIndex + 1)) * sizeof(TKey));
+                        memmove((void*)(m_aVal + nIndex), (void*)(m_aVal + nIndex + 1), (m_nSize - (nIndex + 1)) * sizeof(TVal));
                 }
                 TKey* pKey;
                 pKey = (TKey*)realloc(m_aKey, (m_nSize - 1) * sizeof(TKey));
@@ -2489,13 +2703,7 @@ public:
                         for(int i = 0; i < m_nSize; i++)
                         {
                                 m_aKey[i].~TKey();
-#if _MSC_VER >= 1200
                                 m_aVal[i].~TVal();
-#else
-                TVal * t1;
-                t1 = &m_aVal[i];
-                t1->~TVal();
-#endif
                         }
                         free(m_aKey);
                         m_aKey = NULL;
@@ -2533,11 +2741,17 @@ public:
         TKey& GetKeyAt(int nIndex) const
         {
                 ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
+                if(nIndex < 0 || nIndex >= m_nSize)
+                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);
+                        
                 return m_aKey[nIndex];
         }
         TVal& GetValueAt(int nIndex) const
         {
                 ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
+                if(nIndex < 0 || nIndex >= m_nSize)
+                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);        
+                        
                 return m_aVal[nIndex];
         }
 
@@ -2627,7 +2841,24 @@ public:
                 _pModule = this;
                 cbSize = sizeof(_ATL_MODULE);
                 dwAtlBuildVer = _ATL_VER;
-                AtlModuleInit(this, p, h);
+
+// Initialize variables
+#ifdef _ATL_MIN_CRT
+#ifndef _ATL_NO_MP_HEAP
+                m_phHeaps = NULL;
+                m_dwHeaps = 0;
+#endif
+#endif
+
+#ifdef _ATL_DEBUG_INTERFACES
+                m_nIndexQI = 0;
+                m_nIndexBreakAt = 0;
+                m_paThunks = NULL;
+#endif
+
+                HRESULT hr = AtlModuleInit(this, p, h);
+                if (FAILED(hr))
+                        return hr;
                 if (plibid != NULL)
                         memcpy((void*)&m_libid, plibid, sizeof(GUID));
 #if _ATL_VER > 0x0300
@@ -2636,11 +2867,21 @@ public:
 #ifdef _ATL_MIN_CRT
                 // Create a base heap
                 m_hHeap = HeapCreate(0, 0, 0);
+                if (m_hHeap == NULL)
+                {
+                        Term();
+                        return E_OUTOFMEMORY;
+                }
 
 #ifndef _ATL_NO_MP_HEAP
+                OSVERSIONINFO ver;
                 SYSTEM_INFO si;
+                memset( &ver, 0, sizeof( ver ) );
+                ver.dwOSVersionInfoSize = sizeof( ver );
+                GetVersionEx( &ver );
                 GetSystemInfo(&si);
-                if (si.dwNumberOfProcessors > 1)
+                if( ((ver.dwPlatformId != VER_PLATFORM_WIN32_NT) ||
+                        (ver.dwMajorVersion < 5)) && (si.dwNumberOfProcessors > 1) )
                 {
                         DWORD dwHeaps = si.dwNumberOfProcessors * 2;
                         m_dwHeaps = 0xFFFFFFFF;
@@ -2655,8 +2896,21 @@ public:
 
                         // Allocate more heaps for each processor
                         m_phHeaps = (HANDLE*) HeapAlloc(m_hHeap, _ATL_HEAPFLAGS, sizeof(HANDLE) * (m_dwHeaps + 1));
+                        if (m_phHeaps == NULL)
+                        {
+                                Term();
+                                return E_OUTOFMEMORY;
+                        }
+                        memset(m_phHeaps, 0, sizeof(HANDLE) * (m_dwHeaps + 1));
                         for (DWORD i = 0; i <= m_dwHeaps; i++)
+                        {
                                 m_phHeaps[i] = HeapCreate(0, 0, 0);
+                                if (m_phHeaps[i] == NULL)
+                                {
+                                        Term();
+                                        return E_OUTOFMEMORY;
+                                }
+                        }
                 }
                 else
 #endif
@@ -2666,12 +2920,12 @@ public:
                 }
 #endif
 #ifdef _ATL_DEBUG_INTERFACES
-                m_nIndexQI = 0;
-                m_nIndexBreakAt = 0;
-                m_paThunks = NULL;
                 ATLTRY(m_paThunks = new CSimpleArray<_QIThunk*>);
                 if (m_paThunks == NULL)
+                {
+                        Term();
                         return E_OUTOFMEMORY;
+                }
 #endif // _ATL_DEBUG_INTERFACES
                 return S_OK;
         }
@@ -2702,9 +2956,10 @@ public:
                         if (m_nIndexBreakAt == m_nIndexQI)
                                 DebugBreak();
                         ATLTRY(pThunk = new _QIThunk(p, lpsz, iid, m_nIndexQI, (m_nIndexBreakAt == m_nIndexQI)));
-                        if (pThunk == NULL) {
-                            LeaveCriticalSection(&m_csObjMap);
-                            return E_OUTOFMEMORY;
+                        if (pThunk == NULL)
+                        {
+                                LeaveCriticalSection(&m_csObjMap);
+                                return E_OUTOFMEMORY;
                         }
                         pThunk->InternalAddRef();
                         m_paThunks->Add(pThunk);
@@ -2715,6 +2970,8 @@ public:
         }
         HRESULT AddNonAddRefThunk(IUnknown* p, LPCTSTR lpsz, IUnknown** ppThunkRet)
         {
+                _ATL_VALIDATE_OUT_POINTER(ppThunkRet);
+                
                 _QIThunk* pThunk = NULL;
                 EnterCriticalSection(&m_csObjMap);
                 // Check if exists already for identity
@@ -2795,11 +3052,15 @@ public:
                 if (m_phHeaps != NULL)
                 {
                         for (DWORD i = 0; i <= m_dwHeaps; i++)
-                                HeapDestroy(m_phHeaps[i]);
+                        {
+                                if (m_phHeaps[i] != NULL)
+                                        HeapDestroy(m_phHeaps[i]);
+                        }
                 }
 #endif
                 if (m_hHeap != NULL)
                         HeapDestroy(m_hHeap);
+                m_hHeap = NULL;
 #else
                 AtlModuleTerm(this);
 #endif // _ATL_DEBUG_INTERFACES
@@ -2834,8 +3095,17 @@ public:
         }
         HRESULT RegisterTypeLib(LPCTSTR lpszIndex)
         {
-                USES_CONVERSION;
-                return AtlModuleRegisterTypeLib(this, T2COLE(lpszIndex));
+                USES_CONVERSION_EX;
+                LPCOLESTR p = NULL;
+                if(lpszIndex != NULL)
+                {
+                        p = T2COLE_EX(lpszIndex,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE                        
+                        if(p == NULL) 
+                                return E_OUTOFMEMORY;
+#endif                        
+                }
+                return AtlModuleRegisterTypeLib(this,p );
         }
         HRESULT UnRegisterTypeLib()
         {
@@ -2843,8 +3113,18 @@ public:
         }
         HRESULT UnRegisterTypeLib(LPCTSTR lpszIndex)
         {
-                USES_CONVERSION;
-                return AtlModuleUnRegisterTypeLib(this, T2COLE(lpszIndex));
+                USES_CONVERSION_EX;
+                
+                LPCOLESTR p = NULL;
+                if(lpszIndex != NULL)
+                {
+                        p = T2COLE_EX(lpszIndex,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE                        
+                        if(p == NULL) 
+                                return E_OUTOFMEMORY;
+#endif
+                }
+                return AtlModuleUnRegisterTypeLib(this,p );
         }
         HRESULT RegisterServer(BOOL bRegTypeLib = FALSE, const CLSID* pCLSID = NULL)
         {
@@ -2864,9 +3144,16 @@ public:
         HRESULT WINAPI UpdateRegistryFromResourceD(LPCTSTR lpszRes, BOOL bRegister,
                 struct _ATL_REGMAP_ENTRY* pMapEntries = NULL)
         {
-                USES_CONVERSION;
-                return AtlModuleUpdateRegistryFromResourceD(this, T2COLE(lpszRes), bRegister,
-                        pMapEntries);
+                if(lpszRes == NULL)
+                        return E_INVALIDARG;
+                
+                USES_CONVERSION_EX;                        
+                LPCOLESTR p = T2COLE_EX(lpszRes,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifdef _UNICODE
+                if(p == NULL) 
+                        return E_OUTOFMEMORY;
+#endif                
+                return AtlModuleUpdateRegistryFromResourceD(this, p, bRegister,        pMapEntries);
         }
         HRESULT WINAPI UpdateRegistryFromResourceD(UINT nResID, BOOL bRegister,
                 struct _ATL_REGMAP_ENTRY* pMapEntries = NULL)
@@ -2915,8 +3202,11 @@ public:
         }
         static HRESULT RegisterProgID(LPCTSTR lpszCLSID, LPCTSTR lpszProgID, LPCTSTR lpszUserDesc);
 
-        static void ReplaceSingleQuote(LPOLESTR lpDest, LPCOLESTR lp)
+        static HRESULT ReplaceSingleQuote(LPOLESTR lpDest, LPCOLESTR lp)
         {
+                if (lp == NULL || lpDest == NULL)
+                        return E_INVALIDARG;
+                        
                 while (*lp)
                 {
                         *lpDest++ = *lp;
@@ -2925,6 +3215,8 @@ public:
                         lp++;
                 }
                 *lpDest = NULL;
+                
+                return S_OK;
         }
 };
 
@@ -4025,6 +4317,7 @@ public:
         static UINT ATL_CREATE_OBJECT;
         static DWORD WINAPI _Apartment(void* pv)
         {
+                ATLASSERT(pv != NULL);
                 return ((CComApartment*)pv)->Apartment();
         }
         DWORD Apartment()
@@ -4219,12 +4512,26 @@ public:
         }
         HRESULT Append(LPCOLESTR lpsz, int nLen)
         {
+                if(lpsz == NULL)
+                {
+                        if(nLen != 0)
+                                return E_INVALIDARG;
+                        else
+                                return S_OK;
+                }
+                        
                 int n1 = Length();
+                if (n1+nLen < n1)
+                    return E_OUTOFMEMORY;
+
                 BSTR b;
                 b = ::SysAllocStringLen(NULL, n1+nLen);
                 if (b == NULL)
                         return E_OUTOFMEMORY;
-                memcpy(b, m_str, n1*sizeof(OLECHAR));
+
+                if(m_str != NULL)
+                        memcpy(b, m_str, n1*sizeof(OLECHAR));
+                        
                 memcpy(b+n1, lpsz, nLen*sizeof(OLECHAR));
                 b[n1+nLen] = NULL;
                 SysFreeString(m_str);
@@ -4233,45 +4540,79 @@ public:
         }
         HRESULT ToLower()
         {
-                USES_CONVERSION;
                 if (m_str != NULL)
                 {
-                        LPTSTR psz = CharLower(OLE2T(m_str));
-                        if (psz == NULL)
+#ifdef _UNICODE                        
+                        CharLower(m_str);
+#else
+                        USES_CONVERSION_EX;
+                        LPSTR pszA = OLE2A_EX(m_str, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+                        if(pszA == NULL) 
                                 return E_OUTOFMEMORY;
-                        BSTR b = T2BSTR(psz);
-                        if (psz == NULL)
+
+                        CharLower(pszA);
+                        BSTR b = A2BSTR_EX(pszA);
+                        if(b == NULL) 
                                 return E_OUTOFMEMORY;
                         SysFreeString(m_str);
                         m_str = b;
+#endif        // _UNICODE                        
                 }
                 return S_OK;
         }
         HRESULT ToUpper()
         {
-                USES_CONVERSION;
                 if (m_str != NULL)
                 {
-                        LPTSTR psz = CharUpper(OLE2T(m_str));
-                        if (psz == NULL)
+#ifdef _UNICODE                        
+                        CharUpper(m_str);
+#else
+                        USES_CONVERSION_EX;
+                        LPSTR pszA = OLE2A_EX(m_str, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+                        if(pszA == NULL) 
                                 return E_OUTOFMEMORY;
-                        BSTR b = T2BSTR(psz);
-                        if (psz == NULL)
+
+                        CharUpper(pszA);
+                        BSTR b = A2BSTR_EX(pszA);
+                        if(b == NULL) 
                                 return E_OUTOFMEMORY;
                         SysFreeString(m_str);
                         m_str = b;
+#endif        // _UNICODE                        
                 }
                 return S_OK;
         }
         bool LoadString(HINSTANCE hInst, UINT nID)
         {
-                USES_CONVERSION;
-                TCHAR sz[512];
+                Empty();
+                
+                TCHAR sz[513];
                 UINT nLen = ::LoadString(hInst, nID, sz, 512);
-                ATLASSERT(nLen < 511);
-                SysFreeString(m_str);
-                m_str = (nLen != 0) ? SysAllocString(T2OLE(sz)) : NULL;
-                return (nLen != 0);
+                if(nLen == 0)
+                        return false;
+                
+                if(nLen == 511)
+                {
+                        nLen = ::LoadString(hInst, nID, sz, 513);
+                        if(nLen == 512)
+                        {
+                                // String too long to fit in the buffer
+                                ATLASSERT(FALSE); 
+                                return false;
+                        }
+                }
+                
+                USES_CONVERSION_EX;
+                LPOLESTR p = T2OLE_EX(sz,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+                if(p == NULL)
+                {
+                        ATLASSERT(FALSE);
+                        return false;
+                }
+#endif                
+                m_str = SysAllocString(p);
+                return (m_str != NULL);
         }
         bool LoadString(UINT nID)
         {
@@ -4303,18 +4644,31 @@ public:
         {
                 if (pszSrc == NULL && m_str == NULL)
                         return false;
-                USES_CONVERSION;
+
                 if (pszSrc != NULL && m_str != NULL)
-                        return wcscmp(m_str, A2W(pszSrc)) < 0;
+                {
+                        USES_CONVERSION_EX;
+                        LPWSTR p = A2W_EX(pszSrc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+                        if(p == NULL)
+                                _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
+                        return wcscmp(m_str, p) < 0;
+                }
+
                 return m_str == NULL;
         }
         bool operator==(LPCSTR pszSrc) const
         {
                 if (pszSrc == NULL && m_str == NULL)
                         return true;
-                USES_CONVERSION;
+
                 if (pszSrc != NULL && m_str != NULL)
-                        return wcscmp(m_str, A2W(pszSrc)) == 0;
+                {
+                        USES_CONVERSION_EX;
+                        LPWSTR p = A2W_EX(pszSrc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+                        if(p == NULL)
+                                _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
+                        return wcscmp(m_str, p) == 0;
+                }
                 return false;
         }
 #ifndef OLE2ANSI
@@ -4328,11 +4682,13 @@ public:
                 m_str = A2WBSTR(sz, nSize);
         }
 
-        void Append(LPCSTR lpsz)
+        HRESULT Append(LPCSTR lpsz)
         {
-                USES_CONVERSION;
-                LPCOLESTR lpo = A2COLE(lpsz);
-                Append(lpo, ocslen(lpo));
+                USES_CONVERSION_EX;
+                LPCOLESTR lpo = A2COLE_EX(lpsz, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+                if(lpo == NULL) 
+                        return E_OUTOFMEMORY;
+                return Append(lpo, ocslen(lpo));
         }
 
         CComBSTR& operator=(LPCSTR pSrc)
@@ -4345,6 +4701,10 @@ public:
         HRESULT WriteToStream(IStream* pStream)
         {
                 ATLASSERT(pStream != NULL);
+                
+                if(pStream == NULL)
+                        return E_INVALIDARG;
+                        
                 ULONG cb;
                 ULONG cbStrLen = m_str ? SysStringByteLen(m_str)+(ULONG)sizeof(OLECHAR) : 0;
                 HRESULT hr = pStream->Write((void*) &cbStrLen, sizeof(cbStrLen), &cb);
@@ -4355,13 +4715,20 @@ public:
         HRESULT ReadFromStream(IStream* pStream)
         {
                 ATLASSERT(pStream != NULL);
+                
+                if(pStream == NULL)
+                        return E_INVALIDARG;
+                        
                 ATLASSERT(m_str == NULL); // should be empty
+                Empty();
+                
                 ULONG cbStrLen = 0;
                 HRESULT hr = pStream->Read((void*) &cbStrLen, sizeof(cbStrLen), NULL);
                 if ((hr == S_OK) && (cbStrLen != 0))
                 {
                         //subtract size for terminating NULL which we wrote out
                         //since SysAllocStringByteLen overallocates for the NULL
+        
                         m_str = SysAllocStringByteLen(NULL, cbStrLen-sizeof(OLECHAR));
                         if (m_str == NULL)
                                 hr = E_OUTOFMEMORY;
@@ -4376,6 +4743,9 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////
 // CComVariant
+
+#define ATL_VARIANT_TRUE VARIANT_BOOL( -1 )
+#define ATL_VARIANT_FALSE VARIANT_BOOL( 0 )
 
 class CComVariant : public tagVARIANT
 {
@@ -4424,9 +4794,7 @@ public:
         CComVariant(bool bSrc)
         {
                 vt = VT_BOOL;
-#pragma warning(disable: 4310) // cast truncates constant value
-                boolVal = bSrc ? VARIANT_TRUE : VARIANT_FALSE;
-#pragma warning(default: 4310) // cast truncates constant value
+                boolVal = bSrc ? ATL_VARIANT_TRUE : ATL_VARIANT_FALSE;
         }
 
         CComVariant(int nSrc)
@@ -4526,10 +4894,11 @@ public:
         #ifndef OLE2ANSI
         CComVariant& operator=(LPCSTR lpszSrc)
         {
-                USES_CONVERSION;
+                USES_CONVERSION_EX;
                 InternalClear();
                 vt = VT_BSTR;
-                bstrVal = ::SysAllocString(A2COLE(lpszSrc));
+                
+                bstrVal = ::SysAllocString(A2COLE_EX(lpszSrc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD));
 
                 if (bstrVal == NULL && lpszSrc != NULL)
                 {
@@ -4547,9 +4916,7 @@ public:
                         InternalClear();
                         vt = VT_BOOL;
                 }
-        #pragma warning(disable: 4310) // cast truncates constant value
-                boolVal = bSrc ? VARIANT_TRUE : VARIANT_FALSE;
-        #pragma warning(default: 4310) // cast truncates constant value
+                boolVal = bSrc ? ATL_VARIANT_TRUE : ATL_VARIANT_FALSE;
                 return *this;
         }
 
@@ -4722,6 +5089,9 @@ public:
         HRESULT Copy(const VARIANT* pSrc) { return ::VariantCopy(this, const_cast<VARIANT*>(pSrc)); }
         HRESULT Attach(VARIANT* pSrc)
         {
+                if(pSrc == NULL)
+                        return E_INVALIDARG;
+                        
                 // Clear out the variant
                 HRESULT hr = Clear();
                 if (!FAILED(hr))
@@ -4736,6 +5106,9 @@ public:
 
         HRESULT Detach(VARIANT* pDest)
         {
+                if(pDest == NULL)
+                        return E_POINTER;
+                        
                 // Clear out the variant
                 HRESULT hr = ::VariantClear(pDest);
                 if (!FAILED(hr))
@@ -4788,6 +5161,9 @@ public:
 
 inline HRESULT CComVariant::WriteToStream(IStream* pStream)
 {
+        if(pStream == NULL)
+                return E_INVALIDARG;
+                
         HRESULT hr = pStream->Write(&vt, sizeof(VARTYPE), NULL);
         if (FAILED(hr))
                 return hr;
@@ -4856,6 +5232,10 @@ inline HRESULT CComVariant::WriteToStream(IStream* pStream)
 inline HRESULT CComVariant::ReadFromStream(IStream* pStream)
 {
         ATLASSERT(pStream != NULL);
+        
+        if(pStream == NULL)
+                return E_INVALIDARG;
+                
         HRESULT hr;
         hr = VariantClear(this);
         if (FAILED(hr))
@@ -5052,6 +5432,8 @@ inline LONG CRegKey::QueryValue(DWORD& dwValue, LPCTSTR lpszValueName)
                 (LPBYTE)&dwValue, &dwCount);
         ATLASSERT((lRes!=ERROR_SUCCESS) || (dwType == REG_DWORD));
         ATLASSERT((lRes!=ERROR_SUCCESS) || (dwCount == sizeof(DWORD)));
+        if (dwType != REG_DWORD)
+                return ERROR_INVALID_DATA;
         return lRes;
 }
 
@@ -5063,7 +5445,21 @@ inline LONG CRegKey::QueryValue(LPTSTR szValue, LPCTSTR lpszValueName, DWORD* pd
                 (LPBYTE)szValue, pdwCount);
         ATLASSERT((lRes!=ERROR_SUCCESS) || (dwType == REG_SZ) ||
                          (dwType == REG_MULTI_SZ) || (dwType == REG_EXPAND_SZ));
-        return lRes;
+        switch(dwType)
+        {
+                case REG_SZ:
+                case REG_EXPAND_SZ:
+                        if ((*pdwCount) % sizeof(TCHAR) != 0 || (szValue != NULL && szValue[(*pdwCount) / sizeof(TCHAR) -1] != 0))
+                                 return ERROR_INVALID_DATA;
+                        break;
+                case REG_MULTI_SZ:
+                        if ((*pdwCount) % sizeof(TCHAR) != 0 || (*pdwCount) / sizeof(TCHAR) < 2 || (szValue != NULL && (szValue[(*pdwCount) / sizeof(TCHAR) -1] != 0 || szValue[(*pdwCount) / sizeof(TCHAR) - 2] != 0)) )
+                                return ERROR_INVALID_DATA;
+                        break;
+                default:
+                        return ERROR_INVALID_DATA;
+        }
+         return lRes;
 }
 
 inline LONG WINAPI CRegKey::SetValue(HKEY hKeyParent, LPCTSTR lpszKeyName, LPCTSTR lpszValue, LPCTSTR lpszValueName)
@@ -5125,7 +5521,7 @@ inline LONG CRegKey::RecurseDeleteKey(LPCTSTR lpszKey)
 inline HRESULT CComModule::RegisterProgID(LPCTSTR lpszCLSID, LPCTSTR lpszProgID, LPCTSTR lpszUserDesc)
 {
         CRegKey keyProgID;
-        LONG lRes = keyProgID.Create(HKEY_CLASSES_ROOT, lpszProgID, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_WRITE);
+        LONG lRes = keyProgID.Create(HKEY_CLASSES_ROOT, lpszProgID, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_SET_VALUE);
         if (lRes == ERROR_SUCCESS)
         {
                 keyProgID.SetValue(lpszUserDesc);
@@ -5136,32 +5532,66 @@ inline HRESULT CComModule::RegisterProgID(LPCTSTR lpszCLSID, LPCTSTR lpszProgID,
 }
 
 #ifdef _ATL_STATIC_REGISTRY
+}        // namespace ATL
+
+#define _ATL_NAMESPACE_BUG_FIXED
+
 #include <statreg.h>
+
+namespace ATL
+{
+
 
 // Statically linking to Registry Ponent
 inline HRESULT WINAPI CComModule::UpdateRegistryFromResourceS(UINT nResID, BOOL bRegister,
         struct _ATL_REGMAP_ENTRY* pMapEntries)
 {
-        USES_CONVERSION;
+        USES_CONVERSION_EX;
         ATL::CRegObject ro;
-        TCHAR szModule[_MAX_PATH];
-        GetModuleFileName(_pModule->GetModuleInstance(), szModule, _MAX_PATH);
+    	HRESULT hr = ro.FinalConstruct();
+	    if (FAILED(hr))
+	    {
+		    return hr;
+	    }
+        TCHAR szModule[_MAX_PATH+1] = {0};
+        
+        // If the ModuleFileName's length is equal or greater than the 3rd parameter
+        // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
+        // if neccessary), but doesn't null terminate it. It returns the same value as 
+        // the 3rd parameter passed. So if the return value is the same as the 3rd param
+        // then you have a non null terminated buffer (which may or may not be truncated)
+        
+        int ret = GetModuleFileName(_pModule->GetModuleInstance(), szModule, _MAX_PATH);
+        
+        if(ret == _MAX_PATH)
+                return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
+        
+        if(ret == 0)
+                return AtlHresultFromLastError();
+        
+        LPOLESTR pszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+        if(pszModule == NULL) 
+                return E_OUTOFMEMORY;
+#endif
 
-   // Convert to short path to work around bug in NT4's CreateProcess
-   TCHAR szModuleShort[_MAX_PATH];
-   GetShortPathName(szModule, szModuleShort, _MAX_PATH);
-   LPOLESTR pszModule = T2OLE(szModuleShort);
-
-        int nLen = ocslen(pszModule);
-        LPOLESTR pszModuleQuote = (LPOLESTR)alloca((nLen*2+1)*sizeof(OLECHAR));
+        // Buffer Size is Multiplied by 2 because we are calling ReplaceSingleQuote
+        OLECHAR pszModuleQuote[(_MAX_PATH + _ATL_QUOTES_SPACE)*2]; 
         ReplaceSingleQuote(pszModuleQuote, pszModule);
-        ro.AddReplacement(OLESTR("Module"), pszModuleQuote);
+        
+        hr = ro.AddReplacement(OLESTR("Module"), pszModuleQuote);
+        if(FAILED(hr))
+                return hr;
+                
         if (NULL != pMapEntries)
         {
                 while (NULL != pMapEntries->szKey)
                 {
                         ATLASSERT(NULL != pMapEntries->szData);
-                        ro.AddReplacement(pMapEntries->szKey, pMapEntries->szData);
+
+                        hr = ro.AddReplacement(pMapEntries->szKey, pMapEntries->szData);
+                        if(FAILED(hr))
+                                return hr;
                         pMapEntries++;
                 }
         }
@@ -5174,32 +5604,60 @@ inline HRESULT WINAPI CComModule::UpdateRegistryFromResourceS(UINT nResID, BOOL 
 inline HRESULT WINAPI CComModule::UpdateRegistryFromResourceS(LPCTSTR lpszRes, BOOL bRegister,
         struct _ATL_REGMAP_ENTRY* pMapEntries)
 {
-        USES_CONVERSION;
+        USES_CONVERSION_EX;
         ATL::CRegObject ro;
-        TCHAR szModule[_MAX_PATH];
-        GetModuleFileName(_pModule->GetModuleInstance(), szModule, _MAX_PATH);
+    	HRESULT hr = ro.FinalConstruct();
+	    if (FAILED(hr))
+	    {   
+		    return hr;
+    	}
+        TCHAR szModule[_MAX_PATH+1] = {0};
 
-   // Convert to short path to work around bug in NT4's CreateProcess
-   TCHAR szModuleShort[_MAX_PATH];
-   GetShortPathName(szModule, szModuleShort, _MAX_PATH);
-   LPOLESTR pszModule = T2OLE(szModuleShort);
+        // If the ModuleFileName's length is equal or greater than the 3rd parameter
+        // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
+        // if neccessary), but doesn't null terminate it. It returns the same value as 
+        // the 3rd parameter passed. So if the return value is the same as the 3rd param
+        // then you have a non null terminated buffer (which may or may not be truncated)
+        int ret = GetModuleFileName(_pModule->GetModuleInstance(), szModule, _MAX_PATH);
+        
+        if(ret == _MAX_PATH)
+                return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
+        
+        if(ret == 0)
+                return AtlHresultFromLastError();
+        
+        LPOLESTR pszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+        if(pszModule == NULL) 
+                return E_OUTOFMEMORY;
+#endif
 
-        int nLen = ocslen(pszModule);
-        LPOLESTR pszModuleQuote = (LPOLESTR)alloca((nLen*2+1)*sizeof(OLECHAR));
+        // Buffer Size is Multiplied by 2 because we are calling ReplaceSingleQuote
+        OLECHAR pszModuleQuote[(_MAX_PATH + _ATL_QUOTES_SPACE)*2];
         ReplaceSingleQuote(pszModuleQuote, pszModule);
-        ro.AddReplacement(OLESTR("Module"), pszModuleQuote);
+
+        hr = ro.AddReplacement(OLESTR("Module"), pszModuleQuote);
+        if(FAILED(hr))
+                return hr;
+
         if (NULL != pMapEntries)
         {
                 while (NULL != pMapEntries->szKey)
                 {
                         ATLASSERT(NULL != pMapEntries->szData);
-                        ro.AddReplacement(pMapEntries->szKey, pMapEntries->szData);
+                        hr = ro.AddReplacement(pMapEntries->szKey, pMapEntries->szData);
+                        if(FAILED(hr))
+                                return hr;
                         pMapEntries++;
                 }
         }
 
         LPCOLESTR szType = OLESTR("REGISTRY");
-        LPCOLESTR pszRes = T2COLE(lpszRes);
+        LPCOLESTR pszRes = T2COLE_EX(lpszRes, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE        
+        if(pszRes == NULL) 
+                return E_OUTOFMEMORY;
+#endif        
         return (bRegister) ? ro.ResourceRegisterSz(pszModule, pszRes, szType) :
                         ro.ResourceUnregisterSz(pszModule, pszRes, szType);
 }
@@ -5228,17 +5686,42 @@ inline HRESULT WINAPI CComModule::RegisterClassHelper(const CLSID& clsid, LPCTST
         static const TCHAR szAUTPRX32[] = _T("AUTPRX32.DLL");
         static const TCHAR szApartment[] = _T("Apartment");
         static const TCHAR szBoth[] = _T("both");
-        USES_CONVERSION;
+        USES_CONVERSION_EX;
         HRESULT hRes = S_OK;
         TCHAR szDesc[256];
         LoadString(m_hInst, nDescID, szDesc, 256);
-        TCHAR szModule[_MAX_PATH];
-        GetModuleFileName(m_hInst, szModule, _MAX_PATH);
+        
+        TCHAR szModule[_MAX_PATH + _ATL_QUOTES_SPACE];
+
+        // If the ModuleFileName's length is equal or greater than the 3rd parameter
+        // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
+        // if neccessary), but doesn't null terminate it. It returns the same value as 
+        // the 3rd parameter passed. So if the return value is the same as the 3rd param
+        // then you have a non null terminated buffer (which may or may not be truncated)
+        // We pass (szModule + 1) because in case it's an EXE we need to quote the PATH
+        // The quote is done later in this method before the SetKeyValue is called
+        int ret = GetModuleFileName(m_hInst, szModule + 1, _MAX_PATH);
+
+        if(ret == _MAX_PATH)
+                return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
+        
+        if(ret == 0)
+                return AtlHresultFromLastError();
 
         LPOLESTR lpOleStr;
-        StringFromCLSID(clsid, &lpOleStr);
-        LPTSTR lpsz = OLE2T(lpOleStr);
-
+        hRes = StringFromCLSID(clsid, &lpOleStr);
+        if(FAILED(hRes))
+        {
+                return hRes;
+        }
+        LPTSTR lpsz = OLE2T_EX(lpOleStr, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+        if(lpsz == NULL)
+        {
+                CoTaskMemFree(lpOleStr);
+                return E_OUTOFMEMORY;
+        }
+#endif
         hRes = RegisterProgID(lpsz, lpszProgID, szDesc);
         if (hRes == S_OK)
                 hRes = RegisterProgID(lpsz, lpszVerIndProgID, szDesc);
@@ -5246,10 +5729,11 @@ inline HRESULT WINAPI CComModule::RegisterClassHelper(const CLSID& clsid, LPCTST
         if (hRes == S_OK)
         {
                 CRegKey key;
-                lRes = key.Open(HKEY_CLASSES_ROOT, _T("CLSID"), KEY_READ);
+                lRes = key.Open(HKEY_CLASSES_ROOT, _T("CLSID"), KEY_READ | KEY_WRITE);
+
                 if (lRes == ERROR_SUCCESS)
                 {
-                        lRes = key.Create(key, lpsz, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_WRITE);
+                        lRes = key.Create(key, lpsz, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_READ | KEY_WRITE);
                         if (lRes == ERROR_SUCCESS)
                         {
                                 key.SetValue(szDesc);
@@ -5258,14 +5742,18 @@ inline HRESULT WINAPI CComModule::RegisterClassHelper(const CLSID& clsid, LPCTST
 
                                 if ((m_hInst == NULL) || (m_hInst == GetModuleHandle(NULL))) // register as EXE
                                 {
-                                        // Convert to short path to work around bug in NT4's CreateProcess
-                                        TCHAR szModuleShort[_MAX_PATH];
-                                        GetShortPathName(szModule, szModuleShort, _MAX_PATH);
-                                        key.SetKeyValue(szLS32, szModuleShort);
+                                        // If Registering as an EXE, then we quote the resultant path.
+                                        // We don't do it for a DLL, because LoadLibrary fails if the path is
+                                        // quoted
+                                        szModule[0] = _T('\"');
+                                        szModule[ret + 1] = _T('\"');
+                                        szModule[ret + 2] = 0;
+
+                                        key.SetKeyValue(szLS32, szModule);
                                 }
                                 else
                                 {
-                                        key.SetKeyValue(szIPS32, (dwFlags & AUTPRXFLAG) ? szAUTPRX32 : szModule);
+                                        key.SetKeyValue(szIPS32, (dwFlags & AUTPRXFLAG) ? szAUTPRX32 : szModule + 1);
                                         LPCTSTR lpszModel = (dwFlags & THREADFLAGS_BOTH) ? szBoth :
                                                 (dwFlags & THREADFLAGS_APARTMENT) ? szApartment : NULL;
                                         if (lpszModel != NULL)
@@ -5283,7 +5771,7 @@ inline HRESULT WINAPI CComModule::RegisterClassHelper(const CLSID& clsid, LPCTST
 inline HRESULT WINAPI CComModule::UnregisterClassHelper(const CLSID& clsid, LPCTSTR lpszProgID,
         LPCTSTR lpszVerIndProgID)
 {
-        USES_CONVERSION;
+        USES_CONVERSION_EX;
         CRegKey key;
 
         key.Attach(HKEY_CLASSES_ROOT);
@@ -5292,9 +5780,20 @@ inline HRESULT WINAPI CComModule::UnregisterClassHelper(const CLSID& clsid, LPCT
         if (lpszVerIndProgID != NULL && lstrcmpi(lpszVerIndProgID, _T("")))
                 key.RecurseDeleteKey(lpszVerIndProgID);
         LPOLESTR lpOleStr;
-        StringFromCLSID(clsid, &lpOleStr);
-        LPTSTR lpsz = OLE2T(lpOleStr);
-        if (key.Open(key, _T("CLSID"), KEY_READ) == ERROR_SUCCESS)
+        HRESULT hRes = StringFromCLSID(clsid, &lpOleStr);
+        if(FAILED(hRes))
+                return hRes;
+                
+        LPTSTR lpsz = OLE2T_EX(lpOleStr, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+
+#ifndef _UNICODE
+        if(lpsz == NULL)
+        {
+                CoTaskMemFree(lpOleStr);
+                return E_OUTOFMEMORY;
+        }
+#endif        
+        if (key.Open(key, _T("CLSID"), KEY_READ | KEY_WRITE) == ERROR_SUCCESS)
                 key.RecurseDeleteKey(lpsz);
         CoTaskMemFree(lpOleStr);
         return S_OK;
@@ -5323,9 +5822,16 @@ protected:
 public:
         CVirtualBuffer(int nMaxElements)
         {
-                m_nMaxElements = nMaxElements;
+                if (nMaxElements < 0 || (nMaxElements > (MAXULONG_PTR / sizeof(T)))) {
+                        _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
+                }
                 m_pBase = (T*) VirtualAlloc(NULL, sizeof(T) * nMaxElements,
                         MEM_RESERVE, PAGE_READWRITE);
+                if(m_pBase == NULL)
+                {
+                        _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
+                }
+                m_nMaxElements = nMaxElements;
                 m_pTop = m_pCurrent = m_pBase;
                 // Commit first page - chances are this is all that will be used
                 VirtualAlloc(m_pBase, sizeof(T), MEM_COMMIT, PAGE_READWRITE);
@@ -5340,18 +5846,29 @@ public:
                 if (pExcept->ExceptionCode != EXCEPTION_ACCESS_VIOLATION)
                         return EXCEPTION_CONTINUE_SEARCH;
                 BYTE* pAddress = (LPBYTE) pExcept->ExceptionInformation[1];
-                VirtualAlloc(pAddress, ((BYTE*)m_pTop - (BYTE*)m_pBase), MEM_COMMIT, PAGE_READWRITE);
-                return EXCEPTION_CONTINUE_EXECUTION;
+
+                if ((pAddress >= (LPBYTE)m_pBase) || (pAddress < (LPBYTE)(&m_pBase[m_nMaxElements]))) {
+                    VirtualAlloc(pAddress, sizeof(T), MEM_COMMIT, PAGE_READWRITE);
+                    return EXCEPTION_CONTINUE_EXECUTION;
+                } else {
+                    return EXCEPTION_CONTINUE_SEARCH;
+                }
+
         }
         void Seek(int nElement)
         {
+                if(nElement < 0 || nElement >= m_nMaxElements)
+                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);                
+                        
                 m_pCurrent = &m_pBase[nElement];
         }
         void SetAt(int nElement, const T& Element)
         {
+                if(nElement < 0 || nElement >= m_nMaxElements)
+                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);                
                 __try
                 {
-                        T* p = &m_pBase[nElement]
+                        T* p = &m_pBase[nElement];
                         *p = Element;
                         m_pTop = p > m_pTop ? p : m_pTop;
                 }
@@ -5374,15 +5891,17 @@ public:
         }
         void Write(const T& Element)
         {
+            if (m_pCurrent < &m_pBase[m_nMaxElements]) {
                 __try
                 {
-                        *m_pCurrent = Element;
-                        m_pCurrent++;
-                        m_pTop = m_pCurrent > m_pTop ? m_pCurrent : m_pTop;
+                    *m_pCurrent = Element;
+                    m_pCurrent++;
+                    m_pTop = m_pCurrent > m_pTop ? m_pCurrent : m_pTop; 
                 }
                 __except(Except(GetExceptionInformation()))
                 {
                 }
+            }
         }
         T& Read()
         {
@@ -5390,7 +5909,7 @@ public:
         }
         operator BSTR()
         {
-                BSTR bstrTemp;
+                BSTR bstrTemp = NULL ;
                 __try
                 {
                         bstrTemp = SysAllocStringByteLen((char*) m_pBase,
@@ -5403,6 +5922,9 @@ public:
         }
         const T& operator[](int nElement) const
         {
+                if(nElement < 0 || nElement >= m_nMaxElements)
+                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);                
+        
                 return m_pBase[nElement];
         }
         operator T*()
@@ -5418,19 +5940,31 @@ inline HRESULT WINAPI AtlDumpIID(REFIID iid, LPCTSTR pszClassName, HRESULT hr)
 {
         if (atlTraceQI & ATL_TRACE_CATEGORY)
         {
-                USES_CONVERSION;
+                USES_CONVERSION_EX;
                 CRegKey key;
                 TCHAR szName[100];
                 DWORD dwType,dw = sizeof(szName);
 
                 LPOLESTR pszGUID = NULL;
-                StringFromCLSID(iid, &pszGUID);
+                if(FAILED(StringFromCLSID(iid, &pszGUID)))
+                {
+                        return hr;
+                }
+                
                 OutputDebugString(pszClassName);
                 OutputDebugString(_T(" - "));
 
                 // Attempt to find it in the interfaces section
                 key.Open(HKEY_CLASSES_ROOT, _T("Interface"), KEY_READ);
-                if (key.Open(key, OLE2T(pszGUID), KEY_READ) == S_OK)
+                LPTSTR lpszGUID = OLE2T_EX(pszGUID, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+                if(lpszGUID == NULL)
+                {
+                        CoTaskMemFree(pszGUID);
+                        return hr;
+                }
+#endif
+                if (key.Open(key, lpszGUID, KEY_READ) == S_OK)
                 {
                         *szName = 0;
                         RegQueryValueEx(key.m_hKey, (LPTSTR)NULL, NULL, &dwType, (LPBYTE)szName, &dw);
@@ -5439,7 +5973,7 @@ inline HRESULT WINAPI AtlDumpIID(REFIID iid, LPCTSTR pszClassName, HRESULT hr)
                 }
                 // Attempt to find it in the clsid section
                 key.Open(HKEY_CLASSES_ROOT, _T("CLSID"), KEY_READ);
-                if (key.Open(key, OLE2T(pszGUID), KEY_READ) == S_OK)
+                if (key.Open(key, lpszGUID, KEY_READ) == S_OK)
                 {
                         *szName = 0;
                         RegQueryValueEx(key.m_hKey, (LPTSTR)NULL, NULL, &dwType, (LPBYTE)szName, &dw);
@@ -5447,11 +5981,12 @@ inline HRESULT WINAPI AtlDumpIID(REFIID iid, LPCTSTR pszClassName, HRESULT hr)
                         OutputDebugString(szName);
                         goto cleanup;
                 }
-                OutputDebugString(OLE2T(pszGUID));
-        cleanup:
+                OutputDebugString(lpszGUID);
+        cleanup:                
                 if (hr != S_OK)
                         OutputDebugString(_T(" - failed"));
                 OutputDebugString(_T("\n"));
+
                 CoTaskMemFree(pszGUID);
         }
         return hr;
@@ -5496,7 +6031,10 @@ namespace ATL
 static UINT WINAPI AtlGetDirLen(LPCOLESTR lpszPathName)
 {
         ATLASSERT(lpszPathName != NULL);
-
+        
+        if(lpszPathName == NULL)
+                return 0;
+                
         // always capture the complete file name including extension (if present)
         LPCOLESTR lpszTemp = lpszPathName;
         for (LPCOLESTR lpsz = lpszPathName; *lpsz != NULL; )
@@ -5518,6 +6056,11 @@ ATLINLINE ATLAPI AtlInternalQueryInterface(void* pThis,
         const _ATL_INTMAP_ENTRY* pEntries, REFIID iid, void** ppvObject)
 {
         ATLASSERT(pThis != NULL);
+        ATLASSERT(pEntries!= NULL);
+        
+        if(pThis == NULL || pEntries == NULL)
+                return E_INVALIDARG ;
+                
         // First entry in the com map should be a simple map entry
         ATLASSERT(pEntries->pFunc == _ATL_SIMPLEMAPENTRY);
         if (ppvObject == NULL)
@@ -5561,8 +6104,12 @@ ATLINLINE ATLAPI AtlInternalQueryInterface(void* pThis,
 
 ATLINLINE ATLAPI_(IUnknown*) AtlComPtrAssign(IUnknown** pp, IUnknown* lp)
 {
+        if(pp == NULL)
+                return NULL;
+                
         if (lp != NULL)
                 lp->AddRef();
+        
         if (*pp)
                 (*pp)->Release();
         *pp = lp;
@@ -5571,6 +6118,9 @@ ATLINLINE ATLAPI_(IUnknown*) AtlComPtrAssign(IUnknown** pp, IUnknown* lp)
 
 ATLINLINE ATLAPI_(IUnknown*) AtlComQIPtrAssign(IUnknown** pp, IUnknown* lp, REFIID riid)
 {
+        if(pp == NULL)
+                return NULL;
+                
         IUnknown* pTemp = *pp;
         *pp = NULL;
         if (lp != NULL)
@@ -5600,6 +6150,8 @@ ATLINLINE ATLAPI AtlFreeMarshalStream(IStream* pStream)
 
 ATLINLINE ATLAPI AtlMarshalPtrInProc(IUnknown* pUnk, const IID& iid, IStream** ppStream)
 {
+        _ATL_VALIDATE_OUT_POINTER(ppStream);
+                
         HRESULT hRes = CreateStreamOnHGlobal(NULL, TRUE, ppStream);
         if (SUCCEEDED(hRes))
         {
@@ -5616,6 +6168,8 @@ ATLINLINE ATLAPI AtlMarshalPtrInProc(IUnknown* pUnk, const IID& iid, IStream** p
 
 ATLINLINE ATLAPI AtlUnmarshalPtr(IStream* pStream, const IID& iid, IUnknown** ppUnk)
 {
+        _ATL_VALIDATE_OUT_POINTER(ppUnk);
+                
         *ppUnk = NULL;
         HRESULT hRes = E_INVALIDARG;
         if (pStream != NULL)
@@ -5660,6 +6214,9 @@ ATLINLINE ATLAPI_(BOOL) AtlWaitWithMessageLoop(HANDLE hEvent)
 
 ATLINLINE ATLAPI AtlAdvise(IUnknown* pUnkCP, IUnknown* pUnk, const IID& iid, LPDWORD pdw)
 {
+        if(pUnkCP == NULL)
+                return E_INVALIDARG;
+                
         CComPtr<IConnectionPointContainer> pCPC;
         CComPtr<IConnectionPoint> pCP;
         HRESULT hRes = pUnkCP->QueryInterface(IID_IConnectionPointContainer, (void**)&pCPC);
@@ -5672,6 +6229,9 @@ ATLINLINE ATLAPI AtlAdvise(IUnknown* pUnkCP, IUnknown* pUnk, const IID& iid, LPD
 
 ATLINLINE ATLAPI AtlUnadvise(IUnknown* pUnkCP, const IID& iid, DWORD dw)
 {
+        if(pUnkCP == NULL)
+                return E_INVALIDARG;
+                
         CComPtr<IConnectionPointContainer> pCPC;
         CComPtr<IConnectionPoint> pCP;
         HRESULT hRes = pUnkCP->QueryInterface(IID_IConnectionPointContainer, (void**)&pCPC);
@@ -5688,7 +6248,7 @@ ATLINLINE ATLAPI AtlUnadvise(IUnknown* pUnkCP, const IID& iid, DWORD dw)
 ATLINLINE ATLAPI AtlSetErrorInfo(const CLSID& clsid, LPCOLESTR lpszDesc, DWORD dwHelpID,
         LPCOLESTR lpszHelpFile, const IID& iid, HRESULT hRes, HINSTANCE hInst)
 {
-        USES_CONVERSION;
+        USES_CONVERSION_EX;
         TCHAR szDesc[1024];
         szDesc[0] = NULL;
         // For a valid HRESULT the id should be in the range [0x0200, 0xffff]
@@ -5701,7 +6261,11 @@ ATLINLINE ATLAPI AtlSetErrorInfo(const CLSID& clsid, LPCOLESTR lpszDesc, DWORD d
                         ATLASSERT(FALSE);
                         lstrcpy(szDesc, _T("Unknown Error"));
                 }
-                lpszDesc = T2OLE(szDesc);
+                lpszDesc = T2OLE_EX(szDesc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+                if(lpszDesc == NULL) 
+                        return E_OUTOFMEMORY;
+#endif                        
                 if (hRes == 0)
                         hRes = MAKE_HRESULT(3, FACILITY_ITF, nID);
         }
@@ -5788,9 +6352,32 @@ ATLINLINE ATLAPI AtlModuleInit(_ATL_MODULE* pM, _ATL_OBJMAP_ENTRY* p, HINSTANCE 
         pM->m_hInst = pM->m_hInstTypeLib = pM->m_hInstResource = h;
         pM->m_nLockCnt=0L;
         pM->m_hHeap = NULL;
-        InitializeCriticalSection(&pM->m_csTypeInfoHolder);
-        InitializeCriticalSection(&pM->m_csWindowCreate);
-        InitializeCriticalSection(&pM->m_csObjMap);
+        __try {
+            InitializeCriticalSection(&pM->m_csTypeInfoHolder);
+        } __except (GetExceptionCode() == STATUS_NO_MEMORY ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
+            ZeroMemory(&pM->m_csTypeInfoHolder, sizeof(pM->m_csTypeInfoHolder));
+            return STATUS_NO_MEMORY;
+        }
+
+        __try {
+            InitializeCriticalSection(&pM->m_csWindowCreate);
+        } __except (GetExceptionCode() == STATUS_NO_MEMORY ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
+            DeleteCriticalSection(&pM->m_csTypeInfoHolder);
+            ZeroMemory(&pM->m_csWindowCreate, sizeof(pM->m_csWindowCreate));
+            ZeroMemory(&pM->m_csTypeInfoHolder, sizeof(pM->m_csTypeInfoHolder));
+            return STATUS_NO_MEMORY;
+        }
+
+        __try {
+            InitializeCriticalSection(&pM->m_csObjMap);
+        } __except (GetExceptionCode() == STATUS_NO_MEMORY ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
+            DeleteCriticalSection(&pM->m_csWindowCreate);
+            DeleteCriticalSection(&pM->m_csTypeInfoHolder);
+            ZeroMemory(&pM->m_csObjMap, sizeof(pM->m_csObjMap));
+            ZeroMemory(&pM->m_csWindowCreate, sizeof(pM->m_csWindowCreate));
+            ZeroMemory(&pM->m_csTypeInfoHolder, sizeof(pM->m_csTypeInfoHolder));
+            return STATUS_NO_MEMORY;
+        }
 #ifdef _ATL_DLL_IMPL
         if (pM->cbSize > _nAtlModuleVer21Size)
 #endif
@@ -5829,6 +6416,9 @@ ATLINLINE ATLAPI AtlModuleRegisterClassObjects(_ATL_MODULE* pM, DWORD dwClsConte
         if (pM == NULL)
                 return E_INVALIDARG;
         ATLASSERT(pM->m_pObjMap != NULL);
+        if(pM->m_pObjMap == NULL)
+                return S_OK;
+                
         _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
         HRESULT hRes = S_OK;
         while (pEntry->pclsid != NULL && hRes == S_OK)
@@ -5836,6 +6426,7 @@ ATLINLINE ATLAPI AtlModuleRegisterClassObjects(_ATL_MODULE* pM, DWORD dwClsConte
                 hRes = pEntry->RegisterClassObject(dwClsContext, dwFlags);
                 pEntry = _NextObjectMapEntry(pM, pEntry);
         }
+
         return hRes;
 }
 
@@ -5845,6 +6436,9 @@ ATLINLINE ATLAPI AtlModuleRevokeClassObjects(_ATL_MODULE* pM)
         if (pM == NULL)
                 return E_INVALIDARG;
         ATLASSERT(pM->m_pObjMap != NULL);
+        if(pM->m_pObjMap == NULL)
+                return S_OK;
+                
         _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
         HRESULT hRes = S_OK;
         while (pEntry->pclsid != NULL && hRes == S_OK)
@@ -5852,6 +6446,7 @@ ATLINLINE ATLAPI AtlModuleRevokeClassObjects(_ATL_MODULE* pM)
                 hRes = pEntry->RevokeClassObject();
                 pEntry = _NextObjectMapEntry(pM, pEntry);
         }
+
         return hRes;
 }
 
@@ -5861,11 +6456,16 @@ ATLINLINE ATLAPI AtlModuleGetClassObject(_ATL_MODULE* pM, REFCLSID rclsid, REFII
         if (pM == NULL)
                 return E_INVALIDARG;
         ATLASSERT(pM->m_pObjMap != NULL);
+
+        if(pM->m_pObjMap == NULL)
+                return CLASS_E_CLASSNOTAVAILABLE;
+                
         _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
         HRESULT hRes = S_OK;
         if (ppv == NULL)
                 return E_POINTER;
         *ppv = NULL;
+
         while (pEntry->pclsid != NULL)
         {
                 if ((pEntry->pfnGetClassObject != NULL) && InlineIsEqualGUID(rclsid, *pEntry->pclsid))
@@ -5873,9 +6473,15 @@ ATLINLINE ATLAPI AtlModuleGetClassObject(_ATL_MODULE* pM, REFCLSID rclsid, REFII
                         if (pEntry->pCF == NULL)
                         {
                                 EnterCriticalSection(&pM->m_csObjMap);
-                                if (pEntry->pCF == NULL)
-                                        hRes = pEntry->pfnGetClassObject(pEntry->pfnCreateInstance, IID_IUnknown, (LPVOID*)&pEntry->pCF);
-                                LeaveCriticalSection(&pM->m_csObjMap);
+                                __try
+                                {
+                                        if (pEntry->pCF == NULL)
+                                                hRes = pEntry->pfnGetClassObject(pEntry->pfnCreateInstance, IID_IUnknown, (LPVOID*)&pEntry->pCF);
+                                }
+                                __finally
+                                {
+                                        LeaveCriticalSection(&pM->m_csObjMap);
+                                }
                         }
                         if (pEntry->pCF != NULL)
                                 hRes = pEntry->pCF->QueryInterface(riid, ppv);
@@ -5883,6 +6489,7 @@ ATLINLINE ATLAPI AtlModuleGetClassObject(_ATL_MODULE* pM, REFCLSID rclsid, REFII
                 }
                 pEntry = _NextObjectMapEntry(pM, pEntry);
         }
+
         if (*ppv == NULL && hRes == S_OK)
                 hRes = CLASS_E_CLASSNOTAVAILABLE;
         return hRes;
@@ -5909,9 +6516,19 @@ ATLINLINE ATLAPI AtlModuleTerm(_ATL_MODULE* pM)
                         pEntry = _NextObjectMapEntry(pM, pEntry);
                 }
         }
-        DeleteCriticalSection(&pM->m_csTypeInfoHolder);
-        DeleteCriticalSection(&pM->m_csWindowCreate);
-        DeleteCriticalSection(&pM->m_csObjMap);
+        CRITICAL_SECTION csNull = {0};
+
+        if (memcmp(&pM->m_csTypeInfoHolder, &csNull, sizeof(csNull))) {
+            DeleteCriticalSection(&pM->m_csTypeInfoHolder);
+        }
+
+        if (memcmp(&pM->m_csWindowCreate, &csNull, sizeof(csNull))) {
+            DeleteCriticalSection(&pM->m_csWindowCreate);
+        }
+
+        if (memcmp(&pM->m_csObjMap, &csNull, sizeof(csNull))) {
+            DeleteCriticalSection(&pM->m_csObjMap);
+        }
 
 #ifdef _ATL_DLL_IMPL
         if (pM->cbSize > _nAtlModuleVer21Size)
@@ -5932,7 +6549,10 @@ ATLINLINE ATLAPI AtlModuleTerm(_ATL_MODULE* pM)
                         if (pM->m_phHeaps != NULL)
                         {
                                 for (DWORD i = 0; i <= pM->m_dwHeaps; i++)
-                                        HeapDestroy(pM->m_phHeaps[i]);
+                                {
+                                        if (pM->m_phHeaps[i] != NULL)
+                                                HeapDestroy(pM->m_phHeaps[i]);
+                                }
                         }
 #endif
                         HeapDestroy(pM->m_hHeap);
@@ -5943,6 +6563,9 @@ ATLINLINE ATLAPI AtlModuleTerm(_ATL_MODULE* pM)
 
 ATLINLINE ATLAPI AtlModuleAddTermFunc(_ATL_MODULE* pM, _ATL_TERMFUNC* pFunc, DWORD_PTR dw)
 {
+        if (pM == NULL)
+                return E_INVALIDARG;
+                
         HRESULT hr = S_OK;
         _ATL_TERMFUNC_ELEM* pNew = NULL;
         ATLTRY(pNew = new _ATL_TERMFUNC_ELEM);
@@ -6032,8 +6655,13 @@ ATLINLINE ATLAPI AtlModuleRegisterServer(_ATL_MODULE* pM, BOOL bRegTypeLib, cons
         ATLASSERT(pM != NULL);
         if (pM == NULL)
                 return E_INVALIDARG;
+
         ATLASSERT(pM->m_hInst != NULL);
         ATLASSERT(pM->m_pObjMap != NULL);
+
+        if(pM->m_pObjMap == NULL)
+                return S_OK;
+                
         _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
         HRESULT hRes = S_OK;
         for (;pEntry->pclsid != NULL; pEntry = _NextObjectMapEntry(pM, pEntry))
@@ -6072,6 +6700,10 @@ ATLINLINE ATLAPI AtlModuleUnregisterServerEx(_ATL_MODULE* pM, BOOL bUnRegTypeLib
                 return E_INVALIDARG;
         ATLASSERT(pM->m_hInst != NULL);
         ATLASSERT(pM->m_pObjMap != NULL);
+        
+        if(pM->m_pObjMap == NULL)
+                return S_OK;
+                
         _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
         for (;pEntry->pclsid != NULL; pEntry = _NextObjectMapEntry(pM, pEntry))
         {
@@ -6087,9 +6719,9 @@ ATLINLINE ATLAPI AtlModuleUnregisterServerEx(_ATL_MODULE* pM, BOOL bUnRegTypeLib
                                 continue;
                 }
                 pEntry->pfnUpdateRegistry(FALSE); //unregister
-        if (pM->cbSize == sizeof(_ATL_MODULE) && pEntry->pfnGetCategoryMap != NULL)
-                AtlRegisterClassCategoriesHelper( *pEntry->pclsid,
-                        pEntry->pfnGetCategoryMap(), FALSE );
+                if (pM->cbSize == sizeof(_ATL_MODULE) && pEntry->pfnGetCategoryMap != NULL)
+                        AtlRegisterClassCategoriesHelper( *pEntry->pclsid,
+                                pEntry->pfnGetCategoryMap(), FALSE );
         }
         if (bUnRegTypeLib)
                 AtlModuleUnRegisterTypeLib(pM, 0);
@@ -6104,8 +6736,12 @@ ATLINLINE ATLAPI AtlModuleUnregisterServer(_ATL_MODULE* pM, const CLSID* pCLSID)
 ATLINLINE ATLAPI AtlModuleUpdateRegistryFromResourceD(_ATL_MODULE* pM, LPCOLESTR lpszRes,
         BOOL bRegister, struct _ATL_REGMAP_ENTRY* pMapEntries, IRegistrar* pReg)
 {
-        USES_CONVERSION;
+        USES_CONVERSION_EX;
         ATLASSERT(pM != NULL);
+        
+        if(pM == NULL)
+                return E_INVALIDARG;
+                
         HRESULT hRes = S_OK;
         CComPtr<IRegistrar> p;
         if (pReg != NULL)
@@ -6115,27 +6751,46 @@ ATLINLINE ATLAPI AtlModuleUpdateRegistryFromResourceD(_ATL_MODULE* pM, LPCOLESTR
                 hRes = CoCreateInstance(CLSID_Registrar, NULL,
                         CLSCTX_INPROC_SERVER, IID_IRegistrar, (void**)&p);
         }
+        
         if (SUCCEEDED(hRes))
         {
-                TCHAR szModule[_MAX_PATH];
-                GetModuleFileName(pM->m_hInst, szModule, _MAX_PATH);
+                TCHAR szModule[_MAX_PATH+1] = {0};
 
-          // Convert to short path to work around bug in NT4's CreateProcess
-          TCHAR szModuleShort[_MAX_PATH];
-          GetShortPathName(szModule, szModuleShort, _MAX_PATH);
-          LPOLESTR pszModule = T2OLE(szModuleShort);
+                // If the ModuleFileName's length is equal or greater than the 3rd parameter
+                // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
+                // if neccessary), but doesn't null terminate it. It returns the same value as 
+                // the 3rd parameter passed. So if the return value is the same as the 3rd param
+                // then you have a non null terminated buffer (which may or may not be truncated)
+                int ret = GetModuleFileName(pM->m_hInst, szModule, _MAX_PATH);
 
-                int nLen = ocslen(pszModule);
-                LPOLESTR pszModuleQuote = (LPOLESTR)alloca((nLen*2+1)*sizeof(OLECHAR));
+        if(ret == _MAX_PATH)
+                return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
+        
+        if(ret == 0)
+                return AtlHresultFromLastError();
+
+                LPOLESTR pszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+                if(pszModule == NULL) 
+                        return E_OUTOFMEMORY;
+#endif
+                
+                // Buffer Size is Multiplied by 2 because we are calling ReplaceSingleQuote
+                OLECHAR pszModuleQuote[(_MAX_PATH + _ATL_QUOTES_SPACE)*2];
                 CComModule::ReplaceSingleQuote(pszModuleQuote, pszModule);
-                p->AddReplacement(OLESTR("Module"), pszModuleQuote);
+                
+                hRes = p->AddReplacement(OLESTR("Module"), pszModuleQuote);
+                if(FAILED(hRes))
+                        return hRes;
 
                 if (NULL != pMapEntries)
                 {
                         while (NULL != pMapEntries->szKey)
                         {
                                 ATLASSERT(NULL != pMapEntries->szData);
-                                p->AddReplacement((LPOLESTR)pMapEntries->szKey, (LPOLESTR)pMapEntries->szData);
+                                hRes = p->AddReplacement((LPOLESTR)pMapEntries->szKey, (LPOLESTR)pMapEntries->szData);
+                                if(FAILED(hRes))
+                                        return hRes;
                                 pMapEntries++;
                         }
                 }
@@ -6162,37 +6817,99 @@ ATLINLINE ATLAPI AtlModuleUpdateRegistryFromResourceD(_ATL_MODULE* pM, LPCOLESTR
 /////////////////////////////////////////////////////////////////////////////
 // TypeLib Support
 
+// The argument to LoadTypeLib can be in the form
+// ITypeLib *ptlib;
+// LoadTypeLib("C:\\Temp\\EXE\\proj1.EXE\\3", &ptlib) 
+// This statement loads the type library resource 3 from the file proj1.exe file.
+// The #define __ATL_MAX_PATH_PLUS_INDEX takes care of this
+
+#define _ATL_MAX_PATH_PLUS_INDEX (_MAX_PATH + _ATL_TYPELIB_INDEX_LENGTH)
+
 ATLINLINE ATLAPI AtlModuleLoadTypeLib(_ATL_MODULE* pM, LPCOLESTR lpszIndex, BSTR* pbstrPath, ITypeLib** ppTypeLib)
 {
-        *pbstrPath = NULL;
-        *ppTypeLib = NULL;
+        _ATL_VALIDATE_OUT_POINTER(pbstrPath);
+        _ATL_VALIDATE_OUT_POINTER(ppTypeLib);
+                
         ATLASSERT(pM != NULL);
-        USES_CONVERSION;
+        
+        if(pM == NULL)
+                return E_INVALIDARG;
+                
+        USES_CONVERSION_EX;
         ATLASSERT(pM->m_hInstTypeLib != NULL);
-        TCHAR szModule[_MAX_PATH+10];
-        GetModuleFileName(pM->m_hInstTypeLib, szModule, _MAX_PATH);
+        TCHAR szModule[_ATL_MAX_PATH_PLUS_INDEX];
+        
+        // If the ModuleFileName's length is equal or greater than the 3rd parameter
+        // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
+        // if neccessary), but doesn't null terminate it. It returns the same value as 
+        // the 3rd parameter passed. So if the return value is the same as the 3rd param
+        // then you have a non null terminated buffer (which may or may not be truncated)
+        int ret = GetModuleFileName(pM->m_hInstTypeLib, szModule, _MAX_PATH);
+        
+        if(ret == _MAX_PATH)
+                return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
+        
+        if(ret == 0)
+                return AtlHresultFromLastError();
+        
         if (lpszIndex != NULL)
-                lstrcat(szModule, OLE2CT(lpszIndex));
-        LPOLESTR lpszModule = T2OLE(szModule);
+        {
+                LPCTSTR lpcszIndex = OLE2CT_EX(lpszIndex, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+                if(lpcszIndex == NULL) 
+                        return E_OUTOFMEMORY;
+#endif                
+                int nIndexLen = lstrlen(lpcszIndex);
+                
+                if( ret + nIndexLen >= _ATL_MAX_PATH_PLUS_INDEX )
+                        return E_FAIL;
+                lstrcpy(szModule + ret,lpcszIndex);
+        }
+        
+        LPOLESTR lpszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+        if(lpszModule == NULL) 
+                return E_OUTOFMEMORY;
+#endif        
         HRESULT hr = LoadTypeLib(lpszModule, ppTypeLib);
         if (!SUCCEEDED(hr))
         {
                 // typelib not in module, try <module>.tlb instead
                 LPTSTR lpszExt = NULL;
                 LPTSTR lpsz;
+                
                 for (lpsz = szModule; *lpsz != NULL; lpsz = CharNext(lpsz))
                 {
-                        if (*lpsz == _T('.'))
+                        if(*lpsz == _T('\\') || *lpsz == _T('/'))
+                        {
+                                lpszExt = NULL;
+                                continue;
+                        }
+
+                        if(*lpsz == _T('.'))
                                 lpszExt = lpsz;
+                        
                 }
+                
                 if (lpszExt == NULL)
                         lpszExt = lpsz;
-                lstrcpy(lpszExt, _T(".tlb"));
-                lpszModule = T2OLE(szModule);
+
+                TCHAR szExt[] = _T(".tlb");
+                if ((lpszExt - szModule + sizeof(szExt)/sizeof(TCHAR)) > _MAX_PATH)
+                        return E_FAIL;
+                        
+                lstrcpy(lpszExt, szExt);
+                lpszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+                if(lpszModule == NULL) 
+                        return E_OUTOFMEMORY;
+#endif                
                 hr = LoadTypeLib(lpszModule, ppTypeLib);
         }
+        
         if (SUCCEEDED(hr))
                 *pbstrPath = OLE2BSTR(lpszModule);
+        
         return hr;
 }
 
@@ -6205,7 +6922,7 @@ ATLINLINE ATLAPI AtlModuleUnRegisterTypeLib(_ATL_MODULE* pM, LPCOLESTR lpszIndex
         if (SUCCEEDED(hr))
         {
                 TLIBATTR* ptla;
-                HRESULT hr = pTypeLib->GetLibAttr(&ptla);
+                hr = pTypeLib->GetLibAttr(&ptla);
                 if (SUCCEEDED(hr))
                 {
                         HINSTANCE h = LoadLibrary(_T("oleaut32.dll"));
@@ -6227,9 +6944,14 @@ ATLINLINE ATLAPI AtlModuleRegisterTypeLib(_ATL_MODULE* pM, LPCOLESTR lpszIndex)
         CComBSTR bstrPath;
         CComPtr<ITypeLib> pTypeLib;
         HRESULT hr = AtlModuleLoadTypeLib(pM, lpszIndex, &bstrPath, &pTypeLib);
+        
         if (SUCCEEDED(hr))
         {
                 OLECHAR szDir[_MAX_PATH];
+                
+                if(SysStringLen(bstrPath) > _MAX_PATH - 1 )
+                        return CO_E_PATHTOOLONG;
+
                 ocscpy(szDir, bstrPath);
                 szDir[AtlGetDirLen(szDir)] = 0;
                 hr = ::RegisterTypeLib(pTypeLib, bstrPath, szDir);
@@ -6244,6 +6966,9 @@ ATLINLINE ATLAPI_(DWORD) AtlGetVersion(void* /* pReserved */)
 
 ATLINLINE ATLAPI_(void) AtlModuleAddCreateWndData(_ATL_MODULE* pM, _AtlCreateWndData* pData, void* pObject)
 {
+        if(pData == NULL || pObject == NULL)
+                _AtlRaiseException((DWORD)EXCEPTION_ACCESS_VIOLATION);
+                
         pData->m_pThis = pObject;
         pData->m_dwThreadID = ::GetCurrentThreadId();
         ::EnterCriticalSection(&pM->m_csWindowCreate);
@@ -6286,7 +7011,7 @@ ATLINLINE ATLAPI_(void*) AtlModuleExtractCreateWndData(_ATL_MODULE* pM)
 inline HRESULT AtlGetDllVersion(HINSTANCE hInstDLL, DLLVERSIONINFO* pDllVersionInfo)
 {
         ATLASSERT(pDllVersionInfo != NULL);
-        if(::IsBadWritePtr(pDllVersionInfo, sizeof(DWORD)))
+        if(pDllVersionInfo == NULL)
                 return E_INVALIDARG;
 
         // We must get this function explicitly because some DLLs don't implement it.
@@ -6314,7 +7039,7 @@ inline HRESULT AtlGetDllVersion(LPCTSTR lpstrDllName, DLLVERSIONINFO* pDllVersio
 inline HRESULT AtlGetCommCtrlVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
 {
         ATLASSERT(pdwMajor != NULL && pdwMinor != NULL);
-        if(::IsBadWritePtr(pdwMajor, sizeof(DWORD)) || ::IsBadWritePtr(pdwMinor, sizeof(DWORD)))
+        if(pdwMajor == NULL || pdwMinor == NULL)
                 return E_INVALIDARG;
 
         DLLVERSIONINFO dvi;
@@ -6347,7 +7072,7 @@ inline HRESULT AtlGetCommCtrlVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
 inline HRESULT AtlGetShellVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
 {
         ATLASSERT(pdwMajor != NULL && pdwMinor != NULL);
-        if(::IsBadWritePtr(pdwMajor, sizeof(DWORD)) || ::IsBadWritePtr(pdwMinor, sizeof(DWORD)))
+        if(pdwMajor == NULL || pdwMinor == NULL)
                 return E_INVALIDARG;
 
         DLLVERSIONINFO dvi;

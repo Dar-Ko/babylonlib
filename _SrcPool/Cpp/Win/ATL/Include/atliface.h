@@ -4,8 +4,8 @@
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
- /* File created by MIDL compiler version 5.02.0198 */
-/* at Thu Sep 10 21:38:47 1998
+/* File created by MIDL compiler version 5.01.0164 */
+/* at Fri Nov 30 13:38:38 2001
  */
 /* Compiler settings for atliface.idl:
     Os (OptLev=s), W1, Zp8, env=Win32 (32b run), ms_ext, c_ext
@@ -43,31 +43,31 @@ extern "C"{
 #ifndef __IRegistrar_FWD_DEFINED__
 #define __IRegistrar_FWD_DEFINED__
 typedef interface IRegistrar IRegistrar;
-#endif 	/* __IRegistrar_FWD_DEFINED__ */
+#endif         /* __IRegistrar_FWD_DEFINED__ */
 
 
 #ifndef __IDocHostUIHandlerDispatch_FWD_DEFINED__
 #define __IDocHostUIHandlerDispatch_FWD_DEFINED__
 typedef interface IDocHostUIHandlerDispatch IDocHostUIHandlerDispatch;
-#endif 	/* __IDocHostUIHandlerDispatch_FWD_DEFINED__ */
+#endif         /* __IDocHostUIHandlerDispatch_FWD_DEFINED__ */
 
 
 #ifndef __IAxWinHostWindow_FWD_DEFINED__
 #define __IAxWinHostWindow_FWD_DEFINED__
 typedef interface IAxWinHostWindow IAxWinHostWindow;
-#endif 	/* __IAxWinHostWindow_FWD_DEFINED__ */
+#endif         /* __IAxWinHostWindow_FWD_DEFINED__ */
 
 
 #ifndef __IAxWinAmbientDispatch_FWD_DEFINED__
 #define __IAxWinAmbientDispatch_FWD_DEFINED__
 typedef interface IAxWinAmbientDispatch IAxWinAmbientDispatch;
-#endif 	/* __IAxWinAmbientDispatch_FWD_DEFINED__ */
+#endif         /* __IAxWinAmbientDispatch_FWD_DEFINED__ */
 
 
 #ifndef __IInternalConnection_FWD_DEFINED__
 #define __IInternalConnection_FWD_DEFINED__
 typedef interface IInternalConnection IInternalConnection;
-#endif 	/* __IInternalConnection_FWD_DEFINED__ */
+#endif         /* __IInternalConnection_FWD_DEFINED__ */
 
 
 /* header files for imported files */
@@ -141,7 +141,7 @@ EXTERN_C const IID IID_IRegistrar;
         
     };
     
-#else 	/* C style interface */
+#else         /* C style interface */
 
     typedef struct IRegistrarVtbl
     {
@@ -219,50 +219,50 @@ EXTERN_C const IID IID_IRegistrar;
 #ifdef COBJMACROS
 
 
-#define IRegistrar_QueryInterface(This,riid,ppvObject)	\
+#define IRegistrar_QueryInterface(This,riid,ppvObject)        \
     (This)->lpVtbl -> QueryInterface(This,riid,ppvObject)
 
-#define IRegistrar_AddRef(This)	\
+#define IRegistrar_AddRef(This)        \
     (This)->lpVtbl -> AddRef(This)
 
-#define IRegistrar_Release(This)	\
+#define IRegistrar_Release(This)        \
     (This)->lpVtbl -> Release(This)
 
 
-#define IRegistrar_AddReplacement(This,key,item)	\
+#define IRegistrar_AddReplacement(This,key,item)        \
     (This)->lpVtbl -> AddReplacement(This,key,item)
 
-#define IRegistrar_ClearReplacements(This)	\
+#define IRegistrar_ClearReplacements(This)        \
     (This)->lpVtbl -> ClearReplacements(This)
 
-#define IRegistrar_ResourceRegisterSz(This,resFileName,szID,szType)	\
+#define IRegistrar_ResourceRegisterSz(This,resFileName,szID,szType)        \
     (This)->lpVtbl -> ResourceRegisterSz(This,resFileName,szID,szType)
 
-#define IRegistrar_ResourceUnregisterSz(This,resFileName,szID,szType)	\
+#define IRegistrar_ResourceUnregisterSz(This,resFileName,szID,szType)        \
     (This)->lpVtbl -> ResourceUnregisterSz(This,resFileName,szID,szType)
 
-#define IRegistrar_FileRegister(This,fileName)	\
+#define IRegistrar_FileRegister(This,fileName)        \
     (This)->lpVtbl -> FileRegister(This,fileName)
 
-#define IRegistrar_FileUnregister(This,fileName)	\
+#define IRegistrar_FileUnregister(This,fileName)        \
     (This)->lpVtbl -> FileUnregister(This,fileName)
 
-#define IRegistrar_StringRegister(This,data)	\
+#define IRegistrar_StringRegister(This,data)        \
     (This)->lpVtbl -> StringRegister(This,data)
 
-#define IRegistrar_StringUnregister(This,data)	\
+#define IRegistrar_StringUnregister(This,data)        \
     (This)->lpVtbl -> StringUnregister(This,data)
 
-#define IRegistrar_ResourceRegister(This,resFileName,nID,szType)	\
+#define IRegistrar_ResourceRegister(This,resFileName,nID,szType)        \
     (This)->lpVtbl -> ResourceRegister(This,resFileName,nID,szType)
 
-#define IRegistrar_ResourceUnregister(This,resFileName,nID,szType)	\
+#define IRegistrar_ResourceUnregister(This,resFileName,nID,szType)        \
     (This)->lpVtbl -> ResourceUnregister(This,resFileName,nID,szType)
 
 #endif /* COBJMACROS */
 
 
-#endif 	/* C style interface */
+#endif         /* C style interface */
 
 
 
@@ -395,7 +395,7 @@ void __RPC_STUB IRegistrar_ResourceUnregister_Stub(
 
 
 
-#endif 	/* __IRegistrar_INTERFACE_DEFINED__ */
+#endif         /* __IRegistrar_INTERFACE_DEFINED__ */
 
 
 #ifndef __IDocHostUIHandlerDispatch_INTERFACE_DEFINED__
@@ -406,24 +406,24 @@ void __RPC_STUB IRegistrar_ResourceUnregister_Stub(
 
 typedef 
 enum tagDOCHOSTUIDBLCLKDispatch
-    {	docHostUIDblClkDEFAULT	= 0,
-	docHostUIDblClkSHOWPROPERTIES	= 1,
-	docHostUIDblClkSHOWCODE	= 2
-    }	DOCHOSTUIDBLCLKDispatch;
+    {        docHostUIDblClkDEFAULT        = 0,
+        docHostUIDblClkSHOWPROPERTIES        = 1,
+        docHostUIDblClkSHOWCODE        = 2
+    }        DOCHOSTUIDBLCLKDispatch;
 
 typedef 
 enum tagDocHostUIFlagDispatch
-    {	docHostUIFlagDIALOG	= 1,
-	docHostUIFlagDISABLE_HELP_MENU	= 2,
-	docHostUIFlagNO3DBORDER	= 4,
-	docHostUIFlagSCROLL_NO	= 8,
-	docHostUIFlagDISABLE_SCRIPT_INACTIVE	= 16,
-	docHostUIFlagOPENNEWWIN	= 32,
-	docHostUIFlagDISABLE_OFFSCREEN	= 64,
-	docHostUIFlagFLAT_SCROLLBAR	= 128,
-	docHostUIFlagDIV_BLOCKDEFAULT	= 256,
-	docHostUIFlagACTIVATE_CLIENTHIT_ONLY	= 512
-    }	DocHostUIFlagDispatch;
+    {        docHostUIFlagDIALOG        = 1,
+        docHostUIFlagDISABLE_HELP_MENU        = 2,
+        docHostUIFlagNO3DBORDER        = 4,
+        docHostUIFlagSCROLL_NO        = 8,
+        docHostUIFlagDISABLE_SCRIPT_INACTIVE        = 16,
+        docHostUIFlagOPENNEWWIN        = 32,
+        docHostUIFlagDISABLE_OFFSCREEN        = 64,
+        docHostUIFlagFLAT_SCROLLBAR        = 128,
+        docHostUIFlagDIV_BLOCKDEFAULT        = 256,
+        docHostUIFlagACTIVATE_CLIENTHIT_ONLY        = 512
+    }        DocHostUIFlagDispatch;
 
 
 EXTERN_C const IID IID_IDocHostUIHandlerDispatch;
@@ -506,7 +506,7 @@ EXTERN_C const IID IID_IDocHostUIHandlerDispatch;
         
     };
     
-#else 	/* C style interface */
+#else         /* C style interface */
 
     typedef struct IDocHostUIHandlerDispatchVtbl
     {
@@ -650,78 +650,78 @@ EXTERN_C const IID IID_IDocHostUIHandlerDispatch;
 #ifdef COBJMACROS
 
 
-#define IDocHostUIHandlerDispatch_QueryInterface(This,riid,ppvObject)	\
+#define IDocHostUIHandlerDispatch_QueryInterface(This,riid,ppvObject)        \
     (This)->lpVtbl -> QueryInterface(This,riid,ppvObject)
 
-#define IDocHostUIHandlerDispatch_AddRef(This)	\
+#define IDocHostUIHandlerDispatch_AddRef(This)        \
     (This)->lpVtbl -> AddRef(This)
 
-#define IDocHostUIHandlerDispatch_Release(This)	\
+#define IDocHostUIHandlerDispatch_Release(This)        \
     (This)->lpVtbl -> Release(This)
 
 
-#define IDocHostUIHandlerDispatch_GetTypeInfoCount(This,pctinfo)	\
+#define IDocHostUIHandlerDispatch_GetTypeInfoCount(This,pctinfo)        \
     (This)->lpVtbl -> GetTypeInfoCount(This,pctinfo)
 
-#define IDocHostUIHandlerDispatch_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
+#define IDocHostUIHandlerDispatch_GetTypeInfo(This,iTInfo,lcid,ppTInfo)        \
     (This)->lpVtbl -> GetTypeInfo(This,iTInfo,lcid,ppTInfo)
 
-#define IDocHostUIHandlerDispatch_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
+#define IDocHostUIHandlerDispatch_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)        \
     (This)->lpVtbl -> GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)
 
-#define IDocHostUIHandlerDispatch_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
+#define IDocHostUIHandlerDispatch_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)        \
     (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
 
 
-#define IDocHostUIHandlerDispatch_ShowContextMenu(This,dwID,x,y,pcmdtReserved,pdispReserved,dwRetVal)	\
+#define IDocHostUIHandlerDispatch_ShowContextMenu(This,dwID,x,y,pcmdtReserved,pdispReserved,dwRetVal)        \
     (This)->lpVtbl -> ShowContextMenu(This,dwID,x,y,pcmdtReserved,pdispReserved,dwRetVal)
 
-#define IDocHostUIHandlerDispatch_GetHostInfo(This,pdwFlags,pdwDoubleClick)	\
+#define IDocHostUIHandlerDispatch_GetHostInfo(This,pdwFlags,pdwDoubleClick)        \
     (This)->lpVtbl -> GetHostInfo(This,pdwFlags,pdwDoubleClick)
 
-#define IDocHostUIHandlerDispatch_ShowUI(This,dwID,pActiveObject,pCommandTarget,pFrame,pDoc,dwRetVal)	\
+#define IDocHostUIHandlerDispatch_ShowUI(This,dwID,pActiveObject,pCommandTarget,pFrame,pDoc,dwRetVal)        \
     (This)->lpVtbl -> ShowUI(This,dwID,pActiveObject,pCommandTarget,pFrame,pDoc,dwRetVal)
 
-#define IDocHostUIHandlerDispatch_HideUI(This)	\
+#define IDocHostUIHandlerDispatch_HideUI(This)        \
     (This)->lpVtbl -> HideUI(This)
 
-#define IDocHostUIHandlerDispatch_UpdateUI(This)	\
+#define IDocHostUIHandlerDispatch_UpdateUI(This)        \
     (This)->lpVtbl -> UpdateUI(This)
 
-#define IDocHostUIHandlerDispatch_EnableModeless(This,fEnable)	\
+#define IDocHostUIHandlerDispatch_EnableModeless(This,fEnable)        \
     (This)->lpVtbl -> EnableModeless(This,fEnable)
 
-#define IDocHostUIHandlerDispatch_OnDocWindowActivate(This,fActivate)	\
+#define IDocHostUIHandlerDispatch_OnDocWindowActivate(This,fActivate)        \
     (This)->lpVtbl -> OnDocWindowActivate(This,fActivate)
 
-#define IDocHostUIHandlerDispatch_OnFrameWindowActivate(This,fActivate)	\
+#define IDocHostUIHandlerDispatch_OnFrameWindowActivate(This,fActivate)        \
     (This)->lpVtbl -> OnFrameWindowActivate(This,fActivate)
 
-#define IDocHostUIHandlerDispatch_ResizeBorder(This,left,top,right,bottom,pUIWindow,fFrameWindow)	\
+#define IDocHostUIHandlerDispatch_ResizeBorder(This,left,top,right,bottom,pUIWindow,fFrameWindow)        \
     (This)->lpVtbl -> ResizeBorder(This,left,top,right,bottom,pUIWindow,fFrameWindow)
 
-#define IDocHostUIHandlerDispatch_TranslateAccelerator(This,hWnd,nMessage,wParam,lParam,bstrGuidCmdGroup,nCmdID,dwRetVal)	\
+#define IDocHostUIHandlerDispatch_TranslateAccelerator(This,hWnd,nMessage,wParam,lParam,bstrGuidCmdGroup,nCmdID,dwRetVal)        \
     (This)->lpVtbl -> TranslateAccelerator(This,hWnd,nMessage,wParam,lParam,bstrGuidCmdGroup,nCmdID,dwRetVal)
 
-#define IDocHostUIHandlerDispatch_GetOptionKeyPath(This,pbstrKey,dw)	\
+#define IDocHostUIHandlerDispatch_GetOptionKeyPath(This,pbstrKey,dw)        \
     (This)->lpVtbl -> GetOptionKeyPath(This,pbstrKey,dw)
 
-#define IDocHostUIHandlerDispatch_GetDropTarget(This,pDropTarget,ppDropTarget)	\
+#define IDocHostUIHandlerDispatch_GetDropTarget(This,pDropTarget,ppDropTarget)        \
     (This)->lpVtbl -> GetDropTarget(This,pDropTarget,ppDropTarget)
 
-#define IDocHostUIHandlerDispatch_GetExternal(This,ppDispatch)	\
+#define IDocHostUIHandlerDispatch_GetExternal(This,ppDispatch)        \
     (This)->lpVtbl -> GetExternal(This,ppDispatch)
 
-#define IDocHostUIHandlerDispatch_TranslateUrl(This,dwTranslate,bstrURLIn,pbstrURLOut)	\
+#define IDocHostUIHandlerDispatch_TranslateUrl(This,dwTranslate,bstrURLIn,pbstrURLOut)        \
     (This)->lpVtbl -> TranslateUrl(This,dwTranslate,bstrURLIn,pbstrURLOut)
 
-#define IDocHostUIHandlerDispatch_FilterDataObject(This,pDO,ppDORet)	\
+#define IDocHostUIHandlerDispatch_FilterDataObject(This,pDO,ppDORet)        \
     (This)->lpVtbl -> FilterDataObject(This,pDO,ppDORet)
 
 #endif /* COBJMACROS */
 
 
-#endif 	/* C style interface */
+#endif         /* C style interface */
 
 
 
@@ -931,7 +931,7 @@ void __RPC_STUB IDocHostUIHandlerDispatch_FilterDataObject_Stub(
 
 
 
-#endif 	/* __IDocHostUIHandlerDispatch_INTERFACE_DEFINED__ */
+#endif         /* __IDocHostUIHandlerDispatch_INTERFACE_DEFINED__ */
 
 
 #ifndef __IAxWinHostWindow_INTERFACE_DEFINED__
@@ -978,7 +978,7 @@ EXTERN_C const IID IID_IAxWinHostWindow;
         
     };
     
-#else 	/* C style interface */
+#else         /* C style interface */
 
     typedef struct IAxWinHostWindowVtbl
     {
@@ -1041,38 +1041,38 @@ EXTERN_C const IID IID_IAxWinHostWindow;
 #ifdef COBJMACROS
 
 
-#define IAxWinHostWindow_QueryInterface(This,riid,ppvObject)	\
+#define IAxWinHostWindow_QueryInterface(This,riid,ppvObject)        \
     (This)->lpVtbl -> QueryInterface(This,riid,ppvObject)
 
-#define IAxWinHostWindow_AddRef(This)	\
+#define IAxWinHostWindow_AddRef(This)        \
     (This)->lpVtbl -> AddRef(This)
 
-#define IAxWinHostWindow_Release(This)	\
+#define IAxWinHostWindow_Release(This)        \
     (This)->lpVtbl -> Release(This)
 
 
-#define IAxWinHostWindow_CreateControl(This,lpTricsData,hWnd,pStream)	\
+#define IAxWinHostWindow_CreateControl(This,lpTricsData,hWnd,pStream)        \
     (This)->lpVtbl -> CreateControl(This,lpTricsData,hWnd,pStream)
 
-#define IAxWinHostWindow_CreateControlEx(This,lpTricsData,hWnd,pStream,ppUnk,riidAdvise,punkAdvise)	\
+#define IAxWinHostWindow_CreateControlEx(This,lpTricsData,hWnd,pStream,ppUnk,riidAdvise,punkAdvise)        \
     (This)->lpVtbl -> CreateControlEx(This,lpTricsData,hWnd,pStream,ppUnk,riidAdvise,punkAdvise)
 
-#define IAxWinHostWindow_AttachControl(This,pUnkControl,hWnd)	\
+#define IAxWinHostWindow_AttachControl(This,pUnkControl,hWnd)        \
     (This)->lpVtbl -> AttachControl(This,pUnkControl,hWnd)
 
-#define IAxWinHostWindow_QueryControl(This,riid,ppvObject)	\
+#define IAxWinHostWindow_QueryControl(This,riid,ppvObject)        \
     (This)->lpVtbl -> QueryControl(This,riid,ppvObject)
 
-#define IAxWinHostWindow_SetExternalDispatch(This,pDisp)	\
+#define IAxWinHostWindow_SetExternalDispatch(This,pDisp)        \
     (This)->lpVtbl -> SetExternalDispatch(This,pDisp)
 
-#define IAxWinHostWindow_SetExternalUIHandler(This,pDisp)	\
+#define IAxWinHostWindow_SetExternalUIHandler(This,pDisp)        \
     (This)->lpVtbl -> SetExternalUIHandler(This,pDisp)
 
 #endif /* COBJMACROS */
 
 
-#endif 	/* C style interface */
+#endif         /* C style interface */
 
 
 
@@ -1158,7 +1158,7 @@ void __RPC_STUB IAxWinHostWindow_SetExternalUIHandler_Stub(
 
 
 
-#endif 	/* __IAxWinHostWindow_INTERFACE_DEFINED__ */
+#endif         /* __IAxWinHostWindow_INTERFACE_DEFINED__ */
 
 
 #ifndef __IAxWinAmbientDispatch_INTERFACE_DEFINED__
@@ -1225,10 +1225,10 @@ EXTERN_C const IID IID_IAxWinAmbientDispatch;
             /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbMsgReflect) = 0;
         
         virtual /* [id][helpstring][propget] */ HRESULT STDMETHODCALLTYPE get_ShowGrabHandles( 
-            VARIANT_BOOL __RPC_FAR *pbShowGrabHandles) = 0;
+            /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowGrabHandles) = 0;
         
         virtual /* [id][helpstring][propget] */ HRESULT STDMETHODCALLTYPE get_ShowHatching( 
-            VARIANT_BOOL __RPC_FAR *pbShowHatching) = 0;
+            /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowHatching) = 0;
         
         virtual /* [helpstring][propput] */ HRESULT STDMETHODCALLTYPE put_DocHostFlags( 
             /* [in] */ DWORD dwDocHostFlags) = 0;
@@ -1262,7 +1262,7 @@ EXTERN_C const IID IID_IAxWinAmbientDispatch;
         
     };
     
-#else 	/* C style interface */
+#else         /* C style interface */
 
     typedef struct IAxWinAmbientDispatchVtbl
     {
@@ -1374,11 +1374,11 @@ EXTERN_C const IID IID_IAxWinAmbientDispatch;
         
         /* [id][helpstring][propget] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *get_ShowGrabHandles )( 
             IAxWinAmbientDispatch __RPC_FAR * This,
-            VARIANT_BOOL __RPC_FAR *pbShowGrabHandles);
+            /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowGrabHandles);
         
         /* [id][helpstring][propget] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *get_ShowHatching )( 
             IAxWinAmbientDispatch __RPC_FAR * This,
-            VARIANT_BOOL __RPC_FAR *pbShowHatching);
+            /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowHatching);
         
         /* [helpstring][propput] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *put_DocHostFlags )( 
             IAxWinAmbientDispatch __RPC_FAR * This,
@@ -1433,117 +1433,117 @@ EXTERN_C const IID IID_IAxWinAmbientDispatch;
 #ifdef COBJMACROS
 
 
-#define IAxWinAmbientDispatch_QueryInterface(This,riid,ppvObject)	\
+#define IAxWinAmbientDispatch_QueryInterface(This,riid,ppvObject)        \
     (This)->lpVtbl -> QueryInterface(This,riid,ppvObject)
 
-#define IAxWinAmbientDispatch_AddRef(This)	\
+#define IAxWinAmbientDispatch_AddRef(This)        \
     (This)->lpVtbl -> AddRef(This)
 
-#define IAxWinAmbientDispatch_Release(This)	\
+#define IAxWinAmbientDispatch_Release(This)        \
     (This)->lpVtbl -> Release(This)
 
 
-#define IAxWinAmbientDispatch_GetTypeInfoCount(This,pctinfo)	\
+#define IAxWinAmbientDispatch_GetTypeInfoCount(This,pctinfo)        \
     (This)->lpVtbl -> GetTypeInfoCount(This,pctinfo)
 
-#define IAxWinAmbientDispatch_GetTypeInfo(This,iTInfo,lcid,ppTInfo)	\
+#define IAxWinAmbientDispatch_GetTypeInfo(This,iTInfo,lcid,ppTInfo)        \
     (This)->lpVtbl -> GetTypeInfo(This,iTInfo,lcid,ppTInfo)
 
-#define IAxWinAmbientDispatch_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)	\
+#define IAxWinAmbientDispatch_GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)        \
     (This)->lpVtbl -> GetIDsOfNames(This,riid,rgszNames,cNames,lcid,rgDispId)
 
-#define IAxWinAmbientDispatch_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)	\
+#define IAxWinAmbientDispatch_Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)        \
     (This)->lpVtbl -> Invoke(This,dispIdMember,riid,lcid,wFlags,pDispParams,pVarResult,pExcepInfo,puArgErr)
 
 
-#define IAxWinAmbientDispatch_put_AllowWindowlessActivation(This,bCanWindowlessActivate)	\
+#define IAxWinAmbientDispatch_put_AllowWindowlessActivation(This,bCanWindowlessActivate)        \
     (This)->lpVtbl -> put_AllowWindowlessActivation(This,bCanWindowlessActivate)
 
-#define IAxWinAmbientDispatch_get_AllowWindowlessActivation(This,pbCanWindowlessActivate)	\
+#define IAxWinAmbientDispatch_get_AllowWindowlessActivation(This,pbCanWindowlessActivate)        \
     (This)->lpVtbl -> get_AllowWindowlessActivation(This,pbCanWindowlessActivate)
 
-#define IAxWinAmbientDispatch_put_BackColor(This,clrBackground)	\
+#define IAxWinAmbientDispatch_put_BackColor(This,clrBackground)        \
     (This)->lpVtbl -> put_BackColor(This,clrBackground)
 
-#define IAxWinAmbientDispatch_get_BackColor(This,pclrBackground)	\
+#define IAxWinAmbientDispatch_get_BackColor(This,pclrBackground)        \
     (This)->lpVtbl -> get_BackColor(This,pclrBackground)
 
-#define IAxWinAmbientDispatch_put_ForeColor(This,clrForeground)	\
+#define IAxWinAmbientDispatch_put_ForeColor(This,clrForeground)        \
     (This)->lpVtbl -> put_ForeColor(This,clrForeground)
 
-#define IAxWinAmbientDispatch_get_ForeColor(This,pclrForeground)	\
+#define IAxWinAmbientDispatch_get_ForeColor(This,pclrForeground)        \
     (This)->lpVtbl -> get_ForeColor(This,pclrForeground)
 
-#define IAxWinAmbientDispatch_put_LocaleID(This,lcidLocaleID)	\
+#define IAxWinAmbientDispatch_put_LocaleID(This,lcidLocaleID)        \
     (This)->lpVtbl -> put_LocaleID(This,lcidLocaleID)
 
-#define IAxWinAmbientDispatch_get_LocaleID(This,plcidLocaleID)	\
+#define IAxWinAmbientDispatch_get_LocaleID(This,plcidLocaleID)        \
     (This)->lpVtbl -> get_LocaleID(This,plcidLocaleID)
 
-#define IAxWinAmbientDispatch_put_UserMode(This,bUserMode)	\
+#define IAxWinAmbientDispatch_put_UserMode(This,bUserMode)        \
     (This)->lpVtbl -> put_UserMode(This,bUserMode)
 
-#define IAxWinAmbientDispatch_get_UserMode(This,pbUserMode)	\
+#define IAxWinAmbientDispatch_get_UserMode(This,pbUserMode)        \
     (This)->lpVtbl -> get_UserMode(This,pbUserMode)
 
-#define IAxWinAmbientDispatch_put_DisplayAsDefault(This,bDisplayAsDefault)	\
+#define IAxWinAmbientDispatch_put_DisplayAsDefault(This,bDisplayAsDefault)        \
     (This)->lpVtbl -> put_DisplayAsDefault(This,bDisplayAsDefault)
 
-#define IAxWinAmbientDispatch_get_DisplayAsDefault(This,pbDisplayAsDefault)	\
+#define IAxWinAmbientDispatch_get_DisplayAsDefault(This,pbDisplayAsDefault)        \
     (This)->lpVtbl -> get_DisplayAsDefault(This,pbDisplayAsDefault)
 
-#define IAxWinAmbientDispatch_put_Font(This,pFont)	\
+#define IAxWinAmbientDispatch_put_Font(This,pFont)        \
     (This)->lpVtbl -> put_Font(This,pFont)
 
-#define IAxWinAmbientDispatch_get_Font(This,pFont)	\
+#define IAxWinAmbientDispatch_get_Font(This,pFont)        \
     (This)->lpVtbl -> get_Font(This,pFont)
 
-#define IAxWinAmbientDispatch_put_MessageReflect(This,bMsgReflect)	\
+#define IAxWinAmbientDispatch_put_MessageReflect(This,bMsgReflect)        \
     (This)->lpVtbl -> put_MessageReflect(This,bMsgReflect)
 
-#define IAxWinAmbientDispatch_get_MessageReflect(This,pbMsgReflect)	\
+#define IAxWinAmbientDispatch_get_MessageReflect(This,pbMsgReflect)        \
     (This)->lpVtbl -> get_MessageReflect(This,pbMsgReflect)
 
-#define IAxWinAmbientDispatch_get_ShowGrabHandles(This,pbShowGrabHandles)	\
+#define IAxWinAmbientDispatch_get_ShowGrabHandles(This,pbShowGrabHandles)        \
     (This)->lpVtbl -> get_ShowGrabHandles(This,pbShowGrabHandles)
 
-#define IAxWinAmbientDispatch_get_ShowHatching(This,pbShowHatching)	\
+#define IAxWinAmbientDispatch_get_ShowHatching(This,pbShowHatching)        \
     (This)->lpVtbl -> get_ShowHatching(This,pbShowHatching)
 
-#define IAxWinAmbientDispatch_put_DocHostFlags(This,dwDocHostFlags)	\
+#define IAxWinAmbientDispatch_put_DocHostFlags(This,dwDocHostFlags)        \
     (This)->lpVtbl -> put_DocHostFlags(This,dwDocHostFlags)
 
-#define IAxWinAmbientDispatch_get_DocHostFlags(This,pdwDocHostFlags)	\
+#define IAxWinAmbientDispatch_get_DocHostFlags(This,pdwDocHostFlags)        \
     (This)->lpVtbl -> get_DocHostFlags(This,pdwDocHostFlags)
 
-#define IAxWinAmbientDispatch_put_DocHostDoubleClickFlags(This,dwDocHostDoubleClickFlags)	\
+#define IAxWinAmbientDispatch_put_DocHostDoubleClickFlags(This,dwDocHostDoubleClickFlags)        \
     (This)->lpVtbl -> put_DocHostDoubleClickFlags(This,dwDocHostDoubleClickFlags)
 
-#define IAxWinAmbientDispatch_get_DocHostDoubleClickFlags(This,pdwDocHostDoubleClickFlags)	\
+#define IAxWinAmbientDispatch_get_DocHostDoubleClickFlags(This,pdwDocHostDoubleClickFlags)        \
     (This)->lpVtbl -> get_DocHostDoubleClickFlags(This,pdwDocHostDoubleClickFlags)
 
-#define IAxWinAmbientDispatch_put_AllowContextMenu(This,bAllowContextMenu)	\
+#define IAxWinAmbientDispatch_put_AllowContextMenu(This,bAllowContextMenu)        \
     (This)->lpVtbl -> put_AllowContextMenu(This,bAllowContextMenu)
 
-#define IAxWinAmbientDispatch_get_AllowContextMenu(This,pbAllowContextMenu)	\
+#define IAxWinAmbientDispatch_get_AllowContextMenu(This,pbAllowContextMenu)        \
     (This)->lpVtbl -> get_AllowContextMenu(This,pbAllowContextMenu)
 
-#define IAxWinAmbientDispatch_put_AllowShowUI(This,bAllowShowUI)	\
+#define IAxWinAmbientDispatch_put_AllowShowUI(This,bAllowShowUI)        \
     (This)->lpVtbl -> put_AllowShowUI(This,bAllowShowUI)
 
-#define IAxWinAmbientDispatch_get_AllowShowUI(This,pbAllowShowUI)	\
+#define IAxWinAmbientDispatch_get_AllowShowUI(This,pbAllowShowUI)        \
     (This)->lpVtbl -> get_AllowShowUI(This,pbAllowShowUI)
 
-#define IAxWinAmbientDispatch_put_OptionKeyPath(This,bstrOptionKeyPath)	\
+#define IAxWinAmbientDispatch_put_OptionKeyPath(This,bstrOptionKeyPath)        \
     (This)->lpVtbl -> put_OptionKeyPath(This,bstrOptionKeyPath)
 
-#define IAxWinAmbientDispatch_get_OptionKeyPath(This,pbstrOptionKeyPath)	\
+#define IAxWinAmbientDispatch_get_OptionKeyPath(This,pbstrOptionKeyPath)        \
     (This)->lpVtbl -> get_OptionKeyPath(This,pbstrOptionKeyPath)
 
 #endif /* COBJMACROS */
 
 
-#endif 	/* C style interface */
+#endif         /* C style interface */
 
 
 
@@ -1741,7 +1741,7 @@ void __RPC_STUB IAxWinAmbientDispatch_get_MessageReflect_Stub(
 
 /* [id][helpstring][propget] */ HRESULT STDMETHODCALLTYPE IAxWinAmbientDispatch_get_ShowGrabHandles_Proxy( 
     IAxWinAmbientDispatch __RPC_FAR * This,
-    VARIANT_BOOL __RPC_FAR *pbShowGrabHandles);
+    /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowGrabHandles);
 
 
 void __RPC_STUB IAxWinAmbientDispatch_get_ShowGrabHandles_Stub(
@@ -1753,7 +1753,7 @@ void __RPC_STUB IAxWinAmbientDispatch_get_ShowGrabHandles_Stub(
 
 /* [id][helpstring][propget] */ HRESULT STDMETHODCALLTYPE IAxWinAmbientDispatch_get_ShowHatching_Proxy( 
     IAxWinAmbientDispatch __RPC_FAR * This,
-    VARIANT_BOOL __RPC_FAR *pbShowHatching);
+    /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowHatching);
 
 
 void __RPC_STUB IAxWinAmbientDispatch_get_ShowHatching_Stub(
@@ -1884,7 +1884,7 @@ void __RPC_STUB IAxWinAmbientDispatch_get_OptionKeyPath_Stub(
 
 
 
-#endif 	/* __IAxWinAmbientDispatch_INTERFACE_DEFINED__ */
+#endif         /* __IAxWinAmbientDispatch_INTERFACE_DEFINED__ */
 
 
 #ifndef __IInternalConnection_INTERFACE_DEFINED__
@@ -1908,7 +1908,7 @@ EXTERN_C const IID IID_IInternalConnection;
         
     };
     
-#else 	/* C style interface */
+#else         /* C style interface */
 
     typedef struct IInternalConnectionVtbl
     {
@@ -1944,26 +1944,26 @@ EXTERN_C const IID IID_IInternalConnection;
 #ifdef COBJMACROS
 
 
-#define IInternalConnection_QueryInterface(This,riid,ppvObject)	\
+#define IInternalConnection_QueryInterface(This,riid,ppvObject)        \
     (This)->lpVtbl -> QueryInterface(This,riid,ppvObject)
 
-#define IInternalConnection_AddRef(This)	\
+#define IInternalConnection_AddRef(This)        \
     (This)->lpVtbl -> AddRef(This)
 
-#define IInternalConnection_Release(This)	\
+#define IInternalConnection_Release(This)        \
     (This)->lpVtbl -> Release(This)
 
 
-#define IInternalConnection_AddConnection(This)	\
+#define IInternalConnection_AddConnection(This)        \
     (This)->lpVtbl -> AddConnection(This)
 
-#define IInternalConnection_ReleaseConnection(This)	\
+#define IInternalConnection_ReleaseConnection(This)        \
     (This)->lpVtbl -> ReleaseConnection(This)
 
 #endif /* COBJMACROS */
 
 
-#endif 	/* C style interface */
+#endif         /* C style interface */
 
 
 
@@ -1990,10 +1990,10 @@ void __RPC_STUB IInternalConnection_ReleaseConnection_Stub(
 
 
 
-#endif 	/* __IInternalConnection_INTERFACE_DEFINED__ */
+#endif         /* __IInternalConnection_INTERFACE_DEFINED__ */
 
 
-/* interface __MIDL_itf_atliface_0236 */
+/* interface __MIDL_itf_atliface_0213 */
 /* [local] */ 
 
 #ifndef _ATL_DLL_IMPL
@@ -2019,8 +2019,8 @@ ATLAPI_(HWND) AtlAxCreateDialogA(HINSTANCE hInstance, LPCSTR lpTemplateName, HWN
 
 ATLAPI AtlAxCreateControl(LPCOLESTR lpszName, HWND hWnd, IStream* pStream, IUnknown** ppUnkContainer);
 ATLAPI AtlAxCreateControlEx(LPCOLESTR lpszName, HWND hWnd, IStream* pStream, 
-		IUnknown** ppUnkContainer, IUnknown** ppUnkControl, 
-		REFIID iidSink=IID_NULL, IUnknown* punkSink=NULL);
+                IUnknown** ppUnkContainer, IUnknown** ppUnkControl, 
+                REFIID iidSink=IID_NULL, IUnknown* punkSink=NULL);
 ATLAPI AtlAxAttachControl(IUnknown* pControl, HWND hWnd, IUnknown** ppUnkContainer);
 ATLAPI_(BOOL) AtlAxWinInit();
 
