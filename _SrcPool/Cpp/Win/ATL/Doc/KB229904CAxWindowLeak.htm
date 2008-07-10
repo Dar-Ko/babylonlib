@@ -1,15 +1,23 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-ca">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <title>CAxWindow Members Can Cause a Memory Leak</title>
+</head>
+
+<body>
 <h1 class="title">PRB: CAxWindow Members Can Cause a Memory Leak</h1>
 <p>This article was previously published under Q229904</p>
 <p>Article ID:229904 Last Review: September 18, 2003 Revision:3.0</p>
 <h2 class="subTitle" id="tocHeadRef">SYMPTOMS</h2>
 <div class="sbody">
-  The CAxWindow <b>CreateControl()</b> and <b>AttachControl()</b> functions may 
+  The CAxWindow <b>CreateControl()</b> and <b>AttachControl()</b> functions may
   leak memory if not used correctly.</div>
 <h2 class="subTitle" id="tocHeadRef">CAUSE</h2>
 <div class="sbody">
-  The following two techniques of creating ActiveX controls on composite 
-  controls (or any window supporting ATL containment) can result in memory 
+  The following two techniques of creating ActiveX controls on composite
+  controls (or any window supporting ATL containment) can result in memory
   leaks.
   <pre class="code">//Intialize ATL control containment.
 AtlAxWinInit();
@@ -34,31 +42,31 @@ hr = CoCreateInstance(clsid, NULL, CLSCTX_ALL, IID_IUnknown, (void**)&amp;spunk)
 // Activate ActiveX control.
 HRESULT hr = m_ax.AttachControl(spunk);
 				</pre>
-  <p>In both techniques, the calls to <b>Create()</b> results in the creation of 
+  <p>In both techniques, the calls to <b>Create()</b> results in the creation of
   a <b>CAxHostWindow</b> object. The call to <b>CreateControl()</b> or <b>
-  AttachControl()</b> also creates another <b>CAxHostWindow</b> Object. Upon 
-  destruction, the <b>CAxHostWindow</b> object created by <b>Create()</b> is 
+  AttachControl()</b> also creates another <b>CAxHostWindow</b> Object. Upon
+  destruction, the <b>CAxHostWindow</b> object created by <b>Create()</b> is
   freed.</div>
 <h2 class="subTitle" id="tocHeadRef">RESOLUTION</h2>
 <div class="sbody">
   Use one of the techniques mentioned in article
-  <a href="http://support.microsoft.com/kb/218442/EN-US/">Q218442</a> to create 
+  <a href="http://support.microsoft.com/kb/218442/EN-US/">Q218442</a> to create
   ActiveX controls at run time.</div>
 <h2 class="subTitle" id="tocHeadRef">STATUS</h2>
 <div class="sbody">
   This behavior is by design.</div>
 <h2 class="subTitle" id="tocHeadRef">REFERENCES</h2>
 <div class="sbody">
-  For additional information, click the article number below to view the article 
+  For additional information, click the article number below to view the article
   in the Microsoft Knowledge Base:
   <div class="indent">
     <a class="KBlink" href="http://support.microsoft.com/kb/192560/EN-US/">
-    192560</a><span class="pLink"> (http://support.microsoft.com/kb/192560/EN-US/)</span> 
+    192560</a><span class="pLink"> (http://support.microsoft.com/kb/192560/EN-US/)</span>
     HOWTO: Adding ATL Control Containment Support to Any Window
   </div>
   <div class="indent">
     <a class="KBlink" href="http://support.microsoft.com/kb/218442/EN-US/">
-    218442</a><span class="pLink"> (http://support.microsoft.com/kb/218442/EN-US/)</span> 
+    218442</a><span class="pLink"> (http://support.microsoft.com/kb/218442/EN-US/)</span>
     HOWTO: Programmatically Add ActiveX Controls to Composite Control
   </div>
 </div>
@@ -101,3 +109,6 @@ HRESULT hr = m_ax.AttachControl(spunk);
 </table>
 <h5>Keywords:&nbsp;</h5>
 <p>kbprb kbctrl kbpending KB229904</p>
+</body>
+
+</html>
