@@ -1,0 +1,104 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-ca">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>A &quot;C2668: 'InlineIsEqualGUID'&quot; error occurs when you try to build a
+default ATL project that contains a COM object in Visual C++</title>
+</head>
+
+<body>
+
+<h1 class="title">BUG: A &quot;C2668: 'InlineIsEqualGUID'&quot; error occurs when you try
+to build a default ATL project that contains a COM object in Visual C++</h1>
+<p>This article was previously published under Q243298</p>
+<p>Article ID:243298 Last Review: September 2, 2005 Revision:3.0</p>
+<h2 class="subTitle" id="tocHeadRef">SYMPTOMS</h2>
+<div class="sbody">
+  Building a default ATL project containing a COM object supporting
+  ISupportErrorInfo might result in the following error:<div class="errormsg">
+    C2668: 'InlineIsEqualGUID' : ambiguous call to overloaded function
+  </div>
+  <p>This error may also occur when calling the function <b>InlineIsEqualGUID()</b>
+  in your ATL project.</div>
+<h2 class="subTitle" id="tocHeadRef">CAUSE</h2>
+<div class="sbody">
+  The problem occurs because the function <b>InlineIsEqualGUID()</b> is defined
+  both in the ATL header file, AtlBase.h, and the Platform SDK header file,
+  Guiddef.h, in different name spaces. The include paths for the build point
+  first to the Platform SDK include directory, and then to the ATL include
+  directory. In the ATL header, <b>InlineIsEqualGUID()</b> is defined in a name
+  space called &quot;ATL&quot;, while in the Platform SDK header it is defined in the
+  global name space. Because <b>AtlBase.h</b> includes the statement
+  <pre class="code">using namespace ATL;
+        </pre>
+  <p>the compiler is unable to distinguish which definition to use.</div>
+<h2 class="subTitle" id="tocHeadRef">WORKAROUND</h2>
+<div class="sbody">
+  To work around this problem, prefix the call to the <b>InlineIsEqualGUID()</b>
+  function with <span class="userInput">::ATL::</span>. This explicitly
+  qualifies the ATL namespace from where the implementation of <b>
+  InlineIsEqualGUID</b> is pulled in. For example:
+  <pre class="code">::ATL::InlineIsEqualGUID()
+        </pre>
+</div>
+<h2 class="subTitle" id="tocHeadRef">STATUS</h2>
+<div class="sbody">
+  Microsoft has confirmed that this is a bug in the Microsoft products that are
+  listed in the &quot;Applies to&quot; section.</div>
+<h2 class="subTitle" id="tocHeadRef">MORE INFORMATION</h2>
+<div class="sbody">
+  <h3 id="tocHeadRef">Steps to reproduce the behavior</h3>
+  <p>The following steps are based on Visual C++ 6.0.</p>
+  <table class="list ol">
+    <tr>
+      <td class="number">1.</td>
+      <td class="text">Create an ATL DLL project and insert a simple object into
+      the project with ISupportErrorInfo support.</td>
+    </tr>
+    <tr>
+      <td class="number">2.</td>
+      <td class="text">Make sure that the includes path for the Platform SDK
+      include directory comes before the ATL include directory on the <b>
+      Directories</b> tab of the <b>Options</b> dialog box, which is accessed
+      from the <b>Tools</b> menu.</td>
+    </tr>
+    <tr>
+      <td class="number">3.</td>
+      <td class="text">Build the project, and the error message appears.</td>
+    </tr>
+  </table>
+</div>
+<h5>APPLIES TO</h5>
+<table class="list">
+  <tr>
+    <td class="bullet">•</td>
+    <td class="text">Microsoft ActiveX Template Library 3.0, when used with:</td>
+  </tr>
+  <tr>
+    <td class="textSub" colspan="2"><table class="list">
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td class="text">Microsoft Visual C++ 6.0 Enterprise Edition</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td class="text">Microsoft Visual C++ 6.0 Professional Edition</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td class="text">Microsoft Visual C++, 32-bit Learning Edition 6.0</td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<h5>Keywords:&nbsp;</h5>
+<p>kberrmsg kbtshoot kbbug kbfix kbdebug kbfunctions KB243298</p>
+
+</body>
+
+</html>
