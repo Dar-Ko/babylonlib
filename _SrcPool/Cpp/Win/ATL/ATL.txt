@@ -1,0 +1,15 @@
+$RCSfile: ATL.txt,v $: developer's note
+$Revision: 1.1 $ $Date: 2008/07/10 14:05:29 $
+$Author: ddarko $
+
+Active Template Library (ATL).
+
+Copyright: Microsoft Corp.
+1998
+
+Project files used to buid Active Template Library DLL (atl.dll)
+
+\	atl.dsw	Microsoft Developer Studio Workspace (DSW) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	atl.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	atl.mak	Microsoft Developer Studio.	Win32
+
