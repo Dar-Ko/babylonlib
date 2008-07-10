@@ -768,15 +768,19 @@ public:
 
 		ReleaseAll();
 
-		if (m_hWnd != NULL)
+        if (!::IsWindow(hWnd))
+            hWnd = NULL;
+
+		if (m_hWnd != NULL && m_hWnd != hWnd)
 		{
 			RedrawWindow(NULL, NULL, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ERASE | RDW_INTERNALPAINT | RDW_FRAME);
 			ReleaseWindow();
 		}
 
-		if (::IsWindow(hWnd))
+		if (hWnd)
 		{
-			SubclassWindow(hWnd);
+		    if (m_hWnd != hWnd)
+    			SubclassWindow(hWnd);
 
 			hr = ActivateAx(pUnkControl, TRUE, NULL);
 
@@ -2116,7 +2120,7 @@ public:
 				// Item is an ActiveX control.
 				bHasOleControls = TRUE;
 
-				cbNewTemplate += (bDialogEx ? sizeof(DLGITEMTEMPLATEEX) : sizeof(DLGITEMTEMPLATE));
+				cbNewTemplate += (ULONG)((bDialogEx ? sizeof(DLGITEMTEMPLATEEX) : sizeof(DLGITEMTEMPLATE)));
 
 				// Length of className including NULL terminator
 				cbNewTemplate += (lstrlenW(lpstrAxWndClassNameW) + 1) * sizeof(WCHAR);
@@ -2182,7 +2186,7 @@ public:
 				// Item is OLE control: add it to template as custom control
 
 				// Copy the dialog item template
-				DWORD nSizeElement = bDialogEx ? sizeof(DLGITEMTEMPLATEEX) : sizeof(DLGITEMTEMPLATE);
+				DWORD nSizeElement = (DWORD)(bDialogEx ? sizeof(DLGITEMTEMPLATEEX) : sizeof(DLGITEMTEMPLATE));
 				memcpy(pNew, pItem, nSizeElement);
 				pNew += nSizeElement;
 
@@ -2592,3 +2596,4 @@ ATLINLINE ATLAPI AtlAxGetHost(HWND h, IUnknown** pp)
 #endif // _ATLHOST_IMPL
 
 #endif  // __ATLHOST_H__
+

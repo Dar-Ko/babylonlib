@@ -163,7 +163,7 @@ public:
 	{
 		m_bRequiresSave = bDirty;
 	}
-	// Obtain the dirty state for the control 
+	// Obtain the dirty state for the control
 	BOOL GetDirty()
 	{
 		return m_bRequiresSave ? TRUE : FALSE;
@@ -822,7 +822,7 @@ inline HRESULT CComControlBase::InPlaceActivate(LONG iVerb, const RECT* /*prcPos
 	// get location in the parent window,
 	// as well as some information about the parent
 	//
-	OLEINPLACEFRAMEINFO frameInfo;
+	OLEINPLACEFRAMEINFO frameInfo = { 0 };
 	RECT rcPos, rcClip;
 	CComPtr<IOleInPlaceFrame> spInPlaceFrame;
 	CComPtr<IOleInPlaceUIWindow> spInPlaceUIWindow;
@@ -832,6 +832,11 @@ inline HRESULT CComControlBase::InPlaceActivate(LONG iVerb, const RECT* /*prcPos
 	{
 		m_spInPlaceSite->GetWindowContext(&spInPlaceFrame,
 			&spInPlaceUIWindow, &rcPos, &rcClip, &frameInfo);
+		if (frameInfo.haccel)
+		{
+			// this handle is not used, but it's allocated in GetWindowContext.
+			DestroyAcceleratorTable(frameInfo.haccel);
+		}
 
 		if (!m_bWndLess)
 		{
@@ -1022,16 +1027,22 @@ inline HRESULT CComControlBase::IOleInPlaceObject_UIDeactivate(void)
 	//
 	CComPtr<IOleInPlaceFrame> spInPlaceFrame;
 	CComPtr<IOleInPlaceUIWindow> spInPlaceUIWindow;
-	OLEINPLACEFRAMEINFO frameInfo;
+	OLEINPLACEFRAMEINFO frameInfo = { 0 };
 	frameInfo.cb = sizeof(OLEINPLACEFRAMEINFO);
 	RECT rcPos, rcClip;
 
-	HWND hwndParent; 
+	HWND hwndParent;
 	// This call to GetWindow is a fix for Delphi
 	if (m_spInPlaceSite->GetWindow(&hwndParent) == S_OK)
 	{
 		m_spInPlaceSite->GetWindowContext(&spInPlaceFrame,
 			&spInPlaceUIWindow, &rcPos, &rcClip, &frameInfo);
+		if (frameInfo.haccel)
+		{
+			// this handle is not used, but it's allocated in GetWindowContext.
+			DestroyAcceleratorTable(frameInfo.haccel);
+		}
+
 		if (spInPlaceUIWindow)
 			spInPlaceUIWindow->SetActiveObject(NULL, NULL);
 		if (spInPlaceFrame)
@@ -2796,7 +2807,7 @@ public:
 			return E_FAIL;
 
 		// Set the safety options we have been asked to
-		m_dwCurrentSafety = m_dwCurrentSafety  & ~dwEnabledOptions | dwOptionSetMask;
+		m_dwCurrentSafety = m_dwCurrentSafety  & ~dwOptionSetMask | dwEnabledOptions;
 		return S_OK;
 	}
 	DWORD m_dwCurrentSafety;
@@ -3377,8 +3388,9 @@ namespace ATL
 }; //namespace ATL
 #endif
 
-//Prevent pulling in second time 
+//Prevent pulling in second time
 #undef _ATLCTL_IMPL
 
 #endif // _ATLCTL_IMPL
+
 

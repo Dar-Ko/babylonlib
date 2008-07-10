@@ -59,7 +59,7 @@ struct _ATL_WNDCLASSINFOA
 	LPCSTR m_lpszCursorID;
 	BOOL m_bSystemCursor;
 	ATOM m_atom;
-	CHAR m_szAutoName[13];
+    CHAR m_szAutoName[sizeof("ATL:") + (sizeof(PVOID)*2)+1];
 	ATOM Register(WNDPROC* p)
 	{
 		return AtlModuleRegisterWndClassInfoA(&_Module, this, p);
@@ -73,7 +73,7 @@ struct _ATL_WNDCLASSINFOW
 	LPCWSTR m_lpszCursorID;
 	BOOL m_bSystemCursor;
 	ATOM m_atom;
-	WCHAR m_szAutoName[13];
+    WCHAR m_szAutoName[sizeof("ATL:") + (sizeof(PVOID)*2)+1];
 	ATOM Register(WNDPROC* p)
 	{
 		return AtlModuleRegisterWndClassInfoW(&_Module, this, p);
@@ -565,13 +565,13 @@ public:
 
 // Timer Functions
 
-	UINT_PTR SetTimer(UINT_PTR nIDEvent, UINT nElapse)
+	UINT_PTR SetTimer(UINT nIDEvent, UINT nElapse)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return ::SetTimer(m_hWnd, nIDEvent, nElapse, NULL);
 	}
 
-	BOOL KillTimer(UINT_PTR nIDEvent)
+	BOOL KillTimer(UINT nIDEvent)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return ::KillTimer(m_hWnd, nIDEvent);
@@ -1363,7 +1363,7 @@ public:
 		return AtlAxCreateControl(bstrURL, m_hWnd, pStream, ppUnkContainer);
 	}
 
-	HRESULT CreateControlEx(LPCOLESTR lpszName, IStream* pStream = NULL, 
+	HRESULT CreateControlEx(LPCOLESTR lpszName, IStream* pStream = NULL,
 			IUnknown** ppUnkContainer = NULL, IUnknown** ppUnkControl = NULL,
 			REFIID iidSink = IID_NULL, IUnknown* punkSink = NULL)
 	{
@@ -1371,7 +1371,7 @@ public:
 		return AtlAxCreateControlEx(lpszName, m_hWnd, pStream, ppUnkContainer, ppUnkControl, iidSink, punkSink);
 	}
 
-	HRESULT CreateControlEx(DWORD dwResID,  IStream* pStream = NULL, 
+	HRESULT CreateControlEx(DWORD dwResID,  IStream* pStream = NULL,
 			IUnknown** ppUnkContainer = NULL, IUnknown** ppUnkControl = NULL,
 			REFIID iidSink = IID_NULL, IUnknown* punkSink = NULL)
 	{
@@ -1453,106 +1453,15 @@ typedef CAxWindowT<CWindow> CAxWindow;
 /////////////////////////////////////////////////////////////////////////////
 // WindowProc thunks
 
-#if defined(_M_IX86)
-#pragma pack(push,1)
-struct _WndProcThunk
-{
-	DWORD   m_mov;          // mov dword ptr [esp+0x4], pThis (esp+0x4 is hWnd)
-	DWORD   m_this;         //
-	BYTE    m_jmp;          // jmp WndProc
-	DWORD   m_relproc;      // relative jmp
-};
-#pragma pack(pop)
-#elif defined (_M_ALPHA)
-#if defined(_WIN64)
-    // For ALPHA we will stick the this pointer into a0, which is where
-    // the HWND is.  However, we don't actually need the HWND so this is OK.
-#pragma pack(push,4)
-    struct _WndProcThunk //this should come out to 36 bytes
-    {
-        DWORD ldah3_at;     //  ldah    at, LOWORD((func >> 32))
-        DWORD sll_at;       //  sll     at, 32, at
-        DWORD ldah_at;      //  ldah    at, HIWORD(func)
-        DWORD lda_at;       //  lda     at, LOWORD(func)(at)
-        DWORD ldah3_a0;     //  ldah    a0, LOWORD((this >> 32))
-        DWORD sll_a0;       //  sll     a0, 32, a0
-        DWORD ldah_a0;      //  ldah    a0, HIWORD(this)
-        DWORD lda_a0;       //  lda     a0, LOWORD(this)(a0)
-        DWORD jmp;          //  jmp     zero,(at),0
-    };
-#pragma pack(pop)
-#else
-// For ALPHA we will stick the this pointer into a0, which is where
-// the HWND is.  However, we don't actually need the HWND so this is OK.
-#pragma pack(push,4)
-struct _WndProcThunk //this should come out to 20 bytes
-{
-	DWORD ldah_at;      //  ldah    at, HIWORD(func)
-	DWORD ldah_a0;      //  ldah    a0, HIWORD(this)
-	DWORD lda_at;       //  lda     at, LOWORD(func)(at)
-	DWORD lda_a0;       //  lda     a0, LOWORD(this)(a0)
-	DWORD jmp;          //  jmp     zero,(at),0
-};
-#pragma pack(pop)
-#endif
-#elif defined (_M_IA64)
-#pragma comment(lib, "atl21asm.lib")
-#pragma pack(push,8)
-struct _WndProcThunk
-{
-   _FuncDesc funcdesc;
-   void* pRealWndProcDesc;
-   void* pThis;
-};
-#pragma pack(pop)
-#else
-#error Only Alpha, AXP64, IA64, and X86 supported
-#endif
-
 class CWndProcThunk
 {
 public:
-	union
-	{
-		_AtlCreateWndData cd;
-		_WndProcThunk thunk;
-	};
+    _AtlCreateWndData cd;
+	CStdCallThunk thunk;
+
 	void Init(WNDPROC proc, void* pThis)
 	{
-#if defined (_M_IX86)
-		thunk.m_mov = 0x042444C7;  //C7 44 24 0C
-		thunk.m_this = (DWORD)pThis;
-		thunk.m_jmp = 0xe9;
-		thunk.m_relproc = (int)proc - ((int)this+sizeof(_WndProcThunk));
-#elif defined (_M_ALPHA)
-    #if defined (_WIN64)
-        thunk.ldah3_at = (0x279f0000 | LOWORD((ULONG_PTR)proc >> 32));
-        thunk.sll_at = 0x04B94173C;
-        thunk.ldah_at  = (0x279f0000 | HIWORD((ULONG_PTR)proc)) + (LOWORD((ULONG_PTR)proc)>>15);
-        thunk.lda_at = 0x239c0000 | LOWORD(proc);
-        thunk.ldah3_a0 = (0x261f0000 | LOWORD((ULONG_PTR)pThis >> 32));
-        thunk.sll_a0 = 0x4A041730;
-        thunk.ldah_a0  = (0x261f0000 | HIWORD((ULONG_PTR)pThis)) + (LOWORD((ULONG_PTR)pThis)>>15);
-        thunk.lda_a0 = 0x22100000 | LOWORD(pThis);
-        thunk.jmp = 0x6bfc0000;
-    #else
-		thunk.ldah_at = (0x279f0000 | HIWORD(proc)) + (LOWORD(proc)>>15);
-		thunk.ldah_a0 = (0x261f0000 | HIWORD(pThis)) + (LOWORD(pThis)>>15);
-		thunk.lda_at = 0x239c0000 | LOWORD(proc);
-		thunk.lda_a0 = 0x22100000 | LOWORD(pThis);
-		thunk.jmp = 0x6bfc0000;
-	#endif
-#elif defined (_M_IA64)
-   _FuncDesc* pFuncDesc;
-   pFuncDesc = (_FuncDesc*)_WndProcThunkProc;
-   thunk.funcdesc.pfn = pFuncDesc->pfn;
-   thunk.funcdesc.gp = &thunk.pRealWndProcDesc;  // Set gp up to point to our thunk data
-   thunk.pRealWndProcDesc = proc;
-   thunk.pThis = pThis;
-#endif
-		// write block from data cache and
-		//  flush from instruction cache
-		FlushInstructionCache(GetCurrentProcess(), &thunk, sizeof(thunk));
+        thunk.Init((DWORD_PTR)proc, pThis);
 	}
 };
 
@@ -2133,7 +2042,7 @@ LRESULT CALLBACK CWindowImplBaseT< TBase, TWinTraits >::StartWindowProc(HWND hWn
 	ATLASSERT(pThis != NULL);
 	pThis->m_hWnd = hWnd;
 	pThis->m_thunk.Init(pThis->GetWindowProc(), pThis);
-	WNDPROC pProc = (WNDPROC)&(pThis->m_thunk.thunk);
+	WNDPROC pProc = (WNDPROC)(pThis->m_thunk.thunk.pThunk);
 	WNDPROC pOldProc = (WNDPROC)::SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LPARAM)pProc);
 #ifdef _DEBUG
 	// check if somebody has subclassed us already since we discard it
@@ -2193,9 +2102,13 @@ HWND CWindowImplBaseT< TBase, TWinTraits >::Create(HWND hWndParent, RECT& rcPos,
 	_Module.AddCreateWndData(&m_thunk.cd, this);
 
 	if(nID == 0 && (dwStyle & WS_CHILD))
+#if _ATL_VER > 0x0300
 		nID = _Module.GetNextWindowID();
+#else
+        nID = (UINT)this;
+#endif
 
-	HWND hWnd = ::CreateWindowEx(dwExStyle, MAKEINTATOM(atom), szWindowName,
+	HWND hWnd = ::CreateWindowEx(dwExStyle, (LPCTSTR)(LONG_PTR)MAKELONG(atom, 0), szWindowName,
 		dwStyle, rcPos.left, rcPos.top, rcPos.right - rcPos.left,
 		rcPos.bottom - rcPos.top, hWndParent, (HMENU)(DWORD_PTR)nID,
 		_Module.GetModuleInstance(), lpCreateParam);
@@ -2211,7 +2124,7 @@ BOOL CWindowImplBaseT< TBase, TWinTraits >::SubclassWindow(HWND hWnd)
 	ATLASSERT(m_hWnd == NULL);
 	ATLASSERT(::IsWindow(hWnd));
 	m_thunk.Init(GetWindowProc(), this);
-	WNDPROC pProc = (WNDPROC)&(m_thunk.thunk);
+	WNDPROC pProc = (WNDPROC)(m_thunk.thunk.pThunk);
 	WNDPROC pfnWndProc = (WNDPROC)::SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LPARAM)pProc);
 	if(pfnWndProc == NULL)
 		return FALSE;
@@ -2227,7 +2140,7 @@ HWND CWindowImplBaseT< TBase, TWinTraits >::UnsubclassWindow(BOOL bForce /*= FAL
 {
 	ATLASSERT(m_hWnd != NULL);
 
-	WNDPROC pOurProc = (WNDPROC)&(m_thunk.thunk);
+	WNDPROC pOurProc = (WNDPROC)(m_thunk.thunk.pThunk);
 	WNDPROC pActiveProc = (WNDPROC)::GetWindowLongPtr(m_hWnd, GWLP_WNDPROC);
 
 	HWND hWnd = NULL;
@@ -2302,7 +2215,7 @@ LRESULT CALLBACK CDialogImplBaseT< TBase >::StartDialogProc(HWND hWnd, UINT uMsg
 	ATLASSERT(pThis != NULL);
 	pThis->m_hWnd = hWnd;
 	pThis->m_thunk.Init(pThis->GetDialogProc(), pThis);
-	WNDPROC pProc = (WNDPROC)&(pThis->m_thunk.thunk);
+	WNDPROC pProc = (WNDPROC)(pThis->m_thunk.thunk.pThunk);
 	WNDPROC pOldProc = (WNDPROC)::SetWindowLongPtr(hWnd, DWLP_DLGPROC, (LPARAM)pProc);
 #ifdef _DEBUG
 	// check if somebody has subclassed us already since we discard it
@@ -2578,7 +2491,7 @@ public:
 		ATLASSERT(pThis != NULL);
 		pThis->m_hWnd = hWnd;
 		pThis->m_thunk.Init(WindowProc, pThis);
-		WNDPROC pProc = (WNDPROC)&(pThis->m_thunk.thunk);
+		WNDPROC pProc = (WNDPROC)(pThis->m_thunk.thunk.pThunk);
 		WNDPROC pOldProc = (WNDPROC)::SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LONG_PTR)pProc);
 #ifdef _DEBUG
 		// check if somebody has subclassed us already since we discard it
@@ -2703,9 +2616,6 @@ public:
 
 		_Module.AddCreateWndData(&m_thunk.cd, this);
 
-		if(nID == 0 && (dwStyle & WS_CHILD))
-			nID = _Module.GetNextWindowID();
-
 		dwStyle = TWinTraits::GetWndStyle(dwStyle);
 		dwExStyle = TWinTraits::GetWndExStyle(dwExStyle);
 
@@ -2714,7 +2624,8 @@ public:
 								prcPos->left, prcPos->top,
 								prcPos->right - prcPos->left,
 								prcPos->bottom - prcPos->top,
-								hWndParent, (HMENU)(UINT_PTR)nID,
+								hWndParent, 
+								(nID == 0 && (dwStyle & WS_CHILD)) ? (HMENU)this : (HMENU)(DWORD_PTR)nID,
 								_Module.GetModuleInstance(), lpCreateParam);
 		ATLASSERT(m_hWnd == hWnd);
 		return hWnd;
@@ -2726,7 +2637,7 @@ public:
 		ATLASSERT(::IsWindow(hWnd));
 
 		m_thunk.Init(WindowProc, this);
-		WNDPROC pProc = (WNDPROC)&m_thunk.thunk;
+		WNDPROC pProc = (WNDPROC)m_thunk.thunk.pThunk;
 		WNDPROC pfnWndProc = (WNDPROC)::SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LONG_PTR)pProc);
 		if(pfnWndProc == NULL)
 			return FALSE;
@@ -2741,7 +2652,7 @@ public:
 	{
 		ATLASSERT(m_hWnd != NULL);
 
-		WNDPROC pOurProc = (WNDPROC)&(m_thunk.thunk);
+		WNDPROC pOurProc = (WNDPROC)(m_thunk.thunk.pThunk);
 		WNDPROC pActiveProc = (WNDPROC)::GetWindowLongPtr(m_hWnd, GWLP_WNDPROC);
 
 		HWND hWnd = NULL;
@@ -2978,10 +2889,10 @@ ATLINLINE ATLAPI_(ATOM) AtlModuleRegisterWndClassInfoA(_ATL_MODULE* pM, _ATL_WND
 			p->m_wc.style &= ~CS_GLOBALCLASS;	// we don't register global classes
 			if (p->m_wc.lpszClassName == NULL)
 			{
-#ifdef _WIN64
+#ifdef _WIN64       // %p isn't available on Win2k/Win9x
 				wsprintfA(p->m_szAutoName, "ATL:%p", &p->m_wc);
 #else
-				wsprintfA(p->m_szAutoName, "ATL:%8.8X", (DWORD)&p->m_wc);
+				wsprintfA(p->m_szAutoName, "ATL:%8.8X", PtrToUlong(&p->m_wc));
 #endif
 				p->m_wc.lpszClassName = p->m_szAutoName;
 			}
@@ -3044,10 +2955,10 @@ ATLINLINE ATLAPI_(ATOM) AtlModuleRegisterWndClassInfoW(_ATL_MODULE* pM, _ATL_WND
 			p->m_wc.style &= ~CS_GLOBALCLASS;	// we don't register global classes
 			if (p->m_wc.lpszClassName == NULL)
 			{
-#ifdef _WIN64
+#ifdef _WIN64       // %p isn't available on Win2k/Win9x
 				wsprintfW(p->m_szAutoName, L"ATL:%p", &p->m_wc);
 #else
-				wsprintfW(p->m_szAutoName, L"ATL:%8.8X", (DWORD)&p->m_wc);
+				wsprintfW(p->m_szAutoName, L"ATL:%8.8X", PtrToUlong(&p->m_wc));
 #endif
 				p->m_wc.lpszClassName = p->m_szAutoName;
 			}
@@ -3112,10 +3023,13 @@ ATLINLINE ATLAPI_(void) AtlHiMetricToPixel(const SIZEL * lpSizeInHiMetric, LPSIZ
 	int nPixelsPerInchY;    // Pixels per logical inch along height
 
 	HDC hDCScreen = GetDC(NULL);
-	ATLASSERT(hDCScreen != NULL);
-	nPixelsPerInchX = GetDeviceCaps(hDCScreen, LOGPIXELSX);
-	nPixelsPerInchY = GetDeviceCaps(hDCScreen, LOGPIXELSY);
-	ReleaseDC(NULL, hDCScreen);
+    if (hDCScreen) {
+    	nPixelsPerInchX = GetDeviceCaps(hDCScreen, LOGPIXELSX);
+	    nPixelsPerInchY = GetDeviceCaps(hDCScreen, LOGPIXELSY);
+    	ReleaseDC(NULL, hDCScreen);
+    } else {
+        nPixelsPerInchX = nPixelsPerInchY = 1;
+    }
 
 	lpSizeInPix->cx = MAP_LOGHIM_TO_PIX(lpSizeInHiMetric->cx, nPixelsPerInchX);
 	lpSizeInPix->cy = MAP_LOGHIM_TO_PIX(lpSizeInHiMetric->cy, nPixelsPerInchY);
@@ -3127,10 +3041,13 @@ ATLINLINE ATLAPI_(void) AtlPixelToHiMetric(const SIZEL * lpSizeInPix, LPSIZEL lp
 	int nPixelsPerInchY;    // Pixels per logical inch along height
 
 	HDC hDCScreen = GetDC(NULL);
-	ATLASSERT(hDCScreen != NULL);
-	nPixelsPerInchX = GetDeviceCaps(hDCScreen, LOGPIXELSX);
-	nPixelsPerInchY = GetDeviceCaps(hDCScreen, LOGPIXELSY);
-	ReleaseDC(NULL, hDCScreen);
+    if (hDCScreen) {
+	    nPixelsPerInchX = GetDeviceCaps(hDCScreen, LOGPIXELSX);
+    	nPixelsPerInchY = GetDeviceCaps(hDCScreen, LOGPIXELSY);
+	    ReleaseDC(NULL, hDCScreen);
+    } else {
+        nPixelsPerInchX = nPixelsPerInchY = 1;
+    }
 
 	lpSizeInHiMetric->cx = MAP_PIX_TO_LOGHIM(lpSizeInPix->cx, nPixelsPerInchX);
 	lpSizeInHiMetric->cy = MAP_PIX_TO_LOGHIM(lpSizeInPix->cy, nPixelsPerInchY);
@@ -3141,7 +3058,8 @@ ATLINLINE ATLAPI_(void) AtlPixelToHiMetric(const SIZEL * lpSizeInPix, LPSIZEL lp
 }; //namespace ATL
 #endif
 
-//Prevent pulling in second time 
+//Prevent pulling in second time
 #undef _ATLWIN_IMPL
 
 #endif // _ATLWIN_IMPL
+

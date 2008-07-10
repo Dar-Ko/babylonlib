@@ -164,8 +164,8 @@ void* __cdecl realloc(void* p, size_t n)
 
 void __cdecl free(void* p)
 {
-	if (p == NULL)
-		return;
+    if (p == NULL)
+        return;
 #ifndef _ATL_NO_MP_HEAP
 	if (_Module.m_phHeaps == NULL)
 #endif
@@ -192,3 +192,4 @@ void __cdecl operator delete(void* p)
 #endif  //_DEBUG
 
 #endif //_ATL_MIN_CRT
+

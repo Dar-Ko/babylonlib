@@ -89,34 +89,18 @@
 #define _ATL_PACKING 8
 #endif
 
-#ifdef _WIN64
-	#if defined(_ATL_DLL)
-		#define ATLAPI extern "C" HRESULT __declspec(dllimport)
-		#define ATLAPI_(x) extern "C" __declspec(dllimport) x
-		#define ATLINLINE
-	#elif defined(_ATL_DLL_IMPL)
-		#define ATLAPI extern "C" HRESULT __declspec(dllexport)
-		#define ATLAPI_(x) extern "C" __declspec(dllexport) x
-		#define ATLINLINE
-	#else
-		#define ATLAPI HRESULT
-		#define ATLAPI_(x) x
-		#define ATLINLINE inline
-	#endif
+#if defined(_ATL_DLL)
+	#define ATLAPI extern "C" HRESULT __declspec(dllimport) __stdcall
+	#define ATLAPI_(x) extern "C" __declspec(dllimport) x __stdcall
+	#define ATLINLINE
+#elif defined(_ATL_DLL_IMPL)
+	#define ATLAPI extern "C" HRESULT __declspec(dllexport) __stdcall
+	#define ATLAPI_(x) extern "C" __declspec(dllexport) x __stdcall
+	#define ATLINLINE
 #else
-	#if defined(_ATL_DLL)
-		#define ATLAPI extern "C" HRESULT __declspec(dllimport) __stdcall
-		#define ATLAPI_(x) extern "C" __declspec(dllimport) x __stdcall
-		#define ATLINLINE
-	#elif defined(_ATL_DLL_IMPL)
-		#define ATLAPI extern "C" HRESULT __declspec(dllexport) __stdcall
-		#define ATLAPI_(x) extern "C" __declspec(dllexport) x __stdcall
-		#define ATLINLINE
-	#else
-		#define ATLAPI HRESULT __stdcall
-		#define ATLAPI_(x) x __stdcall
-		#define ATLINLINE inline
-	#endif
+	#define ATLAPI HRESULT __stdcall
+	#define ATLAPI_(x) x __stdcall
+	#define ATLINLINE inline
 #endif
 
 #if defined (_CPPUNWIND) & (defined(_ATL_EXCEPTIONS) | defined(_AFX))
@@ -131,7 +115,11 @@
 // Master version numbers
 
 #define _ATL     1      // Active Template Library
+#ifdef _WIN64
+#define _ATL_VER 0x0301 // Active Template Library version 3.0
+#else
 #define _ATL_VER 0x0300 // Active Template Library version 3.0
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 // Threading
@@ -147,3 +135,4 @@
 #endif // __ATLDEF_H__
 
 /////////////////////////////////////////////////////////////////////////////
+

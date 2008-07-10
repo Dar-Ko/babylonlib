@@ -335,7 +335,7 @@ inline HRESULT CRegObject::RegisterFromResource(LPCOLESTR bstrFileName, LPCTSTR 
 			ATLTRACE2(atlTraceRegistrar, 0, _T("Failed to FindResource on ID:%d TYPE:%s\n"),
 			(DWORD)(DWORD_PTR)szID, szType);
 		else
-			ATLTRACE2(atlTraceRegistrar, 0, _T("Failed to FindResource on ID:%s TYPE:%s\n"), 
+			ATLTRACE2(atlTraceRegistrar, 0, _T("Failed to FindResource on ID:%s TYPE:%s\n"),
 			szID, szType);
 		hr = HRESULT_FROM_WIN32(GetLastError());
 		goto ReturnHR;
@@ -672,23 +672,41 @@ inline HRESULT CRegParser::AddValue(CRegKey& rkParent,LPCTSTR szValueName, LPTST
 	USES_CONVERSION;
 	HRESULT hr;
 
-	TCHAR       szTypeToken[MAX_TYPE];
+	TCHAR       *szTypeToken;
 	VARTYPE     vt;
 	LONG        lRes = ERROR_SUCCESS;
 	UINT        nIDRes = 0;
 
-	if (FAILED(hr = NextToken(szTypeToken)))
+    szTypeToken = (TCHAR *)malloc(sizeof(TCHAR)*MAX_TYPE);
+    if (!szTypeToken) {
+        return E_OUTOFMEMORY;
+    }
+
+	if (FAILED(hr = NextToken(szTypeToken))) {
+        free(szTypeToken);
 		return hr;
+    }
+
 	if (!VTFromRegType(szTypeToken, vt))
 	{
 		ATLTRACE2(atlTraceRegistrar, 0, _T("%s Type not supported\n"), szTypeToken);
+        free(szTypeToken);
 		return GenerateError(E_ATL_TYPE_NOT_SUPPORTED);
 	}
 
-	TCHAR szValue[MAX_VALUE];
+	TCHAR *szValue;
+    szValue = (TCHAR *)malloc(sizeof(TCHAR) * MAX_VALUE);
+    if (!szValue) {
+        free(szTypeToken);
+        return E_OUTOFMEMORY;
+    }
 	SkipWhiteSpace();
-	if (FAILED(hr = NextToken(szValue)))
+	if (FAILED(hr = NextToken(szValue))) {
+        free(szValue);
+        free(szTypeToken);
 		return hr;
+    }
+
 	ULONG ulVal;
 
 	switch (vt)
@@ -708,13 +726,19 @@ inline HRESULT CRegParser::AddValue(CRegKey& rkParent,LPCTSTR szValueName, LPTST
 			if (cbValue & 0x00000001)
 			{
 				ATLTRACE2(atlTraceRegistrar, 0, _T("Binary Data does not fall on BYTE boundries\n"));
+                free(szValue);
+                free(szTypeToken);
 				return E_FAIL;
 			}
 			int cbValDiv2 = cbValue/2;
 			BYTE* rgBinary = (BYTE*)_alloca(cbValDiv2*sizeof(BYTE));
 			memset(rgBinary, 0, cbValDiv2);
-			if (rgBinary == NULL)
+			if (rgBinary == NULL) {
+                free(szValue);
+                free(szTypeToken);
 				return E_FAIL;
+            }
+
 			for (int irg = 0; irg < cbValue; irg++)
 				rgBinary[(irg/2)] |= (ChToByte(szValue[irg])) << (4*(1 - (irg & 0x00000001)));
 			lRes = RegSetValueEx(rkParent, szValueName, 0, REG_BINARY, rgBinary, cbValDiv2);
@@ -728,8 +752,11 @@ inline HRESULT CRegParser::AddValue(CRegKey& rkParent,LPCTSTR szValueName, LPTST
 		hr = HRESULT_FROM_WIN32(lRes);
 	}
 
-	if (FAILED(hr = NextToken(szToken)))
+	if (FAILED(hr = NextToken(szToken))) {
+        free(szValue);
+        free(szTypeToken);
 		return hr;
+    }
 
 	return S_OK;
 }
@@ -832,7 +859,7 @@ inline HRESULT CRegParser::PreProcessBuffer(LPTSTR lpszReg, LPTSTR* ppszReg)
 				LPTSTR lpszNext = StrChr(m_pchCur, _T('%'));
 				if (lpszNext == NULL)
 				{
-					ATLTRACE2(atlTraceRegistrar, 0, _T("Error no closing % found\n"));
+					ATLTRACE2(atlTraceRegistrar, 0, _T("Error no closing %% found\n"));
 					hr = GenerateError(E_ATL_UNEXPECTED_EOS);
 					break;
 				}
@@ -875,7 +902,7 @@ inline HRESULT CRegParser::RegisterBuffer(LPTSTR szBuffer, BOOL bRegister)
 	if (FAILED(hr))
 		return hr;
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(DEBUG_REGISTRATION)
 	OutputDebugString(szReg); //would call ATLTRACE but szReg is > 512 bytes
 	OutputDebugString(_T("\n"));
 #endif //_DEBUG
@@ -1015,10 +1042,23 @@ inline HRESULT CRegParser::RegisterSubkeys(LPTSTR szToken, HKEY hkParent, BOOL b
 				if (!bRecover)
 				{
 					ATLTRACE2(atlTraceRegistrar, 1, _T("Deleting %s\n"), szValueName);
-					CRegKey rkParent;
-					rkParent.Attach(hkParent);
-					rkParent.DeleteValue(szValueName);
-					rkParent.Detach();
+                    CRegKey rkParent;
+                    lRes = rkParent.Open(hkParent, NULL, KEY_WRITE);
+                    if (lRes == ERROR_SUCCESS)
+                    {
+                        lRes = rkParent.DeleteValue(szValueName);
+                        if ((lRes != ERROR_SUCCESS) && (lRes != ERROR_FILE_NOT_FOUND))
+                        {
+                            // Key not present is not an error
+                            hr = HRESULT_FROM_WIN32(lRes);
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        hr = HRESULT_FROM_WIN32(lRes);
+                        break;
+                    }
 				}
 
 				if (FAILED(hr = SkipAssignment(szToken)))
@@ -1156,3 +1196,4 @@ EndCheck:
 }; //namespace ATL
 
 #endif //__STATREG_H
+

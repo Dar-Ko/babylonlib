@@ -1427,3 +1427,4 @@ typedef CRestrictions<CAccessor<CViewInfo>,                 3, &DBSCHEMA_VIEWS> 
 #endif // __ATLDBSCH_H__
 
 ///////////////////////////////////////////////////////////////////////////
+

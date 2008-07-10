@@ -54,8 +54,6 @@ namespace ATL
 	DEFINE_OLEDB_TYPE_FUNCTION(int              ,DBTYPE_I4)
 	DEFINE_OLEDB_TYPE_FUNCTION(LONG             ,DBTYPE_I4)     // DBTYPE_ERROR (SCODE)
 	DEFINE_OLEDB_TYPE_FUNCTION(LARGE_INTEGER    ,DBTYPE_I8)     // DBTYPE_CY
-	DEFINE_OLEDB_TYPE_FUNCTION(__int64    ,DBTYPE_I8)     // DBTYPE_CY
-	DEFINE_OLEDB_TYPE_FUNCTION(unsigned __int64    ,DBTYPE_UI8)     // DBTYPE_CY
 	DEFINE_OLEDB_TYPE_FUNCTION(BYTE             ,DBTYPE_UI1)
 	DEFINE_OLEDB_TYPE_FUNCTION(unsigned short   ,DBTYPE_UI2)
 	DEFINE_OLEDB_TYPE_FUNCTION(unsigned int     ,DBTYPE_UI4)
@@ -1886,7 +1884,7 @@ public:
 		// Only bind the parameters if we haven't already done it
 		if (*pHAccessor == NULL)
 		{
-			ULONG   nColumns;
+			ULONG   nColumns = 0;
 			_ParamClass::_GetParamEntries(&nColumns, NULL);
 
 			DBBINDING* pBinding = NULL;
@@ -2510,7 +2508,7 @@ public:
 	// Get the parameter name for the passed parameter number
 	LPOLESTR GetParamName(ULONG_PTR ulParam) const
 	{
-		ATLASSERT((ulParam >= 0) && (ulParam<m_nParams));
+		ATLASSERT(ulParam<m_nParams);
 		return m_ppParamName[ulParam];
 	}
 
@@ -3836,3 +3834,4 @@ public:
 }; //namespace ATL
 
 #endif // __ATLDBCLI_H_
+

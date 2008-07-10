@@ -193,6 +193,9 @@ inline LPSTR WINAPI AtlW2AHelper(LPSTR lpa, LPCWSTR lpw, int nChars)
 
 inline BSTR A2WBSTR(LPCSTR lp, int nLen = -1)
 {
+    if ((lp == NULL) || (nLen == 0))
+        return NULL;
+
 	USES_CONVERSION;
 	BSTR str = NULL;
 	int nConvertedLen = MultiByteToWideChar(_acp, 0, lp,
@@ -363,3 +366,6 @@ ATLINLINE ATLAPI_(LPDEVMODEA) AtlDevModeW2A(LPDEVMODEA lpDevModeA, LPDEVMODEW lp
 #undef _ATLCONV_IMPL
 
 #endif // _ATLCONV_IMPL
+#define _ATL_NO_CONVERSIONS
+
+
