@@ -94,19 +94,27 @@ public:
 		memcpy(pExpand->szKey, lpszKey, cbKey);
 		memcpy(pExpand->szValue, lpszValue, cbValue);
 
+      EXPANDER** p;
 		if (m_cEls == m_nSize)
 		{
 			m_nSize*=2;
-			m_p = (EXPANDER**)realloc(m_p, m_nSize*sizeof(EXPANDER*));
+			p = (EXPANDER**)realloc(m_p, m_nSize*sizeof(EXPANDER*));
+         if (p == NULL)
+         {
+            CoTaskMemFree(pExpand->szKey);
+            CoTaskMemFree(pExpand->szValue);
+            hr = E_OUTOFMEMORY;
+         }
+         else
+            m_p = p;
 		}
 
-		if (NULL != m_p)
-		{
-			m_p[m_cEls] = pExpand;
-			m_cEls++;
-		}
-		else
-			hr = E_OUTOFMEMORY;
+      if (SUCCEEDED(hr))
+      {
+         ATLASSERT(m_p != NULL);
+		   m_p[m_cEls] = pExpand;
+		   m_cEls++;
+      }
 
 		return hr;
 
@@ -197,8 +205,12 @@ protected:
 		{
 			if (nPos == nSize) // realloc
 			{
+            LPTSTR pNew;
 				nSize *= 2;
-				p = (LPTSTR) CoTaskMemRealloc(p, nSize*sizeof(TCHAR));
+				pNew = (LPTSTR) CoTaskMemRealloc(p, nSize*sizeof(TCHAR));
+            if (pNew == NULL)
+               return FALSE;
+            p = pNew;
 			}
 			p[nPos++] = *pch;
 #ifndef _UNICODE
@@ -319,9 +331,11 @@ inline HRESULT CRegObject::RegisterFromResource(LPCOLESTR bstrFileName, LPCTSTR 
 
 	if (NULL == hrscReg)
 	{
-		ATLTRACE2(atlTraceRegistrar, 0, (HIWORD(szID) == NULL) ? 
-			_T("Failed to FindResource on ID:%d TYPE:%s\n") : 
-			_T("Failed to FindResource on ID:%s TYPE:%s\n"), 
+		if (DWORD_PTR(szID) <= 0xffff)
+			ATLTRACE2(atlTraceRegistrar, 0, _T("Failed to FindResource on ID:%d TYPE:%s\n"),
+			(DWORD)(DWORD_PTR)szID, szType);
+		else
+			ATLTRACE2(atlTraceRegistrar, 0, _T("Failed to FindResource on ID:%s TYPE:%s\n"), 
 			szID, szType);
 		hr = HRESULT_FROM_WIN32(GetLastError());
 		goto ReturnHR;
@@ -822,7 +836,7 @@ inline HRESULT CRegParser::PreProcessBuffer(LPTSTR lpszReg, LPTSTR* ppszReg)
 					hr = GenerateError(E_ATL_UNEXPECTED_EOS);
 					break;
 				}
-				int nLength = lpszNext - m_pchCur;
+				int nLength = int(lpszNext - m_pchCur);
 				if (nLength > 31)
 				{
 					hr = E_FAIL;

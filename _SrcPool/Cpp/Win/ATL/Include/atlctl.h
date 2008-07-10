@@ -426,8 +426,13 @@ public:
 	{
 		CComVariant var;
 		HRESULT hRes = GetAmbientProperty(DISPID_AMBIENT_PALETTE, var);
+#ifdef _WIN64
+		ATLASSERT(var.vt == VT_I8 || var.vt == VT_UI8 || FAILED(hRes));
+		hPalette = *(HPALETTE*)&var.dblVal;
+#else
 		ATLASSERT(var.vt == VT_I4 || var.vt == VT_UI4 || FAILED(hRes));
 		hPalette = reinterpret_cast<HPALETTE>(var.lVal);
+#endif
 		return hRes;
 	}
 
@@ -1478,7 +1483,7 @@ public:
 			return TRUE;
 
 		// special handling for keyboard messages
-		DWORD dwDlgCode = ::SendMessage(pMsg->hwnd, WM_GETDLGCODE, 0, 0L);
+		DWORD_PTR dwDlgCode = ::SendMessage(pMsg->hwnd, WM_GETDLGCODE, 0, 0L);
 		switch(pMsg->message)
 		{
 		case WM_CHAR:
@@ -2326,8 +2331,8 @@ public:
 	STDMETHOD(Draw)(DWORD dwDrawAspect, LONG lindex, void *pvAspect,
 					DVTARGETDEVICE *ptd, HDC hicTargetDev, HDC hdcDraw,
 					LPCRECTL prcBounds, LPCRECTL prcWBounds,
-					BOOL (__stdcall * /*pfnContinue*/)(DWORD dwContinue),
-					DWORD /*dwContinue*/)
+					BOOL (__stdcall * /*pfnContinue*/)(DWORD_PTR dwContinue),
+					DWORD_PTR /*dwContinue*/)
 	{
 		T* pT = static_cast<T*>(this);
 		ATLTRACE2(atlTraceControls,2,_T("IViewObjectExImpl::Draw\n"));
@@ -3321,16 +3326,16 @@ public:
 	IMPLEMENT_BOOL_STOCKPROP(BorderVisible, bBorderVisible, DISPID_BORDERVISIBLE)
 	IMPLEMENT_BSTR_STOCKPROP(Text, bstrText, DISPID_TEXT)
 	IMPLEMENT_BSTR_STOCKPROP(Caption, bstrCaption, DISPID_CAPTION)
-	HRESULT STDMETHODCALLTYPE put_Window(long /*hWnd*/)
+	HRESULT STDMETHODCALLTYPE put_Window(LONG_PTR /*hWnd*/)
 	{
 		ATLTRACE2(atlTraceControls,2,_T("CStockPropImpl::put_Window\n"));
 		return E_FAIL;
 	}
-	HRESULT STDMETHODCALLTYPE get_Window(long* phWnd)
+	HRESULT STDMETHODCALLTYPE get_Window(LONG_PTR* phWnd)
 	{
 		ATLTRACE2(atlTraceControls,2,_T("CStockPropImpl::get_Window\n"));
 		T* pT = (T*) this;
-		*phWnd = (long)pT->m_hWnd;
+		*phWnd = (LONG_PTR)pT->m_hWnd;
 		return S_OK;
 	}
 	IMPLEMENT_STOCKPROP(LONG, BackStyle, nBackStyle, DISPID_BACKSTYLE)

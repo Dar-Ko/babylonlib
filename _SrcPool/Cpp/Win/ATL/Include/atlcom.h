@@ -305,7 +305,7 @@ struct ATL_PROPMAP_ENTRY
 	DISPID dispid;
 	const CLSID* pclsidPropPage;
 	const IID* piidDispatch;
-	DWORD dwOffsetData;
+	size_t dwOffsetData;
 	DWORD dwSizeData;
 	VARTYPE vt;
 };
@@ -381,7 +381,7 @@ ATLINLINE ATLAPI AtlIPersistStreamInit_Load(LPSTREAM pStm, ATL_PROPMAP_ENTRY* pM
 		// check if raw data entry
 		if (pMap[i].dwSizeData != 0)
 		{
-			void* pData = (void*) (pMap[i].dwOffsetData + (DWORD)pThis);
+			void* pData = (void*) (pMap[i].dwOffsetData + (DWORD_PTR)pThis);
 			hr = pStm->Read(pData, pMap[i].dwSizeData, NULL);
 			if (FAILED(hr))
 				return hr;
@@ -440,7 +440,7 @@ ATLINLINE ATLAPI AtlIPersistStreamInit_Save(LPSTREAM pStm,
 		// check if raw data entry
 		if (pMap[i].dwSizeData != 0)
 		{
-			void* pData = (void*) (pMap[i].dwOffsetData + (DWORD)pThis);
+			void* pData = (void*) (pMap[i].dwOffsetData + (DWORD_PTR)pThis);
 			hr = pStm->Write(pData, pMap[i].dwSizeData, NULL);
 			if (FAILED(hr))
 				return hr;
@@ -494,7 +494,7 @@ ATLINLINE ATLAPI AtlIPersistPropertyBag_Load(LPPROPERTYBAG pPropBag, LPERRORLOG 
 		// If raw entry skip it - we don't handle it for property bags just yet
 		if (pMap[i].dwSizeData != 0)
 		{
-			void* pData = (void*) (pMap[i].dwOffsetData + (DWORD)pThis);
+			void* pData = (void*) (pMap[i].dwOffsetData + (DWORD_PTR)pThis);
 			HRESULT hr = pPropBag->Read(pMap[i].szDesc, &var, pErrorLog);
 			if (SUCCEEDED(hr))
 			{
@@ -588,7 +588,7 @@ ATLINLINE ATLAPI AtlIPersistPropertyBag_Save(LPPROPERTYBAG pPropBag,
 		// If raw entry skip it - we don't handle it for property bags just yet
 		if (pMap[i].dwSizeData != 0)
 		{
-			void* pData = (void*) (pMap[i].dwOffsetData + (DWORD)pThis);
+			void* pData = (void*) (pMap[i].dwOffsetData + (DWORD_PTR)pThis);
 			// check the type - we only deal with limited set
 			bool bTypeOK = false;
 			switch (pMap[i].vt)
@@ -1246,6 +1246,7 @@ inline HRESULT CSecurityDescriptor::GetTokenSids(HANDLE hToken, PSID* ppUserSid,
 		ATLASSERT(IsValidSid(pSid));
 		*ppUserSid = pSid;
 		free(ptkUser);
+		ptkUser = NULL;
 	}
 	if (ppGroupSid)
 	{
@@ -1296,6 +1297,7 @@ inline HRESULT CSecurityDescriptor::GetTokenSids(HANDLE hToken, PSID* ppUserSid,
 
 		*ppGroupSid = pSid;
 		free(ptkGroup);
+		ptkGroup = NULL;
 	}
 
 	return S_OK;
@@ -1930,7 +1932,7 @@ _ATL_CACHEDATA _CComCacheData<Creator, dwVar>::data = {dwVar, Creator::CreateIns
 
 struct _ATL_CHAINDATA
 {
-	DWORD dwOffset;
+	DWORD_PTR dwOffset;
 	const _ATL_INTMAP_ENTRY* (WINAPI *pFunc)();
 };
 
@@ -1964,7 +1966,7 @@ public:
 #ifdef _ATL_DEBUG
 #define DEBUG_QI_ENTRY(x) \
 		{NULL, \
-		(DWORD)_T(#x), \
+		(DWORD_PTR)_T(#x), \
 		(_ATL_CREATORARGFUNC*)0},
 #else
 #define DEBUG_QI_ENTRY(x)
@@ -1986,7 +1988,7 @@ public:
 // override it in your class and call each base class' version of this
 #define BEGIN_COM_MAP(x) public: \
 	typedef x _ComMapClass; \
-	static HRESULT WINAPI _Cache(void* pv, REFIID iid, void** ppvObject, DWORD dw)\
+	static HRESULT WINAPI _Cache(void* pv, REFIID iid, void** ppvObject, DWORD_PTR dw)\
 	{\
 		_ComMapClass* p = (_ComMapClass*)pv;\
 		p->Lock();\
@@ -1995,7 +1997,7 @@ public:
 		return hRes;\
 	}\
 	IUnknown* _GetRawUnknown() \
-	{ ATLASSERT(_GetEntries()[0].pFunc == _ATL_SIMPLEMAPENTRY); return (IUnknown*)((int)this+_GetEntries()->dw); } \
+	{ ATLASSERT(_GetEntries()[0].pFunc == _ATL_SIMPLEMAPENTRY); return (IUnknown*)((DWORD_PTR)this+_GetEntries()->dw); } \
 	_ATL_DECLARE_GET_UNKNOWN(x)\
 	HRESULT _InternalQueryInterface(REFIID iid, void** ppvObject) \
 	{ return InternalQueryInterface(this, _GetEntries(), iid, ppvObject); } \
@@ -2041,12 +2043,12 @@ public:
 
 #define COM_INTERFACE_ENTRY2(x, x2)\
 	{&_ATL_IIDOF(x),\
-	(DWORD)((x*)(x2*)((_ComMapClass*)8))-8,\
+	(DWORD_PTR)((x*)(x2*)((_ComMapClass*)8))-8,\
 	_ATL_SIMPLEMAPENTRY},
 
 #define COM_INTERFACE_ENTRY2_IID(iid, x, x2)\
 	{&iid,\
-	(DWORD)((x*)(x2*)((_ComMapClass*)8))-8,\
+	(DWORD_PTR)((x*)(x2*)((_ComMapClass*)8))-8,\
 	_ATL_SIMPLEMAPENTRY},
 
 #define COM_INTERFACE_ENTRY_FUNC(iid, dw, func)\
@@ -2061,48 +2063,48 @@ public:
 
 #define COM_INTERFACE_ENTRY_TEAR_OFF(iid, x)\
 	{&iid,\
-	(DWORD)&_CComCreatorData<\
+	(DWORD_PTR)&_CComCreatorData<\
 		CComInternalCreator< CComTearOffObject< x > >\
 		>::data,\
 	_Creator},
 
 #define COM_INTERFACE_ENTRY_CACHED_TEAR_OFF(iid, x, punk)\
 	{&iid,\
-	(DWORD)&_CComCacheData<\
+	(DWORD_PTR)&_CComCacheData<\
 		CComCreator< CComCachedTearOffObject< x > >,\
-		(DWORD)offsetof(_ComMapClass, punk)\
+		offsetof(_ComMapClass, punk)\
 		>::data,\
 	_Cache},
 
 #define COM_INTERFACE_ENTRY_AGGREGATE(iid, punk)\
 	{&iid,\
-	(DWORD)offsetof(_ComMapClass, punk),\
+	offsetof(_ComMapClass, punk),\
 	_Delegate},
 
 #define COM_INTERFACE_ENTRY_AGGREGATE_BLIND(punk)\
 	{NULL,\
-	(DWORD)offsetof(_ComMapClass, punk),\
+	offsetof(_ComMapClass, punk),\
 	_Delegate},
 
 #define COM_INTERFACE_ENTRY_AUTOAGGREGATE(iid, punk, clsid)\
 	{&iid,\
-	(DWORD)&_CComCacheData<\
+	(DWORD_PTR)&_CComCacheData<\
 		CComAggregateCreator<_ComMapClass, &clsid>,\
-		(DWORD)offsetof(_ComMapClass, punk)\
+		offsetof(_ComMapClass, punk)\
 		>::data,\
 	_Cache},
 
 #define COM_INTERFACE_ENTRY_AUTOAGGREGATE_BLIND(punk, clsid)\
 	{NULL,\
-	(DWORD)&_CComCacheData<\
+	(DWORD_PTR)&_CComCacheData<\
 		CComAggregateCreator<_ComMapClass, &clsid>,\
-		(DWORD)offsetof(_ComMapClass, punk)\
+		offsetof(_ComMapClass, punk)\
 		>::data,\
 	_Cache},
 
 #define COM_INTERFACE_ENTRY_CHAIN(classname)\
 	{NULL,\
-	(DWORD)&_CComChainData<classname, _ComMapClass>::data,\
+	(DWORD_PTR)&_CComChainData<classname, _ComMapClass>::data,\
 	_Chain},
 
 #ifdef _ATL_DEBUG
@@ -2200,41 +2202,41 @@ public:
 	// Try using DECLARE_PROTECT_FINAL_CONSTRUCT()
 
 
-	static HRESULT WINAPI _Break(void* /* pv */, REFIID iid, void** /* ppvObject */, DWORD /* dw */)
+	static HRESULT WINAPI _Break(void* /* pv */, REFIID iid, void** /* ppvObject */, DWORD_PTR /* dw */)
 	{
 		iid;
 		_ATLDUMPIID(iid, _T("Break due to QI for interface "), S_OK);
 		DebugBreak();
 		return S_FALSE;
 	}
-	static HRESULT WINAPI _NoInterface(void* /* pv */, REFIID /* iid */, void** /* ppvObject */, DWORD /* dw */)
+	static HRESULT WINAPI _NoInterface(void* /* pv */, REFIID /* iid */, void** /* ppvObject */, DWORD_PTR /* dw */)
 	{
 		return E_NOINTERFACE;
 	}
-	static HRESULT WINAPI _Creator(void* pv, REFIID iid, void** ppvObject, DWORD dw)
+	static HRESULT WINAPI _Creator(void* pv, REFIID iid, void** ppvObject, DWORD_PTR dw)
 	{
 		_ATL_CREATORDATA* pcd = (_ATL_CREATORDATA*)dw;
 		return pcd->pFunc(pv, iid, ppvObject);
 	}
-	static HRESULT WINAPI _Delegate(void* pv, REFIID iid, void** ppvObject, DWORD dw)
+	static HRESULT WINAPI _Delegate(void* pv, REFIID iid, void** ppvObject, DWORD_PTR dw)
 	{
 		HRESULT hRes = E_NOINTERFACE;
-		IUnknown* p = *(IUnknown**)((DWORD)pv + dw);
+		IUnknown* p = *(IUnknown**)((DWORD_PTR)pv + dw);
 		if (p != NULL)
 			hRes = p->QueryInterface(iid, ppvObject);
 		return hRes;
 	}
-	static HRESULT WINAPI _Chain(void* pv, REFIID iid, void** ppvObject, DWORD dw)
+	static HRESULT WINAPI _Chain(void* pv, REFIID iid, void** ppvObject, DWORD_PTR dw)
 	{
 		_ATL_CHAINDATA* pcd = (_ATL_CHAINDATA*)dw;
-		void* p = (void*)((DWORD)pv + pcd->dwOffset);
+		void* p = (void*)((DWORD_PTR)pv + pcd->dwOffset);
 		return InternalQueryInterface(p, pcd->pFunc(), iid, ppvObject);
 	}
-	static HRESULT WINAPI _Cache(void* pv, REFIID iid, void** ppvObject, DWORD dw)
+	static HRESULT WINAPI _Cache(void* pv, REFIID iid, void** ppvObject, DWORD_PTR dw)
 	{
 		HRESULT hRes = E_NOINTERFACE;
 		_ATL_CACHEDATA* pcd = (_ATL_CACHEDATA*)dw;
-		IUnknown** pp = (IUnknown**)((DWORD)pv + pcd->dwOffsetVar);
+		IUnknown** pp = (IUnknown**)((DWORD_PTR)pv + pcd->dwOffsetVar);
 		if (*pp == NULL)
 			hRes = pcd->pFunc(pv, IID_IUnknown, (void**)pp);
 		if (*pp != NULL)
@@ -3221,7 +3223,7 @@ public:
 
 	// This function is called by the module on exit
 	// It is registered through _Module.AddTermFunc()
-	static void __stdcall Cleanup(DWORD dw)
+	static void __stdcall Cleanup(DWORD_PTR dw)
 	{
 		CComTypeInfoHolder* p = (CComTypeInfoHolder*) dw;
 		if (p->m_pInfo != NULL)
@@ -3247,7 +3249,8 @@ public:
 			for (int i=0; i<(int)cNames; i++)
 			{
 				int n = ocslen(rgszNames[i]);
-				for (int j=m_nCount-1; j>=0; j--)
+				int j;
+				for (j=m_nCount-1; j>=0; j--)
 				{
 					if ((n == m_pMap[j].nLen) &&
 						(memcmp(m_pMap[j].bstr, rgszNames[i], m_pMap[j].nLen * sizeof(OLECHAR)) == 0))
@@ -3276,6 +3279,8 @@ public:
 			hRes = m_pInfo->Invoke(p, dispidMember, wFlags, pdispparams, pvarResult, pexcepinfo, puArgErr);
 		return hRes;
 	}
+#pragma warning(push)
+#pragma warning(disable: 4267)  //REVIEW operator new[] problem
 	HRESULT LoadNameCache(ITypeInfo* pTypeInfo)
 	{
 		TYPEATTR* pta;
@@ -3304,7 +3309,7 @@ public:
 		return S_OK;
 	}
 };
-
+#pragma warning(pop)
 
 inline HRESULT CComTypeInfoHolder::GetTI(LCID lcid)
 {
@@ -3337,12 +3342,8 @@ inline HRESULT CComTypeInfoHolder::GetTI(LCID lcid)
 			pTypeLib->Release();
 		}
 	}
-	else
-	{
-		hRes = S_OK;
-	}
 	LeaveCriticalSection(&_Module.m_csTypeInfoHolder);
-	_Module.AddTermFunc(Cleanup, (DWORD)this);
+	_Module.AddTermFunc(Cleanup, (DWORD_PTR)this);
 	return hRes;
 }
 
@@ -3603,8 +3604,42 @@ ATLINLINE ATLAPI AtlGetObjectSourceInterface(IUnknown* punkObj, GUID* plibid, II
 		}
 	};
 	#pragma pack(pop)
+#elif defined (_M_IA64)
+	template <class T>
+	class CComStdCallThunk
+	{
+	public:
+		typedef void (__stdcall T::*TMFP)();
+
+		void* pVtable;
+		void* pFunc;
+		_FuncDesc funcdesc;
+		void* pRealProcDesc;
+		void* pThis;
+
+		void Init(TMFP dw, void* pThis_)
+		{
+			union {
+				DWORD_PTR dwFunc;
+				TMFP pfn;
+			} pfn;
+
+			pfn.pfn = dw;
+			_FuncDesc* pFuncDesc;
+			pFuncDesc = (_FuncDesc*)_WndProcThunkProc;
+			funcdesc.pfn = pFuncDesc->pfn;
+			funcdesc.gp = &pRealProcDesc;
+			pRealProcDesc = reinterpret_cast< void* >( pfn.dwFunc );
+			pThis = pThis_;
+
+			pVtable = &pFunc;
+			pFunc = &funcdesc;
+
+			FlushInstructionCache(GetCurrentProcess(), this, sizeof(CComStdCallThunk));
+		}
+	};
 #else
-	#error Only ALPHA and X86 supported
+	#error Only ALPHA, IA64, and X86 supported
 #endif
 
 #ifndef _ATL_MAX_VARTYPES
@@ -3797,7 +3832,7 @@ inline HRESULT AtlAdviseSinkMap(T* pT, bool bAdvise)
 	HRESULT hr = S_OK;
 	while (pEntries->piid != NULL)
 	{
-		_IDispEvent* pDE = (_IDispEvent*)((DWORD)pT+pEntries->nOffset);
+		_IDispEvent* pDE = (_IDispEvent*)((DWORD_PTR)pT+pEntries->nOffset);
 		bool bNotAdvised = pDE->m_dwEventCookie == 0xFEFEFEFE;
 		if (bAdvise ^ bNotAdvised)
 		{
@@ -3921,11 +3956,11 @@ public:
 
 		for (int i=0; i<pFuncDesc->cParams; i++)
 		{
-			info.pVarTypes[i] = pFuncDesc->lprgelemdescParam[pFuncDesc->cParams - i - 1].tdesc.vt;
+			info.pVarTypes[i] = pFuncDesc->lprgelemdescParam[i].tdesc.vt;
 			if (info.pVarTypes[i] == VT_PTR)
-				info.pVarTypes[i] = pFuncDesc->lprgelemdescParam[pFuncDesc->cParams - i - 1].tdesc.lptdesc->vt | VT_BYREF;
+				info.pVarTypes[i] = pFuncDesc->lprgelemdescParam[i].tdesc.lptdesc->vt | VT_BYREF;
 			if (info.pVarTypes[i] == VT_USERDEFINED)
-				info.pVarTypes[i] = GetUserDefinedType(spTypeInfo,pFuncDesc->lprgelemdescParam[pFuncDesc->cParams-i-1].tdesc.hreftype);
+				info.pVarTypes[i] = GetUserDefinedType(spTypeInfo,pFuncDesc->lprgelemdescParam[i].tdesc.hreftype);
 		}
 
 		VARTYPE vtReturn = pFuncDesc->elemdescFunc.tdesc.vt;
@@ -3991,7 +4026,7 @@ struct _ATL_EVENT_ENTRY
 {
 	UINT nControlID;			//ID identifying object instance
 	const IID* piid;			//dispinterface IID
-	int nOffset;				//offset of dispinterface from this pointer
+	INT_PTR nOffset;				//offset of dispinterface from this pointer
 	DISPID dispid;				//DISPID of method/property
 	void (__stdcall T::*pfn)();	//method to invoke
 	_ATL_FUNC_INFO* pInfo;
@@ -4007,7 +4042,7 @@ struct _ATL_EVENT_ENTRY
 		static const _ATL_EVENT_ENTRY<_class> map[] = {
 
 
-#define SINK_ENTRY_INFO(id, iid, dispid, fn, info) {id, &iid, (int)(static_cast<_IDispEventLocator<id, &iid>*>((_atl_event_classtype*)8))-8, dispid, (void (__stdcall _atl_event_classtype::*)())fn, info},
+#define SINK_ENTRY_INFO(id, iid, dispid, fn, info) {id, &iid, (INT_PTR)(static_cast<_IDispEventLocator<id, &iid>*>((_atl_event_classtype*)8))-8, dispid, (void (__stdcall _atl_event_classtype::*)())fn, info},
 #define SINK_ENTRY_EX(id, iid, dispid, fn) SINK_ENTRY_INFO(id, iid, dispid, fn, NULL)
 #define SINK_ENTRY(id, dispid, fn) SINK_ENTRY_EX(id, IID_NULL, dispid, fn)
 #define END_SINK_MAP() {0, NULL, 0, 0, NULL, NULL} }; return map;}
@@ -4364,7 +4399,7 @@ HRESULT CComEnumImpl<Base, piid, T, Copy>::Init(T* begin, T* end, IUnknown* pUnk
 	if (flags == AtlFlagCopy)
 	{
 		ATLASSERT(m_begin == NULL); //Init called twice?
-		ATLTRY(m_begin = new T[end-begin])
+		ATLTRY(m_begin = new T[ULONG(end-begin)])
 		m_iter = m_begin;
 		if (m_begin == NULL)
 			return E_OUTOFMEMORY;
@@ -4651,7 +4686,7 @@ protected:
 
 struct _ATL_CONNMAP_ENTRY
 {
-	DWORD dwOffset;
+	DWORD_PTR dwOffset;
 };
 
 
@@ -4665,7 +4700,7 @@ struct _ATL_CONNMAP_ENTRY
 // IConnectionPointContainer interface
 #define CONNECTION_POINT_ENTRY(iid){offsetofclass(_ICPLocator<&iid>, _atl_conn_classtype)-\
 	offsetofclass(IConnectionPointContainerImpl<_atl_conn_classtype>, _atl_conn_classtype)},
-#define END_CONNECTION_POINT_MAP() {(DWORD)-1} }; \
+#define END_CONNECTION_POINT_MAP() {(DWORD_PTR)-1} }; \
 	if (pnEntries) *pnEntries = sizeof(_entries)/sizeof(_ATL_CONNMAP_ENTRY) - 1; \
 	return _entries;}
 
@@ -4684,13 +4719,23 @@ public:
 	}
 	DWORD Add(IUnknown* pUnk);
 	BOOL Remove(DWORD dwCookie);
-	static DWORD WINAPI GetCookie(IUnknown** pp)
+	DWORD WINAPI GetCookie(IUnknown** pp)
 	{
-		return (DWORD)pp;
+		ULONG iIndex;
+
+		iIndex = ULONG(pp-begin());
+		return( iIndex+1 );
 	}
-	static IUnknown* WINAPI GetUnknown(DWORD dwCookie)
+	IUnknown* WINAPI GetUnknown(DWORD dwCookie)
 	{
-		return dwCookie ? *(IUnknown**)dwCookie : 0;
+		if( dwCookie == 0 )
+		{
+			return NULL;
+		}
+		
+		ULONG iIndex;
+		iIndex = dwCookie-1;
+		return( begin()[iIndex] );
 	}
 	IUnknown** begin()
 	{
@@ -4712,7 +4757,7 @@ inline DWORD CComUnkArray<nMaxSize>::Add(IUnknown* pUnk)
 		if (*pp == NULL)
 		{
 			*pp = pUnk;
-			return (DWORD)pp; // return cookie
+			return (DWORD)((pp-begin())+1); // return cookie
 		}
 	}
 	// If this fires then you need a larger array
@@ -4723,11 +4768,17 @@ inline DWORD CComUnkArray<nMaxSize>::Add(IUnknown* pUnk)
 template <unsigned int nMaxSize>
 inline BOOL CComUnkArray<nMaxSize>::Remove(DWORD dwCookie)
 {
-	IUnknown** pp = (IUnknown**)dwCookie;
-	BOOL b = ((pp >= begin()) && (pp < end()));
-	if (b)
-		*pp = NULL;
-	return b;
+	ULONG iIndex;
+
+	iIndex = dwCookie-1;
+	if (iIndex >= nMaxSize)
+	{
+		return FALSE;
+	}
+
+	begin()[iIndex] = NULL;
+
+	return TRUE;
 }
 
 template<>
@@ -4747,22 +4798,27 @@ public:
 			return 0;
 		}
 		m_arr[0] = pUnk;
-		return (DWORD)&m_arr[0];
+		return 1;
 	}
 	BOOL Remove(DWORD dwCookie)
 	{
-		if (dwCookie != (DWORD)&m_arr[0])
+		if (dwCookie != 1)
 			return FALSE;
 		m_arr[0] = NULL;
 		return TRUE;
 	}
-	static DWORD WINAPI GetCookie(IUnknown** pp)
+	DWORD WINAPI GetCookie(IUnknown** /*pp*/)
 	{
-		return (DWORD)pp;
+		return 1;
 	}
-	static IUnknown* WINAPI GetUnknown(DWORD dwCookie)
+	IUnknown* WINAPI GetUnknown(DWORD dwCookie)
 	{
-		return dwCookie ? *(IUnknown**)dwCookie : 0;
+		if (dwCookie != 1)
+		{
+			return NULL;
+		}
+
+		return *begin();
 	}
 	IUnknown** begin()
 	{
@@ -4792,13 +4848,21 @@ public:
 	}
 	DWORD Add(IUnknown* pUnk);
 	BOOL Remove(DWORD dwCookie);
-	static DWORD WINAPI GetCookie(IUnknown** pp)
+	DWORD WINAPI GetCookie(IUnknown** pp)
 	{
-		return (DWORD)*pp;
+		ULONG iIndex;
+		iIndex = ULONG(pp-begin());
+		return iIndex+1;
 	}
-	static IUnknown* WINAPI GetUnknown(DWORD dwCookie)
+	IUnknown* WINAPI GetUnknown(DWORD dwCookie)
 	{
-		return (IUnknown*)dwCookie;
+		ULONG iIndex;
+
+		if (dwCookie == 0)
+			return NULL;
+
+		iIndex = dwCookie-1;
+		return begin()[iIndex];
 	}
 	IUnknown** begin()
 	{
@@ -4838,12 +4902,14 @@ protected:
 
 inline DWORD CComDynamicUnkArray::Add(IUnknown* pUnk)
 {
+	ULONG iIndex;
+
 	IUnknown** pp = NULL;
 	if (m_nSize == 0) // no connections
 	{
 		m_pUnk = pUnk;
 		m_nSize = 1;
-		return (DWORD)m_pUnk;
+		return 1;
 	}
 	else if (m_nSize == 1)
 	{
@@ -4861,7 +4927,8 @@ inline DWORD CComDynamicUnkArray::Add(IUnknown* pUnk)
 		if (*pp == NULL)
 		{
 			*pp = pUnk;
-			return (DWORD)pUnk;
+			iIndex = ULONG(pp-begin());
+			return iIndex+1;
 		}
 	}
 	int nAlloc = m_nSize*2;
@@ -4871,35 +4938,29 @@ inline DWORD CComDynamicUnkArray::Add(IUnknown* pUnk)
 	m_ppUnk = pp;
 	memset(&m_ppUnk[m_nSize], 0, sizeof(IUnknown*)*m_nSize);
 	m_ppUnk[m_nSize] = pUnk;
+	iIndex = m_nSize;
 	m_nSize = nAlloc;
-	return (DWORD)pUnk;
+	return iIndex+1;
 }
 
 inline BOOL CComDynamicUnkArray::Remove(DWORD dwCookie)
 {
-	IUnknown** pp;
+	ULONG iIndex;
 	if (dwCookie == NULL)
 		return FALSE;
 	if (m_nSize == 0)
 		return FALSE;
+	iIndex = dwCookie-1;
+	if (iIndex >= (ULONG)m_nSize)
+		return FALSE;
 	if (m_nSize == 1)
 	{
-		if ((DWORD)m_pUnk == dwCookie)
-		{
-			m_nSize = 0;
-			return TRUE;
-		}
-		return FALSE;
+		m_nSize = 0;
+		return TRUE;
 	}
-	for (pp=begin();pp<end();pp++)
-	{
-		if ((DWORD)*pp == dwCookie)
-		{
-			*pp = NULL;
-			return TRUE;
-		}
-	}
-	return FALSE;
+	begin()[iIndex] = NULL;
+
+	return TRUE;
 }
 
 template <const IID* piid>
@@ -5001,7 +5062,7 @@ STDMETHODIMP IConnectionPointImpl<T, piid, CDV>::Unadvise(DWORD dwCookie)
 {
 	T* pT = static_cast<T*>(this);
 	pT->Lock();
-	IUnknown* p = _CDV::GetUnknown(dwCookie);
+	IUnknown* p = m_vec.GetUnknown(dwCookie);
 	HRESULT hRes = m_vec.Remove(dwCookie) ? S_OK : CONNECT_E_NOCONNECTION;
 	pT->Unlock();
 	if (hRes == S_OK && p != NULL)
@@ -5023,7 +5084,7 @@ STDMETHODIMP IConnectionPointImpl<T, piid, CDV>::EnumConnections(
 	T* pT = static_cast<T*>(this);
 	pT->Lock();
 	CONNECTDATA* pcd = NULL;
-	ATLTRY(pcd = new CONNECTDATA[m_vec.end()-m_vec.begin()])
+	ATLTRY(pcd = new CONNECTDATA[ULONG(m_vec.end()-m_vec.begin())])
 	if (pcd == NULL)
 	{
 		delete pEnum;
@@ -5038,7 +5099,7 @@ STDMETHODIMP IConnectionPointImpl<T, piid, CDV>::EnumConnections(
 		{
 			(*pp)->AddRef();
 			pend->pUnk = *pp;
-			pend->dwCookie = _CDV::GetCookie(pp);
+			pend->dwCookie = m_vec.GetCookie(pp);
 			pend++;
 		}
 	}
@@ -5079,9 +5140,9 @@ public:
 		IConnectionPoint** ppCP = (IConnectionPoint**)alloca(sizeof(IConnectionPoint*)*nCPCount);
 
 		int i = 0;
-		while (pEntry->dwOffset != (DWORD)-1)
+		while (pEntry->dwOffset != (DWORD_PTR)-1)
 		{
-			ppCP[i++] = (IConnectionPoint*)((int)this+pEntry->dwOffset);
+			ppCP[i++] = (IConnectionPoint*)((INT_PTR)this+pEntry->dwOffset);
 			pEntry++;
 		}
 
@@ -5107,10 +5168,10 @@ public:
 		HRESULT hRes = CONNECT_E_NOCONNECTION;
 		const _ATL_CONNMAP_ENTRY* pEntry = T::GetConnMap(NULL);
 		IID iid;
-		while (pEntry->dwOffset != (DWORD)-1)
+		while (pEntry->dwOffset != (DWORD_PTR)-1)
 		{
 			IConnectionPoint* pCP =
-				(IConnectionPoint*)((int)this+pEntry->dwOffset);
+				(IConnectionPoint*)((INT_PTR)this+pEntry->dwOffset);
 			if (SUCCEEDED(pCP->GetConnectionInterface(&iid)) &&
 				InlineIsEqualGUID(riid, iid))
 			{

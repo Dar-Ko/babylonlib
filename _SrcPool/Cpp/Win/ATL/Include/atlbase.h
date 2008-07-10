@@ -100,16 +100,16 @@ struct _ATL_CATMAP_ENTRY
 #define _ATL_CATMAP_ENTRY_REQUIRED 2
 
 typedef HRESULT (WINAPI _ATL_CREATORFUNC)(void* pv, REFIID riid, LPVOID* ppv);
-typedef HRESULT (WINAPI _ATL_CREATORARGFUNC)(void* pv, REFIID riid, LPVOID* ppv, DWORD dw);
-typedef HRESULT (WINAPI _ATL_MODULEFUNC)(DWORD dw);
+typedef HRESULT (WINAPI _ATL_CREATORARGFUNC)(void* pv, REFIID riid, LPVOID* ppv, DWORD_PTR dw);
+typedef HRESULT (WINAPI _ATL_MODULEFUNC)(DWORD_PTR dw);
 typedef LPCTSTR (WINAPI _ATL_DESCRIPTIONFUNC)();
 typedef const struct _ATL_CATMAP_ENTRY* (_ATL_CATMAPFUNC)();
-typedef void (__stdcall _ATL_TERMFUNC)(DWORD dw);
+typedef void (__stdcall _ATL_TERMFUNC)(DWORD_PTR dw);
 
 struct _ATL_TERMFUNC_ELEM
 {
 	_ATL_TERMFUNC* pFunc;
-	DWORD dw;
+	DWORD_PTR dw;
 	_ATL_TERMFUNC_ELEM* pNext;
 };
 
@@ -156,7 +156,27 @@ struct _AtlCreateWndData
 	_AtlCreateWndData* m_pNext;
 };
 
-struct _ATL_MODULE
+struct _ATL_MODULE_21
+{
+// Attributes
+public:
+	UINT cbSize;
+	HINSTANCE m_hInst;
+	HINSTANCE m_hInstResource;
+	HINSTANCE m_hInstTypeLib;
+	_ATL_OBJMAP_ENTRY* m_pObjMap;
+	LONG m_nLockCnt;
+	HANDLE m_hHeap;
+	union
+	{
+		CRITICAL_SECTION m_csTypeInfoHolder;
+		CRITICAL_SECTION m_csStaticDataInit;
+	};
+	CRITICAL_SECTION m_csWindowCreate;
+	CRITICAL_SECTION m_csObjMap;
+};
+
+struct _ATL_MODULE_30
 {
 // Attributes
 public:
@@ -186,7 +206,40 @@ public:
 	_ATL_TERMFUNC_ELEM* m_pTermFuncs;
 };
 
-const int _nAtlModuleVer1Size = 100;
+struct _ATL_MODULE
+{
+// Attributes
+public:
+	UINT cbSize;
+	HINSTANCE m_hInst;
+	HINSTANCE m_hInstResource;
+	HINSTANCE m_hInstTypeLib;
+	_ATL_OBJMAP_ENTRY* m_pObjMap;
+	LONG m_nLockCnt;
+	HANDLE m_hHeap;
+	union
+	{
+		CRITICAL_SECTION m_csTypeInfoHolder;
+		CRITICAL_SECTION m_csStaticDataInit;
+	};
+	CRITICAL_SECTION m_csWindowCreate;
+	CRITICAL_SECTION m_csObjMap;
+// Original Size = 100
+// Stuff added in ATL 3.0
+	DWORD dwAtlBuildVer;
+	_AtlCreateWndData* m_pCreateWndList;
+	bool m_bDestroyHeap;
+	GUID* pguidVer;
+	DWORD m_dwHeaps;    // Number of heaps we have (-1)
+	HANDLE* m_phHeaps;
+	int m_nHeap;        // Which heap to choose from
+	_ATL_TERMFUNC_ELEM* m_pTermFuncs;
+// Stuff added in ATL 6.1
+	LONG m_nNextWindowID;
+};
+
+const int _nAtlModuleVer21Size = sizeof( _ATL_MODULE_21 );
+const int _nAtlModuleVer30Size = sizeof( _ATL_MODULE_30 );
 
 //This define makes debugging asserts easier.
 #define _ATL_SIMPLEMAPENTRY ((_ATL_CREATORARGFUNC*)1)
@@ -194,7 +247,7 @@ const int _nAtlModuleVer1Size = 100;
 struct _ATL_INTMAP_ENTRY
 {
 	const IID* piid;       // the interface id (IID)
-	DWORD dw;
+	DWORD_PTR dw;
 	_ATL_CREATORARGFUNC* pFunc; //NULL:end, 1:offset, n:ptr
 };
 
@@ -252,8 +305,18 @@ ATLAPI AtlModuleTerm(_ATL_MODULE* pM);
 ATLAPI_(DWORD) AtlGetVersion(void* pReserved);
 ATLAPI_(void) AtlModuleAddCreateWndData(_ATL_MODULE* pM, _AtlCreateWndData* pData, void* pObject);
 ATLAPI_(void*) AtlModuleExtractCreateWndData(_ATL_MODULE* pM);
-ATLAPI AtlModuleAddTermFunc(_ATL_MODULE* pM, _ATL_TERMFUNC* pFunc, DWORD dw);
+ATLAPI AtlModuleAddTermFunc(_ATL_MODULE* pM, _ATL_TERMFUNC* pFunc, DWORD_PTR dw);
 
+#ifdef _M_IA64
+#pragma pack(push,8)
+extern "C" LRESULT CALLBACK _WndProcThunkProc( HWND, UINT, WPARAM, LPARAM );
+struct _FuncDesc
+{
+   void* pfn;
+   void* gp;
+};
+#pragma pack(pop)
+#endif  // _M_IA64
 
 #ifndef _ATL_DLL_IMPL
 }; //namespace ATL
@@ -390,7 +453,9 @@ inline void _cdecl AtlTrace2(DWORD, UINT, LPCWSTR , ...){}
 
 #pragma comment(lib, "kernel32.lib")
 #pragma comment(lib, "user32.lib")
+#ifndef _WIN64
 #pragma comment(lib, "olepro32.lib")
+#endif
 #pragma comment(lib, "advapi32.lib")
 #pragma comment(lib, "ole32.lib")
 #pragma comment(lib, "oleaut32.lib")
@@ -907,6 +972,7 @@ public:
 /////////////////////////////////////////////////////////////////////////////
 // GUID comparison
 
+#if 0
 inline BOOL InlineIsEqualGUID(REFGUID rguid1, REFGUID rguid2)
 {
    return (
@@ -915,6 +981,7 @@ inline BOOL InlineIsEqualGUID(REFGUID rguid1, REFGUID rguid2)
 	  ((PLONG) &rguid1)[2] == ((PLONG) &rguid2)[2] &&
 	  ((PLONG) &rguid1)[3] == ((PLONG) &rguid2)[3]);
 }
+#endif
 
 inline BOOL InlineIsEqualUnknown(REFGUID rguid1)
 {
@@ -1013,6 +1080,13 @@ public:
 HRESULT WINAPI AtlDumpIID(REFIID iid, LPCTSTR pszClassName, HRESULT hr);
 
 #ifdef _ATL_DEBUG_INTERFACES
+#ifdef _WIN64
+#if defined (_M_IA64)
+#pragma comment(lib, "atl21asm.lib")
+#else
+#error _ATL_DEBUG_INTERFACES not yet implemented on Win64
+#endif
+#endif
 struct _QIThunk
 {
 	STDMETHOD(QueryInterface)(REFIID iid, void** pp)
@@ -2062,7 +2136,9 @@ struct _QIThunk
 	STDMETHOD(f1021)();
 	STDMETHOD(f1022)();
 	STDMETHOD(f1023)();
+#ifndef _WIN64	
 	STDMETHOD(f1024)();
+#endif
 	_QIThunk(IUnknown* pOrig, LPCTSTR p, const IID& i, UINT n, bool b)
 	{
 		lpszClassName = p;
@@ -2415,6 +2491,15 @@ public:
 		return AtlModuleExtractCreateWndData(this);
 	}
 
+	LONG GetNextWindowID()
+	{
+		LONG nID;
+
+		nID = InterlockedIncrement(&m_nNextWindowID);
+
+		return nID;
+	}
+
 	HRESULT Init(_ATL_OBJMAP_ENTRY* p, HINSTANCE h, const GUID* plibid = NULL)
 	{
 		pguidVer = &GUID_ATLVer30;
@@ -2424,19 +2509,15 @@ public:
 		AtlModuleInit(this, p, h);
 		if (plibid != NULL)
 			memcpy((void*)&m_libid, plibid, sizeof(GUID));
+		m_nNextWindowID = 1;
 #ifdef _ATL_MIN_CRT
 		// Create a base heap
 		m_hHeap = HeapCreate(0, 0, 0);
 
 #ifndef _ATL_NO_MP_HEAP
-		OSVERSIONINFO ver;
 		SYSTEM_INFO si;
-		memset( &ver, 0, sizeof( ver ) );
-		ver.dwOSVersionInfoSize = sizeof( ver );
-		GetVersionEx( &ver );
 		GetSystemInfo(&si);
-		if( ((ver.dwPlatformId != VER_PLATFORM_WIN32_NT) ||
-			(ver.dwMajorVersion < 5)) && (si.dwNumberOfProcessors > 1) )
+		if (si.dwNumberOfProcessors > 1)
 		{
 			DWORD dwHeaps = si.dwNumberOfProcessors * 2;
 			m_dwHeaps = 0xFFFFFFFF;
@@ -2598,7 +2679,7 @@ public:
 #endif // _ATL_DEBUG_INTERFACES
 	}
 
-	HRESULT AddTermFunc(_ATL_TERMFUNC* pFunc, DWORD dw)
+	HRESULT AddTermFunc(_ATL_TERMFUNC* pFunc, DWORD_PTR dw)
 	{
 		return AtlModuleAddTermFunc(this, pFunc, dw);
 	}
@@ -2739,6 +2820,7 @@ inline static void atlBadThunkCall()
 {
 	ATLASSERT(FALSE && "Call through deleted thunk");
 }
+#ifdef _M_IX86
 #define IMPL_THUNK(n)\
 __declspec(naked) inline HRESULT _QIThunk::f##n()\
 {\
@@ -2754,6 +2836,9 @@ __declspec(naked) inline HRESULT _QIThunk::f##n()\
 	__asm mov eax, dword ptr [eax+4*n]\
 	__asm jmp eax\
 }
+#else
+#define IMPL_THUNK(n)
+#endif
 
 IMPL_THUNK(3)
 IMPL_THUNK(4)
@@ -4132,7 +4217,7 @@ public:
 	{
 		ATLASSERT(pStream != NULL);
 		ULONG cb;
-		ULONG cbStrLen = m_str ? SysStringByteLen(m_str)+sizeof(OLECHAR) : 0;
+		ULONG cbStrLen = m_str ? ULONG(SysStringByteLen(m_str)+sizeof(OLECHAR)) : 0;
 		HRESULT hr = pStream->Write((void*) &cbStrLen, sizeof(cbStrLen), &cb);
 		if (FAILED(hr))
 			return hr;
@@ -4148,7 +4233,7 @@ public:
 		{
 			//subtract size for terminating NULL which we wrote out
 			//since SysAllocStringByteLen overallocates for the NULL
-			m_str = SysAllocStringByteLen(NULL, cbStrLen-sizeof(OLECHAR));
+			m_str = SysAllocStringByteLen(NULL, ULONG(cbStrLen-sizeof(OLECHAR)));
 			if (m_str == NULL)
 				hr = E_OUTOFMEMORY;
 			else
@@ -4884,7 +4969,7 @@ inline LONG CRegKey::SetValue(LPCTSTR lpszValue, LPCTSTR lpszValueName)
 	ATLASSERT(lpszValue != NULL);
 	ATLASSERT(m_hKey != NULL);
 	return RegSetValueEx(m_hKey, lpszValueName, NULL, REG_SZ,
-		(BYTE * const)lpszValue, (lstrlen(lpszValue)+1)*sizeof(TCHAR));
+		(BYTE * const)lpszValue, (lstrlen(lpszValue)+1)*(ULONG)sizeof(TCHAR));
 }
 
 inline LONG CRegKey::RecurseDeleteKey(LPCTSTR lpszKey)
@@ -4911,7 +4996,7 @@ inline LONG CRegKey::RecurseDeleteKey(LPCTSTR lpszKey)
 inline HRESULT CComModule::RegisterProgID(LPCTSTR lpszCLSID, LPCTSTR lpszProgID, LPCTSTR lpszUserDesc)
 {
 	CRegKey keyProgID;
-	LONG lRes = keyProgID.Create(HKEY_CLASSES_ROOT, lpszProgID, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_SET_VALUE);
+	LONG lRes = keyProgID.Create(HKEY_CLASSES_ROOT, lpszProgID, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_READ);
 	if (lRes == ERROR_SUCCESS)
 	{
 		keyProgID.SetValue(lpszUserDesc);
@@ -4933,20 +5018,10 @@ inline HRESULT WINAPI CComModule::UpdateRegistryFromResourceS(UINT nResID, BOOL 
 	TCHAR szModule[_MAX_PATH];
 	GetModuleFileName(_pModule->GetModuleInstance(), szModule, _MAX_PATH);
 
-	LPOLESTR pszModule;
-	if ((m_hInst == NULL) || (m_hInst == GetModuleHandle(NULL))) // register as EXE
-	{
-		// Convert to short path to work around bug in NT4's CreateProcess
-		TCHAR szModuleShort[_MAX_PATH];
-		int cbShortName = GetShortPathName(szModule, szModuleShort, _MAX_PATH);
-
-		if (cbShortName == _MAX_PATH)
-			return E_OUTOFMEMORY;
-
-		pszModule = (cbShortName == 0 || cbShortName == ERROR_INVALID_PARAMETER) ? T2OLE(szModule) : T2OLE(szModuleShort);
-	}
-	else
-		pszModule = T2OLE(szModule);
+   // Convert to short path to work around bug in NT4's CreateProcess
+   TCHAR szModuleShort[_MAX_PATH];
+   GetShortPathName(szModule, szModuleShort, _MAX_PATH);
+   LPOLESTR pszModule = T2OLE(szModuleShort);
 
 	int nLen = ocslen(pszModule);
 	LPOLESTR pszModuleQuote = (LPOLESTR)alloca((nLen*2+1)*sizeof(OLECHAR));
@@ -4975,20 +5050,10 @@ inline HRESULT WINAPI CComModule::UpdateRegistryFromResourceS(LPCTSTR lpszRes, B
 	TCHAR szModule[_MAX_PATH];
 	GetModuleFileName(_pModule->GetModuleInstance(), szModule, _MAX_PATH);
 
-	LPOLESTR pszModule;
-	if ((m_hInst == NULL) || (m_hInst == GetModuleHandle(NULL))) // register as EXE
-	{
-		// Convert to short path to work around bug in NT4's CreateProcess
-		TCHAR szModuleShort[_MAX_PATH];
-		int cbShortName = GetShortPathName(szModule, szModuleShort, _MAX_PATH);
-
-		if (cbShortName == _MAX_PATH)
-			return E_OUTOFMEMORY;
-
-		pszModule = (cbShortName == 0 || cbShortName == ERROR_INVALID_PARAMETER) ? T2OLE(szModule) : T2OLE(szModuleShort);
-	}
-	else
-		pszModule = T2OLE(szModule);
+   // Convert to short path to work around bug in NT4's CreateProcess
+   TCHAR szModuleShort[_MAX_PATH];
+   GetShortPathName(szModule, szModuleShort, _MAX_PATH);
+   LPOLESTR pszModule = T2OLE(szModuleShort);
 
 	int nLen = ocslen(pszModule);
 	LPOLESTR pszModuleQuote = (LPOLESTR)alloca((nLen*2+1)*sizeof(OLECHAR));
@@ -5052,10 +5117,10 @@ inline HRESULT WINAPI CComModule::RegisterClassHelper(const CLSID& clsid, LPCTST
 	if (hRes == S_OK)
 	{
 		CRegKey key;
-		lRes = key.Open(HKEY_CLASSES_ROOT, _T("CLSID"), KEY_READ | KEY_WRITE);
+		lRes = key.Open(HKEY_CLASSES_ROOT, _T("CLSID"), KEY_READ);
 		if (lRes == ERROR_SUCCESS)
 		{
-			lRes = key.Create(key, lpsz, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_READ | KEY_WRITE);
+			lRes = key.Create(key, lpsz, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_READ);
 			if (lRes == ERROR_SUCCESS)
 			{
 				key.SetValue(szDesc);
@@ -5063,19 +5128,12 @@ inline HRESULT WINAPI CComModule::RegisterClassHelper(const CLSID& clsid, LPCTST
 				key.SetKeyValue(szVIProgID, lpszVerIndProgID);
 
 				if ((m_hInst == NULL) || (m_hInst == GetModuleHandle(NULL))) // register as EXE
-				{
-					// Convert to short path to work around bug in NT4's CreateProcess
-					TCHAR szModuleShort[_MAX_PATH];
-					int cbShortName = GetShortPathName(szModule, szModuleShort, _MAX_PATH);
-					TCHAR* pszModule;
-
-					if (cbShortName == _MAX_PATH)
-						return E_OUTOFMEMORY;
-
-					pszModule = (cbShortName == 0 || cbShortName == ERROR_INVALID_PARAMETER) ? szModule : szModuleShort;
-
-					key.SetKeyValue(szLS32, pszModule);
-				}
+			{
+			   // Convert to short path to work around bug in NT4's CreateProcess
+			   TCHAR szModuleShort[_MAX_PATH];
+			   GetShortPathName(szModule, szModuleShort, _MAX_PATH);
+					key.SetKeyValue(szLS32, szModuleShort);
+			}
 				else
 				{
 					key.SetKeyValue(szIPS32, (dwFlags & AUTPRXFLAG) ? szAUTPRX32 : szModule);
@@ -5107,7 +5165,7 @@ inline HRESULT WINAPI CComModule::UnregisterClassHelper(const CLSID& clsid, LPCT
 	LPOLESTR lpOleStr;
 	StringFromCLSID(clsid, &lpOleStr);
 	LPTSTR lpsz = OLE2T(lpOleStr);
-	if (key.Open(key, _T("CLSID"), KEY_READ | KEY_WRITE) == ERROR_SUCCESS)
+	if (key.Open(key, _T("CLSID"), KEY_READ) == ERROR_SUCCESS)
 		key.RecurseDeleteKey(lpsz);
 	CoTaskMemFree(lpOleStr);
 	return S_OK;
@@ -5153,7 +5211,7 @@ public:
 		if (pExcept->ExceptionCode != EXCEPTION_ACCESS_VIOLATION)
 			return EXCEPTION_CONTINUE_SEARCH;
 		BYTE* pAddress = (LPBYTE) pExcept->ExceptionInformation[1];
-		VirtualAlloc(pAddress, sizeof(T), MEM_COMMIT, PAGE_READWRITE);
+		VirtualAlloc(pAddress, ((BYTE*)m_pTop - (BYTE*)m_pBase), MEM_COMMIT, PAGE_READWRITE);
 		return EXCEPTION_CONTINUE_EXECUTION;
 	}
 	void Seek(int nElement)
@@ -5281,7 +5339,7 @@ inline HRESULT WINAPI AtlDumpIID(REFIID iid, LPCTSTR pszClassName, HRESULT hr)
 }; //namespace ATL
 using namespace ATL;
 
-//only suck in definition if static linking
+//only pull in definition if static linking
 #ifndef _ATL_DLL_IMPL
 #ifndef _ATL_DLL
 #define _ATLBASE_IMPL
@@ -5321,7 +5379,7 @@ static UINT WINAPI AtlGetDirLen(LPCOLESTR lpszPathName)
 		lpsz = lp;
 	}
 
-	return lpszTemp-lpszPathName;
+	return UINT(lpszTemp-lpszPathName);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -5338,7 +5396,7 @@ ATLINLINE ATLAPI AtlInternalQueryInterface(void* pThis,
 	*ppvObject = NULL;
 	if (InlineIsEqualUnknown(iid)) // use first interface
 	{
-			IUnknown* pUnk = (IUnknown*)((int)pThis+pEntries->dw);
+			IUnknown* pUnk = (IUnknown*)((DWORD_PTR)pThis+pEntries->dw);
 			pUnk->AddRef();
 			*ppvObject = pUnk;
 			return S_OK;
@@ -5351,7 +5409,7 @@ ATLINLINE ATLAPI AtlInternalQueryInterface(void* pThis,
 			if (pEntries->pFunc == _ATL_SIMPLEMAPENTRY) //offset
 			{
 				ATLASSERT(!bBlind);
-				IUnknown* pUnk = (IUnknown*)((int)pThis+pEntries->dw);
+				IUnknown* pUnk = (IUnknown*)((DWORD_PTR)pThis+pEntries->dw);
 				pUnk->AddRef();
 				*ppvObject = pUnk;
 				return S_OK;
@@ -5505,9 +5563,9 @@ ATLINLINE ATLAPI AtlSetErrorInfo(const CLSID& clsid, LPCOLESTR lpszDesc, DWORD d
 	TCHAR szDesc[1024];
 	szDesc[0] = NULL;
 	// For a valid HRESULT the id should be in the range [0x0200, 0xffff]
-	if (HIWORD(lpszDesc) == 0) //id
+	if (IS_INTRESOURCE(lpszDesc)) //id
 	{
-		UINT nID = LOWORD((DWORD)lpszDesc);
+		UINT nID = LOWORD((DWORD_PTR)lpszDesc);
 		ATLASSERT((nID >= 0x0200 && nID <= 0xffff) || hRes != 0);
 		if (LoadString(hInst, nID, szDesc, 1024) == 0)
 		{
@@ -5591,7 +5649,8 @@ ATLINLINE ATLAPI AtlModuleInit(_ATL_MODULE* pM, _ATL_OBJMAP_ENTRY* p, HINSTANCE 
 	if (pM == NULL)
 		return E_INVALIDARG;
 #ifdef _ATL_DLL_IMPL
-	if ((pM->cbSize != _nAtlModuleVer1Size) && (pM->cbSize != sizeof(_ATL_MODULE)))
+	if ((pM->cbSize != _nAtlModuleVer21Size) && (pM->cbSize != _nAtlModuleVer30Size) &&
+		(pM->cbSize != sizeof(_ATL_MODULE)))
 		return E_INVALIDARG;
 #else
 	ATLASSERT(pM->cbSize == sizeof(_ATL_MODULE));
@@ -5604,7 +5663,7 @@ ATLINLINE ATLAPI AtlModuleInit(_ATL_MODULE* pM, _ATL_OBJMAP_ENTRY* p, HINSTANCE 
 	InitializeCriticalSection(&pM->m_csWindowCreate);
 	InitializeCriticalSection(&pM->m_csObjMap);
 #ifdef _ATL_DLL_IMPL
-	if (pM->cbSize > _nAtlModuleVer1Size)
+	if (pM->cbSize > _nAtlModuleVer21Size)
 #endif
 	{
 		pM->m_pCreateWndList = NULL;
@@ -5622,6 +5681,12 @@ ATLINLINE ATLAPI AtlModuleInit(_ATL_MODULE* pM, _ATL_OBJMAP_ENTRY* p, HINSTANCE 
 				pEntry = _NextObjectMapEntry(pM, pEntry);
 			}
 		}
+	}
+#ifdef _ATL_DLL_IMPL
+	if (pM->cbSize > _nAtlModuleVer30Size)
+#endif
+	{
+		pM->m_nNextWindowID = 1;
 	}
 
 	return S_OK;
@@ -5707,7 +5772,7 @@ ATLINLINE ATLAPI AtlModuleTerm(_ATL_MODULE* pM)
 				pEntry->pCF->Release();
 			pEntry->pCF = NULL;
 #ifdef _ATL_DLL_IMPL
-			if (pM->cbSize > _nAtlModuleVer1Size)
+			if (pM->cbSize > _nAtlModuleVer21Size)
 #endif
 				pEntry->pfnObjectMain(false); //cleanup class resources
 			pEntry = _NextObjectMapEntry(pM, pEntry);
@@ -5718,7 +5783,7 @@ ATLINLINE ATLAPI AtlModuleTerm(_ATL_MODULE* pM)
 	DeleteCriticalSection(&pM->m_csObjMap);
 
 #ifdef _ATL_DLL_IMPL
-	if (pM->cbSize > _nAtlModuleVer1Size)
+	if (pM->cbSize > _nAtlModuleVer21Size)
 #endif
 	{
 		_ATL_TERMFUNC_ELEM* pElem = pM->m_pTermFuncs;
@@ -5745,7 +5810,7 @@ ATLINLINE ATLAPI AtlModuleTerm(_ATL_MODULE* pM)
 	return S_OK;
 }
 
-ATLINLINE ATLAPI AtlModuleAddTermFunc(_ATL_MODULE* pM, _ATL_TERMFUNC* pFunc, DWORD dw)
+ATLINLINE ATLAPI AtlModuleAddTermFunc(_ATL_MODULE* pM, _ATL_TERMFUNC* pFunc, DWORD_PTR dw)
 {
 	HRESULT hr = S_OK;
 	_ATL_TERMFUNC_ELEM* pNew = NULL;
@@ -5891,9 +5956,9 @@ ATLINLINE ATLAPI AtlModuleUnregisterServerEx(_ATL_MODULE* pM, BOOL bUnRegTypeLib
 				continue;
 		}
 		pEntry->pfnUpdateRegistry(FALSE); //unregister
-		if (pM->cbSize == sizeof(_ATL_MODULE) && pEntry->pfnGetCategoryMap != NULL)
-			AtlRegisterClassCategoriesHelper( *pEntry->pclsid,
-				pEntry->pfnGetCategoryMap(), FALSE );
+      if (pM->cbSize == sizeof(_ATL_MODULE) && pEntry->pfnGetCategoryMap != NULL)
+         AtlRegisterClassCategoriesHelper( *pEntry->pclsid,
+			   pEntry->pfnGetCategoryMap(), FALSE );
 	}
 	if (bUnRegTypeLib)
 		AtlModuleUnRegisterTypeLib(pM, 0);
@@ -5924,20 +5989,10 @@ ATLINLINE ATLAPI AtlModuleUpdateRegistryFromResourceD(_ATL_MODULE* pM, LPCOLESTR
 		TCHAR szModule[_MAX_PATH];
 		GetModuleFileName(pM->m_hInst, szModule, _MAX_PATH);
 
-		LPOLESTR pszModule;
-		if ((pM->m_hInst == NULL) || (pM->m_hInst == GetModuleHandle(NULL))) // register as EXE
-		{
-			// Convert to short path to work around bug in NT4's CreateProcess
-			TCHAR szModuleShort[_MAX_PATH];
-			int cbShortName = GetShortPathName(szModule, szModuleShort, _MAX_PATH);
-
-			if (cbShortName == _MAX_PATH)
-				return E_OUTOFMEMORY;
-
-			pszModule = (cbShortName == 0 || cbShortName == ERROR_INVALID_PARAMETER) ? T2OLE(szModule) : T2OLE(szModuleShort);
-		}
-		else
-			pszModule = T2OLE(szModule);
+	  // Convert to short path to work around bug in NT4's CreateProcess
+	  TCHAR szModuleShort[_MAX_PATH];
+	  GetShortPathName(szModule, szModuleShort, _MAX_PATH);
+	  LPOLESTR pszModule = T2OLE(szModuleShort);
 
 		int nLen = ocslen(pszModule);
 		LPOLESTR pszModuleQuote = (LPOLESTR)alloca((nLen*2+1)*sizeof(OLECHAR));
@@ -5954,12 +6009,12 @@ ATLINLINE ATLAPI AtlModuleUpdateRegistryFromResourceD(_ATL_MODULE* pM, LPCOLESTR
 			}
 		}
 		LPCOLESTR szType = OLESTR("REGISTRY");
-		if (HIWORD(lpszRes)==0)
+		if (DWORD_PTR(lpszRes)<=0xffff)
 		{
 			if (bRegister)
-				hRes = p->ResourceRegister(pszModule, ((UINT)LOWORD((DWORD)lpszRes)), szType);
+				hRes = p->ResourceRegister(pszModule, ((UINT)LOWORD((DWORD_PTR)lpszRes)), szType);
 			else
-				hRes = p->ResourceUnregister(pszModule, ((UINT)LOWORD((DWORD)lpszRes)), szType);
+				hRes = p->ResourceUnregister(pszModule, ((UINT)LOWORD((DWORD_PTR)lpszRes)), szType);
 		}
 		else
 		{

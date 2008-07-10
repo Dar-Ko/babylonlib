@@ -89,18 +89,34 @@
 #define _ATL_PACKING 8
 #endif
 
-#if defined(_ATL_DLL)
-	#define ATLAPI extern "C" HRESULT __declspec(dllimport) __stdcall
-	#define ATLAPI_(x) extern "C" __declspec(dllimport) x __stdcall
-	#define ATLINLINE
-#elif defined(_ATL_DLL_IMPL)
-	#define ATLAPI extern "C" HRESULT __declspec(dllexport) __stdcall
-	#define ATLAPI_(x) extern "C" __declspec(dllexport) x __stdcall
-	#define ATLINLINE
+#ifdef _WIN64
+	#if defined(_ATL_DLL)
+		#define ATLAPI extern "C" HRESULT __declspec(dllimport)
+		#define ATLAPI_(x) extern "C" __declspec(dllimport) x
+		#define ATLINLINE
+	#elif defined(_ATL_DLL_IMPL)
+		#define ATLAPI extern "C" HRESULT __declspec(dllexport)
+		#define ATLAPI_(x) extern "C" __declspec(dllexport) x
+		#define ATLINLINE
+	#else
+		#define ATLAPI HRESULT
+		#define ATLAPI_(x) x
+		#define ATLINLINE inline
+	#endif
 #else
-	#define ATLAPI HRESULT __stdcall
-	#define ATLAPI_(x) x __stdcall
-	#define ATLINLINE inline
+	#if defined(_ATL_DLL)
+		#define ATLAPI extern "C" HRESULT __declspec(dllimport) __stdcall
+		#define ATLAPI_(x) extern "C" __declspec(dllimport) x __stdcall
+		#define ATLINLINE
+	#elif defined(_ATL_DLL_IMPL)
+		#define ATLAPI extern "C" HRESULT __declspec(dllexport) __stdcall
+		#define ATLAPI_(x) extern "C" __declspec(dllexport) x __stdcall
+		#define ATLINLINE
+	#else
+		#define ATLAPI HRESULT __stdcall
+		#define ATLAPI_(x) x __stdcall
+		#define ATLINLINE inline
+	#endif
 #endif
 
 #if defined (_CPPUNWIND) & (defined(_ATL_EXCEPTIONS) | defined(_AFX))
@@ -109,7 +125,7 @@
 #define ATLTRY(x) x;
 #endif
 
-#define offsetofclass(base, derived) ((DWORD)(static_cast<base*>((derived*)_ATL_PACKING))-_ATL_PACKING)
+#define offsetofclass(base, derived) ((DWORD_PTR)(static_cast<base*>((derived*)_ATL_PACKING))-_ATL_PACKING)
 
 /////////////////////////////////////////////////////////////////////////////
 // Master version numbers

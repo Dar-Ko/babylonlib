@@ -119,7 +119,7 @@ inline LPSTR WINAPI AtlW2AHelper(LPSTR lpa, LPCWSTR lpw, int nChars)
 
 #if defined(_UNICODE)
 // in these cases the default (TCHAR) is the same as OLECHAR
-	inline size_t ocslen(LPCOLESTR x) { return lstrlenW(x); }
+	inline int ocslen(LPCOLESTR x) { return lstrlenW(x); }
 	inline OLECHAR* ocscpy(LPOLESTR dest, LPCOLESTR src) { return lstrcpyW(dest, src); }
 	inline OLECHAR* ocscat(LPOLESTR dest, LPCOLESTR src) { return lstrcatW(dest, src); }
 	inline LPCOLESTR T2COLE(LPCTSTR lp) { return lp; }
@@ -129,7 +129,7 @@ inline LPSTR WINAPI AtlW2AHelper(LPSTR lpa, LPCWSTR lpw, int nChars)
 	inline LPOLESTR CharNextO(LPCOLESTR lp) {return CharNextW(lp);}
 #elif defined(OLE2ANSI)
 // in these cases the default (TCHAR) is the same as OLECHAR
-	inline size_t ocslen(LPCOLESTR x) { return lstrlen(x); }
+	inline int ocslen(LPCOLESTR x) { return lstrlen(x); }
 	inline OLECHAR* ocscpy(LPOLESTR dest, LPCOLESTR src) { return lstrcpy(dest, src); }
 	inline OLECHAR* ocscat(LPOLESTR dest, LPCOLESTR src) { return ocscpy(dest+ocslen(dest), src); }
 	inline LPCOLESTR T2COLE(LPCTSTR lp) { return lp; }
@@ -138,7 +138,7 @@ inline LPSTR WINAPI AtlW2AHelper(LPSTR lpa, LPCWSTR lpw, int nChars)
 	inline LPTSTR OLE2T(LPOLESTR lp) { return lp; }
 	inline LPOLESTR CharNextO(LPCOLESTR lp) {return CharNext(lp);}
 #else
-	inline size_t ocslen(LPCOLESTR x) { return lstrlenW(x); }
+	inline int ocslen(LPCOLESTR x) { return lstrlenW(x); }
 	//lstrcpyW doesn't work on Win95, so we do this
 	inline OLECHAR* ocscpy(LPOLESTR dest, LPCOLESTR src)
 	{return (LPOLESTR) memcpy(dest, src, (lstrlenW(src)+1)*sizeof(WCHAR));}

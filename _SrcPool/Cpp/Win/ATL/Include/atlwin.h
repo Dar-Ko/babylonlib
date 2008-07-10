@@ -151,7 +151,7 @@ public:
 	{
 		m_hWnd = ::CreateWindowEx(dwExStyle, lpstrWndClass, szWindowName,
 			dwStyle, rcPos.left, rcPos.top, rcPos.right - rcPos.left,
-			rcPos.bottom - rcPos.top, hWndParent, (HMENU)nID,
+			rcPos.bottom - rcPos.top, hWndParent, (HMENU)(DWORD_PTR)nID,
 			_Module.GetModuleInstance(), lpCreateParam);
 		return m_hWnd;
 	}
@@ -565,13 +565,13 @@ public:
 
 // Timer Functions
 
-	UINT SetTimer(UINT nIDEvent, UINT nElapse)
+	UINT_PTR SetTimer(UINT_PTR nIDEvent, UINT nElapse)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return ::SetTimer(m_hWnd, nIDEvent, nElapse, NULL);
 	}
 
-	BOOL KillTimer(UINT nIDEvent)
+	BOOL KillTimer(UINT_PTR nIDEvent)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return ::KillTimer(m_hWnd, nIDEvent);
@@ -968,7 +968,7 @@ public:
 	DWORD GetHotKey() const
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		return ::SendMessage(m_hWnd, WM_GETHOTKEY, 0, 0);
+		return (DWORD)::SendMessage(m_hWnd, WM_GETHOTKEY, 0, 0);
 	}
 
 // Misc. Operations
@@ -1464,6 +1464,24 @@ struct _WndProcThunk
 };
 #pragma pack(pop)
 #elif defined (_M_ALPHA)
+#if defined(_WIN64)
+    // For ALPHA we will stick the this pointer into a0, which is where
+    // the HWND is.  However, we don't actually need the HWND so this is OK.
+#pragma pack(push,4)
+    struct _WndProcThunk //this should come out to 36 bytes
+    {
+        DWORD ldah3_at;     //  ldah    at, LOWORD((func >> 32))
+        DWORD sll_at;       //  sll     at, 32, at
+        DWORD ldah_at;      //  ldah    at, HIWORD(func)
+        DWORD lda_at;       //  lda     at, LOWORD(func)(at)
+        DWORD ldah3_a0;     //  ldah    a0, LOWORD((this >> 32))
+        DWORD sll_a0;       //  sll     a0, 32, a0
+        DWORD ldah_a0;      //  ldah    a0, HIWORD(this)
+        DWORD lda_a0;       //  lda     a0, LOWORD(this)(a0)
+        DWORD jmp;          //  jmp     zero,(at),0
+    };
+#pragma pack(pop)
+#else
 // For ALPHA we will stick the this pointer into a0, which is where
 // the HWND is.  However, we don't actually need the HWND so this is OK.
 #pragma pack(push,4)
@@ -1476,8 +1494,19 @@ struct _WndProcThunk //this should come out to 20 bytes
 	DWORD jmp;          //  jmp     zero,(at),0
 };
 #pragma pack(pop)
+#endif
+#elif defined (_M_IA64)
+#pragma comment(lib, "atl21asm.lib")
+#pragma pack(push,8)
+struct _WndProcThunk
+{
+   _FuncDesc funcdesc;
+   void* pRealWndProcDesc;
+   void* pThis;
+};
+#pragma pack(pop)
 #else
-#error Only Alpha and X86 supported
+#error Only Alpha, AXP64, IA64, and X86 supported
 #endif
 
 class CWndProcThunk
@@ -1496,11 +1525,30 @@ public:
 		thunk.m_jmp = 0xe9;
 		thunk.m_relproc = (int)proc - ((int)this+sizeof(_WndProcThunk));
 #elif defined (_M_ALPHA)
+    #if defined (_WIN64)
+        thunk.ldah3_at = (0x279f0000 | LOWORD((ULONG_PTR)proc >> 32));
+        thunk.sll_at = 0x04B94173C;
+        thunk.ldah_at  = (0x279f0000 | HIWORD((ULONG_PTR)proc)) + (LOWORD((ULONG_PTR)proc)>>15);
+        thunk.lda_at = 0x239c0000 | LOWORD(proc);
+        thunk.ldah3_a0 = (0x261f0000 | LOWORD((ULONG_PTR)pThis >> 32));
+        thunk.sll_a0 = 0x4A041730;
+        thunk.ldah_a0  = (0x261f0000 | HIWORD((ULONG_PTR)pThis)) + (LOWORD((ULONG_PTR)pThis)>>15);
+        thunk.lda_a0 = 0x22100000 | LOWORD(pThis);
+        thunk.jmp = 0x6bfc0000;
+    #else
 		thunk.ldah_at = (0x279f0000 | HIWORD(proc)) + (LOWORD(proc)>>15);
 		thunk.ldah_a0 = (0x261f0000 | HIWORD(pThis)) + (LOWORD(pThis)>>15);
 		thunk.lda_at = 0x239c0000 | LOWORD(proc);
 		thunk.lda_a0 = 0x22100000 | LOWORD(pThis);
 		thunk.jmp = 0x6bfc0000;
+	#endif
+#elif defined (_M_IA64)
+   _FuncDesc* pFuncDesc;
+   pFuncDesc = (_FuncDesc*)_WndProcThunkProc;
+   thunk.funcdesc.pfn = pFuncDesc->pfn;
+   thunk.funcdesc.gp = &thunk.pRealWndProcDesc;  // Set gp up to point to our thunk data
+   thunk.pRealWndProcDesc = proc;
+   thunk.pThis = pThis;
 #endif
 		// write block from data cache and
 		//  flush from instruction cache
@@ -2086,7 +2134,7 @@ LRESULT CALLBACK CWindowImplBaseT< TBase, TWinTraits >::StartWindowProc(HWND hWn
 	pThis->m_hWnd = hWnd;
 	pThis->m_thunk.Init(pThis->GetWindowProc(), pThis);
 	WNDPROC pProc = (WNDPROC)&(pThis->m_thunk.thunk);
-	WNDPROC pOldProc = (WNDPROC)::SetWindowLong(hWnd, GWL_WNDPROC, (LONG)pProc);
+	WNDPROC pOldProc = (WNDPROC)::SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LPARAM)pProc);
 #ifdef _DEBUG
 	// check if somebody has subclassed us already since we discard it
 	if(pOldProc != StartWindowProc)
@@ -2119,10 +2167,10 @@ LRESULT CALLBACK CWindowImplBaseT< TBase, TWinTraits >::WindowProc(HWND hWnd, UI
 		else
 		{
 			// unsubclass, if needed
-			LONG pfnWndProc = ::GetWindowLong(pThis->m_hWnd, GWL_WNDPROC);
+			LONG_PTR pfnWndProc = ::GetWindowLongPtr(pThis->m_hWnd, GWLP_WNDPROC);
 			lRes = pThis->DefWindowProc(uMsg, wParam, lParam);
-			if(pThis->m_pfnSuperWindowProc != ::DefWindowProc && ::GetWindowLong(pThis->m_hWnd, GWL_WNDPROC) == pfnWndProc)
-				::SetWindowLong(pThis->m_hWnd, GWL_WNDPROC, (LONG)pThis->m_pfnSuperWindowProc);
+			if(pThis->m_pfnSuperWindowProc != ::DefWindowProc && ::GetWindowLongPtr(pThis->m_hWnd, GWLP_WNDPROC) == pfnWndProc)
+				::SetWindowLongPtr(pThis->m_hWnd, GWLP_WNDPROC, (LONG_PTR)pThis->m_pfnSuperWindowProc);
 			// clear out window handle
 			HWND hWnd = pThis->m_hWnd;
 			pThis->m_hWnd = NULL;
@@ -2145,11 +2193,11 @@ HWND CWindowImplBaseT< TBase, TWinTraits >::Create(HWND hWndParent, RECT& rcPos,
 	_Module.AddCreateWndData(&m_thunk.cd, this);
 
 	if(nID == 0 && (dwStyle & WS_CHILD))
-		nID = (UINT)this;
+		nID = _Module.GetNextWindowID();
 
-	HWND hWnd = ::CreateWindowEx(dwExStyle, (LPCTSTR)MAKELONG(atom, 0), szWindowName,
+	HWND hWnd = ::CreateWindowEx(dwExStyle, MAKEINTATOM(atom), szWindowName,
 		dwStyle, rcPos.left, rcPos.top, rcPos.right - rcPos.left,
-		rcPos.bottom - rcPos.top, hWndParent, (HMENU)nID,
+		rcPos.bottom - rcPos.top, hWndParent, (HMENU)(DWORD_PTR)nID,
 		_Module.GetModuleInstance(), lpCreateParam);
 
 	ATLASSERT(m_hWnd == hWnd);
@@ -2164,7 +2212,7 @@ BOOL CWindowImplBaseT< TBase, TWinTraits >::SubclassWindow(HWND hWnd)
 	ATLASSERT(::IsWindow(hWnd));
 	m_thunk.Init(GetWindowProc(), this);
 	WNDPROC pProc = (WNDPROC)&(m_thunk.thunk);
-	WNDPROC pfnWndProc = (WNDPROC)::SetWindowLong(hWnd, GWL_WNDPROC, (LONG)pProc);
+	WNDPROC pfnWndProc = (WNDPROC)::SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LPARAM)pProc);
 	if(pfnWndProc == NULL)
 		return FALSE;
 	m_pfnSuperWindowProc = pfnWndProc;
@@ -2180,12 +2228,12 @@ HWND CWindowImplBaseT< TBase, TWinTraits >::UnsubclassWindow(BOOL bForce /*= FAL
 	ATLASSERT(m_hWnd != NULL);
 
 	WNDPROC pOurProc = (WNDPROC)&(m_thunk.thunk);
-	WNDPROC pActiveProc = (WNDPROC)::GetWindowLong(m_hWnd, GWL_WNDPROC);
+	WNDPROC pActiveProc = (WNDPROC)::GetWindowLongPtr(m_hWnd, GWLP_WNDPROC);
 
 	HWND hWnd = NULL;
 	if (bForce || pOurProc == pActiveProc)
 	{
-		if(!::SetWindowLong(m_hWnd, GWL_WNDPROC, (LONG)m_pfnSuperWindowProc))
+		if(!::SetWindowLongPtr(m_hWnd, GWLP_WNDPROC, (LONG_PTR)m_pfnSuperWindowProc))
 			return NULL;
 
 		m_pfnSuperWindowProc = ::DefWindowProc;
@@ -2255,7 +2303,7 @@ LRESULT CALLBACK CDialogImplBaseT< TBase >::StartDialogProc(HWND hWnd, UINT uMsg
 	pThis->m_hWnd = hWnd;
 	pThis->m_thunk.Init(pThis->GetDialogProc(), pThis);
 	WNDPROC pProc = (WNDPROC)&(pThis->m_thunk.thunk);
-	WNDPROC pOldProc = (WNDPROC)::SetWindowLong(hWnd, DWL_DLGPROC, (LONG)pProc);
+	WNDPROC pOldProc = (WNDPROC)::SetWindowLongPtr(hWnd, DWLP_DLGPROC, (LPARAM)pProc);
 #ifdef _DEBUG
 	// check if somebody has subclassed us already since we discard it
 	if(pOldProc != StartDialogProc)
@@ -2300,7 +2348,7 @@ LRESULT CALLBACK CDialogImplBaseT< TBase >::DialogProc(HWND hWnd, UINT uMsg, WPA
 			return lRes;
 			break;
 		}
-		::SetWindowLong(pThis->m_hWnd, DWL_MSGRESULT, lRes);
+		::SetWindowLongPtr(pThis->m_hWnd, DWLP_MSGRESULT, lRes);
 		return TRUE;
 	}
 	if(uMsg == WM_NCDESTROY)
@@ -2325,7 +2373,7 @@ public:
 	CDialogImpl() : m_bModal(false) { }
 #endif //_DEBUG
 	// modal dialogs
-	int DoModal(HWND hWndParent = ::GetActiveWindow(), LPARAM dwInitParam = NULL)
+	INT_PTR DoModal(HWND hWndParent = ::GetActiveWindow(), LPARAM dwInitParam = NULL)
 	{
 		ATLASSERT(m_hWnd == NULL);
 		_Module.AddCreateWndData(&m_thunk.cd, (CDialogImplBaseT< TBase >*)this);
@@ -2335,7 +2383,7 @@ public:
 		return ::DialogBoxParam(_Module.GetResourceInstance(), MAKEINTRESOURCE(T::IDD),
 					hWndParent, (DLGPROC)T::StartDialogProc, dwInitParam);
 	}
-	BOOL EndDialog(int nRetCode)
+	BOOL EndDialog(INT_PTR nRetCode)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		ATLASSERT(m_bModal);	// must be a modal dialog
@@ -2381,7 +2429,7 @@ public:
 	CAxDialogImpl() : m_bModal(false) { }
 #endif //_DEBUG
 	// modal dialogs
-	int DoModal(HWND hWndParent = ::GetActiveWindow(), LPARAM dwInitParam = NULL)
+	INT_PTR DoModal(HWND hWndParent = ::GetActiveWindow(), LPARAM dwInitParam = NULL)
 	{
 		ATLASSERT(m_hWnd == NULL);
 		_Module.AddCreateWndData(&m_thunk.cd, (CDialogImplBaseT< TBase >*)this);
@@ -2432,11 +2480,11 @@ template <WORD t_wDlgTemplateID, BOOL t_bCenter = TRUE>
 class CSimpleDialog : public CDialogImplBase
 {
 public:
-	int DoModal(HWND hWndParent = ::GetActiveWindow())
+	INT_PTR DoModal(HWND hWndParent = ::GetActiveWindow())
 	{
 		ATLASSERT(m_hWnd == NULL);
 		_Module.AddCreateWndData(&m_thunk.cd, (CDialogImplBase*)this);
-		int nRet = ::DialogBox(_Module.GetResourceInstance(),
+		INT_PTR nRet = ::DialogBox(_Module.GetResourceInstance(),
 			MAKEINTRESOURCE(t_wDlgTemplateID), hWndParent, (DLGPROC)StartDialogProc);
 		m_hWnd = NULL;
 		return nRet;
@@ -2531,7 +2579,7 @@ public:
 		pThis->m_hWnd = hWnd;
 		pThis->m_thunk.Init(WindowProc, pThis);
 		WNDPROC pProc = (WNDPROC)&(pThis->m_thunk.thunk);
-		WNDPROC pOldProc = (WNDPROC)::SetWindowLong(hWnd, GWL_WNDPROC, (LONG)pProc);
+		WNDPROC pOldProc = (WNDPROC)::SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LONG_PTR)pProc);
 #ifdef _DEBUG
 		// check if somebody has subclassed us already since we discard it
 		if(pOldProc != StartWindowProc)
@@ -2565,10 +2613,10 @@ public:
 			else
 			{
 				// unsubclass, if needed
-				LONG pfnWndProc = ::GetWindowLong(pThis->m_hWnd, GWL_WNDPROC);
+				LONG_PTR pfnWndProc = ::GetWindowLongPtr(pThis->m_hWnd, GWLP_WNDPROC);
 				lRes = pThis->DefWindowProc(uMsg, wParam, lParam);
-				if(pThis->m_pfnSuperWindowProc != ::DefWindowProc && ::GetWindowLong(pThis->m_hWnd, GWL_WNDPROC) == pfnWndProc)
-					::SetWindowLong(pThis->m_hWnd, GWL_WNDPROC, (LONG)pThis->m_pfnSuperWindowProc);
+				if(pThis->m_pfnSuperWindowProc != ::DefWindowProc && ::GetWindowLongPtr(pThis->m_hWnd, GWLP_WNDPROC) == pfnWndProc)
+					::SetWindowLongPtr(pThis->m_hWnd, GWLP_WNDPROC, (LONG_PTR)pThis->m_pfnSuperWindowProc);
 				// clear out window handle
 				pThis->m_hWnd = NULL;
 			}
@@ -2656,17 +2704,17 @@ public:
 		_Module.AddCreateWndData(&m_thunk.cd, this);
 
 		if(nID == 0 && (dwStyle & WS_CHILD))
-			nID = (UINT)this;
+			nID = _Module.GetNextWindowID();
 
 		dwStyle = TWinTraits::GetWndStyle(dwStyle);
 		dwExStyle = TWinTraits::GetWndExStyle(dwExStyle);
 
-		HWND hWnd = ::CreateWindowEx(dwExStyle, (LPCTSTR)MAKELONG(atom, 0), szWindowName,
+		HWND hWnd = ::CreateWindowEx(dwExStyle, MAKEINTATOM(atom), szWindowName,
 								dwStyle,
 								prcPos->left, prcPos->top,
 								prcPos->right - prcPos->left,
 								prcPos->bottom - prcPos->top,
-								hWndParent, (HMENU)nID,
+								hWndParent, (HMENU)(UINT_PTR)nID,
 								_Module.GetModuleInstance(), lpCreateParam);
 		ATLASSERT(m_hWnd == hWnd);
 		return hWnd;
@@ -2679,7 +2727,7 @@ public:
 
 		m_thunk.Init(WindowProc, this);
 		WNDPROC pProc = (WNDPROC)&m_thunk.thunk;
-		WNDPROC pfnWndProc = (WNDPROC)::SetWindowLong(hWnd, GWL_WNDPROC, (LONG)pProc);
+		WNDPROC pfnWndProc = (WNDPROC)::SetWindowLongPtr(hWnd, GWLP_WNDPROC, (LONG_PTR)pProc);
 		if(pfnWndProc == NULL)
 			return FALSE;
 		m_pfnSuperWindowProc = pfnWndProc;
@@ -2694,12 +2742,12 @@ public:
 		ATLASSERT(m_hWnd != NULL);
 
 		WNDPROC pOurProc = (WNDPROC)&(m_thunk.thunk);
-		WNDPROC pActiveProc = (WNDPROC)::GetWindowLong(m_hWnd, GWL_WNDPROC);
+		WNDPROC pActiveProc = (WNDPROC)::GetWindowLongPtr(m_hWnd, GWLP_WNDPROC);
 
 		HWND hWnd = NULL;
 		if (bForce || pOurProc == pActiveProc)
 		{
-			if(!::SetWindowLong(m_hWnd, GWL_WNDPROC, (LONG)m_pfnSuperWindowProc))
+			if(!::SetWindowLongPtr(m_hWnd, GWLP_WNDPROC, (LONG_PTR)m_pfnSuperWindowProc))
 				return NULL;
 
 			m_pfnSuperWindowProc = ::DefWindowProc;
@@ -2930,7 +2978,11 @@ ATLINLINE ATLAPI_(ATOM) AtlModuleRegisterWndClassInfoA(_ATL_MODULE* pM, _ATL_WND
 			p->m_wc.style &= ~CS_GLOBALCLASS;	// we don't register global classes
 			if (p->m_wc.lpszClassName == NULL)
 			{
+#ifdef _WIN64
+				wsprintfA(p->m_szAutoName, "ATL:%p", &p->m_wc);
+#else
 				wsprintfA(p->m_szAutoName, "ATL:%8.8X", (DWORD)&p->m_wc);
+#endif
 				p->m_wc.lpszClassName = p->m_szAutoName;
 			}
 			WNDCLASSEXA wcTemp;
@@ -2992,7 +3044,11 @@ ATLINLINE ATLAPI_(ATOM) AtlModuleRegisterWndClassInfoW(_ATL_MODULE* pM, _ATL_WND
 			p->m_wc.style &= ~CS_GLOBALCLASS;	// we don't register global classes
 			if (p->m_wc.lpszClassName == NULL)
 			{
+#ifdef _WIN64
+				wsprintfW(p->m_szAutoName, L"ATL:%p", &p->m_wc);
+#else
 				wsprintfW(p->m_szAutoName, L"ATL:%8.8X", (DWORD)&p->m_wc);
+#endif
 				p->m_wc.lpszClassName = p->m_szAutoName;
 			}
 			WNDCLASSEXW wcTemp;

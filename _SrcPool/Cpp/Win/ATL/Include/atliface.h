@@ -1,12 +1,15 @@
+
+#pragma warning( disable: 4049 )  /* more than 64k source lines */
+
 /* this ALWAYS GENERATED file contains the definitions for the interfaces */
 
 
-/* File created by MIDL compiler version 5.01.0164 */
-/* at Fri Nov 30 13:38:38 2001
+ /* File created by MIDL compiler version 5.02.0198 */
+/* at Thu Sep 10 21:38:47 1998
  */
 /* Compiler settings for atliface.idl:
-    Os (OptLev=s), W1, Zp8, env=Win32, ms_ext, c_ext
-    error checks: none
+    Os (OptLev=s), W1, Zp8, env=Win32 (32b run), ms_ext, c_ext
+    error checks: allocation ref bounds_check enum stub_data 
 */
 //@@MIDL_FILE_HEADING(  )
 
@@ -1222,10 +1225,10 @@ EXTERN_C const IID IID_IAxWinAmbientDispatch;
             /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbMsgReflect) = 0;
         
         virtual /* [id][helpstring][propget] */ HRESULT STDMETHODCALLTYPE get_ShowGrabHandles( 
-            /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowGrabHandles) = 0;
+            VARIANT_BOOL __RPC_FAR *pbShowGrabHandles) = 0;
         
         virtual /* [id][helpstring][propget] */ HRESULT STDMETHODCALLTYPE get_ShowHatching( 
-            /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowHatching) = 0;
+            VARIANT_BOOL __RPC_FAR *pbShowHatching) = 0;
         
         virtual /* [helpstring][propput] */ HRESULT STDMETHODCALLTYPE put_DocHostFlags( 
             /* [in] */ DWORD dwDocHostFlags) = 0;
@@ -1371,11 +1374,11 @@ EXTERN_C const IID IID_IAxWinAmbientDispatch;
         
         /* [id][helpstring][propget] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *get_ShowGrabHandles )( 
             IAxWinAmbientDispatch __RPC_FAR * This,
-            /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowGrabHandles);
+            VARIANT_BOOL __RPC_FAR *pbShowGrabHandles);
         
         /* [id][helpstring][propget] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *get_ShowHatching )( 
             IAxWinAmbientDispatch __RPC_FAR * This,
-            /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowHatching);
+            VARIANT_BOOL __RPC_FAR *pbShowHatching);
         
         /* [helpstring][propput] */ HRESULT ( STDMETHODCALLTYPE __RPC_FAR *put_DocHostFlags )( 
             IAxWinAmbientDispatch __RPC_FAR * This,
@@ -1738,7 +1741,7 @@ void __RPC_STUB IAxWinAmbientDispatch_get_MessageReflect_Stub(
 
 /* [id][helpstring][propget] */ HRESULT STDMETHODCALLTYPE IAxWinAmbientDispatch_get_ShowGrabHandles_Proxy( 
     IAxWinAmbientDispatch __RPC_FAR * This,
-    /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowGrabHandles);
+    VARIANT_BOOL __RPC_FAR *pbShowGrabHandles);
 
 
 void __RPC_STUB IAxWinAmbientDispatch_get_ShowGrabHandles_Stub(
@@ -1750,7 +1753,7 @@ void __RPC_STUB IAxWinAmbientDispatch_get_ShowGrabHandles_Stub(
 
 /* [id][helpstring][propget] */ HRESULT STDMETHODCALLTYPE IAxWinAmbientDispatch_get_ShowHatching_Proxy( 
     IAxWinAmbientDispatch __RPC_FAR * This,
-    /* [retval][out] */ VARIANT_BOOL __RPC_FAR *pbShowHatching);
+    VARIANT_BOOL __RPC_FAR *pbShowHatching);
 
 
 void __RPC_STUB IAxWinAmbientDispatch_get_ShowHatching_Stub(
@@ -1990,7 +1993,7 @@ void __RPC_STUB IInternalConnection_ReleaseConnection_Stub(
 #endif 	/* __IInternalConnection_INTERFACE_DEFINED__ */
 
 
-/* interface __MIDL_itf_atliface_0213 */
+/* interface __MIDL_itf_atliface_0236 */
 /* [local] */ 
 
 #ifndef _ATL_DLL_IMPL
@@ -1998,8 +2001,8 @@ namespace ATL
 {
 #endif
 
-ATLAPI_(int) AtlAxDialogBoxW(HINSTANCE hInstance, LPCWSTR lpTemplateName, HWND hWndParent, DLGPROC lpDialogProc, LPARAM dwInitParam);
-ATLAPI_(int) AtlAxDialogBoxA(HINSTANCE hInstance, LPCSTR lpTemplateName, HWND hWndParent, DLGPROC lpDialogProc, LPARAM dwInitParam);
+ATLAPI_(INT_PTR) AtlAxDialogBoxW(HINSTANCE hInstance, LPCWSTR lpTemplateName, HWND hWndParent, DLGPROC lpDialogProc, LPARAM dwInitParam);
+ATLAPI_(INT_PTR) AtlAxDialogBoxA(HINSTANCE hInstance, LPCSTR lpTemplateName, HWND hWndParent, DLGPROC lpDialogProc, LPARAM dwInitParam);
 #ifdef UNICODE
 #define AtlAxDialogBox AtlAxDialogBoxW
 #else
@@ -2029,8 +2032,8 @@ ATLAPI AtlAxGetControl(HWND h, IUnknown** pp);
 #endif //_ATL_DLL_IMPL
 
 
-extern RPC_IF_HANDLE __MIDL_itf_atliface_0213_v0_0_c_ifspec;
-extern RPC_IF_HANDLE __MIDL_itf_atliface_0213_v0_0_s_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_atliface_0236_v0_0_c_ifspec;
+extern RPC_IF_HANDLE __MIDL_itf_atliface_0236_v0_0_s_ifspec;
 
 /* Additional Prototypes for ALL interfaces */
 
@@ -2051,3 +2054,5 @@ void                      __RPC_USER  HWND_UserFree(     unsigned long __RPC_FAR
 #endif
 
 #endif
+
+

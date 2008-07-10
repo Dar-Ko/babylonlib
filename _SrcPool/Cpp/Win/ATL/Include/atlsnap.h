@@ -212,8 +212,8 @@ public:
 	{
 	}
     STDMETHOD(Notify)(MMC_NOTIFY_TYPE event,
-        long arg,
-        long param,
+        LPARAM arg,
+        LPARAM param,
 		IComponentData* pComponentData,
 		IComponent* pComponent,
 		DATA_OBJECT_TYPES type) = 0;
@@ -234,7 +234,7 @@ public:
 		DATA_OBJECT_TYPES type) = 0;
     
     STDMETHOD(CreatePropertyPages)(LPPROPERTYSHEETCALLBACK lpProvider,
-        long handle,
+        LONG_PTR handle,
 		IUnknown* pUnk,
 		DATA_OBJECT_TYPES type) = 0;
     
@@ -248,8 +248,8 @@ public:
         IExtendControlbar  *pExtendControlbar,
 		CSimpleMap<UINT, IUnknown*>* pToolbarMap,
         MMC_NOTIFY_TYPE event,
-        long arg,
-        long param,
+        LPARAM arg,
+        LPARAM param,
 		CSnapInObjectRootBase* pObj,
 		DATA_OBJECT_TYPES type) = 0;
     
@@ -534,8 +534,8 @@ public :
     STDMETHOD(Notify)( 
         LPDATAOBJECT lpDataObject,
         MMC_NOTIFY_TYPE event,
-        long arg,
-        long param)
+        LPARAM arg,
+        LPARAM param)
 	{
 		ATLTRACE2(atlTraceSnapin, 0, _T("IComponentDataImpl::Notify\n"));
 		ATLASSERT(lpDataObject != NULL && _T("Override Notify in derived class handle notifications for which lpDataObject == NULL"));
@@ -581,7 +581,7 @@ public :
 		return S_OK;
 	}
 
-    STDMETHOD(QueryDataObject)(long cookie,
+    STDMETHOD(QueryDataObject)(MMC_COOKIE cookie,
         DATA_OBJECT_TYPES type,
         LPDATAOBJECT  *ppDataObject)
 	{
@@ -671,8 +671,8 @@ public:
     
 	STDMETHOD(Notify)(LPDATAOBJECT lpDataObject,
         MMC_NOTIFY_TYPE event,
-        long arg,
-        long param)
+        LPARAM arg,
+        LPARAM param)
 	{
 		ATLTRACE2(atlTraceSnapin, 0, _T("IComponentImpl::Notify\n"));
 		ATLASSERT(lpDataObject != NULL && _T("Override Notify in derived class handle notifications for which lpDataObject == NULL"));		
@@ -693,7 +693,7 @@ public:
 		return hr;
 	}
     
-    STDMETHOD(Destroy)(long cookie)
+    STDMETHOD(Destroy)(MMC_COOKIE cookie)
 	{
 		ATLTRACE2(atlTraceSnapin, 0, _T("IComponentImpl::Destroy\n"));
 
@@ -719,7 +719,7 @@ public:
 		return S_OK;
 	}
     
-    STDMETHOD(QueryDataObject)(long cookie,
+    STDMETHOD(QueryDataObject)(MMC_COOKIE cookie,
         DATA_OBJECT_TYPES type,
         LPDATAOBJECT  *ppDataObject)
 	{
@@ -749,7 +749,7 @@ public:
 		return pItem->GetDataObject(ppDataObject, type);
 	}
     
-    STDMETHOD(GetResultViewType)(long cookie,
+    STDMETHOD(GetResultViewType)(MMC_COOKIE cookie,
         LPOLESTR  *ppViewType,
         long  *pViewOptions)
 	{
@@ -805,9 +805,9 @@ template <class T, class D>
 class ATL_NO_VTABLE IResultDataCompareImpl : public IResultDataCompare
 {
 public:
-    STDMETHOD(Compare)(long lUserParam,
-        long cookieA,
-        long cookieB,
+    STDMETHOD(Compare)(LPARAM lUserParam,
+        MMC_COOKIE cookieA,
+        MMC_COOKIE cookieB,
         int *pnResult)
 	{
 		ATLTRACENOTIMPL(_T("IResultDataCompareImpl::Compare"));
@@ -872,7 +872,7 @@ class ATL_NO_VTABLE IExtendPropertySheetImpl : public IExtendPropertySheet
 {
 public:
 	STDMETHOD(CreatePropertyPages)(LPPROPERTYSHEETCALLBACK lpProvider,
-        long handle,
+        LONG_PTR handle,
         LPDATAOBJECT pDataObject)
 	{
 		ATLTRACE2(atlTraceSnapin, 0, _T("IExtendPropertySheetImpl::CreatePropertyPages\n"));
@@ -949,8 +949,8 @@ public:
 	}
     
     STDMETHOD(ControlbarNotify)(MMC_NOTIFY_TYPE event,
-        long arg,
-        long param)
+        LPARAM arg,
+        LPARAM param)
 	{
 		ATLTRACE2(atlTraceSnapin, 0, _T("IExtendControlbarImpl::ControlbarNotify\n"));
 
@@ -1054,7 +1054,7 @@ struct CSnapInToolBarData
 class CSnapInToolbarInfo
 {
 public:
-	void __stdcall CleanUp(DWORD dw)
+	void __stdcall CleanUp(DWORD_PTR dw)
 	{
 		if (m_pStrToolTip)
 		{
@@ -1125,8 +1125,8 @@ public:
 public:
 
     STDMETHOD(Notify)( MMC_NOTIFY_TYPE event,
-        long arg,
-        long param,
+        LPARAM arg,
+        LPARAM param,
 		IComponentData* pComponentData,
 		IComponent* pComponent,
 		DATA_OBJECT_TYPES type)
@@ -1278,7 +1278,7 @@ public:
 	}
     
     STDMETHOD(CreatePropertyPages)(LPPROPERTYSHEETCALLBACK lpProvider,
-        long handle, 
+        LONG_PTR handle, 
 		IUnknown* pUnk,
 		DATA_OBJECT_TYPES type)
 	{
@@ -1420,8 +1420,8 @@ public:
         IExtendControlbar *pExtendControlbar,
 		CSimpleMap<UINT, IUnknown*>* pToolbarMap,
 		MMC_NOTIFY_TYPE event,
-        long arg, 
-		long param,
+        LPARAM arg, 
+		LPARAM param,
 		CSnapInObjectRootBase* pObj,
 		DATA_OBJECT_TYPES type)
 	{
@@ -1586,7 +1586,7 @@ public:
 	{
 		return NULL;
 	}
-	static void _stdcall CleanUpToolbarInfo(DWORD dw)
+	static void _stdcall CleanUpToolbarInfo(DWORD_PTR dw)
 	{
 		for (CSnapInToolbarInfo* pInfo = T::GetToolbarInfo(); pInfo->m_idToolbar != 0; pInfo++)
 		{

@@ -935,10 +935,10 @@ public:
 		HRESULT hr = S_FALSE;
 		if (m_spIDocHostUIHandlerDispatch != NULL)
 			m_spIDocHostUIHandlerDispatch->TranslateAccelerator(
-				(DWORD) lpMsg->hwnd,
+				(DWORD)(DWORD_PTR)lpMsg->hwnd,  //REVIEW
 				lpMsg->message,
-				lpMsg->wParam,
-				lpMsg->lParam,
+				(DWORD)lpMsg->wParam,  //REVIEW
+				(DWORD)lpMsg->lParam,  //REVIEW
 				CComBSTR(*pguidCmdGroup), 
 				nCmdID,
 				&hr);
@@ -1185,7 +1185,8 @@ public:
 			fd.cySize.Lo = lfHeight * 720000 / ppi;
 			fd.cySize.Hi = 0;
 
-			OleCreateFontIndirect(&fd, IID_IFontDisp, (void**) &m_spFont);
+#pragma message( "Still need OleCreateFontIndirect()" )
+//			OleCreateFontIndirect(&fd, IID_IFontDisp, (void**) &m_spFont);
 		}
 
 		return m_spFont.CopyTo(pFont);
@@ -1976,7 +1977,7 @@ public:
 		}
 
 		// Dword-align and return
-		return (DLGITEMTEMPLATE*)(((DWORD)pw + 3) & ~3);
+		return (DLGITEMTEMPLATE*)(((DWORD_PTR)pw + 3) & ~DWORD_PTR(3));
 	}
 
 	// Given the current dialog item and whether this is an extended dialog
@@ -2005,7 +2006,7 @@ public:
 		WORD cbExtra = *pw++;		// Skip extra data
 
 		// Dword-align and return
-		return (DLGITEMTEMPLATE*)(((DWORD)pw + cbExtra + 3) & ~3);
+		return (DLGITEMTEMPLATE*)(((DWORD_PTR)pw + cbExtra + 3) & ~DWORD_PTR(3));
 	}
 
 	// Find the initialization data (Stream) for the control specified by the ID
@@ -2069,7 +2070,7 @@ public:
 
 		// Calculate the size of the DLGTEMPLATE for allocating the new one
 		DLGITEMTEMPLATE* pFirstItem = FindFirstDlgItem(pTemplate);
-		ULONG cbHeader = (BYTE*)pFirstItem - (BYTE*)pTemplate;
+		ULONG cbHeader = ULONG((BYTE*)pFirstItem - (BYTE*)pTemplate);
 		ULONG cbNewTemplate = cbHeader;
 
 		BOOL bDialogEx = IsDialogEx(pTemplate);
@@ -2135,7 +2136,7 @@ public:
 			else
 			{
 				// Item is not an ActiveX Control: make room for it in new template.
-				cbNewTemplate += (BYTE*)pNextItem - (BYTE*)pItem;
+				cbNewTemplate += ULONG((BYTE*)pNextItem - (BYTE*)pItem);
 			}
 
 			pItem = pNextItem;
@@ -2205,7 +2206,7 @@ public:
 				memcpy(pNew, pData, nSizeElement);
 				pNew += nSizeElement;
 				//Align to DWORD
-				pNew += (((~((DWORD)pNew)) + 1) & 3);
+				pNew += (((~((DWORD_PTR)pNew)) + 1) & 3);
 
 				// Incrememt item count in new header.
 				++DlgTemplateItemCount(pNewTemplate);
@@ -2213,7 +2214,7 @@ public:
 			else
 			{
 				// Item is not an OLE control: copy it to the new template.
-				ULONG cbItem = (BYTE*)pNextItem - (BYTE*)pItem;
+				ULONG cbItem = ULONG((BYTE*)pNextItem - (BYTE*)pItem);
 				ATLASSERT(cbItem >= (size_t)(bDialogEx ?
 					sizeof(DLGITEMTEMPLATEEX) :
 					sizeof(DLGITEMTEMPLATE)));
@@ -2271,7 +2272,7 @@ static LRESULT CALLBACK AtlAxWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPA
 			hRet = spUnk->QueryInterface(IID_IAxWinHostWindow, (void**)&pAxWindow);
 			if(FAILED(hRet))
 				return -1;	// abort window creation
-			::SetWindowLong(hWnd, GWL_USERDATA, (DWORD)pAxWindow);
+			::SetWindowLongPtr(hWnd, GWLP_USERDATA, (LPARAM)pAxWindow);
 			// check for control parent style if control has a window
 			HWND hWndChild = ::GetWindow(hWnd, GW_CHILD);
 			if(hWndChild != NULL)
@@ -2288,7 +2289,7 @@ static LRESULT CALLBACK AtlAxWindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPA
 		break;
 	case WM_NCDESTROY:
 		{
-			IAxWinHostWindow* pAxWindow = (IAxWinHostWindow*)::GetWindowLong(hWnd, GWL_USERDATA);
+			IAxWinHostWindow* pAxWindow = (IAxWinHostWindow*)::GetWindowLongPtr(hWnd, GWLP_USERDATA);
 			if(pAxWindow != NULL)
 				pAxWindow->Release();
 			OleUninitialize();
@@ -2321,14 +2322,14 @@ namespace ATL
 
 
 //All exports go here
-ATLINLINE ATLAPI_(int) AtlAxDialogBoxW(HINSTANCE hInstance, LPCWSTR lpTemplateName, HWND hWndParent, DLGPROC lpDialogProc, LPARAM dwInitParam)
+ATLINLINE ATLAPI_(INT_PTR) AtlAxDialogBoxW(HINSTANCE hInstance, LPCWSTR lpTemplateName, HWND hWndParent, DLGPROC lpDialogProc, LPARAM dwInitParam)
 {
 	AtlAxWinInit();
 	HRSRC hDlg = ::FindResourceW(hInstance, lpTemplateName, (LPWSTR)RT_DIALOG);
 	HRSRC hDlgInit = ::FindResourceW(hInstance, lpTemplateName, (LPWSTR)_ATL_RT_DLGINIT);
 	HGLOBAL hData = NULL;
 	BYTE* pInitData = NULL;
-	int nRet = -1;
+	INT_PTR nRet = -1;
 
 	if (hDlgInit)
 	{
@@ -2355,14 +2356,14 @@ ATLINLINE ATLAPI_(int) AtlAxDialogBoxW(HINSTANCE hInstance, LPCWSTR lpTemplateNa
 	return nRet;
 }
 
-ATLINLINE ATLAPI_(int) AtlAxDialogBoxA(HINSTANCE hInstance, LPCSTR lpTemplateName, HWND hWndParent, DLGPROC lpDialogProc, LPARAM dwInitParam)
+ATLINLINE ATLAPI_(INT_PTR) AtlAxDialogBoxA(HINSTANCE hInstance, LPCSTR lpTemplateName, HWND hWndParent, DLGPROC lpDialogProc, LPARAM dwInitParam)
 {
 	AtlAxWinInit();
 	HRSRC hDlg = ::FindResourceA(hInstance, lpTemplateName, (LPSTR)RT_DIALOG);
 	HRSRC hDlgInit = ::FindResourceA(hInstance, lpTemplateName, (LPSTR)_ATL_RT_DLGINIT);
 	HGLOBAL hData = NULL;
 	BYTE* pInitData = NULL;
-	int nRet = -1;
+	INT_PTR nRet = -1;
 
 	if (hDlgInit)
 	{

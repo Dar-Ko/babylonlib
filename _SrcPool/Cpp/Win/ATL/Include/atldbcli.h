@@ -54,6 +54,8 @@ namespace ATL
 	DEFINE_OLEDB_TYPE_FUNCTION(int              ,DBTYPE_I4)
 	DEFINE_OLEDB_TYPE_FUNCTION(LONG             ,DBTYPE_I4)     // DBTYPE_ERROR (SCODE)
 	DEFINE_OLEDB_TYPE_FUNCTION(LARGE_INTEGER    ,DBTYPE_I8)     // DBTYPE_CY
+	DEFINE_OLEDB_TYPE_FUNCTION(__int64    ,DBTYPE_I8)     // DBTYPE_CY
+	DEFINE_OLEDB_TYPE_FUNCTION(unsigned __int64    ,DBTYPE_UI8)     // DBTYPE_CY
 	DEFINE_OLEDB_TYPE_FUNCTION(BYTE             ,DBTYPE_UI1)
 	DEFINE_OLEDB_TYPE_FUNCTION(unsigned short   ,DBTYPE_UI2)
 	DEFINE_OLEDB_TYPE_FUNCTION(unsigned int     ,DBTYPE_UI4)
@@ -607,9 +609,11 @@ public:
 	// Create memory to add a new property
 	bool Add()
 	{
-		rgProperties = (DBPROP*)CoTaskMemRealloc(rgProperties, (cProperties + 1) * sizeof(DBPROP));
-		if (rgProperties != NULL)
+      DBPROP* rgNewProperties;
+		rgNewProperties = (DBPROP*)CoTaskMemRealloc(rgProperties, (cProperties + 1) * sizeof(DBPROP));
+		if (rgNewProperties != NULL)
 		{
+         rgProperties = rgNewProperties;
 			rgProperties[cProperties].dwOptions = DBPROPOPTIONS_REQUIRED;
 			rgProperties[cProperties].colid     = DB_NULLID;
 			rgProperties[cProperties].vValue.vt = VT_EMPTY;
@@ -695,8 +699,15 @@ public:
 // Implementation
 	bool Add()
 	{
-		rgPropertyIDs = (DBPROPID*)realloc(rgPropertyIDs, (cPropertyIDs + 1) * sizeof(DBPROPID));
-		return (rgPropertyIDs != NULL) ? true : false;
+      DBPROPID* rgNewPropertyIDs;
+		rgNewPropertyIDs = (DBPROPID*)realloc(rgPropertyIDs, (cPropertyIDs + 1) * sizeof(DBPROPID));
+      if (rgNewPropertyIDs == NULL)
+         return false;
+      else
+      {
+         rgPropertyIDs = rgNewPropertyIDs;
+         return true;
+      }
 	}
 	void InternalCopy(const CDBPropIDSet& propidset)
 	{
@@ -724,7 +735,7 @@ public:
 class ATL_NO_VTABLE CBookmarkBase
 {
 public:
-	virtual ULONG GetSize() const = 0;
+	virtual ULONG_PTR GetSize() const = 0;
 	virtual BYTE* GetBuffer() const = 0;
 };
 
@@ -732,11 +743,11 @@ public:
 ///////////////////////////////////////////////////////////////////////////
 // class CBookmark
 
-template <ULONG nSize = 0>
+template <ULONG_PTR nSize = 0>
 class CBookmark : public CBookmarkBase
 {
 public:
-	virtual ULONG   GetSize() const { return nSize; }
+	virtual ULONG_PTR   GetSize() const { return nSize; }
 	virtual BYTE*   GetBuffer() const { return (BYTE*)m_rgBuffer; }
 
 // Implementation
@@ -755,10 +766,10 @@ public:
 		m_nSize = 0;
 		m_pBuffer = NULL;
 	}
-	CBookmark(ULONG nSize)
+	CBookmark(ULONG_PTR nSize)
 	{
 		m_pBuffer = NULL;
-		ATLTRY(m_pBuffer = new BYTE[nSize]);
+		ATLTRY(m_pBuffer = new BYTE[(size_t)nSize]);  //REVIEW
 		m_nSize = (m_pBuffer == NULL) ? 0 : nSize;
 	}
 	~CBookmark()
@@ -770,18 +781,18 @@ public:
 		SetBookmark(bookmark.GetSize(), bookmark.GetBuffer());
 		return *this;
 	}
-	virtual ULONG GetSize() const { return m_nSize; }
+	virtual ULONG_PTR GetSize() const { return m_nSize; }
 	virtual BYTE* GetBuffer() const { return m_pBuffer; }
 	// Sets the bookmark to the passed value
-	HRESULT SetBookmark(ULONG nSize, BYTE* pBuffer)
+	HRESULT SetBookmark(ULONG_PTR nSize, BYTE* pBuffer)
 	{
 		ATLASSERT(pBuffer != NULL);
 		delete [] m_pBuffer;
 		m_pBuffer = NULL;
-		ATLTRY(m_pBuffer = new BYTE[nSize]);
+		ATLTRY(m_pBuffer = new BYTE[(size_t)nSize]);  //REVIEW
 		if (m_pBuffer != NULL)
 		{
-			memcpy(m_pBuffer, pBuffer, nSize);
+			memcpy(m_pBuffer, pBuffer, (size_t)nSize);  //REVIEW
 			m_nSize = nSize;
 			return S_OK;
 		}
@@ -791,7 +802,7 @@ public:
 			return E_OUTOFMEMORY;
 		}
 	}
-	ULONG   m_nSize;
+	ULONG_PTR   m_nSize;
 	BYTE*   m_pBuffer;
 };
 
@@ -883,14 +894,14 @@ public:
 
 	// Create an accessor for the passed binding information. The created accessor is
 	// returned through the pHAccessor parameter.
-	static HRESULT BindEntries(DBBINDING* pBindings, int nColumns, HACCESSOR* pHAccessor,
-		ULONG nSize, IAccessor* pAccessor)
+	static HRESULT BindEntries(DBBINDING* pBindings, DBCOUNTITEM nColumns, HACCESSOR* pHAccessor,
+		ULONG_PTR nSize, IAccessor* pAccessor)
 	{
 		ATLASSERT(pBindings  != NULL);
 		ATLASSERT(pHAccessor != NULL);
 		ATLASSERT(pAccessor  != NULL);
 		HRESULT hr;
-		int i;
+		DBCOUNTITEM i;
 		DWORD dwAccessorFlags = (pBindings->eParamIO == DBPARAMIO_NOTPARAM) ?
 			DBACCESSOR_ROWDATA : DBACCESSOR_PARAMETERDATA;
 
@@ -898,7 +909,7 @@ public:
 		// In debug builds we will retrieve the status flags and trace out
 		// any errors that may occur.
 		DBBINDSTATUS* pStatus = NULL;
-		ATLTRY(pStatus = new DBBINDSTATUS[nColumns]);
+		ATLTRY(pStatus = new DBBINDSTATUS[(size_t)nColumns]);  //REVIEW
 		hr = pAccessor->CreateAccessor(dwAccessorFlags, nColumns,
 			pBindings, nSize, pHAccessor, pStatus);
 		if (FAILED(hr) && pStatus != NULL)
@@ -921,9 +932,9 @@ public:
 	}
 	// Set up the binding structure pointed to by pBindings based upon
 	// the other passed parameters.
-	static void Bind(DBBINDING* pBinding, ULONG nOrdinal, DBTYPE wType,
-		ULONG nLength, BYTE nPrecision, BYTE nScale, DBPARAMIO eParamIO,
-		ULONG nDataOffset, ULONG nLengthOffset = NULL, ULONG nStatusOffset = NULL,
+	static void Bind(DBBINDING* pBinding, ULONG_PTR nOrdinal, DBTYPE wType,
+		ULONG_PTR nLength, BYTE nPrecision, BYTE nScale, DBPARAMIO eParamIO,
+		ULONG_PTR nDataOffset, ULONG_PTR nLengthOffset = NULL, ULONG_PTR nStatusOffset = NULL,
 		DBOBJECT* pdbobject = NULL)
 	{
 		ATLASSERT(pBinding != NULL);
@@ -1086,7 +1097,7 @@ public:
 	HRESULT MoveNext(LONG lSkip, bool bForward)
 	{
 		HRESULT hr;
-		ULONG ulRowsFetched = 0;
+		DBCOUNTITEM ulRowsFetched = 0;
 
 		// Check the data was opened successfully and the accessor
 		// has been set.
@@ -1143,7 +1154,7 @@ public:
 		ReleaseRows();
 
 		HRESULT hr;
-		ULONG ulRowsFetched = 0;
+		DBCOUNTITEM ulRowsFetched = 0;
 		HROW* phRow = &m_hRow;
 		// Restart the rowset position and then move backwards
 		m_spRowset->RestartPosition(NULL);
@@ -1177,7 +1188,7 @@ public:
 		// Release a row if one is already around
 		ReleaseRows();
 
-		ULONG ulRowsFetched = 0;
+		DBCOUNTITEM ulRowsFetched = 0;
 		HROW* phRow = &m_hRow;
 		hr = spLocate->GetRowsAt(NULL, NULL, bookmark.GetSize(), bookmark.GetBuffer(),
 			lSkip, 1, &ulRowsFetched, &phRow);
@@ -1354,7 +1365,7 @@ public:
 	}
 	// Undo any changes made to the current row since it was last fetched or Update
 	// was called for it
-	HRESULT Undo(ULONG* pcRows = NULL, HROW* phRow = NULL, DBROWSTATUS* pStatus = NULL)
+	HRESULT Undo(DBCOUNTITEM* pcRows = NULL, HROW* phRow = NULL, DBROWSTATUS* pStatus = NULL)
 	{
 		ATLASSERT(m_spRowset != NULL);
 
@@ -1385,7 +1396,7 @@ public:
 	}
 	// Transmits any pending changes made to a row since it was last fetched or Update was
 	// called for it. Also see SetData.
-	HRESULT Update(ULONG* pcRows = NULL, HROW* phRow = NULL, DBROWSTATUS* pStatus = NULL)
+	HRESULT Update(DBCOUNTITEM* pcRows = NULL, HROW* phRow = NULL, DBROWSTATUS* pStatus = NULL)
 	{
 		ATLASSERT(m_spRowset != NULL);
 
@@ -1416,7 +1427,7 @@ public:
 	}
 
 	// Get the approximate position of the row corresponding to the passed bookmark
-	HRESULT GetApproximatePosition(const CBookmarkBase* pBookmark, ULONG* pPosition, ULONG* pcRows)
+	HRESULT GetApproximatePosition(const CBookmarkBase* pBookmark, DBCOUNTITEM* pPosition, DBCOUNTITEM* pcRows)
 	{
 		ATLASSERT(m_spRowset != NULL);
 
@@ -1438,7 +1449,7 @@ public:
 	HRESULT MoveToRatio(ULONG nNumerator, ULONG nDenominator, bool bForward = true)
 	{
 		ATLASSERT(m_spRowset != NULL);
-		ULONG   nRowsFetched;
+		DBCOUNTITEM   nRowsFetched;
 
 		CComPtr<IRowsetScroll> spRowsetScroll;
 		HRESULT hr = m_spRowset->QueryInterface(&spRowsetScroll);
@@ -1672,7 +1683,7 @@ public:
 		m_nCurrentRow  = m_nRows;
 
 		m_phRow = NULL;
-		ATLTRY(m_phRow = new HROW[m_nRows]);
+		ATLTRY(m_phRow = new HROW[(size_t)m_nRows]);  //REVIEW
 		if (m_phRow == NULL)
 			return E_OUTOFMEMORY;
 
@@ -1681,9 +1692,9 @@ public:
 
 	HRESULT m_hr;           // HRESULT to return from MoveNext at end of buffer
 	HROW*   m_phRow;        // Pointer to array of HROWs for each row in buffer
-	ULONG   m_nRows;        // Number of rows that will fit in the buffer
-	ULONG   m_nCurrentRows; // Number of rows currently in the buffer
-	ULONG   m_nCurrentRow;
+	ULONG_PTR   m_nRows;        // Number of rows that will fit in the buffer
+	ULONG_PTR   m_nCurrentRows; // Number of rows currently in the buffer
+	ULONG_PTR   m_nCurrentRow;
 };
 
 ///////////////////////////////////////////////////////////////////////////
@@ -1941,7 +1952,7 @@ public:
 
 		CAccessorBase::Close();
 	}
-	bool GetColumnType(ULONG nColumn, DBTYPE* pType) const
+	bool GetColumnType(ULONG_PTR nColumn, DBTYPE* pType) const
 	{
 		if (TranslateColumnNo(nColumn))
 		{
@@ -1951,7 +1962,7 @@ public:
 		else
 			return false;
 	}
-	bool GetColumnFlags(ULONG nColumn, DBCOLUMNFLAGS* pFlags) const
+	bool GetColumnFlags(ULONG_PTR nColumn, DBCOLUMNFLAGS* pFlags) const
 	{
 		if (TranslateColumnNo(nColumn))
 		{
@@ -1961,10 +1972,10 @@ public:
 		else
 			return false;
 	}
-	bool GetOrdinal(TCHAR* pColumnName, ULONG* pOrdinal) const
+	bool GetOrdinal(TCHAR* pColumnName, DBORDINAL* pOrdinal) const
 	{
 		ATLASSERT(pColumnName != NULL);
-		ULONG nColumn;
+		ULONG_PTR nColumn;
 		if (GetInternalColumnNo(pColumnName, &nColumn))
 		{
 			*pOrdinal = m_pColumnInfo[nColumn].iOrdinal;
@@ -1974,7 +1985,7 @@ public:
 			return false;
 	}
 
-	void* GetValue(ULONG nColumn) const
+	void* GetValue(ULONG_PTR nColumn) const
 	{
 		if (TranslateColumnNo(nColumn))
 			return _GetDataPtr(nColumn);
@@ -1985,7 +1996,7 @@ public:
 	void* GetValue(TCHAR* pColumnName) const
 	{
 		ATLASSERT(pColumnName != NULL);
-		ULONG nColumn;
+		ULONG_PTR nColumn;
 		if (GetInternalColumnNo(pColumnName, &nColumn))
 			return _GetDataPtr(nColumn);
 		else
@@ -1993,7 +2004,7 @@ public:
 	}
 
 	template <class ctype>
-	void _GetValue(ULONG nColumn, ctype* pData) const
+	void _GetValue(ULONG_PTR nColumn, ctype* pData) const
 	{
 		ATLASSERT(pData != NULL);
 		ATLASSERT(m_pColumnInfo[nColumn].ulColumnSize == sizeof(ctype));
@@ -2001,14 +2012,14 @@ public:
 		*pData = *pBuffer;
 	}
 	template <class ctype>
-	void _SetValue(ULONG nColumn, const ctype& data)
+	void _SetValue(ULONG_PTR nColumn, const ctype& data)
 	{
 		ATLASSERT(m_pColumnInfo[nColumn].ulColumnSize == sizeof(ctype));
 		ctype* pBuffer = (ctype*)_GetDataPtr(nColumn);
 		*pBuffer = (ctype)data;
 	}
 	template <class ctype>
-	bool GetValue(ULONG nColumn, ctype* pData) const
+	bool GetValue(ULONG_PTR nColumn, ctype* pData) const
 	{
 		if (TranslateColumnNo(nColumn))
 		{
@@ -2018,7 +2029,7 @@ public:
 		return false;
 	}
 	template <class ctype>
-	bool SetValue(ULONG nColumn, const ctype& data)
+	bool SetValue(ULONG_PTR nColumn, const ctype& data)
 	{
 		if (TranslateColumnNo(nColumn))
 		{
@@ -2031,7 +2042,7 @@ public:
 	bool GetValue(TCHAR *pColumnName, ctype* pData) const
 	{
 		ATLASSERT(pColumnName != NULL);
-		ULONG nColumn;
+		ULONG_PTR nColumn;
 		if (GetInternalColumnNo(pColumnName, &nColumn))
 		{
 			_GetValue(nColumn, pData);
@@ -2043,7 +2054,7 @@ public:
 	bool SetValue(TCHAR *pColumnName, const ctype& data)
 	{
 		ATLASSERT(pColumnName != NULL);
-		ULONG nColumn;
+		ULONG_PTR nColumn;
 		if (GetInternalColumnNo(pColumnName, &nColumn))
 		{
 			_SetValue(nColumn, data);
@@ -2051,68 +2062,68 @@ public:
 		}
 		return false;
 	}
-	bool GetLength(ULONG nColumn, ULONG* pLength) const
+	bool GetLength(ULONG_PTR nColumn, ULONG_PTR* pLength) const
 	{
 		ATLASSERT(pLength != NULL);
 		if (TranslateColumnNo(nColumn))
 		{
-			*pLength = *(ULONG*)(AddOffset((ULONG)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize));
+			*pLength = *(ULONG_PTR*)(AddOffset((ULONG_PTR)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize));
 			return true;
 		}
 		else
 			return false;
 	}
-	bool SetLength(ULONG nColumn, ULONG nLength)
+	bool SetLength(ULONG_PTR nColumn, ULONG_PTR nLength)
 	{
 		if (TranslateColumnNo(nColumn))
 		{
-			*(ULONG*)(AddOffset((ULONG)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize)) = nLength;
+			*(ULONG_PTR*)(AddOffset((ULONG_PTR)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize)) = nLength;
 			return true;
 		}
 		else
 			return false;
 	}
-	bool GetLength(TCHAR* pColumnName, ULONG* pLength) const
+	bool GetLength(TCHAR* pColumnName, ULONG_PTR* pLength) const
 	{
 		ATLASSERT(pColumnName != NULL);
 		ATLASSERT(pLength != NULL);
-		ULONG nColumn;
+		ULONG_PTR nColumn;
 		if (GetInternalColumnNo(pColumnName, &nColumn))
 		{
-			*pLength = *(ULONG*)(AddOffset((ULONG)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize));
+			*pLength = *(ULONG_PTR*)(AddOffset((ULONG_PTR)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize));
 			return true;
 		}
 		else
 			return false;
 	}
-	bool SetLength(TCHAR* pColumnName, ULONG nLength)
+	bool SetLength(TCHAR* pColumnName, ULONG_PTR nLength)
 	{
 		ATLASSERT(pColumnName != NULL);
-		ULONG nColumn;
+		ULONG_PTR nColumn;
 		if (GetInternalColumnNo(pColumnName, &nColumn))
 		{
-			*(ULONG*)(AddOffset((ULONG)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize)) = nLength;
+			*(ULONG_PTR*)(AddOffset((ULONG_PTR)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize)) = nLength;
 			return true;
 		}
 		else
 			return false;
 	}
-	bool GetStatus(ULONG nColumn, DBSTATUS* pStatus) const
+	bool GetStatus(ULONG_PTR nColumn, DBSTATUS* pStatus) const
 	{
 		ATLASSERT(pStatus != NULL);
 		if (TranslateColumnNo(nColumn))
 		{
-			*pStatus = *(ULONG*)(AddOffset(AddOffset((ULONG)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize), sizeof(ULONG)));
+			*pStatus = *(DBSTATUS*)(AddOffset(AddOffset((ULONG_PTR)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize), sizeof(ULONG)));
 			return true;
 		}
 		else
 			return false;
 	}
-	bool SetStatus(ULONG nColumn, DBSTATUS status)
+	bool SetStatus(ULONG_PTR nColumn, DBSTATUS status)
 	{
 		if (TranslateColumnNo(nColumn))
 		{
-			*(ULONG*)(AddOffset(AddOffset((ULONG)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize), sizeof(ULONG))) = status;
+			*(DBSTATUS*)(AddOffset(AddOffset((ULONG_PTR)_GetDataPtr(nColumn), m_pColumnInfo[nColumn].ulColumnSize), sizeof(ULONG))) = status;
 			return true;
 		}
 		else
@@ -2122,10 +2133,10 @@ public:
 	{
 		ATLASSERT(pColumnName != NULL);
 		ATLASSERT(pStatus != NULL);
-		ULONG nColumn;
+		ULONG_PTR nColumn;
 		if (GetInternalColumnNo(pColumnName, &nColumn))
 		{
-			*pStatus = *(ULONG*)((BYTE*)_GetDataPtr(nColumn) + m_pColumnInfo[nColumn].ulColumnSize + sizeof(ULONG));
+			*pStatus = *(DBSTATUS*)((BYTE*)_GetDataPtr(nColumn) + m_pColumnInfo[nColumn].ulColumnSize + sizeof(ULONG));
 			return true;
 		}
 		else
@@ -2134,10 +2145,10 @@ public:
 	bool SetStatus(TCHAR* pColumnName, DBSTATUS status)
 	{
 		ATLASSERT(pColumnName != NULL);
-		ULONG nColumn;
+		ULONG_PTR nColumn;
 		if (GetInternalColumnNo(pColumnName, &nColumn))
 		{
-			*(ULONG*)((BYTE*)_GetDataPtr(nColumn) + m_pColumnInfo[nColumn].ulColumnSize + sizeof(ULONG)) = status;
+			*(DBSTATUS*)((BYTE*)_GetDataPtr(nColumn) + m_pColumnInfo[nColumn].ulColumnSize + sizeof(ULONG)) = status;
 			return true;
 		}
 		else
@@ -2155,12 +2166,12 @@ public:
 		return hr;
 	}
 
-	ULONG GetColumnCount() const
+	ULONG_PTR GetColumnCount() const
 	{
 		return m_nColumns;
 	}
 
-	LPOLESTR GetColumnName(ULONG nColumn) const
+	LPOLESTR GetColumnName(ULONG_PTR nColumn) const
 	{
 		if (TranslateColumnNo(nColumn))
 			return m_pColumnInfo[nColumn].pwszName;
@@ -2168,7 +2179,7 @@ public:
 			return NULL;
 	}
 
-	HRESULT GetColumnInfo(IRowset* pRowset, ULONG* pColumns, DBCOLUMNINFO** ppColumnInfo)
+	HRESULT GetColumnInfo(IRowset* pRowset, DBORDINAL* pColumns, DBCOLUMNINFO** ppColumnInfo)
 	{
 		CComPtr<IColumnsInfo> spColumnsInfo;
 		HRESULT hr = pRowset->QueryInterface(&spColumnsInfo);
@@ -2180,10 +2191,11 @@ public:
 
 	HRESULT AddBindEntry(const DBCOLUMNINFO& info)
 	{
-		m_pColumnInfo = (DBCOLUMNINFO*)CoTaskMemRealloc(m_pColumnInfo, (m_nColumns + 1) * sizeof(DBCOLUMNINFO));
-		if (m_pColumnInfo == NULL)
+      DBCOLUMNINFO* pColumnInfo;
+		pColumnInfo = (DBCOLUMNINFO*)CoTaskMemRealloc(m_pColumnInfo, (ULONG)(m_nColumns + 1) * sizeof(DBCOLUMNINFO));  //REVIEW: size_t
+		if (pColumnInfo == NULL)
 			return E_OUTOFMEMORY;
-
+      m_pColumnInfo = pColumnInfo;
 		m_pColumnInfo[m_nColumns] = info;
 		m_nColumns++;
 
@@ -2195,21 +2207,21 @@ public:
 	// E.g. Calls SysFreeString on any BSTR's and Release on any interfaces.
 	void FreeRecordMemory(IRowset* pRowset)
 	{
-		ULONG i;
+		ULONG_PTR i;
 
 		for (i = 0; i < m_nColumns; i++)
 			CAccessorBase::FreeType(m_pColumnInfo[i].wType, (BYTE*)_GetDataPtr(i), pRowset);
 	}
-	void* _GetDataPtr(ULONG nColumn) const
+	void* _GetDataPtr(ULONG_PTR nColumn) const
 	{
-		return m_pBuffer + (ULONG)m_pColumnInfo[nColumn].pTypeInfo;
+		return m_pBuffer + (ULONG_PTR)m_pColumnInfo[nColumn].pTypeInfo;
 	}
-	bool GetInternalColumnNo(TCHAR* pColumnName, ULONG* pColumn) const
+	bool GetInternalColumnNo(TCHAR* pColumnName, ULONG_PTR* pColumn) const
 	{
 		ATLASSERT(pColumnName != NULL);
 		ATLASSERT(pColumn != NULL);
 		USES_CONVERSION;
-		ULONG       i;
+		ULONG_PTR   i;
 		ULONG       nSize = (lstrlen(pColumnName) + 1) * sizeof(OLECHAR);
 		OLECHAR*    pOleColumnName = T2OLE(pColumnName);
 
@@ -2236,8 +2248,8 @@ public:
 		if (FAILED(hr))
 			return hr;
 
-		ULONG   i;
-		ULONG   nOffset = 0, nLengthOffset, nStatusOffset;
+		ULONG_PTR   i;
+		ULONG_PTR   nOffset = 0, nLengthOffset, nStatusOffset;
 
 		// If the user hasn't specifed the column information to bind by calling AddBindEntry then
 		// we get it ourselves
@@ -2258,7 +2270,7 @@ public:
 			m_bOverride = true;
 
 		DBBINDING* pBinding = NULL;
-		ATLTRY(pBinding= new DBBINDING[m_nColumns]);
+		ATLTRY(pBinding= new DBBINDING[(size_t)m_nColumns]);  //REVIEW
 		if (pBinding == NULL)
 			return E_OUTOFMEMORY;
 
@@ -2298,7 +2310,7 @@ public:
 
 			// Note that, as we're not using this for anything else, we're using the
 			// pTypeInfo element to store the offset to our data.
-			m_pColumnInfo[i].pTypeInfo = (ITypeInfo*)nOffset;
+			m_pColumnInfo[i].pTypeInfo = (ITypeInfo*)(DWORD_PTR)nOffset;
 
 			nOffset = AddOffset(nStatusOffset, sizeof(DBSTATUS));
 		}
@@ -2317,7 +2329,7 @@ public:
 		// Allocate enough memory for the data buffer and tell the rowset
 		// Note that the rowset will free the memory in its destructor.
 		m_pBuffer = NULL;
-		ATLTRY(m_pBuffer = new BYTE[nOffset]);
+		ATLTRY(m_pBuffer = new BYTE[(size_t)nOffset]);  //REVIEW
 		if (m_pBuffer == NULL)
 		{
 			delete [] pBinding;
@@ -2330,27 +2342,27 @@ public:
 		return hr;
 	}
 
-	static ULONG AddOffset(ULONG nCurrent, ULONG nAdd)
+	static ULONG_PTR AddOffset(ULONG_PTR nCurrent, ULONG_PTR nAdd)
 	{
 		struct foobar
 		{
 			char    foo;
-			long    bar;
+			LONG_PTR    bar;
 		};
-		ULONG nAlign = offsetof(foobar, bar);
+		ULONG_PTR nAlign = offsetof(foobar, bar);
 
-		return nCurrent + nAdd + (nAdd % nAlign);;
+		return nCurrent + nAdd + (nAlign - (nAdd % nAlign));
 	}
 
 	// Translate the column number to the index into the column info array
-	bool TranslateColumnNo(ULONG& nColumn) const
+	bool TranslateColumnNo(ULONG_PTR& nColumn) const
 	{
 		ATLASSERT(m_pColumnInfo != NULL);
 		// If the user has overriden the binding then we need to search
 		// through the column info for the ordinal number
 		if (m_bOverride)
 		{
-			for (ULONG i = 0; i < m_nColumns; i++)
+			for (ULONG_PTR i = 0; i < m_nColumns; i++)
 			{
 				if (m_pColumnInfo[i].iOrdinal == nColumn)
 				{
@@ -2377,7 +2389,7 @@ public:
 	typedef CDynamicAccessor _OutputColumnsClass;
 	static bool HasOutputColumns() { return true; }
 
-	ULONG               m_nColumns;
+	ULONG_PTR           m_nColumns;
 	DBCOLUMNINFO*       m_pColumnInfo;
 	OLECHAR*            m_pStringsBuffer;
 	bool                m_bOverride;
@@ -2413,7 +2425,7 @@ public:
 		delete m_pParameterBuffer;
 	};
 	// nParam is the parameter number (offset from 1)
-	bool GetParamType(ULONG nParam, DBTYPE* pType) const
+	bool GetParamType(ULONG_PTR nParam, DBTYPE* pType) const
 	{
 		ATLASSERT(pType != NULL);
 		if (nParam == 0 || nParam > m_nParams)
@@ -2423,7 +2435,7 @@ public:
 		return true;
 	}
 	template <class ctype>
-	bool GetParam(ULONG nParam, ctype* pData) const
+	bool GetParam(ULONG_PTR nParam, ctype* pData) const
 	{
 		ATLASSERT(pData != NULL);
 		ctype* pBuffer = (ctype*)GetParam(nParam);
@@ -2434,7 +2446,7 @@ public:
 
 	}
 	template <class ctype>
-	bool SetParam(ULONG nParam, ctype* pData)
+	bool SetParam(ULONG_PTR nParam, ctype* pData)
 	{
 		ATLASSERT(pData != NULL);
 		ctype* pBuffer = (ctype*)GetParam(nParam);
@@ -2466,7 +2478,7 @@ public:
 		return true;
 
 	}
-	void* GetParam(ULONG nParam) const
+	void* GetParam(ULONG_PTR nParam) const
 	{
 		if (nParam == 0 || nParam > m_nParams)
 			return NULL;
@@ -2476,7 +2488,7 @@ public:
 	void* GetParam(TCHAR* pParamName) const
 	{
 		USES_CONVERSION;
-		ULONG    i;
+		ULONG_PTR    i;
 		ULONG       nSize = (lstrlen(pParamName) + 1) * sizeof(OLECHAR);
 		OLECHAR*    pOleParamName = T2OLE(pParamName);
 
@@ -2491,12 +2503,12 @@ public:
 			return NULL;    // Not Found
 	}
 	// Get the number of parameters
-	ULONG GetParamCount() const
+	ULONG_PTR GetParamCount() const
 	{
 		return m_nParams;
 	}
 	// Get the parameter name for the passed parameter number
-	LPOLESTR GetParamName(ULONG ulParam) const
+	LPOLESTR GetParamName(ULONG_PTR ulParam) const
 	{
 		ATLASSERT((ulParam >= 0) && (ulParam<m_nParams));
 		return m_ppParamName[ulParam];
@@ -2525,7 +2537,7 @@ public:
 		if (FAILED(hr))
 			return hr;
 
-		ULONG           ulParams     = 0;
+		DB_UPARAMS      ulParams     = 0;
 		DBPARAMINFO*    pParamInfo   = NULL;
 		LPOLESTR        pNamesBuffer = NULL;
 
@@ -2544,7 +2556,7 @@ public:
 			return hr;
 		}
 
-		ULONG nOffset = 0;
+		ULONG_PTR nOffset = 0;
 		DBBINDING* pCurrent = m_pParameterEntry;
 		for (ULONG l=0; l<ulParams; l++)
 		{
@@ -2573,7 +2585,7 @@ public:
 
 		// Allocate memory for the new buffer
 		m_pParameterBuffer = NULL;
-		ATLTRY(m_pParameterBuffer = new BYTE[nOffset]);
+		ATLTRY(m_pParameterBuffer = new BYTE[(size_t)nOffset]);  //REVIEW
 		if (m_pParameterBuffer == NULL)
 		{
 			// Note that pNamesBuffer will be freed in the destructor
@@ -2594,17 +2606,17 @@ public:
 	{
 		return true;
 	}
-	HRESULT AllocateParameterInfo(int nParamEntries)
+	HRESULT AllocateParameterInfo(ULONG_PTR nParamEntries)
 	{
 		// Allocate memory for the bind structures
 		m_pParameterEntry = NULL;
-		ATLTRY(m_pParameterEntry = new DBBINDING[nParamEntries]);
+		ATLTRY(m_pParameterEntry = new DBBINDING[(size_t)nParamEntries]);  //REVIEW
 		if (m_pParameterEntry == NULL)
 			return E_OUTOFMEMORY;
 
 		// Allocate memory to store the field names
 		m_ppParamName = NULL;
-		ATLTRY(m_ppParamName = new OLECHAR*[nParamEntries]);
+		ATLTRY(m_ppParamName = new OLECHAR*[(size_t)nParamEntries]);  //REVIEW
 		if (m_ppParamName == NULL)
 			return E_OUTOFMEMORY;
 		return S_OK;
@@ -2612,13 +2624,13 @@ public:
 
 // Data Members
 	// Number of parameters
-	ULONG               m_nParams;
+	ULONG_PTR           m_nParams;
 	// A pointer to the entry structures for each parameter
 	DBBINDING*          m_pParameterEntry;
 	// String names for the parameters
 	OLECHAR**           m_ppParamName;
 	// The size of the buffer where the parameters are stored
-	ULONG               m_nParameterBufferSize;
+	ULONG_PTR           m_nParameterBufferSize;
 	// A pointer to the buffer where the parameters are stored
 	BYTE*               m_pParameterBuffer;
 };
@@ -2644,7 +2656,7 @@ public:
 		delete [] m_pEntry;
 		delete [] m_pParameterEntry;
 	}
-	HRESULT CreateAccessor(int nBindEntries, void* pBuffer, ULONG nBufferSize)
+	HRESULT CreateAccessor(ULONG_PTR nBindEntries, void* pBuffer, ULONG_PTR nBufferSize)
 	{
 		m_pBuffer     = (BYTE*)pBuffer;
 		m_nBufferSize = nBufferSize;
@@ -2656,13 +2668,13 @@ public:
 		m_pEntry = NULL;
 
 		// Allocate memory for the bind structures
-		ATLTRY(m_pEntry = new DBBINDING[nBindEntries]);
+		ATLTRY(m_pEntry = new DBBINDING[(size_t)nBindEntries]);  //REVIEW
 		if (m_pEntry == NULL)
 			return E_OUTOFMEMORY;
 		else
 			return S_OK;
 	}
-	HRESULT CreateParameterAccessor(int nBindEntries, void* pBuffer, ULONG nBufferSize)
+	HRESULT CreateParameterAccessor(ULONG_PTR nBindEntries, void* pBuffer, ULONG_PTR nBufferSize)
 	{
 		m_pParameterBuffer     = (BYTE*)pBuffer;
 		m_nParameterBufferSize = nBufferSize;
@@ -2671,17 +2683,17 @@ public:
 
 		// Allocate memory for the bind structures
 		m_pParameterEntry = NULL;
-		ATLTRY(m_pParameterEntry  = new DBBINDING[nBindEntries]);
+		ATLTRY(m_pParameterEntry  = new DBBINDING[(size_t)nBindEntries]);  //REVIEW
 		if (m_pParameterEntry == NULL)
 			return E_OUTOFMEMORY;
 		else
 			return S_OK;
 	}
-	void AddBindEntry(ULONG nOrdinal, DBTYPE wType, ULONG nColumnSize,
+	void AddBindEntry(ULONG_PTR nOrdinal, DBTYPE wType, ULONG_PTR nColumnSize,
 			void* pData, void* pLength = NULL, void* pStatus = NULL)
 	{
 		ATLASSERT(m_nEntry < m_nColumns);
-		ULONG   nLengthOffset, nStatusOffset;
+		ULONG_PTR   nLengthOffset, nStatusOffset;
 
 		if (pStatus != NULL)
 			nStatusOffset = (BYTE*)pStatus - m_pBuffer;
@@ -2698,12 +2710,12 @@ public:
 
 		m_nEntry++;
 	}
-	void AddParameterEntry(ULONG nOrdinal, DBTYPE wType, ULONG nColumnSize,
+	void AddParameterEntry(ULONG_PTR nOrdinal, DBTYPE wType, ULONG_PTR nColumnSize,
 			void* pData, void* pLength = NULL, void* pStatus = NULL,
 			DBPARAMIO eParamIO = DBPARAMIO_INPUT)
 	{
 		ATLASSERT(m_nCurrentParameter < m_nParameters);
-		ULONG   nLengthOffset, nStatusOffset;
+		ULONG_PTR   nLengthOffset, nStatusOffset;
 
 		if (pStatus != NULL)
 			nStatusOffset = (BYTE*)pStatus - m_pParameterBuffer;
@@ -2726,7 +2738,7 @@ public:
 	// E.g. Calls SysFreeString on any BSTR's and Release on any interfaces.
 	void FreeRecordMemory(IRowset* pRowset)
 	{
-		ULONG i;
+		ULONG_PTR i;
 
 		for (i = 0; i < m_nColumns; i++)
 			CAccessorBase::FreeType(m_pEntry[i].wType, m_pBuffer + m_pEntry[i].obValue, pRowset);
@@ -2777,7 +2789,7 @@ public:
 	bool HasParameters() { return (m_nParameters > 0); }
 	typedef CManualAccessor _OutputColumnsClass;
 	static bool HasOutputColumns() { return true; }
-	ULONG GetColumnCount() const
+	ULONG_PTR GetColumnCount() const
 	{
 		return m_nColumns;
 	}
@@ -2785,19 +2797,19 @@ public:
 	// The binding structure for the output columns
 	DBBINDING*          m_pEntry;
 	// The number of output columns
-	ULONG               m_nColumns;
+	ULONG_PTR            m_nColumns;
 	// The number of the current entry for the output columns
-	ULONG               m_nEntry;
+	ULONG_PTR            m_nEntry;
 	// The size of the data buffer for the output columns
-	ULONG               m_nBufferSize;
+	ULONG_PTR            m_nBufferSize;
 	// The number of parameters columns
-	ULONG               m_nParameters;
+	ULONG_PTR            m_nParameters;
 	// The number of the parameter column to bind next
-	ULONG               m_nCurrentParameter;
+	ULONG_PTR            m_nCurrentParameter;
 	// A pointer to the entry structures for each parameter
 	DBBINDING*          m_pParameterEntry;
 	// The size of the buffer where the parameters are stored
-	ULONG               m_nParameterBufferSize;
+	ULONG_PTR           m_nParameterBufferSize;
 	// A pointer to the buffer where the parameters are stored
 	BYTE*               m_pParameterBuffer;
 };
@@ -2823,7 +2835,7 @@ public:
 	}
 	// Used to get the column information from the opened rowset. The user is responsible
 	// for freeing the returned column information and string buffer.
-	HRESULT GetColumnInfo(ULONG* pulColumns,
+	HRESULT GetColumnInfo(ULONG_PTR* pulColumns,
 		DBCOLUMNINFO** ppColumnInfo, LPOLESTR* ppStrings) const
 	{
 		ATLASSERT(GetInterface() != NULL);
@@ -2839,7 +2851,7 @@ public:
 	}
 	// Used to get the column information when overriding the bindings using CDynamicAccessor
 	// The user should CoTaskMemFree the column information pointer that is returned.
-	HRESULT GetColumnInfo(ULONG* pColumns, DBCOLUMNINFO** ppColumnInfo)
+	HRESULT GetColumnInfo(ULONG_PTR* pColumns, DBCOLUMNINFO** ppColumnInfo)
 	{
 		// If you get a compilation here, then you are most likely calling this function
 		// from a class that is not using CDynamicAccessor.
@@ -3384,7 +3396,7 @@ class CSession
 {
 public:
 	// Create a session on the passed datasource
-	HRESULT Open(const CDataSource& ds, DBPROPSET *pPropSet = NULL, ULONG ulPropSets = 0)
+	HRESULT Open(const CDataSource& ds)
 	{
 		CComPtr<IDBCreateSession> spSession;
 
@@ -3396,23 +3408,8 @@ public:
 			return hr;
 
 		hr = spSession->CreateSession(NULL, IID_IOpenRowset, (IUnknown**)&m_spOpenRowset);
-
-		if( pPropSet != NULL && SUCCEEDED(hr) && m_spOpenRowset != NULL )
-		{
-			// If the user didn't specify the default parameter, use one
-			if (pPropSet != NULL && ulPropSets == 0)
-				ulPropSets = 1;
-
-			CComPtr<ISessionProperties> spSessionProperties;
-			hr = m_spOpenRowset->QueryInterface(__uuidof(ISessionProperties), (void**)&spSessionProperties);
-			if(FAILED(hr))
-				return hr;
-
-			hr = spSessionProperties->SetProperties( ulPropSets, pPropSet );
-		}
 		return hr;
 	}
-
 	// Close the session
 	void Close()
 	{
@@ -3604,7 +3601,7 @@ public:
 		m_spCommand.Release();
 	}
 	// Get the parameter information from the command
-	HRESULT GetParameterInfo(ULONG* pParams, DBPARAMINFO** ppParamInfo,
+	HRESULT GetParameterInfo(ULONG_PTR* pParams, DBPARAMINFO** ppParamInfo,
 				OLECHAR** ppNamesBuffer)
 	{
 		CComPtr<ICommandWithParameters> spCommandParameters;
@@ -3618,7 +3615,7 @@ public:
 		return hr;
 	}
 	// Set the parameter information for the command
-	HRESULT SetParameterInfo(ULONG ulParams, const ULONG* pOrdinals,
+	HRESULT SetParameterInfo(ULONG_PTR ulParams, const ULONG_PTR* pOrdinals,
 				const DBPARAMBINDINFO* pParamInfo)
 	{
 		CComPtr<ICommandWithParameters> spCommandParameters;
@@ -3669,7 +3666,7 @@ class CCommand :
 public:
 	// Create a command on the session and execute it
 	HRESULT Open(const CSession& session, LPCTSTR szCommand = NULL,
-		DBPROPSET *pPropSet = NULL, LONG* pRowsAffected = NULL,
+		DBPROPSET *pPropSet = NULL, LONG_PTR* pRowsAffected = NULL,
 		REFGUID guidCommand = DBGUID_DEFAULT, bool bBind = true)
 	{
 		HRESULT hr;
@@ -3686,7 +3683,7 @@ public:
 		return Open(pPropSet, pRowsAffected, bBind);
 	}
 	// Used if you have previously created the command
-	HRESULT Open(DBPROPSET *pPropSet = NULL, LONG* pRowsAffected = NULL, bool bBind = true)
+	HRESULT Open(DBPROPSET *pPropSet = NULL, LONG_PTR* pRowsAffected = NULL, bool bBind = true)
 	{
 		HRESULT     hr;
 		DBPARAMS    params;
@@ -3719,7 +3716,7 @@ public:
 			return hr;
 	}
 	// Get the next rowset when using multiple result sets
-	HRESULT GetNextResult(LONG* pulRowsAffected, bool bBind = true)
+	HRESULT GetNextResult(LONG_PTR* pulRowsAffected, bool bBind = true)
 	{
 		// This function should only be called if CMultipleResults is being
 		// used as the third template parameter
@@ -3745,7 +3742,7 @@ public:
 	}
 
 // Implementation
-	HRESULT Execute(IRowset** ppRowset, DBPARAMS* pParams, DBPROPSET *pPropSet, LONG* pRowsAffected)
+	HRESULT Execute(IRowset** ppRowset, DBPARAMS* pParams, DBPROPSET *pPropSet, LONG_PTR* pRowsAffected)
 	{
 		HRESULT hr;
 
@@ -3764,7 +3761,7 @@ public:
 
 		// If the user want the rows affected then return it back, otherwise
 		// just point to our local variable here.
-		LONG nAffected, *pAffected;
+		LONG_PTR nAffected, *pAffected;
 		if (pRowsAffected)
 			pAffected = pRowsAffected;
 		else
@@ -3808,8 +3805,8 @@ public:
 	STDMETHOD(OnFieldChange)(
 			/* [in] */ IRowset* /* pRowset */,
 			/* [in] */ HROW /* hRow */,
-			/* [in] */ ULONG /* cColumns */,
-			/* [size_is][in] */ ULONG /* rgColumns*/ [] ,
+			/* [in] */ DBORDINAL /* cColumns */,
+			/* [size_is][in] */ DBORDINAL /* rgColumns*/ [] ,
 			/* [in] */ DBREASON /* eReason */,
 			/* [in] */ DBEVENTPHASE /* ePhase */,
 			/* [in] */ BOOL /* fCantDeny */)
@@ -3818,7 +3815,7 @@ public:
 	}
 	STDMETHOD(OnRowChange)(
 			/* [in] */ IRowset* /* pRowset */,
-			/* [in] */ ULONG /* cRows */,
+			/* [in] */ DBCOUNTITEM /* cRows */,
 			/* [size_is][in] */ const HROW /* rghRows*/ [] ,
 			/* [in] */ DBREASON /* eReason */,
 			/* [in] */ DBEVENTPHASE /* ePhase */,
