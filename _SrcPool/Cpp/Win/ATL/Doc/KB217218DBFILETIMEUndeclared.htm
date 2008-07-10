@@ -1,0 +1,87 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-ca">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>FIX: DBFILETIME Undeclared Identifier Error Compiling OLE DB Template 
+Classes</title>
+</head>
+
+<body>
+<h1 class="title">FIX: DBFILETIME Undeclared Identifier Error Compiling OLE DB 
+Template Classes</h1>
+<p>This article was previously published under Q217218</p>
+<p>Article ID:217218 Last Review:June 18, 2001 Revision:1.0</p>
+<h2 class="subTitle" id="tocHeadRef">SYMPTOMS</h2>
+<div class="sbody">
+  When compiling an Active Template Library (ATL) OLE DB Provider or Consumer 
+  project, you get one or more of the following compilation errors:
+  <div class="errormsg">
+    ...\atldbcli.h(76) : error C2065: 'DBFILETIME' : undeclared identifier<br>
+    ...\atldbcli.h(76) : error C2059: syntax error : ')'<br>
+    ...\atldbcli.h(76) : error C2143: syntax error : missing ';' before '{'<br>
+    ...\atldbcli.h(76) : error C2447: missing function header (old-style formal 
+    list?)</div>
+</div>
+<h2 class="subTitle" id="tocHeadRef">CAUSE</h2>
+<div class="sbody">
+  A header file (atldbcli.h) used by the ATL OLE DB Provider and Consumer 
+  template class utilizes a data type DBFILETIME that is no longer defined in 
+  the oledb.h header file installed by the Microsoft Data Access SDK 2.1. The 
+  newer version of the oledb.h file uses FILETIME rather than DBFILETIME. The 
+  Oledb.h file installed by Data Access SDK 2.1, shows the as created on date 
+  Friday, November 13, 1998 and does not include the definition of DBFILETIME.</div>
+<h2 class="subTitle" id="tocHeadRef">RESOLUTION</h2>
+<div class="sbody">
+  This problem is fixed in Visual C++ version 6.0 Service Pack 3.</div>
+<h2 class="subTitle" id="tocHeadRef">STATUS</h2>
+<div class="sbody">
+  Microsoft has confirmed that this is a problem in the Microsoft products that 
+  are listed at the beginning of this article. <br>
+  <br>
+  This bug was corrected in Visual Studio 6.0 Service Pack 3. For more 
+  information about Visual Studio service packs, please see the following 
+  articles in the Microsoft Knowledge Base:
+  <div class="indent">
+    <a class="KBlink" href="http://support.microsoft.com/kb/194022/EN-US/">
+    194022</a><span class="pLink"> (http://support.microsoft.com/kb/194022/EN-US/)</span> 
+    INFO: Visual Studio 6.0 Service Packs, What, Where, Why<br>
+    <br>
+    <a class="KBlink" href="http://support.microsoft.com/kb/194295/EN-US/">
+    194295</a><span class="pLink"> (http://support.microsoft.com/kb/194295/EN-US/)</span> 
+    HOWTO: Tell That Visual Studio 6.0 Service Packs Are Installed
+  </div>
+</div>
+<h2 class="subTitle" id="tocHeadRef">MORE INFORMATION</h2>
+<div class="sbody">
+  Older versions of oledb.h define DBFILETIME as an equivalent structure to the 
+  Win32 FILETIME. The duplicate definition was removed in the version of oledb.h 
+  installed by the Microsoft Data Access SDK 2.1 to avoid confusion between the 
+  two identical types.<br>
+  <br>
+  The atldbcli.h header file that ships with Visual C++ 6.0 uses the older 
+  DBFILETIME structure, and will generate the &quot;'DBFILETIME' : undeclared 
+  identifier&quot; compiler error if used with the newer version of oledb.h. Visual 
+  C++ version 6.0 Service Pack 3 installs an updated version of atldbcli.h that 
+  uses the FILETIME structure rather than DBFILETIME.</div>
+<h5>APPLIES TO</h5>
+<table class="list">
+  <tr>
+    <td class="bullet">•</td>
+    <td class="text">Microsoft Visual Studio 6.0 Service Pack 3</td>
+  </tr>
+  <tr>
+    <td class="bullet">•</td>
+    <td class="text">Microsoft Visual C++ 6.0 Professional Edition</td>
+  </tr>
+  <tr>
+    <td class="bullet">•</td>
+    <td class="text">Microsoft Visual Basic 6.0 Enterprise Edition</td>
+  </tr>
+</table>
+<h5>Keywords:&nbsp;</h5>
+<p>kbbug kbfix kbprovider kbconsumer kbvs600sp3fix KB217218</p>
+<p>&nbsp;</p>
+</body>
+
+</html>
