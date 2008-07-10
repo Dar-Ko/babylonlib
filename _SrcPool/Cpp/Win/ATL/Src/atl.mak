@@ -124,6 +124,8 @@ LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /in
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:ALPHA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
 !else if "$(PLATFORM)" == "IA64"
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:IA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atl21asm.lib
+!else if "$(PLATFORM)" == "AMD64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:AMD64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atlamd64.lib
 !else
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /nod:olepro32.lib /nod:urlmon.lib /nod:oldnames.lib
 !endif
@@ -241,6 +243,8 @@ LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /in
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:ALPHA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
 !else if "$(PLATFORM)" == "IA64"
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:IA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atl21asm.lib
+!else if "$(PLATFORM)" == "AMD64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:AMD64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atlamd64.lib
 !else
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
 !endif
@@ -349,6 +353,8 @@ LINK32_FLAGS=delayimp.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMai
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /incremental:no /debug /pdb:"$(OUTDIR)\Atl.pdb" /machine:ALPHA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
 !else if "$(PLATFORM)" == "IA64"
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:no /debug /pdb:"$(OUTDIR)\Atl.pdb" /machine:IA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atl21asm.lib
+!else if "$(PLATFORM)" == "AMD64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:no /debug /pdb:"$(OUTDIR)\Atl.pdb" /machine:AMD64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atlamd64.lib
 !else
 LINK32_FLAGS=delayimp.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /incremental:no /debug /pdb:"$(OUTDIR)\Atl.pdb" /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /delayload:user32.dll /delayload:gdi32.dll /delayload:ole32.dll /delayload:oleaut32.dll /delayload:advapi32.dll /delayload:olepro32.dll 
 !endif
@@ -457,6 +463,8 @@ LINK32_FLAGS=delayimp.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMai
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /debug /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /machine:ALPHA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
 !else if "$(PLATFORM)" == "IA64"
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /debug /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /machine:IA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atl21asm.lib
+!else if "$(PLATFORM)" == "AMD64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /debug /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /machine:AMD64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atlamd64.lib
 !else
 LINK32_FLAGS=delayimp.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /debug /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /delayload:user32.dll /delayload:gdi32.dll /delayload:ole32.dll /delayload:oleaut32.dll /delayload:advapi32.dll /delayload:olepro32.dll 
 !endif

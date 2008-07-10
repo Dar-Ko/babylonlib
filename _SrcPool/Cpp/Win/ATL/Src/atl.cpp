@@ -37,7 +37,7 @@ END_OBJECT_MAP()
 // DLL Entry Point
 
 extern "C"
-BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID /*lpReserved*/)
+BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 {
 	if (dwReason == DLL_PROCESS_ATTACH)
 	{
@@ -63,7 +63,8 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID /*lpReserved*/)
 		int n = 0;
 		_CrtSetBreakAlloc(n);
 #endif
-		_Module.Init(ObjectMap, hInstance, &LIBID_ATLLib);
+		if( FAILED( _Module.Init(ObjectMap, hInstance, &LIBID_ATLLib) ) )
+			return FALSE;
 #ifdef _ATL_DEBUG_INTERFACES
 		int ni = 0;
 		_Module.m_nIndexBreakAt = ni;
@@ -76,7 +77,8 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID /*lpReserved*/)
 		::OutputDebugString(_T("ATL.DLL exiting.\n"));
 #endif
 		_Module.Term();
-		AtlAxWinTerm();
+		if (lpReserved == NULL && g_bAtlAxWinInitialized)
+			AtlAxWinTerm();
 #ifdef _DEBUG
 		if (_CrtDumpMemoryLeaks())
 			::MessageBeep(MB_ICONEXCLAMATION);
@@ -118,3 +120,5 @@ STDAPI DllUnregisterServer(void)
 	//No need to unregister typelib since ATL is a system component.
 	return S_OK;
 }
+
+BOOL g_bAtlAxWinInitialized = FALSE;
