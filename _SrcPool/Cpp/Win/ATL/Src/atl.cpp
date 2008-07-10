@@ -33,7 +33,6 @@ BEGIN_OBJECT_MAP(ObjectMap)
 	OBJECT_ENTRY_NON_CREATEABLE(CAxHostWindow)
 END_OBJECT_MAP()
 
-
 /////////////////////////////////////////////////////////////////////////////
 // DLL Entry Point
 
@@ -119,20 +118,3 @@ STDAPI DllUnregisterServer(void)
 	//No need to unregister typelib since ATL is a system component.
 	return S_OK;
 }
-
-#ifndef _DEBUG
-#include <delayimp.h>
-
-extern "C"
-{
-FARPROC
-WINAPI
-Downlevel_DelayLoadFailureHook(
-    UINT unReason,
-    PDelayLoadInfo pDelayInfo
-    );
-
-PfnDliHook __pfnDliFailureHook = Downlevel_DelayLoadFailureHook;
-
-}
-#endif

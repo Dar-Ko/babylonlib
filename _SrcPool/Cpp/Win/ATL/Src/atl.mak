@@ -21,6 +21,14 @@ CFG=atl - Win32 Debug
 !ERROR An invalid configuration is specified.
 !ENDIF 
 
+!IF "$(PLATFORM)" == ""
+!IF "$(PROCESSOR_ARCHITECTURE)" == "ALPHA"
+PLATFORM=ALPHA
+!ELSE IF "$(PROCESSOR_ARCHITECTURE)" == "x86"
+PLATFORM=INTEL
+!ENDIF
+!ENDIF
+
 !IF "$(OS)" == "Windows_NT"
 NULL=
 !ELSE 
@@ -60,12 +68,15 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MDd /W3 /Gm /Od /I "." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_MBCS" /Fp"$(INTDIR)\Atl.pch" /Yu"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c
+CPP_PROJ=/nologo /MDd /W3 /Gm /Od /I "." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_MBCS" /Fp"$(INTDIR)\Atl.pch" /Yu"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /c
+!IF "$(PLATFORM)" == "ALPHA64"
+CPP_PROJ=$(CPP_PROJ) /Ap64 /Wp64
+!ENDIF
 
 !if "$(_VCBUILD)" == "1"
 CPP_PROJ=$(CPP_PROJ) /Zi
 !else
-CPP_PROJ=$(CPP_PROJ) /ZI
+CPP_PROJ=$(CPP_PROJ) /Zi
 !endif
 
 .c{$(INTDIR)}.obj::
@@ -107,10 +118,14 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\Atl.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-!if "$(PROCESSOR_ARCHITECTURE)" == "ALPHA"
+!if "$(PLATFORM)" == "ALPHA"
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:ALPHA /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
+!else if "$(PLATFORM)" == "ALPHA64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:ALPHA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
+!else if "$(PLATFORM)" == "IA64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:IA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atl21asm.lib
 !else
-LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /nod:olepro32.lib /nod:urlmon.lib /nod:oldnames.lib
 !endif
 DEF_FILE= \
 	".\atl.def"
@@ -133,7 +148,6 @@ SOURCE=$(InputPath)
 "$(OutDir)\regsvr32.trg"	 : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	<<tempfile.bat 
 	@echo off 
-	echo regsvr32 /s /c "$(TargetPath)" 
 	echo regsvr32 exec. time > "$(OutDir)\regsvr32.trg" 
 << 
 	
@@ -171,12 +185,15 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MDd /W3 /Gm /Od /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_UNICODE" /Fp"$(INTDIR)\Atl.pch" /Yu"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c
+CPP_PROJ=/nologo /MDd /W3 /Gm /Od /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_UNICODE" /Fp"$(INTDIR)\Atl.pch" /Yu"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /c
+!IF "$(PLATFORM)" == "ALPHA64"
+CPP_PROJ=$(CPP_PROJ) /Ap64 /Wp64
+!ENDIF
 
 !if "$(_VCBUILD)" == "1"
 CPP_PROJ=$(CPP_PROJ) /Zi
 !else
-CPP_PROJ=$(CPP_PROJ) /ZI
+CPP_PROJ=$(CPP_PROJ) /Zi
 !endif
 
 .c{$(INTDIR)}.obj::
@@ -218,8 +235,12 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\Atl.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-!if "$(PROCESSOR_ARCHITECTURE)" == "ALPHA"
+!if "$(PLATFORM)" == "ALPHA"
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:ALPHA /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
+!else if "$(PLATFORM)" == "ALPHA64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:ALPHA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
+!else if "$(PLATFORM)" == "IA64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:IA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atl21asm.lib
 !else
 LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:yes /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
 !endif
@@ -244,7 +265,6 @@ SOURCE=$(InputPath)
 "$(OutDir)\regsvr32.trg"	 : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	<<tempfile.bat 
 	@echo off 
-	echo regsvr32 /s /c "$(TargetPath)" 
 	echo regsvr32 exec. time > "$(OutDir)\regsvr32.trg" 
 << 
 	
@@ -267,8 +287,6 @@ CLEAN :
 	-@erase "$(INTDIR)\RegObj.obj"
 	-@erase "$(INTDIR)\StdAfx.obj"
 	-@erase "$(INTDIR)\vc60.idb"
-	-@erase "$(INTDIR)\vc60.pdb"
-	-@erase "$(OUTDIR)\Atl.pdb"
 	-@erase "$(OUTDIR)\Atl.dll"
 	-@erase "$(OUTDIR)\Atl.exp"
 	-@erase "$(OUTDIR)\Atl.lib"
@@ -281,7 +299,10 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MT /W3 /Zi /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_MBCS" /D "_ATL_MIN_CRT" /Fp"$(INTDIR)\Atl.pch" /Yu"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MT /W3 /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_MBCS" /Fp"$(INTDIR)\Atl.pch" /Yu"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /c /Zi
+!IF "$(PLATFORM)" == "ALPHA64"
+CPP_PROJ=$(CPP_PROJ) /Ap64 /Wp64
+!ENDIF
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -322,10 +343,14 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\Atl.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-!if "$(PROCESSOR_ARCHITECTURE)" == "ALPHA"
-LINK32_FLAGS=delayimp.lib atldload.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /machine:ALPHA /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /delayload:user32.dll /delayload:gdi32.dll /delayload:ole32.dll /delayload:oleaut32.dll /delayload:advapi32.dll /delayload:olepro32.dll 
+!if "$(PLATFORM)" == "ALPHA"
+LINK32_FLAGS=delayimp.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /incremental:no /debug/pdb:"$(OUTDIR)\Atl.pdb" /machine:ALPHA /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /delayload:user32.dll /delayload:gdi32.dll /delayload:ole32.dll /delayload:oleaut32.dll /delayload:advapi32.dll /delayload:olepro32.dll 
+!else if "$(PLATFORM)" == "ALPHA64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /incremental:no /debug /pdb:"$(OUTDIR)\Atl.pdb" /machine:ALPHA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
+!else if "$(PLATFORM)" == "IA64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /incremental:no /debug /pdb:"$(OUTDIR)\Atl.pdb" /machine:IA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atl21asm.lib
 !else
-LINK32_FLAGS=delayimp.lib  atldload.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /debug /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /delayload:user32.dll /delayload:gdi32.dll /delayload:ole32.dll /delayload:oleaut32.dll /delayload:advapi32.dll /delayload:olepro32.dll 
+LINK32_FLAGS=delayimp.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /incremental:no /debug /pdb:"$(OUTDIR)\Atl.pdb" /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /delayload:user32.dll /delayload:gdi32.dll /delayload:ole32.dll /delayload:oleaut32.dll /delayload:advapi32.dll /delayload:olepro32.dll 
 !endif
 DEF_FILE= \
 	".\atl.def"
@@ -348,7 +373,6 @@ SOURCE=$(InputPath)
 "$(OutDir)\regsvr32.trg"	 : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	<<tempfile.bat 
 	@echo off 
-	echo regsvr32 /s /c "$(TargetPath)" 
 	echo regsvr32 exec. time > "$(OutDir)\regsvr32.trg" 
 << 
 	
@@ -371,8 +395,6 @@ CLEAN :
 	-@erase "$(INTDIR)\RegObj.obj"
 	-@erase "$(INTDIR)\StdAfx.obj"
 	-@erase "$(INTDIR)\vc60.idb"
-	-@erase "$(INTDIR)\vc60.pdb"
-	-@erase "$(OUTDIR)\Atl.pdb"
 	-@erase "$(OUTDIR)\Atl.dll"
 	-@erase "$(OUTDIR)\Atl.exp"
 	-@erase "$(OUTDIR)\Atl.lib"
@@ -385,7 +407,10 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MT /W3 /Zi /O1 /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_UNICODE" /D "_ATL_MIN_CRT" /Fp"$(INTDIR)\Atl.pch" /Yu"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MT /W3 /O1 /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_UNICODE" /Fp"$(INTDIR)\Atl.pch" /Yu"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /c /Zi
+!IF "$(PLATFORM)" == "ALPHA64"
+CPP_PROJ=$(CPP_PROJ) /Ap64 /Wp64
+!ENDIF
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -426,10 +451,14 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\Atl.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-!if "$(PROCESSOR_ARCHITECTURE)" == "ALPHA"
-LINK32_FLAGS=delayimp.lib  atldload.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /machine:ALPHA /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /delayload:user32.dll /delayload:gdi32.dll /delayload:ole32.dll /delayload:oleaut32.dll /delayload:advapi32.dll /delayload:olepro32.dll 
+!if "$(PLATFORM)" == "ALPHA"
+LINK32_FLAGS=delayimp.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /debug /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /machine:ALPHA /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /delayload:user32.dll /delayload:gdi32.dll /delayload:ole32.dll /delayload:oleaut32.dll /delayload:advapi32.dll /delayload:olepro32.dll 
+!else if "$(PLATFORM)" == "ALPHA64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /debug /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /machine:ALPHA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" 
+!else if "$(PLATFORM)" == "IA64"
+LINK32_FLAGS=/nologo /base:"0x5f3e0000" /version:2.0 /subsystem:windows /dll /debug /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /machine:IA64 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" atl21asm.lib
 !else
-LINK32_FLAGS=delayimp.lib  atldload.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /debug /opt:nowin98 /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /delayload:user32.dll /delayload:gdi32.dll /delayload:ole32.dll /delayload:oleaut32.dll /delayload:advapi32.dll /delayload:olepro32.dll 
+LINK32_FLAGS=delayimp.lib /nologo /base:"0x5f3e0000" /version:2.0 /entry:"DllMain" /subsystem:windows /dll /debug /incremental:no /pdb:"$(OUTDIR)\Atl.pdb" /machine:I386 /def:".\atl.def" /out:"$(OUTDIR)\Atl.dll" /implib:"$(OUTDIR)\Atl.lib" /delayload:user32.dll /delayload:gdi32.dll /delayload:ole32.dll /delayload:oleaut32.dll /delayload:advapi32.dll /delayload:olepro32.dll 
 !endif
 DEF_FILE= \
 	".\atl.def"
@@ -452,7 +481,6 @@ SOURCE=$(InputPath)
 "$(OutDir)\regsvr32.trg"	 : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
 	<<tempfile.bat 
 	@echo off 
-	echo regsvr32 /s /c "$(TargetPath)" 
 	echo regsvr32 exec. time > "$(OutDir)\regsvr32.trg" 
 << 
 	
@@ -551,12 +579,14 @@ SOURCE=.\StdAfx.cpp
 
 !IF  "$(CFG)" == "atl - Win32 Debug"
 
-CPP_SWITCHES=/nologo /MDd /W3 /Gm /Od /I "." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_MBCS" /Fp"$(INTDIR)\Atl.pch" /Yc"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c
-
+CPP_SWITCHES=/nologo /MDd /W3 /Gm /Od /I "." /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_MBCS" /Fp"$(INTDIR)\Atl.pch" /Yc"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /c
+!IF "$(PLATFORM)" == "ALPHA64"
+CPP_SWITCHES=$(CPP_SWITCHES) /Ap64 /Wp64
+!ENDIF
 !if "$(_VCBUILD)" == "1"
 CPP_SWITCHES=$(CPP_SWITCHES) /Zi
 !else
-CPP_SWITCHES=$(CPP_SWITCHES) /ZI
+CPP_SWITCHES=$(CPP_SWITCHES) /Zi
 !endif
 
 "$(INTDIR)\StdAfx.obj"	"$(INTDIR)\Atl.pch" : $(SOURCE) "$(INTDIR)"
@@ -567,12 +597,15 @@ CPP_SWITCHES=$(CPP_SWITCHES) /ZI
 
 !ELSEIF  "$(CFG)" == "atl - Win32 Unicode Debug"
 
-CPP_SWITCHES=/nologo /MDd /W3 /Gm /Od /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_UNICODE" /Fp"$(INTDIR)\Atl.pch" /Yc"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c
+CPP_SWITCHES=/nologo /MDd /W3 /Gm /Od /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_UNICODE" /Fp"$(INTDIR)\Atl.pch" /Yc"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /c
+!IF "$(PLATFORM)" == "ALPHA64"
+CPP_SWITCHES=$(CPP_SWITCHES) /Ap64 /Wp64
+!ENDIF
 
 !if "$(_VCBUILD)" == "1"
 CPP_SWITCHES=$(CPP_SWITCHES) /Zi
 !else
-CPP_SWITCHES=$(CPP_SWITCHES) /ZI
+CPP_SWITCHES=$(CPP_SWITCHES) /Zi
 !endif
 
 "$(INTDIR)\StdAfx.obj"	"$(INTDIR)\Atl.pch" : $(SOURCE) "$(INTDIR)"
@@ -583,7 +616,10 @@ CPP_SWITCHES=$(CPP_SWITCHES) /ZI
 
 !ELSEIF  "$(CFG)" == "atl - Win32 Release"
 
-CPP_SWITCHES=/nologo /MT /W3 /Zi /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_MBCS" /D "_ATL_MIN_CRT" /Fp"$(INTDIR)\Atl.pch" /Yc"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_SWITCHES=/nologo /MT /W3 /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_WINDLL" /D "_MBCS" /Fp"$(INTDIR)\Atl.pch" /Yc"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /c /Zi
+!IF "$(PLATFORM)" == "ALPHA64"
+CPP_SWITCHES=$(CPP_SWITCHES) /Ap64 /Wp64
+!ENDIF
 
 "$(INTDIR)\StdAfx.obj"	"$(INTDIR)\Atl.pch" : $(SOURCE) "$(INTDIR)"
 	$(CPP) @<<
@@ -593,7 +629,10 @@ CPP_SWITCHES=/nologo /MT /W3 /Zi /O1 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_W
 
 !ELSEIF  "$(CFG)" == "atl - Win32 Unicode Release"
 
-CPP_SWITCHES=/nologo /MT /W3 /Zi /O1 /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_UNICODE" /D "_ATL_MIN_CRT" /Fp"$(INTDIR)\Atl.pch" /Yc"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_SWITCHES=/nologo /MT /W3 /O1 /D "NDEBUG" /D "WIN32" /D "_WINDOWS" /D "_WINDLL" /D "_UNICODE" /Fp"$(INTDIR)\Atl.pch" /Yc"stdafx.h" /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /c /Zi
+!IF "$(PLATFORM)" == "ALPHA64"
+CPP_SWITCHES=$(CPP_SWITCHES) /Ap64 /Wp64
+!ENDIF
 
 "$(INTDIR)\StdAfx.obj"	"$(INTDIR)\Atl.pch" : $(SOURCE) "$(INTDIR)"
 	$(CPP) @<<

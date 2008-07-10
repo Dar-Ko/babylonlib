@@ -3,7 +3,7 @@
 //      but are changed infrequently
 
 
-#define _WIN32_WINNT 0x0400
+#define _WIN32_WINNT 0x0500
 #define _ATL_FREE_THREADED
 #define _CONVERSION_USES_THREAD_LOCALE
 #define _ATL_DLL_IMPL
