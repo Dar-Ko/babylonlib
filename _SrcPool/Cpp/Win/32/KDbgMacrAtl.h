@@ -1,15 +1,15 @@
-/*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgMacrAtl.h$: header file
+/*$Workfile: KDbgMacrAtl.h$: header file
   $Revision: 1$ $Date: 2007-03-06 14:36:11$
   $Author: Darko Kolakovic$
 
   Dumps values of some Microsoft specific predefined macros
   Copyright: CommonSoft Inc.
-  Darko Kolakovic April 1988
+  Darko Kolakovic April 1988, 2008-07
 */
 /* Group=Diagnostic                                                          */
 
 #ifndef _KDBGMACRATL_H_
-    /*$Workfile: S:\_SrcPool\Cpp\Win\32\KDbgMacrAtl.h$ sentry */
+    /*$Workfile: KDbgMacrAtl.h$ sentry */
   #define _KDBGMACRATL_H_
 
 #ifdef _MSC_VER /*Microsoft Visual C/C++ Compiler pragmas                     */
@@ -49,6 +49,9 @@
     #if _ATL_VER == 0x0300 /*Active Template Library version 3.0*/
       #pragma message ("  ver. 3.00")
     #endif
+    #if _ATL_VER == 0x0301 /*Active Template Library version 3.0 Win64 build*/
+      #pragma message ("  ver. 3.00/64-bit")
+    #endif
     #if _ATL_VER == 0x0700
       #pragma message ("  ver. 7.00")
     #endif
@@ -67,10 +70,22 @@
     #pragma message ("Static Link to ATL.")
   #endif
 
+  #ifdef _ATL_SINGLE_THREADED
+    #pragma message ("ATL Single-threaded.")
+  #endif
+
+  #ifdef _ATL_APARTMENT_THREADED
+    #pragma message ("ATL Apartment-threaded.")
+  #endif
+
+  #ifdef _ATL_APARTMENT_THREADED
+    #pragma message ("ATL Free-threaded.")
+  #endif
+
 #endif /*_MSC_VER */
 
 /* ///////////////////////////////////////////////////////////////////////// */
-#endif /*_KDBGMACRATL_H_                                                        */
+#endif /*_KDBGMACRATL_H_                                                     */
 /*****************************************************************************
  * $Log: * $
  *****************************************************************************/
