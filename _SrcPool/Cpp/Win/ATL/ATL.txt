@@ -1,15 +1,83 @@
 $RCSfile: ATL.txt,v $: developer's note
-$Revision: 1.2 $ $Date: 2008/07/10 14:37:46 $
+$Revision: 1.3 $ $Date: 2008/07/15 20:33:43 $
 $Author: ddarko $
 
-ActiveX Template Library (ATL).
+Active Template Library (ATL).
 
 Copyright: Microsoft Corp.
 1998
 
-Project files used to buid ActiveX Template Library DLL (atl.dll)
+Project files used to buid Active Template Library DLL (atl.dll)
+The ATL 3.00 version 2006-03 Platform SDK (R2 3790.2075 / Win64) requires atlthunk.lib to be included in serach path. The library could be found in Win DDK 3790.1830 (2005-03).
+
 
 \	atl.dsw	Microsoft Developer Studio Workspace (DSW) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	atl.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	atl.mak	Microsoft Developer Studio.	Win32
+
+MSVC6.0 build
+-----------------
+old MSVC6.0 headers and headers in PSDK are not compatible. Remove or rename ...\vc98\include\transact.h and compile with PSDK\include\transact.h
+
+ATL 3.00 version 2006-03 Platform SDK (R2 3790.2075)
+Replace default ...\Microsoft Visual Studio\VC98\ATL\Include with ...\Win\ATL\Include directory at the top of Include search path (MSVC6 Menu: Tool | Options... | Directories | Include files):
+		...\Win\ATL\Include           (or ...\PSDK\RadTool\include\PSDK
+		...\Microsoft Visual Studio\VC98\INCLUDE
+		...\Microsoft Visual Studio\VC98\MFC\INCLUDE
+		...\RadTool\include\atl
+	  Also replace same directories in Source search path (MSVC6 Menu: Tool | Options... | Directories | Source files).
+
+Add prepocessor definition OLD_ATL_CRITSEC_CODE (see atlcom.h). 
+	Project Settings | C/C++ | Category: Preporcessor | Prepocessor definitions
+
+atlthunk.lib is required to build 64-bit applications. For 32-bit applications replace in atlbase.h lines [287, 293]
+	...
+	#pragma comment(lib, "atlthunk.lib")
+with
+	#ifdef _WIN32
+	  #define AllocStdCallThunk() HeapAlloc(GetProcessHeap(), 0, sizeof(_stdcallthunk))
+	  #define FreeStdCallThunk(p) HeapFree(GetProcessHeap(), 0, p)
+	#else //_WIN64
+	  PVOID __stdcall __AllocStdCallThunk(VOID);
+	  VOID  __stdcall __FreeStdCallThunk(PVOID);
+
+	  #define AllocStdCallThunk() __AllocStdCallThunk()
+	  #define FreeStdCallThunk(p) __FreeStdCallThunk(p)
+
+	  #pragma comment(lib, "atlthunk.lib")
+	#endif _WIN32
+
+Borland build
+---------------
+The ATL 3.00 version 2006-03 Platform SDK (R2 3790.2075)  is used as base for Borland Platform SDK build.
+See also http://bccSDK.sourceforge.net
+
+Borland compiler -  building instructions by Darko Miletic
+------------------------------------------------------------------
+
+To build this project you will need several things:
+
+1. Borland Free compiler or any of the BCB (4/5/6/BDS 2006)
+2. IDL compiler (midl) from Microsoft Platform SDK Windows 2003 Server SP1 or later (the one shipped with bcb is too old for this task)
+3. If you have BDS 2006 you will need free compiler too because cpp32 shipped with BDS can not handle IDL files properly.
+
+Setup:
+-------
+Build system is changed to ease build process. Now there is config.inc file located in <bccsdk>\build folder. There you have these 3 variables:
+BCCROOT    - Path to the folder where Borland compiler is installed (not the bin folder) 
+BCCROOTOLD - Path to the folder where Borland compiler is installed (not the bin folder)
+PSDKROOT   - Path to where MS Platform SDK folder is located (this is needed because of midl compiler location)
+
+You have 3 predefined config files. 
+config.inc - This one is set to default instalation of Free Compiler.
+config.inc.bcb6 - This one is set to default instalation of BCB5/BCB6 
+                  Note that all long paths must be converted to short paths. 
+                  Example: C:\Program Files\Borland\CBuilder6 should be converted to C:\PROGRA~1\Borland\CBUILD~1 
+config.inc.bds2006 - This one is set to default instalation of BDS 2006. Note: Free compiler no longer needed.
+
+Choose config file that matches your version of compiler and rename it to config.inc. Open it in some text editor and update variables according to your system.
+
+Compilation:
+Open command prompt at <ATL>\build folder and execute command:
+make -f atl.mak
 
