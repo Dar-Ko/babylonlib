@@ -29,8 +29,8 @@
 CComModule _Module;
 
 BEGIN_OBJECT_MAP(ObjectMap)
-	OBJECT_ENTRY(CLSID_Registrar, CDLLRegObject)
-	OBJECT_ENTRY_NON_CREATEABLE(CAxHostWindow)
+  OBJECT_ENTRY(CLSID_Registrar, CDLLRegObject)
+  OBJECT_ENTRY_NON_CREATEABLE(CAxHostWindow)
 END_OBJECT_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -39,52 +39,60 @@ END_OBJECT_MAP()
 extern "C"
 BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 {
-	if (dwReason == DLL_PROCESS_ATTACH)
-	{
-		OSVERSIONINFOA info;
-		info.dwOSVersionInfoSize = sizeof(info);
-		if (GetVersionExA(&info))
-		{
-#ifdef _UNICODE
-			if (info.dwPlatformId != VER_PLATFORM_WIN32_NT)
-			{
-				MessageBoxA(NULL, "Can not run Unicode version of ATL.DLL on Windows 95.\nPlease install the correct version.", "ATL", MB_ICONSTOP|MB_OK);
-				return FALSE;
-			}
-#else
-			if (info.dwPlatformId == VER_PLATFORM_WIN32_NT)
-			{
-				OutputDebugString(_T("Running Ansi version of ATL.DLL on Windows NT : Slight Performace loss.\nPlease install the UNICODE version on NT.\n"));
-			}
-#endif
-		}
-#ifdef _DEBUG
-		_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
-		int n = 0;
-		_CrtSetBreakAlloc(n);
-#endif
-		if( FAILED( _Module.Init(ObjectMap, hInstance, &LIBID_ATLLib) ) )
-			return FALSE;
-#ifdef _ATL_DEBUG_INTERFACES
-		int ni = 0;
-		_Module.m_nIndexBreakAt = ni;
-#endif // _ATL_DEBUG_INTERFACES
-		DisableThreadLibraryCalls(hInstance);
-	}
-	else if (dwReason == DLL_PROCESS_DETACH)
-	{
-#ifdef _DEBUG
-		::OutputDebugString(_T("ATL.DLL exiting.\n"));
-#endif
-		_Module.Term();
-		if (lpReserved == NULL && g_bAtlAxWinInitialized)
-			AtlAxWinTerm();
-#ifdef _DEBUG
-		if (_CrtDumpMemoryLeaks())
-			::MessageBeep(MB_ICONEXCLAMATION);
-#endif
-	}
-	return TRUE;    // ok
+  if (dwReason == DLL_PROCESS_ATTACH)
+  {
+    OSVERSIONINFOA info;
+    info.dwOSVersionInfoSize = sizeof(info);
+    if (GetVersionExA(&info))
+    {
+    #ifdef _UNICODE
+      if (info.dwPlatformId != VER_PLATFORM_WIN32_NT)
+      {
+        MessageBoxA(NULL, "Can not run Unicode version of ATL.DLL on Windows 95.\nPlease install the correct version.", "ATL", MB_ICONSTOP|MB_OK);
+        return FALSE;
+      }
+    #else
+      if (info.dwPlatformId == VER_PLATFORM_WIN32_NT)
+      {
+        OutputDebugString(_T("Running Ansi version of ATL.DLL on Windows NT : Slight Performace loss.\nPlease install the UNICODE version on NT.\n"));
+      }
+    #endif
+    }
+    #ifdef _DEBUG
+      #ifdef _MSC_VER
+        //Microsoft Visual C/C++ compiler
+        _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF);
+        int n = 0;
+        _CrtSetBreakAlloc(n);
+      #endif
+    #endif
+    if( FAILED( _Module.Init(ObjectMap, hInstance, &LIBID_ATLLib) ) )
+      return FALSE;
+    #ifdef _ATL_DEBUG_INTERFACES
+      int ni = 0;
+      _Module.m_nIndexBreakAt = ni;
+    #endif // _ATL_DEBUG_INTERFACES
+    DisableThreadLibraryCalls(hInstance);
+  }
+  else if (dwReason == DLL_PROCESS_DETACH)
+  {
+    #ifdef _DEBUG
+      ::OutputDebugString(_T("ATL.DLL exiting.\n"));
+    #endif
+
+    _Module.Term();
+    if (lpReserved == NULL && g_bAtlAxWinInitialized)
+      AtlAxWinTerm();
+
+    #ifdef _DEBUG
+      #ifdef _MSC_VER
+        //Microsoft Visual C/C++ compiler
+        if (_CrtDumpMemoryLeaks())
+          ::MessageBeep(MB_ICONEXCLAMATION);
+      #endif
+    #endif
+  }
+  return TRUE;    // ok
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -92,7 +100,7 @@ BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 
 STDAPI DllCanUnloadNow(void)
 {
-	return (_Module.GetLockCount()==0) ? S_OK : S_FALSE;
+  return (_Module.GetLockCount()==0) ? S_OK : S_FALSE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -100,7 +108,7 @@ STDAPI DllCanUnloadNow(void)
 
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
-	return _Module.GetClassObject(rclsid, riid, ppv);
+  return _Module.GetClassObject(rclsid, riid, ppv);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -108,8 +116,8 @@ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 
 STDAPI DllRegisterServer(void)
 {
-	// registers object, typelib and all interfaces in typelib
-	return _Module.RegisterServer(TRUE);
+  // registers object, typelib and all interfaces in typelib
+  return _Module.RegisterServer(TRUE);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -117,8 +125,18 @@ STDAPI DllRegisterServer(void)
 
 STDAPI DllUnregisterServer(void)
 {
-	//No need to unregister typelib since ATL is a system component.
-	return S_OK;
+  //No need to unregister typelib since ATL is a system component.
+  return S_OK;
 }
 
 BOOL g_bAtlAxWinInitialized = FALSE;
+////////////////////////////////////////////////////////////////////////////////
+/*****************************************************************************
+ * $Log: atl.cpp,v $
+ * Revision 1.5  2008/07/15 20:37:10  ddarko
+ * Borland CC build and fixes
+ *
+ * Revision 1.1.2.5  2008/07/15 15:42:57  ddarko
+ * ATL 3.00 Platform SDK (R2 3790.2075) 2006-03 / Borland CC build
+ *
+ *****************************************************************************/

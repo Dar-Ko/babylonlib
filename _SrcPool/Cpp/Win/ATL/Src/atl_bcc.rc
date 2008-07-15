@@ -1,0 +1,20 @@
+#include "resource.h"
+
+1             TYPELIB  MOVEABLE PURE  "atl.tlb"
+IDR_Registrar REGISTRY DISCARDABLE    "RegObj.rgs"
+
+
+STRINGTABLE 
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+{
+ 1, "Registrar 1.0 Object"
+}
+
+
+STRINGTABLE 
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+{
+ 100, "ATL"
+}
+
+#include "atl.rc2"
