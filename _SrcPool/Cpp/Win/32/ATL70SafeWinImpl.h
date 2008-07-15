@@ -1,5 +1,5 @@
 /*$RCSfile: ATL70SafeWinImpl.h,v $: header file
-  $Revision: 1.2 $ $Date: 2008/07/09 14:19:56 $
+  $Revision: 1.3 $ $Date: 2008/07/15 20:57:09 $
   $Author: ddarko $
 
   Fix: ATL's CWindowImpl crashes when OnFinalMessage contains code to destroy
@@ -15,8 +15,12 @@
 
 
 #ifndef _KSAFEWINIMPL_H_
+  //$RCSfile: ATL70SafeWinImpl.h,v $ sentry
   #define _KSAFEWINIMPL_H_
 
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #pragma message ("   #include " __FILE__ )
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 /*This class allows you to create a new window or to make an existing windows
@@ -244,6 +248,9 @@ return lRes;
 #endif /* !_KSAFEWINIMPL_H_ */
 /*****************************************************************************
  * $Log: ATL70SafeWinImpl.h,v $
+ * Revision 1.3  2008/07/15 20:57:09  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.2  2008/07/09 14:19:56  ddarko
  * Comments
  *
