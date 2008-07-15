@@ -78,7 +78,7 @@
     #pragma message ("ATL Apartment-threaded.")
   #endif
 
-  #ifdef _ATL_APARTMENT_THREADED
+  #ifdef _ATL_FREE_THREADED
     #pragma message ("ATL Free-threaded.")
   #endif
 
