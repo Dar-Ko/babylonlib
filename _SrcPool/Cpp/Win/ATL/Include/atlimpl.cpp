@@ -9,7 +9,7 @@
 // Active Template Library product.
 
 #ifndef __ATLBASE_H__
-        #error atlimpl.cpp requires atlbase.h to be included first
+  #error atlimpl.cpp requires atlbase.h to be included first
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ extern "C" BOOL WINAPI DllMain(HANDLE hDllHandle, DWORD dwReason, LPVOID lpReser
 
 extern "C" BOOL WINAPI _DllMainCRTStartup(HANDLE hDllHandle, DWORD dwReason, LPVOID lpReserved)
 {
-        return DllMain(hDllHandle, dwReason, lpReserved);
+  return DllMain(hDllHandle, dwReason, lpReserved);
 }
 
 #else
@@ -46,45 +46,45 @@ extern "C" void wWinMainCRTStartup()
 extern "C" void WinMainCRTStartup()
 #endif // _UNICODE
 {
-        LPTSTR lpszCommandLine = ::GetCommandLine();
-        if(lpszCommandLine == NULL)
-                ::ExitProcess((UINT)-1);
+  LPTSTR lpszCommandLine = ::GetCommandLine();
+  if(lpszCommandLine == NULL)
+    ::ExitProcess((UINT)-1);
 
-        // Skip past program name (first token in command line).
-        // Check for and handle quoted program name.
-        if(*lpszCommandLine == DQUOTECHAR)
-        {
-                // Scan, and skip over, subsequent characters until
-                // another double-quote or a null is encountered.
-                do
-                {
-                        lpszCommandLine = ::CharNext(lpszCommandLine);
-                }
-                while((*lpszCommandLine != DQUOTECHAR) && (*lpszCommandLine != _T('\0')));
+  // Skip past program name (first token in command line).
+  // Check for and handle quoted program name.
+  if(*lpszCommandLine == DQUOTECHAR)
+  {
+    // Scan, and skip over, subsequent characters until
+    // another double-quote or a null is encountered.
+    do
+    {
+      lpszCommandLine = ::CharNext(lpszCommandLine);
+    }
+    while((*lpszCommandLine != DQUOTECHAR) && (*lpszCommandLine != _T('\0')));
 
-                // If we stopped on a double-quote (usual case), skip over it.
-                if(*lpszCommandLine == DQUOTECHAR)
-                        lpszCommandLine = ::CharNext(lpszCommandLine);
-        }
-        else
-        {
-                while(*lpszCommandLine > SPACECHAR)
-                        lpszCommandLine = ::CharNext(lpszCommandLine);
-        }
+    // If we stopped on a double-quote (usual case), skip over it.
+    if(*lpszCommandLine == DQUOTECHAR)
+      lpszCommandLine = ::CharNext(lpszCommandLine);
+  }
+  else
+  {
+    while(*lpszCommandLine > SPACECHAR)
+      lpszCommandLine = ::CharNext(lpszCommandLine);
+  }
 
-        // Skip past any white space preceeding the second token.
-        while(*lpszCommandLine && (*lpszCommandLine <= SPACECHAR))
-                lpszCommandLine = ::CharNext(lpszCommandLine);
+  // Skip past any white space preceeding the second token.
+  while(*lpszCommandLine && (*lpszCommandLine <= SPACECHAR))
+    lpszCommandLine = ::CharNext(lpszCommandLine);
 
-        STARTUPINFO StartupInfo;
-        StartupInfo.dwFlags = 0;
-        ::GetStartupInfo(&StartupInfo);
+  STARTUPINFO StartupInfo;
+  StartupInfo.dwFlags = 0;
+  ::GetStartupInfo(&StartupInfo);
 
-        int nRet = _tWinMain(::GetModuleHandle(NULL), NULL, lpszCommandLine,
-                (StartupInfo.dwFlags & STARTF_USESHOWWINDOW) ?
-                StartupInfo.wShowWindow : SW_SHOWDEFAULT);
+  int nRet = _tWinMain(::GetModuleHandle(NULL), NULL, lpszCommandLine,
+    (StartupInfo.dwFlags & STARTF_USESHOWWINDOW) ?
+    StartupInfo.wShowWindow : SW_SHOWDEFAULT);
 
-        ::ExitProcess((UINT)nRet);
+  ::ExitProcess((UINT)nRet);
 }
 
 #endif // defined(_WINDLL) | defined(_USRDLL)
@@ -98,12 +98,12 @@ extern "C" void WinMainCRTStartup()
 //rpcproxy.h does the same thing as this
 int __cdecl _purecall()
 {
-        ::MessageBox(NULL, 
-                _T("Runtime Error!\n\nR6025\n- pure virtual function call\n"), 
-                _T("Microsoft Visual C+ ATL"), 
-                MB_OK | MB_ICONERROR);
-        ::ExitProcess(255);
-        return 0;
+  ::MessageBox(NULL,
+    _T("Runtime Error!\n\nR6025\n- pure virtual function call\n"),
+    _T("Microsoft Visual C+ ATL"),
+    MB_OK | MB_ICONERROR);
+  ::ExitProcess(255);
+  return 0;
 }
 #endif
 
@@ -117,91 +117,100 @@ static const int nOffsetBlock = nExtraAlloc/sizeof(HANDLE);
 
 void* __cdecl malloc(size_t n)
 {
-        void* pv = NULL;
+  void* pv = NULL;
 #ifndef _ATL_NO_MP_HEAP
-        if (_Module.m_phHeaps == NULL)
+  if (_Module.m_phHeaps == NULL)
 #endif
-        {
-                pv = (HANDLE*) HeapAlloc(_Module.m_hHeap, 0, n);
-        }
+  {
+    pv = (HANDLE*) HeapAlloc(_Module.m_hHeap, 0, n);
+  }
 #ifndef _ATL_NO_MP_HEAP
-        else
-        {
-                // overallocate to remember the heap handle
-                int nHeap = _Module.m_nHeap++;
-                HANDLE hHeap = _Module.m_phHeaps[nHeap & _Module.m_dwHeaps];
-                HANDLE* pBlock = (HANDLE*) HeapAlloc(hHeap, 0, n + nExtraAlloc);
-                if (pBlock != NULL)
-                {
-                        *pBlock = hHeap;
-                        pv = (void*)(pBlock + nOffsetBlock);
-                }
-                else
-                        pv = NULL;
-        }
+  else
+  {
+    // overallocate to remember the heap handle
+    int nHeap = _Module.m_nHeap++;
+    HANDLE hHeap = _Module.m_phHeaps[nHeap & _Module.m_dwHeaps];
+    HANDLE* pBlock = (HANDLE*) HeapAlloc(hHeap, 0, n + nExtraAlloc);
+    if (pBlock != NULL)
+    {
+      *pBlock = hHeap;
+      pv = (void*)(pBlock + nOffsetBlock);
+    }
+    else
+      pv = NULL;
+  }
 #endif
-        return pv;
+  return pv;
 }
 
 void* __cdecl calloc(size_t n, size_t s)
 {
-        return malloc(n*s);
+  return malloc(n*s);
 }
 
 #pragma prefast(push)
 #pragma prefast(suppress:308, "prefast bug 538")
 void* __cdecl realloc(void* p, size_t n)
 {
-        if (p == NULL)
-                return malloc(n);
+  if (p == NULL)
+    return malloc(n);
 #ifndef _ATL_NO_MP_HEAP
-        if (_Module.m_phHeaps == NULL)
+  if (_Module.m_phHeaps == NULL)
 #endif
-                return HeapReAlloc(_Module.m_hHeap, 0, p, n);
+    return HeapReAlloc(_Module.m_hHeap, 0, p, n);
 #ifndef _ATL_NO_MP_HEAP
-        else
-        {
-                HANDLE* pHeap = ((HANDLE*)p)-nOffsetBlock;
-                PVOID pv = HeapReAlloc(*pHeap, 0, pHeap, n + nExtraAlloc);
-                if (pv) {
-                    pHeap = (HANDLE*)pv;
-                    return pHeap + nOffsetBlock;
-                } else {
-                    return NULL;
-                }
-        }
+  else
+  {
+    HANDLE* pHeap = ((HANDLE*)p)-nOffsetBlock;
+    PVOID pv = HeapReAlloc(*pHeap, 0, pHeap, n + nExtraAlloc);
+    if (pv) {
+        pHeap = (HANDLE*)pv;
+        return pHeap + nOffsetBlock;
+    } else {
+        return NULL;
+    }
+  }
 #endif
 }
 #pragma prefast(pop)
 
 void __cdecl free(void* p)
 {
-        if (p == NULL)
-                return;
+  if (p == NULL)
+    return;
 #ifndef _ATL_NO_MP_HEAP
-        if (_Module.m_phHeaps == NULL)
+  if (_Module.m_phHeaps == NULL)
 #endif
-                HeapFree(_Module.m_hHeap, 0, p);
+    HeapFree(_Module.m_hHeap, 0, p);
 #ifndef _ATL_NO_MP_HEAP
-        else
-        {
-                HANDLE* pHeap = ((HANDLE*)p)-nOffsetBlock;
-                HeapFree(*pHeap, 0, pHeap);
-        }
+  else
+  {
+    HANDLE* pHeap = ((HANDLE*)p)-nOffsetBlock;
+    HeapFree(*pHeap, 0, pHeap);
+  }
 #endif
 }
 
 void* __cdecl operator new(size_t n)
 {
-        return malloc(n);
+  return malloc(n);
 }
 
 void __cdecl operator delete(void* p)
 {
-        free(p);
+  free(p);
 }
 
 #endif  //_DEBUG
 
 #endif //_ATL_MIN_CRT
-
+////////////////////////////////////////////////////////////////////////////////
+/*******************************************************************************
+ * $Log: atlimpl.cpp,v $
+ * Revision 1.5  2008/07/15 20:31:10  ddarko
+ * Borland CC build and fixes
+ *
+ * Revision 1.1.2.3  2008/07/15 19:48:29  ddarko
+ * ATL 3.00 Platform SDK (R2 3790.2075) 2006-03
+ *
+ ******************************************************************************/

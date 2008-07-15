@@ -9,36 +9,43 @@
 // Active Template Library product.
 
 #ifndef __ATLDEF_H__
-#define __ATLDEF_H__
+  #define __ATLDEF_H__ "ATL-3_00_PSDK_200603"
+
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #ifdef _MSC_VER
+    //Microsoft Visual C/C++ compiler
+    #pragma message ("   #include " __FILE__ )
+  #endif
+#endif
 
 #ifndef __cplusplus
-        #error ATL requires C++ compilation (use a .cpp suffix)
+  #error ATL requires C++ compilation (use a .cpp suffix)
 #endif
 
 #ifdef UNDER_CE
-        #error ATL not currently supported for CE
+  #error ATL not currently supported for CE
 #endif
 
 #ifdef _UNICODE
-#ifndef UNICODE
-#define UNICODE         // UNICODE is used by Windows headers
-#endif
+  #ifndef UNICODE
+    #define UNICODE  // UNICODE is used by Windows headers
+  #endif
 #endif
 
 #ifdef UNICODE
-#ifndef _UNICODE
-#define _UNICODE        // _UNICODE is used by C-runtime/MFC headers
-#endif
+  #ifndef _UNICODE
+    #define _UNICODE  // _UNICODE is used by C-runtime/MFC headers
+  #endif
 #endif
 
 #ifdef _DEBUG
-#ifndef DEBUG
-#define DEBUG
-#endif
+  #ifndef DEBUG
+    #define DEBUG
+  #endif
 #endif
 
 #ifndef ATLASSERT
-#define ATLASSERT(expr) _ASSERTE(expr)
+  #define ATLASSERT(expr) _ASSERTE(expr)
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -60,69 +67,69 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifdef _ATL_DISABLE_NO_VTABLE
-#define ATL_NO_VTABLE
+  #define ATL_NO_VTABLE
 #else
-#define ATL_NO_VTABLE __declspec(novtable)
+  #define ATL_NO_VTABLE __declspec(novtable)
 #endif
 
 #ifdef _ATL_DEBUG_REFCOUNT
-#ifndef _ATL_DEBUG_INTERFACES
-#define _ATL_DEBUG_INTERFACES
-#endif
+  #ifndef _ATL_DEBUG_INTERFACES
+    #define _ATL_DEBUG_INTERFACES
+  #endif
 #endif
 
 #ifdef _ATL_DEBUG_INTERFACES
-#ifndef _ATL_DEBUG
-#define _ATL_DEBUG
-#endif // _ATL_DEBUG
+  #ifndef _ATL_DEBUG
+    #define _ATL_DEBUG
+  #endif // _ATL_DEBUG
 #endif // _ATL_DEBUG_INTERFACES
 
 #ifndef _ATL_HEAPFLAGS
-#ifdef _MALLOC_ZEROINIT
-#define _ATL_HEAPFLAGS HEAP_ZERO_MEMORY
-#else
-#define _ATL_HEAPFLAGS 0
-#endif
+  #ifdef _MALLOC_ZEROINIT
+    #define _ATL_HEAPFLAGS HEAP_ZERO_MEMORY
+  #else
+    #define _ATL_HEAPFLAGS 0
+  #endif
 #endif
 
 #ifndef _ATL_PACKING
-#define _ATL_PACKING 8
+  #define _ATL_PACKING 8
 #endif
 
 #ifdef _WIN64
-        #if defined(_ATL_DLL)
-                #define ATLAPI extern "C" HRESULT __declspec(dllimport)
-                #define ATLAPI_(x) extern "C" __declspec(dllimport) x
-                #define ATLINLINE
-        #elif defined(_ATL_DLL_IMPL)
-                #define ATLAPI extern "C" HRESULT 
-                #define ATLAPI_(x) extern "C" x
-                #define ATLINLINE
-        #else
-                #define ATLAPI HRESULT
-                #define ATLAPI_(x) x
-                #define ATLINLINE inline
-        #endif
+  #if defined(_ATL_DLL)
+    #define ATLAPI extern "C" HRESULT __declspec(dllimport)
+    #define ATLAPI_(x) extern "C" __declspec(dllimport) x
+    #define ATLINLINE
+  #elif defined(_ATL_DLL_IMPL)
+    #define ATLAPI extern "C" HRESULT
+    #define ATLAPI_(x) extern "C" x
+    #define ATLINLINE
+  #else
+    #define ATLAPI HRESULT
+    #define ATLAPI_(x) x
+    #define ATLINLINE inline
+  #endif
 #else
-        #if defined(_ATL_DLL)
-                #define ATLAPI extern "C" HRESULT __declspec(dllimport) __stdcall
-                #define ATLAPI_(x) extern "C" __declspec(dllimport) x __stdcall
-                #define ATLINLINE
-        #elif defined(_ATL_DLL_IMPL)
-                #define ATLAPI extern "C" HRESULT __stdcall
-                #define ATLAPI_(x) extern "C" x __stdcall
-                #define ATLINLINE
-        #else
-                #define ATLAPI HRESULT __stdcall
-                #define ATLAPI_(x) x __stdcall
-                #define ATLINLINE inline
-        #endif
+  #if defined(_ATL_DLL)
+    #define ATLAPI extern "C" HRESULT __declspec(dllimport) __stdcall
+    #define ATLAPI_(x) extern "C" __declspec(dllimport) x __stdcall
+    #define ATLINLINE
+  #elif defined(_ATL_DLL_IMPL)
+    #define ATLAPI extern "C" HRESULT __stdcall
+    #define ATLAPI_(x) extern "C" x __stdcall
+    #define ATLINLINE
+  #else
+    #define ATLAPI HRESULT __stdcall
+    #define ATLAPI_(x) x __stdcall
+    #define ATLINLINE inline
+  #endif
 #endif
 
 #if defined (_CPPUNWIND) & (defined(_ATL_EXCEPTIONS) | defined(_AFX))
-#define ATLTRY(x) try{x;} catch(...) {}
+  #define ATLTRY(x) try{x;} catch(...) {}
 #else
-#define ATLTRY(x) x;
+  #define ATLTRY(x) x;
 #endif
 
 #define offsetofclass(base, derived) ((DWORD_PTR)(static_cast<base*>((derived*)_ATL_PACKING))-_ATL_PACKING)
@@ -132,23 +139,32 @@
 
 #define _ATL     1      // Active Template Library
 #ifdef _WIN64
-#define _ATL_VER 0x0301 // Active Template Library version 3.0
+  #define _ATL_VER 0x0301 // Active Template Library version 3.0
 #else
-#define _ATL_VER 0x0300 // Active Template Library version 3.0
+  #define _ATL_VER 0x0300 // Active Template Library version 3.0
 #endif
+#define PSDK_VER    200603  //Platform SDK version used as source code base version
+#define ATL_SUBVER  0x01    //Active Template Library release patched subversion
 
 /////////////////////////////////////////////////////////////////////////////
 // Threading
 
 #ifndef _ATL_SINGLE_THREADED
-#ifndef _ATL_APARTMENT_THREADED
-#ifndef _ATL_FREE_THREADED
-#define _ATL_FREE_THREADED
-#endif
-#endif
+  #ifndef _ATL_APARTMENT_THREADED
+    #ifndef _ATL_FREE_THREADED
+      #define _ATL_FREE_THREADED
+    #endif
+  #endif
 #endif
 
 #endif // __ATLDEF_H__
-
-/////////////////////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////////////////////////////////
+/*****************************************************************************
+ * $Log: atldef.h,v $
+ * Revision 1.5  2008/07/15 20:31:09  ddarko
+ * Borland CC build and fixes
+ *
+ * Revision 1.1.2.2  2008/07/15 15:18:03  ddarko
+ * ATL 3.00 Platform SDK (R2 3790.2075) 2006-03 / Borland CC build
+ *
+ *****************************************************************************/

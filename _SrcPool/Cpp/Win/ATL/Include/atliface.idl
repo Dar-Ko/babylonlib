@@ -291,4 +291,3 @@ cpp_quote("#ifndef _ATL_DLL_IMPL")
 cpp_quote("}; //namespace ATL")
 cpp_quote("#endif //_ATL_DLL_IMPL")
 
-

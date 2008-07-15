@@ -1,35 +1,53 @@
-// This is a part of the Active Template Library.
-// Copyright (C) 1996-1998 Microsoft Corporation
-// All rights reserved.
-//
-// This source code is only intended as a supplement to the
-// Active Template Library Reference and related
-// electronic documentation provided with the library.
-// See these sources for detailed information regarding the
-// Active Template Library product.
+/*$RCSfile: atlbase.h,v $: header file
+  $Revision: 1.6 $ $Date: 2008/07/15 20:31:01 $
+  $Author: ddarko $
+
+  This source code is only intended as a supplement to the Active Template Library
+  Reference and related electronic documentation provided with the library.
+  See these sources for detailed information regarding the  Active Template
+  Library product.
+  This is a part of the Active Template Library.
+  Copyright: (C) 1996-1998 Microsoft Corporation. All rights reserved.
+  PSDK 2006-03 (R2 3790.2075) Win DDK 2005-03 (3790.1830)
+ */
+// Group=Windows
 
 #ifndef __ATLBASE_H__
-#define __ATLBASE_H__
+  #define __ATLBASE_H__ "ATL-3_00_PSDK_200603"
+
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #ifdef _MSC_VER
+    //Microsoft Visual C/C++ compiler
+    #pragma message ("   #include " __FILE__ )
+  #endif
+#endif
 
 #ifndef __cplusplus
-        #error ATL requires C++ compilation (use a .cpp suffix)
+  #error ATL requires C++ compilation (use a .cpp suffix)
 #endif
 
 #ifndef _ATL_NO_PRAGMA_WARNINGS
-#pragma warning(disable: 4201) // nameless unions are part of C++
-#pragma warning(disable: 4127) // constant expression
-#pragma warning(disable: 4505) // unreferenced local function has been removed
-#pragma warning(disable: 4512) // can't generate assignment operator (so what?)
-#pragma warning(disable: 4514) // unreferenced inlines are common
-#pragma warning(disable: 4103) // pragma pack
-#pragma warning(disable: 4702) // unreachable code
-#pragma warning(disable: 4237) // bool
-#pragma warning(disable: 4710) // function couldn't be inlined
-#pragma warning(disable: 4355) // 'this' : used in base member initializer list
-#pragma warning(disable: 4097) // typedef name used as synonym for class-name
-#pragma warning(disable: 4786) // identifier was truncated in the debug information
-#pragma warning(disable: 4268) // const static/global data initialized to zeros
-#pragma warning(disable: 4291) // allow placement new
+  #pragma warning(disable: 4201) // nameless unions are part of C++
+  #pragma warning(disable: 4127) // constant expression
+  #pragma warning(disable: 4505) // unreferenced local function has been removed
+  #pragma warning(disable: 4512) // can't generate assignment operator (so what?)
+  #pragma warning(disable: 4514) // unreferenced inlines are common
+  #pragma warning(disable: 4103) // pragma pack
+  #pragma warning(disable: 4702) // unreachable code
+  #pragma warning(disable: 4237) // bool
+  #pragma warning(disable: 4710) // function couldn't be inlined
+  #pragma warning(disable: 4355) // 'this' : used in base member initializer list
+  #pragma warning(disable: 4097) // typedef name used as synonym for class-name
+  #pragma warning(disable: 4786) // identifier was truncated in the debug information
+  #pragma warning(disable: 4268) // const static/global data initialized to zeros
+  #pragma warning(disable: 4291) // allow placement new
+  #ifdef __BORLANDC__
+    #pragma warn -rch       // unreachable code (break after return in default case)
+    #pragma warn -ccc       // condition is always true: [enumerated value] & [defined value]
+    #ifndef STRICT
+      #define STRICT
+    #endif
+  #endif // __BORLANDC__
 #endif //!_ATL_NO_PRAGMA_WARNINGS
 
 #include <atldef.h>
@@ -41,20 +59,26 @@
 #include <comcat.h>
 #include <stddef.h>
 
+#ifdef __BORLANDC__
+  #include <algorithm>
+  using std::min;
+  using std::max;
+#endif
+
 #ifdef new
-#pragma push_macro("new")
-#define _ATL_REDEF_NEW
-#undef new
+  #pragma push_macro("new")
+  #define _ATL_REDEF_NEW
+  #undef new
 #endif
 
 #include <tchar.h>
 #include <malloc.h>
 
 #ifndef _ATL_NO_DEBUG_CRT
-// Warning: if you define the above symbol, you will have
-// to provide your own definition of the ATLASSERT(x) macro
-// in order to compile ATL
-        #include <crtdbg.h>
+  // Warning: if you define the above symbol, you will have
+  // to provide your own definition of the ATLASSERT(x) macro
+  // in order to compile ATL
+  #include <crtdbg.h>
 #endif
 
 #include <olectl.h>
@@ -62,8 +86,8 @@
 #include <atliface.h>
 
 #ifdef _DEBUG
-#include <stdio.h>
-#include <stdarg.h>
+  #include <stdio.h>
+  #include <stdarg.h>
 #endif
 
 #include <atlconv.h>
@@ -75,17 +99,70 @@
 
 #pragma pack(push, _ATL_PACKING)
 
-#if defined(_ATL_DLL)
-        #pragma comment(lib, "atl.lib")
-#endif
+#ifdef __BORLANDC__
+  //bccSDK 0.0.7.2
+  #define KBCCDEF
 
-extern "C" const __declspec(selectany) GUID LIBID_ATLLib = {0x44EC0535,0x400F,0x11D0,{0x9D,0xCD,0x00,0xA0,0xC9,0x03,0x91,0xD3}};
-extern "C" const __declspec(selectany) CLSID CLSID_Registrar = {0x44EC053A,0x400F,0x11D0,{0x9D,0xCD,0x00,0xA0,0xC9,0x03,0x91,0xD3}};
-extern "C" const __declspec(selectany) IID IID_IRegistrar = {0x44EC053B,0x400F,0x11D0,{0x9D,0xCD,0x00,0xA0,0xC9,0x03,0x91,0xD3}};
-extern "C" const __declspec(selectany) IID IID_IAxWinHostWindow = {0xb6ea2050,0x48a,0x11d1,{0x82,0xb9,0x0,0xc0,0x4f,0xb9,0x94,0x2e}};
-extern "C" const __declspec(selectany) IID IID_IAxWinAmbientDispatch = {0xb6ea2051,0x48a,0x11d1,{0x82,0xb9,0x0,0xc0,0x4f,0xb9,0x94,0x2e}};
-extern "C" const __declspec(selectany) IID IID_IInternalConnection = {0x72AD0770,0x6A9F,0x11d1,{0xBC,0xEC,0x00,0x60,0x08,0x8F,0x44,0x4E}};
-extern "C" const __declspec(selectany) IID IID_IDocHostUIHandlerDispatch = {0x425B5AF0,0x65F1,0x11d1,{0x96,0x11,0x00,0x00,0xF8,0x1E,0x0D,0x0D}};
+  #ifdef _DEBUG
+    #define RTYPE "Debug"
+  #else
+    #define RTYPE "Release"
+  #endif
+
+  #ifdef _UNICODE
+    #define WIDEC "Unicode"
+  #else
+    #define WIDEC "Ansi"
+  #endif
+
+  #ifdef _MT
+    #define BTHREAD "MultiThreaded"
+  #else
+    #define BTHREAD "SingleThreaded"
+  #endif
+
+  #ifdef _RTLDLL
+    #define BRTL "RTLstatic"
+  #else
+    #define BRTL "RTLdynamic"
+  #endif
+
+  #if !defined(_ATL_DLL)
+    #define BLIBTYPE "s"
+  #endif
+
+  //bccSDK library build
+  #define BCCLIBNAME "atl_bcc_"BLIBTYPE"_"RTYPE"_"WIDEC"_"BTHREAD"_"BRTL".lib"
+  #if !defined(_ATL_DLL_IMPL)
+    #pragma comment(lib, BCCLIBNAME)
+  #endif
+
+  extern "C" const GUID LIBID_ATLLib;
+  extern "C" const CLSID CLSID_Registrar;
+  extern "C" const IID IID_IRegistrar;
+  extern "C" const IID IID_IAxWinHostWindow;
+  extern "C" const IID IID_IAxWinAmbientDispatch;
+  extern "C" const IID IID_IInternalConnection;
+  extern "C" const IID IID_IDocHostUIHandlerDispatch;
+
+#endif //__BORLANDC__ bccSDK 0.0.7.2
+
+#ifdef _MSC_VER
+  //Microsoft Visual Studio MSVC
+  #define KBCCDEF(x)
+
+  #if defined(_ATL_DLL)
+    #pragma comment(lib, "atl.lib")
+  #endif
+
+  extern "C" const __declspec(selectany) GUID LIBID_ATLLib = {0x44EC0535,0x400F,0x11D0,{0x9D,0xCD,0x00,0xA0,0xC9,0x03,0x91,0xD3}};
+  extern "C" const __declspec(selectany) CLSID CLSID_Registrar = {0x44EC053A,0x400F,0x11D0,{0x9D,0xCD,0x00,0xA0,0xC9,0x03,0x91,0xD3}};
+  extern "C" const __declspec(selectany) IID IID_IRegistrar = {0x44EC053B,0x400F,0x11D0,{0x9D,0xCD,0x00,0xA0,0xC9,0x03,0x91,0xD3}};
+  extern "C" const __declspec(selectany) IID IID_IAxWinHostWindow = {0xb6ea2050,0x48a,0x11d1,{0x82,0xb9,0x0,0xc0,0x4f,0xb9,0x94,0x2e}};
+  extern "C" const __declspec(selectany) IID IID_IAxWinAmbientDispatch = {0xb6ea2051,0x48a,0x11d1,{0x82,0xb9,0x0,0xc0,0x4f,0xb9,0x94,0x2e}};
+  extern "C" const __declspec(selectany) IID IID_IInternalConnection = {0x72AD0770,0x6A9F,0x11d1,{0xBC,0xEC,0x00,0x60,0x08,0x8F,0x44,0x4E}};
+  extern "C" const __declspec(selectany) IID IID_IDocHostUIHandlerDispatch = {0x425B5AF0,0x65F1,0x11d1,{0x96,0x11,0x00,0x00,0xF8,0x1E,0x0D,0x0D}};
+#endif
 
 #ifndef _ATL_DLL_IMPL
 namespace ATL
@@ -111,102 +188,102 @@ typedef void (__stdcall _ATL_TERMFUNC)(DWORD_PTR dw);
 
 struct _ATL_TERMFUNC_ELEM
 {
-        _ATL_TERMFUNC* pFunc;
-        DWORD_PTR dw;
-        _ATL_TERMFUNC_ELEM* pNext;
+  _ATL_TERMFUNC* pFunc;
+  DWORD_PTR dw;
+  _ATL_TERMFUNC_ELEM* pNext;
 };
 
 struct _ATL_OBJMAP_ENTRY
 {
-        const CLSID* pclsid;
-        HRESULT (WINAPI *pfnUpdateRegistry)(BOOL bRegister);
-        _ATL_CREATORFUNC* pfnGetClassObject;
-        _ATL_CREATORFUNC* pfnCreateInstance;
-        IUnknown* pCF;
-        DWORD dwRegister;
-        _ATL_DESCRIPTIONFUNC* pfnGetObjectDescription;
-        _ATL_CATMAPFUNC* pfnGetCategoryMap;
-        HRESULT WINAPI RevokeClassObject()
-        {
-                return CoRevokeClassObject(dwRegister);
-        }
-        HRESULT WINAPI RegisterClassObject(DWORD dwClsContext, DWORD dwFlags)
-        {
-                IUnknown* p = NULL;
-                if (pfnGetClassObject == NULL)
-                        return S_OK;
-                HRESULT hRes = pfnGetClassObject(pfnCreateInstance, IID_IUnknown, (LPVOID*) &p);
-                if (SUCCEEDED(hRes))
-                        hRes = CoRegisterClassObject(*pclsid, p, dwClsContext, dwFlags, &dwRegister);
-                if (p != NULL)
-                        p->Release();
-                return hRes;
-        }
+  const CLSID* pclsid;
+  HRESULT (WINAPI *pfnUpdateRegistry)(BOOL bRegister);
+  _ATL_CREATORFUNC* pfnGetClassObject;
+  _ATL_CREATORFUNC* pfnCreateInstance;
+  IUnknown* pCF;
+  DWORD dwRegister;
+  _ATL_DESCRIPTIONFUNC* pfnGetObjectDescription;
+  _ATL_CATMAPFUNC* pfnGetCategoryMap;
+  HRESULT WINAPI RevokeClassObject()
+  {
+    return CoRevokeClassObject(dwRegister);
+  }
+  HRESULT WINAPI RegisterClassObject(DWORD dwClsContext, DWORD dwFlags)
+  {
+    IUnknown* p = NULL;
+    if (pfnGetClassObject == NULL)
+      return S_OK;
+    HRESULT hRes = pfnGetClassObject(pfnCreateInstance, IID_IUnknown, (LPVOID*) &p);
+    if (SUCCEEDED(hRes))
+      hRes = CoRegisterClassObject(*pclsid, p, dwClsContext, dwFlags, &dwRegister);
+    if (p != NULL)
+      p->Release();
+    return hRes;
+  }
 // Added in ATL 3.0
-        void (WINAPI *pfnObjectMain)(bool bStarting);
+  void (WINAPI *pfnObjectMain)(bool bStarting);
 };
 
 struct _ATL_REGMAP_ENTRY
 {
-        LPCOLESTR     szKey;
-        LPCOLESTR     szData;
+  LPCOLESTR     szKey;
+  LPCOLESTR     szData;
 };
 
 struct _AtlCreateWndData
 {
-        void* m_pThis;
-        DWORD m_dwThreadID;
-        _AtlCreateWndData* m_pNext;
+  void* m_pThis;
+  DWORD m_dwThreadID;
+  _AtlCreateWndData* m_pNext;
 };
 
 struct _ATL_MODULE_21
 {
 // Attributes
 public:
-        UINT cbSize;
-        HINSTANCE m_hInst;
-        HINSTANCE m_hInstResource;
-        HINSTANCE m_hInstTypeLib;
-        _ATL_OBJMAP_ENTRY* m_pObjMap;
-        LONG m_nLockCnt;
-        HANDLE m_hHeap;
-        union
-        {
-                CRITICAL_SECTION m_csTypeInfoHolder;
-                CRITICAL_SECTION m_csStaticDataInit;
-        };
-        CRITICAL_SECTION m_csWindowCreate;
-        CRITICAL_SECTION m_csObjMap;
+  UINT cbSize;
+  HINSTANCE m_hInst;
+  HINSTANCE m_hInstResource;
+  HINSTANCE m_hInstTypeLib;
+  _ATL_OBJMAP_ENTRY* m_pObjMap;
+  LONG m_nLockCnt;
+  HANDLE m_hHeap;
+  union
+  {
+    CRITICAL_SECTION m_csTypeInfoHolder;
+    CRITICAL_SECTION m_csStaticDataInit;
+  };
+  CRITICAL_SECTION m_csWindowCreate;
+  CRITICAL_SECTION m_csObjMap;
 };
 
 struct _ATL_MODULE_30
 {
 // Attributes
 public:
-        UINT cbSize;
-        HINSTANCE m_hInst;
-        HINSTANCE m_hInstResource;
-        HINSTANCE m_hInstTypeLib;
-        _ATL_OBJMAP_ENTRY* m_pObjMap;
-        LONG m_nLockCnt;
-        HANDLE m_hHeap;
-        union
-        {
-                CRITICAL_SECTION m_csTypeInfoHolder;
-                CRITICAL_SECTION m_csStaticDataInit;
-        };
-        CRITICAL_SECTION m_csWindowCreate;
-        CRITICAL_SECTION m_csObjMap;
+  UINT cbSize;
+  HINSTANCE m_hInst;
+  HINSTANCE m_hInstResource;
+  HINSTANCE m_hInstTypeLib;
+  _ATL_OBJMAP_ENTRY* m_pObjMap;
+  LONG m_nLockCnt;
+  HANDLE m_hHeap;
+  union
+  {
+    CRITICAL_SECTION m_csTypeInfoHolder;
+    CRITICAL_SECTION m_csStaticDataInit;
+  };
+  CRITICAL_SECTION m_csWindowCreate;
+  CRITICAL_SECTION m_csObjMap;
 // Original Size = 100
 // Stuff added in ATL 3.0
-        DWORD dwAtlBuildVer;
-        _AtlCreateWndData* m_pCreateWndList;
-        bool m_bDestroyHeap;
-        GUID* pguidVer;
-        DWORD m_dwHeaps;    // Number of heaps we have (-1)
-        HANDLE* m_phHeaps;
-        int m_nHeap;        // Which heap to choose from
-        _ATL_TERMFUNC_ELEM* m_pTermFuncs;
+  DWORD dwAtlBuildVer;
+  _AtlCreateWndData* m_pCreateWndList;
+  bool m_bDestroyHeap;
+  GUID* pguidVer;
+  DWORD m_dwHeaps;    // Number of heaps we have (-1)
+  HANDLE* m_phHeaps;
+  int m_nHeap;  // Which heap to choose from
+  _ATL_TERMFUNC_ELEM* m_pTermFuncs;
 };
 
 #if _ATL_VER == 0x0300
@@ -216,32 +293,32 @@ struct _ATL_MODULE
 {
 // Attributes
 public:
-        UINT cbSize;
-        HINSTANCE m_hInst;
-        HINSTANCE m_hInstResource;
-        HINSTANCE m_hInstTypeLib;
-        _ATL_OBJMAP_ENTRY* m_pObjMap;
-        LONG m_nLockCnt;
-        HANDLE m_hHeap;
-        union
-        {
-                CRITICAL_SECTION m_csTypeInfoHolder;
-                CRITICAL_SECTION m_csStaticDataInit;
-        };
-        CRITICAL_SECTION m_csWindowCreate;
-        CRITICAL_SECTION m_csObjMap;
+  UINT cbSize;
+  HINSTANCE m_hInst;
+  HINSTANCE m_hInstResource;
+  HINSTANCE m_hInstTypeLib;
+  _ATL_OBJMAP_ENTRY* m_pObjMap;
+  LONG m_nLockCnt;
+  HANDLE m_hHeap;
+  union
+  {
+    CRITICAL_SECTION m_csTypeInfoHolder;
+    CRITICAL_SECTION m_csStaticDataInit;
+  };
+  CRITICAL_SECTION m_csWindowCreate;
+  CRITICAL_SECTION m_csObjMap;
 // Original Size = 100
 // Stuff added in ATL 3.0
-        DWORD dwAtlBuildVer;
-        _AtlCreateWndData* m_pCreateWndList;
-        bool m_bDestroyHeap;
-        GUID* pguidVer;
-        DWORD m_dwHeaps;    // Number of heaps we have (-1)
-        HANDLE* m_phHeaps;
-        int m_nHeap;        // Which heap to choose from
-        _ATL_TERMFUNC_ELEM* m_pTermFuncs;
+  DWORD dwAtlBuildVer;
+  _AtlCreateWndData* m_pCreateWndList;
+  bool m_bDestroyHeap;
+  GUID* pguidVer;
+  DWORD m_dwHeaps;    // Number of heaps we have (-1)
+  HANDLE* m_phHeaps;
+  int m_nHeap;  // Which heap to choose from
+  _ATL_TERMFUNC_ELEM* m_pTermFuncs;
 // Stuff added in ATL 6.1
-        LONG m_nNextWindowID;
+  LONG m_nNextWindowID;
 };
 #endif
 
@@ -253,138 +330,147 @@ const int _nAtlModuleVer30Size = sizeof( _ATL_MODULE_30 );
 
 struct _ATL_INTMAP_ENTRY
 {
-        const IID* piid;       // the interface id (IID)
-        DWORD_PTR dw;
-        _ATL_CREATORARGFUNC* pFunc; //NULL:end, 1:offset, n:ptr
+  const IID* piid;       // the interface id (IID)
+  DWORD_PTR dw;
+  _ATL_CREATORARGFUNC* pFunc; //NULL:end, 1:offset, n:ptr
 };
 
 /////////////////////////////////////////////////////////////////////////////
 // Thunks for __stdcall member functions
 
 
-#if defined(_M_IX86)
-#pragma pack(push,1)
-struct _stdcallthunk
-{
-        DWORD   m_mov;          // mov dword ptr [esp+0x4], pThis (esp+0x4 is hWnd)
-        DWORD   m_this;         //
-        BYTE    m_jmp;          // jmp WndProc
-        DWORD   m_relproc;      // relative jmp
-        BOOL Init(DWORD_PTR proc, void* pThis)
-        {
-                m_mov = 0x042444C7;  //C7 44 24 0C
-                m_this = PtrToUlong(pThis);
-                m_jmp = 0xe9;
-                m_relproc = DWORD((INT_PTR)proc - ((INT_PTR)this+sizeof(_stdcallthunk)));
-                // write block from data cache and
-                //  flush from instruction cache
-                FlushInstructionCache(GetCurrentProcess(), this, sizeof(_stdcallthunk));
-                return TRUE;
-        }
-};
-#pragma pack(pop)
-
-PVOID __stdcall __AllocStdCallThunk(VOID);
-VOID  __stdcall __FreeStdCallThunk(PVOID);
-
-#define AllocStdCallThunk() __AllocStdCallThunk()
-#define FreeStdCallThunk(p) __FreeStdCallThunk(p)
-
-#pragma comment(lib, "atlthunk.lib")
-
-#elif defined (_M_AMD64)
-#pragma pack(push,2)
-struct _stdcallthunk
-{
-    USHORT  RcxMov;         // mov rcx, pThis
-    ULONG64 RcxImm;         // 
-    USHORT  RaxMov;         // mov rax, target
-    ULONG64 RaxImm;         //
-    USHORT  RaxJmp;         // jmp target
-    BOOL Init(DWORD_PTR proc, void *pThis)
+#if defined(_M_IX86) //X86 64/32-bit
+  #pragma pack(push,1)
+  struct _stdcallthunk
+  {
+    DWORD   m_mov;    // mov dword ptr [esp+0x4], pThis (esp+0x4 is hWnd)
+    DWORD   m_this;  //
+    BYTE    m_jmp;    // jmp WndProc
+    DWORD   m_relproc;      // relative jmp
+    BOOL Init(DWORD_PTR proc, void* pThis)
     {
-        RcxMov = 0xb948;          // mov rcx, pThis
-        RcxImm = (ULONG64)pThis;  // 
-        RaxMov = 0xb848;          // mov rax, target
-        RaxImm = (ULONG64)proc;   //
-        RaxJmp = 0xe0ff;          // jmp rax
-        FlushInstructionCache(GetCurrentProcess(), this, sizeof(_stdcallthunk));
-        return TRUE;
+      m_mov = 0x042444C7;  //C7 44 24 0C
+      m_this = PtrToUlong(pThis);
+      m_jmp = 0xe9;
+      m_relproc = DWORD((INT_PTR)proc - ((INT_PTR)this+sizeof(_stdcallthunk)));
+      // write block from data cache and
+      //  flush from instruction cache
+      FlushInstructionCache(GetCurrentProcess(), this, sizeof(_stdcallthunk));
+      return TRUE;
     }
-};
-#pragma pack(pop)
+  };
+  #pragma pack(pop)
 
-PVOID __AllocStdCallThunk(VOID);
-VOID  __FreeStdCallThunk(PVOID);
+  #ifdef _WIN32
+    //32-bit (MSVC6.0, BorlandCC)
+    #define AllocStdCallThunk() HeapAlloc(GetProcessHeap(), 0, sizeof(_stdcallthunk))
+    #define FreeStdCallThunk(p) HeapFree(GetProcessHeap(), 0, p)
 
-#define AllocStdCallThunk() __AllocStdCallThunk()
-#define FreeStdCallThunk(p) __FreeStdCallThunk(p)
+  #else
+    //64-bit (MSVS.Net)
+    PVOID __stdcall __AllocStdCallThunk(VOID);
+    VOID  __stdcall __FreeStdCallThunk(PVOID);
 
-#elif defined(_M_IA64)
-#pragma comment(lib, "atl21asm.lib")
-#pragma pack(push,8)
-extern "C" LRESULT CALLBACK _WndProcThunkProc( HWND, UINT, WPARAM, LPARAM );
-struct _FuncDesc
-{
-        void* pfn;
-        void* gp;
-};
-struct _stdcallthunk
-{
-        _FuncDesc m_funcdesc;
-        void* m_pFunc;
-        void* m_pThis;
-        BOOL Init(DWORD_PTR proc, void* pThis)
-        {
-                const _FuncDesc* pThunkProc;
+    #define AllocStdCallThunk() __AllocStdCallThunk()
+    #define FreeStdCallThunk(p) __FreeStdCallThunk(p)
 
-                pThunkProc = reinterpret_cast< const _FuncDesc* >( _WndProcThunkProc );
-                m_funcdesc.pfn = pThunkProc->pfn;
-                m_funcdesc.gp = &m_pFunc;
-                m_pFunc = reinterpret_cast< void* >( proc );
-                m_pThis = pThis;
-                ::FlushInstructionCache( GetCurrentProcess(), this, sizeof( _stdcallthunk ) );
-                return TRUE;
-        }
-};
-#pragma pack(pop)
-#define AllocStdCallThunk() HeapAlloc(GetProcessHeap(),0,sizeof(_stdcallthunk))
-#define FreeStdCallThunk(p) HeapFree(GetProcessHeap(), 0, p)
-#else
-#error Only AMD64, IA64, and X86 supported
-#endif
+    #pragma comment(lib, "atlthunk.lib")
+
+  #endif //_WIN32
+
+#elif defined (_M_AMD64) //AMD64
+  #pragma pack(push,2)
+  struct _stdcallthunk
+  {
+      USHORT  RcxMov;  // mov rcx, pThis
+      ULONG64 RcxImm;  //
+      USHORT  RaxMov;  // mov rax, target
+      ULONG64 RaxImm;  //
+      USHORT  RaxJmp;  // jmp target
+      BOOL Init(DWORD_PTR proc, void *pThis)
+      {
+    RcxMov = 0xb948;    // mov rcx, pThis
+    RcxImm = (ULONG64)pThis;  //
+    RaxMov = 0xb848;    // mov rax, target
+    RaxImm = (ULONG64)proc;   //
+    RaxJmp = 0xe0ff;    // jmp rax
+    FlushInstructionCache(GetCurrentProcess(), this, sizeof(_stdcallthunk));
+    return TRUE;
+      }
+  };
+  #pragma pack(pop)
+
+  PVOID __AllocStdCallThunk(VOID);
+  VOID  __FreeStdCallThunk(PVOID);
+
+  #define AllocStdCallThunk() __AllocStdCallThunk()
+  #define FreeStdCallThunk(p) __FreeStdCallThunk(p)
+
+#elif defined(_M_IA64) //IA64
+  #pragma comment(lib, "atl21asm.lib")
+  #pragma pack(push,8)
+  extern "C" LRESULT CALLBACK _WndProcThunkProc( HWND, UINT, WPARAM, LPARAM );
+  struct _FuncDesc
+  {
+    void* pfn;
+    void* gp;
+  };
+  struct _stdcallthunk
+  {
+    _FuncDesc m_funcdesc;
+    void* m_pFunc;
+    void* m_pThis;
+    BOOL Init(DWORD_PTR proc, void* pThis)
+    {
+      const _FuncDesc* pThunkProc;
+
+      pThunkProc = reinterpret_cast< const _FuncDesc* >( _WndProcThunkProc );
+      m_funcdesc.pfn = pThunkProc->pfn;
+      m_funcdesc.gp = &m_pFunc;
+      m_pFunc = reinterpret_cast< void* >( proc );
+      m_pThis = pThis;
+      ::FlushInstructionCache( GetCurrentProcess(), this, sizeof( _stdcallthunk ) );
+      return TRUE;
+    }
+  };
+  #pragma pack(pop)
+  #define AllocStdCallThunk() HeapAlloc(GetProcessHeap(),0,sizeof(_stdcallthunk))
+  #define FreeStdCallThunk(p) HeapFree(GetProcessHeap(), 0, p)
+#else //!(AMD64 / IA64 / X86)
+  #error Only AMD64, IA64, and X86 supported
+#endif //AMD64, IA64, and X86
 
 class CDynamicStdCallThunk
 {
 public:
-        _stdcallthunk *pThunk;
+  _stdcallthunk *pThunk;
 
-        CDynamicStdCallThunk()
-        {
-                pThunk = NULL;
+  CDynamicStdCallThunk()
+  {
+    pThunk = NULL;
+  }
+
+  ~CDynamicStdCallThunk()
+  {
+    if (pThunk)
+      FreeStdCallThunk(pThunk);
+  }
+
+  BOOL Init(DWORD_PTR proc, void *pThis)
+  {
+    if (!pThunk) {
+        pThunk = static_cast<_stdcallthunk *>(AllocStdCallThunk());
+        if (pThunk == NULL) {
+      return FALSE;
         }
+    }
 
-        ~CDynamicStdCallThunk()
-        {
-                if (pThunk)
-                        FreeStdCallThunk(pThunk);
-        }
+    if ((proc == 0) && (pThis == NULL)) {
+        return TRUE;
+    }
 
-        BOOL Init(DWORD_PTR proc, void *pThis)
-        {
-                if (!pThunk) {
-                    pThunk = static_cast<_stdcallthunk *>(AllocStdCallThunk());
-                    if (pThunk == NULL) {
-                        return FALSE;
-                    }
-                }
-
-                if ((proc == 0) && (pThis == NULL)) {
-                    return TRUE;
-                }
-
-                return pThunk->Init(proc, pThis);
-        }
+    return pThunk->Init(proc, pThis);
+  }
 };
 typedef CDynamicStdCallThunk CStdCallThunk;
 
@@ -392,7 +478,7 @@ typedef CDynamicStdCallThunk CStdCallThunk;
 // QI Support
 
 ATLAPI AtlInternalQueryInterface(void* pThis,
-        const _ATL_INTMAP_ENTRY* pEntries, REFIID iid, void** ppvObject);
+  const _ATL_INTMAP_ENTRY* pEntries, REFIID iid, void** ppvObject);
 
 /////////////////////////////////////////////////////////////////////////////
 // Smart Pointer helpers
@@ -419,8 +505,8 @@ ATLAPI AtlUnadvise(IUnknown* pUnkCP, const IID& iid, DWORD dw);
 // IDispatch Error handling
 
 ATLAPI AtlSetErrorInfo(const CLSID& clsid, LPCOLESTR lpszDesc,
-        DWORD dwHelpID, LPCOLESTR lpszHelpFile, const IID& iid, HRESULT hRes,
-        HINSTANCE hInst);
+  DWORD dwHelpID, LPCOLESTR lpszHelpFile, const IID& iid, HRESULT hRes,
+  HINSTANCE hInst);
 
 /////////////////////////////////////////////////////////////////////////////
 // Module
@@ -432,7 +518,7 @@ ATLAPI AtlModuleRegisterServer(_ATL_MODULE* pM, BOOL bRegTypeLib, const CLSID* p
 ATLAPI AtlModuleUnregisterServer(_ATL_MODULE* pM, const CLSID* pCLSID = NULL);
 ATLAPI AtlModuleUnregisterServerEx(_ATL_MODULE* pM, BOOL bUnRegTypeLib, const CLSID* pCLSID = NULL);
 ATLAPI AtlModuleUpdateRegistryFromResourceD(_ATL_MODULE*pM, LPCOLESTR lpszRes,
-        BOOL bRegister, struct _ATL_REGMAP_ENTRY* pMapEntries, IRegistrar* pReg = NULL);
+  BOOL bRegister, struct _ATL_REGMAP_ENTRY* pMapEntries, IRegistrar* pReg = NULL);
 ATLAPI AtlModuleRegisterTypeLib(_ATL_MODULE* pM, LPCOLESTR lpszIndex);
 ATLAPI AtlModuleUnRegisterTypeLib(_ATL_MODULE* pM, LPCOLESTR lpszIndex);
 ATLAPI AtlModuleLoadTypeLib(_ATL_MODULE* pM, LPCOLESTR lpszIndex, BSTR* pbstrPath, ITypeLib** ppTypeLib);
@@ -456,40 +542,40 @@ namespace ATL
 
 inline HRESULT AtlHresultFromLastError()
 {
-        DWORD dwErr = ::GetLastError();
-        return HRESULT_FROM_WIN32(dwErr);
+  DWORD dwErr = ::GetLastError();
+  return HRESULT_FROM_WIN32(dwErr);
 }
 
 inline HRESULT AtlHresultFromWin32(DWORD nError)
 {
-        return( HRESULT_FROM_WIN32( nError ) );
+  return( HRESULT_FROM_WIN32( nError ) );
 }
 
 inline void __declspec(noreturn) _AtlRaiseException( DWORD dwExceptionCode, DWORD dwExceptionFlags = EXCEPTION_NONCONTINUABLE )
 {
-        RaiseException( dwExceptionCode, dwExceptionFlags, 0, NULL );
+  RaiseException( dwExceptionCode, dwExceptionFlags, 0, NULL );
 }
 
 enum atlTraceFlags
 {
-        // Application defined categories
-        atlTraceUser        = 0x00000001,
-        atlTraceUser2       = 0x00000002,
-        atlTraceUser3       = 0x00000004,
-        atlTraceUser4       = 0x00000008,
-        // ATL defined categories
-        atlTraceGeneral     = 0x00000020,
-        atlTraceCOM         = 0x00000040,
-        atlTraceQI      = 0x00000080,
-        atlTraceRegistrar   = 0x00000100,
-        atlTraceRefcount    = 0x00000200,
-        atlTraceWindowing   = 0x00000400,
-        atlTraceControls    = 0x00000800,
-        atlTraceHosting     = 0x00001000,
-        atlTraceDBClient    = 0x00002000,
-        atlTraceDBProvider  = 0x00004000,
-        atlTraceSnapin      = 0x00008000,
-        atlTraceNotImpl     = 0x00010000,
+  // Application defined categories
+  atlTraceUser        = 0x00000001,
+  atlTraceUser2       = 0x00000002,
+  atlTraceUser3       = 0x00000004,
+  atlTraceUser4       = 0x00000008,
+  // ATL defined categories
+  atlTraceGeneral     = 0x00000020,
+  atlTraceCOM         = 0x00000040,
+  atlTraceQI          = 0x00000080,
+  atlTraceRegistrar   = 0x00000100,
+  atlTraceRefcount    = 0x00000200,
+  atlTraceWindowing   = 0x00000400,
+  atlTraceControls    = 0x00000800,
+  atlTraceHosting     = 0x00001000,
+  atlTraceDBClient    = 0x00002000,
+  atlTraceDBProvider  = 0x00004000,
+  atlTraceSnapin      = 0x00008000,
+  atlTraceNotImpl     = 0x00010000,
 };
 
 #ifndef ATL_TRACE_CATEGORY
@@ -504,104 +590,104 @@ enum atlTraceFlags
 
 inline void _cdecl AtlTrace(LPCSTR lpszFormat, ...)
 {
-        va_list args;
-        va_start(args, lpszFormat);
+  va_list args;
+  va_start(args, lpszFormat);
 
-        int nBuf;
-        char szBuffer[512];
+  int nBuf;
+  char szBuffer[512];
 
-        nBuf = _vsnprintf(szBuffer, sizeof(szBuffer), lpszFormat, args);
-        szBuffer[sizeof(szBuffer)-1] = 0;
-        
-        if(nBuf == -1 || nBuf >= sizeof(szBuffer))
-        {
-                char szContinued[] = "...";
-                
-                lstrcpyA(szBuffer + sizeof(szBuffer) - sizeof(szContinued), szContinued);
-        }                
-        
-        OutputDebugStringA(szBuffer);
-                
-        va_end(args);
+  nBuf = _vsnprintf(szBuffer, sizeof(szBuffer), lpszFormat, args);
+  szBuffer[sizeof(szBuffer)-1] = 0;
+
+  if(nBuf == -1 || nBuf >= sizeof(szBuffer))
+  {
+    char szContinued[] = "...";
+
+    lstrcpyA(szBuffer + sizeof(szBuffer) - sizeof(szContinued), szContinued);
+  }
+
+  OutputDebugStringA(szBuffer);
+
+  va_end(args);
 }
 inline void _cdecl AtlTrace2(DWORD category, UINT level, LPCSTR lpszFormat, ...)
 {
-        if (category & ATL_TRACE_CATEGORY && level <= ATL_TRACE_LEVEL)
-        {
-                va_list args;
-                va_start(args, lpszFormat);
+  if (category & ATL_TRACE_CATEGORY && level <= ATL_TRACE_LEVEL)
+  {
+    va_list args;
+    va_start(args, lpszFormat);
 
-                int nBuf;
-                char szBuffer[512];
+    int nBuf;
+    char szBuffer[512];
 
-                nBuf = _vsnprintf(szBuffer, sizeof(szBuffer), lpszFormat, args);
-                szBuffer[sizeof(szBuffer)-1] = 0;
+    nBuf = _vsnprintf(szBuffer, sizeof(szBuffer), lpszFormat, args);
+    szBuffer[sizeof(szBuffer)-1] = 0;
 
-                if(nBuf == -1 || nBuf >= sizeof(szBuffer))
-                {
-                        char szContinued[] = "...";
-                        
-                        lstrcpyA(szBuffer + sizeof(szBuffer) - sizeof(szContinued), szContinued);
-                }                
+    if(nBuf == -1 || nBuf >= sizeof(szBuffer))
+    {
+      char szContinued[] = "...";
 
-                OutputDebugStringA("ATL: ");
-                OutputDebugStringA(szBuffer);
-                va_end(args);
-        }
+      lstrcpyA(szBuffer + sizeof(szBuffer) - sizeof(szContinued), szContinued);
+    }
+
+    OutputDebugStringA("ATL: ");
+    OutputDebugStringA(szBuffer);
+    va_end(args);
+  }
 }
 #ifndef OLE2ANSI
 inline void _cdecl AtlTrace(LPCWSTR lpszFormat, ...)
 {
-        va_list args;
-        va_start(args, lpszFormat);
+  va_list args;
+  va_start(args, lpszFormat);
 
-        int nBuf;
-        WCHAR szBuffer[512];
+  int nBuf;
+  WCHAR szBuffer[512];
 
-        nBuf = _vsnwprintf(szBuffer, sizeof(szBuffer) / sizeof(WCHAR), lpszFormat, args);
-        szBuffer[sizeof(szBuffer)/sizeof(WCHAR)-1] = 0;
+  nBuf = _vsnwprintf(szBuffer, sizeof(szBuffer) / sizeof(WCHAR), lpszFormat, args);
+  szBuffer[sizeof(szBuffer)/sizeof(WCHAR)-1] = 0;
 
-        if(nBuf == -1 || nBuf >= sizeof(szBuffer)/sizeof(WCHAR))
-        {
-                WCHAR szContinued[] = L"...";
-                
-                ocscpy(szBuffer + sizeof(szBuffer)/sizeof(WCHAR) - sizeof(szContinued)/sizeof(WCHAR), szContinued);
-        }                
+  if(nBuf == -1 || nBuf >= sizeof(szBuffer)/sizeof(WCHAR))
+  {
+    WCHAR szContinued[] = L"...";
 
-        OutputDebugStringW(szBuffer);
-        va_end(args);
+    ocscpy(szBuffer + sizeof(szBuffer)/sizeof(WCHAR) - sizeof(szContinued)/sizeof(WCHAR), szContinued);
+  }
+
+  OutputDebugStringW(szBuffer);
+  va_end(args);
 }
 inline void _cdecl AtlTrace2(DWORD category, UINT level, LPCWSTR lpszFormat, ...)
 {
-        if (category & ATL_TRACE_CATEGORY && level <= ATL_TRACE_LEVEL)
-        {
-                va_list args;
-                va_start(args, lpszFormat);
+  if (category & ATL_TRACE_CATEGORY && level <= ATL_TRACE_LEVEL)
+  {
+    va_list args;
+    va_start(args, lpszFormat);
 
-                int nBuf;
-                WCHAR szBuffer[512];
+    int nBuf;
+    WCHAR szBuffer[512];
 
-                nBuf = _vsnwprintf(szBuffer, sizeof(szBuffer) / sizeof(WCHAR), lpszFormat, args);
-                szBuffer[sizeof(szBuffer)/sizeof(WCHAR)-1] = 0;
+    nBuf = _vsnwprintf(szBuffer, sizeof(szBuffer) / sizeof(WCHAR), lpszFormat, args);
+    szBuffer[sizeof(szBuffer)/sizeof(WCHAR)-1] = 0;
 
-                if(nBuf == -1 || nBuf >= sizeof(szBuffer)/sizeof(WCHAR))
-                {
-                        WCHAR szContinued[] = L"...";
-                        
-                        ocscpy(szBuffer + sizeof(szBuffer)/sizeof(WCHAR) - sizeof(szContinued)/sizeof(WCHAR), szContinued);
-                }                
+    if(nBuf == -1 || nBuf >= sizeof(szBuffer)/sizeof(WCHAR))
+    {
+      WCHAR szContinued[] = L"...";
 
-                OutputDebugStringW(L"ATL: ");
-                OutputDebugStringW(szBuffer);
-                va_end(args);
-        }
+      ocscpy(szBuffer + sizeof(szBuffer)/sizeof(WCHAR) - sizeof(szContinued)/sizeof(WCHAR), szContinued);
+    }
+
+    OutputDebugStringW(L"ATL: ");
+    OutputDebugStringW(szBuffer);
+    va_end(args);
+  }
 }
 #endif //!OLE2ANSI
 
 
 #ifndef ATLTRACE
-#define ATLTRACE            AtlTrace
-#define ATLTRACE2           AtlTrace2
+#define ATLTRACE      AtlTrace
+#define ATLTRACE2    AtlTrace2
 #endif
 #define ATLTRACENOTIMPL(funcname)   ATLTRACE2(atlTraceNotImpl, 2, _T("ATL: %s not implemented.\n"), funcname); return E_NOTIMPL
 #else // !DEBUG
@@ -612,18 +698,18 @@ inline void _cdecl AtlTrace(LPCWSTR , ...){}
 inline void _cdecl AtlTrace2(DWORD, UINT, LPCWSTR , ...){}
 #endif //OLE2ANSI
 #ifndef ATLTRACE
-#define ATLTRACE            1 ? (void)0 : AtlTrace
-#define ATLTRACE2           1 ? (void)0 : AtlTrace2
+#define ATLTRACE      1 ? (void)0 : AtlTrace
+#define ATLTRACE2    1 ? (void)0 : AtlTrace2
 #endif //ATLTRACE
 #define ATLTRACENOTIMPL(funcname)   return E_NOTIMPL
 #endif //_DEBUG
 
 // Validation macro for OUT pointer
 // Used in QI and CreateInstance
-#define _ATL_VALIDATE_OUT_POINTER(x)        ATLASSERT(x != NULL);        \
-        if (x == NULL)        \
-                return E_POINTER;        \
-        *x = NULL
+#define _ATL_VALIDATE_OUT_POINTER(x)  ATLASSERT(x != NULL); \
+  if (x == NULL)  \
+    return E_POINTER; \
+  *x = NULL
 
 /////////////////////////////////////////////////////////////////////////////
 // Win32 libraries
@@ -640,168 +726,168 @@ inline void _cdecl AtlTrace2(DWORD, UINT, LPCWSTR , ...){}
 
 static HRESULT AtlSetChildSite(IUnknown* punkChild, IUnknown* punkParent)
 {
-        if (punkChild == NULL)
-                return E_POINTER;
+  if (punkChild == NULL)
+    return E_POINTER;
 
-        HRESULT hr;
-        IObjectWithSite* pChildSite = NULL;
-        hr = punkChild->QueryInterface(IID_IObjectWithSite, (void**)&pChildSite);
-        if (SUCCEEDED(hr) && pChildSite != NULL)
-        {
-                hr = pChildSite->SetSite(punkParent);
-                pChildSite->Release();
-        }
-        return hr;
+  HRESULT hr;
+  IObjectWithSite* pChildSite = NULL;
+  hr = punkChild->QueryInterface(IID_IObjectWithSite, (void**)&pChildSite);
+  if (SUCCEEDED(hr) && pChildSite != NULL)
+  {
+    hr = pChildSite->SetSite(punkParent);
+    pChildSite->Release();
+  }
+  return hr;
 }
 
 template <class T>
 class _NoAddRefReleaseOnCComPtr : public T
 {
-        private:
-                STDMETHOD_(ULONG, AddRef)()=0;
-                STDMETHOD_(ULONG, Release)()=0;
+  private:
+    STDMETHOD_(ULONG, AddRef)()=0;
+    STDMETHOD_(ULONG, Release)()=0;
 };
 
 template <class T>
 class CComPtr
 {
 public:
-        typedef T _PtrClass;
-        CComPtr()
-        {
-                p=NULL;
-        }
-        CComPtr(T* lp)
-        {
-                if ((p = lp) != NULL)
-                        p->AddRef();
-        }
-        CComPtr(const CComPtr<T>& lp)
-        {
-                if ((p = lp.p) != NULL)
-                        p->AddRef();
-        }
-        ~CComPtr()
-        {
-                if (p)
-                        p->Release();
-        }
-        void Release()
-        {
-                IUnknown* pTemp = p;
-                if (pTemp)
-                {
-                        p = NULL;
-                        pTemp->Release();
-                }
-        }
-        operator T*() const
-        {
-                return (T*)p;
-        }
-        T& operator*() const
-        {
-                ATLASSERT(p!=NULL);
-                return *p;
-        }
-        //The assert on operator& usually indicates a bug.  If this is really
-        //what is needed, however, take the address of the p member explicitly.
-        T** operator&()
-        {
-                ATLASSERT(p==NULL);
-                return &p;
-        }
-        _NoAddRefReleaseOnCComPtr<T>* operator->() const
-        {
-                ATLASSERT(p!=NULL);
-                return (_NoAddRefReleaseOnCComPtr<T>*)p;
-        }
-        T* operator=(T* lp)
-        {
-                return (T*)AtlComPtrAssign((IUnknown**)&p, lp);
-        }
-        T* operator=(const CComPtr<T>& lp)
-        {
-                return (T*)AtlComPtrAssign((IUnknown**)&p, lp.p);
-        }
-        bool operator!() const
-        {
-                return (p == NULL);
-        }
-        bool operator<(T* pT) const
-        {
-                return p < pT;
-        }
-        bool operator==(T* pT) const
-        {
-                return p == pT;
-        }
-        // Compare two objects for equivalence
-        bool IsEqualObject(IUnknown* pOther)
-        {
-                if (p == NULL && pOther == NULL)
-                        return true; // They are both NULL objects
+  typedef T _PtrClass;
+  CComPtr()
+  {
+    p=NULL;
+  }
+  CComPtr(T* lp)
+  {
+    if ((p = lp) != NULL)
+      p->AddRef();
+  }
+  CComPtr(const CComPtr<T>& lp)
+  {
+    if ((p = lp.p) != NULL)
+      p->AddRef();
+  }
+  ~CComPtr()
+  {
+    if (p)
+      p->Release();
+  }
+  void Release()
+  {
+    IUnknown* pTemp = p;
+    if (pTemp)
+    {
+      p = NULL;
+      pTemp->Release();
+    }
+  }
+  operator T*() const
+  {
+    return (T*)p;
+  }
+  T& operator*() const
+  {
+    ATLASSERT(p!=NULL);
+    return *p;
+  }
+  //The assert on operator& usually indicates a bug.  If this is really
+  //what is needed, however, take the address of the p member explicitly.
+  T** operator&()
+  {
+    ATLASSERT(p==NULL);
+    return &p;
+  }
+  _NoAddRefReleaseOnCComPtr<T>* operator->() const
+  {
+    ATLASSERT(p!=NULL);
+    return (_NoAddRefReleaseOnCComPtr<T>*)p;
+  }
+  T* operator=(T* lp)
+  {
+    return (T*)AtlComPtrAssign((IUnknown**)&p, lp);
+  }
+  T* operator=(const CComPtr<T>& lp)
+  {
+    return (T*)AtlComPtrAssign((IUnknown**)&p, lp.p);
+  }
+  bool operator!() const
+  {
+    return (p == NULL);
+  }
+  bool operator<(T* pT) const
+  {
+    return p < pT;
+  }
+  bool operator==(T* pT) const
+  {
+    return p == pT;
+  }
+  // Compare two objects for equivalence
+  bool IsEqualObject(IUnknown* pOther)
+  {
+    if (p == pOther) //Fix: improved perfomance
+      return true; // They are both same or NULL objects
 
-                if (p == NULL || pOther == NULL)
-                        return false; // One is NULL the other is not
+    if (p == NULL || pOther == NULL)
+      return false; // One is NULL the other is not
 
-                CComPtr<IUnknown> punk1;
-                CComPtr<IUnknown> punk2;
-                p->QueryInterface(IID_IUnknown, (void**)&punk1);
-                pOther->QueryInterface(IID_IUnknown, (void**)&punk2);
-                return punk1 == punk2;
-        }
-        void Attach(T* p2)
-        {
-                if (p)
-                        p->Release();
-                p = p2;
-        }
-        T* Detach()
-        {
-                T* pt = p;
-                p = NULL;
-                return pt;
-        }
-        HRESULT CopyTo(T** ppT)
-        {
-                ATLASSERT(ppT != NULL);
-                if (ppT == NULL)
-                        return E_POINTER;
-                *ppT = p;
-                if (p)
-                        p->AddRef();
-                return S_OK;
-        }
-        HRESULT SetSite(IUnknown* punkParent)
-        {
-                return AtlSetChildSite(p, punkParent);
-        }
-        HRESULT Advise(IUnknown* pUnk, const IID& iid, LPDWORD pdw)
-        {
-                return AtlAdvise(p, pUnk, iid, pdw);
-        }
-        HRESULT CoCreateInstance(REFCLSID rclsid, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
-        {
-                ATLASSERT(p == NULL);
-                return ::CoCreateInstance(rclsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&p);
-        }
-        HRESULT CoCreateInstance(LPCOLESTR szProgID, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
-        {
-                CLSID clsid;
-                HRESULT hr = CLSIDFromProgID(szProgID, &clsid);
-                ATLASSERT(p == NULL);
-                if (SUCCEEDED(hr))
-                        hr = ::CoCreateInstance(clsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&p);
-                return hr;
-        }
-        template <class Q>
-        HRESULT QueryInterface(Q** pp) const
-        {
-                ATLASSERT(pp != NULL && *pp == NULL);
-                return p->QueryInterface(__uuidof(Q), (void**)pp);
-        }
-        T* p;
+    CComPtr<IUnknown> punk1;
+    CComPtr<IUnknown> punk2;
+    p->QueryInterface(IID_IUnknown, (void**)&punk1);
+    pOther->QueryInterface(IID_IUnknown, (void**)&punk2);
+    return punk1 == punk2;
+  }
+  void Attach(T* p2)
+  {
+    if (p)
+      p->Release();
+    p = p2;
+  }
+  T* Detach()
+  {
+    T* pt = p;
+    p = NULL;
+    return pt;
+  }
+  HRESULT CopyTo(T** ppT)
+  {
+    ATLASSERT(ppT != NULL);
+    if (ppT == NULL)
+      return E_POINTER;
+    *ppT = p;
+    if (p)
+      p->AddRef();
+    return S_OK;
+  }
+  HRESULT SetSite(IUnknown* punkParent)
+  {
+    return AtlSetChildSite(p, punkParent);
+  }
+  HRESULT Advise(IUnknown* pUnk, const IID& iid, LPDWORD pdw)
+  {
+    return AtlAdvise(p, pUnk, iid, pdw);
+  }
+  HRESULT CoCreateInstance(REFCLSID rclsid, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
+  {
+    ATLASSERT(p == NULL);
+    return ::CoCreateInstance(rclsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&p);
+  }
+  HRESULT CoCreateInstance(LPCOLESTR szProgID, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
+  {
+    CLSID clsid;
+    HRESULT hr = CLSIDFromProgID(szProgID, &clsid);
+    ATLASSERT(p == NULL);
+    if (SUCCEEDED(hr))
+      hr = ::CoCreateInstance(clsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&p);
+    return hr;
+  }
+  template <class Q>
+  HRESULT QueryInterface(Q** pp) const
+  {
+    ATLASSERT(pp != NULL && *pp == NULL);
+    return p->QueryInterface(__uuidof(Q), (void**)pp);
+  }
+  T* p;
 };
 
 
@@ -809,151 +895,151 @@ template <class T, const IID* piid = &__uuidof(T)>
 class CComQIPtr
 {
 public:
-        typedef T _PtrClass;
-        CComQIPtr()
-        {
-                p=NULL;
-        }
-        CComQIPtr(T* lp)
-        {
-                if ((p = lp) != NULL)
-                        p->AddRef();
-        }
-        CComQIPtr(const CComQIPtr<T,piid>& lp)
-        {
-                if ((p = lp.p) != NULL)
-                        p->AddRef();
-        }
-        CComQIPtr(IUnknown* lp)
-        {
-                p=NULL;
-                if (lp != NULL)
-                        lp->QueryInterface(*piid, (void **)&p);
-        }
-        ~CComQIPtr()
-        {
-                if (p)
-                        p->Release();
-        }
-        void Release()
-        {
-                IUnknown* pTemp = p;
-                if (pTemp)
-                {
-                        p = NULL;
-                        pTemp->Release();
-                }
-        }
-        operator T*() const
-        {
-                return p;
-        }
-        T& operator*() const
-        {
-                ATLASSERT(p!=NULL); return *p;
-        }
-        //The assert on operator& usually indicates a bug.  If this is really
-        //what is needed, however, take the address of the p member explicitly.
-        T** operator&()
-        {
-                ATLASSERT(p==NULL);
-                return &p;
-        }
-        _NoAddRefReleaseOnCComPtr<T>* operator->() const
-        {
-                ATLASSERT(p!=NULL);
-                return (_NoAddRefReleaseOnCComPtr<T>*)p;
-        }
-        T* operator=(T* lp)
-        {
-                return (T*)AtlComPtrAssign((IUnknown**)&p, lp);
-        }
-        T* operator=(const CComQIPtr<T,piid>& lp)
-        {
-                return (T*)AtlComPtrAssign((IUnknown**)&p, lp.p);
-        }
-        T* operator=(IUnknown* lp)
-        {
-                return (T*)AtlComQIPtrAssign((IUnknown**)&p, lp, *piid);
-        }
-        bool operator!() const
-        {
-                return (p == NULL);
-        }
-        bool operator<(T* pT) const
-        {
-                return p < pT;
-        }
-        bool operator==(T* pT) const
-        {
-                return p == pT;
-        }
-        // Compare two objects for equivalence
-        bool IsEqualObject(IUnknown* pOther)
-        {
-                if (p == NULL && pOther == NULL)
-                        return true; // They are both NULL objects
+  typedef T _PtrClass;
+  CComQIPtr()
+  {
+    p=NULL;
+  }
+  CComQIPtr(T* lp)
+  {
+    if ((p = lp) != NULL)
+      p->AddRef();
+  }
+  CComQIPtr(const CComQIPtr<T,piid>& lp)
+  {
+    if ((p = lp.p) != NULL)
+      p->AddRef();
+  }
+  CComQIPtr(IUnknown* lp)
+  {
+    p=NULL;
+    if (lp != NULL)
+      lp->QueryInterface(*piid, (void **)&p);
+  }
+  ~CComQIPtr()
+  {
+    if (p)
+      p->Release();
+  }
+  void Release()
+  {
+    IUnknown* pTemp = p;
+    if (pTemp)
+    {
+      p = NULL;
+      pTemp->Release();
+    }
+  }
+  operator T*() const
+  {
+    return p;
+  }
+  T& operator*() const
+  {
+    ATLASSERT(p!=NULL); return *p;
+  }
+  //The assert on operator& usually indicates a bug.  If this is really
+  //what is needed, however, take the address of the p member explicitly.
+  T** operator&()
+  {
+    ATLASSERT(p==NULL);
+    return &p;
+  }
+  _NoAddRefReleaseOnCComPtr<T>* operator->() const
+  {
+    ATLASSERT(p!=NULL);
+    return (_NoAddRefReleaseOnCComPtr<T>*)p;
+  }
+  T* operator=(T* lp)
+  {
+    return (T*)AtlComPtrAssign((IUnknown**)&p, lp);
+  }
+  T* operator=(const CComQIPtr<T,piid>& lp)
+  {
+    return (T*)AtlComPtrAssign((IUnknown**)&p, lp.p);
+  }
+  T* operator=(IUnknown* lp)
+  {
+    return (T*)AtlComQIPtrAssign((IUnknown**)&p, lp, *piid);
+  }
+  bool operator!() const
+  {
+    return (p == NULL);
+  }
+  bool operator<(T* pT) const
+  {
+    return p < pT;
+  }
+  bool operator==(T* pT) const
+  {
+    return p == pT;
+  }
+  // Compare two objects for equivalence
+  bool IsEqualObject(IUnknown* pOther)
+  {
+    if (p == pOther) //Fix: improved perfomance
+      return true; // They are both NULL objects
 
-                if (p == NULL || pOther == NULL)
-                        return false; // One is NULL the other is not
+    if (p == NULL || pOther == NULL)
+      return false; // One is NULL the other is not
 
-                CComPtr<IUnknown> punk1;
-                CComPtr<IUnknown> punk2;
-                p->QueryInterface(IID_IUnknown, (void**)&punk1);
-                pOther->QueryInterface(IID_IUnknown, (void**)&punk2);
-                return punk1 == punk2;
-        }
-        void Attach(T* p2)
-        {
-                if (p)
-                        p->Release();
-                p = p2;
-        }
-        T* Detach()
-        {
-                T* pt = p;
-                p = NULL;
-                return pt;
-        }
-        HRESULT CopyTo(T** ppT)
-        {
-                ATLASSERT(ppT != NULL);
-                if (ppT == NULL)
-                        return E_POINTER;
-                *ppT = p;
-                if (p)
-                        p->AddRef();
-                return S_OK;
-        }
-        HRESULT SetSite(IUnknown* punkParent)
-        {
-                return AtlSetChildSite(p, punkParent);
-        }
-        HRESULT Advise(IUnknown* pUnk, const IID& iid, LPDWORD pdw)
-        {
-                return AtlAdvise(p, pUnk, iid, pdw);
-        }
-        HRESULT CoCreateInstance(REFCLSID rclsid, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
-        {
-                ATLASSERT(p == NULL);
-                return ::CoCreateInstance(rclsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&p);
-        }
-        HRESULT CoCreateInstance(LPCOLESTR szProgID, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
-        {
-                CLSID clsid;
-                HRESULT hr = CLSIDFromProgID(szProgID, &clsid);
-                ATLASSERT(p == NULL);
-                if (SUCCEEDED(hr))
-                        hr = ::CoCreateInstance(clsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&p);
-                return hr;
-        }
-        template <class Q>
-        HRESULT QueryInterface(Q** pp)
-        {
-                ATLASSERT(pp != NULL && *pp == NULL);
-                return p->QueryInterface(__uuidof(Q), (void**)pp);
-        }
-        T* p;
+    CComPtr<IUnknown> punk1;
+    CComPtr<IUnknown> punk2;
+    p->QueryInterface(IID_IUnknown, (void**)&punk1);
+    pOther->QueryInterface(IID_IUnknown, (void**)&punk2);
+    return punk1 == punk2;
+  }
+  void Attach(T* p2)
+  {
+    if (p)
+      p->Release();
+    p = p2;
+  }
+  T* Detach()
+  {
+    T* pt = p;
+    p = NULL;
+    return pt;
+  }
+  HRESULT CopyTo(T** ppT)
+  {
+    ATLASSERT(ppT != NULL);
+    if (ppT == NULL)
+      return E_POINTER;
+    *ppT = p;
+    if (p)
+      p->AddRef();
+    return S_OK;
+  }
+  HRESULT SetSite(IUnknown* punkParent)
+  {
+    return AtlSetChildSite(p, punkParent);
+  }
+  HRESULT Advise(IUnknown* pUnk, const IID& iid, LPDWORD pdw)
+  {
+    return AtlAdvise(p, pUnk, iid, pdw);
+  }
+  HRESULT CoCreateInstance(REFCLSID rclsid, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
+  {
+    ATLASSERT(p == NULL);
+    return ::CoCreateInstance(rclsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&p);
+  }
+  HRESULT CoCreateInstance(LPCOLESTR szProgID, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
+  {
+    CLSID clsid;
+    HRESULT hr = CLSIDFromProgID(szProgID, &clsid);
+    ATLASSERT(p == NULL);
+    if (SUCCEEDED(hr))
+      hr = ::CoCreateInstance(clsid, pUnkOuter, dwClsContext, __uuidof(T), (void**)&p);
+    return hr;
+  }
+  template <class Q>
+  HRESULT QueryInterface(Q** pp)
+  {
+    ATLASSERT(pp != NULL && *pp == NULL);
+    return p->QueryInterface(__uuidof(Q), (void**)pp);
+  }
+  T* p;
 };
 
 //Specialization to make it work
@@ -961,139 +1047,139 @@ template<>
 class CComQIPtr<IUnknown, &IID_IUnknown>
 {
 public:
-        typedef IUnknown _PtrClass;
-        CComQIPtr()
-        {
-                p=NULL;
-        }
-        CComQIPtr(IUnknown* lp)
-        {
-                //Actually do a QI to get identity
-                p=NULL;
-                if (lp != NULL)
-                        lp->QueryInterface(IID_IUnknown, (void **)&p);
-        }
-        CComQIPtr(const CComQIPtr<IUnknown,&IID_IUnknown>& lp)
-        {
-                if ((p = lp.p) != NULL)
-                        p->AddRef();
-        }
-        ~CComQIPtr()
-        {
-                if (p)
-                        p->Release();
-        }
-        void Release()
-        {
-                IUnknown* pTemp = p;
-                if (pTemp)
-                {
-                        p = NULL;
-                        pTemp->Release();
-                }
-        }
-        operator IUnknown*() const
-        {
-                return p;
-        }
-        IUnknown& operator*() const
-        {
-                ATLASSERT(p!=NULL);
-                return *p;
-        }
-        //The assert on operator& usually indicates a bug.  If this is really
-        //what is needed, however, take the address of the p member explicitly.
-        IUnknown** operator&()
-        {
-                ATLASSERT(p==NULL);
-                return &p;
-        }
-        _NoAddRefReleaseOnCComPtr<IUnknown>* operator->() const
-        {
-                ATLASSERT(p!=NULL);
-                return (_NoAddRefReleaseOnCComPtr<IUnknown>*)p;
-        }
-        IUnknown* operator=(IUnknown* lp)
-        {
-                //Actually do a QI to get identity
-                return (IUnknown*)AtlComQIPtrAssign((IUnknown**)&p, lp, IID_IUnknown);
-        }
-        IUnknown* operator=(const CComQIPtr<IUnknown,&IID_IUnknown>& lp)
-        {
-                return (IUnknown*)AtlComPtrAssign((IUnknown**)&p, lp.p);
-        }
-        bool operator!() const
-        {
-                return (p == NULL);
-        }
-        bool operator<(IUnknown* pT) const
-        {
-                return p < pT;
-        }
-        bool operator==(IUnknown* pT) const
-        {
-                return p == pT;
-        }
-        // Compare two objects for equivalence
-        bool IsEqualObject(IUnknown* pOther)
-        {
-                if (p == NULL && pOther == NULL)
-                        return true; // They are both NULL objects
+  typedef IUnknown _PtrClass;
+  CComQIPtr()
+  {
+    p=NULL;
+  }
+  CComQIPtr(IUnknown* lp)
+  {
+    //Actually do a QI to get identity
+    p=NULL;
+    if (lp != NULL)
+      lp->QueryInterface(IID_IUnknown, (void **)&p);
+  }
+  CComQIPtr(const CComQIPtr<IUnknown,&IID_IUnknown>& lp)
+  {
+    if ((p = lp.p) != NULL)
+      p->AddRef();
+  }
+  ~CComQIPtr()
+  {
+    if (p)
+      p->Release();
+  }
+  void Release()
+  {
+    IUnknown* pTemp = p;
+    if (pTemp)
+    {
+      p = NULL;
+      pTemp->Release();
+    }
+  }
+  operator IUnknown*() const
+  {
+    return p;
+  }
+  IUnknown& operator*() const
+  {
+    ATLASSERT(p!=NULL);
+    return *p;
+  }
+  //The assert on operator& usually indicates a bug.  If this is really
+  //what is needed, however, take the address of the p member explicitly.
+  IUnknown** operator&()
+  {
+    ATLASSERT(p==NULL);
+    return &p;
+  }
+  _NoAddRefReleaseOnCComPtr<IUnknown>* operator->() const
+  {
+    ATLASSERT(p!=NULL);
+    return (_NoAddRefReleaseOnCComPtr<IUnknown>*)p;
+  }
+  IUnknown* operator=(IUnknown* lp)
+  {
+    //Actually do a QI to get identity
+    return (IUnknown*)AtlComQIPtrAssign((IUnknown**)&p, lp, IID_IUnknown);
+  }
+  IUnknown* operator=(const CComQIPtr<IUnknown,&IID_IUnknown>& lp)
+  {
+    return (IUnknown*)AtlComPtrAssign((IUnknown**)&p, lp.p);
+  }
+  bool operator!() const
+  {
+    return (p == NULL);
+  }
+  bool operator<(IUnknown* pT) const
+  {
+    return p < pT;
+  }
+  bool operator==(IUnknown* pT) const
+  {
+    return p == pT;
+  }
+  // Compare two objects for equivalence
+  bool IsEqualObject(IUnknown* pOther)
+  {
+    if (p == pOther) //Fix: improved perfomance
+      return true; // They are both NULL objects
 
-                if (p == NULL || pOther == NULL)
-                        return false; // One is NULL the other is not
+    if (p == NULL || pOther == NULL)
+      return false; // One is NULL the other is not
 
-                CComPtr<IUnknown> punk1;
-                CComPtr<IUnknown> punk2;
-                p->QueryInterface(IID_IUnknown, (void**)&punk1);
-                pOther->QueryInterface(IID_IUnknown, (void**)&punk2);
-                return punk1 == punk2;
-        }
-        IUnknown* Detach()
-        {
-                IUnknown* pt = p;
-                p = NULL;
-                return pt;
-        }
-        HRESULT CopyTo(IUnknown** ppT)
-        {
-                ATLASSERT(ppT != NULL);
-                if (ppT == NULL)
-                        return E_POINTER;
-                *ppT = p;
-                if (p)
-                        p->AddRef();
-                return S_OK;
-        }
-        HRESULT SetSite(IUnknown* punkParent)
-        {
-                return AtlSetChildSite(p, punkParent);
-        }
-        HRESULT Advise(IUnknown* pUnk, const IID& iid, LPDWORD pdw)
-        {
-                return AtlAdvise(p, pUnk, iid, pdw);
-        }
-        HRESULT CoCreateInstance(REFCLSID rclsid, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
-        {
-                ATLASSERT(p == NULL);
-                return ::CoCreateInstance(rclsid, pUnkOuter, dwClsContext, __uuidof(IUnknown), (void**)&p);
-        }
-        HRESULT CoCreateInstance(LPCOLESTR szProgID, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
-        {
-                CLSID clsid;
-                HRESULT hr = CLSIDFromProgID(szProgID, &clsid);
-                ATLASSERT(p == NULL);
-                if (SUCCEEDED(hr))
-                        hr = ::CoCreateInstance(clsid, pUnkOuter, dwClsContext, __uuidof(IUnknown), (void**)&p);
-                return hr;
-        }
-        template <class Q>
-        HRESULT QueryInterface(Q** pp)
-        {
-                ATLASSERT(pp != NULL && *pp == NULL);
-                return p->QueryInterface(__uuidof(Q), (void**)pp);
-        }
-        IUnknown* p;
+    CComPtr<IUnknown> punk1;
+    CComPtr<IUnknown> punk2;
+    p->QueryInterface(IID_IUnknown, (void**)&punk1);
+    pOther->QueryInterface(IID_IUnknown, (void**)&punk2);
+    return punk1 == punk2;
+  }
+  IUnknown* Detach()
+  {
+    IUnknown* pt = p;
+    p = NULL;
+    return pt;
+  }
+  HRESULT CopyTo(IUnknown** ppT)
+  {
+    ATLASSERT(ppT != NULL);
+    if (ppT == NULL)
+      return E_POINTER;
+    *ppT = p;
+    if (p)
+      p->AddRef();
+    return S_OK;
+  }
+  HRESULT SetSite(IUnknown* punkParent)
+  {
+    return AtlSetChildSite(p, punkParent);
+  }
+  HRESULT Advise(IUnknown* pUnk, const IID& iid, LPDWORD pdw)
+  {
+    return AtlAdvise(p, pUnk, iid, pdw);
+  }
+  HRESULT CoCreateInstance(REFCLSID rclsid, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
+  {
+    ATLASSERT(p == NULL);
+    return ::CoCreateInstance(rclsid, pUnkOuter, dwClsContext, __uuidof(IUnknown), (void**)&p);
+  }
+  HRESULT CoCreateInstance(LPCOLESTR szProgID, LPUNKNOWN pUnkOuter = NULL, DWORD dwClsContext = CLSCTX_ALL)
+  {
+    CLSID clsid;
+    HRESULT hr = CLSIDFromProgID(szProgID, &clsid);
+    ATLASSERT(p == NULL);
+    if (SUCCEEDED(hr))
+      hr = ::CoCreateInstance(clsid, pUnkOuter, dwClsContext, __uuidof(IUnknown), (void**)&p);
+    return hr;
+  }
+  template <class Q>
+  HRESULT QueryInterface(Q** pp)
+  {
+    ATLASSERT(pp != NULL && *pp == NULL);
+    return p->QueryInterface(__uuidof(Q), (void**)pp);
+  }
+  IUnknown* p;
 };
 
 #define com_cast CComQIPtr
@@ -1107,43 +1193,43 @@ template <class T>
 class CAdapt
 {
 public:
-        CAdapt()
-        {
-        }
-        CAdapt(const T& rSrc)
-        {
-                m_T = rSrc;
-        }
+  CAdapt()
+  {
+  }
+  CAdapt(const T& rSrc)
+  {
+    m_T = rSrc;
+  }
 
-        CAdapt(const CAdapt& rSrCA)
-        {
-                m_T = rSrCA.m_T;
-        }
+  CAdapt(const CAdapt& rSrCA)
+  {
+    m_T = rSrCA.m_T;
+  }
 
-        CAdapt& operator=(const T& rSrc)
-        {
-                m_T = rSrc;
-                return *this;
-        }
-        bool operator<(const T& rSrc) const
-        {
-                return m_T < rSrc;
-        }
-        bool operator==(const T& rSrc) const
-        {
-                return m_T == rSrc;
-        }
-        operator T&()
-        {
-                return m_T;
-        }
+  CAdapt& operator=(const T& rSrc)
+  {
+    m_T = rSrc;
+    return *this;
+  }
+  bool operator<(const T& rSrc) const
+  {
+    return m_T < rSrc;
+  }
+  bool operator==(const T& rSrc) const
+  {
+    return m_T == rSrc;
+  }
+  operator T&()
+  {
+    return m_T;
+  }
 
-        operator const T&() const
-        {
-                return m_T;
-        }
+  operator const T&() const
+  {
+    return m_T;
+  }
 
-        T m_T;
+  T m_T;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1152,14 +1238,14 @@ public:
 inline BOOL InlineIsEqualUnknown(REFGUID rguid1)
 {
    return (
-          ((PLONG) &rguid1)[0] == 0 &&
-          ((PLONG) &rguid1)[1] == 0 &&
+    ((PLONG) &rguid1)[0] == 0 &&
+    ((PLONG) &rguid1)[1] == 0 &&
 #ifdef _ATL_BYTESWAP
-          ((PLONG) &rguid1)[2] == 0xC0000000 &&
-          ((PLONG) &rguid1)[3] == 0x00000046);
+    ((PLONG) &rguid1)[2] == 0xC0000000 &&
+    ((PLONG) &rguid1)[3] == 0x00000046);
 #else
-          ((PLONG) &rguid1)[2] == 0x000000C0 &&
-          ((PLONG) &rguid1)[3] == 0x46000000);
+    ((PLONG) &rguid1)[2] == 0x000000C0 &&
+    ((PLONG) &rguid1)[3] == 0x46000000);
 #endif
 }
 
@@ -1171,71 +1257,71 @@ inline BOOL InlineIsEqualUnknown(REFGUID rguid1)
 class CComCriticalSection
 {
 public:
-        void Lock() {EnterCriticalSection(&m_sec);}
-        void Unlock() {LeaveCriticalSection(&m_sec);}
-        void Init() {InitializeCriticalSection(&m_sec);}
-        void Term() {DeleteCriticalSection(&m_sec);}
-        CRITICAL_SECTION m_sec;
+  void Lock() {EnterCriticalSection(&m_sec);}
+  void Unlock() {LeaveCriticalSection(&m_sec);}
+  void Init() {InitializeCriticalSection(&m_sec);}
+  void Term() {DeleteCriticalSection(&m_sec);}
+  CRITICAL_SECTION m_sec;
 };
 
 class CComAutoCriticalSection
 {
 public:
-        void Lock() {EnterCriticalSection(&m_sec);}
-        void Unlock() {LeaveCriticalSection(&m_sec);}
-        CComAutoCriticalSection() {InitializeCriticalSection(&m_sec);}
-        ~CComAutoCriticalSection() {DeleteCriticalSection(&m_sec);}
-        CRITICAL_SECTION m_sec;
+  void Lock() {EnterCriticalSection(&m_sec);}
+  void Unlock() {LeaveCriticalSection(&m_sec);}
+  CComAutoCriticalSection() {InitializeCriticalSection(&m_sec);}
+  ~CComAutoCriticalSection() {DeleteCriticalSection(&m_sec);}
+  CRITICAL_SECTION m_sec;
 };
 
 class CComFakeCriticalSection
 {
 public:
-        void Lock() {}
-        void Unlock() {}
-        void Init() {}
-        void Term() {}
+  void Lock() {}
+  void Unlock() {}
+  void Init() {}
+  void Term() {}
 };
 
 class CComMultiThreadModelNoCS
 {
 public:
-        static ULONG WINAPI Increment(LPLONG p) {return InterlockedIncrement(p);}
-        static ULONG WINAPI Decrement(LPLONG p) {return InterlockedDecrement(p);}
-        typedef CComFakeCriticalSection AutoCriticalSection;
-        typedef CComFakeCriticalSection CriticalSection;
-        typedef CComMultiThreadModelNoCS ThreadModelNoCS;
+  static ULONG WINAPI Increment(LPLONG p) {return InterlockedIncrement(p);}
+  static ULONG WINAPI Decrement(LPLONG p) {return InterlockedDecrement(p);}
+  typedef CComFakeCriticalSection AutoCriticalSection;
+  typedef CComFakeCriticalSection CriticalSection;
+  typedef CComMultiThreadModelNoCS ThreadModelNoCS;
 };
 
 class CComMultiThreadModel
 {
 public:
-        static ULONG WINAPI Increment(LPLONG p) {return InterlockedIncrement(p);}
-        static ULONG WINAPI Decrement(LPLONG p) {return InterlockedDecrement(p);}
-        typedef CComAutoCriticalSection AutoCriticalSection;
-        typedef CComCriticalSection CriticalSection;
-        typedef CComMultiThreadModelNoCS ThreadModelNoCS;
+  static ULONG WINAPI Increment(LPLONG p) {return InterlockedIncrement(p);}
+  static ULONG WINAPI Decrement(LPLONG p) {return InterlockedDecrement(p);}
+  typedef CComAutoCriticalSection AutoCriticalSection;
+  typedef CComCriticalSection CriticalSection;
+  typedef CComMultiThreadModelNoCS ThreadModelNoCS;
 };
 
 class CComSingleThreadModel
 {
 public:
-        static ULONG WINAPI Increment(LPLONG p) {return ++(*p);}
-        static ULONG WINAPI Decrement(LPLONG p) {return --(*p);}
-        typedef CComFakeCriticalSection AutoCriticalSection;
-        typedef CComFakeCriticalSection CriticalSection;
-        typedef CComSingleThreadModel ThreadModelNoCS;
+  static ULONG WINAPI Increment(LPLONG p) {return ++(*p);}
+  static ULONG WINAPI Decrement(LPLONG p) {return --(*p);}
+  typedef CComFakeCriticalSection AutoCriticalSection;
+  typedef CComFakeCriticalSection CriticalSection;
+  typedef CComSingleThreadModel ThreadModelNoCS;
 };
 
 #if defined(_ATL_SINGLE_THREADED)
-        typedef CComSingleThreadModel CComObjectThreadModel;
-        typedef CComSingleThreadModel CComGlobalsThreadModel;
+  typedef CComSingleThreadModel CComObjectThreadModel;
+  typedef CComSingleThreadModel CComGlobalsThreadModel;
 #elif defined(_ATL_APARTMENT_THREADED)
-        typedef CComSingleThreadModel CComObjectThreadModel;
-        typedef CComMultiThreadModel CComGlobalsThreadModel;
+  typedef CComSingleThreadModel CComObjectThreadModel;
+  typedef CComMultiThreadModel CComGlobalsThreadModel;
 #else
-        typedef CComMultiThreadModel CComObjectThreadModel;
-        typedef CComMultiThreadModel CComGlobalsThreadModel;
+  typedef CComMultiThreadModel CComObjectThreadModel;
+  typedef CComMultiThreadModel CComGlobalsThreadModel;
 #endif
 #else  /* OLD_ATL_CRITSEC_CODE */
 
@@ -1243,156 +1329,156 @@ class CComCriticalSection
 {
 public:
 
-	CComCriticalSection() throw()
-	{
-		memset(&m_sec, 0, sizeof(CRITICAL_SECTION));
-	}
-	HRESULT Lock() throw()
-	{
-		EnterCriticalSection(&m_sec);
-		return S_OK;
-	}
-	HRESULT Unlock() throw()
-	{
-		LeaveCriticalSection(&m_sec);
-		return S_OK;
-	}
-	HRESULT Init() throw()
-	{
-		HRESULT hRes = S_OK;
-		__try
-		{
-			InitializeCriticalSection(&m_sec);
-		}
-		// structured exception may be raised in low memory situations
-		__except(EXCEPTION_EXECUTE_HANDLER)
-		{
-			if (STATUS_NO_MEMORY == GetExceptionCode())
-				hRes = E_OUTOFMEMORY;
-			else
-				hRes = E_FAIL;
-		}
-		return hRes;
-	}
+  CComCriticalSection() throw()
+  {
+    memset(&m_sec, 0, sizeof(CRITICAL_SECTION));
+  }
+  HRESULT Lock() throw()
+  {
+    EnterCriticalSection(&m_sec);
+    return S_OK;
+  }
+  HRESULT Unlock() throw()
+  {
+    LeaveCriticalSection(&m_sec);
+    return S_OK;
+  }
+  HRESULT Init() throw()
+  {
+    HRESULT hRes = S_OK;
+    __try
+    {
+      InitializeCriticalSection(&m_sec);
+    }
+    // structured exception may be raised in low memory situations
+    __except(EXCEPTION_EXECUTE_HANDLER)
+    {
+      if (STATUS_NO_MEMORY == GetExceptionCode())
+  hRes = E_OUTOFMEMORY;
+      else
+  hRes = E_FAIL;
+    }
+    return hRes;
+  }
 
-	HRESULT Term() throw()
-	{
-		DeleteCriticalSection(&m_sec);
-		return S_OK;
-	}	
-	CRITICAL_SECTION m_sec;
+  HRESULT Term() throw()
+  {
+    DeleteCriticalSection(&m_sec);
+    return S_OK;
+  }
+  CRITICAL_SECTION m_sec;
 };
 
 class CComAutoCriticalSection : public CComCriticalSection
 {
 public:
-	CComAutoCriticalSection()
-	{
-		CComCriticalSection::Init();
-	}
-	~CComAutoCriticalSection() throw()
-	{
-		CComCriticalSection::Term();
-	}
+  CComAutoCriticalSection()
+  {
+    CComCriticalSection::Init();
+  }
+  ~CComAutoCriticalSection() throw()
+  {
+    CComCriticalSection::Term();
+  }
 private :
-	HRESULT Init();	// Not implemented. CComAutoCriticalSection::Init should never be called
-	HRESULT Term(); // Not implemented. CComAutoCriticalSection::Term should never be called
+  HRESULT Init(); // Not implemented. CComAutoCriticalSection::Init should never be called
+  HRESULT Term(); // Not implemented. CComAutoCriticalSection::Term should never be called
 };
 
 class CComAutoDeleteCriticalSection : public CComCriticalSection
 {
 public:
-	CComAutoDeleteCriticalSection(): m_bInitialized(false) 
-	{
-	}
+  CComAutoDeleteCriticalSection(): m_bInitialized(false)
+  {
+  }
 
-	~CComAutoDeleteCriticalSection() throw()
-	{
-		if (!m_bInitialized)
-		{
-			return;
-		}
-		m_bInitialized = false;
-		CComCriticalSection::Term();
-	}
+  ~CComAutoDeleteCriticalSection() throw()
+  {
+    if (!m_bInitialized)
+    {
+      return;
+    }
+    m_bInitialized = false;
+    CComCriticalSection::Term();
+  }
 
-	HRESULT Init() throw()
-	{
-		HRESULT hr = CComCriticalSection::Init();
-		if (SUCCEEDED(hr))
-		{
-			m_bInitialized = true;
-		}
-		return hr;
-	}
+  HRESULT Init() throw()
+  {
+    HRESULT hr = CComCriticalSection::Init();
+    if (SUCCEEDED(hr))
+    {
+      m_bInitialized = true;
+    }
+    return hr;
+  }
 
-	HRESULT Lock()
-	{
-		// CComAutoDeleteCriticalSection::Init not called or failed.
-		// m_critsec member of CComObjectRootEx is now of type 
-		// CComAutoDeleteCriticalSection. It has to be initialized
-		// by calling CComObjectRootEx::_AtlInitialConstruct
-		ATLASSERT(m_bInitialized);
-		return CComCriticalSection::Lock();
-	}
+  HRESULT Lock()
+  {
+    // CComAutoDeleteCriticalSection::Init not called or failed.
+    // m_critsec member of CComObjectRootEx is now of type
+    // CComAutoDeleteCriticalSection. It has to be initialized
+    // by calling CComObjectRootEx::_AtlInitialConstruct
+    ATLASSERT(m_bInitialized);
+    return CComCriticalSection::Lock();
+  }
 
 private:
-	// CComAutoDeleteCriticalSection::Term should never be called
-	HRESULT Term() throw();
-	bool m_bInitialized;
+  // CComAutoDeleteCriticalSection::Term should never be called
+  HRESULT Term() throw();
+  bool m_bInitialized;
 };
 
 class CComFakeCriticalSection
 {
 public:
-        HRESULT Lock() {return S_OK;}
-        HRESULT Unlock() {return S_OK;}
-        HRESULT Init() {return S_OK;}
-        HRESULT Term() {return S_OK;}
+  HRESULT Lock() {return S_OK;}
+  HRESULT Unlock() {return S_OK;}
+  HRESULT Init() {return S_OK;}
+  HRESULT Term() {return S_OK;}
 };
 
 class CComMultiThreadModelNoCS
 {
 public:
-        static ULONG WINAPI Increment(LPLONG p) {return InterlockedIncrement(p);}
-        static ULONG WINAPI Decrement(LPLONG p) {return InterlockedDecrement(p);}
-        typedef CComFakeCriticalSection AutoCriticalSection;
-    	typedef CComFakeCriticalSection AutoDeleteCriticalSection;
-        typedef CComFakeCriticalSection CriticalSection;
-        typedef CComMultiThreadModelNoCS ThreadModelNoCS;
+  static ULONG WINAPI Increment(LPLONG p) {return InterlockedIncrement(p);}
+  static ULONG WINAPI Decrement(LPLONG p) {return InterlockedDecrement(p);}
+  typedef CComFakeCriticalSection AutoCriticalSection;
+      typedef CComFakeCriticalSection AutoDeleteCriticalSection;
+  typedef CComFakeCriticalSection CriticalSection;
+  typedef CComMultiThreadModelNoCS ThreadModelNoCS;
 };
 
 class CComMultiThreadModel
 {
 public:
-        static ULONG WINAPI Increment(LPLONG p) {return InterlockedIncrement(p);}
-        static ULONG WINAPI Decrement(LPLONG p) {return InterlockedDecrement(p);}
-        typedef CComAutoCriticalSection AutoCriticalSection;
-    	typedef CComAutoDeleteCriticalSection AutoDeleteCriticalSection;
-        typedef CComCriticalSection CriticalSection;
-        typedef CComMultiThreadModelNoCS ThreadModelNoCS;
+  static ULONG WINAPI Increment(LPLONG p) {return InterlockedIncrement(p);}
+  static ULONG WINAPI Decrement(LPLONG p) {return InterlockedDecrement(p);}
+  typedef CComAutoCriticalSection AutoCriticalSection;
+      typedef CComAutoDeleteCriticalSection AutoDeleteCriticalSection;
+  typedef CComCriticalSection CriticalSection;
+  typedef CComMultiThreadModelNoCS ThreadModelNoCS;
 };
 
 class CComSingleThreadModel
 {
 public:
-        static ULONG WINAPI Increment(LPLONG p) {return ++(*p);}
-        static ULONG WINAPI Decrement(LPLONG p) {return --(*p);}
-        typedef CComFakeCriticalSection AutoCriticalSection;
-    	typedef CComFakeCriticalSection AutoDeleteCriticalSection;
-        typedef CComFakeCriticalSection CriticalSection;
-        typedef CComSingleThreadModel ThreadModelNoCS;
+  static ULONG WINAPI Increment(LPLONG p) {return ++(*p);}
+  static ULONG WINAPI Decrement(LPLONG p) {return --(*p);}
+  typedef CComFakeCriticalSection AutoCriticalSection;
+      typedef CComFakeCriticalSection AutoDeleteCriticalSection;
+  typedef CComFakeCriticalSection CriticalSection;
+  typedef CComSingleThreadModel ThreadModelNoCS;
 };
 
 #if defined(_ATL_SINGLE_THREADED)
-        typedef CComSingleThreadModel CComObjectThreadModel;
-        typedef CComSingleThreadModel CComGlobalsThreadModel;
+  typedef CComSingleThreadModel CComObjectThreadModel;
+  typedef CComSingleThreadModel CComGlobalsThreadModel;
 #elif defined(_ATL_APARTMENT_THREADED)
-        typedef CComSingleThreadModel CComObjectThreadModel;
-        typedef CComMultiThreadModel CComGlobalsThreadModel;
+  typedef CComSingleThreadModel CComObjectThreadModel;
+  typedef CComMultiThreadModel CComGlobalsThreadModel;
 #else
-        typedef CComMultiThreadModel CComObjectThreadModel;
-        typedef CComMultiThreadModel CComGlobalsThreadModel;
+  typedef CComMultiThreadModel CComObjectThreadModel;
+  typedef CComMultiThreadModel CComGlobalsThreadModel;
 #endif
 
 #endif  /* OLD_ATL_CRITSEC_CODE */
@@ -1409,1090 +1495,1090 @@ HRESULT WINAPI AtlDumpIID(REFIID iid, LPCTSTR pszClassName, HRESULT hr);
 #ifdef _ATL_DEBUG_INTERFACES
 struct _QIThunk
 {
-        STDMETHOD(QueryInterface)(REFIID iid, void** pp)
-        {
-                ATLASSERT(m_dwRef >= 0);
-                return pUnk->QueryInterface(iid, pp);
-        }
-        STDMETHOD_(ULONG, AddRef)()
-        {
-                if (bBreak)
-                        DebugBreak();
-                pUnk->AddRef();
-                return InternalAddRef();
-        }
-        ULONG InternalAddRef()
-        {
-                if (bBreak)
-                        DebugBreak();
-                ATLASSERT(m_dwRef >= 0);
-                long l = InterlockedIncrement(&m_dwRef);
-                ATLTRACE(_T("%d> "), m_dwRef);
-                AtlDumpIID(iid, lpszClassName, S_OK);
-                if (l > m_dwMaxRef)
-                        m_dwMaxRef = l;
-                return l;
-        }
-        STDMETHOD_(ULONG, Release)();
+  STDMETHOD(QueryInterface)(REFIID iid, void** pp)
+  {
+    ATLASSERT(m_dwRef >= 0);
+    return pUnk->QueryInterface(iid, pp);
+  }
+  STDMETHOD_(ULONG, AddRef)()
+  {
+    if (bBreak)
+      DebugBreak();
+    pUnk->AddRef();
+    return InternalAddRef();
+  }
+  ULONG InternalAddRef()
+  {
+    if (bBreak)
+      DebugBreak();
+    ATLASSERT(m_dwRef >= 0);
+    long l = InterlockedIncrement(&m_dwRef);
+    ATLTRACE(_T("%d> "), m_dwRef);
+    AtlDumpIID(iid, lpszClassName, S_OK);
+    if (l > m_dwMaxRef)
+      m_dwMaxRef = l;
+    return l;
+  }
+  STDMETHOD_(ULONG, Release)();
 
-        STDMETHOD(f3)();
-        STDMETHOD(f4)();
-        STDMETHOD(f5)();
-        STDMETHOD(f6)();
-        STDMETHOD(f7)();
-        STDMETHOD(f8)();
-        STDMETHOD(f9)();
-        STDMETHOD(f10)();
-        STDMETHOD(f11)();
-        STDMETHOD(f12)();
-        STDMETHOD(f13)();
-        STDMETHOD(f14)();
-        STDMETHOD(f15)();
-        STDMETHOD(f16)();
-        STDMETHOD(f17)();
-        STDMETHOD(f18)();
-        STDMETHOD(f19)();
-        STDMETHOD(f20)();
-        STDMETHOD(f21)();
-        STDMETHOD(f22)();
-        STDMETHOD(f23)();
-        STDMETHOD(f24)();
-        STDMETHOD(f25)();
-        STDMETHOD(f26)();
-        STDMETHOD(f27)();
-        STDMETHOD(f28)();
-        STDMETHOD(f29)();
-        STDMETHOD(f30)();
-        STDMETHOD(f31)();
-        STDMETHOD(f32)();
-        STDMETHOD(f33)();
-        STDMETHOD(f34)();
-        STDMETHOD(f35)();
-        STDMETHOD(f36)();
-        STDMETHOD(f37)();
-        STDMETHOD(f38)();
-        STDMETHOD(f39)();
-        STDMETHOD(f40)();
-        STDMETHOD(f41)();
-        STDMETHOD(f42)();
-        STDMETHOD(f43)();
-        STDMETHOD(f44)();
-        STDMETHOD(f45)();
-        STDMETHOD(f46)();
-        STDMETHOD(f47)();
-        STDMETHOD(f48)();
-        STDMETHOD(f49)();
-        STDMETHOD(f50)();
-        STDMETHOD(f51)();
-        STDMETHOD(f52)();
-        STDMETHOD(f53)();
-        STDMETHOD(f54)();
-        STDMETHOD(f55)();
-        STDMETHOD(f56)();
-        STDMETHOD(f57)();
-        STDMETHOD(f58)();
-        STDMETHOD(f59)();
-        STDMETHOD(f60)();
-        STDMETHOD(f61)();
-        STDMETHOD(f62)();
-        STDMETHOD(f63)();
-        STDMETHOD(f64)();
-        STDMETHOD(f65)();
-        STDMETHOD(f66)();
-        STDMETHOD(f67)();
-        STDMETHOD(f68)();
-        STDMETHOD(f69)();
-        STDMETHOD(f70)();
-        STDMETHOD(f71)();
-        STDMETHOD(f72)();
-        STDMETHOD(f73)();
-        STDMETHOD(f74)();
-        STDMETHOD(f75)();
-        STDMETHOD(f76)();
-        STDMETHOD(f77)();
-        STDMETHOD(f78)();
-        STDMETHOD(f79)();
-        STDMETHOD(f80)();
-        STDMETHOD(f81)();
-        STDMETHOD(f82)();
-        STDMETHOD(f83)();
-        STDMETHOD(f84)();
-        STDMETHOD(f85)();
-        STDMETHOD(f86)();
-        STDMETHOD(f87)();
-        STDMETHOD(f88)();
-        STDMETHOD(f89)();
-        STDMETHOD(f90)();
-        STDMETHOD(f91)();
-        STDMETHOD(f92)();
-        STDMETHOD(f93)();
-        STDMETHOD(f94)();
-        STDMETHOD(f95)();
-        STDMETHOD(f96)();
-        STDMETHOD(f97)();
-        STDMETHOD(f98)();
-        STDMETHOD(f99)();
-        STDMETHOD(f100)();
-        STDMETHOD(f101)();
-        STDMETHOD(f102)();
-        STDMETHOD(f103)();
-        STDMETHOD(f104)();
-        STDMETHOD(f105)();
-        STDMETHOD(f106)();
-        STDMETHOD(f107)();
-        STDMETHOD(f108)();
-        STDMETHOD(f109)();
-        STDMETHOD(f110)();
-        STDMETHOD(f111)();
-        STDMETHOD(f112)();
-        STDMETHOD(f113)();
-        STDMETHOD(f114)();
-        STDMETHOD(f115)();
-        STDMETHOD(f116)();
-        STDMETHOD(f117)();
-        STDMETHOD(f118)();
-        STDMETHOD(f119)();
-        STDMETHOD(f120)();
-        STDMETHOD(f121)();
-        STDMETHOD(f122)();
-        STDMETHOD(f123)();
-        STDMETHOD(f124)();
-        STDMETHOD(f125)();
-        STDMETHOD(f126)();
-        STDMETHOD(f127)();
-        STDMETHOD(f128)();
-        STDMETHOD(f129)();
-        STDMETHOD(f130)();
-        STDMETHOD(f131)();
-        STDMETHOD(f132)();
-        STDMETHOD(f133)();
-        STDMETHOD(f134)();
-        STDMETHOD(f135)();
-        STDMETHOD(f136)();
-        STDMETHOD(f137)();
-        STDMETHOD(f138)();
-        STDMETHOD(f139)();
-        STDMETHOD(f140)();
-        STDMETHOD(f141)();
-        STDMETHOD(f142)();
-        STDMETHOD(f143)();
-        STDMETHOD(f144)();
-        STDMETHOD(f145)();
-        STDMETHOD(f146)();
-        STDMETHOD(f147)();
-        STDMETHOD(f148)();
-        STDMETHOD(f149)();
-        STDMETHOD(f150)();
-        STDMETHOD(f151)();
-        STDMETHOD(f152)();
-        STDMETHOD(f153)();
-        STDMETHOD(f154)();
-        STDMETHOD(f155)();
-        STDMETHOD(f156)();
-        STDMETHOD(f157)();
-        STDMETHOD(f158)();
-        STDMETHOD(f159)();
-        STDMETHOD(f160)();
-        STDMETHOD(f161)();
-        STDMETHOD(f162)();
-        STDMETHOD(f163)();
-        STDMETHOD(f164)();
-        STDMETHOD(f165)();
-        STDMETHOD(f166)();
-        STDMETHOD(f167)();
-        STDMETHOD(f168)();
-        STDMETHOD(f169)();
-        STDMETHOD(f170)();
-        STDMETHOD(f171)();
-        STDMETHOD(f172)();
-        STDMETHOD(f173)();
-        STDMETHOD(f174)();
-        STDMETHOD(f175)();
-        STDMETHOD(f176)();
-        STDMETHOD(f177)();
-        STDMETHOD(f178)();
-        STDMETHOD(f179)();
-        STDMETHOD(f180)();
-        STDMETHOD(f181)();
-        STDMETHOD(f182)();
-        STDMETHOD(f183)();
-        STDMETHOD(f184)();
-        STDMETHOD(f185)();
-        STDMETHOD(f186)();
-        STDMETHOD(f187)();
-        STDMETHOD(f188)();
-        STDMETHOD(f189)();
-        STDMETHOD(f190)();
-        STDMETHOD(f191)();
-        STDMETHOD(f192)();
-        STDMETHOD(f193)();
-        STDMETHOD(f194)();
-        STDMETHOD(f195)();
-        STDMETHOD(f196)();
-        STDMETHOD(f197)();
-        STDMETHOD(f198)();
-        STDMETHOD(f199)();
-        STDMETHOD(f200)();
-        STDMETHOD(f201)();
-        STDMETHOD(f202)();
-        STDMETHOD(f203)();
-        STDMETHOD(f204)();
-        STDMETHOD(f205)();
-        STDMETHOD(f206)();
-        STDMETHOD(f207)();
-        STDMETHOD(f208)();
-        STDMETHOD(f209)();
-        STDMETHOD(f210)();
-        STDMETHOD(f211)();
-        STDMETHOD(f212)();
-        STDMETHOD(f213)();
-        STDMETHOD(f214)();
-        STDMETHOD(f215)();
-        STDMETHOD(f216)();
-        STDMETHOD(f217)();
-        STDMETHOD(f218)();
-        STDMETHOD(f219)();
-        STDMETHOD(f220)();
-        STDMETHOD(f221)();
-        STDMETHOD(f222)();
-        STDMETHOD(f223)();
-        STDMETHOD(f224)();
-        STDMETHOD(f225)();
-        STDMETHOD(f226)();
-        STDMETHOD(f227)();
-        STDMETHOD(f228)();
-        STDMETHOD(f229)();
-        STDMETHOD(f230)();
-        STDMETHOD(f231)();
-        STDMETHOD(f232)();
-        STDMETHOD(f233)();
-        STDMETHOD(f234)();
-        STDMETHOD(f235)();
-        STDMETHOD(f236)();
-        STDMETHOD(f237)();
-        STDMETHOD(f238)();
-        STDMETHOD(f239)();
-        STDMETHOD(f240)();
-        STDMETHOD(f241)();
-        STDMETHOD(f242)();
-        STDMETHOD(f243)();
-        STDMETHOD(f244)();
-        STDMETHOD(f245)();
-        STDMETHOD(f246)();
-        STDMETHOD(f247)();
-        STDMETHOD(f248)();
-        STDMETHOD(f249)();
-        STDMETHOD(f250)();
-        STDMETHOD(f251)();
-        STDMETHOD(f252)();
-        STDMETHOD(f253)();
-        STDMETHOD(f254)();
-        STDMETHOD(f255)();
-        STDMETHOD(f256)();
-        STDMETHOD(f257)();
-        STDMETHOD(f258)();
-        STDMETHOD(f259)();
-        STDMETHOD(f260)();
-        STDMETHOD(f261)();
-        STDMETHOD(f262)();
-        STDMETHOD(f263)();
-        STDMETHOD(f264)();
-        STDMETHOD(f265)();
-        STDMETHOD(f266)();
-        STDMETHOD(f267)();
-        STDMETHOD(f268)();
-        STDMETHOD(f269)();
-        STDMETHOD(f270)();
-        STDMETHOD(f271)();
-        STDMETHOD(f272)();
-        STDMETHOD(f273)();
-        STDMETHOD(f274)();
-        STDMETHOD(f275)();
-        STDMETHOD(f276)();
-        STDMETHOD(f277)();
-        STDMETHOD(f278)();
-        STDMETHOD(f279)();
-        STDMETHOD(f280)();
-        STDMETHOD(f281)();
-        STDMETHOD(f282)();
-        STDMETHOD(f283)();
-        STDMETHOD(f284)();
-        STDMETHOD(f285)();
-        STDMETHOD(f286)();
-        STDMETHOD(f287)();
-        STDMETHOD(f288)();
-        STDMETHOD(f289)();
-        STDMETHOD(f290)();
-        STDMETHOD(f291)();
-        STDMETHOD(f292)();
-        STDMETHOD(f293)();
-        STDMETHOD(f294)();
-        STDMETHOD(f295)();
-        STDMETHOD(f296)();
-        STDMETHOD(f297)();
-        STDMETHOD(f298)();
-        STDMETHOD(f299)();
-        STDMETHOD(f300)();
-        STDMETHOD(f301)();
-        STDMETHOD(f302)();
-        STDMETHOD(f303)();
-        STDMETHOD(f304)();
-        STDMETHOD(f305)();
-        STDMETHOD(f306)();
-        STDMETHOD(f307)();
-        STDMETHOD(f308)();
-        STDMETHOD(f309)();
-        STDMETHOD(f310)();
-        STDMETHOD(f311)();
-        STDMETHOD(f312)();
-        STDMETHOD(f313)();
-        STDMETHOD(f314)();
-        STDMETHOD(f315)();
-        STDMETHOD(f316)();
-        STDMETHOD(f317)();
-        STDMETHOD(f318)();
-        STDMETHOD(f319)();
-        STDMETHOD(f320)();
-        STDMETHOD(f321)();
-        STDMETHOD(f322)();
-        STDMETHOD(f323)();
-        STDMETHOD(f324)();
-        STDMETHOD(f325)();
-        STDMETHOD(f326)();
-        STDMETHOD(f327)();
-        STDMETHOD(f328)();
-        STDMETHOD(f329)();
-        STDMETHOD(f330)();
-        STDMETHOD(f331)();
-        STDMETHOD(f332)();
-        STDMETHOD(f333)();
-        STDMETHOD(f334)();
-        STDMETHOD(f335)();
-        STDMETHOD(f336)();
-        STDMETHOD(f337)();
-        STDMETHOD(f338)();
-        STDMETHOD(f339)();
-        STDMETHOD(f340)();
-        STDMETHOD(f341)();
-        STDMETHOD(f342)();
-        STDMETHOD(f343)();
-        STDMETHOD(f344)();
-        STDMETHOD(f345)();
-        STDMETHOD(f346)();
-        STDMETHOD(f347)();
-        STDMETHOD(f348)();
-        STDMETHOD(f349)();
-        STDMETHOD(f350)();
-        STDMETHOD(f351)();
-        STDMETHOD(f352)();
-        STDMETHOD(f353)();
-        STDMETHOD(f354)();
-        STDMETHOD(f355)();
-        STDMETHOD(f356)();
-        STDMETHOD(f357)();
-        STDMETHOD(f358)();
-        STDMETHOD(f359)();
-        STDMETHOD(f360)();
-        STDMETHOD(f361)();
-        STDMETHOD(f362)();
-        STDMETHOD(f363)();
-        STDMETHOD(f364)();
-        STDMETHOD(f365)();
-        STDMETHOD(f366)();
-        STDMETHOD(f367)();
-        STDMETHOD(f368)();
-        STDMETHOD(f369)();
-        STDMETHOD(f370)();
-        STDMETHOD(f371)();
-        STDMETHOD(f372)();
-        STDMETHOD(f373)();
-        STDMETHOD(f374)();
-        STDMETHOD(f375)();
-        STDMETHOD(f376)();
-        STDMETHOD(f377)();
-        STDMETHOD(f378)();
-        STDMETHOD(f379)();
-        STDMETHOD(f380)();
-        STDMETHOD(f381)();
-        STDMETHOD(f382)();
-        STDMETHOD(f383)();
-        STDMETHOD(f384)();
-        STDMETHOD(f385)();
-        STDMETHOD(f386)();
-        STDMETHOD(f387)();
-        STDMETHOD(f388)();
-        STDMETHOD(f389)();
-        STDMETHOD(f390)();
-        STDMETHOD(f391)();
-        STDMETHOD(f392)();
-        STDMETHOD(f393)();
-        STDMETHOD(f394)();
-        STDMETHOD(f395)();
-        STDMETHOD(f396)();
-        STDMETHOD(f397)();
-        STDMETHOD(f398)();
-        STDMETHOD(f399)();
-        STDMETHOD(f400)();
-        STDMETHOD(f401)();
-        STDMETHOD(f402)();
-        STDMETHOD(f403)();
-        STDMETHOD(f404)();
-        STDMETHOD(f405)();
-        STDMETHOD(f406)();
-        STDMETHOD(f407)();
-        STDMETHOD(f408)();
-        STDMETHOD(f409)();
-        STDMETHOD(f410)();
-        STDMETHOD(f411)();
-        STDMETHOD(f412)();
-        STDMETHOD(f413)();
-        STDMETHOD(f414)();
-        STDMETHOD(f415)();
-        STDMETHOD(f416)();
-        STDMETHOD(f417)();
-        STDMETHOD(f418)();
-        STDMETHOD(f419)();
-        STDMETHOD(f420)();
-        STDMETHOD(f421)();
-        STDMETHOD(f422)();
-        STDMETHOD(f423)();
-        STDMETHOD(f424)();
-        STDMETHOD(f425)();
-        STDMETHOD(f426)();
-        STDMETHOD(f427)();
-        STDMETHOD(f428)();
-        STDMETHOD(f429)();
-        STDMETHOD(f430)();
-        STDMETHOD(f431)();
-        STDMETHOD(f432)();
-        STDMETHOD(f433)();
-        STDMETHOD(f434)();
-        STDMETHOD(f435)();
-        STDMETHOD(f436)();
-        STDMETHOD(f437)();
-        STDMETHOD(f438)();
-        STDMETHOD(f439)();
-        STDMETHOD(f440)();
-        STDMETHOD(f441)();
-        STDMETHOD(f442)();
-        STDMETHOD(f443)();
-        STDMETHOD(f444)();
-        STDMETHOD(f445)();
-        STDMETHOD(f446)();
-        STDMETHOD(f447)();
-        STDMETHOD(f448)();
-        STDMETHOD(f449)();
-        STDMETHOD(f450)();
-        STDMETHOD(f451)();
-        STDMETHOD(f452)();
-        STDMETHOD(f453)();
-        STDMETHOD(f454)();
-        STDMETHOD(f455)();
-        STDMETHOD(f456)();
-        STDMETHOD(f457)();
-        STDMETHOD(f458)();
-        STDMETHOD(f459)();
-        STDMETHOD(f460)();
-        STDMETHOD(f461)();
-        STDMETHOD(f462)();
-        STDMETHOD(f463)();
-        STDMETHOD(f464)();
-        STDMETHOD(f465)();
-        STDMETHOD(f466)();
-        STDMETHOD(f467)();
-        STDMETHOD(f468)();
-        STDMETHOD(f469)();
-        STDMETHOD(f470)();
-        STDMETHOD(f471)();
-        STDMETHOD(f472)();
-        STDMETHOD(f473)();
-        STDMETHOD(f474)();
-        STDMETHOD(f475)();
-        STDMETHOD(f476)();
-        STDMETHOD(f477)();
-        STDMETHOD(f478)();
-        STDMETHOD(f479)();
-        STDMETHOD(f480)();
-        STDMETHOD(f481)();
-        STDMETHOD(f482)();
-        STDMETHOD(f483)();
-        STDMETHOD(f484)();
-        STDMETHOD(f485)();
-        STDMETHOD(f486)();
-        STDMETHOD(f487)();
-        STDMETHOD(f488)();
-        STDMETHOD(f489)();
-        STDMETHOD(f490)();
-        STDMETHOD(f491)();
-        STDMETHOD(f492)();
-        STDMETHOD(f493)();
-        STDMETHOD(f494)();
-        STDMETHOD(f495)();
-        STDMETHOD(f496)();
-        STDMETHOD(f497)();
-        STDMETHOD(f498)();
-        STDMETHOD(f499)();
-        STDMETHOD(f500)();
-        STDMETHOD(f501)();
-        STDMETHOD(f502)();
-        STDMETHOD(f503)();
-        STDMETHOD(f504)();
-        STDMETHOD(f505)();
-        STDMETHOD(f506)();
-        STDMETHOD(f507)();
-        STDMETHOD(f508)();
-        STDMETHOD(f509)();
-        STDMETHOD(f510)();
-        STDMETHOD(f511)();
-        STDMETHOD(f512)();
-        STDMETHOD(f513)();
-        STDMETHOD(f514)();
-        STDMETHOD(f515)();
-        STDMETHOD(f516)();
-        STDMETHOD(f517)();
-        STDMETHOD(f518)();
-        STDMETHOD(f519)();
-        STDMETHOD(f520)();
-        STDMETHOD(f521)();
-        STDMETHOD(f522)();
-        STDMETHOD(f523)();
-        STDMETHOD(f524)();
-        STDMETHOD(f525)();
-        STDMETHOD(f526)();
-        STDMETHOD(f527)();
-        STDMETHOD(f528)();
-        STDMETHOD(f529)();
-        STDMETHOD(f530)();
-        STDMETHOD(f531)();
-        STDMETHOD(f532)();
-        STDMETHOD(f533)();
-        STDMETHOD(f534)();
-        STDMETHOD(f535)();
-        STDMETHOD(f536)();
-        STDMETHOD(f537)();
-        STDMETHOD(f538)();
-        STDMETHOD(f539)();
-        STDMETHOD(f540)();
-        STDMETHOD(f541)();
-        STDMETHOD(f542)();
-        STDMETHOD(f543)();
-        STDMETHOD(f544)();
-        STDMETHOD(f545)();
-        STDMETHOD(f546)();
-        STDMETHOD(f547)();
-        STDMETHOD(f548)();
-        STDMETHOD(f549)();
-        STDMETHOD(f550)();
-        STDMETHOD(f551)();
-        STDMETHOD(f552)();
-        STDMETHOD(f553)();
-        STDMETHOD(f554)();
-        STDMETHOD(f555)();
-        STDMETHOD(f556)();
-        STDMETHOD(f557)();
-        STDMETHOD(f558)();
-        STDMETHOD(f559)();
-        STDMETHOD(f560)();
-        STDMETHOD(f561)();
-        STDMETHOD(f562)();
-        STDMETHOD(f563)();
-        STDMETHOD(f564)();
-        STDMETHOD(f565)();
-        STDMETHOD(f566)();
-        STDMETHOD(f567)();
-        STDMETHOD(f568)();
-        STDMETHOD(f569)();
-        STDMETHOD(f570)();
-        STDMETHOD(f571)();
-        STDMETHOD(f572)();
-        STDMETHOD(f573)();
-        STDMETHOD(f574)();
-        STDMETHOD(f575)();
-        STDMETHOD(f576)();
-        STDMETHOD(f577)();
-        STDMETHOD(f578)();
-        STDMETHOD(f579)();
-        STDMETHOD(f580)();
-        STDMETHOD(f581)();
-        STDMETHOD(f582)();
-        STDMETHOD(f583)();
-        STDMETHOD(f584)();
-        STDMETHOD(f585)();
-        STDMETHOD(f586)();
-        STDMETHOD(f587)();
-        STDMETHOD(f588)();
-        STDMETHOD(f589)();
-        STDMETHOD(f590)();
-        STDMETHOD(f591)();
-        STDMETHOD(f592)();
-        STDMETHOD(f593)();
-        STDMETHOD(f594)();
-        STDMETHOD(f595)();
-        STDMETHOD(f596)();
-        STDMETHOD(f597)();
-        STDMETHOD(f598)();
-        STDMETHOD(f599)();
-        STDMETHOD(f600)();
-        STDMETHOD(f601)();
-        STDMETHOD(f602)();
-        STDMETHOD(f603)();
-        STDMETHOD(f604)();
-        STDMETHOD(f605)();
-        STDMETHOD(f606)();
-        STDMETHOD(f607)();
-        STDMETHOD(f608)();
-        STDMETHOD(f609)();
-        STDMETHOD(f610)();
-        STDMETHOD(f611)();
-        STDMETHOD(f612)();
-        STDMETHOD(f613)();
-        STDMETHOD(f614)();
-        STDMETHOD(f615)();
-        STDMETHOD(f616)();
-        STDMETHOD(f617)();
-        STDMETHOD(f618)();
-        STDMETHOD(f619)();
-        STDMETHOD(f620)();
-        STDMETHOD(f621)();
-        STDMETHOD(f622)();
-        STDMETHOD(f623)();
-        STDMETHOD(f624)();
-        STDMETHOD(f625)();
-        STDMETHOD(f626)();
-        STDMETHOD(f627)();
-        STDMETHOD(f628)();
-        STDMETHOD(f629)();
-        STDMETHOD(f630)();
-        STDMETHOD(f631)();
-        STDMETHOD(f632)();
-        STDMETHOD(f633)();
-        STDMETHOD(f634)();
-        STDMETHOD(f635)();
-        STDMETHOD(f636)();
-        STDMETHOD(f637)();
-        STDMETHOD(f638)();
-        STDMETHOD(f639)();
-        STDMETHOD(f640)();
-        STDMETHOD(f641)();
-        STDMETHOD(f642)();
-        STDMETHOD(f643)();
-        STDMETHOD(f644)();
-        STDMETHOD(f645)();
-        STDMETHOD(f646)();
-        STDMETHOD(f647)();
-        STDMETHOD(f648)();
-        STDMETHOD(f649)();
-        STDMETHOD(f650)();
-        STDMETHOD(f651)();
-        STDMETHOD(f652)();
-        STDMETHOD(f653)();
-        STDMETHOD(f654)();
-        STDMETHOD(f655)();
-        STDMETHOD(f656)();
-        STDMETHOD(f657)();
-        STDMETHOD(f658)();
-        STDMETHOD(f659)();
-        STDMETHOD(f660)();
-        STDMETHOD(f661)();
-        STDMETHOD(f662)();
-        STDMETHOD(f663)();
-        STDMETHOD(f664)();
-        STDMETHOD(f665)();
-        STDMETHOD(f666)();
-        STDMETHOD(f667)();
-        STDMETHOD(f668)();
-        STDMETHOD(f669)();
-        STDMETHOD(f670)();
-        STDMETHOD(f671)();
-        STDMETHOD(f672)();
-        STDMETHOD(f673)();
-        STDMETHOD(f674)();
-        STDMETHOD(f675)();
-        STDMETHOD(f676)();
-        STDMETHOD(f677)();
-        STDMETHOD(f678)();
-        STDMETHOD(f679)();
-        STDMETHOD(f680)();
-        STDMETHOD(f681)();
-        STDMETHOD(f682)();
-        STDMETHOD(f683)();
-        STDMETHOD(f684)();
-        STDMETHOD(f685)();
-        STDMETHOD(f686)();
-        STDMETHOD(f687)();
-        STDMETHOD(f688)();
-        STDMETHOD(f689)();
-        STDMETHOD(f690)();
-        STDMETHOD(f691)();
-        STDMETHOD(f692)();
-        STDMETHOD(f693)();
-        STDMETHOD(f694)();
-        STDMETHOD(f695)();
-        STDMETHOD(f696)();
-        STDMETHOD(f697)();
-        STDMETHOD(f698)();
-        STDMETHOD(f699)();
-        STDMETHOD(f700)();
-        STDMETHOD(f701)();
-        STDMETHOD(f702)();
-        STDMETHOD(f703)();
-        STDMETHOD(f704)();
-        STDMETHOD(f705)();
-        STDMETHOD(f706)();
-        STDMETHOD(f707)();
-        STDMETHOD(f708)();
-        STDMETHOD(f709)();
-        STDMETHOD(f710)();
-        STDMETHOD(f711)();
-        STDMETHOD(f712)();
-        STDMETHOD(f713)();
-        STDMETHOD(f714)();
-        STDMETHOD(f715)();
-        STDMETHOD(f716)();
-        STDMETHOD(f717)();
-        STDMETHOD(f718)();
-        STDMETHOD(f719)();
-        STDMETHOD(f720)();
-        STDMETHOD(f721)();
-        STDMETHOD(f722)();
-        STDMETHOD(f723)();
-        STDMETHOD(f724)();
-        STDMETHOD(f725)();
-        STDMETHOD(f726)();
-        STDMETHOD(f727)();
-        STDMETHOD(f728)();
-        STDMETHOD(f729)();
-        STDMETHOD(f730)();
-        STDMETHOD(f731)();
-        STDMETHOD(f732)();
-        STDMETHOD(f733)();
-        STDMETHOD(f734)();
-        STDMETHOD(f735)();
-        STDMETHOD(f736)();
-        STDMETHOD(f737)();
-        STDMETHOD(f738)();
-        STDMETHOD(f739)();
-        STDMETHOD(f740)();
-        STDMETHOD(f741)();
-        STDMETHOD(f742)();
-        STDMETHOD(f743)();
-        STDMETHOD(f744)();
-        STDMETHOD(f745)();
-        STDMETHOD(f746)();
-        STDMETHOD(f747)();
-        STDMETHOD(f748)();
-        STDMETHOD(f749)();
-        STDMETHOD(f750)();
-        STDMETHOD(f751)();
-        STDMETHOD(f752)();
-        STDMETHOD(f753)();
-        STDMETHOD(f754)();
-        STDMETHOD(f755)();
-        STDMETHOD(f756)();
-        STDMETHOD(f757)();
-        STDMETHOD(f758)();
-        STDMETHOD(f759)();
-        STDMETHOD(f760)();
-        STDMETHOD(f761)();
-        STDMETHOD(f762)();
-        STDMETHOD(f763)();
-        STDMETHOD(f764)();
-        STDMETHOD(f765)();
-        STDMETHOD(f766)();
-        STDMETHOD(f767)();
-        STDMETHOD(f768)();
-        STDMETHOD(f769)();
-        STDMETHOD(f770)();
-        STDMETHOD(f771)();
-        STDMETHOD(f772)();
-        STDMETHOD(f773)();
-        STDMETHOD(f774)();
-        STDMETHOD(f775)();
-        STDMETHOD(f776)();
-        STDMETHOD(f777)();
-        STDMETHOD(f778)();
-        STDMETHOD(f779)();
-        STDMETHOD(f780)();
-        STDMETHOD(f781)();
-        STDMETHOD(f782)();
-        STDMETHOD(f783)();
-        STDMETHOD(f784)();
-        STDMETHOD(f785)();
-        STDMETHOD(f786)();
-        STDMETHOD(f787)();
-        STDMETHOD(f788)();
-        STDMETHOD(f789)();
-        STDMETHOD(f790)();
-        STDMETHOD(f791)();
-        STDMETHOD(f792)();
-        STDMETHOD(f793)();
-        STDMETHOD(f794)();
-        STDMETHOD(f795)();
-        STDMETHOD(f796)();
-        STDMETHOD(f797)();
-        STDMETHOD(f798)();
-        STDMETHOD(f799)();
-        STDMETHOD(f800)();
-        STDMETHOD(f801)();
-        STDMETHOD(f802)();
-        STDMETHOD(f803)();
-        STDMETHOD(f804)();
-        STDMETHOD(f805)();
-        STDMETHOD(f806)();
-        STDMETHOD(f807)();
-        STDMETHOD(f808)();
-        STDMETHOD(f809)();
-        STDMETHOD(f810)();
-        STDMETHOD(f811)();
-        STDMETHOD(f812)();
-        STDMETHOD(f813)();
-        STDMETHOD(f814)();
-        STDMETHOD(f815)();
-        STDMETHOD(f816)();
-        STDMETHOD(f817)();
-        STDMETHOD(f818)();
-        STDMETHOD(f819)();
-        STDMETHOD(f820)();
-        STDMETHOD(f821)();
-        STDMETHOD(f822)();
-        STDMETHOD(f823)();
-        STDMETHOD(f824)();
-        STDMETHOD(f825)();
-        STDMETHOD(f826)();
-        STDMETHOD(f827)();
-        STDMETHOD(f828)();
-        STDMETHOD(f829)();
-        STDMETHOD(f830)();
-        STDMETHOD(f831)();
-        STDMETHOD(f832)();
-        STDMETHOD(f833)();
-        STDMETHOD(f834)();
-        STDMETHOD(f835)();
-        STDMETHOD(f836)();
-        STDMETHOD(f837)();
-        STDMETHOD(f838)();
-        STDMETHOD(f839)();
-        STDMETHOD(f840)();
-        STDMETHOD(f841)();
-        STDMETHOD(f842)();
-        STDMETHOD(f843)();
-        STDMETHOD(f844)();
-        STDMETHOD(f845)();
-        STDMETHOD(f846)();
-        STDMETHOD(f847)();
-        STDMETHOD(f848)();
-        STDMETHOD(f849)();
-        STDMETHOD(f850)();
-        STDMETHOD(f851)();
-        STDMETHOD(f852)();
-        STDMETHOD(f853)();
-        STDMETHOD(f854)();
-        STDMETHOD(f855)();
-        STDMETHOD(f856)();
-        STDMETHOD(f857)();
-        STDMETHOD(f858)();
-        STDMETHOD(f859)();
-        STDMETHOD(f860)();
-        STDMETHOD(f861)();
-        STDMETHOD(f862)();
-        STDMETHOD(f863)();
-        STDMETHOD(f864)();
-        STDMETHOD(f865)();
-        STDMETHOD(f866)();
-        STDMETHOD(f867)();
-        STDMETHOD(f868)();
-        STDMETHOD(f869)();
-        STDMETHOD(f870)();
-        STDMETHOD(f871)();
-        STDMETHOD(f872)();
-        STDMETHOD(f873)();
-        STDMETHOD(f874)();
-        STDMETHOD(f875)();
-        STDMETHOD(f876)();
-        STDMETHOD(f877)();
-        STDMETHOD(f878)();
-        STDMETHOD(f879)();
-        STDMETHOD(f880)();
-        STDMETHOD(f881)();
-        STDMETHOD(f882)();
-        STDMETHOD(f883)();
-        STDMETHOD(f884)();
-        STDMETHOD(f885)();
-        STDMETHOD(f886)();
-        STDMETHOD(f887)();
-        STDMETHOD(f888)();
-        STDMETHOD(f889)();
-        STDMETHOD(f890)();
-        STDMETHOD(f891)();
-        STDMETHOD(f892)();
-        STDMETHOD(f893)();
-        STDMETHOD(f894)();
-        STDMETHOD(f895)();
-        STDMETHOD(f896)();
-        STDMETHOD(f897)();
-        STDMETHOD(f898)();
-        STDMETHOD(f899)();
-        STDMETHOD(f900)();
-        STDMETHOD(f901)();
-        STDMETHOD(f902)();
-        STDMETHOD(f903)();
-        STDMETHOD(f904)();
-        STDMETHOD(f905)();
-        STDMETHOD(f906)();
-        STDMETHOD(f907)();
-        STDMETHOD(f908)();
-        STDMETHOD(f909)();
-        STDMETHOD(f910)();
-        STDMETHOD(f911)();
-        STDMETHOD(f912)();
-        STDMETHOD(f913)();
-        STDMETHOD(f914)();
-        STDMETHOD(f915)();
-        STDMETHOD(f916)();
-        STDMETHOD(f917)();
-        STDMETHOD(f918)();
-        STDMETHOD(f919)();
-        STDMETHOD(f920)();
-        STDMETHOD(f921)();
-        STDMETHOD(f922)();
-        STDMETHOD(f923)();
-        STDMETHOD(f924)();
-        STDMETHOD(f925)();
-        STDMETHOD(f926)();
-        STDMETHOD(f927)();
-        STDMETHOD(f928)();
-        STDMETHOD(f929)();
-        STDMETHOD(f930)();
-        STDMETHOD(f931)();
-        STDMETHOD(f932)();
-        STDMETHOD(f933)();
-        STDMETHOD(f934)();
-        STDMETHOD(f935)();
-        STDMETHOD(f936)();
-        STDMETHOD(f937)();
-        STDMETHOD(f938)();
-        STDMETHOD(f939)();
-        STDMETHOD(f940)();
-        STDMETHOD(f941)();
-        STDMETHOD(f942)();
-        STDMETHOD(f943)();
-        STDMETHOD(f944)();
-        STDMETHOD(f945)();
-        STDMETHOD(f946)();
-        STDMETHOD(f947)();
-        STDMETHOD(f948)();
-        STDMETHOD(f949)();
-        STDMETHOD(f950)();
-        STDMETHOD(f951)();
-        STDMETHOD(f952)();
-        STDMETHOD(f953)();
-        STDMETHOD(f954)();
-        STDMETHOD(f955)();
-        STDMETHOD(f956)();
-        STDMETHOD(f957)();
-        STDMETHOD(f958)();
-        STDMETHOD(f959)();
-        STDMETHOD(f960)();
-        STDMETHOD(f961)();
-        STDMETHOD(f962)();
-        STDMETHOD(f963)();
-        STDMETHOD(f964)();
-        STDMETHOD(f965)();
-        STDMETHOD(f966)();
-        STDMETHOD(f967)();
-        STDMETHOD(f968)();
-        STDMETHOD(f969)();
-        STDMETHOD(f970)();
-        STDMETHOD(f971)();
-        STDMETHOD(f972)();
-        STDMETHOD(f973)();
-        STDMETHOD(f974)();
-        STDMETHOD(f975)();
-        STDMETHOD(f976)();
-        STDMETHOD(f977)();
-        STDMETHOD(f978)();
-        STDMETHOD(f979)();
-        STDMETHOD(f980)();
-        STDMETHOD(f981)();
-        STDMETHOD(f982)();
-        STDMETHOD(f983)();
-        STDMETHOD(f984)();
-        STDMETHOD(f985)();
-        STDMETHOD(f986)();
-        STDMETHOD(f987)();
-        STDMETHOD(f988)();
-        STDMETHOD(f989)();
-        STDMETHOD(f990)();
-        STDMETHOD(f991)();
-        STDMETHOD(f992)();
-        STDMETHOD(f993)();
-        STDMETHOD(f994)();
-        STDMETHOD(f995)();
-        STDMETHOD(f996)();
-        STDMETHOD(f997)();
-        STDMETHOD(f998)();
-        STDMETHOD(f999)();
-        STDMETHOD(f1000)();
-        STDMETHOD(f1001)();
-        STDMETHOD(f1002)();
-        STDMETHOD(f1003)();
-        STDMETHOD(f1004)();
-        STDMETHOD(f1005)();
-        STDMETHOD(f1006)();
-        STDMETHOD(f1007)();
-        STDMETHOD(f1008)();
-        STDMETHOD(f1009)();
-        STDMETHOD(f1010)();
-        STDMETHOD(f1011)();
-        STDMETHOD(f1012)();
-        STDMETHOD(f1013)();
-        STDMETHOD(f1014)();
-        STDMETHOD(f1015)();
-        STDMETHOD(f1016)();
-        STDMETHOD(f1017)();
-        STDMETHOD(f1018)();
-        STDMETHOD(f1019)();
-        STDMETHOD(f1020)();
-        STDMETHOD(f1021)();
-        STDMETHOD(f1022)();
-        STDMETHOD(f1023)();
+  STDMETHOD(f3)();
+  STDMETHOD(f4)();
+  STDMETHOD(f5)();
+  STDMETHOD(f6)();
+  STDMETHOD(f7)();
+  STDMETHOD(f8)();
+  STDMETHOD(f9)();
+  STDMETHOD(f10)();
+  STDMETHOD(f11)();
+  STDMETHOD(f12)();
+  STDMETHOD(f13)();
+  STDMETHOD(f14)();
+  STDMETHOD(f15)();
+  STDMETHOD(f16)();
+  STDMETHOD(f17)();
+  STDMETHOD(f18)();
+  STDMETHOD(f19)();
+  STDMETHOD(f20)();
+  STDMETHOD(f21)();
+  STDMETHOD(f22)();
+  STDMETHOD(f23)();
+  STDMETHOD(f24)();
+  STDMETHOD(f25)();
+  STDMETHOD(f26)();
+  STDMETHOD(f27)();
+  STDMETHOD(f28)();
+  STDMETHOD(f29)();
+  STDMETHOD(f30)();
+  STDMETHOD(f31)();
+  STDMETHOD(f32)();
+  STDMETHOD(f33)();
+  STDMETHOD(f34)();
+  STDMETHOD(f35)();
+  STDMETHOD(f36)();
+  STDMETHOD(f37)();
+  STDMETHOD(f38)();
+  STDMETHOD(f39)();
+  STDMETHOD(f40)();
+  STDMETHOD(f41)();
+  STDMETHOD(f42)();
+  STDMETHOD(f43)();
+  STDMETHOD(f44)();
+  STDMETHOD(f45)();
+  STDMETHOD(f46)();
+  STDMETHOD(f47)();
+  STDMETHOD(f48)();
+  STDMETHOD(f49)();
+  STDMETHOD(f50)();
+  STDMETHOD(f51)();
+  STDMETHOD(f52)();
+  STDMETHOD(f53)();
+  STDMETHOD(f54)();
+  STDMETHOD(f55)();
+  STDMETHOD(f56)();
+  STDMETHOD(f57)();
+  STDMETHOD(f58)();
+  STDMETHOD(f59)();
+  STDMETHOD(f60)();
+  STDMETHOD(f61)();
+  STDMETHOD(f62)();
+  STDMETHOD(f63)();
+  STDMETHOD(f64)();
+  STDMETHOD(f65)();
+  STDMETHOD(f66)();
+  STDMETHOD(f67)();
+  STDMETHOD(f68)();
+  STDMETHOD(f69)();
+  STDMETHOD(f70)();
+  STDMETHOD(f71)();
+  STDMETHOD(f72)();
+  STDMETHOD(f73)();
+  STDMETHOD(f74)();
+  STDMETHOD(f75)();
+  STDMETHOD(f76)();
+  STDMETHOD(f77)();
+  STDMETHOD(f78)();
+  STDMETHOD(f79)();
+  STDMETHOD(f80)();
+  STDMETHOD(f81)();
+  STDMETHOD(f82)();
+  STDMETHOD(f83)();
+  STDMETHOD(f84)();
+  STDMETHOD(f85)();
+  STDMETHOD(f86)();
+  STDMETHOD(f87)();
+  STDMETHOD(f88)();
+  STDMETHOD(f89)();
+  STDMETHOD(f90)();
+  STDMETHOD(f91)();
+  STDMETHOD(f92)();
+  STDMETHOD(f93)();
+  STDMETHOD(f94)();
+  STDMETHOD(f95)();
+  STDMETHOD(f96)();
+  STDMETHOD(f97)();
+  STDMETHOD(f98)();
+  STDMETHOD(f99)();
+  STDMETHOD(f100)();
+  STDMETHOD(f101)();
+  STDMETHOD(f102)();
+  STDMETHOD(f103)();
+  STDMETHOD(f104)();
+  STDMETHOD(f105)();
+  STDMETHOD(f106)();
+  STDMETHOD(f107)();
+  STDMETHOD(f108)();
+  STDMETHOD(f109)();
+  STDMETHOD(f110)();
+  STDMETHOD(f111)();
+  STDMETHOD(f112)();
+  STDMETHOD(f113)();
+  STDMETHOD(f114)();
+  STDMETHOD(f115)();
+  STDMETHOD(f116)();
+  STDMETHOD(f117)();
+  STDMETHOD(f118)();
+  STDMETHOD(f119)();
+  STDMETHOD(f120)();
+  STDMETHOD(f121)();
+  STDMETHOD(f122)();
+  STDMETHOD(f123)();
+  STDMETHOD(f124)();
+  STDMETHOD(f125)();
+  STDMETHOD(f126)();
+  STDMETHOD(f127)();
+  STDMETHOD(f128)();
+  STDMETHOD(f129)();
+  STDMETHOD(f130)();
+  STDMETHOD(f131)();
+  STDMETHOD(f132)();
+  STDMETHOD(f133)();
+  STDMETHOD(f134)();
+  STDMETHOD(f135)();
+  STDMETHOD(f136)();
+  STDMETHOD(f137)();
+  STDMETHOD(f138)();
+  STDMETHOD(f139)();
+  STDMETHOD(f140)();
+  STDMETHOD(f141)();
+  STDMETHOD(f142)();
+  STDMETHOD(f143)();
+  STDMETHOD(f144)();
+  STDMETHOD(f145)();
+  STDMETHOD(f146)();
+  STDMETHOD(f147)();
+  STDMETHOD(f148)();
+  STDMETHOD(f149)();
+  STDMETHOD(f150)();
+  STDMETHOD(f151)();
+  STDMETHOD(f152)();
+  STDMETHOD(f153)();
+  STDMETHOD(f154)();
+  STDMETHOD(f155)();
+  STDMETHOD(f156)();
+  STDMETHOD(f157)();
+  STDMETHOD(f158)();
+  STDMETHOD(f159)();
+  STDMETHOD(f160)();
+  STDMETHOD(f161)();
+  STDMETHOD(f162)();
+  STDMETHOD(f163)();
+  STDMETHOD(f164)();
+  STDMETHOD(f165)();
+  STDMETHOD(f166)();
+  STDMETHOD(f167)();
+  STDMETHOD(f168)();
+  STDMETHOD(f169)();
+  STDMETHOD(f170)();
+  STDMETHOD(f171)();
+  STDMETHOD(f172)();
+  STDMETHOD(f173)();
+  STDMETHOD(f174)();
+  STDMETHOD(f175)();
+  STDMETHOD(f176)();
+  STDMETHOD(f177)();
+  STDMETHOD(f178)();
+  STDMETHOD(f179)();
+  STDMETHOD(f180)();
+  STDMETHOD(f181)();
+  STDMETHOD(f182)();
+  STDMETHOD(f183)();
+  STDMETHOD(f184)();
+  STDMETHOD(f185)();
+  STDMETHOD(f186)();
+  STDMETHOD(f187)();
+  STDMETHOD(f188)();
+  STDMETHOD(f189)();
+  STDMETHOD(f190)();
+  STDMETHOD(f191)();
+  STDMETHOD(f192)();
+  STDMETHOD(f193)();
+  STDMETHOD(f194)();
+  STDMETHOD(f195)();
+  STDMETHOD(f196)();
+  STDMETHOD(f197)();
+  STDMETHOD(f198)();
+  STDMETHOD(f199)();
+  STDMETHOD(f200)();
+  STDMETHOD(f201)();
+  STDMETHOD(f202)();
+  STDMETHOD(f203)();
+  STDMETHOD(f204)();
+  STDMETHOD(f205)();
+  STDMETHOD(f206)();
+  STDMETHOD(f207)();
+  STDMETHOD(f208)();
+  STDMETHOD(f209)();
+  STDMETHOD(f210)();
+  STDMETHOD(f211)();
+  STDMETHOD(f212)();
+  STDMETHOD(f213)();
+  STDMETHOD(f214)();
+  STDMETHOD(f215)();
+  STDMETHOD(f216)();
+  STDMETHOD(f217)();
+  STDMETHOD(f218)();
+  STDMETHOD(f219)();
+  STDMETHOD(f220)();
+  STDMETHOD(f221)();
+  STDMETHOD(f222)();
+  STDMETHOD(f223)();
+  STDMETHOD(f224)();
+  STDMETHOD(f225)();
+  STDMETHOD(f226)();
+  STDMETHOD(f227)();
+  STDMETHOD(f228)();
+  STDMETHOD(f229)();
+  STDMETHOD(f230)();
+  STDMETHOD(f231)();
+  STDMETHOD(f232)();
+  STDMETHOD(f233)();
+  STDMETHOD(f234)();
+  STDMETHOD(f235)();
+  STDMETHOD(f236)();
+  STDMETHOD(f237)();
+  STDMETHOD(f238)();
+  STDMETHOD(f239)();
+  STDMETHOD(f240)();
+  STDMETHOD(f241)();
+  STDMETHOD(f242)();
+  STDMETHOD(f243)();
+  STDMETHOD(f244)();
+  STDMETHOD(f245)();
+  STDMETHOD(f246)();
+  STDMETHOD(f247)();
+  STDMETHOD(f248)();
+  STDMETHOD(f249)();
+  STDMETHOD(f250)();
+  STDMETHOD(f251)();
+  STDMETHOD(f252)();
+  STDMETHOD(f253)();
+  STDMETHOD(f254)();
+  STDMETHOD(f255)();
+  STDMETHOD(f256)();
+  STDMETHOD(f257)();
+  STDMETHOD(f258)();
+  STDMETHOD(f259)();
+  STDMETHOD(f260)();
+  STDMETHOD(f261)();
+  STDMETHOD(f262)();
+  STDMETHOD(f263)();
+  STDMETHOD(f264)();
+  STDMETHOD(f265)();
+  STDMETHOD(f266)();
+  STDMETHOD(f267)();
+  STDMETHOD(f268)();
+  STDMETHOD(f269)();
+  STDMETHOD(f270)();
+  STDMETHOD(f271)();
+  STDMETHOD(f272)();
+  STDMETHOD(f273)();
+  STDMETHOD(f274)();
+  STDMETHOD(f275)();
+  STDMETHOD(f276)();
+  STDMETHOD(f277)();
+  STDMETHOD(f278)();
+  STDMETHOD(f279)();
+  STDMETHOD(f280)();
+  STDMETHOD(f281)();
+  STDMETHOD(f282)();
+  STDMETHOD(f283)();
+  STDMETHOD(f284)();
+  STDMETHOD(f285)();
+  STDMETHOD(f286)();
+  STDMETHOD(f287)();
+  STDMETHOD(f288)();
+  STDMETHOD(f289)();
+  STDMETHOD(f290)();
+  STDMETHOD(f291)();
+  STDMETHOD(f292)();
+  STDMETHOD(f293)();
+  STDMETHOD(f294)();
+  STDMETHOD(f295)();
+  STDMETHOD(f296)();
+  STDMETHOD(f297)();
+  STDMETHOD(f298)();
+  STDMETHOD(f299)();
+  STDMETHOD(f300)();
+  STDMETHOD(f301)();
+  STDMETHOD(f302)();
+  STDMETHOD(f303)();
+  STDMETHOD(f304)();
+  STDMETHOD(f305)();
+  STDMETHOD(f306)();
+  STDMETHOD(f307)();
+  STDMETHOD(f308)();
+  STDMETHOD(f309)();
+  STDMETHOD(f310)();
+  STDMETHOD(f311)();
+  STDMETHOD(f312)();
+  STDMETHOD(f313)();
+  STDMETHOD(f314)();
+  STDMETHOD(f315)();
+  STDMETHOD(f316)();
+  STDMETHOD(f317)();
+  STDMETHOD(f318)();
+  STDMETHOD(f319)();
+  STDMETHOD(f320)();
+  STDMETHOD(f321)();
+  STDMETHOD(f322)();
+  STDMETHOD(f323)();
+  STDMETHOD(f324)();
+  STDMETHOD(f325)();
+  STDMETHOD(f326)();
+  STDMETHOD(f327)();
+  STDMETHOD(f328)();
+  STDMETHOD(f329)();
+  STDMETHOD(f330)();
+  STDMETHOD(f331)();
+  STDMETHOD(f332)();
+  STDMETHOD(f333)();
+  STDMETHOD(f334)();
+  STDMETHOD(f335)();
+  STDMETHOD(f336)();
+  STDMETHOD(f337)();
+  STDMETHOD(f338)();
+  STDMETHOD(f339)();
+  STDMETHOD(f340)();
+  STDMETHOD(f341)();
+  STDMETHOD(f342)();
+  STDMETHOD(f343)();
+  STDMETHOD(f344)();
+  STDMETHOD(f345)();
+  STDMETHOD(f346)();
+  STDMETHOD(f347)();
+  STDMETHOD(f348)();
+  STDMETHOD(f349)();
+  STDMETHOD(f350)();
+  STDMETHOD(f351)();
+  STDMETHOD(f352)();
+  STDMETHOD(f353)();
+  STDMETHOD(f354)();
+  STDMETHOD(f355)();
+  STDMETHOD(f356)();
+  STDMETHOD(f357)();
+  STDMETHOD(f358)();
+  STDMETHOD(f359)();
+  STDMETHOD(f360)();
+  STDMETHOD(f361)();
+  STDMETHOD(f362)();
+  STDMETHOD(f363)();
+  STDMETHOD(f364)();
+  STDMETHOD(f365)();
+  STDMETHOD(f366)();
+  STDMETHOD(f367)();
+  STDMETHOD(f368)();
+  STDMETHOD(f369)();
+  STDMETHOD(f370)();
+  STDMETHOD(f371)();
+  STDMETHOD(f372)();
+  STDMETHOD(f373)();
+  STDMETHOD(f374)();
+  STDMETHOD(f375)();
+  STDMETHOD(f376)();
+  STDMETHOD(f377)();
+  STDMETHOD(f378)();
+  STDMETHOD(f379)();
+  STDMETHOD(f380)();
+  STDMETHOD(f381)();
+  STDMETHOD(f382)();
+  STDMETHOD(f383)();
+  STDMETHOD(f384)();
+  STDMETHOD(f385)();
+  STDMETHOD(f386)();
+  STDMETHOD(f387)();
+  STDMETHOD(f388)();
+  STDMETHOD(f389)();
+  STDMETHOD(f390)();
+  STDMETHOD(f391)();
+  STDMETHOD(f392)();
+  STDMETHOD(f393)();
+  STDMETHOD(f394)();
+  STDMETHOD(f395)();
+  STDMETHOD(f396)();
+  STDMETHOD(f397)();
+  STDMETHOD(f398)();
+  STDMETHOD(f399)();
+  STDMETHOD(f400)();
+  STDMETHOD(f401)();
+  STDMETHOD(f402)();
+  STDMETHOD(f403)();
+  STDMETHOD(f404)();
+  STDMETHOD(f405)();
+  STDMETHOD(f406)();
+  STDMETHOD(f407)();
+  STDMETHOD(f408)();
+  STDMETHOD(f409)();
+  STDMETHOD(f410)();
+  STDMETHOD(f411)();
+  STDMETHOD(f412)();
+  STDMETHOD(f413)();
+  STDMETHOD(f414)();
+  STDMETHOD(f415)();
+  STDMETHOD(f416)();
+  STDMETHOD(f417)();
+  STDMETHOD(f418)();
+  STDMETHOD(f419)();
+  STDMETHOD(f420)();
+  STDMETHOD(f421)();
+  STDMETHOD(f422)();
+  STDMETHOD(f423)();
+  STDMETHOD(f424)();
+  STDMETHOD(f425)();
+  STDMETHOD(f426)();
+  STDMETHOD(f427)();
+  STDMETHOD(f428)();
+  STDMETHOD(f429)();
+  STDMETHOD(f430)();
+  STDMETHOD(f431)();
+  STDMETHOD(f432)();
+  STDMETHOD(f433)();
+  STDMETHOD(f434)();
+  STDMETHOD(f435)();
+  STDMETHOD(f436)();
+  STDMETHOD(f437)();
+  STDMETHOD(f438)();
+  STDMETHOD(f439)();
+  STDMETHOD(f440)();
+  STDMETHOD(f441)();
+  STDMETHOD(f442)();
+  STDMETHOD(f443)();
+  STDMETHOD(f444)();
+  STDMETHOD(f445)();
+  STDMETHOD(f446)();
+  STDMETHOD(f447)();
+  STDMETHOD(f448)();
+  STDMETHOD(f449)();
+  STDMETHOD(f450)();
+  STDMETHOD(f451)();
+  STDMETHOD(f452)();
+  STDMETHOD(f453)();
+  STDMETHOD(f454)();
+  STDMETHOD(f455)();
+  STDMETHOD(f456)();
+  STDMETHOD(f457)();
+  STDMETHOD(f458)();
+  STDMETHOD(f459)();
+  STDMETHOD(f460)();
+  STDMETHOD(f461)();
+  STDMETHOD(f462)();
+  STDMETHOD(f463)();
+  STDMETHOD(f464)();
+  STDMETHOD(f465)();
+  STDMETHOD(f466)();
+  STDMETHOD(f467)();
+  STDMETHOD(f468)();
+  STDMETHOD(f469)();
+  STDMETHOD(f470)();
+  STDMETHOD(f471)();
+  STDMETHOD(f472)();
+  STDMETHOD(f473)();
+  STDMETHOD(f474)();
+  STDMETHOD(f475)();
+  STDMETHOD(f476)();
+  STDMETHOD(f477)();
+  STDMETHOD(f478)();
+  STDMETHOD(f479)();
+  STDMETHOD(f480)();
+  STDMETHOD(f481)();
+  STDMETHOD(f482)();
+  STDMETHOD(f483)();
+  STDMETHOD(f484)();
+  STDMETHOD(f485)();
+  STDMETHOD(f486)();
+  STDMETHOD(f487)();
+  STDMETHOD(f488)();
+  STDMETHOD(f489)();
+  STDMETHOD(f490)();
+  STDMETHOD(f491)();
+  STDMETHOD(f492)();
+  STDMETHOD(f493)();
+  STDMETHOD(f494)();
+  STDMETHOD(f495)();
+  STDMETHOD(f496)();
+  STDMETHOD(f497)();
+  STDMETHOD(f498)();
+  STDMETHOD(f499)();
+  STDMETHOD(f500)();
+  STDMETHOD(f501)();
+  STDMETHOD(f502)();
+  STDMETHOD(f503)();
+  STDMETHOD(f504)();
+  STDMETHOD(f505)();
+  STDMETHOD(f506)();
+  STDMETHOD(f507)();
+  STDMETHOD(f508)();
+  STDMETHOD(f509)();
+  STDMETHOD(f510)();
+  STDMETHOD(f511)();
+  STDMETHOD(f512)();
+  STDMETHOD(f513)();
+  STDMETHOD(f514)();
+  STDMETHOD(f515)();
+  STDMETHOD(f516)();
+  STDMETHOD(f517)();
+  STDMETHOD(f518)();
+  STDMETHOD(f519)();
+  STDMETHOD(f520)();
+  STDMETHOD(f521)();
+  STDMETHOD(f522)();
+  STDMETHOD(f523)();
+  STDMETHOD(f524)();
+  STDMETHOD(f525)();
+  STDMETHOD(f526)();
+  STDMETHOD(f527)();
+  STDMETHOD(f528)();
+  STDMETHOD(f529)();
+  STDMETHOD(f530)();
+  STDMETHOD(f531)();
+  STDMETHOD(f532)();
+  STDMETHOD(f533)();
+  STDMETHOD(f534)();
+  STDMETHOD(f535)();
+  STDMETHOD(f536)();
+  STDMETHOD(f537)();
+  STDMETHOD(f538)();
+  STDMETHOD(f539)();
+  STDMETHOD(f540)();
+  STDMETHOD(f541)();
+  STDMETHOD(f542)();
+  STDMETHOD(f543)();
+  STDMETHOD(f544)();
+  STDMETHOD(f545)();
+  STDMETHOD(f546)();
+  STDMETHOD(f547)();
+  STDMETHOD(f548)();
+  STDMETHOD(f549)();
+  STDMETHOD(f550)();
+  STDMETHOD(f551)();
+  STDMETHOD(f552)();
+  STDMETHOD(f553)();
+  STDMETHOD(f554)();
+  STDMETHOD(f555)();
+  STDMETHOD(f556)();
+  STDMETHOD(f557)();
+  STDMETHOD(f558)();
+  STDMETHOD(f559)();
+  STDMETHOD(f560)();
+  STDMETHOD(f561)();
+  STDMETHOD(f562)();
+  STDMETHOD(f563)();
+  STDMETHOD(f564)();
+  STDMETHOD(f565)();
+  STDMETHOD(f566)();
+  STDMETHOD(f567)();
+  STDMETHOD(f568)();
+  STDMETHOD(f569)();
+  STDMETHOD(f570)();
+  STDMETHOD(f571)();
+  STDMETHOD(f572)();
+  STDMETHOD(f573)();
+  STDMETHOD(f574)();
+  STDMETHOD(f575)();
+  STDMETHOD(f576)();
+  STDMETHOD(f577)();
+  STDMETHOD(f578)();
+  STDMETHOD(f579)();
+  STDMETHOD(f580)();
+  STDMETHOD(f581)();
+  STDMETHOD(f582)();
+  STDMETHOD(f583)();
+  STDMETHOD(f584)();
+  STDMETHOD(f585)();
+  STDMETHOD(f586)();
+  STDMETHOD(f587)();
+  STDMETHOD(f588)();
+  STDMETHOD(f589)();
+  STDMETHOD(f590)();
+  STDMETHOD(f591)();
+  STDMETHOD(f592)();
+  STDMETHOD(f593)();
+  STDMETHOD(f594)();
+  STDMETHOD(f595)();
+  STDMETHOD(f596)();
+  STDMETHOD(f597)();
+  STDMETHOD(f598)();
+  STDMETHOD(f599)();
+  STDMETHOD(f600)();
+  STDMETHOD(f601)();
+  STDMETHOD(f602)();
+  STDMETHOD(f603)();
+  STDMETHOD(f604)();
+  STDMETHOD(f605)();
+  STDMETHOD(f606)();
+  STDMETHOD(f607)();
+  STDMETHOD(f608)();
+  STDMETHOD(f609)();
+  STDMETHOD(f610)();
+  STDMETHOD(f611)();
+  STDMETHOD(f612)();
+  STDMETHOD(f613)();
+  STDMETHOD(f614)();
+  STDMETHOD(f615)();
+  STDMETHOD(f616)();
+  STDMETHOD(f617)();
+  STDMETHOD(f618)();
+  STDMETHOD(f619)();
+  STDMETHOD(f620)();
+  STDMETHOD(f621)();
+  STDMETHOD(f622)();
+  STDMETHOD(f623)();
+  STDMETHOD(f624)();
+  STDMETHOD(f625)();
+  STDMETHOD(f626)();
+  STDMETHOD(f627)();
+  STDMETHOD(f628)();
+  STDMETHOD(f629)();
+  STDMETHOD(f630)();
+  STDMETHOD(f631)();
+  STDMETHOD(f632)();
+  STDMETHOD(f633)();
+  STDMETHOD(f634)();
+  STDMETHOD(f635)();
+  STDMETHOD(f636)();
+  STDMETHOD(f637)();
+  STDMETHOD(f638)();
+  STDMETHOD(f639)();
+  STDMETHOD(f640)();
+  STDMETHOD(f641)();
+  STDMETHOD(f642)();
+  STDMETHOD(f643)();
+  STDMETHOD(f644)();
+  STDMETHOD(f645)();
+  STDMETHOD(f646)();
+  STDMETHOD(f647)();
+  STDMETHOD(f648)();
+  STDMETHOD(f649)();
+  STDMETHOD(f650)();
+  STDMETHOD(f651)();
+  STDMETHOD(f652)();
+  STDMETHOD(f653)();
+  STDMETHOD(f654)();
+  STDMETHOD(f655)();
+  STDMETHOD(f656)();
+  STDMETHOD(f657)();
+  STDMETHOD(f658)();
+  STDMETHOD(f659)();
+  STDMETHOD(f660)();
+  STDMETHOD(f661)();
+  STDMETHOD(f662)();
+  STDMETHOD(f663)();
+  STDMETHOD(f664)();
+  STDMETHOD(f665)();
+  STDMETHOD(f666)();
+  STDMETHOD(f667)();
+  STDMETHOD(f668)();
+  STDMETHOD(f669)();
+  STDMETHOD(f670)();
+  STDMETHOD(f671)();
+  STDMETHOD(f672)();
+  STDMETHOD(f673)();
+  STDMETHOD(f674)();
+  STDMETHOD(f675)();
+  STDMETHOD(f676)();
+  STDMETHOD(f677)();
+  STDMETHOD(f678)();
+  STDMETHOD(f679)();
+  STDMETHOD(f680)();
+  STDMETHOD(f681)();
+  STDMETHOD(f682)();
+  STDMETHOD(f683)();
+  STDMETHOD(f684)();
+  STDMETHOD(f685)();
+  STDMETHOD(f686)();
+  STDMETHOD(f687)();
+  STDMETHOD(f688)();
+  STDMETHOD(f689)();
+  STDMETHOD(f690)();
+  STDMETHOD(f691)();
+  STDMETHOD(f692)();
+  STDMETHOD(f693)();
+  STDMETHOD(f694)();
+  STDMETHOD(f695)();
+  STDMETHOD(f696)();
+  STDMETHOD(f697)();
+  STDMETHOD(f698)();
+  STDMETHOD(f699)();
+  STDMETHOD(f700)();
+  STDMETHOD(f701)();
+  STDMETHOD(f702)();
+  STDMETHOD(f703)();
+  STDMETHOD(f704)();
+  STDMETHOD(f705)();
+  STDMETHOD(f706)();
+  STDMETHOD(f707)();
+  STDMETHOD(f708)();
+  STDMETHOD(f709)();
+  STDMETHOD(f710)();
+  STDMETHOD(f711)();
+  STDMETHOD(f712)();
+  STDMETHOD(f713)();
+  STDMETHOD(f714)();
+  STDMETHOD(f715)();
+  STDMETHOD(f716)();
+  STDMETHOD(f717)();
+  STDMETHOD(f718)();
+  STDMETHOD(f719)();
+  STDMETHOD(f720)();
+  STDMETHOD(f721)();
+  STDMETHOD(f722)();
+  STDMETHOD(f723)();
+  STDMETHOD(f724)();
+  STDMETHOD(f725)();
+  STDMETHOD(f726)();
+  STDMETHOD(f727)();
+  STDMETHOD(f728)();
+  STDMETHOD(f729)();
+  STDMETHOD(f730)();
+  STDMETHOD(f731)();
+  STDMETHOD(f732)();
+  STDMETHOD(f733)();
+  STDMETHOD(f734)();
+  STDMETHOD(f735)();
+  STDMETHOD(f736)();
+  STDMETHOD(f737)();
+  STDMETHOD(f738)();
+  STDMETHOD(f739)();
+  STDMETHOD(f740)();
+  STDMETHOD(f741)();
+  STDMETHOD(f742)();
+  STDMETHOD(f743)();
+  STDMETHOD(f744)();
+  STDMETHOD(f745)();
+  STDMETHOD(f746)();
+  STDMETHOD(f747)();
+  STDMETHOD(f748)();
+  STDMETHOD(f749)();
+  STDMETHOD(f750)();
+  STDMETHOD(f751)();
+  STDMETHOD(f752)();
+  STDMETHOD(f753)();
+  STDMETHOD(f754)();
+  STDMETHOD(f755)();
+  STDMETHOD(f756)();
+  STDMETHOD(f757)();
+  STDMETHOD(f758)();
+  STDMETHOD(f759)();
+  STDMETHOD(f760)();
+  STDMETHOD(f761)();
+  STDMETHOD(f762)();
+  STDMETHOD(f763)();
+  STDMETHOD(f764)();
+  STDMETHOD(f765)();
+  STDMETHOD(f766)();
+  STDMETHOD(f767)();
+  STDMETHOD(f768)();
+  STDMETHOD(f769)();
+  STDMETHOD(f770)();
+  STDMETHOD(f771)();
+  STDMETHOD(f772)();
+  STDMETHOD(f773)();
+  STDMETHOD(f774)();
+  STDMETHOD(f775)();
+  STDMETHOD(f776)();
+  STDMETHOD(f777)();
+  STDMETHOD(f778)();
+  STDMETHOD(f779)();
+  STDMETHOD(f780)();
+  STDMETHOD(f781)();
+  STDMETHOD(f782)();
+  STDMETHOD(f783)();
+  STDMETHOD(f784)();
+  STDMETHOD(f785)();
+  STDMETHOD(f786)();
+  STDMETHOD(f787)();
+  STDMETHOD(f788)();
+  STDMETHOD(f789)();
+  STDMETHOD(f790)();
+  STDMETHOD(f791)();
+  STDMETHOD(f792)();
+  STDMETHOD(f793)();
+  STDMETHOD(f794)();
+  STDMETHOD(f795)();
+  STDMETHOD(f796)();
+  STDMETHOD(f797)();
+  STDMETHOD(f798)();
+  STDMETHOD(f799)();
+  STDMETHOD(f800)();
+  STDMETHOD(f801)();
+  STDMETHOD(f802)();
+  STDMETHOD(f803)();
+  STDMETHOD(f804)();
+  STDMETHOD(f805)();
+  STDMETHOD(f806)();
+  STDMETHOD(f807)();
+  STDMETHOD(f808)();
+  STDMETHOD(f809)();
+  STDMETHOD(f810)();
+  STDMETHOD(f811)();
+  STDMETHOD(f812)();
+  STDMETHOD(f813)();
+  STDMETHOD(f814)();
+  STDMETHOD(f815)();
+  STDMETHOD(f816)();
+  STDMETHOD(f817)();
+  STDMETHOD(f818)();
+  STDMETHOD(f819)();
+  STDMETHOD(f820)();
+  STDMETHOD(f821)();
+  STDMETHOD(f822)();
+  STDMETHOD(f823)();
+  STDMETHOD(f824)();
+  STDMETHOD(f825)();
+  STDMETHOD(f826)();
+  STDMETHOD(f827)();
+  STDMETHOD(f828)();
+  STDMETHOD(f829)();
+  STDMETHOD(f830)();
+  STDMETHOD(f831)();
+  STDMETHOD(f832)();
+  STDMETHOD(f833)();
+  STDMETHOD(f834)();
+  STDMETHOD(f835)();
+  STDMETHOD(f836)();
+  STDMETHOD(f837)();
+  STDMETHOD(f838)();
+  STDMETHOD(f839)();
+  STDMETHOD(f840)();
+  STDMETHOD(f841)();
+  STDMETHOD(f842)();
+  STDMETHOD(f843)();
+  STDMETHOD(f844)();
+  STDMETHOD(f845)();
+  STDMETHOD(f846)();
+  STDMETHOD(f847)();
+  STDMETHOD(f848)();
+  STDMETHOD(f849)();
+  STDMETHOD(f850)();
+  STDMETHOD(f851)();
+  STDMETHOD(f852)();
+  STDMETHOD(f853)();
+  STDMETHOD(f854)();
+  STDMETHOD(f855)();
+  STDMETHOD(f856)();
+  STDMETHOD(f857)();
+  STDMETHOD(f858)();
+  STDMETHOD(f859)();
+  STDMETHOD(f860)();
+  STDMETHOD(f861)();
+  STDMETHOD(f862)();
+  STDMETHOD(f863)();
+  STDMETHOD(f864)();
+  STDMETHOD(f865)();
+  STDMETHOD(f866)();
+  STDMETHOD(f867)();
+  STDMETHOD(f868)();
+  STDMETHOD(f869)();
+  STDMETHOD(f870)();
+  STDMETHOD(f871)();
+  STDMETHOD(f872)();
+  STDMETHOD(f873)();
+  STDMETHOD(f874)();
+  STDMETHOD(f875)();
+  STDMETHOD(f876)();
+  STDMETHOD(f877)();
+  STDMETHOD(f878)();
+  STDMETHOD(f879)();
+  STDMETHOD(f880)();
+  STDMETHOD(f881)();
+  STDMETHOD(f882)();
+  STDMETHOD(f883)();
+  STDMETHOD(f884)();
+  STDMETHOD(f885)();
+  STDMETHOD(f886)();
+  STDMETHOD(f887)();
+  STDMETHOD(f888)();
+  STDMETHOD(f889)();
+  STDMETHOD(f890)();
+  STDMETHOD(f891)();
+  STDMETHOD(f892)();
+  STDMETHOD(f893)();
+  STDMETHOD(f894)();
+  STDMETHOD(f895)();
+  STDMETHOD(f896)();
+  STDMETHOD(f897)();
+  STDMETHOD(f898)();
+  STDMETHOD(f899)();
+  STDMETHOD(f900)();
+  STDMETHOD(f901)();
+  STDMETHOD(f902)();
+  STDMETHOD(f903)();
+  STDMETHOD(f904)();
+  STDMETHOD(f905)();
+  STDMETHOD(f906)();
+  STDMETHOD(f907)();
+  STDMETHOD(f908)();
+  STDMETHOD(f909)();
+  STDMETHOD(f910)();
+  STDMETHOD(f911)();
+  STDMETHOD(f912)();
+  STDMETHOD(f913)();
+  STDMETHOD(f914)();
+  STDMETHOD(f915)();
+  STDMETHOD(f916)();
+  STDMETHOD(f917)();
+  STDMETHOD(f918)();
+  STDMETHOD(f919)();
+  STDMETHOD(f920)();
+  STDMETHOD(f921)();
+  STDMETHOD(f922)();
+  STDMETHOD(f923)();
+  STDMETHOD(f924)();
+  STDMETHOD(f925)();
+  STDMETHOD(f926)();
+  STDMETHOD(f927)();
+  STDMETHOD(f928)();
+  STDMETHOD(f929)();
+  STDMETHOD(f930)();
+  STDMETHOD(f931)();
+  STDMETHOD(f932)();
+  STDMETHOD(f933)();
+  STDMETHOD(f934)();
+  STDMETHOD(f935)();
+  STDMETHOD(f936)();
+  STDMETHOD(f937)();
+  STDMETHOD(f938)();
+  STDMETHOD(f939)();
+  STDMETHOD(f940)();
+  STDMETHOD(f941)();
+  STDMETHOD(f942)();
+  STDMETHOD(f943)();
+  STDMETHOD(f944)();
+  STDMETHOD(f945)();
+  STDMETHOD(f946)();
+  STDMETHOD(f947)();
+  STDMETHOD(f948)();
+  STDMETHOD(f949)();
+  STDMETHOD(f950)();
+  STDMETHOD(f951)();
+  STDMETHOD(f952)();
+  STDMETHOD(f953)();
+  STDMETHOD(f954)();
+  STDMETHOD(f955)();
+  STDMETHOD(f956)();
+  STDMETHOD(f957)();
+  STDMETHOD(f958)();
+  STDMETHOD(f959)();
+  STDMETHOD(f960)();
+  STDMETHOD(f961)();
+  STDMETHOD(f962)();
+  STDMETHOD(f963)();
+  STDMETHOD(f964)();
+  STDMETHOD(f965)();
+  STDMETHOD(f966)();
+  STDMETHOD(f967)();
+  STDMETHOD(f968)();
+  STDMETHOD(f969)();
+  STDMETHOD(f970)();
+  STDMETHOD(f971)();
+  STDMETHOD(f972)();
+  STDMETHOD(f973)();
+  STDMETHOD(f974)();
+  STDMETHOD(f975)();
+  STDMETHOD(f976)();
+  STDMETHOD(f977)();
+  STDMETHOD(f978)();
+  STDMETHOD(f979)();
+  STDMETHOD(f980)();
+  STDMETHOD(f981)();
+  STDMETHOD(f982)();
+  STDMETHOD(f983)();
+  STDMETHOD(f984)();
+  STDMETHOD(f985)();
+  STDMETHOD(f986)();
+  STDMETHOD(f987)();
+  STDMETHOD(f988)();
+  STDMETHOD(f989)();
+  STDMETHOD(f990)();
+  STDMETHOD(f991)();
+  STDMETHOD(f992)();
+  STDMETHOD(f993)();
+  STDMETHOD(f994)();
+  STDMETHOD(f995)();
+  STDMETHOD(f996)();
+  STDMETHOD(f997)();
+  STDMETHOD(f998)();
+  STDMETHOD(f999)();
+  STDMETHOD(f1000)();
+  STDMETHOD(f1001)();
+  STDMETHOD(f1002)();
+  STDMETHOD(f1003)();
+  STDMETHOD(f1004)();
+  STDMETHOD(f1005)();
+  STDMETHOD(f1006)();
+  STDMETHOD(f1007)();
+  STDMETHOD(f1008)();
+  STDMETHOD(f1009)();
+  STDMETHOD(f1010)();
+  STDMETHOD(f1011)();
+  STDMETHOD(f1012)();
+  STDMETHOD(f1013)();
+  STDMETHOD(f1014)();
+  STDMETHOD(f1015)();
+  STDMETHOD(f1016)();
+  STDMETHOD(f1017)();
+  STDMETHOD(f1018)();
+  STDMETHOD(f1019)();
+  STDMETHOD(f1020)();
+  STDMETHOD(f1021)();
+  STDMETHOD(f1022)();
+  STDMETHOD(f1023)();
 #ifndef _WIN64
-        STDMETHOD(f1024)();
+  STDMETHOD(f1024)();
 #endif
-        _QIThunk(IUnknown* pOrig, LPCTSTR p, const IID& i, UINT n, bool b)
-        {
-                lpszClassName = p;
-                iid = i;
-                nIndex = n;
-                m_dwRef = 0;
-                m_dwMaxRef = 0;
-                pUnk = pOrig;
-                bBreak = b;
-                bNonAddRefThunk = false;
-        }
-        IUnknown* pUnk;
-        long m_dwRef;
-        long m_dwMaxRef;
-        LPCTSTR lpszClassName;
-        IID iid;
-        UINT nIndex;
-        bool bBreak;
-        bool bNonAddRefThunk;
-        void Dump()
-        {
-                TCHAR buf[256];
-                if (m_dwRef != 0)
-                {
-                        wsprintf(buf, _T("INTERFACE LEAK: RefCount = %d, MaxRefCount = %d, {Allocation = %d} "), m_dwRef, m_dwMaxRef, nIndex);
-                        OutputDebugString(buf);
-                        AtlDumpIID(iid, lpszClassName, S_OK);
-                }
-                else
-                {
-                        wsprintf(buf, _T("NonAddRef Thunk LEAK: {Allocation = %d}\n"), nIndex);
-                        OutputDebugString(buf);
-                }
-        }
+  _QIThunk(IUnknown* pOrig, LPCTSTR p, const IID& i, UINT n, bool b)
+  {
+    lpszClassName = p;
+    iid = i;
+    nIndex = n;
+    m_dwRef = 0;
+    m_dwMaxRef = 0;
+    pUnk = pOrig;
+    bBreak = b;
+    bNonAddRefThunk = false;
+  }
+  IUnknown* pUnk;
+  long m_dwRef;
+  long m_dwMaxRef;
+  LPCTSTR lpszClassName;
+  IID iid;
+  UINT nIndex;
+  bool bBreak;
+  bool bNonAddRefThunk;
+  void Dump()
+  {
+    TCHAR buf[256];
+    if (m_dwRef != 0)
+    {
+      wsprintf(buf, _T("INTERFACE LEAK: RefCount = %d, MaxRefCount = %d, {Allocation = %d} "), m_dwRef, m_dwMaxRef, nIndex);
+      OutputDebugString(buf);
+      AtlDumpIID(iid, lpszClassName, S_OK);
+    }
+    else
+    {
+      wsprintf(buf, _T("NonAddRef Thunk LEAK: {Allocation = %d}\n"), nIndex);
+      OutputDebugString(buf);
+    }
+  }
 };
 #endif
 
@@ -2504,114 +2590,114 @@ template <class T>
 class CSimpleArray
 {
 public:
-        T* m_aT;
-        int m_nSize;
-        int m_nAllocSize;
+  T* m_aT;
+  int m_nSize;
+  int m_nAllocSize;
 
 // Construction/destruction
-        CSimpleArray() : m_aT(NULL), m_nSize(0), m_nAllocSize(0)
-        { }
+  CSimpleArray() : m_aT(NULL), m_nSize(0), m_nAllocSize(0)
+  { }
 
-        ~CSimpleArray()
-        {
-                RemoveAll();
-        }
+  ~CSimpleArray()
+  {
+    RemoveAll();
+  }
 
 // Operations
-        int GetSize() const
-        {
-                return m_nSize;
-        }
-        BOOL Add(T& t)
-        {
-                if(m_nSize == m_nAllocSize)
-                {
-                        T* aT;
-                        int nNewAllocSize = (m_nAllocSize == 0) ? 1 : (m_nSize * 2);
-                        aT = (T*)realloc(m_aT, nNewAllocSize * sizeof(T));
-                        if(aT == NULL)
-                                return FALSE;
-                        m_nAllocSize = nNewAllocSize;
-                        m_aT = aT;
-                }
-                m_nSize++;
-                SetAtIndex(m_nSize - 1, t);
-                return TRUE;
-        }
-        BOOL Remove(T& t)
-        {
-                int nIndex = Find(t);
-                if(nIndex == -1)
-                        return FALSE;
-                return RemoveAt(nIndex);
-        }
-        BOOL RemoveAt(int nIndex)
-        {
-                if(nIndex < 0 || nIndex >= m_nSize)
-                        return FALSE;
-                        
-                m_aT[nIndex].~T();
-                if(nIndex != (m_nSize - 1))
-                        memmove((void*)(m_aT + nIndex), (void*)(m_aT + nIndex + 1), (m_nSize - (nIndex + 1)) * sizeof(T));
-                m_nSize--;
-                return TRUE;
-        }
-        void RemoveAll()
-        {
-                if(m_aT != NULL)
-                {
-                        for(int i = 0; i < m_nSize; i++) 
-                        {
-                                m_aT[i].~T();
-                        }
-                        free(m_aT);
-                        m_aT = NULL;
-                }
-                m_nSize = 0;
-                m_nAllocSize = 0;
-        }
-        T& operator[] (int nIndex) const
-        {
-                ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
-                if(nIndex < 0 || nIndex >= m_nSize)
-                {
-                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);                                        
-                }
-                return m_aT[nIndex];
-        }
-        T* GetData() const
-        {
-                return m_aT;
-        }
+  int GetSize() const
+  {
+    return m_nSize;
+  }
+  BOOL Add(T& t)
+  {
+    if(m_nSize == m_nAllocSize)
+    {
+      T* aT;
+      int nNewAllocSize = (m_nAllocSize == 0) ? 1 : (m_nSize * 2);
+      aT = (T*)realloc(m_aT, nNewAllocSize * sizeof(T));
+      if(aT == NULL)
+        return FALSE;
+      m_nAllocSize = nNewAllocSize;
+      m_aT = aT;
+    }
+    m_nSize++;
+    SetAtIndex(m_nSize - 1, t);
+    return TRUE;
+  }
+  BOOL Remove(T& t)
+  {
+    int nIndex = Find(t);
+    if(nIndex == -1)
+      return FALSE;
+    return RemoveAt(nIndex);
+  }
+  BOOL RemoveAt(int nIndex)
+  {
+    if(nIndex < 0 || nIndex >= m_nSize)
+      return FALSE;
+
+    m_aT[nIndex].~T();
+    if(nIndex != (m_nSize - 1))
+      memmove((void*)(m_aT + nIndex), (void*)(m_aT + nIndex + 1), (m_nSize - (nIndex + 1)) * sizeof(T));
+    m_nSize--;
+    return TRUE;
+  }
+  void RemoveAll()
+  {
+    if(m_aT != NULL)
+    {
+      for(int i = 0; i < m_nSize; i++)
+      {
+        m_aT[i].~T();
+      }
+      free(m_aT);
+      m_aT = NULL;
+    }
+    m_nSize = 0;
+    m_nAllocSize = 0;
+  }
+  T& operator[] (int nIndex) const
+  {
+    ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
+    if(nIndex < 0 || nIndex >= m_nSize)
+    {
+      _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);
+    }
+    return m_aT[nIndex];
+  }
+  T* GetData() const
+  {
+    return m_aT;
+  }
 
 // Implementation
-        class Wrapper
-        {
-        public:
-                Wrapper(T& _t) : t(_t)
-                {
-                }
-                template <class _Ty>
-                void *operator new(size_t, _Ty* p)
-                {
-                        return p;
-                }
-                T t;
-        };
-        void SetAtIndex(int nIndex, T& t)
-        {
-                ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
-                new(m_aT + nIndex) Wrapper(t);
-        }
-        int Find(T& t) const
-        {
-                for(int i = 0; i < m_nSize; i++)
-                {
-                        if(m_aT[i] == t)
-                                return i;
-                }
-                return -1;  // not found
-        }
+  class Wrapper
+  {
+  public:
+    Wrapper(T& _t) : t(_t)
+    {
+    }
+    template <class _Ty>
+    void *operator new(size_t, _Ty* p)
+    {
+      return p;
+    }
+    T t;
+  };
+  void SetAtIndex(int nIndex, T& t)
+  {
+    ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
+    new(m_aT + nIndex) Wrapper(t);
+  }
+  int Find(T& t) const
+  {
+    for(int i = 0; i < m_nSize; i++)
+    {
+      if(m_aT[i] == t)
+        return i;
+    }
+    return -1;  // not found
+  }
 };
 
 // for arrays of simple types
@@ -2619,18 +2705,18 @@ template <class T>
 class CSimpleValArray : public CSimpleArray< T >
 {
 public:
-        BOOL Add(T t)
-        {
-                return CSimpleArray< T >::Add(t);
-        }
-        BOOL Remove(T t)
-        {
-                return CSimpleArray< T >::Remove(t);
-        }
-        T operator[] (int nIndex) const
-        {
-                return CSimpleArray< T >::operator[](nIndex);
-        }
+  BOOL Add(T t)
+  {
+    return CSimpleArray< T >::Add(t);
+  }
+  BOOL Remove(T t)
+  {
+    return CSimpleArray< T >::Remove(t);
+  }
+  T operator[] (int nIndex) const
+  {
+    return CSimpleArray< T >::operator[](nIndex);
+  }
 };
 
 
@@ -2639,162 +2725,162 @@ template <class TKey, class TVal>
 class CSimpleMap
 {
 public:
-        TKey* m_aKey;
-        TVal* m_aVal;
-        int m_nSize;
+  TKey* m_aKey;
+  TVal* m_aVal;
+  int m_nSize;
 
 // Construction/destruction
-        CSimpleMap() : m_aKey(NULL), m_aVal(NULL), m_nSize(0)
-        { }
+  CSimpleMap() : m_aKey(NULL), m_aVal(NULL), m_nSize(0)
+  { }
 
-        ~CSimpleMap()
-        {
-                RemoveAll();
-        }
+  ~CSimpleMap()
+  {
+    RemoveAll();
+  }
 
 // Operations
-        int GetSize() const
-        {
-                return m_nSize;
-        }
-        BOOL Add(TKey key, TVal val)
-        {
-                TKey* pKey;
-                pKey = (TKey*)realloc(m_aKey, (m_nSize + 1) * sizeof(TKey));
-                if(pKey == NULL)
-                        return FALSE;
-                m_aKey = pKey;
-                TVal* pVal;
-                pVal = (TVal*)realloc(m_aVal, (m_nSize + 1) * sizeof(TVal));
-                if(pVal == NULL)
-                        return FALSE;
-                m_aVal = pVal;
-                m_nSize++;
-                SetAtIndex(m_nSize - 1, key, val);
-                return TRUE;
-        }
-        BOOL Remove(TKey key)
-        {
-                int nIndex = FindKey(key);
-                if(nIndex == -1)
-                        return FALSE;
-                m_aKey[nIndex].~TKey();
-                m_aVal[nIndex].~TVal();                        
-                if(nIndex != (m_nSize - 1))
-                {
-                        memmove((void*)(m_aKey + nIndex), (void*)(m_aKey + nIndex + 1), (m_nSize - (nIndex + 1)) * sizeof(TKey));
-                        memmove((void*)(m_aVal + nIndex), (void*)(m_aVal + nIndex + 1), (m_nSize - (nIndex + 1)) * sizeof(TVal));
-                }
-                TKey* pKey;
-                pKey = (TKey*)realloc(m_aKey, (m_nSize - 1) * sizeof(TKey));
-                if(pKey != NULL || m_nSize == 1)
-                        m_aKey = pKey;
-                TVal* pVal;
-                pVal = (TVal*)realloc(m_aVal, (m_nSize - 1) * sizeof(TVal));
-                if(pVal != NULL || m_nSize == 1)
-                        m_aVal = pVal;
-                m_nSize--;
-                return TRUE;
-        }
-        void RemoveAll()
-        {
-                if(m_aKey != NULL)
-                {
-                        for(int i = 0; i < m_nSize; i++)
-                        {
-                                m_aKey[i].~TKey();
-                                m_aVal[i].~TVal();
-                        }
-                        free(m_aKey);
-                        m_aKey = NULL;
-                }
-                if(m_aVal != NULL)
-                {
-                        free(m_aVal);
-                        m_aVal = NULL;
-                }
+  int GetSize() const
+  {
+    return m_nSize;
+  }
+  BOOL Add(TKey key, TVal val)
+  {
+    TKey* pKey;
+    pKey = (TKey*)realloc(m_aKey, (m_nSize + 1) * sizeof(TKey));
+    if(pKey == NULL)
+      return FALSE;
+    m_aKey = pKey;
+    TVal* pVal;
+    pVal = (TVal*)realloc(m_aVal, (m_nSize + 1) * sizeof(TVal));
+    if(pVal == NULL)
+      return FALSE;
+    m_aVal = pVal;
+    m_nSize++;
+    SetAtIndex(m_nSize - 1, key, val);
+    return TRUE;
+  }
+  BOOL Remove(TKey key)
+  {
+    int nIndex = FindKey(key);
+    if(nIndex == -1)
+      return FALSE;
+    m_aKey[nIndex].~TKey();
+    m_aVal[nIndex].~TVal();
+    if(nIndex != (m_nSize - 1))
+    {
+      memmove((void*)(m_aKey + nIndex), (void*)(m_aKey + nIndex + 1), (m_nSize - (nIndex + 1)) * sizeof(TKey));
+      memmove((void*)(m_aVal + nIndex), (void*)(m_aVal + nIndex + 1), (m_nSize - (nIndex + 1)) * sizeof(TVal));
+    }
+    TKey* pKey;
+    pKey = (TKey*)realloc(m_aKey, (m_nSize - 1) * sizeof(TKey));
+    if(pKey != NULL || m_nSize == 1)
+      m_aKey = pKey;
+    TVal* pVal;
+    pVal = (TVal*)realloc(m_aVal, (m_nSize - 1) * sizeof(TVal));
+    if(pVal != NULL || m_nSize == 1)
+      m_aVal = pVal;
+    m_nSize--;
+    return TRUE;
+  }
+  void RemoveAll()
+  {
+    if(m_aKey != NULL)
+    {
+      for(int i = 0; i < m_nSize; i++)
+      {
+        m_aKey[i].~TKey();
+        m_aVal[i].~TVal();
+      }
+      free(m_aKey);
+      m_aKey = NULL;
+    }
+    if(m_aVal != NULL)
+    {
+      free(m_aVal);
+      m_aVal = NULL;
+    }
 
-                m_nSize = 0;
-        }
-        BOOL SetAt(TKey key, TVal val)
-        {
-                int nIndex = FindKey(key);
-                if(nIndex == -1)
-                        return FALSE;
-                SetAtIndex(nIndex, key, val);
-                return TRUE;
-        }
-        TVal Lookup(TKey key) const
-        {
-                int nIndex = FindKey(key);
-                if(nIndex == -1)
-                        return NULL;    // must be able to convert
-                return GetValueAt(nIndex);
-        }
-        TKey ReverseLookup(TVal val) const
-        {
-                int nIndex = FindVal(val);
-                if(nIndex == -1)
-                        return NULL;    // must be able to convert
-                return GetKeyAt(nIndex);
-        }
-        TKey& GetKeyAt(int nIndex) const
-        {
-                ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
-                if(nIndex < 0 || nIndex >= m_nSize)
-                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);
-                        
-                return m_aKey[nIndex];
-        }
-        TVal& GetValueAt(int nIndex) const
-        {
-                ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
-                if(nIndex < 0 || nIndex >= m_nSize)
-                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);        
-                        
-                return m_aVal[nIndex];
-        }
+    m_nSize = 0;
+  }
+  BOOL SetAt(TKey key, TVal val)
+  {
+    int nIndex = FindKey(key);
+    if(nIndex == -1)
+      return FALSE;
+    SetAtIndex(nIndex, key, val);
+    return TRUE;
+  }
+  TVal Lookup(TKey key) const
+  {
+    int nIndex = FindKey(key);
+    if(nIndex == -1)
+      return NULL;    // must be able to convert
+    return GetValueAt(nIndex);
+  }
+  TKey ReverseLookup(TVal val) const
+  {
+    int nIndex = FindVal(val);
+    if(nIndex == -1)
+      return NULL;    // must be able to convert
+    return GetKeyAt(nIndex);
+  }
+  TKey& GetKeyAt(int nIndex) const
+  {
+    ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
+    if(nIndex < 0 || nIndex >= m_nSize)
+      _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);
+
+    return m_aKey[nIndex];
+  }
+  TVal& GetValueAt(int nIndex) const
+  {
+    ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
+    if(nIndex < 0 || nIndex >= m_nSize)
+      _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);
+
+    return m_aVal[nIndex];
+  }
 
 // Implementation
 
-        template <typename T>
-        class Wrapper
-        {
-        public:
-                Wrapper(T& _t) : t(_t)
-                {
-                }
-                template <typename _Ty>
-                void *operator new(size_t, _Ty* p)
-                {
-                        return p;
-                }
-                T t;
-        };
-        void SetAtIndex(int nIndex, TKey& key, TVal& val)
-        {
-                ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
-                new(m_aKey + nIndex) Wrapper<TKey>(key);
-                new(m_aVal + nIndex) Wrapper<TVal>(val);
-        }
-        int FindKey(TKey& key) const
-        {
-                for(int i = 0; i < m_nSize; i++)
-                {
-                        if(m_aKey[i] == key)
-                                return i;
-                }
-                return -1;  // not found
-        }
-        int FindVal(TVal& val) const
-        {
-                for(int i = 0; i < m_nSize; i++)
-                {
-                        if(m_aVal[i] == val)
-                                return i;
-                }
-                return -1;  // not found
-        }
+  template <typename T>
+  class Wrapper
+  {
+  public:
+    Wrapper(T& _t) : t(_t)
+    {
+    }
+    template <typename _Ty>
+    void *operator new(size_t, _Ty* p)
+    {
+      return p;
+    }
+    T t;
+  };
+  void SetAtIndex(int nIndex, TKey& key, TVal& val)
+  {
+    ATLASSERT(nIndex >= 0 && nIndex < m_nSize);
+    new(m_aKey + nIndex) Wrapper<TKey>(key);
+    new(m_aVal + nIndex) Wrapper<TVal>(val);
+  }
+  int FindKey(TKey& key) const
+  {
+    for(int i = 0; i < m_nSize; i++)
+    {
+      if(m_aKey[i] == key)
+        return i;
+    }
+    return -1;  // not found
+  }
+  int FindVal(TVal& val) const
+  {
+    for(int i = 0; i < m_nSize; i++)
+    {
+      if(m_aVal[i] == val)
+        return i;
+    }
+    return -1;  // not found
+  }
 };
 
 
@@ -2808,453 +2894,453 @@ class CComModule : public _ATL_MODULE
 {
 // Operations
 public:
-        static GUID m_libid;
+  static GUID m_libid;
 #ifdef _ATL_DEBUG_INTERFACES
-        UINT m_nIndexQI;
-        UINT m_nIndexBreakAt;
-        CSimpleArray<_QIThunk*>* m_paThunks;
+  UINT m_nIndexQI;
+  UINT m_nIndexBreakAt;
+  CSimpleArray<_QIThunk*>* m_paThunks;
 #endif // _ATL_DEBUG_INTERFACES
 
-        void AddCreateWndData(_AtlCreateWndData* pData, void* pObject)
-        {
-                AtlModuleAddCreateWndData(this, pData, pObject);
-        }
-        void* ExtractCreateWndData()
-        {
-                return AtlModuleExtractCreateWndData(this);
-        }
+  void AddCreateWndData(_AtlCreateWndData* pData, void* pObject)
+  {
+    AtlModuleAddCreateWndData(this, pData, pObject);
+  }
+  void* ExtractCreateWndData()
+  {
+    return AtlModuleExtractCreateWndData(this);
+  }
 
 #if _ATL_VER > 0x0300
-        LONG GetNextWindowID()
-        {
-                LONG nID;
+  LONG GetNextWindowID()
+  {
+    LONG nID;
 
-                nID = InterlockedIncrement(&m_nNextWindowID);
+    nID = InterlockedIncrement(&m_nNextWindowID);
 
-                return nID;
-        }
+    return nID;
+  }
 #endif
 
-        HRESULT Init(_ATL_OBJMAP_ENTRY* p, HINSTANCE h, const GUID* plibid = NULL)
-        {
-                pguidVer = &GUID_ATLVer30;
-                _pModule = this;
-                cbSize = sizeof(_ATL_MODULE);
-                dwAtlBuildVer = _ATL_VER;
+  HRESULT Init(_ATL_OBJMAP_ENTRY* p, HINSTANCE h, const GUID* plibid = NULL)
+  {
+    pguidVer = &GUID_ATLVer30;
+    _pModule = this;
+    cbSize = sizeof(_ATL_MODULE);
+    dwAtlBuildVer = _ATL_VER;
 
 // Initialize variables
 #ifdef _ATL_MIN_CRT
 #ifndef _ATL_NO_MP_HEAP
-                m_phHeaps = NULL;
-                m_dwHeaps = 0;
+    m_phHeaps = NULL;
+    m_dwHeaps = 0;
 #endif
 #endif
 
 #ifdef _ATL_DEBUG_INTERFACES
-                m_nIndexQI = 0;
-                m_nIndexBreakAt = 0;
-                m_paThunks = NULL;
+    m_nIndexQI = 0;
+    m_nIndexBreakAt = 0;
+    m_paThunks = NULL;
 #endif
 
-                HRESULT hr = AtlModuleInit(this, p, h);
-                if (FAILED(hr))
-                        return hr;
-                if (plibid != NULL)
-                        memcpy((void*)&m_libid, plibid, sizeof(GUID));
+    HRESULT hr = AtlModuleInit(this, p, h);
+    if (FAILED(hr))
+      return hr;
+    if (plibid != NULL)
+      memcpy((void*)&m_libid, plibid, sizeof(GUID));
 #if _ATL_VER > 0x0300
-                m_nNextWindowID = 1;
+    m_nNextWindowID = 1;
 #endif
 #ifdef _ATL_MIN_CRT
-                // Create a base heap
-                m_hHeap = HeapCreate(0, 0, 0);
-                if (m_hHeap == NULL)
-                {
-                        Term();
-                        return E_OUTOFMEMORY;
-                }
+    // Create a base heap
+    m_hHeap = HeapCreate(0, 0, 0);
+    if (m_hHeap == NULL)
+    {
+      Term();
+      return E_OUTOFMEMORY;
+    }
 
 #ifndef _ATL_NO_MP_HEAP
-                OSVERSIONINFO ver;
-                SYSTEM_INFO si;
-                memset( &ver, 0, sizeof( ver ) );
-                ver.dwOSVersionInfoSize = sizeof( ver );
-                GetVersionEx( &ver );
-                GetSystemInfo(&si);
-                if( ((ver.dwPlatformId != VER_PLATFORM_WIN32_NT) ||
-                        (ver.dwMajorVersion < 5)) && (si.dwNumberOfProcessors > 1) )
-                {
-                        DWORD dwHeaps = si.dwNumberOfProcessors * 2;
-                        m_dwHeaps = 0xFFFFFFFF;
-                        for (int bits = 0; bits < 32; bits++)
-                        {
-                                if (dwHeaps & 0x80000000)
-                                        break;
-                                dwHeaps <<= 1;
-                                m_dwHeaps >>= 1;
-                        }
-                        m_dwHeaps >>= 1;
+    OSVERSIONINFO ver;
+    SYSTEM_INFO si;
+    memset( &ver, 0, sizeof( ver ) );
+    ver.dwOSVersionInfoSize = sizeof( ver );
+    GetVersionEx( &ver );
+    GetSystemInfo(&si);
+    if( ((ver.dwPlatformId != VER_PLATFORM_WIN32_NT) ||
+      (ver.dwMajorVersion < 5)) && (si.dwNumberOfProcessors > 1) )
+    {
+      DWORD dwHeaps = si.dwNumberOfProcessors * 2;
+      m_dwHeaps = 0xFFFFFFFF;
+      for (int bits = 0; bits < 32; bits++)
+      {
+        if (dwHeaps & 0x80000000)
+          break;
+        dwHeaps <<= 1;
+        m_dwHeaps >>= 1;
+      }
+      m_dwHeaps >>= 1;
 
-                        // Allocate more heaps for each processor
-                        m_phHeaps = (HANDLE*) HeapAlloc(m_hHeap, _ATL_HEAPFLAGS, sizeof(HANDLE) * (m_dwHeaps + 1));
-                        if (m_phHeaps == NULL)
-                        {
-                                Term();
-                                return E_OUTOFMEMORY;
-                        }
-                        memset(m_phHeaps, 0, sizeof(HANDLE) * (m_dwHeaps + 1));
-                        for (DWORD i = 0; i <= m_dwHeaps; i++)
-                        {
-                                m_phHeaps[i] = HeapCreate(0, 0, 0);
-                                if (m_phHeaps[i] == NULL)
-                                {
-                                        Term();
-                                        return E_OUTOFMEMORY;
-                                }
-                        }
-                }
-                else
+      // Allocate more heaps for each processor
+      m_phHeaps = (HANDLE*) HeapAlloc(m_hHeap, _ATL_HEAPFLAGS, sizeof(HANDLE) * (m_dwHeaps + 1));
+      if (m_phHeaps == NULL)
+      {
+        Term();
+        return E_OUTOFMEMORY;
+      }
+      memset(m_phHeaps, 0, sizeof(HANDLE) * (m_dwHeaps + 1));
+      for (DWORD i = 0; i <= m_dwHeaps; i++)
+      {
+        m_phHeaps[i] = HeapCreate(0, 0, 0);
+        if (m_phHeaps[i] == NULL)
+        {
+          Term();
+          return E_OUTOFMEMORY;
+        }
+      }
+    }
+    else
 #endif
-                {
-                        m_phHeaps = NULL;
-                        m_dwHeaps = 0;
-                }
+    {
+      m_phHeaps = NULL;
+      m_dwHeaps = 0;
+    }
 #endif
 #ifdef _ATL_DEBUG_INTERFACES
-                ATLTRY(m_paThunks = new CSimpleArray<_QIThunk*>);
-                if (m_paThunks == NULL)
-                {
-                        Term();
-                        return E_OUTOFMEMORY;
-                }
+    ATLTRY(m_paThunks = new CSimpleArray<_QIThunk*>);
+    if (m_paThunks == NULL)
+    {
+      Term();
+      return E_OUTOFMEMORY;
+    }
 #endif // _ATL_DEBUG_INTERFACES
-                return S_OK;
-        }
+    return S_OK;
+  }
 #ifdef _ATL_DEBUG_INTERFACES
-        HRESULT AddThunk(IUnknown** pp, LPCTSTR lpsz, REFIID iid)
+  HRESULT AddThunk(IUnknown** pp, LPCTSTR lpsz, REFIID iid)
+  {
+    if ((pp == NULL) || (*pp == NULL))
+      return E_POINTER;
+    IUnknown* p = *pp;
+    _QIThunk* pThunk = NULL;
+    EnterCriticalSection(&m_csObjMap);
+    // Check if exists already for identity
+    if (InlineIsEqualUnknown(iid))
+    {
+      for (int i = 0; i < m_paThunks->GetSize(); i++)
+      {
+        if (m_paThunks->operator[](i)->pUnk == p)
         {
-                if ((pp == NULL) || (*pp == NULL))
-                        return E_POINTER;
-                IUnknown* p = *pp;
-                _QIThunk* pThunk = NULL;
-                EnterCriticalSection(&m_csObjMap);
-                // Check if exists already for identity
-                if (InlineIsEqualUnknown(iid))
-                {
-                        for (int i = 0; i < m_paThunks->GetSize(); i++)
-                        {
-                                if (m_paThunks->operator[](i)->pUnk == p)
-                                {
-                                        m_paThunks->operator[](i)->InternalAddRef();
-                                        pThunk = m_paThunks->operator[](i);
-                                        break;
-                                }
-                        }
-                }
-                if (pThunk == NULL)
-                {
-                        ++m_nIndexQI;
-                        if (m_nIndexBreakAt == m_nIndexQI)
-                                DebugBreak();
-                        ATLTRY(pThunk = new _QIThunk(p, lpsz, iid, m_nIndexQI, (m_nIndexBreakAt == m_nIndexQI)));
-                        if (pThunk == NULL)
-                        {
-                                LeaveCriticalSection(&m_csObjMap);
-                                return E_OUTOFMEMORY;
-                        }
-                        pThunk->InternalAddRef();
-                        m_paThunks->Add(pThunk);
-                }
-                LeaveCriticalSection(&m_csObjMap);
-                *pp = (IUnknown*)pThunk;
-                return S_OK;
+          m_paThunks->operator[](i)->InternalAddRef();
+          pThunk = m_paThunks->operator[](i);
+          break;
         }
-        HRESULT AddNonAddRefThunk(IUnknown* p, LPCTSTR lpsz, IUnknown** ppThunkRet)
-        {
-                _ATL_VALIDATE_OUT_POINTER(ppThunkRet);
-                
-                _QIThunk* pThunk = NULL;
-                EnterCriticalSection(&m_csObjMap);
-                // Check if exists already for identity
-                for (int i = 0; i < m_paThunks->GetSize(); i++)
-                {
-                        if (m_paThunks->operator[](i)->pUnk == p)
-                        {
-                                m_paThunks->operator[](i)->bNonAddRefThunk = true;
-                                pThunk = m_paThunks->operator[](i);
-                                break;
-                        }
-                }
-                if (pThunk == NULL)
-                {
-                        ++m_nIndexQI;
-                        if (m_nIndexBreakAt == m_nIndexQI)
-                                DebugBreak();
-                        ATLTRY(pThunk = new _QIThunk(p, lpsz, IID_IUnknown, m_nIndexQI, (m_nIndexBreakAt == m_nIndexQI)));
-                        if (pThunk == NULL)
-                        {
-                                *ppThunkRet = NULL;
-                                LeaveCriticalSection(&m_csObjMap);
-                                return E_OUTOFMEMORY;
-                        }
-                        pThunk->bNonAddRefThunk = true;
-                        m_paThunks->Add(pThunk);
-                }
-                LeaveCriticalSection(&m_csObjMap);
-                *ppThunkRet = (IUnknown*)pThunk;
-                return S_OK;;
-        }
-        void DeleteNonAddRefThunk(IUnknown* pUnk)
-        {
-                EnterCriticalSection(&m_csObjMap);
-                for (int i = 0; i < m_paThunks->GetSize(); i++)
-                {
-                        if (m_paThunks->operator[](i)->pUnk == pUnk)
-                        {
-                                delete m_paThunks->operator[](i);
-                                m_paThunks->RemoveAt(i);
-                                break;
-                        }
-                }
-                LeaveCriticalSection(&m_csObjMap);
-        }
-        void DeleteThunk(_QIThunk* p)
-        {
-                EnterCriticalSection(&m_csObjMap);
-                int nIndex = m_paThunks->Find(p);
-                if (nIndex != -1)
-                {
-                        delete m_paThunks->operator[](nIndex);
-                        m_paThunks->RemoveAt(nIndex);
-                }
-                LeaveCriticalSection(&m_csObjMap);
-        }
-        bool DumpLeakedThunks()
-        {
-                bool b = false;
-                for (int i = 0; i < m_paThunks->GetSize(); i++)
-                {
-                        b = true;
-                        m_paThunks->operator[](i)->Dump();
-                        delete m_paThunks->operator[](i);
-                }
-                m_paThunks->RemoveAll();
-                return b;
-        }
+      }
+    }
+    if (pThunk == NULL)
+    {
+      ++m_nIndexQI;
+      if (m_nIndexBreakAt == m_nIndexQI)
+        DebugBreak();
+      ATLTRY(pThunk = new _QIThunk(p, lpsz, iid, m_nIndexQI, (m_nIndexBreakAt == m_nIndexQI)));
+      if (pThunk == NULL)
+      {
+        LeaveCriticalSection(&m_csObjMap);
+        return E_OUTOFMEMORY;
+      }
+      pThunk->InternalAddRef();
+      m_paThunks->Add(pThunk);
+    }
+    LeaveCriticalSection(&m_csObjMap);
+    *pp = (IUnknown*)pThunk;
+    return S_OK;
+  }
+  HRESULT AddNonAddRefThunk(IUnknown* p, LPCTSTR lpsz, IUnknown** ppThunkRet)
+  {
+    _ATL_VALIDATE_OUT_POINTER(ppThunkRet);
+
+    _QIThunk* pThunk = NULL;
+    EnterCriticalSection(&m_csObjMap);
+    // Check if exists already for identity
+    for (int i = 0; i < m_paThunks->GetSize(); i++)
+    {
+      if (m_paThunks->operator[](i)->pUnk == p)
+      {
+        m_paThunks->operator[](i)->bNonAddRefThunk = true;
+        pThunk = m_paThunks->operator[](i);
+        break;
+      }
+    }
+    if (pThunk == NULL)
+    {
+      ++m_nIndexQI;
+      if (m_nIndexBreakAt == m_nIndexQI)
+        DebugBreak();
+      ATLTRY(pThunk = new _QIThunk(p, lpsz, IID_IUnknown, m_nIndexQI, (m_nIndexBreakAt == m_nIndexQI)));
+      if (pThunk == NULL)
+      {
+        *ppThunkRet = NULL;
+        LeaveCriticalSection(&m_csObjMap);
+        return E_OUTOFMEMORY;
+      }
+      pThunk->bNonAddRefThunk = true;
+      m_paThunks->Add(pThunk);
+    }
+    LeaveCriticalSection(&m_csObjMap);
+    *ppThunkRet = (IUnknown*)pThunk;
+    return S_OK;;
+  }
+  void DeleteNonAddRefThunk(IUnknown* pUnk)
+  {
+    EnterCriticalSection(&m_csObjMap);
+    for (int i = 0; i < m_paThunks->GetSize(); i++)
+    {
+      if (m_paThunks->operator[](i)->pUnk == pUnk)
+      {
+        delete m_paThunks->operator[](i);
+        m_paThunks->RemoveAt(i);
+        break;
+      }
+    }
+    LeaveCriticalSection(&m_csObjMap);
+  }
+  void DeleteThunk(_QIThunk* p)
+  {
+    EnterCriticalSection(&m_csObjMap);
+    int nIndex = m_paThunks->Find(p);
+    if (nIndex != -1)
+    {
+      delete m_paThunks->operator[](nIndex);
+      m_paThunks->RemoveAt(nIndex);
+    }
+    LeaveCriticalSection(&m_csObjMap);
+  }
+  bool DumpLeakedThunks()
+  {
+    bool b = false;
+    for (int i = 0; i < m_paThunks->GetSize(); i++)
+    {
+      b = true;
+      m_paThunks->operator[](i)->Dump();
+      delete m_paThunks->operator[](i);
+    }
+    m_paThunks->RemoveAll();
+    return b;
+  }
 #endif // _ATL_DEBUG_INTERFACES
-        void Term()
-        {
+  void Term()
+  {
 #ifdef _ATL_DEBUG_INTERFACES
-                m_bDestroyHeap = false; // prevent heap from going away
-                AtlModuleTerm(this);
-                DumpLeakedThunks();
-                delete m_paThunks;
+    m_bDestroyHeap = false; // prevent heap from going away
+    AtlModuleTerm(this);
+    DumpLeakedThunks();
+    delete m_paThunks;
 #ifndef _ATL_NO_MP_HEAP
-                if (m_phHeaps != NULL)
-                {
-                        for (DWORD i = 0; i <= m_dwHeaps; i++)
-                        {
-                                if (m_phHeaps[i] != NULL)
-                                        HeapDestroy(m_phHeaps[i]);
-                        }
-                }
+    if (m_phHeaps != NULL)
+    {
+      for (DWORD i = 0; i <= m_dwHeaps; i++)
+      {
+        if (m_phHeaps[i] != NULL)
+          HeapDestroy(m_phHeaps[i]);
+      }
+    }
 #endif
-                if (m_hHeap != NULL)
-                        HeapDestroy(m_hHeap);
-                m_hHeap = NULL;
+    if (m_hHeap != NULL)
+      HeapDestroy(m_hHeap);
+    m_hHeap = NULL;
 #else
-                AtlModuleTerm(this);
+    AtlModuleTerm(this);
 #endif // _ATL_DEBUG_INTERFACES
-        }
+  }
 
-        HRESULT AddTermFunc(_ATL_TERMFUNC* pFunc, DWORD_PTR dw)
-        {
-                return AtlModuleAddTermFunc(this, pFunc, dw);
-        }
+  HRESULT AddTermFunc(_ATL_TERMFUNC* pFunc, DWORD_PTR dw)
+  {
+    return AtlModuleAddTermFunc(this, pFunc, dw);
+  }
 
-        LONG Lock()
-        {
-                return CComGlobalsThreadModel::Increment(&m_nLockCnt);
-        }
-        LONG Unlock()
-        {
-                return CComGlobalsThreadModel::Decrement(&m_nLockCnt);
-        }
-        LONG GetLockCount()
-        {
-                return m_nLockCnt;
-        }
+  LONG Lock()
+  {
+    return CComGlobalsThreadModel::Increment(&m_nLockCnt);
+  }
+  LONG Unlock()
+  {
+    return CComGlobalsThreadModel::Decrement(&m_nLockCnt);
+  }
+  LONG GetLockCount()
+  {
+    return m_nLockCnt;
+  }
 
-        HINSTANCE GetModuleInstance() {return m_hInst;}
-        HINSTANCE GetResourceInstance() {return m_hInstResource;}
-        HINSTANCE GetTypeLibInstance() {return m_hInstTypeLib;}
+  HINSTANCE GetModuleInstance() {return m_hInst;}
+  HINSTANCE GetResourceInstance() {return m_hInstResource;}
+  HINSTANCE GetTypeLibInstance() {return m_hInstTypeLib;}
 
-        // Registry support (helpers)
-        HRESULT RegisterTypeLib()
-        {
-                return AtlModuleRegisterTypeLib(this, NULL);
-        }
-        HRESULT RegisterTypeLib(LPCTSTR lpszIndex)
-        {
-                USES_CONVERSION_EX;
-                LPCOLESTR p = NULL;
-                if(lpszIndex != NULL)
-                {
-                        p = T2COLE_EX(lpszIndex,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
-#ifndef _UNICODE                        
-                        if(p == NULL) 
-                                return E_OUTOFMEMORY;
-#endif                        
-                }
-                return AtlModuleRegisterTypeLib(this,p );
-        }
-        HRESULT UnRegisterTypeLib()
-        {
-                return AtlModuleUnRegisterTypeLib(this, NULL);
-        }
-        HRESULT UnRegisterTypeLib(LPCTSTR lpszIndex)
-        {
-                USES_CONVERSION_EX;
-                
-                LPCOLESTR p = NULL;
-                if(lpszIndex != NULL)
-                {
-                        p = T2COLE_EX(lpszIndex,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
-#ifndef _UNICODE                        
-                        if(p == NULL) 
-                                return E_OUTOFMEMORY;
+  // Registry support (helpers)
+  HRESULT RegisterTypeLib()
+  {
+    return AtlModuleRegisterTypeLib(this, NULL);
+  }
+  HRESULT RegisterTypeLib(LPCTSTR lpszIndex)
+  {
+    USES_CONVERSION_EX;
+    LPCOLESTR p = NULL;
+    if(lpszIndex != NULL)
+    {
+      p = T2COLE_EX(lpszIndex,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+      if(p == NULL)
+        return E_OUTOFMEMORY;
 #endif
-                }
-                return AtlModuleUnRegisterTypeLib(this,p );
-        }
-        HRESULT RegisterServer(BOOL bRegTypeLib = FALSE, const CLSID* pCLSID = NULL)
-        {
-                return AtlModuleRegisterServer(this, bRegTypeLib, pCLSID);
-        }
+    }
+    return AtlModuleRegisterTypeLib(this,p );
+  }
+  HRESULT UnRegisterTypeLib()
+  {
+    return AtlModuleUnRegisterTypeLib(this, NULL);
+  }
+  HRESULT UnRegisterTypeLib(LPCTSTR lpszIndex)
+  {
+    USES_CONVERSION_EX;
 
-        HRESULT UnregisterServer(const CLSID* pCLSID = NULL)
-        {
-                return AtlModuleUnregisterServer(this, pCLSID);
-        }
-        HRESULT UnregisterServer(BOOL bUnRegTypeLib, const CLSID* pCLSID = NULL)
-        {
-                return AtlModuleUnregisterServerEx(this, bUnRegTypeLib, pCLSID);
-        }
+    LPCOLESTR p = NULL;
+    if(lpszIndex != NULL)
+    {
+      p = T2COLE_EX(lpszIndex,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+      if(p == NULL)
+        return E_OUTOFMEMORY;
+#endif
+    }
+    return AtlModuleUnRegisterTypeLib(this,p );
+  }
+  HRESULT RegisterServer(BOOL bRegTypeLib = FALSE, const CLSID* pCLSID = NULL)
+  {
+    return AtlModuleRegisterServer(this, bRegTypeLib, pCLSID);
+  }
 
-        // Resource-based Registration
-        HRESULT WINAPI UpdateRegistryFromResourceD(LPCTSTR lpszRes, BOOL bRegister,
-                struct _ATL_REGMAP_ENTRY* pMapEntries = NULL)
-        {
-                if(lpszRes == NULL)
-                        return E_INVALIDARG;
-                
-                USES_CONVERSION_EX;                        
-                LPCOLESTR p = T2COLE_EX(lpszRes,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+  HRESULT UnregisterServer(const CLSID* pCLSID = NULL)
+  {
+    return AtlModuleUnregisterServer(this, pCLSID);
+  }
+  HRESULT UnregisterServer(BOOL bUnRegTypeLib, const CLSID* pCLSID = NULL)
+  {
+    return AtlModuleUnregisterServerEx(this, bUnRegTypeLib, pCLSID);
+  }
+
+  // Resource-based Registration
+  HRESULT WINAPI UpdateRegistryFromResourceD(LPCTSTR lpszRes, BOOL bRegister,
+    struct _ATL_REGMAP_ENTRY* pMapEntries = NULL)
+  {
+    if(lpszRes == NULL)
+      return E_INVALIDARG;
+
+    USES_CONVERSION_EX;
+    LPCOLESTR p = T2COLE_EX(lpszRes,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
 #ifdef _UNICODE
-                if(p == NULL) 
-                        return E_OUTOFMEMORY;
-#endif                
-                return AtlModuleUpdateRegistryFromResourceD(this, p, bRegister,        pMapEntries);
-        }
-        HRESULT WINAPI UpdateRegistryFromResourceD(UINT nResID, BOOL bRegister,
-                struct _ATL_REGMAP_ENTRY* pMapEntries = NULL)
-        {
-                return AtlModuleUpdateRegistryFromResourceD(this,
-                        (LPCOLESTR)MAKEINTRESOURCE(nResID), bRegister, pMapEntries);
-        }
+    if(p == NULL)
+      return E_OUTOFMEMORY;
+#endif
+    return AtlModuleUpdateRegistryFromResourceD(this, p, bRegister, pMapEntries);
+  }
+  HRESULT WINAPI UpdateRegistryFromResourceD(UINT nResID, BOOL bRegister,
+    struct _ATL_REGMAP_ENTRY* pMapEntries = NULL)
+  {
+    return AtlModuleUpdateRegistryFromResourceD(this,
+      (LPCOLESTR)MAKEINTRESOURCE(nResID), bRegister, pMapEntries);
+  }
 
 #ifdef _ATL_STATIC_REGISTRY
-        // Statically linking to Registry Ponent
-        HRESULT WINAPI UpdateRegistryFromResourceS(LPCTSTR lpszRes, BOOL bRegister,
-                struct _ATL_REGMAP_ENTRY* pMapEntries = NULL);
-        HRESULT WINAPI UpdateRegistryFromResourceS(UINT nResID, BOOL bRegister,
-                struct _ATL_REGMAP_ENTRY* pMapEntries = NULL);
+  // Statically linking to Registry Ponent
+  HRESULT WINAPI UpdateRegistryFromResourceS(LPCTSTR lpszRes, BOOL bRegister,
+    struct _ATL_REGMAP_ENTRY* pMapEntries = NULL);
+  HRESULT WINAPI UpdateRegistryFromResourceS(UINT nResID, BOOL bRegister,
+    struct _ATL_REGMAP_ENTRY* pMapEntries = NULL);
 #endif
 
-        // Standard Registration
-        HRESULT WINAPI UpdateRegistryClass(const CLSID& clsid, LPCTSTR lpszProgID,
-                LPCTSTR lpszVerIndProgID, UINT nDescID, DWORD dwFlags, BOOL bRegister);
-        HRESULT WINAPI RegisterClassHelper(const CLSID& clsid, LPCTSTR lpszProgID,
-                LPCTSTR lpszVerIndProgID, UINT nDescID, DWORD dwFlags);
-        HRESULT WINAPI UnregisterClassHelper(const CLSID& clsid, LPCTSTR lpszProgID,
-                LPCTSTR lpszVerIndProgID);
+  // Standard Registration
+  HRESULT WINAPI UpdateRegistryClass(const CLSID& clsid, LPCTSTR lpszProgID,
+    LPCTSTR lpszVerIndProgID, UINT nDescID, DWORD dwFlags, BOOL bRegister);
+  HRESULT WINAPI RegisterClassHelper(const CLSID& clsid, LPCTSTR lpszProgID,
+    LPCTSTR lpszVerIndProgID, UINT nDescID, DWORD dwFlags);
+  HRESULT WINAPI UnregisterClassHelper(const CLSID& clsid, LPCTSTR lpszProgID,
+    LPCTSTR lpszVerIndProgID);
 
-        // Register/Revoke All Class Factories with the OS (EXE only)
-        HRESULT RegisterClassObjects(DWORD dwClsContext, DWORD dwFlags)
-        {
-                return AtlModuleRegisterClassObjects(this, dwClsContext, dwFlags);
-        }
-        HRESULT RevokeClassObjects()
-        {
-                return AtlModuleRevokeClassObjects(this);
-        }
+  // Register/Revoke All Class Factories with the OS (EXE only)
+  HRESULT RegisterClassObjects(DWORD dwClsContext, DWORD dwFlags)
+  {
+    return AtlModuleRegisterClassObjects(this, dwClsContext, dwFlags);
+  }
+  HRESULT RevokeClassObjects()
+  {
+    return AtlModuleRevokeClassObjects(this);
+  }
 
-        // Obtain a Class Factory (DLL only)
-        HRESULT GetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
-        {
-                return AtlModuleGetClassObject(this, rclsid, riid, ppv);
-        }
+  // Obtain a Class Factory (DLL only)
+  HRESULT GetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
+  {
+    return AtlModuleGetClassObject(this, rclsid, riid, ppv);
+  }
 
-        // Only used in CComAutoThreadModule
-        HRESULT CreateInstance(void* /*pfnCreateInstance*/, REFIID /*riid*/, void** /*ppvObj*/)
-        {
-                ATLASSERT(FALSE);
-                return E_NOTIMPL;
-        }
-        static HRESULT RegisterProgID(LPCTSTR lpszCLSID, LPCTSTR lpszProgID, LPCTSTR lpszUserDesc);
+  // Only used in CComAutoThreadModule
+  HRESULT CreateInstance(void* /*pfnCreateInstance*/, REFIID /*riid*/, void** /*ppvObj*/)
+  {
+    ATLASSERT(FALSE);
+    return E_NOTIMPL;
+  }
+  static HRESULT RegisterProgID(LPCTSTR lpszCLSID, LPCTSTR lpszProgID, LPCTSTR lpszUserDesc);
 
-        static HRESULT ReplaceSingleQuote(LPOLESTR lpDest, LPCOLESTR lp)
-        {
-                if (lp == NULL || lpDest == NULL)
-                        return E_INVALIDARG;
-                        
-                while (*lp)
-                {
-                        *lpDest++ = *lp;
-                        if (*lp == OLESTR('\''))
-                                *lpDest++ = *lp;
-                        lp++;
-                }
-                *lpDest = NULL;
-                
-                return S_OK;
-        }
+  static HRESULT ReplaceSingleQuote(LPOLESTR lpDest, LPCOLESTR lp)
+  {
+    if (lp == NULL || lpDest == NULL)
+      return E_INVALIDARG;
+
+    while (*lp)
+    {
+      *lpDest++ = *lp;
+      if (*lp == OLESTR('\''))
+        *lpDest++ = *lp;
+      lp++;
+    }
+    *lpDest = NULL;
+
+    return S_OK;
+  }
 };
 
 #ifdef _ATL_DEBUG_INTERFACES
 inline ULONG _QIThunk::Release()
 {
-        if (bBreak)
-                DebugBreak();
-        ATLASSERT(m_dwRef > 0);
-        ULONG l = InterlockedDecrement(&m_dwRef);
-        ATLTRACE(_T("%d< "), m_dwRef);
-        AtlDumpIID(iid, lpszClassName, S_OK);
-        pUnk->Release();
-        if (l == 0 && !bNonAddRefThunk)
-                _pModule->DeleteThunk(this);
-        return l;
+  if (bBreak)
+    DebugBreak();
+  ATLASSERT(m_dwRef > 0);
+  ULONG l = InterlockedDecrement(&m_dwRef);
+  ATLTRACE(_T("%d< "), m_dwRef);
+  AtlDumpIID(iid, lpszClassName, S_OK);
+  pUnk->Release();
+  if (l == 0 && !bNonAddRefThunk)
+    _pModule->DeleteThunk(this);
+  return l;
 }
 
 inline static void atlBadThunkCall()
 {
-        ATLASSERT(FALSE && "Call through deleted thunk");
+  ATLASSERT(FALSE && "Call through deleted thunk");
 }
 
 #ifdef _M_IX86
 #define IMPL_THUNK(n)\
 __declspec(naked) inline HRESULT _QIThunk::f##n()\
 {\
-        __asm mov eax, [esp+4]\
-        __asm cmp dword ptr [eax+8], 0\
-        __asm jg goodref\
-        __asm call atlBadThunkCall\
-        __asm goodref:\
-        __asm mov eax, [esp+4]\
-        __asm mov eax, dword ptr [eax+4]\
-        __asm mov [esp+4], eax\
-        __asm mov eax, dword ptr [eax]\
-        __asm mov eax, dword ptr [eax+4*n]\
-        __asm jmp eax\
+  __asm mov eax, [esp+4]\
+  __asm cmp dword ptr [eax+8], 0\
+  __asm jg goodref\
+  __asm call atlBadThunkCall\
+  __asm goodref:\
+  __asm mov eax, [esp+4]\
+  __asm mov eax, dword ptr [eax+4]\
+  __asm mov [esp+4], eax\
+  __asm mov eax, dword ptr [eax]\
+  __asm mov eax, dword ptr [eax+4*n]\
+  __asm jmp eax\
 }
 
 #else
@@ -4300,59 +4386,59 @@ __declspec(selectany) GUID CComModule::m_libid = {0x0,0x0,0x0,{0x0,0x0,0x0,0x0,0
 class _AtlAptCreateObjData
 {
 public:
-        _ATL_CREATORFUNC* pfnCreateInstance;
-        const IID* piid;
-        HANDLE hEvent;
-        LPSTREAM pStream;
-        HRESULT hRes;
+  _ATL_CREATORFUNC* pfnCreateInstance;
+  const IID* piid;
+  HANDLE hEvent;
+  LPSTREAM pStream;
+  HRESULT hRes;
 };
 
 class CComApartment
 {
 public:
-        CComApartment()
+  CComApartment()
+  {
+    m_nLockCnt = 0;
+  }
+  static UINT ATL_CREATE_OBJECT;
+  static DWORD WINAPI _Apartment(void* pv)
+  {
+    ATLASSERT(pv != NULL);
+    return ((CComApartment*)pv)->Apartment();
+  }
+  DWORD Apartment()
+  {
+    CoInitialize(NULL);
+    MSG msg;
+    while(GetMessage(&msg, 0, 0, 0))
+    {
+      if (msg.message == ATL_CREATE_OBJECT)
+      {
+        _AtlAptCreateObjData* pdata = (_AtlAptCreateObjData*)msg.lParam;
+        IUnknown* pUnk = NULL;
+        pdata->hRes = pdata->pfnCreateInstance(NULL, IID_IUnknown, (void**)&pUnk);
+        if (SUCCEEDED(pdata->hRes))
+          pdata->hRes = CoMarshalInterThreadInterfaceInStream(*pdata->piid, pUnk, &pdata->pStream);
+        if (SUCCEEDED(pdata->hRes))
         {
-                m_nLockCnt = 0;
+          pUnk->Release();
+          ATLTRACE2(atlTraceCOM, 2, _T("Object created on thread = %d\n"), GetCurrentThreadId());
         }
-        static UINT ATL_CREATE_OBJECT;
-        static DWORD WINAPI _Apartment(void* pv)
-        {
-                ATLASSERT(pv != NULL);
-                return ((CComApartment*)pv)->Apartment();
-        }
-        DWORD Apartment()
-        {
-                CoInitialize(NULL);
-                MSG msg;
-                while(GetMessage(&msg, 0, 0, 0))
-                {
-                        if (msg.message == ATL_CREATE_OBJECT)
-                        {
-                                _AtlAptCreateObjData* pdata = (_AtlAptCreateObjData*)msg.lParam;
-                                IUnknown* pUnk = NULL;
-                                pdata->hRes = pdata->pfnCreateInstance(NULL, IID_IUnknown, (void**)&pUnk);
-                                if (SUCCEEDED(pdata->hRes))
-                                        pdata->hRes = CoMarshalInterThreadInterfaceInStream(*pdata->piid, pUnk, &pdata->pStream);
-                                if (SUCCEEDED(pdata->hRes))
-                                {
-                                        pUnk->Release();
-                                        ATLTRACE2(atlTraceCOM, 2, _T("Object created on thread = %d\n"), GetCurrentThreadId());
-                                }
-                                SetEvent(pdata->hEvent);
-                        }
-                        DispatchMessage(&msg);
-                }
-                CoUninitialize();
-                return 0;
-        }
-        LONG Lock() {return CComGlobalsThreadModel::Increment(&m_nLockCnt);}
-        LONG Unlock(){return CComGlobalsThreadModel::Decrement(&m_nLockCnt);
-        }
-        LONG GetLockCount() {return m_nLockCnt;}
+        SetEvent(pdata->hEvent);
+      }
+      DispatchMessage(&msg);
+    }
+    CoUninitialize();
+    return 0;
+  }
+  LONG Lock() {return CComGlobalsThreadModel::Increment(&m_nLockCnt);}
+  LONG Unlock(){return CComGlobalsThreadModel::Decrement(&m_nLockCnt);
+  }
+  LONG GetLockCount() {return m_nLockCnt;}
 
-        DWORD m_dwThreadID;
-        HANDLE m_hThread;
-        LONG m_nLockCnt;
+  DWORD m_dwThreadID;
+  HANDLE m_hThread;
+  LONG m_nLockCnt;
 };
 
 __declspec(selectany) UINT CComApartment::ATL_CREATE_OBJECT = 0;
@@ -4360,38 +4446,38 @@ __declspec(selectany) UINT CComApartment::ATL_CREATE_OBJECT = 0;
 class CComSimpleThreadAllocator
 {
 public:
-        CComSimpleThreadAllocator()
-        {
-                m_nThread = 0;
-        }
-        int GetThread(CComApartment* /*pApt*/, int nThreads)
-        {
-                if (++m_nThread == nThreads)
-                        m_nThread = 0;
-                return m_nThread;
-        }
-        int m_nThread;
+  CComSimpleThreadAllocator()
+  {
+    m_nThread = 0;
+  }
+  int GetThread(CComApartment* /*pApt*/, int nThreads)
+  {
+    if (++m_nThread == nThreads)
+      m_nThread = 0;
+    return m_nThread;
+  }
+  int m_nThread;
 };
 
 template <class ThreadAllocator = CComSimpleThreadAllocator>
 class CComAutoThreadModule : public CComModule
 {
 public:
-        HRESULT Init(_ATL_OBJMAP_ENTRY* p, HINSTANCE h, const GUID* plibid = NULL, int nThreads = GetDefaultThreads());
-        ~CComAutoThreadModule();
-        HRESULT CreateInstance(void* pfnCreateInstance, REFIID riid, void** ppvObj);
-        LONG Lock();
-        LONG Unlock();
-        DWORD dwThreadID;
-        int m_nThreads;
-        CComApartment* m_pApartments;
-        ThreadAllocator m_Allocator;
-        static int GetDefaultThreads()
-        {
-                SYSTEM_INFO si;
-                GetSystemInfo(&si);
-                return si.dwNumberOfProcessors * 4;
-        }
+  HRESULT Init(_ATL_OBJMAP_ENTRY* p, HINSTANCE h, const GUID* plibid = NULL, int nThreads = GetDefaultThreads());
+  ~CComAutoThreadModule();
+  HRESULT CreateInstance(void* pfnCreateInstance, REFIID riid, void** ppvObj);
+  LONG Lock();
+  LONG Unlock();
+  DWORD dwThreadID;
+  int m_nThreads;
+  CComApartment* m_pApartments;
+  ThreadAllocator m_Allocator;
+  static int GetDefaultThreads()
+  {
+    SYSTEM_INFO si;
+    GetSystemInfo(&si);
+    return si.dwNumberOfProcessors * 4;
+  }
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -4400,345 +4486,345 @@ public:
 class CComBSTR
 {
 public:
-        BSTR m_str;
-        CComBSTR()
-        {
-                m_str = NULL;
-        }
-        /*explicit*/ CComBSTR(int nSize)
-        {
-                m_str = ::SysAllocStringLen(NULL, nSize);
-        }
-        /*explicit*/ CComBSTR(int nSize, LPCOLESTR sz)
-        {
-                m_str = ::SysAllocStringLen(sz, nSize);
-        }
-        /*explicit*/ CComBSTR(LPCOLESTR pSrc)
-        {
-                m_str = ::SysAllocString(pSrc);
-        }
-        /*explicit*/ CComBSTR(const CComBSTR& src)
-        {
-                m_str = src.Copy();
-        }
-        /*explicit*/ CComBSTR(REFGUID src)
-        {
-                LPOLESTR szGuid;
-                StringFromCLSID(src, &szGuid);
-                m_str = ::SysAllocString(szGuid);
-                CoTaskMemFree(szGuid);
-        }
-        CComBSTR& operator=(const CComBSTR& src)
-        {
-                if (m_str != src.m_str)
-                {
-                        if (m_str)
-                                ::SysFreeString(m_str);
-                        m_str = src.Copy();
-                }
-                return *this;
-        }
+  BSTR m_str;
+  CComBSTR()
+  {
+    m_str = NULL;
+  }
+  /*explicit*/ CComBSTR(int nSize)
+  {
+    m_str = ::SysAllocStringLen(NULL, nSize);
+  }
+  /*explicit*/ CComBSTR(int nSize, LPCOLESTR sz)
+  {
+    m_str = ::SysAllocStringLen(sz, nSize);
+  }
+  /*explicit*/ CComBSTR(LPCOLESTR pSrc)
+  {
+    m_str = ::SysAllocString(pSrc);
+  }
+  /*explicit*/ CComBSTR(const CComBSTR& src)
+  {
+    m_str = src.Copy();
+  }
+  /*explicit*/ CComBSTR(REFGUID src)
+  {
+    LPOLESTR szGuid;
+    StringFromCLSID(src, &szGuid);
+    m_str = ::SysAllocString(szGuid);
+    CoTaskMemFree(szGuid);
+  }
+  CComBSTR& operator=(const CComBSTR& src)
+  {
+    if (m_str != src.m_str)
+    {
+      if (m_str)
+        ::SysFreeString(m_str);
+      m_str = src.Copy();
+    }
+    return *this;
+  }
 
-        CComBSTR& operator=(LPCOLESTR pSrc)
-        {
-                ::SysFreeString(m_str);
-                m_str = ::SysAllocString(pSrc);
-                return *this;
-        }
+  CComBSTR& operator=(LPCOLESTR pSrc)
+  {
+    ::SysFreeString(m_str);
+    m_str = ::SysAllocString(pSrc);
+    return *this;
+  }
 
-        ~CComBSTR()
-        {
-                ::SysFreeString(m_str);
-        }
-        unsigned int Length() const
-        {
-                return (m_str == NULL)? 0 : SysStringLen(m_str);
-        }
-        operator BSTR() const
-        {
-                return m_str;
-        }
-        BSTR* operator&()
-        {
-                return &m_str;
-        }
-        BSTR Copy() const
-        {
-                return ::SysAllocStringLen(m_str, ::SysStringLen(m_str));
-        }
-        HRESULT CopyTo(BSTR* pbstr)
-        {
-                ATLASSERT(pbstr != NULL);
-                if (pbstr == NULL)
-                        return E_POINTER;
-                *pbstr = ::SysAllocStringLen(m_str, ::SysStringLen(m_str));
-                if (*pbstr == NULL)
-                        return E_OUTOFMEMORY;
-                return S_OK;
-        }
-        void Attach(BSTR src)
-        {
-                ATLASSERT(m_str == NULL);
-                m_str = src;
-        }
-        BSTR Detach()
-        {
-                BSTR s = m_str;
-                m_str = NULL;
-                return s;
-        }
-        void Empty()
-        {
-                ::SysFreeString(m_str);
-                m_str = NULL;
-        }
-        bool operator!() const
-        {
-                return (m_str == NULL);
-        }
-        HRESULT Append(const CComBSTR& bstrSrc)
-        {
-                return Append(bstrSrc.m_str, SysStringLen(bstrSrc.m_str));
-        }
-        HRESULT Append(LPCOLESTR lpsz)
-        {
-                return Append(lpsz, ocslen(lpsz));
-        }
-        // a BSTR is just a LPCOLESTR so we need a special version to signify
-        // that we are appending a BSTR
-        HRESULT AppendBSTR(BSTR p)
-        {
-                return Append(p, SysStringLen(p));
-        }
-        HRESULT Append(LPCOLESTR lpsz, int nLen)
-        {
-                if(lpsz == NULL)
-                {
-                        if(nLen != 0)
-                                return E_INVALIDARG;
-                        else
-                                return S_OK;
-                }
-                        
-                int n1 = Length();
-                if (n1+nLen < n1)
-                    return E_OUTOFMEMORY;
+  ~CComBSTR()
+  {
+    ::SysFreeString(m_str);
+  }
+  unsigned int Length() const
+  {
+    return (m_str == NULL)? 0 : SysStringLen(m_str);
+  }
+  operator BSTR() const
+  {
+    return m_str;
+  }
+  BSTR* operator&()
+  {
+    return &m_str;
+  }
+  BSTR Copy() const
+  {
+    return ::SysAllocStringLen(m_str, ::SysStringLen(m_str));
+  }
+  HRESULT CopyTo(BSTR* pbstr)
+  {
+    ATLASSERT(pbstr != NULL);
+    if (pbstr == NULL)
+      return E_POINTER;
+    *pbstr = ::SysAllocStringLen(m_str, ::SysStringLen(m_str));
+    if (*pbstr == NULL)
+      return E_OUTOFMEMORY;
+    return S_OK;
+  }
+  void Attach(BSTR src)
+  {
+    ATLASSERT(m_str == NULL);
+    m_str = src;
+  }
+  BSTR Detach()
+  {
+    BSTR s = m_str;
+    m_str = NULL;
+    return s;
+  }
+  void Empty()
+  {
+    ::SysFreeString(m_str);
+    m_str = NULL;
+  }
+  bool operator!() const
+  {
+    return (m_str == NULL);
+  }
+  HRESULT Append(const CComBSTR& bstrSrc)
+  {
+    return Append(bstrSrc.m_str, SysStringLen(bstrSrc.m_str));
+  }
+  HRESULT Append(LPCOLESTR lpsz)
+  {
+    return Append(lpsz, ocslen(lpsz));
+  }
+  // a BSTR is just a LPCOLESTR so we need a special version to signify
+  // that we are appending a BSTR
+  HRESULT AppendBSTR(BSTR p)
+  {
+    return Append(p, SysStringLen(p));
+  }
+  HRESULT Append(LPCOLESTR lpsz, int nLen)
+  {
+    if(lpsz == NULL)
+    {
+      if(nLen != 0)
+        return E_INVALIDARG;
+      else
+        return S_OK;
+    }
 
-                BSTR b;
-                b = ::SysAllocStringLen(NULL, n1+nLen);
-                if (b == NULL)
-                        return E_OUTOFMEMORY;
+    int n1 = Length();
+    if (n1+nLen < n1)
+        return E_OUTOFMEMORY;
 
-                if(m_str != NULL)
-                        memcpy(b, m_str, n1*sizeof(OLECHAR));
-                        
-                memcpy(b+n1, lpsz, nLen*sizeof(OLECHAR));
-                b[n1+nLen] = NULL;
-                SysFreeString(m_str);
-                m_str = b;
-                return S_OK;
-        }
-        HRESULT ToLower()
-        {
-                if (m_str != NULL)
-                {
-#ifdef _UNICODE                        
-                        CharLower(m_str);
+    BSTR b;
+    b = ::SysAllocStringLen(NULL, n1+nLen);
+    if (b == NULL)
+      return E_OUTOFMEMORY;
+
+    if(m_str != NULL)
+      memcpy(b, m_str, n1*sizeof(OLECHAR));
+
+    memcpy(b+n1, lpsz, nLen*sizeof(OLECHAR));
+    b[n1+nLen] = NULL;
+    SysFreeString(m_str);
+    m_str = b;
+    return S_OK;
+  }
+  HRESULT ToLower()
+  {
+    if (m_str != NULL)
+    {
+#ifdef _UNICODE
+      CharLower(m_str);
 #else
-                        USES_CONVERSION_EX;
-                        LPSTR pszA = OLE2A_EX(m_str, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
-                        if(pszA == NULL) 
-                                return E_OUTOFMEMORY;
+      USES_CONVERSION_EX;
+      LPSTR pszA = OLE2A_EX(m_str, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+      if(pszA == NULL)
+        return E_OUTOFMEMORY;
 
-                        CharLower(pszA);
-                        BSTR b = A2BSTR_EX(pszA);
-                        if(b == NULL) 
-                                return E_OUTOFMEMORY;
-                        SysFreeString(m_str);
-                        m_str = b;
-#endif        // _UNICODE                        
-                }
-                return S_OK;
-        }
-        HRESULT ToUpper()
-        {
-                if (m_str != NULL)
-                {
-#ifdef _UNICODE                        
-                        CharUpper(m_str);
+      CharLower(pszA);
+      BSTR b = A2BSTR_EX(pszA);
+      if(b == NULL)
+        return E_OUTOFMEMORY;
+      SysFreeString(m_str);
+      m_str = b;
+#endif  // _UNICODE
+    }
+    return S_OK;
+  }
+  HRESULT ToUpper()
+  {
+    if (m_str != NULL)
+    {
+#ifdef _UNICODE
+      CharUpper(m_str);
 #else
-                        USES_CONVERSION_EX;
-                        LPSTR pszA = OLE2A_EX(m_str, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
-                        if(pszA == NULL) 
-                                return E_OUTOFMEMORY;
+      USES_CONVERSION_EX;
+      LPSTR pszA = OLE2A_EX(m_str, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+      if(pszA == NULL)
+        return E_OUTOFMEMORY;
 
-                        CharUpper(pszA);
-                        BSTR b = A2BSTR_EX(pszA);
-                        if(b == NULL) 
-                                return E_OUTOFMEMORY;
-                        SysFreeString(m_str);
-                        m_str = b;
-#endif        // _UNICODE                        
-                }
-                return S_OK;
-        }
-        bool LoadString(HINSTANCE hInst, UINT nID)
-        {
-                Empty();
-                
-                TCHAR sz[513];
-                UINT nLen = ::LoadString(hInst, nID, sz, 512);
-                if(nLen == 0)
-                        return false;
-                
-                if(nLen == 511)
-                {
-                        nLen = ::LoadString(hInst, nID, sz, 513);
-                        if(nLen == 512)
-                        {
-                                // String too long to fit in the buffer
-                                ATLASSERT(FALSE); 
-                                return false;
-                        }
-                }
-                
-                USES_CONVERSION_EX;
-                LPOLESTR p = T2OLE_EX(sz,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+      CharUpper(pszA);
+      BSTR b = A2BSTR_EX(pszA);
+      if(b == NULL)
+        return E_OUTOFMEMORY;
+      SysFreeString(m_str);
+      m_str = b;
+#endif  // _UNICODE
+    }
+    return S_OK;
+  }
+  bool LoadString(HINSTANCE hInst, UINT nID)
+  {
+    Empty();
+
+    TCHAR sz[513];
+    UINT nLen = ::LoadString(hInst, nID, sz, 512);
+    if(nLen == 0)
+      return false;
+
+    if(nLen == 511)
+    {
+      nLen = ::LoadString(hInst, nID, sz, 513);
+      if(nLen == 512)
+      {
+        // String too long to fit in the buffer
+        ATLASSERT(FALSE);
+        return false;
+      }
+    }
+
+    USES_CONVERSION_EX;
+    LPOLESTR p = T2OLE_EX(sz,_ATL_SAFE_ALLOCA_DEF_THRESHOLD);
 #ifndef _UNICODE
-                if(p == NULL)
-                {
-                        ATLASSERT(FALSE);
-                        return false;
-                }
-#endif                
-                m_str = SysAllocString(p);
-                return (m_str != NULL);
-        }
-        bool LoadString(UINT nID)
-        {
-                return LoadString(_pModule->m_hInstResource, nID);
-        }
-
-        CComBSTR& operator+=(const CComBSTR& bstrSrc)
-        {
-                AppendBSTR(bstrSrc.m_str);
-                return *this;
-        }
-        bool operator<(BSTR bstrSrc) const
-        {
-                if (bstrSrc == NULL && m_str == NULL)
-                        return false;
-                if (bstrSrc != NULL && m_str != NULL)
-                        return wcscmp(m_str, bstrSrc) < 0;
-                return m_str == NULL;
-        }
-        bool operator==(BSTR bstrSrc) const
-        {
-                if (bstrSrc == NULL && m_str == NULL)
-                        return true;
-                if (bstrSrc != NULL && m_str != NULL)
-                        return wcscmp(m_str, bstrSrc) == 0;
-                return false;
-        }
-        bool operator<(LPCSTR pszSrc) const
-        {
-                if (pszSrc == NULL && m_str == NULL)
-                        return false;
-
-                if (pszSrc != NULL && m_str != NULL)
-                {
-                        USES_CONVERSION_EX;
-                        LPWSTR p = A2W_EX(pszSrc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
-                        if(p == NULL)
-                                _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
-                        return wcscmp(m_str, p) < 0;
-                }
-
-                return m_str == NULL;
-        }
-        bool operator==(LPCSTR pszSrc) const
-        {
-                if (pszSrc == NULL && m_str == NULL)
-                        return true;
-
-                if (pszSrc != NULL && m_str != NULL)
-                {
-                        USES_CONVERSION_EX;
-                        LPWSTR p = A2W_EX(pszSrc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
-                        if(p == NULL)
-                                _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
-                        return wcscmp(m_str, p) == 0;
-                }
-                return false;
-        }
-#ifndef OLE2ANSI
-        CComBSTR(LPCSTR pSrc)
-        {
-                m_str = A2WBSTR(pSrc);
-        }
-
-        CComBSTR(int nSize, LPCSTR sz)
-        {
-                m_str = A2WBSTR(sz, nSize);
-        }
-
-        HRESULT Append(LPCSTR lpsz)
-        {
-                USES_CONVERSION_EX;
-                LPCOLESTR lpo = A2COLE_EX(lpsz, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
-                if(lpo == NULL) 
-                        return E_OUTOFMEMORY;
-                return Append(lpo, ocslen(lpo));
-        }
-
-        CComBSTR& operator=(LPCSTR pSrc)
-        {
-                ::SysFreeString(m_str);
-                m_str = A2WBSTR(pSrc);
-                return *this;
-        }
+    if(p == NULL)
+    {
+      ATLASSERT(FALSE);
+      return false;
+    }
 #endif
-        HRESULT WriteToStream(IStream* pStream)
-        {
-                ATLASSERT(pStream != NULL);
-                
-                if(pStream == NULL)
-                        return E_INVALIDARG;
-                        
-                ULONG cb;
-                ULONG cbStrLen = m_str ? SysStringByteLen(m_str)+(ULONG)sizeof(OLECHAR) : 0;
-                HRESULT hr = pStream->Write((void*) &cbStrLen, sizeof(cbStrLen), &cb);
-                if (FAILED(hr))
-                        return hr;
-                return cbStrLen ? pStream->Write((void*) m_str, cbStrLen, &cb) : S_OK;
-        }
-        HRESULT ReadFromStream(IStream* pStream)
-        {
-                ATLASSERT(pStream != NULL);
-                
-                if(pStream == NULL)
-                        return E_INVALIDARG;
-                        
-                ATLASSERT(m_str == NULL); // should be empty
-                Empty();
-                
-                ULONG cbStrLen = 0;
-                HRESULT hr = pStream->Read((void*) &cbStrLen, sizeof(cbStrLen), NULL);
-                if ((hr == S_OK) && (cbStrLen != 0))
-                {
-                        //subtract size for terminating NULL which we wrote out
-                        //since SysAllocStringByteLen overallocates for the NULL
-        
-                        m_str = SysAllocStringByteLen(NULL, cbStrLen-sizeof(OLECHAR));
-                        if (m_str == NULL)
-                                hr = E_OUTOFMEMORY;
-                        else
-                                hr = pStream->Read((void*) m_str, cbStrLen, NULL);
-                }
-                if (hr == S_FALSE)
-                        hr = E_FAIL;
-                return hr;
-        }
+    m_str = SysAllocString(p);
+    return (m_str != NULL);
+  }
+  bool LoadString(UINT nID)
+  {
+    return LoadString(_pModule->m_hInstResource, nID);
+  }
+
+  CComBSTR& operator+=(const CComBSTR& bstrSrc)
+  {
+    AppendBSTR(bstrSrc.m_str);
+    return *this;
+  }
+  bool operator<(BSTR bstrSrc) const
+  {
+    if (bstrSrc == NULL && m_str == NULL)
+      return false;
+    if (bstrSrc != NULL && m_str != NULL)
+      return wcscmp(m_str, bstrSrc) < 0;
+    return m_str == NULL;
+  }
+  bool operator==(BSTR bstrSrc) const
+  {
+    if (bstrSrc == NULL && m_str == NULL)
+      return true;
+    if (bstrSrc != NULL && m_str != NULL)
+      return wcscmp(m_str, bstrSrc) == 0;
+    return false;
+  }
+  bool operator<(LPCSTR pszSrc) const
+  {
+    if (pszSrc == NULL && m_str == NULL)
+      return false;
+
+    if (pszSrc != NULL && m_str != NULL)
+    {
+      USES_CONVERSION_EX;
+      LPWSTR p = A2W_EX(pszSrc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+      if(p == NULL)
+        _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
+      return wcscmp(m_str, p) < 0;
+    }
+
+    return m_str == NULL;
+  }
+  bool operator==(LPCSTR pszSrc) const
+  {
+    if (pszSrc == NULL && m_str == NULL)
+      return true;
+
+    if (pszSrc != NULL && m_str != NULL)
+    {
+      USES_CONVERSION_EX;
+      LPWSTR p = A2W_EX(pszSrc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+      if(p == NULL)
+        _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
+      return wcscmp(m_str, p) == 0;
+    }
+    return false;
+  }
+#ifndef OLE2ANSI
+  CComBSTR(LPCSTR pSrc)
+  {
+    m_str = A2WBSTR(pSrc);
+  }
+
+  CComBSTR(int nSize, LPCSTR sz)
+  {
+    m_str = A2WBSTR(sz, nSize);
+  }
+
+  HRESULT Append(LPCSTR lpsz)
+  {
+    USES_CONVERSION_EX;
+    LPCOLESTR lpo = A2COLE_EX(lpsz, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+    if(lpo == NULL)
+      return E_OUTOFMEMORY;
+    return Append(lpo, ocslen(lpo));
+  }
+
+  CComBSTR& operator=(LPCSTR pSrc)
+  {
+    ::SysFreeString(m_str);
+    m_str = A2WBSTR(pSrc);
+    return *this;
+  }
+#endif
+  HRESULT WriteToStream(IStream* pStream)
+  {
+    ATLASSERT(pStream != NULL);
+
+    if(pStream == NULL)
+      return E_INVALIDARG;
+
+    ULONG cb;
+    ULONG cbStrLen = m_str ? SysStringByteLen(m_str)+(ULONG)sizeof(OLECHAR) : 0;
+    HRESULT hr = pStream->Write((void*) &cbStrLen, sizeof(cbStrLen), &cb);
+    if (FAILED(hr))
+      return hr;
+    return cbStrLen ? pStream->Write((void*) m_str, cbStrLen, &cb) : S_OK;
+  }
+  HRESULT ReadFromStream(IStream* pStream)
+  {
+    ATLASSERT(pStream != NULL);
+
+    if(pStream == NULL)
+      return E_INVALIDARG;
+
+    ATLASSERT(m_str == NULL); // should be empty
+    Empty();
+
+    ULONG cbStrLen = 0;
+    HRESULT hr = pStream->Read((void*) &cbStrLen, sizeof(cbStrLen), NULL);
+    if ((hr == S_OK) && (cbStrLen != 0))
+    {
+      //subtract size for terminating NULL which we wrote out
+      //since SysAllocStringByteLen overallocates for the NULL
+
+      m_str = SysAllocStringByteLen(NULL, cbStrLen-sizeof(OLECHAR));
+      if (m_str == NULL)
+        hr = E_OUTOFMEMORY;
+      else
+        hr = pStream->Read((void*) m_str, cbStrLen, NULL);
+    }
+    if (hr == S_FALSE)
+      hr = E_FAIL;
+    return hr;
+  }
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -4751,559 +4837,559 @@ class CComVariant : public tagVARIANT
 {
 // Constructors
 public:
-        CComVariant()
-        {
-                vt = VT_EMPTY;
-        }
-        ~CComVariant()
-        {
-                Clear();
-        }
+  CComVariant()
+  {
+    vt = VT_EMPTY;
+  }
+  ~CComVariant()
+  {
+    Clear();
+  }
 
-        CComVariant(const VARIANT& varSrc)
-        {
-                vt = VT_EMPTY;
-                InternalCopy(&varSrc);
-        }
+  CComVariant(const VARIANT& varSrc)
+  {
+    vt = VT_EMPTY;
+    InternalCopy(&varSrc);
+  }
 
-        CComVariant(const CComVariant& varSrc)
-        {
-                vt = VT_EMPTY;
-                InternalCopy(&varSrc);
-        }
+  CComVariant(const CComVariant& varSrc)
+  {
+    vt = VT_EMPTY;
+    InternalCopy(&varSrc);
+  }
 
-        CComVariant(BSTR bstrSrc)
-        {
-                vt = VT_EMPTY;
-                *this = bstrSrc;
-        }
-        CComVariant(LPCOLESTR lpszSrc)
-        {
-                vt = VT_EMPTY;
-                *this = lpszSrc;
-        }
+  CComVariant(BSTR bstrSrc)
+  {
+    vt = VT_EMPTY;
+    *this = bstrSrc;
+  }
+  CComVariant(LPCOLESTR lpszSrc)
+  {
+    vt = VT_EMPTY;
+    *this = lpszSrc;
+  }
 
 #ifndef OLE2ANSI
-        CComVariant(LPCSTR lpszSrc)
-        {
-                vt = VT_EMPTY;
-                *this = lpszSrc;
-        }
+  CComVariant(LPCSTR lpszSrc)
+  {
+    vt = VT_EMPTY;
+    *this = lpszSrc;
+  }
 #endif
 
-        CComVariant(bool bSrc)
-        {
-                vt = VT_BOOL;
-                boolVal = bSrc ? ATL_VARIANT_TRUE : ATL_VARIANT_FALSE;
-        }
+  CComVariant(bool bSrc)
+  {
+    vt = VT_BOOL;
+    boolVal = bSrc ? ATL_VARIANT_TRUE : ATL_VARIANT_FALSE;
+  }
 
-        CComVariant(int nSrc)
-        {
-                vt = VT_I4;
-                lVal = nSrc;
-        }
-        CComVariant(BYTE nSrc)
-        {
-                vt = VT_UI1;
-                bVal = nSrc;
-        }
-        CComVariant(short nSrc)
-        {
-                vt = VT_I2;
-                iVal = nSrc;
-        }
-        CComVariant(long nSrc, VARTYPE vtSrc = VT_I4)
-        {
-                ATLASSERT(vtSrc == VT_I4 || vtSrc == VT_ERROR);
-                vt = vtSrc;
-                lVal = nSrc;
-        }
-        CComVariant(float fltSrc)
-        {
-                vt = VT_R4;
-                fltVal = fltSrc;
-        }
-        CComVariant(double dblSrc)
-        {
-                vt = VT_R8;
-                dblVal = dblSrc;
-        }
-        CComVariant(CY cySrc)
-        {
-                vt = VT_CY;
-                cyVal.Hi = cySrc.Hi;
-                cyVal.Lo = cySrc.Lo;
-        }
-        CComVariant(IDispatch* pSrc)
-        {
-                vt = VT_DISPATCH;
-                pdispVal = pSrc;
-                // Need to AddRef as VariantClear will Release
-                if (pdispVal != NULL)
-                        pdispVal->AddRef();
-        }
-        CComVariant(IUnknown* pSrc)
-        {
-                vt = VT_UNKNOWN;
-                punkVal = pSrc;
-                // Need to AddRef as VariantClear will Release
-                if (punkVal != NULL)
-                        punkVal->AddRef();
-        }
+  CComVariant(int nSrc)
+  {
+    vt = VT_I4;
+    lVal = nSrc;
+  }
+  CComVariant(BYTE nSrc)
+  {
+    vt = VT_UI1;
+    bVal = nSrc;
+  }
+  CComVariant(short nSrc)
+  {
+    vt = VT_I2;
+    iVal = nSrc;
+  }
+  CComVariant(long nSrc, VARTYPE vtSrc = VT_I4)
+  {
+    ATLASSERT(vtSrc == VT_I4 || vtSrc == VT_ERROR);
+    vt = vtSrc;
+    lVal = nSrc;
+  }
+  CComVariant(float fltSrc)
+  {
+    vt = VT_R4;
+    fltVal = fltSrc;
+  }
+  CComVariant(double dblSrc)
+  {
+    vt = VT_R8;
+    dblVal = dblSrc;
+  }
+  CComVariant(CY cySrc)
+  {
+    vt = VT_CY;
+    cyVal.Hi = cySrc.Hi;
+    cyVal.Lo = cySrc.Lo;
+  }
+  CComVariant(IDispatch* pSrc)
+  {
+    vt = VT_DISPATCH;
+    pdispVal = pSrc;
+    // Need to AddRef as VariantClear will Release
+    if (pdispVal != NULL)
+      pdispVal->AddRef();
+  }
+  CComVariant(IUnknown* pSrc)
+  {
+    vt = VT_UNKNOWN;
+    punkVal = pSrc;
+    // Need to AddRef as VariantClear will Release
+    if (punkVal != NULL)
+      punkVal->AddRef();
+  }
 
 // Assignment Operators
 public:
-        CComVariant& operator=(const CComVariant& varSrc)
-        {
-                InternalCopy(&varSrc);
-                return *this;
-        }
-        CComVariant& operator=(const VARIANT& varSrc)
-        {
-                InternalCopy(&varSrc);
-                return *this;
-        }
+  CComVariant& operator=(const CComVariant& varSrc)
+  {
+    InternalCopy(&varSrc);
+    return *this;
+  }
+  CComVariant& operator=(const VARIANT& varSrc)
+  {
+    InternalCopy(&varSrc);
+    return *this;
+  }
 
-        CComVariant& operator=(BSTR bstrSrc)
-        {
-                InternalClear();
-                vt = VT_BSTR;
-                bstrVal = ::SysAllocString(bstrSrc);
-                if (bstrVal == NULL && bstrSrc != NULL)
-                {
-                        vt = VT_ERROR;
-                        scode = E_OUTOFMEMORY;
-                }
-                return *this;
-        }
+  CComVariant& operator=(BSTR bstrSrc)
+  {
+    InternalClear();
+    vt = VT_BSTR;
+    bstrVal = ::SysAllocString(bstrSrc);
+    if (bstrVal == NULL && bstrSrc != NULL)
+    {
+      vt = VT_ERROR;
+      scode = E_OUTOFMEMORY;
+    }
+    return *this;
+  }
 
-        CComVariant& operator=(LPCOLESTR lpszSrc)
-        {
-                InternalClear();
-                vt = VT_BSTR;
-                bstrVal = ::SysAllocString(lpszSrc);
+  CComVariant& operator=(LPCOLESTR lpszSrc)
+  {
+    InternalClear();
+    vt = VT_BSTR;
+    bstrVal = ::SysAllocString(lpszSrc);
 
-                if (bstrVal == NULL && lpszSrc != NULL)
-                {
-                        vt = VT_ERROR;
-                        scode = E_OUTOFMEMORY;
-                }
-                return *this;
-        }
+    if (bstrVal == NULL && lpszSrc != NULL)
+    {
+      vt = VT_ERROR;
+      scode = E_OUTOFMEMORY;
+    }
+    return *this;
+  }
 
-        #ifndef OLE2ANSI
-        CComVariant& operator=(LPCSTR lpszSrc)
-        {
-                USES_CONVERSION_EX;
-                InternalClear();
-                vt = VT_BSTR;
-                
-                bstrVal = ::SysAllocString(A2COLE_EX(lpszSrc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD));
+  #ifndef OLE2ANSI
+  CComVariant& operator=(LPCSTR lpszSrc)
+  {
+    USES_CONVERSION_EX;
+    InternalClear();
+    vt = VT_BSTR;
 
-                if (bstrVal == NULL && lpszSrc != NULL)
-                {
-                        vt = VT_ERROR;
-                        scode = E_OUTOFMEMORY;
-                }
-                return *this;
-        }
-        #endif
+    bstrVal = ::SysAllocString(A2COLE_EX(lpszSrc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD));
 
-        CComVariant& operator=(bool bSrc)
-        {
-                if (vt != VT_BOOL)
-                {
-                        InternalClear();
-                        vt = VT_BOOL;
-                }
-                boolVal = bSrc ? ATL_VARIANT_TRUE : ATL_VARIANT_FALSE;
-                return *this;
-        }
+    if (bstrVal == NULL && lpszSrc != NULL)
+    {
+      vt = VT_ERROR;
+      scode = E_OUTOFMEMORY;
+    }
+    return *this;
+  }
+  #endif
 
-        CComVariant& operator=(int nSrc)
-        {
-                if (vt != VT_I4)
-                {
-                        InternalClear();
-                        vt = VT_I4;
-                }
-                lVal = nSrc;
+  CComVariant& operator=(bool bSrc)
+  {
+    if (vt != VT_BOOL)
+    {
+      InternalClear();
+      vt = VT_BOOL;
+    }
+    boolVal = bSrc ? ATL_VARIANT_TRUE : ATL_VARIANT_FALSE;
+    return *this;
+  }
 
-                return *this;
-        }
+  CComVariant& operator=(int nSrc)
+  {
+    if (vt != VT_I4)
+    {
+      InternalClear();
+      vt = VT_I4;
+    }
+    lVal = nSrc;
 
-        CComVariant& operator=(BYTE nSrc)
-        {
-                if (vt != VT_UI1)
-                {
-                        InternalClear();
-                        vt = VT_UI1;
-                }
-                bVal = nSrc;
-                return *this;
-        }
+    return *this;
+  }
 
-        CComVariant& operator=(short nSrc)
-        {
-                if (vt != VT_I2)
-                {
-                        InternalClear();
-                        vt = VT_I2;
-                }
-                iVal = nSrc;
-                return *this;
-        }
+  CComVariant& operator=(BYTE nSrc)
+  {
+    if (vt != VT_UI1)
+    {
+      InternalClear();
+      vt = VT_UI1;
+    }
+    bVal = nSrc;
+    return *this;
+  }
 
-        CComVariant& operator=(long nSrc)
-        {
-                if (vt != VT_I4)
-                {
-                        InternalClear();
-                        vt = VT_I4;
-                }
-                lVal = nSrc;
-                return *this;
-        }
+  CComVariant& operator=(short nSrc)
+  {
+    if (vt != VT_I2)
+    {
+      InternalClear();
+      vt = VT_I2;
+    }
+    iVal = nSrc;
+    return *this;
+  }
 
-        CComVariant& operator=(float fltSrc)
-        {
-                if (vt != VT_R4)
-                {
-                        InternalClear();
-                        vt = VT_R4;
-                }
-                fltVal = fltSrc;
-                return *this;
-        }
+  CComVariant& operator=(long nSrc)
+  {
+    if (vt != VT_I4)
+    {
+      InternalClear();
+      vt = VT_I4;
+    }
+    lVal = nSrc;
+    return *this;
+  }
 
-        CComVariant& operator=(double dblSrc)
-        {
-                if (vt != VT_R8)
-                {
-                        InternalClear();
-                        vt = VT_R8;
-                }
-                dblVal = dblSrc;
-                return *this;
-        }
+  CComVariant& operator=(float fltSrc)
+  {
+    if (vt != VT_R4)
+    {
+      InternalClear();
+      vt = VT_R4;
+    }
+    fltVal = fltSrc;
+    return *this;
+  }
 
-        CComVariant& operator=(CY cySrc)
-        {
-                if (vt != VT_CY)
-                {
-                        InternalClear();
-                        vt = VT_CY;
-                }
-                cyVal.Hi = cySrc.Hi;
-                cyVal.Lo = cySrc.Lo;
-                return *this;
-        }
+  CComVariant& operator=(double dblSrc)
+  {
+    if (vt != VT_R8)
+    {
+      InternalClear();
+      vt = VT_R8;
+    }
+    dblVal = dblSrc;
+    return *this;
+  }
 
-        CComVariant& operator=(IDispatch* pSrc)
-        {
-                InternalClear();
-                vt = VT_DISPATCH;
-                pdispVal = pSrc;
-                // Need to AddRef as VariantClear will Release
-                if (pdispVal != NULL)
-                        pdispVal->AddRef();
-                return *this;
-        }
+  CComVariant& operator=(CY cySrc)
+  {
+    if (vt != VT_CY)
+    {
+      InternalClear();
+      vt = VT_CY;
+    }
+    cyVal.Hi = cySrc.Hi;
+    cyVal.Lo = cySrc.Lo;
+    return *this;
+  }
 
-        CComVariant& operator=(IUnknown* pSrc)
-        {
-                InternalClear();
-                vt = VT_UNKNOWN;
-                punkVal = pSrc;
+  CComVariant& operator=(IDispatch* pSrc)
+  {
+    InternalClear();
+    vt = VT_DISPATCH;
+    pdispVal = pSrc;
+    // Need to AddRef as VariantClear will Release
+    if (pdispVal != NULL)
+      pdispVal->AddRef();
+    return *this;
+  }
 
-                // Need to AddRef as VariantClear will Release
-                if (punkVal != NULL)
-                        punkVal->AddRef();
-                return *this;
-        }
+  CComVariant& operator=(IUnknown* pSrc)
+  {
+    InternalClear();
+    vt = VT_UNKNOWN;
+    punkVal = pSrc;
+
+    // Need to AddRef as VariantClear will Release
+    if (punkVal != NULL)
+      punkVal->AddRef();
+    return *this;
+  }
 
 
 // Comparison Operators
 public:
-        bool operator==(const VARIANT& varSrc) const
-        {
-                if (this == &varSrc)
-                        return true;
+  bool operator==(const VARIANT& varSrc) const
+  {
+    if (this == &varSrc)
+      return true;
 
-                // Variants not equal if types don't match
-                if (vt != varSrc.vt)
-                        return false;
+    // Variants not equal if types don't match
+    if (vt != varSrc.vt)
+      return false;
 
-                // Check type specific values
-                switch (vt)
-                {
-                        case VT_EMPTY:
-                        case VT_NULL:
-                                return true;
+    // Check type specific values
+    switch (vt)
+    {
+      case VT_EMPTY:
+      case VT_NULL:
+        return true;
 
-                        case VT_BOOL:
-                                return boolVal == varSrc.boolVal;
+      case VT_BOOL:
+        return boolVal == varSrc.boolVal;
 
-                        case VT_UI1:
-                                return bVal == varSrc.bVal;
+      case VT_UI1:
+        return bVal == varSrc.bVal;
 
-                        case VT_I2:
-                                return iVal == varSrc.iVal;
+      case VT_I2:
+        return iVal == varSrc.iVal;
 
-                        case VT_I4:
-                                return lVal == varSrc.lVal;
+      case VT_I4:
+        return lVal == varSrc.lVal;
 
-                        case VT_R4:
-                                return fltVal == varSrc.fltVal;
+      case VT_R4:
+        return fltVal == varSrc.fltVal;
 
-                        case VT_R8:
-                                return dblVal == varSrc.dblVal;
+      case VT_R8:
+        return dblVal == varSrc.dblVal;
 
-                        case VT_BSTR:
-                                return (::SysStringByteLen(bstrVal) == ::SysStringByteLen(varSrc.bstrVal)) &&
-                                                (::memcmp(bstrVal, varSrc.bstrVal, ::SysStringByteLen(bstrVal)) == 0);
+      case VT_BSTR:
+        return (::SysStringByteLen(bstrVal) == ::SysStringByteLen(varSrc.bstrVal)) &&
+            (::memcmp(bstrVal, varSrc.bstrVal, ::SysStringByteLen(bstrVal)) == 0);
 
-                        case VT_ERROR:
-                                return scode == varSrc.scode;
+      case VT_ERROR:
+        return scode == varSrc.scode;
 
-                        case VT_DISPATCH:
-                                return pdispVal == varSrc.pdispVal;
+      case VT_DISPATCH:
+        return pdispVal == varSrc.pdispVal;
 
-                        case VT_UNKNOWN:
-                                return punkVal == varSrc.punkVal;
+      case VT_UNKNOWN:
+        return punkVal == varSrc.punkVal;
 
-                        default:
-                                ATLASSERT(false);
-                                // fall through
-                }
+      default:
+        ATLASSERT(false);
+        // fall through
+    }
 
-                return false;
-        }
-        bool operator!=(const VARIANT& varSrc) const {return !operator==(varSrc);}
-        bool operator<(const VARIANT& varSrc) const {return VarCmp((VARIANT*)this, (VARIANT*)&varSrc, LOCALE_USER_DEFAULT, 0)==VARCMP_LT;}
-        bool operator>(const VARIANT& varSrc) const {return VarCmp((VARIANT*)this, (VARIANT*)&varSrc, LOCALE_USER_DEFAULT, 0)==VARCMP_GT;}
+    return false;
+  }
+  bool operator!=(const VARIANT& varSrc) const {return !operator==(varSrc);}
+  bool operator<(const VARIANT& varSrc) const {return VarCmp((VARIANT*)this, (VARIANT*)&varSrc, LOCALE_USER_DEFAULT, 0)==VARCMP_LT;}
+  bool operator>(const VARIANT& varSrc) const {return VarCmp((VARIANT*)this, (VARIANT*)&varSrc, LOCALE_USER_DEFAULT, 0)==VARCMP_GT;}
 
 // Operations
 public:
-        HRESULT Clear() { return ::VariantClear(this); }
-        HRESULT Copy(const VARIANT* pSrc) { return ::VariantCopy(this, const_cast<VARIANT*>(pSrc)); }
-        HRESULT Attach(VARIANT* pSrc)
-        {
-                if(pSrc == NULL)
-                        return E_INVALIDARG;
-                        
-                // Clear out the variant
-                HRESULT hr = Clear();
-                if (!FAILED(hr))
-                {
-                        // Copy the contents and give control to CComVariant
-                        memcpy(this, pSrc, sizeof(VARIANT));
-                        pSrc->vt = VT_EMPTY;
-                        hr = S_OK;
-                }
-                return hr;
-        }
+  HRESULT Clear() { return ::VariantClear(this); }
+  HRESULT Copy(const VARIANT* pSrc) { return ::VariantCopy(this, const_cast<VARIANT*>(pSrc)); }
+  HRESULT Attach(VARIANT* pSrc)
+  {
+    if(pSrc == NULL)
+      return E_INVALIDARG;
 
-        HRESULT Detach(VARIANT* pDest)
-        {
-                if(pDest == NULL)
-                        return E_POINTER;
-                        
-                // Clear out the variant
-                HRESULT hr = ::VariantClear(pDest);
-                if (!FAILED(hr))
-                {
-                        // Copy the contents and remove control from CComVariant
-                        memcpy(pDest, this, sizeof(VARIANT));
-                        vt = VT_EMPTY;
-                        hr = S_OK;
-                }
-                return hr;
-        }
+    // Clear out the variant
+    HRESULT hr = Clear();
+    if (!FAILED(hr))
+    {
+      // Copy the contents and give control to CComVariant
+      memcpy(this, pSrc, sizeof(VARIANT));
+      pSrc->vt = VT_EMPTY;
+      hr = S_OK;
+    }
+    return hr;
+  }
 
-        HRESULT ChangeType(VARTYPE vtNew, const VARIANT* pSrc = NULL)
-        {
-                VARIANT* pVar = const_cast<VARIANT*>(pSrc);
-                // Convert in place if pSrc is NULL
-                if (pVar == NULL)
-                        pVar = this;
-                // Do nothing if doing in place convert and vts not different
-                return ::VariantChangeType(this, pVar, 0, vtNew);
-        }
+  HRESULT Detach(VARIANT* pDest)
+  {
+    if(pDest == NULL)
+      return E_POINTER;
 
-        HRESULT WriteToStream(IStream* pStream);
-        HRESULT ReadFromStream(IStream* pStream);
+    // Clear out the variant
+    HRESULT hr = ::VariantClear(pDest);
+    if (!FAILED(hr))
+    {
+      // Copy the contents and remove control from CComVariant
+      memcpy(pDest, this, sizeof(VARIANT));
+      vt = VT_EMPTY;
+      hr = S_OK;
+    }
+    return hr;
+  }
+
+  HRESULT ChangeType(VARTYPE vtNew, const VARIANT* pSrc = NULL)
+  {
+    VARIANT* pVar = const_cast<VARIANT*>(pSrc);
+    // Convert in place if pSrc is NULL
+    if (pVar == NULL)
+      pVar = this;
+    // Do nothing if doing in place convert and vts not different
+    return ::VariantChangeType(this, pVar, 0, vtNew);
+  }
+
+  HRESULT WriteToStream(IStream* pStream);
+  HRESULT ReadFromStream(IStream* pStream);
 
 // Implementation
 public:
-        HRESULT InternalClear()
-        {
-                HRESULT hr = Clear();
-                ATLASSERT(SUCCEEDED(hr));
-                if (FAILED(hr))
-                {
-                        vt = VT_ERROR;
-                        scode = hr;
-                }
-                return hr;
-        }
+  HRESULT InternalClear()
+  {
+    HRESULT hr = Clear();
+    ATLASSERT(SUCCEEDED(hr));
+    if (FAILED(hr))
+    {
+      vt = VT_ERROR;
+      scode = hr;
+    }
+    return hr;
+  }
 
-        void InternalCopy(const VARIANT* pSrc)
-        {
-                HRESULT hr = Copy(pSrc);
-                if (FAILED(hr))
-                {
-                        vt = VT_ERROR;
-                        scode = hr;
-                }
-        }
+  void InternalCopy(const VARIANT* pSrc)
+  {
+    HRESULT hr = Copy(pSrc);
+    if (FAILED(hr))
+    {
+      vt = VT_ERROR;
+      scode = hr;
+    }
+  }
 };
 
 inline HRESULT CComVariant::WriteToStream(IStream* pStream)
 {
-        if(pStream == NULL)
-                return E_INVALIDARG;
-                
-        HRESULT hr = pStream->Write(&vt, sizeof(VARTYPE), NULL);
+  if(pStream == NULL)
+    return E_INVALIDARG;
+
+  HRESULT hr = pStream->Write(&vt, sizeof(VARTYPE), NULL);
+  if (FAILED(hr))
+    return hr;
+
+  int cbWrite = 0;
+  switch (vt)
+  {
+  case VT_UNKNOWN:
+  case VT_DISPATCH:
+    {
+      CComPtr<IPersistStream> spStream;
+      if (punkVal != NULL)
+      {
+        hr = punkVal->QueryInterface(IID_IPersistStream, (void**)&spStream);
         if (FAILED(hr))
-                return hr;
+          return hr;
+      }
+      if (spStream != NULL)
+        return OleSaveToStream(spStream, pStream);
+      else
+        return WriteClassStm(pStream, CLSID_NULL);
+    }
+  case VT_UI1:
+  case VT_I1:
+    cbWrite = sizeof(BYTE);
+    break;
+  case VT_I2:
+  case VT_UI2:
+  case VT_BOOL:
+    cbWrite = sizeof(short);
+    break;
+  case VT_I4:
+  case VT_UI4:
+  case VT_R4:
+  case VT_INT:
+  case VT_UINT:
+  case VT_ERROR:
+    cbWrite = sizeof(long);
+    break;
+  case VT_R8:
+  case VT_CY:
+  case VT_DATE:
+    cbWrite = sizeof(double);
+    break;
+  default:
+    break;
+  }
+  if (cbWrite != 0)
+    return pStream->Write((void*) &bVal, cbWrite, NULL);
 
-        int cbWrite = 0;
-        switch (vt)
-        {
-        case VT_UNKNOWN:
-        case VT_DISPATCH:
-                {
-                        CComPtr<IPersistStream> spStream;
-                        if (punkVal != NULL)
-                        {
-                                hr = punkVal->QueryInterface(IID_IPersistStream, (void**)&spStream);
-                                if (FAILED(hr))
-                                        return hr;
-                        }
-                        if (spStream != NULL)
-                                return OleSaveToStream(spStream, pStream);
-                        else
-                                return WriteClassStm(pStream, CLSID_NULL);
-                }
-        case VT_UI1:
-        case VT_I1:
-                cbWrite = sizeof(BYTE);
-                break;
-        case VT_I2:
-        case VT_UI2:
-        case VT_BOOL:
-                cbWrite = sizeof(short);
-                break;
-        case VT_I4:
-        case VT_UI4:
-        case VT_R4:
-        case VT_INT:
-        case VT_UINT:
-        case VT_ERROR:
-                cbWrite = sizeof(long);
-                break;
-        case VT_R8:
-        case VT_CY:
-        case VT_DATE:
-                cbWrite = sizeof(double);
-                break;
-        default:
-                break;
-        }
-        if (cbWrite != 0)
-                return pStream->Write((void*) &bVal, cbWrite, NULL);
+  CComBSTR bstrWrite;
+  CComVariant varBSTR;
+  if (vt != VT_BSTR)
+  {
+    hr = VariantChangeType(&varBSTR, this, VARIANT_NOVALUEPROP, VT_BSTR);
+    if (FAILED(hr))
+      return hr;
+    bstrWrite = varBSTR.bstrVal;
+  }
+  else
+    bstrWrite = bstrVal;
 
-        CComBSTR bstrWrite;
-        CComVariant varBSTR;
-        if (vt != VT_BSTR)
-        {
-                hr = VariantChangeType(&varBSTR, this, VARIANT_NOVALUEPROP, VT_BSTR);
-                if (FAILED(hr))
-                        return hr;
-                bstrWrite = varBSTR.bstrVal;
-        }
-        else
-                bstrWrite = bstrVal;
-
-        return bstrWrite.WriteToStream(pStream);
+  return bstrWrite.WriteToStream(pStream);
 }
 
 inline HRESULT CComVariant::ReadFromStream(IStream* pStream)
 {
-        ATLASSERT(pStream != NULL);
-        
-        if(pStream == NULL)
-                return E_INVALIDARG;
-                
-        HRESULT hr;
-        hr = VariantClear(this);
-        if (FAILED(hr))
-                return hr;
-        VARTYPE vtRead;
-        hr = pStream->Read(&vtRead, sizeof(VARTYPE), NULL);
-        if (hr == S_FALSE)
-                hr = E_FAIL;
-        if (FAILED(hr))
-                return hr;
+  ATLASSERT(pStream != NULL);
 
-        vt = vtRead;
-        int cbRead = 0;
-        switch (vtRead)
-        {
-        case VT_UNKNOWN:
-        case VT_DISPATCH:
-                {
-                        punkVal = NULL;
-                        hr = OleLoadFromStream(pStream,
-                                (vtRead == VT_UNKNOWN) ? IID_IUnknown : IID_IDispatch,
-                                (void**)&punkVal);
-                        if (hr == REGDB_E_CLASSNOTREG)
-                                hr = S_OK;
-                        return S_OK;
-                }
-        case VT_UI1:
-        case VT_I1:
-                cbRead = sizeof(BYTE);
-                break;
-        case VT_I2:
-        case VT_UI2:
-        case VT_BOOL:
-                cbRead = sizeof(short);
-                break;
-        case VT_I4:
-        case VT_UI4:
-        case VT_R4:
-        case VT_INT:
-        case VT_UINT:
-        case VT_ERROR:
-                cbRead = sizeof(long);
-                break;
-        case VT_R8:
-        case VT_CY:
-        case VT_DATE:
-                cbRead = sizeof(double);
-                break;
-        default:
-                break;
-        }
-        if (cbRead != 0)
-        {
-                hr = pStream->Read((void*) &bVal, cbRead, NULL);
-                if (hr == S_FALSE)
-                        hr = E_FAIL;
-                return hr;
-        }
-        CComBSTR bstrRead;
+  if(pStream == NULL)
+    return E_INVALIDARG;
 
-        hr = bstrRead.ReadFromStream(pStream);
-        if (FAILED(hr))
-                return hr;
-        vt = VT_BSTR;
-        bstrVal = bstrRead.Detach();
-        if (vtRead != VT_BSTR)
-                hr = ChangeType(vtRead);
-        return hr;
+  HRESULT hr;
+  hr = VariantClear(this);
+  if (FAILED(hr))
+    return hr;
+  VARTYPE vtRead;
+  hr = pStream->Read(&vtRead, sizeof(VARTYPE), NULL);
+  if (hr == S_FALSE)
+    hr = E_FAIL;
+  if (FAILED(hr))
+    return hr;
+
+  vt = vtRead;
+  int cbRead = 0;
+  switch (vtRead)
+  {
+  case VT_UNKNOWN:
+  case VT_DISPATCH:
+    {
+      punkVal = NULL;
+      hr = OleLoadFromStream(pStream,
+        (vtRead == VT_UNKNOWN) ? IID_IUnknown : IID_IDispatch,
+        (void**)&punkVal);
+      if (hr == REGDB_E_CLASSNOTREG)
+        hr = S_OK;
+      return S_OK;
+    }
+  case VT_UI1:
+  case VT_I1:
+    cbRead = sizeof(BYTE);
+    break;
+  case VT_I2:
+  case VT_UI2:
+  case VT_BOOL:
+    cbRead = sizeof(short);
+    break;
+  case VT_I4:
+  case VT_UI4:
+  case VT_R4:
+  case VT_INT:
+  case VT_UINT:
+  case VT_ERROR:
+    cbRead = sizeof(long);
+    break;
+  case VT_R8:
+  case VT_CY:
+  case VT_DATE:
+    cbRead = sizeof(double);
+    break;
+  default:
+    break;
+  }
+  if (cbRead != 0)
+  {
+    hr = pStream->Read((void*) &bVal, cbRead, NULL);
+    if (hr == S_FALSE)
+      hr = E_FAIL;
+    return hr;
+  }
+  CComBSTR bstrRead;
+
+  hr = bstrRead.ReadFromStream(pStream);
+  if (FAILED(hr))
+    return hr;
+  vt = VT_BSTR;
+  bstrVal = bstrRead.Detach();
+  if (vtRead != VT_BSTR)
+    hr = ChangeType(vtRead);
+  return hr;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -5312,38 +5398,38 @@ inline HRESULT CComVariant::ReadFromStream(IStream* pStream)
 class CRegKey
 {
 public:
-        CRegKey();
-        ~CRegKey();
+  CRegKey();
+  ~CRegKey();
 
 // Attributes
 public:
-        operator HKEY() const;
-        HKEY m_hKey;
+  operator HKEY() const;
+  HKEY m_hKey;
 
 // Operations
 public:
-        LONG SetValue(DWORD dwValue, LPCTSTR lpszValueName);
-        LONG QueryValue(DWORD& dwValue, LPCTSTR lpszValueName);
-        LONG QueryValue(LPTSTR szValue, LPCTSTR lpszValueName, DWORD* pdwCount);
-        LONG SetValue(LPCTSTR lpszValue, LPCTSTR lpszValueName = NULL);
+  LONG SetValue(DWORD dwValue, LPCTSTR lpszValueName);
+  LONG QueryValue(DWORD& dwValue, LPCTSTR lpszValueName);
+  LONG QueryValue(LPTSTR szValue, LPCTSTR lpszValueName, DWORD* pdwCount);
+  LONG SetValue(LPCTSTR lpszValue, LPCTSTR lpszValueName = NULL);
 
-        LONG SetKeyValue(LPCTSTR lpszKeyName, LPCTSTR lpszValue, LPCTSTR lpszValueName = NULL);
-        static LONG WINAPI SetValue(HKEY hKeyParent, LPCTSTR lpszKeyName,
-                LPCTSTR lpszValue, LPCTSTR lpszValueName = NULL);
+  LONG SetKeyValue(LPCTSTR lpszKeyName, LPCTSTR lpszValue, LPCTSTR lpszValueName = NULL);
+  static LONG WINAPI SetValue(HKEY hKeyParent, LPCTSTR lpszKeyName,
+    LPCTSTR lpszValue, LPCTSTR lpszValueName = NULL);
 
-        LONG Create(HKEY hKeyParent, LPCTSTR lpszKeyName,
-                LPTSTR lpszClass = REG_NONE, DWORD dwOptions = REG_OPTION_NON_VOLATILE,
-                REGSAM samDesired = KEY_ALL_ACCESS,
-                LPSECURITY_ATTRIBUTES lpSecAttr = NULL,
-                LPDWORD lpdwDisposition = NULL);
-        LONG Open(HKEY hKeyParent, LPCTSTR lpszKeyName,
-                REGSAM samDesired = KEY_ALL_ACCESS);
-        LONG Close();
-        HKEY Detach();
-        void Attach(HKEY hKey);
-        LONG DeleteSubKey(LPCTSTR lpszSubKey);
-        LONG RecurseDeleteKey(LPCTSTR lpszKey);
-        LONG DeleteValue(LPCTSTR lpszValue);
+  LONG Create(HKEY hKeyParent, LPCTSTR lpszKeyName,
+    LPTSTR lpszClass = REG_NONE, DWORD dwOptions = REG_OPTION_NON_VOLATILE,
+    REGSAM samDesired = KEY_ALL_ACCESS,
+    LPSECURITY_ATTRIBUTES lpSecAttr = NULL,
+    LPDWORD lpdwDisposition = NULL);
+  LONG Open(HKEY hKeyParent, LPCTSTR lpszKeyName,
+    REGSAM samDesired = KEY_ALL_ACCESS);
+  LONG Close();
+  HKEY Detach();
+  void Attach(HKEY hKey);
+  LONG DeleteSubKey(LPCTSTR lpszSubKey);
+  LONG RecurseDeleteKey(LPCTSTR lpszKey);
+  LONG DeleteValue(LPCTSTR lpszValue);
 };
 
 inline CRegKey::CRegKey()
@@ -5357,182 +5443,182 @@ inline CRegKey::operator HKEY() const
 
 inline HKEY CRegKey::Detach()
 {
-        HKEY hKey = m_hKey;
-        m_hKey = NULL;
-        return hKey;
+  HKEY hKey = m_hKey;
+  m_hKey = NULL;
+  return hKey;
 }
 
 inline void CRegKey::Attach(HKEY hKey)
 {
-        ATLASSERT(m_hKey == NULL);
-        m_hKey = hKey;
+  ATLASSERT(m_hKey == NULL);
+  m_hKey = hKey;
 }
 
 inline LONG CRegKey::DeleteSubKey(LPCTSTR lpszSubKey)
 {
-        ATLASSERT(m_hKey != NULL);
-        return RegDeleteKey(m_hKey, lpszSubKey);
+  ATLASSERT(m_hKey != NULL);
+  return RegDeleteKey(m_hKey, lpszSubKey);
 }
 
 inline LONG CRegKey::DeleteValue(LPCTSTR lpszValue)
 {
-        ATLASSERT(m_hKey != NULL);
-        return RegDeleteValue(m_hKey, (LPTSTR)lpszValue);
+  ATLASSERT(m_hKey != NULL);
+  return RegDeleteValue(m_hKey, (LPTSTR)lpszValue);
 }
 
 inline LONG CRegKey::Close()
 {
-        LONG lRes = ERROR_SUCCESS;
-        if (m_hKey != NULL)
-        {
-                lRes = RegCloseKey(m_hKey);
-                m_hKey = NULL;
-        }
-        return lRes;
+  LONG lRes = ERROR_SUCCESS;
+  if (m_hKey != NULL)
+  {
+    lRes = RegCloseKey(m_hKey);
+    m_hKey = NULL;
+  }
+  return lRes;
 }
 
 inline LONG CRegKey::Create(HKEY hKeyParent, LPCTSTR lpszKeyName,
-        LPTSTR lpszClass, DWORD dwOptions, REGSAM samDesired,
-        LPSECURITY_ATTRIBUTES lpSecAttr, LPDWORD lpdwDisposition)
+  LPTSTR lpszClass, DWORD dwOptions, REGSAM samDesired,
+  LPSECURITY_ATTRIBUTES lpSecAttr, LPDWORD lpdwDisposition)
 {
-        ATLASSERT(hKeyParent != NULL);
-        DWORD dw;
-        HKEY hKey = NULL;
-        LONG lRes = RegCreateKeyEx(hKeyParent, lpszKeyName, 0,
-                lpszClass, dwOptions, samDesired, lpSecAttr, &hKey, &dw);
-        if (lpdwDisposition != NULL)
-                *lpdwDisposition = dw;
-        if (lRes == ERROR_SUCCESS)
-        {
-                lRes = Close();
-                m_hKey = hKey;
-        }
-        return lRes;
+  ATLASSERT(hKeyParent != NULL);
+  DWORD dw;
+  HKEY hKey = NULL;
+  LONG lRes = RegCreateKeyEx(hKeyParent, lpszKeyName, 0,
+    lpszClass, dwOptions, samDesired, lpSecAttr, &hKey, &dw);
+  if (lpdwDisposition != NULL)
+    *lpdwDisposition = dw;
+  if (lRes == ERROR_SUCCESS)
+  {
+    lRes = Close();
+    m_hKey = hKey;
+  }
+  return lRes;
 }
 
 inline LONG CRegKey::Open(HKEY hKeyParent, LPCTSTR lpszKeyName, REGSAM samDesired)
 {
-        ATLASSERT(hKeyParent != NULL);
-        HKEY hKey = NULL;
-        LONG lRes = RegOpenKeyEx(hKeyParent, lpszKeyName, 0, samDesired, &hKey);
-        if (lRes == ERROR_SUCCESS)
-        {
-                lRes = Close();
-                ATLASSERT(lRes == ERROR_SUCCESS);
-                m_hKey = hKey;
-        }
-        return lRes;
+  ATLASSERT(hKeyParent != NULL);
+  HKEY hKey = NULL;
+  LONG lRes = RegOpenKeyEx(hKeyParent, lpszKeyName, 0, samDesired, &hKey);
+  if (lRes == ERROR_SUCCESS)
+  {
+    lRes = Close();
+    ATLASSERT(lRes == ERROR_SUCCESS);
+    m_hKey = hKey;
+  }
+  return lRes;
 }
 
 inline LONG CRegKey::QueryValue(DWORD& dwValue, LPCTSTR lpszValueName)
 {
-        DWORD dwType = NULL;
-        DWORD dwCount = sizeof(DWORD);
-        LONG lRes = RegQueryValueEx(m_hKey, (LPTSTR)lpszValueName, NULL, &dwType,
-                (LPBYTE)&dwValue, &dwCount);
-        ATLASSERT((lRes!=ERROR_SUCCESS) || (dwType == REG_DWORD));
-        ATLASSERT((lRes!=ERROR_SUCCESS) || (dwCount == sizeof(DWORD)));
-        if (dwType != REG_DWORD)
-                return ERROR_INVALID_DATA;
-        return lRes;
+  DWORD dwType = NULL;
+  DWORD dwCount = sizeof(DWORD);
+  LONG lRes = RegQueryValueEx(m_hKey, (LPTSTR)lpszValueName, NULL, &dwType,
+    (LPBYTE)&dwValue, &dwCount);
+  ATLASSERT((lRes!=ERROR_SUCCESS) || (dwType == REG_DWORD));
+  ATLASSERT((lRes!=ERROR_SUCCESS) || (dwCount == sizeof(DWORD)));
+  if (dwType != REG_DWORD)
+    return ERROR_INVALID_DATA;
+  return lRes;
 }
 
 inline LONG CRegKey::QueryValue(LPTSTR szValue, LPCTSTR lpszValueName, DWORD* pdwCount)
 {
-        ATLASSERT(pdwCount != NULL);
-        DWORD dwType = NULL;
-        LONG lRes = RegQueryValueEx(m_hKey, (LPTSTR)lpszValueName, NULL, &dwType,
-                (LPBYTE)szValue, pdwCount);
-        ATLASSERT((lRes!=ERROR_SUCCESS) || (dwType == REG_SZ) ||
-                         (dwType == REG_MULTI_SZ) || (dwType == REG_EXPAND_SZ));
-        switch(dwType)
-        {
-                case REG_SZ:
-                case REG_EXPAND_SZ:
-                        if ((*pdwCount) % sizeof(TCHAR) != 0 || (szValue != NULL && szValue[(*pdwCount) / sizeof(TCHAR) -1] != 0))
-                                 return ERROR_INVALID_DATA;
-                        break;
-                case REG_MULTI_SZ:
-                        if ((*pdwCount) % sizeof(TCHAR) != 0 || (*pdwCount) / sizeof(TCHAR) < 2 || (szValue != NULL && (szValue[(*pdwCount) / sizeof(TCHAR) -1] != 0 || szValue[(*pdwCount) / sizeof(TCHAR) - 2] != 0)) )
-                                return ERROR_INVALID_DATA;
-                        break;
-                default:
-                        return ERROR_INVALID_DATA;
-        }
-         return lRes;
+  ATLASSERT(pdwCount != NULL);
+  DWORD dwType = NULL;
+  LONG lRes = RegQueryValueEx(m_hKey, (LPTSTR)lpszValueName, NULL, &dwType,
+    (LPBYTE)szValue, pdwCount);
+  ATLASSERT((lRes!=ERROR_SUCCESS) || (dwType == REG_SZ) ||
+       (dwType == REG_MULTI_SZ) || (dwType == REG_EXPAND_SZ));
+  switch(dwType)
+  {
+    case REG_SZ:
+    case REG_EXPAND_SZ:
+      if ((*pdwCount) % sizeof(TCHAR) != 0 || (szValue != NULL && szValue[(*pdwCount) / sizeof(TCHAR) -1] != 0))
+         return ERROR_INVALID_DATA;
+      break;
+    case REG_MULTI_SZ:
+      if ((*pdwCount) % sizeof(TCHAR) != 0 || (*pdwCount) / sizeof(TCHAR) < 2 || (szValue != NULL && (szValue[(*pdwCount) / sizeof(TCHAR) -1] != 0 || szValue[(*pdwCount) / sizeof(TCHAR) - 2] != 0)) )
+        return ERROR_INVALID_DATA;
+      break;
+    default:
+      return ERROR_INVALID_DATA;
+  }
+   return lRes;
 }
 
 inline LONG WINAPI CRegKey::SetValue(HKEY hKeyParent, LPCTSTR lpszKeyName, LPCTSTR lpszValue, LPCTSTR lpszValueName)
 {
-        ATLASSERT(lpszValue != NULL);
-        CRegKey key;
-        LONG lRes = key.Create(hKeyParent, lpszKeyName);
-        if (lRes == ERROR_SUCCESS)
-                lRes = key.SetValue(lpszValue, lpszValueName);
-        return lRes;
+  ATLASSERT(lpszValue != NULL);
+  CRegKey key;
+  LONG lRes = key.Create(hKeyParent, lpszKeyName);
+  if (lRes == ERROR_SUCCESS)
+    lRes = key.SetValue(lpszValue, lpszValueName);
+  return lRes;
 }
 
 inline LONG CRegKey::SetKeyValue(LPCTSTR lpszKeyName, LPCTSTR lpszValue, LPCTSTR lpszValueName)
 {
-        ATLASSERT(lpszValue != NULL);
-        CRegKey key;
-        LONG lRes = key.Create(m_hKey, lpszKeyName);
-        if (lRes == ERROR_SUCCESS)
-                lRes = key.SetValue(lpszValue, lpszValueName);
-        return lRes;
+  ATLASSERT(lpszValue != NULL);
+  CRegKey key;
+  LONG lRes = key.Create(m_hKey, lpszKeyName);
+  if (lRes == ERROR_SUCCESS)
+    lRes = key.SetValue(lpszValue, lpszValueName);
+  return lRes;
 }
 
 inline LONG CRegKey::SetValue(DWORD dwValue, LPCTSTR lpszValueName)
 {
-        ATLASSERT(m_hKey != NULL);
-        return RegSetValueEx(m_hKey, lpszValueName, NULL, REG_DWORD,
-                (BYTE * const)&dwValue, sizeof(DWORD));
+  ATLASSERT(m_hKey != NULL);
+  return RegSetValueEx(m_hKey, lpszValueName, NULL, REG_DWORD,
+    (BYTE * const)&dwValue, sizeof(DWORD));
 }
 
 inline LONG CRegKey::SetValue(LPCTSTR lpszValue, LPCTSTR lpszValueName)
 {
-        ATLASSERT(lpszValue != NULL);
-        ATLASSERT(m_hKey != NULL);
-        return RegSetValueEx(m_hKey, lpszValueName, NULL, REG_SZ,
-                (BYTE * const)lpszValue, (lstrlen(lpszValue)+1)*sizeof(TCHAR));
+  ATLASSERT(lpszValue != NULL);
+  ATLASSERT(m_hKey != NULL);
+  return RegSetValueEx(m_hKey, lpszValueName, NULL, REG_SZ,
+    (BYTE * const)lpszValue, (lstrlen(lpszValue)+1)*sizeof(TCHAR));
 }
 
 inline LONG CRegKey::RecurseDeleteKey(LPCTSTR lpszKey)
 {
-        CRegKey key;
-        LONG lRes = key.Open(m_hKey, lpszKey, KEY_READ | KEY_WRITE);
-        if (lRes != ERROR_SUCCESS)
-                return lRes;
-        FILETIME time;
-        DWORD dwSize = 256;
-        TCHAR szBuffer[256];
-        while (RegEnumKeyEx(key.m_hKey, 0, szBuffer, &dwSize, NULL, NULL, NULL,
-                &time)==ERROR_SUCCESS)
-        {
-                lRes = key.RecurseDeleteKey(szBuffer);
-                if (lRes != ERROR_SUCCESS)
-                        return lRes;
-                dwSize = 256;
-        }
-        key.Close();
-        return DeleteSubKey(lpszKey);
+  CRegKey key;
+  LONG lRes = key.Open(m_hKey, lpszKey, KEY_READ | KEY_WRITE);
+  if (lRes != ERROR_SUCCESS)
+    return lRes;
+  FILETIME time;
+  DWORD dwSize = 256;
+  TCHAR szBuffer[256];
+  while (RegEnumKeyEx(key.m_hKey, 0, szBuffer, &dwSize, NULL, NULL, NULL,
+    &time)==ERROR_SUCCESS)
+  {
+    lRes = key.RecurseDeleteKey(szBuffer);
+    if (lRes != ERROR_SUCCESS)
+      return lRes;
+    dwSize = 256;
+  }
+  key.Close();
+  return DeleteSubKey(lpszKey);
 }
 
 inline HRESULT CComModule::RegisterProgID(LPCTSTR lpszCLSID, LPCTSTR lpszProgID, LPCTSTR lpszUserDesc)
 {
-        CRegKey keyProgID;
-        LONG lRes = keyProgID.Create(HKEY_CLASSES_ROOT, lpszProgID, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_SET_VALUE);
-        if (lRes == ERROR_SUCCESS)
-        {
-                keyProgID.SetValue(lpszUserDesc);
-                keyProgID.SetKeyValue(_T("CLSID"), lpszCLSID);
-                return S_OK;
-        }
-        return HRESULT_FROM_WIN32(lRes);
+  CRegKey keyProgID;
+  LONG lRes = keyProgID.Create(HKEY_CLASSES_ROOT, lpszProgID, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_SET_VALUE);
+  if (lRes == ERROR_SUCCESS)
+  {
+    keyProgID.SetValue(lpszUserDesc);
+    keyProgID.SetKeyValue(_T("CLSID"), lpszCLSID);
+    return S_OK;
+  }
+  return HRESULT_FROM_WIN32(lRes);
 }
 
 #ifdef _ATL_STATIC_REGISTRY
-}        // namespace ATL
+} // namespace ATL
 
 #define _ATL_NAMESPACE_BUG_FIXED
 
@@ -5544,259 +5630,259 @@ namespace ATL
 
 // Statically linking to Registry Ponent
 inline HRESULT WINAPI CComModule::UpdateRegistryFromResourceS(UINT nResID, BOOL bRegister,
-        struct _ATL_REGMAP_ENTRY* pMapEntries)
+  struct _ATL_REGMAP_ENTRY* pMapEntries)
 {
-        USES_CONVERSION_EX;
-        ATL::CRegObject ro;
-    	HRESULT hr = ro.FinalConstruct();
-	    if (FAILED(hr))
-	    {
-		    return hr;
-	    }
-        TCHAR szModule[_MAX_PATH+1] = {0};
-        
-        // If the ModuleFileName's length is equal or greater than the 3rd parameter
-        // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
-        // if neccessary), but doesn't null terminate it. It returns the same value as 
-        // the 3rd parameter passed. So if the return value is the same as the 3rd param
-        // then you have a non null terminated buffer (which may or may not be truncated)
-        
-        int ret = GetModuleFileName(_pModule->GetModuleInstance(), szModule, _MAX_PATH);
-        
-        if(ret == _MAX_PATH)
-                return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
-        
-        if(ret == 0)
-                return AtlHresultFromLastError();
-        
-        LPOLESTR pszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+  USES_CONVERSION_EX;
+  ATL::CRegObject ro;
+      HRESULT hr = ro.FinalConstruct();
+      if (FAILED(hr))
+      {
+  return hr;
+      }
+  TCHAR szModule[_MAX_PATH+1] = {0};
+
+  // If the ModuleFileName's length is equal or greater than the 3rd parameter
+  // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
+  // if neccessary), but doesn't null terminate it. It returns the same value as
+  // the 3rd parameter passed. So if the return value is the same as the 3rd param
+  // then you have a non null terminated buffer (which may or may not be truncated)
+
+  int ret = GetModuleFileName(_pModule->GetModuleInstance(), szModule, _MAX_PATH);
+
+  if(ret == _MAX_PATH)
+    return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
+
+  if(ret == 0)
+    return AtlHresultFromLastError();
+
+  LPOLESTR pszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
 #ifndef _UNICODE
-        if(pszModule == NULL) 
-                return E_OUTOFMEMORY;
+  if(pszModule == NULL)
+    return E_OUTOFMEMORY;
 #endif
 
-        // Buffer Size is Multiplied by 2 because we are calling ReplaceSingleQuote
-        OLECHAR pszModuleQuote[(_MAX_PATH + _ATL_QUOTES_SPACE)*2]; 
-        ReplaceSingleQuote(pszModuleQuote, pszModule);
-        
-        hr = ro.AddReplacement(OLESTR("Module"), pszModuleQuote);
-        if(FAILED(hr))
-                return hr;
-                
-        if (NULL != pMapEntries)
-        {
-                while (NULL != pMapEntries->szKey)
-                {
-                        ATLASSERT(NULL != pMapEntries->szData);
+  // Buffer Size is Multiplied by 2 because we are calling ReplaceSingleQuote
+  OLECHAR pszModuleQuote[(_MAX_PATH + _ATL_QUOTES_SPACE)*2];
+  ReplaceSingleQuote(pszModuleQuote, pszModule);
 
-                        hr = ro.AddReplacement(pMapEntries->szKey, pMapEntries->szData);
-                        if(FAILED(hr))
-                                return hr;
-                        pMapEntries++;
-                }
-        }
+  hr = ro.AddReplacement(OLESTR("Module"), pszModuleQuote);
+  if(FAILED(hr))
+    return hr;
 
-        LPCOLESTR szType = OLESTR("REGISTRY");
-        return (bRegister) ? ro.ResourceRegister(pszModule, nResID, szType) :
-                        ro.ResourceUnregister(pszModule, nResID, szType);
+  if (NULL != pMapEntries)
+  {
+    while (NULL != pMapEntries->szKey)
+    {
+      ATLASSERT(NULL != pMapEntries->szData);
+
+      hr = ro.AddReplacement(pMapEntries->szKey, pMapEntries->szData);
+      if(FAILED(hr))
+        return hr;
+      pMapEntries++;
+    }
+  }
+
+  LPCOLESTR szType = OLESTR("REGISTRY");
+  return (bRegister) ? ro.ResourceRegister(pszModule, nResID, szType) :
+      ro.ResourceUnregister(pszModule, nResID, szType);
 }
 
 inline HRESULT WINAPI CComModule::UpdateRegistryFromResourceS(LPCTSTR lpszRes, BOOL bRegister,
-        struct _ATL_REGMAP_ENTRY* pMapEntries)
+  struct _ATL_REGMAP_ENTRY* pMapEntries)
 {
-        USES_CONVERSION_EX;
-        ATL::CRegObject ro;
-    	HRESULT hr = ro.FinalConstruct();
-	    if (FAILED(hr))
-	    {   
-		    return hr;
-    	}
-        TCHAR szModule[_MAX_PATH+1] = {0};
+  USES_CONVERSION_EX;
+  ATL::CRegObject ro;
+      HRESULT hr = ro.FinalConstruct();
+      if (FAILED(hr))
+      {
+  return hr;
+      }
+  TCHAR szModule[_MAX_PATH+1] = {0};
 
-        // If the ModuleFileName's length is equal or greater than the 3rd parameter
-        // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
-        // if neccessary), but doesn't null terminate it. It returns the same value as 
-        // the 3rd parameter passed. So if the return value is the same as the 3rd param
-        // then you have a non null terminated buffer (which may or may not be truncated)
-        int ret = GetModuleFileName(_pModule->GetModuleInstance(), szModule, _MAX_PATH);
-        
-        if(ret == _MAX_PATH)
-                return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
-        
-        if(ret == 0)
-                return AtlHresultFromLastError();
-        
-        LPOLESTR pszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+  // If the ModuleFileName's length is equal or greater than the 3rd parameter
+  // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
+  // if neccessary), but doesn't null terminate it. It returns the same value as
+  // the 3rd parameter passed. So if the return value is the same as the 3rd param
+  // then you have a non null terminated buffer (which may or may not be truncated)
+  int ret = GetModuleFileName(_pModule->GetModuleInstance(), szModule, _MAX_PATH);
+
+  if(ret == _MAX_PATH)
+    return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
+
+  if(ret == 0)
+    return AtlHresultFromLastError();
+
+  LPOLESTR pszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
 #ifndef _UNICODE
-        if(pszModule == NULL) 
-                return E_OUTOFMEMORY;
+  if(pszModule == NULL)
+    return E_OUTOFMEMORY;
 #endif
 
-        // Buffer Size is Multiplied by 2 because we are calling ReplaceSingleQuote
-        OLECHAR pszModuleQuote[(_MAX_PATH + _ATL_QUOTES_SPACE)*2];
-        ReplaceSingleQuote(pszModuleQuote, pszModule);
+  // Buffer Size is Multiplied by 2 because we are calling ReplaceSingleQuote
+  OLECHAR pszModuleQuote[(_MAX_PATH + _ATL_QUOTES_SPACE)*2];
+  ReplaceSingleQuote(pszModuleQuote, pszModule);
 
-        hr = ro.AddReplacement(OLESTR("Module"), pszModuleQuote);
-        if(FAILED(hr))
-                return hr;
+  hr = ro.AddReplacement(OLESTR("Module"), pszModuleQuote);
+  if(FAILED(hr))
+    return hr;
 
-        if (NULL != pMapEntries)
-        {
-                while (NULL != pMapEntries->szKey)
-                {
-                        ATLASSERT(NULL != pMapEntries->szData);
-                        hr = ro.AddReplacement(pMapEntries->szKey, pMapEntries->szData);
-                        if(FAILED(hr))
-                                return hr;
-                        pMapEntries++;
-                }
-        }
+  if (NULL != pMapEntries)
+  {
+    while (NULL != pMapEntries->szKey)
+    {
+      ATLASSERT(NULL != pMapEntries->szData);
+      hr = ro.AddReplacement(pMapEntries->szKey, pMapEntries->szData);
+      if(FAILED(hr))
+        return hr;
+      pMapEntries++;
+    }
+  }
 
-        LPCOLESTR szType = OLESTR("REGISTRY");
-        LPCOLESTR pszRes = T2COLE_EX(lpszRes, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
-#ifndef _UNICODE        
-        if(pszRes == NULL) 
-                return E_OUTOFMEMORY;
-#endif        
-        return (bRegister) ? ro.ResourceRegisterSz(pszModule, pszRes, szType) :
-                        ro.ResourceUnregisterSz(pszModule, pszRes, szType);
+  LPCOLESTR szType = OLESTR("REGISTRY");
+  LPCOLESTR pszRes = T2COLE_EX(lpszRes, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+  if(pszRes == NULL)
+    return E_OUTOFMEMORY;
+#endif
+  return (bRegister) ? ro.ResourceRegisterSz(pszModule, pszRes, szType) :
+      ro.ResourceUnregisterSz(pszModule, pszRes, szType);
 }
 #endif //_ATL_STATIC_REGISTRY
 
 inline HRESULT WINAPI CComModule::UpdateRegistryClass(const CLSID& clsid, LPCTSTR lpszProgID,
-        LPCTSTR lpszVerIndProgID, UINT nDescID, DWORD dwFlags, BOOL bRegister)
+  LPCTSTR lpszVerIndProgID, UINT nDescID, DWORD dwFlags, BOOL bRegister)
 {
-        if (bRegister)
-        {
-                return RegisterClassHelper(clsid, lpszProgID, lpszVerIndProgID, nDescID,
-                        dwFlags);
-        }
-        else
-                return UnregisterClassHelper(clsid, lpszProgID, lpszVerIndProgID);
+  if (bRegister)
+  {
+    return RegisterClassHelper(clsid, lpszProgID, lpszVerIndProgID, nDescID,
+      dwFlags);
+  }
+  else
+    return UnregisterClassHelper(clsid, lpszProgID, lpszVerIndProgID);
 }
 
 inline HRESULT WINAPI CComModule::RegisterClassHelper(const CLSID& clsid, LPCTSTR lpszProgID,
-        LPCTSTR lpszVerIndProgID, UINT nDescID, DWORD dwFlags)
+  LPCTSTR lpszVerIndProgID, UINT nDescID, DWORD dwFlags)
 {
-        static const TCHAR szProgID[] = _T("ProgID");
-        static const TCHAR szVIProgID[] = _T("VersionIndependentProgID");
-        static const TCHAR szLS32[] = _T("LocalServer32");
-        static const TCHAR szIPS32[] = _T("InprocServer32");
-        static const TCHAR szThreadingModel[] = _T("ThreadingModel");
-        static const TCHAR szAUTPRX32[] = _T("AUTPRX32.DLL");
-        static const TCHAR szApartment[] = _T("Apartment");
-        static const TCHAR szBoth[] = _T("both");
-        USES_CONVERSION_EX;
-        HRESULT hRes = S_OK;
-        TCHAR szDesc[256];
-        LoadString(m_hInst, nDescID, szDesc, 256);
-        
-        TCHAR szModule[_MAX_PATH + _ATL_QUOTES_SPACE];
+  static const TCHAR szProgID[] = _T("ProgID");
+  static const TCHAR szVIProgID[] = _T("VersionIndependentProgID");
+  static const TCHAR szLS32[] = _T("LocalServer32");
+  static const TCHAR szIPS32[] = _T("InprocServer32");
+  static const TCHAR szThreadingModel[] = _T("ThreadingModel");
+  static const TCHAR szAUTPRX32[] = _T("AUTPRX32.DLL");
+  static const TCHAR szApartment[] = _T("Apartment");
+  static const TCHAR szBoth[] = _T("both");
+  USES_CONVERSION_EX;
+  HRESULT hRes = S_OK;
+  TCHAR szDesc[256];
+  LoadString(m_hInst, nDescID, szDesc, 256);
 
-        // If the ModuleFileName's length is equal or greater than the 3rd parameter
-        // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
-        // if neccessary), but doesn't null terminate it. It returns the same value as 
-        // the 3rd parameter passed. So if the return value is the same as the 3rd param
-        // then you have a non null terminated buffer (which may or may not be truncated)
-        // We pass (szModule + 1) because in case it's an EXE we need to quote the PATH
-        // The quote is done later in this method before the SetKeyValue is called
-        int ret = GetModuleFileName(m_hInst, szModule + 1, _MAX_PATH);
+  TCHAR szModule[_MAX_PATH + _ATL_QUOTES_SPACE];
 
-        if(ret == _MAX_PATH)
-                return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
-        
-        if(ret == 0)
-                return AtlHresultFromLastError();
+  // If the ModuleFileName's length is equal or greater than the 3rd parameter
+  // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
+  // if neccessary), but doesn't null terminate it. It returns the same value as
+  // the 3rd parameter passed. So if the return value is the same as the 3rd param
+  // then you have a non null terminated buffer (which may or may not be truncated)
+  // We pass (szModule + 1) because in case it's an EXE we need to quote the PATH
+  // The quote is done later in this method before the SetKeyValue is called
+  int ret = GetModuleFileName(m_hInst, szModule + 1, _MAX_PATH);
 
-        LPOLESTR lpOleStr;
-        hRes = StringFromCLSID(clsid, &lpOleStr);
-        if(FAILED(hRes))
-        {
-                return hRes;
-        }
-        LPTSTR lpsz = OLE2T_EX(lpOleStr, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+  if(ret == _MAX_PATH)
+    return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
+
+  if(ret == 0)
+    return AtlHresultFromLastError();
+
+  LPOLESTR lpOleStr;
+  hRes = StringFromCLSID(clsid, &lpOleStr);
+  if(FAILED(hRes))
+  {
+    return hRes;
+  }
+  LPTSTR lpsz = OLE2T_EX(lpOleStr, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
 #ifndef _UNICODE
-        if(lpsz == NULL)
-        {
-                CoTaskMemFree(lpOleStr);
-                return E_OUTOFMEMORY;
-        }
+  if(lpsz == NULL)
+  {
+    CoTaskMemFree(lpOleStr);
+    return E_OUTOFMEMORY;
+  }
 #endif
-        hRes = RegisterProgID(lpsz, lpszProgID, szDesc);
-        if (hRes == S_OK)
-                hRes = RegisterProgID(lpsz, lpszVerIndProgID, szDesc);
-        LONG lRes = ERROR_SUCCESS;
-        if (hRes == S_OK)
+  hRes = RegisterProgID(lpsz, lpszProgID, szDesc);
+  if (hRes == S_OK)
+    hRes = RegisterProgID(lpsz, lpszVerIndProgID, szDesc);
+  LONG lRes = ERROR_SUCCESS;
+  if (hRes == S_OK)
+  {
+    CRegKey key;
+    lRes = key.Open(HKEY_CLASSES_ROOT, _T("CLSID"), KEY_READ | KEY_WRITE);
+
+    if (lRes == ERROR_SUCCESS)
+    {
+      lRes = key.Create(key, lpsz, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_READ | KEY_WRITE);
+      if (lRes == ERROR_SUCCESS)
+      {
+        key.SetValue(szDesc);
+        key.SetKeyValue(szProgID, lpszProgID);
+        key.SetKeyValue(szVIProgID, lpszVerIndProgID);
+
+        if ((m_hInst == NULL) || (m_hInst == GetModuleHandle(NULL))) // register as EXE
         {
-                CRegKey key;
-                lRes = key.Open(HKEY_CLASSES_ROOT, _T("CLSID"), KEY_READ | KEY_WRITE);
+          // If Registering as an EXE, then we quote the resultant path.
+          // We don't do it for a DLL, because LoadLibrary fails if the path is
+          // quoted
+          szModule[0] = _T('\"');
+          szModule[ret + 1] = _T('\"');
+          szModule[ret + 2] = 0;
 
-                if (lRes == ERROR_SUCCESS)
-                {
-                        lRes = key.Create(key, lpsz, REG_NONE, REG_OPTION_NON_VOLATILE, KEY_READ | KEY_WRITE);
-                        if (lRes == ERROR_SUCCESS)
-                        {
-                                key.SetValue(szDesc);
-                                key.SetKeyValue(szProgID, lpszProgID);
-                                key.SetKeyValue(szVIProgID, lpszVerIndProgID);
-
-                                if ((m_hInst == NULL) || (m_hInst == GetModuleHandle(NULL))) // register as EXE
-                                {
-                                        // If Registering as an EXE, then we quote the resultant path.
-                                        // We don't do it for a DLL, because LoadLibrary fails if the path is
-                                        // quoted
-                                        szModule[0] = _T('\"');
-                                        szModule[ret + 1] = _T('\"');
-                                        szModule[ret + 2] = 0;
-
-                                        key.SetKeyValue(szLS32, szModule);
-                                }
-                                else
-                                {
-                                        key.SetKeyValue(szIPS32, (dwFlags & AUTPRXFLAG) ? szAUTPRX32 : szModule + 1);
-                                        LPCTSTR lpszModel = (dwFlags & THREADFLAGS_BOTH) ? szBoth :
-                                                (dwFlags & THREADFLAGS_APARTMENT) ? szApartment : NULL;
-                                        if (lpszModel != NULL)
-                                                key.SetKeyValue(szIPS32, lpszModel, szThreadingModel);
-                                }
-                        }
-                }
+          key.SetKeyValue(szLS32, szModule);
         }
-        CoTaskMemFree(lpOleStr);
-        if (lRes != ERROR_SUCCESS)
-                hRes = HRESULT_FROM_WIN32(lRes);
-        return hRes;
+        else
+        {
+          key.SetKeyValue(szIPS32, (dwFlags & AUTPRXFLAG) ? szAUTPRX32 : szModule + 1);
+          LPCTSTR lpszModel = (dwFlags & THREADFLAGS_BOTH) ? szBoth :
+            (dwFlags & THREADFLAGS_APARTMENT) ? szApartment : NULL;
+          if (lpszModel != NULL)
+            key.SetKeyValue(szIPS32, lpszModel, szThreadingModel);
+        }
+      }
+    }
+  }
+  CoTaskMemFree(lpOleStr);
+  if (lRes != ERROR_SUCCESS)
+    hRes = HRESULT_FROM_WIN32(lRes);
+  return hRes;
 }
 
 inline HRESULT WINAPI CComModule::UnregisterClassHelper(const CLSID& clsid, LPCTSTR lpszProgID,
-        LPCTSTR lpszVerIndProgID)
+  LPCTSTR lpszVerIndProgID)
 {
-        USES_CONVERSION_EX;
-        CRegKey key;
+  USES_CONVERSION_EX;
+  CRegKey key;
 
-        key.Attach(HKEY_CLASSES_ROOT);
-        if (lpszProgID != NULL && lstrcmpi(lpszProgID, _T("")))
-                key.RecurseDeleteKey(lpszProgID);
-        if (lpszVerIndProgID != NULL && lstrcmpi(lpszVerIndProgID, _T("")))
-                key.RecurseDeleteKey(lpszVerIndProgID);
-        LPOLESTR lpOleStr;
-        HRESULT hRes = StringFromCLSID(clsid, &lpOleStr);
-        if(FAILED(hRes))
-                return hRes;
-                
-        LPTSTR lpsz = OLE2T_EX(lpOleStr, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+  key.Attach(HKEY_CLASSES_ROOT);
+  if (lpszProgID != NULL && lstrcmpi(lpszProgID, _T("")))
+    key.RecurseDeleteKey(lpszProgID);
+  if (lpszVerIndProgID != NULL && lstrcmpi(lpszVerIndProgID, _T("")))
+    key.RecurseDeleteKey(lpszVerIndProgID);
+  LPOLESTR lpOleStr;
+  HRESULT hRes = StringFromCLSID(clsid, &lpOleStr);
+  if(FAILED(hRes))
+    return hRes;
+
+  LPTSTR lpsz = OLE2T_EX(lpOleStr, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
 
 #ifndef _UNICODE
-        if(lpsz == NULL)
-        {
-                CoTaskMemFree(lpOleStr);
-                return E_OUTOFMEMORY;
-        }
-#endif        
-        if (key.Open(key, _T("CLSID"), KEY_READ | KEY_WRITE) == ERROR_SUCCESS)
-                key.RecurseDeleteKey(lpsz);
-        CoTaskMemFree(lpOleStr);
-        return S_OK;
+  if(lpsz == NULL)
+  {
+    CoTaskMemFree(lpOleStr);
+    return E_OUTOFMEMORY;
+  }
+#endif
+  if (key.Open(key, _T("CLSID"), KEY_READ | KEY_WRITE) == ERROR_SUCCESS)
+    key.RecurseDeleteKey(lpsz);
+  CoTaskMemFree(lpOleStr);
+  return S_OK;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -5807,130 +5893,130 @@ template <class T>
 class CVBufHelper
 {
 public:
-        virtual T* operator()(T* pCurrent) {return pCurrent;}
+  virtual T* operator()(T* pCurrent) {return pCurrent;}
 };
 
 template <class T>
 class CVirtualBuffer
 {
 protected:
-        CVirtualBuffer() {}
-        T* m_pBase;
-        T* m_pCurrent;
-        T* m_pTop;
-        int m_nMaxElements;
+  CVirtualBuffer() {}
+  T* m_pBase;
+  T* m_pCurrent;
+  T* m_pTop;
+  int m_nMaxElements;
 public:
-        CVirtualBuffer(int nMaxElements)
-        {
-                if (nMaxElements < 0 || (nMaxElements > (MAXULONG_PTR / sizeof(T)))) {
-                        _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
-                }
-                m_pBase = (T*) VirtualAlloc(NULL, sizeof(T) * nMaxElements,
-                        MEM_RESERVE, PAGE_READWRITE);
-                if(m_pBase == NULL)
-                {
-                        _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
-                }
-                m_nMaxElements = nMaxElements;
-                m_pTop = m_pCurrent = m_pBase;
-                // Commit first page - chances are this is all that will be used
-                VirtualAlloc(m_pBase, sizeof(T), MEM_COMMIT, PAGE_READWRITE);
-        }
-        ~CVirtualBuffer()
-        {
-                VirtualFree(m_pBase, 0, MEM_RELEASE);
-        }
-        int Except(LPEXCEPTION_POINTERS lpEP)
-        {
-                EXCEPTION_RECORD* pExcept = lpEP->ExceptionRecord;
-                if (pExcept->ExceptionCode != EXCEPTION_ACCESS_VIOLATION)
-                        return EXCEPTION_CONTINUE_SEARCH;
-                BYTE* pAddress = (LPBYTE) pExcept->ExceptionInformation[1];
+  CVirtualBuffer(int nMaxElements)
+  {
+    if (nMaxElements < 0 || (nMaxElements > (MAXULONG_PTR / sizeof(T)))) {
+      _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
+    }
+    m_pBase = (T*) VirtualAlloc(NULL, sizeof(T) * nMaxElements,
+      MEM_RESERVE, PAGE_READWRITE);
+    if(m_pBase == NULL)
+    {
+      _AtlRaiseException((DWORD)STATUS_NO_MEMORY);
+    }
+    m_nMaxElements = nMaxElements;
+    m_pTop = m_pCurrent = m_pBase;
+    // Commit first page - chances are this is all that will be used
+    VirtualAlloc(m_pBase, sizeof(T), MEM_COMMIT, PAGE_READWRITE);
+  }
+  ~CVirtualBuffer()
+  {
+    VirtualFree(m_pBase, 0, MEM_RELEASE);
+  }
+  int Except(LPEXCEPTION_POINTERS lpEP)
+  {
+    EXCEPTION_RECORD* pExcept = lpEP->ExceptionRecord;
+    if (pExcept->ExceptionCode != EXCEPTION_ACCESS_VIOLATION)
+      return EXCEPTION_CONTINUE_SEARCH;
+    BYTE* pAddress = (LPBYTE) pExcept->ExceptionInformation[1];
 
-                if ((pAddress >= (LPBYTE)m_pBase) || (pAddress < (LPBYTE)(&m_pBase[m_nMaxElements]))) {
-                    VirtualAlloc(pAddress, sizeof(T), MEM_COMMIT, PAGE_READWRITE);
-                    return EXCEPTION_CONTINUE_EXECUTION;
-                } else {
-                    return EXCEPTION_CONTINUE_SEARCH;
-                }
+    if ((pAddress >= (LPBYTE)m_pBase) || (pAddress < (LPBYTE)(&m_pBase[m_nMaxElements]))) {
+        VirtualAlloc(pAddress, sizeof(T), MEM_COMMIT, PAGE_READWRITE);
+        return EXCEPTION_CONTINUE_EXECUTION;
+    } else {
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
 
-        }
-        void Seek(int nElement)
-        {
-                if(nElement < 0 || nElement >= m_nMaxElements)
-                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);                
-                        
-                m_pCurrent = &m_pBase[nElement];
-        }
-        void SetAt(int nElement, const T& Element)
-        {
-                if(nElement < 0 || nElement >= m_nMaxElements)
-                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);                
-                __try
-                {
-                        T* p = &m_pBase[nElement];
-                        *p = Element;
-                        m_pTop = p > m_pTop ? p : m_pTop;
-                }
-                __except(Except(GetExceptionInformation()))
-                {
-                }
+  }
+  void Seek(int nElement)
+  {
+    if(nElement < 0 || nElement >= m_nMaxElements)
+      _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);
 
-        }
-        template <class Q>
-        void WriteBulk(Q& helper)
-        {
-                __try
-                {
-                        m_pCurrent = helper(m_pBase);
-                        m_pTop = m_pCurrent > m_pTop ? m_pCurrent : m_pTop;
-                }
-                __except(Except(GetExceptionInformation()))
-                {
-                }
-        }
-        void Write(const T& Element)
-        {
-            if (m_pCurrent < &m_pBase[m_nMaxElements]) {
-                __try
-                {
-                    *m_pCurrent = Element;
-                    m_pCurrent++;
-                    m_pTop = m_pCurrent > m_pTop ? m_pCurrent : m_pTop; 
-                }
-                __except(Except(GetExceptionInformation()))
-                {
-                }
-            }
-        }
-        T& Read()
-        {
-                return *m_pCurrent;
-        }
-        operator BSTR()
-        {
-                BSTR bstrTemp = NULL ;
-                __try
-                {
-                        bstrTemp = SysAllocStringByteLen((char*) m_pBase,
-                                (UINT) ((BYTE*)m_pTop - (BYTE*)m_pBase));
-                }
-                __except(Except(GetExceptionInformation()))
-                {
-                }
-                return bstrTemp;
-        }
-        const T& operator[](int nElement) const
-        {
-                if(nElement < 0 || nElement >= m_nMaxElements)
-                        _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);                
-        
-                return m_pBase[nElement];
-        }
-        operator T*()
-        {
-                return m_pBase;
-        }
+    m_pCurrent = &m_pBase[nElement];
+  }
+  void SetAt(int nElement, const T& Element)
+  {
+    if(nElement < 0 || nElement >= m_nMaxElements)
+      _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);
+    __try
+    {
+      T* p = &m_pBase[nElement];
+      *p = Element;
+      m_pTop = p > m_pTop ? p : m_pTop;
+    }
+    __except(Except(GetExceptionInformation()))
+    {
+    }
+
+  }
+  template <class Q>
+  void WriteBulk(Q& helper)
+  {
+    __try
+    {
+      m_pCurrent = helper(m_pBase);
+      m_pTop = m_pCurrent > m_pTop ? m_pCurrent : m_pTop;
+    }
+    __except(Except(GetExceptionInformation()))
+    {
+    }
+  }
+  void Write(const T& Element)
+  {
+      if (m_pCurrent < &m_pBase[m_nMaxElements]) {
+    __try
+    {
+        *m_pCurrent = Element;
+        m_pCurrent++;
+        m_pTop = m_pCurrent > m_pTop ? m_pCurrent : m_pTop;
+    }
+    __except(Except(GetExceptionInformation()))
+    {
+    }
+      }
+  }
+  T& Read()
+  {
+    return *m_pCurrent;
+  }
+  operator BSTR()
+  {
+    BSTR bstrTemp = NULL ;
+    __try
+    {
+      bstrTemp = SysAllocStringByteLen((char*) m_pBase,
+        (UINT) ((BYTE*)m_pTop - (BYTE*)m_pBase));
+    }
+    __except(Except(GetExceptionInformation()))
+    {
+    }
+    return bstrTemp;
+  }
+  const T& operator[](int nElement) const
+  {
+    if(nElement < 0 || nElement >= m_nMaxElements)
+      _AtlRaiseException((DWORD)EXCEPTION_ARRAY_BOUNDS_EXCEEDED);
+
+    return m_pBase[nElement];
+  }
+  operator T*()
+  {
+    return m_pBase;
+  }
 };
 
 typedef CVirtualBuffer<BYTE> CVirtualBytes;
@@ -5938,58 +6024,58 @@ typedef CVirtualBuffer<BYTE> CVirtualBytes;
 
 inline HRESULT WINAPI AtlDumpIID(REFIID iid, LPCTSTR pszClassName, HRESULT hr)
 {
-        if (atlTraceQI & ATL_TRACE_CATEGORY)
-        {
-                USES_CONVERSION_EX;
-                CRegKey key;
-                TCHAR szName[100];
-                DWORD dwType,dw = sizeof(szName);
+  if (atlTraceQI & ATL_TRACE_CATEGORY)
+  {
+    USES_CONVERSION_EX;
+    CRegKey key;
+    TCHAR szName[100];
+    DWORD dwType,dw = sizeof(szName);
 
-                LPOLESTR pszGUID = NULL;
-                if(FAILED(StringFromCLSID(iid, &pszGUID)))
-                {
-                        return hr;
-                }
-                
-                OutputDebugString(pszClassName);
-                OutputDebugString(_T(" - "));
+    LPOLESTR pszGUID = NULL;
+    if(FAILED(StringFromCLSID(iid, &pszGUID)))
+    {
+      return hr;
+    }
 
-                // Attempt to find it in the interfaces section
-                key.Open(HKEY_CLASSES_ROOT, _T("Interface"), KEY_READ);
-                LPTSTR lpszGUID = OLE2T_EX(pszGUID, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+    OutputDebugString(pszClassName);
+    OutputDebugString(_T(" - "));
+
+    // Attempt to find it in the interfaces section
+    key.Open(HKEY_CLASSES_ROOT, _T("Interface"), KEY_READ);
+    LPTSTR lpszGUID = OLE2T_EX(pszGUID, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
 #ifndef _UNICODE
-                if(lpszGUID == NULL)
-                {
-                        CoTaskMemFree(pszGUID);
-                        return hr;
-                }
+    if(lpszGUID == NULL)
+    {
+      CoTaskMemFree(pszGUID);
+      return hr;
+    }
 #endif
-                if (key.Open(key, lpszGUID, KEY_READ) == S_OK)
-                {
-                        *szName = 0;
-                        RegQueryValueEx(key.m_hKey, (LPTSTR)NULL, NULL, &dwType, (LPBYTE)szName, &dw);
-                        OutputDebugString(szName);
-                        goto cleanup;
-                }
-                // Attempt to find it in the clsid section
-                key.Open(HKEY_CLASSES_ROOT, _T("CLSID"), KEY_READ);
-                if (key.Open(key, lpszGUID, KEY_READ) == S_OK)
-                {
-                        *szName = 0;
-                        RegQueryValueEx(key.m_hKey, (LPTSTR)NULL, NULL, &dwType, (LPBYTE)szName, &dw);
-                        OutputDebugString(_T("(CLSID\?\?\?) "));
-                        OutputDebugString(szName);
-                        goto cleanup;
-                }
-                OutputDebugString(lpszGUID);
-        cleanup:                
-                if (hr != S_OK)
-                        OutputDebugString(_T(" - failed"));
-                OutputDebugString(_T("\n"));
+    if (key.Open(key, lpszGUID, KEY_READ) == S_OK)
+    {
+      *szName = 0;
+      RegQueryValueEx(key.m_hKey, (LPTSTR)NULL, NULL, &dwType, (LPBYTE)szName, &dw);
+      OutputDebugString(szName);
+      goto cleanup;
+    }
+    // Attempt to find it in the clsid section
+    key.Open(HKEY_CLASSES_ROOT, _T("CLSID"), KEY_READ);
+    if (key.Open(key, lpszGUID, KEY_READ) == S_OK)
+    {
+      *szName = 0;
+      RegQueryValueEx(key.m_hKey, (LPTSTR)NULL, NULL, &dwType, (LPBYTE)szName, &dw);
+      OutputDebugString(_T("(CLSID\?\?\?) "));
+      OutputDebugString(szName);
+      goto cleanup;
+    }
+    OutputDebugString(lpszGUID);
+  cleanup:
+    if (hr != S_OK)
+      OutputDebugString(_T(" - failed"));
+    OutputDebugString(_T("\n"));
 
-                CoTaskMemFree(pszGUID);
-        }
-        return hr;
+    CoTaskMemFree(pszGUID);
+  }
+  return hr;
 }
 
 #pragma pack(pop)
@@ -6030,73 +6116,73 @@ namespace ATL
 
 static UINT WINAPI AtlGetDirLen(LPCOLESTR lpszPathName)
 {
-        ATLASSERT(lpszPathName != NULL);
-        
-        if(lpszPathName == NULL)
-                return 0;
-                
-        // always capture the complete file name including extension (if present)
-        LPCOLESTR lpszTemp = lpszPathName;
-        for (LPCOLESTR lpsz = lpszPathName; *lpsz != NULL; )
-        {
-                LPCOLESTR lp = CharNextO(lpsz);
-                // remember last directory/drive separator
-                if (*lpsz == OLESTR('\\') || *lpsz == OLESTR('/') || *lpsz == OLESTR(':'))
-                        lpszTemp = lp;
-                lpsz = lp;
-        }
+  ATLASSERT(lpszPathName != NULL);
 
-        return UINT(lpszTemp-lpszPathName);
+  if(lpszPathName == NULL)
+    return 0;
+
+  // always capture the complete file name including extension (if present)
+  LPCOLESTR lpszTemp = lpszPathName;
+  for (LPCOLESTR lpsz = lpszPathName; *lpsz != NULL; )
+  {
+    LPCOLESTR lp = CharNextO(lpsz);
+    // remember last directory/drive separator
+    if (*lpsz == OLESTR('\\') || *lpsz == OLESTR('/') || *lpsz == OLESTR(':'))
+      lpszTemp = lp;
+    lpsz = lp;
+  }
+
+  return UINT(lpszTemp-lpszPathName);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // QI support
 
 ATLINLINE ATLAPI AtlInternalQueryInterface(void* pThis,
-        const _ATL_INTMAP_ENTRY* pEntries, REFIID iid, void** ppvObject)
+  const _ATL_INTMAP_ENTRY* pEntries, REFIID iid, void** ppvObject)
 {
-        ATLASSERT(pThis != NULL);
-        ATLASSERT(pEntries!= NULL);
-        
-        if(pThis == NULL || pEntries == NULL)
-                return E_INVALIDARG ;
-                
-        // First entry in the com map should be a simple map entry
-        ATLASSERT(pEntries->pFunc == _ATL_SIMPLEMAPENTRY);
-        if (ppvObject == NULL)
-                return E_POINTER;
-        *ppvObject = NULL;
-        if (InlineIsEqualUnknown(iid)) // use first interface
-        {
-                        IUnknown* pUnk = (IUnknown*)((DWORD_PTR)pThis+pEntries->dw);
-                        pUnk->AddRef();
-                        *ppvObject = pUnk;
-                        return S_OK;
-        }
-        while (pEntries->pFunc != NULL)
-        {
-                BOOL bBlind = (pEntries->piid == NULL);
-                if (bBlind || InlineIsEqualGUID(*(pEntries->piid), iid))
-                {
-                        if (pEntries->pFunc == _ATL_SIMPLEMAPENTRY) //offset
-                        {
-                                ATLASSERT(!bBlind);
-                                IUnknown* pUnk = (IUnknown*)((DWORD_PTR)pThis+pEntries->dw);
-                                pUnk->AddRef();
-                                *ppvObject = pUnk;
-                                return S_OK;
-                        }
-                        else //actual function call
-                        {
-                                HRESULT hRes = pEntries->pFunc(pThis,
-                                        iid, ppvObject, pEntries->dw);
-                                if (hRes == S_OK || (!bBlind && FAILED(hRes)))
-                                        return hRes;
-                        }
-                }
-                pEntries++;
-        }
-        return E_NOINTERFACE;
+  ATLASSERT(pThis != NULL);
+  ATLASSERT(pEntries!= NULL);
+
+  if(pThis == NULL || pEntries == NULL)
+    return E_INVALIDARG ;
+
+  // First entry in the com map should be a simple map entry
+  ATLASSERT(pEntries->pFunc == _ATL_SIMPLEMAPENTRY);
+  if (ppvObject == NULL)
+    return E_POINTER;
+  *ppvObject = NULL;
+  if (InlineIsEqualUnknown(iid)) // use first interface
+  {
+      IUnknown* pUnk = (IUnknown*)((DWORD_PTR)pThis+pEntries->dw);
+      pUnk->AddRef();
+      *ppvObject = pUnk;
+      return S_OK;
+  }
+  while (pEntries->pFunc != NULL)
+  {
+    BOOL bBlind = (pEntries->piid == NULL);
+    if (bBlind || InlineIsEqualGUID(*(pEntries->piid), iid))
+    {
+      if (pEntries->pFunc == _ATL_SIMPLEMAPENTRY) //offset
+      {
+        ATLASSERT(!bBlind);
+        IUnknown* pUnk = (IUnknown*)((DWORD_PTR)pThis+pEntries->dw);
+        pUnk->AddRef();
+        *ppvObject = pUnk;
+        return S_OK;
+      }
+      else //actual function call
+      {
+        HRESULT hRes = pEntries->pFunc(pThis,
+          iid, ppvObject, pEntries->dw);
+        if (hRes == S_OK || (!bBlind && FAILED(hRes)))
+          return hRes;
+      }
+    }
+    pEntries++;
+  }
+  return E_NOINTERFACE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -6104,30 +6190,30 @@ ATLINLINE ATLAPI AtlInternalQueryInterface(void* pThis,
 
 ATLINLINE ATLAPI_(IUnknown*) AtlComPtrAssign(IUnknown** pp, IUnknown* lp)
 {
-        if(pp == NULL)
-                return NULL;
-                
-        if (lp != NULL)
-                lp->AddRef();
-        
-        if (*pp)
-                (*pp)->Release();
-        *pp = lp;
-        return lp;
+  if(pp == NULL)
+    return NULL;
+
+  if (lp != NULL)
+    lp->AddRef();
+
+  if (*pp)
+    (*pp)->Release();
+  *pp = lp;
+  return lp;
 }
 
 ATLINLINE ATLAPI_(IUnknown*) AtlComQIPtrAssign(IUnknown** pp, IUnknown* lp, REFIID riid)
 {
-        if(pp == NULL)
-                return NULL;
-                
-        IUnknown* pTemp = *pp;
-        *pp = NULL;
-        if (lp != NULL)
-                lp->QueryInterface(riid, (void**)pp);
-        if (pTemp)
-                pTemp->Release();
-        return *pp;
+  if(pp == NULL)
+    return NULL;
+
+  IUnknown* pTemp = *pp;
+  *pp = NULL;
+  if (lp != NULL)
+    lp->QueryInterface(riid, (void**)pp);
+  if (pTemp)
+    pTemp->Release();
+  return *pp;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -6137,76 +6223,76 @@ ATLINLINE ATLAPI_(IUnknown*) AtlComQIPtrAssign(IUnknown** pp, IUnknown* lp, REFI
 //AtlMarshalPtrInProc
 ATLINLINE ATLAPI AtlFreeMarshalStream(IStream* pStream)
 {
-        if (pStream != NULL)
-        {
-                LARGE_INTEGER l;
-                l.QuadPart = 0;
-                pStream->Seek(l, STREAM_SEEK_SET, NULL);
-                CoReleaseMarshalData(pStream);
-                pStream->Release();
-        }
-        return S_OK;
+  if (pStream != NULL)
+  {
+    LARGE_INTEGER l;
+    l.QuadPart = 0;
+    pStream->Seek(l, STREAM_SEEK_SET, NULL);
+    CoReleaseMarshalData(pStream);
+    pStream->Release();
+  }
+  return S_OK;
 }
 
 ATLINLINE ATLAPI AtlMarshalPtrInProc(IUnknown* pUnk, const IID& iid, IStream** ppStream)
 {
-        _ATL_VALIDATE_OUT_POINTER(ppStream);
-                
-        HRESULT hRes = CreateStreamOnHGlobal(NULL, TRUE, ppStream);
-        if (SUCCEEDED(hRes))
-        {
-                hRes = CoMarshalInterface(*ppStream, iid,
-                        pUnk, MSHCTX_INPROC, NULL, MSHLFLAGS_TABLESTRONG);
-                if (FAILED(hRes))
-                {
-                        (*ppStream)->Release();
-                        *ppStream = NULL;
-                }
-        }
-        return hRes;
+  _ATL_VALIDATE_OUT_POINTER(ppStream);
+
+  HRESULT hRes = CreateStreamOnHGlobal(NULL, TRUE, ppStream);
+  if (SUCCEEDED(hRes))
+  {
+    hRes = CoMarshalInterface(*ppStream, iid,
+      pUnk, MSHCTX_INPROC, NULL, MSHLFLAGS_TABLESTRONG);
+    if (FAILED(hRes))
+    {
+      (*ppStream)->Release();
+      *ppStream = NULL;
+    }
+  }
+  return hRes;
 }
 
 ATLINLINE ATLAPI AtlUnmarshalPtr(IStream* pStream, const IID& iid, IUnknown** ppUnk)
 {
-        _ATL_VALIDATE_OUT_POINTER(ppUnk);
-                
-        *ppUnk = NULL;
-        HRESULT hRes = E_INVALIDARG;
-        if (pStream != NULL)
-        {
-                LARGE_INTEGER l;
-                l.QuadPart = 0;
-                pStream->Seek(l, STREAM_SEEK_SET, NULL);
-                hRes = CoUnmarshalInterface(pStream, iid, (void**)ppUnk);
-        }
-        return hRes;
+  _ATL_VALIDATE_OUT_POINTER(ppUnk);
+
+  *ppUnk = NULL;
+  HRESULT hRes = E_INVALIDARG;
+  if (pStream != NULL)
+  {
+    LARGE_INTEGER l;
+    l.QuadPart = 0;
+    pStream->Seek(l, STREAM_SEEK_SET, NULL);
+    hRes = CoUnmarshalInterface(pStream, iid, (void**)ppUnk);
+  }
+  return hRes;
 }
 
 ATLINLINE ATLAPI_(BOOL) AtlWaitWithMessageLoop(HANDLE hEvent)
 {
-        DWORD dwRet;
-        MSG msg;
+  DWORD dwRet;
+  MSG msg;
 
-        while(1)
-        {
-                dwRet = MsgWaitForMultipleObjects(1, &hEvent, FALSE, INFINITE, QS_ALLINPUT);
+  while(1)
+  {
+    dwRet = MsgWaitForMultipleObjects(1, &hEvent, FALSE, INFINITE, QS_ALLINPUT);
 
-                if (dwRet == WAIT_OBJECT_0)
-                        return TRUE;    // The event was signaled
+    if (dwRet == WAIT_OBJECT_0)
+      return TRUE;    // The event was signaled
 
-                if (dwRet != WAIT_OBJECT_0 + 1)
-                        break;          // Something else happened
+    if (dwRet != WAIT_OBJECT_0 + 1)
+      break;    // Something else happened
 
-                // There is one or more window message available. Dispatch them
-                while(PeekMessage(&msg,NULL,NULL,NULL,PM_REMOVE))
-                {
-                        TranslateMessage(&msg);
-                        DispatchMessage(&msg);
-                        if (WaitForSingleObject(hEvent, 0) == WAIT_OBJECT_0)
-                                return TRUE; // Event is now signaled.
-                }
-        }
-        return FALSE;
+    // There is one or more window message available. Dispatch them
+    while(PeekMessage(&msg,NULL,NULL,NULL,PM_REMOVE))
+    {
+      TranslateMessage(&msg);
+      DispatchMessage(&msg);
+      if (WaitForSingleObject(hEvent, 0) == WAIT_OBJECT_0)
+        return TRUE; // Event is now signaled.
+    }
+  }
+  return FALSE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -6214,82 +6300,82 @@ ATLINLINE ATLAPI_(BOOL) AtlWaitWithMessageLoop(HANDLE hEvent)
 
 ATLINLINE ATLAPI AtlAdvise(IUnknown* pUnkCP, IUnknown* pUnk, const IID& iid, LPDWORD pdw)
 {
-        if(pUnkCP == NULL)
-                return E_INVALIDARG;
-                
-        CComPtr<IConnectionPointContainer> pCPC;
-        CComPtr<IConnectionPoint> pCP;
-        HRESULT hRes = pUnkCP->QueryInterface(IID_IConnectionPointContainer, (void**)&pCPC);
-        if (SUCCEEDED(hRes))
-                hRes = pCPC->FindConnectionPoint(iid, &pCP);
-        if (SUCCEEDED(hRes))
-                hRes = pCP->Advise(pUnk, pdw);
-        return hRes;
+  if(pUnkCP == NULL)
+    return E_INVALIDARG;
+
+  CComPtr<IConnectionPointContainer> pCPC;
+  CComPtr<IConnectionPoint> pCP;
+  HRESULT hRes = pUnkCP->QueryInterface(IID_IConnectionPointContainer, (void**)&pCPC);
+  if (SUCCEEDED(hRes))
+    hRes = pCPC->FindConnectionPoint(iid, &pCP);
+  if (SUCCEEDED(hRes))
+    hRes = pCP->Advise(pUnk, pdw);
+  return hRes;
 }
 
 ATLINLINE ATLAPI AtlUnadvise(IUnknown* pUnkCP, const IID& iid, DWORD dw)
 {
-        if(pUnkCP == NULL)
-                return E_INVALIDARG;
-                
-        CComPtr<IConnectionPointContainer> pCPC;
-        CComPtr<IConnectionPoint> pCP;
-        HRESULT hRes = pUnkCP->QueryInterface(IID_IConnectionPointContainer, (void**)&pCPC);
-        if (SUCCEEDED(hRes))
-                hRes = pCPC->FindConnectionPoint(iid, &pCP);
-        if (SUCCEEDED(hRes))
-                hRes = pCP->Unadvise(dw);
-        return hRes;
+  if(pUnkCP == NULL)
+    return E_INVALIDARG;
+
+  CComPtr<IConnectionPointContainer> pCPC;
+  CComPtr<IConnectionPoint> pCP;
+  HRESULT hRes = pUnkCP->QueryInterface(IID_IConnectionPointContainer, (void**)&pCPC);
+  if (SUCCEEDED(hRes))
+    hRes = pCPC->FindConnectionPoint(iid, &pCP);
+  if (SUCCEEDED(hRes))
+    hRes = pCP->Unadvise(dw);
+  return hRes;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 // IDispatch Error handling
 
 ATLINLINE ATLAPI AtlSetErrorInfo(const CLSID& clsid, LPCOLESTR lpszDesc, DWORD dwHelpID,
-        LPCOLESTR lpszHelpFile, const IID& iid, HRESULT hRes, HINSTANCE hInst)
+  LPCOLESTR lpszHelpFile, const IID& iid, HRESULT hRes, HINSTANCE hInst)
 {
-        USES_CONVERSION_EX;
-        TCHAR szDesc[1024];
-        szDesc[0] = NULL;
-        // For a valid HRESULT the id should be in the range [0x0200, 0xffff]
-        if (IS_INTRESOURCE(lpszDesc)) //id
-        {
-                UINT nID = LOWORD((DWORD_PTR)lpszDesc);
-                ATLASSERT((nID >= 0x0200 && nID <= 0xffff) || hRes != 0);
-                if (LoadString(hInst, nID, szDesc, 1024) == 0)
-                {
-                        ATLASSERT(FALSE);
-                        lstrcpy(szDesc, _T("Unknown Error"));
-                }
-                lpszDesc = T2OLE_EX(szDesc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+  USES_CONVERSION_EX;
+  TCHAR szDesc[1024];
+  szDesc[0] = NULL;
+  // For a valid HRESULT the id should be in the range [0x0200, 0xffff]
+  if (IS_INTRESOURCE(lpszDesc)) //id
+  {
+    UINT nID = LOWORD((DWORD_PTR)lpszDesc);
+    ATLASSERT((nID >= 0x0200 && nID <= 0xffff) || hRes != 0);
+    if (LoadString(hInst, nID, szDesc, 1024) == 0)
+    {
+      ATLASSERT(FALSE);
+      lstrcpy(szDesc, _T("Unknown Error"));
+    }
+    lpszDesc = T2OLE_EX(szDesc, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
 #ifndef _UNICODE
-                if(lpszDesc == NULL) 
-                        return E_OUTOFMEMORY;
-#endif                        
-                if (hRes == 0)
-                        hRes = MAKE_HRESULT(3, FACILITY_ITF, nID);
-        }
+    if(lpszDesc == NULL)
+      return E_OUTOFMEMORY;
+#endif
+    if (hRes == 0)
+      hRes = MAKE_HRESULT(3, FACILITY_ITF, nID);
+  }
 
-        CComPtr<ICreateErrorInfo> pICEI;
-        if (SUCCEEDED(CreateErrorInfo(&pICEI)))
-        {
-                CComPtr<IErrorInfo> pErrorInfo;
-                pICEI->SetGUID(iid);
-                LPOLESTR lpsz;
-                ProgIDFromCLSID(clsid, &lpsz);
-                if (lpsz != NULL)
-                        pICEI->SetSource(lpsz);
-                if (dwHelpID != 0 && lpszHelpFile != NULL)
-                {
-                        pICEI->SetHelpContext(dwHelpID);
-                        pICEI->SetHelpFile(const_cast<LPOLESTR>(lpszHelpFile));
-                }
-                CoTaskMemFree(lpsz);
-                pICEI->SetDescription((LPOLESTR)lpszDesc);
-                if (SUCCEEDED(pICEI->QueryInterface(IID_IErrorInfo, (void**)&pErrorInfo)))
-                        SetErrorInfo(0, pErrorInfo);
-        }
-        return (hRes == 0) ? DISP_E_EXCEPTION : hRes;
+  CComPtr<ICreateErrorInfo> pICEI;
+  if (SUCCEEDED(CreateErrorInfo(&pICEI)))
+  {
+    CComPtr<IErrorInfo> pErrorInfo;
+    pICEI->SetGUID(iid);
+    LPOLESTR lpsz;
+    ProgIDFromCLSID(clsid, &lpsz);
+    if (lpsz != NULL)
+      pICEI->SetSource(lpsz);
+    if (dwHelpID != 0 && lpszHelpFile != NULL)
+    {
+      pICEI->SetHelpContext(dwHelpID);
+      pICEI->SetHelpFile(const_cast<LPOLESTR>(lpszHelpFile));
+    }
+    CoTaskMemFree(lpsz);
+    pICEI->SetDescription((LPOLESTR)lpszDesc);
+    if (SUCCEEDED(pICEI->QueryInterface(IID_IErrorInfo, (void**)&pErrorInfo)))
+      SetErrorInfo(0, pErrorInfo);
+  }
+  return (hRes == 0) ? DISP_E_EXCEPTION : hRes;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -6299,38 +6385,38 @@ struct _ATL_MODULE20
 {
 // Attributes
 public:
-        UINT cbSize;
-        HINSTANCE m_hInst;
-        HINSTANCE m_hInstResource;
-        HINSTANCE m_hInstTypeLib;
-        _ATL_OBJMAP_ENTRY* m_pObjMap;
-        LONG m_nLockCnt;
-        HANDLE m_hHeap;
-        CRITICAL_SECTION m_csTypeInfoHolder;
-        CRITICAL_SECTION m_csWindowCreate;
-        CRITICAL_SECTION m_csObjMap;
+  UINT cbSize;
+  HINSTANCE m_hInst;
+  HINSTANCE m_hInstResource;
+  HINSTANCE m_hInstTypeLib;
+  _ATL_OBJMAP_ENTRY* m_pObjMap;
+  LONG m_nLockCnt;
+  HANDLE m_hHeap;
+  CRITICAL_SECTION m_csTypeInfoHolder;
+  CRITICAL_SECTION m_csWindowCreate;
+  CRITICAL_SECTION m_csObjMap;
 };
 
 typedef _ATL_MODULE _ATL_MODULE30;
 
 struct _ATL_OBJMAP_ENTRY20
 {
-        const CLSID* pclsid;
-        HRESULT (WINAPI *pfnUpdateRegistry)(BOOL bRegister);
-        _ATL_CREATORFUNC* pfnGetClassObject;
-        _ATL_CREATORFUNC* pfnCreateInstance;
-        IUnknown* pCF;
-        DWORD dwRegister;
-        _ATL_DESCRIPTIONFUNC* pfnGetObjectDescription;
+  const CLSID* pclsid;
+  HRESULT (WINAPI *pfnUpdateRegistry)(BOOL bRegister);
+  _ATL_CREATORFUNC* pfnGetClassObject;
+  _ATL_CREATORFUNC* pfnCreateInstance;
+  IUnknown* pCF;
+  DWORD dwRegister;
+  _ATL_DESCRIPTIONFUNC* pfnGetObjectDescription;
 };
 
 typedef _ATL_OBJMAP_ENTRY _ATL_OBJMAP_ENTRY30;
 
 inline _ATL_OBJMAP_ENTRY* _NextObjectMapEntry(_ATL_MODULE* pM, _ATL_OBJMAP_ENTRY* pEntry)
 {
-        if (pM->cbSize == sizeof(_ATL_MODULE20))
-                return (_ATL_OBJMAP_ENTRY*)(((BYTE*)pEntry) + sizeof(_ATL_OBJMAP_ENTRY20));
-        return pEntry+1;
+  if (pM->cbSize == sizeof(_ATL_MODULE20))
+    return (_ATL_OBJMAP_ENTRY*)(((BYTE*)pEntry) + sizeof(_ATL_OBJMAP_ENTRY20));
+  return pEntry+1;
 }
 
 //Although these functions are big, they are only used once in a module
@@ -6338,249 +6424,249 @@ inline _ATL_OBJMAP_ENTRY* _NextObjectMapEntry(_ATL_MODULE* pM, _ATL_OBJMAP_ENTRY
 
 ATLINLINE ATLAPI AtlModuleInit(_ATL_MODULE* pM, _ATL_OBJMAP_ENTRY* p, HINSTANCE h)
 {
-        ATLASSERT(pM != NULL);
-        if (pM == NULL)
-                return E_INVALIDARG;
+  ATLASSERT(pM != NULL);
+  if (pM == NULL)
+    return E_INVALIDARG;
 #ifdef _ATL_DLL_IMPL
-        if ((pM->cbSize != _nAtlModuleVer21Size) && (pM->cbSize != _nAtlModuleVer30Size) &&
-                (pM->cbSize != sizeof(_ATL_MODULE)))
-                return E_INVALIDARG;
+  if ((pM->cbSize != _nAtlModuleVer21Size) && (pM->cbSize != _nAtlModuleVer30Size) &&
+    (pM->cbSize != sizeof(_ATL_MODULE)))
+    return E_INVALIDARG;
 #else
-        ATLASSERT(pM->cbSize == sizeof(_ATL_MODULE));
+  ATLASSERT(pM->cbSize == sizeof(_ATL_MODULE));
 #endif
-        pM->m_pObjMap = p;
-        pM->m_hInst = pM->m_hInstTypeLib = pM->m_hInstResource = h;
-        pM->m_nLockCnt=0L;
-        pM->m_hHeap = NULL;
-        __try {
-            InitializeCriticalSection(&pM->m_csTypeInfoHolder);
-        } __except (GetExceptionCode() == STATUS_NO_MEMORY ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
-            ZeroMemory(&pM->m_csTypeInfoHolder, sizeof(pM->m_csTypeInfoHolder));
-            return STATUS_NO_MEMORY;
-        }
+  pM->m_pObjMap = p;
+  pM->m_hInst = pM->m_hInstTypeLib = pM->m_hInstResource = h;
+  pM->m_nLockCnt=0L;
+  pM->m_hHeap = NULL;
+  __try {
+      InitializeCriticalSection(&pM->m_csTypeInfoHolder);
+  } __except (GetExceptionCode() == STATUS_NO_MEMORY ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
+      ZeroMemory(&pM->m_csTypeInfoHolder, sizeof(pM->m_csTypeInfoHolder));
+      return STATUS_NO_MEMORY;
+  }
 
-        __try {
-            InitializeCriticalSection(&pM->m_csWindowCreate);
-        } __except (GetExceptionCode() == STATUS_NO_MEMORY ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
-            DeleteCriticalSection(&pM->m_csTypeInfoHolder);
-            ZeroMemory(&pM->m_csWindowCreate, sizeof(pM->m_csWindowCreate));
-            ZeroMemory(&pM->m_csTypeInfoHolder, sizeof(pM->m_csTypeInfoHolder));
-            return STATUS_NO_MEMORY;
-        }
+  __try {
+      InitializeCriticalSection(&pM->m_csWindowCreate);
+  } __except (GetExceptionCode() == STATUS_NO_MEMORY ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
+      DeleteCriticalSection(&pM->m_csTypeInfoHolder);
+      ZeroMemory(&pM->m_csWindowCreate, sizeof(pM->m_csWindowCreate));
+      ZeroMemory(&pM->m_csTypeInfoHolder, sizeof(pM->m_csTypeInfoHolder));
+      return STATUS_NO_MEMORY;
+  }
 
-        __try {
-            InitializeCriticalSection(&pM->m_csObjMap);
-        } __except (GetExceptionCode() == STATUS_NO_MEMORY ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
-            DeleteCriticalSection(&pM->m_csWindowCreate);
-            DeleteCriticalSection(&pM->m_csTypeInfoHolder);
-            ZeroMemory(&pM->m_csObjMap, sizeof(pM->m_csObjMap));
-            ZeroMemory(&pM->m_csWindowCreate, sizeof(pM->m_csWindowCreate));
-            ZeroMemory(&pM->m_csTypeInfoHolder, sizeof(pM->m_csTypeInfoHolder));
-            return STATUS_NO_MEMORY;
-        }
+  __try {
+      InitializeCriticalSection(&pM->m_csObjMap);
+  } __except (GetExceptionCode() == STATUS_NO_MEMORY ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH) {
+      DeleteCriticalSection(&pM->m_csWindowCreate);
+      DeleteCriticalSection(&pM->m_csTypeInfoHolder);
+      ZeroMemory(&pM->m_csObjMap, sizeof(pM->m_csObjMap));
+      ZeroMemory(&pM->m_csWindowCreate, sizeof(pM->m_csWindowCreate));
+      ZeroMemory(&pM->m_csTypeInfoHolder, sizeof(pM->m_csTypeInfoHolder));
+      return STATUS_NO_MEMORY;
+  }
 #ifdef _ATL_DLL_IMPL
-        if (pM->cbSize > _nAtlModuleVer21Size)
+  if (pM->cbSize > _nAtlModuleVer21Size)
 #endif
-        {
-                pM->m_pCreateWndList = NULL;
-                pM->m_bDestroyHeap = true;
-                pM->m_dwHeaps = 0;
-                pM->m_nHeap = 0;
-                pM->m_phHeaps = NULL;
-                pM->m_pTermFuncs = NULL;
-                if (pM->m_pObjMap != NULL)
-                {
-                        _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
-                        while (pEntry->pclsid != NULL)
-                        {
-                                pEntry->pfnObjectMain(true); //initialize class resources
-                                pEntry = _NextObjectMapEntry(pM, pEntry);
-                        }
-                }
-        }
+  {
+    pM->m_pCreateWndList = NULL;
+    pM->m_bDestroyHeap = true;
+    pM->m_dwHeaps = 0;
+    pM->m_nHeap = 0;
+    pM->m_phHeaps = NULL;
+    pM->m_pTermFuncs = NULL;
+    if (pM->m_pObjMap != NULL)
+    {
+      _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
+      while (pEntry->pclsid != NULL)
+      {
+        pEntry->pfnObjectMain(true); //initialize class resources
+        pEntry = _NextObjectMapEntry(pM, pEntry);
+      }
+    }
+  }
 #ifdef _ATL_DLL_IMPL
-        if (pM->cbSize > _nAtlModuleVer30Size)
+  if (pM->cbSize > _nAtlModuleVer30Size)
 #endif
-        {
+  {
 #if _ATL_VER > 0x0300
-                pM->m_nNextWindowID = 1;
+    pM->m_nNextWindowID = 1;
 #endif
-        }
+  }
 
-        return S_OK;
+  return S_OK;
 }
 
 ATLINLINE ATLAPI AtlModuleRegisterClassObjects(_ATL_MODULE* pM, DWORD dwClsContext, DWORD dwFlags)
 {
-        ATLASSERT(pM != NULL);
-        if (pM == NULL)
-                return E_INVALIDARG;
-        ATLASSERT(pM->m_pObjMap != NULL);
-        if(pM->m_pObjMap == NULL)
-                return S_OK;
-                
-        _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
-        HRESULT hRes = S_OK;
-        while (pEntry->pclsid != NULL && hRes == S_OK)
-        {
-                hRes = pEntry->RegisterClassObject(dwClsContext, dwFlags);
-                pEntry = _NextObjectMapEntry(pM, pEntry);
-        }
+  ATLASSERT(pM != NULL);
+  if (pM == NULL)
+    return E_INVALIDARG;
+  ATLASSERT(pM->m_pObjMap != NULL);
+  if(pM->m_pObjMap == NULL)
+    return S_OK;
 
-        return hRes;
+  _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
+  HRESULT hRes = S_OK;
+  while (pEntry->pclsid != NULL && hRes == S_OK)
+  {
+    hRes = pEntry->RegisterClassObject(dwClsContext, dwFlags);
+    pEntry = _NextObjectMapEntry(pM, pEntry);
+  }
+
+  return hRes;
 }
 
 ATLINLINE ATLAPI AtlModuleRevokeClassObjects(_ATL_MODULE* pM)
 {
-        ATLASSERT(pM != NULL);
-        if (pM == NULL)
-                return E_INVALIDARG;
-        ATLASSERT(pM->m_pObjMap != NULL);
-        if(pM->m_pObjMap == NULL)
-                return S_OK;
-                
-        _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
-        HRESULT hRes = S_OK;
-        while (pEntry->pclsid != NULL && hRes == S_OK)
-        {
-                hRes = pEntry->RevokeClassObject();
-                pEntry = _NextObjectMapEntry(pM, pEntry);
-        }
+  ATLASSERT(pM != NULL);
+  if (pM == NULL)
+    return E_INVALIDARG;
+  ATLASSERT(pM->m_pObjMap != NULL);
+  if(pM->m_pObjMap == NULL)
+    return S_OK;
 
-        return hRes;
+  _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
+  HRESULT hRes = S_OK;
+  while (pEntry->pclsid != NULL && hRes == S_OK)
+  {
+    hRes = pEntry->RevokeClassObject();
+    pEntry = _NextObjectMapEntry(pM, pEntry);
+  }
+
+  return hRes;
 }
 
 ATLINLINE ATLAPI AtlModuleGetClassObject(_ATL_MODULE* pM, REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
-        ATLASSERT(pM != NULL);
-        if (pM == NULL)
-                return E_INVALIDARG;
-        ATLASSERT(pM->m_pObjMap != NULL);
+  ATLASSERT(pM != NULL);
+  if (pM == NULL)
+    return E_INVALIDARG;
+  ATLASSERT(pM->m_pObjMap != NULL);
 
-        if(pM->m_pObjMap == NULL)
-                return CLASS_E_CLASSNOTAVAILABLE;
-                
-        _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
-        HRESULT hRes = S_OK;
-        if (ppv == NULL)
-                return E_POINTER;
-        *ppv = NULL;
+  if(pM->m_pObjMap == NULL)
+    return CLASS_E_CLASSNOTAVAILABLE;
 
-        while (pEntry->pclsid != NULL)
+  _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
+  HRESULT hRes = S_OK;
+  if (ppv == NULL)
+    return E_POINTER;
+  *ppv = NULL;
+
+  while (pEntry->pclsid != NULL)
+  {
+    if ((pEntry->pfnGetClassObject != NULL) && InlineIsEqualGUID(rclsid, *pEntry->pclsid))
+    {
+      if (pEntry->pCF == NULL)
+      {
+        EnterCriticalSection(&pM->m_csObjMap);
+        __try
         {
-                if ((pEntry->pfnGetClassObject != NULL) && InlineIsEqualGUID(rclsid, *pEntry->pclsid))
-                {
-                        if (pEntry->pCF == NULL)
-                        {
-                                EnterCriticalSection(&pM->m_csObjMap);
-                                __try
-                                {
-                                        if (pEntry->pCF == NULL)
-                                                hRes = pEntry->pfnGetClassObject(pEntry->pfnCreateInstance, IID_IUnknown, (LPVOID*)&pEntry->pCF);
-                                }
-                                __finally
-                                {
-                                        LeaveCriticalSection(&pM->m_csObjMap);
-                                }
-                        }
-                        if (pEntry->pCF != NULL)
-                                hRes = pEntry->pCF->QueryInterface(riid, ppv);
-                        break;
-                }
-                pEntry = _NextObjectMapEntry(pM, pEntry);
+          if (pEntry->pCF == NULL)
+            hRes = pEntry->pfnGetClassObject(pEntry->pfnCreateInstance, IID_IUnknown, (LPVOID*)&pEntry->pCF);
         }
+        __finally
+        {
+          LeaveCriticalSection(&pM->m_csObjMap);
+        }
+      }
+      if (pEntry->pCF != NULL)
+        hRes = pEntry->pCF->QueryInterface(riid, ppv);
+      break;
+    }
+    pEntry = _NextObjectMapEntry(pM, pEntry);
+  }
 
-        if (*ppv == NULL && hRes == S_OK)
-                hRes = CLASS_E_CLASSNOTAVAILABLE;
-        return hRes;
+  if (*ppv == NULL && hRes == S_OK)
+    hRes = CLASS_E_CLASSNOTAVAILABLE;
+  return hRes;
 }
 
 ATLINLINE ATLAPI AtlModuleTerm(_ATL_MODULE* pM)
 {
-        ATLASSERT(pM != NULL);
-        if (pM == NULL)
-                return E_INVALIDARG;
-        ATLASSERT(pM->m_hInst != NULL);
-        if (pM->m_pObjMap != NULL)
-        {
-                _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
-                while (pEntry->pclsid != NULL)
-                {
-                        if (pEntry->pCF != NULL)
-                                pEntry->pCF->Release();
-                        pEntry->pCF = NULL;
+  ATLASSERT(pM != NULL);
+  if (pM == NULL)
+    return E_INVALIDARG;
+  ATLASSERT(pM->m_hInst != NULL);
+  if (pM->m_pObjMap != NULL)
+  {
+    _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
+    while (pEntry->pclsid != NULL)
+    {
+      if (pEntry->pCF != NULL)
+        pEntry->pCF->Release();
+      pEntry->pCF = NULL;
 #ifdef _ATL_DLL_IMPL
-                        if (pM->cbSize > _nAtlModuleVer21Size)
+      if (pM->cbSize > _nAtlModuleVer21Size)
 #endif
-                                pEntry->pfnObjectMain(false); //cleanup class resources
-                        pEntry = _NextObjectMapEntry(pM, pEntry);
-                }
-        }
-        CRITICAL_SECTION csNull = {0};
+        pEntry->pfnObjectMain(false); //cleanup class resources
+      pEntry = _NextObjectMapEntry(pM, pEntry);
+    }
+  }
+  CRITICAL_SECTION csNull = {0};
 
-        if (memcmp(&pM->m_csTypeInfoHolder, &csNull, sizeof(csNull))) {
-            DeleteCriticalSection(&pM->m_csTypeInfoHolder);
-        }
+  if (memcmp(&pM->m_csTypeInfoHolder, &csNull, sizeof(csNull))) {
+      DeleteCriticalSection(&pM->m_csTypeInfoHolder);
+  }
 
-        if (memcmp(&pM->m_csWindowCreate, &csNull, sizeof(csNull))) {
-            DeleteCriticalSection(&pM->m_csWindowCreate);
-        }
+  if (memcmp(&pM->m_csWindowCreate, &csNull, sizeof(csNull))) {
+      DeleteCriticalSection(&pM->m_csWindowCreate);
+  }
 
-        if (memcmp(&pM->m_csObjMap, &csNull, sizeof(csNull))) {
-            DeleteCriticalSection(&pM->m_csObjMap);
-        }
+  if (memcmp(&pM->m_csObjMap, &csNull, sizeof(csNull))) {
+      DeleteCriticalSection(&pM->m_csObjMap);
+  }
 
 #ifdef _ATL_DLL_IMPL
-        if (pM->cbSize > _nAtlModuleVer21Size)
+  if (pM->cbSize > _nAtlModuleVer21Size)
 #endif
-        {
-                _ATL_TERMFUNC_ELEM* pElem = pM->m_pTermFuncs;
-                _ATL_TERMFUNC_ELEM* pNext = NULL;
-                while (pElem != NULL)
-                {
-                        pElem->pFunc(pElem->dw);
-                        pNext = pElem->pNext;
-                        delete pElem;
-                        pElem = pNext;
-                }
-                if (pM->m_hHeap != NULL && pM->m_bDestroyHeap)
-                {
+  {
+    _ATL_TERMFUNC_ELEM* pElem = pM->m_pTermFuncs;
+    _ATL_TERMFUNC_ELEM* pNext = NULL; KBCCDEF(pNext);
+    while (pElem != NULL)
+    {
+      pElem->pFunc(pElem->dw);
+      pNext = pElem->pNext;
+      delete pElem;
+      pElem = pNext;
+    }
+    if (pM->m_hHeap != NULL && pM->m_bDestroyHeap)
+    {
 #ifndef _ATL_NO_MP_HEAP
-                        if (pM->m_phHeaps != NULL)
-                        {
-                                for (DWORD i = 0; i <= pM->m_dwHeaps; i++)
-                                {
-                                        if (pM->m_phHeaps[i] != NULL)
-                                                HeapDestroy(pM->m_phHeaps[i]);
-                                }
-                        }
-#endif
-                        HeapDestroy(pM->m_hHeap);
-                }
+      if (pM->m_phHeaps != NULL)
+      {
+        for (DWORD i = 0; i <= pM->m_dwHeaps; i++)
+        {
+          if (pM->m_phHeaps[i] != NULL)
+            HeapDestroy(pM->m_phHeaps[i]);
         }
-        return S_OK;
+      }
+#endif
+      HeapDestroy(pM->m_hHeap);
+    }
+  }
+  return S_OK;
 }
 
 ATLINLINE ATLAPI AtlModuleAddTermFunc(_ATL_MODULE* pM, _ATL_TERMFUNC* pFunc, DWORD_PTR dw)
 {
-        if (pM == NULL)
-                return E_INVALIDARG;
-                
-        HRESULT hr = S_OK;
-        _ATL_TERMFUNC_ELEM* pNew = NULL;
-        ATLTRY(pNew = new _ATL_TERMFUNC_ELEM);
-        if (pNew == NULL)
-                hr = E_OUTOFMEMORY;
-        else
-        {
-                pNew->pFunc = pFunc;
-                pNew->dw = dw;
-                EnterCriticalSection(&pM->m_csStaticDataInit);
-                pNew->pNext = pM->m_pTermFuncs;
-                pM->m_pTermFuncs = pNew;
-                LeaveCriticalSection(&pM->m_csStaticDataInit);
-        }
-        return hr;
+  if (pM == NULL)
+    return E_INVALIDARG;
+
+  HRESULT hr = S_OK;
+  _ATL_TERMFUNC_ELEM* pNew = NULL; KBCCDEF(pNew);
+  ATLTRY(pNew = new _ATL_TERMFUNC_ELEM);
+  if (pNew == NULL)
+    hr = E_OUTOFMEMORY;
+  else
+  {
+    pNew->pFunc = pFunc;
+    pNew->dw = dw;
+    EnterCriticalSection(&pM->m_csStaticDataInit);
+    pNew->pNext = pM->m_pTermFuncs;
+    pM->m_pTermFuncs = pNew;
+    LeaveCriticalSection(&pM->m_csStaticDataInit);
+  }
+  return hr;
 }
 
 ATLINLINE ATLAPI AtlRegisterClassCategoriesHelper( REFCLSID clsid,
@@ -6593,58 +6679,58 @@ ATLINLINE ATLAPI AtlRegisterClassCategoriesHelper( REFCLSID clsid,
 
    if( pCatMap == NULL )
    {
-          return( S_OK );
+    return( S_OK );
    }
 
    hResult = CoCreateInstance( CLSID_StdComponentCategoriesMgr, NULL,
-          CLSCTX_INPROC_SERVER, IID_ICatRegister, (void**)&pCatRegister );
+    CLSCTX_INPROC_SERVER, IID_ICatRegister, (void**)&pCatRegister );
    if( FAILED( hResult ) )
    {
-          // Since not all systems have the category manager installed, we'll allow
-          // the registration to succeed even though we didn't register our
-          // categories.  If you really want to register categories on a system
-          // without the category manager, you can either manually add the
-          // appropriate entries to your registry script (.rgs), or you can
-          // redistribute comcat.dll.
-          return( S_OK );
+    // Since not all systems have the category manager installed, we'll allow
+    // the registration to succeed even though we didn't register our
+    // categories.  If you really want to register categories on a system
+    // without the category manager, you can either manually add the
+    // appropriate entries to your registry script (.rgs), or you can
+    // redistribute comcat.dll.
+    return( S_OK );
    }
 
-   hResult = S_OK;
+   hResult = S_OK; KBCCDEF(hResult);
    pEntry = pCatMap;
    while( pEntry->iType != _ATL_CATMAP_ENTRY_END )
    {
-          catid = *pEntry->pcatid;
-          if( bRegister )
-          {
-                 if( pEntry->iType == _ATL_CATMAP_ENTRY_IMPLEMENTED )
-                 {
-                        hResult = pCatRegister->RegisterClassImplCategories( clsid, 1,
-                           &catid );
-                 }
-                 else
-                 {
-                        ATLASSERT( pEntry->iType == _ATL_CATMAP_ENTRY_REQUIRED );
-                        hResult = pCatRegister->RegisterClassReqCategories( clsid, 1,
-                           &catid );
-                 }
-                 if( FAILED( hResult ) )
-                 {
-                        return( hResult );
-                 }
-          }
-          else
-          {
-                 if( pEntry->iType == _ATL_CATMAP_ENTRY_IMPLEMENTED )
-                 {
-                        pCatRegister->UnRegisterClassImplCategories( clsid, 1, &catid );
-                 }
-                 else
-                 {
-                        ATLASSERT( pEntry->iType == _ATL_CATMAP_ENTRY_REQUIRED );
-                        pCatRegister->UnRegisterClassReqCategories( clsid, 1, &catid );
-                 }
-          }
-          pEntry++;
+    catid = *pEntry->pcatid;
+    if( bRegister )
+    {
+     if( pEntry->iType == _ATL_CATMAP_ENTRY_IMPLEMENTED )
+     {
+      hResult = pCatRegister->RegisterClassImplCategories( clsid, 1,
+         &catid );
+     }
+     else
+     {
+      ATLASSERT( pEntry->iType == _ATL_CATMAP_ENTRY_REQUIRED );
+      hResult = pCatRegister->RegisterClassReqCategories( clsid, 1,
+         &catid );
+     }
+     if( FAILED( hResult ) )
+     {
+      return( hResult );
+     }
+    }
+    else
+    {
+     if( pEntry->iType == _ATL_CATMAP_ENTRY_IMPLEMENTED )
+     {
+      pCatRegister->UnRegisterClassImplCategories( clsid, 1, &catid );
+     }
+     else
+     {
+      ATLASSERT( pEntry->iType == _ATL_CATMAP_ENTRY_REQUIRED );
+      pCatRegister->UnRegisterClassReqCategories( clsid, 1, &catid );
+     }
+    }
+    pEntry++;
    }
 
    return( S_OK );
@@ -6652,166 +6738,166 @@ ATLINLINE ATLAPI AtlRegisterClassCategoriesHelper( REFCLSID clsid,
 
 ATLINLINE ATLAPI AtlModuleRegisterServer(_ATL_MODULE* pM, BOOL bRegTypeLib, const CLSID* pCLSID)
 {
-        ATLASSERT(pM != NULL);
-        if (pM == NULL)
-                return E_INVALIDARG;
+  ATLASSERT(pM != NULL);
+  if (pM == NULL)
+    return E_INVALIDARG;
 
-        ATLASSERT(pM->m_hInst != NULL);
-        ATLASSERT(pM->m_pObjMap != NULL);
+  ATLASSERT(pM->m_hInst != NULL);
+  ATLASSERT(pM->m_pObjMap != NULL);
 
-        if(pM->m_pObjMap == NULL)
-                return S_OK;
-                
-        _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
-        HRESULT hRes = S_OK;
-        for (;pEntry->pclsid != NULL; pEntry = _NextObjectMapEntry(pM, pEntry))
-        {
-                if (pCLSID == NULL)
-                {
-                        if (pEntry->pfnGetObjectDescription != NULL &&
-                                pEntry->pfnGetObjectDescription() != NULL)
-                                        continue;
-                }
-                else
-                {
-                        if (!IsEqualGUID(*pCLSID, *pEntry->pclsid))
-                                continue;
-                }
-                hRes = pEntry->pfnUpdateRegistry(TRUE);
-                if (FAILED(hRes))
-                        break;
-                if (pM->cbSize == sizeof(_ATL_MODULE))
-                {
-                        hRes = AtlRegisterClassCategoriesHelper( *pEntry->pclsid,
-                                pEntry->pfnGetCategoryMap(), TRUE );
-                        if (FAILED(hRes))
-                                break;
-                }
-        }
-        if (SUCCEEDED(hRes) && bRegTypeLib)
-                hRes = AtlModuleRegisterTypeLib(pM, 0);
-        return hRes;
+  if(pM->m_pObjMap == NULL)
+    return S_OK;
+
+  _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
+  HRESULT hRes = S_OK;
+  for (;pEntry->pclsid != NULL; pEntry = _NextObjectMapEntry(pM, pEntry))
+  {
+    if (pCLSID == NULL)
+    {
+      if (pEntry->pfnGetObjectDescription != NULL &&
+        pEntry->pfnGetObjectDescription() != NULL)
+          continue;
+    }
+    else
+    {
+      if (!IsEqualGUID(*pCLSID, *pEntry->pclsid))
+        continue;
+    }
+    hRes = pEntry->pfnUpdateRegistry(TRUE);
+    if (FAILED(hRes))
+      break;
+    if (pM->cbSize == sizeof(_ATL_MODULE))
+    {
+      hRes = AtlRegisterClassCategoriesHelper( *pEntry->pclsid,
+        pEntry->pfnGetCategoryMap(), TRUE );
+      if (FAILED(hRes))
+        break;
+    }
+  }
+  if (SUCCEEDED(hRes) && bRegTypeLib)
+    hRes = AtlModuleRegisterTypeLib(pM, 0);
+  return hRes;
 }
 
 ATLINLINE ATLAPI AtlModuleUnregisterServerEx(_ATL_MODULE* pM, BOOL bUnRegTypeLib, const CLSID* pCLSID)
 {
-        ATLASSERT(pM != NULL);
-        if (pM == NULL)
-                return E_INVALIDARG;
-        ATLASSERT(pM->m_hInst != NULL);
-        ATLASSERT(pM->m_pObjMap != NULL);
-        
-        if(pM->m_pObjMap == NULL)
-                return S_OK;
-                
-        _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
-        for (;pEntry->pclsid != NULL; pEntry = _NextObjectMapEntry(pM, pEntry))
-        {
-                if (pCLSID == NULL)
-                {
-                        if (pEntry->pfnGetObjectDescription != NULL
-                                && pEntry->pfnGetObjectDescription() != NULL)
-                                continue;
-                }
-                else
-                {
-                        if (!IsEqualGUID(*pCLSID, *pEntry->pclsid))
-                                continue;
-                }
-                pEntry->pfnUpdateRegistry(FALSE); //unregister
-                if (pM->cbSize == sizeof(_ATL_MODULE) && pEntry->pfnGetCategoryMap != NULL)
-                        AtlRegisterClassCategoriesHelper( *pEntry->pclsid,
-                                pEntry->pfnGetCategoryMap(), FALSE );
-        }
-        if (bUnRegTypeLib)
-                AtlModuleUnRegisterTypeLib(pM, 0);
-        return S_OK;
+  ATLASSERT(pM != NULL);
+  if (pM == NULL)
+    return E_INVALIDARG;
+  ATLASSERT(pM->m_hInst != NULL);
+  ATLASSERT(pM->m_pObjMap != NULL);
+
+  if(pM->m_pObjMap == NULL)
+    return S_OK;
+
+  _ATL_OBJMAP_ENTRY* pEntry = pM->m_pObjMap;
+  for (;pEntry->pclsid != NULL; pEntry = _NextObjectMapEntry(pM, pEntry))
+  {
+    if (pCLSID == NULL)
+    {
+      if (pEntry->pfnGetObjectDescription != NULL
+        && pEntry->pfnGetObjectDescription() != NULL)
+        continue;
+    }
+    else
+    {
+      if (!IsEqualGUID(*pCLSID, *pEntry->pclsid))
+        continue;
+    }
+    pEntry->pfnUpdateRegistry(FALSE); //unregister
+    if (pM->cbSize == sizeof(_ATL_MODULE) && pEntry->pfnGetCategoryMap != NULL)
+      AtlRegisterClassCategoriesHelper( *pEntry->pclsid,
+        pEntry->pfnGetCategoryMap(), FALSE );
+  }
+  if (bUnRegTypeLib)
+    AtlModuleUnRegisterTypeLib(pM, 0);
+  return S_OK;
 }
 
 ATLINLINE ATLAPI AtlModuleUnregisterServer(_ATL_MODULE* pM, const CLSID* pCLSID)
 {
-        return AtlModuleUnregisterServerEx(pM, FALSE, pCLSID);
+  return AtlModuleUnregisterServerEx(pM, FALSE, pCLSID);
 }
 
 ATLINLINE ATLAPI AtlModuleUpdateRegistryFromResourceD(_ATL_MODULE* pM, LPCOLESTR lpszRes,
-        BOOL bRegister, struct _ATL_REGMAP_ENTRY* pMapEntries, IRegistrar* pReg)
+  BOOL bRegister, struct _ATL_REGMAP_ENTRY* pMapEntries, IRegistrar* pReg)
 {
-        USES_CONVERSION_EX;
-        ATLASSERT(pM != NULL);
-        
-        if(pM == NULL)
-                return E_INVALIDARG;
-                
-        HRESULT hRes = S_OK;
-        CComPtr<IRegistrar> p;
-        if (pReg != NULL)
-                p = pReg;
-        else
-        {
-                hRes = CoCreateInstance(CLSID_Registrar, NULL,
-                        CLSCTX_INPROC_SERVER, IID_IRegistrar, (void**)&p);
-        }
-        
-        if (SUCCEEDED(hRes))
-        {
-                TCHAR szModule[_MAX_PATH+1] = {0};
+  USES_CONVERSION_EX;
+  ATLASSERT(pM != NULL);
 
-                // If the ModuleFileName's length is equal or greater than the 3rd parameter
-                // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
-                // if neccessary), but doesn't null terminate it. It returns the same value as 
-                // the 3rd parameter passed. So if the return value is the same as the 3rd param
-                // then you have a non null terminated buffer (which may or may not be truncated)
-                int ret = GetModuleFileName(pM->m_hInst, szModule, _MAX_PATH);
+  if(pM == NULL)
+    return E_INVALIDARG;
 
-        if(ret == _MAX_PATH)
-                return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
-        
-        if(ret == 0)
-                return AtlHresultFromLastError();
+  HRESULT hRes = S_OK;
+  CComPtr<IRegistrar> p;
+  if (pReg != NULL)
+    p = pReg;
+  else
+  {
+    hRes = CoCreateInstance(CLSID_Registrar, NULL,
+      CLSCTX_INPROC_SERVER, IID_IRegistrar, (void**)&p);
+  }
 
-                LPOLESTR pszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+  if (SUCCEEDED(hRes))
+  {
+    TCHAR szModule[_MAX_PATH+1] = {0};
+
+    // If the ModuleFileName's length is equal or greater than the 3rd parameter
+    // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
+    // if neccessary), but doesn't null terminate it. It returns the same value as
+    // the 3rd parameter passed. So if the return value is the same as the 3rd param
+    // then you have a non null terminated buffer (which may or may not be truncated)
+    int ret = GetModuleFileName(pM->m_hInst, szModule, _MAX_PATH);
+
+  if(ret == _MAX_PATH)
+    return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
+
+  if(ret == 0)
+    return AtlHresultFromLastError();
+
+    LPOLESTR pszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
 #ifndef _UNICODE
-                if(pszModule == NULL) 
-                        return E_OUTOFMEMORY;
+    if(pszModule == NULL)
+      return E_OUTOFMEMORY;
 #endif
-                
-                // Buffer Size is Multiplied by 2 because we are calling ReplaceSingleQuote
-                OLECHAR pszModuleQuote[(_MAX_PATH + _ATL_QUOTES_SPACE)*2];
-                CComModule::ReplaceSingleQuote(pszModuleQuote, pszModule);
-                
-                hRes = p->AddReplacement(OLESTR("Module"), pszModuleQuote);
-                if(FAILED(hRes))
-                        return hRes;
 
-                if (NULL != pMapEntries)
-                {
-                        while (NULL != pMapEntries->szKey)
-                        {
-                                ATLASSERT(NULL != pMapEntries->szData);
-                                hRes = p->AddReplacement((LPOLESTR)pMapEntries->szKey, (LPOLESTR)pMapEntries->szData);
-                                if(FAILED(hRes))
-                                        return hRes;
-                                pMapEntries++;
-                        }
-                }
-                LPCOLESTR szType = OLESTR("REGISTRY");
-                if (DWORD_PTR(lpszRes)<=0xffff)
-                {
-                        if (bRegister)
-                                hRes = p->ResourceRegister(pszModule, ((UINT)LOWORD((DWORD_PTR)lpszRes)), szType);
-                        else
-                                hRes = p->ResourceUnregister(pszModule, ((UINT)LOWORD((DWORD_PTR)lpszRes)), szType);
-                }
-                else
-                {
-                        if (bRegister)
-                                hRes = p->ResourceRegisterSz(pszModule, lpszRes, szType);
-                        else
-                                hRes = p->ResourceUnregisterSz(pszModule, lpszRes, szType);
-                }
+    // Buffer Size is Multiplied by 2 because we are calling ReplaceSingleQuote
+    OLECHAR pszModuleQuote[(_MAX_PATH + _ATL_QUOTES_SPACE)*2];
+    CComModule::ReplaceSingleQuote(pszModuleQuote, pszModule);
 
-        }
-        return hRes;
+    hRes = p->AddReplacement(OLESTR("Module"), pszModuleQuote);
+    if(FAILED(hRes))
+      return hRes;
+
+    if (NULL != pMapEntries)
+    {
+      while (NULL != pMapEntries->szKey)
+      {
+        ATLASSERT(NULL != pMapEntries->szData);
+        hRes = p->AddReplacement((LPOLESTR)pMapEntries->szKey, (LPOLESTR)pMapEntries->szData);
+        if(FAILED(hRes))
+          return hRes;
+        pMapEntries++;
+      }
+    }
+    LPCOLESTR szType = OLESTR("REGISTRY");
+    if (DWORD_PTR(lpszRes)<=0xffff)
+    {
+      if (bRegister)
+        hRes = p->ResourceRegister(pszModule, ((UINT)LOWORD((DWORD_PTR)lpszRes)), szType);
+      else
+        hRes = p->ResourceUnregister(pszModule, ((UINT)LOWORD((DWORD_PTR)lpszRes)), szType);
+    }
+    else
+    {
+      if (bRegister)
+        hRes = p->ResourceRegisterSz(pszModule, lpszRes, szType);
+      else
+        hRes = p->ResourceUnregisterSz(pszModule, lpszRes, szType);
+    }
+
+  }
+  return hRes;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -6819,7 +6905,7 @@ ATLINLINE ATLAPI AtlModuleUpdateRegistryFromResourceD(_ATL_MODULE* pM, LPCOLESTR
 
 // The argument to LoadTypeLib can be in the form
 // ITypeLib *ptlib;
-// LoadTypeLib("C:\\Temp\\EXE\\proj1.EXE\\3", &ptlib) 
+// LoadTypeLib("C:\\Temp\\EXE\\proj1.EXE\\3", &ptlib)
 // This statement loads the type library resource 3 from the file proj1.exe file.
 // The #define __ATL_MAX_PATH_PLUS_INDEX takes care of this
 
@@ -6827,182 +6913,182 @@ ATLINLINE ATLAPI AtlModuleUpdateRegistryFromResourceD(_ATL_MODULE* pM, LPCOLESTR
 
 ATLINLINE ATLAPI AtlModuleLoadTypeLib(_ATL_MODULE* pM, LPCOLESTR lpszIndex, BSTR* pbstrPath, ITypeLib** ppTypeLib)
 {
-        _ATL_VALIDATE_OUT_POINTER(pbstrPath);
-        _ATL_VALIDATE_OUT_POINTER(ppTypeLib);
-                
-        ATLASSERT(pM != NULL);
-        
-        if(pM == NULL)
-                return E_INVALIDARG;
-                
-        USES_CONVERSION_EX;
-        ATLASSERT(pM->m_hInstTypeLib != NULL);
-        TCHAR szModule[_ATL_MAX_PATH_PLUS_INDEX];
-        
-        // If the ModuleFileName's length is equal or greater than the 3rd parameter
-        // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
-        // if neccessary), but doesn't null terminate it. It returns the same value as 
-        // the 3rd parameter passed. So if the return value is the same as the 3rd param
-        // then you have a non null terminated buffer (which may or may not be truncated)
-        int ret = GetModuleFileName(pM->m_hInstTypeLib, szModule, _MAX_PATH);
-        
-        if(ret == _MAX_PATH)
-                return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
-        
-        if(ret == 0)
-                return AtlHresultFromLastError();
-        
-        if (lpszIndex != NULL)
-        {
-                LPCTSTR lpcszIndex = OLE2CT_EX(lpszIndex, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
-#ifndef _UNICODE
-                if(lpcszIndex == NULL) 
-                        return E_OUTOFMEMORY;
-#endif                
-                int nIndexLen = lstrlen(lpcszIndex);
-                
-                if( ret + nIndexLen >= _ATL_MAX_PATH_PLUS_INDEX )
-                        return E_FAIL;
-                lstrcpy(szModule + ret,lpcszIndex);
-        }
-        
-        LPOLESTR lpszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
-#ifndef _UNICODE
-        if(lpszModule == NULL) 
-                return E_OUTOFMEMORY;
-#endif        
-        HRESULT hr = LoadTypeLib(lpszModule, ppTypeLib);
-        if (!SUCCEEDED(hr))
-        {
-                // typelib not in module, try <module>.tlb instead
-                LPTSTR lpszExt = NULL;
-                LPTSTR lpsz;
-                
-                for (lpsz = szModule; *lpsz != NULL; lpsz = CharNext(lpsz))
-                {
-                        if(*lpsz == _T('\\') || *lpsz == _T('/'))
-                        {
-                                lpszExt = NULL;
-                                continue;
-                        }
+  _ATL_VALIDATE_OUT_POINTER(pbstrPath);
+  _ATL_VALIDATE_OUT_POINTER(ppTypeLib);
 
-                        if(*lpsz == _T('.'))
-                                lpszExt = lpsz;
-                        
-                }
-                
-                if (lpszExt == NULL)
-                        lpszExt = lpsz;
+  ATLASSERT(pM != NULL);
 
-                TCHAR szExt[] = _T(".tlb");
-                if ((lpszExt - szModule + sizeof(szExt)/sizeof(TCHAR)) > _MAX_PATH)
-                        return E_FAIL;
-                        
-                lstrcpy(lpszExt, szExt);
-                lpszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+  if(pM == NULL)
+    return E_INVALIDARG;
+
+  USES_CONVERSION_EX;
+  ATLASSERT(pM->m_hInstTypeLib != NULL);
+  TCHAR szModule[_ATL_MAX_PATH_PLUS_INDEX];
+
+  // If the ModuleFileName's length is equal or greater than the 3rd parameter
+  // (length of the buffer passed),GetModuleFileName fills the buffer (truncates
+  // if neccessary), but doesn't null terminate it. It returns the same value as
+  // the 3rd parameter passed. So if the return value is the same as the 3rd param
+  // then you have a non null terminated buffer (which may or may not be truncated)
+  int ret = GetModuleFileName(pM->m_hInstTypeLib, szModule, _MAX_PATH);
+
+  if(ret == _MAX_PATH)
+    return AtlHresultFromWin32(ERROR_BUFFER_OVERFLOW);
+
+  if(ret == 0)
+    return AtlHresultFromLastError();
+
+  if (lpszIndex != NULL)
+  {
+    LPCTSTR lpcszIndex = OLE2CT_EX(lpszIndex, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
 #ifndef _UNICODE
-                if(lpszModule == NULL) 
-                        return E_OUTOFMEMORY;
-#endif                
-                hr = LoadTypeLib(lpszModule, ppTypeLib);
-        }
-        
-        if (SUCCEEDED(hr))
-                *pbstrPath = OLE2BSTR(lpszModule);
-        
-        return hr;
+    if(lpcszIndex == NULL)
+      return E_OUTOFMEMORY;
+#endif
+    int nIndexLen = lstrlen(lpcszIndex);
+
+    if( ret + nIndexLen >= _ATL_MAX_PATH_PLUS_INDEX )
+      return E_FAIL;
+    lstrcpy(szModule + ret,lpcszIndex);
+  }
+
+  LPOLESTR lpszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+  if(lpszModule == NULL)
+    return E_OUTOFMEMORY;
+#endif
+  HRESULT hr = LoadTypeLib(lpszModule, ppTypeLib);
+  if (!SUCCEEDED(hr))
+  {
+    // typelib not in module, try <module>.tlb instead
+    LPTSTR lpszExt = NULL;
+    LPTSTR lpsz;
+
+    for (lpsz = szModule; *lpsz != NULL; lpsz = CharNext(lpsz))
+    {
+      if(*lpsz == _T('\\') || *lpsz == _T('/'))
+      {
+        lpszExt = NULL;
+        continue;
+      }
+
+      if(*lpsz == _T('.'))
+        lpszExt = lpsz;
+
+    }
+
+    if (lpszExt == NULL)
+      lpszExt = lpsz;
+
+    TCHAR szExt[] = _T(".tlb");
+    if ((lpszExt - szModule + sizeof(szExt)/sizeof(TCHAR)) > _MAX_PATH)
+      return E_FAIL;
+
+    lstrcpy(lpszExt, szExt);
+    lpszModule = T2OLE_EX(szModule, _ATL_SAFE_ALLOCA_DEF_THRESHOLD);
+#ifndef _UNICODE
+    if(lpszModule == NULL)
+      return E_OUTOFMEMORY;
+#endif
+    hr = LoadTypeLib(lpszModule, ppTypeLib);
+  }
+
+  if (SUCCEEDED(hr))
+    *pbstrPath = OLE2BSTR(lpszModule);
+
+  return hr;
 }
 
 ATLINLINE ATLAPI AtlModuleUnRegisterTypeLib(_ATL_MODULE* pM, LPCOLESTR lpszIndex)
 {
-        typedef HRESULT (WINAPI *PFNRTL)(REFGUID, WORD, WORD, LCID, SYSKIND);
-        CComBSTR bstrPath;
-        CComPtr<ITypeLib> pTypeLib;
-        HRESULT hr = AtlModuleLoadTypeLib(pM, lpszIndex, &bstrPath, &pTypeLib);
-        if (SUCCEEDED(hr))
-        {
-                TLIBATTR* ptla;
-                hr = pTypeLib->GetLibAttr(&ptla);
-                if (SUCCEEDED(hr))
-                {
-                        HINSTANCE h = LoadLibrary(_T("oleaut32.dll"));
-                        if (h != NULL)
-                        {
-                                PFNRTL pfn = (PFNRTL) GetProcAddress(h, "UnRegisterTypeLib");
-                                if (pfn != NULL)
-                                        hr = pfn(ptla->guid, ptla->wMajorVerNum, ptla->wMinorVerNum, ptla->lcid, ptla->syskind);
-                                FreeLibrary(h);
-                        }
-                        pTypeLib->ReleaseTLibAttr(ptla);
-                }
-        }
-        return hr;
+  typedef HRESULT (WINAPI *PFNRTL)(REFGUID, WORD, WORD, LCID, SYSKIND);
+  CComBSTR bstrPath;
+  CComPtr<ITypeLib> pTypeLib;
+  HRESULT hr = AtlModuleLoadTypeLib(pM, lpszIndex, &bstrPath, &pTypeLib);
+  if (SUCCEEDED(hr))
+  {
+    TLIBATTR* ptla;
+    hr = pTypeLib->GetLibAttr(&ptla);
+    if (SUCCEEDED(hr))
+    {
+      HINSTANCE h = LoadLibrary(_T("oleaut32.dll"));
+      if (h != NULL)
+      {
+        PFNRTL pfn = (PFNRTL) GetProcAddress(h, "UnRegisterTypeLib");
+        if (pfn != NULL)
+          hr = pfn(ptla->guid, ptla->wMajorVerNum, ptla->wMinorVerNum, ptla->lcid, ptla->syskind);
+        FreeLibrary(h);
+      }
+      pTypeLib->ReleaseTLibAttr(ptla);
+    }
+  }
+  return hr;
 }
 
 ATLINLINE ATLAPI AtlModuleRegisterTypeLib(_ATL_MODULE* pM, LPCOLESTR lpszIndex)
 {
-        CComBSTR bstrPath;
-        CComPtr<ITypeLib> pTypeLib;
-        HRESULT hr = AtlModuleLoadTypeLib(pM, lpszIndex, &bstrPath, &pTypeLib);
-        
-        if (SUCCEEDED(hr))
-        {
-                OLECHAR szDir[_MAX_PATH];
-                
-                if(SysStringLen(bstrPath) > _MAX_PATH - 1 )
-                        return CO_E_PATHTOOLONG;
+  CComBSTR bstrPath;
+  CComPtr<ITypeLib> pTypeLib;
+  HRESULT hr = AtlModuleLoadTypeLib(pM, lpszIndex, &bstrPath, &pTypeLib);
 
-                ocscpy(szDir, bstrPath);
-                szDir[AtlGetDirLen(szDir)] = 0;
-                hr = ::RegisterTypeLib(pTypeLib, bstrPath, szDir);
-        }
-        return hr;
+  if (SUCCEEDED(hr))
+  {
+    OLECHAR szDir[_MAX_PATH];
+
+    if(SysStringLen(bstrPath) > _MAX_PATH - 1 )
+      return CO_E_PATHTOOLONG;
+
+    ocscpy(szDir, bstrPath);
+    szDir[AtlGetDirLen(szDir)] = 0;
+    hr = ::RegisterTypeLib(pTypeLib, bstrPath, szDir);
+  }
+  return hr;
 }
 
 ATLINLINE ATLAPI_(DWORD) AtlGetVersion(void* /* pReserved */)
 {
-        return _ATL_VER;
+  return _ATL_VER;
 }
 
 ATLINLINE ATLAPI_(void) AtlModuleAddCreateWndData(_ATL_MODULE* pM, _AtlCreateWndData* pData, void* pObject)
 {
-        if(pData == NULL || pObject == NULL)
-                _AtlRaiseException((DWORD)EXCEPTION_ACCESS_VIOLATION);
-                
-        pData->m_pThis = pObject;
-        pData->m_dwThreadID = ::GetCurrentThreadId();
-        ::EnterCriticalSection(&pM->m_csWindowCreate);
-        pData->m_pNext = pM->m_pCreateWndList;
-        pM->m_pCreateWndList = pData;
-        ::LeaveCriticalSection(&pM->m_csWindowCreate);
+  if(pData == NULL || pObject == NULL)
+    _AtlRaiseException((DWORD)EXCEPTION_ACCESS_VIOLATION);
+
+  pData->m_pThis = pObject;
+  pData->m_dwThreadID = ::GetCurrentThreadId();
+  ::EnterCriticalSection(&pM->m_csWindowCreate);
+  pData->m_pNext = pM->m_pCreateWndList;
+  pM->m_pCreateWndList = pData;
+  ::LeaveCriticalSection(&pM->m_csWindowCreate);
 }
 
 ATLINLINE ATLAPI_(void*) AtlModuleExtractCreateWndData(_ATL_MODULE* pM)
 {
-        void* pv = NULL;
-        ::EnterCriticalSection(&pM->m_csWindowCreate);
-        _AtlCreateWndData* pEntry = pM->m_pCreateWndList;
-        if(pEntry != NULL)
-        {
-                DWORD dwThreadID = ::GetCurrentThreadId();
-                _AtlCreateWndData* pPrev = NULL;
-                while(pEntry != NULL)
-                {
-                        if(pEntry->m_dwThreadID == dwThreadID)
-                        {
-                                if(pPrev == NULL)
-                                        pM->m_pCreateWndList = pEntry->m_pNext;
-                                else
-                                        pPrev->m_pNext = pEntry->m_pNext;
-                                pv = pEntry->m_pThis;
-                                break;
-                        }
-                        pPrev = pEntry;
-                        pEntry = pEntry->m_pNext;
-                }
-        }
-        ::LeaveCriticalSection(&pM->m_csWindowCreate);
-        return pv;
+  void* pv = NULL;
+  ::EnterCriticalSection(&pM->m_csWindowCreate);
+  _AtlCreateWndData* pEntry = pM->m_pCreateWndList;
+  if(pEntry != NULL)
+  {
+    DWORD dwThreadID = ::GetCurrentThreadId();
+    _AtlCreateWndData* pPrev = NULL;
+    while(pEntry != NULL)
+    {
+      if(pEntry->m_dwThreadID == dwThreadID)
+      {
+        if(pPrev == NULL)
+          pM->m_pCreateWndList = pEntry->m_pNext;
+        else
+          pPrev->m_pNext = pEntry->m_pNext;
+        pv = pEntry->m_pThis;
+        break;
+      }
+      pPrev = pEntry;
+      pEntry = pEntry->m_pNext;
+    }
+  }
+  ::LeaveCriticalSection(&pM->m_csWindowCreate);
+  return pv;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -7010,26 +7096,26 @@ ATLINLINE ATLAPI_(void*) AtlModuleExtractCreateWndData(_ATL_MODULE* pM)
 
 inline HRESULT AtlGetDllVersion(HINSTANCE hInstDLL, DLLVERSIONINFO* pDllVersionInfo)
 {
-        ATLASSERT(pDllVersionInfo != NULL);
-        if(pDllVersionInfo == NULL)
-                return E_INVALIDARG;
+  ATLASSERT(pDllVersionInfo != NULL);
+  if(pDllVersionInfo == NULL)
+    return E_INVALIDARG;
 
-        // We must get this function explicitly because some DLLs don't implement it.
-        DLLGETVERSIONPROC pfnDllGetVersion = (DLLGETVERSIONPROC)::GetProcAddress(hInstDLL, "DllGetVersion");
-        if(pfnDllGetVersion == NULL)
-                return E_NOTIMPL;
+  // We must get this function explicitly because some DLLs don't implement it.
+  DLLGETVERSIONPROC pfnDllGetVersion = (DLLGETVERSIONPROC)::GetProcAddress(hInstDLL, "DllGetVersion");
+  if(pfnDllGetVersion == NULL)
+    return E_NOTIMPL;
 
-        return (*pfnDllGetVersion)(pDllVersionInfo);
+  return (*pfnDllGetVersion)(pDllVersionInfo);
 }
 
 inline HRESULT AtlGetDllVersion(LPCTSTR lpstrDllName, DLLVERSIONINFO* pDllVersionInfo)
 {
-        HINSTANCE hInstDLL = ::LoadLibrary(lpstrDllName);
-        if(hInstDLL == NULL)
-                return E_FAIL;
-        HRESULT hRet = AtlGetDllVersion(hInstDLL, pDllVersionInfo);
-        ::FreeLibrary(hInstDLL);
-        return hRet;
+  HINSTANCE hInstDLL = ::LoadLibrary(lpstrDllName);
+  if(hInstDLL == NULL)
+    return E_FAIL;
+  HRESULT hRet = AtlGetDllVersion(hInstDLL, pDllVersionInfo);
+  ::FreeLibrary(hInstDLL);
+  return hRet;
 }
 
 // Common Control Versions:
@@ -7038,63 +7124,63 @@ inline HRESULT AtlGetDllVersion(LPCTSTR lpstrDllName, DLLVERSIONINFO* pDllVersio
 //   IE 4.0     maj=4 min=71
 inline HRESULT AtlGetCommCtrlVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
 {
-        ATLASSERT(pdwMajor != NULL && pdwMinor != NULL);
-        if(pdwMajor == NULL || pdwMinor == NULL)
-                return E_INVALIDARG;
+  ATLASSERT(pdwMajor != NULL && pdwMinor != NULL);
+  if(pdwMajor == NULL || pdwMinor == NULL)
+    return E_INVALIDARG;
 
-        DLLVERSIONINFO dvi;
-        ::ZeroMemory(&dvi, sizeof(dvi));
-        dvi.cbSize = sizeof(dvi);
-        HRESULT hRet = AtlGetDllVersion(_T("comctl32.dll"), &dvi);
+  DLLVERSIONINFO dvi;
+  ::ZeroMemory(&dvi, sizeof(dvi));
+  dvi.cbSize = sizeof(dvi);
+  HRESULT hRet = AtlGetDllVersion(_T("comctl32.dll"), &dvi);
 
-        if(SUCCEEDED(hRet))
-        {
-                *pdwMajor = dvi.dwMajorVersion;
-                *pdwMinor = dvi.dwMinorVersion;
-        }
-        else if(hRet == E_NOTIMPL)
-        {
-                // If DllGetVersion is not there, then the DLL is a version
-                // previous to the one shipped with IE 3.x
-                *pdwMajor = 4;
-                *pdwMinor = 0;
-                hRet = S_OK;
-        }
+  if(SUCCEEDED(hRet))
+  {
+    *pdwMajor = dvi.dwMajorVersion;
+    *pdwMinor = dvi.dwMinorVersion;
+  }
+  else if(hRet == E_NOTIMPL)
+  {
+    // If DllGetVersion is not there, then the DLL is a version
+    // previous to the one shipped with IE 3.x
+    *pdwMajor = 4;
+    *pdwMinor = 0;
+    hRet = S_OK;
+  }
 
-        return hRet;
+  return hRet;
 }
 
 // Shell Versions:
-//   Win95/WinNT 4.0                    maj=4 min=00
+//   Win95/WinNT 4.0        maj=4 min=00
 //   IE 3.x, IE 4.0 without Web Integrated Desktop  maj=4 min=00
-//   IE 4.0 with Web Integrated Desktop         maj=4 min=71
-//   IE 4.01 with Web Integrated Desktop        maj=4 min=72
+//   IE 4.0 with Web Integrated Desktop  maj=4 min=71
+//   IE 4.01 with Web Integrated Desktop  maj=4 min=72
 inline HRESULT AtlGetShellVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
 {
-        ATLASSERT(pdwMajor != NULL && pdwMinor != NULL);
-        if(pdwMajor == NULL || pdwMinor == NULL)
-                return E_INVALIDARG;
+  ATLASSERT(pdwMajor != NULL && pdwMinor != NULL);
+  if(pdwMajor == NULL || pdwMinor == NULL)
+    return E_INVALIDARG;
 
-        DLLVERSIONINFO dvi;
-        ::ZeroMemory(&dvi, sizeof(dvi));
-        dvi.cbSize = sizeof(dvi);
-        HRESULT hRet = AtlGetDllVersion(_T("shell32.dll"), &dvi);
+  DLLVERSIONINFO dvi;
+  ::ZeroMemory(&dvi, sizeof(dvi));
+  dvi.cbSize = sizeof(dvi);
+  HRESULT hRet = AtlGetDllVersion(_T("shell32.dll"), &dvi);
 
-        if(SUCCEEDED(hRet))
-        {
-                *pdwMajor = dvi.dwMajorVersion;
-                *pdwMinor = dvi.dwMinorVersion;
-        }
-        else if(hRet == E_NOTIMPL)
-        {
-                // If DllGetVersion is not there, then the DLL is a version
-                // previous to the one shipped with IE 4.x
-                *pdwMajor = 4;
-                *pdwMinor = 0;
-                hRet = S_OK;
-        }
+  if(SUCCEEDED(hRet))
+  {
+    *pdwMajor = dvi.dwMajorVersion;
+    *pdwMinor = dvi.dwMinorVersion;
+  }
+  else if(hRet == E_NOTIMPL)
+  {
+    // If DllGetVersion is not there, then the DLL is a version
+    // previous to the one shipped with IE 4.x
+    *pdwMajor = 4;
+    *pdwMinor = 0;
+    hRet = S_OK;
+  }
 
-        return hRet;
+  return hRet;
 }
 
 #ifndef _ATL_DLL_IMPL
@@ -7105,6 +7191,16 @@ inline HRESULT AtlGetShellVersion(LPDWORD pdwMajor, LPDWORD pdwMinor)
 #undef _ATLBASE_IMPL
 
 #endif // _ATLBASE_IMPL
-
-/////////////////////////////////////////////////////////////////////////////
-
+////////////////////////////////////////////////////////////////////////////////
+/*****************************************************************************
+ * $Log: atlbase.h,v $
+ * Revision 1.6  2008/07/15 20:31:01  ddarko
+ * Borland CC build and fixes
+ *
+ * Revision 1.1.2.5  2008/07/15 19:51:03  ddarko
+ * Minor fixes
+ *
+ * Revision 1.1.2.4  2008/07/15 15:18:00  ddarko
+ * ATL 3.00 Platform SDK (R2 3790.2075) 2006-03 / Borland CC build
+ *
+ *****************************************************************************/

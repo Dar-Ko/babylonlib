@@ -9,5 +9,4 @@
 // Active Template Library product.
 
 ///////////////////////////////////////
-// No longer used
-
+#pragma deprecated // No longer used
