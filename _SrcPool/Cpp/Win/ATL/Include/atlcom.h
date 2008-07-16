@@ -1,5 +1,5 @@
 /*$RCSfile: atlcom.h,v $: header file
-  $Revision: 1.6 $ $Date: 2008/07/15 20:31:02 $
+  $Revision: 1.7 $ $Date: 2008/07/16 14:00:07 $
   $Author: ddarko $
 
   This source code is only intended as a supplement to the Active Template Library
@@ -38,6 +38,11 @@
 #ifdef _MSC_VER
   //Microsoft Visual Studio MSVC
   #define KBCCDEF(x)
+#endif
+
+#ifndef _UNUSED
+  /*Resolves the compiler warning about unused arguments*/
+  #define _UNUSED(x) ((void)x)
 #endif
 
 #pragma pack(push, _ATL_PACKING)
@@ -3314,6 +3319,7 @@ END_COM_MAP()
   STDMETHOD(CreateInstanceLic)(IUnknown* pUnkOuter, IUnknown* pUnkReserved,
         REFIID riid, BSTR bstrKey, void** ppvObject)
   {
+  _UNUSED(pUnkReserved);
     ATLASSERT(m_pfnCreateInstance != NULL);
     if (ppvObject == NULL)
       return E_POINTER;
@@ -5671,6 +5677,9 @@ CComAutoThreadModule<ThreadAllocator>::~CComAutoThreadModule()
 ////////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: atlcom.h,v $
+ * Revision 1.7  2008/07/16 14:00:07  ddarko
+ * C4100 warning
+ *
  * Revision 1.6  2008/07/15 20:31:02  ddarko
  * Borland CC build and fixes
  *
