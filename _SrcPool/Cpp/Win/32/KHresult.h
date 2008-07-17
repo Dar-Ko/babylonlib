@@ -1,5 +1,5 @@
 /*$Workfile: KHresult.h$: header file
-  $Revision: 1.6 $ $Date: 2007/03/15 20:05:23 $
+  $Revision: 1.7 $ $Date: 2008/07/17 21:38:22 $
   $Author: ddarko $
 
   Handles HRESULT error codes
@@ -15,9 +15,34 @@
 #endif
 
 #include <winerror.h>
-
 #include <atlbase.h>
-#include <atlexcept.h>
+
+#if _MSC_VER < 1300
+  //Microsoft Visual C/C++ 6.0
+  #pragma warning(disable: 4290) //warning C4290: C++ Exception Specification ignored
+  #pragma warning(disable: 4100) //warning C4100: unreferenced formal parameter
+#endif
+///////////////////////////////////////////////////////////////////////////////
+
+#include <comdef.h> //Native C++ compiler COM support _com_issue_error()
+//-----------------------------------------------------------------------------
+/*{group=Diagnostic}
+  Validates the result returned by a COM object operation. If hResult is not
+  S_OK, throws _com_error exception.
+
+  Note: Microsoft Windows specific (Win).
+        and uses Active Template Library (ATL).
+
+  History: Microsoft MSDN Sample
+
+  See also: CHresult
+ */
+inline void TESTHR(HRESULT hResult //[in] result of COM Objects operation
+                  ) throw(_com_error)
+{
+if (FAILED(hResult))
+  _com_issue_error(hResult);
+};
 
 ///////////////////////////////////////////////////////////////////////////////
 /*{group=Windows}
@@ -99,7 +124,7 @@ protected:
 
   See also: GetLastError()
  */
-inline CHresult::CHresult() throw(...) :
+inline CHresult::CHresult() /*throw(CException)*/ :
   m_hr(HRESULT_FROM_WIN32(::GetLastError())),
   m_pszMsg(NULL)
 {
@@ -111,7 +136,7 @@ if( FAILED(m_hr) )
 /*Converts the result of an operation to HRESULT.
  */
 inline CHresult::CHresult(const bool bResult //[in] error value
-                         ) throw(...) :
+                         ) throw(CException) :
   m_hr (bResult ? S_OK: E_FAIL),
   m_pszMsg(NULL)
 {
@@ -123,7 +148,7 @@ if( FAILED(m_hr) )
 /*Assign the result of an operation to the object.
 */
 inline CHresult::CHresult(const HRESULT hResult //[in] error value
-                          ) throw(...) :
+                          ) throw(CException) :
   m_hr(hResult),
   m_pszMsg(NULL)
 {
@@ -135,7 +160,7 @@ if( FAILED(m_hr) )
 /*Copy an object with result of an operation.
  */
 inline CHresult::CHresult(const CHresult& hResult //[in] error value
-                         ) throw(...) :
+                         ) throw(CException) :
   m_hr (hResult.m_hr),
   m_pszMsg(NULL)
 {
@@ -155,7 +180,7 @@ if (m_pszMsg != NULL)
 //-----------------------------------------------------------------------------
 /*Conversion assignment.
  */
-inline CHresult& CHresult::operator= (const HRESULT hResult) throw(...)
+inline CHresult& CHresult::operator= (const HRESULT hResult) throw(CException)
 {
 m_hr = hResult;
 if( FAILED(m_hr) )
@@ -163,7 +188,7 @@ if( FAILED(m_hr) )
 return *this;
 }
 
-inline CHresult& CHresult::operator= (const bool bResult) throw(...)
+inline CHresult& CHresult::operator= (const bool bResult) throw(CException)
 {
 m_hr = (bResult ? S_OK: E_FAIL);
 if( FAILED(m_hr) )
@@ -171,7 +196,7 @@ if( FAILED(m_hr) )
 return *this;
 }
 
-inline CHresult& CHresult::operator= (const DWORD dwResult) throw(...)
+inline CHresult& CHresult::operator= (const DWORD dwResult) throw(CException)
 {
 m_hr = HRESULT_FROM_WIN32(dwResult);
 if( FAILED(m_hr) )
@@ -188,13 +213,21 @@ return m_hr;
 }
 
 //-----------------------------------------------------------------------------
+#if _ATL_VER >= 0x700
+  #include <atlexcept.h> //AtlThrow()
+#endif
 /*Throws an exception
  */
 inline void CHresult::Throw(LPCTSTR szFilename,// = NULL [in]
                             unsigned int iLine // = 0 [in]
-                            ) throw(...)
+                            ) throw(CException)
 {
-AtlThrow(m_hr);
+#if _ATL_VER >= 0x700
+  //Active Template Library 7.0 (MSVS.Net 2002 v7.0)
+  AtlThrow(m_hr);
+#else
+  _com_issue_error(m_hr);
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -326,29 +359,14 @@ if (SUCCEEDED(hr))
   }
 return hr;
 }
-///////////////////////////////////////////////////////////////////////////////
-
-#include <comdef.h> //Native C++ compiler COM support
-//-----------------------------------------------------------------------------
-/*{group=Diagnostic}
-  Validates the result returned by a COM object operation. If hResult is not
-  S_OK, throws _com_error exception.
-
-  Note: Microsoft Windows specific (Win).
-        and uses Active Template Library (ATL).
-
-  History: Microsoft MSDN Sample
-
-  See also: CHresult
- */
-inline void TESTHR(HRESULT hResult //[in] result of COM Objects operation
-                  ) throw(...)
-{
-if (FAILED(hResult))
-  _com_issue_error(hResult);
-};
 
 ///////////////////////////////////////////////////////////////////////////////
+#if _MSC_VER < 1300
+  //Microsoft Visual C/C++ 6.0
+  #pragma warning(default: 4290) //warning C4290: C++ Exception Specification ignored
+  #pragma warning(default: 4100) //warning C4100: unreferenced formal parameter
+#endif
+
 #endif //_KHRESULT_H_
 /*****************************************************************************
 * $Log:
