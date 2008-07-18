@@ -1,5 +1,5 @@
 /*$Workfile: KHresult.h$: header file
-  $Revision: 1.7 $ $Date: 2008/07/17 21:38:22 $
+  $Revision: 1.8 $ $Date: 2008/07/18 21:31:36 $
   $Author: ddarko $
 
   Handles HRESULT error codes
@@ -22,6 +22,23 @@
   #pragma warning(disable: 4290) //warning C4290: C++ Exception Specification ignored
   #pragma warning(disable: 4100) //warning C4100: unreferenced formal parameter
 #endif
+
+#if _ATL_VER >= 0x700
+  #ifdef _AFX
+    //Project includes MFC
+    #define KEXCEPTIONTYPE CException //MFC base exception class
+  #else
+    #define KEXCEPTIONTYPE CAtlException
+  #endif
+#else //ATL v3.00 (Win32) / v3.10 (Win64)
+  #ifdef _AFX
+    //Project includes MFC
+    #define KEXCEPTIONTYPE CException //MFC base exception class
+  #else
+    #define KEXCEPTIONTYPE _com_error
+  #endif
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <comdef.h> //Native C++ compiler COM support _com_issue_error()
@@ -124,7 +141,7 @@ protected:
 
   See also: GetLastError()
  */
-inline CHresult::CHresult() /*throw(CException)*/ :
+inline CHresult::CHresult() /*throw(KEXCEPTIONTYPE)*/ :
   m_hr(HRESULT_FROM_WIN32(::GetLastError())),
   m_pszMsg(NULL)
 {
@@ -136,7 +153,7 @@ if( FAILED(m_hr) )
 /*Converts the result of an operation to HRESULT.
  */
 inline CHresult::CHresult(const bool bResult //[in] error value
-                         ) throw(CException) :
+                         ) throw(KEXCEPTIONTYPE) :
   m_hr (bResult ? S_OK: E_FAIL),
   m_pszMsg(NULL)
 {
@@ -148,7 +165,7 @@ if( FAILED(m_hr) )
 /*Assign the result of an operation to the object.
 */
 inline CHresult::CHresult(const HRESULT hResult //[in] error value
-                          ) throw(CException) :
+                          ) throw(KEXCEPTIONTYPE) :
   m_hr(hResult),
   m_pszMsg(NULL)
 {
@@ -160,7 +177,7 @@ if( FAILED(m_hr) )
 /*Copy an object with result of an operation.
  */
 inline CHresult::CHresult(const CHresult& hResult //[in] error value
-                         ) throw(CException) :
+                         ) throw(KEXCEPTIONTYPE) :
   m_hr (hResult.m_hr),
   m_pszMsg(NULL)
 {
@@ -180,7 +197,7 @@ if (m_pszMsg != NULL)
 //-----------------------------------------------------------------------------
 /*Conversion assignment.
  */
-inline CHresult& CHresult::operator= (const HRESULT hResult) throw(CException)
+inline CHresult& CHresult::operator= (const HRESULT hResult) throw(KEXCEPTIONTYPE)
 {
 m_hr = hResult;
 if( FAILED(m_hr) )
@@ -188,7 +205,7 @@ if( FAILED(m_hr) )
 return *this;
 }
 
-inline CHresult& CHresult::operator= (const bool bResult) throw(CException)
+inline CHresult& CHresult::operator= (const bool bResult) throw(KEXCEPTIONTYPE)
 {
 m_hr = (bResult ? S_OK: E_FAIL);
 if( FAILED(m_hr) )
@@ -196,7 +213,7 @@ if( FAILED(m_hr) )
 return *this;
 }
 
-inline CHresult& CHresult::operator= (const DWORD dwResult) throw(CException)
+inline CHresult& CHresult::operator= (const DWORD dwResult) throw(KEXCEPTIONTYPE)
 {
 m_hr = HRESULT_FROM_WIN32(dwResult);
 if( FAILED(m_hr) )
@@ -216,11 +233,24 @@ return m_hr;
 #if _ATL_VER >= 0x700
   #include <atlexcept.h> //AtlThrow()
 #endif
-/*Throws an exception
- */
+/*Throws an exception.
+   ATL version 7.0
+   - If _ATL_NO_EXCEPTIONS is not defined in an MFC project, this function throws
+    a CMemoryException or a COleException based on the value of the HRESULT.
+  - If _ATL_NO_EXCEPTIONS is not defined in an ATL project, the function throws
+    a CAtlException.
+  - If _ATL_NO_EXCEPTIONS is defined, the function causes an assertion failure
+    instead of throwing an exception.
+  - In all cases, this function traces the HRESULT to the debugger.
+
+  ATL version 3.0
+  - throws _com_error.
+
+  See also: AtlThrow(), _com_issue_error, TESTHR()
+  */
 inline void CHresult::Throw(LPCTSTR szFilename,// = NULL [in]
                             unsigned int iLine // = 0 [in]
-                            ) throw(CException)
+                            ) throw(KEXCEPTIONTYPE)
 {
 #if _ATL_VER >= 0x700
   //Active Template Library 7.0 (MSVS.Net 2002 v7.0)

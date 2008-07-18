@@ -1,5 +1,5 @@
 /*$Workfile: KGetPrTy.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2008/07/17 21:38:22 $
+  $Revision: 1.2 $ $Date: 2008/07/18 21:31:36 $
   $Author: ddarko $
 
   Retrieve current state of a scripting engine
@@ -57,7 +57,6 @@
     instead of throwing an exception.
   - In all cases, this function traces the HRESULT to the debugger.
 
-
   Returns: current state of a scripting engine.
 
   See also: IActiveScript interface
@@ -110,6 +109,9 @@ return ssResult;
 
 /*****************************************************************************
  * $Log: KGetScriptState.cpp,v $
+ * Revision 1.2  2008/07/18 21:31:36  ddarko
+ * ATL 3.0
+ *
  * Revision 1.1  2008/07/17 21:38:22  ddarko
  * MSVC6.0 build
  *
