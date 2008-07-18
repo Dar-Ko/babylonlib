@@ -110,5 +110,17 @@
       <description>CSS overflow test</description>
     </item>
 
+    <item>
+      <title>Test Embedded Object</title>
+      <link>TestMacromediaFlash.htm</link>
+      <description>Test Macromedia Flash6 object</description>
+    </item>
+
+    <item>
+      <title>Test Embedded Object Type</title>
+      <link>TestObject.htm</link>
+      <description>Test object element</description>
+    </item>
+
   </channel>
 </rss>
