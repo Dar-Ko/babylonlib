@@ -1,5 +1,5 @@
 /*$Workfile: KHresult.h$: header file
-  $Revision: 1.9 $ $Date: 2008/07/21 21:11:52 $
+  $Revision: 1.10 $ $Date: 2008/07/21 21:15:21 $
   $Author: ddarko $
 
   Handles HRESULT error codes
@@ -191,7 +191,10 @@ if( FAILED(m_hr) )
 inline CHresult::~CHresult()
 {
 if (m_pszMsg != NULL)
+  {
   LocalFree(m_pszMsg);
+  m_pszMsg = NULL;
+  }
 }
 
 //-----------------------------------------------------------------------------
