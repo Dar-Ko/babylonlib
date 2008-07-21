@@ -1,5 +1,5 @@
 /*$Workfile: KHresult.h$: header file
-  $Revision: 1.8 $ $Date: 2008/07/18 21:31:36 $
+  $Revision: 1.9 $ $Date: 2008/07/21 21:11:52 $
   $Author: ddarko $
 
   Handles HRESULT error codes
@@ -163,7 +163,7 @@ if( FAILED(m_hr) )
 
 //-----------------------------------------------------------------------------
 /*Assign the result of an operation to the object.
-*/
+ */
 inline CHresult::CHresult(const HRESULT hResult //[in] error value
                           ) throw(KEXCEPTIONTYPE) :
   m_hr(hResult),
@@ -262,15 +262,18 @@ inline void CHresult::Throw(LPCTSTR szFilename,// = NULL [in]
 
 //-----------------------------------------------------------------------------
 /*Retrieves the error desription of the HRESULT member.
-  If szFilename is not null, the following will be appended to the description:
-        szFilename(iLine).
+  If HRESULT is without an associated description, new description will be
+  produced:
+        "COM Interface error szFilename(iLine)".
 
   Returns: string message for the HRESULT.
  */
 inline LPCTSTR CHresult::ErrorMessage(LPCTSTR szFilename,// = NULL [in] source
-                                      //file name or module name
+    //file name or module name. Used when HRESULT member does not have
+    //associated description
                                       unsigned int iLine // = 0 [in] line number
-                                      //or custom identifier
+    //or custom identifier. Used when HRESULT member does not have
+    //associated description
                                       ) const
 {
 //Borrowed from <comdef.h>
