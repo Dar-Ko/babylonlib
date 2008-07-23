@@ -34,7 +34,7 @@
      0x022      \"         Double quotation mark
      0x05C      \\         Backslash
 
-  Returns: zero-terminated string representing the escape character. If 
+  Returns: zero-terminated string representing the escape character. If
   character is not one of escape characters, function returns string with
   the character itself.
 
@@ -63,9 +63,9 @@ return szResult;
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  2    Biblioteka1.1         2004-06-01 17:53:04  Darko           time sync
- *  1    Biblioteka1.0         2003-09-22 22:22:18  Darko           
+ *  1    Biblioteka1.0         2003-09-22 22:22:18  Darko
  * $
  *  0 1990-06   Darko Kolakovic
  *****************************************************************************/
