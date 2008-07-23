@@ -34,10 +34,13 @@
   Note: slash (\) and space ( ) characters does not require escaping.
 
   Returns String value containing escaped characters.
-  
+
   Note: uses Microsoft Foundation Library (MFC) or
         uses Microsoft Active Template Library (ATL);
         Microsoft Windows specific (Win32).
+
+  See also: VB Function XmlEscape, Function XmlUnescape,
+  Boost STL class xml_escape,class xml_unescape
 */
 CString XmlEscape(CString& strData //[in]
                  )
