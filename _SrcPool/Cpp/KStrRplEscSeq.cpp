@@ -166,19 +166,19 @@ return szFormat;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  8    Biblioteka1.7         2007-06-20 14:43:32  Darko Kolakovic fixed while
  *       condition
  *  7    Biblioteka1.6         2003-09-22 22:26:50  Darko           formatting
  *  6    Biblioteka1.5         2002-02-04 19:57:28  Darko           include
  *       KTChar.h
  *  5    Biblioteka1.4         2002-01-29 23:22:01  Darko           Used lbraries
- *       notes 
+ *       notes
  *  4    Biblioteka1.3         2001-12-30 20:19:55  Darko           Find first
  *       escape delimiter; fix missing termminating zero
  *  3    Biblioteka1.2         2001-12-23 18:08:14  Darko           declaration
  *       header file
  *  2    Biblioteka1.1         2001-12-23 00:25:24  Darko           changed header
- *  1    Biblioteka1.0         2001-12-23 00:12:50  Darko           
+ *  1    Biblioteka1.0         2001-12-23 00:12:50  Darko
  * $
  *****************************************************************************/

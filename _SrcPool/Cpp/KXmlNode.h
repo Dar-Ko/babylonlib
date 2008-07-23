@@ -20,7 +20,7 @@
 #endif
 
 #ifdef _WIN32
-  #include "Win/32/KXmlTypeWin.h" 
+  #include "Win/32/KXmlTypeWin.h"
 #endif
 #include "KXmlBinding.h"  //XmlDataType enum
 
@@ -36,8 +36,8 @@ public:
 
   CXmlNode();
   CXmlNode(const CXmlNode& xmlElement);
-  CXmlNode(const CXmlString& strElementName, 
-           const CXmlString& strValue, 
+  CXmlNode(const CXmlString& strElementName,
+           const CXmlString& strValue,
            const XmlDataType eDataType = eXML_STRING,
            const int iIndex = -1);
   CXmlNode(const CXmlString& strElementName,
@@ -50,7 +50,7 @@ public:
   const CXmlString& GetName() const;
   const CXmlString& GetValue() const;
   void SetName(const CXmlString& strElementName);
-  void SetValue(const CXmlString& strValue, 
+  void SetValue(const CXmlString& strValue,
                 const XmlDataType eDataType = eXML_STRING);
   CXmlNode& AppendChild(CXmlNode& xmlElement);
   bool HasChild(const CXmlString& strElementName);
@@ -64,7 +64,7 @@ public:
   bool HasAttribute(const CXmlString& strAttributeName);
   const CXmlAttribute GetAttribute(const CXmlString& strAttributeName) const;
   const CXmlAttribute GetAttribute(const wchar_t* szAttributeName) const;
-  CXmlAttribute& GetAttribute(const wchar_t* szAttributeName, 
+  CXmlAttribute& GetAttribute(const wchar_t* szAttributeName,
                               bool& bHasAttribute);
   const CXmlAttribute& GetAttributeAt(const size_t nIndex) const;
   size_t GetAttributeCount() const;
