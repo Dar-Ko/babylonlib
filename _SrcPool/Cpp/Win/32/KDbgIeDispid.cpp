@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgIeDispid.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2008/07/24 14:54:53 $
+  $Revision: 1.4 $ $Date: 2008/07/24 15:24:34 $
   $Author: ddarko $
 
   Dumps the IExplorer Dispatch Event Ids.
@@ -50,7 +50,7 @@
   Returns: zero-terminated string describing IExplorer dispatch event.
 
   See also: ActiveX, Component Object Model (COM) interfaces. IDispatch::Invoke(),
-  ExDispid.h
+  ExDispid.h, ExDisp.idl 
  */
 LPCTSTR DumpIExplorerDispatchId(const DISPID nDispId //[in] dispatch event identifier
                                )
@@ -63,7 +63,7 @@ switch(nDispId)
   case DISPID_BEFORENAVIGATE             : szResult = _T(" DISPID_BEFORENAVIGATE(100)")            ; break;  //100 this is sent before navigation to give a chance to abort
   case DISPID_NAVIGATECOMPLETE           : szResult = _T(" DISPID_NAVIGATECOMPLETE(101)")          ; break;  //101 in async, this is sent when we have enough to show
   case DISPID_STATUSTEXTCHANGE           : szResult = _T(" DISPID_STATUSTEXTCHANGE(102)")          ; break;  //102 Fired when the status bar text of the object has changed.
-  case DISPID_QUIT                       : szResult = _T(" DISPID_QUIT(103)")                      ; break;  //103 sent to quit the Application object
+  case DISPID_QUIT                       : szResult = _T(" DISPID_QUIT(103)")                      ; break;  //103 Fired when application is quiting.
   case DISPID_DOWNLOADCOMPLETE           : szResult = _T(" DISPID_DOWNLOADCOMPLETE(104)")          ; break;  //104 Fired when a navigation operation finishes, is halted, or fails.
   case DISPID_COMMANDSTATECHANGE         : szResult = _T(" DISPID_COMMANDSTATECHANGE(105)")        ; break;  //105 Fired when the enabled state of a command changes.
   case DISPID_DOWNLOADBEGIN              : szResult = _T(" DISPID_DOWNLOADBEGIN(106)")             ; break;  //106 Fired when a navigation operation is beginning.
@@ -76,9 +76,9 @@ switch(nDispId)
   case DISPID_TITLECHANGE                : szResult = _T(" DISPID_TITLECHANGE(113)")               ; break;  //113 sent when the document title changes
   case DISPID_TITLEICONCHANGE            : szResult = _T(" DISPID_TITLEICONCHANGE(114)")           ; break;  //114 sent when the top level window icon may have changed.
 
-  case DISPID_FRAMEBEFORENAVIGATE        : szResult = _T(" DISPID_FRAMEBEFORENAVIGATE(200)")       ; break;  //200
-  case DISPID_FRAMENAVIGATECOMPLETE      : szResult = _T(" DISPID_FRAMENAVIGATECOMPLETE(201)")     ; break;  //201
-  case DISPID_FRAMENEWWINDOW             : szResult = _T(" DISPID_FRAMENEWWINDOW(204)")            ; break;  //204
+  case DISPID_FRAMEBEFORENAVIGATE        : szResult = _T(" DISPID_FRAMEBEFORENAVIGATE(200)")       ; break;  //200 Fired when a new hyperlink is being navigated to in a frame.
+  case DISPID_FRAMENAVIGATECOMPLETE      : szResult = _T(" DISPID_FRAMENAVIGATECOMPLETE(201)")     ; break;  //201 Fired when a new hyperlink is being navigated to in a frame.
+  case DISPID_FRAMENEWWINDOW             : szResult = _T(" DISPID_FRAMENEWWINDOW(204)")            ; break;  //204 Fired when a new window should be created.
 
   case DISPID_BEFORENAVIGATE2            : szResult = _T(" DISPID_BEFORENAVIGATE2(250)")           ; break;  //250 hyperlink clicked on
   case DISPID_NEWWINDOW2                 : szResult = _T(" DISPID_NEWWINDOW2(251)")                ; break;  //251 Fired when a new window is to be created.
@@ -123,8 +123,8 @@ return szResult;
 
 /******************************************************************************
  * $Log: KDbgIeDispid.cpp,v $
- * Revision 1.3  2008/07/24 14:54:53  ddarko
- * fixed column
+ * Revision 1.4  2008/07/24 15:24:34  ddarko
+ * Comments
  *
  * Revision 1.2  2008/07/24 14:44:26  ddarko
  * _DEBUG
