@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgIeDispid.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2008/07/24 14:40:23 $
+  $Revision: 1.2 $ $Date: 2008/07/24 14:44:26 $
   $Author: ddarko $
 
   Dumps the IExplorer Dispatch Event Ids.
@@ -33,7 +33,6 @@
   #define new DEBUG_NEW
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
-#endif
 
 //-----------------------------------------------------------------------------
 /*Dumps the IExplorer Dispatch Event Identifier.
@@ -119,8 +118,13 @@ return szResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+#endif //_DEBUG
+
 /******************************************************************************
  * $Log: KDbgIeDispid.cpp,v $
+ * Revision 1.2  2008/07/24 14:44:26  ddarko
+ * _DEBUG
+ *
  * Revision 1.1  2008/07/24 14:40:23  ddarko
  * Created
  *
