@@ -52,7 +52,7 @@
           TRACE0("Debug output is redirected to the file\r\n");
           DumpOSVI(); //Dump the operating system version information
         #endif
-	      // Place all significant initialization in InitInstance
+        // Place all significant initialization in InitInstance
         }
 
       CMyApp::~CMyApp()
@@ -65,6 +65,8 @@
             }
         #endif
         }
+
+  See also: afxDump, CDumpContext.
  */
 void EnableTraceLog(CDumpContext& dc, //Dump context (afxDump)
                     LPCTSTR szLogFileName //afxDump output file name.
