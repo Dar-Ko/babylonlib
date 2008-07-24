@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgIeDispid.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2008/07/24 14:44:26 $
+  $Revision: 1.3 $ $Date: 2008/07/24 14:54:53 $
   $Author: ddarko $
 
   Dumps the IExplorer Dispatch Event Ids.
@@ -12,6 +12,7 @@
 
 // Group=Diagnostic
 
+#include "stdafx.h"
 #include "ExDispid.h" //IExplorer Dispatch Events (Platform SDK header file)
 
 #if defined _ATL_VER
@@ -106,12 +107,12 @@ switch(nDispId)
   //IExplorer Printing Dispatch Events
   case DISPID_PRINTTEMPLATEINSTANTIATION : szResult = _T(" DISPID_PRINTTEMPLATEINSTANTIATION(225)"); break;  //225 Fired to indicate that a print template is instantiated
   case DISPID_PRINTTEMPLATETEARDOWN      : szResult = _T(" DISPID_PRINTTEMPLATETEARDOWN(226)")     ; break;  //226 Fired to indicate that a print templete is completely gone
-  case DISPID_UPDATEPAGESTATUS             szResult = _T(" DISPID_UPDATEPAGESTATUS(227)")          ; break;  //227 Fired to indicate that the spooling status has changed
+  case DISPID_UPDATEPAGESTATUS           : szResult = _T(" DISPID_UPDATEPAGESTATUS(227)")          ; break;  //227 Fired to indicate that the spooling status has changed
 
   default:
     {
-    TRACE(_T("  Dispatch event (%u) "), nDispId);
-    szResult = _T("  Unknown IExplorer event");
+    TRACE(_T(" Dispatch event (%u) "), nDispId);
+    szResult = _T(" Unknown IExplorer event");
     }
   }
 return szResult;
@@ -122,6 +123,9 @@ return szResult;
 
 /******************************************************************************
  * $Log: KDbgIeDispid.cpp,v $
+ * Revision 1.3  2008/07/24 14:54:53  ddarko
+ * fixed column
+ *
  * Revision 1.2  2008/07/24 14:44:26  ddarko
  * _DEBUG
  *
