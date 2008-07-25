@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgOleCtlDispid.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2008/07/24 19:05:40 $
+  $Revision: 1.2 $ $Date: 2008/07/25 16:11:31 $
   $Author: ddarko $
 
   Dumps the OLE Control Dispatch Event Ids.
@@ -162,7 +162,7 @@ switch(nDispId)
 
   default:
     {
-    TRACE(_T(" Dispatch event (%u = %d) "), nDispId, nDispId);
+    TRACE(_T("  Dispatch event(%u = %d)\n"), nDispId, nDispId);
     szResult = _T(" Unknown OLE Ctrl event");
     }
   }
@@ -174,6 +174,9 @@ return szResult;
 
 /******************************************************************************
  * $Log: KDbgOleCtlDispid.cpp,v $
+ * Revision 1.2  2008/07/25 16:11:31  ddarko
+ * Comments
+ *
  * Revision 1.1  2008/07/24 19:05:40  ddarko
  * Created
  *
