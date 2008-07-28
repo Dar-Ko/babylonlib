@@ -7,6 +7,7 @@ Samples and test suites for the various functions, classes and algorithms using 
 Copyright: CommonSoft Inc.
 1993-06-07 Darko Kolakovic
 
+Microsoft Visual C++ 6.0 debugger does not support the symbol format (.pdb) intriduced with system symbols of Windows XP Service Pack 2 and Windows Server 2003 Service Pack 1. See http://www.debuginfo.com/tools/symgetex.html for MSVC 6 plug-in for downloading symbols from a server.
 
 \	_Samples.cww	Metrowerks CodeWarrior Workspace (CWW) file is a generated build file, format version 1.00.	PalmOS
 \	_Samples.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32

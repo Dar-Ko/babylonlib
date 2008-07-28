@@ -4,6 +4,8 @@ $Author: Darko Kolakovic$
 
 Samples and test suites for the various functions, classes and algorithms using Babylon Library and Microsoft Windows API.
 
+Microsoft Visual C++ 6.0 debugger does not support the symbol format (.pdb) intriduced with system symbols of Windows XP Service Pack 2 and Windows Server 2003 Service Pack 1. See http://www.debuginfo.com/tools/symgetex.html for MSVC 6 plug-in for downloading symbols from a server.
+
 Copyright: CommonSoft Inc.
 1998-02-01 Darko Kolakovic
 
