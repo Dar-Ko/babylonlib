@@ -34,10 +34,16 @@
     href="../../../../../Doc/Res/icoJavaScript.ico" />
   <title>Test Date()</title>
 
+  <!-- Note: If HTML elements (for example <table> or <h1>) are used within
+       a JavaScript in an XHTML document, the script have to be escaped by
+       marking it as CDATA.
+       See also: Making JavaScript Compatible with XHTML: http://www.codehouse.com/javascript/tips/xhtml/
+  -->
   <script language="JavaScript" type="text/javascript">
+     //<![CDATA[
     function TRACE(strMessage)
       {
-      document.writeln(strMessage + "<br />");
+      document.writeln(strMessage + "<br \/>");
       }
 
     function testDateAvilabileMethods()
@@ -100,7 +106,7 @@
         {
         var tmResult = new Date();
 
-       TRACE("date: "      + tmResult);
+        TRACE("date: "      + tmResult);
         TRACE("toString: " + tmResult.toString());
         TRACE("GMT:"        + tmResult.toGMTString());
         TRACE("UTC:"        + tmResult.toUTCString());
@@ -124,6 +130,7 @@
         }
       return bResult;
       }
+    //]]>
   </script>
 </head>
 
@@ -137,12 +144,19 @@
 
   <div id="ID_DATE">
   <script language="JavaScript" type="text/javascript">
+    //<![CDATA[
     //debugger;
     testDateAvilabileMethods();
     TRACE("Current time is:<br \/>");
     testDate();
+    //]]>
   </script>
   </div>
+<small>Note:
+   <img src="../../../../../Doc/Res/S/icoUnicode.gif" title="Unicode" alt="Unicode" />
+   this is an Unicode document.
+</small>
+
 </body>
 
 <!-- ==========================================================================
