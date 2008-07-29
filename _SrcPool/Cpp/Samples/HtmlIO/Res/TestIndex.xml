@@ -122,5 +122,11 @@
       <description>Test object element</description>
     </item>
 
+    <item>
+      <title>Test JavaScript Availability</title>
+      <link>../../../../Js/Samples/Dom/Src/TestJavaScriptCapability.htm</link>
+      <description>JavaScript availability test</description>
+    </item>
+
   </channel>
 </rss>
