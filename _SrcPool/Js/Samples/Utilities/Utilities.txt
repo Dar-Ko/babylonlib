@@ -2,4 +2,8 @@ $Workfile: Utilities.txt$: developer's note
 $Revision: 2$ $Date: 2007-07-11 11:06:08$
 $Author: Darko Kolakovic$
 
+Install Microsoft Script Debugger:
+  To enable it, open IE and go to Tools|'Internet Options'|Advanced and uncheck "Disable Script Debugging (Internet Explorer)".
+  If the debugger cannot debug any script code in the application you are trying to debug, delete or rename the KLM\Software\Microsoft\Ole\DefaultAccessPermission key.
+
 \	Utilities.html	Starting page for testing within HTML browser shells.
