@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="Workfile" content="$RCSfile: TestJavaScriptCapability.htm,v $: documentation" />
+  <meta name="Revision" content="$Revision: 1.1 $ $Date: 2008/07/29 21:03:25 $" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="JavaScript, HTML, test, Debugging" />
+  <meta name="Editor" content="$Author: ddarko $" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="Test JavaScript Availability" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: ddarko $" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Test cases" />
+  <meta name="DC.description.abstract" content="Test an HTML browser capabilities" />
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2008/07/29 21:03:25 $" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.ISBN" content="$Isbn$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../../../Doc/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../../../Doc/Res/icoJavaScript.ico" />
+  <title>Test JavaScript Availability</title>
+  <base target="_self" />
+</head>
+
+<body>
+<h1>Test JavaScript Availability</h1>
+
+<noscript>
+  <p>Appears that Javascript is disabled. Check configuration options for your browser!</p>
+</noscript>
+
+<p>This browser has no
+  <script type="text/javascript" language="JavaScript">
+  <!--
+  document.write('problem handling ')
+  // -->
+  </script>
+<a href="http://en.wikipedia.org/wiki/Javascript">JavaScript</a> capability.</p>
+
+<p>Supported JavaScript versions:</p>
+<ul>
+  <li><script type="text/javascript" language="JavaScript">document.write('JavaScript Basic');</script></li>
+  <li><script type="text/javascript" language="JavaScript1.1">document.write('JavaScript 1.1');</script></li>
+  <li><script type="text/javascript" language="JavaScript1.2">document.write('JavaScript 1.2');</script></li>
+  <li><script type="text/javascript" language="JavaScript1.3">document.write('JavaScript 1.3');</script></li>
+  <li><script type="text/javascript" language="JavaScript1.4">document.write('JavaScript 1.4');</script></li>
+</ul>
+
+<p>
+  <script type="text/javascript" language="JavaScript">
+  <!--
+    document.write(navigator.userAgent + '; ');
+    document.write(navigator.appName + ' ');
+    if (navigator.appName.indexOf("Explorer") > 1)
+      {
+      document.write('(MSIE) ');
+      }
+  // -->
+  </script>
+  browser detected.
+ </p>
+
+
+<!-- Browser information report -->
+
+<!-- Note: If HTML elements (for example <table> or <h1>) are used within
+     a JavaScript in an XHTML document, the script have to be escaped by
+     marking it as CDATA.
+     See also: Making JavaScript Compatible with XHTML: http://www.codehouse.com/javascript/tips/xhtml/
+-->
+<script type="text/javascript">
+  //<![CDATA[
+  for(var propname in navigator)
+    {
+    document.write( '<dd>' + propname + ' = \'' + navigator[propname] + '\'<\/dd>');
+    }
+  //MSIE and Mozilla render differently <dd> block
+  if (navigator.appName.indexOf("Explorer") > 1)
+      {
+      document.write('<br \/>');
+      }
+
+  //]]>
+</script>
+
+<small>Note:
+   <img src="../../../../../Doc/Res/S/typeAscii.png" title="SBCS/ASCII" alt="SBCS/ASCII" />
+   this is an Sigle Byte Chatacter Set (SBCS/ASCII) document.
+</small>
+</body>
+</html>
