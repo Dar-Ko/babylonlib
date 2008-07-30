@@ -148,6 +148,8 @@ void* __cdecl calloc(size_t n, size_t s)
   return malloc(n*s);
 }
 
+#pragma warning(push)
+#pragma warning(disable: 4068)  //Turn off unknown pragma warning so prefast pragmas won't show
 #pragma prefast(push)
 #pragma prefast(suppress:308, "prefast bug 538")
 void* __cdecl realloc(void* p, size_t n)
@@ -173,6 +175,7 @@ void* __cdecl realloc(void* p, size_t n)
 #endif
 }
 #pragma prefast(pop)
+#pragma warning(pop)
 
 void __cdecl free(void* p)
 {
@@ -207,6 +210,9 @@ void __cdecl operator delete(void* p)
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  * $Log: atlimpl.cpp,v $
+ * Revision 1.6  2008/07/30 18:05:42  ddarko
+ * Fixed undefined pragmas
+ *
  * Revision 1.5  2008/07/15 20:31:10  ddarko
  * Borland CC build and fixes
  *

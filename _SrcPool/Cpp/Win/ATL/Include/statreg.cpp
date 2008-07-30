@@ -9,4 +9,8 @@
 // Active Template Library product.
 
 ///////////////////////////////////////
-#pragma deprecated // No longer used
+#if _MSC_VER >= 0x1300
+  #pragma deprecated(__FILE__) // No longer used
+#else
+  #pragma message(__FILE__" deprecated")
+#endif
