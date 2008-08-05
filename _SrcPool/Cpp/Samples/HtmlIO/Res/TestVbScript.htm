@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Language" content="en" />
   <meta name="Workfile" content="$RCSfile: TestVbScript.htm,v $: documentation" />
-  <meta name="Revision" content="$Revision: 1.1 $ $Date: 2008/08/05 16:36:56 $" />
+  <meta name="Revision" content="$Revision: 1.2 $ $Date: 2008/08/05 18:16:03 $" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="VBScript, HTML, test, Debugging" />
   <meta name="Editor" content="$Author: ddarko $" />
@@ -19,7 +19,7 @@
   <meta name="DC.subject" content="Test cases" />
   <meta name="DC.description.abstract" content="Test an HTML browser capabilities" />
   <meta name="DC.publisher" content="CommonSoft Inc." />
-  <meta name="DC.date" content="$Date: 2008/08/05 16:36:56 $" />
+  <meta name="DC.date" content="$Date: 2008/08/05 18:16:03 $" />
   <meta name="DC.type" content="Text.Article" />
   <meta name="DC.format" content="application/html" />
   <meta name="DC.language" content="en_ca" />
@@ -117,33 +117,41 @@ Explorer and Web server scripting in Microsoft Internet Information Service.
   ...<br />
   browserIE.Document.Write "</body>" & CrLf & "</html>"
   </code>
+
   <script type="text/vbscript">
   '<![CDATA[
+  On Error Resume Next 'Discard any error by executing next command
+  'Stop 'Launch script debugger
+
   'Display character table
   Dim browserIE
   Set browserIE = CreateObject("InternetExplorer.Application")
-  browserIE.height=370
-  browserIE.width=500
-  browserIE.menubar=0
-  browserIE.toolbar=0
-  browserIE.navigate "About:Blank"
-  browserIE.visible=1
+  If (isEmpty(browserIE)) then 'Check if variable is unitialized
+    document.write("<p><i>Unable to create <b>InternetExplorer</b> object!</i></p>")
+  Else
+    browserIE.height=370
+    browserIE.width=500
+    browserIE.menubar=0
+    browserIE.toolbar=0
+    browserIE.navigate "About:Blank"
+    browserIE.visible=1
 
-  Do while browserIE.Busy  'Wait for blank page to load
-  Loop
+    Do while browserIE.Busy  'Wait for blank page to load
+    Loop
 
-  Const fontSymbol = "Wingdings 2" 'Set symbol font
+    Const fontSymbol = "Wingdings 2" 'Set symbol font
 
-  browserIE.Document.Write "<html>" & CrLf & "<body>" & CrLf & "<h1>" & fontSymbol & "</h1>" & CrLf
-  For i = 33 to 254
-    browserIE.Document.Write "<font face=" & chr(34) & "Verdana" & chr(34) & ">" & _
-                      i & " (" & chr(i) & ") " & "</font>" & CrLf
-    'Change the font
-    browserIE.Document.Write "<font face=" & chr(34) & fontSymbol & chr(34) & ">" & _
-    chr(i) & "</font><br />" & CrLf
+    browserIE.Document.Write "<html>" & CrLf & "<body>" & CrLf & "<h1>" & fontSymbol & "</h1>" & CrLf
+    For i = 33 to 254
+      browserIE.Document.Write "<font face=" & chr(34) & "Verdana" & chr(34) & ">" & _
+                        i & " (" & chr(i) & ") " & "</font>" & CrLf
+      'Change the font
+      browserIE.Document.Write "<font face=" & chr(34) & fontSymbol & chr(34) & ">" & _
+      chr(i) & "</font><br />" & CrLf
 
-  Next
-  browserIE.Document.Write "</body>" & CrLf & "</html>"
+    Next
+    browserIE.Document.Write "</body>" & CrLf & "</html>"
+  End if
   ']]>
   </script>
 </p>
@@ -153,7 +161,7 @@ Creates an HTTP Error: "Cannot find server, file or DNS Error".</p>
 <p>&nbsp;</p>
 
 <small>Note:
-   <img src="../../../../../Doc/Res/S/typeAscii.png" title="SBCS/ASCII" alt="SBCS/ASCII" />
+   <!-- img src="../../../../../Doc/Res/S/typeAscii.png" title="SBCS/ASCII" alt="SBCS/ASCII" / -->
    this is an Sigle Byte Chatacter Set (SBCS/ASCII) document.
 </small>
 
