@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Language" content="en" />
   <meta name="Workfile" content="$RCSfile: TestJavaScriptCapability.htm,v $: documentation" />
-  <meta name="Revision" content="$Revision: 1.1 $ $Date: 2008/07/29 21:03:25 $" />
+  <meta name="Revision" content="$Revision: 1.2 $ $Date: 2008/08/05 16:36:11 $" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="JavaScript, HTML, test, Debugging" />
   <meta name="Editor" content="$Author: ddarko $" />
@@ -19,7 +19,7 @@
   <meta name="DC.subject" content="Test cases" />
   <meta name="DC.description.abstract" content="Test an HTML browser capabilities" />
   <meta name="DC.publisher" content="CommonSoft Inc." />
-  <meta name="DC.date" content="$Date: 2008/07/29 21:03:25 $" />
+  <meta name="DC.date" content="$Date: 2008/08/05 16:36:11 $" />
   <meta name="DC.type" content="Text.Article" />
   <meta name="DC.format" content="application/html" />
   <meta name="DC.language" content="en_ca" />
@@ -39,16 +39,17 @@
 <h1>Test JavaScript Availability</h1>
 
 <noscript>
-  <p>Appears that Javascript is disabled. Check configuration options for your browser!</p>
+  <p>Appears that JavaScript is <b>disabled</b>. Check configuration options for your browser!</p>
 </noscript>
 
-<p>This browser has no
+<p>This browser <b>has no
+  <!-- Scripts in [body] section are executed when the page is loading -->
   <script type="text/javascript" language="JavaScript">
   <!--
-  document.write('problem handling ')
+  document.write('problem with ')
   // -->
   </script>
-<a href="http://en.wikipedia.org/wiki/Javascript">JavaScript</a> capability.</p>
+<a href="http://en.wikipedia.org/wiki/Javascript">JavaScript</a></b> capability.</p>
 
 <p>Supported JavaScript versions:</p>
 <ul>
@@ -97,7 +98,7 @@
 </script>
 
 <small>Note:
-   <img src="../../../../../Doc/Res/S/typeAscii.png" title="SBCS/ASCII" alt="SBCS/ASCII" />
+   img src="../../../../../Doc/Res/S/typeAscii.png" title="SBCS/ASCII" alt="SBCS/ASCII" />
    this is an Sigle Byte Chatacter Set (SBCS/ASCII) document.
 </small>
 </body>
