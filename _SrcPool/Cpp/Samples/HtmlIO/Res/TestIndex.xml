@@ -128,5 +128,17 @@
       <description>JavaScript availability test</description>
     </item>
 
+    <item>
+      <title>Test VBScript Availability</title>
+      <link>TestVbScript.htm</link>
+      <description>Visual Basic Scripting availability test</description>
+    </item>
+
+    <item>
+      <title>Test Erroneous Link event</title>
+      <link>ThisPageNotExist.htm</link>
+      <description>Creates an HTTP Error: "Cannot find server or DNS Error"</description>
+    </item>
+
   </channel>
 </rss>

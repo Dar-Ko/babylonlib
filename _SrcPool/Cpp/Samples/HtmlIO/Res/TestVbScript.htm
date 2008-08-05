@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="Workfile" content="$RCSfile: TestVbScript.htm,v $: documentation" />
+  <meta name="Revision" content="$Revision: 1.1 $ $Date: 2008/08/05 16:36:56 $" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="VBScript, HTML, test, Debugging" />
+  <meta name="Editor" content="$Author: ddarko $" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="Test VBScript Availability" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: ddarko $" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Test cases" />
+  <meta name="DC.description.abstract" content="Test an HTML browser capabilities" />
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2008/08/05 16:36:56 $" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.ISBN" content="$Isbn$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../../../Doc/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../../../Doc/Res/icoVbScript.ico" />
+  <title>Test VBScript Availability</title>
+  <base target="_self" />
+
+  <script type="text/vbscript">
+  <!--
+    'Test MSIE proprietary attribute onClick
+    sub TestMsg
+      MsgBox "TestMsg: Testing VBScript prompt!"
+    end sub
+
+    sub btnTest_OnClick
+      MsgBox "btnTest_OnClick: Testing VBScript prompt!"
+    end sub
+
+   -->
+  </script>
+
+</head>
+
+<body>
+<h1>Test VBScript Availability</h1>
+
+<noscript>
+  <p>Appears that VBScript is <b>disabled</b>. Check configuration options for your browser!</p>
+</noscript>
+
+<p>This browser <b>has no
+  <!-- Scripts in [body] section are executed when the page is loading -->
+  <script type="text/vbscript" language="VBScript">
+  <!--
+  Document.Write("problem with ")
+  // -->
+  </script>
+<a href="http://en.wikipedia.org/wiki/VBScript">VBScript</a></b> capability.</p>
+
+<p>Microsoft Visual Basic Scripting Edition brings active scripting to a wide
+variety of environments, including Web client scripting in Microsoft Internet
+Explorer and Web server scripting in Microsoft Internet Information Service.
+</p>
+
+<!-- The ScriptEngine function returns the scripting language in use:
+      - VBScript - Indicates that Microsoft Visual Basic Scripting Edition is
+                   the current scripting engine
+      - JScript  - Indicates that Microsoft JScript is the current scripting
+                   engine
+      - VBA      - Indicates that Microsoft Visual Basic for Applications is
+                   the current scripting engine.
+ -->
+
+<p>Scripting language version:</p>
+<dd>
+  <script type="text/vbscript">
+    document.write(ScriptEngine & " version " & _
+                   ScriptEngineMajorVersion & "." & _
+                   ScriptEngineMinorVersion & "." & _
+                   ScriptEngineBuildVersion)
+  </script>
+</dd>
+
+<p>
+  <script type="text/vbscript">
+  '<![CDATA[
+  document.write("Today's date is " & date())
+  document.write("<br />")
+  document.write("The time is " & time())
+  ']]>
+  </script>
+</p>
+
+<p>
+  <input name="btnTest" type="button" value="Click Here [btnTest_OnClick]" />
+  <!-- Test using proprietary attribute of IE onClick -->
+  <input name="btnMsg"  type="button" value="Click Here [onClick='TestMsg()']" onClick="TestMsg()"></input>
+</p>
+
+
+<p>
+  Create ActiveX Object and open new Internet Explorer instance:<br />
+  <code>
+  Dim browserIE<br />
+  Set browserIE = CreateObject("InternetExplorer.Application")<br />
+  ...<br />
+  browserIE.Document.Write "<html>" & CrLf & "<body>"<br />
+  ...<br />
+  browserIE.Document.Write "</body>" & CrLf & "</html>"
+  </code>
+  <script type="text/vbscript">
+  '<![CDATA[
+  'Display character table
+  Dim browserIE
+  Set browserIE = CreateObject("InternetExplorer.Application")
+  browserIE.height=370
+  browserIE.width=500
+  browserIE.menubar=0
+  browserIE.toolbar=0
+  browserIE.navigate "About:Blank"
+  browserIE.visible=1
+
+  Do while browserIE.Busy  'Wait for blank page to load
+  Loop
+
+  Const fontSymbol = "Wingdings 2" 'Set symbol font
+
+  browserIE.Document.Write "<html>" & CrLf & "<body>" & CrLf & "<h1>" & fontSymbol & "</h1>" & CrLf
+  For i = 33 to 254
+    browserIE.Document.Write "<font face=" & chr(34) & "Verdana" & chr(34) & ">" & _
+                      i & " (" & chr(i) & ") " & "</font>" & CrLf
+    'Change the font
+    browserIE.Document.Write "<font face=" & chr(34) & fontSymbol & chr(34) & ">" & _
+    chr(i) & "</font><br />" & CrLf
+
+  Next
+  browserIE.Document.Write "</body>" & CrLf & "</html>"
+  ']]>
+  </script>
+</p>
+<p>&nbsp;</p>
+<p><a href="ThisPageNotExist.htm" title="HTTP Error">Erroneous Link</a>
+Creates an HTTP Error: "Cannot find server, file or DNS Error".</p>
+<p>&nbsp;</p>
+
+<small>Note:
+   <img src="../../../../../Doc/Res/S/typeAscii.png" title="SBCS/ASCII" alt="SBCS/ASCII" />
+   this is an Sigle Byte Chatacter Set (SBCS/ASCII) document.
+</small>
+
+</body>
+</html>
