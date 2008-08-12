@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Language" content="en" />
   <meta name="Workfile" content="$RCSfile: TestVbScript.htm,v $: documentation" />
-  <meta name="Revision" content="$Revision: 1.3 $ $Date: 2008/08/05 19:43:32 $" />
+  <meta name="Revision" content="$Revision: 1.4 $ $Date: 2008/08/12 20:57:13 $" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="VBScript, HTML, test, Debugging" />
   <meta name="Editor" content="$Author: ddarko $" />
@@ -19,7 +19,7 @@
   <meta name="DC.subject" content="Test cases" />
   <meta name="DC.description.abstract" content="Test an HTML browser capabilities" />
   <meta name="DC.publisher" content="CommonSoft Inc." />
-  <meta name="DC.date" content="$Date: 2008/08/05 19:43:32 $" />
+  <meta name="DC.date" content="$Date: 2008/08/12 20:57:13 $" />
   <meta name="DC.type" content="Text.Article" />
   <meta name="DC.format" content="application/html" />
   <meta name="DC.language" content="en_ca" />
@@ -54,7 +54,8 @@
 <h1>Test VBScript Availability</h1>
 
 <noscript>
-  <p>Appears that VBScript is <b>disabled</b>. Check configuration options for your browser!</p>
+  <p>Appears that VBScript is <b>disabled</b>.
+  Check configuration options for your browser!</p>
 </noscript>
 
 <p>This browser <b>has no
@@ -81,14 +82,14 @@ Explorer and Web server scripting in Microsoft Internet Information Service.
  -->
 
 <p>Scripting language version:</p>
-<dd>
+<dl><dd>
   <script type="text/vbscript">
     document.write(ScriptEngine & " version " & _
                    ScriptEngineMajorVersion & "." & _
                    ScriptEngineMinorVersion & "." & _
                    ScriptEngineBuildVersion)
   </script>
-</dd>
+</dd></dl>
 
 <p>
   <script type="text/vbscript">
@@ -107,16 +108,17 @@ Explorer and Web server scripting in Microsoft Internet Information Service.
 </p>
 
 
+<h5>How to open a new window within the script</h5>
 <p>
   Create ActiveX Object and open new Internet Explorer instance:<br />
   <code>
   Dim browserIE<br />
   Set browserIE = CreateObject("InternetExplorer.Application")<br />
   ...<br />
-  browserIE.Document.Write "<html>" & CrLf & "<body>"<br />
+  browserIE.Document.Write "&lt;html&gt;" & CrLf & "&lt;body&gt;"<br />
   ...<br />
-  browserIE.Document.Write "</body>" & CrLf & "</html>"
-  </code>
+  browserIE.Document.Write "&lt;/body&gt;" & CrLf & "&lt;/html&gt;"
+ </code>
 
   <script type="text/vbscript">
   '<![CDATA[
@@ -155,10 +157,11 @@ Explorer and Web server scripting in Microsoft Internet Information Service.
   ']]>
   </script>
 </p>
-<p>&nbsp;</p>
+
+<h5>Test an error page</h5>
 <p><a href="ThisPageNotExist.htm" title="HTTP Error">Erroneous Link</a>
 Creates an HTTP Error: "Cannot find server, file or DNS Error".</p>
-<p>&nbsp;</p>
+<br />
 
 <small>Note:
    <img src="../../../../../Doc/Res/S/typeAscii.png" title="SBCS/ASCII" alt="SBCS/ASCII" />
