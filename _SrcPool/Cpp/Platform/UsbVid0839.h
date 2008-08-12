@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid0839.h,v $: header file
-  $Revision: 1.1 $ $Date: 2008/08/12 18:54:17 $
+  $Revision: 1.2 $ $Date: 2008/08/12 18:55:45 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -10,7 +10,7 @@
 /* Group=USB ID                                                              */
 
 #ifndef _USBVID0839_H_
-  //$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid0839.h$ sentry
+  //$Workfile: UsbVid0839.h$ sentry
   #define _USBVID0839_H_
 
 /*2105.	USB device vendor identification (VID) number	Samsung Tecwin Co., Ltd	http://www.samsungtechwin.com/
@@ -29,7 +29,7 @@
 #define USBPID_DIGIMAX360 0x000E //Samsung Digimax 360 Digital Camera
 #define USBPID_DIGIMAX300 0x0010 //Samsung Digimax 300 Digital Camera
 #define USBPID_DIGIMAX55  0x004A /*Samsung Digimax L55W Digital Camera
-                                 Model Number STP1-55 USB Mass Storage Device*/
+                                   Model Number STP1-55 USB Mass Storage Device*/
 #define USBPID_DIGIMAX210 0x1003 //Samsung Digimax 210SE Digital Camera
 #define USBPID_DIGIMAX220 0x1005 //Samsung Digimax 220 Digital Camera
 #define USBPID_DIGIMAX_V4 0x1009 //Samsung Digimax V4 Digital Camera
@@ -42,6 +42,9 @@
 #endif //_USBVID0839_H_
 /*****************************************************************************
  * $Log: UsbVid0839.h,v $
+ * Revision 1.2  2008/08/12 18:55:45  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.1  2008/08/12 18:54:17  ddarko
  * Created
  *
