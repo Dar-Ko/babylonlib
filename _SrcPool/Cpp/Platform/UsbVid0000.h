@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid0000.h$: header file
+/*$Workfile: UsbVid0000.h$: header file
   $Revision: 1$ $Date: 22/08/2007 10:51:35 AM$
   $Author: Darko Kolakovic$
 
@@ -10,7 +10,7 @@
 /* Group=USB ID                                                              */
 
 #ifndef _USBVID0000_H_
-  //$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid0000.h$ sentry
+  //$Workfile: UsbVid0000.h$ sentry
   #define _USBVID0000_H_
 
 /*$VID.	USB device vendor identification (VID) number	$VENDOR	$VENDORADR

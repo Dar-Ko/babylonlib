@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid0D85.h$: header file
-  $Revision: 1.1 $ $Date: 2008/04/18 19:55:58 $
+/*$Workfile: UsbVid0D85.h$: header file
+  $Revision: 1.2 $ $Date: 2008/08/12 18:52:55 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -10,7 +10,7 @@
 /* Group=USB ID                                                              */
 
 #ifndef _USBVID0D85_H_
-  //$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid0D85.h$ sentry
+  //$Workfile: UsbVid0D85.h$ sentry
   #define _USBVID0D85_H_
 
 /*3461.	USB device vendor identification (VID) number	Identix Incorporated of L-1 Identity Solutions	http://www.l1id.com/

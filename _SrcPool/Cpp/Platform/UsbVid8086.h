@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid8086.h$: header file
+/*$Workfile: UsbVid8086.h$: header file
   $Revision: 1$ $Date: 22/08/2007 10:51:35 AM$
   $Author: Darko Kolakovic$
 
@@ -10,7 +10,7 @@
 /* Group=USB ID                                                              */
 
 #ifndef _USBVID8086_H_
-  //$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid8086.h$ sentry
+  //$Workfile: UsbVid8086.h$ sentry
   #define _USBVID8086_H_
 
 /*32902.	USB device vendor identification (VID) number	Intel Corporation	http://www.intel.com/

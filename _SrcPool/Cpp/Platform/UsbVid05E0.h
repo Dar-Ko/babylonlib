@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid05E0.h$: header file
-  $Revision: 1.4 $ $Date: 2007/09/06 01:20:34 $
+/*$Workfile: UsbVid05E0.h$: header file
+  $Revision: 1.5 $ $Date: 2008/08/12 18:52:55 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -8,7 +8,7 @@
  */
 
 #ifndef _USBVID05E0_H_
-  //$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid05E0.h$ sentry
+  //$Workfile: UsbVid05E0.h$ sentry
   #define _USBVID05E0_H_
 
 #define USBVID_05E0 _T("Motorola Symbol Technologies") //VID 1504 Vendor name

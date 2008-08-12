@@ -1,4 +1,4 @@
-/*$Workfile: S:\_SrcPool\Cpp\Platform\UsbVid413C.h$: header file
+/*$Workfile: UsbVid413C.h$: header file
   $Revision: 1$ $Date: 22/08/2007 10:51:35 AM$
   $Author: Darko Kolakovic$
 
