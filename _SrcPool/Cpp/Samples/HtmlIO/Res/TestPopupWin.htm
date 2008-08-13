@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="Workfile" content="$RCSfile: TestPopupWin.htm,v $: documentation" />
+  <meta name="Revision" content="$Revision: 1.1 $ $Date: 2008/08/13 21:18:48 $" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="popup, script, HTML, test, Debugging" />
+  <meta name="Editor" content="$Author: ddarko $" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="Test Popup Window" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: ddarko $" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Test cases" />
+  <meta name="DC.description.abstract" content="Test an HTML browser capabilities" />
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2008/08/13 21:18:48 $" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.ISBN" content="$Isbn$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../../../Doc/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../../../Doc/Res/icoSample.ico" />
+  <title>Test VBScript Availability</title>
+  <base target="_self" />
+
+  <script type="text/javascript" language="JavaScript">
+  //<![CDATA[
+  		/*This function can be called from a variety of objects such as a link &lt;a&gt;, an image map &lt;area&gt;, or the &lt;BODY ...&gt; element for opening the popup automatically.
+  		  Different links can target the same popup by all using the same name.
+  		  Returns: true to open URL in the parent window or false to cancel... event
+  		  Example:
+  		  <body onLoad="popup('autopopup.html', 'IDS_POPUP')">
+  		  <a href="popupbasic.html" onClick="return popup(this, 'IDS_POPUP')">my popup<\/a>
+  		 */
+		function OpenPopupWnd(oUrl, //[in] URL as a string or the object (the link or image map) calling the function
+		                      strWndId //[in] unique name for the popup window. More than one link can target the same popup by using the same unique popup name.
+		                      )
+		{
+		var bResult = true; //Pass event handling to the parent if true, otherwise finish eith the event handling
+		//Verify if focus method exists. The method will bring the popup to the front.
+		if ( window.focus )
+			{
+			bResult = false; //return false to cancel further onclick handling
+
+			var hrefUrl;
+			if (typeof(oUrl) == 'string')
+				hrefUrl=oUrl; //Set popup URL
+			else if (oUrl.href) //Get URL from the href attribute of  anchor/area object
+				hrefUrl=oUrl.href; 
+			else if (oUrl.target) //URL would be submited from a form object
+				{
+				hrefUrl = ""; //Open blank popup and submit URL later
+				oUrl.target = strWndId;
+				bResult = false; //return true for further onsubmit handling
+				}
+
+			wndPopup = window.open(hrefUrl, strWndId, 'width=400,height=200,scrollbars=yes');
+			//wndPopup.document.write("<h1>Popup Test!<\/h1>\n<p><b>" + hrefUrl + 
+			//                        "<\/b><\/p>\n<p><b>ID = " + strWndId + "<\/b><\/p>\n");
+			wndPopup.document.bgColor="lightblue";
+			
+		}		
+		return bResult; //return true to open URL in parent window or
+						//return false to cancel further event handling
+
+		}
+  //]]>
+  </script>
+
+</head>
+
+<body onload="OpenPopupWnd('TestTextBasic.htm', 'ID_POPUPONLOAD')" >
+<!-- The onload event occurs when the user agent finishes loading a
+window.
+The onclick event occurs when the pointing device button is
+clicked over an element.
+The onsubmit event occurs when a form is submitted. It only applies to the FORM element.
+-->
+<h1>Test Popup Window</h1>
+
+<noscript>
+  <p>Appears that JavaScript is <b>disabled</b>. Check configuration options for your browser!</p></noscript>
+
+<p>A <i>popup window</i> is a window that is usually smaller than a 
+browser window and usually is without some of the common decorations like tool 
+bars or status bars.
+</p>
+
+
+<h5>How to open a new window within the script</h5>
+For example, 
+<a href="TestList.htm" onclick="return OpenPopupWnd(this,'ID_POPUP')">this link</a> opens a medium-sized popup window.
+
+<map name="ID_IMAGEAREA" id="ID_IMAGEAREA">
+<area 
+   href="TestTableSimple.htm" alt="my popup"
+   coords="10,10,120,120" shape="rect"
+   onclick="return OpenPopupWnd(this, 'ID_POPUP')" />
+<area 
+   href="TestTextAttributes.htm" alt="your popup"
+   coords="140,10,180,50" shape="rect"
+   onclick="return OpenPopupWnd(this, 'ID_POPUP')" />
+
+<area shape="default" nohref="nohref" alt="ffsdf" />
+</map>
+
+<p><img border="0" src="TestPo1.gif" alt="fsadf" usemap="#ID_IMAGEAREA" width="190" height="130" /></p>
+<br />
+
+<form target="ID_POPUP" method="post" action="TestTableColSpan.htm" onsubmit="OpenPopupWnd(this, 'ID_POPUP')">
+name: <input style="background-color: rgb(255, 255, 160);" name="realname" 
+size="20" /><br />
+
+email: <input style="background-color: rgb(255, 255, 160);" name="email" 
+size="20" /><br />
+<input value="show me" type="submit" />
+</form>
+<h3><code>open()</code> Parameters</h3>
+<p><code><b>window.open(strURL, strName [, features </b></code>[, replace ] <code><b>
+])</b></code></p>
+
+<p><font face="arial, helvetica" size="2"><b class="ARGUMENT">URL</b> - this is 
+a string containing the URL of the document to open in the new window. If </font>
+empty string<font face="arial, helvetica" size="2">&nbsp; 
+is specified, an empty window will be created.<br>
+<br>
+<b class="ARGUMENT">name</b> - this is a string containing the name of the new 
+window. This can be used as the 'target' attribute of a &lt;FORM&gt; or &lt;A&gt; tag to 
+point to the new window. <br>
+<br>
+<b class="ARGUMENT">features</b> - this is an optional string that contains 
+details of which of the standard window features are to be used with the new 
+window. This takes the form of a comma-delimited list. Most of these features 
+require yes or no (1 or 0 is also o.k.) and any of these can be turned on by 
+simply listing the feature (they default to yes). Also, if you don't supply any 
+of the feature arguments, all features with a choice of yes or no are enabled; 
+if you do specify any feature parameters, <b>titlebar</b> and <b>hotkeys</b> 
+still default to yes but all others are no. </font></p>
+
+<p><code>replace</code> An optional boolean parameter. If true, the new location 
+will replace the current page in the browser's navigation history. Note that 
+some browsers will simply ignore this parameter.</p>
+
+<p>&nbsp;</p>
+
+<font face="arial, helvitica" size="2"><table width="94%" border="1">
+  <tr>
+    <td class="TEXT" vAlign="bottom" width="30%" height="22">
+    <font face="Arial, Helvetica, sans-serif"><b><font size="2">features Value</font></b></font></td>
+    <td class="TEXT" vAlign="bottom" width="70%" height="22"><b>
+    <font face="Arial, Helvetica, sans-serif" size="2">Description</font></b></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>alwaysLowered
+    <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes, this creates a window that always floats below 
+    other windows.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>alwaysRaised
+    <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes, this creates a window that always floats above 
+    other windows.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>dependent
+    <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes, the new window is created as a child (closes when 
+    the parent window closes and does not appear on the task bar on Windows 
+    platforms) of the current window.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>directories</b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes, the new browser window has the standard directory 
+    buttons.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" width="29%"><font face="Arial, Helvetica, sans-serif" 
+    size="2"><b>height</b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">This sets the height of the new window in pixels.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>hotkeys
+    <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to no, this disables the use of hotkeys (except security 
+    and quit hotkeys) in a window without a menubar.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" width="29%"><font face="Arial, Helvetica, sans-serif" 
+    size="2"><b>innerHeight <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">This sets the inner height of the window in pixels.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" width="29%"><font face="Arial, Helvetica, sans-serif" 
+    size="2"><b>innerWidth <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">This sets the inner width of the window in pixels.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>location</b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes, this creates the standard Location entry feild in 
+    the new browser window.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>menubar</b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes, this creates a new browser window with the 
+    standard menu bar (File, Edit, View, etc.).</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>outerHeight
+    <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">This sets the outer height of the new window in pixels.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>outerWidth
+    <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">This sets the outer width of the new window in pixels.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>resizable</b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes this allows the resizing of the new window by the 
+    user.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>screenX
+    <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">This allows a new window to be created at a specified number of 
+    pixels from the left side of the screen.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>screenY
+    <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">This allows a new window to be created at a specified number of 
+    pixels from the top of the screen.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>scrollbars</b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes the new window is created with the standard 
+    horizontal and vertical scrollbars, where needed</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>status</b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes, the new window will have the standard browser 
+    status bar at the bottom.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>titlebar
+    <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes the new browser window will have the standard title 
+    bar.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>toolbar</b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes the new window will have the standard browser tool 
+    bar (Back, Forward, etc.).</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" width="29%"><font face="Arial, Helvetica, sans-serif" 
+    size="2"><b>width</b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">This sets the width of the new window in pixels.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>z-lock
+    <img src="ns.gif" width="20" height="20"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">When set to yes this prevents the new window from rising above 
+    other windows when it is made active (given focus).</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>channelmode
+    <img border="0" src="../../../../../Doc/Res/S/icoHtm.gif" width="16" 
+    height="16"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">sets if the window appears in channel mode</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>fullscreen<img 
+    border="0" src="../../../../../Doc/Res/S/icoHtm.gif" width="16" height="16"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">the new window will appear in full screen.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>left<img border="0" 
+    src="../../../../../Doc/Res/S/icoHtm.gif" width="16" height="16"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">same as screenX, allows a new window to be created at a specified 
+    number of pixels from the left side of the screen.</font></td>
+  </tr>
+  <tr>
+    <td class="TEXT" vAlign="top" width="29%">
+    <font face="Arial, Helvetica, sans-serif" size="2"><b>top<img border="0" 
+    src="../../../../../Doc/Res/S/icoHtm.gif" width="16" height="16"></b></font></td>
+    <td class="TEXT" width="71%"><font face="Arial, Helvetica, sans-serif" 
+    size="2">same as screenY, allows a new window to be created at a specified 
+    number of pixels from the top of the screen.</font></td>
+  </tr>
+</table>
+</font><p>&nbsp;</p>
+
+<table border="0" cellpadding="0" cellspacing="0" 
+style="border-collapse: collapse" width="65%" 
+id="AutoNumber1">
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_121.html" 
+    target="_top">width &amp; height</a></td>
+    <td width="50%">the dimensions of the popup</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_122.html" 
+    target="_top">left &amp; top</a></td>
+    <td width="50%">he distance from the top and left side of the screen</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_123.html" 
+    target="_top">toolbar</a></td>
+    <td width="50%">if the popup should have a set of navigation buttons across 
+    the top</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_124.html" 
+    target="_top">location</a></td>
+    <td width="50%">if the popup should have a location bar where the URL is 
+    displayed</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_125.html" 
+    target="_top">directories</a></td>
+    <td width="50%">if the popup should have a row across the top with buttons 
+    to popular web sites</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_126.html" 
+    target="_top">status</a></td>
+    <td width="50%">if the popup should have a status bar across the bottom</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_127.html" 
+    target="_top">menubar</a></td>
+    <td width="50%">if the popup should have a menu</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_128.html" 
+    target="_top">scrollbars</a></td>
+    <td width="50%">if the popup should have scroll bars</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_129.html" 
+    target="_top">resizable</a></td>
+    <td width="50%">if users can resize the popup</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_131.html" 
+    target="_top">dependent</a></td>
+    <td width="50%">if the popup should close when its opener window closes</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_87.html" 
+    target="_top">full screen</a></td>
+    <td width="50%">how to open a full screen popup</td>
+  </tr>
+  <tr>
+    <td width="50%">
+    <a href="http://www.htmlcodetutorial.com/linking/linking_famsupp_132.html" 
+    target="_top">channelmode</a></td>
+    <td width="50%">MSIE's channel mode</td>
+  </tr>
+</table>
+<br />
+<small>Note:
+   <img src="../../../../../Doc/Res/S/typeAscii.png" title="SBCS/ASCII" 
+		alt="SBCS/ASCII" width="16" height="16" />
+   this is an Sigle Byte Chatacter Set (SBCS/ASCII) document.
+</small>
+
+</body>
+</html>
