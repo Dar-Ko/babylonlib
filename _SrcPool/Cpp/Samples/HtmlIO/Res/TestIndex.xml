@@ -140,5 +140,11 @@
       <description>Creates an HTTP Error: "Cannot find server or DNS Error"</description>
     </item>
 
+    <item>
+      <title>Test Popup Windows</title>
+      <link>TestPopupWin.htm</link>
+      <description>Opens new windows on different events</description>
+    </item>
+
   </channel>
 </rss>
