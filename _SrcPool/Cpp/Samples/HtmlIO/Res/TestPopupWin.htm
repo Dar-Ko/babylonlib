@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Language" content="en" />
   <meta name="Workfile" content="$RCSfile: TestPopupWin.htm,v $: documentation" />
-  <meta name="Revision" content="$Revision: 1.3 $ $Date: 2008/08/15 16:24:52 $" />
+  <meta name="Revision" content="$Revision: 1.4 $ $Date: 2008/08/15 18:48:57 $" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="popup, script, HTML, test, Debugging" />
   <meta name="Editor" content="$Author: ddarko $" />
@@ -19,7 +19,7 @@
   <meta name="DC.subject" content="Test cases" />
   <meta name="DC.description.abstract" content="Test an HTML browser capabilities" />
   <meta name="DC.publisher" content="CommonSoft Inc." />
-  <meta name="DC.date" content="$Date: 2008/08/15 16:24:52 $" />
+  <meta name="DC.date" content="$Date: 2008/08/15 18:48:57 $" />
   <meta name="DC.type" content="Text.Article" />
   <meta name="DC.format" content="application/html" />
   <meta name="DC.language" content="en_ca" />
@@ -58,22 +58,32 @@
         hrefUrl=oUrl; //Set popup URL
       else if (oUrl.href) //Get URL from the href attribute of  anchor/area object
         hrefUrl=oUrl.href;
+      else if(oUrl.jojo)//.ID_LIST) //URL is in form's list box
+        {
+        hrefUrl = (oUrl.jojo.options[oUrl.ID_LIST.selectedIndex].value);
+//        hrefUrl = (oUrl.ID_LIST.options[oUrl.ID_LIST.selectedIndex].value);
+        }
       else if (oUrl.target) //URL would be submited from a form object
         {
         hrefUrl = ""; //Open blank popup and submit URL later
         oUrl.target = strWndId;
         bResult = true; //return true for further onsubmit handling
         }
-      else if(oUrl.ID_LIST) //URL is in form's list box
-        {
-        hrefUrl =(oUrl.ID_LIST.options[oUrl.ID_LIST.selectedIndex].value);
-        }
 
+      //debugger;
       wndPopup = window.open(hrefUrl, strWndId, 'width=400,height=200,scrollbars=yes');
+      if (wndPopup)
+        {
       //wndPopup.document.write("<h1>Popup Test!<\/h1>\n<p><b>" + hrefUrl +
       //                        "<\/b><\/p>\n<p><b>ID = " + strWndId + "<\/b><\/p>\n");
-      wndPopup.document.bgColor="lightblue";
-      wndPopup.focus(); //Bring popup at the front
+        wndPopup.document.bgColor="lightblue";
+        wndPopup.focus(); //Bring popup at the front
+        }
+      else
+        {
+        //Note: Check if popup window is not blocked in browser's setting
+        bResult = true; //Open Url in parent window
+        }
 
     }
     return bResult; //return true to open URL in parent window or
@@ -195,7 +205,7 @@ bars or status bars.
 
 <h5>How to open a new window within the script</h5>
 <dl>
-  <dt><h6><b><code>onload</code> event</b></h6></dt>
+  <dt><u><b><code>onload</code> event</b></u></dt>
   <dd><p>New window will be created when this page is loaded:<br />
     <code>&lt;body onload="window.open('strUrl', 'strWndId', 'width=400,height=200');"&gt;
     </code></p>
@@ -203,7 +213,7 @@ bars or status bars.
     popup windows.</p>
   </dd>
 
-  <dt><h6><b><code>target</code> attribute</b></h6></dt>
+  <dt><u><b><code>target</code> attribute</b></u></dt>
   <dd><p>New browser window can be opened using the <code>target</code> attribute of
   an anchor <code>&lt;a&gt;</code> or on a <code>&lt;form&gt;</code> element:<br />
   <code>&lt;a href="strUrl" target="strWndId"&gt;some text&lt;/a&gt;</code></p>
@@ -216,7 +226,7 @@ bars or status bars.
   <p>No special scripts are required to create new window.</p>
   </dd>
 
-  <dt><h6><b><code>onclick</code> event</b></h6></dt>
+  <dt><u><b><code>onclick</code> event</b></u></dt>
   <dd><p>In following example,
     <a href="TestList.htm" onclick="return OpenPopupWnd(this,'ID_POPUP')" title="Open Popup Window">this link</a>
     opens a medium-sized popup window:<br />
@@ -241,7 +251,7 @@ bars or status bars.
 	  <img border="0" src="Images/TestArea.gif" alt="Areas" usemap="#ID_IMAGEAREA" width="190" height="130" />
   </dd>
 
-  <dt><h6><b><code>onsubmit</code> event</b></h6></dt>
+  <dt><u><b><code>onsubmit</code> event</b></u></dt>
   <dd>Next example shows one way how to open new window within a <code>&lt;form&gt;</code>:<br />
   <code>&lt;form target="strWndId" method="post" action="strUrl"
          onsubmit="OpenPopupWnd(this, 'strWndId')"&gt;</code><br />
@@ -252,34 +262,34 @@ bars or status bars.
         onsubmit="OpenPopupWnd(this, 'ID_POPUP')">
 
      Open selected web page:
-     <select id="ID_LIST" size="1" style="background-color: rgb(255, 255, 160);>
-       <option value=""> Select web site... </option>
+     <select name="jojo" id="ID_LIST" size="1" style="background-color: rgb(255, 255, 160);">
+       <option value="">Select web site...</option>
        <option value="http://www.yahoo.com/">Yahoo!</option>
        <option value="http://www.google.com/">Google</option>
      </select>
      <input type="button" id="ID_BTNSELECT" value="Open popup window"
-            onclick="OpenPopupWnd(this.form);"><br />
+            onclick="OpenPopupWnd(this.form,'ID_POPUP');" /><br />
 
      <code>submit</code> URL defined in <code>action</code> parameter:<br />
      <input value="Open popup window" type="submit" />
   </form>
   </dd>
 
-  <dt><h6><b>JavaScript Message Box</b></h6></dt>
+  <dt><u><b>JavaScript Message Box</b></u></dt>
   <dd>
   <code>&lt;<i>element [argument="value"]</i> onclick="javascript:alert|confirm|prompt('some text')"&gt;</code>
   <div align="left">
-    <form>
+    <form action="">
       <input type="button" value="Alert"
-             onclick="javascript:alert('alert(): This is the Alert message.')">
+             onclick="javascript:alert('alert(): This is the Alert message.')" />
       <input type="button" value="Confirm"
-             onclick="javascript:confirm('confirm(): Confirm a prompt with OK or Cancel.')">
+             onclick="javascript:confirm('confirm(): Confirm a prompt with OK or Cancel.')" />
       <input type="button" value="Prompt"
-             onclick="javascript:prompt('prompt(): Prompt for the user\'s input.')">
+             onclick="javascript:prompt('prompt(): Prompt for the user\'s input.')" />
     </form>
   </div>
   </dd>
-  <dt><h6><b><code>&lt;iframe&gt;</code> element</b></h6></dt>
+  <dt><u><b><code>&lt;iframe&gt;</code> element</b></u></dt>
   <dd><p>In the following example the hidden <code>&lt;iframe&gt;</code> element is
   made visible, giving only appearance of the new popup window. In reality the element
   is embedded in the existing window.</p>
@@ -297,9 +307,10 @@ bars or status bars.
 	    <font color="#ffffff">[X]</font></a>
 	  </div>
 	  <p>
-	  <iframe id="ID_TIPBOXVIEW" src="TestTextBasic.htm" frameborder="0"
-	              height="200" width="300" name="I1">
+	  <iframe id="ID_TIPBOXVIEW" name="ID_TIPBOXVIEW" src="TestTextBasic.htm"
+	          frameborder="0" height="200" width="300">
 	  </iframe>
+	  </p>
 	</div>
 
   </dd>
@@ -312,9 +323,8 @@ bars or status bars.
 <p><code><b>window.open(strUrl, strName[, features[, replace]])</b></code></p>
 
 <p><code><b>strUrl</b></code> - this is
-a string containing the URL of the document to open in the new window. If </font>
-empty string<font face="arial, helvetica" size="2">&nbsp;
-is specified, an empty window will be created.</p>
+a string containing the URL of the document to open in the new window. If
+empty string is specified, an empty window will be created.</p>
 
 <p><code><b>strName</b></code> - string containing the name of the new
 window. This can be used as the <code><i>target</i></code> of an anchor
@@ -337,237 +347,218 @@ some browsers will simply ignore this parameter.</p>
 
 <p>Returns: a reference (or handle) to the newly opened window.</p>
 
-<font size="2">
 <table width="774" border="0" title="window.open Parameters"
-style="border-collapse: collapse" bordercolor="#111111" cellpadding="2"
+style="border-collapse: collapse" cellpadding="2"
 cellspacing="1">
   <tr>
-    <th vAlign="bottom" width="20%" height="22">
-    <font ><b><font size="2">features Value</font></b></font></th>
-    <th vAlign="bottom" width="16" height="22">
+    <th width="20%" height="22">
+    <b>features Value</b></th>
+    <th width="16" height="22">
     &nbsp;</th>
-    <th vAlign="bottom" width="518" height="22"><b>
-    <font  size="2">Description</font></b></th>
+    <th width="518" height="22"><b>
+    Description</b></th>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>alwaysLowered</b></code></font></td>
+    <code><b>alwaysLowered</b></code></td>
     <td width="16">
-    <font  size="2"><code><b>
-    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font size="2">Creates a window that always floats below
-    other windows.</font></td>
+    <code><b>
+    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Creates a window that always floats below
+    other windows.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>alwaysRaised</b></code></font></td>
+    <code><b>alwaysRaised</b></code></td>
     <td width="16">
-    <font  size="2"><code><b>
-    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font
-    size="2">Creates a window that always floats above other windows.</font></td>
+    <code><b>
+    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Creates a window that always floats above other windows.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>channelmode</b></code></font></td>
+    <code><b>channelmode</b></code></td>
     <td width="16">
-    <font  size="2"><code><b>
+    <code><b>
     <img border="0" src="../../../../../Doc/Res/S/icoIe.gif" alt="IE" title="Internet Explorer" width="16"
-    height="16"></b></code></font></td>
-    <td width="518"><font
-    size="2">Displays the new window in channel mode.</font></td>
+    height="16" /></b></code></td>
+    <td width="518">Displays the new window in channel mode.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>dependent</b></code></font></td>
+    <code><b>dependent</b></code></td>
     <td width="16">
-    <font  size="2"><code><b>
-    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font size="2">Creates the new window as a child of the
+    <code><b>
+    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Creates the new window as a child of the
     current window; the child windows will close when the parent window closes.
-    </font></td>
+    </td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>directories</b></code></font></td>
+    <code><b>directories</b></code></td>
     <td width="16">
     &nbsp;</td>
-    <td width="518"><font size="2">Shows or hides the standard directory buttons
-    with links to other web sites.</font></td>
+    <td width="518">Shows or hides the standard directory buttons
+    with links to other web sites.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>fullscreen</b></code></font></td>
+    <code><b>fullscreen</b></code></td>
     <td width="16">
-    <font  size="2"><code><b><img
-    border="0" src="../../../../../Doc/Res/S/icoIe.gif" alt="IE" title="Internet Explorer" width="16" height="16"></b></code></font></td>
-    <td width="518"><font size="2">Displays the new window over whole screen.</font></td>
+    <code><b><img
+    border="0" src="../../../../../Doc/Res/S/icoIe.gif" alt="IE" title="Internet Explorer" width="16" height="16" /></b></code></td>
+    <td width="518">Displays the new window over whole screen.</td>
   </tr>
   <tr>
-    <td width="20%"><font
-    size="2"><code><b>height</b></code></font></td>
+    <td width="20%"><code><b>height</b></code></td>
     <td width="16">&nbsp;</td>
-    <td width="518"><font
-    size="2">Sets the height of the new window in pixels.</font></td>
+    <td width="518">Sets the height of the new window in pixels.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>hotkeys</b></code></font></td>
+    <code><b>hotkeys</b></code></td>
     <td width="16">
-    <font  size="2"><code><b>
-    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font
-    size="2">Disables or enables the use of hotkeys (except security
-    and quit hotkeys) in a window without a menubar.</font></td>
+    <code><b>
+    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Disables or enables the use of hotkeys (except security
+    and quit hotkeys) in a window without a menubar.</td>
   </tr>
   <tr>
-    <td width="20%"><font
-    size="2"><code><b>innerHeight</b></code></font></td>
-    <td width="16"><font
-    size="2"><code><b> <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font
-    size="2">Inner (working area) height of the window in pixels.</font></td>
+    <td width="20%"><code><b>innerHeight</b></code></td>
+    <td width="16"><code><b> <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Inner (working area) height of the window in pixels.</td>
   </tr>
   <tr>
-    <td width="20%"><font
-    size="2"><code><b>innerWidth</b></code></font></td>
-    <td width="16"><font
-    size="2"><code><b> <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font
-    size="2">Inner (working area) width of the window in pixels.</font></td>
+    <td width="20%"><code><b>innerWidth</b></code></td>
+    <td width="16"><code><b> <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Inner (working area) width of the window in pixels.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>left</b></code></font></td>
+    <code><b>left</b></code></td>
     <td width="16">
-    <font  size="2"><code><b><img border="0"
-    src="../../../../../Doc/Res/S/icoIe.gif" alt="IE" title="Internet Explorer" width="16" height="16"></b></code></font></td>
+    <code><b><img border="0"
+    src="../../../../../Doc/Res/S/icoIe.gif" alt="IE" title="Internet Explorer" width="16" height="16" /></b></code></td>
     <td width="518">
-
-<font size="2">
     Distance from the left side of the screen in pixels where new window
-    will be displayed; same as <code>screenX</code>.</font></font></td>
+    will be displayed; same as <code>screenX</code>.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>location</b></code></font></td>
+    <code><b>location</b></code></td>
     <td width="16">
     &nbsp;</td>
-    <td width="518"><font size="2">Shows or hides the standard <i>Location (URL)</i>
+    <td width="518">Shows or hides the standard <i>Location (URL)</i>
     text entry field in
-    the toolbar of new browser window.</font></td>
+    the toolbar of new browser window.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>menubar</b></code></font></td>
+    <code><b>menubar</b></code></td>
     <td width="16">
     &nbsp;</td>
-    <td width="518"><font size="2">Shows or hides the standard menu bar.</font></td>
+    <td width="518">Shows or hides the standard menu bar.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>outerHeight</b></code></font></td>
+    <code><b>outerHeight</b></code></td>
     <td width="16">
-    <font  size="2"><code><b>
-    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font size="2">Outer height of the new window in pixels.</font></td>
+    <code><b>
+    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Outer height of the new window in pixels.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>outerWidth</b></code></font></td>
+    <code><b>outerWidth</b></code></td>
     <td width="16">
-    <font  size="2"><code><b>
-    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font size="2">Outer width of the new window in pixels.</font></td>
+    <code><b>
+    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Outer width of the new window in pixels.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>resizable</b></code></font></td>
+    <code><b>resizable</b></code></td>
     <td width="16">
     &nbsp;</td>
-    <td width="518"><font size="2">Allows the resizing of the new window by the
-    user.</font></td>
+    <td width="518">Allows the resizing of the new window by the
+    user.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>screenX</b></code></font></td>
+    <code><b>screenX</b></code></td>
     <td width="16">
-    <font  size="2"><code><b>
-    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
+    <code><b>
+    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
     <td width="518">
-
-<font size="2">
     Distance from the left side of the screen in pixels where new window
-    will be displayed.</font></font></td>
+    will be displayed.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>screenY</b></code></font></td>
+    <code><b>screenY</b></code></td>
     <td width="16">
-    <font  size="2"><code><b>
-    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font size="2">Distance from the top of the screen in pixels where new window
-    will be displayed.</font></font></td>
+    <code><b>
+    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Distance from the top of the screen in pixels where new window
+    will be displayed.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>scrollbars</b></code></font></td>
-    <td width="16">
-    &nbsp;</td>
-    <td width="518"><font size="2">Shows or hides the standard horizontal and
-    vertical scrollbars, when needed.</font></td>
-  </tr>
-  <tr>
-    <td width="20%">
-    <font  size="2"><code><b>status</b></code></font></td>
+    <code><b>scrollbars</b></code></td>
     <td width="16">
     &nbsp;</td>
-    <td width="518"><font size="2">Shows or hides the standard browser status
-    bar at the bottom.</font></td>
+    <td width="518">Shows or hides the standard horizontal and
+    vertical scrollbars, when needed.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>titlebar</b></code></font></td>
-    <td width="16">
-    <font  size="2"><code><b>
-    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font size="2">Shows or hides the standard title bar.</font></td>
-  </tr>
-  <tr>
-    <td width="20%">
-    <font  size="2"><code><b>toolbar</b></code></font></td>
+    <code><b>status</b></code></td>
     <td width="16">
     &nbsp;</td>
-    <td width="518"><font size="2">Shows or hides the standard browser toolbar
-    buttons.</font></td>
+    <td width="518">Shows or hides the standard browser status
+    bar at the bottom.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>top</b></code></font></td>
+    <code><b>titlebar</b></code></td>
     <td width="16">
-    <font  size="2"><code><b><img border="0"
-    src="../../../../../Doc/Res/S/icoIe.gif" alt="IE" title="Internet Explorer" width="16" height="16"></b></code></font></td>
-    <td width="518"><font size="2">Distance from the top of the screen in pixels where new window
-    will be displayed; same as <code>screenY</code>.</font></font></td>
+    <code><b>
+    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Shows or hides the standard title bar.</td>
   </tr>
   <tr>
-    <td width="20%"><font
-    size="2"><code><b>width</b></code></font></td>
+    <td width="20%">
+    <code><b>toolbar</b></code></td>
+    <td width="16">
+    &nbsp;</td>
+    <td width="518">Shows or hides the standard browser toolbar
+    buttons.</td>
+  </tr>
+  <tr>
+    <td width="20%">
+    <code><b>top</b></code></td>
+    <td width="16">
+    <code><b><img border="0"
+    src="../../../../../Doc/Res/S/icoIe.gif" alt="IE" title="Internet Explorer" width="16" height="16" /></b></code></td>
+    <td width="518">Distance from the top of the screen in pixels where new window
+    will be displayed; same as <code>screenY</code>.</td>
+  </tr>
+  <tr>
+    <td width="20%"><code><b>width</b></code></td>
     <td width="16">&nbsp;</td>
-    <td width="518"><font size="2">Sets the width of the new window in pixels.</font></td>
+    <td width="518">Sets the width of the new window in pixels.</td>
   </tr>
   <tr>
     <td width="20%">
-    <font  size="2"><code><b>z-lock</b></code></font></td>
+    <code><b>z-lock</b></code></td>
     <td width="16">
-    <font  size="2"><code><b>
-    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="20" height="20"></b></code></font></td>
-    <td width="518"><font
-    size="2">Prevents the new window changing its z-order and displaying before
-    other windows, when it is made active (in focus).</font></td>
+    <code><b>
+    <img src="../../../../../Doc/Res/S/icoNetscape.gif" alt="NS" title="Netscape" width="16" height="16" /></b></code></td>
+    <td width="518">Prevents the new window changing its z-order and displaying before
+    other windows, when it is made active (in focus).</td>
   </tr>
   </table>
-</font>
 <br />
 <small>Note:
    <img src="../../../../../Doc/Res/S/typeAscii.png" title="SBCS/ASCII"
