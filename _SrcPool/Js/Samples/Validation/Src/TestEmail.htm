@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="Workfile"
+  content="$Workfile: TestEmail.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 1.1 $ $Date: 2008/08/18 18:32:04 $" />
+  <meta name="Editor" content="$Author: ddarko $" />
+  <meta name="Copyright"
+  content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="author" content="Darko Kolakovi&#263;" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="JavaScript, test, string" />
+  <meta name="description" content="Test of the string validation" />
+
+  <title>Test eMail Format</title>
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../../Doc/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../../Doc/Res/icoJavaScript.ico" />
+  <base target="_self" />
+  <script language="javascript" name="eventHandler">
+    //Write result of the validation
+    function writeResult(fVerifier, //[in] validating functions
+                         oValue,    //[in] value to validate
+                         oElement   //[in] the output element
+                        )
+    {
+    alert(fVerifier(oValue));
+    }
+
+    //Display result of the validation
+    function onClick(fVerifier, //[in] validating functions
+                     oValue      //[in] value to validate
+                    )
+    {
+    writeResult(fVerifier, oValue);
+    }
+  </script>
+  <!-- Test objects -->
+  <script language="JavaScript" type="text/javascript" src="../../KIsEmail.js">
+  </script>
+</head>
+
+<body>
+  <h1>Validate eMail Address Format</h1>
+  <p class="codeJs">
+    <a href="../../KIsEmail.js" title="Script">
+      <img src="../../../../Doc/Res/S/icoJavaScript.gif"
+          alt="JavaScript" border="0" />
+      Source Code</a>
+  </p>
+  <a href="" title="Empty String" onclick="isEmail('')">Empty String</a>
+  <p>
+  <!-- Test any string if fits eMail address format -->
+  <form name="formTest" title="Validate any string..."
+        onSubmit="return onClick(isEmail,formTest.ctrlAddress.value)">
+    <input name="ctrlAddress" type="text">
+    <input type="submit" value="Test">
+  </form>
+  </p>
+  <!-- References -->
+  <dl title=Reference" class="Reference">
+    <dt>References</dt>
+    <dd>RFC 822</dd>
+  </dl>
+  <!-- EOT ================================================================= -->
+  <div id="ID_EOT" style="text-align: right">
+    <hr />
+    <a href="../../../../Doc/index.html" title="Go to home&hellip;"
+       class="Plain" target="_main">
+    &#x2302;</a>
+  </div>
+
+</body>
+</html>
