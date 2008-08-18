@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Language" content="en" />
   <meta name="Workfile" content="$RCSfile: TestPopupWin.htm,v $: documentation" />
-  <meta name="Revision" content="$Revision: 1.4 $ $Date: 2008/08/15 18:48:57 $" />
+  <meta name="Revision" content="$Revision: 1.5 $ $Date: 2008/08/18 18:23:24 $" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="popup, script, HTML, test, Debugging" />
   <meta name="Editor" content="$Author: ddarko $" />
@@ -19,7 +19,7 @@
   <meta name="DC.subject" content="Test cases" />
   <meta name="DC.description.abstract" content="Test an HTML browser capabilities" />
   <meta name="DC.publisher" content="CommonSoft Inc." />
-  <meta name="DC.date" content="$Date: 2008/08/15 18:48:57 $" />
+  <meta name="DC.date" content="$Date: 2008/08/18 18:23:24 $" />
   <meta name="DC.type" content="Text.Article" />
   <meta name="DC.format" content="application/html" />
   <meta name="DC.language" content="en_ca" />
@@ -234,21 +234,21 @@ bars or status bars.
     where <code>OpenPopupWnd</code> is a script calling <code>window.open</code> method.</p>
     <p>Same code could be used with <code>&lt;area&gt;</code> element, when
     <code>onclick</code> event is fired:<br />
-	  <code>
-	  &lt;map id="mapId"&gt;<br />
-	  &nbsp;&nbsp;&lt;area href="strUrl" ... onclick="return OpenPopupWnd(this,'strWndId')"&gt;<br />
-	  &lt;/map&gt;
-	  </code></p>
-	  <map name="ID_IMAGEAREA" id="ID_IMAGEAREA">
-	    <area href="TestTableSimple.htm" alt="Link 1"
-	          coords="10,10,120,120" shape="rect"
-	          onclick="return OpenPopupWnd(this, 'ID_POPUP')" />
-	    <area href="TestTextAttributes.htm" alt="Link 2"
-	          coords="140,10,180,50" shape="rect"
-	          onclick="return OpenPopupWnd(this, 'ID_POPUP')" />
-	    <area shape="default" nohref="nohref" alt="Unreferenced Area" />
-	  </map>
-	  <img border="0" src="Images/TestArea.gif" alt="Areas" usemap="#ID_IMAGEAREA" width="190" height="130" />
+    <code>
+    &lt;map id="mapId"&gt;<br />
+    &nbsp;&nbsp;&lt;area href="strUrl" ... onclick="return OpenPopupWnd(this,'strWndId')"&gt;<br />
+    &lt;/map&gt;
+    </code></p>
+    <map name="ID_IMAGEAREA" id="ID_IMAGEAREA">
+      <area href="TestTableSimple.htm" alt="Link 1"
+            coords="10,10,120,120" shape="rect"
+            onclick="return OpenPopupWnd(this, 'ID_POPUP')" />
+      <area href="TestTextAttributes.htm" alt="Link 2"
+            coords="140,10,180,50" shape="rect"
+            onclick="return OpenPopupWnd(this, 'ID_POPUP')" />
+      <area shape="default" nohref="nohref" alt="Unreferenced Area" />
+    </map>
+    <img border="0" src="Images/TestArea.gif" alt="Areas" usemap="#ID_IMAGEAREA" width="190" height="130" />
   </dd>
 
   <dt><u><b><code>onsubmit</code> event</b></u></dt>
@@ -294,24 +294,24 @@ bars or status bars.
   made visible, giving only appearance of the new popup window. In reality the element
   is embedded in the existing window.</p>
 
-	<p><a href="javascript:EmbedPopupWnd('TestTextBasic.htm','ID_TIPBOXVIEW')">Click here</a>
-	to view popup window.</p>
-	<div id="ID_TIPBOX" style="border: thin solid rgb(204, 204, 204);
-	                        position: absolute;
-	                        visibility: hidden;
-	                        width: 304px; height: 200px;
-	                        background-color: rgb(245, 245, 245);
-	                        top: 480px;">
-	  <div style="background-color: navy;" align="right">
-	    <a href="#" onclick="Destroy();return false">
-	    <font color="#ffffff">[X]</font></a>
-	  </div>
-	  <p>
-	  <iframe id="ID_TIPBOXVIEW" name="ID_TIPBOXVIEW" src="TestTextBasic.htm"
-	          frameborder="0" height="200" width="300">
-	  </iframe>
-	  </p>
-	</div>
+  <p><a href="javascript:EmbedPopupWnd('TestTextBasic.htm','ID_TIPBOXVIEW')">Click here</a>
+  to view popup window.</p>
+  <div id="ID_TIPBOX" style="border: thin solid rgb(204, 204, 204);
+                          position: absolute;
+                          visibility: hidden;
+                          width: 304px; height: 200px;
+                          background-color: rgb(245, 245, 245);
+                          top: 480px;">
+    <div style="background-color: navy;" align="right">
+      <a href="#" onclick="Destroy();return false">
+      <font color="#ffffff">[X]</font></a>
+    </div>
+    <p>
+    <iframe id="ID_TIPBOXVIEW" name="ID_TIPBOXVIEW" src="TestTextBasic.htm"
+            frameborder="0" height="200" width="300">
+    </iframe>
+    </p>
+  </div>
 
   </dd>
 
