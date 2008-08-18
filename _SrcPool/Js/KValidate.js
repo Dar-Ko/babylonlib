@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 /*Verifies object existence.
 
-  Returns: true if object not exist or if object has no value.
+  Returns: true if object null object or if object has no value.
   Otherwise returns false.
  */
 function isBlank(oValue //[in] object to validate
@@ -94,5 +94,38 @@ if (typeof arrValue == 'object')
   return (arrValue.constructor.toString().match(/array/i) != null);
   }
 return false;
+}
+
+//------------------------------------------------------------------------------
+/*Validate if an object is undefined (undeclared).
+
+  Returns: true if the argument passed to the function is uan udefined object;
+  if the object is defined or has null value, method returns false.
+ */
+function isUndefined(oValue)
+{
+return (typeof oValue == 'undefined');
+}
+
+//------------------------------------------------------------------------------
+/*Validate if the argument is a number.
+
+  Returns: true if the argument passed to the function is a number object; if not,
+  returns false.
+ */
+function isNumber(nValue)
+{
+return (typeof nValue == 'number');
+}
+
+//------------------------------------------------------------------------------
+/*Validate if the argument is a function.
+
+  Returns: true if the argument passed to the function is a function object; if not,
+  returns false.
+ */
+function isFunction(fValue)
+{
+return (typeof fValue == 'function');
 }
 

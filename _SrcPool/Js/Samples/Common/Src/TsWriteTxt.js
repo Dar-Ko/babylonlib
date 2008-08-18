@@ -41,7 +41,7 @@ else if (document != null) //HTML Browser shell
     function (szText //[in] line of text to output
              )
       {
-      if (szText != undefined)
+      if (szText != 'undefined')
         //TODO: document.writeln(EscapeHTml());
         //Outputs text to either a message box or the command console window.
         document.writeln(szText + "<br />");
@@ -58,7 +58,7 @@ else if (document != null) //HTML Browser shell
 function TsWriteToView(szMessage //[in] text do be displayed
                       )
 {
-if (szMessage != undefined)
+if (szMessage != 'undefined')
   //Outputs text to either a message box or the command console window.
   g_defOut.Write(szMessage);
 else
@@ -76,7 +76,7 @@ else
 function TsWriteToViewLn(szText //[in] line of text to output
                      )
 {
-if (szText != undefined)
+if (szText != 'undefined')
   //Outputs text to either a message box or the command console window.
   g_defOut.WriteLn(szText);
 else
