@@ -52,15 +52,36 @@ try
 
   if(bRes)
     {
-    //Defined as an empty string
-    strText = "";
-    bRes = isBlank(strText);
-    TsWriteToViewLn("isBlank(strText = \"\") = " + bRes);
+      //Defined as null
+    TsWriteToView("isNull(null)");
+    bRes = isNull(strText);
+    TsWriteToViewLn(" = " + bRes);
     }
   else
     return false;
 
   if(bRes)
+    {
+    //Defined as an empty string
+    strText = "";
+    TsWriteToView("isBlank(strText = \"\")");
+    bRes = isBlank(strText);
+    TsWriteToViewLn(" = " + bRes);
+    }
+  else
+    return false;
+
+  if(bRes)
+    {
+    //Defined as an empty string
+    TsWriteToView("isNull(strText = \"\")");
+    bRes = isNull(strText);
+    TsWriteToViewLn(" = " + bRes);
+    }
+  else
+    return false;
+
+  if(!bRes)
     {
     //Defined as an empty string
     bRes = isString(strText);
@@ -73,9 +94,9 @@ try
     {
     //Defined as a string
     strText = "Some text";
+    TsWriteToView("isBlank(strText = \"" + strText + "\")");
     bRes = isBlank(strText);
-    TsWriteToViewLn("isBlank(strText = \"" + strText + "\") = " + bRes);
-
+    TsWriteToViewLn(" = " + bRes);
     }
   else
     return false;
@@ -101,14 +122,38 @@ try
   var d180;
   if(!bRes)
     {
-    //Undefined variable
+    //Undefined variable validation
+    //Compare object
+    TsWriteToViewLn("(undefined == undefined) = " +
+                     ((d180 == undefined) ? "true" : "false"));
+    //Compare as strings
+    TsWriteToViewLn("(undefined == \"undefined\") = " +
+                     ((d180 == 'undefined') ? "true" : "false"));
+    //Compare as type of undefined
+    TsWriteToViewLn("(typeof undefined == \"undefined\") = " +
+                     ((typeof d180 == 'undefined') ? "true" : "false"));
+    //Compare with null object
+    TsWriteToViewLn("(undefined == null) = " +
+                     ((d180 == null) ? "true" : "false"));
+
+    TsWriteToView("isUndefined(" + d180 + ")");
     bRes = isUndefined(d180);
-    TsWriteToViewLn("isUndefined(" + d180 + ") = " + bRes);
+    TsWriteToViewLn(" = " + bRes);
     }
   else
     return false;
 
   if(bRes)
+    {
+      //Undefined variable
+    TsWriteToView("isNull(undefined)");
+    bRes = isNull(d180);
+    TsWriteToViewLn(" = " + bRes);
+    }
+  else
+    return false;
+
+  if(!bRes)
     {
     //Defined as a number
     d180 = 3.14/2.0;
@@ -131,8 +176,9 @@ try
     {
     //Defined as null object
     strText = null;
+    TsWriteToView("isUndefined(null)");
     bRes = isUndefined(strText);
-    TsWriteToViewLn("isUndefined(\"" + strText + "\") = " + bRes);
+    TsWriteToViewLn(" = " + bRes);
     }
   else
     return false;

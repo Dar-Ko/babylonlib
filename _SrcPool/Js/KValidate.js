@@ -97,14 +97,37 @@ return false;
 }
 
 //------------------------------------------------------------------------------
-/*Validate if an object is undefined (undeclared).
+/*Validate if an object is null.
+  The null value is a primitive value that represents the null, empty or
+  non-existent reference.
 
-  Returns: true if the argument passed to the function is uan udefined object;
+  Returns: true if the argument passed to the function is null object;
+  if the object is defined and has not null value, method returns false.
+
+  See also: Standard ECMA-262 - 4.3.11 Null Value
+ */
+function isNull(oValue)
+{
+var oNull = null;
+return (oValue===oNull);
+//return (typeof oValue == 'object' && !oValue );
+}
+
+//------------------------------------------------------------------------------
+/*Validate if an object is undefined (undeclared).
+  The undefined value is a primitive value used when a variable has not been
+  assigned a value.
+
+  Returns: true if the argument passed to the function is an udefined object;
   if the object is defined or has null value, method returns false.
+
+  See also: Standard ECMA-262 - 4.3.9 Undefined Value
  */
 function isUndefined(oValue)
 {
-return (typeof oValue == 'undefined');
+var oUndefined;
+return (oValue===oUndefined);
+//return (typeof oValue == 'undefined'); Note: slower because of string comparison
 }
 
 //------------------------------------------------------------------------------
@@ -115,7 +138,7 @@ return (typeof oValue == 'undefined');
  */
 function isNumber(nValue)
 {
-return (typeof nValue == 'number');
+return ((typeof nValue == 'number') || (nValue instanceof Number));
 }
 
 //------------------------------------------------------------------------------
@@ -129,3 +152,13 @@ function isFunction(fValue)
 return (typeof fValue == 'function');
 }
 
+//------------------------------------------------------------------------------
+/*Validate if the argument is a RegExp object.
+
+  Returns: true if the argument passed to the function is a RegExp object; if not,
+  returns false.
+ */
+function isRegexp(oRegexp)
+{
+return (oRegexp && (oRegexp.constructor == RegExp));
+}
