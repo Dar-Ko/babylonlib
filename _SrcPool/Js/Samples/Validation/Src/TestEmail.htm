@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Language" content="en" />
   <meta name="Workfile" content="$RCSfile: TestEmail.htm,v $: documentation" />
-  <meta name="Revision" content="$Revision: 1.2 $ $Date: 2008/08/18 21:37:36 $" />
+  <meta name="Revision" content="$Revision: 1.3 $ $Date: 2008/08/19 21:31:33 $" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="JavaScript, test, string. address, e-mail" />
   <meta name="Editor" content="$Author: ddarko $" />
@@ -20,7 +20,7 @@
   <meta name="DC.subject" content="Test cases" />
   <meta name="DC.description.abstract" content="Test HTML document" />
   <meta name="DC.publisher" content="CommonSoft Inc." />
-  <meta name="DC.date" content="$Date: 2008/08/18 21:37:36 $" />
+  <meta name="DC.date" content="$Date: 2008/08/19 21:31:33 $" />
   <meta name="DC.type" content="Text.Article" />
   <meta name="DC.format" content="application/html" />
   <meta name="DC.language" content="en_ca" />
@@ -34,7 +34,10 @@
     href="../../../../../Doc/Res/KDocument.css" />
   <link rel="icon" type="image/ico"
      href="../../../../../Doc/Res/icoJavaScript.ico" />
-  <script language="javascript" name="eventHandler">
+  <!-- Common -->
+  <script language="JavaScript" type="text/javascript" src="../../Common/Src/TsWriteTxt.js">
+  </script>
+  <script type="text/javascript">
     //Write result of the validation
     function writeResult(fVerifier, //[in] validating functions
                          oValue,    //[in] value to validate
@@ -49,43 +52,55 @@
                      oValue      //[in] value to validate
                     )
     {
+    debugger;
     writeResult(fVerifier, oValue);
+    return false; //Don't handle the event any further
     }
   </script>
   <!-- Test objects -->
   <script language="JavaScript" type="text/javascript" src="../../../KIsEmail.js">
   </script>
+  <!-- Test -->
+  <script language="javascript" type="text/javascript" src="TestEmail.js">
+  </script>
 </head>
 
 <body>
-  <h1>Validate eMail Address Format</h1>
+  <h2>Validate eMail Address Format</h2>
   <p class="codeJs">
     <a href="../../../KIsEmail.js" title="Script">
       <img src="../../../../../Doc/Res/S/icoJavaScript.gif"
           alt="JavaScript" border="0" />
       Source Code</a>
   </p>
-  <a href="" title="Empty String" onclick="onClick(isEmail,'')">Validate empty string</a>
-  <p>
+  <p><a href="dummy" title="Empty String" onclick="javascript:return onClick(isEmail,'')">
+  Validate empty string</a></p><br />
+
   <!-- Test any string if fits eMail address format -->
   <form name="formTest" title="Validate any string..."
-        onSubmit="return onClick(isEmail,formTest.ctrlAddress.value)">
-    <input name="ctrlAddress" type="text">
-    <input type="submit" value="Test">
+        action=""
+        onsubmit="return onClick(isEmail,formTest.ctrlAddress.value)">
+    <input name="ctrlAddress" type="text"></input>
+    <input type="submit" value="Test"></input>
   </form>
-  </p>
+
   <!-- References -->
-  <dl title=Reference" class="Reference">
+  <dl title="Reference" class="Reference">
     <dt>References</dt>
     <dd>RFC 822</dd>
   </dl>
-  <!-- EOT ================================================================= -->
-  <div id="ID_EOT" style="text-align: right">
-    <hr />
-    <a href="../../../../../Doc/index.html" title="Go to home&hellip;"
-       class="Plain" target="_main">
-    &#x2302;</a>
-  </div>
+
+  <hr />
+  <script language="JavaScript" type="text/javascript">
+    var bResult = false;
+    bResult = TestEmail();
+    if (!bResult)
+      TsWriteToViewLn(LOG_FAILURE);
+  </script>
+
+  <noscript>
+    <p style="color:red">JavaScript seems to be disabled!</p>
+  </noscript>
 
 </body>
 </html>

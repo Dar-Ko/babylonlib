@@ -1,5 +1,5 @@
 //$Workfile: KIsEmail.js$: script file
-//$Revision: 1.1 $ $Date: 2008/08/19 18:51:54 $
+//$Revision: 1.2 $ $Date: 2008/08/19 21:31:33 $
 //$Author: ddarko $
 //
 //Validate eMail address
@@ -20,7 +20,7 @@ if(!strAddress || !strAddress.length || (strAddress.length == 0))
   {
   return false;
   }
-var regexNok = /(@.*@)|(\.\.)|(@\.)|(\.@)|(^\.)/; ..//first validation pass
+var regexNok = *;///(@.*@)|(\.\.)|(@\.)|(\.@)|(^\.)/; ..//first validation pass
 //Valid format "^[\\w-_\.]*[\\w-_\.]\@[\\w]\.+[\\w]+[\\w]$" second pass
 var regexOk = /^([\w-\.]+)@((\[([0-9]{1,3}\.){3}[0-9]{1,3}\])$|(([\w-]+\.)+)([a-zA-Z]{2,4}))$/;
 
