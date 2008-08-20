@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="Workfile" content="$RCSfile: TestWriteTxt.htm,v $: documentation" />
+  <meta name="Revision" content="$Revision: 1.1 $ $Date: 2008/08/20 17:14:06 $" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="script, HTML, test, Debugging" />
+  <meta name="Editor" content="$Author: ddarko $" />
+  <!-- Dublin Core Metadata Package -->
+  <meta name="DC.title" content="Blank Test Page" />
+  <meta name="DC.creator" content="Kolakovi&#263;, Darko" />
+  <meta name="DC.creator.vCard.EMAIL.internet" content="ddarko at users.sourceforge.net" />
+  <meta name="DC.Contributor" content="$Author: ddarko $" />
+  <meta name="DC.Rights" content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="DC.subject" content="Test cases" />
+  <meta name="DC.description.abstract" content="Test writing text to the output device" />
+  <meta name="DC.publisher" content="CommonSoft Inc." />
+  <meta name="DC.date" content="$Date: 2008/08/20 17:14:06 $" />
+  <meta name="DC.type" content="Text.Article" />
+  <meta name="DC.format" content="application/html" />
+  <meta name="DC.language" content="en_ca" />
+  <meta name="DC.identifier.ISBN" content="$Isbn$" />
+  <meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+  <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+  <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+
+  <title>Test writing to Output Device</title>
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../../../Doc/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../../../Doc/Res/icoSample.ico" />
+  <!-- Common -->
+  <script language="JavaScript" type="text/javascript" src="TsWriteTxt.js">
+  </script>
+  <script language="JavaScript" type="text/javascript">
+    function DbgBreakpoint()
+    {
+    debugger;
+    }
+  </script>
+</head>
+<body style="background-color: rgb(255, 255, 160);">
+<h2>Test writing to Output Device</h2>
+
+<noscript>
+  <p style="color:red">Appears that JavaScript is <b>disabled</b>.
+    Check configuration options for your browser!</p>
+</noscript>
+
+<p class="codeJs">
+  <a href="TsWriteTxt.js" title="Script">
+    <img src="../../../../../Doc/Res/S/icoJavaScript.gif"
+        alt="JavaScript" border="0" />
+    Source Code</a>
+</p>
+
+<hr />
+<!-- Test writing different values to the output -->
+<script language="javascript" type="text/javascript">
+  //<![CDATA[
+ try
+    {
+    DbgBreakpoint();
+    TsWriteToViewLn("Test writing a line of text");
+
+    document.write("TsWriteToViewLn(LOG_FAILURE) gives: ");
+    TsWriteToViewLn(LOG_FAILURE);
+
+    document.write("TsWriteToViewLn(false) gives: ");
+    TsWriteToViewLn(false);
+
+    document.write("TsWriteToView(bResult = false) gives: ");
+    var bResult = false;
+    TsWriteToView(bResult);
+    document.writeln("<br \/>");
+
+    document.write("TsWriteToView(!(bResult = false)) gives: ");
+    TsWriteToView(!bResult);
+    document.writeln("<br \/>");
+
+    document.write("TsWriteToViewLn(3.14) gives: ");
+    TsWriteToViewLn(3.14);
+
+    var oVar;
+    document.write("TsWriteToViewLn(undefined) gives: ");
+    TsWriteToViewLn(oVar);
+
+    oVar = null;
+    document.write("TsWriteToViewLn(null) gives: ");
+    TsWriteToViewLn(oVar);
+
+    oVar = new Array();
+    oVar[0] = "Some text";
+    oVar[1] = "more text";
+    document.write("TsWriteToViewLn(Array) gives: ");
+    TsWriteToViewLn(oVar);
+
+    TsWriteToViewLn(LOG_SUCCESS);
+    }
+  catch(error)
+    {
+    document.write(" -> exception ");
+    document.writeln(error.name + ": " + error.message+ "<br \/>");
+    document.writeln(LOG_FAILURE + "<br \/>");
+    }
+  document.writeln(LOG_EOT + "<br \/>");
+
+  //]]>
+</script>
+
+
+</body>
+</html>

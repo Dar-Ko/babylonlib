@@ -20,8 +20,16 @@ var LOG_EOT     = "======================";
 
 var g_defOut = new Object(); //default output device
 
+//------------------------------------------------------------------------------
+/*Outputs some text or line of the text to the default output device.
+  output device is ethier Microsoft Windows Script Host (WSH) console or
+  HTML document in a Web browser.
+ */
 if(this.WScript != null) //Windows Script Host shell
   {
+  /*Note: Microsoft Windows specific (Win32)
+    Requires Microsoft Windows Script Host (WSH) engine.
+   */
   g_defOut.Write = WScript.Echo;
   g_defOut.WriteLn = WScript.Echo;
   }
@@ -35,52 +43,45 @@ else if (document != null) //HTML Browser shell
     //Illegal operation on WrappedNative prototype object; value 0.
     //prototype is assigned directly: g_defOut.Write = document.write;
     //Opera 8.0 skips over function call.
-    document.write(szText);
+    if (typeof szText != 'undefined')
+      document.write(szText);
+    else
+      document.write("&lt;undefined&gt;");
     };
   g_defOut.WriteLn =
     function (szText //[in] line of text to output
              )
-      {
-      if (szText != 'undefined')
-        //TODO: document.writeln(EscapeHTml());
-        //Outputs text to either a message box or the command console window.
-        document.writeln(szText + "<br />");
-      else
-        document.writeln("&lt;null&gt;<br />");
-      };
+    {
+    if (typeof szText != 'undefined')
+      //TODO: document.writeln(EscapeHTml());
+      //Outputs text to either a message box or the command console window.
+      document.writeln(szText + "<br \/>");
+    else
+      document.writeln("&lt;undefined&gt;<br \/>");
+    };
   }
 
 //------------------------------------------------------------------------------
-/*Display a line of the text.
-  Note: Microsoft Windows specific (Win32)
- Requires Microsoft Windows Script Host (WSH) engine.
+/*Writes some text at the default output.
  */
-function TsWriteToView(szMessage //[in] text do be displayed
+function TsWriteToView(szMessage //[in] text or number do be displayed or boolean
+                                 //value representing test success or failure.
                       )
 {
-if (szMessage != 'undefined')
-  //Outputs text to either a message box or the command console window.
-  g_defOut.Write(szMessage);
-else
-  g_defOut.Write("<null>");
+//Outputs text to either a message box or the command console window.
+g_defOut.Write(szMessage);
 }
 
 //------------------------------------------------------------------------------
-/*Writes a line of the text at the console standard output stream. New line
-  delimiter (EOL) is appended to the end of the text.
-
-  Returns: true always.
-
-  Note: uses Standard Template Library (STL).
+/*Writes a line of the text at the default output stream. New line
+  delimiter is appended to the end of the text.
  */
-function TsWriteToViewLn(szText //[in] line of text to output
+function TsWriteToViewLn(szText //[in] text or number do be displayed or boolean
+                                //value representing test success or failure.
                      )
 {
-if (szText != 'undefined')
-  //Outputs text to either a message box or the command console window.
-  g_defOut.WriteLn(szText);
-else
-  g_defOut.WriteLn("<null>");
+//Outputs text to either a message box or the command console window.
+g_defOut.WriteLn(szText);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
