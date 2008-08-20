@@ -1,5 +1,5 @@
 /*$RCSfile: TestEmail.js,v $: script file
-  $Revision: 1.1 $ $Date: 2008/08/19 21:31:33 $
+  $Revision: 1.2 $ $Date: 2008/08/20 21:34:02 $
   $Author: ddarko $
 
   Test eMail address validation
@@ -48,15 +48,15 @@ try
   arrEmail [ 8] = "willy clingon@dummkopf.info" //malformed address
   arrResult[ 8] = false;
   arrEmail [ 9] = "willy clingon@dummkopf. " //malformed address
-  arrResult[ 0] = false;
+  arrResult[ 9] = false;
   arrEmail [10] = "willy_clingon@mon@dummkopf.info" //malformed address
   arrResult[10] = false;
   arrEmail [11] = "Orbis@urbis.va@cnn.com" //malformed address
   arrResult[11] = false;
-  arrEmail [12] = "Special%char^in2$@money.tv" //
+  arrEmail [12] = "Special%char^in2$@money.tv" //good
   arrResult[12] = true;
-  arrEmail [13] = "mar.sea.zee.cois@root.foot.sot.com" //
-  arrResult[13] = false;
+  arrEmail [13] = "mar.sea.zee.cois@root.foot.sot.com" //good
+  arrResult[13] = true;
   arrEmail [14] = "orca@sea.za" //good
   arrResult[14] = true;
   arrEmail [15] = "willy_clingon@127.0.0.69" //IP address
@@ -112,6 +112,9 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: TestEmail.js,v $
+ * Revision 1.2  2008/08/20 21:34:02  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.1  2008/08/19 21:31:33  ddarko
  * Validate function
  *

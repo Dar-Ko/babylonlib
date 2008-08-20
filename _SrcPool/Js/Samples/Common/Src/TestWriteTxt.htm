@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta http-equiv="Content-Language" content="en" />
   <meta name="Workfile" content="$RCSfile: TestWriteTxt.htm,v $: documentation" />
-  <meta name="Revision" content="$Revision: 1.1 $ $Date: 2008/08/20 17:14:06 $" />
+  <meta name="Revision" content="$Revision: 1.2 $ $Date: 2008/08/20 21:34:02 $" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="script, HTML, test, Debugging" />
   <meta name="Editor" content="$Author: ddarko $" />
@@ -20,7 +20,7 @@
   <meta name="DC.subject" content="Test cases" />
   <meta name="DC.description.abstract" content="Test writing text to the output device" />
   <meta name="DC.publisher" content="CommonSoft Inc." />
-  <meta name="DC.date" content="$Date: 2008/08/20 17:14:06 $" />
+  <meta name="DC.date" content="$Date: 2008/08/20 21:34:02 $" />
   <meta name="DC.type" content="Text.Article" />
   <meta name="DC.format" content="application/html" />
   <meta name="DC.language" content="en_ca" />
@@ -36,12 +36,6 @@
     href="../../../../../Doc/Res/icoSample.ico" />
   <!-- Common -->
   <script language="JavaScript" type="text/javascript" src="TsWriteTxt.js">
-  </script>
-  <script language="JavaScript" type="text/javascript">
-    function DbgBreakpoint()
-    {
-    debugger;
-    }
   </script>
 </head>
 <body style="background-color: rgb(255, 255, 160);">
@@ -65,7 +59,7 @@
   //<![CDATA[
  try
     {
-    DbgBreakpoint();
+
     TsWriteToViewLn("Test writing a line of text");
 
     document.write("TsWriteToViewLn(LOG_FAILURE) gives: ");
