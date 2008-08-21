@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Language" content="en" />
   <meta name="Workfile" content="$RCSfile: TestEmail.htm,v $: documentation" />
-  <meta name="Revision" content="$Revision: 1.4 $ $Date: 2008/08/20 21:34:02 $" />
+  <meta name="Revision" content="$Revision: 1.5 $ $Date: 2008/08/21 20:16:06 $" />
   <meta name="robots" content="index" />
   <meta name="keywords" content="JavaScript, test, string. address, e-mail" />
   <meta name="Editor" content="$Author: ddarko $" />
@@ -20,7 +20,7 @@
   <meta name="DC.subject" content="Test cases" />
   <meta name="DC.description.abstract" content="Test HTML document" />
   <meta name="DC.publisher" content="CommonSoft Inc." />
-  <meta name="DC.date" content="$Date: 2008/08/20 21:34:02 $" />
+  <meta name="DC.date" content="$Date: 2008/08/21 20:16:06 $" />
   <meta name="DC.type" content="Text.Article" />
   <meta name="DC.format" content="application/html" />
   <meta name="DC.language" content="en_ca" />
@@ -37,6 +37,12 @@
   <!-- Common -->
   <script language="JavaScript" type="text/javascript" src="../../Common/Src/TsWriteTxt.js">
   </script>
+  <!-- Test objects -->
+  <script language="JavaScript" type="text/javascript" src="../../../KIsEmail.js">
+  </script>
+  <!-- Test -->
+  <script language="javascript" type="text/javascript" src="TestEmail.js">
+  </script>
   <script type="text/javascript">
     //Write result of the validation
     function writeResult(fVerifier, //[in] validating functions
@@ -52,16 +58,10 @@
                      oValue      //[in] value to validate
                     )
     {
-    debugger;
+    //debugger;
     writeResult(fVerifier, oValue);
     return false; //Don't handle the event any further
     }
-  </script>
-  <!-- Test objects -->
-  <script language="JavaScript" type="text/javascript" src="../../../KIsEmail.js">
-  </script>
-  <!-- Test -->
-  <script language="javascript" type="text/javascript" src="TestEmail.js">
   </script>
 </head>
 
@@ -72,19 +72,20 @@
      Check configuration options for your browser!</p>
   </noscript>
 
-<code>word(.word)@subdomain(.subdomain)</code><br />
-A word is either an atom or a quoted string.
-An atom is a sequence of following printable ASCII characters:<br />
+<code>word(.word)@subdomain(.subdomain).tld</code><br />
+A <i>word</i> is either an <i>atom</i> or a <i>quoted string</i>. <i>tld</i> is
+top level domain.
+An <i>atom</i> is a sequence of following printable ASCII characters:<br />
 <div align="center">
-  <code>!"#$%&'*+-/0123456789=?<br />
+  <code>!#$%&amp;'*+-/0123456789=?<br />
   ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />
   ^_`<br />
   abcdefghijklmnopqrstuvwxyz<br />
-  {|}~</code>.
+  {|}~</code>
 </div>
 <i>Space</i> or any of following characters are excepted:
 <code>()<>@,;:\".[]</code>
-
+<p>A <i>quoted string</i> is any text enclosed with quotation marks (<code>"</code>).</p>
   <p class="codeJs">
     <a href="../../../KIsEmail.js" title="Script">
       <img src="../../../../../Doc/Res/S/icoJavaScript.gif"
@@ -114,7 +115,10 @@ An atom is a sequence of following printable ASCII characters:<br />
   <hr />
   <script language="JavaScript" type="text/javascript">
     var bResult = false;
-    bResult = TestEmail();
+    if (typeof TestEmail != 'undefined')
+    	bResult = TestEmail();
+    else
+    	document.writeln("Failed to create TestEmail fuction! ");
     if (!bResult)
       TsWriteToViewLn(LOG_FAILURE);
   </script>

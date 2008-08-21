@@ -44,7 +44,20 @@ else if (document != null) //HTML Browser shell
     //prototype is assigned directly: g_defOut.Write = document.write;
     //Opera 8.0 skips over function call.
     if (typeof szText != 'undefined')
-      document.write(szText);
+      {
+      document.write(szText.replace(/([<>&\"])/g,
+                      function ($1)
+                        {
+                        switch ($1)
+                          {
+                          case "<":  return "&lt;";
+                          case ">":  return "&gt;";
+                          case "&":  return "&amp;";
+                          case "\"": return "&quot;";
+                          }
+                        })
+                    );
+      }
     else
       document.write("&lt;undefined&gt;");
     };
@@ -53,9 +66,21 @@ else if (document != null) //HTML Browser shell
              )
     {
     if (typeof szText != 'undefined')
-      //TODO: document.writeln(EscapeHTml());
+      {
       //Outputs text to either a message box or the command console window.
-      document.writeln(szText + "<br \/>");
+      document.writeln(szText.replace(/([<>&\"])/g,
+                      function ($1)
+                        {
+                        switch ($1)
+                          {
+                          case "<":  return "&lt;";
+                          case ">":  return "&gt;";
+                          case "&":  return "&amp;";
+                          case "\"": return "&quot;";
+                          }
+                        }) +
+                      "<br \/>");
+      }
     else
       document.writeln("&lt;undefined&gt;<br \/>");
     };
