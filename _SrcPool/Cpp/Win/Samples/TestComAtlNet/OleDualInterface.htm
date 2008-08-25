@@ -1,0 +1,531 @@
+<!DOCTYPE html
+PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en-ca">
+
+<!--/* Group=Papers*/ -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="en-ca" />
+<meta name="Workfile" content="$RCSfile: OleDualInterface.htm,v $: documentation" />
+<meta name="Revision" content="$Revision: 1.1 $" />
+<meta name="robots" content="index" />
+<meta name="keywords" content="compiler, ATL, COM" />
+<!-- Dublin Core Metadata Package -->
+<meta name="DC.title" content="Creating an ATL COM project with Visual Studio .Net 2003 v7.1" />
+<meta name="DC.creator" content="Darko Kolakovic" />
+<meta name="DC.creator.vCard.EMAIL.internet" content="DarkoKolakovic @ yahoo" />
+<meta name="DC.Contributor" content="$Author: ddarko $" />
+<meta name="DC.Rights" content="&copy; CommonSoft Inc" />
+<meta name="DC.subject" content="ATL COM" />
+<meta name="DC.description.abstract" content="COM project setup" />
+<meta name="DC.publisher" content="CommonSoft Incorporated" />
+<meta name="DC.date" content="$Date: 2008/08/25 15:00:59 $" />
+<meta name="DC.type" content="Text.Article" />
+<meta name="DC.format" content="application/html" />
+<meta name="DC.language" content="en_ca" />
+<meta name="DC.identifier.Revision" content="$Revision: 1.1 $" />
+<meta name="DC.relation.HasVersion" content="http://babylonlib.cvs.sourceforge.net/babylonlib" />
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+<link rel="stylesheet" type="text/css" href="../../../../../Doc/Res/KDocument.css" />
+<link rel="icon" href="../../../../../Doc/Res/KBook.ico" type="image/ico" />
+<title>TN065: Dual-Interface Support for OLE Automation Servers</title>
+<base target="_self" />
+<style type="text/css">
+    dt
+      {
+      font-weight: bold;
+      }
+    table
+      {
+      border-collapse: collapse;
+      }
+    body
+      {
+      background-image: url('../../../../../Doc/Res/KBckgGray.jpg');
+      }
+  </style>
+</head>
+<body>
+
+<h1><a href="http://msdn.microsoft.com/en-us/library/4h56szat(VS.80).aspx">TN065</a>:
+Dual-Interface Support for OLE Automation Servers</h1>
+<p>Note: The following technical note has not been updated since it was first
+included in the online documentation. As a result, some procedures and topics
+might be out of date or incorrect. For the latest information, it is recommended
+that you search for the topic of interest in the online documentation index.</p>
+<p>This note discusses how to add dual-interface support to an MFC-based OLE
+Automation server application. The <a id="ctl00_rs1_mainContentContainer_ctl01"
+onclick="javascript:Track('ctl00_rs1_mainContentContainer_ctl00|ctl00_rs1_mainContentContainer_ctl01',this);"
+href="http://msdn.microsoft.com/en-us/library/xfx55tf8(VS.80).aspx">ACDUAL</a>
+sample illustrates dual-interface support, and the example code in this note is
+taken from ACDUAL. The macros described in this note, such as <tt>
+DECLARE_DUAL_ERRORINFO</tt>, <tt>DUAL_ERRORINFO_PART</tt>, and <tt>
+IMPLEMENT_DUAL_ERRORINFO</tt>, are part of the ACDUAL sample and can be found in
+<a href="../../32/MFCDual.h">MFCDual.h</a></p>
+<div id="ctl00_rs1_mainContentContainer_cpe334118_h" class="CollapseRegionLink">
+  <h2><a name="DualInterfaces">Dual Interfaces </a></h2>
+</div>
+<div style="overflow: visible; display: block; height: auto;  "
+id="ctl00_rs1_mainContentContainer_cpe334118_c" class="MTPS_CollapsibleSection">
+  <div style="display: block;" id class="MTPS_CollapsibleSection">
+    Although OLE Automation allows you to implement an <b>IDispatch</b>
+    interface, a VTBL interface, or a dual interface (which encompasses both),
+    Microsoft strongly recommends that you implement dual interfaces for all
+    exposed OLE Automation objects. Dual interfaces have significant advantages
+    over <b>IDispatch</b>-only or VTBL-only interfaces:
+    <ul>
+      <li>Binding can take place at compile time through the VTBL interface, or
+      at run time through <b>IDispatch</b>.</li>
+      <li>OLE Automation controllers that can use the VTBL interface may benefit
+      from improved performance.</li>
+      <li>Existing OLE Automation controllers that use the <b>IDispatch</b>
+      interface will continue to work.</li>
+      <li>The VTBL interface is easier to call from C++.</li>
+      <li>Dual interfaces are required for compatibility with Visual Basic
+      object support features.</li>
+    </ul>
+  </div>
+</div>
+<div id="ctl00_rs1_mainContentContainer_cpe334119_h" class="CollapseRegionLink">
+  <h2>Adding Dual-Interface Support to a CCmdTarget-Based Class </h2>
+</div>
+<div style="overflow: visible; display: block; height: auto;  "
+id="ctl00_rs1_mainContentContainer_cpe334119_c" class="MTPS_CollapsibleSection">
+  <div style="display: block;" id class="MTPS_CollapsibleSection">
+    A dual interface is really just a custom interface derived from <b>IDispatch</b>.
+    The most straightforward way to implement dual-interface support in a <b>
+    CCmdTarget</b>-based class is to first implement the normal dispatch
+    interface on your class using MFC and ClassWizard, then add the custom
+    interface later. For the most part, your custom interface implementation
+    will simply delegate back to the MFC <b>IDispatch</b> implementation.<p>
+    First, modify the ODL file for your server to define dual interfaces for
+    your objects. To define a dual interface, you must use an interface
+    statement, instead of the <tt>DISPINTERFACE</tt> statement that the Visual
+    C++ wizards generate. Rather than removing the existing <tt>DISPINTERFACE</tt>
+    statement, add a new interface statement. By retaining the <tt>DISPINTERFACE</tt>
+    form, you can continue to use ClassWizard to add properties and methods to
+    your object, but you must add the equivalent properties and methods to your
+    interface statement.</p>
+    <p>An interface statement for a dual interface must have the <b>
+    OLEAUTOMATION</b> and <b>DUAL</b> attributes, and the interface must be
+    derived from <b>IDispatch</b>. You can use the
+    <a id="ctl00_rs1_mainContentContainer_ctl15"
+    onclick="javascript:Track('ctl00_rs1_mainContentContainer_cpe334119_c|ctl00_rs1_mainContentContainer_ctl15',this);"
+    href="http://msdn.microsoft.com/en-us/library/kw069h38(VS.80).aspx">GUIDGEN</a>
+    sample to create a <b>IID</b> for the dual interface:</div>
+</div>
+<pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl16other"
+space="preserve">[ uuid(0BDD0E81-0DD7-11cf-BBA8-444553540000), // IID_IDualAClick
+   oleautomation,
+   dual
+]
+interface IDualAClick : IDispatch
+  {
+  };</pre>
+<p>Once you have the interface statement in place, start adding entries for the
+methods and properties. For dual interfaces, you need to rearrange the parameter
+lists so that your methods and property accessor functions in the dual interface
+return an <b>HRESULT</b> and pass their return values as parameters with the
+attributes <tt>[retval,out]</tt>. Remember that for properties, you will need to
+add both a read (<tt>propget</tt>) and write (<tt>propput</tt>) access function
+with the same id. For example:</p>
+<div class id="ctl00_rs1_mainContentContainer_ctl17_other">
+  <pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl17other"
+  space="preserve">[propput, id(1)] HRESULT text([in] BSTR newText);
+[propget, id(1)] HRESULT text([out, retval] BSTR* retval);</pre>
+</div>
+<p>After your methods and properties are defined, you need to add a reference to
+the interface statement in your coclass statement. For example:</p>
+<div class id="ctl00_rs1_mainContentContainer_ctl18_other">
+  <pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl18other"
+  space="preserve">[ uuid(4B115281-32F0-11cf-AC85-444553540000) ]
+coclass Document
+{
+   dispinterface IAClick;
+   [default] interface IDualAClick;
+};</pre>
+</div>
+<p>Once your ODL file has been updated, use MFC's interface map mechanism to
+define an implementation class for the dual interface in your object class and
+make the corresponding entries in MFC's <b>QueryInterface</b> mechanism. You
+need one entry in the <tt>INTERFACE_PART</tt> block for each entry in the
+interface statement of the ODL, plus the entries for a dispatch interface. Each
+ODL entry with the <b>propput</b> attribute needs a function named <tt>
+put_propertyname</tt>. Each entry with the <b>propget</b> attribute needs a
+function named <tt>get_propertyname</tt>. </p>
+<p>To define an implementation class for your dual interface, add a <tt>
+DUAL_INTERFACE_PART</tt> block to your object class definition. For example:</p>
+<div class id="ctl00_rs1_mainContentContainer_ctl19_other">
+  <pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl19other"
+  space="preserve">BEGIN_DUAL_INTERFACE_PART(DualAClick, IDualAClick)
+  STDMETHOD(put_text)(THIS_ BSTR newText);
+  STDMETHOD(get_text)(THIS_ BSTR FAR* retval);
+  STDMETHOD(put_x)(THIS_ short newX);
+  STDMETHOD(get_x)(THIS_ short FAR* retval);
+  STDMETHOD(put_y)(THIS_ short newY);
+  STDMETHOD(get_y)(THIS_ short FAR* retval);
+  STDMETHOD(put_Position)(THIS_ IDualAutoClickPoint FAR* newPosition);
+  STDMETHOD(get_Position)(THIS_ IDualAutoClickPoint FAR* FAR* retval);
+  STDMETHOD(RefreshWindow)(THIS);
+  STDMETHOD(SetAllProps)(THIS_ short x, short y, BSTR text);
+  STDMETHOD(ShowWindow)(THIS);
+END_DUAL_INTERFACE_PART(DualAClick)</pre>
+</div>
+<p>To connect the dual interface to MFC's
+<a id="ctl00_rs1_mainContentContainer_ctl20"
+onclick="javascript:Track('ctl00_rs1_mainContentContainer_cpe334119_c|ctl00_rs1_mainContentContainer_ctl20',this);"
+href="http://msdn.microsoft.com/en-us/library/ms687230(VS.80).aspx">
+QueryInterface</a> mechanism, add an <tt>INTERFACE_PART</tt> entry to the
+interface map:</p>
+<div class id="ctl00_rs1_mainContentContainer_ctl21_other">
+  <pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl21other"
+  space="preserve">BEGIN_INTERFACE_MAP(CAutoClickDoc, CDocument)
+  INTERFACE_PART(CAutoClickDoc, DIID_IAClick, Dispatch)
+  INTERFACE_PART(CAutoClickDoc, IID_IDualAClick, DualAClick)
+END_INTERFACE_MAP()</pre>
+</div>
+<p>Next, you need to fill in the implementation of the interface. For the most
+part, you will be able to delegate to the existing MFC <b>IDispatch</b>
+implementation. For example:</p>
+<div class id="ctl00_rs1_mainContentContainer_ctl22_other">
+  <pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl22other"
+  space="preserve">STDMETHODIMP_(ULONG) CAutoClickDoc::XDualAClick::AddRef()
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   return pThis-&gt;ExternalAddRef();
+}
+STDMETHODIMP_(ULONG) CAutoClickDoc::XDualAClick::Release()
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   return pThis-&gt;ExternalRelease();
+}
+STDMETHODIMP CAutoClickDoc::XDualAClick::QueryInterface(
+             REFIID iid, LPVOID* ppvObj)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   return pThis-&gt;ExternalQueryInterface(&amp;iid, ppvObj);
+}
+STDMETHODIMP CAutoClickDoc::XDualAClick::GetTypeInfoCount(
+            UINT FAR* pctinfo)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   LPDISPATCH lpDispatch = pThis-&gt;GetIDispatch(FALSE);
+   ASSERT(lpDispatch != NULL);
+   return lpDispatch-&gt;GetTypeInfoCount(pctinfo);
+}
+STDMETHODIMP CAutoClickDoc::XDualAClick::GetTypeInfo(
+          UINT itinfo, LCID lcid, ITypeInfo FAR* FAR* pptinfo)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   LPDISPATCH lpDispatch = pThis-&gt;GetIDispatch(FALSE);
+   ASSERT(lpDispatch != NULL);
+   return lpDispatch-&gt;GetTypeInfo(itinfo, lcid, pptinfo);
+}
+STDMETHODIMP CAutoClickDoc::XDualAClick::GetIDsOfNames(
+       REFIID riid, OLECHAR FAR* FAR* rgszNames, UINT cNames,
+       LCID lcid, DISPID FAR* rgdispid)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   LPDISPATCH lpDispatch = pThis-&gt;GetIDispatch(FALSE);
+   ASSERT(lpDispatch != NULL);
+   return lpDispatch-&gt;GetIDsOfNames(riid, rgszNames, cNames,
+                                    lcid, rgdispid);
+}
+STDMETHODIMP CAutoClickDoc::XDualAClick::Invoke(
+    DISPID dispidMember, REFIID riid, LCID lcid, WORD wFlags,
+    DISPPARAMS FAR* pdispparams, VARIANT FAR* pvarResult,
+    EXCEPINFO FAR* pexcepinfo, UINT FAR* puArgErr)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   LPDISPATCH lpDispatch = pThis-&gt;GetIDispatch(FALSE);
+   ASSERT(lpDispatch != NULL);
+   return lpDispatch-&gt;Invoke(dispidMember, riid, lcid,
+                             wFlags, pdispparams, pvarResult,
+                             pexcepinfo, puArgErr);
+}</pre>
+</div>
+<p>For your object's methods and property accessor functions, you need to fill
+in the implementation. Your method and property functions can generally delegate
+back to the methods generated using ClassWizard. However, if you set up
+properties to access variables directly, you need to write the code to get/put
+the value into the variable. For example:</p>
+<pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl23other"
+space="preserve">STDMETHODIMP CAutoClickDoc::XDualAClick::put_text(BSTR newText)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   // MFC automatically converts from Unicode BSTR to
+   // Ansi CString, if necessary...
+   pThis-&gt;m_str = newText;
+   return NOERROR;
+}
+STDMETHODIMP CAutoClickDoc::XDualAClick::get_text(BSTR* retval)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   // MFC automatically converts from Ansi CString to
+   // Unicode BSTR, if necessary...
+   pThis-&gt;m_str.SetSysString(retval);
+   return NOERROR;
+}</pre>
+<div id="ctl00_rs1_mainContentContainer_cpe334120_h" class="CollapseRegionLink">
+  <h2>Passing Dual-Interface Pointers </h2>
+</div>
+<div style="overflow: visible; display: block; height: auto;  "
+id="ctl00_rs1_mainContentContainer_cpe334120_c" class="MTPS_CollapsibleSection">
+  <div style="display: block;" id class="MTPS_CollapsibleSection">
+    Passing your dual-interface pointer isn't straightforward, especially if you
+    need to call <b>CCmdTarget::FromIDispatch</b>. <b>FromIDispatch</b> only
+    works on MFC's <b>IDispatch</b> pointers. One way to work around this is to
+    query for the original <b>IDispatch</b> pointer set up by MFC and pass that
+    pointer to functions that need it. For example:</div>
+</div>
+<div class id="ctl00_rs1_mainContentContainer_ctl28_other">
+  <pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl28other"
+  space="preserve">STDMETHODIMP CAutoClickDoc::XDualAClick::put_Position(
+      IDualAutoClickPoint FAR* newPosition)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   LPDISPATCH lpDisp = NULL;
+   newPosition-&gt;QueryInterface(IID_IDispatch, (LPVOID*)&amp;lpDisp);
+   pThis-&gt;SetPosition(lpDisp);
+   lpDisp-&gt;Release();
+   return NOERROR;
+}</pre>
+</div>
+<p>Before passing a pointer back through the dual-interface method, you might
+need to convert it from the MFC <b>IDispatch</b> pointer to your dual-interface
+pointer. For example:</p>
+<pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl29other"
+space="preserve">STDMETHODIMP CAutoClickDoc::XDualAClick::get_Position(
+      IDualAutoClickPoint FAR* FAR* retval)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   LPDISPATCH lpDisp;
+   lpDisp = pThis-&gt;GetPosition();
+   lpDisp-&gt;QueryInterface(IID_IDualAutoClickPoint, (LPVOID*)retval);
+   return NOERROR;
+}</pre>
+<div id="ctl00_rs1_mainContentContainer_cpe334121_h" class="CollapseRegionLink">
+  <h2>Registering the Application's Type Library </h2>
+</div>
+<div style="overflow: visible; display: block; height: auto;  "
+id="ctl00_rs1_mainContentContainer_cpe334121_c" class="MTPS_CollapsibleSection">
+  <div style="display: block;" id class="MTPS_CollapsibleSection">
+    AppWizard does not generate code to register an OLE Automation server
+    application's type library with the system. While there are other ways to
+    register the type library, it is convenient to have the application register
+    the type library when it is updating its OLE type information, that is,
+    whenever the application is run stand-alone. <p>To register the
+    application's type library whenever the application is run stand alone: </p>
+    <ul>
+      <li>Include AFXCTL.H in your standard includes header file, STDAFX.H, to
+      access the definition of the <b>AfxOleRegisterTypeLib</b> function.</li>
+      <li>In your application's <tt>InitInstance</tt> function, locate the call
+      to <b>COleObjectFactory::UpdateRegistryAll</b>. Following this call, add a
+      call to <b>AfxOleRegisterTypeLib</b>, specifying the <b>LIBID</b>
+      corresponding to your type library, along with the name of your type
+      library: </li>
+    </ul>
+  </div>
+</div>
+<pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl33other"
+space="preserve">// When a server application is launched stand-alone, it is a good idea
+// to update the system registry in case it has been damaged.
+m_server.UpdateRegistry(OAT_DISPATCH_OBJECT);
+COleObjectFactory::UpdateRegistryAll();
+// DUAL_SUPPORT_START
+// Make sure the type library is registered or dual interface won't work.
+AfxOleRegisterTypeLib(AfxGetInstanceHandle(), LIBID_ACDual, _T(&quot;AutoClik.TLB&quot;));
+// DUAL_SUPPORT_END</pre>
+<div id="ctl00_rs1_mainContentContainer_cpe334122_h" class="CollapseRegionLink">
+  <h2>Modifying Project Build Settings to Accommodate Type Library Changes </h2>
+</div>
+<div style="overflow: visible; display: block; height: auto;  "
+id="ctl00_rs1_mainContentContainer_cpe334122_c" class="MTPS_CollapsibleSection">
+  <div style="display: block;" id class="MTPS_CollapsibleSection">
+    To modify a project's build settings so that a header file containing <b>
+    UUID</b> definitions is generated by MkTypLib whenever the type library is
+    rebuilt:
+    <ol>
+      <li>On the <b>Build</b> menu, click <b>Settings</b>, and then select the
+      ODL file from the file list for each configuration.</li>
+      <li>Click the <b>OLE Types</b> tab and specify a filename in the <b>Output
+      header</b> filename field. Use a filename that is not already used by your
+      project, because MkTypLib will overwrite any existing file. Click <b>OK</b>
+      to close the <b>Build Settings</b> dialog box.</li>
+    </ol>
+    <p>To add the <b>UUID</b> definitions from the MkTypLib-generated header
+    file to your project: </p>
+    <ol>
+      <li>Include the MkTypLib-generated header file in your standard includes
+      header file, STDAFX.H.</li>
+      <li>Create a new file, INITIIDS.CPP, and add it to your project. In this
+      file, include your MkTypLib-generated header file after including OLE2.H
+      and INITGUID.H: </li>
+<div class id="ctl00_rs1_mainContentContainer_ctl37_other">
+  <pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl37other"
+  space="preserve">// initIIDs.c: defines IIDs for dual interfaces
+// This must not be built with precompiled header.
+  #include &lt;ole2.h&gt;
+  #include &lt;initguid.h&gt;
+  #include &quot;acdual.h&quot;</pre>
+</div>
+<li>On the <b>Build</b> menu, click <b>Settings</b>, and then select
+INITIIDS.CPP from the file list for each configuration.</li>
+<li>Click the <b>C++</b> tab, click category <b>Precompiled Headers</b>, and
+select the <b>Not using precompiled headers</b> radio button. Click OK to close
+the <b>Build Settings</b> dialog box.</li>
+    </ol>
+  </div>
+</div>
+
+<div id="ctl00_rs1_mainContentContainer_cpe334123_h" class="CollapseRegionLink">
+  <h2>Specifying the Correct Object Class Name in the Type Library </h2>
+</div>
+<div style="overflow: visible; display: block; height: auto;  "
+id="ctl00_rs1_mainContentContainer_cpe334123_c" class="MTPS_CollapsibleSection">
+  <div style="display: block;" id class="MTPS_CollapsibleSection">
+    The wizards shipped with Visual C++ incorrectly use the implementation class
+    name to specify the coclass in the server's ODL file for OLE-creatable
+    classes. While this will work, the implementation class name is probably not
+    the class name you want users of your object to use. To specify the correct
+    name, open the ODL file, locate each coclass statement, and replace the
+    implementation class name with the correct external name.<p>Note that when
+    the coclass statement is changed, the variable names of <b>CLSID</b>s in the
+    MkTypLib-generated header file will change accordingly. You will need to
+    update your code to use the new variable names.</div>
+</div>
+<div id="ctl00_rs1_mainContentContainer_cpe334124_h" class="CollapseRegionLink">
+  <h2>Handling Exceptions and the Automation Error Interfaces </h2>
+</div>
+<div style="overflow: visible; display: block; height: auto;  "
+id="ctl00_rs1_mainContentContainer_cpe334124_c" class="MTPS_CollapsibleSection">
+  <div style="display: block;" id class="MTPS_CollapsibleSection">
+    Your automation object's methods and property accessor functions may throw
+    exceptions. If so, you should handle them in your dual-interface
+    implementation and pass information about the exception back to the
+    controller through the OLE Automation error-handling interface, <b>
+    IErrorInfo</b>. This interface provides for detailed, contextual error
+    information through both <b>IDispatch</b> and VTBL interfaces. To indicate
+    that an error handler is available, you should implement the <b>
+    ISupportErrorInfo</b> interface.<p>To illustrate the error-handling
+    mechanism, assume that the ClassWizard-generated functions used to implement
+    the standard dispatch support throw exceptions. MFC's implementation of <b>
+    IDispatch::Invoke</b> typically catches these exceptions and converts them
+    into an EXCEPTINFO structure that is returned through the <b>Invoke</b>
+    call. However, when VTBL interface is used, you are responsible for catching
+    the exceptions yourself. As an example of protecting your dual-interface
+    methods:</div>
+</div>
+<div class id="ctl00_rs1_mainContentContainer_ctl49_other">
+  <pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl49other"
+  space="preserve">STDMETHODIMP CAutoClickDoc::XDualAClick::put_text(BSTR newText)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, DualAClick)
+   TRY_DUAL(IID_IDualAClick)
+   {
+      // MFC automatically converts from Unicode BSTR to
+      // Ansi CString, if necessary...
+      pThis-&gt;m_str = newText;
+      return NOERROR;
+   }
+   CATCH_ALL_DUAL
+}</pre>
+</div>
+<p><tt>CATCH_ALL_DUAL</tt> takes care of returning the correct error code when
+an exception occurs. <tt>CATCH_ALL_DUAL</tt> converts an MFC exception into OLE
+Automation error-handling information using the <b>ICreateErrorInfo</b>
+interface. (An example <tt>CATCH_ALL_DUAL</tt> macro is in the file
+<a href="../../32/MFCDual.h">MFCDual.h</a> in the
+<a id="ctl00_rs1_mainContentContainer_ctl50"
+onclick="javascript:Track('ctl00_rs1_mainContentContainer_cpe334124_c|ctl00_rs1_mainContentContainer_ctl50',this);"
+href="http://msdn.microsoft.com/en-us/library/xfx55tf8(VS.80).aspx">ACDUAL</a>
+sample. The function it calls to handle exceptions, <tt>DualHandleException</tt>,
+is in the file <a href="../../32/MFCDual.cpp">MFCDual.cpp</a>). <tt>
+CATCH_ALL_DUAL</tt> determines the error code to return based on the type of
+exception that occurred: </p>
+<ul>
+  <li><a id="ctl00_rs1_mainContentContainer_ctl51"
+  onclick="javascript:Track('ctl00_rs1_mainContentContainer_cpe334124_c|ctl00_rs1_mainContentContainer_ctl51',this);"
+  href="http://msdn.microsoft.com/en-us/library/zdbad761(VS.80).aspx">
+  COleDispatchException</a> ? In this case, <b>HRESULT</b> is constructed using
+  the following code:
+  <div class id="ctl00_rs1_mainContentContainer_ctl52_other">
+    <div class="CodeSnippetTitleBar">
+      <div class="CodeDisplayLanguage">
+&nbsp;</div>
+    </div>
+    <pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl52other"
+    space="preserve">hr = MAKE_HRESULT(SEVERITY_ERROR, FACILITY_ITF,
+                           (e-&gt;m_wCode + 0x200));</pre>
+  </div>
+  <p>This creates an <b>HRESULT</b> specific to the interface that caused the
+  exception. The error code is offset by 0x200 to avoid any conflicts with
+  system-defined <b>HRESULT</b>s for standard OLE interfaces. </li>
+  <li><a id="ctl00_rs1_mainContentContainer_ctl53"
+  onclick="javascript:Track('ctl00_rs1_mainContentContainer_cpe334124_c|ctl00_rs1_mainContentContainer_ctl53',this);"
+  href="http://msdn.microsoft.com/en-us/library/bc8b34bc(VS.80).aspx">
+  CMemoryException</a> ? In this case, <tt>E_OUTOFMEMORY</tt> is returned.</li>
+  <li>Any other exception ? In this case, <tt>E_UNEXPECTED</tt> is returned.</li>
+</ul>
+<p>To indicate that the OLE Automation error handler is used, you should also
+implement the <b>ISupportErrorInfo</b> interface. </p>
+<p>First, add code to your automation class definition to show it supports <b>
+ISupportErrorInfo</b>.</p>
+<p>Second, add code to your automation class's interface map to associate the <b>
+ISupportErrorInfo</b> implementation class with MFC's <b>QueryInterface</b>
+mechanism. The <tt>INTERFACE_PART</tt> statement matches the class defined for
+<b>ISupportErrorInfo</b>.</p>
+<p>Finally, implement the class defined to support <b>ISupportErrorInfo</b>.</p>
+<p>(The <a id="ctl00_rs1_mainContentContainer_ctl54"
+onclick="javascript:Track('ctl00_rs1_mainContentContainer_cpe334124_c|ctl00_rs1_mainContentContainer_ctl54',this);"
+href="http://msdn.microsoft.com/en-us/library/xfx55tf8(VS.80).aspx">ACDUAL</a>
+sample contains three macros to help do these three steps, <tt>
+DECLARE_DUAL_ERRORINFO</tt>, <tt>DUAL_ERRORINFO_PART</tt>, and <tt>
+IMPLEMENT_DUAL_ERRORINFO</tt>, all contained in <a href="../../32/MFCDual.h">
+MFCDual.h</a>).</p>
+<p>The following example implements a class defined to support <b>
+ISupportErrorInfo</b>. <tt>CAutoClickDoc</tt> is the name of your automation
+class and <tt>IID_IDualAClick</tt> is the <b>IID</b> for the interface that is
+the source of errors reported through the OLE Automation error object:</p>
+<pre class="libCScode" id="ctl00_rs1_mainContentContainer_ctl55other"
+space="preserve">STDMETHODIMP_(ULONG) CAutoClickDoc::XSupportErrorInfo::AddRef()
+{
+   METHOD_PROLOGUE(CAutoClickDoc, SupportErrorInfo)
+   return pThis-&gt;ExternalAddRef();
+}
+STDMETHODIMP_(ULONG) CAutoClickDoc::XSupportErrorInfo::Release()
+{
+   METHOD_PROLOGUE(CAutoClickDoc, SupportErrorInfo)
+   return pThis-&gt;ExternalRelease();
+}
+STDMETHODIMP CAutoClickDoc::XSupportErrorInfo::QueryInterface(
+   REFIID iid, LPVOID* ppvObj)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, SupportErrorInfo)
+   return pThis-&gt;ExternalQueryInterface(&amp;iid, ppvObj);
+}
+STDMETHODIMP CAutoClickDoc::XSupportErrorInfo::InterfaceSupportsErrorInfo(
+   REFIID iid)
+{
+   METHOD_PROLOGUE(CAutoClickDoc, SupportErrorInfo)
+   return (iid == IID_IDualAClick) ? S_OK : S_FALSE;</pre>
+<p><span id="ctl00_rs1_mtpsFooter_MSFT_copyright"
+title="? 2008  Microsoft Corporation. All rights reserved."
+class="MTPS_FooterCopyright"><font size="2">? 2008 Microsoft Corporation. All
+rights reserved.</font></span><font size="2"> </font>
+<a id="ctl00_rs1_mtpsFooter_MSFT_Terms" title="Terms of Use"
+class="MTPS_FooterLinks" href="http://msdn.microsoft.com/cc300389.aspx">
+<font size="2">Terms of Use</font></a></p>
+<hr>
+<h3>Reference: </h3>
+<ol>
+  <li><span class="bodycopy"><font class="sectionhead">
+  <a href="http://www.codeguru.com/cpp/com-tech/activex/misc/article.php/c2607">Building a World Class 
+  Application with MFC and COM Automation </a> </font></span></li>
+</ol>
+
+</body>
+
+</html>
