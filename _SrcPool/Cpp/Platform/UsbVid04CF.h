@@ -1,5 +1,5 @@
 /*$Workfile: UsbVid04CF.h$: header file
-  $Revision: 1.3 $ $Date: 2008/08/12 18:52:55 $
+  $Revision: 1.4 $ $Date: 2008/09/04 21:14:48 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -20,6 +20,7 @@
 #define USBVID_MYSON 0x04CF
 #define USBVID_04CF _T("Myson Century, Inc.") //VID 1231 Vendor name
 
+#define USBPID_MTM800 0x0800 //MTP800 USB Mass Storage Device
 #define USBPID_MTM808 0x0808 //MTM808 USB Mass Storage Device
 #define USBPID_MTM809 0x0809 //MTM809 USB Mass Storage Device
 #define USBPID_CS8810 0x8810 //CS8810 USB Mass Storage Device

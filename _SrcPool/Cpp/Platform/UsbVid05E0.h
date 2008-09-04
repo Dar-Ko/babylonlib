@@ -1,5 +1,5 @@
 /*$Workfile: UsbVid05E0.h$: header file
-  $Revision: 1.5 $ $Date: 2008/08/12 18:52:55 $
+  $Revision: 1.6 $ $Date: 2008/09/04 21:14:48 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -13,7 +13,7 @@
 
 #define USBVID_05E0 _T("Motorola Symbol Technologies") //VID 1504 Vendor name
 
-/*1504.	USB device vendor identification (VID) number	Motorola Symbol Technologies	http://www.symbol.com/
+/*1504.	USB device vendor identification (VID) number	Motorola Symbol Technologies	http://www.symbol.com/; http://www.motorola.com/
 
   See also: usb-if.tsv, USB Implementers Forum, Inc (USB-IF) at http://www.usb.org
  */
@@ -24,6 +24,9 @@
   See also: MS4404/MS4407 Integration Guide, 9-3 MS4407 - USB Interface.
  */
 #define USBPID_MS4407COM 0x0600
+
+#define USBPID_CS1504     0x0700  //Bar Code Scanner (CS1504)
+#define USBPID_SPECTRUM24 0x0800  //Symbol Spectrum24 Wireless LAN Adapter
 
 /*MiniScan MS4404/MS4407 USB scanner product identification (PID) number.
   Device is configured for HID Keyboard Emulation (Rev:NBRPVAAK3).
@@ -50,6 +53,8 @@
   See also: MS4404/MS4407 Integration Guide, 9-3 MS4407 - USB Interface.
  */
 #define USBPID_MS4407SNAPI 0x1900
+#define USBPID_MC3090      0x2000  //MC3090 Rugged Mobile Computer
+#define USBPID_MC70        0x200D  //MC70 Handheld Mobile Computer
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_USBVID05E0_H_
