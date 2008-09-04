@@ -1,5 +1,5 @@
 /*$RCSfile: atlctl.h,v $: header file
-  $Revision: 1.5 $ $Date: 2008/07/15 20:31:06 $
+  $Revision: 1.6 $ $Date: 2008/09/04 21:42:27 $
   $Author: ddarko $
 
   This source code is only intended as a supplement to the Active Template Library
@@ -326,6 +326,7 @@ public:
       return E_POINTER;
     *ppFont = NULL;
     CComVariant var;
+    VariantInit(&var); //D.K. 2008-07-30 initialize variable!
     HRESULT hRes = GetAmbientProperty(DISPID_AMBIENT_FONT, var);
     ATLASSERT((var.vt == VT_UNKNOWN || var.vt == VT_DISPATCH) || FAILED(hRes));
     if (SUCCEEDED(hRes) && var.pdispVal)
@@ -348,6 +349,7 @@ public:
   HRESULT GetAmbientLocaleID(LCID& lcid)
   {
     CComVariant var;
+    VariantInit(&var); //D.K. 2008-07-30 initialize variable!
     HRESULT hRes = GetAmbientProperty(DISPID_AMBIENT_LOCALEID, var);
     ATLASSERT((var.vt == VT_UI4 || var.vt == VT_I4) || FAILED(hRes));
     lcid = var.lVal;
@@ -379,6 +381,7 @@ public:
   HRESULT GetAmbientUserMode(BOOL& bUserMode)
   {
     CComVariant var;
+    VariantInit(&var); //D.K. 2008-07-30 initialize variable!
     HRESULT hRes = GetAmbientProperty(DISPID_AMBIENT_USERMODE, var);
     ATLASSERT(var.vt == VT_BOOL || FAILED(hRes));
     bUserMode = var.boolVal;
@@ -1755,6 +1758,8 @@ public:
     T* pT = static_cast<T*>(this);
     BOOL bDesignMode = FALSE;
     CComVariant var;
+    VariantInit(&var); //D.K. 2008-07-30 initialize variable!
+
     // if container doesn't support this property
     // don't allow design mode
     HRESULT hRes = pT->GetAmbientProperty(DISPID_AMBIENT_USERMODE, var);
@@ -3435,6 +3440,15 @@ namespace ATL
 ////////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: atlctl.h,v $
+ * Revision 1.6  2008/09/04 21:42:27  ddarko
+ * Initalized variables before usage
+ *
+ * Revision 1.1.2.3  2008/07/30 21:55:40  dkolakovic
+ * Fixed release build warnings
+ *
+ * Revision 1.1.2.2  2008/07/15 20:51:59  dkolakovic
+ * ATL 3.00 PSDK 2006-03, Libraries PSDK 2003-02
+ *
  * Revision 1.5  2008/07/15 20:31:06  ddarko
  * Borland CC build and fixes
  *
