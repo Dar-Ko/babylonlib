@@ -1,5 +1,5 @@
 /*$Workfile: KHresult.h$: header file
-  $Revision: 1.10 $ $Date: 2008/07/21 21:15:21 $
+  $Revision: 1.11 $ $Date: 2008/09/09 21:10:26 $
   $Author: ddarko $
 
   Handles HRESULT error codes
@@ -17,8 +17,8 @@
 #include <winerror.h>
 #include <atlbase.h>
 
-#if _MSC_VER < 1300
-  //Microsoft Visual C/C++ 6.0
+#if _MSC_VER >= 1300
+  //Microsoft Visual C/C++ 7.0
   #pragma warning(disable: 4290) //warning C4290: C++ Exception Specification ignored
   #pragma warning(disable: 4100) //warning C4100: unreferenced formal parameter
 #endif
