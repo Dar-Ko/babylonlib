@@ -405,112 +405,9 @@
 #endif
 
 #ifdef _MSC_VER /*Microsoft Visual C/C++ Compiler                            */
+  #include "KDbgMacrMsvc.h" /*Microsoft-Specific macros Microsoft Visual Studio*/
+
   /*Microsoft-Specific macros ---------------------------------------------- */
-  #ifdef _MSC_VER
-    #ifdef _DEBUG
-       #pragma message ("Debug version")
-    #else
-      #pragma message ("Release version")
-    #endif
-    /*Preprocessor Directives for Generic-Text Mappings                      */
-    #if defined UNICODE || defined _UNICODE
-      /*Unicode character (16-bit)
-        ISO 10646-1 Universal Multiple Octet Coded Character Set (UCS).
-       */
-      #pragma message ("Unicode (wide-character) text mapping")
-    #endif
-    #if defined _MBCS && !defined _UNICODE
-      #pragma message ("Multibyte-character text mapping")
-    #endif
-    #if !defined _MBCS && !defined _UNICODE
-      /*ASCII character (8-bit)*/
-      #pragma message ("Singlebyte-character (SBCS or ASCII) text mapping")
-    #endif
-
-    #if _MSC_VER >= 1300
-      #pragma message ("Microsoft Visual C++.NET compiler")
-    #else
-      #if _MSC_VER >= 800
-        #pragma message ("Microsoft Visual C/C++ compiler")
-      #else
-        #if _MSC_VER > 600
-         #pragma message ("Microsoft C/C++ compiler")
-        #else
-          #pragma message ("Microsoft C compiler")
-        #endif
-      #endif
-    #endif
-
-   /*Current version of Microsoft compiler.
-     The _MSC_VER macro will have one of the following values depending upon
-     the particular Microsoft compiler:
-
-        Compiler                             _MSC_VER value
-
-        C Compiler version 6.0                     600
-        C/C++ compiler version 7.0                 700
-        Visual C++, Windows, version 1.0           800
-        Visual C++, 32-bit, version 1.0            800
-        Visual C++, Windows, version 1.5           850
-        Visual C++, Windows, version 2.0           900
-        Visual C++, 32-bit, version 2.x            900
-        Visual C++, 32-bit, version 4.0           1000
-        Visual C++, 32-bit, version 4.2           1020
-        Visual C++, 32-bit, version 5.0           1100
-        Visual C++, 32-bit, version 6.0           1200
-        Visual C++ .Net 2002, 32-bit, version 7.0 1300
-        Visual C++ .Net 2003, 32-bit, version 7.1 1310
-        Visual C/C++ 2005, version 8.0            1400
-     See also: Q65472
-    */
-    const int g__MSC_VER = _MSC_VER;
-    #if _MSC_VER < 600
-      #pragma message ("  ver. unknown")
-    #endif
-    #if _MSC_VER == 600
-      #pragma message ("  ver. 6.0")
-    #endif
-    #if _MSC_VER == 700
-      #pragma message ("  ver. 7.0")
-    #endif
-    #if _MSC_VER == 800
-      #pragma message ("  ver. 1.0")
-    #endif
-    #if _MSC_VER == 850
-      #pragma message ("  ver. 1.5")
-    #endif
-    #if _MSC_VER == 900
-      #pragma message ("  ver. 2.0")
-    #endif
-    #if _MSC_VER == 1000
-      #pragma message ("  ver. 4.0")
-    #endif
-    #if _MSC_VER == 1020
-      #pragma message ("  ver. 4.2")
-    #endif
-    #if _MSC_VER == 1100
-      #pragma message ("  ver. 5.0")
-    #endif
-    #if _MSC_VER == 1200
-      #pragma message ("  ver. 6.0")
-    #endif
-    #if _MSC_VER == 1210
-      #pragma message ("  ver. 6.1")
-    #endif
-    #if _MSC_VER == 1300
-      #pragma message ("  2002 ver. 7.0")
-    #endif
-    #if _MSC_VER == 1310
-      #pragma message ("  2003 ver. 7.1")
-    #endif
-    #if _MSC_VER == 1400
-      #pragma message ("  2005 ver. 8.0")
-    #endif
-    #if _MSC_VER > 1400
-      #pragma message ("  ver. unknown")
-    #endif
-  #endif
-
   #ifdef _AFX
     #pragma message ("Included Microsoft Application Framework Classes afxver_.h (AFX/MFC).")
   #endif
@@ -564,28 +461,6 @@
 
   #include "KDbgMacrAtl.h" /*List Active Template Library macros*/
 
-  #ifdef _MSC_EXTENSIONS
-    #pragma message ("Enabled compiler extensions.")
-  #endif
-  #ifdef _CPPUNWIND
-    #pragma message ("Enabled Exception Handling.")
-  #endif
-  #ifdef _CPPRTTI
-    #pragma message ("Enabled Run-Time Type Information.")
-  #endif
-  #ifdef _MT
-    /*Defined when /MD or /MDd (Multithreaded DLL) or /MT
-     or /MTd (Multithreaded) is specified.*/
-    #pragma message ("Enabled Multithreading.")
-  #else
-    #ifndef _STH
-      #define _STH 1998
-    #endif
-    #pragma message ("Single-threaded application.")
-  #endif
-  #ifdef _DLL
-    #pragma message ("Multithread DLL is specified.")
-  #endif
   #ifdef _M_ALPHA
     #pragma message ("Compiling for for DEC ALPHA platform.")
   #endif
