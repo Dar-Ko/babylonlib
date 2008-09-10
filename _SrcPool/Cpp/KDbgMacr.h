@@ -406,60 +406,8 @@
 
 #ifdef _MSC_VER /*Microsoft Visual C/C++ Compiler                            */
   #include "KDbgMacrMsvc.h" /*Microsoft-Specific macros Microsoft Visual Studio*/
-
-  /*Microsoft-Specific macros ---------------------------------------------- */
-  #ifdef _AFX
-    #pragma message ("Included Microsoft Application Framework Classes afxver_.h (AFX/MFC).")
-  #endif
-  #ifdef _MFC_VER
-    #pragma message ("Included Microsoft Fundation Class (MFC) library.")
-     /*Current version of Microsoft Fundation Class (MFC) library.
-      */
-    const int g__MFC_VER = _MFC_VER;
-    #if _MFC_VER < 300
-      #pragma message ("  ver. unknown")
-    #endif
-    #if _MFC_VER == 0x0320
-      #pragma message ("  ver. 3.2")
-    #endif
-    #if _MFC_VER == 0x0400
-      #pragma message ("  ver. 4.0")
-    #endif
-    #if _MFC_VER == 0x0410
-      #pragma message ("  ver. 4.10")
-    #endif
-    #if _MFC_VER == 0x420
-      #pragma message ("  ver. 4.20")
-    #endif
-    #if _MFC_VER == 0x0421
-      #pragma message ("  ver. 4.21")
-    #endif
-    #if _MFC_VER == 0x0600
-      #pragma message ("  ver. 6.00")
-    #endif
-    #if _MFC_VER == 0x0601
-      #pragma message ("  ver. 6.01")
-    #endif
-    #if _MFC_VER == 0x0700
-      #pragma message ("  ver. 7.00")
-    #endif
-    #if _MFC_VER == 0x0710
-      #pragma message ("  ver. 7.10")
-    #endif
-    #if _MFC_VER > 0x0710
-      #pragma message ("  ver. unknown")
-    #endif
-  #endif
-
-  #ifdef _AFXDLL
-    #ifdef __cplusplus
-      #pragma message ("Use MFC in a Shared DLL.")
-    #else
-      #pragma message (__FILE__ " : warning: Specified use of MFC in a C code.")
-    #endif
-  #endif
-
-  #include "KDbgMacrAtl.h" /*List Active Template Library macros*/
+  #include "KDbgMacrMfc.h"  /*Microsoft-Specific macros Microsoft Fundation Class (MFC) library*/
+  #include "KDbgMacrAtl.h"  /*List Active Template Library macros*/
 
   #ifdef _M_ALPHA
     #pragma message ("Compiling for for DEC ALPHA platform.")
