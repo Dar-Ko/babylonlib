@@ -90,7 +90,27 @@
 
     See also: {html: <a href=http://www.unicode.org/charts/PDF/UFFF0.pdf</a>}
    */
-#define UCPRIVATEUSEZONE 0xFFFF
+  #define UCPRIVATEUSEZONE 0xFFFF
+
+  /*Memory usually outside of a process ("No man's land").
+    Microsoft compiler initializes certain memory blocks with specific values to
+    help problem diagnostic and debugging. In debug builds every byte is set to
+    ceratin value. These values are undocumented and subject to change.
+    User should look for patterns of 4 or more bytes with specific values.
+
+    See also: Long, Mark; "Troubleshooting Common Problems with Applications:
+    Debugging in the  Real World";
+    {html: <a href="msdn.microsoft.com/en-us/library/aa260966(VS.60).aspx" title="MSDN">
+    Table 1. Potential patterns</a>},
+    MEM_FREED, MEM_UNINITGLOBAL, MEM_UNINITLOCAL
+   */
+  #define MEM_OUTOFPROCESS 0xFDFDFDFD
+  #define MEM_FREED        0xDDDDDDDD //Freed memory previously allocated
+                                      //See also: MEM_OUTOFPROCESS
+  #define MEM_UNINITGLOBAL 0xCDCDCDCD //Uninitialized global.
+                                      //See also: MEM_OUTOFPROCESS
+  #define MEM_UNINITLOCAL  0xCCCCCCCC //Uninitialized local (on the stack)
+                                      //See also: MEM_OUTOFPROCESS
 
 /*Binary measure units                                                       */
 
@@ -172,6 +192,26 @@ const wchar_t UCBYTEORDERMARK = 0xFEFF;
     See also: {html: <a href=http://www.unicode.org/charts/PDF/UFFF0.pdf</a>}
    */
 const wchar_t UCNIPRIVATEUSEZONE = 0xFFFF;
+
+  /*Memory usually outside of a process ("No man's land").
+    Microsoft compiler initializes certain memory blocks with specific values to
+    help problem diagnostic and debugging. In debug builds every byte is set to
+    ceratin value. These values are undocumented and subject to change.
+    User should look for patterns of 4 or more bytes with specific values.
+
+    See also: Long, Mark; "Troubleshooting Common Problems with Applications:
+    Debugging in the  Real World";
+    {html: <a href="msdn.microsoft.com/en-us/library/aa260966(VS.60).aspx" title="MSDN">
+    Table 1. Potential patterns</a>},
+    MEM_FREED, MEM_UNINITGLOBAL, MEM_UNINITLOCAL
+   */
+const unsigned int MEM_OUTOFPROCESS = 0xFDFDFDFD;
+const unsigned int MEM_FREED        = 0xDDDDDDDD; //Freed memory previously allocated
+                                                  //See also: MEM_OUTOFPROCESS
+const unsigned int MEM_UNINITGLOBAL = 0xCDCDCDCD; //Uninitialized global.
+                                                  //See also: MEM_OUTOFPROCESS
+const unsigned int MEM_UNINITLOCAL  = 0xCCCCCCCC; //Uninitialized local (on the stack)
+                                                  //See also: MEM_OUTOFPROCESS
 
 /*Binary measure units                                                       */
 
