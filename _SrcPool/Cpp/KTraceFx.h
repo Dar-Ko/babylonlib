@@ -55,6 +55,22 @@
 /*Converts a macro argument into a string constant.                        */
 #define _STRINGCST(Msg)    _MESSAGE0(Msg)
 
+#ifdef _UNICODE
+  #ifndef __LOC__
+    /*Creates text with current file name and line number in following format:
+         FileName(LineNumber)
+     */
+    #define __LOC__  _MESSAGELINENO __WFILE__ "(" _STRINGCST(__LINE__) ")"
+  #endif
+#else
+  #ifndef __LOC__
+    /*Creates text with current file name and line number in following format:
+         FileName(LineNumber)
+     */
+    #define __LOC__  _MESSAGELINENO __FILE__ "(" _STRINGCST(__LINE__) ")"
+  #endif
+#endif
+
 #ifndef KMESSAGE
     /*Microsoft Visual Studio C/C++ compiler
      */
@@ -62,8 +78,8 @@
     /*Creates message prolog with the name of the source file and the line
       number where a preprocessor message has been inserted.
       Preprocessor needs two indirections to replace __LINE__ or __FILE__ with
-      actual string.      
-      
+      actual string.
+
       Note: Microsoft Visual Studio (MSVC) specific.
 
       Example:
@@ -80,7 +96,7 @@
     /*Creates message prolog with the name of the source file and the line
       number where a preprocessor message has been inserted.
       Preprocessor needs two indirections to replace __LINE__ or __FILE__ with
-      actual string.      
+      actual string.
 
       Note: Metrowerks CodeWarrior (MWERKS) specific.
 
@@ -233,8 +249,8 @@
                 It is the undecorated name of the enclosing function.
 
       __FUNCTION__  MSVC 7.0 and later: __FUNCTION__ is Valid only within a
-                function and returns the undecorated name of the enclosing 
-                function (as a string). __FUNCTION__ is not expanded if you 
+                function and returns the undecorated name of the enclosing
+                function (as a string). __FUNCTION__ is not expanded if you
                 use the /EP or /P compiler option.
                 GCC: __FUNCTION__ is another name for __func__, recognized by
                 older version of the compiler, when __func__ was not been
