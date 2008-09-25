@@ -10,8 +10,8 @@
 *.lst
 *.ncb
 *.obj
-*.Old
 *.old
+*.Old
 *.opt
 *.pch
 *.pdb
@@ -32,8 +32,8 @@
 *_p.c
 .project
 _SrcPool.vbw
-Bin
 bin
+Bin
 CVS
 cvs
 dlldata.c

@@ -18,6 +18,7 @@
 *.res
 *.sbr
 *.scc
+
 *.suo
 *.tmp
 *.vcb
