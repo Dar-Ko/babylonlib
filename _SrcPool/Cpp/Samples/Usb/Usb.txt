@@ -1,11 +1,26 @@
 $RCSfile: Usb.txt,v $: developer's note
-$Revision: 1.1 $ $Date: 2008/09/25 15:28:52 $
+$Revision: 1.2 $ $Date: 2008/09/25 21:31:36 $
 $Author: ddarko $
 
 Usb
 
-
 Microsoft Windows Console Application
+
+Dependencies:
+    Windows DDK (hidsdi.h) version 3790.1830
+    MSCVC/C++ 6.0
+      To add new search path for DDK header files and libraries, select menu item:
+      Tools| Options... | Directories
+        Show directories for: Include files
+      add new directory with DDK header files
+        Choose Directory: WinDDK\3790.1830\inc\wxp (or WinDDK\3790.1830\inc\ddk\wdm\wxp)
+
+        Show directories for: Library files
+      add new directory with DDK libraries
+        Choose Directory: WinDDK\3790.1830\lib\wxp\i386
+
+    Standard Template Library (STL)
+      To include STL string header files through the precompiled header, define _USE_STL.
 
 main.cpp
     This is the main application source file.
@@ -23,5 +38,85 @@ If MFC TestDocument/TestView framework is used, it is required to initialize glo
     PFUNCENTRY_TEST g_startTest = MyTestFunc;
 This is not required if the target is Windows console (subsystem:console).
 
+MSCVC/C++ 6.0 Notes
+-------------------
+  STL shipped with MSVC 6.0 prodices number of compiler warnings. To suppress the warnings insert pragmas in following files:
+    visualstudio.6\vc98\include\xlocale
+      #pragma warning(disable: 4018 4100 4511 4512 4663 4710)
+        //warning C4018: signed/unsigned mismatch
+        //warning C4100: unreferenced formal parameter
+        //warning C4511: copy constructor could not be generated
+        //warning C4512: assignment operator could not be generated
+        //warning C4663: C++ language change
+        //warning C4710: function not inlined (Release build)
+        ...
+      #pragma warning(default: 4018 4100 4511 4512 4663 4710)
+    visualstudio.6\vc98\include\ostream
+      #pragma warning(disable: 4018 4512 4710)
+        //warning C4018: signed/unsigned mismatch
+        //warning C4512: assignment operator could not be generated
+        //warning C4710: function not inlined (Release build)
+        ...
+      #pragma warning(default: 4018 4512 4710)
+    visualstudio.6\vc98\include\xlocnum
+      #pragma warning(disable: 4018 4511 4512 4710)
+        //warning C4018: signed/unsigned mismatch
+        //warning C4511: copy constructor could not be generated
+        //warning C4512: assignment operator could not be generated
+        //warning C4710: function not inlined (Release build)
+        ...
+      #pragma warning(default: 4018 4511 4512 4710)
+    visualstudio.6\vc98\include\streambuf
+      #pragma warning(disable: 4100)
+        //warning C4100: unreferenced formal parameter
+        ...
+      #pragma warning(default: 4100)
+    VisualStudio.6\VC98\INCLUDE\utility
+      #pragma warning(disable: 4710)
+        //warning C4710: function not inlined (Release build)
+        ...
+      #pragma warning(default: 4710)
+    VisualStudio.6\VC98\INCLUDE\xstring
+      #pragma warning(disable: 4710)
+        //warning C4710: function not inlined (Release build)
+        ...
+      #pragma warning(default: 4710)
+    VisualStudio.6\VC98\INCLUDE\xlocinfo
+      #pragma warning(disable: 4710)
+        //warning C4710: function not inlined (Release build)
+        ...
+      #pragma warning(default: 4710)
+    VisualStudio.6\VC98\INCLUDE\typeinfo
+      #pragma warning(disable: 4710)
+        //warning C4710: function not inlined (Release build)
+        ...
+      #pragma warning(default: 4710)
+    visualstudio.6\vc98\include\istream
+      #pragma warning(disable: 4701)
+        //warning C4701: local variable may be used without having been initialized
+        ...
+      #pragma warning(default: 4701)
+
+Win DDK
+-------
+  To fix warning in DDK version 3790.1830
+        hidpi.h(1702) : warning C4201: nonstandard extension used : nameless struct/union
+  insert in <hidpi.h>
+    #pragma warning(disable: 4201) //warning C4201: nonstandard extension used : nameless struct/union
+    ...
+    #pragma warning(default: 4201)
+
+
+  Microsoft devcon utility (from Windows DDK) fails to change the state of the device if change is disallowed.
+    C:>devcon disable *VID_05E0*
+    HID\VID_05E0&PID_1200\6&212AFFF5&0&0000                     : Disable failed
+    USB\VID_05E0&PID_1200\S/N:E58C41CCE31CC946B019A5C1DA549003_REV:NBRPVAAK3: Disable failed
+    No devices disabled.
+
+  To allow it, create Windows Registry DWORD value:
+    HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Kbdclass\Parameters\AllowDisable
+
+
 \	Usb.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	Usb.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
+

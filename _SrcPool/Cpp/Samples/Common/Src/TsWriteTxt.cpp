@@ -43,6 +43,13 @@
 
   #ifdef KSTL_IO
 
+#if _MSC_VER == 1200
+  //Microsoft Visual C++, 32-bit, version 6.0 
+  #ifdef NDEBUG
+    #pragma warning(disable: 4710) //warning C4710: function not inlined (Release build)
+  #endif
+#endif
+
 //TsWriteToView()--------------------------------------------------------------
 /*Writes a character string at the console standard output stream.
 
@@ -148,7 +155,14 @@ bool TsWriteToView(const bool& bValue  //[in] boolean value to output
   std::_tcout << (bValue ? _T("T") : _T("F"));
   return true;
   }
-  
+
+#if _MSC_VER == 1200
+  //Microsoft Visual C++, 32-bit, version 6.0 
+  #ifdef NDEBUG
+    #pragma warning(default: 4710) //warning C4710: function not inlined (Release build)
+  #endif
+#endif
+
   #endif //#ifndef KSTL_IO
 #endif //_CONSOLE
 ///////////////////////////////////////////////////////////////////////////////

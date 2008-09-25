@@ -31,8 +31,15 @@ extern int TestCommonStreamIO(LPCTSTR szFileName);
 
   Returns: EXIT_SUCCESS if succesful, otherwise returns EXIT_FAILURE.
  */
-int main(int    argc,   //[in]
-         TCHAR* argv[]  //[in] 1: file name
+int main(int argc,     //[in] specifies how many arguments are passed to the
+                       //program from the command line. The value of argc is
+                       //at least one: the program name.
+         TCHAR* argv[]  //[in] the program arguments as an array of pointers
+                       //to null-terminated strings. The first string 
+                       //  - (argv[0]) is the program name.
+                       //  - (argv[1]) file name
+                       //The end of the array (argv[argc]) is indicated by 
+                       //a NULL pointer.
          )
 {
 tstring strFileName;
@@ -42,7 +49,7 @@ if(argc == 2) //Get file name from command line
 else
   {
   //Get file name from the user or skip it with CR character
-  std::_tcout << "Enter File Name: ";
+  std::_tcout << _T("Enter File Name: ");
   TCHAR ch;
   while (std::_tcin.get(ch) && (ch != _T('\n')))
     {
