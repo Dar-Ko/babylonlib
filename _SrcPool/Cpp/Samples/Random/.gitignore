@@ -18,6 +18,7 @@
 *.plg
 *.res
 *.sbr
+*.scc
 *.sln
 *.suo
 *.tmp
@@ -25,8 +26,15 @@
 *.vcl
 *.vco
 *.vic
+*.vspscc
 *.~*
+*_i.c
+*_p.c
+.project
+Bin
 bin
+dlldata.c
+idl
 obj
 Obj
 Thumbs.db
