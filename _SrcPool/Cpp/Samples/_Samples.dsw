@@ -159,6 +159,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "Usb"=.\Usb\Usb.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "Utilities"=.\Utilities\Utilities.dsp - Package Owner=<4>
 
 Package=<5>
