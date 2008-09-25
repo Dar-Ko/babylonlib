@@ -1,0 +1,27 @@
+$RCSfile: Usb.txt,v $: developer's note
+$Revision: 1.1 $ $Date: 2008/09/25 15:28:52 $
+$Author: ddarko $
+
+Usb
+
+
+Microsoft Windows Console Application
+
+main.cpp
+    This is the main application source file.
+StdAfx.h, StdAfx.cpp
+    These files are used to build a precompiled header (PCH) file
+    named Usb.pch and a precompiled types file named StdAfx.obj.
+
+
+If the following error occurs while building debug version of the project with Microsoft Visual C/C++ 6.0
+  warning LNK4098: defaultlib "LIBC" conflicts with use of other libs;
+clean all object files and recompile agani the project.
+
+Target Microsoft Windows (MFC/GUI subsystem:windows) requires MFC library, _WINDOWS preprocessor definition, /subsystem:windows linker option (Microsoft Visual C/C++).
+If MFC TestDocument/TestView framework is used, it is required to initialize global test entry point:
+    PFUNCENTRY_TEST g_startTest = MyTestFunc;
+This is not required if the target is Windows console (subsystem:console).
+
+\	Usb.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	Usb.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
