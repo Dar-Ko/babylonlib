@@ -341,7 +341,7 @@ TRACE1(_T("CUsbHid::SetDeviceState(dwState = %d)\n"), dwState);
 
 if (psdiDevInfo == NULL)
   {
-  SetLastError(E_POINTER);
+  SetLastError((DWORD)E_POINTER);
   return false;
   }
 
