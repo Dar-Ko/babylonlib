@@ -18,7 +18,7 @@ Also <Test COM>.dll have to be registered:
   regsvr32 <Test COM>.dll
 
 Visual Studio .Net 2003 v7.1 Notes
-----------------------------------
+------------------------------------------
 The project is created with VC/C++ 6.0 and converted to v7.1. Output directories are changed to:
   $(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)
   $(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)
@@ -42,6 +42,42 @@ Post-build step is changed to:
 	:S_OK
 
 Proxy/Stub dll build requires some auto-generated files from the $(ProjectDir) and $(ProjectDir)/idl
+
+Visual Studio .Net 2005 8.0 Notes
+----------------------------------------
+  COM Bug: some of our classes are causing C4701 warnings from the "injected" attribute code
+      "warning C4701: potentially uninitialized local variable 'pp' used"
+      The code is "injected" from the ATL library; pp variable is not initialized if an exception happens.
+      You have a few options to workaround the warning:
+
+      1. Disable the warning globally. Specifying /wd4701 on the compiler command line
+
+      2. Surround the class with event_source attribute with #pragma warning to disable the warning.
+            #pragma warning(push, 4)
+            #pragma warning(disable : 4701)
+            [... event_source(com) ]
+            class CSource : ...
+            {
+                public:
+                 __event __interface ...;
+            ...
+            };    // CSource
+            #pragma warning(pop)
+
+        This will disable warning just in the class.
+
+      3. Disable the warning around the code generated for attributes by adding the pragmas as below
+            [... event_source(com) ]
+            class CSource : ...
+            {
+                public:
+                 __event __interface ...;
+            ...
+            #pragma warning(push, 4)
+            #pragma warning(disable : 4701)
+            };    // CSource
+            #pragma warning(pop)
+
 
 \	TestComAtlps.mk	Microsoft Program Maintenance Utility -nmake (mk) file format version 5.0.	Win32
 \	TestComAtl.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32

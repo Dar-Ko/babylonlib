@@ -56,11 +56,8 @@ TestComAtlNetps.def
     required by the proxy/stub.
 /////////////////////////////////////////////////////////////////////////////
 
-MSVC++ 2005 8.0
-  D.K. 2008-09-19 generated IDL file renamed to src\RemControlUSB_e.idl
-  Note: Set Linker option 'Embedded IDL' | 'Merged IDL Base File Name'
-  including _RemControlUSB_i.c IID is not required, becouse IDL is embedded in .cpp
-
+Visual Studio .Net 2005 8.0 Notes
+----------------------------------------
   COM Bug: some of our classes are causing C4701 warnings from the "injected" attribute code
       "warning C4701: potentially uninitialized local variable 'pp' used"
       The code is "injected" from the ATL library; pp variable is not initialized if an exception happens.
