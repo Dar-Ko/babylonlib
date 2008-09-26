@@ -36,8 +36,8 @@
 #endif
 
 //ByteToHex()------------------------------------------------------------------
-/*Converts a byte to a hexadecimal string. 
- 
+/*Converts a byte to a hexadecimal string.
+
   Note:  Required size of the buffer is 3 characters or more.
 
   Returns: szResult containing hexadecimal representation of a byte value.
@@ -46,7 +46,7 @@
  */
 TCHAR* ByteToHex(BYTE cValue, //[in] value of a byte to convert [0, 255]
                  TCHAR* szResult //[out] zero-terminated string
-                             //containing hexadecimal representation of 
+                             //containing hexadecimal representation of
                              //a byte value.
                              )
 {
@@ -55,11 +55,11 @@ ASSERT(szResult != NULL);
 int iHiNibble = cValue >> 4;
 int iLoNibble = cValue & 0x0F;
 
-szResult[0] = (iHiNibble > 9) ? 
+szResult[0] = (iHiNibble > 9) ?
                   (_T('A') + iHiNibble - 10) : (_T('0') + iHiNibble);
-szResult[1] = (iLoNibble > 9) ? 
+szResult[1] = (iLoNibble > 9) ?
                   (_T('A') + iLoNibble - 10) : (_T('0') + iLoNibble);
-szResult[2] = '\0';
+szResult[2] = _T('\0');
 
 return szResult;
 }
@@ -72,12 +72,12 @@ return szResult;
 #endif
 
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  4    Biblioteka1.3         2004-06-01 17:52:59  Darko           time sync
  *  3    Biblioteka1.2         2003-09-02 01:04:13  Darko           fixed release
  *       version
  *  2    Biblioteka1.1         2003-08-25 02:53:30  Darko           VSS tags
- *  1    Biblioteka1.0         2002-08-13 18:53:10  Darko Kolakovic 
+ *  1    Biblioteka1.0         2002-08-13 18:53:10  Darko Kolakovic
  * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/
