@@ -31,7 +31,7 @@ extern int TestCommonStreamIO(LPCTSTR szFileName);
 
   Returns: EXIT_SUCCESS if succesful, otherwise returns EXIT_FAILURE.
  */
-int main(int argc,     //[in] specifies how many arguments are passed to the
+int _tmain(int argc,     //[in] specifies how many arguments are passed to the
                        //program from the command line. The value of argc is
                        //at least one: the program name.
          TCHAR* argv[]  //[in] the program arguments as an array of pointers
