@@ -35,7 +35,9 @@ while(_istxdigit(*szSource))
   if(_istdigit(*szSource))
     lResult |= (*szSource - _T('0'));
   else
-    lResult |= (_toupper(*szSource) - _T('A') + 10);
+    {
+    lResult |= (*szSource) + 10 - ((*szSource >= _T('a')) ? _T('a') : _T('A'));
+    }
   szSource++;
   }
 return lResult;
