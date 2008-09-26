@@ -14,7 +14,7 @@
 #ifdef _DEBUG
   #ifdef _UNICODE
     #if (_MSC_VER < 1400) //Less than Visual C++ 2005 v8.0
-  
+
   #ifndef UNICODE //Fix Microsoft macro mixed definitions
     #define UNICODE 20070822
   #endif
@@ -26,6 +26,17 @@
   #define _WIN32_WINNT 0x0400 /* for MB_SERVICE_NOTIFICATION, defined in <winuser.h>*/
   #include <windows.h>
   #include <signal.h>
+
+  #ifdef _MT
+    /*Multithreaded build
+      See also: crt\src\mtdll.h (MSVC++ v7.1 2003)
+     */
+    extern "C" void __cdecl _lock (int locknum);
+    extern "C" void __cdecl _unlock (int locknum);
+    #define _DEBUG_LOCK     15      /*lock for debug global structs*/
+    #define _mlock(l)     _lock(l)
+    #define _munlock(l)   _unlock(l)
+  #endif
 
   #ifndef LPCTSTR
     #ifndef _WINNT_ //not included <winnt.h>
@@ -151,7 +162,7 @@
     #define FN_MESSAGEBOX "MessageBoxA"
     #define FN_GETUSROBJINFO "GetUserObjectInformationA"
   #endif
- 
+
   HWND    hWndParent = NULL;
   bool    bNonInteractive = false;
   HWINSTA hwinsta;
@@ -258,8 +269,9 @@
   TCHAR   szExeName[MAX_PATH + 1];
   TCHAR   szOutMessage[MAX_MSG];
 
-  _ASSERTE(szUserMessage != NULL);
-
+  #pragma warning(disable : 4127) //warning C4127: conditional expression is constant
+    _ASSERTE(szUserMessage != NULL);
+  #pragma warning(default : 4127)
   /*Shorten program name */
   szExeName[MAX_PATH] = _T('\0');
   if (!GetModuleFileName(NULL, szExeName, MAX_PATH))
