@@ -34,10 +34,10 @@ extern int TestCommonStlTools();
 
   Note: uses Standard Template Library (STL).
  */
-int main(  int argc,      //[in] specifies how many arguments are passed to the
+int _tmain(int argc,      //[in] specifies how many arguments are passed to the
                           //program from the command line. The value of argc is
                           //at least one: the program name.
-            char* argv[]  //[in] the program arguments as an array of pointers
+           TCHAR* argv[]  //[in] the program arguments as an array of pointers
                           //to null-terminated strings. The first string 
                           //(argv[0]) is the program name. The end of the array
                           //(argv[argc]) is indicated by a NULL pointer.

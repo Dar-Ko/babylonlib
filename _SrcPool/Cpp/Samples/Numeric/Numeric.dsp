@@ -226,17 +226,6 @@ SOURCE=.\Src\main.cpp
 # Begin Source File
 
 SOURCE=S:\_SrcPool\Cpp\Samples\Common\Res\Win\32\Test.rc
-
-!IF  "$(CFG)" == "Numeric - Win32 Debug_SBCS"
-
-!ELSEIF  "$(CFG)" == "Numeric - Win32 Release_SBCS"
-
-!ELSEIF  "$(CFG)" == "Numeric - Win32 Debug_Unicode"
-
-!ELSEIF  "$(CFG)" == "Numeric - Win32 Release_Unicode"
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -366,6 +355,10 @@ SOURCE=..\..\KTypedef.h
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=S:\_SrcPool\Cpp\Samples\Common\Res\SrcPool.ico
+# End Source File
 # End Group
 # Begin Group "Logs"
 

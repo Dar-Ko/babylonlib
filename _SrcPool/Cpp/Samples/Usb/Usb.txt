@@ -1,5 +1,5 @@
 $RCSfile: Usb.txt,v $: developer's note
-$Revision: 1.2 $ $Date: 2008/09/25 21:31:36 $
+$Revision: 1.3 $ $Date: 2008/09/26 21:36:48 $
 $Author: ddarko $
 
 Usb
@@ -40,6 +40,8 @@ This is not required if the target is Windows console (subsystem:console).
 
 MSCVC/C++ 6.0 Notes
 -------------------
+  For Unicode builds both _UNICODE and UNICODE have to be defined because of botched Microsoft header files.
+
   STL shipped with MSVC 6.0 prodices number of compiler warnings. To suppress the warnings insert pragmas in following files:
     visualstudio.6\vc98\include\xlocale
       #pragma warning(disable: 4018 4100 4511 4512 4663 4710)

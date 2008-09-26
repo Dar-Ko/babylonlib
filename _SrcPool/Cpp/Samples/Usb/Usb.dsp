@@ -41,10 +41,11 @@ RSC=rc.exe
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "..\bin\Debug_Unicode\Win32"
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode\Usb\Win32"
+# PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /I "..\Common\Src\Win\32" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_USE_STL" /FR /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /I "..\Common\Src\Win\32" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /D "_USE_STL" /FR /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE RSC /l 0x1009 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG" /d "_UNICODE"
 BSC32=bscmake.exe
@@ -95,7 +96,7 @@ LINK32=link.exe
 # PROP Target_Dir ""
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W4 /GX /O2 /I "..\Common\Src\Win\32" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "_USE_STL" /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W4 /GX /O2 /I "..\Common\Src\Win\32" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /D "_USE_STL" /Yu"stdafx.h" /FD /c
 # ADD BASE RSC /l 0x1009 /d "NDEBUG"
 # ADD RSC /l 0x1009 /d "NDEBUG" /d "_UNICODE"
 BSC32=bscmake.exe
@@ -143,6 +144,21 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
+SOURCE=..\..\Win\32\KDbgRpt.cpp
+# SUBTRACT CPP /YX /Yc /Yu
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KStrHtoL.c
+# SUBTRACT CPP /YX /Yc /Yu
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\KStrToInt.cpp
+# SUBTRACT CPP /YX /Yc /Yu
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\KTestLog.cpp
 # SUBTRACT CPP /YX /Yc /Yu
 # End Source File
@@ -164,6 +180,18 @@ SOURCE=.\Src\main.cpp
 
 SOURCE=..\Common\Src\Win\stdafx.cpp
 # ADD CPP /Yc"stdafx.h"
+# End Source File
+# Begin Source File
+
+SOURCE=..\Common\Res\Win\32\Test.rc
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestCommonUsb.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Src\TestFindUsbHid.cpp
 # End Source File
 # Begin Source File
 
@@ -202,6 +230,10 @@ SOURCE=..\Common\Src\Win\stdafx.h
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=..\..\..\..\Doc\Res\icoUsb.ico
+# End Source File
 # End Group
 # Begin Source File
 

@@ -407,6 +407,10 @@ SOURCE=.\Src\stdstl.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\Common\Res\Win\32\Test.rc
+# End Source File
+# Begin Source File
+
 SOURCE=.\Src\TestCommonStlTools.cpp
 # End Source File
 # Begin Source File
@@ -469,6 +473,10 @@ SOURCE=.\Src\stdstl.h
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+# Begin Source File
+
+SOURCE=..\..\..\..\Doc\Res\icoStl.ico
+# End Source File
 # End Group
 # Begin Group "Logs"
 
