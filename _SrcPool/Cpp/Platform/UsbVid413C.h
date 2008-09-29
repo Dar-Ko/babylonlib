@@ -57,20 +57,20 @@
 #define USBPID_LASERMFP1815                          0x5124 //Laser MFP 1815
 #define USBPID_PHOTOAIO928                           0x5128 //Photo AIO 928
 #define USBPID_PRTLASERDELL1                         0x5200 //Laser Printer
-#define USBPID_PRINTINGSUPPORT1                      0x5202 //Printing Support
-#define USBPID_PRINTINGSUPPORT2                      0x5203 //Printing Support
-#define USBPID_PRINTINGSUPPORT3                      0x5210 //Printing Support
-#define USBPID_PRINTINGSUPPORT4                      0x5211 //Printing Support
+#define USBPID_PRINTINGSUPPORT                       0x5202 //Printing Support ??
+#define USBPID_PRINTINGSUPPORT1                      0x5203 //Printing Support ??
+#define USBPID_PRINTINGSUPPORT2                      0x5210 //Printing Support ??
+#define USBPID_PRINTINGSUPPORT3                      0x5211 //Printing Support ??
 #define USBPID_LASERMFP1600N                         0x5220 //Laser MFP 1600n
-#define USBPID_PRINTINGSUPPORT                       0x5225 //Printing Support
-#define USBPID_PRINTINGSUPPORT                       0x5226 //Printing Support
+#define USBPID_PRINTINGSUPPORT4                      0x5225 //Printing Support ??
+#define USBPID_PRINTINGSUPPORT5                      0x5226 //Printing Support ??
 #define USBPID_PRTLASERDELL2                         0x5300 //Laser Printer
 #define USBPID_PRTLASERDELL3                         0x5400 //Laser Printer
 #define USBPID_PRTLASERDELL4                         0x5401 //Laser Printer
 #define USBPID_PRTLASER3100CN                        0x5601 //Laser Printer 3100cn
 #define USBPID_PRTLASER3000CN                        0x5602 //Laser Printer 3000cn
 #define USBPID_PRTLASER5100CN                        0x5631 //Laser Printer 5100cn
-#define USBPID_PRINTINGSUPPORT5                      0x5905 //Printing Support
+#define USBPID_PRINTINGSUPPORT6                      0x5905 //Printing Support ??
 #define USBPID_BTBC02USBADAPTER                      0x8000 //BC02 Bluetooth USB Adapter
 #define USBPID_BTTRUEMOBILEMODULEIN                  0x8010 //TrueMobile Bluetooth Module in
 #define USBPID_TRUEMOBILE1300WLANCARD                0x8102 //TrueMobile 1300 USB2.0 WLAN Card
@@ -79,12 +79,12 @@
 #define USBPID_WIRELESS350BTIN                       0x8106 //Wireless 350 Bluetooth Internal Card in
 #define USBPID_WIRELESS3XXBT                         0x8110 //Wireless 3xx Bluetooth Internal Card
 #define USBPID_WIRELESS3XXBTIN                       0x8111 //Wireless 3xx Bluetooth Internal Card in
-#define USBPID_WIRELESS5700MODEM                     0x8114 //Wireless 5700 Mobile Broadband (CDMA EV-DO) Minicard Modem
+#define USBPID_WIRELESS5700MODEMMIN                  0x8114 //Wireless 5700 Mobile Broadband (CDMA EV-DO) Minicard Modem
 #define USBPID_WIRELESS5500MODEM                     0x8115 //Wireless 5500 Mobile Broadband (3G HSDPA) Minicard Modem
 #define USBPID_WIRELESS5505MODEM                     0x8116 //Wireless 5505 Mobile Broadband (3G HSDPA) Minicard Modem
-#define USBPID_WIRELESS5700MODEM                     0x8117 //Wireless 5700 Mobile Broadband (CDMA EV-DO) Expresscard Modem
+#define USBPID_WIRELESS5700MODEMEXP                  0x8117 //Wireless 5700 Mobile Broadband (CDMA EV-DO) Expresscard Modem
 #define USBPID_WIRELESS5510STATUSPORT                0x8118 //Wireless 5510 Mobile Broadband (3G HSDPA) Expresscard Status Port
-#define USBPID_BTADAPTERDELL                         0x8120 //Bluetooth adapter
+#define USBPID_BTADAPTERDELL                         0x8120 //Bluetooth adapter ??
 #define USBPID_EASTFOLDHID                           0x8121 //Eastfold in HID
 #define USBPID_EASTFOLDDFU                           0x8122 //Eastfold in DFU
 #define USBPID_EHOMEINFRAREDRECEIVER1                0x8123 //eHome Infrared Receiver
@@ -104,8 +104,8 @@
 #define USBPID_MOBILE360DFU                          0x8142 //Mobile 360 in DFU
 #define USBPID_TRUMOB1180                            0x8100 //TrueMobile 1180 802.11b Adapter
 #define USBPID_WIRE350BT                             0x8103 //Wireless 350 Bluetooth
-#define USBPID_BTADAPTERDELL                         0x8501 //Bluetooth Adapter
-#define USBPID_DELLHUB                               0xA001 //Hub
+#define USBPID_BTADAPTERDELL2                        0x8501 //Bluetooth Adapter ??
+#define USBPID_DELLHUB                               0xA001 //Dell Hub
 #define USBPID_HUBINTERNAL2DELL                      0xA005 //Internal 2.0 Hub
 #define USBPID_DELLHUB1905                           0xA700 //Hub (in 1905FP LCD Monitor)
 

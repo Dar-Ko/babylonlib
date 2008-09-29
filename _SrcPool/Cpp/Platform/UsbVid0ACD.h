@@ -20,9 +20,9 @@
 #define USBVID_IDTECH 0x0ACD
 #define USBVID_0ACD _T("ID Tech") //VID 2765 Vendor name
 
-#define USBPID_MOIRSPECTRUM3 0x0401 //Spectrum III Hybrid Smartcard Reader
-#define USBPID_MOIRSPECTRUM3 0x0630 //Spectrum III USB Magstripe Only Insert
-                                    //Reader (MOIR) with CDC USB to COM port driver
+#define USBPID_MOIRSPECTRUM3SMART 0x0401 //Spectrum III Hybrid Smartcard Reader
+#define USBPID_MOIRSPECTRUM3      0x0630 /*Spectrum III USB Magstripe Only Insert
+                                Reader (MOIR) with CDC USB to COM port driver*/
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_USBVID0ACD_H_

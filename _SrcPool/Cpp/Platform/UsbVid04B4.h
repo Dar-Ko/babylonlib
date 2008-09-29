@@ -1,5 +1,5 @@
 /*$Workfile: UsbVid04B4.h$: header file
-  $Revision: 1.2 $ $Date: 2008/09/29 14:58:39 $
+  $Revision: 1.3 $ $Date: 2008/09/29 15:27:15 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -44,7 +44,7 @@
 #define USBPID_UDST7020BDA  0x8614 //DTV-DVB UDST7020BDA DVB-S Box(DVBS for MCE2005)
 #define USBPID_CENTOR       0xCC04 //Centor USB RACIA-ALVAR USB PORT
 #define USBPID_CENTORP      0xCC06 //Centor-P RACIA-ALVAR USB PORT
-#define USBPID_CY7C63X0X    0xD5D5 //CY7C63x0x Zoltrix Z-Boxer GamePad
+#define USBPID_ZBOXER       0xD5D5 //CY7C63x0x (?? D.K.) Zoltrix Z-Boxer GamePad ??
 #define USBPID_CY30700      0xF000 //CY30700 Licorice evaluation board
 
 
@@ -52,6 +52,9 @@
 #endif //_USBVID04B4_H_
 /*****************************************************************************
  * $Log: UsbVid04B4.h,v $
+ * Revision 1.3  2008/09/29 15:27:15  ddarko
+ * Corrected duplicated definitions
+ *
  * Revision 1.2  2008/09/29 14:58:39  ddarko
  * Comments
  *
