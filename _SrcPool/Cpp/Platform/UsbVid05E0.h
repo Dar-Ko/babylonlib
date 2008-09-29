@@ -1,5 +1,5 @@
 /*$Workfile: UsbVid05E0.h$: header file
-  $Revision: 1.6 $ $Date: 2008/09/04 21:14:48 $
+  $Revision: 1.7 $ $Date: 2008/09/29 14:58:39 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -11,13 +11,12 @@
   //$Workfile: UsbVid05E0.h$ sentry
   #define _USBVID05E0_H_
 
-#define USBVID_05E0 _T("Motorola Symbol Technologies") //VID 1504 Vendor name
-
 /*1504.	USB device vendor identification (VID) number	Motorola Symbol Technologies	http://www.symbol.com/; http://www.motorola.com/
 
   See also: usb-if.tsv, USB Implementers Forum, Inc (USB-IF) at http://www.usb.org
  */
 #define USBVID_SYMBOL 0x05E0
+#define USBVID_05E0 _T("Motorola Symbol Technologies") //VID 1504 Vendor name
 
 /*MiniScan MS4404/MS4407 USB scanner product identification (PID) number.
   Device is configured for Simple COM Port Emulation (Rev:NBRPVAAK5).

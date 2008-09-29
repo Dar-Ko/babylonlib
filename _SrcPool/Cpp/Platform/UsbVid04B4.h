@@ -1,5 +1,5 @@
 /*$Workfile: UsbVid04B4.h$: header file
-  $Revision: 1.1 $ $Date: 2008/09/24 18:06:24 $
+  $Revision: 1.2 $ $Date: 2008/09/29 14:58:39 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -13,7 +13,7 @@
   //$Workfile: UsbVid04B4.h$ sentry
   #define _USBVID04B4_H_
 
-/*1204. USB device vendor identification (VID) number Cypress Semiconductor Corporation http://www.cypress.com/
+/*1204.	USB device vendor identification (VID) number	Cypress Semiconductor Corporation	http://www.cypress.com/
 
   See also: usb-if.tsv (usb.if), Company List by USB Implementers Forum, Inc
   (USB-IF) at http://www.usb.org/developers/tools/comp_dump;
@@ -52,6 +52,9 @@
 #endif //_USBVID04B4_H_
 /*****************************************************************************
  * $Log: UsbVid04B4.h,v $
+ * Revision 1.2  2008/09/29 14:58:39  ddarko
+ * Comments
+ *
  * Revision 1.1  2008/09/24 18:06:24  ddarko
  * Created
  *
