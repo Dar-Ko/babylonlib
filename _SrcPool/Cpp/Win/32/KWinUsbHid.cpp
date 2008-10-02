@@ -26,6 +26,7 @@
   #ifndef TRACE
     #define TRACE ATLTRACE
     #define TRACE1 ATLTRACE
+    #define TRACE2 ATLTRACE
   #endif
 #endif
 
