@@ -61,6 +61,8 @@ public:
 
 public:
   bool Find(const uint16_t wVendorId, const uint16_t wProductId);
+  bool Open();
+  bool Close();
   const TCHAR* GetDevicePath() const;
   const PHIDP_CAPS GetDeviceCapabilities();
   bool Enable(bool bStart = true);
@@ -70,8 +72,12 @@ public:
   operator HDEVINFO() const;
   const PSP_DEVINFO_DATA GetDevInfo() const;
 protected:
+  bool Open(const uint16_t wVendorId, const uint16_t wProductId);
   bool SetDeviceState(const DWORD dwState,
                       const PSP_DEVINFO_DATA psdiDevInfo);
+private:
+  bool ReleaseHandle();
+  void DestroyData();
 protected:
   HANDLE m_hHid; //handle to requested device of the HID class
   TCHAR* m_szDevicePath; //zero-terminated string specifying the HID path
@@ -83,9 +89,15 @@ protected:
 // Inlines
 
 //-----------------------------------------------------------------------------
-/*
+/*Obtains the device interface path. The device have to be disovered before
+  using this method.
+
+  Note: This path can be passed to Win32 functions such as CreateFile(). 
+
   Returns: zero-terminated string or NULL if device is not discovered with
   CUsbHid::Find() method.
+
+  See also: SP_DEVICE_INTERFACE_DETAIL_DATA, <setupapi.h>, CUsbHid::Find().
  */
 inline const TCHAR* CUsbHid::GetDevicePath() const
 {
@@ -100,7 +112,7 @@ return m_szDevicePath;
 inline bool CUsbHid::IsHid(const TCHAR* szHardwareId //[in]
               ) const
 {
-if ((szHardwareId != NULL) && (szHardwareId[0] != '\0'))
+if ((szHardwareId != NULL) && (szHardwareId[0] != _T('\0')))
   {
   return (StrIStr(szHardwareId, SYSTEMENUM_HID) == szHardwareId);
   }
@@ -146,16 +158,28 @@ return hDevInfo;
 
 //-----------------------------------------------------------------------------
 /*
+  Windows API functions that require a Device Instance Handle, such as
+  the Config Manager set of API functions, can use the DevInst value in
+  the structure SP_DEVINFO_DATA returned by the SetupDiEnumDeviceInfo function.
+
   Returns: structure that defines the previously discovered device instance or
   NULL.
+
+  See also: Microsoft Windows Device Development Kit (DDK), SetupDi API;
+  SP_DEVICE_INTERFACE_DETAIL_DATA, SP_DEVINFO_DATA, <setupapi.h>,
+  CUsbHid::GetDevicePath(), SetupDiEnumDeviceInfo(),
+  {html:<a href="http://msdn.microsoft.com/en-us/library/ms791129.aspx" title="MSDN">
+  MSDN: Windows Driver Kit: Device Installation Device Information Sets
+  </a>}
  */
 inline const PSP_DEVINFO_DATA CUsbHid::GetDevInfo() const
 {
 return m_psdiDevinfo;
 }
-
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KUSBHID_H_
 /*****************************************************************************
- * $Log: $
+ * $Log: KUsbHid.h,v $
+ * Revision 1.2  2008/10/03 22:01:56  dkolakovic
+ * Rewired USB browsing
  *****************************************************************************/

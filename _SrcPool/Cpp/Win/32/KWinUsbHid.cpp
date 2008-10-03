@@ -1,6 +1,6 @@
 /*$Workfile: KUsbHid.cpp$: implementation file
-  $Revision: 5$ $Date: 2007-08-24 18:15:43$
-  $Author: Darko Kolakovic$
+  $Revision: 1.3 $ $Date: 2008/10/03 22:01:57 $
+  $Author: dkolakovic $
 
   USB HID handler.
   Requires Microsoft Windows DDK libraries.
@@ -74,17 +74,77 @@ CUsbHid::CUsbHid() :
 
 CUsbHid::~CUsbHid()
 {
+Close(); //Close HID object if it is left open
+}
+
+//-----------------------------------------------------------------------------
+/*Destroys all acquired data and frees allocated memory resources.
+ */
+void CUsbHid::DestroyData()
+{
+if (m_szDevicePath != NULL)
+  {
+  delete[] m_szDevicePath;
+  m_szDevicePath = NULL;
+  }
+if (m_phidCapabilities != NULL)
+  {
+  delete m_phidCapabilities;
+  m_phidCapabilities = NULL;
+  }
+if (m_psdiDevinfo != NULL)
+  {
+  delete m_psdiDevinfo;
+  m_psdiDevinfo = NULL;
+  }
+}
+
+//-----------------------------------------------------------------------------
+/*Closes an open HID object handle and invalidates the m_hHid member.
+
+  Returns: true if the function succeeds; if the function fails, the return
+  value is false. To get extended error information, call GetLastError().
+
+  Note: Microsoft Windows specific (Win32).
+ */
+bool CUsbHid::ReleaseHandle()
+{
+TRACE(_T("CUsbHid::ReleaseHandle()\n"));
 if (m_hHid != INVALID_HANDLE_VALUE)
   {
-  CloseHandle(m_hHid);
-  m_hHid = INVALID_HANDLE_VALUE;
+  /*CloseHandle() invalidates the specified object handle, decrements the
+    object's handle count, and performs object retention checks.
+    After the last handle to an object is closed, the object is removed from
+    the system.
+   */
+  #ifdef _DEBUG
+    if (!CloseHandle(m_hHid))
+      {
+      TRACE2(_T("  Error 0x%0.8X: Failed to close device handle 0x%0.8X!"),
+             GetLastError(),
+             m_hHid);
+      return false;
+      }
+  #else
+    return CloseHandle(m_hHid);
+  #endif
   }
-if (m_szDevicePath != NULL)
-  delete[] m_szDevicePath;
-if (m_phidCapabilities != NULL)
-  delete m_phidCapabilities;
-if (m_psdiDevinfo != NULL)
-  delete m_psdiDevinfo;
+return true;
+}
+
+//-----------------------------------------------------------------------------
+/*Closes an open HID object handle and invalidates the m_hHid member and
+  deleted previously acquired device path and information.
+
+  Returns: true if the function succeeds; if the function fails, the return
+  value is false. To get extended error information, call GetLastError().
+
+ */
+bool CUsbHid::Close()
+{
+TRACE(_T("CUsbHid::Close()\n"));
+DestroyData();
+return ReleaseHandle(); //Close HID object if it is left open
 }
 
 //-----------------------------------------------------------------------------
@@ -92,13 +152,17 @@ if (m_psdiDevinfo != NULL)
   (PID) number. If the vendor is not specified (VID is USBVID_ANY), the method
   return true when first HID class object is found in the device tree. If PID
   is USBPID_ANY, the method searches for any device from the specified vendor
-  and returns true when the first HID is found. If the required device is found,
-  handle to the object is preserved as the m_hHid member of the CUsbHid class.
+  and returns true when the first HID is found.
+  Mathod also saves device interface path as m_szDevicePath. This path can be
+  passed to Win32 functions such as CreateFile(). If device is found,
+  device information data are stored in m_psdiDevinfo.
 
   Returns: true if the requested device of the HID class is found in the
   USB device tree. Returns false if the device is not present.
 
-  See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId
+  See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId,
+  SP_DEVICE_INTERFACE_DETAIL_DATA, SP_DEVINFO_DATA, <setupapi.h>,
+  CUsbHid::GetDevicePath(), CUsbHid::GetDevInfo();
  */
 bool CUsbHid::Find(const uint16_t wVendorId, //[in] USB device vendor
                                              //identification (VID) number
@@ -108,6 +172,8 @@ bool CUsbHid::Find(const uint16_t wVendorId, //[in] USB device vendor
 {
 TRACE2(_T("CUsbHid::Find(0x%4.4X, 0x%4.4X)\n"), wVendorId, wProductId);
 bool bResult = false;
+
+DestroyData();   //Erase device information from previous search
 
 //Get the top HIDClass device interface GUID
 GUID guidHid;  //device interface GUID for HIDClass devices
@@ -188,17 +254,15 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
         if ( HidD_GetAttributes(hHid, &hiddAttributes) )
           {
           if (hiddAttributes.VendorID == wVendorId)
-            if (( wProductId != USBPID_ANY ) &&
-                ( hiddAttributes.ProductID != wProductId ))
-              {
-              CloseHandle(hHid);
-              }
-            else
-            bResult = true;
+            if (( wProductId == USBPID_ANY ) ||
+                ( hiddAttributes.ProductID == wProductId ))
+              bResult = true;
           }
         }
       else
         bResult = true;
+
+      CloseHandle(hHid);
       }
     #ifdef _DEBUG
       else
@@ -209,15 +273,19 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
 
     if(bResult) //Desired device is found
       {
-      if (m_hHid != INVALID_HANDLE_VALUE)
-        CloseHandle(m_hHid);
-      m_hHid = hHid; //Preserve the device handle
-      if(m_szDevicePath != NULL)
+      if(m_szDevicePath != NULL) //Free data once more for good measure
         delete[] m_szDevicePath;
       size_t nLen = _tcsclen(psdiDevDetail->DevicePath) + 1;
       m_szDevicePath = new TCHAR[nLen];
       if(m_szDevicePath != NULL)
-        _tcsncpy(m_szDevicePath, psdiDevDetail->DevicePath, nLen);
+        {
+        #if _MSC_VER < 1400
+          _tcsncpy(m_szDevicePath, psdiDevDetail->DevicePath, nLen);
+        #else //MSVC++ 2005 v8.0 or newer
+          _tcsncpy_s(m_szDevicePath, nLen, psdiDevDetail->DevicePath, nLen);
+        #endif
+        }
+
       delete[] psdiDevDetail;
 
       if (m_psdiDevinfo == NULL)
@@ -236,23 +304,99 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
           }
         }
       break; //Return the result
-
       }
 
-     delete[] psdiDevDetail;
+    delete[] psdiDevDetail;
     iDevCount++;
     }
 
   SetupDiDestroyDeviceInfoList(hDevInfo);
+  }
+
+return bResult;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+bool CUsbHid::Open(const uint16_t wVendorId, //[in] USB device vendor
+                                             //identification (VID) number
+                   const uint16_t wProductId //[in] USB product identification
+                                             //(PID) number
+                  )
+{
+TRACE2(_T("CUsbHid::Open(0x%4.4X, 0x%4.4X)\n"), wVendorId, wProductId);
+if (Find(wVendorId, wProductId))
+  {
+  return Open();
+  }
+return false;
+}
+
+//-----------------------------------------------------------------------------
+/*TODO: query device existence without accessing the device. Redo device open.
+  If the required device is found, handle to the object is preserved as the
+  m_hHid member of the CUsbHid class.
+  In any case the handle of the object found in any previous search is
+  invalidated.
+ */
+bool CUsbHid::Open()
+{
+TRACE(_T("CUsbHid::Open()\n"));
+bool bResult = false;
+
+if (m_szDevicePath != NULL)
+  {
+  //Open a HID
+  //Note: generic keyboard or pointing device driver does not allow
+  //read nor write access to the device.
+  HANDLE hHid = CreateFile(m_szDevicePath,
+                           0, //query device existence without
+                              //accessing the device.
+                          FILE_SHARE_READ | FILE_SHARE_WRITE,
+                          NULL,//if lpSecurityAttributes is NULL,
+                          //the handle cannot be inherited.
+                          OPEN_EXISTING,
+                          0,
+                          NULL);
+  if (hHid != INVALID_HANDLE_VALUE)
+    {
+    #ifdef _UNICODE
+      TRACE1(_T("  %ws\n"), m_szDevicePath);
+    #else
+      TRACE1(_T("  %s\n"), m_szDevicePath);
+    #endif
+
+    ReleaseHandle(); //Close handle to the previous device
+    m_hHid = hHid;   //Preserve the device handle
+    bResult = true;
+    }
+  #ifdef _DEBUG
+    else
+      {
+      TRACE1(_T("  Failed to open HID: Error #%0.8d!\n"), GetLastError());
+      }
+  #endif
+  }
+else
+  {
+  TRACE(_T("  Failed to open HID. Find device path first!\n"));
+  bResult = false;
   }
 return bResult;
 }
 
 //-----------------------------------------------------------------------------
 /*Obtains device's capabilites.
-  Search for the device before querying device's capabilites.
+  Search and open the device before querying device's capabilites.
+  If the required device is found, handle to the object is preserved as the
+  m_hHid member of the CUsbHid class.
+  In any case the handle of the object found in any previous search is
+  invalidated.
 
   Returns: pointer to device's HIDP_CAPS structure or NULL in case of a failure.
+
+  See also: CUsbHid::Open().
  */
 const PHIDP_CAPS CUsbHid::GetDeviceCapabilities()
 {
@@ -439,5 +583,7 @@ return false;
 #endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: $
+ * $Log: KWinUsbHid.cpp,v $
+ * Revision 1.3  2008/10/03 22:01:57  dkolakovic
+ * Rewired USB browsing
  *****************************************************************************/
