@@ -1,5 +1,5 @@
 /*$RCSfile: TestFindUsbHid.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2008/09/26 21:36:48 $
+  $Revision: 1.2 $ $Date: 2008/10/03 22:12:43 $
   $Author: ddarko $
 
   Test file names handling
@@ -33,7 +33,9 @@ extern CTestLog g_logTest;   //general test logger
 #endif
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
-
+extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(const unsigned int& nValue);
+extern bool TsWriteToView(const unsigned int& nValue);
 //#include <vector>
 
 #if _MSC_VER < 1300
@@ -43,6 +45,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 //#include <iostream> //std::endl
 
 #include "KUsbHid.h" //CUsbHid
+#include "UsbVid.h"  //USB VID List
 
 #define VID_MS 0x045E //(Microsoft Corporation)
 #define PID_MS 0x0083 //Basic Optical Mouse - generic HID
@@ -76,18 +79,55 @@ try
 
   //Find given USB HID
   CUsbHid usbHid;
-  TsWriteToViewLn(_T("USB HID"));
+
+  g_logTest.LogResult(bResult); //Log object's construction
+  g_logTest.m_szObjectName = _T("CUsbHid::Find(uint16_t, uint16_t)");
+
+  TsWriteToView(_T("USB HID VID:"));
+  TsWriteToView((unsigned int)nVendorId);
+  TsWriteToView(_T(" PID:"));
+  TsWriteToView((unsigned int)nProductId);
+
   bResult = usbHid.Find(nVendorId, nProductId);
+
+  TsWriteToViewLn((bResult ? _T(" found.") : _T(" not found!")));
+  g_logTest.LogResult(bResult);
+
+  if(bResult)
+    {
+    //If device is found, browse its capabilities
+    g_logTest.m_szObjectName = _T("CUsbHid::GetDeviceCapabilities()");
+
+    PHIDP_CAPS pCapabilities = usbHid.GetDeviceCapabilities();
+    bResult = (pCapabilities != NULL);
+    g_logTest.LogResult(bResult);
+
+    }
 
   g_logTest.LogResult(bResult);
   }
 catch(std::out_of_range& eoor)
   {
+  #if _MSC_VER == 1200
+    //warning C4710: (MSVC6 STL Release build) function not inlined
+    #pragma warning (push, 3)
+  #endif
+
   std::_tcout << _T("STL out of range error occured! ") << eoor.what() << std::endl;
+
+  #if _MSC_VER == 1200
+    #pragma warning (pop)
+  #endif
+
   bResult = false;
   }
 catch(const std::exception& e)  
   {
+  #if _MSC_VER == 1200
+    //warning C4710: (MSVC6 STL Release build) function not inlined
+    #pragma warning (disable: 4710)
+  #endif
+
   std::_tcout << _T("STL exception error occured! ") << e.what() << std::endl;
   bResult = false;
   }
@@ -104,6 +144,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestFindUsbHid.cpp,v $
+ *Revision 1.2  2008/10/03 22:12:43  ddarko
+ *USB browsing
+ *
  *Revision 1.1  2008/09/26 21:36:48  ddarko
  *Added new test case
  *

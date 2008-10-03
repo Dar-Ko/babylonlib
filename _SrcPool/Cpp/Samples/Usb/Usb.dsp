@@ -45,7 +45,7 @@ RSC=rc.exe
 # PROP Target_Dir ""
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /I "..\Common\Src\Win\32" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\Common\Src\Win" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /D "_USE_STL" /FR /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /I "..\Common\Src\Win\32" /I "..\Common\Src\Win" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\..\Platform" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /D "_USE_STL" /FR /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE RSC /l 0x1009 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG" /d "_UNICODE"
 BSC32=bscmake.exe
@@ -71,7 +71,7 @@ LINK32=link.exe
 # PROP Target_Dir ""
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /I "..\Common\Src\Win" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_USE_STL" /FR /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W4 /Gm /GX /ZI /Od /I "..\Common\Src\Win" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\..\Platform" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_USE_STL" /FR /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE RSC /l 0x1009 /d "_DEBUG"
 # ADD RSC /l 0x1009 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -96,7 +96,7 @@ LINK32=link.exe
 # PROP Target_Dir ""
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W4 /GX /O2 /I "..\Common\Src\Win\32" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /D "_USE_STL" /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W4 /GX /O2 /I "..\Common\Src\Win\32" /I "..\Common\Src\Win" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\..\Platform" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_UNICODE" /D "UNICODE" /D "_USE_STL" /Yu"stdafx.h" /FD /c
 # ADD BASE RSC /l 0x1009 /d "NDEBUG"
 # ADD RSC /l 0x1009 /d "NDEBUG" /d "_UNICODE"
 BSC32=bscmake.exe
@@ -121,7 +121,7 @@ LINK32=link.exe
 # PROP Target_Dir ""
 MTL=midl.exe
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W4 /GX /O2 /I "..\Common\Src\Win\32" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\Common\Src\Win" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_USE_STL" /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W4 /GX /O2 /I "..\Common\Src\Win\32" /I "..\Common\Src\Win" /I "..\.." /I "..\..\STL" /I "..\..\Win\32" /I "..\..\Platform" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_USE_STL" /Yu"stdafx.h" /FD /c
 # ADD BASE RSC /l 0x1009 /d "NDEBUG"
 # ADD RSC /l 0x1009 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -225,6 +225,70 @@ SOURCE=..\..\Win\32\KWinUsb.h
 # Begin Source File
 
 SOURCE=..\Common\Src\Win\stdafx.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid0000.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid046D.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid04B4.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid04CF.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid05E0.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid078B.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid0801.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid0839.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid0AA7.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid0ACD.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid0D85.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid0DD4.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid152D.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid413C.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Platform\UsbVid8086.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
