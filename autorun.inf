@@ -1,6 +1,6 @@
 [REM]
 $RCSfile: autorun.inf,v $: AutoRun configuration file
-$Revision: 1.2 $ $Date: 2008/10/09 16:31:56 $
+$Revision: 1.3 $ $Date: 2008/10/09 18:32:21 $
 
 AutoRun options for fixed and removable media.
 Networked media are not supporteed.
@@ -32,7 +32,7 @@ label=Babylon Library
 #Specify the application that AutoRun launches
 #Note: use 8.3 file name (obtain the name with 'dir /X') if the long file name
 #contains spaces.
-open=Doc/Html/index.html
+open=iexplore.exe Doc/Html/index.html
 
 
 #Specifies the text that is used in the Autoplay dialog for the handler
@@ -42,7 +42,7 @@ open=Doc/Html/index.html
 #Note: command is ignored for audio CD or movie DVD.
 #WinXP SP2 specific: the message associated with 'open' command in AutoPlay
 
-action=Babylon Library Intoduction
+action=Babylon Library Introduction
 
 #-------------------------------------------------------------------------------
 #shell
@@ -65,7 +65,7 @@ shellexecute=Doc/Html/index.html
 shell\babylondoc=Documentation
 
 #context menu action
-shell\babylondoc\command=Doc/Html/index.html
+shell\babylondoc\command=iexplore.exe Doc/Html/index.html
 
 #default shortcut menu command
 #executes any previously defined action verb. See also: Context Menu Items
