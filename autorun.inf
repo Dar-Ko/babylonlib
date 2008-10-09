@@ -1,2 +1,101 @@
+[REM]
+$RCSfile: autorun.inf,v $: AutoRun configuration file
+$Revision: 1.2 $ $Date: 2008/10/09 16:31:56 $
+
+AutoRun options for fixed and removable media.
+Networked media are not supporteed.
+$Author: ddarko $
+Note: Win32 specific
+
+#-------------------------------------------------------------------------------
+AutoRun Options
+Each of autorun options is in the following format:
+    option=value
+To disallow autorun while inserting removable media, hold SHIFT key.
+See also: 'Autorun.inf Entries', http://msdn.microsoft.com/en-us/library/bb776823.aspx
+
 [autorun]
-ICON=./Doc/Res/SrcPool.ico
+
+#Specify an icon which represents the AutoRun-enabled drive in the Windows
+#user interface:
+#  icon=iconfilename<,index>
+#Example:
+#  icon=icon.ico
+#  icon=iconlib.dll,15
+icon=./Doc/Res/SrcPool.ico
+
+#Specifies a text label which represents the AutoRun-enabled drive in
+#the Windows user interface.
+#Note: limited to 32 characters
+label=Babylon Library
+
+#Specify the application that AutoRun launches
+#Note: use 8.3 file name (obtain the name with 'dir /X') if the long file name
+#contains spaces.
+open=Doc/Html/index.html
+
+
+#Specifies the text that is used in the Autoplay dialog for the handler
+#representing the program specified in the 'open' or 'shellexecute' entry
+#    action=ActionText
+#    action=@<filepath\>resourcefilename,-resourceID
+#Note: command is ignored for audio CD or movie DVD.
+#WinXP SP2 specific: the message associated with 'open' command in AutoPlay
+
+action=Babylon Library Intoduction
+
+#-------------------------------------------------------------------------------
+#shell
+
+#Specify an application or data file that AutoRun will use to call
+#ShellExecuteEx:
+#   shellexecute=<filepath\>filename<param1, <param2>...>
+#This entry is similar to 'open', but it allows you to use file association
+#information to run the application.
+#Note: shell v5.0 specific
+shellexecute=Doc/Html/index.html
+
+#WinXP: Context Menu commands
+#To specify the default shortcut menu command, first define its verb, command
+#string, and menu text with shell\verb. Then use shell to make it the default
+#shortcut menu command. Otherwise, the default menu item text will be "AutoPlay",
+# which launches the application specified by the 'open' entry.
+#   shell\myverb(\command)=myoption
+#context menu prompt
+shell\babylondoc=Documentation
+
+#context menu action
+shell\babylondoc\command=Doc/Html/index.html
+
+#default shortcut menu command
+#executes any previously defined action verb. See also: Context Menu Items
+#  shell=myverb
+
+#WinXP: Enable using Autoplay v.2 features on CD-ROMs
+#See also: http://msdn2.microsoft.com/en-us/magazine/cc301341.aspx
+#WinXP: use AutoPlay options instead AutoRun
+#Windows Vista: ignore shellexecute entry
+useautoplay=1
+
+[REM]
+Enable or disable default Windows file content handlers for three file types.
+Accepted case-insensitive values are: 1, y, yes, t, true, 0, n, no, f, or false.
+Note: Windows Vista specific
+[Content]
+MusicFiles=false
+PictureFiles=false
+VideoFiles=false
+
+[REM]
+Set paths to be browsed for the content
+Example:
+   \mymusic
+   myPictures
+Note: Windows Vista specific
+[ExclusiveContentPaths]
+
+[REM]
+Exclude paths from content browsing
+Note: Windows Vista specific
+[IgnoreContentPaths]
+\Doc

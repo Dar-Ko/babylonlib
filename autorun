@@ -1,0 +1,39 @@
+#!/bin/sh
+#$RCSfile: autorun,v $: shell script file
+#$Revision: 1.1 $ $Date: 2008/10/09 16:31:56 $
+#
+#CD Autorun shell script
+#author=$Author: ddarko $
+#Note: Linux specific
+
+# Determine path to cdrom
+cdrompath=$(echo $0 |sed 's/\/autorun//')
+
+# Try to locate a suitable HTML viewer.
+htmlviewspec=`/usr/bin/which htmlview` 2> /dev/null
+firefoxspec=`/usr/bin/which firefox` 2> /dev/null
+mozillaspec=`/usr/bin/which mozilla` 2> /dev/null
+operaspec=`/usr/bin/wich opera` 2> /dev/null
+konquerorspec=`/usr/bin/which konqueror` 2> /dev/null
+
+# Determine if KDE is running
+pidofkwm=`/sbin/pidof kwm`
+
+# Set htmlviewer to the full path and file name of the web browser to use
+# Prefered browsers should be before depreciated ones to give them priority
+if [ ! $htmlviewspec = "" ] ; then
+   htmlviewer=$htmlviewspec
+elif [ ! $pidofkwm = "" ] ; then
+   if [ ! $konquerorspec = "" ] ; then
+      htmlviewer=$konquerorspec
+   fi
+elif [ ! $firefoxspec = "" ] ; then
+   htmlviewer=$firefoxspec
+elif [ ! $mozillaspec = "" ] ; then
+   htmlviewer=$mozillaspec
+elif [ ! $operaspec = "" ] ; then
+   htmlviewer=$operaspec
+fi
+
+# Open an HTML file from CD using selected web browser
+exec $htmlviewer $OS/Doc/Html/index.html
