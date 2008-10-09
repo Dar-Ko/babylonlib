@@ -1,6 +1,6 @@
 #!/bin/sh
 #$RCSfile: autorun,v $: shell script file
-#$Revision: 1.1 $ $Date: 2008/10/09 16:31:56 $
+#$Revision: 1.2 $ $Date: 2008/10/09 18:12:55 $
 #
 #CD Autorun shell script
 #author=$Author: ddarko $
@@ -36,4 +36,4 @@ elif [ ! $operaspec = "" ] ; then
 fi
 
 # Open an HTML file from CD using selected web browser
-exec $htmlviewer $OS/Doc/Html/index.html
+exec $htmlviewer $Doc/Html/index.html
