@@ -74,7 +74,12 @@ project with Visual Studio .Net 2003 v7.1</a>
   <li>Add Simple Object:<br />
   <img border="0" src="Res/ComAtlVc67.gif" width="413" height="264" /></li>
   <li>Insert the name for the object and its attributes<br />
-  <img border="0" src="Res/ComAtlVc68.gif" width="421" height="286" /><br />
+  <img border="0" src="Res/ComAtlVc68.gif" width="421" height="286" />
+  <p class="Note">Some COM clients, like JavaScript and other scripting engines,
+  could not use <code>QueryInterface</code> to access the object in the same manner as,
+  for example, Visual Basic do. Selecting <i>Dual</i> Interface will add
+  <code>IDispatch</code> interface implemetation, disposing object's methods to such
+  clients.</p>
   The result will be presented in the ClassView:<br />
   <img border="0" src="Res/ComAtlVc69.gif" width="164" height="66" /></li>
   <li>Add new method to the created object<br />
