@@ -126,7 +126,7 @@ if (m_hHid != INVALID_HANDLE_VALUE)
       return false;
       }
   #else
-    return CloseHandle(m_hHid);
+    return (CloseHandle(m_hHid) == true);
   #endif
   }
 return true;
