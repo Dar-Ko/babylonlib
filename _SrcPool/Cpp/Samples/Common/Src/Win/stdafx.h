@@ -6,7 +6,6 @@
   files that are used frequently, but are changed infrequently.
 */
 
-
 #if !defined(_STDAFX_H_)
   /*$Workfile: stdafx.h$ sentry */
   #define _STDAFX_H_ 1532
@@ -45,10 +44,12 @@
   #ifdef __cplusplus
     #ifdef _AFXDLL
       //Build dependant of the Microsoft Foundation Class (MFC) dynamic
-      //library (DLL). The library is an aggregatation of C++ classes used in
+      //library (DLL). The library is an aggregation of C++ classes used in
       //building software programs for the Microsoft Windows OS.
       #define _USE_MFC 201
       #ifndef _USE_AFX
+        //Build dependant of the Microsoft Application Framework (AFX), also
+        //known as Microsoft Foundation Class (MFC) library. See also: <afxver_.h>
         #define _USE_AFX _USE_MFC
       #endif
     #endif
