@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.1 $ $Date: 2008/12/17 21:10:54 $
+  $Revision: 1.2 $ $Date: 2008/12/17 21:35:32 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -168,9 +168,9 @@
     This modifiers are used to export classes, functions, and data.
 
     Examples:
-        class _KINEXDECL <class name>
-        return_type _KINEXDECL <function name>
-        data_type _KINEXDECL <data name>
+        _KEXPORTDECL class <class name>
+        _KEXPORTDECL return_type <function name>
+        _KEXPORTDECL data_type <data name>
 
     Note   When porting DLL source code from Win16 to Win32, replace each instance
     of __export with _KEXPORTDECL.
@@ -201,9 +201,9 @@
       This modifiers are used to export classes, functions, and data.
 
       Examples:
-          class _KINEXDECL <class name>
-          return_type _KINEXDECL <function name>
-          data_type _KINEXDECL <data name>
+        _KINEXDECL class <class name>
+        _KINEXDECL return_type <function name>
+        _KINEXDECL data_type <data name>
 
       See also: _KEXPORTDECL, _KIMPORTDECL,._USE_EXPORT, __declspec, dllexport,
       dllimport
@@ -218,6 +218,9 @@
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.2  2008/12/17 21:35:32  ddarko
+ * Examples
+ *
  * Revision 1.1  2008/12/17 21:10:54  ddarko
  * dllexport macro
  *
