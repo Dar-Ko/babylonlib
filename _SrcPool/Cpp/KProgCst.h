@@ -92,25 +92,33 @@
    */
   #define UCPRIVATEUSEZONE 0xFFFF
 
+  #ifndef MEM_OUTOFPROCESS
   /*Memory usually outside of a process ("No man's land").
     Microsoft compiler initializes certain memory blocks with specific values to
     help problem diagnostic and debugging. In debug builds every byte is set to
-    ceratin value. These values are undocumented and subject to change.
+    certain value. These values are undocumented and subject to change.
     User should look for patterns of 4 or more bytes with specific values.
 
     See also: Long, Mark; "Troubleshooting Common Problems with Applications:
     Debugging in the  Real World";
     {html: <a href="msdn.microsoft.com/en-us/library/aa260966(VS.60).aspx" title="MSDN">
     Table 1. Potential patterns</a>},
-    MEM_FREED, MEM_UNINITGLOBAL, MEM_UNINITLOCAL
+    KProgCstMsvc.h, MEM_FREED, MEM_UNINITGLOBAL, MEM_UNINITLOCAL
    */
-  #define MEM_OUTOFPROCESS 0xFDFDFDFD
-  #define MEM_FREED        0xDDDDDDDD //Freed memory previously allocated
-                                      //See also: MEM_OUTOFPROCESS
-  #define MEM_UNINITGLOBAL 0xCDCDCDCD //Uninitialized global.
-                                      //See also: MEM_OUTOFPROCESS
-  #define MEM_UNINITLOCAL  0xCCCCCCCC //Uninitialized local (on the stack)
-                                      //See also: MEM_OUTOFPROCESS
+    #define MEM_OUTOFPROCESS 0xFDFDFDFD
+  #endif
+  #ifndef MEM_FREED
+    #define MEM_FREED        0xDDDDDDDD //Freed memory previously allocated
+                                        //See also: MEM_OUTOFPROCESS
+  #endif
+  #ifndef MEM_UNINITGLOBAL
+    #define MEM_UNINITGLOBAL 0xCDCDCDCD //Uninitialized global.
+                                        //See also: MEM_OUTOFPROCESS
+  #endif
+  #ifndef MEM_UNINITLOCAL
+    #define MEM_UNINITLOCAL  0xCCCCCCCC //Uninitialized local (on the stack)
+                                        //See also: MEM_OUTOFPROCESS
+  #endif
 
 /*Binary measure units                                                       */
 
@@ -196,22 +204,26 @@ const wchar_t UCNIPRIVATEUSEZONE = 0xFFFF;
   /*Memory usually outside of a process ("No man's land").
     Microsoft compiler initializes certain memory blocks with specific values to
     help problem diagnostic and debugging. In debug builds every byte is set to
-    ceratin value. These values are undocumented and subject to change.
+    certain value. These values are undocumented and subject to change.
     User should look for patterns of 4 or more bytes with specific values.
 
     See also: Long, Mark; "Troubleshooting Common Problems with Applications:
     Debugging in the  Real World";
     {html: <a href="msdn.microsoft.com/en-us/library/aa260966(VS.60).aspx" title="MSDN">
     Table 1. Potential patterns</a>},
-    MEM_FREED, MEM_UNINITGLOBAL, MEM_UNINITLOCAL
+    KProgCstMsvc.h, MEM_FREED, MEM_UNINITGLOBAL, MEM_UNINITLOCAL
    */
 const unsigned int MEM_OUTOFPROCESS = 0xFDFDFDFD;
+#define MEM_OUTOFPROCESS MEM_OUTOFPROCESS
 const unsigned int MEM_FREED        = 0xDDDDDDDD; //Freed memory previously allocated
                                                   //See also: MEM_OUTOFPROCESS
+#define MEM_FREED        MEM_FREED
 const unsigned int MEM_UNINITGLOBAL = 0xCDCDCDCD; //Uninitialized global.
                                                   //See also: MEM_OUTOFPROCESS
+#define MEM_UNINITGLOBAL MEM_UNINITGLOBAL
 const unsigned int MEM_UNINITLOCAL  = 0xCCCCCCCC; //Uninitialized local (on the stack)
                                                   //See also: MEM_OUTOFPROCESS
+#define MEM_UNINITLOCAL  MEM_UNINITLOCAL
 
 /*Binary measure units                                                       */
 
@@ -423,50 +435,6 @@ const unsigned long GiB = 0x40000000UL;
 #define SIZEOFARR(x)  (sizeof (x) / sizeof ((x)[0]))
 
 
-#ifndef _UNUSED
-  /*Resolves the compiler warning about unused arguments
-
-    Example:
-        void main (int x, int y)
-        {
-        _UNUSED(y);
-        x = 3;
-        ...
-        }
-   */
-  #define _UNUSED(x) ((void)x)
-#endif
-
-#ifndef UNUSED
-  #define UNUSED _UNUSED
-#endif
-
-#ifndef UNUSED_ARG
-  #if defined(__GNUC__)
-    /*GNU C/C++ */
-    #if !defined(__cplusplus)
-      /*Attribute of unused function arguments */
-      #define UNUSED_ARG(param) param __attribute__((__unused__))
-    #else
-      //GNU C++ doesn't support this attribute
-      #define UNUSED_ARG
-    #endif
-  #endif /*__GNUC__*/
-//  #define UNUSED_ARG(param) do {/* null */} while (&param == 0)
-//  #define UNUSED_ARG(param) param = *(&param);
-  #if defined(__MWERKS__)
-    /*Metrowerks Code Warrior*/
-    #define UNUSED_ARG(param)    &(param)
-  #endif
-
-  #if defined(_MSC_VER)
-    /*Microsoft Visual C/C++*/
-    #define UNUSED_ARG _UNUSED
-  #endif
-
-#endif /* UNUSED_ARG */
-
-
 #ifdef _ENDIAN_LITTLE_
  /*Returns 32-bit value with high word initialized with given constant.
    Low word is initialized to zero.
@@ -500,7 +468,7 @@ const unsigned long GiB = 0x40000000UL;
 
 #ifndef __cplusplus
 /* ///////////////////////////////////////////////////////////////////////// */
-    /*Note: include in a project KProgCst.inl to get NaN globals               */
+ /*Note: include in a project KProgCst.inl to get NaN globals               */
  // extern const NaN_NUMBER CST_dNaN;
  // extern const NaN_NUMBER CST_dSNaN;
  // extern const NaN_NUMBER CST_dINF;
@@ -533,16 +501,132 @@ const unsigned long GiB = 0x40000000UL;
     #include  "KProgCst.inl"
   #endif*/
 #endif /*__cplusplus                                                         */
+
+/* ///////////////////////////////////////////////////////////////////////// */
+/* Compiler specific constants                                               */
+#ifdef _MSC_VER /*Microsoft Visual C/C++ Compiler                            */
+  #include "KProgCstMsvc.h"
+#endif /*_MSC_VER*/
+#if defined(__GNUC__) /*GNU C/C++ Compiler                                   */
+  //#include "KProgCstGnuc.h" TODO:
+#endif
+#if defined(__MWERKS__) /*Metrowerks Code Warrior C/C++ Compiler             */
+  //#include "KProgCstMwcw.h" TODO:
+#endif
+
+#ifndef _UNUSED
+  /*Resolves the compiler warning about unused arguments
+
+    Example:
+        void main (int x, int y)
+        {
+        _UNUSED(y);
+        x = 3;
+        ...
+        }
+   */
+  #define _UNUSED(x) ((void)x)
+#endif
+
+#ifndef UNUSED_ARG
+  #if defined(__GNUC__) //TODO: Move to KProgCstGnuc.h D.K.
+    /*GNU C/C++ */
+    #if !defined(__cplusplus)
+      /*Attribute of unused function arguments */
+      #define UNUSED_ARG(param) param __attribute__((__unused__))
+    #else
+      //GNU C++ doesn't support this attribute
+      #define UNUSED_ARG
+    #endif
+  #endif /*__GNUC__*/
+//  #define UNUSED_ARG(param) do {/* null */} while (&param == 0)
+//  #define UNUSED_ARG(param) param = *(&param);
+  #if defined(__MWERKS__)
+    /*Metrowerks Code Warrior*/
+    #define UNUSED_ARG(param)    &(param)
+  #endif
+#endif /* UNUSED_ARG */
+
+#ifndef UNUSED
+  /*Resolves the compiler warning about unused arguments.
+    Synonim to _UNUSED, UNUSED_ARG.
+   */
+  #define UNUSED _UNUSED
+#endif
+#ifndef UNUSED_ARG
+  /*Resolves the compiler warning about unused arguments.
+    Synonim to _UNUSED, UNUSED.
+   */
+  #define UNUSED_ARG _UNUSED
+#endif
+
+#ifndef _KEXPORTDECL
+  /*This storage-class specification explicitly define the DLL’s interface to
+    its client, which can be the executable file or another DLL. The attribute
+    allows the compiler to generate the export names automatically and place
+    them in a library (.lib) file.
+    When building your DLL, you typically create a header file that contains
+    the function prototypes and/or classes you are exporting, and add
+    the _KEXPORTDECL specification to the declarations in the header file.
+    This modifiers are used to export classes, functions, and data.
+
+    Examples:
+        class _KINEXDECL <class name>
+        return_type _KINEXDECL <function name>
+        data_type _KINEXDECL <data name>
+
+    Note: ANSI compatibility compiler option disables __declspec.
+
+    See also: _KIMPORTDECL, _KINEXDECL,._USE_EXPORT, __declspec, dllexport
+   */
+  #define _KEXPORTDECL  __declspec(dllexport)
+#endif
+#ifndef _KIMPORTDECL
+  /*This storage-class specification explicitly define the object as external to
+    DLL's client, which can be the executable file or another DLL.
+
+    Note: ANSI compatibility compiler option disables __declspec.
+
+    See also: _KEXPORTDECL, _KINEXDECL,._USE_EXPORT, __declspec, dllimport
+   */
+   #define _KIMPORTDECL  __declspec(dllimport)
+#endif
+
+//Export declartion; to declare class neither exported nor imported,
+//undefine _PREMIUM_EXPORT and _PREMIUM_INEX
+#ifndef _KINEXDECL
+  #ifdef _USE_EXPORT
+    /*Command the linker to enter an object name into an export table for the
+      module.
+      When building your DLL, you typically create a header file that contains
+      the function prototypes and/or classes you are exporting, add
+      the _KINEXDECL specification to the declarations in the header file and
+      define _USE_EXPORT. Undefined _USE_EXPORT implies import specification.
+      This modifiers are used to export classes, functions, and data.
+
+      Examples:
+          class _KINEXDECL <class name>
+          return_type _KINEXDECL <function name>
+          data_type _KINEXDECL <data name>
+
+      See also: _KEXPORTDECL, _KIMPORTDECL,._USE_EXPORT, __declspec, dllexport,
+      dllimport
+     */
+    #define _KINEXDECL _KEXPORTDECL
+  #else /*!_USE_EXPORT*/
+    #define _KINEXDECL _KIMPORTDECL
+  #endif /*_USE_EXPORT*/
+#endif
+
 /* ///////////////////////////////////////////////////////////////////////// */
 #endif  /*__KPROGCST_H__                                                     */
 /*****************************************************************************
- * $Log:
+ * $Log: $
  *  5    Biblioteka1.4         17/08/2001 12:37:48 AMDarko           Update
  *  4    Biblioteka1.3         20/07/2001 12:58:39 AMDarko           VSS tags
  *  3    Biblioteka1.2         11/07/2001 10:52:06 PMDarko
  *  2    Biblioteka1.1         08/06/2001 11:51:16 PMDarko           VSS
  *  1    Biblioteka1.0         13/08/2000 3:56:59 PMDarko
- * $
  * Dec. 99 NaN constants D.K.
  * Jan. 96 IS_EQUAL D.K.
  * Nov. 93 D. Kolakovic
