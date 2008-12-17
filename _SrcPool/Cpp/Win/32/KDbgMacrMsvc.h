@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgMacrMsvc.h,v $: header file
-  $Revision: 1.1 $ $Date: 2008/09/09 19:52:31 $
+  $Revision: 1.2 $ $Date: 2008/12/17 15:56:46 $
   $Author: ddarko $
 
   Dumps values of some Microsoft specific predefined macros
@@ -141,7 +141,7 @@
     #pragma message ("Singlebyte-character (SBCS or ASCII) text mapping")
   #endif
 
-#ifdef _MSC_EXTENSIONS
+  #ifdef _MSC_EXTENSIONS
     #pragma message ("Enabled compiler extensions.")
   #endif
   #ifdef _CPPUNWIND
@@ -170,10 +170,10 @@
    */
   #ifdef _CRT_SECURE_NO_DEPRECATE
     /*The C Runtime (CRT) library is enhanced with more secure function versions.
-      If a new secure function exists, the older, less secure version is marked 
+      If a new secure function exists, the older, less secure version is marked
       as deprecated and the new version has the _s ("secure") suffix.
       To disable the deprecation warnings, define _CRT_SECURE_NO_DEPRECATE or
-      use the warning pragma. 
+      use the warning pragma.
      */
     #pragma message ("Unsecure CRT deprecation warnings disabled.")
   #endif
@@ -193,6 +193,9 @@
 #endif /*_KDBGMACRMSVC_H_                                                     */
 /*****************************************************************************
  * $Log: KDbgMacrMsvc.h,v $
+ * Revision 1.2  2008/12/17 15:56:46  ddarko
+ * Formating
+ *
  * Revision 1.1  2008/09/09 19:52:31  ddarko
  * Moved MSVC macros
  *
