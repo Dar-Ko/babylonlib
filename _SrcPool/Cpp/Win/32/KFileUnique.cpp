@@ -50,9 +50,14 @@
 #endif
 
 #ifdef _MSC_VER
-  #define ItoA(iValue, szResult, iRadix)  _itot(iValue, szResult, iRadix)
+  #if (_MSC_VER < 1400)
+    #define ItoA(iValue, szResult, iRadix)  _itot(iValue, szResult, iRadix)
+  #else
+    //Microsoft Visual C/C++ 2005, version 8.0 or newer
+    #define ItoA(iValue, szResult, nLength, iRadix)  _itot_s(iValue, szResult, nLength, iRadix)
+  #endif
 #else
-  extern LPTSTR ItoA(int iValue, LPTSTR szResult, int iRadix);
+  extern "C" LPTSTR ItoA(int iValue, LPTSTR szResult, int iRadix);
 #endif
 
 //-----------------------------------------------------------------------------
@@ -123,6 +128,9 @@ if (iPos > (MAX_PATH - NAMESIZE))
 
 //Allocate space for the result
 LPTSTR szResult = strResult.GetBuffer(iPos + NAMESIZE);
+#if (_MSC_VER >= 1400) //MSVC++ v8.0
+  const size_t BUFFERLEN = iPos + NAMESIZE;
+#endif
 //Copy directory path
 iPos = 0;
 if ((szFilePath != NULL) && (szFilePath[0] != _T('\0')))
@@ -158,7 +166,11 @@ FILETIME ftTime; //system time
 ASSERT (sizeof(ftTime.dwLowDateTime) <= 4);
 GetSystemTimeAsFileTime(&ftTime);
 //Use lower portion of the FILETIME to create the name
-ItoA(ftTime.dwLowDateTime, &szResult[iNamePos], 16);
+#if (_MSC_VER >= 1400) //MSVC++ v8.0
+  ItoA(ftTime.dwLowDateTime, &szResult[iNamePos], (BUFFERLEN - iNamePos), 16);
+#else
+  ItoA(ftTime.dwLowDateTime, &szResult[iNamePos], 16);
+#endif
 iPos += NAMESIZE;
 
 //Append filename extension
@@ -202,7 +214,11 @@ while ((_taccess(szResult, EXIST) == ACCESS_OK) || (errno == EACCES))
     }
   errno = EOK; //Reset system error
   //Try another name
-  ItoA(++ftTime.dwLowDateTime, &szResult[iNamePos], 16);
+  #if (_MSC_VER >= 1400) //MSVC++ v8.0
+    ItoA(ftTime.dwLowDateTime, &szResult[iNamePos], (BUFFERLEN - iNamePos), 16);
+  #else
+    ItoA(ftTime.dwLowDateTime, &szResult[iNamePos], 16);
+  #endif
   //Replace terminating zero inserted by ItoA
   szResult[iNamePos + NAMESIZE] = chNameEnd;
   }
