@@ -1,5 +1,5 @@
 $RCSfile: ATL.txt,v $: developer's note
-$Revision: 1.3 $ $Date: 2008/07/15 20:33:43 $
+$Revision: 1.4 $ $Date: 2008/12/19 17:46:26 $
 $Author: ddarko $
 
 Active Template Library (ATL).
@@ -27,7 +27,7 @@ Replace default ...\Microsoft Visual Studio\VC98\ATL\Include with ...\Win\ATL\In
 		...\RadTool\include\atl
 	  Also replace same directories in Source search path (MSVC6 Menu: Tool | Options... | Directories | Source files).
 
-Add prepocessor definition OLD_ATL_CRITSEC_CODE (see atlcom.h). 
+Add prepocessor definition OLD_ATL_CRITSEC_CODE (see atlcom.h).
 	Project Settings | C/C++ | Category: Preporcessor | Prepocessor definitions
 
 atlthunk.lib is required to build 64-bit applications. For 32-bit applications replace in atlbase.h lines [287, 293]
@@ -64,15 +64,15 @@ To build this project you will need several things:
 Setup:
 -------
 Build system is changed to ease build process. Now there is config.inc file located in <bccsdk>\build folder. There you have these 3 variables:
-BCCROOT    - Path to the folder where Borland compiler is installed (not the bin folder) 
+BCCROOT    - Path to the folder where Borland compiler is installed (not the bin folder)
 BCCROOTOLD - Path to the folder where Borland compiler is installed (not the bin folder)
 PSDKROOT   - Path to where MS Platform SDK folder is located (this is needed because of midl compiler location)
 
-You have 3 predefined config files. 
+You have 3 predefined config files.
 config.inc - This one is set to default instalation of Free Compiler.
-config.inc.bcb6 - This one is set to default instalation of BCB5/BCB6 
-                  Note that all long paths must be converted to short paths. 
-                  Example: C:\Program Files\Borland\CBuilder6 should be converted to C:\PROGRA~1\Borland\CBUILD~1 
+config.inc.bcb6 - This one is set to default instalation of BCB5/BCB6
+                  Note that all long paths must be converted to short paths.
+                  Example: C:\Program Files\Borland\CBuilder6 should be converted to C:\PROGRA~1\Borland\CBUILD~1
 config.inc.bds2006 - This one is set to default instalation of BDS 2006. Note: Free compiler no longer needed.
 
 Choose config file that matches your version of compiler and rename it to config.inc. Open it in some text editor and update variables according to your system.
@@ -81,3 +81,22 @@ Compilation:
 Open command prompt at <ATL>\build folder and execute command:
 make -f atl.mak
 
+Microsoft Visual Studio C++ 2005 v8.0
+======================================
+Compiler Warning C4996 in release build using ATL/WTL
+-----------------------------------------------------
+C4996 can also occur if you use MFC or ATL functions that were deprecated for security reasons.
+Excerpt from <atlapp.h>
+#if _SECURE_ATL && !defined(_ATL_MIN_CRT) && !defined(_WIN32_WCE)
+  //MSVC++ v8.0 Use secure version string handlers
+#else
+  //Use deprecated unsecured versions of string handlers
+  //Compiler Warning (level 3) C4996 will be issued
+  //See also: MSDN, Safe Libraries: Standard C++ Library, http://msdn.microsoft.com/en-us/library/aa985872.aspx;
+  //MSDN, Security Enhancements in the CRT, http://msdn.microsoft.com/en-us/library/8ef0s5kh.aspx
+  #pragma warning(disable : 4996)
+#endif
+
+To solve the issue, don't use ATL with minimized CRT library, while compiling the application.
+Change project configuration as follows:
+  Project Property Page | Configuration Properties | General | Minimize CRT Use in ATL : No
