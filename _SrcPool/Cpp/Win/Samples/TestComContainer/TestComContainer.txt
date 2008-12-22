@@ -7,6 +7,21 @@ Samples and test suites for the Component Object Model (COM), Active Template Li
 Copyright: CommonSoft Inc.
 1998-02-01 Darko Kolakovic
 
+If you want to create an instance of COM object manually, without using CComObject
+wrapper, you have to  provide IUnknown implementation. This is one way how to
+accomplish it:
+
+    class CTestAtlObj :   public ITestAtlObj, ...
+    {
+    ...
+    };
+    ...
+    CComObject<CTestAtlObj>* pTestAtlObj = NULL;
+    HRESULT hr = CComObject<CTestAtlObj>::CreateInstance(&pTestAtlObj);
+    if (SUCCEEDED(hr))
+      //Note: the new instance has refcount of zero, so it have to be incremented
+      pTestAtlObj->AddRef();
+
 JavaScript Notes:
 -----------------
 Requirements: HTML browser supporting ActiveX
