@@ -10,8 +10,8 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 #ifdef WIN32 //Microsoft Win32 platform dependant
 
-#if _MSC_VER == 1310 
-  //Warning fix Q314963: WINVER not defined. Visual C++ .Net 2003 v7.1 
+#if _MSC_VER == 1310
+  //Warning fix Q314963: WINVER not defined. Visual C++ .Net 2003 v7.1
   //Defaulting to 0x0501 (Windows XP and Windows .NET Server)
   #define WINVER 0x0501
 #endif // _MSC_VER > 1000
@@ -54,15 +54,15 @@ dwHighDateTime = 0;
 
   The MS-DOS date is a packed 16-bit value with the following format:
     Bits
-    0-4            Day of the month (1-31)
-    5-8            Month (1 = January, 2 = February, and so on)
+    0-4           Day of the month (1-31)
+    5-8           Month (1 = January, 2 = February, and so on)
     9-15          Year offset from 1980 (add 1980 to get actual year)
 
   The MS-DOS time is a packed 16-bit value with the following format:
     Bits
-    0-4            Second divided by 2
+    0-4           Second divided by 2
     5-10          Minute (0-59)
-    11-15          Hour (0-23 on a 24-hour clock)
+    11-15         Hour (0-23 on a 24-hour clock)
 
   Example:
     {
@@ -83,19 +83,19 @@ if (::DosDateTimeToFileTime(wFatDate,wFatTime, this) == FALSE)
   CFileException::ThrowOsError((LONG)::GetLastError());
 }
 
-CFiletime::CFiletime(const CFiletime& cfrTime//[in] 
+CFiletime::CFiletime(const CFiletime& cfrTime//[in]
                      )
 {
 *this = (FILETIME)cfrTime;
 }
 
-CFiletime::CFiletime(const LPFILETIME lpftTime//[in] 
+CFiletime::CFiletime(const LPFILETIME lpftTime//[in]
                      )
 {
 *this = *lpftTime;
 }
 
-CFiletime::CFiletime(const LPSYSTEMTIME lpstTime//[in] 
+CFiletime::CFiletime(const LPSYSTEMTIME lpstTime//[in]
                      )
 {
 *this = *lpstTime;
@@ -109,7 +109,7 @@ CFiletime::~CFiletime()
 // Diagnostic
 #if defined( _DEBUG )
 
-void CFiletime::Dump(CDumpContext& dc//[in] 
+void CFiletime::Dump(CDumpContext& dc//[in]
                      ) const
 {
 dc << _T("CFiletime @ ") << (VOID *) this
@@ -203,7 +203,7 @@ return odtTemp;
 //::operator=()----------------------------------------------------------------
 /*Assigns COleDateTime to UTC FILETIME. If fails, throws CFileException.
  */
-CFiletime& CFiletime::operator=(const COleDateTime& Param2//[in] value to assign 
+CFiletime& CFiletime::operator=(const COleDateTime& Param2//[in] value to assign
                                 )
 {
 SYSTEMTIME sysTime;
@@ -316,7 +316,7 @@ return (*this = llResult);
 
   Note: The FileTimeToSystemTime function only works with FILETIME
         values that are less than 0x8000000000000000. The function
-        fails with values equal to or greater than that.
+       fails with values equal to or greater than that.
 
   Example:
     #include "UFileTme.h" //CFiletime class
@@ -385,13 +385,13 @@ return (*this = ftFileTime);
 ///////////////////////////////////////////////////////////////////////////////
 #endif //WIN32
 /******************************************************************************
- *$Log: 
+ *$Log:
  * 5    Biblioteka1.4         2004-10-01 22:34:50  Darko           stdafx.h
  * 4    Biblioteka1.3         2003-09-24 18:40:34  Darko           Fixed VC++ .Net
  *      7.1 (2003) compilation
  * 3    Biblioteka1.2         2003-09-24 12:27:45  Darko           formatting
- * 2    Biblioteka1.1         2002-07-16 01:41:06  Darko           Fixed VSS Log 
+ * 2    Biblioteka1.1         2002-07-16 01:41:06  Darko           Fixed VSS Log
  *      tag
- * 1    Biblioteka1.0         2002-03-13 00:40:40  Darko           
+ * 1    Biblioteka1.0         2002-03-13 00:40:40  Darko
  *$
  *****************************************************************************/
