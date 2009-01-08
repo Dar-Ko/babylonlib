@@ -215,7 +215,7 @@
 
     See also: {html: <a href=http://www.unicode.org/charts/PDF/UFFF0.pdf</a>}
    */
-	const wchar_t UCBYTEORDERMARK = 0xFEFF;
+  const wchar_t UCBYTEORDERMARK = 0xFEFF;
 
   /*Private-use-zone (PUZ) mark is used as a sentinel separating Unicode text and
     custom data. The value FFFF is not a character at all.
@@ -229,17 +229,17 @@
 
     See also: {html: <a href=http://www.unicode.org/charts/PDF/UFFF0.pdf</a>}
    */
-	const wchar_t UCNIPRIVATEUSEZONE = 0xFFFF;
+  const wchar_t UCNIPRIVATEUSEZONE = 0xFFFF;
 
   /*Byte Order Mark (BOM) UTF-8
    */
-const uint8_t UTF8BYTEORDERMARK[] = {0xEF, 0xBB, 0xBF};
+  const uint8_t UTF8BYTEORDERMARK[] = {0xEF, 0xBB, 0xBF};
 
   /*Validates if a value is equal to Unicode Byte Order Mark (BOM) in underlaying
     architecture (big or little endian).
    */
 inline bool ISUCBOM(const wchar_t x //[in] value to validate
-                   ) const
+                   )
   {
   return (UCBYTEORDERMARK == x);
   }
@@ -248,20 +248,20 @@ inline bool ISUCBOM(const wchar_t x //[in] value to validate
     architecture.
    */
 inline bool ISUCBOMLE(const uint8_t x[2] //[in] value to validate
-                     ) const
+                     )
   {
-  return (0xFF == x[0]) &&
-         (0xFE == x[1]) );
+  return ((0xFF == x[0]) &&
+          (0xFE == x[1]) );
   }
 
   /*Validates if a value is equal to Unicode Byte Order Mark (BOM) in little endian
     architecture.
    */
 inline bool ISUCBOMBE(const uint8_t x[2] //[in] value to validate
-                     ) const
+                     )
   {
-  return (0xFE == x[0]) &&
-         (0xFF == x[1]) );
+  return ((0xFE == x[0]) &&
+          (0xFF == x[1]) );
   }
 
   /*Validates three subsequent 8-bit characters are equalt to UTF-8
@@ -269,13 +269,14 @@ inline bool ISUCBOMBE(const uint8_t x[2] //[in] value to validate
     UTF-8 encoded file begins with 0xEF, 0xBB, 0xBF bytes.
    */
 inline bool ISUTF8BOM(const uint8_t x[3] //[in] value to validate
-                     ) const
+                     )
   {
   return ((UTF8BYTEORDERMARK[0] == x[0]) &&
           (UTF8BYTEORDERMARK[1] == x[1]) &&
           (UTF8BYTEORDERMARK[2] == x[2]) );
   }
 
+#ifndef MEM_OUTOFPROCESS
   /*Memory usually outside of a process ("No man's land").
     Microsoft compiler initializes certain memory blocks with specific values to
     help problem diagnostic and debugging. In debug builds every byte is set to
@@ -288,17 +289,24 @@ inline bool ISUTF8BOM(const uint8_t x[3] //[in] value to validate
     Table 1. Potential patterns</a>},
     KProgCstMsvc.h, MEM_FREED, MEM_UNINITGLOBAL, MEM_UNINITLOCAL
    */
-const unsigned int MEM_OUTOFPROCESS = 0xFDFDFDFD;
-#define MEM_OUTOFPROCESS MEM_OUTOFPROCESS
-const unsigned int MEM_FREED        = 0xDDDDDDDD; //Freed memory previously allocated
-                                                  //See also: MEM_OUTOFPROCESS
-#define MEM_FREED        MEM_FREED
-const unsigned int MEM_UNINITGLOBAL = 0xCDCDCDCD; //Uninitialized global.
-                                                  //See also: MEM_OUTOFPROCESS
-#define MEM_UNINITGLOBAL MEM_UNINITGLOBAL
-const unsigned int MEM_UNINITLOCAL  = 0xCCCCCCCC; //Uninitialized local (on the stack)
-                                                  //See also: MEM_OUTOFPROCESS
-#define MEM_UNINITLOCAL  MEM_UNINITLOCAL
+  const unsigned int MEM_OUTOFPROCESS = 0xFDFDFDFD;
+  #define MEM_OUTOFPROCESS MEM_OUTOFPROCESS
+#endif
+#ifndef MEM_FREED
+  const unsigned int MEM_FREED        = 0xDDDDDDDD; //Freed memory previously allocated
+                                                    //See also: MEM_OUTOFPROCESS
+  #define MEM_FREED        MEM_FREED
+#endif
+#ifndef MEM_UNINITGLOBAL
+  const unsigned int MEM_UNINITGLOBAL = 0xCDCDCDCD; //Uninitialized global.
+                                                    //See also: MEM_OUTOFPROCESS
+  #define MEM_UNINITGLOBAL MEM_UNINITGLOBAL
+#endif
+#ifndef MEM_UNINITLOCAL
+  const unsigned int MEM_UNINITLOCAL  = 0xCCCCCCCC; //Uninitialized local (on the stack)
+                                                    //See also: MEM_OUTOFPROCESS
+  #define MEM_UNINITLOCAL  MEM_UNINITLOCAL
+#endif
 
 /*Binary measure units                                                       */
 

@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.2 $ $Date: 2008/12/17 21:35:32 $
+  $Revision: 1.3 $ $Date: 2009/01/08 22:02:14 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -75,21 +75,25 @@
       KProgCst.h, MEM_FREED, MEM_UNINITGLOBAL, MEM_UNINITLOCAL
      */
       const unsigned int MEM_OUTOFPROCESS = 0xFDFDFDFD;
+      #define MEM_OUTOFPROCESS MEM_OUTOFPROCESS
     #endif
     #ifndef MEM_FREED
       //Freed memory previously allocated
       //See also: MEM_OUTOFPROCESS
       const unsigned int MEM_FREED        = 0xDDDDDDDD;
+      #define MEM_FREED        MEM_FREED
     #endif
     #ifndef MEM_UNINITGLOBAL
       //Uninitialized global.
       //See also: MEM_OUTOFPROCESS
       const unsigned int MEM_UNINITGLOBAL = 0xCDCDCDCD;
+      #define MEM_UNINITGLOBAL MEM_UNINITGLOBAL
     #endif
     #ifndef MEM_UNINITLOCAL
       //Uninitialized local (on the stack)
       //See also: MEM_OUTOFPROCESS
       const unsigned int MEM_UNINITLOCAL  = 0xCCCCCCCC;
+      #define MEM_UNINITLOCAL  MEM_UNINITLOCAL
     #endif
 
   #endif /*!__cplusplus*/
@@ -218,6 +222,9 @@
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.3  2009/01/08 22:02:14  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.2  2008/12/17 21:35:32  ddarko
  * Examples
  *
