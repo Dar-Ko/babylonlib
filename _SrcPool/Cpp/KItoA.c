@@ -25,14 +25,15 @@
 
 /*---------------------------------------------------------------------------*/
 /*Convert the digits of the given iValue argument to a zero-terminated ASCII
-  string and stores the result (up to 33 bytes) in given string buffer.
+  string and stores the result (up to 33 bytes for 32-bit integer) in given
+  string buffer. Buffer overflow is not validated.
 
   Returns: a pointer to zero-terminated string. There is no error return.
 
   See also: KStrings.h
 
   Example:
-      #ifdef _MSC_VER
+      #if (_MSC_VER < 1400)
         / *Microsoft VC/C++ compiler* /
         #define ItoA _itot /* expands to Microsoft specific _itoa with SBCS
                               or _itow _UNICODE mapping.
