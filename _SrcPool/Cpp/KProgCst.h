@@ -52,10 +52,17 @@
   /*/////////////////////////////////////////////////////////////////////////*/
   /*Unicode-specific characters                                              */
 
+  #define UCSURROGATE1 0xD800
+  #define UCSURROGATE2 0xDC00
+  #define UCSURROGATELAST 0xDFFF
+  #define UCHANGUL1 0xAC00
+  #define UCHANGULLAST 0xD7A3
+  #define UCREPLACEMENT 0xFFFD
+
   /*Byte Order Mark (BOM) indicates a Unicode file. The value FFFE is not
     a character at all. If an Unicode a file begins with this mark, byte order
     (big or little endian) may be detected comparing it with with value FEFF
-    which is a character zero width no-break space.
+    which is a character 'zero width no-break space'.
 
     Unicode noncharacters are guaranteed not to be a Unicode character at all.
     These codes are intended for process internal uses, but are not permitted
@@ -78,7 +85,8 @@
     See also: {html: <a href=http://www.unicode.org/charts/PDF/UFFF0.pdf</a>}
    */
   #define UCBYTEORDERMARK 0xFEFF
-  /*Private-use-zone mark is used as a sentinel separating Unicode text and
+
+  /*Private-use-zone mark (PUZ) is used as a sentinel separating Unicode text and
     custom data. The value FFFF is not a character at all.
 
     Unicode noncharacters are guaranteed not to be a Unicode character at all.
@@ -91,6 +99,19 @@
     See also: {html: <a href=http://www.unicode.org/charts/PDF/UFFF0.pdf</a>}
    */
   #define UCPRIVATEUSEZONE 0xFFFF
+
+  /*Validates if a vule is equal to Unicode Byte Order Mark (BOM) in underlaying
+    architecture (big or little endian).
+   */
+  #define ISUCBOM(x) (UCBYTEORDERMARK == (0xFFFFU & (x)))
+
+  /*Validates three subsequent 8-bit characters are equalt to UTF-8
+    Byte Order Mark (BOM).
+    UTF-8 encoded file begins with 0xEF, 0xBB, 0xBF bytes.
+   */
+  #define ISUTF8BOM( (uint8_t *)px )  \
+     ((0xFE == px[0]) && (0xBB == px[1]) && (0xBF == px[2]))
+  }
 
   #ifndef MEM_OUTOFPROCESS
   /*Memory usually outside of a process ("No man's land").
@@ -161,10 +182,18 @@
   /*-------------------------------------------------------------------------*/
 #else /*__cplusplus  C++ compilation                                         */
   #pragma message ("   C++ compilation " __FILE__ )
+
+  const wchar_t UCSURROGATE1 = 0xD800;
+  const wchar_t UCSURROGATE2 = 0xDC00;
+  const wchar_t UCSURROGATELAST = 0xDFFF;
+  const wchar_t UCHANGUL1 = 0xAC00;
+  const wchar_t UCHANGULLAST = 0xD7A3;
+  const wchar_t UCREPLACEMENT = 0xFFFD;
+
   /*Byte Order Mark (BOM) indicates a Unicode file. The value FFFE is not
     a character at all. If an Unicode a file begins with this mark, byte order
     (big or little endian) may be detected comparing it with with value FEFF
-    which is a character zero width no-break space.
+    which is a character 'zero width no-break space'.
 
     Unicode noncharacters are guaranteed not to be a Unicode character at all.
     These codes are intended for process internal uses, but are not permitted
@@ -186,8 +215,9 @@
 
     See also: {html: <a href=http://www.unicode.org/charts/PDF/UFFF0.pdf</a>}
    */
-const wchar_t UCBYTEORDERMARK = 0xFEFF;
-  /*Private-use-zone mark is used as a sentinel separating Unicode text and
+	const wchar_t UCBYTEORDERMARK = 0xFEFF;
+
+  /*Private-use-zone (PUZ) mark is used as a sentinel separating Unicode text and
     custom data. The value FFFF is not a character at all.
 
     Unicode noncharacters are guaranteed not to be a Unicode character at all.
@@ -199,7 +229,52 @@ const wchar_t UCBYTEORDERMARK = 0xFEFF;
 
     See also: {html: <a href=http://www.unicode.org/charts/PDF/UFFF0.pdf</a>}
    */
-const wchar_t UCNIPRIVATEUSEZONE = 0xFFFF;
+	const wchar_t UCNIPRIVATEUSEZONE = 0xFFFF;
+
+  /*Byte Order Mark (BOM) UTF-8
+   */
+const uint8_t UTF8BYTEORDERMARK[] = {0xEF, 0xBB, 0xBF};
+
+  /*Validates if a value is equal to Unicode Byte Order Mark (BOM) in underlaying
+    architecture (big or little endian).
+   */
+inline bool ISUCBOM(const wchar_t x //[in] value to validate
+                   ) const
+  {
+  return (UCBYTEORDERMARK == x);
+  }
+
+  /*Validates if a value is equal to Unicode Byte Order Mark (BOM) in little endian
+    architecture.
+   */
+inline bool ISUCBOMLE(const uint8_t x[2] //[in] value to validate
+                     ) const
+  {
+  return (0xFF == x[0]) &&
+         (0xFE == x[1]) );
+  }
+
+  /*Validates if a value is equal to Unicode Byte Order Mark (BOM) in little endian
+    architecture.
+   */
+inline bool ISUCBOMBE(const uint8_t x[2] //[in] value to validate
+                     ) const
+  {
+  return (0xFE == x[0]) &&
+         (0xFF == x[1]) );
+  }
+
+  /*Validates three subsequent 8-bit characters are equalt to UTF-8
+    Byte Order Mark (BOM).
+    UTF-8 encoded file begins with 0xEF, 0xBB, 0xBF bytes.
+   */
+inline bool ISUTF8BOM(const uint8_t x[3] //[in] value to validate
+                     ) const
+  {
+  return ((UTF8BYTEORDERMARK[0] == x[0]) &&
+          (UTF8BYTEORDERMARK[1] == x[1]) &&
+          (UTF8BYTEORDERMARK[2] == x[2]) );
+  }
 
   /*Memory usually outside of a process ("No man's land").
     Microsoft compiler initializes certain memory blocks with specific values to
