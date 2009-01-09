@@ -49,7 +49,7 @@
 #endif
 
 #ifndef __palm_os
-  /*Defined because expressions in the 
+  /*Defined because expressions in the
       #if constant-expression
       #endif
     directives must have integral type and can include only integer constants,
@@ -141,7 +141,12 @@ extern "C"
      */
     #define _T(t)     t
   #endif
-  #define _TEOF     EOF           //End of File as generic text literal
+  /*End of File as generic text literal.
+    EOF is returned by an I/O routine when the end-of-file, or in some cases
+    an error, is encountered.
+    WEOF yields the return value, of type wint_t, used to signal the end of a wide stream, or to report an error condition.
+   */
+  #define _TEOF     EOF           //
 
   /*The following rules apply in determining what symbols are reserved for
     any standard.  These symbols are reserved for the standard and for use
@@ -252,7 +257,7 @@ extern "C"
     #define _tcstoul    strtoul     //Convert strings to an unsigned
                                     //long-integer value.
   #endif
-  
+
   #ifdef _MSC_VER
     #ifndef _itoa
       #define _itoa       ItoA        //Convert an integer to a string
@@ -528,6 +533,11 @@ extern "C"
     #define _T(t)       L ## t
   #endif
   #ifndef _TEOF
+  /*End of File as generic text literal.
+    WEOF is returned by an I/O routine when the end of a wide stream, or in some
+    cases an error, is encountered.
+    Note: WEOF is of type wint_t on  Miscrosoft Windows systems.
+   */
     #define _TEOF       WEOF
   #endif
 
@@ -939,7 +949,7 @@ extern "C"
 #ifndef UCS2
   #include "KTypedef.h" //ISO C99: 7.18 Integer types
   /*Universal Character Set UCS-2 or Double Byte Character Set (DBCS) format.
-    UCS-2 is identical with the Basic Multilingual Plane of the original 
+    UCS-2 is identical with the Basic Multilingual Plane of the original
     Unicode set.
 
     Note: Depending on the platform, wchar_t and L"String literals" may or
