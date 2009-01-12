@@ -1,5 +1,5 @@
 /*$Workfile: KWinIni.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2009/01/09 22:12:18 $
+  $Revision: 1.2 $ $Date: 2009/01/12 23:08:34 $
   $Author: ddarko $
 
   Configuration file handler (.INI format)
@@ -34,6 +34,10 @@
   #ifndef TRACE1
     #define TRACE1 ATLTRACE
   #endif
+  #ifndef ASSERT
+    #define ASSERT ATLASSERT
+  #endif
+
 #endif
 
 //-----------------------------------------------------------------------------
@@ -149,7 +153,8 @@ if((szFilename != NULL) &&
 
 return strResult;
 }
-#if 1
+
+#if 0
 //-----------------------------------------------------------------------------
 /*Retrieves a string value from the specified key in an initialization file.
   The search for the key is case insensitive.
@@ -365,154 +370,97 @@ if((szFilename != NULL)          &&
 return strResult;
 }
 #endif
-#if 0
+
 //-----------------------------------------------------------------------------
 /*Replaces the keys and values for the specified section in an initialization
   file.
 
-  Note: uses Microsoft Foundation Library (MFC) or
-        uses Microsoft Active Template Library (ATL);
-        Microsoft Windows specific (Win32).
+  If file name parameter does not contain a full path for the file, the function 
+  searches the Windows directory for the file. If the file does not exist and 
+  szFileName does not contain a full path, the function creates the file in the 
+  Windows directory. If the file exists and was created using Unicode characters, 
+  the function writes Unicode characters to the file. Otherwise, the function 
+  creates a file using ANSI characters.
 
+  The data in the list of new key names consists of one or more null-terminated 
+  strings, followed by a final null character:
+
+      key1=string1\0key2=string2\0 ... keyN=stringN\0\0
+
+  Maximum length is limited to 65,535 bytes.
+
+  Note: Microsoft Windows specific (Win32).
  */
-void SetIniSection(LPCTSTR szFilename, //[in]
-                   LPCTSTR szSection As String, //[in]
-                   LPCTSTR szList //[in]
+void SetIniSection(LPCTSTR szFilename, //[in] name of the initialization file.
+                   LPCTSTR szSection,  //[in] name of the section in which data 
+                                       //is written.
+                   LPCTSTR szList //[in] list of new key names and associated values that 
+                   //are to be written to the named section.
                   )
 {
-  Call WritePrivateProfileSection(szSection, szList, szFilename)
+TRACE(_T("SetIniSection()\n"));
+ASSERT((szList != NULL) && (szList[0] != _T('\0')));
+ASSERT((szSection != NULL) && (szSection[0] != _T('\0')));
+
+if ( ((szList != NULL) && (szList[0] != _T('\0'))) ||
+     ((szSection != NULL) && (szSection[0] != _T('\0'))) )
+  {
+  #ifdef _DEBUG
+    if (WritePrivateProfileSection(szSection, szList, szFilename) == FALSE)
+      TRACE1(_T("  Failed to write section: error 0x%08X!\n"), GetLastError());
+  #else
+    WritePrivateProfileSection(szSection, szList, szFilename);
+  #endif
+  }
 }
-#endif
-#if 0
+
 //------------------------------------------------------------------------------
 /*Copies a string into the specified section of an initialization file.
+  If the file exists and was created using Unicode characters, the function 
+  writes Unicode characters to the file. Otherwise, the function writes ANSI 
+  characters.
+  If the key does not exist in the specified section, it is created. If key 
+  parameter is NULL, the entire section, including all entries within the section,
+  is deleted.
 
-  Note: uses Microsoft Foundation Library (MFC) or
-        uses Microsoft Active Template Library (ATL);
-        Microsoft Windows specific (Win32).
+  A section in the initialization file must have the following form:
+      [section]
+      key=string
+      ...
 
+  Note: Microsoft Windows specific (Win32).
  */
-void SetIniValue(LPCTSTR szFilename, //[in]
-                 LPCTSTR szSection, //[in]
-                 LPCTSTR szKey, //[in]
-                 LPCTSTR szValue //[in]
+void SetIniValue(LPCTSTR szFilename, //[in] name of the initialization file.
+                 LPCTSTR szSection, //[in] case-insensitive name of the section 
+//to which the string will be copied. If the section does not exist, it is created.
+                 LPCTSTR szKey, //[in] name of the key to be associated with a value.
+                 LPCTSTR szValue //[in] null-terminated string to be written to the 
+                                 //file. If it is NULL, the associated key is deleted.
                  )
 {
-  Call WritePrivateProfileString(szSection, szKey, szValue, szFilename)
-}
-#endif
-#if 0
-//------------------------------------------------------------------------------
-/*Copies a string into the specified section of an initialization file.
-  Requires 2 times file size of free memory. if file does not exist, creates
-  new one.
+TRACE(_T("SetIniValue()\n"));
+ASSERT((szFilename != NULL) && (szFilename[0] != _T('\0')));
 
-  Note: uses Microsoft Foundation Library (MFC) or
-        uses Microsoft Active Template Library (ATL);
-        Microsoft Windows specific (Win32).
-
-  Ported from Bernie Madigan <bernie@ testrun.cjb.net> Visual Basic source.
- */
-void WriteIniValue(LPCTSTR szFilename, //[in]
-                   LPCTSTR strSection, //[in]
-                   LPCTSTR strKey, //[in]
-                   LPCTSTR strValue //[in]
-                  )
-{
-  Dim hFile As Integer   file handle
-  Dim strSectionName As String   normalized section name
-  Dim iSectionNameLen As Integer
-  Dim strKeyName As String   normalized key name
-
-  if (szFilename = "")
+if ((szFilename != NULL) && (szFilename[0] != _T('\0')))
   {
-    Err.Raise ERROR_INVALID_DATA, App.Title, "Invalid filename"
-    Exit Function   Nothing to do
+  #ifdef _DEBUG
+    if (WritePrivateProfileString(szSection, szKey, szValue, szFilename) == FALSE)
+      TRACE1(_T("  Failed to write section: error 0x%08X!\n"), GetLastError());
+  #else
+    WritePrivateProfileString(szSection, szKey, szValue, szFilename);
+  #endif
   }
 
-  hFile = FreeFile
-  strSectionName = vbCrLf & "[" & LCase$(strSection) & "]" & Chr$(13)
-  iSectionNameLen = Len(strSectionName)
-  strKeyName = Chr$(10) & LCase$(strKey) & "="
-
-    Create file if not exist
-  Open szFilename For Binary As hFile
-  Close hFile
-  SetAttr szFilename, vbArchive
-
-    Read the file
-  Dim strFileContent As String
-  Dim strNormalizedContent As String
-  Open szFilename For Input As hFile
-  strFileContent = Input$(LOF(hFile), hFile)
-  strFileContent = vbCrLf & strFileContent & "[]"
-  Close hFile
-  strNormalizedContent = LCase$(strFileContent)
-
-    Get position of the elements
-  Dim iSectionStart As Integer   section start position
-  iSectionStart = InStr(strNormalizedContent, strSectionName)
-  if iSectionStart = 0 Then GoTo INSERT_KEY:
-
-  Dim iSectionEnd As Integer   section end position
-  iSectionEnd = InStr(iSectionStart + iSectionNameLen, strNormalizedContent, "[")
-
-  Dim iKeyEnd As Integer   key name end position
-  iKeyEnd = InStr(iSectionStart, strNormalizedContent, strKeyName)
-  if iKeyEnd > iSectionEnd Or iKeyEnd < iSectionStart Then GoTo INSERT_VALUE:
-
-  GoTo CHANGE_VALUE:
-
-INSERT_KEY:
-  strFileContent = Left$(strFileContent, Len(strFileContent) - 2)
-  strFileContent = strFileContent & vbCrLf & vbCrLf & _
-                   "[" & strSection & "]" & vbCrLf & _
-                   strKey & "=" & strValue
-  GoTo FORMAT_OUTPUT:
-
-INSERT_VALUE:
-  strFileContent = Left$(strFileContent, Len(strFileContent) - 2)
-  strFileContent = Left$(strFileContent, iSectionStart + iSectionNameLen) & _
-                   strKey & "=" & strValue & vbCrLf & _
-                   Mid$(strFileContent, iSectionStart + iSectionNameLen + 1)
-  GoTo FORMAT_OUTPUT:
-
-CHANGE_VALUE:
-  Dim iValueEnd As Integer   text value end position
-  strFileContent = Left$(strFileContent, Len(strFileContent) - 2)
-  iValueEnd = InStr(iKeyEnd, strFileContent, Chr$(13))
-  strFileContent = Left$(strFileContent, iKeyEnd) & _
-                   strKey & "=" & strValue & _
-                   Mid$(strFileContent, iValueEnd)
-  GoTo FORMAT_OUTPUT:
-
-FORMAT_OUTPUT:
-  strFileContent = Mid$(strFileContent, 2)
-  Do Until InStr(strFileContent, vbCrLf & vbCrLf & vbCrLf) = 0
-    strFileContent = Replace(strFileContent, vbCrLf & vbCrLf & vbCrLf, vbCrLf & vbCrLf)
-  Loop
-
-  Do Until Right$(strFileContent, 1) > Chr$(13)
-    strFileContent = Left$(strFileContent, Len(strFileContent) - 1)
-  Loop
-
-  Do Until Left$(strFileContent, 1) > Chr$(13)
-    strFileContent = Mid$(strFileContent, 2)
-  Loop
-
-    Save the result
-  Open szFilename For Output As hFile
-  Print #hFile, strFileContent
-  Close hFile
-
 }
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIni.cpp,v $
- Revision 1.1  2009/01/09 22:12:18  ddarko
- Added VB port
+ Revision 1.2  2009/01/12 23:08:34  ddarko
+ SetIniValue()
+
+ Revision 1.2  2009/01/12 23:01:10  dkolakovic
+ SetIniSection()
 
  Revision 1.1  2009/01/09 22:05:01  dkolakovic
  babylonlib.sourceforge.net
