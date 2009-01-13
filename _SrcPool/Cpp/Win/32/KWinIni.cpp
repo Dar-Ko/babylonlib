@@ -1,5 +1,5 @@
 /*$Workfile: KWinIni.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2009/01/12 23:08:34 $
+  $Revision: 1.3 $ $Date: 2009/01/13 22:25:40 $
   $Author: ddarko $
 
   Configuration file handler (.INI format)
@@ -68,6 +68,8 @@ CString GetIniSection(LPCTSTR szFilename, //[in] name of the initialization file
                     //specifies the name of the section containing the key name.
                       )
 {
+TRACE(_T("GetIniSection()\n"));
+
 const int VAL_SIZE = 256;
 CString strResult;
 if((szFilename != NULL)        &&
@@ -125,6 +127,8 @@ CString GetIniValue(LPCTSTR szFilename, //[in] name of the initialization file.
                     //by the szSection parameter are retrieved.
                    )
 {
+TRACE(_T("GetIniValue()\n"));
+
 const int VAL_SIZE = 256;
 CString strResult;
 if((szFilename != NULL) &&
@@ -456,8 +460,8 @@ if ((szFilename != NULL) && (szFilename[0] != _T('\0')))
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIni.cpp,v $
- Revision 1.2  2009/01/12 23:08:34  ddarko
- SetIniValue()
+ Revision 1.3  2009/01/13 22:25:40  ddarko
+ Trace
 
  Revision 1.2  2009/01/12 23:01:10  dkolakovic
  SetIniSection()
