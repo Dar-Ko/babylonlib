@@ -92,6 +92,17 @@
 #define DEVICE_REMOTE_WAKEUP    0x01
 #define ENDPOINT_HALT           0x00
 
+/*Maximum number of USB devices, including USB hubs, that could be connected to
+  a single host controller. Every host controller has at least one build-in hub,
+  know as root hub. The host controller assigns a unique 7-bit identification
+  number [0, 127] to every device connected.
+
+  Note: practical limit of devices that could be connected depends of the
+  communication bandwidth and power consumption of each device and it is
+  significantly smaller than number allowed by the standard.
+ */
+#define USB_MAXCOUNT  127
+
 #ifndef USBVID_ANY
   #define USBVID_ANY 0x0000 //undefined or unspecified USB vendor
 #endif
@@ -108,7 +119,7 @@
 #endif
 
 #ifdef _MSC_VER
-  #pragma pack(push, 1)  //Specifies packing alignment for structure, 
+  #pragma pack(push, 1)  //Specifies packing alignment for structure,
                          //union and class members.
 #endif
 
@@ -120,9 +131,9 @@
   A VID/PID unique to a particular USB device must be contained within
   the device hardware to comply with the USB specification.
   USB ID numbers are the part of Standard Device Descriptor data structure.
-  
+
   See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org;
-  Universal Serial Bus Specification Revision 2.0, 9.6 Standard USB Descriptor 
+  Universal Serial Bus Specification Revision 2.0, 9.6 Standard USB Descriptor
   Definitions.
  */
 struct tagUsbId
@@ -137,10 +148,10 @@ uint16_t  m_wPid; //USB product identification (PID) number
 
 #if !defined(USBID)
 
-  //Globally Unique Identifier (USBID). See also: tagUUID, tagUsbId             
+  //Globally Unique Identifier (USBID). See also: tagUUID, tagUsbId
   typedef tagUsbId  USBID;
 
-  //Pointer to Globally Unique Identifier (USBID). See also: tagUsbId           
+  //Pointer to Globally Unique Identifier (USBID). See also: tagUsbId
   typedef tagUsbId* LPUSBID;
 
   //Constant pointer to Globally Unique Identifier (USBID). See also: tagUsbId
@@ -152,9 +163,9 @@ uint16_t  m_wPid; //USB product identification (PID) number
 
 #ifdef __cplusplus
 ///////////////////////////////////////////////////////////////////////////////
-/*Encapsulates common operations with USB device identification numbers 
+/*Encapsulates common operations with USB device identification numbers
   (VID, PID).
-  
+
   See also: tagUsbId struct, LPUSBID, Standard USB Descriptor Definitions,
   USB Implementers Forum, Inc (USB-IF) at http://www.usb.org;
  */
@@ -171,7 +182,7 @@ public:
   bool operator!=(const CUsbId& usbId) const;
   bool IsVendor(const uint16_t wVendorId);
   bool IsProduct(const uint16_t wProductId);
-  
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -198,7 +209,7 @@ m_wVid = usbId.m_wVid;
 m_wPid = usbId.m_wPid;
 }
 
-inline 
+inline
 CUsbId::CUsbId(const uint16_t wVendorId, //[in] USB device vendor identification
                                          //(VID) number
                const uint16_t wProductId //[in] USB product identification (PID)
@@ -222,7 +233,7 @@ inline CUsbId& CUsbId::operator =(const USBID& usbId //[in] value to assign
 m_wVid = usbId.m_wVid;
 m_wPid = usbId.m_wPid;
 return (*this);
-}                          
+}
 
 //-----------------------------------------------------------------------------
 /*Equality operator.
@@ -248,20 +259,20 @@ return ((m_wVid != usbId.m_wVid) || (m_wPid != usbId.m_wPid));
 
   Returns true if USB vendor have appropriate ID.
  */
-inline bool CUsbId::IsVendor(const uint16_t wVendorId //[in] USB device vendor 
-                      //identification number assigned by the 
+inline bool CUsbId::IsVendor(const uint16_t wVendorId //[in] USB device vendor
+                      //identification number assigned by the
                       //USB Implementers Forum (USB-IF)
                      )
 {
 return (m_wVid == wVendorId);
-}                     
+}
 
 //-----------------------------------------------------------------------------
 /*Validates USB product identification (PID) number.
 
   Returns true if USB product have appropriate ID.
 */
-inline bool CUsbId::IsProduct(const uint16_t wProductId //[in] USB product 
+inline bool CUsbId::IsProduct(const uint16_t wProductId //[in] USB product
                       //identification number assigned by the manufacturer
                       )
 {
@@ -273,11 +284,11 @@ return (m_wPid == wProductId);
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_KUSB_H_
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  3    Biblioteka1.2         2007-08-24 18:17:11  Darko Kolakovic Extracted
  *       Windows specifics
  *  2    Biblioteka1.1         2007-08-22 19:28:02  Darko Kolakovic USB
- *  1    Biblioteka1.0         2007-08-22 10:50:52  Darko Kolakovic 
+ *  1    Biblioteka1.0         2007-08-22 10:50:52  Darko Kolakovic
  * $
  * Revision 1.2  2007/08/21 14:46:24  dkolakovic
  * IsConnected()
