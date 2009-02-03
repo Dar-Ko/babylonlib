@@ -1,5 +1,5 @@
 /*$RCSfile: KWinStrArray.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/02/03 22:19:05 $
+  $Revision: 1.2 $ $Date: 2009/02/03 22:45:44 $
   $Author: ddarko $
 
   Array of CString objects.
@@ -17,11 +17,12 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#ifdef _WIN32 //Windows 32-bit platform
+#ifdef _MSC_VER //Microsoft Visual Studio  Compilers
 ///////////////////////////////////////////////////////////////////////////////
 //The CStringArray class supports arrays of CString objects.
 
-  #ifndef _USE_MFC //Microsoft Fundation Classes Library (MFC)
+  #ifdef _USE_MFC //Microsoft Fundation Classes Library (MFC)
+    #pragma message ("  Using MFC CStringArray class")
     #include <afxcoll.h> //CStringArray class
     /*Note: CStringArray incorporates the IMPLEMENT_SERIAL macro to support
       serialization and dumping of its elements. If an array of CString objects
@@ -31,19 +32,26 @@
      */
   #endif
 
-  #ifndef _USE_ATL  //Microsoft Active Template Library (ATL)
+  #ifdef _USE_ATL  //Microsoft Active Template Library (ATL)
+    #pragma message ("  Using ATL CAtlArray template for CStringArray substitute.")
     #include <atlcoll.h> //CAtlArray template
     /*CStringArray class supports arrays of CString objects.
       CStringT is the base class for the MFC/ATL CString class.
+
+      Note: CStringArray copy construcor and assigment operator are private
+      methods.
      */
     typedef CAtlArray<CString> CStringArray;
   #endif
 
-#endif //_WIN32
+#endif //_MSC_VER
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KWINSTRARRAY_H_
 /*****************************************************************************
  * $Log: KWinStrArray.h,v $
+ * Revision 1.2  2009/02/03 22:45:44  ddarko
+ * Fixed preprocessor conditions
+ *
  * Revision 1.1  2009/02/03 22:19:05  ddarko
  * Created
  *
