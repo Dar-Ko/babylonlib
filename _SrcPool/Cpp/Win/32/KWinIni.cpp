@@ -1,5 +1,5 @@
 /*$Workfile: KWinIni.cpp$: implementation file
-  $Revision: 1.3 $ $Date: 2009/01/13 22:25:40 $
+  $Revision: 1.4 $ $Date: 2009/02/03 23:05:31 $
   $Author: ddarko $
 
   Configuration file handler (.INI format)
@@ -12,6 +12,7 @@
 #include "stdafx.h" // MFC/ATL core and standard components
 #include "KType32.h"
 #include "KProgCst.h"
+#include "KWinStrArray.h" //CStringArray class
 
 #ifdef _USE_ATL
   #pragma warning(disable: 4127) //warning C4127: conditional expression is constant
@@ -39,6 +40,10 @@
   #endif
 
 #endif
+
+void GetIniSectionList(CStringArray& strResult,
+                       LPCTSTR szFilename, 
+                       LPCTSTR szFilter = NULL);
 
 //-----------------------------------------------------------------------------
 /*Retrieves all the keys and values for the specified section of an initialization
@@ -90,6 +95,58 @@ if((szFilename != NULL)        &&
   strResult.ReleaseBuffer();  //Free extra space and set string length
   }
 return strResult;
+}
+
+//-----------------------------------------------------------------------------
+/*Retrieves all section names of an initialization file.
+
+  Initialization file have following format:
+     [Section1]
+     Key1=Value1
+     Key2=Value2
+     ...
+     [Section2]
+     Key3=Value3
+     ...
+
+  Returns the list of section paragraphs.
+  Note: uses Microsoft Foundation Library (MFC) or
+        uses Microsoft Active Template Library (ATL);
+        Microsoft Windows specific (Win32).
+ */
+void GetIniSectionList(CStringArray& strResult, //[out] list of sections
+                     //found in the initialization file
+                      LPCTSTR szFilename, //[in] name of the initialization file.
+                    //If this parameter does not contain a full path to the file,
+                    //the system searches for the file in the Windows directory.
+                      LPCTSTR szFilter   //[in] = NULL null-terminated string that 
+                    //specifies desired head of a section name. If it is NULL or
+                    //an empty string, all section names that are found will be returned.
+                      )
+{
+TRACE(_T("GetIniSectionList()\n"));
+
+const int VAL_SIZE = 612;
+
+if((szFilename != NULL)        &&
+   (szFilename[0] != _T('\0')) &&
+   (szFilter != NULL)         &&
+   (szFilter[0] != _T('\0'))   )
+  {
+  TCHAR listSection[VAL_SIZE]; //buffer that receives the section names associated
+                          //with the named file. The buffer is filled with one
+                          //or more null-terminated strings; the last string is
+                          //followed by a second null character.
+  long lCount; //the number of characters copied to the buffer, not including 
+               //the terminating null character. If the buffer is not large enough
+               //to contain all the key name and value pairs associated with 
+               //the named section, the return value is equal to size of the buffer
+               //used minus two.
+  lCount = GetPrivateProfileSectionNames(listSection,
+                                         VAL_SIZE,
+                                         szFilename);
+  }
+
 }
 
 //-----------------------------------------------------------------------------
@@ -460,6 +517,9 @@ if ((szFilename != NULL) && (szFilename[0] != _T('\0')))
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIni.cpp,v $
+ Revision 1.4  2009/02/03 23:05:31  ddarko
+ GetIniSectionList()
+
  Revision 1.3  2009/01/13 22:25:40  ddarko
  Trace
 
