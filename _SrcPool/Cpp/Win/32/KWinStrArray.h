@@ -1,5 +1,5 @@
-/*$RCSfile: KWinStrArray.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/02/03 22:45:44 $
+*$RCSfile: KWinStrArray.h,v $: header file
+  $Revision: 1.3 $ $Date: 2009/02/04 20:42:06 $
   $Author: ddarko $
 
   Array of CString objects.
@@ -33,15 +33,34 @@
   #endif
 
   #ifdef _USE_ATL  //Microsoft Active Template Library (ATL)
-    #pragma message ("  Using ATL CAtlArray template for CStringArray substitute.")
-    #include <atlcoll.h> //CAtlArray template
-    /*CStringArray class supports arrays of CString objects.
-      CStringT is the base class for the MFC/ATL CString class.
+    #ifdef _USE_ATLSIMPLEARRAY
+      #pragma message ("  Using ATL CSimpleArray template as CStringArray substitute.")
+      #include <atlsimpcoll.h>  //CSimpleArray template
+      /*CStringArray class supports arrays of CString objects.
+        CStringT is the base class for the MFC/ATL CString class.
 
-      Note: CStringArray copy construcor and assigment operator are private
-      methods.
-     */
-    typedef CAtlArray<CString> CStringArray;
+        Note: this implementation should be used when the array contains a small
+        number of elements.
+
+        See also: CAtlArray
+       */
+      typedef CSimpleArray<CString> CStringArray;
+    #else
+      #pragma message ("  Using ATL CAtlArray template as CStringArray substitute.")
+      #include <atlcoll.h> //CAtlArray template
+      /*CStringArray class supports arrays of CString objects.
+        CStringT is the base class for the MFC/ATL CString class.
+
+        Note: CStringArray copy construcor and assigment operator are private
+        methods.
+
+        Note: this implementation should be used when the array contains a large
+        number of elements.
+
+        See also: CAtlArray
+       */
+      typedef CAtlArray<CString> CStringArray;
+    #endif
   #endif
 
 #endif //_MSC_VER
@@ -49,6 +68,9 @@
 #endif  //_KWINSTRARRAY_H_
 /*****************************************************************************
  * $Log: KWinStrArray.h,v $
+ * Revision 1.3  2009/02/04 20:42:06  ddarko
+ * CSimpleArray substitute
+ *
  * Revision 1.2  2009/02/03 22:45:44  ddarko
  * Fixed preprocessor conditions
  *
