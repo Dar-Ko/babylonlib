@@ -1,5 +1,5 @@
 /*$Workfile: KWinIni.cpp$: implementation file
-  $Revision: 1.4 $ $Date: 2009/02/03 23:05:31 $
+  $Revision: 1.5 $ $Date: 2009/02/04 23:06:19 $
   $Author: ddarko $
 
   Configuration file handler (.INI format)
@@ -40,10 +40,6 @@
   #endif
 
 #endif
-
-void GetIniSectionList(CStringArray& strResult,
-                       LPCTSTR szFilename, 
-                       LPCTSTR szFilter = NULL);
 
 //-----------------------------------------------------------------------------
 /*Retrieves all the keys and values for the specified section of an initialization
@@ -108,45 +104,113 @@ return strResult;
      [Section2]
      Key3=Value3
      ...
+  Section names does not include enclosing brackets. Heading and trailing white space
+  is truncated. As a consequence of former, section names that contains only white 
+  space or empty strings will stop section enumeration.
+  Section name include filter szFilter is case sensitive.
 
-  Returns the list of section paragraphs.
+  Returns the number of filtered section names and the list of section paragraphs.
+
   Note: uses Microsoft Foundation Library (MFC) or
         uses Microsoft Active Template Library (ATL);
         Microsoft Windows specific (Win32).
  */
-void GetIniSectionList(CStringArray& strResult, //[out] list of sections
+int GetIniSectionList(CStringArray& strResult, //[out] list of sections
                      //found in the initialization file
                       LPCTSTR szFilename, //[in] name of the initialization file.
                     //If this parameter does not contain a full path to the file,
                     //the system searches for the file in the Windows directory.
-                      LPCTSTR szFilter   //[in] = NULL null-terminated string that 
-                    //specifies desired head of a section name. If it is NULL or
+                      LPCTSTR szFilter   //[in] null-terminated string that
+                    //specifies name token included in a section name. If it is NULL or
                     //an empty string, all section names that are found will be returned.
                       )
 {
 TRACE(_T("GetIniSectionList()\n"));
 
-const int VAL_SIZE = 612;
+const int VAL_SIZE = 512; //text buffer granule
+int iSectionCount = 0;
 
-if((szFilename != NULL)        &&
-   (szFilename[0] != _T('\0')) &&
-   (szFilter != NULL)         &&
-   (szFilter[0] != _T('\0'))   )
+if((szFilename != NULL) && (szFilename[0] != _T('\0')) )
   {
-  TCHAR listSection[VAL_SIZE]; //buffer that receives the section names associated
-                          //with the named file. The buffer is filled with one
-                          //or more null-terminated strings; the last string is
-                          //followed by a second null character.
-  long lCount; //the number of characters copied to the buffer, not including 
-               //the terminating null character. If the buffer is not large enough
-               //to contain all the key name and value pairs associated with 
-               //the named section, the return value is equal to size of the buffer
-               //used minus two.
-  lCount = GetPrivateProfileSectionNames(listSection,
-                                         VAL_SIZE,
-                                         szFilename);
+  bool bReadSuccessfully = false; //true if  all section names are processsed
+  int nStep = 1;      //buffer granule increment
+  long lBuffSize = 0; //text buffer size;
+  LPTSTR listSection = NULL;  //buffer that receives the section names associated
+                              //with the named file. The buffer is filled with one
+                              //or more null-terminated strings; the last string is
+                              //followed by a second null character.
+
+  do
+    {
+    lBuffSize = nStep * VAL_SIZE;
+    if ((lBuffSize == INT_MAX) || (lBuffSize <= 0)) //Sanity and integer overflow check
+      {
+      ASSERT(false); //File is ridiculously big
+      break;
+      }
+
+    listSection = new TCHAR[lBuffSize];
+    long lCount; //the number of characters copied to the buffer, not including
+                 //the terminating null character. If the buffer is not large enough
+                 //to contain all the key name and value pairs associated with
+                 //the named section, the return value is equal to size of the buffer
+                 //used minus two.
+    if (listSection != NULL)
+      {
+      lCount = GetPrivateProfileSectionNames(listSection,
+                                             lBuffSize,
+                                             szFilename);
+      if (lCount <= 2)
+        break; //File contains no section names
+      bReadSuccessfully = (lCount < (lBuffSize - 2));
+      if(!bReadSuccessfully)
+        {
+        //The buffer was too small
+        delete []listSection;
+        listSection = NULL;
+        nStep++;
+        }
+      }
+  } while(!bReadSuccessfully);
+
+  if (bReadSuccessfully)
+    {
+    //Parse and filter found section names
+    strResult.RemoveAll();
+    nStep = 0; //character index in text buffer
+    const TCHAR ENDOFLIST = _T('\0');
+    while(listSection[nStep] != ENDOFLIST)
+      {
+      CString strSectionName = &listSection[nStep];
+      if (!strSectionName.IsEmpty())
+        {
+        if((szFilter != NULL) && (szFilter[0] != _T('\0')))
+          {
+          //Find sections containing include filter in their names
+          if(strSectionName.Find(szFilter) > -1)
+            strResult.Add(strSectionName);
+          }
+        else
+          strResult.Add(strSectionName);
+        }
+      //Find next zero-delimited string
+      while(listSection[nStep] != _T('\0'))
+        nStep++;
+      nStep++; //Index of first character in the string
+      }
+
+    #ifdef _USE_ATLSIMPLEARRAY
+      iSectionCount = strResult.GetSize();
+    #else
+      iSectionCount = strResult.GetCount();
+    #endif
+    }
+
+  if (listSection != NULL)
+    delete []listSection;
   }
 
+return iSectionCount; //Return number of sections
 }
 
 //-----------------------------------------------------------------------------
@@ -517,6 +581,9 @@ if ((szFilename != NULL) && (szFilename[0] != _T('\0')))
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIni.cpp,v $
+ Revision 1.5  2009/02/04 23:06:19  ddarko
+ Enumerate sections
+
  Revision 1.4  2009/02/03 23:05:31  ddarko
  GetIniSectionList()
 
