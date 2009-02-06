@@ -1,5 +1,5 @@
 $RCSfile: ATL.txt,v $: developer's note
-$Revision: 1.4 $ $Date: 2008/12/19 17:46:26 $
+$Revision: 1.5 $ $Date: 2009/02/06 17:15:51 $
 $Author: ddarko $
 
 Active Template Library (ATL).
@@ -80,6 +80,13 @@ Choose config file that matches your version of compiler and rename it to config
 Compilation:
 Open command prompt at <ATL>\build folder and execute command:
 make -f atl.mak
+
+Microsoft Visual Studio C++ 2002 v7.0
+======================================
+The ATL 7.00 version have a bug in CSimpleArray::RemoveAt() method, defined in atlsimpcoll.h header file.
+If template is used to create an array of complex objects, when a single element is removed from the array, element's destructor is not called, causing memory leak.
+Workaround this problem is to use CSimpleArrayAtl7 template.
+See also: atlsimpcoll.h, ATL70SimpleArray.h
 
 Microsoft Visual Studio C++ 2005 v8.0
 ======================================
