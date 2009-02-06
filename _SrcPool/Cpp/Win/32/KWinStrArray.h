@@ -1,5 +1,5 @@
 *$RCSfile: KWinStrArray.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/02/05 23:13:44 $
+  $Revision: 1.5 $ $Date: 2009/02/06 19:04:31 $
   $Author: ddarko $
 
   Array of CString objects.
@@ -38,7 +38,7 @@
       CStringT is the base class for the MFC/ATL CString class.
 
       Note: In case that STL or ATL data containers are used to exchange data
-      between dynamicaly linked library (DLL) and executibile module (EXE),
+      between dynamically linked library (DLL) and executable module (EXE),
       insure that same C-Runtime library (CRT) is used in both. If such object
       is allocated in one module and freed in another one with different linkage
       to CRT (and therefore different heap), following error may occur:
@@ -51,7 +51,7 @@
       Multi-threaded (/MT or /MTd for debug build) implies static linking to the
       C-Runtime library.
       Derived data types, like std::wstring or CString, manage its own memory
-      management and implemetation differs from library to library.
+      management and implementation differs from library to library.
       Better way is to use only basic types and to free objects where those are
       allocated.
      */
@@ -95,6 +95,9 @@
 #endif  //_KWINSTRARRAY_H_
 /*****************************************************************************
  * $Log: KWinStrArray.h,v $
+ * Revision 1.5  2009/02/06 19:04:31  ddarko
+ * Typos
+ *
  * Revision 1.4  2009/02/05 23:13:44  ddarko
  * Note about CRT library linkage
  *
