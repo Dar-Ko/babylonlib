@@ -1,5 +1,5 @@
 /*$RCSfile: ATL70SafeWinImpl.h,v $: header file
-  $Revision: 1.4 $ $Date: 2008/07/17 21:38:22 $
+  $Revision: 1.5 $ $Date: 2009/02/06 17:19:54 $
   $Author: ddarko $
 
   Fix: ATL's CWindowImpl crashes when OnFinalMessage contains code to destroy
@@ -29,7 +29,7 @@
   into a subclass.The window procedure uses a message map to direct messages
   to the appropriate handlers.
 
-  FIX: The class is to be used in place of CWindowImpl.It adds 4 bytes overhead
+  FIX: The class is to be used in place of CWindowImpl. It adds 4 bytes overhead
   to the window class instance data, otherwise it's completely equivalent to
   ATL CWindowImpl.
   You can simply include this header it in stdsfx.h after atlwin.h and replace
@@ -250,6 +250,9 @@ return lRes;
 #endif /* !_KSAFEWINIMPL_H_ */
 /*****************************************************************************
  * $Log: ATL70SafeWinImpl.h,v $
+ * Revision 1.5  2009/02/06 17:19:54  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.4  2008/07/17 21:38:22  ddarko
  * MSVC6.0 build
  *
