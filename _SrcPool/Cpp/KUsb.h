@@ -110,6 +110,13 @@
   #define USBPID_ANY 0x0000 //undefined or unspecified USB product
 #endif
 
+#ifndef USBVID_MAX
+  #define USBVID_MAX 0xFFFF //largest possible USB vendor ID
+#endif
+#ifndef USBPID_MAX
+  #define USBPID_MAX 0xFFFF //largest possible USB product ID
+#endif
+
 #ifndef USBVID_TEST
   #define USBVID_TEST 0x1A0A //6666 USB-IF non-workshop ID used customarily
                              //for prototypes
