@@ -1,5 +1,5 @@
 /*$Workfile: KWinIni.cpp$: implementation file
-  $Revision: 1.5 $ $Date: 2009/02/04 23:06:19 $
+  $Revision: 1.6 $ $Date: 2009/02/07 22:29:16 $
   $Author: ddarko $
 
   Configuration file handler (.INI format)
@@ -234,6 +234,8 @@ return iSectionCount; //Return number of sections
   Note: uses Microsoft Foundation Library (MFC) or
         uses Microsoft Active Template Library (ATL);
         Microsoft Windows specific (Win32).
+
+  See also: GetPrivateProfileString()
  */
 CString GetIniValue(LPCTSTR szFilename, //[in] name of the initialization file.
                     //If this parameter does not contain a full path to the file,
@@ -277,6 +279,48 @@ if((szFilename != NULL) &&
   }
 
 return strResult;
+}
+
+//-----------------------------------------------------------------------------
+/*Retrieves the value of an integer from an entry within a specified section of
+  the initialization (INI) file. The function is not case-sensitive.
+  This function supports hexadecimal notation for the value in the .INI file.
+  A section in the initialization file must have the following form:
+
+    [section]
+    key=value
+
+  Returns the integer value of the string that follows the specified entry if 
+  the function is successful. When you retrieve a signed integer, you should
+  cast the value into an int.
+  The return value is the value of the nDefault parameter if the function does
+  not find the entry. The return value is 0 if the value that corresponds to
+  the specified entry is not an integer.
+
+  Note: Microsoft Windows specific (Win32).
+
+  See also: GetPrivateProfileInt()
+ */
+unsigned int GetIniValue(LPCTSTR szFilename, //[in] name of the initialization file.
+                    //If this parameter does not contain a full path to the file,
+                    //the system searches for the file in the Windows directory.
+                    LPCTSTR szSection, //[in] null-terminated string that specifies
+                    //the name of the section containing the key name.
+                    //If this parameter is NULL, the function
+                    LPCTSTR szKey, //[in] null-terminated string specifying the name
+                    //of the key whose associated string is to be retrieved.
+                    //If this parameter is NULL, all key names in the section specified
+                    //by the szSection parameter are retrieved.
+                    int nDefault
+                    )
+{
+TRACE(_T("GetIniValue(int)\n"));
+
+ASSERT(szFilename != NULL);
+return ::GetPrivateProfileInt(szSection, 
+                              szKey, 
+                              nDefault,
+                              szFilename);
 }
 
 #if 0
@@ -500,26 +544,29 @@ return strResult;
 /*Replaces the keys and values for the specified section in an initialization
   file.
 
-  If file name parameter does not contain a full path for the file, the function 
-  searches the Windows directory for the file. If the file does not exist and 
-  szFileName does not contain a full path, the function creates the file in the 
-  Windows directory. If the file exists and was created using Unicode characters, 
-  the function writes Unicode characters to the file. Otherwise, the function 
+  If file name parameter does not contain a full path for the file, the function
+  searches the Windows directory for the file. If the file does not exist and
+  szFileName does not contain a full path, the function creates the file in the
+  Windows directory. If the file exists and was created using Unicode characters,
+  the function writes Unicode characters to the file. Otherwise, the function
   creates a file using ANSI characters.
 
-  The data in the list of new key names consists of one or more null-terminated 
+  The data in the list of new key names consists of one or more null-terminated
   strings, followed by a final null character:
 
       key1=string1\0key2=string2\0 ... keyN=stringN\0\0
 
   Maximum length is limited to 65,535 bytes.
 
+  Returns true if successful; otherwise false. To get extended error information,
+  call GetLastError().
+
   Note: Microsoft Windows specific (Win32).
  */
-void SetIniSection(LPCTSTR szFilename, //[in] name of the initialization file.
-                   LPCTSTR szSection,  //[in] name of the section in which data 
+bool SetIniSection(LPCTSTR szFilename, //[in] name of the initialization file.
+                   LPCTSTR szSection,  //[in] name of the section in which data
                                        //is written.
-                   LPCTSTR szList //[in] list of new key names and associated values that 
+                   LPCTSTR szList //[in] list of new key names and associated values that
                    //are to be written to the named section.
                   )
 {
@@ -530,36 +577,43 @@ ASSERT((szSection != NULL) && (szSection[0] != _T('\0')));
 if ( ((szList != NULL) && (szList[0] != _T('\0'))) ||
      ((szSection != NULL) && (szSection[0] != _T('\0'))) )
   {
-  #ifdef _DEBUG
-    if (WritePrivateProfileSection(szSection, szList, szFilename) == FALSE)
-      TRACE1(_T("  Failed to write section: error 0x%08X!\n"), GetLastError());
-  #else
-    WritePrivateProfileSection(szSection, szList, szFilename);
-  #endif
+  if (WritePrivateProfileSection(szSection, szList, szFilename) == TRUE)
+    return true;
+  TRACE1(_T("  Failed to write section: error 0x%08X!\n"), GetLastError());
   }
+else
+  SetLastError(ERROR_INVALID_PARAMETER);
+return false;
 }
 
 //------------------------------------------------------------------------------
 /*Copies a string into the specified section of an initialization file.
-  If the file exists and was created using Unicode characters, the function 
-  writes Unicode characters to the file. Otherwise, the function writes ANSI 
+  If the file exists and was created using Unicode characters, the function
+  writes Unicode characters to the file. Otherwise, the function writes ANSI
   characters.
-  If the key does not exist in the specified section, it is created. If key 
+  If the key does not exist in the specified section, it is created. If key
   parameter is NULL, the entire section, including all entries within the section,
   is deleted.
+  If the function fails, or if it flushes the cached version of the most recently
+  accessed initialization file, the return value is zero. To get extended error
+  information, call GetLastError().
 
-  A section in the initialization file must have the following form:
+  A section in the initialization file have the following form:
       [section]
       key=string
       ...
 
+  Returns true if successful; otherwise false.
+
   Note: Microsoft Windows specific (Win32).
+
+  See also: WritePrivateProfileString()
  */
-void SetIniValue(LPCTSTR szFilename, //[in] name of the initialization file.
-                 LPCTSTR szSection, //[in] case-insensitive name of the section 
+bool SetIniValue(LPCTSTR szFilename, //[in] name of the initialization file.
+                 LPCTSTR szSection, //[in] case-insensitive name of the section
 //to which the string will be copied. If the section does not exist, it is created.
                  LPCTSTR szKey, //[in] name of the key to be associated with a value.
-                 LPCTSTR szValue //[in] null-terminated string to be written to the 
+                 LPCTSTR szValue //[in] null-terminated string to be written to the
                                  //file. If it is NULL, the associated key is deleted.
                  )
 {
@@ -568,19 +622,70 @@ ASSERT((szFilename != NULL) && (szFilename[0] != _T('\0')));
 
 if ((szFilename != NULL) && (szFilename[0] != _T('\0')))
   {
-  #ifdef _DEBUG
-    if (WritePrivateProfileString(szSection, szKey, szValue, szFilename) == FALSE)
-      TRACE1(_T("  Failed to write section: error 0x%08X!\n"), GetLastError());
-  #else
-    WritePrivateProfileString(szSection, szKey, szValue, szFilename);
-  #endif
+  if (WritePrivateProfileString(szSection, szKey, szValue, szFilename) == TRUE)
+    return true;
+  TRACE1(_T("  Failed to write section: error 0x%08X!\n"), GetLastError());
   }
+else
+  SetLastError(ERROR_INVALID_PARAMETER);
+return false;
+}
 
+//------------------------------------------------------------------------------
+/*write the specified value into the specified section of the initialization
+  (INI) file.
+  If the key does not exist in the specified section, it is created. If key
+  parameter is NULL, the entire section, including all entries within the section,
+  is deleted.
+  If the function fails, or if it flushes the cached version of the most recently
+  accessed initialization file, the return value is zero. To get extended error
+  information, call GetLastError().
+
+  A section in the initialization file have the following form:
+      [section]
+      key=value
+      ...
+
+  Returns true if successful; otherwise false.
+
+  Esample:
+
+       SetIniValue(_T("file.ini"), _T("My Section"), _T("My Int Item"), 1234);
+       int nValue = GetIniValue(strSection, strIntItem, 0);
+       ASSERT(nValue == 1234);
+
+  Note: Microsoft Windows specific (Win32).
+
+  See also: WritePrivateProfileString()
+ */
+bool SetIniValue(LPCTSTR szFilename,//[in] name of the initialization file.
+                 LPCTSTR szSection, //[in] case-insensitive name of the section
+//to which the string will be copied. If the section does not exist, it is created.
+                 LPCTSTR szKey, //[in] name of the key to be associated with a value.
+                 int nValue          //[in] value to be written
+               )
+{
+TRACE(_T("SetIniValue(int)\n"));
+ASSERT((szFilename != NULL) && (szFilename[0] != _T('\0')));
+if ((szFilename != NULL) && (szFilename[0] != _T('\0')))
+  {
+  TCHAR szT[16];
+  _stprintf_s(szT, _countof(szT), _T("%d"), nValue);
+  return (::WritePrivateProfileString(szSection,
+                                     szKey,
+                                     szT,
+                                     szFilename) == TRUE) ? true : false;
+  }
+SetLastError(ERROR_INVALID_PARAMETER);
+return false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIni.cpp,v $
+ Revision 1.6  2009/02/07 22:29:16  ddarko
+ SetIniValue(int)
+
  Revision 1.5  2009/02/04 23:06:19  ddarko
  Enumerate sections
 
