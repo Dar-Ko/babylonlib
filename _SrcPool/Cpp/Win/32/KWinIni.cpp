@@ -1,5 +1,5 @@
 /*$Workfile: KWinIni.cpp$: implementation file
-  $Revision: 1.6 $ $Date: 2009/02/07 22:29:16 $
+  $Revision: 1.7 $ $Date: 2009/02/17 21:08:06 $
   $Author: ddarko $
 
   Configuration file handler (.INI format)
@@ -259,19 +259,20 @@ if((szFilename != NULL) &&
   {
   long lCount; //the number of characters copied to the buffer, not including 
                //the terminating null character.
-  /*Note: If neither section name nor key mame is NULL and the supplied 
+  /*Note: If neither section name nor key name is NULL and the supplied
     destination buffer is too small to hold the requested string, the string
-    is truncated and followed by a null character, and the return value is equal 
-    to of the buffer uused minus one.
-    If either ection name or key name is NULL and the supplied destination buffer
-    is too small to hold all the strings, the last string is truncated and 
+    is truncated and followed by a null character, and the return value is equal
+    to of the buffer used minus one.
+    If either section name or key name is NULL and the supplied destination buffer
+    is too small to hold all the strings, the last string is truncated and
     followed by two null characters. In this case, the return value is equal to
     buffer size minus two.
    */
 
   lCount = GetPrivateProfileString(szSection,
                                   szKey,
-                                  _T(""),
+                                  _T(""), //default string, if the key
+                                          //cannot be found 
                                   strResult.GetBuffer(VAL_SIZE),
                                   VAL_SIZE,
                                   szFilename);
@@ -611,8 +612,10 @@ return false;
  */
 bool SetIniValue(LPCTSTR szFilename, //[in] name of the initialization file.
                  LPCTSTR szSection, //[in] case-insensitive name of the section
-//to which the string will be copied. If the section does not exist, it is created.
+                 //to which the string will be copied. If the section does not exist,
+                 //it is created.
                  LPCTSTR szKey, //[in] name of the key to be associated with a value.
+                 //If it is NULL, the section is deleted.
                  LPCTSTR szValue //[in] null-terminated string to be written to the
                                  //file. If it is NULL, the associated key is deleted.
                  )
@@ -637,6 +640,8 @@ return false;
   If the key does not exist in the specified section, it is created. If key
   parameter is NULL, the entire section, including all entries within the section,
   is deleted.
+  A comment at the end of key-value line will not be preserved after saving a new
+  value.
   If the function fails, or if it flushes the cached version of the most recently
   accessed initialization file, the return value is zero. To get extended error
   information, call GetLastError().
@@ -683,6 +688,9 @@ return false;
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIni.cpp,v $
+ Revision 1.7  2009/02/17 21:08:06  ddarko
+ Fixed typos
+
  Revision 1.6  2009/02/07 22:29:16  ddarko
  SetIniValue(int)
 
