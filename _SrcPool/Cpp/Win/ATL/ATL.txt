@@ -1,5 +1,5 @@
 $RCSfile: ATL.txt,v $: developer's note
-$Revision: 1.5 $ $Date: 2009/02/06 17:15:51 $
+$Revision: 1.6 $ $Date: 2009/02/18 16:48:08 $
 $Author: ddarko $
 
 Active Template Library (ATL).
@@ -49,7 +49,12 @@ with
 
 Borland build
 ---------------
-The ATL 3.00 version 2006-03 Platform SDK (R2 3790.2075)  is used as base for Borland Platform SDK build.
+The ATL 3.00 version 2006-03 Platform SDK (R2 3790.2075) is used as base for Borland Platform SDK build.
+The bccSDK 0.0.7.2 is used to fix Borland compatibility issues.
+
+Minor update release bccSDK 0.0.7.2.1 (not ATL related)
+Added support for MSXML 6 and font embedding. Since it is incremental update you must already have installed full version of bccsdk.
+
 See also http://bccSDK.sourceforge.net
 
 Borland compiler -  building instructions by Darko Miletic
