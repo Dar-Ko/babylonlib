@@ -12,7 +12,7 @@
 #pragma once
 
 #ifndef __AFXWIN_H__
-	#error include 'stdafx.h' and MFC before including this file (define _USE_MFC)
+  #error include 'stdafx.h' and MFC before including this file (define _USE_MFC)
   //Note: define _USE_MFC is necessary only if stdafx.h header file
   //from BabylonLib is used.
 
