@@ -1,5 +1,9 @@
-END-USER LICENSE AGREEMENT FOR MICROSOFT SOFTWARE
+Content:
+	1.	Microsoft ATL
+	2.	bccSDK
 
+--------------------------------------------------------------------------------
+END-USER LICENSE AGREEMENT FOR MICROSOFT SOFTWARE
 ACTIVEX(tm) TEMPLATE LIBRARY
 
 IMPORTANT-READ CAREFULLY: This Microsoft End-User License Agreement ("EULA")
@@ -9,7 +13,7 @@ which includes computer software and associated media and printed materials,
 and may include "online" or electronic documentation ("SOFTWARE PRODUCT" or
 "SOFTWARE"). By installing, copying, or otherwise using the SOFTWARE PRODUCT,
 you agree to be bound by the terms of this EULA.
- 
+
 SOFTWARE PRODUCT LICENSE
 
 The SOFTWARE PRODUCT is protected by copyright laws and international
@@ -52,14 +56,14 @@ purposes or (b) install the SOFTWARE PRODUCT on a single computer provided you
 keep the original solely for backup or archival purposes. You may not copy the
 printed materials accompanying the SOFTWARE PRODUCT.
 
-4.  DESCRIPTION OF OTHER RIGHTS AND LIMITATIONS. 
+4.  DESCRIPTION OF OTHER RIGHTS AND LIMITATIONS.
 
 a. Limitations on Reverse Engineering, Decompilation, and Disassembly.	You
 may not reverse engineer, decompile, or disassemble the SOFTWARE, except and
 only to the extent that such activity is expressly permitted by applicable law
 notwithstanding this limitation.
 
-b.  Rental. You may not rent or lease the SOFTWARE PRODUCT. 
+b.  Rental. You may not rent or lease the SOFTWARE PRODUCT.
 
 c. Software Transfer. You may permanently transfer all of your rights under
 this EULA, provided that you retain no copies, you transfer all of the
@@ -71,7 +75,7 @@ d. Termination. Without prejudice to any other rights, Microsoft may
 terminate this EULA if you fail to comply with the terms and conditions of
 this EULA. In such event, you must destroy all copies of the SOFTWARE PRODUCT.
 
-5.  REDISTRIBUTABLE COMPONENTS. 
+5.  REDISTRIBUTABLE COMPONENTS.
 
 a. Sample Code.  In addition to the rights granted in Section 1, Microsoft
 grants you the right to use and modify the source code version of those
@@ -112,13 +116,13 @@ MICROSOFT CORPORATION/ONE MICROSOFT WAY/REDMOND, WA 98052-6 99.
 MISCELLANEOUS
 
 If you acquired this product in the United States, this EULA is governed by
-the laws of the State of Washington. 
+the laws of the State of Washington.
 
 If you acquired this product in Canada, this EULA is governed by the laws of
 the Province of Ontario, Canada. Each of the parties hereto irrevocably
 attorns to the jurisdiction of the courts of the Province of Ontario and
 further agrees to commence any litigation which may arise hereunder in the
-courts located in the Judicial District of York, Province of Ontario. 
+courts located in the Judicial District of York, Province of Ontario.
 
 If this product was acquired outside the United States, then local law may
 apply.
@@ -231,3 +235,26 @@ soit, veuillez contacter la succursale Microsoft desservant votre pays, dont
 l'adresse est fournie dans ce produit, ou ‚crire … : Microsoft Sales
 Information Center, One Microsoft Way, Redmond, Washington 98052-6399.
 
+--------------------------------------------------------------------------------
+bccSDK
+
+Copyright (c) 2005-2008, Darko Miletic
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of ‚
+this software and associated documentation files (the "Software"), to deal in the
+Software without restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+--------------------------------------------------------------------------------
