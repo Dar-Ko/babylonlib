@@ -1,0 +1,6 @@
+$RCSfile: TestAtlCtrl.txt,v $: developer's note
+$Revision: 1.1 $ $Date: 2009/02/20 22:24:44 $
+$Author: ddarko $
+
+\	TestAtlCtrl.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	TestAtlCtrl.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
