@@ -1,45 +1,45 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SrcPoolWin32", "..\SrcPoolWin32.vcproj", "{E4804099-DAA2-4333-A0E9-739E59B40790}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SrcPoolWin32", "..\SrcPoolWin327.vcproj", "{E4804099-DAA2-4333-A0E9-739E59B40790}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestButton", "TestButton\TestButton.vcproj", "{2B56E734-C600-4362-9F93-B9354FBDA13B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestButton", "TestButton\TestButton7.vcproj", "{2B56E734-C600-4362-9F93-B9354FBDA13B}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestStatic", "TestStatic\TestStatic.vcproj", "{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestStatic", "TestStatic\TestStatic7.vcproj", "{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_LibraryTest", "_LibraryTest\_LibraryTest.vcproj", "{5462D664-95DE-47E9-A9EB-92BEA93AB198}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_LibraryTest", "_LibraryTest\_LibraryTest7.vcproj", "{5462D664-95DE-47E9-A9EB-92BEA93AB198}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestComAtl", "TestComAtl\TestComAtl.vcproj", "{F1351ED3-CE5F-4D02-800C-1695330F7F3A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestComAtl", "TestComAtl\TestComAtl7.vcproj", "{F1351ED3-CE5F-4D02-800C-1695330F7F3A}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestComContainer", "TestComContainer\TestComContainer.vcproj", "{573A0AEE-B8B2-46AF-AF1F-BB39591D9F2D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestComContainer", "TestComContainer\TestComContainer7.vcproj", "{573A0AEE-B8B2-46AF-AF1F-BB39591D9F2D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2EAB0B99-F92B-403F-A312-303B7DD34337} = {2EAB0B99-F92B-403F-A312-303B7DD34337}
 		{F1351ED3-CE5F-4D02-800C-1695330F7F3A} = {F1351ED3-CE5F-4D02-800C-1695330F7F3A}
 		{513F1CD8-0600-43F3-818F-B7D0CB21A941} = {513F1CD8-0600-43F3-818F-B7D0CB21A941}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestComAtlNet", "TestComAtlNet\TestComAtlNet.vcproj", "{513F1CD8-0600-43F3-818F-B7D0CB21A941}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestComAtlNet", "TestComAtlNet\TestComAtlNet7.vcproj", "{513F1CD8-0600-43F3-818F-B7D0CB21A941}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestComAtlNetPS", "TestComAtlNet\TestComAtlNetPS.vcproj", "{2EAB0B99-F92B-403F-A312-303B7DD34337}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestComAtlNetPS", "TestComAtlNet\TestComAtlNetPS7.vcproj", "{2EAB0B99-F92B-403F-A312-303B7DD34337}"
 	ProjectSection(ProjectDependencies) = postProject
 		{513F1CD8-0600-43F3-818F-B7D0CB21A941} = {513F1CD8-0600-43F3-818F-B7D0CB21A941}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Util", "..\..\..\..\Util\_Util.vcproj", "{C8E6F84B-F415-458D-BCC8-CD2DFAA3A8AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Util", "..\..\..\..\Util\_Util7.vcproj", "{C8E6F84B-F415-458D-BCC8-CD2DFAA3A8AA}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Doc", "..\..\..\..\Doc\_Doc.vcproj", "{A09C7AF7-9DBA-496B-943A-2228927853D7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Doc", "..\..\..\..\Doc\_Doc7.vcproj", "{A09C7AF7-9DBA-496B-943A-2228927853D7}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
@@ -259,6 +259,7 @@ Global
 		{A09C7AF7-9DBA-496B-943A-2228927853D7}.Release_Unicode_MFC.Build.0 = Release_Unicode|Win32
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
+		_Samples.txt = _Samples.txt
 		_SamplesWin.vsd = _SamplesWin.vsd
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

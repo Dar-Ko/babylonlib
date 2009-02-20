@@ -1,4 +1,4 @@
-$Workfile: _Samples.txt$: developer's note
+$RCSfile: _Samples.txt$: developer's note
 $Revision: 2$ $Date: 2007-07-16 17:43:52$
 $Author: Darko Kolakovic$
 
@@ -16,12 +16,12 @@ Copyright: CommonSoft Inc.
 
 Projects:
 _LibraryTest
-Images
-Resizable	Resizable controls, MFC
-TestButton	Button Control, MFC
-TestComAtl
-TestComContainer
-TestStatic
-Timer
-VerInfoTest
-WinOSVer
+? Images
+? Resizable	Resizable controls, MFC
++ TestButton	Button Control, MFC
++ TestComAtl
++ TestComContainer
++ TestStatic
+? Timer  MSVC6
+? VerInfoTest  MSVC6
+? WinOSVer  MSVC6
