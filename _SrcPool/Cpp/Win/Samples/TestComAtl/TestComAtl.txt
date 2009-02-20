@@ -1,4 +1,4 @@
-$Workfile: S:\_SrcPool\Cpp\Win\Samples\TestComAtl\TestComAtl.txt$: developer's note
+$RCSfile: S:\_SrcPool\Cpp\Win\Samples\TestComAtl\TestComAtl.txt$: developer's note
 $Revision: 1$ $Date: 2007-03-05 17:32:18$
 $Author: Darko Kolakovic$
 
@@ -82,3 +82,4 @@ Visual Studio .Net 2005 8.0 Notes
 \	TestComAtlps.mk	Microsoft Program Maintenance Utility -nmake (mk) file format version 5.0.	Win32
 \	TestComAtl.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	TestComAtl.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	TestComAtl7.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32

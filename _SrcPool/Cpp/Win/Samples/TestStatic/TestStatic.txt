@@ -1,4 +1,4 @@
-$Workfile: TestStatic.txt$: developer's note
+$RCSfile: TestStatic.txt$: developer's note
 $Revision: 2$ $Date: 2005-05-05 22:54:22$
 $Author: Darko$
 
@@ -21,3 +21,8 @@ Ref: MSDN Article Q125750
 warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
   Microsoft Visual C++ 6.0 or more
 feature can be enabled/disabled by Tools | Options | Debug | "Debug commands invoke Edit and Continue" check box.
+
+
+\	TestStatic.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	TestStatic.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	TestStatic7.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32

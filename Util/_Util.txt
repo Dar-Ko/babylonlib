@@ -1,4 +1,4 @@
-$Workfile: S:\Util\_Util.txt$: developer's note
+$RCSfile: S:\Util\_Util.txt$: developer's note
 $Revision: 1$ $Date: 2007-07-11 12:46:01$
 $Author: Darko Kolakovic$
 
@@ -9,3 +9,4 @@ Copyright: CommonSoft Inc.
 
 \	_Util.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	_Util.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	_Util7.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
