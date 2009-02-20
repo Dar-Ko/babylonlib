@@ -35,11 +35,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestComAtlNetPS", "TestComA
 		{513F1CD8-0600-43F3-818F-B7D0CB21A941} = {513F1CD8-0600-43F3-818F-B7D0CB21A941}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Util", "G:\MyDocuments\BabelLib\Util\_Util.vcproj", "{C8E6F84B-F415-458D-BCC8-CD2DFAA3A8AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Util", "..\..\..\..\Util\_Util.vcproj", "{C8E6F84B-F415-458D-BCC8-CD2DFAA3A8AA}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Doc", "G:\MyDocuments\BabelLib\Doc\_Doc.vcproj", "{A09C7AF7-9DBA-496B-943A-2228927853D7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Doc", "..\..\..\..\Doc\_Doc.vcproj", "{A09C7AF7-9DBA-496B-943A-2228927853D7}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
