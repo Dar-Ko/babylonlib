@@ -4,16 +4,14 @@ $Author: Darko Kolakovic$
 
 Samples and test suites for the various functions, classes and algorithms using Babylon Library and Microsoft Windows API.
 
-Microsoft Visual C++ 6.0 debugger does not support the symbol format (.pdb) intriduced with system symbols of Windows XP Service Pack 2 and Windows Server 2003 Service Pack 1. See http://www.debuginfo.com/tools/symgetex.html for MSVC 6 plug-in for downloading symbols from a server.
+Microsoft Visual C++ 6.0 debugger does not support the symbol format (.pdb) introduced with system symbols of Windows XP Service Pack 2 and Windows Server 2003 Service Pack 1. See http://www.debuginfo.com/tools/symgetex.html for MSVC 6 plug-in for downloading symbols from a server.
 
 Copyright: CommonSoft Inc.
 1998-02-01 Darko Kolakovic
 
 
-\	_Samples.dsw	Microsoft Developer Studio Workspace (DSW) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	_Samples.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
-\	_Samples.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	_SamplesWin.dsw	Microsoft Developer Studio Workspace (DSW) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	_SamplesWin.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
 
 Projects:
 _LibraryTest
