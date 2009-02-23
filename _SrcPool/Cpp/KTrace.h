@@ -304,15 +304,23 @@
       #ifndef _AFX
         #define _AFX 19610706 //Microsoft Application Framework Classes (AFX/MFC)
       #endif
-    #endif
+    #endif //__AFX_H__
 
-    #ifndef _AFX /*MFC not included and all TRACE macros are undefined*/
-      #ifdef _ATL //Active Template Library
-        #include "KTraceAtl.h" //Convert MFC macros to ATL
-      #endif
+    /*ATL/WTL version without MFC                                             */
+    #ifdef __cplusplus
+      #ifndef _AFX  //!AFX/MFC
+        #ifdef _ATL //Active Template Library (ATL). See also: <atldef.h>
+          #include "KTraceAtl.h" //Convert MFC macros to ATL
+        #endif
+        #ifdef _ATL_VER //Active Template Library (ATL). See also: <atldef.h>
+          #include "KTraceAtl.h" //Convert MFC macros to ATL
+        #endif
+      #endif //!AFX/MFC
+    #endif //__cplusplus
 
-      /* Windows SDK version                                                    */
-
+    #if !defined(_AFX) && !defined(_ATL) /*MFC and ATL not included and all 
+                                           TRACE macros are undefined*/
+      /*Windows SDK version                                                   */
       #ifdef _MFC_VER
         #error Use MFC debugging macros
       #endif
@@ -412,24 +420,23 @@
       #ifndef __cplusplus
         #error Requires C++ compilation
       #endif
-      #ifndef _MFC_VER
-        #error Requires MFC library
-      #endif
 
-      /*Dumps a formatted string and the line position of the tracing
-        macro. The macro is a convenient way to navigating the code quickly
-        while debugging.
-        Requires Debug build (_DEBUG have to be defined).
-        In the Release environment, it does nothing.
+      #ifdef _MFC_VER
+        /*Dumps a formatted string and the line position of the tracing
+          macro. The macro is a convenient way to navigating the code quickly
+          while debugging.
+          Requires Debug build (_DEBUG have to be defined).
+          In the Release environment, it does nothing.
 
-        TODO: Unicode version, ATL version
-       */
-      #define TRACEINFO ::AfxTrace(_T("%s(%i): "), __TFILE__, __LINE__); ::AfxTrace
-
-       /* TODO: MS MFC version for log file */
-       /*
-        ...
+          TODO: Unicode version, ATL version
         */
+        #define TRACEINFO ::AfxTrace(_T("%s(%i): "), __TFILE__, __LINE__); ::AfxTrace
+
+        /* TODO: MS MFC version for log file */
+        /*
+          ...
+          */
+      #endif
 
     /* ....................................................................*/
     #endif /*!__AFX_H__ */
