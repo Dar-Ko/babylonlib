@@ -6,13 +6,16 @@
 
 #pragma once
 #include "resource.h"
+#include "KMsgMapNotify.h" //Notification message handlers
 
 ///////////////////////////////////////////////////////////////////////////////
 //Note: uses Microsoft Active Template Library (ATL);
 //      Windows Template Library (WTL);
 //      Microsoft Windows specific (Win32).
-class CMainDlg : public CDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
-		public CMessageFilter, public CIdleHandler
+class CMainDlg : public CDialogImpl<CMainDlg>,
+                 public CUpdateUI<CMainDlg>,
+		             public CMessageFilter,
+                 public CIdleHandler
 {
 public:
 	enum { IDD = IDD_MAINDLG };
