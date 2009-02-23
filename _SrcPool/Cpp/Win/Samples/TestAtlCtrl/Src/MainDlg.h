@@ -2,9 +2,15 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+// Group=Examples Windows
+
 #pragma once
 #include "resource.h"
 
+///////////////////////////////////////////////////////////////////////////////
+//Note: uses Microsoft Active Template Library (ATL);
+//      Windows Template Library (WTL);
+//      Microsoft Windows specific (Win32).
 class CMainDlg : public CDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
 		public CMessageFilter, public CIdleHandler
 {

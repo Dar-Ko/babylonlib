@@ -1,25 +1,27 @@
 /*$RCSfile: TestAtlDialogApp.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/02/23 19:12:11 $
+  $Revision: 1.3 $ $Date: 2009/02/23 20:06:44 $
   $Author: ddarko $
 
   Application's starting point
   2008-12-15
  */
 
+// Group=Examples Windows
+
 #include "stdatl.h"
+#include "MainDlg.h" //CMainDlg class
 
-#include "resource.h"
-
-//#include "aboutdlg.h"
-#include "MainDlg.h" //CMainDlg template
-
-CAppModule _Module;
+CAppModule _Module; //the main application's module
 
 //-----------------------------------------------------------------------------
 /*
+  Note: uses Microsoft Active Template Library (ATL);
+        Windows Template Library (WTL);
+        Microsoft Windows specific (Win32).
  */
 int Run(LPTSTR /*lpstrCmdLine*/ = NULL,
-        int nCmdShow = SW_SHOWDEFAULT)
+        int nCmdShow = SW_SHOWDEFAULT
+        )
 {
 ATLTRACE(_T("Run()\n"));
 CMessageLoop theLoop;
@@ -43,11 +45,15 @@ return nRet;
 
 //-----------------------------------------------------------------------------
 /*
+  Note: uses Microsoft Active Template Library (ATL);
+        Windows Template Library (WTL);
+        Microsoft Windows specific (Win32).
  */
 int WINAPI _tWinMain(HINSTANCE hInstance,
                      HINSTANCE /*hPrevInstance*/,
                      LPTSTR lpstrCmdLine,
-                     int nCmdShow)
+                     int nCmdShow
+                     )
 {
 ATLTRACE(_T("_tWinMain()\n"));
 HRESULT hRes = ::CoInitialize(NULL);
@@ -75,6 +81,9 @@ return nRet;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestAtlDialogApp.cpp,v $
+ * Revision 1.3  2009/02/23 20:06:44  ddarko
+ * Test application for  ATL/WTL controls
+ *
  * Revision 1.2  2009/02/23 19:12:11  ddarko
  * Modified generic main
  *

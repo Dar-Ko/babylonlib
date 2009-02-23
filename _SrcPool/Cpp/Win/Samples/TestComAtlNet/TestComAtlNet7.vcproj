@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				OutputFile="$(OutDir)/TestComAtlNet.exe"
+				OutputFile="$(OutDir)/$(TargetFileName)"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
@@ -117,7 +117,7 @@ goto VCReportError
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				OutputFile="$(OutDir)/TestComAtlNet.exe"
+				OutputFile="$(OutDir)/$(TargetFileName)"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
@@ -199,7 +199,7 @@ goto VCReportError
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				OutputFile="$(OutDir)/TestComAtlNet.exe"
+				OutputFile="$(OutDir)/$(TargetFileName)"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
@@ -276,7 +276,7 @@ goto VCReportError
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="TRUE"
-				OutputFile="$(OutDir)/TestComAtlNet.exe"
+				OutputFile="$(OutDir)/$(TargetFileName)"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"

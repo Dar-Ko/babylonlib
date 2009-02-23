@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../..;../../32;"
+				AdditionalIncludeDirectories="../../..;../../32;../../WTL/include;./Src;./Res;../Generic/Src;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;_DEBUG"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -59,7 +59,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
 				Culture="4105"
-				AdditionalIncludeDirectories="$(IntDir)"/>
+				AdditionalIncludeDirectories="$(IntDir);../../WTL/include;"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -80,7 +80,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../..;../../32;"
+				AdditionalIncludeDirectories="../../..;../../32;../../WTL/include;./Src;./Res;../Generic/Src;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;NDEBUG"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="2"
@@ -118,7 +118,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
 				Culture="4105"
-				AdditionalIncludeDirectories="$(IntDir)"/>
+				AdditionalIncludeDirectories="$(IntDir);../../WTL/include;"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -138,26 +138,47 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath=".\AboutDlg.cpp">
+				RelativePath=".\Src\MainDlg.cpp">
 			</File>
 			<File
-				RelativePath=".\MainDlg.cpp">
+				RelativePath=".\Src\stdatl.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\TestAtlCtrl.cpp">
+				RelativePath="..\Generic\Src\TestAtlAboutDlg.cpp">
+			</File>
+			<File
+				RelativePath="..\Generic\Src\TestAtlDialogApp.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc">
 			<File
-				RelativePath=".\AboutDlg.h">
+				RelativePath="..\..\32\KMsgMapNotify.h">
 			</File>
 			<File
-				RelativePath=".\MainDlg.h">
+				RelativePath=".\Src\MainDlg.h">
 			</File>
 			<File
-				RelativePath=".\resource.h">
+				RelativePath=".\Res\resource.h">
+			</File>
+			<File
+				RelativePath=".\Src\stdatl.h">
+			</File>
+			<File
+				RelativePath="..\Generic\Src\TestAtlAboutDlg.h">
 			</File>
 		</Filter>
 		<Filter
@@ -167,7 +188,7 @@
 				RelativePath=".\res\TestAtlCtrl.ico">
 			</File>
 			<File
-				RelativePath=".\TestAtlCtrl.rc">
+				RelativePath=".\Res\TestAtlCtrl.rc">
 			</File>
 		</Filter>
 		<Filter
@@ -175,6 +196,9 @@
 			Filter="*.log"
 			SourceControlFiles="FALSE">
 		</Filter>
+		<File
+			RelativePath=".\TestAtlCtrl.txt">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

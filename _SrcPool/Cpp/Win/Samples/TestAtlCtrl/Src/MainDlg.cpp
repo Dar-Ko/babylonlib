@@ -3,9 +3,9 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "stdatl.h"
-#include "resource.h"
 
-#include "aboutdlg.h"
+#include "resource.h"
+#include "TestAtlAboutDlg.h" //CAboutDlg class
 #include "MainDlg.h"
 
 BOOL CMainDlg::PreTranslateMessage(MSG* pMsg)
