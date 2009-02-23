@@ -1,4 +1,4 @@
-/*$Workfile: KDbgMacrAtl.h$: header file
+/*$RCSfile: KDbgMacrAtl.h$: header file
   $Revision: 1.3 $ $Date: 2008/09/09 18:18:48 $
   $Author: dkolakovic $
 
@@ -23,13 +23,13 @@
   #endif
 
 
-  /*List Microsoft  Active Template Library macros*/
+  /*List Microsoft Active Template Library macros*/
   #ifdef _ATL
     #pragma message ("Included Active Template Library atldef.h (ATL).")
   #endif
   #ifdef _ATL_VER
     #ifdef __cplusplus
-      #pragma message ("Included Active Template Library (ATL).")
+      #pragma message ("Included Active Template Library (ATL)")
     #else
       #pragma message (__FILE__ " : warning: Specified use of ATL in a C code.")
     #endif
@@ -91,6 +91,32 @@
   #endif
 
 #endif /*_MSC_VER */
+
+ /*List Windows Template Library (WTL) macros*/
+#ifdef _WTL_VER
+    #ifdef __cplusplus
+      #pragma message ("Included Windows Template Library (WTL)")
+    #else
+      #pragma message (__FILE__ " : warning: Specified use of WTL in a C code.")
+    #endif
+
+   /*Current version of Windows Template Library (WTL).
+     Note: Uses Active Template Library (ATL)
+     See also: wtl/include/atlapp.h, http://wtl.sourceforge.net
+    */
+  const int g__WTL_VER = _WTL_VER;
+  #if _WTL_VER == 0x0750 /*Windows Template Library version 7.5*/
+    #pragma message ("  ver. 7.5")
+    #define DBGWTL_VER 0x0750 /*Trace WTL version*/
+  #endif
+  #if _WTL_VER == 0x0800 /*Windows Template Library version 8.0*/
+    #pragma message ("  ver. 8.0")
+    #define DBGWTL_VER 0x0800 /*Trace WTL version*/
+  #endif
+  #ifndef DBGWATL_VER
+    #pragma message ("  ver. unknown")
+  #endif
+#endif /*_WTL_VER */
 
 /* ///////////////////////////////////////////////////////////////////////// */
 #endif /*_KDBGMACRATL_H_                                                     */
