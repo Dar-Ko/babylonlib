@@ -178,6 +178,9 @@
 				RelativePath=".\Src\stdatl.h">
 			</File>
 			<File
+				RelativePath="..\Generic\Res\TestAboutDlg.h">
+			</File>
+			<File
 				RelativePath="..\Generic\Src\TestAtlAboutDlg.h">
 			</File>
 		</Filter>
@@ -185,7 +188,10 @@
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest">
 			<File
-				RelativePath=".\res\TestAtlCtrl.ico">
+				RelativePath="..\Generic\Res\SrcPool.ico">
+			</File>
+			<File
+				RelativePath="..\Generic\Res\TestAboutDlg.rc">
 			</File>
 			<File
 				RelativePath=".\Res\TestAtlCtrl.rc">
@@ -201,5 +207,8 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="\MyDocuments\BabelLib\_SrcPool\Cpp\Win\Samples\Generic\Res\TestAboutDlg.rc"/>
 	</Globals>
 </VisualStudioProject>
