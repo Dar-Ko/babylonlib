@@ -113,7 +113,7 @@
     #pragma message ("  ver. 8.0")
     #define DBGWTL_VER 0x0800 /*Trace WTL version*/
   #endif
-  #ifndef DBGWATL_VER
+  #ifndef DBGWTL_VER
     #pragma message ("  ver. unknown")
   #endif
 #endif /*_WTL_VER */
