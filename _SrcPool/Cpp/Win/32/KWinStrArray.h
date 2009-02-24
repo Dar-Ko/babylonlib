@@ -1,5 +1,5 @@
-*$RCSfile: KWinStrArray.h,v $: header file
-  $Revision: 1.5 $ $Date: 2009/02/06 19:04:31 $
+/*$RCSfile: KWinStrArray.h,v $: header file
+  $Revision: 1.6 $ $Date: 2009/02/24 21:43:26 $
   $Author: ddarko $
 
   Array of CString objects.
@@ -78,7 +78,7 @@
       /*CStringArray class supports arrays of CString objects.
         CStringT is the base class for the MFC/ATL CString class.
 
-        Note: CStringArray copy construcor and assigment operator are private
+        Note: CStringArray copy constructor and assigment operator are private
         methods.
 
         Note: this implementation should be used when the array contains a large
@@ -95,6 +95,9 @@
 #endif  //_KWINSTRARRAY_H_
 /*****************************************************************************
  * $Log: KWinStrArray.h,v $
+ * Revision 1.6  2009/02/24 21:43:26  ddarko
+ * typo
+ *
  * Revision 1.5  2009/02/06 19:04:31  ddarko
  * Typos
  *
