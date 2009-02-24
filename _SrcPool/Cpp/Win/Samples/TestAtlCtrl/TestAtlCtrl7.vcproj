@@ -59,7 +59,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
 				Culture="4105"
-				AdditionalIncludeDirectories="$(IntDir);../../WTL/include;"/>
+				AdditionalIncludeDirectories="&quot;$(IntDir)&quot;;../../WTL/include;G:\MyDocuments\BabelLib\_SrcPool\Cpp\Win\WTL\include"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
@@ -118,7 +118,7 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="NDEBUG"
 				Culture="4105"
-				AdditionalIncludeDirectories="$(IntDir);../../WTL/include;"/>
+				AdditionalIncludeDirectories="&quot;$(IntDir)&quot;;../../WTL/include;G:\MyDocuments\BabelLib\_SrcPool\Cpp\Win\WTL\include"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool

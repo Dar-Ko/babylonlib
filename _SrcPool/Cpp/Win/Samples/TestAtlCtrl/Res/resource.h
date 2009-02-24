@@ -4,7 +4,6 @@
 //
 #define IDR_MAINFRAME                   128
 #define IDD_MAINDLG                     129
-#define IDC_LIST3                       1002
 #define IDC_LISTTEST                    1002
 
 // Next default values for new objects
