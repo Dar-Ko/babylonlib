@@ -1,5 +1,5 @@
-/*$Workfile: KIpAddress.h$: header file
-  $Revision: 1.1 $ $Date: 2009/02/25 19:20:38 $
+/*$RCSfile: KIpAddress.h,v $: header file
+  $Revision: 1.2 $ $Date: 2009/02/25 19:22:32 $
   $Author: ddarko $
 
   IP address type definitions
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KIPADDRESS_H_
-    /*Workfile: $ sentry*/
+    /*RCSfile: $ sentry*/
   #define _KIPADDRESS_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
@@ -53,8 +53,8 @@ typedef struct tagIPv6Address IPv6Address;
 #endif /* _KIPADDRESS_H_                                                     */
 /******************************************************************************
  * $Log: KIpAddress.h,v $
- * Revision 1.1  2009/02/25 19:20:38  ddarko
- * Copied from local repository
+ * Revision 1.2  2009/02/25 19:22:32  ddarko
+ * *** empty log message ***
  *
  *  2    Biblioteka1.1         2002-05-06 15:20:56  Darko Kolakovic
  *  1    Biblioteka1.0         2002-04-09 13:18:35  Darko Kolakovic
