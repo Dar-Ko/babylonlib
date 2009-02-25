@@ -51,12 +51,24 @@
 #if _MSC_VER >= 1300     /*Microsoft Visual C++ .Net 2002, 32-bit, version 7.0*/
 /*D.K. FixMe!  quick hack; requires redo  */
       /* Signed.  */
-      #ifndef int8_t
-        #define int8_t int8_t
-        typedef __int8   int8_t;
-        typedef __int16  int16_t;
-        typedef __int32  int32_t;
+      #ifndef __int8_t_defined
+        #define __int8_t_defined
+        #ifndef int8_t
+          typedef __int8 int8_t;
+          #define int8_t int8_t
+        #endif
+        #ifndef int16_t
+          typedef __int16  int16_t;
+          #define int16_t int16_t
+        #endif
+        #ifndef int32_t
+          typedef __int32  int32_t;
+          #define int32_t int32_t
+        #endif
+        #ifndef int64_t
         typedef __int64  int64_t;
+          #define int64_t int64_t
+        #endif
       #endif
 
       /* Unsigned.  */
