@@ -48,6 +48,39 @@
 
   #if !defined(_STDINT_H_)
     #if defined(__NATIVE_32_BIT__)
+#if _MSC_VER >= 1300     /*Microsoft Visual C++ .Net 2002, 32-bit, version 7.0*/
+/*D.K. FixMe!  quick hack; requires redo  */
+      /* Signed.  */
+      #ifndef int8_t
+        #define int8_t int8_t
+        typedef __int8   int8_t;
+        typedef __int16  int16_t;
+        typedef __int32  int32_t;
+        typedef __int64  int64_t;
+      #endif
+
+      /* Unsigned.  */
+      #ifndef __uint8_t_defined
+        #define __uint8_t_defined
+        #ifndef uint8_t
+          typedef unsigned __int8   uint8_t;
+          #define uint8_t uint8_t
+        #endif
+        #ifndef uint16_t
+          typedef unsigned __int16  uint16_t;
+          #define uint16_t uint16_t
+        #endif
+        #ifndef uint32_t
+          typedef unsigned __int32  uint32_t;
+          #define uint32_t uint32_t
+        #endif
+        #ifndef uint64_t
+          typedef unsigned __int64  uint64_t;
+          #define uint64_t uint64_t
+        #endif
+      #endif
+
+#else /*not MSVC 7.0 *.
       /* Signed.  */
       #ifndef int8_t
         #define int8_t int8_t
@@ -66,9 +99,9 @@
         #define uint8_t uint8_t
         typedef unsigned short int     uint16_t;
         typedef unsigned long          uint32_t;
-  #if defined(__GNUC__)
-        typedef unsigned long long int uint64_t;
-  #endif
+        #if defined(__GNUC__)
+          typedef unsigned long long int uint64_t;
+        #endif
       #endif
 
       /*@ least*/
@@ -115,6 +148,9 @@
       typedef long long int          intmax_t;
       typedef unsigned long long int uintmax_t;
   #endif
+
+#endif /* _MSC_VER >= 1300 */
+
   /*TODO: Borrowed from GNUC temporarely D.K. replace with own csts*/
   /* The ISO C99 standard specifies that in C++ implementations these
     macros should only be defined if explicitly requested.  */
