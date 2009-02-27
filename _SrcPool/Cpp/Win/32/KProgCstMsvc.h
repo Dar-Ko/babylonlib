@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/01/08 22:02:14 $
+  $Revision: 1.4 $ $Date: 2009/02/27 21:55:17 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -130,6 +130,32 @@
     #define UNUSED_ARG _UNUSED
   #endif
 
+#if  MSVC_VER < 1400
+  //Older version than Microsoft Visual C/C++ 2005, version 8.0
+  typedef int errno_t; //global error type
+  #define errno_t errno_t
+  /*Set the value of the errno global variable.
+    Possible values of errno are defined in <errno.h>.
+    Required header is <stdlib.h>.
+    Parameters
+      [in] value    The new value of errno.
+
+   See also: _get_errno, errno, _doserrno, _sys_errlist, and _sys_nerr
+   */
+  #define _set_errno(err) (errno = (err))
+  /*Gets the current value of the errno global variable.
+    Possible values of errno are defined in <errno.h>.
+    Required header is <stdlib.h>.
+    Parameters
+      [out] pValue    A pointer to an integer to be filled with the current
+                      value of the errno variable.
+
+    See also: _set_errno, errno, _doserrno, _sys_errlist, and _sys_nerr
+   */
+  #define _get_errno(perr) (*perr = errno)
+#endif
+
+
 //Note   When porting DLL source code from Win16 to Win32, replace each instance of __export with __declspec(dllexport).
 
 /*Microsoft 16-bit compiler---------------------------------------------------*/
@@ -222,6 +248,9 @@
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.4  2009/02/27 21:55:17  ddarko
+ * errno_t
+ *
  * Revision 1.3  2009/01/08 22:02:14  ddarko
  * *** empty log message ***
  *
