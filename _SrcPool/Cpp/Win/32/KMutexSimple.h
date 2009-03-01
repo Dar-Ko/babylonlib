@@ -1,5 +1,5 @@
-/*$RCSfile: KWinMutex.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/03/01 04:19:48 $
+/*$RCSfile: KMutexSimple.h,v $: header file
+  $Revision: 1.1 $ $Date: 2009/03/01 04:22:51 $
   $Author: ddarko $
 
   Single instance Windows application
@@ -8,7 +8,7 @@
  */
 // Group=Windows
 
-//$RCSfile: KWinMutex.h,v $ sentry
+//$RCSfile: KMutexSimple.h,v $ sentry
 #ifndef __KWINMUTEX_H__
   #define __KWINMUTEX_H__
 
@@ -72,7 +72,10 @@ ASSERT((szMutexName != NULL) && (szMutexName[0] != _T('\0')));
 ///////////////////////////////////////////////////////////////////////////////
 #endif //__KWINMUTEX_H__
 /*****************************************************************************
- * $Log: KWinMutex.h,v $
+ * $Log: KMutexSimple.h,v $
+ * Revision 1.1  2009/03/01 04:22:51  ddarko
+ * Created
+ *
  * Revision 1.1  2009/03/01 04:19:48  ddarko
  * *** empty log message ***
  *
