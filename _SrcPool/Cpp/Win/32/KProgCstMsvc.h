@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/02/27 21:55:17 $
+  $Revision: 1.5 $ $Date: 2009/03/01 00:30:48 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -156,7 +156,9 @@
 #endif
 
 
-//Note   When porting DLL source code from Win16 to Win32, replace each instance of __export with __declspec(dllexport).
+/*Note   When porting DLL source code from Win16 to Win32, replace each instance
+  of __export with __declspec(dllexport).
+ */
 
 /*Microsoft 16-bit compiler---------------------------------------------------*/
 #ifdef MSC        /*Microsoft C - Windows 3.0 Compiler 16-bit*/
@@ -248,8 +250,8 @@
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
- * Revision 1.4  2009/02/27 21:55:17  ddarko
- * errno_t
+ * Revision 1.5  2009/03/01 00:30:48  ddarko
+ * formatting
  *
  * Revision 1.3  2009/01/08 22:02:14  ddarko
  * *** empty log message ***
