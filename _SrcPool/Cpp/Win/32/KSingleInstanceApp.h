@@ -16,7 +16,7 @@
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
 #endif
-#include <afxmt.h> //CCriticalSection class
+//#include <afxmt.h> //CCriticalSection class
 
 ///////////////////////////////////////////////////////////////////////////////
 // CSingleInstanceApp class is the base class from which you derive a 
