@@ -1,5 +1,5 @@
 /*$RCSfile: KVerComCtl32.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/03/01 03:38:42 $
+  $Revision: 1.2 $ $Date: 2009/03/01 03:40:27 $
   $Author: ddarko $
 
   Obtains version information about a specified module
@@ -29,7 +29,7 @@ DWORD GetVersionComCtl32()
 HMODULE hModule = ::GetModuleHandleA("Comctl32.dll");
 ASSERT(hModule != NULL);
 
-DLLGETVERSIONPROC  pfDllGetVersion =
+DLLGETVERSIONPROC pfDllGetVersion =
    reinterpret_cast<DLLGETVERSIONPROC>(::GetProcAddress(hModule,
                                                         "DllGetVersion"));
 DWORD dwVersion = MAKELONG(0, 4); //default result
@@ -38,10 +38,10 @@ if(pfDllGetVersion != NULL)
   {
   DLLVERSIONINFO dvi = { sizeof(DLLVERSIONINFO), 0, 0, 0, 0 };
   HRESULT hr = (*pfDllGetVersion)(&dvi);
-  if ( SUCCEEDED(hr) )
+  if(SUCCEEDED(hr))
     {
-    ATLASSERT(dvi.dwMajorVersion <= 0xFFFF);
-    ATLASSERT(dvi.dwMinorVersion <= 0xFFFF);
+    ASSERT(dvi.dwMajorVersion <= 0xFFFF);
+    ASSERT(dvi.dwMinorVersion <= 0xFFFF);
     dwVersion = MAKELONG(dvi.dwMinorVersion, dvi.dwMajorVersion);
     }
   }
@@ -52,6 +52,9 @@ return dwVersion;
 /////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KVerComCtl32.h,v $
+ * Revision 1.2  2009/03/01 03:40:27  ddarko
+ * formatting
+ *
  * Revision 1.1  2009/03/01 03:38:42  ddarko
  * Created
  *
