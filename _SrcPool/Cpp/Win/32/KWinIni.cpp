@@ -1,5 +1,5 @@
 /*$Workfile: KWinIni.cpp$: implementation file
-  $Revision: 1.7 $ $Date: 2009/02/17 21:08:06 $
+  $Revision: 1.8 $ $Date: 2009/03/01 00:31:58 $
   $Author: ddarko $
 
   Configuration file handler (.INI format)
@@ -65,7 +65,7 @@
 CString GetIniSection(LPCTSTR szFilename, //[in] name of the initialization file.
                     //If this parameter does not contain a full path to the file,
                     //the system searches for the file in the Windows directory.
-                      LPCTSTR szSection   //[in] null-terminated string that 
+                      LPCTSTR szSection   //[in] null-terminated string that
                     //specifies the name of the section containing the key name.
                       )
 {
@@ -78,9 +78,9 @@ if((szFilename != NULL)        &&
    (szSection != NULL)         &&
    (szSection[0] != _T('\0'))   )
   {
-  long lCount; //the number of characters copied to the buffer, not including 
+  long lCount; //the number of characters copied to the buffer, not including
                //the terminating null character. If the buffer is not large enough
-               //to contain all the key name and value pairs associated with 
+               //to contain all the key name and value pairs associated with
                //the named section, the return value is equal to size of the buffer
                //used minus two.
   lCount = GetPrivateProfileSection(szSection,
@@ -105,7 +105,7 @@ return strResult;
      Key3=Value3
      ...
   Section names does not include enclosing brackets. Heading and trailing white space
-  is truncated. As a consequence of former, section names that contains only white 
+  is truncated. As a consequence of former, section names that contains only white
   space or empty strings will stop section enumeration.
   Section name include filter szFilter is case sensitive.
 
@@ -202,7 +202,7 @@ if((szFilename != NULL) && (szFilename[0] != _T('\0')) )
     #ifdef _USE_ATLSIMPLEARRAY
       iSectionCount = strResult.GetSize();
     #else
-      iSectionCount = strResult.GetCount();
+      iSectionCount = (ini)strResult.GetCount();
     #endif
     }
 
@@ -218,7 +218,7 @@ return iSectionCount; //Return number of sections
   The string is limited to the 256 characters.
   The function is not case-sensitive; the section name can be a combination
   of uppercase and lowercase letters.
-  A section in the initialization file must have the following form: 
+  A section in the initialization file must have the following form:
 
     [section]
     key=string
@@ -257,7 +257,7 @@ CString strResult;
 if((szFilename != NULL) &&
    (szFilename[0] != _T('\0')) )
   {
-  long lCount; //the number of characters copied to the buffer, not including 
+  long lCount; //the number of characters copied to the buffer, not including
                //the terminating null character.
   /*Note: If neither section name nor key name is NULL and the supplied
     destination buffer is too small to hold the requested string, the string
@@ -272,7 +272,7 @@ if((szFilename != NULL) &&
   lCount = GetPrivateProfileString(szSection,
                                   szKey,
                                   _T(""), //default string, if the key
-                                          //cannot be found 
+                                          //cannot be found
                                   strResult.GetBuffer(VAL_SIZE),
                                   VAL_SIZE,
                                   szFilename);
@@ -291,7 +291,7 @@ return strResult;
     [section]
     key=value
 
-  Returns the integer value of the string that follows the specified entry if 
+  Returns the integer value of the string that follows the specified entry if
   the function is successful. When you retrieve a signed integer, you should
   cast the value into an int.
   The return value is the value of the nDefault parameter if the function does
@@ -318,8 +318,8 @@ unsigned int GetIniValue(LPCTSTR szFilename, //[in] name of the initialization f
 TRACE(_T("GetIniValue(int)\n"));
 
 ASSERT(szFilename != NULL);
-return ::GetPrivateProfileInt(szSection, 
-                              szKey, 
+return ::GetPrivateProfileInt(szSection,
+                              szKey,
                               nDefault,
                               szFilename);
 }
@@ -346,9 +346,9 @@ return ::GetPrivateProfileInt(szSection,
   History: Ported from Bernie Madigan <bernie@ testrun.cjb.net> Visual Basic source.
  */
 CString ReadIniValue(LPCTSTR szFilename, //[in] name of the initialization file.
-                     CString strSection, //[in] the name of the section containing 
+                     CString strSection, //[in] the name of the section containing
                      //the key name or an empty string.
-                     CString strKey      //[in] the name of the key whose associated 
+                     CString strKey      //[in] the name of the key whose associated
                      //string is to be retrieved.
                     )
 {
@@ -394,7 +394,7 @@ if((szFilename != NULL)          &&
     {
     /*Assupmtion is that configuration files are smaller than 0xffffffff bytes.
       If expected file size is larger than INVALID_FILE_SIZE = 0xffffffff bytes,
-      GetFileSizeEx() have to be used or 
+      GetFileSizeEx() have to be used or
       GetFileSize(HANDLE hFile, LPDWORD lpFileSizeHigh).
      */
     DWORD dwFileSize = ::GetFileSize(hFile, NULL);
@@ -402,7 +402,7 @@ if((szFilename != NULL)          &&
       {
       //Failed to obtain file size because file is larger than 0xffffffff bytes
       //or because of some other I/O error.
-      TRACE1(_T("  GetFileSize failed with error %0.8X!\n"), 
+      TRACE1(_T("  GetFileSize failed with error %0.8X!\n"),
               HRESULT_FROM_WIN32(::GetLastError()));
       }
     else
@@ -413,7 +413,7 @@ if((szFilename != NULL)          &&
       if (dwFileSize > MAX_SIZE)
         {
       //TODO: create file memory map! D.K.
-        TRACE1(_T("  TODO: Files large than 64kB requires memory mapped file! (size is %d bytes).\n"), 
+        TRACE1(_T("  TODO: Files large than 64kB requires memory mapped file! (size is %d bytes).\n"),
               dwFileSize);
       //TODO: error message
         strResult = _T("<configuration file is too big>");
@@ -422,7 +422,7 @@ if((szFilename != NULL)          &&
         }
       if (dwFileSize <= MIN_SIZE)
         {
-        TRACE1(_T("  File with %d bytes doesn't contain key values!\n"), 
+        TRACE1(_T("  File with %d bytes doesn't contain key values!\n"),
                dwFileSize);
         strResult = _T(""); //Return no value
         CloseHandle(hFile);
@@ -431,14 +431,14 @@ if((szFilename != NULL)          &&
       //Get file encoding
       byte cBom[sizeof(uint32_t)];
       DWORD nBytesRead = 0;
-      if (::ReadFile(hFile, 
-                     cBom, 
-                     sizeof(wchar_t), 
-                     &nBytesRead, 
+      if (::ReadFile(hFile,
+                     cBom,
+                     sizeof(wchar_t),
+                     &nBytesRead,
                      NULL
                      ) == FALSE)
           {
-          TRACE1(_T("  ReadFile failed with error %0.8X!\n"), 
+          TRACE1(_T("  ReadFile failed with error %0.8X!\n"),
                   HRESULT_FROM_WIN32(::GetLastError()));
           //TODO: error message
           strResult = _T(""); //Return no value
@@ -451,7 +451,7 @@ if((szFilename != NULL)          &&
         //TOOD: conversion from  Big Endian
         TRACE(_T("  Big Endian Unicode encoding is not supported!\n"));
         //TODO: error message
-        strResult = _T("<encoding is not supported>"); 
+        strResult = _T("<encoding is not supported>");
         CloseHandle(hFile);
         return strResult;
         }
@@ -461,25 +461,25 @@ if((szFilename != NULL)          &&
 
         }
 
-       //if 
+       //if
       nBytesRead = MAX_SIZE;
       //end-of-file is reached when the number of bytes read is less than asked
-      while(nBytesRead == (MAX_SIZE * sizeof(TCHAR))) 
+      while(nBytesRead == (MAX_SIZE * sizeof(TCHAR)))
         {
-        if (::ReadFile(hFile, 
-                       strResult.GetBuffer(MAX_SIZE), 
-                       MAX_SIZE * sizeof(TCHAR), 
-                       &nBytesRead, 
+        if (::ReadFile(hFile,
+                       strResult.GetBuffer(MAX_SIZE),
+                       MAX_SIZE * sizeof(TCHAR),
+                       &nBytesRead,
                        NULL
                        ) == FALSE)
           {
-          TRACE1(_T("  ReadFile failed with error %0.8X!\n"), 
+          TRACE1(_T("  ReadFile failed with error %0.8X!\n"),
                   HRESULT_FROM_WIN32(::GetLastError()));
           break;
           }
 
         }
-        
+
       }
     //TODO
 /*
@@ -688,6 +688,9 @@ return false;
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIni.cpp,v $
+ Revision 1.8  2009/03/01 00:31:58  ddarko
+ explicit cast
+
  Revision 1.7  2009/02/17 21:08:06  ddarko
  Fixed typos
 
