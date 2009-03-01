@@ -292,8 +292,8 @@ TRACE2("  result = %d (%X)\n", nResult, result);
 
 //-----------------------------------------------------------------------------
 /*Enables Dynamic Data Exchange (DDE). By enabling DDE, MDI or SDI application
-  could open a document from another application ( for example by selecting
-  a document in Windows Explorer). Call this metof in InitInstance() after
+  could open a document from another application (for example by selecting
+  a document in Windows Explorer). Call this method in InitInstance() after
   RegisterShellFileTypes().
  */
 void CSingleInstanceApp::RegisterDde()
