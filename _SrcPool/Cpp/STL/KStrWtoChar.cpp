@@ -10,10 +10,18 @@
 /* Group=Strings                                                             */
 
 #include <string>
+#define _CRT_SECURE_NO_WARNINGS //TODO: use wcstombs_s instead wcstombs in MSVC 2005 v8.0
+
 #ifndef ASSERT
-  #include "KTChar.h"
-  #include "KTrace.h"
+  #ifdef _USE_ATL //Microsoft Active Template Library (ATL)
+    #include <atldef.h>
+    #define ASSERT ATLASSERT
+  #else
+    #include "KTChar.h"
+    #include "KTrace.h"
+  #endif
 #endif
+
 std::string WtoChar(const wchar_t* lpWideCharStr, int iLen = -1);
 
 //-----------------------------------------------------------------------------
