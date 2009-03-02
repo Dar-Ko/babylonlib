@@ -56,6 +56,12 @@
 			RelativePath=".\_Util.txt">
 		</File>
 		<File
+			RelativePath=".\AttribSH.reg">
+		</File>
+		<File
+			RelativePath=".\DisableAutorun.reg">
+		</File>
+		<File
 			RelativePath=".\KCvsizer.bat">
 		</File>
 		<File
@@ -63,6 +69,9 @@
 		</File>
 		<File
 			RelativePath=".\KFileWrite.sql">
+		</File>
+		<File
+			RelativePath=".\KGetDuplicates.sql">
 		</File>
 		<File
 			RelativePath=".\KRegHxSHelp.bat">
@@ -93,13 +102,25 @@
 			RelativePath=".\MsComm32.reg">
 		</File>
 		<File
-			RelativePath="Util\RegsvrAdd.reg">
+			RelativePath=".\MsvcDisableVss.reg">
 		</File>
 		<File
 			RelativePath=".\RegsvrAdd.reg">
 		</File>
 		<File
+			RelativePath=".\RemoteDesktopListeningPort.reg">
+		</File>
+		<File
 			RelativePath=".\Vc71vars32.bat">
+		</File>
+		<File
+			RelativePath=".\WinAutoUpdate.reg">
+		</File>
+		<File
+			RelativePath=".\WinVistaJavaScript.reg">
+		</File>
+		<File
+			RelativePath=".\WinXpJavaScript.reg">
 		</File>
 	</Files>
 	<Globals>
