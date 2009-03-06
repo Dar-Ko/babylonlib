@@ -1,5 +1,5 @@
 /*$Workfile: KWinIni.cpp$: implementation file
-  $Revision: 1.8 $ $Date: 2009/03/01 00:31:58 $
+  $Revision: 1.9 $ $Date: 2009/03/06 13:51:33 $
   $Author: ddarko $
 
   Configuration file handler (.INI format)
@@ -202,7 +202,7 @@ if((szFilename != NULL) && (szFilename[0] != _T('\0')) )
     #ifdef _USE_ATLSIMPLEARRAY
       iSectionCount = strResult.GetSize();
     #else
-      iSectionCount = (ini)strResult.GetCount();
+      iSectionCount = (int)strResult.GetCount();
     #endif
     }
 
@@ -322,6 +322,42 @@ return ::GetPrivateProfileInt(szSection,
                               szKey,
                               nDefault,
                               szFilename);
+}
+
+//-----------------------------------------------------------------------------
+/*
+  Returns true if the required value is in the range [0, USHRT_MAX]. If key
+  is missing or the value is outside the range, returns false.
+ */
+bool GetUint16(LPCTSTR szFilename, //[in] name of the initialization file.
+                    //If this parameter does not contain a full path to the file,
+                    //the system searches for the file in the Windows directory.
+                    LPCTSTR szSection, //[in] null-terminated string that specifies
+                    //the name of the section containing the key name.
+                    //If this parameter is NULL, the function
+                    LPCTSTR szKey, //[in] null-terminated string specifying the name
+                    //of the key whose associated string is to be retrieved.
+                    //If this parameter is NULL, all key names in the section specified
+                    //by the szSection parameter are retrieved.
+                    uint16_t& wResult
+                    )
+{
+TRACE(_T("GetUint16()\n"));
+
+ASSERT(szFilename != NULL);
+const int ERRORNEOUS_VALUE = -1;
+
+int iResult = ::GetPrivateProfileInt(szSection, 
+                              szKey, 
+                              ERRORNEOUS_VALUE,
+                              szFilename);
+if ((iResult >= 0) && (iResult <= USHRT_MAX))
+  {
+  wResult = (uint16_t) iResult;
+  return true;
+  }
+
+return false;
 }
 
 #if 0
@@ -688,6 +724,9 @@ return false;
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIni.cpp,v $
+ Revision 1.9  2009/03/06 13:51:33  ddarko
+ GetUint16()
+
  Revision 1.8  2009/03/01 00:31:58  ddarko
  explicit cast
 
