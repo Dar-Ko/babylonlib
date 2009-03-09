@@ -573,6 +573,9 @@
 				RelativePath=".\32\KDockBar.cpp">
 			</File>
 			<File
+				RelativePath=".\32\KErrnoFromLastError.cpp">
+			</File>
+			<File
 				RelativePath=".\32\KFileGetDirectory.cpp">
 			</File>
 			<File
@@ -661,6 +664,9 @@
 			</File>
 			<File
 				RelativePath=".\32\KIsTerm.cpp">
+			</File>
+			<File
+				RelativePath=".\32\KLastErrorFromErrno.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KListEx.cpp">
