@@ -1,5 +1,5 @@
 /*$RCSfile: KErrnoFromLastError.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/03/09 19:55:27 $
+  $Revision: 1.2 $ $Date: 2009/03/09 20:06:39 $
   $Author: ddarko $
 
   Mapping between errno and Windows error codes
@@ -179,7 +179,10 @@ return nErrorno;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: KErrnoFromLastError.cpp,v $
+ * Revision 1.2  2009/03/09 20:06:39  ddarko
+ * fixed typo
+ *
  * Revision 1.1  2009/03/09 19:55:27  ddarko
  * Moved from old repository
  *
- ******************************************************************************
+ ******************************************************************************/
