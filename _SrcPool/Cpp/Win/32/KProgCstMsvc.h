@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.5 $ $Date: 2009/03/01 00:30:48 $
+  $Revision: 1.6 $ $Date: 2009/03/09 19:55:40 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -130,7 +130,7 @@
     #define UNUSED_ARG _UNUSED
   #endif
 
-#if  MSVC_VER < 1400
+#if MSVC_VER < 1400
   //Older version than Microsoft Visual C/C++ 2005, version 8.0
   typedef int errno_t; //global error type
   #define errno_t errno_t
@@ -250,6 +250,9 @@
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.6  2009/03/09 19:55:40  ddarko
+ * typo
+ *
  * Revision 1.5  2009/03/01 00:30:48  ddarko
  * formatting
  *
