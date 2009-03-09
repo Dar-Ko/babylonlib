@@ -1,5 +1,5 @@
 /*$RCSfile: KLastErrorFromErrno.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/03/09 19:55:27 $
+  $Revision: 1.2 $ $Date: 2009/03/09 19:57:07 $
   $Author: ddarko $
 
   Mapping between errno and Windows error codes
@@ -51,7 +51,7 @@
 
   Note:  Microsoft Windows specific (Win32).
 
-  See also: <winerror.h>, <errno.h>, GetLastError()
+  See also: <winerror.h>, <errno.h>, GetLastError(), HRESULT_FROM_WIN32
  */
 DWORD LastErrorFromErrno(const errno_t nErrno //[in]
                            )
@@ -163,6 +163,9 @@ return nErrorno;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: KLastErrorFromErrno.cpp,v $
+ * Revision 1.2  2009/03/09 19:57:07  ddarko
+ * comment
+ *
  * Revision 1.1  2009/03/09 19:55:27  ddarko
  * Moved from old repository
  *
