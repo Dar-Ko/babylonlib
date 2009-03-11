@@ -51,7 +51,12 @@ if ( lpWideCharStr != NULL)
                                        //limited to INT_MAX.
   size_t nSize;
   char* szTemp = new char[nSize = (size_t)iLen + 1];
-  wcstombs(szTemp, lpWideCharStr, iLen);
+  #if _MSC_VER < 1400 //Microsoft Visual C/C++ 2005 ver. 8.0
+    wcstombs(szTemp, lpWideCharStr, iLen);
+  #else
+    size_t nConverted = 0; //number of characters converted
+    wcstombs_s(&nConverted, szTemp, nSize,  lpWideCharStr, iLen);
+  #endif
   szTemp[iLen] = '\0';
   strResult = szTemp;
   delete [] szTemp;
