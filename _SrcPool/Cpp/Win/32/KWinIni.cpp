@@ -1,5 +1,5 @@
 /*$Workfile: KWinIni.cpp$: implementation file
-  $Revision: 1.9 $ $Date: 2009/03/06 13:51:33 $
+  $Revision: 1.10 $ $Date: 2009/03/18 18:48:16 $
   $Author: ddarko $
 
   Configuration file handler (.INI format)
@@ -104,9 +104,9 @@ return strResult;
      [Section2]
      Key3=Value3
      ...
-  Section names does not include enclosing brackets. Heading and trailing white space
-  is truncated. As a consequence of former, section names that contains only white
-  space or empty strings will stop section enumeration.
+  Section names does not include enclosing brackets. Heading and trailing white
+  space is truncated. As a consequence of former, section names that contains
+  only white space or empty strings will stop section enumeration.
   Section name include filter szFilter is case sensitive.
 
   Returns the number of filtered section names and the list of section paragraphs.
@@ -118,11 +118,14 @@ return strResult;
 int GetIniSectionList(CStringArray& strResult, //[out] list of sections
                      //found in the initialization file
                       LPCTSTR szFilename, //[in] name of the initialization file.
-                    //If this parameter does not contain a full path to the file,
-                    //the system searches for the file in the Windows directory.
-                      LPCTSTR szFilter   //[in] null-terminated string that
-                    //specifies name token included in a section name. If it is NULL or
-                    //an empty string, all section names that are found will be returned.
+         //If this parameter does not contain a full path to the file,
+         //the system searches for the file in the Windows directory.
+                      LPCTSTR szFilter,   //[in] null-terminated string that
+         //specifies name token included in a section name. If it is NULL or
+         //an empty string, all section names that are found will be returned.
+                      const int nPosition //[in] = -1 expected postion of filter
+         //substring; if it is -1, the substring could appear anywhere in
+         //the section name.
                       )
 {
 TRACE(_T("GetIniSectionList()\n"));
@@ -187,8 +190,14 @@ if((szFilename != NULL) && (szFilename[0] != _T('\0')) )
         if((szFilter != NULL) && (szFilter[0] != _T('\0')))
           {
           //Find sections containing include filter in their names
-          if(strSectionName.Find(szFilter) > -1)
-            strResult.Add(strSectionName);
+          const int nPos = strSectionName.Find(szFilter);
+          if(nPos > -1)
+            {
+            //Add name if contains filter substring at all or if substring is
+            //at required position
+            if( XOR((nPosition < 0),(nPosition == nPos)) )
+              strResult.Add(strSectionName);
+            }
           }
         else
           strResult.Add(strSectionName);
@@ -724,6 +733,9 @@ return false;
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIni.cpp,v $
+ Revision 1.10  2009/03/18 18:48:16  ddarko
+ Added filter postion to GetIniSectionList()
+
  Revision 1.9  2009/03/06 13:51:33  ddarko
  GetUint16()
 
