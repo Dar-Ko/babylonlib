@@ -221,6 +221,7 @@ while ((_taccess(szResult, EXIST) == ACCESS_OK) || (errno == EACCES))
   #endif
   //Replace terminating zero inserted by ItoA
   szResult[iNamePos + NAMESIZE] = chNameEnd;
+  ftTime.dwLowDateTime++; //Try a file name with new number
   }
 
 strResult.ReleaseBuffer();
