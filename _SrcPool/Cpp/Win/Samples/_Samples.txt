@@ -12,7 +12,7 @@ Copyright: CommonSoft Inc.
 
 \	_SamplesWin.dsw	Microsoft Developer Studio Workspace (DSW) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	_SamplesWin8.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 8 (MSVC7 2003).	Win32
-\	_SamplesWin.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 8 (MSVC7 2003).	Win32
+\	_SamplesWin.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 9 (MSVC8 2005).	Win32
 
 Projects:
 _LibraryTest
