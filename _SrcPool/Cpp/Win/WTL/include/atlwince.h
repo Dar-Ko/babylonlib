@@ -249,7 +249,8 @@ public:
 		T* pT = static_cast<T*>(this);
 		ATLASSERT(pT->IsWindow());
 		BOOL bRes = ::GetClientRect(pT->m_hWnd, lpRect);
-		lpRect->top += nTitleHeight;
+		if (nTitleHeight)
+			lpRect->top += nTitleHeight + 1;
 		return bRes;
 	}
 
@@ -546,6 +547,26 @@ public:
 	typedef CIndirectDialogImpl< T, CMemDlgTemplate, CStdDialogImpl<T, t_shidiFlags, t_bModal> >	_baseClass;
 	typedef CStdDialogImpl<T, t_shidiFlags, t_bModal> _baseStd;
 
+	void CheckStyle()
+	{
+		// Mobile devices don't support DLGTEMPLATEEX
+		ATLASSERT(!m_Template.IsTemplateEx());
+
+		// Standard dialogs need only DS_CENTER
+		DWORD &dwStyle = m_Template.GetTemplatePtr()->style; 
+		if (dwStyle & DS_CENTER)
+			if(t_bModal)
+			{
+				ATLASSERT((dwStyle & WS_CHILD) != WS_CHILD);
+				dwStyle |= WS_POPUP;
+			}
+			else
+			{
+				if((dwStyle & WS_CHILD) != WS_CHILD)
+					dwStyle |= WS_POPUP;
+			}
+	}
+
 	INT_PTR DoModal(HWND hWndParent = ::GetActiveWindow(), LPARAM dwInitParam = NULL)
 	{
 		ATLASSERT(t_bModal);
@@ -553,22 +574,7 @@ public:
 		if (!m_Template.IsValid())
 			CreateTemplate();
 
-		if (m_Template.IsTemplateEx())
-		{
-			if (m_Template.GetTemplateExPtr()->style & DS_CENTER)
-			{
-				ATLASSERT(m_Template.GetTemplateExPtr()->style ^ WS_CHILD);
-				GetTemplateExPtr()->style |= WS_POPUP;
-			}
-		}
-		else
-		{
-			if (m_Template.GetTemplatePtr()->style & DS_CENTER)
-			{
-				ATLASSERT(m_Template.GetTemplatePtr()->style ^ WS_CHILD);
-				m_Template.GetTemplatePtr()->style |= WS_POPUP;
-			}
-		}
+		CheckStyle();
 
 		return _baseClass::DoModal(hWndParent, dwInitParam);
 	}
@@ -580,22 +586,7 @@ public:
 		if (!m_Template.IsValid())
 			CreateTemplate();
 
-		if (m_Template.IsTemplateEx())
-		{
-			if (GetTemplateExPtr()->style & DS_CENTER)
-			{
-				ATLASSERT(GetTemplateExPtr()->style ^ WS_CHILD);
-				GetTemplateExPtr()->style |= WS_POPUP;
-			}
-		}
-		else
-		{
-			if (GetTemplatePtr()->style & DS_CENTER)
-			{
-				ATLASSERT(GetTemplatePtr()->style ^ WS_CHILD);
-				GetTemplatePtr()->style |= WS_POPUP;
-			}
-		}
+		CheckStyle();
 
 		return _baseClass::Create(hWndParent, dwInitParam);
 	}
@@ -1508,7 +1499,7 @@ public:
 #ifndef SETTINGCHANGE_RESET // not defined for PPC 2002
 	#define SETTINGCHANGE_RESET SPI_SETWORKAREA
 #endif
-		if (m_bFullScreen && (wParam & SETTINGCHANGE_RESET))
+		if (m_bFullScreen && (wParam == SETTINGCHANGE_RESET))
 			SetFullScreen(m_bFullScreen);
 		return bHandled = FALSE;
 	}
