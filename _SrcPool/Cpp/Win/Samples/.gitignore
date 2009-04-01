@@ -21,6 +21,7 @@
 
 *.suo
 *.tmp
+*.user
 *.vcb
 *.vcl
 *.vco
