@@ -22,6 +22,7 @@
 *.sln
 *.suo
 *.tmp
+*.user
 *.vcb
 *.vcl
 *.vco
@@ -32,11 +33,11 @@
 *_p.c
 .project
 Bin
+Obj
+Thumbs.db
 bin
 dlldata.c
 idl
 obj
-Obj
-Thumbs.db
 ~*
 ~*.*
