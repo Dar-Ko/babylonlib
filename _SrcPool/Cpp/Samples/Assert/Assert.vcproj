@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
 				PreprocessorDefinitions="NDEBUG;_STL;WIN32;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -133,7 +133,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
 				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -224,7 +224,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -313,7 +313,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -404,7 +404,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
 				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -495,7 +495,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
 				PreprocessorDefinitions="NDEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -584,7 +584,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL;_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -676,7 +676,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL;_UNICODE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -765,7 +765,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -1294,7 +1294,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						AdditionalIncludeDirectories=""
+						AdditionalIncludeDirectories="..\..\Win\32"
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="1"
 						PrecompiledHeaderThrough="stdafx.h"
@@ -1307,7 +1307,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
+						AdditionalIncludeDirectories="..\..\Win\32"
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="1"
@@ -1321,7 +1321,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						AdditionalIncludeDirectories=""
+						AdditionalIncludeDirectories="..\..\Win\32"
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="1"
 						PrecompiledHeaderThrough="stdafx.h"
@@ -1334,7 +1334,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
+						AdditionalIncludeDirectories="..\..\Win\32"
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="1"
@@ -1348,7 +1348,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
+						AdditionalIncludeDirectories="..\..\Win\32"
 						PreprocessorDefinitions="_DEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
 						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="1"
@@ -1362,7 +1362,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						AdditionalIncludeDirectories=""
+						AdditionalIncludeDirectories="..\..\Win\32"
 						PreprocessorDefinitions="NDEBUG;_UNICODE;_AFXDLL;_STL;WIN32;_CONSOLE;$(NoInherit)"
 						UsePrecompiledHeader="1"
 						PrecompiledHeaderThrough="stdafx.h"
@@ -1375,7 +1375,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
+						AdditionalIncludeDirectories="..\..\Win\32"
 						PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
 						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="1"
@@ -1389,7 +1389,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="2"
-						AdditionalIncludeDirectories=""
+						AdditionalIncludeDirectories="..\..\Win\32"
 						PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE;_STL;$(NoInherit)"
 						UsePrecompiledHeader="1"
 						PrecompiledHeaderThrough="stdafx.h"
@@ -1402,7 +1402,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
-						AdditionalIncludeDirectories=""
+						AdditionalIncludeDirectories="..\..\Win\32"
 						PreprocessorDefinitions=""
 						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="1"
@@ -1414,10 +1414,90 @@
 			<File
 				RelativePath=".\Src\TestConformance.cpp"
 				>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Src\TestEndian.c"
 				>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ShowIncludes="false"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Src\TestKeywordExplicit.cpp"
@@ -2273,6 +2353,10 @@
 			>
 			<File
 				RelativePath="..\..\KDbgMacr.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KProgCstMsvc.h"
 				>
 			</File>
 			<File

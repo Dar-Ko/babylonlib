@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="Complex"
 	ProjectGUID="{99F6D0D6-31A5-430B-85A3-F897C6A476F8}"
+	RootNamespace="Complex"
 	>
 	<Platforms>
 		<Platform
@@ -42,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\..\STL;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -135,7 +136,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\..\STL;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -225,7 +226,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\..\STL;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -315,7 +316,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\..\STL;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -406,7 +407,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\..\STL,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\..\STL;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
