@@ -1,5 +1,5 @@
 // $RCSfile: atlcrack.h,v $: header file
-// $Revision: 1.3 $ $Date: 2009/04/02 20:53:27 $
+// $Revision: 1.4 $ $Date: 2009/04/03 15:45:15 $
 // message cracker macros
 // Windows Template Library - WTL version 8.0
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -209,7 +209,7 @@ public: \
 	}
 
 /*Handles WM_QUERYENDSESSION = 17 message. The message is sent when the user
-  chooses to end the session or when an application calls one of the system 
+  chooses to end the session or when an application calls one of the system
   shutdown functions. If any application returns zero, the session is not ended.
 
   WM_QUERYENDSESSION parameters
@@ -294,10 +294,10 @@ public: \
   when the window is about to be hidden or shown.
 
   WM_SHOWWINDOW parameters
-    - wParam   specifies whether a window is about to be shown, if value is TRUE 
+    - wParam   specifies whether a window is about to be shown, if value is TRUE
                or hidden if wParam is FALSE.
     - lParam   specifies reason for window's status change:
-             - 0              the message was sent because of a call to 
+             - 0              the message was sent because of a call to
                               the ShowWindow function;
              - SW_OTHERUNZOOM = 4 the window is being uncovered because
                               a maximize window was restored or minimized;
@@ -306,15 +306,15 @@ public: \
              - SW_PARENTCLOSING = 1 window's owner window is being minimized;
              - SW_PARENTOPENING  = 3window's owner window is being restored.
 
-  The framework calls this member function when the window object is about 
-  to be hidden or shown. 
+  The framework calls this member function when the window object is about
+  to be hidden or shown.
   If a window has the WS_VISIBLE style when it is created, the window receives
-  this message after it is created, but before it is displayed. 
-  A window also receives this message when its visibility state is changed by 
+  this message after it is created, but before it is displayed.
+  A window also receives this message when its visibility state is changed by
   the ShowWindow() or ShowOwnedPopups() function. AnimateWindow() does not notify
   window's status change.
 
-    void OnShowWindow(BOOL bShow,  //[in] specifies whether a window is 
+    void OnShowWindow(BOOL bShow,  //[in] specifies whether a window is
                       //about to be shown or hidden
                       UINT nStatus //[in] specifies reason for window's
                       //status change.
@@ -415,9 +415,9 @@ public: \
 /*Handles WM_ACTIVATEAPP = 28 notification message.
 
   WM_ACTIVATEAPP parameters
-    - wParam   specifies whether the window is being activated, if value is TRUE 
+    - wParam   specifies whether the window is being activated, if value is TRUE
                or deactivated if wParam is FALSE.
-    - lParam   specifies the identifier of the thread that owns the window 
+    - lParam   specifies the identifier of the thread that owns the window
 
   The framework calls next member function to all top-level windows as response
   to the WM_ACTIVATEAPP message. The message is sent after windows of the task
@@ -890,28 +890,28 @@ public: \
 			return TRUE; \
 	}
 
-/*Handles WM_SYSCOMMAND = 274 notification message. The  message is sent to 
-  a window when the user chooses a command from the system menu or when 
+/*Handles WM_SYSCOMMAND = 274 notification message. The  message is sent to
+  a window when the user chooses a command from the system menu or when
   the user chooses the maximize, minimize, restore or close button.
 
   WM_SYSCOMMAND parameters
     - wParam   specifies the type of system command requested.
     - LOWORD(lParam)   specifies the horizontal position of the cursor,
-      in screen coordinates, if a window menu command is chosen with the mouse. 
+      in screen coordinates, if a window menu command is chosen with the mouse.
       Otherwise, this parameter is not used.
     - HIWORD(lParam)   specifies the vertical position of the cursor, in screen
-      coordinates, if a window menu command is chosen with the mouse. 
+      coordinates, if a window menu command is chosen with the mouse.
       This parameter is –1 if the command is chosen using a system accelerator
       or zero if using a mnemonic.
 
   The framework calls this member function when the user selects a command from
-  the Control menu, or when the user selects the Maximize or the Minimize button. 
+  the Control menu, or when the user selects the Maximize or the Minimize button.
 
-    void OnSysCommand(UINT nCommand, //[in] specifies the type of 
+    void OnSysCommand(UINT nCommand, //[in] specifies the type of
                       //system command requested
-                      CPoint ptPos //[in] the cursor coordinates, if 
+                      CPoint ptPos //[in] the cursor coordinates, if
                       //a system menu command is chosen with the mouse.
-                      //If command is issued by hot key, ptPos.x identifies 
+                      //If command is issued by hot key, ptPos.x identifies
                       //the window to activate
                       )
  */
@@ -1440,31 +1440,31 @@ public: \
 			return TRUE; \
 	}
 
-/*Handles WM_DEVICECHANGE = 537 notification message.The message is sent when 
+/*Handles WM_DEVICECHANGE = 537 notification message.The message is sent when
   the hardware configuration of a device or the computer is changed.
 
   WM_DEVICECHANGE parameters
     - wParam   specifies the event that has occurred.It can be one of these values:
-                - DBT_CONFIGCHANGECANCELED 0x0019 a request to change the current 
+                - DBT_CONFIGCHANGECANCELED 0x0019 a request to change the current
                   configuration (dock or undock) has been canceled.
-                - DBT_CONFIGCHANGED 0x0018 the current configuration has changed, 
+                - DBT_CONFIGCHANGED 0x0018 the current configuration has changed,
                   due to a dock or undock.
                 - DBT_CUSTOMEVENT 0x8006 a custom event has occurred.
-                - DBT_DEVICEARRIVAL 0x8000 device or piece of media has been 
+                - DBT_DEVICEARRIVAL 0x8000 device or piece of media has been
                   inserted and is now available.
-                - DBT_DEVICEQUERYREMOVE 0x8001 permission is requested to remove 
-                  a device or piece of media. Any application can deny this 
+                - DBT_DEVICEQUERYREMOVE 0x8001 permission is requested to remove
+                  a device or piece of media. Any application can deny this
                   request and cancel the removal.
-                - DBT_DEVICEQUERYREMOVEFAILED 0x8002 request to remove a device 
+                - DBT_DEVICEQUERYREMOVEFAILED 0x8002 request to remove a device
                   or piece of media has been canceled.
-                - DBT_DEVICEREMOVECOMPLETE 0x8004 device or piece of media has 
+                - DBT_DEVICEREMOVECOMPLETE 0x8004 device or piece of media has
                   been removed.
-                - DBT_DEVICEREMOVEPENDING 0x8003 device or piece of media is 
+                - DBT_DEVICEREMOVEPENDING 0x8003 device or piece of media is
                   about to be removed. Cannot be denied.
                 - DBT_DEVICETYPESPECIFIC 0x8005 device-specific event has occurred.
-                - DBT_DEVNODES_CHANGED 0x0007 device has been added to or 
+                - DBT_DEVNODES_CHANGED 0x0007 device has been added to or
                   removed from the system.
-                - DBT_QUERYCHANGECONFIG 0x0017 permission is requested to change 
+                - DBT_QUERYCHANGECONFIG 0x0017 permission is requested to change
                   the current configuration (dock or undock).
                 - DBT_USERDEFINED 0xFFFF the meaning of this message is user-defined.
 
@@ -1473,9 +1473,9 @@ public: \
   Respond TRUE to grant or BROADCAST_QUERY_DENY to deny the request.
 
   The framework calls this member function to notify an application or device driver
-  of a change to the hardware configuration of a device or the computer. 
+  of a change to the hardware configuration of a device or the computer.
 
-  Note: If a device is removed forcibly, the system may not send 
+  Note: If a device is removed forcibly, the system may not send
   a DBT_DEVICEQUERYREMOVE message before removal.
 
   Returns: TRUE to grant or BROADCAST_QUERY_DENY to deny the request.
