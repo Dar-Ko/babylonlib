@@ -443,6 +443,9 @@
 				RelativePath=".\LibraryTestUni.log">
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\DateTime.txt">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

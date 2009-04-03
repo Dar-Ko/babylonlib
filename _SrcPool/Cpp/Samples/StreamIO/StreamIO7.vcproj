@@ -417,6 +417,9 @@
 				RelativePath=".\LibraryTestUni.log">
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\StreamIO.txt">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

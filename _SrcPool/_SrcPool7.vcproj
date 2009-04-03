@@ -550,6 +550,9 @@
 				RelativePath=".\Cpp\KGifImageDescriptor.h">
 			</File>
 			<File
+				RelativePath=".\Cpp\KGuid.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\KMathCst.h">
 			</File>
 			<File

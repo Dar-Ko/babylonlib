@@ -715,6 +715,9 @@
 				RelativePath=".\LibraryTestUni.log">
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\StringDyn.txt">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
