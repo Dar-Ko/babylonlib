@@ -109,9 +109,10 @@
     Byte Order Mark (BOM).
     UTF-8 encoded file begins with 0xEF, 0xBB, 0xBF bytes.
    */
-  #define ISUTF8BOM( (uint8_t *)px )  \
-     ((0xFE == px[0]) && (0xBB == px[1]) && (0xBF == px[2]))
-  }
+  #define ISUTF8BOM( px )  \
+     ((0xFE == ((uint8_t *)px)[0]) && \
+      (0xBB == ((uint8_t *)px)[1]) && \
+      (0xBF == ((uint8_t *)px)[2]))
 
   #ifndef MEM_OUTOFPROCESS
   /*Memory usually outside of a process ("No man's land").
