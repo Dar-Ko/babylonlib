@@ -179,6 +179,20 @@
   #define TiB       (0x10000000000UL)
 #endif
 
+#ifndef XOR
+  /*Logical XOR operator.
+
+     a b  XOR(a, b)
+     0 0     0
+     0 1     1
+     1 0     1
+     1 1     0
+
+   Returns the boolean value true if either operand is non-zero but not both.
+   otherwise returns false.
+   */
+  #define XOR(a, b) ((a || b) && !(a && b))
+#endif
   /*-------------------------------------------------------------------------*/
 #else /*__cplusplus  C++ compilation                                         */
   #pragma message ("   C++ compilation " __FILE__ )
@@ -337,6 +351,24 @@ const unsigned long GiB = 0x40000000UL;
     */
     const uint64 TiB = 0x10000000000UL;
   #endif //uint64
+
+#ifndef XOR
+  /*Logical XOR operator.
+
+         a b  XOR(a, b)
+         F F     F
+         F T     T
+         T F     T
+         T T     F
+    Returns the boolean value true if either operand is true but not both.
+    otherwise returns false.
+   */
+  inline bool XOR(const bool a, const bool b)
+    {
+    return ((a || b) && !(a && b));
+    }
+#endif
+
 #endif /*!__cplusplus                                                        */
 
 #ifndef NaN_NUMBER
