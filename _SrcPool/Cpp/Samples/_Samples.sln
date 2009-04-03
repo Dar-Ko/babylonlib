@@ -50,6 +50,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		_Samples.txt = _Samples.txt
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Usb", "Usb\Usb.vcproj", "{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_MBCS_MFC|Win32 = Debug_MBCS_MFC|Win32
@@ -445,6 +447,28 @@ Global
 		{FCE8D72D-CC69-4563-B284-A1D2DAD7B3E6}.Release_Unicode_MFC|Win32.Build.0 = Release_Unicode|Win32
 		{FCE8D72D-CC69-4563-B284-A1D2DAD7B3E6}.Release_Unicode|Win32.ActiveCfg = Release_Unicode|Win32
 		{FCE8D72D-CC69-4563-B284-A1D2DAD7B3E6}.Release_Unicode|Win32.Build.0 = Release_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_MBCS_MFC|Win32.ActiveCfg = Debug_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_MBCS_MFC|Win32.Build.0 = Debug_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_MBCS|Win32.ActiveCfg = Debug_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_MBCS|Win32.Build.0 = Debug_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_SBCS_MFC|Win32.ActiveCfg = Debug_SBCS|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_SBCS_MFC|Win32.Build.0 = Debug_SBCS|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_SBCS|Win32.ActiveCfg = Debug_SBCS|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_SBCS|Win32.Build.0 = Debug_SBCS|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_Unicode_MFC|Win32.ActiveCfg = Debug_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_Unicode_MFC|Win32.Build.0 = Debug_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_Unicode|Win32.ActiveCfg = Debug_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Debug_Unicode|Win32.Build.0 = Debug_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Release_MBCS|Win32.ActiveCfg = Release_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Release_MBCS|Win32.Build.0 = Release_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Release_SBCS_MFC|Win32.ActiveCfg = Release_SBCS|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Release_SBCS_MFC|Win32.Build.0 = Release_SBCS|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Release_SBCS|Win32.ActiveCfg = Release_SBCS|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Release_SBCS|Win32.Build.0 = Release_SBCS|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Release_Unicode_MFC|Win32.ActiveCfg = Release_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Release_Unicode_MFC|Win32.Build.0 = Release_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Release_Unicode|Win32.ActiveCfg = Release_Unicode|Win32
+		{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}.Release_Unicode|Win32.Build.0 = Release_Unicode|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
