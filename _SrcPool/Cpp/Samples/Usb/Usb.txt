@@ -1,5 +1,5 @@
 $RCSfile: Usb.txt,v $: developer's note
-$Revision: 1.3 $ $Date: 2008/09/26 21:36:48 $
+$Revision: 1.4 $ $Date: 2009/04/03 18:26:38 $
 $Author: ddarko $
 
 Usb
@@ -37,6 +37,10 @@ Target Microsoft Windows (MFC/GUI subsystem:windows) requires MFC library, _WIND
 If MFC TestDocument/TestView framework is used, it is required to initialize global test entry point:
     PFUNCENTRY_TEST g_startTest = MyTestFunc;
 This is not required if the target is Windows console (subsystem:console).
+
+\	Usb.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	Usb.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8 (MSVC8).	Win32
+
 
 MSCVC/C++ 6.0 Notes
 -------------------
@@ -117,8 +121,4 @@ Win DDK
 
   To allow it, create Windows Registry DWORD value:
     HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Kbdclass\Parameters\AllowDisable
-
-
-\	Usb.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	Usb.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 
