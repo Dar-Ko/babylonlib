@@ -256,7 +256,9 @@
   #define SIG_ATOMIC_MAX  (2147483647)
 
   /* Limit of size_t type.  */
-  #define SIZE_MAX        (4294967295U)
+  #ifndef SIZE_MAX
+    #define SIZE_MAX        (4294967295U)
+  #endif
 
   /* Limits of wchar_t.  */
   /*Defined also in Microsoft <wchar.h> */
