@@ -7,3 +7,4 @@ Include dirctory .\Src with stdafx.h defining replacement for CString
 \	Utilities.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	Utilities.Wsp	Microsoft Visual C/C++ Workspace (WSP) file is a generated build file, format version 1.52 (MSVC).	DOS
 \	Utilities.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
+\	Utilities7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32

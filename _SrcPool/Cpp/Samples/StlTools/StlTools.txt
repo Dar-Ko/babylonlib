@@ -4,6 +4,7 @@ $Author: Darko Kolakovic$
 
 \	StlTools.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	StlTools.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
+\	StlTools7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 
 If compiled with MSVC 7.+ .Net in same directory where are object compiled with previous version of Visual Studio (MSVC 6.0 for example), following error will occur:
   LINK : fatal error LNK1104: cannot open file 'libcid.lib'

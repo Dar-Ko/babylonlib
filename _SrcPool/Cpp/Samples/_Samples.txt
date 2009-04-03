@@ -17,6 +17,7 @@ Microsoft Visual C++ 6.0 debugger does not support the symbol format (.pdb) intr
 \	_Samples.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
 \	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
 \	_Samples.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	_Samples7.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
 \	_Samples.vcw	Microsoft eMbedded Visual Tools Workspace (VCW) file is a generated build file, format version 6.02 (eVC6).	WinCE
 
 _Samples Workspace Project components

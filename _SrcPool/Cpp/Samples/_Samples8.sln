@@ -1,45 +1,45 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assert", "Assert\Assert.vcproj", "{BD93E42E-2C09-4313-9743-FC9D50E5FC0C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assert", "Assert\Assert7.vcproj", "{BD93E42E-2C09-4313-9743-FC9D50E5FC0C}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Complex", "Complex\Complex.vcproj", "{99F6D0D6-31A5-430B-85A3-F897C6A476F8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Complex", "Complex\Complex7.vcproj", "{99F6D0D6-31A5-430B-85A3-F897C6A476F8}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DateTime", "DateTime\DateTime.vcproj", "{95BA43FB-F558-4FBA-A7AC-567FCB0F3DC6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DateTime", "DateTime\DateTime7.vcproj", "{95BA43FB-F558-4FBA-A7AC-567FCB0F3DC6}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Numeric", "Numeric\Numeric.vcproj", "{D10B576A-27A0-4C6F-A213-958176FC4DE6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Numeric", "Numeric\Numeric7.vcproj", "{D10B576A-27A0-4C6F-A213-958176FC4DE6}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StdLib", "StdLib\StdLib.vcproj", "{7D4D1375-C502-4930-BA80-C83F9B211413}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StdLib", "StdLib\StdLib7.vcproj", "{7D4D1375-C502-4930-BA80-C83F9B211413}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StreamIO", "StreamIO\StreamIO.vcproj", "{C9BCB67C-6CD3-487E-A3A3-8FAACE2C6168}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StreamIO", "StreamIO\StreamIO7.vcproj", "{C9BCB67C-6CD3-487E-A3A3-8FAACE2C6168}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StringDyn", "StringDyn\StringDyn.vcproj", "{0BB4F716-4539-4BD4-A9B0-A585E259256C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StringDyn", "StringDyn\StringDyn7.vcproj", "{0BB4F716-4539-4BD4-A9B0-A585E259256C}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Strings", "Strings\Strings.vcproj", "{56622C63-980D-451D-8C58-07F2653B4174}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Strings", "Strings\Strings7.vcproj", "{56622C63-980D-451D-8C58-07F2653B4174}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utilities", "Utilities\Utilities.vcproj", "{DFC7977F-91A0-4374-99BE-8C21C032490B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utilities", "Utilities\Utilities7.vcproj", "{DFC7977F-91A0-4374-99BE-8C21C032490B}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_LibraryTest", "_LibraryTest\_LibraryTest.vcproj", "{A7D10171-A990-4E23-9740-8C8496C29DBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_LibraryTest", "_LibraryTest\_LibraryTest7.vcproj", "{A7D10171-A990-4E23-9740-8C8496C29DBD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Samples", "_Samples.vcproj", "{A295FBE6-5261-4E34-8F33-257138854FBD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Samples", "_Samples7.vcproj", "{A295FBE6-5261-4E34-8F33-257138854FBD}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0BB4F716-4539-4BD4-A9B0-A585E259256C} = {0BB4F716-4539-4BD4-A9B0-A585E259256C}
 		{BD93E42E-2C09-4313-9743-FC9D50E5FC0C} = {BD93E42E-2C09-4313-9743-FC9D50E5FC0C}
@@ -50,31 +50,31 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Samples", "_Samples.vcproj
 		{95BA43FB-F558-4FBA-A7AC-567FCB0F3DC6} = {95BA43FB-F558-4FBA-A7AC-567FCB0F3DC6}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_SrcPoolCpp", "..\..\_SrcPool.vcproj", "{B3DC2A0B-9D6F-405B-9F9B-2A6C8AF10CFD}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_SrcPoolCpp", "..\..\_SrcPool7.vcproj", "{B3DC2A0B-9D6F-405B-9F9B-2A6C8AF10CFD}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console", "Console\Console.vcproj", "{533C43D2-3A63-4754-9BAD-B07F62AB4166}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Console", "Console\Console7.vcproj", "{533C43D2-3A63-4754-9BAD-B07F62AB4166}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HtmlIO", "HtmlIO\HtmlIO.vcproj", "{533C43D2-3A63-4754-9BAD-B07F62AB4166}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HtmlIO", "HtmlIO\HtmlIO7.vcproj", "{533C43D2-3A63-4754-9BAD-B07F62AB4166}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Service", "Service\Service.vcproj", "{533C43D2-3A63-4754-9BAD-B07F62AB4166}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Service", "Service\Service7.vcproj", "{533C43D2-3A63-4754-9BAD-B07F62AB4166}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Random", "Random\Random.vcproj", "{216ACF6A-B2F5-4D5B-930B-FB4B135A92D0}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Random", "Random\Random7.vcproj", "{216ACF6A-B2F5-4D5B-930B-FB4B135A92D0}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StlTools", "StlTools\StlTools.vcproj", "{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StlTools", "StlTools\StlTools7.vcproj", "{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SerialIO", "SerialIO\SerialIO.vcproj", "{FCE8D72D-CC69-4563-B284-A1D2DAD7B3E6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SerialIO", "SerialIO\SerialIO7.vcproj", "{FCE8D72D-CC69-4563-B284-A1D2DAD7B3E6}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
