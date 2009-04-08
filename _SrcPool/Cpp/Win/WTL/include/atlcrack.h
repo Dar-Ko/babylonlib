@@ -1,5 +1,5 @@
 // $RCSfile: atlcrack.h,v $: header file
-// $Revision: 1.4 $ $Date: 2009/04/03 15:45:15 $
+// $Revision: 1.5 $ $Date: 2009/04/08 18:27:15 $
 // message cracker macros
 // Windows Template Library - WTL version 8.0
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -936,7 +936,21 @@ public: \
 			return TRUE; \
 	}
 
-// void OnTimer(UINT_PTR nIDEvent)
+/*Process the WM_TIMER messages sent by the Windows timer. The message is
+  dispached only when no other higher priority messages messages are in
+  the application's message queue.
+
+  WM_TIMER parameters
+    - wParam   specifies the timer identifier.
+    - lParam   pointer to an application-defined callback function that was
+               passed to the SetTimer() function when the timer was installed.
+
+  The framework calls this member function after each interval specified in the
+  SetTimer() member function used to install a timer.
+
+     void OnTimer(UINT_PTR nIDEvent //[in] timer identifier
+                 )
+ */
 #define MSG_WM_TIMER(func) \
 	if (uMsg == WM_TIMER) \
 	{ \
