@@ -47,6 +47,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestAtlCtrl", "TestAtlCtrl\
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VerInfoTest", "VerInfoTest\VerInfoTest7.vcproj", "{DA5464C8-6D17-4D73-8299-35719436979D}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinOSVer", "WinOSVer\WinOsVer7.vcproj", "{141128CE-D238-4E08-AD10-6FBF1947DAC7}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -281,6 +289,46 @@ Global
 		{98AAD432-2416-42B0-8407-591220AE1665}.Release_Unicode.Build.0 = Release|Win32
 		{98AAD432-2416-42B0-8407-591220AE1665}.Release_Unicode_MFC.ActiveCfg = Release|Win32
 		{98AAD432-2416-42B0-8407-591220AE1665}.Release_Unicode_MFC.Build.0 = Release|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Debug.ActiveCfg = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Debug.Build.0 = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Debug_SBCS.ActiveCfg = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Debug_SBCS.Build.0 = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Debug_SBCS_MFC.ActiveCfg = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Debug_SBCS_MFC.Build.0 = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Debug_Unicode.ActiveCfg = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Debug_Unicode.Build.0 = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Debug_Unicode_MFC.ActiveCfg = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Debug_Unicode_MFC.Build.0 = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Release.ActiveCfg = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Release.Build.0 = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Release_SBCS.ActiveCfg = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Release_SBCS.Build.0 = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Release_SBCS_MFC.ActiveCfg = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Release_SBCS_MFC.Build.0 = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Release_Unicode.ActiveCfg = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Release_Unicode.Build.0 = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Release_Unicode_MFC.ActiveCfg = Debug|Win32
+		{DA5464C8-6D17-4D73-8299-35719436979D}.Release_Unicode_MFC.Build.0 = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Debug.ActiveCfg = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Debug.Build.0 = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Debug_SBCS.ActiveCfg = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Debug_SBCS.Build.0 = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Debug_SBCS_MFC.ActiveCfg = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Debug_SBCS_MFC.Build.0 = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Debug_Unicode.ActiveCfg = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Debug_Unicode.Build.0 = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Debug_Unicode_MFC.ActiveCfg = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Debug_Unicode_MFC.Build.0 = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release.ActiveCfg = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release.Build.0 = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release_SBCS.ActiveCfg = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release_SBCS.Build.0 = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release_SBCS_MFC.ActiveCfg = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release_SBCS_MFC.Build.0 = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release_Unicode.ActiveCfg = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release_Unicode.Build.0 = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release_Unicode_MFC.ActiveCfg = Debug|Win32
+		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release_Unicode_MFC.Build.0 = Debug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		_Samples.txt = _Samples.txt
