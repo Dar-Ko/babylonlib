@@ -1,0 +1,12 @@
+$RCSfile: VerInfoTest.txt,v $: developer's note
+$Revision: 1.1 $ $Date: 2009/04/16 21:34:45 $
+$Author: ddarko $
+
+Samples and test suites for the various functions, classes and algorithms using Babylon Library
+
+Copyright: CommonSoft Inc.
+1993-06-07 Darko Kolakovic
+
+\	VerInfoTest.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	VerInfoTest.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	VerInfoTest7.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
