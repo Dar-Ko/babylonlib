@@ -9,3 +9,5 @@ Copyright: CommonSoft Inc.
 
 \	WinOsVer.mdp	Microsoft Developer Studio Project Workspace (MDP) file is a generated build file (MSVC4).	Win32
 \	WinOsVer.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	WinOsVer.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	WinOsVer7.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
