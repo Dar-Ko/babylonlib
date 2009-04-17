@@ -1,199 +1,134 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="7.10"
 	Name="TestAtlCtrl"
-	ProjectGUID="{98AAD432-2416-42B0-8407-591220AE1665}"
-	RootNamespace="TestAtlCtrl"
-	>
+	ProjectGUID="{98AAD432-2416-42B0-8407-591220AE1665}">
 	<Platforms>
 		<Platform
-			Name="Win32"
-		/>
+			Name="Win32"/>
 	</Platforms>
-	<ToolFiles>
-	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug|Win32"
+			Name="Debug_Unicode|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
-			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="false"
-				TargetEnvironment="1"
-				GenerateStublessProxies="true"
-				TypeLibraryName="$(IntDir)/TestAtlCtrl.tlb"
-				HeaderFileName="TestAtlCtrl.h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="TestAtlCtrl_i.c"
-				ProxyFileName="TestAtlCtrl_p.c"
-			/>
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../..;../../32;"
+				AdditionalIncludeDirectories="../../..;../../32;../../WTL/include;./Src;./Res;../Generic/Src;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;_DEBUG"
-				MinimalRebuild="true"
+				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdatl.h"
 				AssemblerListingLocation="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="4"
-				DebugInformationFormat="4"
-			/>
+				DebugInformationFormat="4"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="4105"
-				AdditionalIncludeDirectories="$(IntDir)"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="2"
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="TRUE"
 				SubSystem="2"
-				TargetMachine="1"
-			/>
-			<Tool
-				Name="VCALinkTool"
-			/>
-			<Tool
-				Name="VCManifestTool"
-			/>
-			<Tool
-				Name="VCXDCMakeTool"
-			/>
-			<Tool
-				Name="VCBscMakeTool"
-			/>
-			<Tool
-				Name="VCFxCopTool"
-			/>
-			<Tool
-				Name="VCAppVerifierTool"
-			/>
-			<Tool
-				Name="VCWebDeploymentTool"
-			/>
-			<Tool
-				Name="VCPostBuildEventTool"
-			/>
-		</Configuration>
-		<Configuration
-			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
-			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
-			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
-			ATLMinimizesCRunTimeLibraryUsage="true"
-			CharacterSet="1"
-			>
-			<Tool
-				Name="VCPreBuildEventTool"
-			/>
-			<Tool
-				Name="VCCustomBuildTool"
-			/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"
-			/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"
-			/>
+				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="false"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="FALSE"
 				TargetEnvironment="1"
-				GenerateStublessProxies="true"
+				GenerateStublessProxies="TRUE"
 				TypeLibraryName="$(IntDir)/TestAtlCtrl.tlb"
 				HeaderFileName="TestAtlCtrl.h"
 				DLLDataFileName=""
 				InterfaceIdentifierFileName="TestAtlCtrl_i.c"
-				ProxyFileName="TestAtlCtrl_p.c"
-			/>
+				ProxyFileName="TestAtlCtrl_p.c"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="4105"
+				AdditionalIncludeDirectories="&quot;$(IntDir)&quot;;../../WTL/include;G:\MyDocuments\BabelLib\_SrcPool\Cpp\Win\WTL\include"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release_Unicode|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
+			ConfigurationType="1"
+			ATLMinimizesCRunTimeLibraryUsage="TRUE"
+			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../..;../../32;"
+				AdditionalIncludeDirectories="../../..;../../32;../../WTL/include;./Src;./Res;../Generic/Src;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;NDEBUG"
-				ExceptionHandling="0"
+				ExceptionHandling="FALSE"
 				RuntimeLibrary="2"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdatl.h"
 				AssemblerListingLocation="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="4"
-				DebugInformationFormat="0"
-			/>
+				DebugInformationFormat="0"/>
 			<Tool
-				Name="VCManagedResourceCompilerTool"
-			/>
-			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="4105"
-				AdditionalIncludeDirectories="$(IntDir)"
-			/>
-			<Tool
-				Name="VCPreLinkEventTool"
-			/>
+				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				LinkIncremental="1"
 				SubSystem="2"
-				TargetMachine="1"
-			/>
+				TargetMachine="1"/>
 			<Tool
-				Name="VCALinkTool"
-			/>
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="FALSE"
+				TargetEnvironment="1"
+				GenerateStublessProxies="TRUE"
+				TypeLibraryName="$(IntDir)/TestAtlCtrl.tlb"
+				HeaderFileName="TestAtlCtrl.h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="TestAtlCtrl_i.c"
+				ProxyFileName="TestAtlCtrl_p.c"/>
 			<Tool
-				Name="VCManifestTool"
-			/>
+				Name="VCPostBuildEventTool"/>
 			<Tool
-				Name="VCXDCMakeTool"
-			/>
+				Name="VCPreBuildEventTool"/>
 			<Tool
-				Name="VCBscMakeTool"
-			/>
+				Name="VCPreLinkEventTool"/>
 			<Tool
-				Name="VCFxCopTool"
-			/>
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="4105"
+				AdditionalIncludeDirectories="&quot;$(IntDir)&quot;;../../WTL/include;G:\MyDocuments\BabelLib\_SrcPool\Cpp\Win\WTL\include"/>
 			<Tool
-				Name="VCAppVerifierTool"
-			/>
+				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCWebDeploymentTool"
-			/>
+				Name="VCXMLDataGeneratorTool"/>
 			<Tool
-				Name="VCPostBuildEventTool"
-			/>
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -201,62 +136,79 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
-			>
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath=".\Src\AboutDlg.cpp"
-				>
+				RelativePath=".\Src\MainDlg.cpp">
 			</File>
 			<File
-				RelativePath=".\Src\MainDlg.cpp"
-				>
+				RelativePath=".\Src\stdatl.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="1"/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Src\TestAtlCtrl.cpp"
-				>
+				RelativePath="..\Generic\Src\TestAtlAboutDlg.cpp">
+			</File>
+			<File
+				RelativePath="..\Generic\Src\TestAtlDialogApp.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc"
-			>
+			Filter="h;hpp;hxx;hm;inl;inc">
 			<File
-				RelativePath=".\Src\AboutDlg.h"
-				>
+				RelativePath="..\..\32\KMsgMapNotify.h">
 			</File>
 			<File
-				RelativePath=".\Src\MainDlg.h"
-				>
+				RelativePath=".\Src\MainDlg.h">
 			</File>
 			<File
-				RelativePath=".\Res\resource.h"
-				>
+				RelativePath=".\Res\resource.h">
+			</File>
+			<File
+				RelativePath=".\Src\stdatl.h">
+			</File>
+			<File
+				RelativePath="..\Generic\Res\TestAboutDlg.h">
+			</File>
+			<File
+				RelativePath="..\Generic\Src\TestAtlAboutDlg.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest"
-			>
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest">
 			<File
-				RelativePath="..\Generic\Res\SrcPool.ico"
-				>
+				RelativePath="..\Generic\Res\SrcPool.ico">
 			</File>
 			<File
-				RelativePath=".\Res\TestAtlCtrl.rc"
-				>
+				RelativePath="..\Generic\Res\TestAboutDlg.rc">
+			</File>
+			<File
+				RelativePath=".\Res\TestAtlCtrl.rc">
 			</File>
 		</Filter>
 		<Filter
 			Name="Log Files"
 			Filter="*.log"
-			SourceControlFiles="false"
-			>
+			SourceControlFiles="FALSE">
 		</Filter>
 		<File
-			RelativePath=".\TestAtlCtrl.txt"
-			>
+			RelativePath=".\TestAtlCtrl.txt">
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="\MyDocuments\BabelLib\_SrcPool\Cpp\Win\Samples\Generic\Res\TestAboutDlg.rc"/>
 	</Globals>
 </VisualStudioProject>
