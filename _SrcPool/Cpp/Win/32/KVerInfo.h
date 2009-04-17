@@ -64,7 +64,9 @@ public:
     WORD wLanguage;//language identifier
     WORD wCharSet; //character-set identifier
     operator DWORD() const
-      {return MAKELONG(wLanguage,wCharSet);}
+      {
+      return MAKELONG(wLanguage,wCharSet);
+      }
     };
 protected:
     //The translation table in the variable information structure.

@@ -20,8 +20,6 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
-extern void SystemErrMessage(UINT uiSystemError);
-
 //This makes ClassWizard happy
   //{{AFX_MSG_MAP(CVersionInfo)
     // NOTE - the ClassWizard will add and remove mapping macros here.
@@ -33,13 +31,16 @@ extern void SystemErrMessage(UINT uiSystemError);
 /*Obtains version information about a module (exe or dll) with given instance
   handle. If handle is NULL, the version information for the current application
   is retrieved.
+  If method fails, call GetLastError() to get extended error information.
 
   Note:  Member m_StringFileInfo specifies a value in a language-specific structure.
   The lang-charset name is a concatenation of a language and character-set
   identifier pair found in the translation table for the resource.
   The lang-charset name must be specified as a hexadecimal string.
-  */
-CVersionInfo::CVersionInfo(HINSTANCE hInstance  //[in] NULL or handle of a module
+ */
+CVersionInfo::CVersionInfo(HINSTANCE hInstance  //[in] = NULL handle of a module
+                           //of interest. If it is NULL, constructor retreives 
+                           //version information about a current application.
                            ) :
         m_lpData(NULL),
         m_StringFileInfo(_TEXT("\\StringFileInfo\\%04lx%04lx\\%s")),
@@ -51,33 +52,48 @@ if (hInstance == NULL)
 TCHAR szAppName[_MAX_PATH];
 VERIFY(::GetModuleFileName(hInstance, szAppName, _MAX_PATH));
   //Get version information about a current application
-VERIFY(SetVersionInfo(szAppName));
+SetVersionInfo(szAppName);
 }
 
 /*Obtains version information about a specified file.
+  If method fails, call GetLastError() to get extended error information.
+
+  Example:
+    ...
+    extern void SystemErrMessage(UINT uiSystemError);
+    CVersionInfo DllVersion(_T("mfc80.dll"));
+    SystemErrMessage(GetLastError());
+    CString strVersion;
+    DllVersion.GetProductVersion(strVersion);
  */
-CVersionInfo::CVersionInfo(LPCTSTR szFullPath //full path to module to find VERSIONINFO for
+CVersionInfo::CVersionInfo(LPCTSTR szFullPath //[in] the name of the file of 
+    //interest.If a full path is not specified, the function uses the search 
+    //sequence specified by the LoadLibrary() function.
+    //If the name is an empty string, constructor retreives version information
+    //about a current application.
                            ) :
         m_lpData(NULL),
         m_StringFileInfo(_TEXT("\\StringFileInfo\\%04lx%04lx\\%s")),
         m_nTranslationTableSize(0)
 {
-if ( szFullPath != NULL )
-  VERIFY(SetVersionInfo(szFullPath));
+if ((szFullPath != NULL) || (szFullPath[0] == _T('\0')))
+  {
+  SetVersionInfo(szFullPath);
+  }
 else
   {
     //Get path of executable
   TCHAR szAppName[_MAX_PATH];
   VERIFY(::GetModuleFileName(AfxGetInstanceHandle(), szAppName, _MAX_PATH));
     //Get version information about a current application
-  VERIFY(SetVersionInfo(szAppName));
+  SetVersionInfo(szAppName);
   }
 }
 
 //-----------------------------------------------------------------------------
 /*Destructor frees m_lpData array
  */
-CVersionInfo::~CVersionInfo ()
+CVersionInfo::~CVersionInfo()
 {
 if (m_lpData)
   delete[] (char*)m_lpData;
@@ -85,7 +101,20 @@ if (m_lpData)
 
 //::SetVersionInfo()-----------------------------------------------------------
 /*Obtains version information about specified file and initializes member
-  m_lpData
+  m_lpData.
+
+  Returns: TRUE id successful. If the function fails, the return value is FALSE. 
+  To get extended error information, call GetLastError().
+
+  Example:
+     #include "KVerInfo.h" //CVersionInfo class
+     ...
+     CVersionInfo verInfo;
+     if(!verInfo.SetVersionInfo(_T("user32.dll")))
+        {
+        extern void SystemErrMessage(UINT uiSystemError);
+        SystemErrMessage(GetLastError());
+        }
 
   Note: Windows 95/98: The short path form of the specified file name must
         be less than 126 characters.
@@ -93,56 +122,56 @@ if (m_lpData)
 BOOL CVersionInfo::SetVersionInfo(LPCTSTR szPath //[in] module path
                                  )
 {
-if(szPath == NULL)
-  return FALSE;
-
-DWORD  dwHandle;
-  //Size of requested information block
-DWORD dwSize = ::GetFileVersionInfoSize((LPTSTR)szPath,&dwHandle);
-
-if (dwSize)
+TRACE1("CVersionInfo::SetVersionInfo('%s')\n",szPath);
+if((szPath != NULL) || (szPath[0] != _T('\0')))
   {
-  if ( m_lpData != NULL )
-    delete[] (char*)m_lpData;
+  DWORD  dwHandle;
+    //Size of requested information block
+  DWORD dwSize = ::GetFileVersionInfoSize((LPTSTR)szPath,&dwHandle);
 
-  m_lpData  = (LPVOID)new char[(UINT)dwSize];  //Allocate buffer
-  if (::GetFileVersionInfo((LPTSTR)szPath,
-                          dwHandle, dwSize, m_lpData))
+  if (dwSize != 0)
     {
-    //Retrieve a pointer to an array of language and
-    //character-set identifiers
-    UINT nSize;
-    if (!::VerQueryValue(m_lpData,
-                _T("\\VarFileInfo\\Translation"),
-                (LPVOID  *)&m_lpTranslationTable,
-                &nSize))
+    if ( m_lpData != NULL )
+      delete[] (char*)m_lpData;
+
+    m_lpData  = (LPVOID)new char[(UINT)dwSize];  //Allocate buffer
+    if (::GetFileVersionInfo((LPTSTR)szPath,
+                            dwHandle, dwSize, m_lpData))
       {
-      delete[] (char*)m_lpData;    //Error
-      m_lpData = NULL;
+      //Retrieve a pointer to an array of language and
+      //character-set identifiers
+      UINT nSize;
+      if (!::VerQueryValue(m_lpData,
+                  _T("\\VarFileInfo\\Translation"),
+                  (LPVOID  *)&m_lpTranslationTable,
+                  &nSize))
+        {
+        delete[] (char*)m_lpData;    //Error
+        m_lpData = NULL;
+        }
+      else
+        {
+          //Get number of elements in the Translation Table
+        m_nTranslationTableSize = nSize/sizeof(LANGCHARSET);
+        #ifdef _DEBUG
+          TRACE0("CVersionInfo::SetVersionInfo() Obtained ");
+         if (nSize > sizeof(LANGCHARSET))
+           TRACE1("%d different language identifiers\n",
+                    nSize/sizeof(LANGCHARSET));
+          else
+            TRACE0("1 language identifier\n");
+        #endif
+        }
       }
-    else
-      {
-        //Get number of elements in the Translation Table
-      m_nTranslationTableSize = nSize/sizeof(LANGCHARSET);
-      #ifdef _DEBUG
-        TRACE0("CVersionInfo::SetVersionInfo() Obtained ");
-       if (nSize > sizeof(LANGCHARSET))
-         TRACE1("%d different language identifiers\n",
-                  nSize/sizeof(LANGCHARSET));
-        else
-          TRACE0("1 language identifier\n");
-      #endif
-      }
+    return TRUE;
+    }
+  else
+    {
+    TRACE1("CVersionInfo::SetVersionInfo('%s') failed!\n",szPath);
+    TRACE1("  System Error = %d.\n", GetLastError());
     }
   }
-else
-  {
-  TRACE1("CVersionInfo::SetVersionInfo( %s ) failed!\n",szPath);
-  SystemErrMessage(GetLastError());
-  return FALSE;
-  }
-
-return TRUE;
+return FALSE;
 }
 
 //::GetProductName()-----------------------------------------------------------

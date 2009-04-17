@@ -5,7 +5,7 @@
 // Jan. 2k
 
 #include "StdAfx.h"
-#include "KVerInfo.h" //CVersionInfo classs
+#include "KVerInfo.h" //CVersionInfo class
 
 #ifdef _DEBUG
   #define new DEBUG_NEW
@@ -30,11 +30,19 @@ TsWriteToView(_T("\r\n"));
   #if _MSC_VER == 1310
     strText += _T("mfc71enu.dll");
   #else
-    strText += _T("user32.dll");
+    #if _MSC_VER == 1400
+      strText += _T("user32.dll");
+      //strText += _T("mfc80.dll"); //assembly is not in the search path
+    #else
+      strText += _T("user32.dll");
+    #endif
   #endif
 #endif
 
 CVersionInfo DllVersion(strText);
+extern void SystemErrMessage(UINT uiSystemError);
+SystemErrMessage(GetLastError());
+
 strText += _T("  v.");
 DllVersion.GetProductVersion(strTemp);
 strText += strTemp;
@@ -47,6 +55,7 @@ strText += strTemp;
 strText += _T("\r\n\r\n");
 TsWriteToView((LPCTSTR)strText);
 
+//Get version information from the current application
 strText.Empty();
 TsWriteToView(_T("VerInfoTest.exe\tv."));
 CVersionInfo ExeVersion;
