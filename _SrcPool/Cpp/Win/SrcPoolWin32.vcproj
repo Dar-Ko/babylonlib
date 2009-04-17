@@ -795,15 +795,10 @@
 				>
 			</File>
 			<File
-<<<<<<< SrcPoolWin32.vcproj
-				RelativePath=".\32\KFileGetDirectory.cpp"
-				>
-=======
 				RelativePath=".\32\KErrnoFromLastError.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KFileGetDirectory.cpp">
->>>>>>> 1.6
 			</File>
 			<File
 				RelativePath=".\32\KFileNameFit.cpp"
@@ -922,15 +917,10 @@
 				>
 			</File>
 			<File
-<<<<<<< SrcPoolWin32.vcproj
-				RelativePath=".\32\KListEx.cpp"
-				>
-=======
 				RelativePath=".\32\KLastErrorFromErrno.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KListEx.cpp">
->>>>>>> 1.6
 			</File>
 			<File
 				RelativePath=".\32\KPropPgR.cpp"

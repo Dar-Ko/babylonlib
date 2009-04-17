@@ -1,5 +1,5 @@
 $RCSfile: VerInfoTest.txt,v $: developer's note
-$Revision: 1.1 $ $Date: 2009/04/16 21:34:45 $
+$Revision: 1.2 $ $Date: 2009/04/17 18:34:20 $
 $Author: ddarko $
 
 Samples and test suites for the various functions, classes and algorithms using Babylon Library
@@ -8,5 +8,25 @@ Copyright: CommonSoft Inc.
 1993-06-07 Darko Kolakovic
 
 \	VerInfoTest.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	VerInfoTest.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	VerInfoTest.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	VerInfoTest7.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+
+Microsoft Visual Studio C++ 2005 v8.0
+======================================
+Compiler Warning C4996 in release build using ATL/WTL
+-----------------------------------------------------
+C4996 can also occur if you use MFC or ATL functions that were deprecated for security reasons.
+Excerpt from <atlapp.h>
+#if _SECURE_ATL && !defined(_ATL_MIN_CRT) && !defined(_WIN32_WCE)
+  //MSVC++ v8.0 Use secure version string handlers
+#else
+  //Use deprecated unsecured versions of string handlers
+  //Compiler Warning (level 3) C4996 will be issued
+  //See also: MSDN, Safe Libraries: Standard C++ Library, http://msdn.microsoft.com/en-us/library/aa985872.aspx;
+  //MSDN, Security Enhancements in the CRT, http://msdn.microsoft.com/en-us/library/8ef0s5kh.aspx
+  #pragma warning(disable : 4996)
+#endif
+
+To solve the issue, don't use ATL with minimized CRT library, while compiling the application.
+Change project configuration as follows:
+  Project Property Page | Configuration Properties | General | Minimize CRT Use in ATL : No

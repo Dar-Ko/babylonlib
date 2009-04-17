@@ -1,5 +1,5 @@
 $RCSfile: TestButton.txt,v $: developer's note
-$Revision: 1.1 $ $Date: 2009/02/20 15:53:15 $
+$Revision: 1.2 $ $Date: 2009/04/17 18:34:20 $
 $Author: ddarko $
 
 Samples and test suites for the Component Object Model (COM), Active Template Library (ATL) and Microsoft Windows API.
@@ -8,5 +8,5 @@ Copyright: CommonSoft Inc.
 2009-02-12 Darko Kolakovic
 
 \	TestButton.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	TestButton.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	TestButton.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	TestButton7.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32

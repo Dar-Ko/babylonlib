@@ -33,7 +33,7 @@ Also <Test COM>.dll have to be registered:
   regsvr32 <Test COM>.dll
 
 \	TestComContainer.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	TestComContainer.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	TestComContainer.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	TestComContainer7.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
 
 Microsoft Visual Studio C++ 2005 v8.0

@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="TestButton"
 	ProjectGUID="{2B56E734-C600-4362-9F93-B9354FBDA13B}"
+	RootNamespace="TestButton"
 	Keyword="MFCProj"
 	>
 	<Platforms>
@@ -584,6 +585,10 @@
 					Name="VCCustomBuildTool"
 				/>
 			</FileConfiguration>
+		</File>
+		<File
+			RelativePath=".\TestButton.txt"
+			>
 		</File>
 	</Files>
 	<Globals>
