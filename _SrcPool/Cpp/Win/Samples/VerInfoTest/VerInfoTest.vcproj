@@ -516,6 +516,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_MFC"
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -524,6 +525,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_MFC"
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -532,6 +534,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_MFC"
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -540,6 +543,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_MFC"
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>

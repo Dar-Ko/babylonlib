@@ -17,12 +17,30 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#ifndef __AFX_H__
-  #include <AfxWin.h>
+#ifdef _USE_MFC //Microsoft Fundation Classes Library (MFC)
+  #ifndef __AFX_H__
+    #include <AfxWin.h>
+  #endif
+
+  #ifdef _DEBUG
+    CDumpContext& AFXAPI operator << (CDumpContext& dc, VS_FIXEDFILEINFO const& vffiSrc);
+  #endif
 #endif
 
-#ifdef _DEBUG
-  CDumpContext& AFXAPI operator << (CDumpContext& dc, VS_FIXEDFILEINFO const& vffiSrc);
+#ifdef _USE_ATL //Active Template Libaray (ATL)
+  #include <atlstr.h>
+  #include <atlapp.h> //CAppModule _Module
+  #ifndef TRACE
+    #define TRACE ATLTRACE
+    #define TRACE0 ATLTRACE
+    #define TRACE1 ATLTRACE
+  #endif
+  #ifndef ASSERT
+    #define ASSERT ATLASSERT
+  #endif
+  #ifndef VERIFY
+    #define VERIFY ATLVERIFY
+  #endif
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -45,7 +63,7 @@
 //      They do not work with 16-bit Windows file images.
 //      Microsoft Windows specific (Win);
 //      uses Microsoft Foundation Library (MFC).
-class CVersionInfo : public CObject
+class CVersionInfo
 {
 // Construction
 public:

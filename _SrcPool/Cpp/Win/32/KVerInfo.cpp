@@ -14,10 +14,12 @@
 
 #pragma comment(lib, "Version")
 
-#ifdef _DEBUG
-  #define new DEBUG_NEW
-  #undef THIS_FILE
-  static char THIS_FILE[] = __FILE__;
+#ifdef _USE_MFC
+  #ifdef _DEBUG
+    #define new DEBUG_NEW
+    #undef THIS_FILE
+    static char THIS_FILE[] = __FILE__;
+  #endif
 #endif
 
 //This makes ClassWizard happy
@@ -47,7 +49,15 @@ CVersionInfo::CVersionInfo(HINSTANCE hInstance  //[in] = NULL handle of a module
         m_nTranslationTableSize(0)
 {
 if (hInstance == NULL)
-  hInstance = AfxGetInstanceHandle(); //Retrieve the instance handle of the current application
+  {
+  //Retrieve the instance handle of the current application
+  #ifdef _USE_ATL
+    extern CAppModule _Module;
+    hInstance = _Module.m_hInst;
+  #else
+    hInstance = AfxGetInstanceHandle();
+  #endif
+  }
   //Get path of executable
 TCHAR szAppName[_MAX_PATH];
 VERIFY(::GetModuleFileName(hInstance, szAppName, _MAX_PATH));
@@ -84,7 +94,15 @@ else
   {
     //Get path of executable
   TCHAR szAppName[_MAX_PATH];
-  VERIFY(::GetModuleFileName(AfxGetInstanceHandle(), szAppName, _MAX_PATH));
+  //Retrieve the instance handle of the current application
+  #ifdef _USE_ATL
+    extern CAppModule _Module;
+    HINSTANCE hInstance = _Module.m_hInst;
+  #else
+    HINSTANCE hInstance = AfxGetInstanceHandle();
+  #endif
+
+  VERIFY(::GetModuleFileName(hInstance, szAppName, _MAX_PATH));
     //Get version information about a current application
   SetVersionInfo(szAppName);
   }
