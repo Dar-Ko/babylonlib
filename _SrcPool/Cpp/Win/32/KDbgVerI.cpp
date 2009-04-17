@@ -1,4 +1,4 @@
-/*$Workfile: KDbgVerI.cpp$: implementation file
+/*$RCSfile: KDbgVerI.cpp$: implementation file
   $Revision: 7$ $Date: 2005-04-26 11:29:27$
   $Author: Darko Kolakovic$
 
@@ -14,7 +14,6 @@
   static char THIS_FILE[] = __FILE__;
 
 ///////////////////////////////////////////////////////////////////////////////
-
 
 //operator<<()----------------------------------------------------------------
 /*Outputs the VS_FIXEDFILEINFO data to the dump context.
@@ -41,11 +40,11 @@
       DWORD dwFileDateLS;       //the least significant 32 bits of the file's 64-bit
                                 //creation date and time stamp
       };
-      
+
   Note: uses Microsoft Foundation Library (MFC).
         Microsoft Windows specific (Win).
 
-Group=Diagnostic 
+Group=Diagnostic
 */
 CDumpContext& AFXAPI operator <<(CDumpContext& dc,VS_FIXEDFILEINFO const& vffiSrc)
 {
@@ -168,3 +167,9 @@ return dc;
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_DEBUG
+///////////////////////////////////////////////////////////////////////////////
+/******************************************************************************
+ * $Log: $
+ * Revision 1 Renamed KVerInDp.cpp
+ *
+ ******************************************************************************/
