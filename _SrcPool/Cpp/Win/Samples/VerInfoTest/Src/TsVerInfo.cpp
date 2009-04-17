@@ -24,7 +24,15 @@ CString strText;
 CString strTemp;
 
 TsWriteToView(_T("\r\n"));
-strText += _T("Mfc42d.dll");
+#if _MSC_VER == 600
+  strText += _T("Mfc42d.dll");
+#else
+  #if _MSC_VER == 1310
+    strText += _T("mfc71enu.dll");
+  #else
+    strText += _T("user32.dll");
+  #endif
+#endif
 
 CVersionInfo DllVersion(strText);
 strText += _T("  v.");

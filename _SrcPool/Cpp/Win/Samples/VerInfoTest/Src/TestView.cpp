@@ -108,8 +108,11 @@ return bRes;
   this function to perform screen display, printing, and print preview, and it 
   passes a different device context in each case. 
  */
-void CTestView::OnDraw(CDC* pDC)
+void CTestView::OnDraw(CDC* pDC //[in] the device context to be used for rendering
+                       //an image of the document
+                      )
 {
+_UNUSED(pDC);
 CTestDoc* pDoc = GetDocument();
 ASSERT_VALID(pDoc);
 }

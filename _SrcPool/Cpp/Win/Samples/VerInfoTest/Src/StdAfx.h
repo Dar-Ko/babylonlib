@@ -12,6 +12,8 @@
 #endif // _AFX_NO_AFXCMN_SUPPORT
 
 #pragma comment( user, "Compiled on " __DATE__ " at " __TIME__ )
+#include "KType32.h"
+#include "KProgCst.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //Function declarations

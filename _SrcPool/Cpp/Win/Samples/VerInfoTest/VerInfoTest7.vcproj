@@ -24,7 +24,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT;WINVER=0x0501"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="3"
@@ -44,7 +44,7 @@
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="1.0"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
@@ -91,7 +91,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				AdditionalIncludeDirectories="../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT;WINVER=0x0501"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="3"
@@ -111,7 +111,7 @@
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="1.0"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="2"
@@ -157,7 +157,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT;WINVER=0x0501"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -178,7 +178,7 @@
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="1.0"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
@@ -225,7 +225,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				AdditionalIncludeDirectories="../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT;WINVER=0x0501"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="3"
@@ -245,7 +245,7 @@
 				Name="VCLinkerTool"
 				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="1.0"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="2"
@@ -295,28 +295,28 @@
 					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
+						PreprocessorDefinitions="_WINDOWS"
 						AdditionalIncludeDirectories="Src"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
+						PreprocessorDefinitions="_WINDOWS"
 						AdditionalIncludeDirectories="Src"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
+						PreprocessorDefinitions="_WINDOWS"
 						AdditionalIncludeDirectories="Src"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
+						PreprocessorDefinitions="_WINDOWS"
 						AdditionalIncludeDirectories="Src"/>
 				</FileConfiguration>
 			</File>
@@ -331,7 +331,7 @@
 			Name="Headers"
 			Filter="*.h;*.inl">
 			<File
-				RelativePath="..\..\KVerInfo.h">
+				RelativePath="..\..\32\KVerInfo.h">
 			</File>
 			<File
 				RelativePath="Src\MainFrm.h">
@@ -356,54 +356,37 @@
 			Name="Source"
 			Filter="*.cpp, *.c">
 			<File
-				RelativePath="..\..\KVerInDp.cpp">
-				<FileConfiguration
-					Name="Debug_SBCS|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
-				</FileConfiguration>
+				RelativePath="..\..\32\KDbgVerI.cpp">
+			</File>
+			<File
+				RelativePath="..\..\32\KSysErrM.cpp">
 			</File>
 			<File
 				RelativePath="..\..\32\KVerInfo.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="Src\MainFrm.cpp">
