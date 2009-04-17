@@ -23,7 +23,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT;WINVER=0x0501"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
@@ -88,7 +88,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				AdditionalIncludeDirectories="..\..../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT;WINVER=0x0501"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
@@ -153,7 +153,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT;WINVER=0x0501"
 				MinimalRebuild="TRUE"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="3"
@@ -220,7 +220,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				AdditionalIncludeDirectories="..\..../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT;WINVER=0x0501"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="3"
 				PrecompiledHeaderThrough="stdafx.h"
@@ -281,7 +281,7 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat;for;f90">
 			<File
-				RelativePath="..\..\KDbgOSVI.cpp">
+				RelativePath="..\..\32\KDbgOSVI.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
 					<Tool
@@ -324,7 +324,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\KGetPrSu.cpp">
+				RelativePath="..\..\32\KGetPrSu.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
 					<Tool
@@ -363,85 +363,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\KGetPrTy.cpp">
-				<FileConfiguration
-					Name="Debug_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\KIsProdS.cpp">
-				<FileConfiguration
-					Name="Debug_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BrowseInformation="1"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\KWinFWIs.cpp">
+				RelativePath="..\..\32\KGetPrTy.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
 					<Tool
@@ -484,7 +406,89 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\KWinVerG.cpp">
+				RelativePath="..\..\32\KIsProdS.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BrowseInformation="1"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\32\KWinFWIs.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+						BrowseInformation="1"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\32\KWinVerG.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
 					<Tool
@@ -531,7 +535,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\KWinVers.cpp">
+				RelativePath="..\..\32\KWinVers.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
 					<Tool
@@ -886,16 +890,16 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;fi;fd">
 			<File
-				RelativePath="..\..\KFileHnd.inl">
+				RelativePath="..\..\32\KFileHnd.inl">
 			</File>
 			<File
-				RelativePath="..\..\KWinVerG.inl">
+				RelativePath="..\..\32\KWinVerG.inl">
 			</File>
 			<File
-				RelativePath="..\..\KWinVers.h">
+				RelativePath="..\..\32\KWinVers.h">
 			</File>
 			<File
-				RelativePath="..\..\KWinVers.inl">
+				RelativePath="..\..\32\KWinVers.inl">
 			</File>
 			<File
 				RelativePath="Src\MainFrm.h">
