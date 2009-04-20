@@ -61,8 +61,8 @@
 //
 //Note: The version information functions work only with Win32 file images.
 //      They do not work with 16-bit Windows file images.
-//      Microsoft Windows specific (Win);
-//      uses Microsoft Foundation Library (MFC).
+//
+//Note: Microsoft Windows specific (Win);
 class CVersionInfo
 {
 // Construction

@@ -11,6 +11,10 @@
   #define new DEBUG_NEW
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
+  #ifdef _USE_MFC //Microsoft Fundation Classes Library (MFC)
+    extern CDumpContext& AFXAPI operator <<(CDumpContext& dc,
+                                          VS_FIXEDFILEINFO const& vffiSrc);
+  #endif
 #endif
 
 extern BOOL TsWriteToView(LPCTSTR lszText);
@@ -89,7 +93,9 @@ VS_FIXEDFILEINFO vsffiData;
 if(ExeVersion.GetFixedFileInfo(vsffiData))
   {
   #ifdef _DEBUG
-    afxDump << vsffiData;
+    #ifdef _USE_MFC //Microsoft Fundation Classes Library (MFC)
+      afxDump << vsffiData;
+    #endif
   #endif
   TsWriteToView(_T("\tdesigned for "));
   if (vsffiData.dwFileOS == VOS_UNKNOWN)

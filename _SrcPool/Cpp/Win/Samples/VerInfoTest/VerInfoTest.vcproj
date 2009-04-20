@@ -50,7 +50,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT;WINVER=0x0501"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT;WINVER=0x0501;_USE_MFC"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -147,7 +147,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				AdditionalIncludeDirectories="../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT;WINVER=0x0501"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT;WINVER=0x0501;_USE_MFC"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -243,7 +243,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT;WINVER=0x0501"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;STRICT;WINVER=0x0501;_USE_MFC"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -341,7 +341,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				AdditionalIncludeDirectories="../../..;../../32;./Src;./Res;../Generic/Src;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT;WINVER=0x0501"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;STRICT;WINVER=0x0501;_USE_MFC"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
@@ -413,46 +413,6 @@
 			<File
 				RelativePath="Res\TestApp.ico"
 				>
-			</File>
-			<File
-				RelativePath="Src\TestApp.rc"
-				>
-				<FileConfiguration
-					Name="Debug_SBCS|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions="_WINDOWS"
-						AdditionalIncludeDirectories="Src"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_SBCS|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions="_WINDOWS"
-						AdditionalIncludeDirectories="Src"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug_Unicode|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions="_WINDOWS"
-						AdditionalIncludeDirectories="Src"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release_Unicode|Win32"
-					>
-					<Tool
-						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions="_WINDOWS"
-						AdditionalIncludeDirectories="Src"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="Res\TestApp.rc2"
@@ -759,6 +719,10 @@
 						BrowseInformation="1"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\TestApp.rc"
+				>
 			</File>
 			<File
 				RelativePath="Src\TestDoc.cpp"
