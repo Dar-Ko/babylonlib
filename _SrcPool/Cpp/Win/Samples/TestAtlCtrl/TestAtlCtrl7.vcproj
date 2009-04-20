@@ -138,6 +138,21 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
+				RelativePath="..\..\32\KVerInfo.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Src\MainDlg.cpp">
 			</File>
 			<File
@@ -167,6 +182,9 @@
 			Filter="h;hpp;hxx;hm;inl;inc">
 			<File
 				RelativePath="..\..\32\KMsgMapNotify.h">
+			</File>
+			<File
+				RelativePath="..\..\32\KVerInfo.h">
 			</File>
 			<File
 				RelativePath=".\Src\MainDlg.h">
