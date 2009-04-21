@@ -43,18 +43,18 @@ TsWriteToView(_T("\r\n"));
   #endif
 #endif
 
-CVersionInfo DllVersion(strText);
+CVersionInfo verinfoDll(strText);
 extern void SystemErrMessage(UINT uiSystemError);
 SystemErrMessage(GetLastError());
 
 strText += _T("  v.");
-DllVersion.GetProductVersion(strTemp);
+verinfoDll.GetProductVersion(strTemp);
 strText += strTemp;
 strText += _T("\r\n");
-DllVersion.GetFileDescription(strTemp);
+verinfoDll.GetFileDescription(strTemp);
 strText += strTemp;
 strText += _T("\r\n");
-DllVersion.GetCopyright(strTemp);
+verinfoDll.GetCopyright(strTemp);
 strText += strTemp;
 strText += _T("\r\n\r\n");
 TsWriteToView((LPCTSTR)strText);
@@ -62,24 +62,24 @@ TsWriteToView((LPCTSTR)strText);
 //Get version information from the current application
 strText.Empty();
 TsWriteToView(_T("VerInfoTest.exe\tv."));
-CVersionInfo ExeVersion;
-ExeVersion. GetFileVersion(strTemp);
+CVersionInfo verinfoApp;
+verinfoApp.GetFileVersion(strTemp);
 strText += strTemp;
 strText += _T("\r\n");
-ExeVersion.GetFileDescription(strTemp);
+verinfoApp.GetFileDescription(strTemp);
 strText += strTemp;
 strText += _T("\r\n");
 TsWriteToView((LPCTSTR)strText);
   //Enumerate languages
 UINT i = 0;
 TsWriteToView(_T("\t"));
-while (i < ExeVersion.GetTranslationTableSize())
+while (i < verinfoApp.GetTranslationTableSize())
   {
-  ExeVersion.GetLanguage(strTemp, i);
+  verinfoApp.GetLanguage(strTemp, i);
     //Get character set for the neutral language
-  if (ExeVersion.GetLanguageCode(i) == 0x0000)
+  if (verinfoApp.GetLanguageCode(i) == 0x0000)
     {
-    strText.Format(_T(" %d"),ExeVersion.GetCharacterSet(i));
+    strText.Format(_T(" %d"),verinfoApp.GetCharacterSet(i));
     strTemp += strText;
     }
   strTemp += _T("\r\n\t");
@@ -90,7 +90,7 @@ TsWriteToView(_T("\r\n"));
 
   //Get fixed file information from version resource
 VS_FIXEDFILEINFO vsffiData;
-if(ExeVersion.GetFixedFileInfo(vsffiData))
+if(verinfoApp.GetFixedFileInfo(vsffiData))
   {
   #ifdef _DEBUG
     #ifdef _USE_MFC //Microsoft Fundation Classes Library (MFC)
