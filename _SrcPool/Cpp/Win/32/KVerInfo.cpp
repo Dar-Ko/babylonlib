@@ -140,7 +140,12 @@ if (m_lpData)
 BOOL CVersionInfo::SetVersionInfo(LPCTSTR szPath //[in] module path
                                  )
 {
-TRACE1("CVersionInfo::SetVersionInfo('%s')\n",szPath);
+#ifdef _UNICODE
+  TRACE1("CVersionInfo::SetVersionInfo('%ws')\n",szPath);
+#else
+  TRACE1("CVersionInfo::SetVersionInfo('%s')\n",szPath);
+#endif
+
 if((szPath != NULL) || (szPath[0] != _T('\0')))
   {
   DWORD  dwHandle;
@@ -185,7 +190,11 @@ if((szPath != NULL) || (szPath[0] != _T('\0')))
     }
   else
     {
-    TRACE1("CVersionInfo::SetVersionInfo('%s') failed!\n",szPath);
+    #ifdef _UNICODE
+      TRACE1("CVersionInfo::SetVersionInfo('%ws') failed!\n",szPath);
+    #else
+      TRACE1("CVersionInfo::SetVersionInfo('%s') failed!\n",szPath);
+    #endif
     TRACE1("  System Error = %d.\n", GetLastError());
     }
   }
@@ -291,7 +300,11 @@ if (!IsVersionInfo())
 #ifdef _DEBUG
   CString strLan;
   VERIFY(GetLanguage(strLan));
-  TRACE1("CVersionInfo::GetProductVersion() Language %s\n",strLan);
+  #ifdef _UNICODE
+    TRACE1("CVersionInfo::GetProductVersion() Language %ws\n",strLan);
+  #else
+    TRACE1("CVersionInfo::GetProductVersion() Language %s\n",strLan);
+  #endif
 #endif
 
 wsprintf(subBlockName, m_StringFileInfo,
