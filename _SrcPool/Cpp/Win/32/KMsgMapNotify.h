@@ -1,5 +1,5 @@
 /*$RCSfile: KMsgMapNotify.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/02/24 21:42:33 $
+  $Revision: 1.3 $ $Date: 2009/04/21 21:34:56 $
   $Author: ddarko $
 
   Windows common control notification message map macros
@@ -461,15 +461,19 @@
           MSG_WM_NOTIFY_CODE(NM_CLICK, NMITEMACTIVATE, nIdentifier, func) // NMHDR prior to 4.71
 
   //---------------------------------------------------------------------------
-  /*NM_DBLCLK for list view notifies a list-view control's parent window that
-    the user double-clicked an item with the left mouse button.
+  /*NM_DBLCLK notifies a control's parent window that the user has
+    double-clicked the left mouse button within the control.
     This notification message is sent in the form of a WM_NOTIFY message.
 
-  Parameters:
+  MSG_LVN_DBLCLK parameters:
     nIdentifier    Control identifier
     func           Message handler
 
   Message handler:
+    Handles an event that occurs when the user double-clicks certain elment
+    within a control.
+    The return value is ignored.
+
     Shell version 4.0 to 4.71
     LRESULT OnDblClk(NMHDR* pHeader //[in] specifies the information
                                     //about clicked item.
@@ -479,7 +483,6 @@
     LRESULT OnDblClk(NMITEMACTIVATE* pHeader //[in] specifies the information
                                              //about clicked item.
                          )
-    The return value is ignored.
 
     Note: starting with version 4.71, the Shell and common controls DLLs, among
     others, began exporting DllGetVersion. This function can be called by
@@ -619,17 +622,44 @@
     displayed in a ToolTip. The notification is sent only for subitem 0.
     This notification message is sent in the form of a WM_NOTIFY message.
 
-  Parameters:
+  WM_NOTIFY parameters
+    - wParam   identifier of the common control sending the message.
+               This identifier is not guaranteed to be unique.
+    - lParam   pointer to an NMLVGETINFOTIP structure that contains information
+               about this notification. 
+  
+  An application should use the hwndFrom or idFrom member of the NMHDR
+  structure (passed as the lParam parameter) to identify the control.
+
+  MSG_LVN_GETINFOTIP parameters:
     nIdentifier    Control identifier
     func           Message handler
 
   Message handler:
+    Handles request from the list-view control for additional text information
+    to be displayed in a ToolTip.
+
+      struct tagNMLVGETINFOTIP
+        {
+        NMHDR hdr;      //NMHDR structure that contains information on this
+                        //notification message. 
+        DWORD dwFlags;  //zero if the item text is truncated or LVGIT_UNFOLDED.
+        LPTSTR pszText; //whole item text copy if item text is truncated
+        int cchTextMax; //buffer size in characters, of the buffer pointed to
+                        //by pszText.
+        int iItem;      //index of the item to which this structure refers.
+        int iSubItem;   //index of the subitem to which this structure refers.
+        LPARAM lParam;  //reserved for future use.
+        };
+
+    The return value is ignored.
+
     LRESULT OnGetInfoTip(NMLVGETINFOTIP* pHeader //[in/out] specifies list-view
                                                  //item information for a ToolTip.
                          )
-    The return value is ignored.
 
-    See also: MSG_WM_NOTIFY_CODE(), <commctrl.h>, NMLVGETINFOTIP
+    See also: MSG_WM_NOTIFY_CODE(), MSG_WM_NOTIFY(), <commctrl.h>, NMLVGETINFOTIP,
+    LVM_SETINFOTIP, LVSETINFOTIP
    */
     #define MSG_LVN_GETINFOTIP(nIdentifier, func) \
           MSG_WM_NOTIFY_CODE(LVN_GETINFOTIP, NMLVGETINFOTIP, nIdentifier, func)
@@ -841,6 +871,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KMsgMapNotify.h,v $
+ * Revision 1.3  2009/04/21 21:34:56  ddarko
+ * Updated comments
+ *
  * Revision 1.2  2009/02/24 21:42:33  ddarko
  * Test common control notification messages
  *
