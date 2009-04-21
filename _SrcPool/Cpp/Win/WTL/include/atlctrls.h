@@ -3639,7 +3639,13 @@ public:
 		return InsertItem(&item);
 	}
 
-	int InsertItem(const LVITEM* pItem)
+  /*Inserts a new item in a list-view control.
+    Returns the index of the new item if successful, or -1 otherwise.
+    Note: You cannot this method to insert subitems. Use SetItem instead.
+    See also: LVM_INSERTITEM, ListView_InsertItem(), SetItem(), AddItem
+   */
+	int InsertItem(const LVITEM* pItem //[in] attributes of the list-view item
+                )
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (int)::SendMessage(m_hWnd, LVM_INSERTITEM, 0, (LPARAM)pItem);
@@ -3871,8 +3877,14 @@ public:
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (BOOL)::SendMessage(m_hWnd, LVM_INSERTMARKHITTEST, (WPARAM)lpPoint, (LPARAM)pInsertMark);
 	}
+  
+  /*Sets ToolTip text.
 
-	BOOL SetInfoTip(PLVSETINFOTIP pSetInfoTip)
+    Note: requires Microsoft Windows XP.
+   */
+	BOOL SetInfoTip(PLVSETINFOTIP pSetInfoTip //[in] information about tooltip text
+                                            //that is to be set.
+                 )
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
 		return (BOOL)::SendMessage(m_hWnd, LVM_SETINFOTIP, 0, (LPARAM)pSetInfoTip);

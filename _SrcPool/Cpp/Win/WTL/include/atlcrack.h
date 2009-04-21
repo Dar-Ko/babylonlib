@@ -1,5 +1,5 @@
 // $RCSfile: atlcrack.h,v $: header file
-// $Revision: 1.5 $ $Date: 2009/04/08 18:27:15 $
+// $Revision: 1.6 $ $Date: 2009/04/21 21:32:03 $
 // message cracker macros
 // Windows Template Library - WTL version 8.0
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -72,7 +72,15 @@ public: \
 			return TRUE; \
 	}
 
-/*
+/*Handles WM_INITDIALOG = 272 message. The message is sent to the dialog box
+  procedure immediately before a dialog box is displayed.
+
+  WM_INITDIALOG parameters
+    - wParam   handle to the control to be assigned the default keyboard focus
+               if the dialog box procedure returns TRUE.
+    - lParam   additional initialization data configured during creation of
+               the dialog box.
+
   This method is called in response to the WM_INITDIALOG message, sent to
   the dialog box during the Create, CreateIndirect, or DoModal calls, which
   occur immediately before the dialog box is displayed.
@@ -81,8 +89,10 @@ public: \
   control in the dialog box. Return FALSE if this method has explicitly set the
   input focus to one of the controls in the dialog box.
 
-    BOOL OnInitDialog(CWindow wndFocus, //[in]
-                      LPARAM lInitParam //[in]
+    BOOL OnInitDialog(CWindow wndFocus, //[in] control to receive the default
+                      //keyboard focus if TRUE is returned.
+                      LPARAM lInitParam //[in] additional initialization data
+                      //configured during creation of the dialog box.
                       )
  */
 #define MSG_WM_INITDIALOG(func) \
@@ -1026,7 +1036,32 @@ public: \
 			return TRUE; \
 	}
 
-// LRESULT OnNotify(int idCtrl, LPNMHDR pnmh)
+/*Handles WM_NOTIFY = 78 message. The message is sent by a common control to its
+  parent window when an event has occurred or the control requires some
+  information.
+
+  WM_NOTIFY parameters
+    - wParam   identifier of the common control sending the message.
+               This identifier is not guaranteed to be unique.
+    - lParam   pointer to a structure, usualy NMHDR, that contains
+               the notification code and additional information.
+
+  An application should use the hwndFrom or idFrom member of the NMHDR structure
+  to identify the control.
+  Note: For Microsoft Windows 2000 and later systems, the WM_NOTIFY message
+  cannot be sent between processes.
+
+  This method is called in response to the WM_NOTIFY message, sent when 
+  an event has occurred or the control requires some information.
+  The return value depends on the notification code. The return value is
+  ignored for many notification codes.
+
+    LRESULT OnNotify(int idCtrl,  //[in] identifier of the common control
+              //sending the message.
+                     LPNMHDR pnmh //[in] pointer to a structure that contains
+              //the notification code and additional information.
+                    )
+ */
 #define MSG_WM_NOTIFY(func) \
 	if (uMsg == WM_NOTIFY) \
 	{ \
