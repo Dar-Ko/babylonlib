@@ -1,5 +1,5 @@
 /*$RCSfile: MainDlg.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/02/24 21:42:33 $
+  $Revision: 1.4 $ $Date: 2009/04/21 21:33:18 $
   $Author: ddarko $
 
   implementation of the CMainDlg class
@@ -11,6 +11,8 @@
 #include "resource.h"
 #include "TestAtlAboutDlg.h" //CAboutDlg class
 #include "MainDlg.h"
+#include "KVerInfo.h" //CVersionInfo class
+
 //-----------------------------------------------------------------------------
 /*Translates window messages before they are dispatched to the TranslateMessage
   and DispatchMessage Windows functions.
@@ -65,11 +67,11 @@ return FALSE;
   control in the dialog box. Return FALSE if this method has explicitly set the
   input focus to one of the controls in the dialog box.
  */
-LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/,
-                               WPARAM /*wParam*/,
-                               LPARAM /*lParam*/,
-                               BOOL& /*bHandled*/
-                               )
+BOOL CMainDlg::OnInitDialog(CWindow /*wndFocus*/, //[in] control to receive
+                      //the default keyboard focus if TRUE is returned.
+                            LPARAM /*lInitParam*/ //[in] additional initialization
+                      //data configured during creation of the dialog box.
+                           )
 {
 ATLTRACE(_T("CMainDlg::OnInitDialog()\n"));
 // center the dialog on the screen
@@ -107,13 +109,7 @@ UIAddChildWindowContainer(m_hWnd); //Enable updating of child windows
 
 //Attach and populate the list view
 //DDX_Control_Handle(IDC_LISTTEST, m_ctrlListView, FALSE);
-m_ctrlListView = GetDlgItem(IDC_LISTTEST);
-m_ctrlListView.SetExtendedListViewStyle(LVS_EX_INFOTIP, LVS_EX_INFOTIP);
-ATLVERIFY(m_ctrlListView.InsertColumn(0, _T("Column 1"), LVCFMT_LEFT, 150, -1) >= 0);
-ATLVERIFY(m_ctrlListView.InsertColumn(1, _T("Column 2"), LVCFMT_LEFT, 120, 1) >= 0);
-ATLVERIFY(m_ctrlListView.InsertItem(0, LPSTR_TEXTCALLBACK) >= 0);
-ATLVERIFY(m_ctrlListView.InsertItem(1, LPSTR_TEXTCALLBACK) >= 0);
-ATLVERIFY(m_ctrlListView.InsertItem(2, LPSTR_TEXTCALLBACK) >= 0);
+InitListView(IDC_LISTTEST);
 
 //DoDataExchange(FALSE);  //Attach controls and intialize child windows captions
 return TRUE;
@@ -211,9 +207,99 @@ ATLTRACE(_T("CMainDlg::CloseDialog(%d)\n"), nVal);
 DestroyWindow();
 ::PostQuitMessage(nVal);
 }
+
+///////////////////////////////////////////////////////////////////////////////
+//List view handlers
+
+//-----------------------------------------------------------------------------
+/*Intilalizes embedded list view control.
+ */
+void CMainDlg::InitListView(const int idCtrl //[in]
+                           )
+{
+ATLTRACE(_T("CMainDlg::InitListView(idCtrl = %d)\n"), idCtrl);
+
+m_ctrlListView = GetDlgItem(idCtrl);
+m_ctrlListView.SetExtendedListViewStyle(LVS_EX_INFOTIP, LVS_EX_INFOTIP);
+ATLVERIFY(m_ctrlListView.InsertColumn(0, _T("Column 1"), LVCFMT_LEFT, 150, -1) >= 0);
+ATLVERIFY(m_ctrlListView.InsertColumn(1, _T("Column 2"), LVCFMT_LEFT, 120, 1) >= 0);
+
+CVersionInfo verInfo;
+CString strTemp;
+ATLVERIFY(verInfo.GetProductName(strTemp));
+ATLVERIFY(m_ctrlListView.InsertItem(0, strTemp) >= 0);
+ATLVERIFY(verInfo.GetProductVersion(strTemp));
+ATLVERIFY(m_ctrlListView.AddItem(0, 1, strTemp) > -1 );
+
+ATLVERIFY(verInfo.GetFileDescription(strTemp));
+ATLVERIFY(m_ctrlListView.InsertItem(1, strTemp) >= 0);
+ATLVERIFY(verInfo.GetLanguage(strTemp));
+ATLVERIFY(m_ctrlListView.InsertItem(2, strTemp) >= 0);
+int iLangCode = verInfo.GetLanguageCode();
+strTemp.Format(_T("%d"), iLangCode);
+ATLVERIFY(m_ctrlListView.AddItem(2, 1, strTemp) > -1);
+
+}
+
+//-----------------------------------------------------------------------------
+/*Handles request from the list-view control for additional text information
+  to be displayed in a ToolTip.
+
+  struct tagNMLVGETINFOTIP
+    {
+    NMHDR hdr;      //NMHDR structure that contains information on this
+                    //notification message. 
+    DWORD dwFlags;  //zero if the item text is truncated or LVGIT_UNFOLDED.
+    LPTSTR pszText; //whole item text copy if item text is truncated
+    int cchTextMax; //buffer size in characters, of the buffer pointed to
+                    //by pszText.
+    int iItem;      //index of the item to which this structure refers.
+    int iSubItem;   //index of the subitem to which this structure refers.
+    LPARAM lParam;  //reserved for future use.
+    };
+
+  The return value is ignored.
+
+  See also: MSG_WM_NOTIFY_CODE(), MSG_WM_NOTIFY(), <commctrl.h>, NMLVGETINFOTIP,
+  LVM_SETINFOTIP, LVSETINFOTIP
+ */
+LRESULT CMainDlg::OnGetInfoTip(NMLVGETINFOTIP* pHeader //[in/out] specifies
+                                    //list-view item information for a ToolTip.
+                         )
+{
+ATLTRACE(_T("CMainDlg::OnGetInfoTip()\n"));
+
+ATLASSERT(pHeader);
+CString sText;
+sText.Format(_T("This is a tool tip for Item %d"), pHeader->iItem);
+ZeroMemory(pHeader->pszText, pHeader->cchTextMax * sizeof (TCHAR));
+_tcsncpy(pHeader->pszText, sText, pHeader->cchTextMax - 1);
+return S_OK;
+}
+
+//-----------------------------------------------------------------------------
+/*Handles an event that occurs when the user double-clicks certain elment
+  within a control.
+
+  The return value is ignored.
+ */
+LRESULT CMainDlg::OnDblClk(NMITEMACTIVATE*)
+{
+ATLTRACE(_T("CMainDlg::OnDblClk()\n"));
+
+AtlMessageBox(m_hWnd,
+              _T("NM_DBLCLK"),
+              _T("Information"),
+              MB_ICONINFORMATION | MB_OK);
+return S_OK;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: MainDlg.cpp,v $
+ * Revision 1.4  2009/04/21 21:33:18  ddarko
+ * Initilalize List View control
+ *
  * Revision 1.3  2009/02/24 21:42:33  ddarko
  * Test common control notification messages
  *

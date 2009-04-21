@@ -32,7 +32,7 @@ public:
   END_UPDATE_UI_MAP()
 
   BEGIN_MSG_MAP(CMainDlg)
-    MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
+    MSG_WM_INITDIALOG(OnInitDialog)
     MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
     COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
     COMMAND_ID_HANDLER(IDOK, OnOK)
@@ -50,28 +50,26 @@ public:
 //  LRESULT CommandHandler(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 //  LRESULT NotifyHandler(int /*idCtrl*/, LPNMHDR /*pnmh*/, BOOL& /*bHandled*/)
 
-  LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
+  BOOL OnInitDialog(CWindow /*wndFocus*/, LPARAM /*lInitParam */);
   LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
   LRESULT OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
   LRESULT OnOK(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
   LRESULT OnCancel(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
     //List view notification handlers
-  LRESULT OnGetInfoTip(NMLVGETINFOTIP* pHeader)
-    {
-    ATLASSERT(pHeader);
-    CString sText;
-    sText.Format(_T("This is a tool tip for Item %d"), pHeader->iItem);
-    ZeroMemory(pHeader->pszText, pHeader->cchTextMax * sizeof (TCHAR));
-    _tcsncpy(pHeader->pszText, sText, pHeader->cchTextMax - 1);
-    return S_OK;
-    }
-  LRESULT OnDblClk(NMITEMACTIVATE*)
-  {
-  AtlMessageBox(m_hWnd, _T("NM_DBLCLK"), _T("Information"), MB_ICONINFORMATION | MB_OK);
-  return S_OK;
-  }
+  LRESULT OnGetInfoTip(NMLVGETINFOTIP* pHeader);
+  LRESULT OnDblClk(NMITEMACTIVATE*);
+
+protected:
+  void InitListView(const int idCtrl);
 
 public:
   CListViewCtrl m_ctrlListView; //list view used to test notification messages
-
 };
+
+/////////////////////////////////////////////////////////////////////////////
+/*****************************************************************************
+ * $Log: MainDlg.h,v $
+ * Revision 1.5  2009/04/21 21:33:18  ddarko
+ * Initilalize List View control
+ *
+ *****************************************************************************/
