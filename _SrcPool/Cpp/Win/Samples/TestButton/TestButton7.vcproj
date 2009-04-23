@@ -20,7 +20,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\32;..\Generic;..\TestButton\Src;..\..\.."
+				AdditionalIncludeDirectories="..\..\32;..\..\32\Inc;..\Generic\Src;..\Generic;..\TestButton\Src;..\..\.."
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -75,7 +75,7 @@
 			CharacterSet="0">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\32;..\Generic;..\TestButton\Src;..\..\.."
+				AdditionalIncludeDirectories="..\..\32;..\..\32\Inc;..\Generic\Src;..\Generic;..\TestButton\Src;..\..\.."
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
 				MinimalRebuild="FALSE"
 				RuntimeLibrary="2"
@@ -130,7 +130,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\32;..\Generic;..\TestButton\Src;..\..\.."
+				AdditionalIncludeDirectories="..\..\32;..\..\32\Inc;..\Generic\Src;..\Generic;..\TestButton\Src;..\..\.."
 				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -185,7 +185,7 @@
 			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\32;..\Generic;..\TestButton\Src;..\..\.."
+				AdditionalIncludeDirectories="..\..\32;..\..\32\Inc;..\Generic\Src;..\Generic;..\TestButton\Src;..\..\.."
 				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
 				MinimalRebuild="FALSE"
 				RuntimeLibrary="2"
@@ -240,6 +240,30 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
 				RelativePath="T:\Adwel\Samples.new\BtnST.39\BtnST.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\32\KBtnEx.cpp">
@@ -281,28 +305,28 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="stdafx.h"/>
+						PrecompiledHeaderThrough="Inc\stdafx.h"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_SBCS_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="stdafx.h"/>
+						PrecompiledHeaderThrough="Inc\stdafx.h"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="stdafx.h"/>
+						PrecompiledHeaderThrough="Inc\stdafx.h"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode_MFC|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="stdafx.h"/>
+						PrecompiledHeaderThrough="Inc\stdafx.h"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -344,7 +368,7 @@
 				RelativePath=".\Res\Resource.h">
 			</File>
 			<File
-				RelativePath="..\..\32\stdafx.h">
+				RelativePath="..\..\32\Inc\stdafx.h">
 			</File>
 			<File
 				RelativePath="..\Generic\Src\TestAboutDlg.h">
