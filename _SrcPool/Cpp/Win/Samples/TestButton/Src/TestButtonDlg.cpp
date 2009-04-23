@@ -9,14 +9,17 @@
 
 
 #include "stdafx.h"
+#include "resource.h"
 #include "TestDialogApp.h"  //CTestDialogApp class
 #include "TestButtonDlg.h"  //CTestButtonDlg class
 #include "TestAboutDlg.h"   //CAboutDlg class
-#include "KColorCt.h"       //color constants
+//#include "KColorCt.h"       //color constants
 #include "KProgCst.inl"     //SizeOfArray()
 #include "KCheckBox.h"      //CCheckBox class
 #include "KTestLog.h"       //string constants
-
+#ifndef IDS_ABOUTBOX
+  #include "Res\TestResource.h"
+#endif
 #ifdef _DEBUG
   #define new DEBUG_NEW
 #endif
@@ -160,8 +163,9 @@ else
   }
 }
 
-#include "T:\Adwel\Samples.new\BtnST.39\BtnST.h"
-
+#ifdef BTN_ST
+  #include "T:\Adwel\Samples.new\BtnST.39\BtnST.h"
+#endif
 //-----------------------------------------------------------------------------
 /*Creates or deletes custom button controls. Call this method as a part of dialog's
   initialization and destruction.
@@ -173,42 +177,45 @@ void CTestButtonDlg::BxpGroup(bool bDelete //[in]=false if false buttons are att
 {
 TRACE(_T("CTestButtonDlg::BxpGroup(%s)\n"), bDelete ? _T("delete") :
                                                      _T("create"));
-static UINT nBxpIdArray[] =
-  {
-  IDC_BXP_BTN            , IDC_BXP_BTNDEFAULT     , IDC_BXP_BTNFLAT        ,
-  IDC_BXP_BTNFLATDISABLED, IDC_BXP_RADIO          , IDC_BXP_CHECK          ,
-  IDC_BXP_RADIOFLAT      , IDC_BXP_CHECKFLAT      , IDC_BXP_RADIOFLATPUSH  ,
-  IDC_BXP_CHECKPUSH
-  };
-
-int iIndex = (int)SizeOfArray(nBxpIdArray)-1;
-
-if (bDelete)
-  {
-  while(iIndex >= 0)
+#ifdef BTN_ST
+  static UINT nBxpIdArray[] =
     {
-    CWnd* pBtn = GetDlgItem(nBxpIdArray[iIndex]);
-    if (::IsWindow(pBtn->GetSafeHwnd()) && pBtn->IsKindOf(RUNTIME_CLASS(CButtonST)))
-      delete (CCheckBox*)pBtn;
-    else
-      ASSERT(false);
-    iIndex--;
-    }
-  }
-else
-  {
-  while(iIndex >= 0)
+    IDC_BXP_BTN            , IDC_BXP_BTNDEFAULT     , IDC_BXP_BTNFLAT        ,
+    IDC_BXP_BTNFLATDISABLED, IDC_BXP_RADIO          , IDC_BXP_CHECK          ,
+    IDC_BXP_RADIOFLAT      , IDC_BXP_CHECKFLAT      , IDC_BXP_RADIOFLATPUSH  ,
+    IDC_BXP_CHECKPUSH
+    };
+
+  int iIndex = (int)SizeOfArray(nBxpIdArray)-1;
+
+
+  if (bDelete)
     {
-    CButtonST* pBtn = new CButtonST();
-    pBtn->SubclassDlgItem(nBxpIdArray[iIndex--], this);
-    if (::IsWindow(pBtn->GetSafeHwnd()))
+    while(iIndex >= 0)
       {
-      pBtn->SetTextColor( 0x10F0F0-9800*iIndex, 0xFF0000+100*iIndex );
-      //pBtn->m_clrBtnFace = 0xFF0000+100*iIndex;
-      //pBtn->m_clrBtnText = 0x00FBFB-10*iIndex;
+      CWnd* pBtn = GetDlgItem(nBxpIdArray[iIndex]);
+      if (::IsWindow(pBtn->GetSafeHwnd()) && pBtn->IsKindOf(RUNTIME_CLASS(CButtonST)))
+        delete (CCheckBox*)pBtn;
+      else
+        ASSERT(false);
+      iIndex--;
       }
     }
-  }
+  else
+    {
+    while(iIndex >= 0)
+      {
+      CButtonST* pBtn = new CButtonST();
+      pBtn->SubclassDlgItem(nBxpIdArray[iIndex--], this);
+      if (::IsWindow(pBtn->GetSafeHwnd()))
+        {
+        pBtn->SetTextColor( 0x10F0F0-9800*iIndex, 0xFF0000+100*iIndex );
+        //pBtn->m_clrBtnFace = 0xFF0000+100*iIndex;
+        //pBtn->m_clrBtnText = 0x00FBFB-10*iIndex;
+        }
+      }
+    }
+#endif
 }
 
 //-----------------------------------------------------------------------------

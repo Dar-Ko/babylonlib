@@ -44,8 +44,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\32;..\Generic;..\TestButton\Src;..\..\.."
-				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
+				AdditionalIncludeDirectories="..\..\32;..\..\32\Inc;Inc;..\Generic\Src;..\Generic;..\TestButton\Src;..\..\.."
+				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;WINVER=0x0501"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -129,8 +129,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\32;..\Generic;..\TestButton\Src;..\..\.."
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
+				AdditionalIncludeDirectories="..\..\32;..\..\32\Inc;Inc;..\Generic\Src;..\Generic;..\TestButton\Src;..\..\.."
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;WINVER=0x0501"
 				MinimalRebuild="false"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
@@ -214,8 +214,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..\32;..\Generic;..\TestButton\Src;..\..\.."
-				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG"
+				AdditionalIncludeDirectories="..\..\32;..\..\32\Inc;Inc;..\Generic\Src;..\Generic;..\TestButton\Src;..\..\.."
+				PreprocessorDefinitions="WIN32;_WINDOWS;_DEBUG;WINVER=0x0501"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -299,8 +299,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\..\32;..\Generic;..\TestButton\Src;..\..\.."
-				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG"
+				AdditionalIncludeDirectories="..\..\32;..\..\32\Inc;Inc;..\Generic\Src;..\Generic;..\TestButton\Src;..\..\.."
+				PreprocessorDefinitions="WIN32;_WINDOWS;NDEBUG;WINVER=0x0501"
 				MinimalRebuild="false"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
@@ -365,10 +365,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="T:\Adwel\Samples.new\BtnST.39\BtnST.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\32\KBtnEx.cpp"
 				>
 			</File>
@@ -421,7 +417,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="stdafx.h"
+						PrecompiledHeaderThrough="Inc\stdafx.h"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -430,7 +426,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="stdafx.h"
+						PrecompiledHeaderThrough="Inc\stdafx.h"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -439,7 +435,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="stdafx.h"
+						PrecompiledHeaderThrough="Inc\stdafx.h"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -448,7 +444,7 @@
 					<Tool
 						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="stdafx.h"
+						PrecompiledHeaderThrough="Inc\stdafx.h"
 					/>
 				</FileConfiguration>
 			</File>
@@ -533,6 +529,10 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
+				RelativePath="..\Generic\Res\SrcPool.ico"
+				>
+			</File>
+			<File
 				RelativePath=".\Res\TestButton.rc"
 				>
 			</File>
@@ -550,42 +550,6 @@
 			Filter="*.log"
 			>
 		</Filter>
-		<File
-			RelativePath=".\res\TestButton.manifest"
-			>
-			<FileConfiguration
-				Name="Debug_SBCS_MFC|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release_SBCS_MFC|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Debug_Unicode_MFC|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release_Unicode_MFC|Win32"
-				ExcludedFromBuild="true"
-				>
-				<Tool
-					Name="VCCustomBuildTool"
-				/>
-			</FileConfiguration>
-		</File>
 		<File
 			RelativePath=".\TestButton.txt"
 			>

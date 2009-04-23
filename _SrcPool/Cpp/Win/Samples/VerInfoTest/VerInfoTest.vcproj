@@ -723,6 +723,38 @@
 			<File
 				RelativePath=".\Src\TestApp.rc"
 				>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions="_DEBUG;_WINDOWS"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions="NDEBUG;_WINDOWS"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions="_DEBUG;_UNICODE;_WINDOWS"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCResourceCompilerTool"
+						PreprocessorDefinitions="NDEBUG;_UNICODE;_WINDOWS"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="Src\TestDoc.cpp"

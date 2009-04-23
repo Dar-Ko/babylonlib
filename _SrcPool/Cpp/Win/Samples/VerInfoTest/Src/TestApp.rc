@@ -48,38 +48,38 @@ IDR_WINOSVTYPE          ICON                    "..\\res\\TestAppDoc.ico"
 // String Table
 //
 
-STRINGTABLE
+STRINGTABLE 
 BEGIN
     IDR_MAINFRAME           "TestApp\n\nWinOSV\n\n\nTestApp.Document\nWinOSV Document"
 END
 
-STRINGTABLE
+STRINGTABLE 
 BEGIN
     AFX_IDS_APP_TITLE       "Version Information Test"
     AFX_IDS_IDLEMESSAGE     "Ready"
 END
 
-STRINGTABLE
+STRINGTABLE 
 BEGIN
     ID_FILE_CLOSE           "Close the active document\nClose"
     ID_FILE_SAVE            "Save the active document\nSave"
     ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
 END
 
-STRINGTABLE
+STRINGTABLE 
 BEGIN
     ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
     ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
 END
 
-STRINGTABLE
+STRINGTABLE 
 BEGIN
     ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
     ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
     ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
 END
 
-STRINGTABLE
+STRINGTABLE 
 BEGIN
     AFX_IDS_SCSIZE          "Change the window size"
     AFX_IDS_SCMOVE          "Change the window position"
@@ -90,7 +90,7 @@ BEGIN
     AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
 END
 
-STRINGTABLE
+STRINGTABLE 
 BEGIN
     AFX_IDS_SCRESTORE       "Restore the window to normal size"
 END
@@ -114,18 +114,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE
+2 TEXTINCLUDE 
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE
+3 TEXTINCLUDE 
 BEGIN
     "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
     "#define _AFX_NO_OLE_RESOURCES\r\n"
@@ -164,9 +164,9 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_CAN
 
 #if defined(APSTUDIO_INVOKED) || defined(_WINDOWS)
 #if defined(APSTUDIO_INVOKED)
-IDR_MAINFRAME$(_WINDOWS) MENU
+IDR_MAINFRAME$(_WINDOWS) MENU 
 #else
-IDR_MAINFRAME MENU
+IDR_MAINFRAME MENU 
 #endif
 BEGIN
     POPUP "&File"
@@ -198,9 +198,9 @@ END
 
 #if defined(APSTUDIO_INVOKED) || defined(_WINDOWS)
 #if defined(APSTUDIO_INVOKED)
-IDR_MAINFRAME$(_WINDOWS) ACCELERATORS
+IDR_MAINFRAME$(_WINDOWS) ACCELERATORS 
 #else
-IDR_MAINFRAME ACCELERATORS
+IDR_MAINFRAME ACCELERATORS 
 #endif
 BEGIN
     "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
@@ -228,8 +228,7 @@ CAPTION "About TestApp"
 FONT 8, "MS Sans Serif"
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
-    LTEXT           "Version Information test aplication v.1.0",IDC_STATIC,
-                    34,27,132,8,SS_NOPREFIX
+    LTEXT           "Version Information test aplication v.1.0",IDC_STATIC,34,27,132,8,SS_NOPREFIX
     DEFPUSHBUTTON   "OK",IDOK,178,7,32,14,WS_GROUP
 END
 #endif
@@ -472,10 +471,7 @@ BEGIN
     END
     BLOCK "VarFileInfo"
     BEGIN
-        VALUE "Translation", 0x0, 0, 0x0, 932, 0x0, 949, 0x0, 950, 0x0, 1200,
-        0x0, 1250, 0x0, 1251, 0x0, 1252, 0x0, 1253, 0x0, 1254, 0x0, 1255,
-        0x0, 1256, 0x400, 1200, 0x402, 1200, 0x409, 1200, 0x419, 1251, 0x800,
-        1253, 0x81a, 1250
+        VALUE "Translation", 0x0, 0, 0x0, 932, 0x0, 949, 0x0, 950, 0x0, 1200, 0x0, 1250, 0x0, 1251, 0x0, 1252, 0x0, 1253, 0x0, 1254, 0x0, 1255, 0x0, 1256, 0x400, 1200, 0x402, 1200, 0x409, 1200, 0x419, 1251, 0x800, 1253, 0x81a, 1250
     END
 END
 

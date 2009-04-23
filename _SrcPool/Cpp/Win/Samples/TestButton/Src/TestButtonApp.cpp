@@ -9,6 +9,7 @@
 // Group=Examples Windows
 
 #include "stdafx.h"
+#include "Resource.h"
 #include "TestDialogApp.h"  //CTestDialogApp class
 #include "TestButtonDlg.h"  //CSTestButtonDlg class
 #include "KProgCst.inl"     //DELETE_POBJECT
@@ -58,7 +59,7 @@ void CTestDialogApp::DestroyMainWnd(CWnd* pObject //[in]= NULL pointer to
                                     )
 {
 TRACE(_T("CTestDialogApp::DestroyMainWnd()\n"));
-UNUSED(pObject);
+_UNUSED(pObject);
 DELETE_POBJECT(s_pTestMainDlg);
 }
 
