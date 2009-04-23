@@ -44,7 +44,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "..\Obj\Debug_Unicode_MFC\TestButton\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "../../../Win/32./Src" /I "./Res" /I "../../.." /I "../../Win/32" /I "../../../Win/32" /I "./Src" /I "../Generic/Src" /D "_DEBUG" /D "_UNICODE" /D "WIN32" /D "_WINDOWS" /D "_USE_MFC" /FR /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "../../../Win/32./Src" /I "./Res" /I "../../.." /I "../../Win/32" /I "../../../Win/32" /I "./Src" /I "../Generic/Src" /I "../Generic" /D "_DEBUG" /D "_UNICODE" /D "WIN32" /D "_WINDOWS" /D "_USE_MFC" /FR /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x1009 /d "_DEBUG"
@@ -69,7 +69,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Debug_SBCS_MFC\TestButton\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Yu"stdafx.h" /FD /GZ /c
-# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "../../../Win/32./Src" /I "./Res" /I "../../.." /I "../../Win/32" /I "../../../Win/32" /I "./Src" /I "../Generic/Src" /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "_WINDOWS" /D "_USE_MFC" /FR /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /I "../../../Win/32./Src" /I "./Res" /I "../../.." /I "../../Win/32" /I "../../../Win/32" /I "./Src" /I "../Generic/Src" /I "../Generic" /D "_DEBUG" /D "_MBCS" /D "WIN32" /D "_WINDOWS" /D "_USE_MFC" /FR /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x1009 /d "_DEBUG"
@@ -94,7 +94,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Release_Unicode_MFC\TestButton\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "../../../Win/32./Src" /I "./Res" /I "../../.." /I "../../Win/32" /I "../../../Win/32" /I "./Src" /I "../Generic/Src" /D "NDEBUG" /D "_UNICODE" /D "WIN32" /D "_WINDOWS" /D "_USE_MFC" /FR /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "../../../Win/32./Src" /I "./Res" /I "../../.." /I "../../Win/32" /I "../../../Win/32" /I "./Src" /I "../Generic/Src" /I "../Generic" /D "NDEBUG" /D "_UNICODE" /D "WIN32" /D "_WINDOWS" /D "_USE_MFC" /FR /Yu"stdafx.h" /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x1009 /d "NDEBUG"
@@ -119,7 +119,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "..\Obj\Release_SBCS_MFC\TestButton\Win32"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MT /W3 /GX /O2 /I "../../../Win/32./Src" /I "./Res" /I "../../.." /I "../../Win/32" /I "../../../Win/32" /I "./Src" /I "../Generic/Src" /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "_WINDOWS" /D "_USE_MFC" /FR /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MT /W3 /GX /O2 /I "../Generic" /I "../../../Win/32./Src" /I "./Res" /I "../../.." /I "../../Win/32" /I "../../../Win/32" /I "./Src" /I "../Generic/Src" /D "NDEBUG" /D "_MBCS" /D "WIN32" /D "_WINDOWS" /D "_USE_MFC" /FR /Yu"stdafx.h" /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x1009 /d "NDEBUG"
@@ -157,7 +157,7 @@ SOURCE=..\..\32\KDbgBtnS.cpp
 # Begin Source File
 
 SOURCE=..\..\32\stdafx.cpp
-# ADD CPP /Yc"stdafx.h"
+# ADD CPP /Yc"Inc\stdafx.h"
 # End Source File
 # Begin Source File
 
@@ -292,16 +292,8 @@ InputName=TestButton
 !ELSEIF  "$(CFG)" == "TestButton - Win32 Release_SBCS_MFC"
 
 # PROP BASE Ignore_Default_Tool 1
+# PROP Exclude_From_Build 1
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - Copying contents file...
-OutDir=.\..\bin\Release_SBCS_MFC\Win32
-InputPath=.\hlp\TestButton.cnt
-InputName=TestButton
-
-"$(OutDir)\$(InputName).cnt" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	copy "hlp\$(InputName).cnt" $(OutDir)
-
-# End Custom Build
 
 !ENDIF 
 

@@ -8,7 +8,7 @@
 #define IDCANCEL2                       6
 #define ID_FLATWIN2                     7
 #define ID_FLATWINDISABLED2             8
-#define IDM_ABOUTBOX                    0x0010
+#define IDM_ABOUTBOX                    16
 #define IDD_ABOUTBOX                    100
 #define IDD_TESTBUTTON_DIALOG           102
 #define IDR_MAINFRAME                   128
