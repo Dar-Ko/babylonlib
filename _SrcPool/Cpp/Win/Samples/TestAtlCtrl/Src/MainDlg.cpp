@@ -1,5 +1,5 @@
 /*$RCSfile: MainDlg.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2009/04/21 21:33:18 $
+  $Revision: 1.5 $ $Date: 2009/04/24 19:58:24 $
   $Author: ddarko $
 
   implementation of the CMainDlg class
@@ -218,26 +218,29 @@ void CMainDlg::InitListView(const int idCtrl //[in]
                            )
 {
 ATLTRACE(_T("CMainDlg::InitListView(idCtrl = %d)\n"), idCtrl);
+#ifndef  LB_ERR
+  const int LB_ERR = -1;
+#endif
 
 m_ctrlListView = GetDlgItem(idCtrl);
 m_ctrlListView.SetExtendedListViewStyle(LVS_EX_INFOTIP, LVS_EX_INFOTIP);
-ATLVERIFY(m_ctrlListView.InsertColumn(0, _T("Column 1"), LVCFMT_LEFT, 150, -1) >= 0);
-ATLVERIFY(m_ctrlListView.InsertColumn(1, _T("Column 2"), LVCFMT_LEFT, 120, 1) >= 0);
+ATLVERIFY(m_ctrlListView.InsertColumn(0, _T("Column 1"), LVCFMT_LEFT, 150, -1) > LB_ERR);
+ATLVERIFY(m_ctrlListView.InsertColumn(1, _T("Column 2"), LVCFMT_LEFT, 120,  1) > LB_ERR);
 
 CVersionInfo verInfo;
 CString strTemp;
 ATLVERIFY(verInfo.GetProductName(strTemp));
-ATLVERIFY(m_ctrlListView.InsertItem(0, strTemp) >= 0);
+ATLVERIFY(m_ctrlListView.InsertItem(0, strTemp) > LB_ERR);
 ATLVERIFY(verInfo.GetProductVersion(strTemp));
-ATLVERIFY(m_ctrlListView.AddItem(0, 1, strTemp) > -1 );
+ATLVERIFY(m_ctrlListView.AddItem(0, 1, strTemp) > LB_ERR);
 
 ATLVERIFY(verInfo.GetFileDescription(strTemp));
-ATLVERIFY(m_ctrlListView.InsertItem(1, strTemp) >= 0);
+ATLVERIFY(m_ctrlListView.InsertItem(1, strTemp) > LB_ERR);
 ATLVERIFY(verInfo.GetLanguage(strTemp));
-ATLVERIFY(m_ctrlListView.InsertItem(2, strTemp) >= 0);
+ATLVERIFY(m_ctrlListView.InsertItem(2, strTemp) > LB_ERR);
 int iLangCode = verInfo.GetLanguageCode();
 strTemp.Format(_T("%d"), iLangCode);
-ATLVERIFY(m_ctrlListView.AddItem(2, 1, strTemp) > -1);
+ATLVERIFY(m_ctrlListView.AddItem(2, 1, strTemp) > LB_ERR);
 
 }
 
@@ -297,6 +300,9 @@ return S_OK;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: MainDlg.cpp,v $
+ * Revision 1.5  2009/04/24 19:58:24  ddarko
+ * Cleaned warnings
+ *
  * Revision 1.4  2009/04/21 21:33:18  ddarko
  * Initilalize List View control
  *

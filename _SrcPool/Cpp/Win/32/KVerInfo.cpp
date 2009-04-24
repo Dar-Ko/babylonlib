@@ -96,9 +96,11 @@ else
   TCHAR szAppName[_MAX_PATH];
   //Retrieve the instance handle of the current application
   #ifdef _USE_ATL
+    //Active Template Libaray (ATL) 
     extern CAppModule _Module;
     HINSTANCE hInstance = _Module.m_hInst;
   #else
+    //Microsoft Fundation Classes Library (MFC)
     HINSTANCE hInstance = AfxGetInstanceHandle();
   #endif
 

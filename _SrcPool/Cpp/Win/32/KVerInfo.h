@@ -28,8 +28,11 @@
 #endif
 
 #ifdef _USE_ATL //Active Template Libaray (ATL)
-  #include <atlstr.h>
-  #include <atlapp.h> //CAppModule _Module
+  
+  #include <atlbase.h>
+  #include <atlapp.h> //CAppModule _Module (WTL)
+  #include <atlstr.h> //CString class (ATL)
+  
   #ifndef TRACE
     #define TRACE ATLTRACE
     #define TRACE0 ATLTRACE
