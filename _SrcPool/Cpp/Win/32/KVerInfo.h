@@ -28,11 +28,10 @@
 #endif
 
 #ifdef _USE_ATL //Active Template Libaray (ATL)
-  
   #include <atlbase.h>
   #include <atlapp.h> //CAppModule _Module (WTL)
   #include <atlstr.h> //CString class (ATL)
-  
+
   #ifndef TRACE
     #define TRACE ATLTRACE
     #define TRACE0 ATLTRACE
@@ -105,7 +104,8 @@ public:
   BOOL GetProductVersion (LPTSTR& strProductVersion, UINT nTransTableIndex = 0);
   BOOL GetCopyright      (LPTSTR& strCopyright, UINT nTransTableIndex = 0);
   BOOL GetInternalName   (LPTSTR& strInternalName, UINT nTransTableIndex = 0);
-  BOOL GetDebug          (LPTSTR& strDebug, UINT nTransTableIndex = 0);
+  BOOL GetComments       (LPTSTR& strValue, UINT nTransTableIndex = 0);
+  BOOL GetSpecialBuild   (LPTSTR& strValue, UINT nTransTableIndex = 0);
   BOOL GetCompanyName    (LPTSTR& strCompanyName, UINT nTransTableIndex = 0);
   BOOL GetFileDescription(LPTSTR& strFileDescription, UINT nTransTableIndex = 0);
   BOOL GetFileVersion    (LPTSTR& strFileVersion, UINT nTransTableIndex = 0);
@@ -113,7 +113,8 @@ public:
   BOOL GetProductVersion (CString& strProductVersion, UINT nTransTableIndex = 0);
   BOOL GetCopyright      (CString& strCopyright, UINT nTransTableIndex = 0);
   BOOL GetInternalName   (CString& strInternalName, UINT nTransTableIndex = 0);
-  BOOL GetDebug          (CString& strDebug, UINT nTransTableIndex = 0);
+  BOOL GetComments       (CString& strValue, UINT nTransTableIndex = 0);
+  BOOL GetSpecialBuild   (CString& strValue, UINT nTransTableIndex = 0);
   BOOL GetLanguage       (CString& strLanguage, UINT nTransTableIndex = 0);
   BOOL GetCompanyName    (CString& strCompanyName, UINT nTransTableIndex = 0);
   BOOL GetFileDescription(CString& strFileDescription, UINT nTransTableIndex = 0);

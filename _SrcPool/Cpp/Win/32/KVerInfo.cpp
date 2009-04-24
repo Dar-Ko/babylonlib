@@ -409,13 +409,13 @@ strInternalName = lpInternalName; //Copy requested information
 return TRUE;
 }
 
-//::GetDebug()-----------------------------------------------------------------
+//-----------------------------------------------------------------------------
 /*If successful returns TRUE and SpecialBuild entry, otherwise returns FALSE.
  */
-BOOL CVersionInfo::GetDebug(LPTSTR& strDebug, //[out] resulting string
-                            UINT nTransTableIndex //[in]=0 index of
+BOOL CVersionInfo::GetSpecialBuild(LPTSTR& strValue, //[out] resulting string
+                                   UINT nTransTableIndex //[in]=0 index of
                                                   //Translation Table entry
-                           )
+                                   )
 {
 UINT nSize;
 const int BLOCKSIZE = 255;
@@ -432,22 +432,21 @@ wsprintf(subBlockName, m_StringFileInfo,
          _T("SpecialBuild"));
 return ::VerQueryValue(m_lpData,
                        subBlockName,
-                       (void FAR* FAR*)&strDebug,
+                       (void FAR* FAR*)&strValue,
                        &nSize);
 }
 
-BOOL CVersionInfo::GetDebug(CString& strDebug, //[out] resulting string
+BOOL CVersionInfo::GetSpecialBuild(CString& strValue, //[out] resulting string
                             UINT nTransTableIndex //[in]=0 index of
                                                   //Translation Table entry
                            )
 {
-LPTSTR lpDebug;
-if (!GetDebug(lpDebug,nTransTableIndex))
+LPTSTR szValue;
+if (!GetSpecialBuild(szValue,nTransTableIndex))
   return FALSE;
-strDebug = lpDebug; //Copy requested information
+strValue = szValue; //Copy requested information
 return TRUE;
 }
-
 //::GetLanguage()--------------------------------------------------------------
 /*Returns TRUE and formatted string with language information,
   otherwise returns FALSE.
@@ -750,6 +749,45 @@ LPTSTR lpFileDescription;
 if (!GetFileDescription(lpFileDescription,nTransTableIndex))
   return FALSE;
 strFileDescription = lpFileDescription; //Copy requested information
+return TRUE;
+}
+
+//-----------------------------------------------------------------------------
+/*If successful returns TRUE and Comments entry, otherwise returns FALSE.
+ */
+BOOL CVersionInfo::GetComments(LPTSTR& strValue, //[out] resulting string
+                               UINT nTransTableIndex //[in]=0 index of
+                                                  //Translation Table entry
+                              )
+{
+UINT nSize;
+const int BLOCKSIZE = 255;
+TCHAR subBlockName[BLOCKSIZE];
+
+ASSERT (nTransTableIndex < m_nTranslationTableSize);
+
+if (!IsVersionInfo())
+  return FALSE;
+
+wsprintf(subBlockName, m_StringFileInfo,
+         m_lpTranslationTable[nTransTableIndex].wLanguage,
+         m_lpTranslationTable[nTransTableIndex].wCharSet,
+         _T("Comments"));
+return ::VerQueryValue(m_lpData,
+                       subBlockName,
+                       (void FAR* FAR*)&strValue,
+                       &nSize);
+}
+
+BOOL CVersionInfo::GetComments(CString& strValue, //[out] resulting string
+                            UINT nTransTableIndex //[in]=0 index of
+                                                  //Translation Table entry
+                           )
+{
+LPTSTR szValue;
+if (!GetComments(szValue,nTransTableIndex))
+  return FALSE;
+strValue = szValue; //Copy requested information
 return TRUE;
 }
 
