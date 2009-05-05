@@ -50,7 +50,7 @@ LPTSTR FileRead(LPCTSTR szFileName, //[in] zero-terminated string containing
                                     //a file path
                LPTSTR szBuffer,     //[in] = NULL; pointer to space reserved 
                //for data. If NULL function will allocate space for entire file.
-               int iCount           //[in] = -1 number of bytes to read from
+               int iCount           //[in] = -1 number of characters to read from
                //file. If szBuffer is NULL and iCount is -1, entire file will be
                //stored in the memory. If szBuffer is pointer to previously 
                //allocated buffer, iCount have to be a positive number less or 
@@ -75,29 +75,29 @@ if (szFileName != NULL)
      */
     extern std::string WtoChar(const wchar_t* lpWideCharStr, int iLen = -1);
     string strFileName = WtoChar(szFileName);
-    fileInput.open(strFileName.c_str(), ios::in | ios::binary );
-  #else //ASCII file
-    fileInput.open(szFileName, ios::in | ios::binary );
+    fileInput.open(strFileName.c_str(), ios::in | ios::binary);
+  #else //Open plain ASCII file
+    fileInput.open(szFileName, ios::in | ios::binary);
   #endif
 
   if(fileInput.is_open())
     {
     if (iCount < 0) //Get length of file
       {
-      fileInput.seekg (0, ios::end);
+      fileInput.seekg(0, ios::end);
       iCount = fileInput.tellg();
-      fileInput.seekg (0, ios::beg);
+      fileInput.seekg(0, ios::beg);
       }
     if(szBuffer == NULL) //Allocate memory for data and terminating zero
       szBuffer = new(nothrow) TCHAR[iCount+1];
     else
-      iCount--; //Make last byte available for terminating zero.
+      iCount--; //Make last character available for terminating zero.
 
     if(szBuffer != NULL)
       {
-        //Read data block
-      fileInput.read (szBuffer,iCount);
-      szBuffer[iCount] = '\0'; //Set terminating zero
+      //Read data block
+      fileInput.read(szBuffer,iCount);
+      szBuffer[iCount] = _T('\0'); //Set terminating zero
       }
     fileInput.close();
     return szBuffer;
