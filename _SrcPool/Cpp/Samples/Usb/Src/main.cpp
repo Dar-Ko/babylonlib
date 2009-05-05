@@ -1,8 +1,8 @@
 /*$RCSfile: main.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2008/09/26 21:36:48 $
+  $Revision: 1.4 $ $Date: 2009/05/05 18:27:30 $
   $Author: ddarko $
 
-  Illustrates how to use handle an USB device.
+  Illustrates how to handle an USB device.
   Copyright: CommonSoft Inc
   2008-09-24 Darko Kolakovic
 */
@@ -31,13 +31,13 @@ int _tmain(int argc,   //[in] specifies how many arguments are passed to the
                        //program from the command line. The value of argc is
                        //at least one: the program name.
            TCHAR* argv[]  //[in] the program arguments as an array of pointers
-                       //to null-terminated strings. The first string 
+                       //to null-terminated strings. The first string
                        //  - (argv[0]) is the program name.
-                       //  - (argv[1]) USB Vendor ID (VID) as decimal or 
+                       //  - (argv[1]) USB Vendor ID (VID) as decimal or
                        //    hexadecimal value (oxnnnn)
-                       //  - (argv[2]) USB Product ID (PID) as decimal or 
+                       //  - (argv[2]) USB Product ID (PID) as decimal or
                        //    hexadecimal value (oxnnnn)
-                       //The end of the array (argv[argc]) is indicated by 
+                       //The end of the array (argv[argc]) is indicated by
                        //a NULL pointer.
          )
 {
@@ -91,6 +91,9 @@ return TestCommonUsb(nVendorId, nProductId); //Run predefined test cases
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: main.cpp,v $
+ * Revision 1.4  2009/05/05 18:27:30  ddarko
+ * Comment
+ *
  * Revision 1.3  2008/09/26 21:36:48  ddarko
  * Added new test case
  *
