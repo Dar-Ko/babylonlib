@@ -34,6 +34,8 @@
 //-----------------------------------------------------------------------------
 /*Verifies if file exist in the current folder.
 
+  Note:  device names COM1, LPT2 are also valid names for the streams.
+
   Returns true if file exist or false if not.
 
   Note: Microsoft Windows specific (Win32).
