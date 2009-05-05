@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..,..,.\Src"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="_USE_ATL"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -74,7 +74,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="..\..,..,.\Src"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="_USE_ATL"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="TRUE"
 				UsePrecompiledHeader="3"
@@ -124,17 +124,52 @@
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
 			<File
+				RelativePath="..\..\Win\32\KFileExist.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KStrGuidWin.cpp">
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\..\Samples\WmpTag\Src"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\..\Samples\WmpTag\Src"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\main.cpp">
+			</File>
+			<File
 				RelativePath=".\Src\stdafx.cpp">
 				<FileConfiguration
 					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
 						UsePrecompiledHeader="1"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="..\..\Win\32"
 						UsePrecompiledHeader="1"/>
 				</FileConfiguration>
 			</File>
@@ -147,6 +182,18 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath="..\..\KDbgMacr.h">
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KDbgMacrMsvc.h">
+			</File>
+			<File
+				RelativePath="..\..\KGuid.h">
+			</File>
+			<File
+				RelativePath=".\Res\Win\32\resource.h">
+			</File>
+			<File
 				RelativePath=".\Src\stdafx.h">
 			</File>
 		</Filter>
@@ -154,6 +201,9 @@
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			<File
+				RelativePath=".\Res\Win\32\WmpTag.rc">
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\WmpTag.txt">
