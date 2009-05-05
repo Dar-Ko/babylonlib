@@ -191,6 +191,9 @@
 				RelativePath="..\..\KGuid.h">
 			</File>
 			<File
+				RelativePath="..\..\Stl\KOStream.h">
+			</File>
+			<File
 				RelativePath=".\Res\Win\32\resource.h">
 			</File>
 			<File
