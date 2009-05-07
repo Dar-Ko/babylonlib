@@ -78,7 +78,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SerialIO", "SerialIO\Serial
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WmpTag", "WmpTag\WmpTag.vcproj", "{8D00A328-D396-4960-8013-9C935DE4FB4A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WmpTag", "WmpTag\WmpTag7.vcproj", "{8D00A328-D396-4960-8013-9C935DE4FB4A}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject

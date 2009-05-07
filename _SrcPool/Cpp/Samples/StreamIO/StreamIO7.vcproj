@@ -313,6 +313,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KWinFileSimple.cpp">
+			</File>
+			<File
 				RelativePath=".\Src\main.cpp">
 			</File>
 			<File
@@ -388,6 +391,12 @@
 			</File>
 			<File
 				RelativePath="..\..\Win\32\KFileNmB.h">
+			</File>
+			<File
+				RelativePath="..\..\KFileSimple.h">
+			</File>
+			<File
+				RelativePath="..\..\KFileSys.h">
 			</File>
 			<File
 				RelativePath="..\..\Stl\KHexStream.h">
