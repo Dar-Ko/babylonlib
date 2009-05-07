@@ -365,6 +365,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\Src\BtnST.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\32\KBtnEx.cpp"
 				>
 			</File>
@@ -459,6 +463,38 @@
 			<File
 				RelativePath=".\Src\TestButtonDlg.cpp"
 				>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="TEST_BTN_ST"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="TEST_BTN_ST"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="TEST_BTN_ST"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="TEST_BTN_ST"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Generic\Src\TestDialogApp.cpp"
@@ -475,7 +511,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="T:\Adwel\Samples.new\BtnST.39\BtnST.h"
+				RelativePath=".\Src\BtnST.h"
 				>
 			</File>
 			<File

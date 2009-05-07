@@ -163,8 +163,8 @@ else
   }
 }
 
-#ifdef BTN_ST
-  #include "T:\Adwel\Samples.new\BtnST.39\BtnST.h"
+#ifdef TEST_BTN_ST
+  #include "BtnST.h"
 #endif
 //-----------------------------------------------------------------------------
 /*Creates or deletes custom button controls. Call this method as a part of dialog's
@@ -176,8 +176,8 @@ void CTestButtonDlg::BxpGroup(bool bDelete //[in]=false if false buttons are att
                                   )
 {
 TRACE(_T("CTestButtonDlg::BxpGroup(%s)\n"), bDelete ? _T("delete") :
-                                                     _T("create"));
-#ifdef BTN_ST
+                                                      _T("create"));
+#ifdef TEST_BTN_ST
   static UINT nBxpIdArray[] =
     {
     IDC_BXP_BTN            , IDC_BXP_BTNDEFAULT     , IDC_BXP_BTNFLAT        ,
@@ -209,7 +209,7 @@ TRACE(_T("CTestButtonDlg::BxpGroup(%s)\n"), bDelete ? _T("delete") :
       pBtn->SubclassDlgItem(nBxpIdArray[iIndex--], this);
       if (::IsWindow(pBtn->GetSafeHwnd()))
         {
-        pBtn->SetTextColor( 0x10F0F0-9800*iIndex, 0xFF0000+100*iIndex );
+        pBtn->SetColor( 0x10F0F0-9800*iIndex, 0xFF0000+100*iIndex );
         //pBtn->m_clrBtnFace = 0xFF0000+100*iIndex;
         //pBtn->m_clrBtnText = 0x00FBFB-10*iIndex;
         }
