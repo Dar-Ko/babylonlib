@@ -1,5 +1,5 @@
 /*$RCSfile: MainDlg.cpp,v $: implementation file
-  $Revision: 1.5 $ $Date: 2009/04/24 19:58:24 $
+  $Revision: 1.6 $ $Date: 2009/05/11 14:05:47 $
   $Author: ddarko $
 
   implementation of the CMainDlg class
@@ -214,7 +214,8 @@ DestroyWindow();
 //-----------------------------------------------------------------------------
 /*Intilalizes embedded list view control.
  */
-void CMainDlg::InitListView(const int idCtrl //[in]
+void CMainDlg::InitListView(const int idCtrl //[in] the identifier of the list
+                            //view control to be initalized
                            )
 {
 ATLTRACE(_T("CMainDlg::InitListView(idCtrl = %d)\n"), idCtrl);
@@ -300,6 +301,9 @@ return S_OK;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: MainDlg.cpp,v $
+ * Revision 1.6  2009/05/11 14:05:47  ddarko
+ * Comment
+ *
  * Revision 1.5  2009/04/24 19:58:24  ddarko
  * Cleaned warnings
  *
