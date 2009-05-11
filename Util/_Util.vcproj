@@ -1,105 +1,135 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="8.00"
 	Name="_Util"
 	ProjectGUID="{C8E6F84B-F415-458D-BCC8-CD2DFAA3A8AA}"
-	SccProjectName="_Util"
-	SccLocalPath="."
-	Keyword="MakeFileProj">
+	Keyword="MakeFileProj"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug_SBCS|Win32"
 			OutputDirectory=".\_Util___Win32_Debug_SBCS"
 			IntermediateDirectory=".\_Util___Win32_Debug_SBCS"
 			ConfigurationType="10"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TypeLibraryName=".\_Util___Win32_Debug_SBCS/_Util.tlb"
-				HeaderFileName=""/>
+				HeaderFileName=""
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release_SBCS|Win32"
 			OutputDirectory=".\_Util___Win32_Release_SBCS"
 			IntermediateDirectory=".\_Util___Win32_Release_SBCS"
 			ConfigurationType="10"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
 			<Tool
 				Name="VCMIDLTool"
 				TypeLibraryName=".\_Util___Win32_Release_SBCS/_Util.tlb"
-				HeaderFileName=""/>
+				HeaderFileName=""
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
-			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
 	</References>
 	<Files>
 		<File
-			RelativePath=".\_Util.txt">
+			RelativePath=".\_Util.txt"
+			>
 		</File>
 		<File
-			RelativePath=".\KCvsizer.bat">
+			RelativePath=".\KCvsizer.bat"
+			>
 		</File>
 		<File
-			RelativePath=".\KErrLvl.bat">
+			RelativePath=".\KErrLvl.bat"
+			>
 		</File>
 		<File
-			RelativePath=".\KFileWrite.sql">
+			RelativePath=".\KFileWrite.sql"
+			>
 		</File>
 		<File
-			RelativePath=".\KRegHxSHelp.bat">
+			RelativePath=".\KRegHxSHelp.bat"
+			>
 		</File>
 		<File
-			RelativePath=".\KSetThis.bat">
+			RelativePath=".\KSetThis.bat"
+			>
 		</File>
 		<File
-			RelativePath=".\KUnpack.bat">
+			RelativePath=".\KUnpack.bat"
+			>
 		</File>
 		<File
 			RelativePath=".\KVss2Cvs.htm"
-			DeploymentContent="TRUE">
+			DeploymentContent="true"
+			>
 		</File>
 		<File
-			RelativePath=".\KVss2Cvs.js">
+			RelativePath=".\KVss2Cvs.js"
+			>
 		</File>
 		<File
-			RelativePath=".\KVss2Cvs.v4.js">
+			RelativePath=".\KVss2Cvs.v4.js"
+			>
 		</File>
 		<File
-			RelativePath=".\LibVars.bat">
+			RelativePath=".\LibVars.bat"
+			>
 		</File>
 		<File
-			RelativePath=".\LibVars.reg">
+			RelativePath=".\LibVars.reg"
+			>
 		</File>
 		<File
-			RelativePath=".\MsComm32.reg">
+			RelativePath=".\MsComm32.reg"
+			>
 		</File>
 		<File
-			RelativePath="Util\RegsvrAdd.reg">
+			RelativePath="Util\RegsvrAdd.reg"
+			>
 		</File>
 		<File
-			RelativePath=".\RegsvrAdd.reg">
+			RelativePath=".\RegsvrAdd.reg"
+			>
 		</File>
 		<File
-			RelativePath=".\Vc71vars32.bat">
+			RelativePath=".\Vc71vars32.bat"
+			>
 		</File>
 	</Files>
 	<Globals>

@@ -8,5 +8,5 @@ Copyright: CommonSoft Inc.
 2006-07-10 Darko Kolakovic
 
 \	_Util.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	_Util.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	_Util.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	_Util7.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
