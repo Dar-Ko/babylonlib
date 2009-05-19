@@ -1,9 +1,10 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/05/19 16:00:34 $
+  $Revision: 1.5 $ $Date: 2009/05/19 17:55:24 $
   $Author: ddarko $
 
   USB device I/O control codes
   Copyright: (c) 2004-2008 The Open Watcom Contributors. All Rights Reserved.
+  http://www.openwatcom.org/
  */
 #ifndef __USBIOCTL_H__
   #define __USBIOCTL_H__
@@ -15,8 +16,8 @@
   #endif
 #endif
 
-#include <usb200.h>
-#include <usbiodef.h>
+#include "Usb200.h"
+#include "UsbIoDef.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -788,8 +789,17 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.5  2009/05/19 17:55:24  ddarko
+ * License information
+ *
  * Revision 1.4  2009/05/19 16:00:34  ddarko
  * MSVC8 build
  *
  *****************************************************************************/
 
+/*Open Watcom is a project of the open source community to maintain and enhance
+  the Watcom C, C++, and Fortran cross compilers and tools.
+  An Open Source license from Sybase allows free commercial and non-commercial
+  use of Open Watcom. 
+  http://www.openwatcom.org/index.php/Open_Watcom_Public_License
+ */
