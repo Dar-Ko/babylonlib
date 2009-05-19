@@ -4,6 +4,23 @@
 
 #include <PSHPACK1.H>
 
+
+//bmRequest.Dir
+#define BMREQUEST_HOST_TO_DEVICE        0
+#define BMREQUEST_DEVICE_TO_HOST        1
+
+//bmRequest.Type
+#define BMREQUEST_STANDARD              0
+#define BMREQUEST_CLASS                 1
+#define BMREQUEST_VENDOR                2
+
+//bmRequest.Recipient
+#define BMREQUEST_TO_DEVICE             0
+#define BMREQUEST_TO_INTERFACE          1
+#define BMREQUEST_TO_ENDPOINT           2
+#define BMREQUEST_TO_OTHER              3
+
+
 #define MAXIMUM_USB_STRING_LENGTH 255
 
 // values for the bits returned by the USB GET_STATUS command
