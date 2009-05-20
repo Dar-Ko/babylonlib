@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/05/20 20:51:38 $
+  $Revision: 1.4 $ $Date: 2009/05/20 21:43:47 $
   $Author: ddarko $
 
   USB device I/O control codes
@@ -110,6 +110,7 @@ extern "C" {
             FILE_ANY_ACCESS )
     #endif
     #ifndef IOCTL_USB_GET_ROOT_HUB_NAME
+      //Request to retrieve the symbolic link name of the root hub (0x220408).
         #define IOCTL_USB_GET_ROOT_HUB_NAME \
             CTL_CODE( FILE_DEVICE_USB, HCD_GET_ROOT_HUB_NAME, METHOD_BUFFERED, \
             FILE_ANY_ACCESS )
@@ -119,15 +120,21 @@ extern "C" {
             CTL_CODE( FILE_DEVICE_USB, HCD_GET_DRIVERKEY_NAME, METHOD_BUFFERED, \
             FILE_ANY_ACCESS )
     #endif
+
+    //Request to retrieve information about a parent device (0x220408).
     #define IOCTL_USB_GET_NODE_INFORMATION \
         CTL_CODE( FILE_DEVICE_USB, USB_GET_NODE_INFORMATION, METHOD_BUFFERED, \
         FILE_ANY_ACCESS )
     #define IOCTL_USB_GET_NODE_CONNECTION_INFORMATION \
         CTL_CODE( FILE_DEVICE_USB, USB_GET_NODE_CONNECTION_INFORMATION, \
         METHOD_BUFFERED, FILE_ANY_ACCESS )
+
+    //Request for the device descriptors associated with the USB port (0x220410).
     #define IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION \
         CTL_CODE( FILE_DEVICE_USB, USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION, \
         METHOD_BUFFERED, FILE_ANY_ACCESS )
+
+    //(0x220414).
     #define IOCTL_USB_GET_NODE_CONNECTION_NAME \
         CTL_CODE( FILE_DEVICE_USB, USB_GET_NODE_CONNECTION_NAME, METHOD_BUFFERED, \
         FILE_ANY_ACCESS )
@@ -137,6 +144,8 @@ extern "C" {
     #define IOCTL_USB_DIAG_IGNORE_HUBS_OFF \
         CTL_CODE( FILE_DEVICE_USB, USB_DIAG_IGNORE_HUBS_OFF, METHOD_BUFFERED, \
         FILE_ANY_ACCESS )
+
+    //(0x220420).
     #define IOCTL_USB_GET_NODE_CONNECTION_DRIVERKEY_NAME \
         CTL_CODE( FILE_DEVICE_USB, USB_GET_NODE_CONNECTION_DRIVERKEY_NAME, \
         METHOD_BUFFERED, FILE_ANY_ACCESS )
@@ -150,6 +159,9 @@ extern "C" {
         #define IOCTL_USB_GET_NODE_CONNECTION_ATTRIBUTES \
             CTL_CODE( FILE_DEVICE_USB, USB_GET_NODE_CONNECTION_ATTRIBUTES, \
             METHOD_BUFFERED, FILE_ANY_ACCESS )
+
+        //Request for a USB port information and the attached device (0x220448).
+        //Note: Specific to Microsoft Windows XP SP1 platforms and later
         #define IOCTL_USB_GET_NODE_CONNECTION_INFORMATION_EX \
             CTL_CODE( FILE_DEVICE_USB, USB_GET_NODE_CONNECTION_INFORMATION_EX, \
             METHOD_BUFFERED, FILE_ANY_ACCESS )
@@ -795,6 +807,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.4  2009/05/20 21:43:47  ddarko
+ * IOCTL comments
+ *
  * Revision 1.3  2009/05/20 20:51:38  ddarko
  * Clean version of USB stack
  *
