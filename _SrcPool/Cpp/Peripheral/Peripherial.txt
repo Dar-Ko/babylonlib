@@ -1,0 +1,2 @@
+A peripheral is a unit that is situated away from the center or central nervous system or central processing unit (CPU).
+Peripherals include all of the computer's input and output devices, any accessory devices attached to the computer such as a disk drives, printers, modems, monitors, scanners, internal memory cards and so on.
