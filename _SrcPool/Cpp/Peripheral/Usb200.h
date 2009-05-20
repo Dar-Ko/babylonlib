@@ -1,5 +1,5 @@
 /*$RCSfile: Usb200.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/05/20 20:58:27 $
+  $Revision: 1.4 $ $Date: 2009/05/20 21:14:15 $
   $Author: ddarko $
 
   USB 2.0 definitions
@@ -70,27 +70,41 @@ typedef union _BM_REQUEST_TYPE {
 } BM_REQUEST_TYPE;
 typedef BM_REQUEST_TYPE *PBM_REQUEST_TYPE;
 
+#ifdef _MSC_VER
+  //Microsoft Visual C/C++
+  //warning C4201: nonstandard extension used : nameless struct/union
+  #pragma warning(disable: 4201)
+#endif
 /* USB default pipe setup packet */
-typedef struct _USB_DEFAULT_PIPE_SETUP_PACKET {
-    BM_REQUEST_TYPE bmRequestType;
-    UCHAR           bRequest;
-    union _wValue {
-        struct {
-            UCHAR   LowByte;
-            UCHAR   HiByte;
-        };
-        USHORT  W;
+typedef struct _USB_DEFAULT_PIPE_SETUP_PACKET
+  {
+  BM_REQUEST_TYPE bmRequestType;
+  UCHAR           bRequest;
+  union _wValue
+    {
+    struct
+      {
+      UCHAR   LowByte;
+      UCHAR   HiByte;
+      };
+    USHORT  W;
     } wValue;
-    union _wIndex {
-        struct {
-            UCHAR   LowByte;
-            UCHAR   HiByte;
-        };
-        USHORT  W;
+  union _wIndex
+    {
+    struct
+      {
+      UCHAR   LowByte;
+      UCHAR   HiByte;
+      };
+    USHORT  W;
     } wIndex;
-    USHORT          wLength;
-} USB_DEFAULT_PIPE_SETUP_PACKET;
+  USHORT          wLength;
+  } USB_DEFAULT_PIPE_SETUP_PACKET;
 typedef USB_DEFAULT_PIPE_SETUP_PACKET   *PUSB_DEFAULT_PIPE_SETUP_PACKET;
+#ifdef _MSC_VER
+  //warning C4201: nonstandard extension used : nameless struct/union
+  #pragma warning(default: 4201)
+#endif
 
 /* USB device qualifier descriptor */
 typedef struct _USB_DEVICE_QUALIFIER_DESCRIPTOR {
@@ -141,6 +155,9 @@ typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    *PUSB_INTERFACE_ASSOCIATION_DESC
 
 /*****************************************************************************
  * $Log: Usb200.h,v $
+ * Revision 1.4  2009/05/20 21:14:15  ddarko
+ * disabled MSVC warning
+ *
  * Revision 1.3  2009/05/20 20:58:27  ddarko
  * Comment
  *
