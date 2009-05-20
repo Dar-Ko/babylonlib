@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoDef.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/05/20 20:51:38 $
+  $Revision: 1.3 $ $Date: 2009/05/20 20:58:27 $
   $Author: ddarko $
 
   USB I/O definitions
@@ -103,7 +103,10 @@ typedef USB_IDLE_CALLBACK_INFO  *PUSB_IDLE_CALLBACK_INFO;
 #endif /* __USBIODEF_H__ */
 
 /*****************************************************************************
- * $Log: *
+ * $Log: UsbIoDef.h,v $
+ * Revision 1.3  2009/05/20 20:58:27  ddarko
+ * Comment
+ *
  *****************************************************************************/
 
 /*Copyright (c) Microsoft Corporation. All rights reserved.

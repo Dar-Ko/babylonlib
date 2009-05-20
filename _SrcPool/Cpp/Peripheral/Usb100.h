@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/05/20 20:51:38 $
+  $Revision: 1.4 $ $Date: 2009/05/20 20:58:27 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -256,7 +256,10 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 #endif /* __USB100_H__ */
 
 /*****************************************************************************
- * $Log: *
+ * $Log: Usb100.h,v $
+ * Revision 1.4  2009/05/20 20:58:27  ddarko
+ * Comment
+ *
  *****************************************************************************/
 
 /*Contributors:

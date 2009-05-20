@@ -1,5 +1,5 @@
 /*$RCSfile: Usb200.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/05/20 20:51:38 $
+  $Revision: 1.3 $ $Date: 2009/05/20 20:58:27 $
   $Author: ddarko $
 
   USB 2.0 definitions
@@ -140,7 +140,10 @@ typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    *PUSB_INTERFACE_ASSOCIATION_DESC
 #endif /* __USB200_H__ */
 
 /*****************************************************************************
- * $Log: *
+ * $Log: Usb200.h,v $
+ * Revision 1.3  2009/05/20 20:58:27  ddarko
+ * Comment
+ *
  *****************************************************************************/
 
 /*Open Watcom is a project of the open source community to maintain and enhance
