@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/05/20 20:58:27 $
+  $Revision: 1.5 $ $Date: 2009/05/22 18:41:03 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -18,6 +18,10 @@
 
 #if __GNUC__ >= 3
   #pragma GCC system_header
+#endif
+
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #pragma message ("   #include " __FILE__ )
 #endif
 
 #ifdef __cplusplus
@@ -47,11 +51,19 @@ extern "C" {
 #define USB_GETSTATUS_REMOTE_WAKEUP_ENABLED 0x02
 
 /* USB descriptor types */
-#define USB_DEVICE_DESCRIPTOR_TYPE          0x01
-#define USB_CONFIGURATION_DESCRIPTOR_TYPE   0x02
-#define USB_STRING_DESCRIPTOR_TYPE          0x03
-#define USB_INTERFACE_DESCRIPTOR_TYPE       0x04
-#define USB_ENDPOINT_DESCRIPTOR_TYPE        0x05
+#define USB_DESCRIPTOR_DEVICE        0x01
+#define USB_DESCRIPTOR_CONFIGURATION 0x02
+#define USB_DESCRIPTOR_STRING        0x03
+#define USB_DESCRIPTOR_INTERFACE     0x04
+#define USB_DESCRIPTOR_ENDPOINT      0x05
+/*USB descriptor types (Microsoft compatible macros)*/
+#define USB_DEVICE_DESCRIPTOR_TYPE          USB_DESCRIPTOR_DEVICE
+#define USB_CONFIGURATION_DESCRIPTOR_TYPE   USB_DESCRIPTOR_CONFIGURATION
+#define USB_STRING_DESCRIPTOR_TYPE          USB_DESCRIPTOR_STRING
+#define USB_INTERFACE_DESCRIPTOR_TYPE       USB_DESCRIPTOR_INTERFACE
+#define USB_ENDPOINT_DESCRIPTOR_TYPE        USB_DESCRIPTOR_ENDPOINT
+
+
 /* Hardware design descriptor types */
 #define USB_RESERVED_DESCRIPTOR_TYPE        0x06
 #define USB_CONFIG_POWER_DESCRIPTOR_TYPE    0x07
@@ -79,9 +91,9 @@ extern "C" {
 
 /* USB endpoint direction macros */
 #define USB_ENDPOINT_DIRECTION_OUT( x ) (!((x) & USB_ENDPOINT_DIRECTION_MASK))
-#define USB_ENDPOINT_DIRECTION_IN( x )  ((x) & USB_ENDPOINT_DIRECTION_MASK)
+#define USB_ENDPOINT_DIRECTION_IN( x )    ((x) & USB_ENDPOINT_DIRECTION_MASK)
 
-/* USB request codes */
+/* Standard Request Codes USB 2.0 Specification Table 9-4 */
 #define USB_REQUEST_GET_STATUS              0x00
 #define USB_REQUEST_CLEAR_FEATURE           0x01
 #define USB_REQUEST_SET_FEATURE             0x03
@@ -106,13 +118,13 @@ extern "C" {
 #define USB_DEVICE_CLASS_HUB                0x09
 #define USB_DEVICE_CLASS_VENDOR_SPECIFIC    0xFF
 
-/* USB features */
-#define USB_FEATURE_ENDPOINT_STALL          0x0000
-#define USB_FEATURE_REMOTE_WAKEUP           0x0001
-#define USB_FEATURE_INTERFACE_POWER_D0      0x0002
-#define USB_FEATURE_INTERFACE_POWER_D1      0x0003
-#define USB_FEATURE_INTERFACE_POWER_D2      0x0004
-#define USB_FEATURE_INTERFACE_POWER_D3      0x0005
+/*Standard USB Feature Selectors*/
+#define USB_FEATURE_ENDPOINT_STALL          0x00  //USB endpoint halt
+#define USB_FEATURE_REMOTE_WAKEUP           0x01
+#define USB_FEATURE_INTERFACE_POWER_D0      0x02
+#define USB_FEATURE_INTERFACE_POWER_D1      0x03
+#define USB_FEATURE_INTERFACE_POWER_D2      0x04
+#define USB_FEATURE_INTERFACE_POWER_D3      0x05
 
 /* USB support flags */
 #define USB_SUPPORT_D0_COMMAND              0x01
@@ -257,6 +269,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.5  2009/05/22 18:41:03  ddarko
+ * Consolidated items across the header files
+ *
  * Revision 1.4  2009/05/20 20:58:27  ddarko
  * Comment
  *

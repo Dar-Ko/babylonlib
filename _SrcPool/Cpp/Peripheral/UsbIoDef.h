@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoDef.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/05/20 20:58:27 $
+  $Revision: 1.4 $ $Date: 2009/05/22 18:41:03 $
   $Author: ddarko $
 
   USB I/O definitions
@@ -18,6 +18,10 @@
 
 #if __GNUC__ >= 3
   #pragma GCC system_header
+#endif
+
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #pragma message ("   #include " __FILE__ )
 #endif
 
 #ifdef __cplusplus
@@ -104,6 +108,9 @@ typedef USB_IDLE_CALLBACK_INFO  *PUSB_IDLE_CALLBACK_INFO;
 
 /*****************************************************************************
  * $Log: UsbIoDef.h,v $
+ * Revision 1.4  2009/05/22 18:41:03  ddarko
+ * Consolidated items across the header files
+ *
  * Revision 1.3  2009/05/20 20:58:27  ddarko
  * Comment
  *

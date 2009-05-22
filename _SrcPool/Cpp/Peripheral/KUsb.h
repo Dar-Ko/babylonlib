@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/05/22 18:25:04 $
+  $Revision: 1.2 $ $Date: 2009/05/22 18:41:03 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -38,28 +38,6 @@
 // Macros
 
 //-----------------------------------------------------------------------------
-//Standard Request Codes USB 2.0 Specification Table 9-4
-
-#define USB_GET_STATUS         0
-#define USB_CLEAR_FEATURE      1
-#define USB_SET_FEATURE        3
-#define USB_SET_ADDRESS        5
-#define USB_GET_DESCRIPTOR     6
-#define USB_SET_DESCRIPTOR     7
-#define USB_GET_CONFIGURATION  8
-#define USB_SET_CONFIGURATION  9
-#define USB_GET_INTERFACE     10
-#define USB_SET_INTERFACE     11
-#define USB_SYNCH_FRAME       12
-
-//Descriptor Types
-#define USBDESCRIPTOR_DEVICE        0x01
-#define USBDESCRIPTOR_CONFIGURATION 0x02
-#define USBDESCRIPTOR_STRING        0x03
-#define USBDESCRIPTOR_INTERFACE     0x04
-#define USBDESCRIPTOR_ENDPOINT      0x05
-
-//-----------------------------------------------------------------------------
 //Device Class Definition for Human Interface Devices (HID) v.1.11
 
 //Class Descriptor Types
@@ -90,9 +68,6 @@
 #define DEVICE_LENGTH 255
 */
 
-//Standard Feature Selectors
-#define DEVICE_REMOTE_WAKEUP    0x01
-#define ENDPOINT_HALT           0x00
 
 /*Maximum number of USB devices, including USB hubs, that could be connected to
   a single host controller. Every host controller has at least one build-in hub,

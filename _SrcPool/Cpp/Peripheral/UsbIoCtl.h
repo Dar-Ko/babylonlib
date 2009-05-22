@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/05/20 21:43:47 $
+  $Revision: 1.5 $ $Date: 2009/05/22 18:41:03 $
   $Author: ddarko $
 
   USB device I/O control codes
@@ -22,6 +22,10 @@
 
 #include "Usb200.h"
 #include "UsbIoDef.h"
+
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #pragma message ("   #include " __FILE__ )
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -807,6 +811,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.5  2009/05/22 18:41:03  ddarko
+ * Consolidated items across the header files
+ *
  * Revision 1.4  2009/05/20 21:43:47  ddarko
  * IOCTL comments
  *

@@ -1,5 +1,5 @@
 /*$RCSfile: Usb200.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/05/20 21:14:15 $
+  $Revision: 1.5 $ $Date: 2009/05/22 18:41:03 $
   $Author: ddarko $
 
   USB 2.0 definitions
@@ -21,6 +21,11 @@
 #endif
 
 #include "Usb100.h"
+
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #pragma message ("   #include " __FILE__ )
+#endif
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -155,6 +160,9 @@ typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    *PUSB_INTERFACE_ASSOCIATION_DESC
 
 /*****************************************************************************
  * $Log: Usb200.h,v $
+ * Revision 1.5  2009/05/22 18:41:03  ddarko
+ * Consolidated items across the header files
+ *
  * Revision 1.4  2009/05/20 21:14:15  ddarko
  * disabled MSVC warning
  *
