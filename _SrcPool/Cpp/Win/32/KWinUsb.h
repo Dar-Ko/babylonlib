@@ -56,6 +56,82 @@
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 
+///////////////////////////////////////////////////////////////////////////////
+/*Sends a control code directly to a specified device driver, causing
+  the corresponding device to perform the corresponding operation.
+
+  Parameters:
+    - TUSBKEYNAME the type of output data returned by the operation. The type
+      depends on the value of the TUSBIOCTLID parameter.
+    - TUSBIOCTLID the control code for the operation. This value identifies
+      the specific operation to be performed and the type of device on which
+      to perform it.
+
+  See also: <UsbIoCtl.h>
+ */
+template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
+class TUsbSymbolicName
+{
+public:
+  TUsbSymbolicName(HANDLE hDevice);
+  virtual ~TUsbSymbolicName();
+  TUSBKEYNAME* m_pData;
+};
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
+TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::TUsbSymbolicName(HANDLE hDevice //[in]
+                 //handle to the device on which the operation is to be performed.
+                 ) : m_pData(NULL)
+{
+ATLASSERT(hDevice != INVALID_HANDLE_VALUE);
+if (hDevice != INVALID_HANDLE_VALUE)
+  {
+  DWORD nBytesReturned;
+  TUSBKEYNAME usbTemp;
+  if (DeviceIoControl(hDevice, //handle to the device
+                      TUSBIOCTLID, //control code for the operation
+                      NULL, //data required to perform the operation
+                      0,    //size of the input data, in bytes
+                      &usbTemp, //data returned by the operation
+                      sizeof(usbTemp), //size of the buffer reserved for output data, in bytes
+                      &nBytesReturned, //number of bytes actually retuned
+                      NULL) == TRUE)
+    {
+    m_pData = (TUSBKEYNAME*) new BYTE[usbTemp.ActualLength];
+    if (m_pData != NULL)
+      {
+      if (DeviceIoControl(hDevice, //handle to the device
+                          TUSBIOCTLID, //control code for the operation
+                          NULL, //data required to perform the operation
+                          0,    //size of the input data, in bytes
+                          m_pData, //data returned by the operation
+                          usbTemp.ActualLength,
+                          &nBytesReturned,
+                          NULL) != TRUE)
+        {
+        ATLASSERT(false); //Failed to obtain symolic link name;
+        delete [] m_pData;
+        m_pData = NULL;
+        }
+      }
+    }
+  }
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
+TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::~TUsbSymbolicName()
+{
+if (m_pData != NULL)
+  delete[] m_pData;
+}
+
+///////////////////////////////////////////////////////////////////////////////
 LPCTSTR GetDeviceDesc(LPCTSTR szDriverRegistryName);
 
 ///////////////////////////////////////////////////////////////////////////////
