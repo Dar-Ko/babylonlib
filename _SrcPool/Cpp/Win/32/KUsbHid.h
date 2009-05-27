@@ -24,9 +24,9 @@
   #include <setupapi.h> //Device Management Structures
   extern "C"
   {
-  #include <hidsdi.h>//USB specific HID class GUID; Windows DDK
-                     //to use in the user space
-  //Note: include <hidpddi.h> to use in the kernel space
+  #include <hidsdi.h>//USB user space specific HID class GUID; Windows DDK
+  //Note: include <hidpddi.h> to operate with HID in the kernel space.
+  //If operation on HID in the user space is required, include <hidsdi.h>
   LPTSTR StrIStr(LPCTSTR szSource, LPCTSTR szToken);
   }
   #include <hidpi.h> //HIDP_CAPS struct; Windows DDK

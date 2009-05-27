@@ -144,7 +144,7 @@
 /*System-supplied PnP enumerator name for priners using Universal Serial Bus
   (USB).
 
-  The device ID format for a USB printes is:
+  The device ID format for a USB printers is:
 
     USBPRINT\NameModel(20)Checksum(4)
 
