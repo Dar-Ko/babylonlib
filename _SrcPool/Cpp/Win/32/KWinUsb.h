@@ -53,6 +53,26 @@
    */
   #define USB_ROOTHUBNAME _T("ROOT_HUB")
 #endif
+
+//-----------------------------------------------------------------------------
+/*Windows registry keys                                                      */
+
+#define WIN_CTRL_USB_VENDOR_VALUE	        _T("ProviderName")
+#define WIN_CTRL_USB_DESCRIPTION_VALUE		_T("DriverDesc")
+#define WIN_CTRL_USB_DRIVERDATE_VALUE 	  _T("DriverDate")
+#define WIN_CTRL_USB_DRIVERVERSION_VALUE	_T("DriverVersion")
+#define WIN_CTRL_USB_DEVICEID_VALUE       _T("MatchingDeviceId")
+#define WIN_CTRL_USB_CONTROLER_VALUE	  	_T("Controller")
+
+/*USB controler registry hive name.
+  Note: Microsoft Windows9x/Me specific (Win9x).
+ */
+#define WIN9x_CTRL_USB_KEY 	_T("SYSTEM\\CurrentControlSet\\Services\\Class\\USB")
+/*USB controler registry hive name.
+  Note: Microsoft Windows NT, 2000, XP specific (WinNT), (Win2k), (WinXP).
+ */
+#define WINNT_CTRL_USB_KEY  _T("SYSTEM\\CurrentControlSet\\Control\\Class\\{36FC9E60-C465-11CF-8056-444553540000}")
+
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
 
