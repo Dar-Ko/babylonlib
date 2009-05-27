@@ -92,6 +92,69 @@
         #endif
       #endif
 
+       /* Signed at least.*/
+      #ifndef __int_least8_t_defined
+        #define __int_least8_t_defined
+        #ifndef int_least8_t
+          typedef __int8 int_least8_t;
+          #define int_least8_t int_least8_t
+        #endif
+        #ifndef int_least16_t
+          typedef __int16  int_least16_t;
+          #define int_least16_t int_least16_t
+        #endif
+        #ifndef int_least32_t
+          typedef __int32  int_least32_t;
+          #define int_least32_t int_least32_t
+        #endif
+        #ifndef int_least64_t
+        typedef __int64  int_least64_t;
+          #define int_least64_t int_least64_t
+        #endif
+      #endif
+
+       /* Unsigned at least.*/
+      #ifndef __uint_least8_t_defined
+        #define __uint_least8_t_defined
+        #ifndef uint_least8_t
+          typedef __int8 uint_least8_t;
+          #define uint_least8_t uint_least8_t
+        #endif
+        #ifndef uint_least16_t
+          typedef __int16  uint_least16_t;
+          #define uint_least16_t uint_least16_t
+        #endif
+        #ifndef uint_least32_t
+          typedef __int32  uint_least32_t;
+          #define uint_least32_t uint_least32_t
+        #endif
+        #ifndef uint_least64_t
+        typedef __int64  uint_least64_t;
+          #define uint_least64_t uint_least64_t
+        #endif
+      #endif
+
+      /* Fast unsigned.*/
+      #ifndef __uint_fast8_t_defined
+        #define __uint_fast8_t_defined
+        #ifndef uint_fast8_t
+          typedef __int8 uint_fast8_t;
+          #define uint_fast8_t uint_fast8_t
+        #endif
+        #ifndef uint_fast16_t
+          typedef __int16  uint_fast16_t;
+          #define uint_fast16_t uint_fast16_t
+        #endif
+        #ifndef uint_fast32_t
+          typedef __int32  uint_fast32_t;
+          #define uint_fast32_t uint_fast32_t
+        #endif
+        #ifndef uint_fast64_t
+        typedef __int64  uint_fast64_t;
+          #define uint_fast64_t uint_fast64_t
+        #endif
+      #endif
+
 #else /*not MSVC 7.0 *.
       /* Signed.  */
       #ifndef int8_t
