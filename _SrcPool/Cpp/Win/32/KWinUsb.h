@@ -77,8 +77,13 @@
 #ifdef __cplusplus
 
 ///////////////////////////////////////////////////////////////////////////////
-/*Sends a control code directly to a specified device driver, causing
-  the corresponding device to perform the corresponding operation.
+/*Template class used to obtain a symbolic link name of the specified USB device.
+
+  To retrieve a handle to the device, use CreateFile() function with either
+  the name of a device or the name of the driver associated with a device.
+  For the device name have, use the following format:
+
+      \\.\DeviceKeySymbolicName
 
   Parameters:
     - TUSBKEYNAME the type of output data returned by the operation. The type
@@ -87,7 +92,10 @@
       the specific operation to be performed and the type of device on which
       to perform it.
 
-  See also: <UsbIoCtl.h>
+  See also: <UsbIoCtl.h>, USB_HCD_DRIVERKEY_NAME, IOCTL_GET_HCD_DRIVERKEY_NAME,
+  USB_ROOT_HUB_NAME, IOCTL_USB_GET_ROOT_HUB_NAME,
+  USB_HUB_NAME, USB_NODE_CONNECTION_DRIVERKEY_NAME, USB_NODE_CONNECTION_NAME,
+  USB host controller FDO.
  */
 template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
 class TUsbSymbolicName
@@ -95,11 +103,16 @@ class TUsbSymbolicName
 public:
   TUsbSymbolicName(HANDLE hDevice);
   virtual ~TUsbSymbolicName();
+public:
+  bool IsValid() const;
+public:
   TUSBKEYNAME* m_pData;
 };
 
 //-----------------------------------------------------------------------------
-/*
+/*Sends an I/O control request for the symbolic name directly to the specified
+  USB device driver. If the operation fails, symbolic name is NULL. To get
+  extended error information, call GetLastError().
  */
 template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
 TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::TUsbSymbolicName(HANDLE hDevice //[in]
@@ -111,6 +124,10 @@ if (hDevice != INVALID_HANDLE_VALUE)
   {
   DWORD nBytesReturned;
   TUSBKEYNAME usbTemp;
+  /*Send a control code directly to a specified device driver, causing
+    the corresponding device to perform the corresponding operation.
+    If the operation fails or is pending, the return value is FALSE.
+   */
   if (DeviceIoControl(hDevice, //handle to the device
                       TUSBIOCTLID, //control code for the operation
                       NULL, //data required to perform the operation
@@ -147,8 +164,21 @@ if (hDevice != INVALID_HANDLE_VALUE)
 template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
 TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::~TUsbSymbolicName()
 {
-if (m_pData != NULL)
+if (IsValid())
   delete[] m_pData;
+}
+
+//-----------------------------------------------------------------------------
+/*Verifies if the symbolic name of the USB device is valid.
+  To get extended error information, call GetLastError().
+
+  Returns true if the symbolic name is obtained successfuly, otherwise returns
+  false.
+ */
+template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
+bool TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::IsValid() const
+{
+return (m_pData != NULL);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
