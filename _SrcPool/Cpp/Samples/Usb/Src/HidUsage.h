@@ -1,6 +1,6 @@
 /*++
 
-Copyright (c) 1996, 1997      Microsoft Corporation
+Copyright (c) Microsoft Corporation. All rights reserved.
 
 Module Name:
 
@@ -260,6 +260,11 @@ typedef USHORT USAGE, *PUSAGE;
 // and others...
 //
 
+#define HID_USAGE_CONSUMERCTRL          ((USAGE)0x01)
+#define HID_USAGE_DIGITIZER_PEN         ((USAGE)0x02)
+#define HID_USAGE_DIGITIZER_IN_RANGE    ((USAGE)0x32)
+#define HID_USAGE_DIGITIZER_TIP_SWITCH  ((USAGE)0x42)
+#define HID_USAGE_DIGITIZER_BARREL_SWITCH ((USAGE)0x44)
 
 #endif
 

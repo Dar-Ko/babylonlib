@@ -1,6 +1,6 @@
- /*++
+/*++
 
-Copyright (c) 1996-1998      Microsoft Corporation
+Copyright (c) Microsoft Corporation. All rights reserved.
 
 Module Name:
 
@@ -1685,6 +1685,8 @@ typedef enum _HIDP_KEYBOARD_DIRECTION {
 // below keyboard usages to i8042 translation function.
 //
 typedef struct _HIDP_KEYBOARD_MODIFIER_STATE {
+      #pragma warning(disable: 4201) //warning C4201: nonstandard extension used : nameless struct/union
+
    union {
       struct {
          ULONG LeftControl: 1;
@@ -1701,6 +1703,7 @@ typedef struct _HIDP_KEYBOARD_MODIFIER_STATE {
          ULONG Reserved: 21;
       };
       ULONG ul;
+    #pragma warning(default: 4201) //warning C4201: nonstandard extension used : nameless struct/union
    };
 
 } HIDP_KEYBOARD_MODIFIER_STATE, * PHIDP_KEYBOARD_MODIFIER_STATE;

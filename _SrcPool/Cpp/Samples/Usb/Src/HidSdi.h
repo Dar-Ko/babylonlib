@@ -1,6 +1,6 @@
 /*++
 
-Copyright (c) 1996    Microsoft Corporation
+Copyright (c) Microsoft Corporation. All rights reserved.
 
 Module Name:
 
@@ -229,6 +229,56 @@ Return Value:
 --*/
 
 BOOLEAN __stdcall
+HidD_GetInputReport (
+   IN    HANDLE   HidDeviceObject,
+   OUT   PVOID    ReportBuffer,
+   IN    ULONG    ReportBufferLength
+   );
+/*++
+Routine Description:
+    Retrieve an input report from a HID device.
+
+Arguments:
+    HidDeviceObject      A handle to a Hid Device Object.
+ 
+    ReportBuffer         The buffer that the input report should be placed 
+                         into.  The first byte of the buffer should be set to
+                         the report ID of the desired report
+ 
+    ReportBufferLength   The size (in bytes) of ReportBuffer.  This value 
+                         should be greater than or equal to the 
+                         InputReportByteLength field as specified in the 
+                         HIDP_CAPS structure for the device
+Return Value:
+    TRUE if successful
+    FALSE otherwise  -- Use GetLastError() to get extended error information
+--*/
+
+BOOLEAN __stdcall
+HidD_SetOutputReport (
+   IN    HANDLE   HidDeviceObject,
+   IN    PVOID    ReportBuffer,
+   IN    ULONG    ReportBufferLength
+   );
+/*++
+Routine Description:
+    Send an output report to a HID device.
+
+Arguments:
+    HidDeviceObject      A handle to a Hid Device Object.
+ 
+    ReportBuffer         The buffer of the output report to send to the device
+ 
+    ReportBufferLength   The size (in bytes) of ReportBuffer.  This value 
+                         should be greater than or equal to the 
+                         OutputReportByteLength field as specified in the 
+                         HIDP_CAPS structure for the device
+Return Value:
+    TRUE if successful
+    FALSE otherwise  -- Use GetLastError() to get extended error information
+--*/
+
+BOOLEAN __stdcall
 HidD_GetNumInputBuffers (
     IN  HANDLE  HidDeviceObject,
     OUT PULONG  NumberBuffers
@@ -399,6 +449,30 @@ Arguments:
                          string returned from the device.  This string is a 
                          wide-character string
 
+    BufferLength         Length of Buffer (in bytes)
+
+Return Value:
+    TRUE if successful
+    FALSE otherwise  -- Use GetLastError() to get extended error information
+--*/
+
+BOOLEAN __stdcall
+HidD_GetMsGenreDescriptor (
+   IN    HANDLE   HidDeviceObject,
+   OUT   PVOID    Buffer,
+   IN    ULONG    BufferLength
+   );
+/*++
+Routine Description:
+    This function retrieves the Microsoft Genre descriptor from the specified 
+    Hid device.  
+
+Arguments:
+    HidDeviceObject      A handle to a Hid Device Object.
+ 
+    Buffer               Buffer which on return will contain the descriptor
+                         returned from the device.
+                         
     BufferLength         Length of Buffer (in bytes)
 
 Return Value:
