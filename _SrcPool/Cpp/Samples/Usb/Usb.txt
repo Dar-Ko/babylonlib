@@ -1,5 +1,5 @@
 $RCSfile: Usb.txt,v $: developer's note
-$Revision: 1.4 $ $Date: 2009/04/03 18:26:38 $
+$Revision: 1.5 $ $Date: 2009/05/27 19:02:44 $
 $Author: ddarko $
 
 Usb
@@ -7,7 +7,10 @@ Usb
 Microsoft Windows Console Application
 
 Dependencies:
-    Windows DDK (hidsdi.h) version 3790.1830
+    Windows DDK (hidsdi.h) version 3790.1830 (Win2k or WinXP)
+                 hid.lib   version 3790.1830 (Win2k or WinXP)
+    Note: Windows DDK header and libarary are replaced with Open Watcom Project (OWP) files.
+                     
     MSCVC/C++ 6.0
       To add new search path for DDK header files and libraries, select menu item:
       Tools| Options... | Directories
@@ -39,6 +42,7 @@ If MFC TestDocument/TestView framework is used, it is required to initialize glo
 This is not required if the target is Windows console (subsystem:console).
 
 \	Usb.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
+\	Usb7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 \	Usb.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8 (MSVC8).	Win32
 
 
@@ -122,3 +126,6 @@ Win DDK
   To allow it, create Windows Registry DWORD value:
     HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Kbdclass\Parameters\AllowDisable
 
+  Note: Windows DDK header and libarary are replaced with Open Watcom Project (OWP) files.
+  
+  
