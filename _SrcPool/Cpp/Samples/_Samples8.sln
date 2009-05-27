@@ -82,6 +82,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WmpTag", "WmpTag\WmpTag7.vc
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Usb", "Usb\Usb7.vcproj", "{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -476,6 +480,26 @@ Global
 		{8D00A328-D396-4960-8013-9C935DE4FB4A}.Release_Unicode.Build.0 = Release_Unicode|Win32
 		{8D00A328-D396-4960-8013-9C935DE4FB4A}.Release_Unicode_MFC.ActiveCfg = Release_Unicode|Win32
 		{8D00A328-D396-4960-8013-9C935DE4FB4A}.Release_Unicode_MFC.Build.0 = Release_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Debug.ActiveCfg = Debug_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Debug.Build.0 = Debug_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Debug_SBCS.ActiveCfg = Debug_SBCS|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Debug_SBCS.Build.0 = Debug_SBCS|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Debug_SBCS_MFC.ActiveCfg = Debug_SBCS|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Debug_SBCS_MFC.Build.0 = Debug_SBCS|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Debug_Unicode.ActiveCfg = Debug_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Debug_Unicode.Build.0 = Debug_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Debug_Unicode_MFC.ActiveCfg = Debug_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Debug_Unicode_MFC.Build.0 = Debug_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Release.ActiveCfg = Release_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Release.Build.0 = Release_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Release_SBCS.ActiveCfg = Release_SBCS|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Release_SBCS.Build.0 = Release_SBCS|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Release_SBCS_MFC.ActiveCfg = Release_SBCS|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Release_SBCS_MFC.Build.0 = Release_SBCS|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Release_Unicode.ActiveCfg = Release_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Release_Unicode.Build.0 = Release_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Release_Unicode_MFC.ActiveCfg = Release_Unicode|Win32
+		{AB3C39C4-D6E7-4CC1-AFB6-1E6DF5401CA0}.Release_Unicode_MFC.Build.0 = Release_Unicode|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
