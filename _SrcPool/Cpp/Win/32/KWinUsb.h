@@ -89,8 +89,11 @@ public:
   virtual ~TUsbSymbolicName();
 public:
   bool IsValid() const;
-public:
-  TUSBKEYNAME* m_pData;
+  LPCWSTR GetName();
+
+private:
+  TUSBKEYNAME* m_pData;   //device symbolic name data structure
+  LPWSTR m_pSymbolicName; //formatted device symbolic name
 };
 
 //-----------------------------------------------------------------------------
@@ -101,7 +104,7 @@ public:
 template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
 TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::TUsbSymbolicName(HANDLE hDevice //[in]
                  //handle to the device on which the operation is to be performed.
-                 ) : m_pData(NULL)
+                 ) : m_pData(NULL), m_pSymbolicName(NULL)
 {
 ATLASSERT(hDevice != INVALID_HANDLE_VALUE);
 if (hDevice != INVALID_HANDLE_VALUE)
@@ -118,9 +121,17 @@ if (hDevice != INVALID_HANDLE_VALUE)
                       0,    //size of the input data, in bytes
                       &usbTemp, //data returned by the operation
                       sizeof(usbTemp), //size of the buffer reserved for output data, in bytes
-                      &nBytesReturned, //number of bytes actually retuned
+                      &nBytesReturned, //number of bytes actually returned
                       NULL) == TRUE)
     {
+    /*Returned data length is sum of the length of the wide character symbolic
+      link name and the length of unknown data preceding the name. When the
+      preceding data are not required, it could be overwritten with symbolic
+      name prefix in order to obtain proper device name. Because it is not
+      known beforehand how much padding is required, total length is increased
+      for the size of prefix, allowing couple bytes to be wasted.
+      */
+    usbTemp.ActualLength += SYMBOLICLINK_PREFIX_LEN;
     m_pData = (TUSBKEYNAME*) new BYTE[usbTemp.ActualLength];
     if (m_pData != NULL)
       {
@@ -128,12 +139,14 @@ if (hDevice != INVALID_HANDLE_VALUE)
                           TUSBIOCTLID, //control code for the operation
                           NULL, //data required to perform the operation
                           0,    //size of the input data, in bytes
-                          m_pData, //data returned by the operation
+                          (LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN, //data
+                           //returned by the operation, offset for the padding
                           usbTemp.ActualLength,
                           &nBytesReturned,
                           NULL) != TRUE)
         {
         ATLASSERT(false); //Failed to obtain symolic link name;
+        //To get extended error information, call GetLastError().
         delete [] m_pData;
         m_pData = NULL;
         }
@@ -163,6 +176,39 @@ template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
 bool TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::IsValid() const
 {
 return (m_pData != NULL);
+}
+
+//-----------------------------------------------------------------------------
+/*Creates a device name from previously obtained device symbolic link.
+  Followinf format is used for the device names:
+
+      \\.\DeviceKeySymbolicName
+
+  Returns pointer formatted device name or NULL in case of failure.
+ */
+template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
+LPCWSTR TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::GetName()
+{
+if (IsValid())
+  {
+  if (m_pSymbolicName != NULL)
+    {
+    /*Note: this magic is requires that of ActualLength member of USB I/O data
+      immediately precedes string with device name.
+      Adddres of the buffer with result would be: address of the ActualLength
+      member + sizeof(ActualLength) - prefix length.
+     */
+    LPWSTR pSymbolicName = (LPWSTR)(
+      (LPBYTE)(&((TUSBKEYNAME*)((LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN))->ActualLength) +
+      sizeof(m_pData->ActualLength) - SYMBOLICLINK_PREFIX_LEN);
+    pSymbolicName[0] = SYMBOLICLINK_PREFIX[0];
+    pSymbolicName[1] = SYMBOLICLINK_PREFIX[1];
+    pSymbolicName[2] = SYMBOLICLINK_PREFIX[2];
+    pSymbolicName[3] = SYMBOLICLINK_PREFIX[3];
+    }
+  return m_pSymbolicName;
+  }
+return NULL;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
