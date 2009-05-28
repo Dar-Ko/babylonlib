@@ -1,8 +1,8 @@
-/*$Workfile: KWinUsb.h$: header file
+/*$RCSfile: KWinUsb.h$: header file
   $Revision: 4$ $Date: 2007-08-24 18:15:44$
   $Author: Darko Kolakovic$
 
-  Constants related to Windows platform version
+  USB types related to Windows platform
   Note: Microsoft Windows specific (Win).
   Copyright: CommonSoft Inc
   2004-03-10 Darko Kolakovic
@@ -10,7 +10,7 @@
 // Group=Windows
 
 #ifndef _KWINUSB_H_
-    //$Workfile: KWinUsb.h$ sentry
+    //$RCSfile: KWinUsb.h$ sentry
   #define _KWINUSB_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -27,25 +27,9 @@
 //USB structures and enumerations used on Windows Driver Model (WDM) platforms.
 #pragma warning(disable: 4200)
 //warning C4200: nonstandard extension used : zero-sized array in struct/union
-#include <usbioctl.h> //Windows Platform DDK, using pre-Win2k functions
+#include <UsbIoCtl.h> //Windows Platform DDK, using pre-Win2k functions
 #pragma warning(default: 4200)
-
-#ifndef SYMBOLICLINK_HDC
-  /*Symbolic name for Host Controller Driver (HCD) modules have following
-    form:
-        \\.\HCDn
-        where n (0,...,k) is module instance number in the driver's stack.
-
-    Note: USB driver uses two different stacks for USB 1.1 and USB 2.0 host
-    controllers.
-    Note: Microsoft Windows specific (Win32).
-
-    See also: MSDN KB838100,  "The USBView.exe sample program does not
-    enumerate devices on pre-Windows XP SP1-based computers";
-    CreateSymbolicLink().
-  */
-  #define SYMBOLICLINK_HDC "\\\\.\\HCD%d"
-#endif
+#include "KSysPnP.h" //SYMBOLICLINK_PREFIX
 
 #ifndef USB_ROOTHUBNAME
   /*
@@ -57,17 +41,17 @@
 //-----------------------------------------------------------------------------
 /*Windows registry keys                                                      */
 
-#define WIN_CTRL_USB_VENDOR_VALUE	        _T("ProviderName")
-#define WIN_CTRL_USB_DESCRIPTION_VALUE		_T("DriverDesc")
-#define WIN_CTRL_USB_DRIVERDATE_VALUE 	  _T("DriverDate")
-#define WIN_CTRL_USB_DRIVERVERSION_VALUE	_T("DriverVersion")
+#define WIN_CTRL_USB_VENDOR_VALUE         _T("ProviderName")
+#define WIN_CTRL_USB_DESCRIPTION_VALUE    _T("DriverDesc")
+#define WIN_CTRL_USB_DRIVERDATE_VALUE     _T("DriverDate")
+#define WIN_CTRL_USB_DRIVERVERSION_VALUE  _T("DriverVersion")
 #define WIN_CTRL_USB_DEVICEID_VALUE       _T("MatchingDeviceId")
-#define WIN_CTRL_USB_CONTROLER_VALUE	  	_T("Controller")
+#define WIN_CTRL_USB_CONTROLER_VALUE      _T("Controller")
 
 /*USB controler registry hive name.
   Note: Microsoft Windows9x/Me specific (Win9x).
  */
-#define WIN9x_CTRL_USB_KEY 	_T("SYSTEM\\CurrentControlSet\\Services\\Class\\USB")
+#define WIN9x_CTRL_USB_KEY  _T("SYSTEM\\CurrentControlSet\\Services\\Class\\USB")
 /*USB controler registry hive name.
   Note: Microsoft Windows NT, 2000, XP specific (WinNT), (Win2k), (WinXP).
  */
@@ -81,7 +65,7 @@
 
   To retrieve a handle to the device, use CreateFile() function with either
   the name of a device or the name of the driver associated with a device.
-  For the device name have, use the following format:
+  Following format is used for the device names:
 
       \\.\DeviceKeySymbolicName
 

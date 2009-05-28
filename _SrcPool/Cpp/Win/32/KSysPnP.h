@@ -1,4 +1,4 @@
-/*$Workfile: KSysPnP.h$: header file
+/*$RCSfile: KSysPnP.h$: header file
   $Revision: 4$ $Date: 2007-08-24 18:15:44$
   $Author: Darko Kolakovic$
 
@@ -10,7 +10,7 @@
 // Group=Windows
 
 #ifndef _KSYSPNP_H_
-    //$Workfile: KSysPnP.h$ sentry
+    //$RCSfile: KSysPnP.h$ sentry
   #define _KSYSPNP_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
@@ -175,6 +175,45 @@
 #define SYSTEMENUM_ACPI _T("ACPI")
 
 #define SYSTEMENUM_LPT _T("LPTENUM")
+
+//------------------------------------------------------------------------------
+//Device I/O control
+
+#ifndef SYMBOLICLINK_PREFIX
+  /*Device name prefix used to create complete device name.
+    Following format is used for the device names:
+
+      \\.\DeviceName
+
+    where DeviceName could be a specific device or logical drive name, for
+    example "\\.\c:" or "\\.\PhysicalDrive1", "\\.\HDC0"
+
+    Note: Microsoft Windows specific (Win32).
+
+    See also: DeviceIoControl(), CreateSymbolicLink(), CreateFile().
+  */
+  #define SYMBOLICLINK_PREFIX  L"\\\\.\\"
+  //Length of device name prefix in bytes
+  #define SYMBOLICLINK_PREFIX_LEN (4 * sizeof(wchar_t))
+#endif
+
+#ifndef SYMBOLICLINK_HDC
+  /*Symbolic name for Host Controller Driver (HCD) modules have following
+    form:
+        \\.\HCDn
+        where n (0,...,k) is module instance number in the driver's stack.
+
+    Note: USB driver uses two different stacks for USB 1.1 and USB 2.0 host
+    controllers.
+    Note: Microsoft Windows specific (Win32).
+
+    See also: MSDN KB838100,  "The USBView.exe sample program does not
+    enumerate devices on pre-Windows XP SP1-based computers";
+    CreateSymbolicLink().
+  */
+  #define SYMBOLICLINK_HDC "\\\\.\\HCD%d"
+#endif
+
 #endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KSYSPNP_H_
