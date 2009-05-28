@@ -779,6 +779,9 @@
 				RelativePath=".\Src\HidUsage.h">
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KSysPnP.h">
+			</File>
+			<File
 				RelativePath="..\..\KTestLog.h">
 			</File>
 			<File
