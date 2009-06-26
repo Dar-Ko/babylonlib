@@ -129,7 +129,7 @@ if (hDevice != INVALID_HANDLE_VALUE)
       preceding data are not required, it could be overwritten with symbolic
       name prefix in order to obtain proper device name. Because it is not
       known beforehand how much padding is required, total length is increased
-      for the size of prefix, allowing couple bytes to be wasted.
+      for the size of prefix, allowing a couple bytes to be wasted.
       */
     usbTemp.ActualLength += SYMBOLICLINK_PREFIX_LEN;
     m_pData = (TUSBKEYNAME*) new BYTE[usbTemp.ActualLength];
@@ -193,7 +193,7 @@ if (IsValid())
   {
   if (m_pSymbolicName != NULL)
     {
-    /*Note: this magic is requires that of ActualLength member of USB I/O data
+    /*Note: this magic requires that of ActualLength member of USB I/O data
       immediately precedes string with device name.
       Adddres of the buffer with result would be: address of the ActualLength
       member + sizeof(ActualLength) - prefix length.
