@@ -1,10 +1,10 @@
-/*$RCSfile: TestFindUsbHid.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/06/26 21:35:35 $
+/*$RCSfile: TestUsbEnum.cpp,v $: implementation file
+  $Revision: 1.1 $ $Date: 2009/06/26 21:35:35 $
   $Author: ddarko $
 
-  Test accessing USBHID information.
+  Test USB tree enumeration.
   Copyright: CommonSoft Inc.
-  2008-09-26 Darko Kolakovic
+  2009-06-26 Darko Kolakovic
 */
 
 // Group=Examples
@@ -44,28 +44,26 @@ extern bool TsWriteToView(const unsigned int& nValue);
 #endif
 //#include <iostream> //std::endl
 
-#include "KUsbHid.h" //CUsbHid
 #include "UsbVid.h"  //USB VID List
+#include "KWinUsb.h" //TUsbSymbolicName template
 
-#define VID_MS 0x045E //(Microsoft Corporation)
-#define PID_MS 0x0083 //Basic Optical Mouse - generic HID
 
-bool TestFindUsbHid(uint16_t nVendorId = 0, uint16_t nProductId = 0);
+bool TestUsbEnum(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 
 //-----------------------------------------------------------------------------
-/*Validates a method of finding USB HID.
+/*Validates a method of **TODO** USB.
 
   Returns true if test is successful; otherwise returns false.
 
   Note: uses Standard Template Library (STL).
 
-  See also: CUsbHid
+  See also: 
  */
-bool TestFindUsbHid(uint16_t nVendorId , //[in] = 0 USB Vendor ID (VID)
+bool TestUsbEnum(uint16_t nVendorId , //[in] = 0 USB Vendor ID (VID)
                     uint16_t nProductId  //[in] = 0 USB Product ID (PID)
                    )
 {
-TsWriteToViewLn(_T("Browse USB HID Tree"));
+TsWriteToViewLn(_T("Browse USB Tree"));
 
 bool bResult = true;
 try
@@ -145,8 +143,8 @@ return bResult;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- *$Log: TestFindUsbHid.cpp,v $
- *Revision 1.3  2009/06/26 21:35:35  ddarko
+ *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.1  2009/06/26 21:35:35  ddarko
  *Added new test case
  *
  *Revision 1.2  2008/10/03 22:12:43  ddarko

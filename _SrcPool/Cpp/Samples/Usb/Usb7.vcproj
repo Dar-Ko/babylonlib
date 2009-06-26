@@ -723,6 +723,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Src\TestUsbEnum.cpp">
+			</File>
+			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
 				<FileConfiguration
 					Name="Release_SBCS|Win32">
@@ -804,6 +807,9 @@
 			</File>
 			<File
 				RelativePath="..\..\Peripheral\Usb200.h">
+			</File>
+			<File
+				RelativePath="..\..\Peripheral\UsbGuid.h">
 			</File>
 			<File
 				RelativePath="..\..\Peripheral\UsbIoCtl.h">
