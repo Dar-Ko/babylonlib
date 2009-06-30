@@ -21,13 +21,17 @@
 
 #ifndef _USE_ATL
   #include <windows.h>
+#else
+  #ifndef ASSERT
+    #define ASSERT ATLASSERT
+  #endif
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
 //USB structures and enumerations used on Windows Driver Model (WDM) platforms.
 #pragma warning(disable: 4200)
 //warning C4200: nonstandard extension used : zero-sized array in struct/union
-#include <UsbIoCtl.h> //Windows Platform DDK, using pre-Win2k functions
+#include <UsbIoCtl.h> //Windows Platform DDK
 #pragma warning(default: 4200)
 #include "KSysPnP.h" //SYMBOLICLINK_PREFIX
 
@@ -92,7 +96,8 @@ public:
   LPCWSTR GetName();
 
 private:
-  TUSBKEYNAME* m_pData;   //device symbolic name data structure
+  TUSBKEYNAME* m_pData;   //device symbolic name data structure, padded with
+                          //device name prefix
   LPWSTR m_pSymbolicName; //formatted device symbolic name
 };
 
@@ -191,20 +196,29 @@ LPCWSTR TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::GetName()
 {
 if (IsValid())
   {
-  if (m_pSymbolicName != NULL)
+  if (m_pSymbolicName == NULL)
     {
     /*Note: this magic requires that of ActualLength member of USB I/O data
       immediately precedes string with device name.
       Adddres of the buffer with result would be: address of the ActualLength
       member + sizeof(ActualLength) - prefix length.
+
+          +---- padding (SYMBOLICLINK_PREFIX_LEN)
+          |      +--------- other data members
+      |01234567|...|0123| device name |
+                      |       +-  device name (wide characters)
+                      +---- ActualLength (uint32) and 
      */
-    LPWSTR pSymbolicName = (LPWSTR)(
-      (LPBYTE)(&((TUSBKEYNAME*)((LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN))->ActualLength) +
-      sizeof(m_pData->ActualLength) - SYMBOLICLINK_PREFIX_LEN);
-    pSymbolicName[0] = SYMBOLICLINK_PREFIX[0];
-    pSymbolicName[1] = SYMBOLICLINK_PREFIX[1];
-    pSymbolicName[2] = SYMBOLICLINK_PREFIX[2];
-    pSymbolicName[3] = SYMBOLICLINK_PREFIX[3];
+    m_pSymbolicName = (LPWSTR)((LPBYTE)( &( (TUSBKEYNAME*)
+      ((LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN) )->ActualLength) +
+                       sizeof(m_pData->ActualLength) - SYMBOLICLINK_PREFIX_LEN);
+
+    ASSERT(m_pSymbolicName != NULL);
+    ASSERT((LPBYTE)m_pSymbolicName > (LPBYTE)m_pData);
+    m_pSymbolicName[0] = SYMBOLICLINK_PREFIX[0];
+    m_pSymbolicName[1] = SYMBOLICLINK_PREFIX[1];
+    m_pSymbolicName[2] = SYMBOLICLINK_PREFIX[2];
+    m_pSymbolicName[3] = SYMBOLICLINK_PREFIX[3];
     }
   return m_pSymbolicName;
   }
