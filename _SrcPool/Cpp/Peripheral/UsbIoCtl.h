@@ -1,11 +1,14 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.6 $ $Date: 2009/06/30 17:41:15 $
+  $Revision: 1.7 $ $Date: 2009/06/30 18:35:05 $
   $Author: ddarko $
 
-  USB device I/O control codes for Microsoft Windows OS
+  USB device I/O control codes for Microsoft Windows OS.
+  Note: Microsoft Windows specific (Win).
   Copyright: (c) 2004-2008 The Open Watcom Contributors. All Rights Reserved.
   http://www.openwatcom.org/
  */
+// Group=Windows
+
 #ifndef __USBIOCTL_H__
   #define __USBIOCTL_H__
 
@@ -355,7 +358,7 @@ typedef USB_NODE_CONNECTION_NAME    *PUSB_NODE_CONNECTION_NAME;
 
 #ifndef USB_KERNEL_IOCTL
   /*USB_ROOT_HUB_NAME structure stores the root hub's symbolic device name.*/
-  typedef struct _USB_ROOT_HUB_NAME 
+  typedef struct _USB_ROOT_HUB_NAME
     {
     ULONG   ActualLength;   /*size of the entire data structure [bytes] */
     WCHAR   RootHubName[1]; /*root hub's symbolic device name in Unicode*/
@@ -368,7 +371,7 @@ typedef USB_NODE_CONNECTION_NAME    *PUSB_NODE_CONNECTION_NAME;
   /*USB_HCD_DRIVERKEY_NAME structure is used with the IOCTL_GET_HCD_DRIVERKEY_NAME
     I/O control request to retrieve the driver key in the registry for
     the USB host controller driver. */
-  typedef struct _USB_HCD_DRIVERKEY_NAME 
+  typedef struct _USB_HCD_DRIVERKEY_NAME
     {
     ULONG   ActualLength;     /*size of the entire data structure [bytes]  */
     WCHAR   DriverKeyName[1]; /*driver key name for the USB host controller
@@ -824,6 +827,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.7  2009/06/30 18:35:05  ddarko
+ * Windows tag
+ *
  * Revision 1.6  2009/06/30 17:41:15  ddarko
  * Updated version
  *

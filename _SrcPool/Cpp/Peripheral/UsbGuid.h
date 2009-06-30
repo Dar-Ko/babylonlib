@@ -1,10 +1,15 @@
 /*$RCSfile: UsbGuid.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/06/30 17:41:15 $
+  $Revision: 1.3 $ $Date: 2009/06/30 18:35:05 $
   $Author: ddarko $
 
   USB specific GUIDs.
+  Note: Microsoft Windows specific (Win).
+  Copyright (c) Microsoft Corporation. All rights reserved.
  */
+// Group=Windows
+
 #ifndef __USBGUID_H__
+    //$RCSfile: UsbGuid.h,v $ sentry
   #define __USBGUID_H__
 
 #ifndef _ENABLE_AUTODEPEND
@@ -26,7 +31,9 @@
 extern "C" {
 #endif /* __cplusplus */
 
+////////////////////////////////////////////////////////////////////////////////
 #ifdef WIN32
+
   /*Note: For Microsoft Visual C++ 6.0 and older, a GUID must be initialized
     exactly once. For more information refer the article:
     "How to avoid error "LNK2001 unresolved external" by using DEFINE_GUID"
@@ -89,6 +96,9 @@ extern "C" {
 
 /*****************************************************************************
  * $Log: UsbGuid.h,v $
+ * Revision 1.3  2009/06/30 18:35:05  ddarko
+ * Windows tag
+ *
  * Revision 1.2  2009/06/30 17:41:15  ddarko
  * Updated version
  *
