@@ -1,8 +1,8 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.5 $ $Date: 2009/05/22 18:41:03 $
+  $Revision: 1.6 $ $Date: 2009/06/30 17:41:15 $
   $Author: ddarko $
 
-  USB device I/O control codes
+  USB device I/O control codes for Microsoft Windows OS
   Copyright: (c) 2004-2008 The Open Watcom Contributors. All Rights Reserved.
   http://www.openwatcom.org/
  */
@@ -20,17 +20,18 @@
   #pragma GCC system_header
 #endif
 
-#include "Usb200.h"
-#include "UsbIoDef.h"
-
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
 #endif
 
+#include "Usb200.h"
+#include "UsbIoDef.h"
+
 #ifdef __cplusplus
-extern "C" {
+  extern "C" {
 #endif
 
+#ifdef WIN32 //Microsoft Windows I/O Control codes
 ////////////////////////////////////////////////////////////////////////////////
 
 /* USB device I/O control codes */
@@ -183,7 +184,9 @@ extern "C" {
 #define USBD_PORT_ENABLED   0x00000001L
 #define USBD_PORT_CONNECTED 0x00000002L
 
-/* WMI USB GUID indices */
+/*WMI USB GUID indices.
+  Note: Microsoft Windows Specific.
+ */
 #ifndef USB_KERNEL_IOCTL
     #define WMI_USB_DRIVER_INFORMATION      0
     #define WMI_USB_DRIVER_NOTIFICATION     1
@@ -340,31 +343,39 @@ typedef struct _USB_NODE_CONNECTION_NAME {
 typedef USB_NODE_CONNECTION_NAME    *PUSB_NODE_CONNECTION_NAME;
 #endif
 
-/* USB hub name */
 #ifndef USB_KERNEL_IOCTL
-typedef struct _USB_HUB_NAME {
-    ULONG   ActualLength;
-    WCHAR   HubName[1];
-} USB_HUB_NAME;
-typedef USB_HUB_NAME    *PUSB_HUB_NAME;
+  /*USB_HUB_NAME structure stores the hub's symbolic device name.*/
+  typedef struct _USB_HUB_NAME
+    {
+    ULONG   ActualLength;  /*size of the entire data structure [bytes]*/
+    WCHAR   HubName[1];    /*hub's symbolic device name in Unicode    */
+    } USB_HUB_NAME;
+  typedef USB_HUB_NAME    *PUSB_HUB_NAME; /*USB hub name*/
 #endif
 
-/* USB root hub name */
 #ifndef USB_KERNEL_IOCTL
-typedef struct _USB_ROOT_HUB_NAME {
-    ULONG   ActualLength;
-    WCHAR   RootHubName[1];
-} USB_ROOT_HUB_NAME;
-typedef USB_ROOT_HUB_NAME   *PUSB_ROOT_HUB_NAME;
+  /*USB_ROOT_HUB_NAME structure stores the root hub's symbolic device name.*/
+  typedef struct _USB_ROOT_HUB_NAME 
+    {
+    ULONG   ActualLength;   /*size of the entire data structure [bytes] */
+    WCHAR   RootHubName[1]; /*root hub's symbolic device name in Unicode*/
+    } USB_ROOT_HUB_NAME;
+  typedef USB_ROOT_HUB_NAME   *PUSB_ROOT_HUB_NAME; /*USB root hub name*/
 #endif
 
-/* USB HCD driver key name */
+
 #ifndef USB_KERNEL_IOCTL
-typedef struct _USB_HCD_DRIVERKEY_NAME {
-    ULONG   ActualLength;
-    WCHAR   DriverKeyName[1];
-} USB_HCD_DRIVERKEY_NAME;
-typedef USB_HCD_DRIVERKEY_NAME  *PUSB_HCD_DRIVERKEY_NAME;
+  /*USB_HCD_DRIVERKEY_NAME structure is used with the IOCTL_GET_HCD_DRIVERKEY_NAME
+    I/O control request to retrieve the driver key in the registry for
+    the USB host controller driver. */
+  typedef struct _USB_HCD_DRIVERKEY_NAME 
+    {
+    ULONG   ActualLength;     /*size of the entire data structure [bytes]  */
+    WCHAR   DriverKeyName[1]; /*driver key name for the USB host controller
+                                in Unicode*/
+    } USB_HCD_DRIVERKEY_NAME;
+  /*USB HCD driver key name*/
+  typedef USB_HCD_DRIVERKEY_NAME  *PUSB_HCD_DRIVERKEY_NAME;
 #endif
 
 /* USB descriptor request */
@@ -804,13 +815,18 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 /* Revert to default packing.                                                 */
 #include <poppack.h>
 
+#endif //WIN32
+
 #ifdef __cplusplus
-} /* extern "C" */
+  } /* extern "C" */
 #endif
 ///////////////////////////////////////////////////////////////////////////////
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.6  2009/06/30 17:41:15  ddarko
+ * Updated version
+ *
  * Revision 1.5  2009/05/22 18:41:03  ddarko
  * Consolidated items across the header files
  *

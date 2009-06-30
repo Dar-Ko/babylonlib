@@ -1,5 +1,5 @@
 /*$RCSfile: Usb200.h,v $: header file
-  $Revision: 1.5 $ $Date: 2009/05/22 18:41:03 $
+  $Revision: 1.6 $ $Date: 2009/06/30 17:41:15 $
   $Author: ddarko $
 
   USB 2.0 definitions
@@ -20,12 +20,11 @@
   #pragma GCC system_header
 #endif
 
-#include "Usb100.h"
-
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
 #endif
 
+#include "Usb100.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -160,6 +159,9 @@ typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    *PUSB_INTERFACE_ASSOCIATION_DESC
 
 /*****************************************************************************
  * $Log: Usb200.h,v $
+ * Revision 1.6  2009/06/30 17:41:15  ddarko
+ * Updated version
+ *
  * Revision 1.5  2009/05/22 18:41:03  ddarko
  * Consolidated items across the header files
  *

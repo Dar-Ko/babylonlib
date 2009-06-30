@@ -1,5 +1,5 @@
 /*$RCSfile: UsbGuid.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/06/26 21:29:14 $
+  $Revision: 1.2 $ $Date: 2009/06/30 17:41:15 $
   $Author: ddarko $
 
   USB specific GUIDs.
@@ -27,8 +27,15 @@ extern "C" {
 #endif /* __cplusplus */
 
 #ifdef WIN32
-  /*
-    See also <PlatformSDK/include/guiddef.h>, DEFINE_GUID, INITGUID
+  /*Note: For Microsoft Visual C++ 6.0 and older, a GUID must be initialized
+    exactly once. For more information refer the article:
+    "How to avoid error "LNK2001 unresolved external" by using DEFINE_GUID"
+    http://support.microsoft.com/kb/130869
+    If the version of the compiler is newer than version 6.0, when you are
+    using precompiled headers, you can include the INITGUID.H header file
+    in a single header file that includes other header files.
+
+    See also <PlatformSDK/include/guiddef.h>, <initguid.h>, DEFINE_GUID, INITGUID
    */
   #ifdef DEFINE_GUID
     /* GUID_DEVINTERFACE_USB_HUB = F18A0E88-C30C-11D0-8815-00A0C906BED8 */
@@ -39,7 +46,10 @@ extern "C" {
     DEFINE_GUID(GUID_DEVINTERFACE_USB_DEVICE, \
       0xA5DCBF10L, 0x6530, 0x11D2, 0x90, 0x1F, 0x00, 0xC0, 0x4F, 0xB9, 0x51, 0xED);
 
-    /* 3ABF6F2D-71C4-462a-8A92-1E6861E6AF27 */
+    /*Class identifier for new instances of USB host controllers.
+      GUID_DEVINTERFACE_USB_HOST_CONTROLLER = 3ABF6F2D-71C4-462a-8A92-1E6861E6AF27
+      Note: Microsoft Windows 2000 and newer
+     */
     DEFINE_GUID(GUID_DEVINTERFACE_USB_HOST_CONTROLLER, \
       0x3abf6f2d, 0x71c4, 0x462a, 0x8a, 0x92, 0x1e, 0x68, 0x61, 0xe6, 0xaf, 0x27);
 
@@ -57,10 +67,19 @@ extern "C" {
 
     #define GUID_CLASS_USBHUB               GUID_DEVINTERFACE_USB_HUB
     #define GUID_CLASS_USB_DEVICE           GUID_DEVINTERFACE_USB_DEVICE
+    /*Class identifier for new instances of USB host controllers.
+      GUID_CLASS_USB_HOST_CONTROLLER = 3ABF6F2D-71C4-462a-8A92-1E6861E6AF27
+
+      Note: Microsoft Windows NT and older. Use GUID_DEVINTERFACE_USB_HOST_CONTROLLER
+      instead.
+
+      Intel 82801FB/FBM USB Universal Host Controller (UHC) Device CreateFile Name:
+      \\?\pci#ven_8086&dev_2658&subsys_01811028&rev_03#3&172e68dd&0&e8#{3abf6f2d-71c4-462a-8a92-1e6861e6af27}
+     */
     #define GUID_CLASS_USB_HOST_CONTROLLER  GUID_DEVINTERFACE_USB_HOST_CONTROLLER
 
   #endif /* DEFINE_GUID */
-#endif //_WIN32
+#endif //WIN32
 
 #ifdef __cplusplus
 } /* End of extern "C" */
@@ -70,6 +89,9 @@ extern "C" {
 
 /*****************************************************************************
  * $Log: UsbGuid.h,v $
+ * Revision 1.2  2009/06/30 17:41:15  ddarko
+ * Updated version
+ *
  * Revision 1.1  2009/06/26 21:29:14  ddarko
  * Created
  *
