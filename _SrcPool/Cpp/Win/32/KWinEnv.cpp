@@ -1,5 +1,5 @@
 /*$RCSfile: KWinEnv.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/03/02 17:47:57 $
+  $Revision: 1.2 $ $Date: 2009/07/02 19:38:39 $
   $Author: ddarko $
 
   MS Windows Environment Variable Handler
@@ -17,19 +17,15 @@
   #endif
 
   #if defined _ATL_VER
-    #ifndef TRACE
-      #define TRACE ATLTRACE
-      #define TRACE1 ATLTRACE
-      #define TRACE2 ATLTRACE
-    #endif
+    #include "KTraceAtl.h"
   #endif
 
-#ifndef TRACE
-  #ifndef _T
-    #include "KTChar.h"
+  #ifndef TRACE
+    #ifndef _T
+      #include "KTChar.h"
+    #endif
+      #include "KTrace.h"
   #endif
-    #include "KTrace.h"
-#endif
 
 //------------------------------------------------------------------------------
 /*Return value of an enviroment variable not larger than CATENVMAX characters.
@@ -60,6 +56,9 @@ return strResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  *$Log: KWinEnv.cpp,v $
+ *Revision 1.2  2009/07/02 19:38:39  ddarko
+ *Replaced TRACE with ATL header
+ *
  *Revision 1.1  2009/03/02 17:47:57  ddarko
  *Moved from local repository
  *

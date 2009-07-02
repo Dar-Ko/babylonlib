@@ -1,5 +1,5 @@
 /*$RCSfile: KLastErrorFromErrno.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/03/09 20:06:39 $
+  $Revision: 1.4 $ $Date: 2009/07/02 19:38:39 $
   $Author: ddarko $
 
   Mapping between errno and Windows error codes
@@ -23,10 +23,7 @@
 #include <errno.h>
 
 #if defined _ATL_VER
-  #ifndef TRACE
-    #define TRACE ATLTRACE
-    #define TRACE1 ATLTRACE
-  #endif
+  #include "KTraceAtl.h"
 #endif
 
 #ifndef TRACE
@@ -163,6 +160,9 @@ return dwError;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: KLastErrorFromErrno.cpp,v $
+ * Revision 1.4  2009/07/02 19:38:39  ddarko
+ * Replaced TRACE with ATL header
+ *
  * Revision 1.3  2009/03/09 20:06:39  ddarko
  * fixed typo
  *
