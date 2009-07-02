@@ -22,9 +22,7 @@
 #ifndef _USE_ATL
   #include <windows.h>
 #else
-  #ifndef ASSERT
-    #define ASSERT ATLASSERT
-  #endif
+  #include "KTraceAtl.h"
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -111,7 +109,7 @@ TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::TUsbSymbolicName(HANDLE hDevice //[i
                  //handle to the device on which the operation is to be performed.
                  ) : m_pData(NULL), m_pSymbolicName(NULL)
 {
-ATLASSERT(hDevice != INVALID_HANDLE_VALUE);
+ASSERT(hDevice != INVALID_HANDLE_VALUE);
 if (hDevice != INVALID_HANDLE_VALUE)
   {
   DWORD nBytesReturned;
@@ -150,7 +148,7 @@ if (hDevice != INVALID_HANDLE_VALUE)
                           &nBytesReturned,
                           NULL) != TRUE)
         {
-        ATLASSERT(false); //Failed to obtain symolic link name;
+        ASSERT(false); //Failed to obtain symolic link name;
         //To get extended error information, call GetLastError().
         delete [] m_pData;
         m_pData = NULL;
@@ -185,11 +183,33 @@ return (m_pData != NULL);
 
 //-----------------------------------------------------------------------------
 /*Creates a device name from previously obtained device symbolic link.
-  Followinf format is used for the device names:
+  Following format is used for the device names:
 
       \\.\DeviceKeySymbolicName
 
   Returns pointer formatted device name or NULL in case of failure.
+
+  Example:
+      ...
+      LPWSTR szDeviceDriverPath = 
+      L"\\?\pci#ven_8086&dev_2658&subsys_01811028&rev_03#3&172e68dd&0&e8#{3abf6f2d-71c4-462a-8a92-1e6861e6af27}";
+      HANDLE hUsbDevice = CreateFile(szDeviceDriverPath, 
+                                     GENERIC_WRITE, 
+                                     FILE_SHARE_WRITE, 
+                                     NULL, 
+                                     OPEN_EXISTING, 
+                                     0, 
+                                     NULL);
+      if (hUsbDevice != INVALID_HANDLE_VALUE)
+        {
+        TUsbSymbolicName<USB_ROOT_HUB_NAME, 
+                         IOCTL_USB_GET_ROOT_HUB_NAME> usbDeviceName(hUsbDevice);
+        if (usbDeviceName.IsValid()) //Check GetLastError() in case of failure.
+          {
+          LPCWSTR usbDevicePath = usbRootHubName.GetName();
+          ...
+          }
+        }
  */
 template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
 LPCWSTR TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::GetName()
@@ -376,10 +396,19 @@ inline void CUsbDriverKeyName::SetSize(const HANDLE hHcd //[in] handle
                                           //to USB Host Controller Driver (HCD)
                                       )
 {
-ASSERT(hHcd != NULL);
-if (hHcd != NULL)
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(hHcd != INVALID_HANDLE_VALUE);
+#pragma warning (default: 4127)
+
+if (hHcd != INVALID_HANDLE_VALUE)
   {
   //Get required buffer size
+#ifdef TODO_TEMPLATE
+  TUsbSymbolicName<USB_HCD_DRIVERKEY_NAME,
+                   IOCTL_GET_HCD_DRIVERKEY_NAME> usbHcdDriverKeyName(hHcd);
+#else
+
   USB_HCD_DRIVERKEY_NAME sUnicodeName; //Unicode driver registry key
   DWORD dwBytesReturned;
   bool bRes = (DeviceIoControl(hHcd, //handle to the device
@@ -405,6 +434,7 @@ if (hHcd != NULL)
       TRACE(_T("The data area passed to a system call is too small."));
     //TODO: report the error! (throw exception) D.K.
     }
+#endif //TODO
   }
 }
 
@@ -444,7 +474,11 @@ inline bool CUsbDriverKeyName::LoadKeyName(const HANDLE hHcd //[in] handle
                                           //to USB Host Controller Driver (HCD)
                                           )
 {
-ASSERT(hHcd != NULL);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(hHcd != NULL);
+#pragma warning (default: 4127)
+
 if (hHcd != NULL)
   {
   if ((m_pKeyName == NULL) || (m_pKeyName->ActualLength == 0))
@@ -455,16 +489,16 @@ if (hHcd != NULL)
 
   DWORD dwBytesReturned = GetSize();
   return (DeviceIoControl(hHcd, //handle to the device
-                            IOCTL_GET_HCD_DRIVERKEY_NAME, //control code for
-                                                          //the operation
-                            m_pKeyName, //input buffer; NULL is not allowed
-                            dwBytesReturned, //size of input buffer
-                            m_pKeyName, //output buffer; NULL is not allowed
-                            dwBytesReturned, //size of output buffer
-                            &dwBytesReturned, //size of the data stored in
-                                              //the output buffer
-                            NULL //lpOverlapped is ignored
-                            ) == TRUE);
+                          IOCTL_GET_HCD_DRIVERKEY_NAME, //control code for
+                                                        //the operation
+                          m_pKeyName, //input buffer; NULL is not allowed
+                          dwBytesReturned, //size of input buffer
+                          m_pKeyName, //output buffer; NULL is not allowed
+                          dwBytesReturned, //size of output buffer
+                          &dwBytesReturned, //size of the data stored in
+                                            //the output buffer
+                          NULL //lpOverlapped is ignored
+                          ) == TRUE);
   }
 SetLastError(ERROR_INVALID_TARGET_HANDLE);
 return false;
