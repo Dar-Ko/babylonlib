@@ -22,11 +22,7 @@
 
 
 #if defined _ATL_VER
-  #ifndef TRACE
-    #define TRACE ATLTRACE
-    #define TRACE1 ATLTRACE
-    #define TRACE2 ATLTRACE
-  #endif
+  #include "KTraceAtl.h"
 #else
   #include <windows.h>
   #include <string.h>
@@ -40,85 +36,8 @@
 #endif
 
 #include "KUsb.h"
-#include "KWinUsb.h" //USB structures and enumerations
+//#include "KWinUsb.h" //USB structures and enumerations
 
-//-----------------------------------------------------------------------------
-/*Enumerate Host Controllers
-    Host controllers currently have symbolic names (link) of the form HCDx,
-    where x starts at 0.  Use CreateFile() to open each host controller
-    symbolic link.  Create a node in the TreeView to represent each host
-    controller.
-
-    After a host controller has been opened, send the host controller an
-    IOCTL_USB_GET_ROOT_HUB_NAME request to get the symbolic link name of
-    the root hub that is part of the host controller.
-
-  Note: Microsoft Windows specific (Win32).
-
-  See also: MSDN KB838100: The USBView.exe sample program does not enumerate
-  devices on pre-Windows XP SP1-based computers.
- */
-uint_fast32_t EnumerateHostControllers()
-{
-TRACE(_T("EnumerateHostControllers()\n"));
-unsigned short wInstance = 0; //HCD module instance number
-char szHostControllerName[16]; //Host Controller Driver (HCD) symbolic name
-const unsigned short ARBITRARY_NO = 12; //arbitrary maximum of instances
-uint_fast32_t nResult = 0;
-do
-  {
-  //Create a symbolic link and open communication with HCD
-  wsprintfA(szHostControllerName, SYMBOLICLINK_HDC , wInstance);
-  HANDLE hHcd = CreateFileA(szHostControllerName,
-                            GENERIC_WRITE,
-                            FILE_SHARE_WRITE,
-                            NULL, //if lpSecurityAttributes is NULL,
-                                  //the handle cannot be inherited.
-                            OPEN_EXISTING,
-                            0,
-                            NULL);
-  //Note: Windows Me/98/95: The file system restricts CreateFile to creating or
-  //opening files streams only.
-  if (hHcd != INVALID_HANDLE_VALUE)
-    {
-    #ifdef _DEBUG
-      /*Retrieve the driver key name in the registry for a USB host controller
-        driver. The name is in the form: GUID\InstanceNo, where GUID is 'USB device
-        setup' class GUID.
-        See also: MSDN, Windows Driver Kit: Device Installation, Device Setup
-        Classes
-       */
-      CUsbDriverKeyName usbDriverKeyName(hHcd);
-      bool bRes = usbDriverKeyName.LoadKeyName(hHcd);
-      if (!bRes)
-        {
-        CloseHandle(hHcd);
-        DWORD dwError = GetLastError();
-
-        //TODO: report the error!
-        break;
-        }
-
-      TRACE1(_T("System name is %ws\n"), (const WCHAR*)usbDriverKeyName);
-    #endif
-
-    nResult++;
-    CloseHandle(hHcd);
-    }
-  #ifdef _DEBUG
-    else
-      {
-      //TODO: verify if instance numbers are always sequential;
-      //in that case break the loop when CreateFile fails. D.K.
-      TRACE1(_T("  Failed to open \\\\.\\HCD%d!\n"), wInstance);
-      }
-  #endif
-  wInstance++;
-  }
-while (wInstance < ARBITRARY_NO);
-
-return nResult;
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 //CUsbHub class implementation
