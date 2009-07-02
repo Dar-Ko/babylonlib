@@ -1,5 +1,5 @@
 /*$RCSfile: UsbGuid.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/06/30 18:35:05 $
+  $Revision: 1.4 $ $Date: 2009/07/02 21:43:30 $
   $Author: ddarko $
 
   USB specific GUIDs.
@@ -42,7 +42,8 @@ extern "C" {
     using precompiled headers, you can include the INITGUID.H header file
     in a single header file that includes other header files.
 
-    See also <PlatformSDK/include/guiddef.h>, <initguid.h>, DEFINE_GUID, INITGUID
+    See also <PlatformSDK/include/guiddef.h>, <initguid.h>, DEFINE_GUID, INITGUID,
+    <devguid.h>
    */
   #ifdef DEFINE_GUID
     /* GUID_DEVINTERFACE_USB_HUB = F18A0E88-C30C-11D0-8815-00A0C906BED8 */
@@ -96,6 +97,9 @@ extern "C" {
 
 /*****************************************************************************
  * $Log: UsbGuid.h,v $
+ * Revision 1.4  2009/07/02 21:43:30  ddarko
+ * Comment
+ *
  * Revision 1.3  2009/06/30 18:35:05  ddarko
  * Windows tag
  *
