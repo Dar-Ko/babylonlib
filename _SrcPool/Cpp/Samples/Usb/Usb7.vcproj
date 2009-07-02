@@ -446,46 +446,30 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\Win\32\KUsbHub.cpp">
+				RelativePath="..\..\Win\32\KUsbEnumHdc.cpp">
 				<FileConfiguration
-					Name="Release_SBCS|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Release_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
+						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_SBCS|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Debug_SBCS|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
+						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_Unicode|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-						BrowseInformation="1"/>
+						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release_Unicode|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Release_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
+						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 			</File>
 			<File
@@ -528,6 +512,33 @@
 						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KWinUsbHub.cpp">
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 			</File>
@@ -612,6 +623,9 @@
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\StdUsb.cpp">
 			</File>
 			<File
 				RelativePath="..\Common\Res\Win\32\Test.rc">
@@ -794,7 +808,7 @@
 				RelativePath="..\..\Win\32\KUsbHid.h">
 			</File>
 			<File
-				RelativePath="..\..\Win\32\KUsbHub.h">
+				RelativePath="..\..\Peripheral\KUsbHub.h">
 			</File>
 			<File
 				RelativePath="..\..\Win\32\KWinUsb.h">
@@ -816,6 +830,9 @@
 			</File>
 			<File
 				RelativePath="..\..\Peripheral\UsbIoDef.h">
+			</File>
+			<File
+				RelativePath="..\..\Peripheral\UsbUser.h">
 			</File>
 			<File
 				RelativePath="..\..\Platform\UsbVid.h">

@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/06/26 21:35:35 $
+  $Revision: 1.2 $ $Date: 2009/07/02 21:44:37 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -46,7 +46,7 @@ extern bool TsWriteToView(const unsigned int& nValue);
 
 #include "UsbVid.h"  //USB VID List
 #include "KWinUsb.h" //TUsbSymbolicName template
-
+#include "KUsbHid.h" //CUsbHid class
 
 bool TestUsbEnum(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 
@@ -144,6 +144,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.2  2009/07/02 21:44:37  ddarko
+ *Test for USB hub
+ *
  *Revision 1.1  2009/06/26 21:35:35  ddarko
  *Added new test case
  *
