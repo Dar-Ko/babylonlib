@@ -1,32 +1,37 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2009/07/02 20:29:35 $
+  $Revision: 1.2 $ $Date: 2009/07/02 21:47:08 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
+  Note: Microsoft Windows specific (Win).
   Copyright: 1997-1998 Microsoft Corporation
   2004-03-03 Darko Kolakovic
   1997-25-04: Microsoft Corporation
  */
 
-#ifdef _WIN32
+// Group=Windows
+
+#ifdef _WIN32 //Windows 32-bit platform
+
+#if defined _ATL_VER
+  #ifndef _USE_ATL
+    #define _USE_ATL
+  #endif
+#endif
 
 #ifdef _USE_ATL
   //Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)
   //or preprocessor reports unpaired #endif directive
 
   #include "stdafx.h" //Standard system header files
-#endif
-
-#pragma include_alias( "stdint.h", "KType32.h" )
-#include "stdint.h" //ISO C99 type definitions
-
-
-#if defined _ATL_VER
   #include "KTraceAtl.h"
 #else
   #include <windows.h>
   #include <string.h>
 #endif
+
+#pragma include_alias( "stdint.h", "KType32.h" )
+#include "stdint.h" //ISO C99 type definitions
 
 #ifndef TRACE
   #ifndef _T
@@ -35,17 +40,19 @@
   #include "KTrace.h"
 #endif
 
-#include "KUsb.h"
+#include <setupapi.h> //Device Management Structures
+//#include "KUsb.h"
 //#include "KWinUsb.h" //USB structures and enumerations
 
+#include "UsbGuid.h"
+//#include <devguid.h>  //USB specific GUID; Windows DDK
+//See also: MSDN Article ID: 130869 "How to avoid error 'LNK2001 unresolved external'
+//by using DEFINE_GUID"
 
 ///////////////////////////////////////////////////////////////////////////////
 //CUsbHub class implementation
 
-#include <usbiodef.h> //USB specific GUID; Windows DDK
-#include <devguid.h> //USB specific GUID; Windows DDK
-//See also: MSDN Article ID: 130869 "How to avoid error 'LNK2001 unresolved external'
-//by using DEFINE_GUID"
+//#include <usbiodef.h> //USB specific GUID; Windows DDK
 #include "KUsbHub.h"  //CUsbHub class
 
 #ifndef GUID_CLASS_USB_HOST_CONTROLLER
@@ -157,7 +164,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
 return nCount;
 }
 
-#else
+#else //!GUID_CLASS_USB_HOST_CONTROLLER
 
 //-----------------------------------------------------------------------------
 /*Enumerates USB Host Controllers.
@@ -222,8 +229,10 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
   }
 return nCount;
 }
-#endif
+#endif //GUID_CLASS_USB_HOST_CONTROLLER
 
+
+#ifdef WIN_SPECIFIC  //TODO : see KUsbHub.h D.K.
 //-----------------------------------------------------------------------------
 /*Retrieves the specified device property.
 
@@ -316,8 +325,11 @@ else //Win98 TODO: test on old Win9x!
 TRACE1(_T("  Failed to obtain the property: #%0.8d!\n"), GetLastError());
 return false;
 }
-#endif //_WIN32
+#endif //WIN_SPECIFIC TODO
+
 ///////////////////////////////////////////////////////////////////////////////
+#endif //_WIN32
+
 /*****************************************************************************
  * $Log:
  *  5    Biblioteka1.4         2007-08-24 18:15:43  Darko Kolakovic SBCS build
