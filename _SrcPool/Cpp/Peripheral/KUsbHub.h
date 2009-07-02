@@ -1,13 +1,11 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.1 $ $Date: 2009/07/02 20:31:15 $
+  $Revision: 1.2 $ $Date: 2009/07/02 21:44:13 $
   $Author: ddarko $
 
-  USB Hub handler
-  Note: Microsoft Windows specific (Win).
+  Universal Serial Bus (USB) Host Controller
   Copyright: CommonSoft Inc
   2004-03-09 Darko Kolakovic
  */
-// Group=Windows
 
 #ifndef _KUSBHUB_H_
     //$Workfile: KUsbHub.h$ sentry
@@ -17,27 +15,17 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#ifdef _WIN32 //Windows 32-bit platform
-
-#ifndef _USE_ATL
-  #include <windows.h>
-#endif
-#include <setupapi.h> //Device Management Structures
-
-///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
-extern "C" LPTSTR StrIStr(LPCTSTR szSource, LPCTSTR szToken);
+//extern "C" LPTSTR StrIStr(LPCTSTR szSource, LPCTSTR szToken);
 
-LPCTSTR GetDeviceDesc(LPCTSTR szDriverRegistryName);
+//LPCTSTR GetDeviceDesc(LPCTSTR szDriverRegistryName);
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Handles the USB hub.
   A USB hub is a device that allows many USB devices to be connected to a
   single USB port on the host computer or another hub.
-
-  Note: Microsoft Windows specific (Win32).
 
   See also:
  */
@@ -48,11 +36,15 @@ public:
 
   ~CUsbHub();
   uint_fast32_t Enumerate();
+
+#ifdef WIN_SPECIFIC
+//  Note: Microsoft Windows specific (Win32).
   bool IsWinNt() const;
   bool GetDeviceProperty(HDEVINFO hDevInfo,SP_DEVINFO_DATA* psdiDevinfo,
                          const DWORD dwProperty, TCHAR* szBuff, DWORD& dwLen);
 protected:
   bool IsRootHub(const TCHAR* szUsbDriverKeyName) const;
+#endif
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -68,6 +60,8 @@ inline CUsbHub::CUsbHub()
 inline CUsbHub::~CUsbHub()
 {
 }
+
+#ifdef WIN_SPECIFIC ////////////TODO: remove D.K.
 
 //-----------------------------------------------------------------------------
 /*
@@ -89,14 +83,18 @@ if ((szUsbDriverKeyName != NULL) && (szUsbDriverKeyName[0] != '\0'))
   }
 return false;
 }
+#endif   //////////////////////////End TODO
+
 ///////////////////////////////////////////////////////////////////////////////
 #endif //__cplusplus
 
-#endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.2  2009/07/02 21:44:13  ddarko
+ * Excluded some Windows specifics
+ *
  * Revision 1.1  2009/07/02 20:31:15  ddarko
  * Moved from platform specific directory
  *
