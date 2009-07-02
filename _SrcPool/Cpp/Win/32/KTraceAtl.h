@@ -28,7 +28,14 @@
  //TODO:
 #endif
 
-#ifdef ATL_VER
+#ifdef ATL_VER //Microsoft Active Template Library
+  #ifndef _USE_ATL
+     //Using Microsoft Active Template Library
+    #define _USE_ATL 20090702
+  #endif
+#endif
+
+#ifdef _USE_ATL
   #ifndef _ATL
      //Microsoft Active Template Library
     #define _ATL 19610706
@@ -41,6 +48,13 @@
   #ifndef ASSERT
      //Generates a debug report when the expression is false.
     #define ASSERT ATLASSERT
+  #endif
+  #ifndef VERIFY
+    //VERIFY macro evaluates its argument. In debug version, if the result is
+    //FALSE, the macro also prints a diagnostic message and halts the program.
+    //If the condition is TRUE, it does nothing, except evalution.
+    //For example, if the expression is a function call, the call will be made.
+    #define VERIFY ATLVERIFY
   #endif
   #ifndef TRACE
     //Reports warnings to to the debugger's output window.
@@ -77,8 +91,8 @@
 
 #endif  /*_KTRACEATL_H_ */
 /******************************************************************************
- * $Log: 
- *  2    Biblioteka1.1         2007-03-11 02:13:52  Darko            
- *  1    Biblioteka1.0         2007-03-06 15:36:13  Darko Kolakovic 
+ * $Log:
+ *  2    Biblioteka1.1         2007-03-11 02:13:52  Darko
+ *  1    Biblioteka1.0         2007-03-06 15:36:13  Darko Kolakovic
  * $
  *****************************************************************************/
