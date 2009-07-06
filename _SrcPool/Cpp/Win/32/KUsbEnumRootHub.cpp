@@ -1,5 +1,5 @@
 /*$RCSfile: KUsbEnumRootHub.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/07/06 18:30:59 $
+  $Revision: 1.2 $ $Date: 2009/07/06 21:35:59 $
   $Author: ddarko $
 
   Enumerates root USB hubs.
@@ -42,7 +42,15 @@
 #include "KWinUsb.h" //USB structures and enumerations
 
 //-----------------------------------------------------------------------------
-/*Enumerates root USB hubs.
+/*Enumerates USB host controllers using its hardware ID.
+  Host controller is also known as the root hub, the root tier or
+  simply as the root. 
+  The host controller controls all traffic on the PCI bus and also functions
+  as a hub.
+
+  One or more host controllers can be built into the motherboard of the computer
+  or installed as an add-in CardBus or PCI card in the computer to gain additional
+  ports and bandwidth. 
 
   Return: number of root USB hubs found on the system.
 
@@ -127,6 +135,9 @@ return nCount;
 
 /*****************************************************************************
  * $Log: KUsbEnumRootHub.cpp,v $
+ * Revision 1.2  2009/07/06 21:35:59  ddarko
+ * Comment
+ *
  * Revision 1.1  2009/07/06 18:30:59  ddarko
  * Extracted from KWinUsbHub.cpp
  *

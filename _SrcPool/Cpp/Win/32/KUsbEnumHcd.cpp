@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2009/07/06 21:00:15 $
+  $Revision: 1.2 $ $Date: 2009/07/06 21:35:59 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -39,15 +39,20 @@
 #include "KSysPnP.h" //SYMBOLICLINK_HDC literal
 
 //-----------------------------------------------------------------------------
-/*Enumerate Host Controllers.
-    Host controllers currently have symbolic names (link) of the form HCDx,
-    where x starts at 0. Use CreateFile() to open each host controller
-    symbolic link. Create a node in the TreeView to represent each host
-    controller.
+/*Enumerates USB host controllers using Host Controller Driver (HCD) symbolic
+  name. Host controller is also known as the root hub, the root tier or
+  simply as the root.
+  The host controller controls all traffic on the PCI bus and also functions
+  as a hub.
 
-    After a host controller has been opened, send the host controller an
-    IOCTL_USB_GET_ROOT_HUB_NAME request to get the symbolic link name of
-    the root hub that is part of the host controller.
+  Host controllers currently have symbolic names (link) of the form HCDx,
+  where x starts at 0. Use CreateFile() to open each host controller
+  symbolic link. Create a node in the TreeView to represent each host
+  controller.
+
+  After a host controller has been opened, send the host controller an
+  IOCTL_USB_GET_ROOT_HUB_NAME request to get the symbolic link name of
+  the root hub that is part of the host controller.
 
   Note: Microsoft Windows specific (Win32).
 

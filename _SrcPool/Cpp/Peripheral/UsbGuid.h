@@ -1,5 +1,5 @@
 /*$RCSfile: UsbGuid.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/07/02 21:43:30 $
+  $Revision: 1.5 $ $Date: 2009/07/06 21:38:26 $
   $Author: ddarko $
 
   USB specific GUIDs.
@@ -46,17 +46,38 @@ extern "C" {
     <devguid.h>
    */
   #ifdef DEFINE_GUID
-    /* GUID_DEVINTERFACE_USB_HUB = F18A0E88-C30C-11D0-8815-00A0C906BED8 */
+    /*Device interface class is defined for USB hub devices.
+
+      GUID_DEVINTERFACE_USB_HUB = F18A0E88-C30C-11D0-8815-00A0C906BED8
+
+      The system-supplied USB port driver registers instances of this GUID to
+      notify the operating system and applications of the presence of the root
+      hub of host controller devices. The system-supplied USB hub driver
+      registers instances of this class for additional hub devices, if any, that
+      are supported by the host controller.
+      Note: Microsoft Windows 2000 and newer. Lesser versions are using 
+      GUID_CLASS_USBHUB.
+     */
     DEFINE_GUID(GUID_DEVINTERFACE_USB_HUB, \
       0xF18A0E88, 0xC30C, 0x11D0, 0x88, 0x15, 0x00, 0xA0, 0xC9, 0x06, 0xBE, 0xD8);
 
-    /* GUID_DEVINTERFACE_USB_DEVICE = A5DCBF10-6530-11D2-901F-00C04FB951ED */
+    /*Device interface class is defined for USB devices that are attached to
+      a USB hub.
+
+      GUID_DEVINTERFACE_USB_DEVICE = A5DCBF10-6530-11D2-901F-00C04FB951ED
+
+      Note: Microsoft Windows 2000 and newer. Lesser versions are using 
+      GUID_CLASS_USBHUB.
+     */
     DEFINE_GUID(GUID_DEVINTERFACE_USB_DEVICE, \
       0xA5DCBF10L, 0x6530, 0x11D2, 0x90, 0x1F, 0x00, 0xC0, 0x4F, 0xB9, 0x51, 0xED);
 
-    /*Class identifier for new instances of USB host controllers.
+    /*Device interface class identifier for new instances of USB host controllers.
+
       GUID_DEVINTERFACE_USB_HOST_CONTROLLER = 3ABF6F2D-71C4-462a-8A92-1E6861E6AF27
-      Note: Microsoft Windows 2000 and newer
+
+      Note: Microsoft Windows 2000 and newer. Lesser versions are using
+      GUID_CLASS_USB_DEVICE.
      */
     DEFINE_GUID(GUID_DEVINTERFACE_USB_HOST_CONTROLLER, \
       0x3abf6f2d, 0x71c4, 0x462a, 0x8a, 0x92, 0x1e, 0x68, 0x61, 0xe6, 0xaf, 0x27);
@@ -70,12 +91,31 @@ extern "C" {
       0x4E623B20L, 0xCB14, 0x11D1, 0xB3, 0x31, 0x00, 0xA0, 0xC9, 0x59, 0xBB, 0xD2);
 
 
-    /*Obsolete device interface class GUID names kept for code compatibility.
+    /*-------------------------------------------------------------------------
+      Obsolete device interface class GUID names kept for code compatibility.
      */
 
+    /*Device interface class is defined for USB hub devices.
+
+      GUID_CLASS_USBHUB = F18A0E88-C30C-11D0-8815-00A0C906BED8
+
+      Note: Microsoft Windows 2000 and newer are using 
+      GUID_DEVINTERFACE_USB_HUB.
+     */
     #define GUID_CLASS_USBHUB               GUID_DEVINTERFACE_USB_HUB
+
+    /*Device interface class is defined for USB devices that are attached to
+      a USB hub.
+
+      GUID_CLASS_USB_DEVICE = A5DCBF10-6530-11D2-901F-00C04FB951ED
+
+      Note: Microsoft Windows 2000 and newer are using
+      GUID_DEVINTERFACE_USB_DEVICE.
+     */
     #define GUID_CLASS_USB_DEVICE           GUID_DEVINTERFACE_USB_DEVICE
-    /*Class identifier for new instances of USB host controllers.
+
+    /*Device interface class identifier for new instances of USB host controllers.
+
       GUID_CLASS_USB_HOST_CONTROLLER = 3ABF6F2D-71C4-462a-8A92-1E6861E6AF27
 
       Note: Microsoft Windows NT and older. Use GUID_DEVINTERFACE_USB_HOST_CONTROLLER
@@ -97,6 +137,9 @@ extern "C" {
 
 /*****************************************************************************
  * $Log: UsbGuid.h,v $
+ * Revision 1.5  2009/07/06 21:38:26  ddarko
+ * Comment
+ *
  * Revision 1.4  2009/07/02 21:43:30  ddarko
  * Comment
  *
