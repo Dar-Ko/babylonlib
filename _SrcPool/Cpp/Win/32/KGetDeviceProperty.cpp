@@ -1,5 +1,5 @@
 /*$RCSfile: KGetDeviceProperty.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/07/06 16:09:07 $
+  $Revision: 1.2 $ $Date: 2009/07/06 17:42:47 $
   $Author: ddarko $
 
   Device Property method.
@@ -31,6 +31,13 @@
 
 #include <setupapi.h> //Device Management Structures
 
+#ifndef TRACE
+  #ifndef _T
+    #include "KTChar.h"
+  #endif
+  #include "KTrace.h"
+#endif
+
 //-----------------------------------------------------------------------------
 /*Retrieves the specified device property value stored by the device on the
   computer.
@@ -38,19 +45,19 @@
   Returns: true if successful and requested device property or false in
   case of a failure. To get extended error information, call GetLastError().
  */
-bool CUsbHub::GetDeviceProperty(HDEVINFO hDevInfo, //[in] handle to the device
-                                //information set that contains the interface
-                                SP_DEVINFO_DATA* psdiDevinfo, //[in] structure
-                                //that defines the device instance
-                                const DWORD dwProperty, //[in] property
-                                //to be retrieved
-                                TCHAR* szBuff, //[out] requested device property
-                                DWORD& dwLen //[in, out] availabile and required
-                                //buffer size in bytes
-                                )
+bool GetDeviceProperty(HDEVINFO hDevInfo, //[in] handle to the device
+                      //information set that contains the interface
+                      SP_DEVINFO_DATA* psdiDevinfo, //[in] structure
+                      //that defines the device instance
+                      const DWORD dwProperty, //[in] property
+                      //to be retrieved
+                      TCHAR* szBuff, //[out] requested device property
+                      DWORD& dwLen //[in, out] availabile and required
+                      //buffer size in bytes
+                      )
 {
-TRACE1(_T("CUsbHub::GetDeviceProperty(dwProperty = %d)\n"), dwProperty);
-if ((GetVersion() < 0x80000000)
+TRACE1(_T("GetDeviceProperty(dwProperty = %d)\n"), dwProperty);
+if (GetVersion() < 0x80000000)
   {
   //Get a REG_MULTI_SZ string containing the list of hardware IDs for
   //a USB device
@@ -132,6 +139,9 @@ return false;
 
 /*****************************************************************************
  * $Log: KGetDeviceProperty.cpp,v $
+ * Revision 1.2  2009/07/06 17:42:47  ddarko
+ * Adapted as global
+ *
  * Revision 1.1  2009/07/06 16:09:07  ddarko
  * Extracted from KWinUsb Hub.cpp
  *
