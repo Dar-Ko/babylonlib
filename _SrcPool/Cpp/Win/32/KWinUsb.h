@@ -61,6 +61,30 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
+extern "C" LPTSTR StrIStr(LPCTSTR szSource, LPCTSTR szToken);
+
+//-----------------------------------------------------------------------------
+/*Validates if given hardware ID is an USB root hub ID.
+  A hardware ID is a vendor-defined identification string that Setup uses 
+  to match a device to an INF file. In most cases, a device has associated with
+  it a list of hardware IDs.
+  A hardware ID has one of the following generic formats:
+     <enumerator>\<enumerator-specific-device-ID>
+        (i.e. USB\ROOT_HUB&VID8086&PID24D4&REV0002)
+     <generic-device-ID> (i.e. PNP0F06)
+
+
+  Returns true if hardware ID belong to ab USB root hub.
+ */
+inline bool IsRootHub(const TCHAR* szUsbDriverKeyName //[in] hardware IDs for a device
+                     )
+{
+if ((szUsbDriverKeyName != NULL) && (szUsbDriverKeyName[0] != '\0'))
+  {
+  return (StrIStr(szUsbDriverKeyName, USB_ROOTHUBNAME) != NULL);
+  }
+return false;
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Template class used to obtain a symbolic link name of the specified USB device.

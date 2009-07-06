@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2009/07/02 20:36:56 $
+  $Revision: 1.2 $ $Date: 2009/07/06 19:01:48 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -19,10 +19,6 @@
   #include "stdafx.h" //Standard system header files
 #endif
 
-#pragma include_alias( "stdint.h", "KType32.h" )
-#include "stdint.h" //ISO C99 type definitions
-
-
 #if defined _ATL_VER
   #include "KTraceAtl.h"
 #else
@@ -37,22 +33,13 @@
   #include "KTrace.h"
 #endif
 
-//#include "KUsb.h"
-#include "KWinUsb.h" //CUsbDriverKeyName vlass
+#ifdef _DEBUG
+  #include "KWinUsb.h" //CUsbDriverKeyName class
+#endif
 #include "KSysPnP.h" //SYMBOLICLINK_HDC literal
 
-/*Requires setupapi.lib
-
-  Note: If you intend that your device installation application run on
-  Windows 9x/Me, or Windows NT 4.0 or earlier, and you use the CM_Xxx functions,
-  be sure that cfgmgr32.lib appears before setupapi.lib in the sources file.
-  If your application is intended to run only on Windows 2000 or
-  a later NT-based operating system, you can omit cfgmgr32.lib.
- */
-#pragma comment( lib, "setupapi" )
-
 //-----------------------------------------------------------------------------
-/*Enumerate Host Controllers
+/*Enumerate Host Controllers.
     Host controllers currently have symbolic names (link) of the form HCDx,
     where x starts at 0. Use CreateFile() to open each host controller
     symbolic link. Create a node in the TreeView to represent each host
@@ -67,13 +54,13 @@
   See also: MSDN KB838100: The USBView.exe sample program does not enumerate
   devices on pre-Windows XP SP1-based computers.
  */
-uint_fast32_t EnumerateHostControllers()
+unsigned int EnumerateHostControllers()
 {
 TRACE(_T("EnumerateHostControllers()\n"));
 unsigned short wInstance = 0; //HCD module instance number
 char szHostControllerName[16]; //Host Controller Driver (HCD) symbolic name
 const unsigned short ARBITRARY_NO = 12; //arbitrary maximum of instances
-uint_fast32_t nResult = 0;
+unsigned int nResult = 0;
 do
   {
   //Create a symbolic link and open communication with HCD
