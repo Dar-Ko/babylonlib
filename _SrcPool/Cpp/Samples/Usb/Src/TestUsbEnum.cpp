@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/07/02 21:44:37 $
+  $Revision: 1.3 $ $Date: 2009/07/06 19:00:10 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -45,8 +45,8 @@ extern bool TsWriteToView(const unsigned int& nValue);
 //#include <iostream> //std::endl
 
 #include "UsbVid.h"  //USB VID List
-#include "KWinUsb.h" //TUsbSymbolicName template
-#include "KUsbHid.h" //CUsbHid class
+//#include "KWinUsb.h" //TUsbSymbolicName template
+#include "KUsbHub.h" //CUsbHub class
 
 bool TestUsbEnum(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 
@@ -71,37 +71,45 @@ try
   //std::vector<tstring> listUsbNames;
 
   //Test log  creation
-  g_logTest.m_szObjectName = _T("CUsbHid::CUsbHid()");
+  g_logTest.m_szObjectName = _T("CUsbHub::CUsbHub()");
   #ifdef _WIN32
-    g_logTest.m_szFileName   = _T("KWinUsbHid.cpp"); //function or object file name
+    g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
   #endif
   g_logTest.m_bResult      = false;              //result of the test
 
   //Find given USB HID
-  CUsbHid usbHid;
+  CUsbHub usbHub;
+  g_logTest.LogResult(bResult); //Log object's construction
+
+  //Enumerate USB Host controlers
+  g_logTest.m_szObjectName = _T("EnumerateHostControllers()");
+  g_logTest.m_szFileName   = _T("KUsbEnumRootHub.cpp"); //function or object file name
+
+  extern unsigned int EnumerateHostControllers();
+  unsigned nHdcCount = EnumerateHostControllers();
+  bResult = true;
+
+  TsWriteToView(_T(" Host controllers found: "));
+  TsWriteToViewLn(nHdcCount);
 
   g_logTest.LogResult(bResult); //Log object's construction
-  g_logTest.m_szObjectName = _T("CUsbHid::Find(uint16_t, uint16_t)");
 
-  TsWriteToView(_T("USB HID VID:"));
-  TsWriteToView((unsigned int)nVendorId);
-  TsWriteToView(_T(" PID:"));
-  TsWriteToView((unsigned int)nProductId);
+  //Enumerated USB root hubs
+  g_logTest.m_szObjectName = _T("EnumerateRootUsbHub()");
+  g_logTest.m_szFileName   = _T("KUsbEnumRootHub.cpp"); //function or object file name
 
-  bResult = usbHid.Find(nVendorId, nProductId);
+  extern unsigned int EnumerateRootUsbHub();
+  unsigned nHubCount = EnumerateRootUsbHub();
+  bResult = true;
 
-  TsWriteToViewLn((bResult ? _T(" found.") : _T(" not found!")));
+  TsWriteToView(_T(" USB root hubs found: "));
+  TsWriteToViewLn(nHubCount);
+
   g_logTest.LogResult(bResult);
 
   if(bResult)
     {
-    //If device is found, browse its capabilities
-    g_logTest.m_szObjectName = _T("CUsbHid::GetDeviceCapabilities()");
-
-    PHIDP_CAPS pCapabilities = usbHid.GetDeviceCapabilities();
-    bResult = (pCapabilities != NULL);
-    g_logTest.LogResult(bResult);
-
+//...
     }
 
   g_logTest.LogResult(bResult);
@@ -144,6 +152,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.3  2009/07/06 19:00:10  ddarko
+ *Tes HDC and root hubs enumeration
+ *
  *Revision 1.2  2009/07/02 21:44:37  ddarko
  *Test for USB hub
  *
