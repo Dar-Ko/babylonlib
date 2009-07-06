@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2009/07/06 19:01:48 $
+  $Revision: 1.1 $ $Date: 2009/07/06 21:00:15 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -52,7 +52,7 @@
   Note: Microsoft Windows specific (Win32).
 
   See also: MSDN KB838100: The USBView.exe sample program does not enumerate
-  devices on pre-Windows XP SP1-based computers.
+  devices on pre-Windows XP SP1-based computers, EnumerateRootUsbHub().
  */
 unsigned int EnumerateHostControllers()
 {
@@ -130,4 +130,42 @@ return nResult;
  *****************************************************************************/
 
 /*Note: Used code from Microsoft Windows DDK sample USBView
+  Module Name:     ENUM.C
+  
+  Abstract:
+    This source file contains the routines which enumerate the USB bus
+    and populate the TreeView control.
+
+    The enumeration process goes like this:
+
+    (1) Enumerate Host Controllers and Root Hubs
+    Host controllers currently have symbolic link names of the form HCDx,
+    where x starts at 0.  Use CreateFile() to open each host controller
+    symbolic link.  Create a node in the TreeView to represent each host
+    controller.
+
+    After a host controller has been opened, send the host controller an
+    IOCTL_USB_GET_ROOT_HUB_NAME request to get the symbolic link name of
+    the root hub that is part of the host controller.
+
+    (2) Enumerate Hubs (Root Hubs and External Hubs)
+    Given the name of a hub, use CreateFile() to hub the hub.  Send the
+    hub an IOCTL_USB_GET_NODE_INFORMATION request to get info about the
+    hub, such as the number of downstream ports.  Create a node in the
+    TreeView to represent each hub.
+
+    (3) Enumerate Downstream Ports
+    Given an handle to an open hub and the number of downstream ports on
+    the hub, send the hub an IOCTL_USB_GET_NODE_CONNECTION_INFORMATION
+    request for each downstream port of the hub to get info about the
+    device (if any) attached to each port.  If there is a device attached
+    to a port, send the hub an IOCTL_USB_GET_NODE_CONNECTION_NAME request
+    to get the symbolic link name of the hub attached to the downstream
+    port.  If there is a hub attached to the downstream port, recurse to
+    step (2).  Create a node in the TreeView to represent each hub port
+    and attached device.
+
+  Environment:     user mode
+  Revision History:     04-25-97 : created
+
  */
