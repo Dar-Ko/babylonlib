@@ -500,7 +500,7 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\Win\32\KUsbEnumHdc.cpp">
+				RelativePath="..\..\Win\32\KUsbEnumHcd.cpp">
 				<FileConfiguration
 					Name="Release_SBCS|Win32">
 					<Tool
