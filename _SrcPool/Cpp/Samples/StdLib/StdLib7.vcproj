@@ -398,6 +398,11 @@
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
+		<Filter
+			Name="Logs"
+			Filter="log;"
+			SourceControlFiles="FALSE">
+		</Filter>
 		<File
 			RelativePath="StdLib.txt">
 		</File>

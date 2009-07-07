@@ -214,6 +214,11 @@
 				RelativePath=".\Res\Win\32\WmpTag.rc">
 			</File>
 		</Filter>
+		<Filter
+			Name="Logs"
+			Filter="log;"
+			SourceControlFiles="FALSE">
+		</Filter>
 		<File
 			RelativePath=".\WmpTag.txt">
 		</File>

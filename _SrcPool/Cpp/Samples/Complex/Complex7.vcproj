@@ -728,7 +728,7 @@
 		</Filter>
 		<Filter
 			Name="Logs"
-			Filter="*.log">
+			Filter="log;">
 			<File
 				RelativePath="LibraryTest.log">
 			</File>

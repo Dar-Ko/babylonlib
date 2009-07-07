@@ -974,6 +974,17 @@
 				RelativePath="..\..\..\..\Doc\Res\icoUsb.ico">
 			</File>
 		</Filter>
+		<Filter
+			Name="Logs"
+			Filter="log;"
+			SourceControlFiles="FALSE">
+			<File
+				RelativePath=".\LibraryTest.log">
+			</File>
+			<File
+				RelativePath=".\LibraryTestUni.log">
+			</File>
+		</Filter>
 		<File
 			RelativePath="Usb.txt">
 		</File>

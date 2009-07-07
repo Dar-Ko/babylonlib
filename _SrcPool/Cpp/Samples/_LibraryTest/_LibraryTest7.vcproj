@@ -2850,7 +2850,8 @@
 		</Filter>
 		<Filter
 			Name="Logs"
-			Filter="*.log">
+			Filter="log;"
+			SourceControlFiles="FALSE">
 			<File
 				RelativePath="LibraryTest.log">
 			</File>

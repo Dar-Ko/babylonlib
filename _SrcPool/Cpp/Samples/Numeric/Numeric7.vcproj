@@ -945,7 +945,8 @@
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
 		<Filter
-			Name="Logs">
+			Name="Logs"
+			Filter="log;">
 			<File
 				RelativePath=".\LibraryTest.log">
 			</File>

@@ -903,7 +903,8 @@
 		</Filter>
 		<Filter
 			Name="Logs"
-			Filter="*.log">
+			Filter="log;"
+			SourceControlFiles="FALSE">
 		</Filter>
 		<File
 			RelativePath="Utilities.txt">
