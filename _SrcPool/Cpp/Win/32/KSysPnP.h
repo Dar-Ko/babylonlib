@@ -197,12 +197,15 @@
   #define SYMBOLICLINK_PREFIX_LEN (4 * sizeof(wchar_t))
 #endif
 
-#ifndef SYMBOLICLINK_HDC
-  /*Symbolic name for Host Controller Driver (HCD) modules have following
+#ifndef SYMBOLICLINK_HCD
+  /*Symbolic name for USB Host Controller Driver (HCD) modules have following
     form:
+
         \\.\HCDn
         where n (0,...,k) is module instance number in the driver's stack.
 
+    Host controller is also known as the root hub, the root tier or
+    simply as the root.
     Note: USB driver uses two different stacks for USB 1.1 and USB 2.0 host
     controllers.
     Note: Microsoft Windows specific (Win32).
@@ -211,7 +214,7 @@
     enumerate devices on pre-Windows XP SP1-based computers";
     CreateSymbolicLink().
   */
-  #define SYMBOLICLINK_HDC "\\\\.\\HCD%d"
+  #define SYMBOLICLINK_HCD "\\\\.\\HCD%d"
 #endif
 
 #endif //_WIN32
