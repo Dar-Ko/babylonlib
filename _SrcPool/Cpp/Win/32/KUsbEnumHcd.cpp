@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2009/07/06 21:35:59 $
+  $Revision: 1.3 $ $Date: 2009/07/07 20:46:05 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -36,7 +36,8 @@
 #ifdef _DEBUG
   #include "KWinUsb.h" //CUsbDriverKeyName class
 #endif
-#include "KSysPnP.h" //SYMBOLICLINK_HDC literal
+#include "KSysPnP.h" //SYMBOLICLINK_HCD literal
+#include "KStrArray.h" //CStringArray class
 
 //-----------------------------------------------------------------------------
 /*Enumerates USB host controllers using Host Controller Driver (HCD) symbolic
@@ -59,7 +60,9 @@
   See also: MSDN KB838100: The USBView.exe sample program does not enumerate
   devices on pre-Windows XP SP1-based computers, EnumerateRootUsbHub().
  */
-unsigned int EnumerateHostControllers()
+unsigned int EnumerateHostControllers(CStringArray* pHostControllerNames //[out] = NULL
+                                     //list of USB host controller namess
+                                     )
 {
 TRACE(_T("EnumerateHostControllers()\n"));
 unsigned short wInstance = 0; //HCD module instance number
@@ -69,7 +72,7 @@ unsigned int nResult = 0;
 do
   {
   //Create a symbolic link and open communication with HCD
-  wsprintfA(szHostControllerName, SYMBOLICLINK_HDC , wInstance);
+  wsprintfA(szHostControllerName, SYMBOLICLINK_HCD , wInstance);
   HANDLE hHcd = CreateFileA(szHostControllerName,
                             GENERIC_WRITE,
                             FILE_SHARE_WRITE,
@@ -102,6 +105,9 @@ do
 
       TRACE1(_T("System name is %ws\n"), (const WCHAR*)usbDriverKeyName);
     #endif
+
+    if (pHostControllerNames != NULL)
+      pHostControllerNames->Add(szHostControllerName);
 
     nResult++;
     CloseHandle(hHcd);

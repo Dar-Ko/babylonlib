@@ -1,5 +1,5 @@
 /*$RCSfile: KUsbEnumRootHub.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/07/06 21:35:59 $
+  $Revision: 1.3 $ $Date: 2009/07/07 20:46:05 $
   $Author: ddarko $
 
   Enumerates root USB hubs.
@@ -40,6 +40,7 @@
 #include <setupapi.h> //Device Management Structures
 
 #include "KWinUsb.h" //USB structures and enumerations
+#include "KStrArray.h" //CStringArray class
 
 //-----------------------------------------------------------------------------
 /*Enumerates USB host controllers using its hardware ID.
@@ -68,7 +69,9 @@
 
   See also: EnumerateHostControllers(), SPDRP_HARDWAREID
  */
-unsigned int EnumerateRootUsbHub()
+unsigned int EnumerateRootUsbHub(CStringArray* pUsbHardwareIds //[out] = NULL
+                                 //list of USB host controller IDs
+                                )
 {
 TRACE(_T("EnumerateRootUsbHub() using SYSTEMENUM_USB\n"));
 uint_fast32_t nCount = 0;   //number of USB host controllers
@@ -101,8 +104,11 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
                       const DWORD dwProperty,
                       TCHAR* szBuff,
                       DWORD& dwLen);
-    //Get a REG_MULTI_SZ string containing the list of hardware IDs for
-    //an USB device
+    //Get a REG_MULTI_SZ string containing the hardware IDs for an USB device.
+    //HardwareIds are supplied by device's INF file in Models section.
+    //List have following format: "hw-id1\0hw-id2\0…hw-idn\0\0" 
+    //for example:
+    //  "USB\ROOT_HUB&VID8086&PID24D2&REV0002\0USB\ROOT_HUB&VID8086&PID24D2\0USB\ROOT_HUB\0\0"
     if(GetDeviceProperty(hDevInfo, //handle to the device information
                          &sdiDevinfo, //device instance
                          SPDRP_HARDWAREID, //property to be retrieved
@@ -114,6 +120,8 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
         {
         nCount++;
         TRACE2(_T("  %d. %s\n"),nCount, szBuff);
+        if (pUsbHardwareIds != NULL)
+          pUsbHardwareIds->Add(szBuff);
         }
       }
     else
@@ -135,6 +143,9 @@ return nCount;
 
 /*****************************************************************************
  * $Log: KUsbEnumRootHub.cpp,v $
+ * Revision 1.3  2009/07/07 20:46:05  ddarko
+ * Return list of device names
+ *
  * Revision 1.2  2009/07/06 21:35:59  ddarko
  * Comment
  *
