@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/07/06 19:00:10 $
+  $Revision: 1.4 $ $Date: 2009/07/08 21:50:41 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -42,11 +42,14 @@ extern bool TsWriteToView(const unsigned int& nValue);
   //MSVC/C++ 6.0 or lesser
   //#pragma include_alias(<iostream>, <iomanip.h>)
 #endif
+#ifdef _USE_STL
 //#include <iostream> //std::endl
+#endif
 
 #include "UsbVid.h"  //USB VID List
 //#include "KWinUsb.h" //TUsbSymbolicName template
-#include "KUsbHub.h" //CUsbHub class
+#include "KUsbHub.h"   //CUsbHub class
+#include "KStrArray.h" //CStringArray class
 
 bool TestUsbEnum(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 
@@ -60,37 +63,30 @@ bool TestUsbEnum(uint16_t nVendorId = 0, uint16_t nProductId = 0);
   See also: 
  */
 bool TestUsbEnum(uint16_t nVendorId , //[in] = 0 USB Vendor ID (VID)
-                    uint16_t nProductId  //[in] = 0 USB Product ID (PID)
-                   )
+                 uint16_t nProductId  //[in] = 0 USB Product ID (PID)
+                )
 {
 TsWriteToViewLn(_T("Browse USB Tree"));
+
+_UNUSED(nVendorId);
+_UNUSED(nProductId);
 
 bool bResult = true;
 try
   {
-  //std::vector<tstring> listUsbNames;
-
   //Test log  creation
-  g_logTest.m_szObjectName = _T("CUsbHub::CUsbHub()");
-  #ifdef _WIN32
-    g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
-  #endif
-  g_logTest.m_bResult      = false;              //result of the test
-
-  //Find given USB HID
-  CUsbHub usbHub;
-  g_logTest.LogResult(bResult); //Log object's construction
+  g_logTest.m_bResult = false;           //result of the test
 
   //Enumerate USB Host controlers
   g_logTest.m_szObjectName = _T("EnumerateHostControllers()");
   g_logTest.m_szFileName   = _T("KUsbEnumRootHub.cpp"); //function or object file name
 
-  extern unsigned int EnumerateHostControllers();
-  unsigned nHdcCount = EnumerateHostControllers();
+  extern unsigned int EnumerateHostControllers(CStringArray* pList = NULL);
+  unsigned nHcdCount = EnumerateHostControllers();
   bResult = true;
 
-  TsWriteToView(_T(" Host controllers found: "));
-  TsWriteToViewLn(nHdcCount);
+  TsWriteToView(_T(" Usb host controllers found: "));
+  TsWriteToViewLn(nHcdCount);
 
   g_logTest.LogResult(bResult); //Log object's construction
 
@@ -98,21 +94,44 @@ try
   g_logTest.m_szObjectName = _T("EnumerateRootUsbHub()");
   g_logTest.m_szFileName   = _T("KUsbEnumRootHub.cpp"); //function or object file name
 
-  extern unsigned int EnumerateRootUsbHub();
+  extern unsigned int EnumerateRootUsbHub(CStringArray* pList = NULL);
   unsigned nHubCount = EnumerateRootUsbHub();
-  bResult = true;
 
   TsWriteToView(_T(" USB root hubs found: "));
   TsWriteToViewLn(nHubCount);
-
+  bResult = (nHcdCount == nHubCount); //Number of USB root hubs enumerated with two
+                                      //different methods have to be same.
   g_logTest.LogResult(bResult);
 
   if(bResult)
     {
-//...
+    g_logTest.m_szObjectName = _T("CUsbHostController::CUsbHostController()");
+    g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
+
+    CUsbHostController usbHc;
+    g_logTest.LogResult(bResult); //Log object's construction
+
+    g_logTest.m_szObjectName = _T("CUsbHostController::FindFirst()");
+    #ifdef _WIN32
+      g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
+    #elif defined(_LINUX)
+      g_logTest.m_szFileName   = _T("KLinUsbHub.cpp"); //function or object file name
+    #else
+      g_logTest.m_szFileName   = _T("unknown implementation");
+    #endif
+
+    usbHc.FindFirst();
+
+    g_logTest.LogResult(bResult); //Log object's construction
+
+//    g_logTest.m_szObjectName = _T("CUsbHub::CUsbHub()");
+//    g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
+
+    //Find given USB device
+//    CUsbHub usbHub;
+//    g_logTest.LogResult(bResult); //Log object's construction
     }
 
-  g_logTest.LogResult(bResult);
   }
 catch(std::out_of_range& eoor)
   {
@@ -152,6 +171,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.4  2009/07/08 21:50:41  ddarko
+ *CUsbHostController
+ *
  *Revision 1.3  2009/07/06 19:00:10  ddarko
  *Tes HDC and root hubs enumeration
  *

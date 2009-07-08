@@ -22,7 +22,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\Win\32;..\..\Platform;..\..\Peripheral"
+				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\STL;..\..\Win\32;..\..\Platform;..\..\Peripheral"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_USE_STL"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -84,7 +84,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\Win\32;..\..\Platform;..\..\Peripheral"
+				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\STL;..\..\Win\32;..\..\Platform;..\..\Peripheral"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_USE_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -149,7 +149,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\Win\32;..\..\Platform;..\..\Peripheral"
+				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\STL;..\..\Win\32;..\..\Platform;..\..\Peripheral"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;UNICODE;_USE_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -215,7 +215,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\Win\32;..\..\Platform;..\..\Peripheral"
+				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\STL;..\..\Win\32;..\..\Platform;..\..\Peripheral"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;UNICODE;_USE_STL"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -344,6 +344,35 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\Stl\KStrAtoWChar.cpp">
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\KStrHtoL.c">
 				<FileConfiguration
 					Name="Release_SBCS|Win32">
@@ -383,6 +412,33 @@
 						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Stl\KStringStl.cpp">
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 			</File>
@@ -453,6 +509,35 @@
 						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Stl\KStrWtoChar.cpp">
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"/>
 				</FileConfiguration>
 			</File>

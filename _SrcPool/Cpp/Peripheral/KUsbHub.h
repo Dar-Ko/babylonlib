@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.3 $ $Date: 2009/07/06 21:38:26 $
+  $Revision: 1.4 $ $Date: 2009/07/08 21:51:07 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -17,6 +17,10 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 #ifdef __cplusplus
+#ifdef _USE_STL
+  #include <string>  //CString base class
+#endif
+#include "KString.h" //CString class replacement
 
 ///////////////////////////////////////////////////////////////////////////////
 /*
@@ -27,32 +31,56 @@
   USB supports up to seven tier levels, including the root tier and five common
   hubs. The lowest tier supports only a single nonhub device.
 
- Tier level:    1                  2         3      ...       7
-       +-USB Host Controller -+- Device
-       |   (root hub)         |          +- Device
-       |                      +-- Hub ---+- Device
-  PCI -+                                 +-- Hub    ... --- Device
-       |
-       +-USB Host Controller --- Device
-       |   (root hub)
-       |         
-       .
-       .
-       .
+      Tier level:    1                  2         3      ...       7
+            +-USB Host Controller -+- Device
+            |   (root hub)         |          +- Device
+            |                      +-- Hub ---+- Device
+       PCI -+                                 +-- Hub -- ... --- Device
+            |
+            +-USB Host Controller --- Device
+            |   (root hub)
+            |         
+            .
+            .
+            .
 
 
  There are three types of USB components:
 
-    *       Host controller Also known as the root, the root tier, or the root hub, the host controller can be built into the motherboard of the computer or installed as an add-in CardBus or PCI card in the computer to gain additional ports and bandwidth. The host controller controls all traffic on the bus and also functions as a hub.
-    *       Hub Provides multiple ports, for attaching devices to the USB bus. Hubs are also responsible for detecting devices that are plugged in or unplugged, and for providing power for attached devices. Hubs are either bus-powered, drawing power directly from the USB bus, or self-powered, drawing power from an external AC adapter. Bus-powered hubs are capable of providing 100 milliamperes (mA) of power per port for attached devices, and they can provide a maximum of four ports for devices to be plugged into. Self-powered hubs, on the other hand, typically provide 500 mA of power per port, and they can provide more than four ports. Hubs can be stand-alone devices, or they can be integrated into other devices such as keyboards and monitors.
-    *       Device A USB device, which is attached to the bus through a port. A USB device can be any kind of peripheral device, such as a keyboard, mouse, game controller, printer, and so forth. Certain USB input devices such as keyboards and mice require only 100 mA of power to function. Thus, they can be plugged into both bus-powered and self-powered hubs, in addition to being plugged directly into a root port. Other devices such as printers, scanners, storage devices, and video-conferencing cameras might require 500 mA of power to function. These kinds of devices can only be plugged into root ports or self-powered hubs. If the device requires more than 500 mA of power, it includes a wall plug provided by the vendor for power.
+    
+    Hub Provides multiple ports, for attaching devices to the USB bus. Hubs are also responsible for detecting devices that are plugged in or unplugged, and for providing power for attached devices. Hubs are either bus-powered, drawing power directly from the USB bus, or self-powered, drawing power from an external AC adapter. Bus-powered hubs are capable of providing 100 milliamperes (mA) of power per port for attached devices, and they can provide a maximum of four ports for devices to be plugged into. Self-powered hubs, on the other hand, typically provide 500 mA of power per port, and they can provide more than four ports. Hubs can be stand-alone devices, or they can be integrated into other devices such as keyboards and monitors.
+    Device A USB device, which is attached to the bus through a port. A USB device can be any kind of peripheral device, such as a keyboard, mouse, game controller, printer, and so forth. Certain USB input devices such as keyboards and mice require only 100 mA of power to function. Thus, they can be plugged into both bus-powered and self-powered hubs, in addition to being plugged directly into a root port. Other devices such as printers, scanners, storage devices, and video-conferencing cameras might require 500 mA of power to function. These kinds of devices can only be plugged into root ports or self-powered hubs. If the device requires more than 500 mA of power, it includes a wall plug provided by the vendor for power.
 
   See also:
  */
 class CUsbDeviceTree
 {
 public:
-  void GetHdc();
+  void GetRoot();
+protected:
+  //CArray<CUsbRootHubDescription> m_usbRootList;
+};
+
+///////////////////////////////////////////////////////////////////////////////
+/*Universal Serial Bus (USB) host controller (also known as the root, root tier
+  or the root hub) controls all traffic on the data bus and also functions as
+  a hub. One host controller can control several USB ports.
+
+ */
+class CUsbHostController
+{
+public:
+  unsigned int FindFirst();
+  LPCTSTR FindNext();
+  LPCTSTR operator ++();
+
+protected:
+  bool GetRootHub(HANDLE hHostCotroller, CString& strName);
+
+public:
+  CString m_strName;
+  CString m_strDescription;
+ 
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -68,7 +96,7 @@ public:
   CUsbHub();
 
   ~CUsbHub();
-  uint_fast32_t Enumerate();
+  unsigned int Enumerate();
 
 };
 
@@ -93,6 +121,9 @@ inline CUsbHub::~CUsbHub()
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.4  2009/07/08 21:51:07  ddarko
+ * CUsbHostController
+ *
  * Revision 1.3  2009/07/06 21:38:26  ddarko
  * Comment
  *
