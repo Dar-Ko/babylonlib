@@ -1074,7 +1074,11 @@ void CString::Copy(LPCSTR pchSrc, //[in] pointer to a string containing
                   )
 {
 TRACE0(_T("CString::Copy(LPCSTR)\n"));
-ASSERT(m_pData != NULL);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(m_pData != NULL);
+#pragma warning (default: 4127)
+
 if ((pchSrc != NULL) && (nChars != 0))
   {
   #ifndef _UNICODE
@@ -1090,14 +1094,14 @@ if ((pchSrc != NULL) && (nChars != 0))
       m_pData->assign(&pchSrc[nIndex], nChars);
       }
   #else
-    //String handler is of wchar_t type
-
+    extern std::wstring AtoWChar(const char* lpString, int iLen = -1);
+    *m_pData = AtoWChar(pchSrc);
   #endif
   }
 }
 
 /*Copies number of wide (wchar_t) characters from a source.
-*/
+ */
 void CString::Copy(LPCWSTR pchSrc, //[in] pointer to a string containing 
                    //the wide characters to be copied.
                    long nChars,   //[in] = (-1) number of characters to be copied
@@ -1112,8 +1116,12 @@ void CString::Copy(LPCWSTR pchSrc, //[in] pointer to a string containing
 
 {
 TRACE0(_T("CString::Copy(LPCWSTR)\n"));
-ASSERT(m_pData != NULL);
-if ((pchSrc != NULL) && (nChars != 0))
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(m_pData != NULL);
+#pragma warning (default: 4127)
+
+  if ((pchSrc != NULL) && (nChars != 0))
   {
   #ifdef _UNICODE
     //String handler is of wchar_t type
@@ -1128,8 +1136,8 @@ if ((pchSrc != NULL) && (nChars != 0))
       m_pData->assign(&pchSrc[nIndex], nChars);
       }
   #else
-    //String handler is of SBCS type
-
+    extern std::string WtoChar(const wchar_t* lpWideCharStr, int iLen = -1);
+    *m_pData = WtoChar(pchSrc);
   #endif
   }
 }

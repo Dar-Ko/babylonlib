@@ -42,7 +42,11 @@ std::string WtoChar(const wchar_t* lpWideCharStr, //[in] string to be converted
                              //limited to INT_MAX.
                    )
 {
-ASSERT(lpWideCharStr != NULL);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(lpWideCharStr != NULL);
+#pragma warning (default: 4127)
+
 std::string strResult;
 if ( lpWideCharStr != NULL)
   {

@@ -33,7 +33,11 @@ std::wstring AtoWChar(const char* lpString, //[in] string to be converted
                                //The size includes the null-terminator.
                      )
 {
-ASSERT(lpString != NULL);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(lpString != NULL);
+#pragma warning (default: 4127)
+
 std::wstring strResult;
 if ( lpString != NULL)
   {
