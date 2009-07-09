@@ -214,7 +214,11 @@
     enumerate devices on pre-Windows XP SP1-based computers";
     CreateSymbolicLink().
   */
-  #define SYMBOLICLINK_HCD "\\\\.\\HCD%d"
+  #define SYMBOLICLINK_HCD _T("\\\\.\\HCD%d")
+  //Single-character version of SYMBOLICLINK_HCD
+  #define SYMBOLICLINKA_HCD "\\\\.\\HCD%d"
+  //Wide-character version of SYMBOLICLINK_HCD
+  #define SYMBOLICLINKW_HCD L"\\\\.\\HCD%d"
 #endif
 
 #endif //_WIN32
