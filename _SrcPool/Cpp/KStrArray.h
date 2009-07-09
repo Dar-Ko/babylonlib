@@ -1,5 +1,5 @@
 /*$RCSfile: KStrArray.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/07/07 20:44:47 $
+  $Revision: 1.2 $ $Date: 2009/07/09 22:16:22 $
   $Author: ddarko $
 
   Array of CString objects.
@@ -71,7 +71,7 @@
   #include <vector>     //std::vector template
 
   #include "KTString.h" //tstring
-  #pragma todo ("warning: Quick CStringArray replacement dropin' is not test. D.K.")
+  #pragma todo (Quick CStringArray replacement dropin is not test. D.K.)
   class CStringArray : public std::vector<tstring>
   {
   public:
@@ -160,6 +160,7 @@
     CStringArray& operator=(const CStringArray& src)
     {
     clear();
+#pragma todo( warning: Copy arrays)
 //    std::vector<tstring>::iterator Iter = src.begin();
 //    while(Iter != src.end())
 //      {
@@ -185,6 +186,9 @@
 #endif  //_KSTRARRAY_H_
 /*****************************************************************************
  * $Log: KStrArray.h,v $
+ * Revision 1.2  2009/07/09 22:16:22  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.1  2009/07/07 20:44:47  ddarko
  * Created
  *

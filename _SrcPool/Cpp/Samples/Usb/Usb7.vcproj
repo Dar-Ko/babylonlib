@@ -317,6 +317,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KDbgSpdrp.cpp">
+			</File>
+			<File
 				RelativePath="..\..\Win\32\KGetDeviceProperty.cpp">
 				<FileConfiguration
 					Name="Release_SBCS|Win32">
