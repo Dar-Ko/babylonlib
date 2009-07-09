@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgIeDispid.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2008/07/24 15:24:34 $
+  $Revision: 1.5 $ $Date: 2009/07/09 18:11:18 $
   $Author: ddarko $
 
   Dumps the IExplorer Dispatch Event Ids.
@@ -17,9 +17,7 @@
 
 #if defined _ATL_VER
   #ifndef TRACE
-    #define TRACE ATLTRACE
-    #define TRACE1 ATLTRACE
-    #define TRACE2 ATLTRACE
+    #include "KTraceAtl.h"
   #endif
 #endif
 
@@ -50,7 +48,7 @@
   Returns: zero-terminated string describing IExplorer dispatch event.
 
   See also: ActiveX, Component Object Model (COM) interfaces. IDispatch::Invoke(),
-  ExDispid.h, ExDisp.idl 
+  ExDispid.h, ExDisp.idl
  */
 LPCTSTR DumpIExplorerDispatchId(const DISPID nDispId //[in] dispatch event identifier
                                )
@@ -123,6 +121,9 @@ return szResult;
 
 /******************************************************************************
  * $Log: KDbgIeDispid.cpp,v $
+ * Revision 1.5  2009/07/09 18:11:18  ddarko
+ * AtlTrace
+ *
  * Revision 1.4  2008/07/24 15:24:34  ddarko
  * Comments
  *
