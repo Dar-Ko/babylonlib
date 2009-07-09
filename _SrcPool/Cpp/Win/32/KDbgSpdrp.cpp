@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgSpdrp.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/07/09 18:12:25 $
+  $Revision: 1.2 $ $Date: 2009/07/09 22:15:44 $
   $Author: ddarko $
 
   Dumps the device registry property codes.
@@ -48,8 +48,8 @@
 
   See also: setupapi.h, cfgmgr32.h
  */
-LPCTSTR DumpIExplorerDispatchId(const DWORD dwProperty //[in] device registry property code
-                               )
+LPCTSTR DumpDevicePropertyCode(const DWORD dwProperty //[in] device registry property code
+                              )
 {
 
 //Note: Codes marked as read-only (R) may only be used for SetupDiGetDeviceRegistryProperty
@@ -97,7 +97,7 @@ switch(dwProperty)
   case SPDRP_MAXIMUM_PROPERTY             : szResult = _T("SPDRP_MAXIMUM_PROPERTY")           ; break; //24 Upper bound on ordinals
   default:
     {
-    TRACE(_T("  Registry property code (%u) "), dwProperty);
+    TRACE1(_T("  Registry property code (%u) "), dwProperty);
     szResult = _T("Unknown registry property code");
     }
   }
@@ -109,6 +109,9 @@ return szResult;
 
 /******************************************************************************
  * $Log: KDbgSpdrp.cpp,v $
+ * Revision 1.2  2009/07/09 22:15:44  ddarko
+ * GetDeviceDescription()
+ *
  * Revision 1.1  2009/07/09 18:12:25  ddarko
  * Created
  *

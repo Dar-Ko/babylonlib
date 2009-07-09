@@ -133,7 +133,11 @@ TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::TUsbSymbolicName(HANDLE hDevice //[i
                  //handle to the device on which the operation is to be performed.
                  ) : m_pData(NULL), m_pSymbolicName(NULL)
 {
-ASSERT(hDevice != INVALID_HANDLE_VALUE);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(hDevice != INVALID_HANDLE_VALUE);
+#pragma warning (default: 4127)
+
 if (hDevice != INVALID_HANDLE_VALUE)
   {
   DWORD nBytesReturned;
@@ -172,7 +176,10 @@ if (hDevice != INVALID_HANDLE_VALUE)
                           &nBytesReturned,
                           NULL) != TRUE)
         {
-        ASSERT(false); //Failed to obtain symolic link name;
+        //Disable warning C4127: conditional expression in ASSERT is constant
+        #pragma warning (disable: 4127)
+          ASSERT(false); //Failed to obtain symolic link name;
+        #pragma warning (default: 4127)
         //To get extended error information, call GetLastError().
         delete [] m_pData;
         m_pData = NULL;
@@ -257,8 +264,11 @@ if (IsValid())
       ((LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN) )->ActualLength) +
                        sizeof(m_pData->ActualLength) - SYMBOLICLINK_PREFIX_LEN);
 
-    ASSERT(m_pSymbolicName != NULL);
-    ASSERT((LPBYTE)m_pSymbolicName > (LPBYTE)m_pData);
+    //Disable warning C4127: conditional expression in ASSERT is constant
+    #pragma warning (disable: 4127)
+      ASSERT(m_pSymbolicName != NULL);
+      ASSERT((LPBYTE)m_pSymbolicName > (LPBYTE)m_pData);
+    #pragma warning (default: 4127)
     m_pSymbolicName[0] = SYMBOLICLINK_PREFIX[0];
     m_pSymbolicName[1] = SYMBOLICLINK_PREFIX[1];
     m_pSymbolicName[2] = SYMBOLICLINK_PREFIX[2];

@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.3 $ $Date: 2009/07/06 19:01:48 $
+  $Revision: 1.4 $ $Date: 2009/07/09 22:15:44 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -27,11 +27,8 @@
   #include "KTraceAtl.h"
 #else
   #include <windows.h>
-  #include <string.h>
+ // #include <string.h>
 #endif
-
-#pragma include_alias( "stdint.h", "KType32.h" )
-#include "stdint.h" //ISO C99 type definitions
 
 #ifndef TRACE
   #ifndef _T
@@ -40,7 +37,8 @@
   #include "KTrace.h"
 #endif
 
-#include <setupapi.h> //Device Management Structures
+#include "KUsbHub.h"  //CUsbHub class
+#include "KWinUsb.h"  //TUsbSymbolicName template
 #ifdef _USE_MSWINDDK
   //USB specific GUID; Microsoft Windows DDK
   //See also: MSDN Article ID: 130869 "How to avoid error 'LNK2001 unresolved
@@ -49,14 +47,8 @@
 #endif
 #include "UsbGuid.h" //USB specific GUID
 
+#ifdef GUID_CLASS_USB_HOST_CONTROLLER
 ///////////////////////////////////////////////////////////////////////////////
-//CUsbHub class implementation
-
-#include "KUsbHub.h"  //CUsbHub class
-
-//#ifndef GUID_CLASS_USB_HOST_CONTROLLER
-  //#include "KSysPnP.h" //USB device system name
-//#endif
 
 /*Requires setupapi.lib
 
@@ -67,44 +59,40 @@
   a later NT-based operating system, you can omit cfgmgr32.lib.
  */
 #pragma comment( lib, "setupapi" )
+#include <setupapi.h> //Device Management Structures
 
-#ifdef GUID_CLASS_USB_HOST_CONTROLLER
+///////////////////////////////////////////////////////////////////////////////
+//CUsbHostController class implementation
 
 //-----------------------------------------------------------------------------
-/*Enumerates USB Host Controllers.
-
-  Return: number of USB host controllers found on the system.
-
-  See also : EnumerateHostControllers()
+/*
  */
-uint_fast32_t CUsbHub::Enumerate()
+unsigned int CUsbHostController::FindFirst()
 {
-TRACE(_T("CUsbHub::Enumerate() using GUID_CLASS_USB_HOST_CONTROLLER\n"));
-uint_fast32_t nCount = 0;   //number of USB host controllers
+TRACE(_T("  CUsbHostController::FindFirst()\n"));
+unsigned int nCount = 0;   //number of USB host controllers
 //Note: requires <usbiodef.h>
-HDEVINFO hDevInfo = SetupDiGetClassDevs((LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER, //a setup class GUID
-                                        NULL, //PnP name of the device
-                                        NULL, //user interface window
-                                        DIGCF_DEVICEINTERFACE | //list of installed
-                                                      //interface class devices
-                                        DIGCF_PRESENT      //currently present
-                                                      //devices
-                                        );
+HDEVINFO hDevInfo = 
+    SetupDiGetClassDevs((LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER, //a setup class GUID
+                        NULL,                   //PnP name of the device
+                        NULL,                   //user interface window
+                        DIGCF_DEVICEINTERFACE | //list of installed interface class devices
+                        DIGCF_PRESENT           //currently present devices
+                        );
 
 if (hDevInfo != INVALID_HANDLE_VALUE)
   {
   //Get a context structure for a device information element of
   //the specified device information set.
-  int iDevCount = 0;
   SP_DEVICE_INTERFACE_DATA sdiDevinfo; //device instance that is a member of
                             //a device information set.
   sdiDevinfo.cbSize = sizeof(SP_DEVICE_INTERFACE_DATA);
 
   while(SetupDiEnumDeviceInterfaces(hDevInfo,//handle to the device information set
                                     NULL, //search for specific interface
-                                    (LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER, //a setup class GUID
-                                         //device interface class
-                                    iDevCount, //index to the list of interfaces
+                                    (LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER, //a setup
+                                         //class GUID device interface class
+                                    nCount, //index to the list of interfaces
                                     &sdiDevinfo //[out] device information
                                     ))
     {
@@ -118,6 +106,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
      */
     PSP_DEVICE_INTERFACE_DETAIL_DATA psdiDevDetail = NULL;
     DWORD dwSize = 0;
+    //Obtain required size of the result buffer
     SetupDiGetDeviceInterfaceDetail(hDevInfo,
                                     &sdiDevinfo,
                                     NULL,
@@ -125,14 +114,15 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
                                     &dwSize,
                                     NULL
                                     );
-    psdiDevDetail = (PSP_DEVICE_INTERFACE_DETAIL_DATA)GlobalAlloc(GPTR, dwSize);
+    psdiDevDetail = (PSP_DEVICE_INTERFACE_DETAIL_DATA) new char[dwSize];
     psdiDevDetail->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA);
+
     SetupDiGetDeviceInterfaceDetail(hDevInfo,
                                     &sdiDevinfo,
                                     psdiDevDetail,
                                     dwSize,
                                     &dwSize,
-                                    NULL
+                                    NULL  //SP_DEVINFO_DATA structure
                                     );
     //Open a USB Host Controller.
     HANDLE hHcd = CreateFile(psdiDevDetail->DevicePath,
@@ -145,23 +135,99 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
                              NULL);
     if (hHcd != INVALID_HANDLE_VALUE)
       {
-      nCount++; //Count existing host controllers
       #ifdef _UNICODE
-        TRACE2(_T("  %d. %ws\n"), nCount, psdiDevDetail->DevicePath);
+        TRACE2(_T("    %d. %ws\n"), nCount, psdiDevDetail->DevicePath);
       #else
-        TRACE2(_T("  %d. %s\n"), nCount, psdiDevDetail->DevicePath);
+        TRACE2(_T("    %d. %s\n"), nCount, psdiDevDetail->DevicePath);
       #endif
+      GetRootHub(hHcd, m_strName);
+
+extern void GetDeviceDescription(const GUID& guidDev, //[in]
+                   const DWORD nMemberIndex,//[in] index to the list of
+                   //interfaces in the device information set.
+                   CString& strDeviceDescription //[out]
+                   );
+
+GetDeviceDescription(GUID_CLASS_USB_HOST_CONTROLLER,
+                     nCount,
+                       m_strDescription);
+
+  /*
+      TCHAR szBuff[MAX_PATH];
+      DWORD dwLen = sizeof(szBuff);
+      extern bool GetDeviceProperty(HDEVINFO hDevInfo,
+                        SP_DEVINFO_DATA* psdiDevinfo,
+                        const DWORD dwProperty,
+                        TCHAR* szBuff,
+                        DWORD& dwLen);
+      //Get a REG_SZ string containing the description of a device. 
+      if(GetDeviceProperty(hHcd, //handle to the device information
+                            &sdiDevinfo, //device instance
+                            SPDRP_DEVICEDESC, //property to be retrieved
+                            szBuff,//requested device property
+                            dwLen //required buffer size, in bytes
+                          ))
+        {
+        m_strDescription = szBuff;
+        }
+  */
       CloseHandle(hHcd);
       }
 
-    GlobalFree(psdiDevDetail);
-    iDevCount++;
+    delete[] psdiDevDetail;
+    nCount++; //Count existing host controllers
     }
 
   SetupDiDestroyDeviceInfoList(hDevInfo);
   }
 return nCount;
 }
+
+//-----------------------------------------------------------------------------
+/*Enumerates USB Host Controllers.
+
+  Return: number of USB host controllers found on the system.
+
+  See also : EnumerateHostControllers(), EnumerateRootUsbHub()
+ */
+LPCTSTR CUsbHostController::FindNext()
+{
+return 0;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+bool CUsbHostController::GetRootHub(HANDLE hHostCotroller, //[in] handle to the device
+                      //information set that contains the interface
+                                    CString& strName //[out]
+                                    )
+{
+TRACE(_T("    CUsbHostController::GetRootHub()\n"));
+//Get the hub name; Check GetLastError() in case of failure.
+TUsbSymbolicName<USB_ROOT_HUB_NAME,
+                  IOCTL_USB_GET_ROOT_HUB_NAME> usbRootHubName(hHostCotroller);
+bool bResult = usbRootHubName.IsValid();
+if (bResult)
+  {
+  strName = usbRootHubName.GetName();
+  }
+else
+  strName.Empty();
+
+return bResult;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//CUsbHub class implementation
+
+
+//-----------------------------------------------------------------------------
+unsigned int CUsbHub::Enumerate()
+{
+return 0;
+}
+///////////////////////////////////////////////////////////////////////////////
 #else
   #error GUID_CLASS_USB_HOST_CONTROLLER is not defined!
 #endif //GUID_CLASS_USB_HOST_CONTROLLER

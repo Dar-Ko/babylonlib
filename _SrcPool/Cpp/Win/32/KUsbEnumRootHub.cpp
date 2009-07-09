@@ -1,5 +1,5 @@
 /*$RCSfile: KUsbEnumRootHub.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/07/07 20:46:05 $
+  $Revision: 1.4 $ $Date: 2009/07/09 22:15:44 $
   $Author: ddarko $
 
   Enumerates root USB hubs.
@@ -128,6 +128,10 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
       {
       TRACE1(_T("  SetupDiGetDeviceRegistryProperty() Failed #%0.8d!\n"),
               GetLastError());
+      if (GetLastError() == ERROR_INSUFFICIENT_BUFFER)
+        {
+        TRACE1(_T("  Increase buffer size to %d bytes!\n"), dwLen);
+        }
       }
 
     iDevCount++;
@@ -143,6 +147,9 @@ return nCount;
 
 /*****************************************************************************
  * $Log: KUsbEnumRootHub.cpp,v $
+ * Revision 1.4  2009/07/09 22:15:44  ddarko
+ * GetDeviceDescription()
+ *
  * Revision 1.3  2009/07/07 20:46:05  ddarko
  * Return list of device names
  *

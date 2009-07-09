@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.3 $ $Date: 2009/07/07 20:46:05 $
+  $Revision: 1.4 $ $Date: 2009/07/09 22:15:44 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -43,6 +43,11 @@
 /*Enumerates USB host controllers using Host Controller Driver (HCD) symbolic
   name. Host controller is also known as the root hub, the root tier or
   simply as the root.
+
+  Note: this method have limit on number of host cotrollers that could be
+  enumerated (TODO: verify if HCD module instance numbers are always sequential and
+  eliminate the limit).
+
   The host controller controls all traffic on the PCI bus and also functions
   as a hub.
 
@@ -66,14 +71,14 @@ unsigned int EnumerateHostControllers(CStringArray* pHostControllerNames //[out]
 {
 TRACE(_T("EnumerateHostControllers()\n"));
 unsigned short wInstance = 0; //HCD module instance number
-char szHostControllerName[16]; //Host Controller Driver (HCD) symbolic name
+TCHAR szHostControllerName[16]; //Host Controller Driver (HCD) symbolic name
 const unsigned short ARBITRARY_NO = 12; //arbitrary maximum of instances
 unsigned int nResult = 0;
 do
   {
   //Create a symbolic link and open communication with HCD
-  wsprintfA(szHostControllerName, SYMBOLICLINK_HCD , wInstance);
-  HANDLE hHcd = CreateFileA(szHostControllerName,
+  wsprintf(szHostControllerName, SYMBOLICLINK_HCD , wInstance);
+  HANDLE hHcd = CreateFile(szHostControllerName,
                             GENERIC_WRITE,
                             FILE_SHARE_WRITE,
                             NULL, //if lpSecurityAttributes is NULL,
@@ -107,7 +112,9 @@ do
     #endif
 
     if (pHostControllerNames != NULL)
+      {
       pHostControllerNames->Add(szHostControllerName);
+      }
 
     nResult++;
     CloseHandle(hHcd);
