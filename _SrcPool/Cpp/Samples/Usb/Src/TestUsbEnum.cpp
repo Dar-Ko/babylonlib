@@ -1,6 +1,6 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.5 $ $Date: 2009/07/10 19:40:49 $
-  $Author: uid94901 $
+  $Revision: 1.6 $ $Date: 2009/07/10 21:34:13 $
+  $Author: ddarko $
 
   Test USB tree enumeration.
   Copyright: CommonSoft Inc.
@@ -226,7 +226,7 @@ try
       CUsbHostController usbHc;
       g_logTest.LogResult(bResult); //Log object's construction
 
-      g_logTest.m_szObjectName = _T("CUsbHostController::FindFirst()");
+      g_logTest.m_szObjectName = _T("CUsbHostController::GetDeviceInfo()");
       #ifdef _WIN32
         g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
       #elif defined(_LINUX)
@@ -235,7 +235,21 @@ try
         g_logTest.m_szFileName   = _T("unknown implementation");
       #endif
 
-      usbHc.FindFirst();
+      nHubCount = 0;
+      while(usbHc.GetDeviceInfo(nHubCount))
+        {
+        #ifdef _UNICODE
+          TRACE2(_T("%d. %ws\n"), nCount, (LPCTSTR)usbHc.m_strName);
+        #else
+          TRACE2(_T("%d. %ws\n"), nCount, (LPCTSTR)usbHc.m_strName);
+        #endif
+        TsWriteToViewLn((LPCTSTR)usbHc.m_strName);
+        nHubCount++;
+        }
+      TRACE1(_T("Number of host controllers: %d."), nHubCount);
+      //Number of USB root hubs enumerated with two different methods
+      //have to be same.
+      bResult = (nHcdCount == nHubCount); 
 
       g_logTest.LogResult(bResult); //Log object's construction
 
@@ -286,6 +300,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.6  2009/07/10 21:34:13  ddarko
+ *Test of CUsbHostController
+ *
  *Revision 1.5  2009/07/10 19:40:49  uid94901
  *Test GetDevicePath()
  *
