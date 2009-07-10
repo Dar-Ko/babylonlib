@@ -1,6 +1,6 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2009/07/08 21:50:41 $
-  $Author: ddarko $
+  $Revision: 1.5 $ $Date: 2009/07/10 19:40:49 $
+  $Author: uid94901 $
 
   Test USB tree enumeration.
   Copyright: CommonSoft Inc.
@@ -46,6 +46,13 @@ extern bool TsWriteToView(const unsigned int& nValue);
 //#include <iostream> //std::endl
 #endif
 
+#ifdef _USE_MSWINDDK
+  //USB specific GUID; Microsoft Windows DDK
+  //See also: MSDN Article ID: 130869 "How to avoid error 'LNK2001 unresolved
+  //external' by using DEFINE_GUID"
+  #pragma include_alias( "UsbGuid.h", "wxp/usbiodef" )
+#endif
+#include "UsbGuid.h" //USB specific GUID
 #include "UsbVid.h"  //USB VID List
 //#include "KWinUsb.h" //TUsbSymbolicName template
 #include "KUsbHub.h"   //CUsbHub class
@@ -105,24 +112,132 @@ try
 
   if(bResult)
     {
-    g_logTest.m_szObjectName = _T("CUsbHostController::CUsbHostController()");
-    g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
+    //Get description of the USB root hub
+    g_logTest.m_szObjectName = _T("GetDeviceDescription()");
+    g_logTest.m_szFileName   = _T("KGetDeviceProperty.cpp"); //function or object file name
+    CString strResult;
+    unsigned int nCount = 0;   //number of USB host controllers
+    extern bool GetDeviceDescription(const GUID& guidDev, //[in]
+                      const DWORD nMemberIndex,//[in] index to the list of
+                      //interfaces in the device information set.
+                      CString& strDeviceDescription //[out]
+                      );
+    while((nCount < nHcdCount) && bResult)
+      {
+      if(!GetDeviceDescription(GUID_DEVINTERFACE_USB_HOST_CONTROLLER,
+                          nCount, //1st host controller
+                          strResult))
+        {
+        if((GetLastError() == ERROR_NO_MORE_ITEMS) ||
+           (GetLastError() == NO_ERROR))
+          {
+          //System is without USB cotrollers
+          strResult = _T("The system is without USB controllers");
+          bResult = true;
+          }
+        else
+          bResult = false;
+        }
+      else
+        {
+        bResult = true;
+        }
+      #ifdef _UNICODE
+        TRACE2(_T("    %d. %ws\n"), nCount, (LPCTSTR)strResult);
+      #else
+        TRACE2(_T("    %d. %s\n"), nCount, (LPCTSTR)strResult);
+      #endif
+      TsWriteToViewLn(strResult);
+      nCount++;
+      }
 
-    CUsbHostController usbHc;
+    //Test obtaining a description from non-existing device
+    if(bResult)
+      {
+      strResult = _T("non-existing device");
+      nCount = nHcdCount + 3;
+      if(!GetDeviceDescription(GUID_DEVINTERFACE_USB_HOST_CONTROLLER,
+                          nCount, //1st host controller
+                          strResult))
+        {
+        if((GetLastError() == ERROR_NO_MORE_ITEMS) ||
+           (GetLastError() == NO_ERROR) )
+          {
+          //System is without USB cotrollers
+          strResult = _T("The end of USB host controller list.");
+          bResult = true;
+          }
+        else
+          {
+          TRACE1(_T("  Failed! Error: %0.8X.\n"), GetLastError());
+          bResult = false;
+          }
+        }
+      TRACE((LPCTSTR)strResult);
+      TRACE(_T("\n"));
+      }
+
     g_logTest.LogResult(bResult); //Log object's construction
+    if(bResult)
+      {
+      nCount = 0;
+      //Previous test includes obtaining device's property value
+      g_logTest.m_szObjectName = _T("GetDeviceProperty()");
+      g_logTest.m_szFileName   = _T("KGetDeviceProperty.cpp"); //function or object file name
 
-    g_logTest.m_szObjectName = _T("CUsbHostController::FindFirst()");
-    #ifdef _WIN32
-      g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
-    #elif defined(_LINUX)
-      g_logTest.m_szFileName   = _T("KLinUsbHub.cpp"); //function or object file name
-    #else
-      g_logTest.m_szFileName   = _T("unknown implementation");
-    #endif
+      g_logTest.LogResult(bResult); //Log object's construction
 
-    usbHc.FindFirst();
+      //Get a device path
+      g_logTest.m_szObjectName = _T("GetDevicePath()");
+      g_logTest.m_szFileName   = _T("KGetDeviceProperty.cpp"); //function or object file name
+      extern bool GetDevicePath(const GUID& guidInterfaceClass,
+                            const DWORD nMemberIndex, CString& strDevicePath);
+      if(GetDevicePath(GUID_DEVINTERFACE_USB_HOST_CONTROLLER, //the device interface
+                                 //class for the requested interface.
+                       nCount,   //index to the list of
+                                 //interfaces in the device information set.
+                       strResult //[out] the device path.
+                      ))
+        {
+        bResult = true;
+        }
+      else
+        {
+        if((GetLastError() == ERROR_NO_MORE_ITEMS) ||
+           (GetLastError() == NO_ERROR))
+          {
+          //System is without USB cotrollers
+          strResult = _T("The system is without USB controllers");
+          bResult = true;
+          }
+        else
+          bResult = false;
+          }
 
-    g_logTest.LogResult(bResult); //Log object's construction
+      TsWriteToViewLn(strResult);
+      g_logTest.LogResult(bResult); //Log object's construction
+      }
+
+    if(bResult)
+      {
+      g_logTest.m_szObjectName = _T("CUsbHostController::CUsbHostController()");
+      g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
+
+      CUsbHostController usbHc;
+      g_logTest.LogResult(bResult); //Log object's construction
+
+      g_logTest.m_szObjectName = _T("CUsbHostController::FindFirst()");
+      #ifdef _WIN32
+        g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
+      #elif defined(_LINUX)
+        g_logTest.m_szFileName   = _T("KLinUsbHub.cpp"); //function or object file name
+      #else
+        g_logTest.m_szFileName   = _T("unknown implementation");
+      #endif
+
+      usbHc.FindFirst();
+
+      g_logTest.LogResult(bResult); //Log object's construction
 
 //    g_logTest.m_szObjectName = _T("CUsbHub::CUsbHub()");
 //    g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
@@ -130,8 +245,8 @@ try
     //Find given USB device
 //    CUsbHub usbHub;
 //    g_logTest.LogResult(bResult); //Log object's construction
+      }
     }
-
   }
 catch(std::out_of_range& eoor)
   {
@@ -171,6 +286,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.5  2009/07/10 19:40:49  uid94901
+ *Test GetDevicePath()
+ *
  *Revision 1.4  2009/07/08 21:50:41  ddarko
  *CUsbHostController
  *
