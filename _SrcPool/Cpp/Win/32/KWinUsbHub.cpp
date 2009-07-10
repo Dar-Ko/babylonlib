@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.5 $ $Date: 2009/07/10 19:41:07 $
+  $Revision: 1.6 $ $Date: 2009/07/10 21:33:41 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -64,12 +64,27 @@
 //CUsbHostController class implementation
 
 //-----------------------------------------------------------------------------
-/*
+/*Retrieves information about USB host controller.
+  Returns true if device is found in the list of available devices.
+
+  Example:
+
+    unsigned int nCount = 0;
+    CUsbHostController usbRootHub;
+    while(usbRootHub.GetDeviceInfo(nCount))
+      {
+      TRACE1(_T("%d. %s\n"), nCount, (LPCSTR)usbRootHub.m_strDescription);
+      nCount++;
+      }
+    TRACE1(_T("Number of host controllers: %d."), nCount);
  */
-unsigned int CUsbHostController::FindFirst()
+bool CUsbHostController::GetDeviceInfo(const unsigned int nMemberIndex //[in] = 0
+                                       //index to the list of interfaces in
+                                       //the device information set.
+                                       )
 {
-TRACE(_T("  CUsbHostController::FindFirst()\n"));
-unsigned int nCount = 0;   //number of USB host controllers
+TRACE1(_T("  CUsbHostController::GetDeviceInfo(%d)\n"), nMemberIndex);
+bool bResult = false;
 /*The system-supplied port driver for a USB host controller registers instances
   of GUID_DEVINTERFACE_USB_HOST_CONTROLLER to notify the operating system and
   applications of the presence of USB host controllers.
@@ -83,12 +98,12 @@ CString strDevicePath; //device path
 extern bool GetDevicePath(const GUID& guidInterfaceClass,
                           const DWORD nMemberIndex, CString& strDevicePath);
 
-while(GetDevicePath(guidUsbHc, //the device interface
-                                //class for the requested interface.
-                    nCount,     //index to the list of
-                                //interfaces in the device information set.
-                    strDevicePath //[out] the device path.
-                    ))
+if(GetDevicePath(guidUsbHc,    //the device interface
+                               //class for the requested interface.
+                 nMemberIndex, //index to the list of
+                               //interfaces in the device information set.
+                 strDevicePath //[out] the device path.
+                ))
   {
   extern bool GetDeviceDescription(const GUID& guidDev, //[in]
                     const DWORD nMemberIndex,//[in] index to the list of
@@ -97,74 +112,72 @@ while(GetDevicePath(guidUsbHc, //the device interface
                     );
 
   if(!GetDeviceDescription(guidUsbHc,
-                      nCount,
+                      nMemberIndex,
                       m_strDescription))
     {
     m_strDescription.Empty();
     }
   #ifdef _UNICODE
-    TRACE2(_T("    %d. %ws\n"), nCount, (LPCTSTR)m_strDescription);
+    TRACE2(_T("    %d. %ws\n"), nMemberIndex, (LPCTSTR)m_strDescription);
   #else
-    TRACE2(_T("    %d. %s\n"), nCount, (LPCTSTR)m_strDescription);
+    TRACE2(_T("    %d. %s\n"), nMemberIndex, (LPCTSTR)m_strDescription);
   #endif
 
-  //Open a USB Host Controller.
-  HANDLE hHcd = CreateFile((LPCTSTR)strDevicePath,
-                            GENERIC_WRITE,
-                            FILE_SHARE_WRITE,
-                            NULL,//if lpSecurityAttributes is NULL,
-                                //the handle cannot be inherited.
-                            OPEN_EXISTING,
-                            0,
-                            NULL);
-  if (hHcd != INVALID_HANDLE_VALUE)
+  if (GetRootHub((LPCTSTR)strDevicePath, m_strName))
     {
     #ifdef _UNICODE
-      TRACE2(_T("    %d. %ws\n"), nCount, (LPCTSTR)strDevicePath);
+      TRACE2(_T("    %d. %ws\n"), nMemberIndex, (LPCTSTR)m_strName);
     #else
-      TRACE2(_T("    %d. %s\n"), nCount, (LPCTSTR)strDevicePath);
+      TRACE2(_T("    %d. %s\n"), nMemberIndex, (LPCTSTR)m_strName);
     #endif
-    GetRootHub(hHcd, m_strName);
-
-    CloseHandle(hHcd);
+    bResult = true;
     }
+  else
+    m_strName.Empty();
 
-  nCount++; //Count existing host controllers
   }
-return nCount;
+return bResult;
 }
 
 //-----------------------------------------------------------------------------
-/*Enumerates USB Host Controllers.
-
-  Return: number of USB host controllers found on the system.
-
-  See also : EnumerateHostControllers(), EnumerateRootUsbHub()
+/*Retreive device path of the hub embedded into host controller.
+  
+  Returns true if successful and the USB root hub device path, otherwise
+  returns false.
  */
-LPCTSTR CUsbHostController::FindNext()
-{
-return 0;
-}
-
-//-----------------------------------------------------------------------------
-/*
- */
-bool CUsbHostController::GetRootHub(HANDLE hHostCotroller, //[in] handle to the device
-                      //information set that contains the interface
-                                    CString& strName //[out]
+bool CUsbHostController::GetRootHub(LPCTSTR szDevicePath, //[in] the USB host 
+                                    //controller device path.
+                                    CString& strName //[out] the USB root hub 
+                                    //device path
                                     )
 {
 TRACE(_T("    CUsbHostController::GetRootHub()\n"));
-//Get the hub name; Check GetLastError() in case of failure.
-TUsbSymbolicName<USB_ROOT_HUB_NAME,
-                  IOCTL_USB_GET_ROOT_HUB_NAME> usbRootHubName(hHostCotroller);
-bool bResult = usbRootHubName.IsValid();
-if (bResult)
+bool bResult = false;
+//Open a USB Host Controller.
+HANDLE hHostCotroller = CreateFile(szDevicePath,
+                          GENERIC_WRITE,
+                          FILE_SHARE_WRITE,
+                          NULL,//if lpSecurityAttributes is NULL,
+                              //the handle cannot be inherited.
+                          OPEN_EXISTING,
+                          0,
+                          NULL);
+if (hHostCotroller != INVALID_HANDLE_VALUE)
   {
-  strName = usbRootHubName.GetName();
+  //Get the hub name; Check GetLastError() in case of failure.
+  TUsbSymbolicName<USB_ROOT_HUB_NAME,
+                    IOCTL_USB_GET_ROOT_HUB_NAME> usbRootHubName(hHostCotroller);
+  if (usbRootHubName.IsValid())
+    {
+    strName = usbRootHubName.GetName();
+    bResult = true;
+    }
+  else
+    {
+    TRACE1(_T("      Failed! Error 0x%0.8X.\n"), GetLastError());
+    }
+  CloseHandle(hHostCotroller);
   }
-else
-  strName.Empty();
 
 return bResult;
 }

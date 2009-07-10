@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.4 $ $Date: 2009/07/08 21:51:07 $
+  $Revision: 1.5 $ $Date: 2009/07/10 21:34:31 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -70,17 +70,15 @@ protected:
 class CUsbHostController
 {
 public:
-  unsigned int FindFirst();
-  LPCTSTR FindNext();
-  LPCTSTR operator ++();
+  bool GetDeviceInfo(const unsigned int nMemberIndex = 0);
 
 protected:
-  bool GetRootHub(HANDLE hHostCotroller, CString& strName);
+  bool GetRootHub(LPCTSTR szDevicePath, CString& strName);
 
 public:
-  CString m_strName;
-  CString m_strDescription;
- 
+  CString m_strName;        //USB root hub device path
+  CString m_strDescription; //description of the device
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -121,6 +119,9 @@ inline CUsbHub::~CUsbHub()
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.5  2009/07/10 21:34:31  ddarko
+ * Renamed methods
+ *
  * Revision 1.4  2009/07/08 21:51:07  ddarko
  * CUsbHostController
  *
