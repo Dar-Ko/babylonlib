@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.4 $ $Date: 2009/07/09 22:15:44 $
+  $Revision: 1.5 $ $Date: 2009/07/10 19:41:07 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -47,7 +47,6 @@
 #endif
 #include "UsbGuid.h" //USB specific GUID
 
-#ifdef GUID_CLASS_USB_HOST_CONTROLLER
 ///////////////////////////////////////////////////////////////////////////////
 
 /*Requires setupapi.lib
@@ -71,114 +70,66 @@ unsigned int CUsbHostController::FindFirst()
 {
 TRACE(_T("  CUsbHostController::FindFirst()\n"));
 unsigned int nCount = 0;   //number of USB host controllers
-//Note: requires <usbiodef.h>
-HDEVINFO hDevInfo = 
-    SetupDiGetClassDevs((LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER, //a setup class GUID
-                        NULL,                   //PnP name of the device
-                        NULL,                   //user interface window
-                        DIGCF_DEVICEINTERFACE | //list of installed interface class devices
-                        DIGCF_PRESENT           //currently present devices
-                        );
+/*The system-supplied port driver for a USB host controller registers instances
+  of GUID_DEVINTERFACE_USB_HOST_CONTROLLER to notify the operating system and
+  applications of the presence of USB host controllers.
 
-if (hDevInfo != INVALID_HANDLE_VALUE)
+  Note: requires <usbiodef.h> from Microsoft DDK
+ */
+const GUID& guidUsbHc = GUID_DEVINTERFACE_USB_HOST_CONTROLLER;
+
+
+CString strDevicePath; //device path
+extern bool GetDevicePath(const GUID& guidInterfaceClass,
+                          const DWORD nMemberIndex, CString& strDevicePath);
+
+while(GetDevicePath(guidUsbHc, //the device interface
+                                //class for the requested interface.
+                    nCount,     //index to the list of
+                                //interfaces in the device information set.
+                    strDevicePath //[out] the device path.
+                    ))
   {
-  //Get a context structure for a device information element of
-  //the specified device information set.
-  SP_DEVICE_INTERFACE_DATA sdiDevinfo; //device instance that is a member of
-                            //a device information set.
-  sdiDevinfo.cbSize = sizeof(SP_DEVICE_INTERFACE_DATA);
+  extern bool GetDeviceDescription(const GUID& guidDev, //[in]
+                    const DWORD nMemberIndex,//[in] index to the list of
+                    //interfaces in the device information set.
+                    CString& strDeviceDescription //[out]
+                    );
 
-  while(SetupDiEnumDeviceInterfaces(hDevInfo,//handle to the device information set
-                                    NULL, //search for specific interface
-                                    (LPGUID)&GUID_CLASS_USB_HOST_CONTROLLER, //a setup
-                                         //class GUID device interface class
-                                    nCount, //index to the list of interfaces
-                                    &sdiDevinfo //[out] device information
-                                    ))
+  if(!GetDeviceDescription(guidUsbHc,
+                      nCount,
+                      m_strDescription))
     {
-    /*Obtain information from Windows Driver Model (WDM) Device Object.
-      The WDM stack for a USB device have following layers:
+    m_strDescription.Empty();
+    }
+  #ifdef _UNICODE
+    TRACE2(_T("    %d. %ws\n"), nCount, (LPCTSTR)m_strDescription);
+  #else
+    TRACE2(_T("    %d. %s\n"), nCount, (LPCTSTR)m_strDescription);
+  #endif
 
-         4. USB Device stack
-         3. USB Hub Device stack
-         2. USB Host Controller Device stack
-         1. PCI Bus Device Stack
-     */
-    PSP_DEVICE_INTERFACE_DETAIL_DATA psdiDevDetail = NULL;
-    DWORD dwSize = 0;
-    //Obtain required size of the result buffer
-    SetupDiGetDeviceInterfaceDetail(hDevInfo,
-                                    &sdiDevinfo,
-                                    NULL,
-                                    0,
-                                    &dwSize,
-                                    NULL
-                                    );
-    psdiDevDetail = (PSP_DEVICE_INTERFACE_DETAIL_DATA) new char[dwSize];
-    psdiDevDetail->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA);
+  //Open a USB Host Controller.
+  HANDLE hHcd = CreateFile((LPCTSTR)strDevicePath,
+                            GENERIC_WRITE,
+                            FILE_SHARE_WRITE,
+                            NULL,//if lpSecurityAttributes is NULL,
+                                //the handle cannot be inherited.
+                            OPEN_EXISTING,
+                            0,
+                            NULL);
+  if (hHcd != INVALID_HANDLE_VALUE)
+    {
+    #ifdef _UNICODE
+      TRACE2(_T("    %d. %ws\n"), nCount, (LPCTSTR)strDevicePath);
+    #else
+      TRACE2(_T("    %d. %s\n"), nCount, (LPCTSTR)strDevicePath);
+    #endif
+    GetRootHub(hHcd, m_strName);
 
-    SetupDiGetDeviceInterfaceDetail(hDevInfo,
-                                    &sdiDevinfo,
-                                    psdiDevDetail,
-                                    dwSize,
-                                    &dwSize,
-                                    NULL  //SP_DEVINFO_DATA structure
-                                    );
-    //Open a USB Host Controller.
-    HANDLE hHcd = CreateFile(psdiDevDetail->DevicePath,
-                             GENERIC_WRITE,
-                             FILE_SHARE_WRITE,
-                             NULL,//if lpSecurityAttributes is NULL,
-                                  //the handle cannot be inherited.
-                             OPEN_EXISTING,
-                             0,
-                             NULL);
-    if (hHcd != INVALID_HANDLE_VALUE)
-      {
-      #ifdef _UNICODE
-        TRACE2(_T("    %d. %ws\n"), nCount, psdiDevDetail->DevicePath);
-      #else
-        TRACE2(_T("    %d. %s\n"), nCount, psdiDevDetail->DevicePath);
-      #endif
-      GetRootHub(hHcd, m_strName);
-
-extern void GetDeviceDescription(const GUID& guidDev, //[in]
-                   const DWORD nMemberIndex,//[in] index to the list of
-                   //interfaces in the device information set.
-                   CString& strDeviceDescription //[out]
-                   );
-
-GetDeviceDescription(GUID_CLASS_USB_HOST_CONTROLLER,
-                     nCount,
-                       m_strDescription);
-
-  /*
-      TCHAR szBuff[MAX_PATH];
-      DWORD dwLen = sizeof(szBuff);
-      extern bool GetDeviceProperty(HDEVINFO hDevInfo,
-                        SP_DEVINFO_DATA* psdiDevinfo,
-                        const DWORD dwProperty,
-                        TCHAR* szBuff,
-                        DWORD& dwLen);
-      //Get a REG_SZ string containing the description of a device. 
-      if(GetDeviceProperty(hHcd, //handle to the device information
-                            &sdiDevinfo, //device instance
-                            SPDRP_DEVICEDESC, //property to be retrieved
-                            szBuff,//requested device property
-                            dwLen //required buffer size, in bytes
-                          ))
-        {
-        m_strDescription = szBuff;
-        }
-  */
-      CloseHandle(hHcd);
-      }
-
-    delete[] psdiDevDetail;
-    nCount++; //Count existing host controllers
+    CloseHandle(hHcd);
     }
 
-  SetupDiDestroyDeviceInfoList(hDevInfo);
+  nCount++; //Count existing host controllers
   }
 return nCount;
 }
@@ -227,10 +178,6 @@ unsigned int CUsbHub::Enumerate()
 {
 return 0;
 }
-///////////////////////////////////////////////////////////////////////////////
-#else
-  #error GUID_CLASS_USB_HOST_CONTROLLER is not defined!
-#endif //GUID_CLASS_USB_HOST_CONTROLLER
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_WIN32

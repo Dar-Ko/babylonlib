@@ -1,5 +1,5 @@
 /*$RCSfile: KGetDeviceProperty.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/07/09 22:15:44 $
+  $Revision: 1.4 $ $Date: 2009/07/10 19:41:07 $
   $Author: ddarko $
 
   Device Property method.
@@ -169,11 +169,10 @@ return false;
 //-----------------------------------------------------------------------------
 /*Retrieves the device path from the specified device interface.
 
-  Retruns true and the device path if successful or false if device could
+  Returns true and the device path if successful or false if device could
   not be found.
  */
-bool GetDevicePath(const HDEVINFO hDevInfo, //[in] handle to a device information set.
-                   const LPGUID pguidInterfaceClass, //[in] the device interface
+bool GetDevicePath(const GUID& guidInterfaceClass, //[in] the device interface
                    //class for the requested interface.
                    const DWORD nMemberIndex,//[in] index to the list of
                    //interfaces in the device information set.
@@ -181,9 +180,22 @@ bool GetDevicePath(const HDEVINFO hDevInfo, //[in] handle to a device informatio
                    //the device path.
                    )
 {
-ASSERT(hDevInfo != INVALID_HANDLE_VALUE);
 bool bResult = false;
-if ((hDevInfo != INVALID_HANDLE_VALUE) && (pguidInterfaceClass != NULL) )
+//Get handle to the device information set
+HDEVINFO hDevInfo = 
+    SetupDiGetClassDevs(&guidInterfaceClass,    //a setup class GUID
+                        NULL,                   //PnP name of the device
+                        NULL,                   //user interface window
+                        DIGCF_DEVICEINTERFACE | //list of installed interface class devices
+                        DIGCF_PRESENT           //currently present devices
+                        );
+
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(INVALID_HANDLE_VALUE != hDevInfo);
+#pragma warning (default: 4127)
+
+if(hDevInfo != INVALID_HANDLE_VALUE)
   {
   //Get a context structure for a device information element of
   //the specified device information set.
@@ -193,7 +205,7 @@ if ((hDevInfo != INVALID_HANDLE_VALUE) && (pguidInterfaceClass != NULL) )
 
   if(SetupDiEnumDeviceInterfaces(hDevInfo,//handle to the device information set
                                  NULL,    //search for specific interface
-                                 pguidInterfaceClass, //a setup
+                                 &guidInterfaceClass, //a setup
                                       //class GUID device interface class
                                  nMemberIndex, //index to the list of interfaces
                                  &sdiDevinfo   //[out] device information
@@ -234,65 +246,124 @@ if ((hDevInfo != INVALID_HANDLE_VALUE) && (pguidInterfaceClass != NULL) )
     }
   else
     {
-       if ( GetLastError()!=NO_ERROR &&
-            GetLastError()!=ERROR_NO_MORE_ITEMS )
-       {
-           // Insert error handling here.
+    if(GetLastError() != NO_ERROR &&
+       GetLastError() != ERROR_NO_MORE_ITEMS)
+      {
+      //ToDO: Insert error handling here.
            
-       }
+      }
     }
+
+  SetupDiDestroyDeviceInfoList(hDevInfo);
   }
 return bResult;
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Retrieves a registry string containing the description of a device.
+
+  Returns true and the device description if successful or false. If device could
+  not be found, GetLastError() could returns ERROR_NO_MORE_ITEMS and fuction fails.
+
+  Example:
+
+      #include "UsbGuid.h" //USB specific GUID
+      ...
+      unsigned int nCount = 0; //1st USB host controller
+      CString strResult;
+      bool bResult = 
+              GetDeviceDescription(GUID_DEVINTERFACE_USB_HOST_CONTROLLER,
+                                   nCount,
+                                   strResult);
+      if(!bResult)
+        {
+        if((GetLastError() == ERROR_NO_MORE_ITEMS) ||
+           (GetLastError() == NO_ERROR))
+          {
+          strResult = _T("The system is without USB controllers");
+          bResult = true;
+          }
+        }
  */
-void GetDeviceDescription(const GUID& guidDev, //[in]
-                   const DWORD nMemberIndex,//[in] index to the list of
-                   //interfaces in the device information set.
-                   CString& strDeviceDescription //[out]
-                   )
+bool GetDeviceDescription(const GUID& guidDev, //[in] handle to the device
+                          //information set that contains the interface
+                          const DWORD nMemberIndex,//[in] index to the list of
+                          //interfaces in the device information set.
+                          CString& strDeviceDescription //[out] the description
+                          //of a device.
+                          )
 {
-  HDEVINFO   hDevInfo;
-  SP_DEVINFO_DATA DevInfoData;
-  DWORD dwSize = 0;
-  char szBuff [1024];
-
-
-
-  hDevInfo = SetupDiGetClassDevs ((LPGUID) &guidDev, NULL, NULL,
-                                   DIGCF_PRESENT | DIGCF_DEVICEINTERFACE);
-
-  DevInfoData.cbSize = sizeof (SP_DEVINFO_DATA);
-
-  if (SetupDiEnumDeviceInfo (hDevInfo, nMemberIndex, &DevInfoData))
+bool bResult = false;
+//Get handle to the device information set
+HDEVINFO hDevInfo = 
+    SetupDiGetClassDevs(&guidDev,             //a setup class GUID
+                        NULL,                   //PnP name of the device
+                        NULL,                   //user interface window
+                        DIGCF_DEVICEINTERFACE | //list of installed interface class devices
+                        DIGCF_PRESENT           //currently present devices
+                        );
+if (hDevInfo != INVALID_HANDLE_VALUE)
   {
-    dwSize = 1024;
+  SP_DEVINFO_DATA sddDevInfo;
+  sddDevInfo.cbSize = sizeof(SP_DEVINFO_DATA);
 
-  extern bool GetDeviceProperty(HDEVINFO hDevInfo, //[in] handle to the device
-                      //information set that contains the interface
-                      SP_DEVINFO_DATA* psdiDevinfo, //[in] structure
-                      //that defines the device instance
-                      const DWORD dwProperty, //[in] property
-                      //to be retrieved
-                      TCHAR* szBuff, //[out] requested device property
-                      DWORD& dwLen //[in, out] availabile and required
-                      //buffer size in bytes
-                      );
+  //Get the device information structure of the specified device. 
+  if (SetupDiEnumDeviceInfo (hDevInfo, nMemberIndex, &sddDevInfo))
+    {
+    TCHAR szBuff[MAX_PATH];
+    DWORD dwSize = sizeof(szBuff);
+    extern bool GetDeviceProperty(HDEVINFO hDevInfo, SP_DEVINFO_DATA* psdiDevinfo,
+                        const DWORD dwProperty, TCHAR* szBuff, DWORD& dwLen);
 
-  GetDeviceProperty(hDevInfo,
-                    &DevInfoData,
-                    SPDRP_DEVICEDESC,
-                    (TCHAR*) szBuff,
-                    dwSize
-                    );
+    if(GetDeviceProperty(hDevInfo, //[in] handle to the device
+                        //information set that contains the interface
+                      &sddDevInfo,  //[in] structure
+                        //that defines the device instance
+                      SPDRP_DEVICEDESC,//[in] property
+                        //to be retrieved
+                      szBuff, //[out] requested device property
+                      dwSize //[in, out] availabile and required
+                        //buffer size in bytes
+                      ))
+      {
+      strDeviceDescription = (LPTSTR)szBuff;
+      bResult = true;
+      }
+    else
+      {
+      if (GetLastError() == ERROR_INSUFFICIENT_BUFFER)
+        {
+        LPTSTR szDescription = (LPTSTR)new char[dwSize];
+        if (szDescription != NULL)
+          {
+          if(GetDeviceProperty(hDevInfo,
+                            &sddDevInfo,
+                            SPDRP_DEVICEDESC,
+                            szBuff,
+                            dwSize
+                            ))
+            {
+            strDeviceDescription = szDescription;
+            bResult = true;
+            }
+          delete[] szDescription;
+          }
+        }
 
-   strDeviceDescription = (LPTSTR)szBuff;
+      //Failed 1st or 2nd try to obtain device property
+      if(GetLastError() != NO_ERROR &&
+        GetLastError() != ERROR_NO_MORE_ITEMS)
+        {
+        //ToDO: Insert error handling here.
+             
+        }
 
+      }
+    }
+
+  SetupDiDestroyDeviceInfoList(hDevInfo);
   }
-
-  SetupDiDestroyDeviceInfoList (hDevInfo);
+return bResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -300,8 +371,8 @@ void GetDeviceDescription(const GUID& guidDev, //[in]
 
 /*****************************************************************************
  * $Log: KGetDeviceProperty.cpp,v $
- * Revision 1.3  2009/07/09 22:15:44  ddarko
- * GetDeviceDescription()
+ * Revision 1.4  2009/07/10 19:41:07  ddarko
+ * Moved common code chunks into functions
  *
  * Revision 1.1  2009/07/06 16:09:07  ddarko
  * Extracted from KWinUsb Hub.cpp
