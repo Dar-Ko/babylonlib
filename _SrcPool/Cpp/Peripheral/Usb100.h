@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.5 $ $Date: 2009/05/22 18:41:03 $
+  $Revision: 1.6 $ $Date: 2009/07/12 21:10:26 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -210,16 +210,21 @@ typedef struct _USB_COMMON_DESCRIPTOR {
 } USB_COMMON_DESCRIPTOR;
 typedef USB_COMMON_DESCRIPTOR   *PUSB_COMMON_DESCRIPTOR;
 
-/* USB hub descriptor */
-typedef struct _USB_HUB_DESCRIPTOR {
-    UCHAR   bDescriptorLength;
-    UCHAR   bDescriptorType;
-    UCHAR   bNumberOfPorts;
-    USHORT  wHubCharacteristics;
-    UCHAR   bPowerOnToPowerGood;
-    UCHAR   bHubControlCurrent;
-    UCHAR   bRemoveAndPowerMask[64];
-} USB_HUB_DESCRIPTOR;
+/*USB hub descriptor.
+  See also: USB Specification: Chapter 11
+ */
+typedef struct _USB_HUB_DESCRIPTOR 
+  {
+  UCHAR  bDescriptorLength;   //length of this descriptor in bytes
+  UCHAR  bDescriptorType;     //descriptor type; default value for hub is 0x29
+  UCHAR  bNumberOfPorts;      //number of ports on the hub
+  USHORT wHubCharacteristics; //hub charateristics
+  UCHAR  bPowerOnToPowerGood; //time, in 2 ms increments, that it
+                              //takes the device to turn on completely
+  UCHAR  bHubControlCurrent;  //maximum current consumption [mA]
+  UCHAR  bRemoveAndPowerMask[64];//power control and removable bitmasks
+                               //for up to 255 ports
+  } USB_HUB_DESCRIPTOR;
 typedef USB_HUB_DESCRIPTOR  *PUSB_HUB_DESCRIPTOR;
 
 /* USB configuration power descriptor */
@@ -269,6 +274,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.6  2009/07/12 21:10:26  ddarko
+ * Comments
+ *
  * Revision 1.5  2009/05/22 18:41:03  ddarko
  * Consolidated items across the header files
  *

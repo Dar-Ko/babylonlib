@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.5 $ $Date: 2009/07/10 21:34:31 $
+  $Revision: 1.6 $ $Date: 2009/07/12 21:10:26 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -21,7 +21,107 @@
   #include <string>  //CString base class
 #endif
 #include "KString.h" //CString class replacement
+#include "UsbIoCtl.h"//USB_CONNECTION_STATUS enum
 
+///////////////////////////////////////////////////////////////////////////////
+/*USB Device Information container.
+ A USB device is attached to the hub a port. 
+ A USB device can be any kind of peripheral device, such as a keyboard, mouse,
+  game controller, printer, USB hub and so forth. 
+ */
+class CUsbDevice
+{
+public:
+  CUsbDevice();
+  ~CUsbDevice();
+public:
+  CString m_strDevice;       //USB device path
+  CString m_strDescription;  //description of the device
+  bool m_bHub;  //device is a hub (TODO: check if class descriptor is sufficient)
+  USB_CONNECTION_STATUS m_eStatus; //device status
+};
+///////////////////////////////////////////////////////////////////////////////
+// Inlines
+
+//-----------------------------------------------------------------------------
+/*Default constructor
+ */
+inline CUsbDevice::CUsbDevice() :
+    m_eStatus(NoDeviceConnected)
+{
+}
+
+inline CUsbDevice::~CUsbDevice()
+{
+}
+
+#include "STL/KArrayStl.h" //CArray template
+///////////////////////////////////////////////////////////////////////////////
+/*Handles the USB hub.
+  A USB hub is a device that allows many USB devices to be connected to a
+  single USB port on the host computer or another hub.
+
+  Hub Provides multiple ports, for attaching devices to the USB bus.
+  Hubs are also responsible for detecting devices that are plugged in or 
+  unplugged and for providing power for attached devices. 
+  Hubs are either bus-powered, drawing power directly from the USB bus or 
+  self-powered, drawing power from an external power supply. 
+  Bus-powered hubs are capable of providing 100 mA
+  per port for attached devices and they can provide a maximum of four ports
+  for devices to be plugged into.
+  Self-powered hubs, on the other hand, typically provide 500 mA per port
+  and they can provide more than four ports.
+  Hubs can be stand-alone devices or they can be integrated into other devices
+  such as keyboards and monitors.
+
+  See also: CUsbDeviceTree, CUsbHostController, CUsbDevice
+ */
+class CUsbHub : public CUsbDevice
+{
+public:
+  CUsbHub();
+  ~CUsbHub();
+  unsigned int Enumerate(LPCTSTR szDevicePath);
+
+public:
+  unsigned int m_nPortCount; //number of ports on the hub
+
+//protected:
+  CArray<CUsbDevice> m_usbNodeList; //hub node connections (ports)
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Inlines
+
+//-----------------------------------------------------------------------------
+/*Default constructor
+ */
+inline CUsbHub::CUsbHub() :
+  m_nPortCount(0)
+{
+m_bHub = true;
+}
+
+inline CUsbHub::~CUsbHub()
+{
+}
+
+///////////////////////////////////////////////////////////////////////////////
+/*Universal Serial Bus (USB) host controller (also known as the root, root tier
+  or the root hub) controls all traffic on the data bus and also functions as
+  a hub. One host controller can control several USB ports.
+
+ */
+class CUsbHostController : public CUsbHub
+{
+public:
+  bool GetDeviceInfo(const unsigned int nMemberIndex = 0);
+
+protected:
+  bool GetRootHub(LPCTSTR szDevicePath, CString& strRootHubPath);
+};
+
+#include "STL/KArrayStl.h" //CArray template
 ///////////////////////////////////////////////////////////////////////////////
 /*
   USB uses a tiered topology so that you can simultaneously attach up to 127 
@@ -44,73 +144,18 @@
             .
             .
 
-
- There are three types of USB components:
-
-    
-    Hub Provides multiple ports, for attaching devices to the USB bus. Hubs are also responsible for detecting devices that are plugged in or unplugged, and for providing power for attached devices. Hubs are either bus-powered, drawing power directly from the USB bus, or self-powered, drawing power from an external AC adapter. Bus-powered hubs are capable of providing 100 milliamperes (mA) of power per port for attached devices, and they can provide a maximum of four ports for devices to be plugged into. Self-powered hubs, on the other hand, typically provide 500 mA of power per port, and they can provide more than four ports. Hubs can be stand-alone devices, or they can be integrated into other devices such as keyboards and monitors.
-    Device A USB device, which is attached to the bus through a port. A USB device can be any kind of peripheral device, such as a keyboard, mouse, game controller, printer, and so forth. Certain USB input devices such as keyboards and mice require only 100 mA of power to function. Thus, they can be plugged into both bus-powered and self-powered hubs, in addition to being plugged directly into a root port. Other devices such as printers, scanners, storage devices, and video-conferencing cameras might require 500 mA of power to function. These kinds of devices can only be plugged into root ports or self-powered hubs. If the device requires more than 500 mA of power, it includes a wall plug provided by the vendor for power.
-
-  See also:
+  There are three types of USB components: host controller, hub and device.
+  
+  See also: CUsbHostController, CUsbHub, CUsbDevice
  */
 class CUsbDeviceTree
 {
 public:
-  void GetRoot();
-protected:
-  //CArray<CUsbRootHubDescription> m_usbRootList;
+  int Enumerate();
+//protected:
+
+  CArray<CUsbHostController> m_usbRootList;
 };
-
-///////////////////////////////////////////////////////////////////////////////
-/*Universal Serial Bus (USB) host controller (also known as the root, root tier
-  or the root hub) controls all traffic on the data bus and also functions as
-  a hub. One host controller can control several USB ports.
-
- */
-class CUsbHostController
-{
-public:
-  bool GetDeviceInfo(const unsigned int nMemberIndex = 0);
-
-protected:
-  bool GetRootHub(LPCTSTR szDevicePath, CString& strName);
-
-public:
-  CString m_strName;        //USB root hub device path
-  CString m_strDescription; //description of the device
-
-};
-
-///////////////////////////////////////////////////////////////////////////////
-/*Handles the USB hub.
-  A USB hub is a device that allows many USB devices to be connected to a
-  single USB port on the host computer or another hub.
-
-  See also:
- */
-class CUsbHub
-{
-public:
-  CUsbHub();
-
-  ~CUsbHub();
-  unsigned int Enumerate();
-
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// Inlines
-
-//-----------------------------------------------------------------------------
-/*Default constructor
- */
-inline CUsbHub::CUsbHub()
-{
-}
-
-inline CUsbHub::~CUsbHub()
-{
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif //__cplusplus
@@ -119,6 +164,9 @@ inline CUsbHub::~CUsbHub()
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.6  2009/07/12 21:10:26  ddarko
+ * Comments
+ *
  * Revision 1.5  2009/07/10 21:34:31  ddarko
  * Renamed methods
  *

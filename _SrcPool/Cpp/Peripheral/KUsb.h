@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/05/22 18:41:03 $
+  $Revision: 1.3 $ $Date: 2009/07/12 21:10:26 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -39,6 +39,7 @@
 
 //-----------------------------------------------------------------------------
 //Device Class Definition for Human Interface Devices (HID) v.1.11
+//See also: "USB 1.1 specification": Chapters 9.5; 9.6
 
 //Class Descriptor Types
 #define USBCLASSDESCRIPTOR_HID      0x21

@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.7 $ $Date: 2009/06/30 18:35:05 $
+  $Revision: 1.8 $ $Date: 2009/07/12 21:10:26 $
   $Author: ddarko $
 
   USB device I/O control codes for Microsoft Windows OS.
@@ -246,13 +246,15 @@ typedef enum _USB_HUB_NODE {
 } USB_HUB_NODE;
 #endif
 
-/* USB hub information */
 #ifndef USB_KERNEL_IOCTL
-typedef struct _USB_HUB_INFORMATION {
-    USB_HUB_DESCRIPTOR  HubDescriptor;
-    BOOLEAN             HubIsBusPowered;
-} USB_HUB_INFORMATION;
-typedef USB_HUB_INFORMATION *PUSB_HUB_INFORMATION;
+  /*USB_HUB_INFORMATION structure contains information about an USB hub.*/
+  typedef struct _USB_HUB_INFORMATION 
+    {
+    USB_HUB_DESCRIPTOR HubDescriptor;  /*selected hub information*/
+    BOOLEAN            HubIsBusPowered;/*indicates whether the hub is powered*/
+    } USB_HUB_INFORMATION;
+  /*USB hub information*/
+  typedef USB_HUB_INFORMATION *PUSB_HUB_INFORMATION;
 #endif
 
 /* USB MI parent information */
@@ -263,16 +265,33 @@ typedef struct _USB_MI_PARENT_INFORMATION {
 typedef USB_MI_PARENT_INFORMATION   *PUSB_MI_PARENT_INFORMATION;
 #endif
 
-/* USB node information */
 #ifndef USB_KERNEL_IOCTL
-typedef struct _USB_NODE_INFORMATION {
-    USB_HUB_NODE    NodeType;
-    union {
-        USB_HUB_INFORMATION         HubInformation;
-        USB_MI_PARENT_INFORMATION   MiParentInformation;
-    } u;
-} USB_NODE_INFORMATION;
-typedef USB_NODE_INFORMATION    *PUSB_NODE_INFORMATION;
+  /*USB_NODE_INFORMATION structure is used with the IOCTL_USB_GET_NODE_INFORMATION
+    I/O control request the information about a parent device.
+   */
+  typedef struct _USB_NODE_INFORMATION
+    {
+    USB_HUB_NODE    NodeType; /*indicates whether the parent device is a hub or
+                                a non-hub composite device:
+
+                                - UsbHub indicates that the device is a hub.
+                                - UsbMIParent the device is a composite device 
+                                  with multiple interfaces.
+                               */
+    union
+      {
+      /*information about a parent hub device.*/
+      USB_HUB_INFORMATION       HubInformation;
+       /*information about a parent composite device.
+         Composite devices are devices that have multiple interfaces.
+         Windows loads the USB generic parent driver for composite devices,
+         instead of the hub driver, but the generic parent driver performs
+         many of the functions of the hub driver.*/
+      USB_MI_PARENT_INFORMATION MiParentInformation;
+      } u;
+    } USB_NODE_INFORMATION;
+  /*USB parent node information*/
+  typedef USB_NODE_INFORMATION    *PUSB_NODE_INFORMATION;
 #endif
 
 /* USB pipe information */
@@ -419,22 +438,41 @@ typedef USB_NODE_CONNECTION_ATTRIBUTES  *PUSB_NODE_CONNECTION_ATTRIBUTES;
 #endif
 #endif
 
-/* USB node connection information (extended version) */
 #ifndef USB_KERNEL_IOCTL
-#if (_WIN32_WINNT >= 0x0501)
-typedef struct _USB_NODE_CONNECTION_INFORMATION_EX {
-    ULONG                   ConnectionIndex;
-    USB_DEVICE_DESCRIPTOR   DeviceDescriptor;
-    UCHAR                   CurrentConfigurationValue;
-    UCHAR                   Speed;
-    BOOLEAN                 DeviceIsHub;
-    USHORT                  DeviceAddress;
-    ULONG                   NumberOfOpenPipes;
-    USB_CONNECTION_STATUS   ConnectionStatus;
-    USB_PIPE_INFO           PipeList[1];
-} USB_NODE_CONNECTION_INFORMATION_EX;
-typedef USB_NODE_CONNECTION_INFORMATION_EX  *PUSB_NODE_CONNECTION_INFORMATION_EX;
-#endif
+  #if (_WIN32_WINNT >= 0x0501)
+    /*USB_NODE_CONNECTION_INFORMATION_EX structure is used with the I/O control
+      request IOCTL_USB_GET_NODE_CONNECTION_INFORMATION_EX to obtain
+      information about the connection associated with the indicated USB port.
+
+      If there is no device connected, result of the request is the information
+      about the port. If a device is connected to the port, the structure
+      contains information about both the port and the connected device.
+
+      Note: Microsoft Windows XP and Windows .NET Server or newer specific.
+
+      See also: "Universal Serial Bus Specification"
+     */
+    typedef struct _USB_NODE_CONNECTION_INFORMATION_EX
+      {
+      ULONG                   ConnectionIndex; /*specifies the number of 
+                the port in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
+      USB_DEVICE_DESCRIPTOR   DeviceDescriptor; /*attached USB device description*/
+      UCHAR                   CurrentConfigurationValue; /*ID of attached USB 
+                                             device description configuration*/
+      UCHAR                   Speed;  /*data transfer speed of speed of 
+                                        the attached USB device*/
+      BOOLEAN                 DeviceIsHub; /*indicates if attached device is a hub*/
+      USHORT                  DeviceAddress;/*bus-relative address of the 
+                                              attached device*/
+      ULONG                   NumberOfOpenPipes; /*number of open USB pipes
+                                                   associated with the port*/
+      USB_CONNECTION_STATUS   ConnectionStatus; /*connection status of the port*/
+      USB_PIPE_INFO           PipeList[1]; /*list of theopen pipes associated
+                 with the port, includeing the associated endpoint descriptor*/
+      } USB_NODE_CONNECTION_INFORMATION_EX;
+    /*Extended USB node connection information*/
+    typedef USB_NODE_CONNECTION_INFORMATION_EX  *PUSB_NODE_CONNECTION_INFORMATION_EX;
+  #endif
 #endif
 
 /* USB hub capability flags */
@@ -827,6 +865,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.8  2009/07/12 21:10:26  ddarko
+ * Comments
+ *
  * Revision 1.7  2009/06/30 18:35:05  ddarko
  * Windows tag
  *
