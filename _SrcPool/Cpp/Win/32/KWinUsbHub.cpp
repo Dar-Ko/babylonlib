@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.6 $ $Date: 2009/07/10 21:33:41 $
+  $Revision: 1.7 $ $Date: 2009/07/12 21:11:24 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -61,6 +61,26 @@
 #include <setupapi.h> //Device Management Structures
 
 ///////////////////////////////////////////////////////////////////////////////
+//CUsbDeviceTree class implementation
+
+//-----------------------------------------------------------------------------
+/*
+ */
+int CUsbDeviceTree::Enumerate()
+{
+TRACE(_T("CUsbDeviceTree::Enumerate()\n"));
+
+int iCount = 0;
+CUsbHostController usbHc;
+while(usbHc.GetDeviceInfo(iCount))
+  {
+  m_usbRootList.Add(usbHc);
+  iCount++;
+  }
+return iCount;
+}
+
+///////////////////////////////////////////////////////////////////////////////
 //CUsbHostController class implementation
 
 //-----------------------------------------------------------------------------
@@ -83,7 +103,7 @@ bool CUsbHostController::GetDeviceInfo(const unsigned int nMemberIndex //[in] = 
                                        //the device information set.
                                        )
 {
-TRACE1(_T("  CUsbHostController::GetDeviceInfo(%d)\n"), nMemberIndex);
+TRACE1(_T("  CUsbHostController::GetDeviceInfo(device index = %d)\n"), nMemberIndex);
 bool bResult = false;
 /*The system-supplied port driver for a USB host controller registers instances
   of GUID_DEVINTERFACE_USB_HOST_CONTROLLER to notify the operating system and
@@ -123,17 +143,19 @@ if(GetDevicePath(guidUsbHc,    //the device interface
     TRACE2(_T("    %d. %s\n"), nMemberIndex, (LPCTSTR)m_strDescription);
   #endif
 
-  if (GetRootHub((LPCTSTR)strDevicePath, m_strName))
+  if (GetRootHub((LPCTSTR)strDevicePath, m_strDevice))
     {
     #ifdef _UNICODE
-      TRACE2(_T("    %d. %ws\n"), nMemberIndex, (LPCTSTR)m_strName);
+      TRACE2(_T("    %d. %ws\n"), nMemberIndex, (LPCTSTR)m_strDevice);
     #else
-      TRACE2(_T("    %d. %s\n"), nMemberIndex, (LPCTSTR)m_strName);
+      TRACE2(_T("    %d. %s\n"), nMemberIndex, (LPCTSTR)m_strDevice);
     #endif
-    bResult = true;
+    m_nPortCount = Enumerate((LPCTSTR)m_strDevice); //Enumerate USB ports 
+    if (m_nPortCount > 0)
+      bResult = true;
     }
   else
-    m_strName.Empty();
+    m_strDevice.Empty();
 
   }
 return bResult;
@@ -147,14 +169,14 @@ return bResult;
  */
 bool CUsbHostController::GetRootHub(LPCTSTR szDevicePath, //[in] the USB host 
                                     //controller device path.
-                                    CString& strName //[out] the USB root hub 
+                                    CString& strRootHubPath //[out] the USB root hub 
                                     //device path
                                     )
 {
 TRACE(_T("    CUsbHostController::GetRootHub()\n"));
 bool bResult = false;
 //Open a USB Host Controller.
-HANDLE hHostCotroller = CreateFile(szDevicePath,
+HANDLE hHostController = CreateFile(szDevicePath,
                           GENERIC_WRITE,
                           FILE_SHARE_WRITE,
                           NULL,//if lpSecurityAttributes is NULL,
@@ -162,34 +184,147 @@ HANDLE hHostCotroller = CreateFile(szDevicePath,
                           OPEN_EXISTING,
                           0,
                           NULL);
-if (hHostCotroller != INVALID_HANDLE_VALUE)
+if (hHostController != INVALID_HANDLE_VALUE)
   {
   //Get the hub name; Check GetLastError() in case of failure.
   TUsbSymbolicName<USB_ROOT_HUB_NAME,
-                    IOCTL_USB_GET_ROOT_HUB_NAME> usbRootHubName(hHostCotroller);
+                    IOCTL_USB_GET_ROOT_HUB_NAME> usbRootHubName(hHostController);
   if (usbRootHubName.IsValid())
     {
-    strName = usbRootHubName.GetName();
+    strRootHubPath = usbRootHubName.GetName();
     bResult = true;
     }
   else
     {
     TRACE1(_T("      Failed! Error 0x%0.8X.\n"), GetLastError());
     }
-  CloseHandle(hHostCotroller);
+  CloseHandle(hHostController);
   }
 
 return bResult;
 }
 
+
 ///////////////////////////////////////////////////////////////////////////////
 //CUsbHub class implementation
+#include "UsbIoCtl.h"//USB_NODE_CONNECTION_INFORMATION_EX
 
 
 //-----------------------------------------------------------------------------
-unsigned int CUsbHub::Enumerate()
+/*Enumerate USB hub ports.
+
+  Returns number of availabile USB ports or 0 in case of a failure. Use
+  GetLasteError() to obtain error code.
+ */
+unsigned int CUsbHub::Enumerate(LPCTSTR szDevicePath //[out] the USB hub 
+                                    //device path
+                                )
 {
-return 0;
+TRACE(_T("    CUsbHub::Enumerate()\n"));
+unsigned int dwPortCount = 0;
+
+if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
+  {
+  //Open the connection with the hub
+  HANDLE hHub = CreateFile(szDevicePath,
+                            GENERIC_WRITE,
+                            FILE_SHARE_WRITE,
+                            NULL,//if lpSecurityAttributes is NULL,
+                                //the handle cannot be inherited.
+                            OPEN_EXISTING,
+                            0,
+                            NULL);
+  if (hHub != INVALID_HANDLE_VALUE)
+    {
+    //Obtain the hub information
+    DWORD nBytesReturned; //number of bytes stored in the result buffer
+    USB_NODE_INFORMATION usbHubNodeInfo;
+    usbHubNodeInfo.NodeType = UsbHub; //parent hub device
+    unsigned int nBytes = sizeof(USB_NODE_INFORMATION);
+    if (DeviceIoControl(hHub, 
+                        IOCTL_USB_GET_NODE_INFORMATION, 
+                        &usbHubNodeInfo, 
+                        nBytes, 
+                        &usbHubNodeInfo, 
+                        nBytes, 
+                        &nBytesReturned, //unused
+                        NULL))
+      {
+      #ifdef _DEBUG
+        USB_HUB_DESCRIPTOR& usbDbgHubInfo = usbHubNodeInfo.u.HubInformation.HubDescriptor;
+        TRACE1(_T("      number of ports = %d.\n"), usbDbgHubInfo.bNumberOfPorts);
+        TRACE1(_T("      descriptor type = 0x%X.\n"), usbDbgHubInfo.bDescriptorType);
+        TRACE1(_T("      startup time    = %d ms.\n"), (usbDbgHubInfo.bPowerOnToPowerGood * 2));
+        (usbHubNodeInfo.u.HubInformation.HubIsBusPowered == FALSE) ? 
+            TRACE(_T("      self-powered\n")) : 
+            TRACE(_T("      bus-powered\n"));
+        TRACE1(_T("      controller consumption = %d mA.\n"), usbDbgHubInfo.bHubControlCurrent);
+      #endif
+      dwPortCount = usbHubNodeInfo.u.HubInformation.HubDescriptor.bNumberOfPorts;
+
+      //Obtain information about every device attached to the hub
+      #if (_WIN32_WINNT >= 0x0501)
+        USB_NODE_CONNECTION_INFORMATION_EX usbPortInfo;
+      #else
+        USB_NODE_CONNECTION_INFORMATION usbPortInfo;
+      #endif
+
+      unsigned long& nPortId = usbPortInfo.ConnectionIndex;
+      nPortId = 1; //USB port indexing begins with 1
+      while (nPortId <= dwPortCount)
+        {
+        CUsbDevice usbDevice;
+        if (DeviceIoControl(hHub,
+                            
+                            #if (_WIN32_WINNT >= 0x0501)
+                              IOCTL_USB_GET_NODE_CONNECTION_INFORMATION_EX,
+                            #else
+                              IOCTL_USB_GET_NODE_CONNECTION_INFORMATION,
+                            #endif
+
+                            &usbPortInfo,
+                            nBytes,
+                            &usbPortInfo,
+                            nBytes,
+                            &nBytesReturned,  //unused
+                            NULL))
+          {
+          TRACE2(_T("      Port %d connection status: %d.\n"),
+                    usbPortInfo.ConnectionIndex, //port Id
+                    usbPortInfo.ConnectionStatus);
+          TRACE1(_T("      hub attached: %d\n"), usbPortInfo.DeviceIsHub);
+          usbDevice.m_eStatus = usbPortInfo.ConnectionStatus;
+
+          if (usbPortInfo.ConnectionStatus != NoDeviceConnected)
+            {
+            usbDevice.m_bHub = (usbPortInfo.DeviceIsHub == TRUE);
+            //if(usbDevice.m_bHub)
+              {
+
+              //Get the hub name; Check GetLastError() in case of failure.
+              TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
+                               IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName(hHub);
+              if (usbHubName.IsValid())
+                {
+                CString strHubPath = usbHubName.GetName();
+                
+                }
+              else
+                {
+                TRACE1(_T("      Failed! Error 0x%0.8X.\n"), GetLastError());
+                }
+              }
+
+            }
+          }
+        m_usbNodeList.Add(usbDevice);
+        nPortId++;
+        }
+      }
+    CloseHandle(hHub);
+    }
+  }
+return dwPortCount;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
