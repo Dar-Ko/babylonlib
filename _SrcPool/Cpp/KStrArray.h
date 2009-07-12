@@ -1,12 +1,11 @@
 /*$RCSfile: KStrArray.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/07/09 22:16:22 $
+  $Revision: 1.3 $ $Date: 2009/07/12 05:35:38 $
   $Author: ddarko $
 
   Array of CString objects.
   Copyright: CommonSoft Inc
   2009-07-01 Darko Kolakovic
  */
-// Group=Windows
 
 #ifndef _KSTRARRAY_H_
     //$RCSfile: KStrArray.h,v $ sentry
@@ -186,6 +185,9 @@
 #endif  //_KSTRARRAY_H_
 /*****************************************************************************
  * $Log: KStrArray.h,v $
+ * Revision 1.3  2009/07/12 05:35:38  ddarko
+ * Documetation group changed
+ *
  * Revision 1.2  2009/07/09 22:16:22  ddarko
  * *** empty log message ***
  *
