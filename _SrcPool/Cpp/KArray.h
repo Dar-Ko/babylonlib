@@ -1,5 +1,5 @@
 /*$RCSfile: KArray.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/07/12 05:38:09 $
+  $Revision: 1.2 $ $Date: 2009/07/12 21:11:09 $
   $Author: ddarko $
 
   Dynamic array of objects.
@@ -18,9 +18,7 @@
 #ifdef __cplusplus
 
 #if defined (_USE_STL)
-  #include <string>     //std::string template
-  #include <vector>     //std::vector template
-
+  #include "STL/KArrayStl.h" //Standard Template Library (STL)
 #elif defined (_USE_MFC) //Microsoft Fundation Classes Library (MFC)
   #include <afxtempl.h>
 #elif defined (_USE_ATL) //Microsoft Active Template Library (ATL)
@@ -517,6 +515,9 @@ void CArray<TYPE, ARG_TYPE>::AssertValid() const
 #endif  //_KARRAY_H_
 /*****************************************************************************
  * $Log: KArray.h,v $
+ * Revision 1.2  2009/07/12 21:11:09  ddarko
+ * Header file
+ *
  * Revision 1.1  2009/07/12 05:38:09  ddarko
  * Created
  *
