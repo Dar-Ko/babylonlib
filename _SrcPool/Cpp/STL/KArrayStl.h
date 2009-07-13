@@ -1,5 +1,5 @@
 /*$RCSfile: KArrayStl.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/07/13 08:08:17 $
+  $Revision: 1.3 $ $Date: 2009/07/13 09:04:56 $
   $Author: ddarko $
 
   STL port of MFC CArray class.
@@ -36,9 +36,12 @@
     Array indexes always start at position 0. You can decide whether to fix
     the upper bound or allow the array to expand when you add elements past
     the current bound.
+
+    Parameter:
+      - TYPE the type of objects stored in the array.
+
    */
-  template<class TYPE //the type of objects stored in the array
-          >
+  template<class TYPE>
   class CArray : private std::vector<TYPE>
   {
   public:
@@ -193,6 +196,9 @@
 #endif  //_KARRAYSTL_H_
 /*****************************************************************************
  * $Log: KArrayStl.h,v $
+ * Revision 1.3  2009/07/13 09:04:56  ddarko
+ * Comment
+ *
  * Revision 1.2  2009/07/13 08:08:17  ddarko
  * Sentry
  *
