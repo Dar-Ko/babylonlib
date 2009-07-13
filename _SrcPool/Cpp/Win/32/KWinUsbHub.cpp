@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.7 $ $Date: 2009/07/12 21:11:24 $
+  $Revision: 1.8 $ $Date: 2009/07/13 09:29:43 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -298,10 +298,15 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
           if (usbPortInfo.ConnectionStatus != NoDeviceConnected)
             {
             usbDevice.m_bHub = (usbPortInfo.DeviceIsHub == TRUE);
+           //If the device connected to the port is an external hub, get the
+           //name of the external hub and recursively enumerate it.
+
             //if(usbDevice.m_bHub)
               {
 
               //Get the hub name; Check GetLastError() in case of failure.
+              USB_NODE_CONNECTION_NAME usbNodeName;
+              usbNodeName.ConnectionIndex = nPortId;
               TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
                                IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName(hHub);
               if (usbHubName.IsValid())
