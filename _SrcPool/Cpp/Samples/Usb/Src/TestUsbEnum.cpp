@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.6 $ $Date: 2009/07/10 21:34:13 $
+  $Revision: 1.7 $ $Date: 2009/07/13 22:03:33 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -54,7 +54,7 @@ extern bool TsWriteToView(const unsigned int& nValue);
 #endif
 #include "UsbGuid.h" //USB specific GUID
 #include "UsbVid.h"  //USB VID List
-//#include "KWinUsb.h" //TUsbSymbolicName template
+#include "KWinUsb.h" //TUsbSymbolicName template
 #include "KUsbHub.h"   //CUsbHub class
 #include "KStrArray.h" //CStringArray class
 
@@ -218,6 +218,57 @@ try
       g_logTest.LogResult(bResult); //Log object's construction
       }
 
+    //Test USB port enumeration
+    if(bResult)
+      {
+      CUsbHub usbRootHub;
+      //Open a USB Host Controller.
+      g_logTest.m_szObjectName = _T("TUsbSymbolicName::GetName()");
+      g_logTest.m_szFileName   = _T("KWinUsb.h"); //function or object file name
+      HANDLE hHostController = CreateFile((LPCTSTR)strResult,
+                                GENERIC_WRITE,
+                                FILE_SHARE_WRITE,
+                                NULL,//if lpSecurityAttributes is NULL,
+                                    //the handle cannot be inherited.
+                                OPEN_EXISTING,
+                                0,
+                                NULL);
+      if (hHostController != INVALID_HANDLE_VALUE)
+        {
+
+        //Get the hub name; Check GetLastError() in case of failure.
+        TUsbSymbolicName<USB_ROOT_HUB_NAME,
+                          IOCTL_USB_GET_ROOT_HUB_NAME> usbRootHubName(hHostController);
+        if (usbRootHubName.IsValid())
+          {
+          usbRootHub.m_strDevice = usbRootHubName.GetName();
+          bResult = true;
+          }
+        else
+          {
+          TRACE1(_T("      Failed! Error 0x%0.8X.\n"), GetLastError());
+          bResult = false;
+          }
+        CloseHandle(hHostController);
+        }
+      else
+        bResult = false;
+      g_logTest.LogResult(bResult); //Log object's construction
+
+      if(bResult)
+        {
+        g_logTest.m_szObjectName = _T("CUsbHub::Enumerate()");
+        g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
+
+        unsigned nRootHubPortCount = usbRootHub.Enumerate((LPCTSTR)usbRootHub.m_strDevice);
+        bResult = (nRootHubPortCount > 0);
+
+        TsWriteToView(_T("number of ports = "));
+        TsWriteToViewLn(nRootHubPortCount);
+        g_logTest.LogResult(bResult); //Log object's construction
+        }
+      }
+
     if(bResult)
       {
       g_logTest.m_szObjectName = _T("CUsbHostController::CUsbHostController()");
@@ -239,11 +290,11 @@ try
       while(usbHc.GetDeviceInfo(nHubCount))
         {
         #ifdef _UNICODE
-          TRACE2(_T("%d. %ws\n"), nCount, (LPCTSTR)usbHc.m_strName);
+          TRACE2(_T("  %d. %ws\n"), nCount, (LPCTSTR)usbHc.m_strDevice);
         #else
-          TRACE2(_T("%d. %ws\n"), nCount, (LPCTSTR)usbHc.m_strName);
+          TRACE2(_T("  %d. %s\n"), nCount, (LPCTSTR)usbHc.m_strDevice);
         #endif
-        TsWriteToViewLn((LPCTSTR)usbHc.m_strName);
+        TsWriteToViewLn((LPCTSTR)usbHc.m_strDevice);
         nHubCount++;
         }
       TRACE1(_T("Number of host controllers: %d."), nHubCount);
@@ -252,7 +303,28 @@ try
       bResult = (nHcdCount == nHubCount); 
 
       g_logTest.LogResult(bResult); //Log object's construction
+      }
 
+    if (bResult)
+      {
+      //Test USB device enumeration
+      g_logTest.m_szObjectName = _T("CUsbDeviceTree::Enumerate()");
+      g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
+
+      CUsbDeviceTree usbTree;
+      bResult = ((int)nHcdCount == usbTree.Enumerate()); 
+      nHubCount = 0;
+      while((int)nHubCount < usbTree.m_usbRootList.GetCount())
+        {
+        TsWriteToViewLn((LPCTSTR)usbTree.m_usbRootList[nHubCount].m_strDescription);
+        nHubCount++;
+        }
+
+      g_logTest.LogResult(bResult); //Log object's construction
+      }
+
+    if (bResult)
+      {
 //    g_logTest.m_szObjectName = _T("CUsbHub::CUsbHub()");
 //    g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
 
@@ -300,6 +372,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.7  2009/07/13 22:03:33  ddarko
+ *Test port enumeration
+ *
  *Revision 1.6  2009/07/10 21:34:13  ddarko
  *Test of CUsbHostController
  *
