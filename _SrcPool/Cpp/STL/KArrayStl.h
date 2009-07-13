@@ -1,5 +1,5 @@
 /*$RCSfile: KArrayStl.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/07/12 07:01:03 $
+  $Revision: 1.2 $ $Date: 2009/07/13 08:08:17 $
   $Author: ddarko $
 
   STL port of MFC CArray class.
@@ -7,25 +7,36 @@
   2009-07-12 Darko Kolakovic
  */
 
-#ifndef _KARRAY_H_
+#ifndef _KARRAYSTL_H_
     //$RCSfile: KArrayStl.h,v $ sentry
-  #define _KARRAY_H_
+  #define _KARRAYSTL_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
+#endif
+
+#ifdef _DEBUG
+  #ifndef _STLP_DEBUG
+    #define _STLP_DEBUG 1    //Debug STLPort library
+  #endif
+#else
+  #ifdef _STLP_DEBUG
+    #undef _STLP_DEBUG
+  #endif
 #endif
 
 #ifdef __cplusplus
 
   #include <vector>     //std::vector template
 
-//TODO: Standard Template Library (STL)
-/*The CArray class supports arrays that are are similar to C arrays, but can dynamically shrink and grow as necessary.
+  /////////////////////////////////////////////////////////////////////////////
+  /*The CArray class supports arrays that can dynamically shrink and grow
+    as necessary.
 
-Array indexes always start at position 0. You can decide whether to fix the upper bound or allow the array to expand when you add elements past the current bound. Memory is allocated contiguously to the upper bound, even if some elements are null.
-
-As with a C array, the access time for a CArray indexed element is constant and is independent of the array size.
-*/
+    Array indexes always start at position 0. You can decide whether to fix
+    the upper bound or allow the array to expand when you add elements past
+    the current bound.
+   */
   template<class TYPE //the type of objects stored in the array
           >
   class CArray : private std::vector<TYPE>
@@ -50,7 +61,6 @@ As with a C array, the access time for a CArray indexed element is constant and 
   };
   /////////////////////////////////////////////////////////////////////////////
   //Inlines
-
 
   //---------------------------------------------------------------------------
   /*
@@ -180,9 +190,12 @@ As with a C array, the access time for a CArray indexed element is constant and 
 
 #endif //__cplusplus
 ///////////////////////////////////////////////////////////////////////////////
-#endif  //_KARRAY_H_
+#endif  //_KARRAYSTL_H_
 /*****************************************************************************
  * $Log: KArrayStl.h,v $
+ * Revision 1.2  2009/07/13 08:08:17  ddarko
+ * Sentry
+ *
  * Revision 1.1  2009/07/12 07:01:03  ddarko
  * Created
  *
