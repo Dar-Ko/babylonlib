@@ -1,5 +1,5 @@
 /*$RCSfile: KArray.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/07/12 21:11:09 $
+  $Revision: 1.3 $ $Date: 2009/07/13 22:04:31 $
   $Author: ddarko $
 
   Dynamic array of objects.
@@ -29,11 +29,13 @@
 Array indexes always start at position 0. You can decide whether to fix the upper bound or allow the array to expand when you add elements past the current bound. Memory is allocated contiguously to the upper bound, even if some elements are null.
 
 As with a C array, the access time for a CArray indexed element is constant and is independent of the array size.
+
+Parameters:
+  - TYPE the type of objects stored in the array.
+  - ARG_TYPE argument type used to access objects stored in the array;
+             default value is the reference to TYPE.
 */
-  template<class TYPE, //the type of objects stored in the array
-  class ARG_TYPE = const TYPE& //argument type used to access objects stored
-  //in the array. Often a reference to TYPE.
-  >
+  template<class TYPE, class ARG_TYPE = const TYPE&>
   class CArray
   {
   public:
@@ -515,6 +517,9 @@ void CArray<TYPE, ARG_TYPE>::AssertValid() const
 #endif  //_KARRAY_H_
 /*****************************************************************************
  * $Log: KArray.h,v $
+ * Revision 1.3  2009/07/13 22:04:31  ddarko
+ * Comment
+ *
  * Revision 1.2  2009/07/12 21:11:09  ddarko
  * Header file
  *
