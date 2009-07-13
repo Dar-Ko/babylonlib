@@ -111,11 +111,13 @@ template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
 class TUsbSymbolicName
 {
 public:
+  TUsbSymbolicName();
   TUsbSymbolicName(HANDLE hDevice);
   virtual ~TUsbSymbolicName();
 public:
   bool IsValid() const;
   LPCWSTR GetName();
+  void Create(HANDLE hDevice, TUSBKEYNAME& usbOutput);
 
 private:
   TUSBKEYNAME* m_pData;   //device symbolic name data structure, padded with
@@ -124,6 +126,14 @@ private:
 };
 
 //-----------------------------------------------------------------------------
+/*Default constructor
+ */
+template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
+TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::TUsbSymbolicName() : 
+  m_pData(NULL), m_pSymbolicName(NULL)
+{
+}
+
 /*Sends an I/O control request for the symbolic name directly to the specified
   USB device driver. If the operation fails, symbolic name is NULL. To get
   extended error information, call GetLastError().
@@ -133,6 +143,23 @@ TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::TUsbSymbolicName(HANDLE hDevice //[i
                  //handle to the device on which the operation is to be performed.
                  ) : m_pData(NULL), m_pSymbolicName(NULL)
 {
+TUSBKEYNAME usbTemp;
+Create(hDevice, usbTemp);
+}
+
+//-----------------------------------------------------------------------------
+/*Sends an I/O control request for the symbolic name directly to the specified
+  USB device driver. If the operation fails, symbolic name is NULL. To get
+  extended error information, call GetLastError().
+ */
+template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
+void TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::Create(HANDLE hDevice, //[in]
+                 //handle to the device on which the operation is to be performed.
+                                       TUSBKEYNAME& usbOutput //[in/out] data 
+                //returned by the operation. The input type depends on the value of 
+                //the TUSBIOCTLID parameter.
+                 )
+{
 //Disable warning C4127: conditional expression in ASSERT is constant
 #pragma warning (disable: 4127)
   ASSERT(hDevice != INVALID_HANDLE_VALUE);
@@ -141,17 +168,17 @@ TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::TUsbSymbolicName(HANDLE hDevice //[i
 if (hDevice != INVALID_HANDLE_VALUE)
   {
   DWORD nBytesReturned;
-  TUSBKEYNAME usbTemp;
   /*Send a control code directly to a specified device driver, causing
     the corresponding device to perform the corresponding operation.
     If the operation fails or is pending, the return value is FALSE.
    */
   if (DeviceIoControl(hDevice, //handle to the device
                       TUSBIOCTLID, //control code for the operation
-                      NULL, //data required to perform the operation
-                      0,    //size of the input data, in bytes
-                      &usbTemp, //data returned by the operation
-                      sizeof(usbTemp), //size of the buffer reserved for output data, in bytes
+                      &usbOutput, //data required to perform the operation
+                      sizeof(usbOutput),//size of the input data, in bytes
+                      &usbOutput, //data returned by the operation
+                      sizeof(usbOutput), //size of the buffer reserved 
+                                         //for output data, in bytes
                       &nBytesReturned, //number of bytes actually returned
                       NULL) == TRUE)
     {
@@ -162,17 +189,89 @@ if (hDevice != INVALID_HANDLE_VALUE)
       known beforehand how much padding is required, total length is increased
       for the size of prefix, allowing a couple bytes to be wasted.
       */
-    usbTemp.ActualLength += SYMBOLICLINK_PREFIX_LEN;
-    m_pData = (TUSBKEYNAME*) new BYTE[usbTemp.ActualLength];
+    m_pData = (TUSBKEYNAME*) new BYTE[usbOutput.ActualLength + 
+                                      SYMBOLICLINK_PREFIX_LEN];
     if (m_pData != NULL)
       {
       if (DeviceIoControl(hDevice, //handle to the device
                           TUSBIOCTLID, //control code for the operation
-                          NULL, //data required to perform the operation
-                          0,    //size of the input data, in bytes
+                          (LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN, //data
+                            //required to perform the operation
+                          usbOutput.ActualLength,//size of the input data in bytes
                           (LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN, //data
                            //returned by the operation, offset for the padding
-                          usbTemp.ActualLength,
+                          usbOutput.ActualLength,
+                          &nBytesReturned,
+                          NULL) != TRUE)
+        {
+        //Disable warning C4127: conditional expression in ASSERT is constant
+        #pragma warning (disable: 4127)
+          ASSERT(false); //Failed to obtain symolic link name;
+        #pragma warning (default: 4127)
+        //To get extended error information, call GetLastError().
+        delete [] m_pData;
+        m_pData = NULL;
+        }
+      }
+    }
+  }
+}
+
+/*Partial specialization.
+ */
+template<> inline
+void TUsbSymbolicName<USB_NODE_CONNECTION_NAME, 
+                      IOCTL_USB_GET_NODE_CONNECTION_NAME>::Create(HANDLE hDevice, //[in]
+                 //handle to the device on which the operation is to be performed.
+                                       USB_NODE_CONNECTION_NAME& usbOutput //[in/out] data 
+                //returned by the operation. The input type depends on the value of 
+                //the TUSBIOCTLID parameter.
+                 )
+{
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(hDevice != INVALID_HANDLE_VALUE);
+#pragma warning (default: 4127)
+
+if (hDevice != INVALID_HANDLE_VALUE)
+  {
+  DWORD nBytesReturned;
+  /*Send a control code directly to a specified device driver, causing
+    the corresponding device to perform the corresponding operation.
+    If the operation fails or is pending, the return value is FALSE.
+   */
+  if (DeviceIoControl(hDevice, //handle to the device
+                      IOCTL_USB_GET_NODE_CONNECTION_NAME, //control code for the operation
+                      &usbOutput,//NULL, //data required to perform the operation
+                      sizeof(usbOutput),//0,    //size of the input data, in bytes
+                      &usbOutput, //data returned by the operation
+                      sizeof(usbOutput), //size of the buffer reserved for output data, in bytes
+                      &nBytesReturned, //number of bytes actually returned
+                      NULL) == TRUE)
+    {
+    /*Returned data length is sum of the length of the wide character symbolic
+      link name and the length of unknown data preceding the name. When the
+      preceding data are not required, it could be overwritten with symbolic
+      name prefix in order to obtain proper device name. Because it is not
+      known beforehand how much padding is required, total length is increased
+      for the size of prefix, allowing a couple bytes to be wasted.
+      */
+    m_pData = (USB_NODE_CONNECTION_NAME*) new BYTE[usbOutput.ActualLength +
+                                                   SYMBOLICLINK_PREFIX_LEN];
+    if (m_pData != NULL)
+      {
+      USB_NODE_CONNECTION_NAME& usbHubName = 
+         *(USB_NODE_CONNECTION_NAME*)((LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN);
+      usbHubName.ConnectionIndex = usbOutput.ConnectionIndex; //Set USB port index  
+
+      if (DeviceIoControl(hDevice, //handle to the device
+                          IOCTL_USB_GET_NODE_CONNECTION_NAME, //control code for
+                                                              //the operation
+                          &usbHubName, //data required to perform the operation
+                          usbOutput.ActualLength,//size of the input data, in bytes
+                          &usbHubName, //data
+                           //returned by the operation, offset for the padding
+                          usbOutput.ActualLength,
                           &nBytesReturned,
                           NULL) != TRUE)
         {
