@@ -105,6 +105,20 @@ try
   if (!bRes)
     goto TESTEXIT;
 
+  TsWriteToView(_T("CString strTest5(\"\") => "));
+  CString strTest5( _T("") );
+  bRes = (_tcscmp(strTest5, _T("")) == 0);
+  TsWriteToViewLn(bRes);
+  if (!bRes)
+    goto TESTEXIT;
+
+  TsWriteToView(_T("CString strTest6(strTest0) => "));
+  CString strTest6( strTest0 );
+  bRes = (_tcscmp(strTest5, _T("")) == 0);
+  TsWriteToViewLn(bRes);
+  if (!bRes)
+    goto TESTEXIT;
+
   logEntry.m_bResult = bRes;
   LogTest(&logEntry);
 
@@ -112,6 +126,13 @@ try
   TsWriteToViewLn(_T("\r\nAssignment"));
   logEntry.m_bResult = false;
   logEntry.m_szObjectName = _T("CString::operator=()");
+
+  TsWriteToView(_T("strTest4 = strTest0 => "));
+  strTest4 = strTest0;
+  bRes = (_tcscmp(strTest4, _T("")) == 0);
+  TsWriteToViewLn(bRes);
+  if (!bRes)
+    goto TESTEXIT;
 
   TsWriteToView(_T("strTest0 = strTest3 => "));
   strTest0 = strTest3;
@@ -123,6 +144,13 @@ try
   TsWriteToView(_T("strTest0 = 'Z' => "));
   strTest0 = _T('Z');
   bRes = (_tcscmp(strTest0, _T("Z")) == 0);
+  TsWriteToViewLn(bRes);
+  if (!bRes)
+    goto TESTEXIT;
+
+  TsWriteToView(_T("strTest0 = \"\" => "));
+  strTest0 = _T("");
+  bRes = (_tcscmp(strTest0, _T("")) == 0);
   TsWriteToViewLn(bRes);
   if (!bRes)
     goto TESTEXIT;
@@ -160,7 +188,7 @@ try
   logEntry.m_bResult = bRes;
   LogTest(&logEntry);
 
-  logEntry.m_szObjectName = _T("CString operator+(a, b)");
+  logEntry.m_szObjectName = _T("CString::operator+(a, b)");
   #ifdef _USE_ATL
     //Use Microsoft Active Template Library (ATL) CString implementation
     logEntry.m_szFileName = _T("cstringt.h");
