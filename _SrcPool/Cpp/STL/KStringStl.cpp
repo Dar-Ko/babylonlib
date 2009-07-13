@@ -1038,24 +1038,38 @@ return 0;
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Adds characters to the end of a string.
  */
-void CString::Append(const CString& source )
+void CString::Append(const CString& source //[in] the string whose characters 
+                                           //are to be appended.
+                    )
 {
-TRACE0(_T("TODO: CString::Append()\n"));
-  //TODO:
+#pragma warning (disable: 4127)
+  ASSERT(m_pData != NULL);
+#pragma warning (default: 4127)
+m_pData->append(source);
 }
 
-void CString::Append(LPCTSTR string_p )
+void CString::Append(LPCTSTR string_p //[in] the zero-terminated string
+                                      //to be appended.
+                    )
 {
-TRACE0(_T("TODO: CString::Append()\n"));
-  //TODO:
+#pragma warning (disable: 4127)
+  ASSERT(m_pData != NULL);
+#pragma warning (default: 4127)
+m_pData->append(string_p);
 }
 
-void CString::Append(TCHAR text_character, int number_of_times )
+void CString::Append(TCHAR text_character, //[in] the character value to be appended. 
+                     int number_of_times   //[in] the number of characters
+                                           //to be appended.
+                     )
 {
-TRACE0(_T("TODO: CString::Append()\n"));
-//TODO:
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(m_pData != NULL);
+#pragma warning (default: 4127)
+m_pData->append(number_of_times, text_character);
 }
 
 //-----------------------------------------------------------------------------
@@ -1073,7 +1087,9 @@ void CString::Copy(LPCSTR pchSrc, //[in] pointer to a string containing
    //of the beginning point is less than length of the string source.
                   )
 {
-TRACE0(_T("CString::Copy(LPCSTR)\n"));
+#ifdef _DEBUG_VERBOSE
+  TRACE0(_T("CString::Copy(LPCSTR)\n"));
+#endif
 //Disable warning C4127: conditional expression in ASSERT is constant
 #pragma warning (disable: 4127)
   ASSERT(m_pData != NULL);
@@ -1085,17 +1101,18 @@ if ((pchSrc != NULL) && (nChars != 0))
     //String handler is of SBCS type
     if (nChars < 0) //Treat source as zero-terminated string
       {
-      ASSERT((unsigned long)strlen(pchSrc) > nIndex);
-      *m_pData = &pchSrc[nIndex];
+      m_pData->assign(&pchSrc[nIndex]);
       }
     else //Copy given number of characters
       {
-      ASSERT(strlen(pchSrc) > (nIndex + nChars));
+      ASSERT(strlen(pchSrc) >= (nIndex + nChars));
       m_pData->assign(&pchSrc[nIndex], nChars);
       }
   #else
     extern std::wstring AtoWChar(const char* lpString, int iLen = -1);
-    *m_pData = AtoWChar(pchSrc);
+    if (nChars < 0)
+      nChars = -1;
+    *m_pData = AtoWChar(&pchSrc[nIndex], nChars);
   #endif
   }
 }
@@ -1115,7 +1132,9 @@ void CString::Copy(LPCWSTR pchSrc, //[in] pointer to a string containing
                    )
 
 {
-TRACE0(_T("CString::Copy(LPCWSTR)\n"));
+#ifdef _DEBUG_VERBOSE
+  TRACE0(_T("CString::Copy(LPCWSTR)\n"));
+#endif
 //Disable warning C4127: conditional expression in ASSERT is constant
 #pragma warning (disable: 4127)
   ASSERT(m_pData != NULL);
@@ -1127,17 +1146,18 @@ TRACE0(_T("CString::Copy(LPCWSTR)\n"));
     //String handler is of wchar_t type
     if (nChars < 0) //Treat source as zero-terminated string
       {
-      ASSERT((unsigned long)wcslen(pchSrc) > nIndex);
-      *m_pData = &pchSrc[nIndex];
+      m_pData->assign(&pchSrc[nIndex]);
       }
     else //Copy given number of characters
       {
-      ASSERT(wcslen(pchSrc) > (nIndex + nChars));
+      ASSERT(wcslen(pchSrc) >= (nIndex + nChars));
       m_pData->assign(&pchSrc[nIndex], nChars);
       }
   #else
     extern std::string WtoChar(const wchar_t* lpWideCharStr, int iLen = -1);
-    *m_pData = WtoChar(pchSrc);
+    if (nChars < 0)
+      nChars = -1;
+    *m_pData = WtoChar(&pchSrc[nIndex], nChars);
   #endif
   }
 }
