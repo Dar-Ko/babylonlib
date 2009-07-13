@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.6 $ $Date: 2009/07/12 21:10:26 $
+  $Revision: 1.7 $ $Date: 2009/07/13 22:04:01 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -138,23 +138,37 @@ extern "C" {
 /* All structures in this file get one-byte packing.                         */
 #include <pshpack1.h>
 
-/* USB device descriptor */
-typedef struct _USB_DEVICE_DESCRIPTOR {
-    UCHAR   bLength;
-    UCHAR   bDescriptorType;
-    USHORT  bcdUSB;
-    UCHAR   bDeviceClass;
-    UCHAR   bDeviceSubClass;
-    UCHAR   bDeviceProtocol;
-    UCHAR   bMaxPacketSize0;
-    USHORT  idVendor;
-    USHORT  idProduct;
-    USHORT  bcdDevice;
-    UCHAR   iManufacturer;
-    UCHAR   iProduct;
-    UCHAR   iSerialNumber;
-    UCHAR   bNumConfigurations;
-} USB_DEVICE_DESCRIPTOR;
+/*USB_DEVICE_DESCRIPTOR structure is used to retrieve information about
+  USB device.
+ */
+typedef struct _USB_DEVICE_DESCRIPTOR 
+  {
+  UCHAR   bLength;  /*size of the entire data structure [bytes] */
+  UCHAR   bDescriptorType; /*the descriptor type is 
+                             USB_DEVICE_DESCRIPTOR_TYPE = 0x01*/
+  USHORT  bcdUSB;  /*USB specification version as binary-coded decimal number*/
+  UCHAR   bDeviceClass;    /*the class code of the device as assigned by 
+                             the USB specification group.*/
+  UCHAR   bDeviceSubClass; /*the subclass code of the device as assigned by 
+                             the USB specification group.*/
+  UCHAR   bDeviceProtocol; /*protocol code of the device as assigned by
+                             the USB specification group.*/
+  UCHAR   bMaxPacketSize0; /*the maximum packet size, in bytes, for endpoint
+                             zero of the device. The value must be set to 8, 16, 32, or 64.*/
+  USHORT  idVendor;        /*vendor identifier for the device as assigned by
+                             the USB specification committee.*/
+  USHORT  idProduct;       /*the product identifier as assigned by
+                             the manufacturer.*/
+  USHORT  bcdDevice;       /*the version of the device as binary-coded decimal
+                             number*/
+  UCHAR   iManufacturer;   /*index of the string with manufacturer name*/ 
+  UCHAR   iProduct;        /*index of the string with device description*/ 
+  UCHAR   iSerialNumber;   /*index of the string with serial number
+                             for the device*/
+  UCHAR   bNumConfigurations; /*the total number of possible configurations
+                                for the device.*/
+  } USB_DEVICE_DESCRIPTOR;
+/*USB device descriptor*/
 typedef USB_DEVICE_DESCRIPTOR   *PUSB_DEVICE_DESCRIPTOR;
 
 /* USB endpoint descriptor */
@@ -274,6 +288,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.7  2009/07/13 22:04:01  ddarko
+ * Description
+ *
  * Revision 1.6  2009/07/12 21:10:26  ddarko
  * Comments
  *

@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.8 $ $Date: 2009/07/12 21:10:26 $
+  $Revision: 1.9 $ $Date: 2009/07/13 22:04:01 $
   $Author: ddarko $
 
   USB device I/O control codes for Microsoft Windows OS.
@@ -312,37 +312,57 @@ typedef enum _USB_CONNECTION_STATUS {
     DeviceGeneralFailure        = 3,
     DeviceCausedOvercurrent     = 4,
     DeviceNotEnoughPower        = 5,
-#if (_WIN32_WINNT >= 0x0501)
-    DeviceNotEnoughBandwidth    = 6,
-    DeviceHubNestedTooDeeply    = 7,
-#if (_WIN32_WINNT >= 0x0600)
-    DeviceInLegacyHub           = 8,
-    DeviceEnumerating           = 9,
-    DeviceReset                 = 10
-#else
-    DeviceInLegacyHub           = 8
-#endif
-#else
-    DeviceNotEnoughBandwidth    = 6
-#endif
+    #if (_WIN32_WINNT >= 0x0501)
+      DeviceNotEnoughBandwidth  = 6,
+      DeviceHubNestedTooDeeply  = 7,
+      #if (_WIN32_WINNT >= 0x0600)
+        DeviceInLegacyHub       = 8,
+        DeviceEnumerating       = 9,
+        DeviceReset             = 10
+      #else
+        DeviceInLegacyHub       = 8
+      #endif
+    #else
+      DeviceNotEnoughBandwidth  = 6
+  #endif
 } USB_CONNECTION_STATUS;
 typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
 #endif
 
-/* USB node connection information */
 #ifndef USB_KERNEL_IOCTL
-typedef struct _USB_NODE_CONNECTION_INFORMATION {
-    ULONG                   ConnectionIndex;
-    USB_DEVICE_DESCRIPTOR   DeviceDescriptor;
-    UCHAR                   CurrentConfigurationValue;
-    BOOLEAN                 LowSpeed;
-    BOOLEAN                 DeviceIsHub;
-    USHORT                  DeviceAddress;
-    ULONG                   NumberOfOpenPipes;
-    USB_CONNECTION_STATUS   ConnectionStatus;
-    USB_PIPE_INFO           PipeList[1];
-} USB_NODE_CONNECTION_INFORMATION;
-typedef USB_NODE_CONNECTION_INFORMATION *PUSB_NODE_CONNECTION_INFORMATION;
+  /*USB_NODE_CONNECTION_INFORMATION structure is used with
+    the IOCTL_USB_GET_NODE_CONNECTION_INFORMATION to obtain information about
+    the connection associated with the indicated USB port.
+
+    If there is no device connected, result of the request is the information
+    about the port. If a device is connected to the port, the structure
+    contains information about both the port and the connected device.
+
+    The USB_NODE_CONNECTION_INFORMATION_EX structure is an extended version of
+    USB_NODE_CONNECTION_INFORMATION. The two structures are identical, except
+    for LowSpeed member.
+
+    See also: "Universal Serial Bus Specification", USB_NODE_CONNECTION_INFORMATION_EX
+   */
+  typedef struct _USB_NODE_CONNECTION_INFORMATION
+    {
+    ULONG                 ConnectionIndex; /*specifies the number of 
+                the port in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
+    USB_DEVICE_DESCRIPTOR DeviceDescriptor; /*attached USB device description*/
+    UCHAR                 CurrentConfigurationValue; /*ID of attached USB 
+                                           device description configuration*/
+    BOOLEAN               LowSpeed;   /*data transfer speed*/
+    BOOLEAN               DeviceIsHub;/*indicates if attached device is a hub*/
+    USHORT                DeviceAddress;/*bus-relative address of the 
+                                          attached device*/
+    ULONG                 NumberOfOpenPipes;/*number of open USB pipes
+                                              associated with the port*/
+    USB_CONNECTION_STATUS ConnectionStatus; /*connection status of the port*/
+    USB_PIPE_INFO         PipeList[1]; /*list of theopen pipes associated
+                 with the port, including the associated endpoint descriptor*/
+    } USB_NODE_CONNECTION_INFORMATION;
+  /*USB node connection information*/
+  typedef USB_NODE_CONNECTION_INFORMATION *PUSB_NODE_CONNECTION_INFORMATION;
 #endif
 
 /* USB node connection driver key name */
@@ -355,14 +375,23 @@ typedef struct _USB_NODE_CONNECTION_DRIVERKEY_NAME {
 typedef USB_NODE_CONNECTION_DRIVERKEY_NAME  *PUSB_NODE_CONNECTION_DRIVERKEY_NAME;
 #endif
 
-/* USB node connection name */
 #ifndef USB_KERNEL_IOCTL
-typedef struct _USB_NODE_CONNECTION_NAME {
-    ULONG   ConnectionIndex;
-    ULONG   ActualLength;
-    WCHAR   NodeName[1];
-} USB_NODE_CONNECTION_NAME;
-typedef USB_NODE_CONNECTION_NAME    *PUSB_NODE_CONNECTION_NAME;
+  /*USB_NODE_CONNECTION_NAME structure is used with
+    the IOCTL_USB_GET_NODE_CONNECTION_NAME I/O control request to retrieve
+    the symbolic link of the downstream hub that is attached to the port.
+   */
+  typedef struct _USB_NODE_CONNECTION_NAME
+    {
+    ULONG   ConnectionIndex; /*the port number to which the hub is attached
+                         in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
+    ULONG   ActualLength; /*the attached hub's symbolic link length in bytes*/
+    WCHAR   NodeName[1];  /*Unicode symbolic link for the downstream hub
+             that is attached to the port specified by ConnectionIndex or
+             empty string if there is no attached device, the attached device
+             does not have a symbolic link or if the device is not a hub*/
+    } USB_NODE_CONNECTION_NAME;
+  /*USB node connection name*/
+  typedef USB_NODE_CONNECTION_NAME *PUSB_NODE_CONNECTION_NAME;
 #endif
 
 #ifndef USB_KERNEL_IOCTL
@@ -459,7 +488,7 @@ typedef USB_NODE_CONNECTION_ATTRIBUTES  *PUSB_NODE_CONNECTION_ATTRIBUTES;
       USB_DEVICE_DESCRIPTOR   DeviceDescriptor; /*attached USB device description*/
       UCHAR                   CurrentConfigurationValue; /*ID of attached USB 
                                              device description configuration*/
-      UCHAR                   Speed;  /*data transfer speed of speed of 
+      UCHAR                   Speed;  /*data transfer speed of  
                                         the attached USB device*/
       BOOLEAN                 DeviceIsHub; /*indicates if attached device is a hub*/
       USHORT                  DeviceAddress;/*bus-relative address of the 
@@ -468,7 +497,7 @@ typedef USB_NODE_CONNECTION_ATTRIBUTES  *PUSB_NODE_CONNECTION_ATTRIBUTES;
                                                    associated with the port*/
       USB_CONNECTION_STATUS   ConnectionStatus; /*connection status of the port*/
       USB_PIPE_INFO           PipeList[1]; /*list of theopen pipes associated
-                 with the port, includeing the associated endpoint descriptor*/
+                 with the port, including the associated endpoint descriptor*/
       } USB_NODE_CONNECTION_INFORMATION_EX;
     /*Extended USB node connection information*/
     typedef USB_NODE_CONNECTION_INFORMATION_EX  *PUSB_NODE_CONNECTION_INFORMATION_EX;
@@ -865,6 +894,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.9  2009/07/13 22:04:01  ddarko
+ * Description
+ *
  * Revision 1.8  2009/07/12 21:10:26  ddarko
  * Comments
  *
