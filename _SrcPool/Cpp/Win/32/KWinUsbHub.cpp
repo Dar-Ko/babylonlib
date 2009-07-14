@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.9 $ $Date: 2009/07/13 22:02:12 $
+  $Revision: 1.10 $ $Date: 2009/07/14 21:36:03 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -294,22 +294,22 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
           TRACE2(_T("      Port %d connection status: %d.\n"),
                     usbPortInfo.ConnectionIndex, //port Id
                     usbPortInfo.ConnectionStatus);
-          TRACE1(_T("      hub attached: %d\n"), usbPortInfo.DeviceIsHub);
-
-          TRACE1(_T("      product Id: 0x%0.4X.\n"),
+          TRACE1(_T("        product Id: 0x%0.4X.\n"),
                  usbPortInfo.DeviceDescriptor.idProduct);
-          TRACE1(_T("      vendor  Id: 0x%0.4X.\n"),
+          TRACE1(_T("        vendor  Id: 0x%0.4X.\n"),
                  usbPortInfo.DeviceDescriptor.idVendor);
-
+          TRACE1(_T("        hub attached: %d\n"), usbPortInfo.DeviceIsHub);
           
           usbDevice.m_eStatus = usbPortInfo.ConnectionStatus;
+          usbDevice.m_wPid    = usbPortInfo.DeviceDescriptor.idProduct;
+          usbDevice.m_wVid    = usbPortInfo.DeviceDescriptor.idVendor;
 
           if (usbPortInfo.ConnectionStatus != NoDeviceConnected)
             {
             usbDevice.m_bHub = (usbPortInfo.DeviceIsHub == TRUE);
-           //If the device connected to the port is an external hub, get the
-           //name of the external hub and recursively enumerate it.
 
+            //If the device connected to the port is an external hub, get the
+            //name of the external hub and recursively enumerate it.
             if(usbDevice.m_bHub)
               {
 
@@ -317,37 +317,19 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
               USB_NODE_CONNECTION_NAME usbNodeName;
               usbNodeName.ConnectionIndex = nPortId;
 
-              ULONG                       nBytes;
-              if(!DeviceIoControl(hHub,
-                              IOCTL_USB_GET_NODE_CONNECTION_NAME,
-                              &usbNodeName,
-                              sizeof(usbNodeName),
-                              &usbNodeName,
-                              sizeof(usbNodeName),
-                              &nBytes,
-                              NULL))
-                {
-                TRACE1(_T("      Failed! Error 0x%0.8X.\n"), GetLastError());
-                }
-              else
-              {
-                USB_NODE_CONNECTION_NAME*   pextHubNameW = 
-                  (USB_NODE_CONNECTION_NAME*) new char[usbNodeName.ActualLength];
-              }
-
-
               TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
                                IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName;
               usbHubName.Create(hHub, usbNodeName);
 
               if (usbHubName.IsValid())
                 {
-                //CString strHubPath = usbHubName.GetName();
-                
+                //Get the name of the external hub attached to the specified port
+                CString strHubPath = usbHubName.GetName();
+                TRACE1(_T("        %ws\n"), usbHubName.GetName());
                 }
               else
                 {
-                TRACE1(_T("      Failed! Error 0x%0.8X.\n"), GetLastError());
+                TRACE1(_T("        Failed! Error 0x%0.8X.\n"), GetLastError());
                 }
               }
 

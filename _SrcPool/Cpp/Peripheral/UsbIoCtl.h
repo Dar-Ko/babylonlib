@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.9 $ $Date: 2009/07/13 22:04:01 $
+  $Revision: 1.10 $ $Date: 2009/07/14 21:36:24 $
   $Author: ddarko $
 
   USB device I/O control codes for Microsoft Windows OS.
@@ -142,7 +142,8 @@
         CTL_CODE( FILE_DEVICE_USB, USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION, \
         METHOD_BUFFERED, FILE_ANY_ACCESS )
 
-    //(0x220414).
+    //Request to retrieve the symbolic link name of the hub that is attached to
+    //the downstream port (0x220414).
     #define IOCTL_USB_GET_NODE_CONNECTION_NAME \
         CTL_CODE( FILE_DEVICE_USB, USB_GET_NODE_CONNECTION_NAME, METHOD_BUFFERED, \
         FILE_ANY_ACCESS )
@@ -894,6 +895,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.10  2009/07/14 21:36:24  ddarko
+ * Code cleanup
+ *
  * Revision 1.9  2009/07/13 22:04:01  ddarko
  * Description
  *

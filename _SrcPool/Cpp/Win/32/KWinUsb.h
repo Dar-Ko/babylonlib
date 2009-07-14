@@ -137,6 +137,16 @@ TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::TUsbSymbolicName() :
 /*Sends an I/O control request for the symbolic name directly to the specified
   USB device driver. If the operation fails, symbolic name is NULL. To get
   extended error information, call GetLastError().
+  
+  Example:
+        ...
+        //Get the root hub name
+        TUsbSymbolicName<USB_ROOT_HUB_NAME,
+                    IOCTL_USB_GET_ROOT_HUB_NAME> usbRootHubName(hHostController);
+        if (usbRootHubName.IsValid())
+          TRACE1(_T("Hub: %ws\n"), usbRootHubName.GetName());
+        else
+          TRACE1(_T("Failed! Error 0x%0.8X.\n"), GetLastError());
  */
 template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
 TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::TUsbSymbolicName(HANDLE hDevice //[in]
@@ -148,6 +158,29 @@ Create(hDevice, usbTemp);
 }
 
 //-----------------------------------------------------------------------------
+/*
+ */
+template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
+TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::~TUsbSymbolicName()
+{
+if (IsValid())
+  delete[] m_pData;
+}
+
+//-----------------------------------------------------------------------------
+/*Verifies if the symbolic name of the USB device is valid.
+  To get extended error information, call GetLastError().
+
+  Returns true if the symbolic name is obtained successfuly, otherwise returns
+  false.
+ */
+template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
+bool TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::IsValid() const
+{
+return (m_pData != NULL);
+}
+
+//-----------------------------------------------------------------------------
 /*Sends an I/O control request for the symbolic name directly to the specified
   USB device driver. If the operation fails, symbolic name is NULL. To get
   extended error information, call GetLastError().
@@ -155,17 +188,22 @@ Create(hDevice, usbTemp);
   before ther request is made.
 
   Example:
-    ...
-    USB_NODE_CONNECTION_NAME usbNodeName;
-    usbNodeName.ConnectionIndex = 1;  //Usb port number
-    TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
-                      IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName;
-    usbHubName.Create(hHub, usbNodeName);
-    if (usbHubName.IsValid())
-      TRACE1(_T("Hub: %ws\n"), usbHubName.GetName());
-    else
-      TRACE1(_T("Failed! Error 0x%0.8X.\n"), GetLastError());
-
+  
+      //Obtains Unicode symbolic link for the downstream USB hub that is attached
+      //to the port specified by USB_NODE_CONNECTION_NAME::ConnectionIndex. 
+      //If there is no attached device, the attached device does not have
+      //a symbolic link or if the device is not a hub, the resulting device
+      // data will contain empty string.
+      ...
+      USB_NODE_CONNECTION_NAME usbNodeName;
+      usbNodeName.ConnectionIndex = 1;  //Usb port number
+      TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
+                        IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName;
+      usbHubName.Create(hHub, usbNodeName);
+      if (usbHubName.IsValid())
+        TRACE1(_T("Hub: %ws\n"), usbHubName.GetName());
+      else
+        TRACE1(_T("Failed! Error 0x%0.8X.\n"), GetLastError());
  */
 template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
 void TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::Create(HANDLE hDevice, //[in]
@@ -248,139 +286,6 @@ if (hDevice != INVALID_HANDLE_VALUE)
   #endif
 
   }
-}
-
-#if 0
-/*Obtains Unicode symbolic link for the downstream USB hub that is attached to
-  the port specified by usbOutput.ConnectionIndex.  or
-  If there is no attached device, the attached device does not have a symbolic
-  link or if the device is not a hub, the resulting device data will contain
-  empty string.
-
-  Note: USB_NODE_CONNECTION_NAME partial specialization.
-
-  Example:
-    ...
-    USB_NODE_CONNECTION_NAME usbNodeName;
-    usbNodeName.ConnectionIndex = 1;  //Usb port number
-    TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
-                      IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName;
-    usbHubName.Create(hHub, usbNodeName);
-    if (usbHubName.IsValid())
-      TRACE1(_T("Hub: %ws\n"), usbHubName.GetName());
-    else
-      TRACE1(_T("Failed! Error 0x%0.8X.\n"), GetLastError());
-
-  See also: USB_NODE_CONNECTION_NAME, IOCTL_USB_GET_NODE_CONNECTION_NAME 
- */
-template<> inline
-void TUsbSymbolicName<USB_NODE_CONNECTION_NAME, 
-                      IOCTL_USB_GET_NODE_CONNECTION_NAME>::Create(HANDLE hDevice, //[in]
-                //handle to the device on which the operation is to be performed.
-                                       USB_NODE_CONNECTION_NAME& usbInput //[in] data 
-                //required by the operation.
-                 )
-{
-//Disable warning C4127: conditional expression in ASSERT is constant
-#pragma warning (disable: 4127)
-  ASSERT(hDevice != INVALID_HANDLE_VALUE);
-#pragma warning (default: 4127)
-
-if (m_pData != NULL)
-  {
-  //Clean the buffer from any residual values thus allowing multiple calls
-  //and error validation
-  delete [] m_pData;
-  m_pData = NULL;
-  }
-
-if (hDevice != INVALID_HANDLE_VALUE)
-  {
-  DWORD nBytesReturned;
-  /*Send a control code directly to a specified device driver, causing
-    the corresponding device to perform the corresponding operation.
-    If the operation fails or is pending, the return value is FALSE.
-   */
-  if (DeviceIoControl(hDevice,           //handle to the device
-                      IOCTL_USB_GET_NODE_CONNECTION_NAME, //control code for
-                                                          //the operation
-                      &usbInput,        //data required to perform the operation
-                      sizeof(usbInput), //size of the input data, in bytes
-                      &usbInput,        //data returned by the operation
-                      sizeof(usbInput), //size of the buffer reserved for
-                                        //output data, in bytes
-                      &nBytesReturned,  //number of bytes actually returned
-                      NULL) == TRUE)
-    {
-    /*Returned data length is sum of the length of the wide character symbolic
-      link name and the length of unknown data preceding the name. When the
-      preceding data are not required, it could be overwritten with symbolic
-      name prefix in order to obtain proper device name. Because it is not
-      known beforehand how much padding is required, total length is increased
-      for the size of prefix, allowing a couple bytes to be wasted.
-      */
-    m_pData = (USB_NODE_CONNECTION_NAME*) new BYTE[usbInput.ActualLength +
-                                                   SYMBOLICLINK_PREFIX_LEN];
-    if (m_pData != NULL)
-      {
-      USB_NODE_CONNECTION_NAME& usbHubName = 
-         *(USB_NODE_CONNECTION_NAME*)((LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN);
-      //usbHubName.ConnectionIndex = usbOutput.ConnectionIndex; //Set USB port index  
-
-      if (DeviceIoControl(hDevice, //handle to the device
-                          IOCTL_USB_GET_NODE_CONNECTION_NAME, //control code for
-                                                              //the operation
-                          &usbInput, //data required to perform the operation
-                          usbInput.ActualLength,//size of the input data, in bytes
-                          &usbHubName, //data
-                           //returned by the operation, offset for the padding
-                          usbInput.ActualLength,
-                          &nBytesReturned,
-                          NULL) != TRUE)
-        {
-        //Disable warning C4127: conditional expression in ASSERT is constant
-        #pragma warning (disable: 4127)
-          ASSERT(false); //Failed to obtain symolic link name;
-        #pragma warning (default: 4127)
-        //To get extended error information, call GetLastError().
-        TRACE1(_T("      Failed IOCTL_USB_GET_NODE_CONNECTION_NAME request! Error# 0x%0.8X.\n"), 
-                GetLastError());
-        delete [] m_pData;
-        m_pData = NULL;
-        }
-      }
-    }
-  #ifdef _DEBUG
-  else
-    {
-    TRACE1(_T("      IOCTL_USB_GET_NODE_CONNECTION_NAME failed to get required data size! Error# 0x%0.8X.\n"), 
-            GetLastError());
-    }
-  #endif
-  }
-}
-#endif
-//-----------------------------------------------------------------------------
-/*
- */
-template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
-TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::~TUsbSymbolicName()
-{
-if (IsValid())
-  delete[] m_pData;
-}
-
-//-----------------------------------------------------------------------------
-/*Verifies if the symbolic name of the USB device is valid.
-  To get extended error information, call GetLastError().
-
-  Returns true if the symbolic name is obtained successfuly, otherwise returns
-  false.
- */
-template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
-bool TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::IsValid() const
-{
-return (m_pData != NULL);
 }
 
 //-----------------------------------------------------------------------------

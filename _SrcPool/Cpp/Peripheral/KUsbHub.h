@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.6 $ $Date: 2009/07/12 21:10:26 $
+  $Revision: 1.7 $ $Date: 2009/07/14 21:36:24 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -22,14 +22,15 @@
 #endif
 #include "KString.h" //CString class replacement
 #include "UsbIoCtl.h"//USB_CONNECTION_STATUS enum
+#include "KUsb.h"    //CUsbId class
 
 ///////////////////////////////////////////////////////////////////////////////
 /*USB Device Information container.
- A USB device is attached to the hub a port. 
- A USB device can be any kind of peripheral device, such as a keyboard, mouse,
+  A USB device is attached to the hub a port. 
+  A USB device can be any kind of peripheral device, such as a keyboard, mouse,
   game controller, printer, USB hub and so forth. 
  */
-class CUsbDevice
+class CUsbDevice : public CUsbId
 {
 public:
   CUsbDevice();
@@ -40,6 +41,7 @@ public:
   bool m_bHub;  //device is a hub (TODO: check if class descriptor is sufficient)
   USB_CONNECTION_STATUS m_eStatus; //device status
 };
+
 ///////////////////////////////////////////////////////////////////////////////
 // Inlines
 
@@ -110,7 +112,6 @@ inline CUsbHub::~CUsbHub()
 /*Universal Serial Bus (USB) host controller (also known as the root, root tier
   or the root hub) controls all traffic on the data bus and also functions as
   a hub. One host controller can control several USB ports.
-
  */
 class CUsbHostController : public CUsbHub
 {
@@ -123,7 +124,9 @@ protected:
 
 #include "STL/KArrayStl.h" //CArray template
 ///////////////////////////////////////////////////////////////////////////////
-/*
+/*This class browses all USB host controllers USB hubs and USB devices
+  attached on the system.
+
   USB uses a tiered topology so that you can simultaneously attach up to 127 
   devices to the bus. 
   There always exists one hub known as the root hub, which is built into 
@@ -164,6 +167,9 @@ public:
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.7  2009/07/14 21:36:24  ddarko
+ * Code cleanup
+ *
  * Revision 1.6  2009/07/12 21:10:26  ddarko
  * Comments
  *
