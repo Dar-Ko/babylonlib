@@ -151,11 +151,26 @@ Create(hDevice, usbTemp);
 /*Sends an I/O control request for the symbolic name directly to the specified
   USB device driver. If the operation fails, symbolic name is NULL. To get
   extended error information, call GetLastError().
+  Use this method if the I/O control requires certain parameters to be set
+  before ther request is made.
+
+  Example:
+    ...
+    USB_NODE_CONNECTION_NAME usbNodeName;
+    usbNodeName.ConnectionIndex = 1;  //Usb port number
+    TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
+                      IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName;
+    usbHubName.Create(hHub, usbNodeName);
+    if (usbHubName.IsValid())
+      TRACE1(_T("Hub: %ws\n"), usbHubName.GetName());
+    else
+      TRACE1(_T("Failed! Error 0x%0.8X.\n"), GetLastError());
+
  */
 template<class TUSBKEYNAME, const DWORD TUSBIOCTLID>
 void TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::Create(HANDLE hDevice, //[in]
-                 //handle to the device on which the operation is to be performed.
-                                       TUSBKEYNAME& usbOutput //[in/out] data 
+                //handle to the device on which the operation is to be performed.
+                                       TUSBKEYNAME& usbInput //[in] data 
                 //returned by the operation. The input type depends on the value of 
                 //the TUSBIOCTLID parameter.
                  )
@@ -164,6 +179,14 @@ void TUsbSymbolicName<TUSBKEYNAME, TUSBIOCTLID>::Create(HANDLE hDevice, //[in]
 #pragma warning (disable: 4127)
   ASSERT(hDevice != INVALID_HANDLE_VALUE);
 #pragma warning (default: 4127)
+
+if (m_pData != NULL)
+  {
+  //Clean the buffer from any residual values thus allowing multiple calls
+  //and error validation
+  delete [] m_pData;
+  m_pData = NULL;
+  }
 
 if (hDevice != INVALID_HANDLE_VALUE)
   {
@@ -174,10 +197,10 @@ if (hDevice != INVALID_HANDLE_VALUE)
    */
   if (DeviceIoControl(hDevice, //handle to the device
                       TUSBIOCTLID, //control code for the operation
-                      &usbOutput, //data required to perform the operation
-                      sizeof(usbOutput),//size of the input data, in bytes
-                      &usbOutput, //data returned by the operation
-                      sizeof(usbOutput), //size of the buffer reserved 
+                      &usbInput, //data required to perform the operation
+                      sizeof(usbInput),//size of the input data, in bytes
+                      &usbInput, //data returned by the operation
+                      sizeof(usbInput), //size of the buffer reserved 
                                          //for output data, in bytes
                       &nBytesReturned, //number of bytes actually returned
                       NULL) == TRUE)
@@ -189,18 +212,18 @@ if (hDevice != INVALID_HANDLE_VALUE)
       known beforehand how much padding is required, total length is increased
       for the size of prefix, allowing a couple bytes to be wasted.
       */
-    m_pData = (TUSBKEYNAME*) new BYTE[usbOutput.ActualLength + 
+    m_pData = (TUSBKEYNAME*) new BYTE[usbInput.ActualLength + 
                                       SYMBOLICLINK_PREFIX_LEN];
     if (m_pData != NULL)
       {
       if (DeviceIoControl(hDevice, //handle to the device
                           TUSBIOCTLID, //control code for the operation
-                          (LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN, //data
+                          &usbInput, //data
                             //required to perform the operation
-                          usbOutput.ActualLength,//size of the input data in bytes
+                          usbInput.ActualLength,//size of the input data in bytes
                           (LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN, //data
                            //returned by the operation, offset for the padding
-                          usbOutput.ActualLength,
+                          usbInput.ActualLength,
                           &nBytesReturned,
                           NULL) != TRUE)
         {
@@ -209,29 +232,67 @@ if (hDevice != INVALID_HANDLE_VALUE)
           ASSERT(false); //Failed to obtain symolic link name;
         #pragma warning (default: 4127)
         //To get extended error information, call GetLastError().
+        TRACE2(_T("      Failed device I/O request #%d! Error# 0x%0.8X.\n"),
+                TUSBIOCTLID, GetLastError());
         delete [] m_pData;
         m_pData = NULL;
         }
       }
     }
+  #ifdef _DEBUG
+  else
+    {
+    TRACE2(_T("      IOCTL %d failed to get required data size! Error# 0x%0.8X.\n"), 
+            TUSBIOCTLID, GetLastError());
+    }
+  #endif
+
   }
 }
 
-/*Partial specialization.
+#if 0
+/*Obtains Unicode symbolic link for the downstream USB hub that is attached to
+  the port specified by usbOutput.ConnectionIndex.  or
+  If there is no attached device, the attached device does not have a symbolic
+  link or if the device is not a hub, the resulting device data will contain
+  empty string.
+
+  Note: USB_NODE_CONNECTION_NAME partial specialization.
+
+  Example:
+    ...
+    USB_NODE_CONNECTION_NAME usbNodeName;
+    usbNodeName.ConnectionIndex = 1;  //Usb port number
+    TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
+                      IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName;
+    usbHubName.Create(hHub, usbNodeName);
+    if (usbHubName.IsValid())
+      TRACE1(_T("Hub: %ws\n"), usbHubName.GetName());
+    else
+      TRACE1(_T("Failed! Error 0x%0.8X.\n"), GetLastError());
+
+  See also: USB_NODE_CONNECTION_NAME, IOCTL_USB_GET_NODE_CONNECTION_NAME 
  */
 template<> inline
 void TUsbSymbolicName<USB_NODE_CONNECTION_NAME, 
                       IOCTL_USB_GET_NODE_CONNECTION_NAME>::Create(HANDLE hDevice, //[in]
-                 //handle to the device on which the operation is to be performed.
-                                       USB_NODE_CONNECTION_NAME& usbOutput //[in/out] data 
-                //returned by the operation. The input type depends on the value of 
-                //the TUSBIOCTLID parameter.
+                //handle to the device on which the operation is to be performed.
+                                       USB_NODE_CONNECTION_NAME& usbInput //[in] data 
+                //required by the operation.
                  )
 {
 //Disable warning C4127: conditional expression in ASSERT is constant
 #pragma warning (disable: 4127)
   ASSERT(hDevice != INVALID_HANDLE_VALUE);
 #pragma warning (default: 4127)
+
+if (m_pData != NULL)
+  {
+  //Clean the buffer from any residual values thus allowing multiple calls
+  //and error validation
+  delete [] m_pData;
+  m_pData = NULL;
+  }
 
 if (hDevice != INVALID_HANDLE_VALUE)
   {
@@ -240,13 +301,15 @@ if (hDevice != INVALID_HANDLE_VALUE)
     the corresponding device to perform the corresponding operation.
     If the operation fails or is pending, the return value is FALSE.
    */
-  if (DeviceIoControl(hDevice, //handle to the device
-                      IOCTL_USB_GET_NODE_CONNECTION_NAME, //control code for the operation
-                      &usbOutput,//NULL, //data required to perform the operation
-                      sizeof(usbOutput),//0,    //size of the input data, in bytes
-                      &usbOutput, //data returned by the operation
-                      sizeof(usbOutput), //size of the buffer reserved for output data, in bytes
-                      &nBytesReturned, //number of bytes actually returned
+  if (DeviceIoControl(hDevice,           //handle to the device
+                      IOCTL_USB_GET_NODE_CONNECTION_NAME, //control code for
+                                                          //the operation
+                      &usbInput,        //data required to perform the operation
+                      sizeof(usbInput), //size of the input data, in bytes
+                      &usbInput,        //data returned by the operation
+                      sizeof(usbInput), //size of the buffer reserved for
+                                        //output data, in bytes
+                      &nBytesReturned,  //number of bytes actually returned
                       NULL) == TRUE)
     {
     /*Returned data length is sum of the length of the wide character symbolic
@@ -256,22 +319,22 @@ if (hDevice != INVALID_HANDLE_VALUE)
       known beforehand how much padding is required, total length is increased
       for the size of prefix, allowing a couple bytes to be wasted.
       */
-    m_pData = (USB_NODE_CONNECTION_NAME*) new BYTE[usbOutput.ActualLength +
+    m_pData = (USB_NODE_CONNECTION_NAME*) new BYTE[usbInput.ActualLength +
                                                    SYMBOLICLINK_PREFIX_LEN];
     if (m_pData != NULL)
       {
       USB_NODE_CONNECTION_NAME& usbHubName = 
          *(USB_NODE_CONNECTION_NAME*)((LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN);
-      usbHubName.ConnectionIndex = usbOutput.ConnectionIndex; //Set USB port index  
+      //usbHubName.ConnectionIndex = usbOutput.ConnectionIndex; //Set USB port index  
 
       if (DeviceIoControl(hDevice, //handle to the device
                           IOCTL_USB_GET_NODE_CONNECTION_NAME, //control code for
                                                               //the operation
-                          &usbHubName, //data required to perform the operation
-                          usbOutput.ActualLength,//size of the input data, in bytes
+                          &usbInput, //data required to perform the operation
+                          usbInput.ActualLength,//size of the input data, in bytes
                           &usbHubName, //data
                            //returned by the operation, offset for the padding
-                          usbOutput.ActualLength,
+                          usbInput.ActualLength,
                           &nBytesReturned,
                           NULL) != TRUE)
         {
@@ -280,14 +343,23 @@ if (hDevice != INVALID_HANDLE_VALUE)
           ASSERT(false); //Failed to obtain symolic link name;
         #pragma warning (default: 4127)
         //To get extended error information, call GetLastError().
+        TRACE1(_T("      Failed IOCTL_USB_GET_NODE_CONNECTION_NAME request! Error# 0x%0.8X.\n"), 
+                GetLastError());
         delete [] m_pData;
         m_pData = NULL;
         }
       }
     }
+  #ifdef _DEBUG
+  else
+    {
+    TRACE1(_T("      IOCTL_USB_GET_NODE_CONNECTION_NAME failed to get required data size! Error# 0x%0.8X.\n"), 
+            GetLastError());
+    }
+  #endif
   }
 }
-
+#endif
 //-----------------------------------------------------------------------------
 /*
  */
