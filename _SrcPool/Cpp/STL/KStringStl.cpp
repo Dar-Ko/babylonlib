@@ -641,7 +641,7 @@ ASSERT(iFirst + iCount <= static_cast<int>(m_pData->length()));
 if (iFirst == 0 && iFirst + iCount == static_cast<int>(m_pData->length()))
   return *this;
 
-strResult.m_pData = (CStringHandler *) m_pData->substr(iFirst, iCount).c_str();
+strResult = m_pData->substr(iFirst, iCount).c_str();
 return strResult;
 }
 
@@ -673,7 +673,7 @@ if (iCount >= static_cast<int>(m_pData->length()))
   return *this;
 
 CString strResult;
-strResult.m_pData = (CStringHandler *)m_pData->substr(0, iCount).c_str();
+strResult = m_pData->substr(0, iCount).c_str();
 return strResult;
 }
 
@@ -696,7 +696,7 @@ if (iCount >= static_cast<int>(m_pData->length()))
   return *this;
 
 CString strResult;
-strResult.m_pData = (CStringHandler *)m_pData->substr(static_cast<int>(m_pData->length()) -
+strResult = m_pData->substr(static_cast<int>(m_pData->length()) -
                                     iCount).c_str();
 return strResult;
 }
