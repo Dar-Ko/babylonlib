@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/07/14 21:36:24 $
+  $Revision: 1.5 $ $Date: 2009/07/15 20:56:39 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -61,6 +61,8 @@
   EFh 	Both      	Miscellaneous                     ActiveSync device
   FEh 	Interface 	Application Specific             	IrDA Bridge, Test & Measurement Class (USBTMC)[4]
   FFh 	Both      	Vendor Specific                 	This class code indicates that the device needs vendor specific drivers.
+
+  See also: {html: <a href="http://www.usb.org/developers/defined_class/">USB Class Codes</a>}
  */
  
 #define CLASS_AUDIO           0x01 /** Identifier for audio class interfaces. */
