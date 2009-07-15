@@ -652,8 +652,7 @@
 						BrowseInformation="1"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Debug_Unicode|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
 						Optimization="0"
@@ -1022,6 +1021,37 @@
 				RelativePath="..\Common\Res\Win\32\Test.rc">
 			</File>
 			<File
+				RelativePath="..\Numeric\Src\TestArray.cpp">
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="./src"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="./src"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="./src"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						AdditionalIncludeDirectories="./src"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="Src\TestCommonStlTools.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
@@ -1211,6 +1241,15 @@
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\..\KArray.h">
+			</File>
+			<File
+				RelativePath="..\..\KArrayPtr.h">
+			</File>
+			<File
+				RelativePath="..\..\Stl\KArrayStl.h">
+			</File>
 			<File
 				RelativePath="..\..\STL\KBoolStream.h">
 			</File>

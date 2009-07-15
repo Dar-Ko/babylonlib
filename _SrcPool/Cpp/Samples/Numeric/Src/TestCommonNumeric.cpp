@@ -34,6 +34,7 @@ extern bool TestSwapRows();
 extern bool TestRound();
 extern bool TestFibonnaci();
 extern bool TestSinglyLinkedList();
+extern bool TestArrayPtr();
 extern bool TestGcd();
 extern bool TestFactorial();
 extern bool TestLcm();
@@ -66,6 +67,7 @@ PFUNC_TEST funcTest[] =
   TestLcm,
   TestFactorial,
   TestSinglyLinkedList,
+  TestArrayPtr,
   TestByteSwap,
   TestSwapRows,
   TestNetByteOrder,

@@ -567,6 +567,9 @@
 				RelativePath="..\Common\Res\Win\32\Test.rc">
 			</File>
 			<File
+				RelativePath=".\Src\TestArray.cpp">
+			</File>
+			<File
 				RelativePath=".\Src\TestCalc.cpp">
 			</File>
 			<File
@@ -897,6 +900,12 @@
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl">
+			<File
+				RelativePath="..\..\KArray.h">
+			</File>
+			<File
+				RelativePath="..\..\KArrayPtr.h">
+			</File>
 			<File
 				RelativePath="..\..\KMatGcd.h">
 			</File>

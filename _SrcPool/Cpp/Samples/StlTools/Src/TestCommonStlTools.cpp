@@ -19,6 +19,7 @@ extern bool TestStrToUpper();
 extern bool TestUcstoHex();
 extern bool TestWideChar();
 extern bool TestStringClass();
+extern bool TestArrayPtr();
 
 int TestCommonStlTools();
 
@@ -43,6 +44,7 @@ PFUNC_TEST funcTest[] =
   TestReplaceEol,
   TestStrToUpper,
   TestUcstoHex,
+  TestArrayPtr,
   TestStringClass
   };
 
