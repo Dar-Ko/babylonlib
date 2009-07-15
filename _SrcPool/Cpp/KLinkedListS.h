@@ -112,7 +112,7 @@ RemoveAll(); //Clean up every node
 //-----------------------------------------------------------------------------
 /*Assigns another list instance to the pNode list.
 
-  Returns: refernce to the pNode list.
+  Returns: reference to the pNode list.
  */
 template <typename DATATYPE>
 TLinkedListS<DATATYPE>& TLinkedListS<DATATYPE>::operator=(
@@ -130,7 +130,7 @@ if(&listValue != this)
     AddTail(dtData); //Append the new data container
     pNode = pNode->m_pNext;
     }
-..}
+  }
 return *this;
 }
 
