@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.7 $ $Date: 2009/07/13 22:03:33 $
+  $Revision: 1.8 $ $Date: 2009/07/15 21:40:30 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -297,7 +297,7 @@ try
         TsWriteToViewLn((LPCTSTR)usbHc.m_strDevice);
         nHubCount++;
         }
-      TRACE1(_T("Number of host controllers: %d."), nHubCount);
+      TRACE1(_T("Number of host controllers: %d.\n"), nHubCount);
       //Number of USB root hubs enumerated with two different methods
       //have to be same.
       bResult = (nHcdCount == nHubCount); 
@@ -372,6 +372,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.8  2009/07/15 21:40:30  ddarko
+ **** empty log message ***
+ *
  *Revision 1.7  2009/07/13 22:03:33  ddarko
  *Test port enumeration
  *
