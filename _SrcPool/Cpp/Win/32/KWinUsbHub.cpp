@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.10 $ $Date: 2009/07/14 21:36:03 $
+  $Revision: 1.11 $ $Date: 2009/07/15 21:40:16 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -96,7 +96,7 @@ return iCount;
       TRACE1(_T("%d. %s\n"), nCount, (LPCSTR)usbRootHub.m_strDescription);
       nCount++;
       }
-    TRACE1(_T("Number of host controllers: %d."), nCount);
+    TRACE1(_T("Number of host controllers: %d.\n"), nCount);
  */
 bool CUsbHostController::GetDeviceInfo(const unsigned int nMemberIndex //[in] = 0
                                        //index to the list of interfaces in
@@ -275,7 +275,7 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
       nPortId = 1; //USB port indexing begins with 1
       while (nPortId <= dwPortCount)
         {
-        CUsbDevice usbDevice;
+        CUsbDevice* pusbDevice = NULL;
         if (DeviceIoControl(hHub,
                             
                             #if (_WIN32_WINNT >= 0x0501)
@@ -299,43 +299,47 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
           TRACE1(_T("        vendor  Id: 0x%0.4X.\n"),
                  usbPortInfo.DeviceDescriptor.idVendor);
           TRACE1(_T("        hub attached: %d\n"), usbPortInfo.DeviceIsHub);
-          
-          usbDevice.m_eStatus = usbPortInfo.ConnectionStatus;
-          usbDevice.m_wPid    = usbPortInfo.DeviceDescriptor.idProduct;
-          usbDevice.m_wVid    = usbPortInfo.DeviceDescriptor.idVendor;
 
-          if (usbPortInfo.ConnectionStatus != NoDeviceConnected)
+          pusbDevice = new CUsbDevice;
+          if (pusbDevice != NULL)
             {
-            usbDevice.m_bHub = (usbPortInfo.DeviceIsHub == TRUE);
+            pusbDevice->m_eStatus = usbPortInfo.ConnectionStatus;
+            pusbDevice->m_wPid    = usbPortInfo.DeviceDescriptor.idProduct;
+            pusbDevice->m_wVid    = usbPortInfo.DeviceDescriptor.idVendor;
 
-            //If the device connected to the port is an external hub, get the
-            //name of the external hub and recursively enumerate it.
-            if(usbDevice.m_bHub)
+            if (usbPortInfo.ConnectionStatus != NoDeviceConnected)
               {
+              pusbDevice->m_bHub = (usbPortInfo.DeviceIsHub == TRUE);
 
-              //Get the hub name; Check GetLastError() in case of failure.
-              USB_NODE_CONNECTION_NAME usbNodeName;
-              usbNodeName.ConnectionIndex = nPortId;
-
-              TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
-                               IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName;
-              usbHubName.Create(hHub, usbNodeName);
-
-              if (usbHubName.IsValid())
+              //If the device connected to the port is an external hub, get the
+              //name of the external hub and recursively enumerate it.
+              if(pusbDevice->m_bHub)
                 {
-                //Get the name of the external hub attached to the specified port
-                CString strHubPath = usbHubName.GetName();
-                TRACE1(_T("        %ws\n"), usbHubName.GetName());
+
+                //Get the hub name; Check GetLastError() in case of failure.
+                USB_NODE_CONNECTION_NAME usbNodeName;
+                usbNodeName.ConnectionIndex = nPortId;
+
+                TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
+                                IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName;
+                usbHubName.Create(hHub, usbNodeName);
+
+                if (usbHubName.IsValid())
+                  {
+                  //Get the name of the external hub attached to the specified port
+                  CString strHubPath = usbHubName.GetName();
+                  TRACE1(_T("        %ws\n"), usbHubName.GetName());
+                  }
+                else
+                  {
+                  TRACE1(_T("        Failed! Error 0x%0.8X.\n"), GetLastError());
+                  }
                 }
-              else
-                {
-                TRACE1(_T("        Failed! Error 0x%0.8X.\n"), GetLastError());
-                }
+
               }
-
             }
           }
-        m_usbNodeList.Add(usbDevice);
+        m_usbNodeList.Add(pusbDevice);
         nPortId++;
         }
       }
