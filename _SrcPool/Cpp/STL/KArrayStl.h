@@ -1,5 +1,5 @@
 /*$RCSfile: KArrayStl.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/07/13 09:04:56 $
+  $Revision: 1.4 $ $Date: 2009/07/15 20:54:10 $
   $Author: ddarko $
 
   STL port of MFC CArray class.
@@ -73,6 +73,8 @@
     {
     }
 
+  /*Frees up any resources used by the array object.
+   */
   template <class TYPE>
   CArray<TYPE>::~CArray()
     {
@@ -80,13 +82,24 @@
     }
 
   //---------------------------------------------------------------------------
-  /*
+  /*Adds a new element to the end of an array, growing the array by one element.
+
+    Returns the index of the added element.
+
+    Example:
+      ...
+      CArray<CPoint> ptArray;
+
+      CPoint pt(10,20);
+      ptArray.Add(pt);             // Element 0
+      ptArray.Add(CPoint(30,40));  // Element 1
    */
   template <class TYPE>
-  int CArray<TYPE>::Add(TYPE newElem)
+  int CArray<TYPE>::Add(TYPE newElem //[in] new element to be added to this array.
+                       )
   {
   std::vector<TYPE>::push_back(newElem);
-  return 0;
+  return GetUpperBound();
   }
 
   //---------------------------------------------------------------------------
@@ -108,10 +121,15 @@
   }
 
   //---------------------------------------------------------------------------
-  /*
+  /*Returns the array element at the specified index.
+
+    Note: Passing a negative index value or a value greater than the value 
+    returned by GetUpperBound will result in a failure.
    */
   template <class TYPE>
-  TYPE CArray<TYPE>::GetAt(int nIndex) const
+  TYPE CArray<TYPE>::GetAt(int nIndex //[in] index of the element; value is in
+              //the range [0, GetUpperBound()] 
+                          ) const
   {
   return std::vector<TYPE>::at(nIndex);
   }
@@ -165,12 +183,23 @@
   }
 
   //---------------------------------------------------------------------------
-  /*
+  /*Removes one element from the array. Any remaining elements are shifted down
+    and the upper bound is decremented,
+
+    Example:
+      ...      
+      CArray<uint_8> MyArray;          //Declare an array of bytes
+      for (int a = 0; a < 10; a++)     //Add ten elements to the array
+        MyArray.Add(0x0A);
+      MyArray.RemoveAt(5);             //Remove fifth element
+      ASSERT(MyArray.GetCount() == 9); //Confirm size of array
+
    */
   template <class TYPE>
-  void CArray<TYPE>::RemoveAt(int nIndex)
+  void CArray<TYPE>::RemoveAt(int nIndex //[in] index of the first element to remove.
+                             )
   {
-  std::vector<TYPE>::erase(std::vector<TYPE>::begin() + index);
+  std::vector<TYPE>::erase(std::vector<TYPE>::begin() + nIndex);
   }
 
   //---------------------------------------------------------------------------
@@ -196,6 +225,9 @@
 #endif  //_KARRAYSTL_H_
 /*****************************************************************************
  * $Log: KArrayStl.h,v $
+ * Revision 1.4  2009/07/15 20:54:10  ddarko
+ * RemoveAt()
+ *
  * Revision 1.3  2009/07/13 09:04:56  ddarko
  * Comment
  *
