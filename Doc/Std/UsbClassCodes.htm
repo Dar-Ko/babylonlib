@@ -1,0 +1,1225 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>USB Class Codes</title>
+</head>
+
+<body>
+
+<div id="crumbs">
+	<b class="breadcrumb">Defined 1.0 Class Codes</b>
+</div>
+<h1>USB Class Codes<span><span>
+
+</span></span></h1>
+<p>
+March 2, 2006 <a href="http://www.usb.org/developers/defined_class/">
+http://www.usb.org/developers/defined_class/</a></p>
+<p>USB defines class code information that is used to identify a device’s 
+functionality and to nominally load a device driver based on that functionality.
+<span>The information is contained in three bytes with the names Base 
+Class, SubClass, and Protocol. (Note that ‘Base Class’ is used in this 
+description to identify the first byte of the Class Code triple. That 
+terminology is not used in the USB Specification).&nbsp;There are two places on a 
+device where class code information can be placed.One place is in the Device 
+Descriptor, and the other is in Interface Descriptors. Some defined class codes 
+are allowed to be used only in a Device Descriptor, others can be used in both 
+Device and Interface Descriptors, and some can only be used in Interface 
+Descriptors.&nbsp;The table below shows the currently defined set of&nbsp; Base Class 
+values, what the generic usage is, and where that Base Class can be used (either 
+Device or Interface Descriptors or both). </span></p>
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		<td>
+		<p>
+		<b>Descriptor Usage </b></td>
+		<td>
+		<p>		<b>Description </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		00h </td>
+		<td>
+		<p>
+		Device </td>
+		<td>
+		<p>		<a href="#BaseClass00h">
+		Use class information in the Interface 
+		Descriptors </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		01h </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<span>
+		<a href="#BaseClass01h">
+		Audio </a></span>&nbsp; </td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		02h </td>
+		<td>
+		<p>
+		Both </td>
+		<td>
+		<p>		<a href="#BaseClass02h">
+		Communications and CDC Control </a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		03h </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClass03h">
+		HID (Human Interface Device) </a>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		05h </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClass05h">
+		Physical </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		06h </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClass06h">
+		Image </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		07h </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClass07h">
+		Printer </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		08h </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClass08h">
+		Mass Storage </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		09h </td>
+		<td>
+		<p>
+		Device </td>
+		<td>
+		<p>		<a href="#BaseClass09h">
+		Hub </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		0Ah </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClass0Ah">
+		CDC-Data </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		0Bh </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClass0Bh">
+		Smart Card </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		0Dh </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClass0Dh">
+		Content Security </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		0Eh </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClass0Eh">
+		Video </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		0Fh </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClass0Fh">
+		Personal Healthcare </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		DCh </td>
+		<td>
+		<p>
+		Both </td>
+		<td>
+		<p>		<a href="#BaseClassDCh">
+		Diagnostic Device </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		E0h </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClassE0h">
+		Wireless Controller </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		EFh </td>
+		<td>
+		<p>
+		Both </td>
+		<td>
+		<p>		<a href="#BaseClassEFh">
+		Miscellaneous </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		FEh </td>
+		<td>
+		<p>
+		Interface </td>
+		<td>
+		<p>		<a href="#BaseClassFEh">
+		Application Specific </a></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		FFh </td>
+		<td>
+		<p>
+		Both </td>
+		<td>
+		<p>		<a href="#BaseClassFFh">
+		Vendor Specific </a></td>
+	</tr>
+</table>
+<h2><a name="BaseClass00h">Base Class 00h </a>(Device) </h2>
+<p>This base class is defined to be used in Device Descriptors to 
+indicate that class information should be determined from the Interface 
+Descriptors in the device. <span>There is one class code definition in 
+this base class.&nbsp; All other values are reserved.</span> </p>
+<p>This value is also used in Interface Descriptors to indicate a 
+null class code triple. </p>
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		00h </td>
+		
+		<td>
+		<p>
+		00h </td>
+		<td>
+		<p>
+		00h </td>
+		<td>
+		<p>		Use class code info from Interface Descriptors
+		</td>
+	</tr>
+</table>
+<h2><a name="BaseClass01h"><span>Base Class 01h (Audio) </span></a>
+</h2>
+<p>This base class is defined for Audio capable devices that conform 
+to the Audio Device Class Specification found on the USB-IF website. <span>
+That specification defines the usable set of SubClass and Protocol values. 
+Values outside of that defined spec are reserved. These class codes may only be 
+used in Interface Descriptors. </span></p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		01h </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		Audio device </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClass02h">Base Class 02h (Communications and CDC Control) </a></h2>
+<p>This base class is defined for devices that conform to the 
+Communications Device Class Specification found on the USB-IF website.<span>&nbsp;</span>That 
+specification defines the usable set of SubClass and Protocol values.
+<span>Values outside of that defined spec are reserved.&nbsp; Note that the 
+Communication Device Class spec requires some class code values (triples) to be 
+used in Device Descriptors and some to be used in Interface Descriptors. </span>
+</p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		02h </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		Communication device class </td>
+	</tr>
+</table>
+</p>
+
+<h2><a name="BaseClass03h">Base Class 03h (HID – Human Interface Device) </a></h2>
+<p>This base class is defined for devices that conform to the HID 
+Device Class Specification found on the USB-IF website. <span>That 
+specification defines the usable set of SubClass and Protocol values.&nbsp;&nbsp; Values 
+outside of that defined spec are reserved. These class codes can only be used in 
+Interface Descriptors. </span></p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		03h </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		HID device class </td>
+	</tr>
+</table>
+</p>
+
+<h2><a name="BaseClass05h">Base Class 05h (Physical) </a></h2>
+<p>This base class is defined for devices that conform to the 
+Physical Device Class Specification found on the USB-IF website. <span>
+That specification defines the usable set of SubClass and Protocol values.&nbsp; 
+Values outside of that defined spec are reserved. These class codes can only be 
+used in Interface Descriptors. </span></p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		05h </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		Physical device class </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClass06h">Base Class 06h (Still Imaging) </a></h2>
+<p>This base class is defined for devices that conform to the 
+Imaging Device Class Specification found on the USB-IF website. <span>That 
+specification defines the usable set of SubClass and Protocol values.&nbsp;&nbsp; Values 
+outside of that defined spec are reserved. </span></p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		06h </td>
+		
+		<td>
+		<p>
+		01h </td>
+		<td>
+		<p>
+		01h </td>
+		<td>
+		<p>		Still Imaging device </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClass07h">Base Class 07h (Printer) </a></h2>
+<p>This base class is defined for devices that conform to the 
+Printer Device Class Specification found on the USB-IF website.<span>&nbsp;
+</span>That specification defines the usable set of SubClass and Protocol 
+values.<span>&nbsp; </span>Values outside of that defined spec are reserved.<span>&nbsp;
+</span>These class codes can only be used in Interface Descriptors. </p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		07h </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		Printer device </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClass08h">Base Class 08h (Mass Storage) </a></h2>
+<p>This base class is defined for devices that conform to the Mass 
+Storage Device Class Specification found on the USB-IF website. <span>That 
+specification defines the usable set of SubClass and Protocol values.&nbsp;Values 
+outside of that defined spec are reserved.&nbsp;These class codes can only be used in 
+Interface Descriptors. </span></p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		08h </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		Mass Storage device </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClass09h">Base Class 09h (Hub) </a></h2>
+<p>This base class is defined for devices that are USB hubs and 
+conform to the definition in the USB specification.<span>&nbsp; </span>That 
+specification defines the complete triples as shown below.<span>&nbsp; </span>
+All other values are reserved.<span>&nbsp; </span>These class codes can only be 
+used in Device Descriptors. </p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td rowspan="3">
+		<p>
+		09h </td>
+		
+		<td rowspan="3">
+		<p>
+		00h </td>
+		<td>
+		<p>
+		00h </td>
+		<td>
+		<p>		Full speed Hub </td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		01h </td>
+		
+		<td>
+		<p>		Hi-speed hub with single TT </td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		02h </td>
+		
+		<td>
+		<p>		Hi-speed hub with multiple TTs </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClass0Ah">Base Class 0Ah (CDC-Data) </a></h2>
+<p>This base class is defined for devices that conform to the 
+Communications Device Class Specification found on the USB-IF website.<span>&nbsp;</span>That 
+specification defines the usable set of SubClass and Protocol values.<span>Values 
+outside of that defined spec are reserved. These class codes can only be used in 
+Interface Descriptors. </span></p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		0Ah </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		CDC data device </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClass0Bh">Base Class 0Bh (Smart Card) </a></h2>
+<p>This base class is defined for devices that conform to the Smart 
+Card Device Class Specification found on the USB-IF website.<span>&nbsp;</span>That 
+specification defines the usable set of SubClass and Protocol values.<span>Values 
+outside of that defined spec are reserved. These class codes can only be used in 
+Interface Descriptors. </span></p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		0Bh </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		Smart Card device </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClass0Dh">Base Class 0Dh (Content Security) </a></h2>
+<p>This base class is defined for devices that conform to the 
+Content Security Device Class Specification found on the USB-IF website.
+<span>That specification defines the usable set of SubClass and Protocol 
+values. Values outside of that defined spec are reserved.&nbsp;These class codes can 
+only be used in Interface Descriptors. </span></p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		0Dh </td>
+		
+		<td>
+		<p>
+		00h </td>
+		<td>
+		<p>
+		00h </td>
+		<td>
+		<p>		Content Security device </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClass0Eh">Base Class 0Eh (Video) </a></h2>
+<p>This base class is defined for devices that conform to the Video 
+Device Class Specification found on the USB-IF website.<span>&nbsp;</span>That 
+specification defines the usable set of SubClass and Protocol values.<span>&nbsp;</span>Values 
+outside of that defined spec are reserved.<span>&nbsp;</span>These class codes 
+can only be used in Interface Descriptors. </p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		0Eh </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		Video device </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClass0Fh">Base Class 0Fh (Personal Healthcare) </a></h2>
+<p>This base class is defined for devices that conform to the 
+Personal Healthcare Device Class Specification found on the USB-IF website.<span>&nbsp;</span>That 
+specification defines the usable set of SubClass and Protocol values.<span>&nbsp;</span>Values 
+outside of that defined spec are reserved.<span>&nbsp;</span>These class codes 
+should only be used in Interface Descriptors. </p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		0Fh </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		Personal Healthcare device </td>
+	</tr>
+</table>
+</p>
+
+<h2><a name="BaseClassDCh">Base Class DCh (Diagnostic Device) </a></h2>
+<p>This base class is defined for devices that diagnostic devices.
+<span>There is currently only one value defined. All other values are 
+reserved.&nbsp;This class code can be used in Device or Interface Descriptors. </span>
+</p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		DCh </td>
+		
+		<td>
+		<p>
+		01h </td>
+		<td>
+		<p>
+		01h </td>
+		<td>
+		<p>		USB2 Compliance Device.<span>&nbsp; </span>Definition 
+		for this device can be found at 
+		<a href="http://www.intel.com/technology/usb/spec.htm">
+		
+		http://www.intel.com/technology/usb/spec.htm </a></td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClassE0h">Base Class E0h (Wireless Controller) </a></h2>
+<p>This base class is defined for devices that are Wireless 
+controllers.<span>&nbsp;</span>Values not shown in the table below are 
+reserved. <span>These class codes are to be used in Interface Descriptors, 
+with the exception of the Bluetooth class code which can also be used in a 
+Device Descriptor. </span></p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td rowspan="6">
+		<p>
+		E0h </td>
+		
+		<td rowspan="3">
+		<p>
+		01h </td>
+		<td>
+		<p>
+		01h </td>
+		<td>
+		<p>		Bluetooth Programming Interface.<span>&nbsp; </span>Get 
+		specific information from the Bluetooth SIG. </td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		02h </td>
+		
+		<td>
+		<p>		UWB Radio Control Interface.<span>&nbsp; </span>
+		Definition for this is found in the Wireless USB Specification in 
+		Chapter 8. </td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		03h </td>
+		
+		<td>
+		<p>		Remote NDIS.<span>&nbsp; </span>Information can be found 
+		at: 
+		<a href="http://www.microsoft.com/windowsmobile/mobileoperators/default.mspx">
+		
+		http://www.microsoft.com/windowsmobile/mobileoperators/default.mspx
+		</a></td>
+	</tr>
+	<tr>
+		<td rowspan="3">
+		<p>
+		02h </td>
+		
+		<td>
+		<p>
+		01h </td>
+		<td>
+		<p>		Host Wire Adapter Control/Data interface.<span>&nbsp;
+		</span>Definition can be found in the Wireless USB Specification in 
+		Chapter 8. </td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		02h </td>
+		
+		<td>
+		<p>		Device Wire Adapter Control/Data interface.<span>&nbsp;
+		</span>Definition can be found in the Wireless USB Specification in 
+		Chapter 8. </td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		03h </td>
+		
+		<td>
+		<p>		<span lang="FR">Device Wire Adapter Isochronous 
+		interface.<span>&nbsp; </span></span>
+		Definition can be found in the 
+		Wireless USB Specification in Chapter 8. 
+		</td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClassEFh">Base Class EFh (Miscellaneous) </a></h2>
+<p>This base class is defined for miscellaneous device definitions. 
+Values not shown in the table below are reserved.<span>&nbsp; </span>The use of 
+these class codes (Device or Interface descriptor) are specifically annotated in 
+each entry below. </p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td rowspan="5">
+		<p>
+		EFh </td>
+		
+		<td rowspan="2">
+		<p>
+		01h </td>
+		<td>
+		<p>
+		01h </td>
+		<td>
+		<p>		Active Sync device.<span>&nbsp; </span>This class code 
+		can be used in either Device or Interface Descriptors.<span>&nbsp;
+		</span>Contact Microsoft for more information on this class. </td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		<span lang="FR">02h </span></td>
+		
+		<td>
+		<p>		<span lang="FR">Palm Sync.<span>&nbsp; </span>This class 
+		code can be used in either Device or Interface Descriptors. 
+		</span></td>
+	</tr>
+	<tr>
+		<td rowspan="2">
+		<p>
+		<span lang="FR">02h </span></td>
+		
+		<td>
+		<p>
+		<span lang="FR">01h </span></td>
+		<td>
+		<p>		Interface Association Descriptor.<span>&nbsp; </span>The 
+		usage of this class code triple is defined in the Interface Association 
+		Descriptor ECN that is provided on <a href="http://www.usb.org/">
+		www.usb.org </a>.<span>&nbsp;
+		</span>This class code may only be used in Device Descriptors.
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		02h </td>
+		
+		<td>
+		<p>		Wire Adapter Multifunction Peripheral programming 
+		interface. Definition can be found in the Wireless USB Specification in 
+		Chapter 8.<span>&nbsp; </span>This class code may only be used in 
+		Device Descriptors </td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		03h </td>
+		
+		<td>
+		<p>
+		<span lang="FR">01h </span></td>
+		<td>
+		<p>		Cable Based Association Framework.<span>&nbsp; </span>
+		This is defined in the Association Model addendum to the Wireless USB 
+		specification.<span>&nbsp; </span>This class code may only be used in 
+		Interface Descriptors. </td>
+	</tr>
+</table>
+</p>
+
+
+
+<h2><a name="BaseClassFEh">Base Class FEh (Application Specific) </a></h2>
+<p>This base class is defined for devices that conform to several 
+class specifications found on the USB-IF website.<span>&nbsp; </span>That 
+specification defines the usable set of SubClass and Protocol values.<span>&nbsp;
+</span>Values outside of that defined spec are reserved.<span>&nbsp; </span>
+These class codes can only be used in Interface Descriptors. </p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td rowspan="4">
+		<p>
+		FEh </td>
+		
+		<td>
+		<p>
+		01h </td>
+		<td>
+		<p>
+		01h </td>
+		<td>
+		<p>		Device Firmware Upgrade.<span>&nbsp; </span>Device class 
+		definition provided on <a href="http://www.usb.org/">
+		www.usb.org </a>.
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		02h </td>
+		
+		<td>
+		<p>
+		00h </td>
+		<td>
+		<p>		IRDA Bridge device.<span>&nbsp; </span>Device class 
+		definition provided on <a href="http://www.usb.org/">
+		www.usb.org </a>.
+		</td>
+	</tr>
+	<tr>
+		<td rowspan="2">
+		<p>
+		03h </td>
+		
+		<td>
+		<p>
+		00h </td>
+		<td>
+		<p>		USB Test and Measurement Device.<span>&nbsp; </span>
+		Definition provided in the USB Test and Measurement Class spec found on
+		<a href="http://www.usb.org/">
+		www.usb.org </a>. </td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		01h </td>
+		
+		<td>
+		<p>		USB Test and Measurement Device conforming to the USBTMC 
+		USB488 Subclass Specification found on www.usb.org. </td>
+	</tr>
+</table>
+</p>
+
+
+<h2><a name="BaseClassFFh">Base Class FFh (Vendor Specific) </a></h2>
+<p>This base class is defined for vendors to use as they please.<span>&nbsp;
+</span>These class codes can be used in both Device and Interface Descriptors.
+</p>
+
+
+
+<table>
+	<tr>
+		<td>
+		<p>
+		<b>Base Class </b></td>
+		
+		<td>
+		<p>
+		<b>SubClass </b></td>
+		<td>
+		<p>
+		<b>Protocol </b></td>
+		<td>
+		<p>		<b>Meaning </b></td>
+	</tr>
+	<tr>
+		<td>
+		<p>
+		FFh </td>
+		
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>
+		xxh </td>
+		<td>
+		<p>		Vendor specific </td>
+	</tr>
+</table>
+</p>
+
+
+<hr>
+<p>USB Implementers Forum, Inc., creators of USB technology.</p>
+
+
+</body>
+
+</html>
