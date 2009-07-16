@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.11 $ $Date: 2009/07/15 21:40:16 $
+  $Revision: 1.12 $ $Date: 2009/07/16 21:52:11 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -291,49 +291,70 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
                             &nBytesReturned,  //unused
                             NULL))
           {
-          TRACE2(_T("      Port %d connection status: %d.\n"),
-                    usbPortInfo.ConnectionIndex, //port Id
-                    usbPortInfo.ConnectionStatus);
-          TRACE1(_T("        product Id: 0x%0.4X.\n"),
-                 usbPortInfo.DeviceDescriptor.idProduct);
-          TRACE1(_T("        vendor  Id: 0x%0.4X.\n"),
-                 usbPortInfo.DeviceDescriptor.idVendor);
-          TRACE1(_T("        hub attached: %d\n"), usbPortInfo.DeviceIsHub);
-
+          #ifdef _UNICODE
+              TRACE2(_T("      Port %d connection status: %ws.\n"),
+                        usbPortInfo.ConnectionIndex, //port Id
+                        GetUsbStatus(usbPortInfo.ConnectionStatus));
+          #else
+            TRACE2(_T("      Port %d connection status: %ws.\n"),
+                      usbPortInfo.ConnectionIndex, //port Id
+                      GetUsbStatus(usbPortInfo.ConnectionStatus));
+          #endif
           pusbDevice = new CUsbDevice;
           if (pusbDevice != NULL)
             {
-            pusbDevice->m_eStatus = usbPortInfo.ConnectionStatus;
-            pusbDevice->m_wPid    = usbPortInfo.DeviceDescriptor.idProduct;
-            pusbDevice->m_wVid    = usbPortInfo.DeviceDescriptor.idVendor;
-
             if (usbPortInfo.ConnectionStatus != NoDeviceConnected)
               {
+              TRACE1(_T("        product Id: 0x%0.4X.\n"),
+                    usbPortInfo.DeviceDescriptor.idProduct);
+              TRACE1(_T("        vendor  Id: 0x%0.4X.\n"),
+                    usbPortInfo.DeviceDescriptor.idVendor);
+              TRACE1(_T("        hub attached: %d\n"), usbPortInfo.DeviceIsHub);
+
+                
+              pusbDevice->m_eStatus = usbPortInfo.ConnectionStatus;
+              pusbDevice->m_wPid    = usbPortInfo.DeviceDescriptor.idProduct;
+              pusbDevice->m_wVid    = usbPortInfo.DeviceDescriptor.idVendor;
+
               pusbDevice->m_bHub = (usbPortInfo.DeviceIsHub == TRUE);
 
               //If the device connected to the port is an external hub, get the
               //name of the external hub and recursively enumerate it.
               if(pusbDevice->m_bHub)
                 {
-
-                //Get the hub name; Check GetLastError() in case of failure.
-                USB_NODE_CONNECTION_NAME usbNodeName;
-                usbNodeName.ConnectionIndex = nPortId;
-
-                TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
-                                IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName;
-                usbHubName.Create(hHub, usbNodeName);
-
-                if (usbHubName.IsValid())
+                 //Replace USB device data with the hub data
+                CUsbHub* pusbHubDevice = (CUsbHub*) new CUsbHub(*pusbDevice);
+                if (pusbHubDevice != NULL)
                   {
-                  //Get the name of the external hub attached to the specified port
-                  CString strHubPath = usbHubName.GetName();
-                  TRACE1(_T("        %ws\n"), usbHubName.GetName());
+                  delete pusbDevice;
+                  pusbDevice = (CUsbDevice*)pusbHubDevice;
+
+                  //Get the hub name; Check GetLastError() in case of failure.
+                  USB_NODE_CONNECTION_NAME usbNodeName;
+                  usbNodeName.ConnectionIndex = nPortId;
+
+                  TUsbSymbolicName<USB_NODE_CONNECTION_NAME,
+                                  IOCTL_USB_GET_NODE_CONNECTION_NAME> usbHubName;
+                  usbHubName.Create(hHub, usbNodeName);
+
+                  if (usbHubName.IsValid())
+                    {
+                    //Get the name of the external hub attached
+                    //to the specified port
+                    pusbHubDevice->m_strDevice = usbHubName.GetName();
+                    TRACE1(_T("        %ws\n"),
+                           (LPCTSTR)pusbDevice->m_strDevice);
+                    pusbHubDevice->m_nPortCount = 
+                        pusbHubDevice->Enumerate(pusbHubDevice->m_strDevice);
+                    TRACE(_T("        ------End of enumeration------\n"));
+                    }
+                  else
+                    {
+                    TRACE1(_T("        Failed! Error 0x%0.8X.\n"), 
+                           GetLastError());
+                    }
                   }
-                else
-                  {
-                  TRACE1(_T("        Failed! Error 0x%0.8X.\n"), GetLastError());
-                  }
+
                 }
 
               }
@@ -347,6 +368,81 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
     }
   }
 return dwPortCount;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//CUsbDevice class implementation
+
+///////////////////////////////////////////////////////////////////////////////
+//
+
+//-----------------------------------------------------------------------------
+/*Return compact description of the device status. For longer description or 
+  different locale, this method have to be customized.
+
+    - NoDeviceConnected         Indicates that there is no device connected to
+                                the port.
+    - DeviceConnected           Indicates that a device was successfully
+                                connected to the port.
+    - DeviceFailedEnumeration   Indicates that an attempt was made to connect
+                                a device to the port, but the enumeration of
+                                the device failed.
+    - DeviceGeneralFailure      Indicates that an attempt was made to connect
+                                a device to the port, but the connection failed
+                                for unspecified reasons.
+    - DeviceCausedOvercurrent   Indicates that an attempt was made to connect
+                                a device to the port, but the attempt failed
+                                because of an overcurrent condition.
+    - DeviceNotEnoughPower      Indicates that an attempt was made to connect
+                                a device to the port, but there was not enough
+                                power to drive the device, and the connection
+                                failed.
+    - DeviceNotEnoughBandwidth  Indicates that an attempt was made to connect
+                                a device to the port, but there was not enough
+                                bandwidth available for the device to function
+                                properly, and the connection failed.
+    - DeviceHubNestedTooDeeply  Indicates that an attempt was made to connect
+                                a device to the port, but the nesting of USB
+                                hubs was too deep, so the connection failed. 
+    - DeviceInLegacyHub         Indicates that an attempt was made to connect
+                                a device to the port of an unsupported legacy
+                                hub, and the connection failed.
+
+  See also: USB_CONNECTION_STATUS
+ */
+LPCTSTR GetUsbStatus(const USB_CONNECTION_STATUS& eStatus //[in] status
+                    //of the connection to a device on a USB hub port.
+                    )
+{
+LPCTSTR szResult;
+
+#if (_WIN32_WINNT < 0x0600)
+  const int DeviceEnumerating =  9;
+  const int DeviceReset       = 10;
+#endif
+
+#if (_WIN32_WINNT < 0x0501)
+  const int DeviceHubNestedTooDeeply = 7;
+  const int DeviceInLegacyHub        = 8;
+#endif
+
+switch(eStatus)
+  {
+  case NoDeviceConnected:        szResult = _T("NoDeviceConnected");        break;
+  case DeviceConnected:          szResult = _T("DeviceConnected");          break;
+  case DeviceFailedEnumeration:  szResult = _T("DeviceFailedEnumeration");  break;
+  case DeviceGeneralFailure:     szResult = _T("DeviceGeneralFailure");     break;
+  case DeviceCausedOvercurrent:  szResult = _T("DeviceCausedOvercurrent");  break;
+  case DeviceNotEnoughPower:     szResult = _T("DeviceNotEnoughPower");     break;
+  case DeviceNotEnoughBandwidth: szResult = _T("DeviceNotEnoughBandwidth"); break;
+  case DeviceHubNestedTooDeeply: szResult = _T("DeviceHubNestedTooDeeply"); break;
+  case DeviceInLegacyHub:        szResult = _T("DeviceInLegacyHub");        break;
+  case DeviceEnumerating:        szResult = _T("DeviceEnumerating");        break;
+  case DeviceReset:              szResult = _T("DeviceReset");              break;
+
+  default: szResult = _T("UnknownDeviceStatus");
+  }
+return szResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
