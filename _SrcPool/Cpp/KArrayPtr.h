@@ -1,5 +1,5 @@
 /*$RCSfile: KArrayPtr.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/07/15 20:55:16 $
+  $Revision: 1.2 $ $Date: 2009/07/16 15:45:13 $
   $Author: ddarko $
 
   Array of object references.
@@ -22,17 +22,26 @@
 /*This class implements an array of references to a user-defined type.
 
   Parameter:
-    - PTYPE the type of objects reference stored in the array.
+    - TYPE the type of object whose reference is stored in the array.
+
+  Example:
+    ...
+    typedef CArrayPtr<CObject> CObjectPtrArray; //array of pointers to CObject
+    CObjectPtrArray myArray;
+    CObject* pNewElement = new CObject;
+    myArray.Add(pNewElement);
+
  */
-template<class PTYPE>
-class CArrayPtr : public CArray<PTYPE>
+template<class TYPE>
+class CArrayPtr : public CArray<TYPE*>
 {
 public:
   CArrayPtr();
+  CArrayPtr(const CArrayPtr& src);
   ~CArrayPtr();
   void RemoveAt(int nIndex);
   void RemoveAll();
-
+  void Copy(const CArrayPtr& src);
 };
 ///////////////////////////////////////////////////////////////////////////////
 ///
@@ -40,18 +49,26 @@ public:
 //-----------------------------------------------------------------------------
 /*
  */
-template <class PTYPE>
-CArrayPtr<PTYPE>::CArrayPtr()
-  {
-  }
+template <class TYPE>
+CArrayPtr<TYPE>::CArrayPtr()
+{
+}
+
+template <class TYPE>
+CArrayPtr<TYPE>::CArrayPtr(const CArrayPtr& src //[in] source of the elements
+                           //to be copied to the array.
+                           )
+{
+Copy(src);
+}
 
 /*Frees up any resources used by the objectes refered by the array elements.
  */
-template <class PTYPE>
-CArrayPtr<PTYPE>::~CArrayPtr()
-  {
-  RemoveAll();
-  }
+template <class TYPE>
+CArrayPtr<TYPE>::~CArrayPtr()
+{
+RemoveAll();
+}
 
 //-----------------------------------------------------------------------------
 /*Removes all of the elements a user-defined type and frees the memory allocated
@@ -72,20 +89,20 @@ CArrayPtr<PTYPE>::~CArrayPtr()
       ASSERT( array.GetSize() == 0 );
 
  */
-template <class PTYPE>
-void CArrayPtr<PTYPE>::RemoveAll()
+template <class TYPE>
+void CArrayPtr<TYPE>::RemoveAll()
 {
 //Free resoures hold by refering object
 int i = 0;
 while ( i < GetSize())
   {
-  PTYPE pTemp = GetAt(i);
+  TYPE* pTemp = GetAt(i);
   if (pTemp  != NULL)
   	delete pTemp;
   i++;
   }
 
-CArray<PTYPE>::RemoveAll(); //Delete array elements
+CArray<TYPE*>::RemoveAll(); //Delete array elements
 }
 
 //-----------------------------------------------------------------------------
@@ -106,26 +123,51 @@ CArray<PTYPE>::RemoveAll(); //Delete array elements
       ASSERT(MyArray.GetCount() == 9); //Confirm size of array
 
  */
-template <class PTYPE>
-void CArrayPtr<PTYPE>::RemoveAt(int nIndex //[in] index of the first element
+template <class TYPE>
+void CArrayPtr<TYPE>::RemoveAt(int nIndex //[in] index of the first element
                                            //to remove.
                                 )
 {
 ASSERT((nIndex > 0) && (nIndex < GetSize()));
 if ((nIndex > 0) && (nIndex < GetSize()))
 	{
-  PTYPE pTemp = GetAt(nIndex);
+  TYPE* pTemp = GetAt(nIndex);
   if (pTemp  != NULL)
   	delete pTemp;
-	CArray<PTYPE>::RemoveAt(nIndex);
+	CArray<TYPE*>::RemoveAt(nIndex);
 	}
 }
 
+//-----------------------------------------------------------------------------
+/*Copies another array over the array
+ */
+template <class TYPE>
+void CArrayPtr<TYPE>::Copy(const CArrayPtr& src //[in] source of the elements
+                            //to be copied to the array.
+                           )
+{
+RemoveAll(); //Free resoureces hold by the array
+//Deep copy of the source array
+int i = 0;
+while(i < src.GetSize() )
+  {
+  TYPE* pTemp = (TYPE*) new TYPE;
+  if (pTemp != NULL)
+    {
+    *pTemp = *src[i]; //Copy element content.
+    }
+  Add(pTemp); //Append reference to the object
+  i++;
+  }
+}
 #endif //__cplusplus
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KARRAYPTR_H_
 /*****************************************************************************
  * $Log: KArrayPtr.h,v $
+ * Revision 1.2  2009/07/16 15:45:13  ddarko
+ * Added deep copy method
+ *
  * Revision 1.1  2009/07/15 20:55:16  ddarko
  * Created
  *
