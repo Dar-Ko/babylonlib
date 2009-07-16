@@ -1,5 +1,5 @@
 /*$RCSfile: KArrayPtr.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/07/16 15:45:13 $
+  $Revision: 1.3 $ $Date: 2009/07/16 15:51:18 $
   $Author: ddarko $
 
   Array of object references.
@@ -39,12 +39,12 @@ public:
   CArrayPtr();
   CArrayPtr(const CArrayPtr& src);
   ~CArrayPtr();
+  void Copy(const CArrayPtr& src);
   void RemoveAt(int nIndex);
   void RemoveAll();
-  void Copy(const CArrayPtr& src);
 };
 ///////////////////////////////////////////////////////////////////////////////
-///
+//
 
 //-----------------------------------------------------------------------------
 /*
@@ -74,18 +74,18 @@ RemoveAll();
 /*Removes all of the elements a user-defined type and frees the memory allocated
   to the refering objects.
 
-  Note: It is assumed that objects are created with PTYPE::new operator.
+  Note: It is assumed that objects are created with new operator.
 
   Example:
       ...
-      CArrayPtr array;
+      CArrayPtr<CObject> array;
       CObject* pa1;
       CObject* pa2;
 
-      array.Add( pa1 = new CObject() ); // Element 0
-      array.Add( pa2 = new CObject() ); // Element 1
+      array.Add( pa1 = new CObject() ); //Element 0
+      array.Add( pa2 = new CObject() ); //Element 1
       ASSERT( array.GetSize() == 2 );
-      array.RemoveAll(); // Array elemets and objects are deleted.
+      array.RemoveAll(); //Array elemets and objects are deleted.
       ASSERT( array.GetSize() == 0 );
 
  */
@@ -165,6 +165,9 @@ while(i < src.GetSize() )
 #endif  //_KARRAYPTR_H_
 /*****************************************************************************
  * $Log: KArrayPtr.h,v $
+ * Revision 1.3  2009/07/16 15:51:18  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.2  2009/07/16 15:45:13  ddarko
  * Added deep copy method
  *
