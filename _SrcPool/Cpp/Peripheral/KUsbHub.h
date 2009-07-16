@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.7 $ $Date: 2009/07/14 21:36:24 $
+  $Revision: 1.8 $ $Date: 2009/07/16 21:50:23 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -24,6 +24,8 @@
 #include "UsbIoCtl.h"//USB_CONNECTION_STATUS enum
 #include "KUsb.h"    //CUsbId class
 
+LPCTSTR GetUsbStatus(const USB_CONNECTION_STATUS& eStatus);
+
 ///////////////////////////////////////////////////////////////////////////////
 /*USB Device Information container.
   A USB device is attached to the hub a port. 
@@ -35,6 +37,9 @@ class CUsbDevice : public CUsbId
 public:
   CUsbDevice();
   ~CUsbDevice();
+public:
+
+
 public:
   CString m_strDevice;       //USB device path
   CString m_strDescription;  //description of the device
@@ -57,7 +62,30 @@ inline CUsbDevice::~CUsbDevice()
 {
 }
 
-#include "STL/KArrayStl.h" //CArray template
+#include "KArrayPtr.h" //CArrayPtr template
+///////////////////////////////////////////////////////////////////////////////
+/*
+ */
+class CUsbDeviceArray : public  CArrayPtr<CUsbDevice>
+{
+public:
+  CUsbDeviceArray();
+  ~CUsbDeviceArray();
+};
+///////////////////////////////////////////////////////////////////////////////
+// Inlines
+
+//-----------------------------------------------------------------------------
+/*
+ */
+inline CUsbDeviceArray::CUsbDeviceArray()
+{
+}
+
+inline CUsbDeviceArray::~CUsbDeviceArray()
+{
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 /*Handles the USB hub.
   A USB hub is a device that allows many USB devices to be connected to a
@@ -82,14 +110,15 @@ class CUsbHub : public CUsbDevice
 {
 public:
   CUsbHub();
+  CUsbHub(const CUsbDevice& usbSrc);
   ~CUsbHub();
   unsigned int Enumerate(LPCTSTR szDevicePath);
 
 public:
-  unsigned int m_nPortCount; //number of ports on the hub
+  unsigned int m_nPortCount;     //number of ports on the hub
 
-//protected:
-  CArray<CUsbDevice> m_usbNodeList; //hub node connections (ports)
+protected:
+  CUsbDeviceArray m_usbNodeList; //hub node connections (ports)
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -99,6 +128,13 @@ public:
 /*Default constructor
  */
 inline CUsbHub::CUsbHub() :
+  m_nPortCount(0)
+{
+m_bHub = true;
+}
+
+inline CUsbHub::CUsbHub(const CUsbDevice& usbSrc) :
+  CUsbDevice(usbSrc),
   m_nPortCount(0)
 {
 m_bHub = true;
@@ -167,6 +203,9 @@ public:
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.8  2009/07/16 21:50:23  ddarko
+ * CUsbDeviceArray
+ *
  * Revision 1.7  2009/07/14 21:36:24  ddarko
  * Code cleanup
  *
