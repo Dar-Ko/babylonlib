@@ -1,5 +1,5 @@
 /*$RCSfile: KGetDeviceProperty.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2009/07/10 19:41:07 $
+  $Revision: 1.5 $ $Date: 2009/07/20 13:59:13 $
   $Author: ddarko $
 
   Device Property method.
@@ -29,6 +29,15 @@
   #include <windows.h>
 #endif
 
+/*Requires setupapi.lib
+
+  Note: If you intend that your device installation application run on
+  Windows 9x/Me, or Windows NT 4.0 or earlier, and you use the CM_Xxx functions,
+  be sure that cfgmgr32.lib appears before setupapi.lib in the sources file.
+  If your application is intended to run only on Windows 2000 or
+  a later NT-based operating system, you can omit cfgmgr32.lib.
+ */
+#pragma comment( lib, "setupapi" )
 #include <setupapi.h> //Device Management Structures
 
 #ifndef TRACE
@@ -89,12 +98,12 @@ if (GetVersion() < 0x80000000)
     {
      /*Bug: SetupDiGetDeviceRegistryProperty function returns an incorrect
        RequiredSize value on DBCS characters in Windows 2000.
-       
+
        This problem occurs in single-byte character (SBCS) projects because
        the size-conversion logic does not calculate correctly the required
        capacity in bytes of wide character buffer.
 
-       Note: Microsoft Windows 2000 specific. 
+       Note: Microsoft Windows 2000 specific.
        See also: MSDN Article ID 888609 (KB888609).
      */
     TRACE1(_T("    SetupDiGetDeviceRegistryProperty() Failed #%0.8d!\n"),
@@ -102,7 +111,7 @@ if (GetVersion() < 0x80000000)
     #ifndef _UNICODE
       if (GetLastError() == ERROR_INSUFFICIENT_BUFFER)
         {
-        //Double required size as workaround to the bug described in 
+        //Double required size as workaround to the bug described in
         //MSDN Article ID 888609
         dwLen *= 2;
         }
@@ -182,7 +191,7 @@ bool GetDevicePath(const GUID& guidInterfaceClass, //[in] the device interface
 {
 bool bResult = false;
 //Get handle to the device information set
-HDEVINFO hDevInfo = 
+HDEVINFO hDevInfo =
     SetupDiGetClassDevs(&guidInterfaceClass,    //a setup class GUID
                         NULL,                   //PnP name of the device
                         NULL,                   //user interface window
@@ -250,7 +259,7 @@ if(hDevInfo != INVALID_HANDLE_VALUE)
        GetLastError() != ERROR_NO_MORE_ITEMS)
       {
       //ToDO: Insert error handling here.
-           
+
       }
     }
 
@@ -271,7 +280,7 @@ return bResult;
       ...
       unsigned int nCount = 0; //1st USB host controller
       CString strResult;
-      bool bResult = 
+      bool bResult =
               GetDeviceDescription(GUID_DEVINTERFACE_USB_HOST_CONTROLLER,
                                    nCount,
                                    strResult);
@@ -295,7 +304,7 @@ bool GetDeviceDescription(const GUID& guidDev, //[in] handle to the device
 {
 bool bResult = false;
 //Get handle to the device information set
-HDEVINFO hDevInfo = 
+HDEVINFO hDevInfo =
     SetupDiGetClassDevs(&guidDev,             //a setup class GUID
                         NULL,                   //PnP name of the device
                         NULL,                   //user interface window
@@ -307,7 +316,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
   SP_DEVINFO_DATA sddDevInfo;
   sddDevInfo.cbSize = sizeof(SP_DEVINFO_DATA);
 
-  //Get the device information structure of the specified device. 
+  //Get the device information structure of the specified device.
   if (SetupDiEnumDeviceInfo (hDevInfo, nMemberIndex, &sddDevInfo))
     {
     TCHAR szBuff[MAX_PATH];
@@ -355,7 +364,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
         GetLastError() != ERROR_NO_MORE_ITEMS)
         {
         //ToDO: Insert error handling here.
-             
+
         }
 
       }
@@ -371,8 +380,8 @@ return bResult;
 
 /*****************************************************************************
  * $Log: KGetDeviceProperty.cpp,v $
- * Revision 1.4  2009/07/10 19:41:07  ddarko
- * Moved common code chunks into functions
+ * Revision 1.5  2009/07/20 13:59:13  ddarko
+ * ATLTRACE macro
  *
  * Revision 1.1  2009/07/06 16:09:07  ddarko
  * Extracted from KWinUsb Hub.cpp

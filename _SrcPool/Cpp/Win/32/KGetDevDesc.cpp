@@ -7,32 +7,27 @@
   2004-03-03 Darko Kolakovic
   1997-25-04: Microsoft Corporation
  */
+// Group=Windows
 
 #ifdef _WIN32
+
+#if defined _ATL_VER
+  #ifndef _USE_ATL
+    #define _USE_ATL
+  #endif
+#endif
+
 #ifdef _USE_ATL
   //Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)
   //or preprocessor reports unpaired #endif directive
 
   #include "stdafx.h" //Standard system header files
-#endif
-
-#if defined _ATL_VER
-  #ifndef TRACE
-    #include "KTrace.h"
-  #endif
+  #include "KTraceAtl.h"
 #else
   #include <windows.h>
   #include <basetyps.h>
   #include <string.h>
-#endif
 
-#include <cfgmgr32.h> //PnP Configuration Manager Functions, Windows Platform DDK
-
-#ifndef TRACE
-  #ifndef _T
-    #include "KTChar.h"
-  #endif
-  #include "KTrace.h"
 #endif
 
 /*Requires cfgmgr32.lib
@@ -44,6 +39,15 @@
   a later NT-based operating system, you can omit cfgmgr32.lib.
  */
 #pragma comment( lib, "cfgmgr32" )
+#include <cfgmgr32.h> //PnP Configuration Manager Functions, Windows Platform DDK
+
+#ifndef TRACE
+  #ifndef _T
+    #include "KTChar.h"
+  #endif
+  #include "KTrace.h"
+#endif
+
 
 //*****************************************************************************
 // MS Code sample
