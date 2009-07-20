@@ -29,7 +29,7 @@
 //USB structures and enumerations used on Windows Driver Model (WDM) platforms.
 #pragma warning(disable: 4200)
 //warning C4200: nonstandard extension used : zero-sized array in struct/union
-#include <UsbIoCtl.h> //Windows Platform DDK
+#include "UsbIoCtl.h" //Windows Platform DDK
 #pragma warning(default: 4200)
 #include "KSysPnP.h" //SYMBOLICLINK_PREFIX
 
@@ -294,7 +294,7 @@ if (hDevice != INVALID_HANDLE_VALUE)
 
       \\.\DeviceKeySymbolicName
 
-  Returns pointer formatted device name or NULL in case of failure.
+  Returns pointer to formatted device name or NULL in case of failure.
 
   Example:
       ...
@@ -349,6 +349,29 @@ if (IsValid())
     m_pSymbolicName[1] = SYMBOLICLINK_PREFIX[1];
     m_pSymbolicName[2] = SYMBOLICLINK_PREFIX[2];
     m_pSymbolicName[3] = SYMBOLICLINK_PREFIX[3];
+    }
+  return m_pSymbolicName;
+  }
+return NULL;
+}
+
+/*Specialization to obtain the driver key name of USB device attached to
+  the USB hub.
+
+  Returns pointer to the driver key name or NULL in case of failure.
+ */
+template<> inline
+LPCWSTR TUsbSymbolicName<USB_NODE_CONNECTION_DRIVERKEY_NAME,
+                         IOCTL_USB_GET_NODE_CONNECTION_DRIVERKEY_NAME>::GetName()
+{
+if (IsValid())
+  {
+  if (m_pSymbolicName == NULL)
+    {
+    PUSB_NODE_CONNECTION_DRIVERKEY_NAME pData = (PUSB_NODE_CONNECTION_DRIVERKEY_NAME)
+                                    ((LPBYTE)m_pData + SYMBOLICLINK_PREFIX_LEN);
+
+    m_pSymbolicName = pData->DriverKeyName;
     }
   return m_pSymbolicName;
   }
