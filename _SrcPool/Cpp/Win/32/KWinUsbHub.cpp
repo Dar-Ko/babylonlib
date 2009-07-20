@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.12 $ $Date: 2009/07/16 21:52:11 $
+  $Revision: 1.13 $ $Date: 2009/07/20 21:50:20 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -215,8 +215,11 @@ return bResult;
 
   Returns number of availabile USB ports or 0 in case of a failure. Use
   GetLasteError() to obtain error code.
+
+  Note: if driver key names for devices connetect to the hub are required, 
+  define _USE_USBDRIVERKEYNAME.
  */
-unsigned int CUsbHub::Enumerate(LPCTSTR szDevicePath //[out] the USB hub 
+unsigned int CUsbHub::Enumerate(LPCTSTR szDevicePath //[in] the USB hub 
                                     //device path
                                 )
 {
@@ -296,7 +299,7 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
                         usbPortInfo.ConnectionIndex, //port Id
                         GetUsbStatus(usbPortInfo.ConnectionStatus));
           #else
-            TRACE2(_T("      Port %d connection status: %ws.\n"),
+            TRACE2(_T("      Port %d connection status: %s.\n"),
                       usbPortInfo.ConnectionIndex, //port Id
                       GetUsbStatus(usbPortInfo.ConnectionStatus));
           #endif
@@ -305,13 +308,18 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
             {
             if (usbPortInfo.ConnectionStatus != NoDeviceConnected)
               {
+              #ifdef _USE_USBDRIVERKEYNAME
+                extern bool GetUsbDriverKeyName(HANDLE hUsbHub,
+                          const unsigned int nPortId,
+                          CString& strDriverKeyName);
+                GetUsbDriverKeyName(hHub, nPortId, pusbDevice->m_strDevice);
+              #endif
               TRACE1(_T("        product Id: 0x%0.4X.\n"),
                     usbPortInfo.DeviceDescriptor.idProduct);
               TRACE1(_T("        vendor  Id: 0x%0.4X.\n"),
                     usbPortInfo.DeviceDescriptor.idVendor);
               TRACE1(_T("        hub attached: %d\n"), usbPortInfo.DeviceIsHub);
 
-                
               pusbDevice->m_eStatus = usbPortInfo.ConnectionStatus;
               pusbDevice->m_wPid    = usbPortInfo.DeviceDescriptor.idProduct;
               pusbDevice->m_wVid    = usbPortInfo.DeviceDescriptor.idVendor;
@@ -373,6 +381,110 @@ return dwPortCount;
 ///////////////////////////////////////////////////////////////////////////////
 //CUsbDevice class implementation
 
+//-----------------------------------------------------------------------------
+/*
+ Device, configuration, and interface descriptors may contain references to string descriptors. String descriptors are referenced by their one-based index number. A string descriptor contains one or more Unicode strings; each string is a translation of the others into another language.
+ Drivers can request the special index number of zero to determine which language IDs the device supports. For this special value, the device returns an array of language IDs rather than a Unicode string.
+
+  String descriptors are referenced by their one-based index
+  number. A string descriptor contains one or more Unicode strings; each string
+  is a translation of the others into another language.
+  Drivers can request the special index number of zero to determine which
+  language IDs the device supports.
+
+ See also: USB_STRING_DESCRIPTOR, LANGID
+ */
+bool CUsbDevice::GetStringDescriptor(const HANDLE hUsbHub, //[in]
+                                     const unsigned int nPortId, //[in] USB hub
+           //port number to which a device is attached
+                                     const unsigned int nStringId, //[in] index
+           //of required string from an array of descriptions [1, N] 
+                                     LANGID nLangId, //[in] Microsoft language ID
+                                     CString& strResult    //[out] result
+                                     )
+{
+TRACE2(_T("    CUsbDevice::GetStringDescriptor(port = %d, string Id = %d)\n"),
+       nPortId, nStringId);
+bool bResult = false;
+if (hUsbHub != INVALID_HANDLE_VALUE)
+  {
+    //Disable warning C4127: conditional expression in ASSERT is constant
+  #pragma warning (disable: 4127)
+    ASSERT((nPortId > 0) && (nPortId < 255));
+  #pragma warning (default: 4127)
+  if (nStringId > 0)
+    {
+    if (nLangId == 0) //Set default language
+      nLangId = MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US); //0x409 English (U.S.)
+
+    /*Because the string descriptor consists of variable-length data, 
+      the desriptor must be obtained it in two steps:
+        1. get required buffer size by issuing the request, passing a data
+           buffer large enough to hold the header for a string 
+           descriptor - a USB_STRING_DESCRIPTOR structure. The bLength member
+           of USB_STRING_DESCRIPTOR specifies the size in bytes of the entire
+           descriptor.
+        2. get the desired string. Make the same request with a data buffer
+           of size bLength.
+     */
+    USB_DESCRIPTOR_REQUEST usbDescriptor;
+    usbDescriptor.SetupPacket.wLength = sizeof(usbDescriptor);
+#pragma todo GetStringDescriptor
+
+    PUSB_DESCRIPTOR_REQUEST pusbDescriptor;
+    }         
+  }
+return bResult;
+}
+
+//-----------------------------------------------------------------------------
+/*
+  Device, configuration and interface descriptors may contain references to
+  string descriptors. String descriptors are referenced by their one-based
+  index number. 
+ */
+bool CUsbDevice::HasStringDescriptor( 
+        const PUSB_DEVICE_DESCRIPTOR pusbDevDescriptor, //[in]
+        const PUSB_CONFIGURATION_DESCRIPTOR pusbConfigDescriptor //[in]
+        )
+{
+if((pusbDevDescriptor->iManufacturer > 0) || 
+   (pusbDevDescriptor->iProduct > 0)      || 
+   (pusbDevDescriptor->iSerialNumber > 0))
+  return true;
+
+PUCHAR pEnd = (PUCHAR)pusbConfigDescriptor + pusbConfigDescriptor->wTotalLength;
+PUSB_COMMON_DESCRIPTOR pusbCommonDescriptor = (PUSB_COMMON_DESCRIPTOR)pusbConfigDescriptor;
+
+while( ((PUCHAR)pusbCommonDescriptor + sizeof(USB_COMMON_DESCRIPTOR) < pEnd) &&
+       ((PUCHAR)pusbCommonDescriptor + pusbCommonDescriptor->bLength <= pEnd) )
+  {
+  switch(pusbCommonDescriptor->bDescriptorType)
+    {
+    case USB_CONFIGURATION_DESCRIPTOR_TYPE:
+      if(pusbCommonDescriptor->bLength != sizeof(USB_CONFIGURATION_DESCRIPTOR))
+        return false;
+      if(((USB_CONFIGURATION_DESCRIPTOR*)pusbCommonDescriptor)->iConfiguration)
+        return true;
+      break;
+
+    case USB_INTERFACE_DESCRIPTOR_TYPE:
+      if(pusbCommonDescriptor->bLength != sizeof(USB_INTERFACE_DESCRIPTOR))
+        return false;
+      if(((USB_INTERFACE_DESCRIPTOR*)pusbCommonDescriptor)->iInterface)
+        return true;
+      break;
+
+    default: 
+      break;
+    }
+  pusbCommonDescriptor = (PUSB_COMMON_DESCRIPTOR)
+    ((PUCHAR)(pusbCommonDescriptor) + pusbCommonDescriptor->bLength);
+  }
+
+return false;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //
 
@@ -426,7 +538,7 @@ LPCTSTR szResult;
   const int DeviceInLegacyHub        = 8;
 #endif
 
-switch(eStatus)
+switch((int)eStatus)
   {
   case NoDeviceConnected:        szResult = _T("NoDeviceConnected");        break;
   case DeviceConnected:          szResult = _T("DeviceConnected");          break;
@@ -435,6 +547,7 @@ switch(eStatus)
   case DeviceCausedOvercurrent:  szResult = _T("DeviceCausedOvercurrent");  break;
   case DeviceNotEnoughPower:     szResult = _T("DeviceNotEnoughPower");     break;
   case DeviceNotEnoughBandwidth: szResult = _T("DeviceNotEnoughBandwidth"); break;
+
   case DeviceHubNestedTooDeeply: szResult = _T("DeviceHubNestedTooDeeply"); break;
   case DeviceInLegacyHub:        szResult = _T("DeviceInLegacyHub");        break;
   case DeviceEnumerating:        szResult = _T("DeviceEnumerating");        break;

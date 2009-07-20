@@ -1,5 +1,5 @@
 /*$Workfile: KGetDevDesc.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2009/07/20 16:19:14 $
+  $Revision: 1.2 $ $Date: 2009/07/20 21:50:20 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Driver Key Name
@@ -70,7 +70,7 @@ TUsbSymbolicName<USB_NODE_CONNECTION_DRIVERKEY_NAME,
                  IOCTL_USB_GET_NODE_CONNECTION_DRIVERKEY_NAME> usbDrvKeyName;
 usbDrvKeyName.Create(hUsbHub, usbNodeName);
 
-if (usbDrvKeyName.GetName() != NULL))
+if (usbDrvKeyName.GetName() != NULL)
   {
   //Get the driver key name of the device attached to the specified port
   strDriverKeyName = usbDrvKeyName.GetName();
@@ -88,6 +88,9 @@ return false;
 #endif //_WIN32
 /*****************************************************************************
  * $Log: KUsbDrvKeyName.cpp,v $
+ * Revision 1.2  2009/07/20 21:50:20  ddarko
+ * HasStringDescriptor()
+ *
  * Revision 1.1  2009/07/20 16:19:14  ddarko
  * Created
  *
