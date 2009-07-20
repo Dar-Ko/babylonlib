@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.8 $ $Date: 2009/07/15 21:40:30 $
+  $Revision: 1.9 $ $Date: 2009/07/20 21:50:56 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -81,6 +81,7 @@ _UNUSED(nProductId);
 bool bResult = true;
 try
   {
+#if 0   ///////////////////////////
   //Test log  creation
   g_logTest.m_bResult = false;           //result of the test
 
@@ -305,6 +306,10 @@ try
       g_logTest.LogResult(bResult); //Log object's construction
       }
 
+int nHcdCount = 4;
+int nHubCount = 0;
+
+
     if (bResult)
       {
       //Test USB device enumeration
@@ -333,6 +338,33 @@ try
 //    g_logTest.LogResult(bResult); //Log object's construction
       }
     }
+
+#else
+int nHcdCount = 4;
+int nHubCount = 0;
+
+
+      {
+      //Test USB device enumeration
+      g_logTest.m_szObjectName = _T("CUsbDeviceTree::Enumerate()");
+      g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
+
+      CUsbDeviceTree usbTree;
+      bResult = ((int)nHcdCount == usbTree.Enumerate()); 
+      nHubCount = 0;
+      while((int)nHubCount < usbTree.m_usbRootList.GetCount())
+        {
+        TsWriteToViewLn((LPCTSTR)usbTree.m_usbRootList[nHubCount].m_strDescription);
+        nHubCount++;
+        }
+
+      g_logTest.LogResult(bResult); //Log object's construction
+      }
+
+#endif ///////////////
+
+
+
   }
 catch(std::out_of_range& eoor)
   {
@@ -372,6 +404,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.9  2009/07/20 21:50:56  ddarko
+ **** empty log message ***
+ *
  *Revision 1.8  2009/07/15 21:40:30  ddarko
  **** empty log message ***
  *

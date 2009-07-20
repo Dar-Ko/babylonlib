@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.7 $ $Date: 2009/07/13 22:04:01 $
+  $Revision: 1.8 $ $Date: 2009/07/20 21:51:12 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -209,12 +209,24 @@ typedef struct _USB_INTERFACE_DESCRIPTOR {
 } USB_INTERFACE_DESCRIPTOR;
 typedef USB_INTERFACE_DESCRIPTOR    *PUSB_INTERFACE_DESCRIPTOR;
 
-/* USB string descriptor */
-typedef struct _USB_STRING_DESCRIPTOR {
-    UCHAR   bLength;
-    UCHAR   bDescriptorType;
-    WCHAR   bString[1];
-} USB_STRING_DESCRIPTOR;
+/*USB String Descriptor.
+  Device, configuration, and interface descriptors may contain references to
+  string descriptors. String descriptors are referenced by their one-based index
+  number. A string descriptor contains one or more Unicode strings; each string
+  is a translation of the others into another language.
+  Drivers can request the special index number of zero to determine which
+  language IDs the device supports. For this special value, the device returns
+  an array of language IDs rather than a Unicode string.
+
+  See also: LANGID
+ */
+typedef struct _USB_STRING_DESCRIPTOR
+  {
+  UCHAR bLength;  /*[in]/[out] the size in bytes of the entire descriptor.*/
+  UCHAR bDescriptorType; /*[in] USB_STRING_DESCRIPTOR_TYPE (?? check).*/
+  WCHAR bString[1];      /*[out] requested Unicode string or array of language IDs*/
+  } USB_STRING_DESCRIPTOR;
+/*USB string descriptor*/
 typedef USB_STRING_DESCRIPTOR   *PUSB_STRING_DESCRIPTOR;
 
 /* USB common descriptor */
@@ -288,6 +300,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.8  2009/07/20 21:51:12  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.7  2009/07/13 22:04:01  ddarko
  * Description
  *

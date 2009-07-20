@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.8 $ $Date: 2009/07/16 21:50:23 $
+  $Revision: 1.9 $ $Date: 2009/07/20 21:51:12 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -38,6 +38,15 @@ public:
   CUsbDevice();
   ~CUsbDevice();
 public:
+  bool GetStringDescriptor(HANDLE hUsbHub,
+                           const unsigned int nPortId,
+                           const unsigned int nStringId,
+                           LANGID nLangId,
+                           CString& strResult);
+  bool CUsbDevice::HasStringDescriptor( 
+        const PUSB_DEVICE_DESCRIPTOR pusbDevDescriptor,
+        const PUSB_CONFIGURATION_DESCRIPTOR pusbConfigDescriptor
+        );
 
 
 public:
@@ -203,6 +212,9 @@ public:
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.9  2009/07/20 21:51:12  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.8  2009/07/16 21:50:23  ddarko
  * CUsbDeviceArray
  *
