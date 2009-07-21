@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.9 $ $Date: 2009/07/20 21:50:56 $
+  $Revision: 1.10 $ $Date: 2009/07/21 22:21:58 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -57,6 +57,11 @@ extern bool TsWriteToView(const unsigned int& nValue);
 #include "KWinUsb.h" //TUsbSymbolicName template
 #include "KUsbHub.h"   //CUsbHub class
 #include "KStrArray.h" //CStringArray class
+
+#ifndef USBVID_MICROSOFT
+  #define USBVID_MICROSOFT      0x045E //(Microsoft Corporation)
+  #define USBPID_MSMOUSEOPTICAL 0x0083 //Basic Optical Mouse - generic HID
+#endif
 
 bool TestUsbEnum(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 
@@ -309,14 +314,13 @@ try
 int nHcdCount = 4;
 int nHubCount = 0;
 
-
+    CUsbDeviceTree usbTree;
     if (bResult)
       {
       //Test USB device enumeration
       g_logTest.m_szObjectName = _T("CUsbDeviceTree::Enumerate()");
       g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
 
-      CUsbDeviceTree usbTree;
       bResult = ((int)nHcdCount == usbTree.Enumerate()); 
       nHubCount = 0;
       while((int)nHubCount < usbTree.m_usbRootList.GetCount())
@@ -330,18 +334,24 @@ int nHubCount = 0;
 
     if (bResult)
       {
-//    g_logTest.m_szObjectName = _T("CUsbHub::CUsbHub()");
-//    g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
+      g_logTest.m_szObjectName = _T("CUsbDeviceTree::HasDevice()");
+      g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
 
-    //Find given USB device
-//    CUsbHub usbHub;
-//    g_logTest.LogResult(bResult); //Log object's construction
+      //Find given USB device
+      if(usbTree.HasDevice(USBVID_MICROSOFT, USBPID_MSMOUSEOPTICAL))
+        TsWriteToViewLn(_T("Micorosoft Optical Mouse is connected."));
+      else
+        TsWriteToViewLn(_T("Micorosoft Optical Mouse is disconnected."));
+
+      bResult = true;
+      g_logTest.LogResult(bResult); //Log object's construction
       }
     }
 
 #else
 int nHcdCount = 4;
 int nHubCount = 0;
+ CUsbDeviceTree usbTree;
 
 
       {
@@ -349,7 +359,6 @@ int nHubCount = 0;
       g_logTest.m_szObjectName = _T("CUsbDeviceTree::Enumerate()");
       g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
 
-      CUsbDeviceTree usbTree;
       bResult = ((int)nHcdCount == usbTree.Enumerate()); 
       nHubCount = 0;
       while((int)nHubCount < usbTree.m_usbRootList.GetCount())
@@ -358,6 +367,21 @@ int nHubCount = 0;
         nHubCount++;
         }
 
+      g_logTest.LogResult(bResult); //Log object's construction
+      }
+
+    if (bResult)
+      {
+      g_logTest.m_szObjectName = _T("CUsbDeviceTree::HasDevice()");
+      g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
+
+      //Find given USB device
+      if(usbTree.HasDevice(USBVID_MICROSOFT, USBPID_MSMOUSEOPTICAL))
+        TsWriteToViewLn(_T("Microsoft Basic Optical Mouse is connected."));
+      else
+        TsWriteToViewLn(_T("Microsoft Basic Optical Mouse is disconnected."));
+
+      bResult = true;
       g_logTest.LogResult(bResult); //Log object's construction
       }
 
@@ -404,6 +428,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.10  2009/07/21 22:21:58  ddarko
+ *Find(vid, pid)
+ *
  *Revision 1.9  2009/07/20 21:50:56  ddarko
  **** empty log message ***
  *

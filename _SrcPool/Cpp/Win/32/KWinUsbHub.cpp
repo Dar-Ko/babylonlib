@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.13 $ $Date: 2009/07/20 21:50:20 $
+  $Revision: 1.14 $ $Date: 2009/07/21 22:21:29 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -64,13 +64,16 @@
 //CUsbDeviceTree class implementation
 
 //-----------------------------------------------------------------------------
-/*
+/*Build or refresh the USB device tree.
+
+  Returns number of USB host controllers (root hubs) found.
  */
 int CUsbDeviceTree::Enumerate()
 {
 TRACE(_T("CUsbDeviceTree::Enumerate()\n"));
 
 int iCount = 0;
+m_usbRootList.RemoveAll();
 CUsbHostController usbHc;
 while(usbHc.GetDeviceInfo(iCount))
   {
@@ -78,6 +81,43 @@ while(usbHc.GetDeviceInfo(iCount))
   iCount++;
   }
 return iCount;
+}
+
+//-----------------------------------------------------------------------------
+/*Retreives status and addtional description of the USB device specified by
+  a vendor (VID) and product identification (PID) number.
+
+  Returns: true if the requested device is found in the
+  USB device tree. Returns false if the device is not present.
+
+  See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId,
+  SP_DEVICE_INTERFACE_DETAIL_DATA, SP_DEVINFO_DATA, <setupapi.h>,
+  CUsbDeviceTree::HasDevice(), CUsbHub::Find();
+ */
+bool CUsbDeviceTree::GetDevice(const uint16_t wVendorId, //[in] USB device
+                                  //vendor identification (VID) number.
+                               const uint16_t wProductId, //[in] USB product
+                                  //identification (PID) number.
+                               CUsbDeviceInfo* pDevice //[in]/[out] = NULL
+                                  //description of the reqested USB device;
+                                  //desription of the device found is returned.
+                               )
+{
+TRACE2(_T("UsbDeviceTree::GetDevice(0x%4.4X, 0x%4.4X)\n"), wVendorId, wProductId);
+bool bResult = false;
+//Build (or refresh) the USB tree, if it is not done before
+if (m_usbRootList.IsEmpty())
+  Enumerate();
+
+int i = 0;
+while (i < m_usbRootList.GetCount())
+  {
+  bResult = m_usbRootList[i].Find(wVendorId, wProductId, pDevice);
+  if (bResult)
+    break;
+  i++;
+  }
+return bResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -151,13 +191,20 @@ if(GetDevicePath(guidUsbHc,    //the device interface
       TRACE2(_T("    %d. %s\n"), nMemberIndex, (LPCTSTR)m_strDevice);
     #endif
     m_nPortCount = Enumerate((LPCTSTR)m_strDevice); //Enumerate USB ports 
-    if (m_nPortCount > 0)
+    if (GetPortCount() > 0)
       bResult = true;
     }
   else
     m_strDevice.Empty();
 
   }
+#ifdef _DEBUG
+else
+  {
+  TRACE(_T("    This host controller is not installed on the system.\n"));
+  }
+#endif
+
 return bResult;
 }
 
@@ -225,6 +272,7 @@ unsigned int CUsbHub::Enumerate(LPCTSTR szDevicePath //[in] the USB hub
 {
 TRACE(_T("    CUsbHub::Enumerate()\n"));
 unsigned int dwPortCount = 0;
+Erase(); //Prepare the object for new enumeration
 
 if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
   {
@@ -303,10 +351,10 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
                       usbPortInfo.ConnectionIndex, //port Id
                       GetUsbStatus(usbPortInfo.ConnectionStatus));
           #endif
-          pusbDevice = new CUsbDevice;
-          if (pusbDevice != NULL)
+          if (usbPortInfo.ConnectionStatus != NoDeviceConnected)
             {
-            if (usbPortInfo.ConnectionStatus != NoDeviceConnected)
+            pusbDevice = new CUsbDevice;
+            if (pusbDevice != NULL)
               {
               #ifdef _USE_USBDRIVERKEYNAME
                 extern bool GetUsbDriverKeyName(HANDLE hUsbHub,
@@ -368,6 +416,8 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
               }
             }
           }
+        //Add pointer to the device or NULL if port is not used;
+        //number of elements in the list have to match number of ports.
         m_usbNodeList.Add(pusbDevice);
         nPortId++;
         }
@@ -375,7 +425,110 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
     CloseHandle(hHub);
     }
   }
+
+#ifdef _DEBUG
+  m_usbNodeList.Dump();
+#endif
 return dwPortCount;
+}
+
+//-----------------------------------------------------------------------------
+/*Retreives status and addtional description of the USB device specified by
+  a vendor (VID) and product identification (PID) number.
+
+  Returns: true if the requested device is found in the
+  USB device tree. Returns false if the device is not present.
+
+  See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId,
+  SP_DEVICE_INTERFACE_DETAIL_DATA, SP_DEVINFO_DATA, <setupapi.h>,
+  CUsbDeviceTree::HasDevice();
+ */
+bool CUsbHub::Find(const uint16_t wVendorId, //[in] USB device
+                    //vendor identification (VID) number.
+                   const uint16_t wProductId, //[in] USB product
+                    //identification (PID) number.
+                   CUsbDeviceInfo* pDevice //[in]/[out] = NULL
+                    //description of the reqested USB device;
+                    //desription of the device found is returned.
+                  )
+{
+TRACE2(_T("  CUsbHub::Find(0x%4.4X, 0x%4.4X)\n"), wVendorId, wProductId);
+#ifdef _UNICODE
+  TRACE1(_T("    @ %ws\n"), (LPCTSTR)m_strDevice);
+#else
+  TRACE1(_T("    @ %s\n"), (LPCTSTR)m_strDevice);
+#endif
+
+#ifdef _DEBUG
+  m_usbNodeList.Dump();
+#endif
+
+bool bResult = false;
+//TODO: check for USBVID_ANY
+if (IsVendor(wVendorId) && IsProduct(wProductId))
+  {
+  if (pDevice != NULL)
+    {
+
+    //TODO check port no, serno
+#pragma todo copy CUsbDevice to pDevice
+    }
+  bResult = true;
+  }
+else
+  {
+    //Disable warning C4127: conditional expression in ASSERT is constant
+  #pragma warning (disable: 4127)
+    ASSERT(USB_MAXCOUNT >= GetPortCount()); //Check sanity
+  #pragma warning (default: 4127)
+
+  //Search through all hub's ports for the required unit
+  int i = 0;
+  while(i < m_usbNodeList.GetCount())
+    {
+    CUsbDevice* pUsbNode = m_usbNodeList[i];
+    if (pUsbNode != NULL)
+      {
+      //TODO: check for USBVID_ANY
+      if (pUsbNode->IsVendor(wVendorId) &&
+          pUsbNode->IsProduct(wProductId) )
+        {
+        if(pDevice != NULL)
+          {
+          //Validate port number
+          if (pDevice->m_nPortNo > 0)
+            bResult = (pDevice->m_nPortNo == (uint16_t)(i + 1));
+          else //Ignore port number
+            {
+            bResult = true;
+            pDevice->m_nPortNo = (uint16_t)(i + 1); //Set one-based port Id
+            }
+        ///TODO check port no, serno
+          //todo copy CUsbDevice to pDevice
+          }
+        else //No additional validation is required
+          {
+          //bResult = true;
+          }
+
+        if (bResult)
+          break;
+        }
+      if (pUsbNode->m_bHub)
+        {
+        //Search through attached hub
+        if ( ((CUsbHub*)pUsbNode)->Find(wVendorId, wProductId, pDevice) )
+          {
+          bResult = true;
+          break;
+          }
+        }
+      }
+    i++;
+    }
+
+  }
+return bResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -410,7 +563,7 @@ if (hUsbHub != INVALID_HANDLE_VALUE)
   {
     //Disable warning C4127: conditional expression in ASSERT is constant
   #pragma warning (disable: 4127)
-    ASSERT((nPortId > 0) && (nPortId < 255));
+    ASSERT((nPortId > 0) && (nPortId <= (USB_MAXCOUNT+1)));
   #pragma warning (default: 4127)
   if (nStringId > 0)
     {
@@ -429,7 +582,7 @@ if (hUsbHub != INVALID_HANDLE_VALUE)
      */
     USB_DESCRIPTOR_REQUEST usbDescriptor;
     usbDescriptor.SetupPacket.wLength = sizeof(usbDescriptor);
-#pragma todo GetStringDescriptor
+#pragma TODO GetStringDescriptor
 
     PUSB_DESCRIPTOR_REQUEST pusbDescriptor;
     }         

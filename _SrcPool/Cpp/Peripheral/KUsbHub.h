@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.9 $ $Date: 2009/07/20 21:51:12 $
+  $Revision: 1.10 $ $Date: 2009/07/21 22:19:27 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -63,13 +63,28 @@ public:
 /*Default constructor
  */
 inline CUsbDevice::CUsbDevice() :
-    m_eStatus(NoDeviceConnected)
+    m_eStatus(NoDeviceConnected),
+    m_bHub(false)
 {
 }
 
 inline CUsbDevice::~CUsbDevice()
 {
 }
+
+///////////////////////////////////////////////////////////////////////////////
+/*
+ */
+class CUsbDeviceInfo : public CUsbId
+{
+public:
+  bool m_bHub;           //device is a hub
+  USB_CONNECTION_STATUS m_eStatus; //device status
+  uint16_t m_nPortNo;    //hub port number that the device is connected to [1, n]
+  CString m_strVendor;
+  CString m_strProduct;  //description of the device
+  CString m_strSerialNo;
+};
 
 #include "KArrayPtr.h" //CArrayPtr template
 ///////////////////////////////////////////////////////////////////////////////
@@ -80,6 +95,9 @@ class CUsbDeviceArray : public  CArrayPtr<CUsbDevice>
 public:
   CUsbDeviceArray();
   ~CUsbDeviceArray();
+#ifdef _DEBUG
+  void Dump();
+#endif
 };
 ///////////////////////////////////////////////////////////////////////////////
 // Inlines
@@ -94,6 +112,23 @@ inline CUsbDeviceArray::CUsbDeviceArray()
 inline CUsbDeviceArray::~CUsbDeviceArray()
 {
 }
+
+#ifdef _DEBUG
+  //---------------------------------------------------------------------------
+  /*Dumps all elements of the array.
+   */
+  inline void CUsbDeviceArray::Dump()
+  {
+  TRACE1(_T("CUsbDeviceArray::Dump(this = 0x%0.8X)\n"), this);
+  int i = 0;
+  TRACE1(_T("  number of elements = %d\n"),GetCount());
+  while (i < GetCount())
+    {
+    TRACE2(_T("   %0.2d. 0x0x%0.8X\n"), i, GetAt(i) );
+    i++;
+    }
+  }
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Handles the USB hub.
@@ -119,9 +154,16 @@ class CUsbHub : public CUsbDevice
 {
 public:
   CUsbHub();
+  CUsbHub(const CUsbHub& usbSrc);
   CUsbHub(const CUsbDevice& usbSrc);
   ~CUsbHub();
   unsigned int Enumerate(LPCTSTR szDevicePath);
+  bool Find(const uint16_t wVendorId,
+            const uint16_t wProductId,
+            CUsbDeviceInfo* pDevice = NULL);
+  uint16_t GetPortCount();
+protected:
+  void Erase();
 
 public:
   unsigned int m_nPortCount;     //number of ports on the hub
@@ -149,8 +191,41 @@ inline CUsbHub::CUsbHub(const CUsbDevice& usbSrc) :
 m_bHub = true;
 }
 
+inline CUsbHub::CUsbHub(const CUsbHub& usbSrc) :
+  CUsbDevice((CUsbDevice)usbSrc),
+  m_nPortCount(0),
+  m_usbNodeList(usbSrc.m_usbNodeList)
+{
+}
+
 inline CUsbHub::~CUsbHub()
 {
+Erase();
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+inline uint16_t CUsbHub::GetPortCount()
+{
+#ifdef _DEBUG
+  int nListSize = m_usbNodeList.GetCount();
+    //Disable warning C4127: conditional expression in ASSERT is constant
+  #pragma warning (disable: 4127)
+  //Number of elements in the list have to match number of ports.
+  ASSERT(m_nPortCount == (unsigned int)nListSize); 
+  #pragma warning (default: 4127)
+#endif
+return (uint16_t)m_nPortCount;
+}
+
+//-----------------------------------------------------------------------------
+/*Cleanup residual data structures and statuses
+ */
+inline void CUsbHub::Erase()
+{
+m_usbNodeList.RemoveAll();
+m_nPortCount = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -161,6 +236,15 @@ inline CUsbHub::~CUsbHub()
 class CUsbHostController : public CUsbHub
 {
 public:
+
+  CUsbHostController(const CUsbHostController& src) :
+      CUsbHub((CUsbHub)src)
+  {
+  };
+
+  CUsbHostController()
+  {
+  };
   bool GetDeviceInfo(const unsigned int nMemberIndex = 0);
 
 protected:
@@ -200,10 +284,39 @@ class CUsbDeviceTree
 {
 public:
   int Enumerate();
-//protected:
+  bool GetDevice(const uint16_t wVendorId,
+                 const uint16_t wProductId,
+                 CUsbDeviceInfo* pDevice = NULL);
+  bool HasDevice(const uint16_t wVendorId,
+                 const uint16_t wProductId);
 
-  CArray<CUsbHostController> m_usbRootList;
+public:
+  CArray<CUsbHostController> m_usbRootList; //list of available USB host
+                                            //controllers (root hubs)
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// Inlines
+
+//-----------------------------------------------------------------------------
+/*Find the USB device specified by a vendor (VID) and product identification
+  (PID) number in the USB device tree.
+
+  Returns: true if the requested device is found in the
+  USB device tree. Returns false if the device is not present.
+
+  See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId,
+  SP_DEVICE_INTERFACE_DETAIL_DATA, SP_DEVINFO_DATA, <setupapi.h>,
+  CUsbDeviceTree::GetDevice();
+ */
+inline bool CUsbDeviceTree::HasDevice(const uint16_t wVendorId, //[in] USB device
+                                             //vendor identification (VID) number
+                                      const uint16_t wProductId //[in] USB product
+                                             //identification (PID) number
+                                      )
+{
+return GetDevice(wVendorId, wProductId);
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif //__cplusplus
@@ -212,6 +325,9 @@ public:
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.10  2009/07/21 22:19:27  ddarko
+ * Find(vid, pid)
+ *
  * Revision 1.9  2009/07/20 21:51:12  ddarko
  * *** empty log message ***
  *
