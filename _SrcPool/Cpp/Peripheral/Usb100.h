@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.8 $ $Date: 2009/07/20 21:51:12 $
+  $Revision: 1.9 $ $Date: 2009/07/21 22:18:34 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -242,14 +242,15 @@ typedef USB_COMMON_DESCRIPTOR   *PUSB_COMMON_DESCRIPTOR;
 typedef struct _USB_HUB_DESCRIPTOR 
   {
   UCHAR  bDescriptorLength;   //length of this descriptor in bytes
-  UCHAR  bDescriptorType;     //descriptor type; default value for hub is 0x29
+  UCHAR  bDescriptorType;     //descriptor type; default value for hub
+                              //is USBCLASSDESCRIPTOR_HUB = 0x29
   UCHAR  bNumberOfPorts;      //number of ports on the hub
   USHORT wHubCharacteristics; //hub charateristics
   UCHAR  bPowerOnToPowerGood; //time, in 2 ms increments, that it
                               //takes the device to turn on completely
   UCHAR  bHubControlCurrent;  //maximum current consumption [mA]
   UCHAR  bRemoveAndPowerMask[64];//power control and removable bitmasks
-                               //for up to 255 ports
+                               //for up to 255 (256 ?) ports (?! max devices on host controller is 127 D.K. (verify))
   } USB_HUB_DESCRIPTOR;
 typedef USB_HUB_DESCRIPTOR  *PUSB_HUB_DESCRIPTOR;
 
@@ -300,6 +301,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.9  2009/07/21 22:18:34  ddarko
+ * USBCLASSDESCRIPTOR_HUB
+ *
  * Revision 1.8  2009/07/20 21:51:12  ddarko
  * *** empty log message ***
  *
