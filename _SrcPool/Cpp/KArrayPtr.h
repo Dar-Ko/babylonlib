@@ -1,5 +1,5 @@
 /*$RCSfile: KArrayPtr.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/07/16 15:51:18 $
+  $Revision: 1.4 $ $Date: 2009/07/21 22:17:37 $
   $Author: ddarko $
 
   Array of object references.
@@ -146,17 +146,24 @@ void CArrayPtr<TYPE>::Copy(const CArrayPtr& src //[in] source of the elements
                             //to be copied to the array.
                            )
 {
-RemoveAll(); //Free resoureces hold by the array
+RemoveAll(); //Free resources hold by the array
 //Deep copy of the source array
 int i = 0;
 while(i < src.GetSize() )
   {
-  TYPE* pTemp = (TYPE*) new TYPE;
-  if (pTemp != NULL)
+  if (src[i] != NULL)
     {
-    *pTemp = *src[i]; //Copy element content.
+    //Copy element content.
+    TYPE* pTemp = (TYPE*) new TYPE;
+    if (pTemp != NULL)
+      {
+      *pTemp = *src[i];
+      }
+    Add(pTemp); //Append reference to the object
     }
-  Add(pTemp); //Append reference to the object
+  else
+    Add(NULL); //Append NULL element found in the source
+
   i++;
   }
 }
@@ -165,6 +172,9 @@ while(i < src.GetSize() )
 #endif  //_KARRAYPTR_H_
 /*****************************************************************************
  * $Log: KArrayPtr.h,v $
+ * Revision 1.4  2009/07/21 22:17:37  ddarko
+ * Copy NULL elements
+ *
  * Revision 1.3  2009/07/16 15:51:18  ddarko
  * *** empty log message ***
  *
