@@ -1,5 +1,5 @@
 /*$RCSfile: TestFindUsbHid.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/06/26 21:35:35 $
+  $Revision: 1.4 $ $Date: 2009/07/21 22:22:18 $
   $Author: ddarko $
 
   Test accessing USBHID information.
@@ -46,9 +46,10 @@ extern bool TsWriteToView(const unsigned int& nValue);
 
 #include "KUsbHid.h" //CUsbHid
 #include "UsbVid.h"  //USB VID List
-
-#define VID_MS 0x045E //(Microsoft Corporation)
-#define PID_MS 0x0083 //Basic Optical Mouse - generic HID
+#ifndef USBVID_MICROSOFT
+  #define USBVID_MICROSOFT      0x045E //(Microsoft Corporation)
+  #define USBPID_MSMOUSEOPTICAL 0x0083 //Basic Optical Mouse - generic HID
+#endif
 
 bool TestFindUsbHid(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 
@@ -146,6 +147,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestFindUsbHid.cpp,v $
+ *Revision 1.4  2009/07/21 22:22:18  ddarko
+ **** empty log message ***
+ *
  *Revision 1.3  2009/06/26 21:35:35  ddarko
  *Added new test case
  *
