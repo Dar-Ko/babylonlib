@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.5 $ $Date: 2009/07/15 20:56:39 $
+  $Revision: 1.6 $ $Date: 2009/07/22 18:51:55 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -80,15 +80,16 @@
 
 
 //-----------------------------------------------------------------------------
-  
-#define TYPE_DEVICE            1 /** Indicates a device descriptor */
-#define TYPE_CONFIGURATION     2 /** Indicates a configuration descriptor */
-#define TYPE_STRING            3 /** Indicates a string descriptor */
-#define TYPE_INTERFACE         4 /** Indicates an interface descriptor */
-#define TYPE_ENDPOINT          5 /** Indicates an endpoint descriptor */
-#define TYPE_DEVICE_QUALIFIER  6 /** Indicates a USB 2.0 "device qualifier" */
-#define TYPE_OTHER_SPEED       7 /** Indicates a USB 2.0 "other speed configuration" */
-#define TYPE_INTERFACE_POWER   8 /** Indicates interface power consumption */
+//Descriptor Types
+
+#define USBDESCRIPTORTYPE_DEVICE            1 /** Indicates a device descriptor */
+#define USBDESCRIPTORTYPE_CONFIGURATION     2 /** Indicates a configuration descriptor */
+#define USBDESCRIPTORTYPE_STRING            3 /** Indicates a string descriptor */
+#define USBDESCRIPTORTYPE_INTERFACE         4 /** Indicates an interface descriptor */
+#define USBDESCRIPTORTYPE_ENDPOINT          5 /** Indicates an endpoint descriptor */
+#define USBDESCRIPTORTYPE_DEVICE_QUALIFIER  6 /** Indicates a USB 2.0 "device qualifier" */
+#define USBDESCRIPTORTYPE_OTHER_SPEED       7 /** Indicates a USB 2.0 "other speed configuration" */
+#define USBDESCRIPTORTYPE_INTERFACE_POWER   8 /** Indicates interface power consumption */
 
 
 //-----------------------------------------------------------------------------
