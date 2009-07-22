@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.16 $ $Date: 2009/07/22 19:10:24 $
+  $Revision: 1.17 $ $Date: 2009/07/22 19:14:58 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -80,7 +80,7 @@ while(pusbHc->GetDeviceInfo(iCount))
   {
   m_usbRootList.Add(pusbHc);
   #ifdef _DEBUG
-  int n = (m_usbRootList.GetCount() - 1);
+  int n = (int)(m_usbRootList.GetCount() - 1);
   m_usbRootList[n]->m_usbNodeList.Dump();
   #endif
   pusbHc = new CUsbHostController; //Get next controller
