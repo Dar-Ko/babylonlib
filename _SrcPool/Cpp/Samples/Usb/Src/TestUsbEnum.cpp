@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.10 $ $Date: 2009/07/21 22:21:58 $
+  $Revision: 1.11 $ $Date: 2009/07/22 16:47:19 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -363,7 +363,7 @@ int nHubCount = 0;
       nHubCount = 0;
       while((int)nHubCount < usbTree.m_usbRootList.GetCount())
         {
-        TsWriteToViewLn((LPCTSTR)usbTree.m_usbRootList[nHubCount].m_strDescription);
+        TsWriteToViewLn((LPCTSTR)usbTree.m_usbRootList[nHubCount]->m_strDescription);
         nHubCount++;
         }
 
@@ -380,6 +380,28 @@ int nHubCount = 0;
         TsWriteToViewLn(_T("Microsoft Basic Optical Mouse is connected."));
       else
         TsWriteToViewLn(_T("Microsoft Basic Optical Mouse is disconnected."));
+
+      bResult = true;
+      g_logTest.LogResult(bResult); //Log object's construction
+      }
+
+    if (bResult)
+      {
+      g_logTest.m_szObjectName = _T("CUsbDeviceTree::GetDevice()");
+      g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
+      TCHAR szMsg[1024];
+      //Get information about device
+      CUsbDeviceInfo usbDeviceInfo;
+//      if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
+      if(usbTree.GetDevice(USBVID_MICROSOFT, USBPID_MSMOUSEOPTICAL, &usbDeviceInfo))
+        {
+        //_stprintf(_T("Device (%0.4X, %0.4X,) is connected"),);
+        TsWriteToViewLn(_T("Device is connected."));
+        }
+      else
+        {
+        TsWriteToViewLn(_T("Device is disconnected."));
+        }
 
       bResult = true;
       g_logTest.LogResult(bResult); //Log object's construction
@@ -428,6 +450,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.11  2009/07/22 16:47:19  ddarko
+ *Test GetDevice()
+ *
  *Revision 1.10  2009/07/21 22:21:58  ddarko
  *Find(vid, pid)
  *
