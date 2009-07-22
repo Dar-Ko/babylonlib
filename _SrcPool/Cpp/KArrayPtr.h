@@ -1,5 +1,5 @@
 /*$RCSfile: KArrayPtr.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/07/21 22:17:37 $
+  $Revision: 1.5 $ $Date: 2009/07/22 16:44:58 $
   $Author: ddarko $
 
   Array of object references.
@@ -139,7 +139,7 @@ if ((nIndex > 0) && (nIndex < GetSize()))
 }
 
 //-----------------------------------------------------------------------------
-/*Copies another array over the array
+/*Copies another array over the array. Elements are copied by value.
  */
 template <class TYPE>
 void CArrayPtr<TYPE>::Copy(const CArrayPtr& src //[in] source of the elements
@@ -154,11 +154,8 @@ while(i < src.GetSize() )
   if (src[i] != NULL)
     {
     //Copy element content.
-    TYPE* pTemp = (TYPE*) new TYPE;
-    if (pTemp != NULL)
-      {
-      *pTemp = *src[i];
-      }
+    TYPE* pTemp = (TYPE*) new TYPE(*src[i]);
+    ASSERT(pTemp != NULL);
     Add(pTemp); //Append reference to the object
     }
   else
@@ -172,6 +169,9 @@ while(i < src.GetSize() )
 #endif  //_KARRAYPTR_H_
 /*****************************************************************************
  * $Log: KArrayPtr.h,v $
+ * Revision 1.5  2009/07/22 16:44:58  ddarko
+ * Copy using copy constructor instead assigment
+ *
  * Revision 1.4  2009/07/21 22:17:37  ddarko
  * Copy NULL elements
  *
