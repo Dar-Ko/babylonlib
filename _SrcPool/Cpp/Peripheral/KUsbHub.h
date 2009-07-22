@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.11 $ $Date: 2009/07/22 16:46:15 $
+  $Revision: 1.12 $ $Date: 2009/07/22 19:12:03 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -19,6 +19,9 @@
 #ifdef __cplusplus
 #ifdef _USE_STL
   #include <string>  //CString base class
+#endif
+#ifdef _USE_ATL
+  #pragma include_alias( "KString.h", "atlstr.h" )
 #endif
 #include "KString.h" //CString class replacement
 #include "UsbIoCtl.h"//USB_CONNECTION_STATUS enum
@@ -108,7 +111,13 @@ inline CUsbDeviceInfo::~CUsbDeviceInfo()
 }
 
 //#include "KArrayPtr.h" //CArrayPtr template
-#include "STL/KArrayStl.h" //CArray template
+#ifdef _USE_ATL
+  #include <atlsimpcoll.h>
+  #define CArray CAtlArray
+#endif
+#ifdef _USE_STL
+  #include "STL/KArrayStl.h" //CArray template
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 /*
  */
@@ -117,6 +126,10 @@ class CUsbDeviceArray : public  CArray<CUsbDevice*>
 public:
   CUsbDeviceArray();
   ~CUsbDeviceArray();
+private:
+  //Usage of the copy constructor is prohibited
+  CUsbDeviceArray(const CUsbDeviceArray&){};
+public:
   void  RemoveAll();
 
 #ifdef _DEBUG
@@ -145,7 +158,7 @@ inline void CUsbDeviceArray::RemoveAll()
 {
 TRACE1(_T("CUsbDeviceArray::RemoveAll() @ 0x%0.8X\n"), this);
 int i = 0;
-while (i < GetCount())
+while (i < (int)GetCount())
   {
   CUsbDevice* pElement = GetAt(i);
   if (pElement != NULL)
@@ -169,7 +182,7 @@ CArray<CUsbDevice*>::RemoveAll();
   TRACE1(_T("CUsbDeviceArray::Dump(this = 0x%0.8X)\n"), this);
   int i = 0;
   TRACE1(_T("  number of elements = %d\n"),GetCount());
-  while (i < GetCount())
+  while (i < (int)GetCount())
     {
     TRACE2(_T("   %0.2d. 0x0x%0.8X\n"), i, GetAt(i) );
     i++;
@@ -240,9 +253,9 @@ m_bHub = true;
 
 inline CUsbHub::CUsbHub(const CUsbHub& usbSrc) :
   CUsbDevice((CUsbDevice)usbSrc),
-  m_nPortCount(0),
-  m_usbNodeList(usbSrc.m_usbNodeList)
+  m_nPortCount(0)
 {
+m_usbNodeList.Copy(usbSrc.m_usbNodeList);
 }
 
 inline CUsbHub::~CUsbHub()
@@ -256,7 +269,7 @@ Erase();
 inline uint16_t CUsbHub::GetPortCount()
 {
 #ifdef _DEBUG
-  int nListSize = m_usbNodeList.GetCount();
+  int nListSize = (int)m_usbNodeList.GetCount();
     //Disable warning C4127: conditional expression in ASSERT is constant
   #pragma warning (disable: 4127)
   //Number of elements in the list have to match number of ports.
@@ -298,7 +311,13 @@ protected:
   bool GetRootHub(LPCTSTR szDevicePath, CString& strRootHubPath);
 };
 
-#include "STL/KArrayStl.h" //CArray template
+#ifdef _USE_ATL
+  #include <atlsimpcoll.h>
+  #define CArray CAtlArray
+#endif
+#ifdef _USE_STL
+  #include "STL/KArrayStl.h" //CArray template
+#endif
 ///////////////////////////////////////////////////////////////////////////////
 /*This class browses all USB host controllers USB hubs and USB devices
   attached on the system.
@@ -386,7 +405,7 @@ inline void CUsbDeviceTree::RemoveAll()
 {
 TRACE(_T("CUsbDeviceTree::RemoveAll()\n"));
 int i = 0;
-while(i < m_usbRootList.GetCount())
+while(i < (int)m_usbRootList.GetCount())
   {
   CUsbHostController* pElement = m_usbRootList.GetAt(i);
   if (pElement != NULL)
@@ -403,6 +422,9 @@ m_usbRootList.RemoveAll();
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.12  2009/07/22 19:12:03  ddarko
+ * Use CAtlArray
+ *
  * Revision 1.11  2009/07/22 16:46:15  ddarko
  * Replaced arrays with arrays od references
  *

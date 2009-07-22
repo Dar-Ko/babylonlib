@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.15 $ $Date: 2009/07/22 16:46:42 $
+  $Revision: 1.16 $ $Date: 2009/07/22 19:10:24 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -80,7 +80,7 @@ while(pusbHc->GetDeviceInfo(iCount))
   {
   m_usbRootList.Add(pusbHc);
   #ifdef _DEBUG
-  int n = m_usbRootList.GetUpperBound();
+  int n = (m_usbRootList.GetCount() - 1);
   m_usbRootList[n]->m_usbNodeList.Dump();
   #endif
   pusbHc = new CUsbHostController; //Get next controller
@@ -117,7 +117,7 @@ if (m_usbRootList.IsEmpty())
   Enumerate();
 
 int i = 0;
-while (i < m_usbRootList.GetCount())
+while (i < (int)m_usbRootList.GetCount())
   {
   bResult = m_usbRootList[i]->Find(wVendorId, wProductId, pDevice);
   if (bResult)
@@ -491,7 +491,7 @@ else
 
   //Search through all hub's ports for the required unit
   int i = 0;
-  while(i < m_usbNodeList.GetCount())
+  while(i < (int)m_usbNodeList.GetCount())
     {
     CUsbDevice* pUsbNode = m_usbNodeList[i];
     if (pUsbNode != NULL)
