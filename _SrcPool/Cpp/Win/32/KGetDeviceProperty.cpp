@@ -1,5 +1,5 @@
 /*$RCSfile: KGetDeviceProperty.cpp,v $: implementation file
-  $Revision: 1.5 $ $Date: 2009/07/20 13:59:13 $
+  $Revision: 1.6 $ $Date: 2009/07/22 19:20:32 $
   $Author: ddarko $
 
   Device Property method.
@@ -173,8 +173,14 @@ TRACE1(_T("    Failed to obtain the property: #%0.8d!\n"), GetLastError());
 return false;
 }
 
-#include <string>
+#ifdef _USE_STL
+  #include <string>
+#endif
+#ifdef _USE_ATL
+  #pragma include_alias( "KString.h", "atlstr.h" )
+#endif
 #include "KString.h"
+
 //-----------------------------------------------------------------------------
 /*Retrieves the device path from the specified device interface.
 
@@ -380,6 +386,9 @@ return bResult;
 
 /*****************************************************************************
  * $Log: KGetDeviceProperty.cpp,v $
+ * Revision 1.6  2009/07/22 19:20:32  ddarko
+ * Use Atl CString
+ *
  * Revision 1.5  2009/07/20 13:59:13  ddarko
  * ATLTRACE macro
  *
