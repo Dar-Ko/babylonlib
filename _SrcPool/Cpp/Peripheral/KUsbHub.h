@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.10 $ $Date: 2009/07/21 22:19:27 $
+  $Revision: 1.11 $ $Date: 2009/07/22 16:46:15 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -78,6 +78,10 @@ inline CUsbDevice::~CUsbDevice()
 class CUsbDeviceInfo : public CUsbId
 {
 public:
+  CUsbDeviceInfo();
+  ~CUsbDeviceInfo();
+
+public:
   bool m_bHub;           //device is a hub
   USB_CONNECTION_STATUS m_eStatus; //device status
   uint16_t m_nPortNo;    //hub port number that the device is connected to [1, n]
@@ -86,15 +90,35 @@ public:
   CString m_strSerialNo;
 };
 
-#include "KArrayPtr.h" //CArrayPtr template
+///////////////////////////////////////////////////////////////////////////////
+// Inlines
+
+//-----------------------------------------------------------------------------
+/*
+ */
+inline CUsbDeviceInfo::CUsbDeviceInfo() :
+  m_bHub(false),
+  m_eStatus(NoDeviceConnected),
+  m_nPortNo(0)
+{
+}
+
+inline CUsbDeviceInfo::~CUsbDeviceInfo()
+{
+}
+
+//#include "KArrayPtr.h" //CArrayPtr template
+#include "STL/KArrayStl.h" //CArray template
 ///////////////////////////////////////////////////////////////////////////////
 /*
  */
-class CUsbDeviceArray : public  CArrayPtr<CUsbDevice>
+class CUsbDeviceArray : public  CArray<CUsbDevice*>
 {
 public:
   CUsbDeviceArray();
   ~CUsbDeviceArray();
+  void  RemoveAll();
+
 #ifdef _DEBUG
   void Dump();
 #endif
@@ -111,6 +135,29 @@ inline CUsbDeviceArray::CUsbDeviceArray()
 
 inline CUsbDeviceArray::~CUsbDeviceArray()
 {
+//RemoveAll();
+}
+
+//-----------------------------------------------------------------------------
+/*Deletes all elements of the array and frees allocated resources.
+ */
+inline void CUsbDeviceArray::RemoveAll()
+{
+TRACE1(_T("CUsbDeviceArray::RemoveAll() @ 0x%0.8X\n"), this);
+int i = 0;
+while (i < GetCount())
+  {
+  CUsbDevice* pElement = GetAt(i);
+  if (pElement != NULL)
+    {
+    //if (!pElement->m_bHub)
+      delete pElement;
+    //else
+    //  delete ((CUsbHub*)pElement);
+    }
+  i++;
+  }
+CArray<CUsbDevice*>::RemoveAll();
 }
 
 #ifdef _DEBUG
@@ -168,7 +215,7 @@ protected:
 public:
   unsigned int m_nPortCount;     //number of ports on the hub
 
-protected:
+//protected:
   CUsbDeviceArray m_usbNodeList; //hub node connections (ports)
 };
 
@@ -283,20 +330,34 @@ protected:
 class CUsbDeviceTree
 {
 public:
+  CUsbDeviceTree();
+  ~CUsbDeviceTree();
   int Enumerate();
   bool GetDevice(const uint16_t wVendorId,
                  const uint16_t wProductId,
                  CUsbDeviceInfo* pDevice = NULL);
   bool HasDevice(const uint16_t wVendorId,
                  const uint16_t wProductId);
-
+  void RemoveAll();
 public:
-  CArray<CUsbHostController> m_usbRootList; //list of available USB host
+  CArray<CUsbHostController*> m_usbRootList; //list of available USB host
                                             //controllers (root hubs)
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 // Inlines
+
+//-----------------------------------------------------------------------------
+/*
+ */
+inline CUsbDeviceTree::CUsbDeviceTree()
+{
+}
+
+inline CUsbDeviceTree::~CUsbDeviceTree()
+{
+RemoveAll();
+}
 
 //-----------------------------------------------------------------------------
 /*Find the USB device specified by a vendor (VID) and product identification
@@ -318,6 +379,23 @@ inline bool CUsbDeviceTree::HasDevice(const uint16_t wVendorId, //[in] USB devic
 return GetDevice(wVendorId, wProductId);
 }
 
+//-----------------------------------------------------------------------------
+/*Deletes all elements from the host controller list.
+ */
+inline void CUsbDeviceTree::RemoveAll()
+{
+TRACE(_T("CUsbDeviceTree::RemoveAll()\n"));
+int i = 0;
+while(i < m_usbRootList.GetCount())
+  {
+  CUsbHostController* pElement = m_usbRootList.GetAt(i);
+  if (pElement != NULL)
+    delete pElement;
+  i++;
+  }
+m_usbRootList.RemoveAll();
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 #endif //__cplusplus
 
@@ -325,6 +403,9 @@ return GetDevice(wVendorId, wProductId);
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.11  2009/07/22 16:46:15  ddarko
+ * Replaced arrays with arrays od references
+ *
  * Revision 1.10  2009/07/21 22:19:27  ddarko
  * Find(vid, pid)
  *

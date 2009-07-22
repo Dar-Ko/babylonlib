@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.14 $ $Date: 2009/07/21 22:21:29 $
+  $Revision: 1.15 $ $Date: 2009/07/22 16:46:42 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -72,14 +72,21 @@ int CUsbDeviceTree::Enumerate()
 {
 TRACE(_T("CUsbDeviceTree::Enumerate()\n"));
 
+RemoveAll(); //Erase previous tree
+
 int iCount = 0;
-m_usbRootList.RemoveAll();
-CUsbHostController usbHc;
-while(usbHc.GetDeviceInfo(iCount))
+CUsbHostController* pusbHc = new CUsbHostController;
+while(pusbHc->GetDeviceInfo(iCount))
   {
-  m_usbRootList.Add(usbHc);
+  m_usbRootList.Add(pusbHc);
+  #ifdef _DEBUG
+  int n = m_usbRootList.GetUpperBound();
+  m_usbRootList[n]->m_usbNodeList.Dump();
+  #endif
+  pusbHc = new CUsbHostController; //Get next controller
   iCount++;
   }
+delete pusbHc; //Delete last non-existing controller
 return iCount;
 }
 
@@ -112,7 +119,7 @@ if (m_usbRootList.IsEmpty())
 int i = 0;
 while (i < m_usbRootList.GetCount())
   {
-  bResult = m_usbRootList[i].Find(wVendorId, wProductId, pDevice);
+  bResult = m_usbRootList[i]->Find(wVendorId, wProductId, pDevice);
   if (bResult)
     break;
   i++;
@@ -501,14 +508,32 @@ else
           else //Ignore port number
             {
             bResult = true;
-            pDevice->m_nPortNo = (uint16_t)(i + 1); //Set one-based port Id
             }
-        ///TODO check port no, serno
-          //todo copy CUsbDevice to pDevice
+ 
+           //TODO Get sdevice strings.
+//TODO: check multiple conditions
+          if (pDevice->m_strSerialNo.IsEmpty())
+            {
+            pDevice->m_strSerialNo = _T("N/A"); //TODO: get ser no
+            bResult = true;
+            }
+          else //Compare serial numbers
+            {
+            bResult = (pDevice->m_strSerialNo.CompareNoCase(_T("get ser no")) == 0);
+            }
+
+          if (bResult)
+            {
+            pDevice->m_wVid = wVendorId;
+            pDevice->m_wPid = wProductId;
+            pDevice->m_eStatus = pUsbNode->m_eStatus;
+            pDevice->m_nPortNo = (uint16_t)(i + 1); //Set one-based port Id
+
+            }
           }
         else //No additional validation is required
           {
-          //bResult = true;
+          bResult = true;
           }
 
         if (bResult)
