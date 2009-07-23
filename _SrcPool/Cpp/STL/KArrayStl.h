@@ -1,5 +1,5 @@
 /*$RCSfile: KArrayStl.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/07/15 20:54:10 $
+  $Revision: 1.5 $ $Date: 2009/07/23 13:22:52 $
   $Author: ddarko $
 
   STL port of MFC CArray class.
@@ -52,6 +52,7 @@
     int   Add(TYPE newElem);
     TYPE& ElementAt(int nIndex);
     bool  IsEmpty() const;
+    void  Copy(const CArray& src);
     TYPE  GetAt(int nIndex) const;
     int   GetCount() const;
     int   GetSize() const;
@@ -118,6 +119,21 @@
   bool CArray<TYPE>::IsEmpty() const
   {
   return std::vector<TYPE>::empty();
+  }
+
+  //---------------------------------------------------------------------------
+  /*Call this method to copy the elements of one array to another.
+   */
+  template <class TYPE>
+  void CArray<TYPE>::Copy(const CArray& src //[in] source of the elements to 
+                                            //copy to an array.
+                         )
+  {
+  std::vector<TYPE>::assign(src.begin(), src.end());
+    //Disable warning C4127: conditional expression in ASSERT is constant
+  #pragma warning (disable: 4127)
+    ASSERT(GetSize() == src.GetSize());
+  #pragma warning (default: 4127)
   }
 
   //---------------------------------------------------------------------------
@@ -225,6 +241,9 @@
 #endif  //_KARRAYSTL_H_
 /*****************************************************************************
  * $Log: KArrayStl.h,v $
+ * Revision 1.5  2009/07/23 13:22:52  ddarko
+ * Copy()
+ *
  * Revision 1.4  2009/07/15 20:54:10  ddarko
  * RemoveAt()
  *
