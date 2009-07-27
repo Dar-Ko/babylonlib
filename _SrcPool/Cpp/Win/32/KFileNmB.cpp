@@ -14,12 +14,16 @@
 #ifdef _AFXDLL //use MFC library
   #include <afxwin.h>
 #else          //use MS SDK
-  #include <windows.h>
-  #ifndef TRACE0
-    #ifndef _T
-      #include "KTChar.h"
+  #ifndef _USE_ATL
+    #include <windows.h>
+    #ifndef TRACE0
+      #ifndef _T
+        #include "KTChar.h"
+      #endif
+      #include "KTrace.h" //Debugging macros
     #endif
-    #include "KTrace.h" //Debugging macros
+  #else
+    #include "KTraceAtl.h"
   #endif
 #endif
 
