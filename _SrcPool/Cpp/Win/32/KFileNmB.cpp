@@ -46,9 +46,9 @@
 CFileNameBrowser::CFileNameBrowser(LPCTSTR szFileName //[in] null-terminated
                                    //string with name of the file to search for
                                    ) :
-  m_Handle(::FindFirstFile(szFileName, &m_FindData)),
-  m_bDone(FALSE)
+  m_Handle(::FindFirstFile(szFileName, &m_FindData))
 {
+m_bDone = (m_Handle == INVALID_HANDLE_VALUE);
 }
 
 CFileNameBrowser::~CFileNameBrowser()
@@ -64,30 +64,41 @@ if (m_Handle != INVALID_HANDLE_VALUE)
 
 //::operator ++()----------------------------------------------------
 /*Prefix operator continues a file search from a previous call to
-  the FindFirstFile() or operator ++(). Returns file name found.
+  the FindFirstFile() or operator ++().
+
+  Returns the next file name or directory found or, in case of
+  a failure, an empty string.
 
  Example:
   #include "KFileNmB.h" //CFileNameBrowser class
   ...
+  LPCTSTR szFileName = _T("C:/*.ini");
   CFileNameBrowser FileName(szFileName);
   while(!FileName.IsLastFileFound())
     {
-    TRACE0("File %s\n",++FileName);
+    #ifdef _UNICODE
+      TRACE1("  file %ws\n", (LPCTSTR)fileName);
+    #else
+      TRACE1("  file %s\n", (LPCTSTR)fileName);
+    #endif
+    
+    ++FileName;
     }
 
+  See also: FindFirstFile(), FindNextFile().
  */
 LPCTSTR CFileNameBrowser::operator ++()
 {
 if (!::FindNextFile(m_Handle, &m_FindData))
   {
-  m_bDone = TRUE;
+  m_bDone = true;
   if (GetLastError() != ERROR_NO_MORE_FILES)
     {
-    TRACE0("::FindNextFile() failed\n");
-    return NULL; //an error occured (see GetLastError() result)
+    TRACE1("::FindNextFile() failed (0x%0.8X)!\n", GetLastError());
     }
+  return _T("");
   }
-return  FindData().cFileName;
+return FindData().cFileName;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

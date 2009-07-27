@@ -1,5 +1,5 @@
 /*$Workfile: KFileNmB.h$: header file
-  $Revision: 1.3 $ $Date: 2008/05/05 21:09:54 $
+  $Revision: 1.4 $ $Date: 2009/07/27 21:15:25 $
   $Author: ddarko $
 
   File Name Browser
@@ -32,7 +32,9 @@ class CFileNameBrowser
   // Construction
 public:
   CFileNameBrowser(LPCTSTR szFileName);
- ~CFileNameBrowser();
+  ~CFileNameBrowser();
+private:
+  CFileNameBrowser(){};
 
 // Attributes
 private:
