@@ -22,7 +22,8 @@
 
 #define USBPID_MOIRSPECTRUM3SMART 0x0401 //Spectrum III Hybrid Smartcard Reader
 #define USBPID_MOIRSPECTRUM3      0x0630 /*Spectrum III USB Magstripe Only Insert
-                                Reader (MOIR) with CDC USB to COM port driver*/
+                                           Reader (MOIR) with CDC USB to COM port
+                                           driver*/
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_USBVID0ACD_H_

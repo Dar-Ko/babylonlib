@@ -1,5 +1,5 @@
 /*$Workfile: UsbVid046D.h$: header file
-  $Revision: 1.6 $ $Date: 2008/09/29 15:27:15 $
+  $Revision: 1.7 $ $Date: 2009/07/30 17:08:32 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -60,6 +60,7 @@
 #define USBPID_QUICKCAMZOOM3                    0x08B3 //QuickCam Zoom
 #define USBPID_QUICKCAMZOOM4                    0x08B4 //QuickCam Zoom
 #define USBPID_QUICKCAMSPHERE                   0x08B5 //QuickCam Sphere
+#define USBPID_QUICKCAMIM                       0x08B9 //QuickCam IM
 #define USBPID_MICPRO4000                       0x08BD //Microphone Pro 4000
 #define USBPID_QUICKCAMPRO3000                  0x08C0 //QuickCam Pro 3000
 #define USBPID_QUICKCAMFUSION                   0x08C1 //QuickCam Fusion
@@ -77,16 +78,15 @@
 #define USBPID_QUICKCAMCOMMUNICATESTX2           0x08D7 //QuickCam Communicate STX ??
 #define USBPID_QUICKCAMFORNOTEBOOKDELUXE        0x08D8 //QuickCam for Notebook Deluxe
 #define USBPID_QUICKCAMIMCONNECT                0x08D9 //QuickCam IM/Connect
-#define USBPID_QUICKCAMCONNECT                  0x08D9 //QuickCam Connect
 #define USBPID_QUICKCAMMESSANGER0               0x08DA //QuickCam Messenger
 #define USBPID_QUICKCAMFORNOTEBOOKS2             0x08DD //QuickCam for Notebooks ??
 #define USBPID_QUICKCAMEXPRESS2                 0x08E0 //QuickCam Express
-#define USBPID_LABTECWEBCAM2                    0x08E1 //Labtec WebCam ??
+#define USBPID_LABTECWEBCAM2                     0x08E1 //Labtec WebCam ??
 #define USBPID_QUICKCAMMESSENGERA               0x08F0 //QuickCam Messenger
 #define USBPID_QUICKCAMEXPRESS                  0x08F1 //QuickCam Express
 #define USBPID_MICMESSENGER                     0x08F2 //Microphone Messenger
 #define USBPID_QUICKCAMEXPRESS3                 0x08F3 //QuickCam Express
-#define USBPID_LABTECWEBCAM3                    0x08F4 //Labtec WebCam ??
+#define USBPID_LABTECWEBCAM3                     0x08F4 //Labtec WebCam ??
 #define USBPID_QUICKCAMMESSENGERCOMMUNICATE     0x08F5 //QuickCam Messenger Communicate
 #define USBPID_QUICKCAMMESSENGERPLUS            0x08F6 //Quickcam Messenger Plus
 #define USBPID_CLICKSMART310                    0x0900 //ClickSmart 310
@@ -112,7 +112,12 @@
 #define USBPID_QUICKCAMPROFORNOTEBOOKS          0x0991 //QuickCam Pro for Notebooks
 #define USBPID_QUICKCAMCOMMUNICATEDELUXE        0x0992 //QuickCam Communicate Deluxe
 #define USBPID_QUICKCAMORBITSPHEREAF            0x0994 //QuickCam Orbit/Sphere AF
-#define USBPID_ORBICAM3                         0x09B0 //OrbiCam ??
+#define USBPID_QUICKCAMCOMMUNICATE5500       		0x09A1 //QuickCam Communicate MP/S5500
+#define USBPID_QUICKCAMCOMMUNICATEDELUXE7500		0x09A2 //QuickCam Communicate Deluxe/S7500
+#define USBPID_QUICKCAME3500                		0x09A4 //QuickCam E 3500
+#define USBPID_QUICKCAMVISIONPRO            		0x09A6 //QuickCam Vision Pro
+#define USBPID_ORBICAMACER                      0x09B0 //Acer OrbiCam
+#define USBPID_WEBCAMFUJITSU                    0X09B2 //Fujitsu Webcam
 #define USBPID_QUICKCAMMICDELL                  0x09C0 //QuickCam for Dell Notebooks Mic
 #define USBPID_QUICKCAMDELUXENOTEBOOKS          0x09C1 //QuickCam Deluxe for Notebooks
 #define USBPID_LOGITECHUSBHEADSET               0x0A01 //Logitech USB Headset
@@ -161,6 +166,7 @@
 #define USBPID_MOUSEPREMIUMOPTICAL              0xC03E //Premium Optical Wheel Mouse
 #define USBPID_ULTRAXOPTICALMOUSE               0xC03F //UltraX Optical Mouse
 #define USBPID_CORDEDTILTWHEELMOUSE             0xC040 //Corded Tilt-Wheel Mouse
+#define USBPID_LASERMOUSEG5                     0xC041 //G5 Laser Mouse
 #define USBPID_MX320LASERMOUSE                  0xC043 //MX320 Laser Mouse
 #define USBPID_LX3OPTICALMOUSE                  0xC044 //LX3 Optical Mouse
 #define USBPID_OPTICALMOUSE2                    0xC045 //Optical Mouse ??
@@ -182,14 +188,15 @@
 #define USBPID_WINGMANATTACK                    0xC20D //WingMan Attack 2
 #define USBPID_WINGMANFORMULAGP                 0xC20E //WingMan Formula GP
 #define USBPID_ITOUCHCORDLESSRECIEVER           0xC211 //iTouch Cordless Receiver
-#define USBPID_DUALACTIONGAMEPAD                0xC216 //Dual Action Gamepad
-#define USBPID_WINGMANEXTREMEDIGITAL3D2         0xC212 //WingMan Extreme Digital 3D ??
-#define USBPID_JUH16FREEDOM24JOYSTICK           0xC213 //J-UH16 (Freedom 2.4 Cordless Joystick)
-#define USBPID_ATK3JOYSTICK                     0xC214 //ATK3 (Attack III Joystick)
+#define USBPID_WINGMANEXTREME3D                   0xC212 //WingMan Extreme Digital 3D ??
+#define USBPID_JOYSTICKJ_UH16                   0xC213 //J-UH16 (Freedom 2.4 Cordless Joystick)
+#define USBPID_JOYSTICKATK3                     0xC214 //ATK3 (Attack III Joystick)
 #define USBPID_EXTREME3DPRO                     0xC215 //Extreme 3D Pro
+#define USBPID_DUALACTIONGAMEPAD                0xC216 //Dual Action Gamepad
 #define USBPID_RUMBLEPAD2                       0xC218 //Logitech RumblePad 2 USB
 #define USBPID_CORDLESSRUMBLEPAD2               0xC219 //Cordless RumblePad 2
 #define USBPID_PRECISIONGAMEPAD                 0xC21A //Precision Gamepad
+#define USBPID_G13GAMEBOARD                     0xC21C //G13 Advanced Gameboard
 #define USBPID_G15KBD                           0xC221 //G15 Keyboard
 #define USBPID_G15KBDLCD                        0xC222 //G15 Keyboard / LCD
 #define USBPID_G15KBDHUB                        0xC223 //G15 Keyboard / USB Hub
@@ -212,12 +219,15 @@
 #define USBPID_KBDINTERNETNAVIGATOR             0xC308 //Internet Navigator Keyboard
 #define USBPID_KBDINTERNET                      0xC309 //Internet Keyboard
 #define USBPID_ITOUCHCOMPOSITE                  0xC30A //iTouch Composite
+#define USBPID_KBDNETPLAY                       0xC30B //NetPlay Keyboard
 #define USBPID_INTERNETKEYSX                    0xC30C //Internet Keys (X)
 #define USBPID_INTERNETKEYS                     0xC30D //Internet Keys
 #define USBPID_ULTRAXKEYSX                      0xC30E //UltraX Keys (X)
 #define USBPID_LOGICOOLKBD106HID                0xC30F //Logicool HID-Compliant Keyboard (106 key)
+#define USBPID_KBDDELUXE250                     0xC312 //DeLuxe 250 Keyboard
 #define USBPID_CLASSICNEWTOUCHKBD               0xC315 //Classic New Touch Keyboard
 #define USBPID_LOGITECHKBDHID                   0xC316 //HID-Compliant Keyboard
+#define USBPID_KBDILUMINATED                    0xC318 //Illuminated Keyboard
 #define USBPID_TRACKMANMARBLEWHEEL              0xC401 //TrackMan Marble Wheel
 #define USBPID_MOUSEMARBLE2BUTTON               0xC402 //Marble Mouse (2-button)
 #define USBPID_TURBOTRACKMANMARBLEFX            0xC403 //Turbo TrackMan Marble FX
@@ -233,8 +243,9 @@
 #define USBPID_CORDLESSKEYBOARD                 0xC509 //Cordless Keyboard
 #define USBPID_CORDLESSMOUSE1                   0xC50A //Cordless Mouse
 #define USBPID_CORDLESSDESKTOPOPTICAL           0xC50B //Cordless Desktop Optical
-#define USBPID_MOUSECORDLESSRECEIVERMX1000      0xC50E //MX-1000 Cordless Mouse Receiver
+#define USBPID_CORDLESSDESKTOPS510              0xC50C //Cordless Desktop S510
 #define USBPID_CORDLESSMOUSE2                   0xC50D //Cordless Mouse
+#define USBPID_MOUSECORDLESSRECEIVERMX1000      0xC50E //MX-1000 Cordless Mouse Receiver
 #define USBPID_CORDLESSMOUSE3                   0xC510 //Cordless Mouse
 #define USBPID_LX700RECEIVER                    0xC512 //LX-700 Cordless Desktop Receiver
 #define USBPID_MX3000RECEIVER                   0xC513 //MX3000 Cordless Desktop Receiver
@@ -242,6 +253,7 @@
 #define USBPID_LX710LASERMOUSE                  0xC517 //LX710 Cordless Desktop Laser
 #define USBPID_MOUSECORDLESSMX610               0xC518 //MX610 Laser Cordless Mouse
 #define USBPID_MXREVOLUTIONG7MOUSE              0xC51A //MX Revolution/G7 Cordless Mouse
+#define USBPID_MOUSECORDLESSV220                0xC51B //V220 Cordless Optical Mouse for Notebooks
 #define USBPID_MX620LASERMOUSE                  0xC521 //MX620 Laser Cordless Mouse
 #define USBPID_3DCONNEXIONSPACEPILOT3DMOUSE     0xC625 //3Dconnexion Space Pilot 3D Mouse
 #define USBPID_3DCONNEXIONSPACENAVIGATOR3DMOUSE 0xC626 //3DConnexion Space Navigator 3D Mouse

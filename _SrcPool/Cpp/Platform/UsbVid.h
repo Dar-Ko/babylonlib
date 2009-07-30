@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/05/11 15:21:14 $
+  $Revision: 1.3 $ $Date: 2009/07/30 17:08:32 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor device identification (VID) list
@@ -21,6 +21,7 @@
  */
 
 #include "UsbVid0000.h" //USB device vendor identification (VID) template
+#include "UsbVid045F.h" //
 #include "UsbVid046D.h" //Logitech Inc.
 #include "UsbVid04B4.h" //Cypress Semiconductor Corporation
 #include "UsbVid04CF.h" //Myson Century, Inc.
@@ -41,6 +42,9 @@
 #endif //_USBVID_H_
 /*****************************************************************************
  * $Log: UsbVid.h,v $
+ * Revision 1.3  2009/07/30 17:08:32  ddarko
+ * Updated
+ *
  * Revision 1.2  2009/05/11 15:21:14  ddarko
  * Added Belkin International, Inc.
  *

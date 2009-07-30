@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid050D.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/05/11 15:21:15 $
+  $Revision: 1.2 $ $Date: 2009/07/30 17:08:32 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -39,6 +39,7 @@
 #define USBPID_ETHERNETF5D5050                    0x0121  //F5D5050 100Mbps Ethernet
 #define USBPID_ETHERNETADAPTER                    0x0122  //Ethernet Adapter
 #define USBPID_BLUETOOTHTRACEFILTER               0x0131  //Bluetooth Device with trace filter
+#define USBPID_BLUETOOTHMINIDONGLE                0x016A //Bluetooth Mini Dongle
 #define USBPID_PERIPHERALSWITCH                   0x0201  //Peripheral Switch
 #define USBPID_USBVIEWIINT1004                    0x0208  //USBView II Video Adapter [nt1004]
 #define USBPID_DVDF5U228HISPEED                   0x0210  //F5U228 Hi-Speed USB 2.0 DVD Creator
@@ -47,6 +48,7 @@
 #define USBPID_USBHUBF5U234                       0x0234  //F5U234 USB 2.0 4-Port Hub
 #define USBPID_USBHUBF5U237                       0x0237  //F5U237 USB 2.0 7-Port Hub
 #define USBPID_CARDREADER_F5U240                  0x0240  //F5U240 USB 2.0 CF Card Reader
+#define USBPID_FLASHMEDIAUSB2                     0x0249 //USB 2 Flash Media Device
 #define USBPID_SERIALF5U257                       0x0257  //F5U257 Serial
 #define USBPID_SERIALF5U409                       0x0409  //F5U409 Serial
 #define USBPID_USBHUB7PORT                        0x0416  //External powered USB 2.0 7 port Hub
@@ -77,6 +79,9 @@
 #endif //_USBVID050D_H_
 /*****************************************************************************
  * $Log: UsbVid050D.h,v $
+ * Revision 1.2  2009/07/30 17:08:32  ddarko
+ * Updated
+ *
  * Revision 1.1  2009/05/11 15:21:15  ddarko
  * Added Belkin International, Inc.
  *

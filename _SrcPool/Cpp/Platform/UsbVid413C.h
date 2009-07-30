@@ -29,8 +29,11 @@
 #define USBPID_RT7D50KBD                             0x2005 //RT7D50 Keyboard
 #define USBPID_SK3106                                0x2100 //SK-3106 Keyboard
 #define USBPID_DELLSCRD                              0x2101 //SmartCard Reader Keyboard
+#define USBPID_KBDL100                               0x2105 //Model L100 Keyboard
 #define USBPID_DRAC4RAC                              0x2500 //DRAC4 Remote Access Card
 #define USBPID_DELLMOUSEOW                           0x3010 //Optical Wheel Mouse
+#define USBPID_DELLMOUSEOW2                          0x3012 //Optical Wheel Mouse
+#define USBPID_DELLMOUSEO5BTN                        0x3016 //Optical 5-Button Wheel Mouse
 #define USBPID_MOUSEDELL                             0x3200 //Dell Mouse
 #define USBPID_AXIMX5                                0x4001 //Axim X5
 #define USBPID_AXIMX3                                0x4002 //Axim X3
@@ -41,6 +44,7 @@
 #define USBPID_AXIMSYNC7                             0x4007 //Axim Sync
 #define USBPID_AXIMSYNC8                             0x4008 //Axim Sync
 #define USBPID_AXIMSYNC9                             0x4009 //Axim Sync
+#define USBPID_AXIMX51V                              0x4011 //Axim X51v
 #define USBPID_PRTAIOA940                            0x5103 //AIO Printer A940
 #define USBPID_PRTAIOA920                            0x5105 //AIO Printer A920
 #define USBPID_PRTAIOA960                            0x5107 //AIO Printer A960
@@ -73,7 +77,9 @@
 #define USBPID_PRINTINGSUPPORT6                      0x5905 //Printing Support ??
 #define USBPID_BTBC02USBADAPTER                      0x8000 //BC02 Bluetooth USB Adapter
 #define USBPID_BTTRUEMOBILEMODULEIN                  0x8010 //TrueMobile Bluetooth Module in
+#define USBPID_TRUMOB1180                            0x8100 //TrueMobile 1180 802.11b Adapter
 #define USBPID_TRUEMOBILE1300WLANCARD                0x8102 //TrueMobile 1300 USB2.0 WLAN Card
+#define USBPID_WIRE350BT                             0x8103 //Wireless 350 Bluetooth
 #define USBPID_1450DUAL_BAND                         0x8104 //Wireless 1450 Dual-band (802.11a/b/g) USB2.0 Adapter
 #define USBPID_U2HID                                 0x8105 //U2 in HID - Driver
 #define USBPID_WIRELESS350BTIN                       0x8106 //Wireless 350 Bluetooth Internal Card in
@@ -102,8 +108,9 @@
 #define USBPID_WIRELESS5520_VODAIEAPPORT             0x8138 //Wireless 5520 Voda I Mobile Broadband (3G HSDPA) Minicard EAP-SIM Port
 #define USBPID_WIRELESS360BT                         0x8140 //Wireless 360 Bluetooth
 #define USBPID_MOBILE360DFU                          0x8142 //Mobile 360 in DFU
-#define USBPID_TRUMOB1180                            0x8100 //TrueMobile 1180 802.11b Adapter
-#define USBPID_WIRE350BT                             0x8103 //Wireless 350 Bluetooth
+#define USBPID_WIRELESS370BT                         0x8156 //Wireless 370 Bluetooth Mini-card
+#define USBPID_KBDINTEGRATED                         0x8157 //Integrated Keyboard
+#define USBPID_TOUCHPADINTEGRATED                    0x8158 //Integrated Touchpad / Trackstick
 #define USBPID_BTADAPTERDELL2                        0x8501 //Bluetooth Adapter ??
 #define USBPID_DELLHUB                               0xA001 //Dell Hub
 #define USBPID_HUBINTERNAL2DELL                      0xA005 //Internal 2.0 Hub
