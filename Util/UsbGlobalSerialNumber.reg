@@ -1,0 +1,38 @@
+Windows Registry Editor Version 5.00
+;$RCSfile: UsbGlobalSerialNumber.reg,v $: Windows Registry configuration file
+;$Revision: 1.1 $ $Date: 2009/08/04 20:38:36 $
+;$Author: ddarko $
+;
+;Enables or disables reading serial numbers of USB devices attached to the
+;system
+;Requires regedit.exe.
+;Note: Win2k, WinXP specific;
+;Copyright: CommonSoft Inc
+;2009-08-03 Darko Kolakovic
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\UsbFlags]
+
+;Disable reading serial numbers of all USB devices.
+;Note: value it is oposite of common convetions for key names and disable flags
+;"GlobalDisableSerNumGen"=hex:00
+
+
+;Enable reading serial numbers of all USB devices.
+;Note: value it is oposite of common convetions for key names and enable flags
+"GlobalDisableSerNumGen"=hex:01
+
+;Ignore serial number of a device with specified Vendor ID and Product ID;
+;   IgnoreHWSerNumVVVVPPPP=0/1
+; where VVVV is vendor ID and PPPP is product ID
+;Example:
+;"IgnoreHWSerNum04710302"=hex:01
+
+;Other useful settings
+;"GenericUSBDeviceString"="USB Device"
+;"GenericCompositeUSBDeviceString"="Composite USB Device"
+
+;------------------------------------------------------------------------------
+;$Log: UsbGlobalSerialNumber.reg,v $
+;Revision 1.1  2009/08/04 20:38:36  ddarko
+;Created
+;
