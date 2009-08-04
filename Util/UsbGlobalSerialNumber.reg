@@ -1,6 +1,6 @@
 Windows Registry Editor Version 5.00
 ;$RCSfile: UsbGlobalSerialNumber.reg,v $: Windows Registry configuration file
-;$Revision: 1.1 $ $Date: 2009/08/04 20:38:36 $
+;$Revision: 1.2 $ $Date: 2009/08/04 21:18:46 $
 ;$Author: ddarko $
 ;
 ;Enables or disables reading serial numbers of USB devices attached to the
@@ -9,6 +9,13 @@ Windows Registry Editor Version 5.00
 ;Note: Win2k, WinXP specific;
 ;Copyright: CommonSoft Inc
 ;2009-08-03 Darko Kolakovic
+
+;Typically you cannot see devices which are hidden (not plugged in) but by setting
+;an environmental variable you can make these devices visible and remove them.
+;Run following commands:
+;    set DEVMGR_SHOW_NONPRESENT_DEVICES=1
+;    Devmgmt.msc
+
 
 [HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\UsbFlags]
 
@@ -33,6 +40,9 @@ Windows Registry Editor Version 5.00
 
 ;------------------------------------------------------------------------------
 ;$Log: UsbGlobalSerialNumber.reg,v $
+;Revision 1.2  2009/08/04 21:18:46  ddarko
+;*** empty log message ***
+;
 ;Revision 1.1  2009/08/04 20:38:36  ddarko
 ;Created
 ;
