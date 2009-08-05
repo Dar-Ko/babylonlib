@@ -1,36 +1,58 @@
-/*++
+/*$RCSfile: KPackPop.h,v $: header file
+  $Revision: 1.2 $ $Date: 2009/08/05 19:22:46 $
+  $Author: ddarko $
 
-Copyright (c) Microsoft Corporation.  All rights reserved.
+  Restores packing alignment for structure, union, and class members.
+  2007-02-01 Darko Kolakovic
+ */
 
-Module Name:
-
-    poppack.h
-
-Abstract:
-
-    This file turns packing of structures off.  (That is, it enables
-    automatic alignment of structure fields.)  An include file is needed
-    because various compilers do this in different ways.
-
-    poppack.h is the complement to pshpack?.h.  An inclusion of poppack.h
-    MUST ALWAYS be preceded by an inclusion of one of pshpack?.h, in one-to-one
-    correspondence.
-
-    For Microsoft compatible compilers, this file uses the pop option
-    to the pack pragma so that it can restore the previous saved by the
-    pshpack?.h include file.
-
---*/
-
-#if ! (defined(lint) || defined(RC_INVOKED))
-#if ( _MSC_VER >= 800 && !defined(_M_I86)) || defined(_PUSHPOP_SUPPORTED)
-#pragma warning(disable:4103)
-#if !(defined( MIDL_PASS )) || defined( __midl )
-#pragma pack(pop)
-#else
-#pragma pack()
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #pragma message ("   #include " __FILE__ )
 #endif
-#else
-#pragma pack()
-#endif
-#endif // ! (defined(lint) || defined(RC_INVOKED))
+ /*++
+
+#if !(defined(lint)
+  #undef ALIGNDATA
+  #define ALIGNDATA
+  //////////////////////////////////////////////////////////////////////////////
+  /*Restore previous packing alignment for structure, union and class members.
+    An include file is needed because various compilers do this in different
+    ways.
+
+    Note: for Microsoft compatible compilers, this files uses the pop option
+    to the pack pragma; include "KPackPsh.h" (see also <pshpack1.h>) to set
+    the packing alignment.
+   */
+  #if defined(_MSC_VER)
+    //Microsoft Visual C/C++ compiler
+    #include <poppack.h>
+
+  #elif defined (__GNUC__)
+    /*GNU C Compiler.
+     */
+    #undef ALIGNDATA
+    #define ALIGNDATA
+
+    /*Note: For compatibility with Microsoft Windows compilers, GCC added support
+      for a set of #pragma directives which change the maximum alignment of
+      members of structures.
+     */
+    #pragma pack(pop)
+
+  #elif defined(__SUNPRO_C) || defined(__SUNPRO_CC)
+    #pragma pack()
+
+  #elif defined (__ICCAVR32__)
+    #pragma pack()
+
+  #else
+    #pragma pack()
+  #endif
+///////////////////////////////////////////////////////////////////////////////
+#endif //lint
+/******************************************************************************
+ * $Log: KPackPop.h,v $
+ * Revision 1.2  2009/08/05 19:22:46  ddarko
+ * Updated
+ *
+ *****************************************************************************/
