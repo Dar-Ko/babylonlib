@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/07/30 17:08:32 $
+  $Revision: 1.4 $ $Date: 2009/08/05 14:05:36 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor device identification (VID) list
@@ -21,7 +21,6 @@
  */
 
 #include "UsbVid0000.h" //USB device vendor identification (VID) template
-#include "UsbVid045F.h" //
 #include "UsbVid046D.h" //Logitech Inc.
 #include "UsbVid04B4.h" //Cypress Semiconductor Corporation
 #include "UsbVid04CF.h" //Myson Century, Inc.
@@ -30,6 +29,7 @@
 #include "UsbVid078B.h" //Suzo-Happ Group
 #include "UsbVid0801.h" //Mag-Tek
 #include "UsbVid0839.h" //Samsung Tecwin Co.
+#include "UsbVid0A5F.h" //Zebra Technologies
 #include "UsbVid0AA7.h" //Wincor Nixdorf GmbH
 #include "UsbVid0ACD.h" //ID Tech
 #include "UsbVid0D85.h" //L-1 Identity Solutions - Identix Incorporated
@@ -42,6 +42,9 @@
 #endif //_USBVID_H_
 /*****************************************************************************
  * $Log: UsbVid.h,v $
+ * Revision 1.4  2009/08/05 14:05:36  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.3  2009/07/30 17:08:32  ddarko
  * Updated
  *

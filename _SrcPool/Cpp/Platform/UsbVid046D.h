@@ -1,5 +1,5 @@
 /*$Workfile: UsbVid046D.h$: header file
-  $Revision: 1.7 $ $Date: 2009/07/30 17:08:32 $
+  $Revision: 1.8 $ $Date: 2009/08/05 14:05:36 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -39,20 +39,20 @@
 #define USBPID_ORBICAM                          0x0892 //OrbiCam ??
 #define USBPID_CRYSTALCAM                       0x0894 //CrystalCam
 #define USBPID_QUICKCAMDELL1                    0x0895 //QuickCam for Dell Notebooks
-#define USBPID_ORBICAM2                         0x0896 //OrbiCam ??
+#define USBPID_ORBICAM2                          0x0896 //OrbiCam ??
 #define USBPID_QUICKCAMDELL2                    0x0897 //QuickCam for Dell Notebooks
 #define USBPID_QUICKCAMDELL3                    0x0899 //QuickCam for Dell Notebooks
-#define USBPID_QUICKCAMIM                       0x08A0 //QuickCam IM ??
+#define USBPID_QUICKCAMIM                        0x08A0 //QuickCam IM ??
 #define USBPID_QUICKCAMIMWITHSOUND              0x08A1 //QuickCam IM with sound
-#define USBPID_LABTECWEBCAMPRO                  0x08A2 //Labtec WebCam Pro ??
+#define USBPID_LABTECWEBCAMPRO                   0x08A2 //Labtec WebCam Pro ??
 #define USBPID_QUICKCAMQUICKCAMCHAT             0x08A3 //QuickCam QuickCam Chat
-#define USBPID_QUICKCAMIM2                      0x08A6 //QuickCam IM ??
+#define USBPID_QUICKCAMIM2                       0x08A6 //QuickCam IM ??
 #define USBPID_QUICKCAMIMAGE                    0x08A7 //QuickCam Image
 #define USBPID_NOTEBOOKDELUXE                   0x08A9 //Notebook Deluxe
 #define USBPID_LABTECNOTEBOOKS                  0x08AA //Labtec Notebooks
 #define USBPID_QUICKCAMCOOL                     0x08AC //QuickCam Cool
-#define USBPID_QUICKCAMCOMMUNICATESTX           0x08AD //QuickCam Communicate STX ??
-#define USBPID_QUICKCAMFORNOTEBOOKS             0x08AE //Quickcam for Notebooks ??
+#define USBPID_QUICKCAMCOMMUNICATESTX            0x08AD //QuickCam Communicate STX ??
+#define USBPID_QUICKCAMFORNOTEBOOKS              0x08AE //Quickcam for Notebooks ??
 #define USBPID_QUICKCAMEASYCOOL                 0x08AF //QuickCam Easy/Cool
 #define USBPID_QUICKCAM3000PRO                  0x08B0 //QuickCam 3000 Pro [pwc]
 #define USBPID_QUICKCAMNOTEBOOKPRO              0x08B1 //QuickCam Notebook Pro
@@ -60,19 +60,19 @@
 #define USBPID_QUICKCAMZOOM3                    0x08B3 //QuickCam Zoom
 #define USBPID_QUICKCAMZOOM4                    0x08B4 //QuickCam Zoom
 #define USBPID_QUICKCAMSPHERE                   0x08B5 //QuickCam Sphere
-#define USBPID_QUICKCAMIM                       0x08B9 //QuickCam IM
+#define USBPID_QUICKCAMIM3                       0x08B9 //QuickCam IM ??
 #define USBPID_MICPRO4000                       0x08BD //Microphone Pro 4000
 #define USBPID_QUICKCAMPRO3000                  0x08C0 //QuickCam Pro 3000
 #define USBPID_QUICKCAMFUSION                   0x08C1 //QuickCam Fusion
 #define USBPID_QUICKCAMPTZ                      0x08C2 //QuickCam PTZ
 #define USBPID_CAMERANOTEBOOKSPRO               0x08C3 //Camera Notebooks Pro
-#define USBPID_QUICKCAMPRO5000                  0x08C5 //QuickCam Pro 5000 ??
+#define USBPID_QUICKCAMPRO5000                   0x08C5 //QuickCam Pro 5000 ??
 #define USBPID_QUICKCAMDELL4                    0x08C6 //QuickCam for Dell Notebooks
 #define USBPID_QUICKCAMULTRAVISION              0x08C9 //QuickCam Ultra Vision
 #define USBPID_MICFUSION                        0x08CA //Microphone Fusion
 #define USBPID_MICNOTEBOOKSPRO                  0x08CB //Microphone Notebooks Pro
 #define USBPID_MICPTZ                           0x08CC //Microphone PTZ
-#define USBPID_QUICKCAMPRO50002                 0x08CE //QuickCam Pro 5000 ??
+#define USBPID_QUICKCAMPRO50002                  0x08CE //QuickCam Pro 5000 ??
 #define USBPID_QUICKCAM1                        0x08CF //QuickCam FixMe!
 #define USBPID_QUICKCAMEXPRESS1                 0x08D0 //QuickCam Express
 #define USBPID_QUICKCAMCOMMUNICATESTX2           0x08D7 //QuickCam Communicate STX ??
