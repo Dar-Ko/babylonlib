@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/08/05 14:05:36 $
+  $Revision: 1.5 $ $Date: 2009/08/06 19:34:38 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor device identification (VID) list
@@ -34,6 +34,7 @@
 #include "UsbVid0ACD.h" //ID Tech
 #include "UsbVid0D85.h" //L-1 Identity Solutions - Identix Incorporated
 #include "UsbVid0DD4.h" //Custom Engineering Spa
+#include "UsbVid0FCA.h" //Research In Motion, Ltd.
 #include "UsbVid152D.h" //JMicron Technology Corp.
 #include "UsbVid413C.h" //Dell Computer Corp.
 #include "UsbVid8086.h" //Intel Corporation
@@ -42,6 +43,9 @@
 #endif //_USBVID_H_
 /*****************************************************************************
  * $Log: UsbVid.h,v $
+ * Revision 1.5  2009/08/06 19:34:38  ddarko
+ * RiM BlackBerry
+ *
  * Revision 1.4  2009/08/05 14:05:36  ddarko
  * *** empty log message ***
  *

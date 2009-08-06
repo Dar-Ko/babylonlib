@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid0A5F.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/07/30 18:47:03 $
+  $Revision: 1.2 $ $Date: 2009/08/06 19:34:38 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -22,7 +22,6 @@
 #define USBVID_ZEBRATECHNOLOGIES 0x0A5F
 #define USBVID_0A5F              _T("Zebra Technologies") //VID 2655 Vendor name
 
-#define USBPID_$PRODUCT $PID //TODO: Append and Sort PID
 #define USBPID_PRNLP2844   0x0009 //Eltron thermal LP 2844 bar code label printer
 #define USBPID_PRNTLP2844  0x000A //Eltron thermal transfer TLP 2844 bar code label printer
 #define USBPID_PRNZEBRA    0x930A //Printer ??

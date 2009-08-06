@@ -1,4 +1,4 @@
-/*$Workfile: UsbVid0000.h$: header file
+/*$RCSfile: UsbVid0000.h$: header file
   $Revision: 1$ $Date: 22/08/2007 10:51:35 AM$
   $Author: Darko Kolakovic$
 
@@ -10,7 +10,7 @@
 /* Group=USB ID                                                              */
 
 #ifndef _USBVID0000_H_
-  //$Workfile: UsbVid0000.h$ sentry
+  //$RCSfile: UsbVid0000.h$ sentry
   #define _USBVID0000_H_
 
 /*$VID.	USB device vendor identification (VID) number	$VENDOR	$VENDORADR
@@ -20,7 +20,7 @@
   usb.ids, List of USB ID's by Stephen J. Gowdy at http://www.linux-usb.org/usb.ids.
  */
 #define USBVID_$VENDOR 0x0000
-#define USBVID_0000 _T("$VENDOR") //TODO: VID $VID Vendor name
+#define USBVID_0000 _T("$VENDOR") //VID $VID Vendor name
 
 #define USBPID_$PRODUCT $PID //TODO: Append and Sort PID
 
