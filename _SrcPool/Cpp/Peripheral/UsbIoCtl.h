@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.11 $ $Date: 2009/07/20 21:51:12 $
+  $Revision: 1.12 $ $Date: 2009/08/07 21:45:13 $
   $Author: ddarko $
 
   USB device I/O control codes for Microsoft Windows OS.
@@ -528,7 +528,7 @@ typedef USB_NODE_CONNECTION_ATTRIBUTES  *PUSB_NODE_CONNECTION_ATTRIBUTES;
       ULONG                   NumberOfOpenPipes; /*number of open USB pipes
                                                    associated with the port*/
       USB_CONNECTION_STATUS   ConnectionStatus; /*connection status of the port*/
-      USB_PIPE_INFO           PipeList[1]; /*list of theopen pipes associated
+      USB_PIPE_INFO           PipeList[1]; /*list of the open pipes associated
                  with the port, including the associated endpoint descriptor*/
       } USB_NODE_CONNECTION_INFORMATION_EX;
     /*Extended USB node connection information*/
@@ -929,6 +929,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.12  2009/08/07 21:45:13  ddarko
+ * Comments
+ *
  * Revision 1.11  2009/07/20 21:51:12  ddarko
  * *** empty log message ***
  *

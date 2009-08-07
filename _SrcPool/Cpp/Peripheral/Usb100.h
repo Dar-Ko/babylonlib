@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.9 $ $Date: 2009/07/21 22:18:34 $
+  $Revision: 1.10 $ $Date: 2009/08/07 21:45:13 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -50,18 +50,28 @@ extern "C" {
 #define USB_GETSTATUS_SELF_POWERED          0x01
 #define USB_GETSTATUS_REMOTE_WAKEUP_ENABLED 0x02
 
-/* USB descriptor types */
-#define USB_DESCRIPTOR_DEVICE        0x01
-#define USB_DESCRIPTOR_CONFIGURATION 0x02
-#define USB_DESCRIPTOR_STRING        0x03
-#define USB_DESCRIPTOR_INTERFACE     0x04
-#define USB_DESCRIPTOR_ENDPOINT      0x05
+/*-----------------------------------------------------------------------------
+  USB descriptor types
+ */
+
+#define USB_DESCRIPTOR_DEVICE        0x01 /*USB device descriptor type code*/
+#define USB_DESCRIPTOR_CONFIGURATION 0x02 /*USB configuration descriptor type code*/
+#define USB_DESCRIPTOR_STRING        0x03 /*USB string descriptor type code*/
+#define USB_DESCRIPTOR_INTERFACE     0x04 /*USB interface descriptor type code*/
+#define USB_DESCRIPTOR_ENDPOINT      0x05 /*USB endpoint descriptor type code*/
+
 /*USB descriptor types (Microsoft compatible macros)*/
-#define USB_DEVICE_DESCRIPTOR_TYPE          USB_DESCRIPTOR_DEVICE
-#define USB_CONFIGURATION_DESCRIPTOR_TYPE   USB_DESCRIPTOR_CONFIGURATION
-#define USB_STRING_DESCRIPTOR_TYPE          USB_DESCRIPTOR_STRING
-#define USB_INTERFACE_DESCRIPTOR_TYPE       USB_DESCRIPTOR_INTERFACE
-#define USB_ENDPOINT_DESCRIPTOR_TYPE        USB_DESCRIPTOR_ENDPOINT
+
+/*USB device descriptor type code*/
+#define USB_DEVICE_DESCRIPTOR_TYPE        USB_DESCRIPTOR_DEVICE
+/*USB configuration descriptor type code*/
+#define USB_CONFIGURATION_DESCRIPTOR_TYPE USB_DESCRIPTOR_CONFIGURATION
+/*USB string descriptor type code*/
+#define USB_STRING_DESCRIPTOR_TYPE        USB_DESCRIPTOR_STRING
+/*USB interface descriptor type code*/
+#define USB_INTERFACE_DESCRIPTOR_TYPE     USB_DESCRIPTOR_INTERFACE
+/*USB endpoint descriptor type code*/
+#define USB_ENDPOINT_DESCRIPTOR_TYPE      USB_DESCRIPTOR_ENDPOINT
 
 
 /* Hardware design descriptor types */
@@ -144,9 +154,10 @@ extern "C" {
 typedef struct _USB_DEVICE_DESCRIPTOR 
   {
   UCHAR   bLength;  /*size of the entire data structure [bytes] */
-  UCHAR   bDescriptorType; /*the descriptor type is 
-                             USB_DEVICE_DESCRIPTOR_TYPE = 0x01*/
-  USHORT  bcdUSB;  /*USB specification version as binary-coded decimal number*/
+  UCHAR   bDescriptorType;  /*the descriptor type is constant 
+                              USB_DESCRIPTOR_DEVICE = 0x01*/
+  USHORT  bcdUSB;           /*USB specification version supported by device
+                              as binary-coded decimal number*/
   UCHAR   bDeviceClass;    /*the class code of the device as assigned by 
                              the USB specification group.*/
   UCHAR   bDeviceSubClass; /*the subclass code of the device as assigned by 
@@ -173,8 +184,9 @@ typedef USB_DEVICE_DESCRIPTOR   *PUSB_DEVICE_DESCRIPTOR;
 
 /* USB endpoint descriptor */
 typedef struct _USB_ENDPOINT_DESCRIPTOR {
-    UCHAR   bLength;
-    UCHAR   bDescriptorType;
+    UCHAR   bLength;        /*size of the entire data structure [bytes] */
+    UCHAR   bDescriptorType;/*the descriptor type is constant 
+                             USB_DESCRIPTOR_ENDPOINT = 0x05*/
     UCHAR   bEndpointAddress;
     UCHAR   bmAttributes;
     USHORT  wMaxPacketSize;
@@ -182,23 +194,47 @@ typedef struct _USB_ENDPOINT_DESCRIPTOR {
 } USB_ENDPOINT_DESCRIPTOR;
 typedef USB_ENDPOINT_DESCRIPTOR *PUSB_ENDPOINT_DESCRIPTOR;
 
-/* USB configuration descriptor */
-typedef struct _USB_CONFIGURATION_DESCRIPTOR {
-    UCHAR   bLength;
-    UCHAR   bDescriptorType;
-    USHORT  wTotalLength;
-    UCHAR   bNumInterfaces;
-    UCHAR   bConfigurationValue;
-    UCHAR   iConfiguration;
-    UCHAR   bmAttributes;
-    UCHAR   MaxPower;
-} USB_CONFIGURATION_DESCRIPTOR;
+/*USB configuration descriptor contains information about a specific USB device
+  configuration. USB devices can support several different configurations in
+  which different interfaces on the device might behave in different ways.
+ */
+typedef struct _USB_CONFIGURATION_DESCRIPTOR
+  {
+  UCHAR   bLength; /*size of the entire data structure [bytes] */
+  UCHAR   bDescriptorType; /*the descriptor type is constant 
+                             USB_DESCRIPTOR_CONFIGURATION = 0x02*/
+  USHORT  wTotalLength;  /*[out] total length of data returned for this
+                           configuration. This includes the combined length of
+                           all structures: USB_CONFIGURATION_DESCRIPTOR,
+                           USB_INTERFACE, USB_ENDPOINT_DESCRIPTOR and any class
+                           or vendor-specific structures*/
+  UCHAR   bNumInterfaces; /*number of interfaces supported as part of this
+                            configuration*/
+  UCHAR   bConfigurationValue; /*value used when this configuration descriptor is
+                                 requested*/
+  UCHAR   iConfiguration; /*index of a string descriptor describing this
+                            configuration*/
+  UCHAR   bmAttributes;  /*configuration flags
+
+                           7|6|5|4|3|2|1|0
+                           | | | +-------+- bits [0, 4] are reserved and should
+                           | | |            be zero (0)
+                           | | +-- remote wakeup supported (0/1)
+                           | +---- self-powered (1/0)
+                           +------ powered by the bus in this configuration (0/1)
+                          */
+  UCHAR   MaxPower;     /*maximum consumption in 2mA units; used if 
+                          the bmAttributes member indicates that the device
+                          requires bus power*/ 
+  } USB_CONFIGURATION_DESCRIPTOR;
+/*USB configuration descriptor */
 typedef USB_CONFIGURATION_DESCRIPTOR    *PUSB_CONFIGURATION_DESCRIPTOR;
 
 /* USB interface descriptor */
 typedef struct _USB_INTERFACE_DESCRIPTOR {
-    UCHAR   bLength;
-    UCHAR   bDescriptorType;
+    UCHAR   bLength;        /*size of the entire data structure [bytes] */
+    UCHAR   bDescriptorType;/*the descriptor type is constant 
+                             USB_DESCRIPTOR_INTERFACE = 0x04*/
     UCHAR   bInterfaceNumber;
     UCHAR   bAlternateSetting;
     UCHAR   bNumEndpoints;
@@ -222,9 +258,11 @@ typedef USB_INTERFACE_DESCRIPTOR    *PUSB_INTERFACE_DESCRIPTOR;
  */
 typedef struct _USB_STRING_DESCRIPTOR
   {
-  UCHAR bLength;  /*[in]/[out] the size in bytes of the entire descriptor.*/
-  UCHAR bDescriptorType; /*[in] USB_STRING_DESCRIPTOR_TYPE (?? check).*/
-  WCHAR bString[1];      /*[out] requested Unicode string or array of language IDs*/
+  UCHAR bLength;         /*[in]/[out] the size in bytes of the entire descriptor*/
+  UCHAR bDescriptorType; /*[in] the descriptor type is constant 
+                           USB_DESCRIPTOR_STRING = 0x03*/
+  WCHAR bString[1];      /*[out] requested Unicode string or array of language
+                           IDs*/
   } USB_STRING_DESCRIPTOR;
 /*USB string descriptor*/
 typedef USB_STRING_DESCRIPTOR   *PUSB_STRING_DESCRIPTOR;
@@ -243,7 +281,7 @@ typedef struct _USB_HUB_DESCRIPTOR
   {
   UCHAR  bDescriptorLength;   //length of this descriptor in bytes
   UCHAR  bDescriptorType;     //descriptor type; default value for hub
-                              //is USBCLASSDESCRIPTOR_HUB = 0x29
+                              //is constant USBCLASSDESCRIPTOR_HUB = 0x29
   UCHAR  bNumberOfPorts;      //number of ports on the hub
   USHORT wHubCharacteristics; //hub charateristics
   UCHAR  bPowerOnToPowerGood; //time, in 2 ms increments, that it
@@ -301,6 +339,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.10  2009/08/07 21:45:13  ddarko
+ * Comments
+ *
  * Revision 1.9  2009/07/21 22:18:34  ddarko
  * USBCLASSDESCRIPTOR_HUB
  *
