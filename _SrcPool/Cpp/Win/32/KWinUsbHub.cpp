@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.17 $ $Date: 2009/07/22 19:14:58 $
+  $Revision: 1.18 $ $Date: 2009/08/07 21:44:53 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -156,7 +156,7 @@ bool bResult = false;
   of GUID_DEVINTERFACE_USB_HOST_CONTROLLER to notify the operating system and
   applications of the presence of USB host controllers.
 
-  Note: requires <usbiodef.h> from Microsoft DDK
+  Note: requires <usbiodef.h> from Microsoft DDK or "UsbGuid.h"
  */
 const GUID& guidUsbHc = GUID_DEVINTERFACE_USB_HOST_CONTROLLER;
 
@@ -197,7 +197,7 @@ if(GetDevicePath(guidUsbHc,    //the device interface
     #else
       TRACE2(_T("    %d. %s\n"), nMemberIndex, (LPCTSTR)m_strDevice);
     #endif
-    m_nPortCount = Enumerate((LPCTSTR)m_strDevice); //Enumerate USB ports 
+    m_nPortCount = Enumerate((LPCTSTR)m_strDevice); //Enumerate USB ports
     if (GetPortCount() > 0)
       bResult = true;
     }
@@ -217,13 +217,13 @@ return bResult;
 
 //-----------------------------------------------------------------------------
 /*Retreive device path of the hub embedded into host controller.
-  
+
   Returns true if successful and the USB root hub device path, otherwise
   returns false.
  */
-bool CUsbHostController::GetRootHub(LPCTSTR szDevicePath, //[in] the USB host 
+bool CUsbHostController::GetRootHub(LPCTSTR szDevicePath, //[in] the USB host
                                     //controller device path.
-                                    CString& strRootHubPath //[out] the USB root hub 
+                                    CString& strRootHubPath //[out] the USB root hub
                                     //device path
                                     )
 {
@@ -270,10 +270,10 @@ return bResult;
   Returns number of availabile USB ports or 0 in case of a failure. Use
   GetLasteError() to obtain error code.
 
-  Note: if driver key names for devices connetect to the hub are required, 
+  Note: if driver key names for devices connetect to the hub are required,
   define _USE_USBDRIVERKEYNAME.
  */
-unsigned int CUsbHub::Enumerate(LPCTSTR szDevicePath //[in] the USB hub 
+unsigned int CUsbHub::Enumerate(LPCTSTR szDevicePath //[in] the USB hub
                                     //device path
                                 )
 {
@@ -299,12 +299,12 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
     USB_NODE_INFORMATION usbHubNodeInfo;
     usbHubNodeInfo.NodeType = UsbHub; //parent hub device
     unsigned int nBytes = sizeof(USB_NODE_INFORMATION);
-    if (DeviceIoControl(hHub, 
-                        IOCTL_USB_GET_NODE_INFORMATION, 
-                        &usbHubNodeInfo, 
-                        nBytes, 
-                        &usbHubNodeInfo, 
-                        nBytes, 
+    if (DeviceIoControl(hHub,
+                        IOCTL_USB_GET_NODE_INFORMATION,
+                        &usbHubNodeInfo,
+                        nBytes,
+                        &usbHubNodeInfo,
+                        nBytes,
                         &nBytesReturned, //unused
                         NULL))
       {
@@ -313,8 +313,8 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
         TRACE1(_T("      number of ports = %d.\n"), usbDbgHubInfo.bNumberOfPorts);
         TRACE1(_T("      descriptor type = 0x%X.\n"), usbDbgHubInfo.bDescriptorType);
         TRACE1(_T("      startup time    = %d ms.\n"), (usbDbgHubInfo.bPowerOnToPowerGood * 2));
-        (usbHubNodeInfo.u.HubInformation.HubIsBusPowered == FALSE) ? 
-            TRACE(_T("      self-powered\n")) : 
+        (usbHubNodeInfo.u.HubInformation.HubIsBusPowered == FALSE) ?
+            TRACE(_T("      self-powered\n")) :
             TRACE(_T("      bus-powered\n"));
         TRACE1(_T("      controller consumption = %d mA.\n"), usbDbgHubInfo.bHubControlCurrent);
       #endif
@@ -335,7 +335,7 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
         {
         CUsbDevice* pusbDevice = NULL;
         if (DeviceIoControl(hHub,
-                            
+
                             #if (_WIN32_WINNT >= 0x0501)
                               IOCTL_USB_GET_NODE_CONNECTION_INFORMATION_EX,
                             #else
@@ -373,6 +373,10 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
                     usbPortInfo.DeviceDescriptor.idProduct);
               TRACE1(_T("        vendor  Id: 0x%0.4X.\n"),
                     usbPortInfo.DeviceDescriptor.idVendor);
+              TRACE1(_T("        supported USB %s.\n"), 
+                (LPCTSTR) pusbDevice->Bcd2Str(usbPortInfo.DeviceDescriptor.bcdUSB));
+              TRACE1(_T("        device version: %s.\n"), 
+                (LPCTSTR) pusbDevice->Bcd2Str(usbPortInfo.DeviceDescriptor.bcdDevice));
               TRACE1(_T("        hub attached: %d\n"), usbPortInfo.DeviceIsHub);
 
               pusbDevice->m_eStatus = usbPortInfo.ConnectionStatus;
@@ -407,13 +411,13 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
                     pusbHubDevice->m_strDevice = usbHubName.GetName();
                     TRACE1(_T("        %ws\n"),
                            (LPCTSTR)pusbDevice->m_strDevice);
-                    pusbHubDevice->m_nPortCount = 
+                    pusbHubDevice->m_nPortCount =
                         pusbHubDevice->Enumerate(pusbHubDevice->m_strDevice);
                     TRACE(_T("        ------End of enumeration------\n"));
                     }
                   else
                     {
-                    TRACE1(_T("        Failed! Error 0x%0.8X.\n"), 
+                    TRACE1(_T("        Failed! Error 0x%0.8X.\n"),
                            GetLastError());
                     }
                   }
@@ -509,7 +513,7 @@ else
             {
             bResult = true;
             }
- 
+
            //TODO Get sdevice strings.
 //TODO: check multiple conditions
           if (pDevice->m_strSerialNo.IsEmpty())
@@ -576,7 +580,7 @@ bool CUsbDevice::GetStringDescriptor(const HANDLE hUsbHub, //[in]
                                      const unsigned int nPortId, //[in] USB hub
            //port number to which a device is attached
                                      const unsigned int nStringId, //[in] index
-           //of required string from an array of descriptions [1, N] 
+           //of required string from an array of descriptions [1, N]
                                      LANGID nLangId, //[in] Microsoft language ID
                                      CString& strResult    //[out] result
                                      )
@@ -595,10 +599,10 @@ if (hUsbHub != INVALID_HANDLE_VALUE)
     if (nLangId == 0) //Set default language
       nLangId = MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US); //0x409 English (U.S.)
 
-    /*Because the string descriptor consists of variable-length data, 
+    /*Because the string descriptor consists of variable-length data,
       the desriptor must be obtained it in two steps:
         1. get required buffer size by issuing the request, passing a data
-           buffer large enough to hold the header for a string 
+           buffer large enough to hold the header for a string
            descriptor - a USB_STRING_DESCRIPTOR structure. The bLength member
            of USB_STRING_DESCRIPTOR specifies the size in bytes of the entire
            descriptor.
@@ -610,24 +614,32 @@ if (hUsbHub != INVALID_HANDLE_VALUE)
 #pragma TODO GetStringDescriptor
 
     PUSB_DESCRIPTOR_REQUEST pusbDescriptor;
-    }         
+    }
   }
 return bResult;
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Verifies if the device descriptor or configuration descriptor has device 
+  description.
   Device, configuration and interface descriptors may contain references to
   string descriptors. String descriptors are referenced by their one-based
-  index number. 
+  index number.
+  Method examines the device descriptor first and if that fails, check for
+  strings in configuration or interface descriptors.
+
+  Returns true if a string descriptor is found.
+
+  See also: USB_DEVICE_DESCRIPTOR, USB_CONFIGURATION_DESCRIPTOR
  */
-bool CUsbDevice::HasStringDescriptor( 
-        const PUSB_DEVICE_DESCRIPTOR pusbDevDescriptor, //[in]
-        const PUSB_CONFIGURATION_DESCRIPTOR pusbConfigDescriptor //[in]
+bool CUsbDevice::HasStringDescriptor(
+        const PUSB_DEVICE_DESCRIPTOR pusbDevDescriptor, //[in] USB device descriptor
+        const PUSB_CONFIGURATION_DESCRIPTOR pusbConfigDescriptor //[in] USB
+        //configuration descriptor
         )
 {
-if((pusbDevDescriptor->iManufacturer > 0) || 
-   (pusbDevDescriptor->iProduct > 0)      || 
+if((pusbDevDescriptor->iManufacturer > 0) ||
+   (pusbDevDescriptor->iProduct > 0)      ||
    (pusbDevDescriptor->iSerialNumber > 0))
   return true;
 
@@ -653,7 +665,7 @@ while( ((PUCHAR)pusbCommonDescriptor + sizeof(USB_COMMON_DESCRIPTOR) < pEnd) &&
         return true;
       break;
 
-    default: 
+    default:
       break;
     }
   pusbCommonDescriptor = (PUSB_COMMON_DESCRIPTOR)
@@ -667,7 +679,7 @@ return false;
 //
 
 //-----------------------------------------------------------------------------
-/*Return compact description of the device status. For longer description or 
+/*Return compact description of the device status. For longer description or
   different locale, this method have to be customized.
 
     - NoDeviceConnected         Indicates that there is no device connected to
@@ -693,7 +705,7 @@ return false;
                                 properly, and the connection failed.
     - DeviceHubNestedTooDeeply  Indicates that an attempt was made to connect
                                 a device to the port, but the nesting of USB
-                                hubs was too deep, so the connection failed. 
+                                hubs was too deep, so the connection failed.
     - DeviceInLegacyHub         Indicates that an attempt was made to connect
                                 a device to the port of an unsupported legacy
                                 hub, and the connection failed.
@@ -736,6 +748,105 @@ switch((int)eStatus)
 return szResult;
 }
 
+//-----------------------------------------------------------------------------
+//#include "UsbIoCtl.h"
+//Obtain string desriptors
+bool GetDeviceString( const uint16_t wVendorId,
+                const uint16_t wProductId,
+                LPCWSTR HubDevicePath,
+                PUSB_NODE_CONNECTION_INFORMATION pusbNodeInfo,
+                CString& sProductName,
+                CString& sManufacturerName,
+                CString& sSerialNumber,
+                int& PortNum //[out]
+              )
+{
+TRACE2(_T("    GetDeviceString(0x%0.4X, 0x%0.4X)\n"), wVendorId, wProductId);
+
+bool bResult = false;
+HANDLE h;
+const DWORD LANGID_EN_US = MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US); //0x409 English (U.S.)
+
+PortNum = pusbNodeInfo->ConnectionIndex;
+
+bResult = (pusbNodeInfo->DeviceDescriptor.idVendor==wVendorId) || (wVendorId==USBVID_ANY);
+bResult = bResult && ((pusbNodeInfo->DeviceDescriptor.idProduct==wProductId) ||
+                      (wProductId==USBPID_ANY));
+
+if ((!bResult) && (pusbNodeInfo->DeviceIsHub != (BOOLEAN)TRUE))
+    return false; //If the device is not required one and it is not a hub, break away
+
+h = CreateFile(HubDevicePath, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
+if ( h == INVALID_HANDLE_VALUE)
+  return false;
+
+DWORD nBytesReturned;
+const int BUFFER_SIZE = 2048;
+WCHAR buffer[BUFFER_SIZE];
+int nBytes = BUFFER_SIZE;
+
+//Get The Manufacturer
+TRACE(_T("      get the manufacturer,\n"));
+if (pusbNodeInfo->DeviceDescriptor.iManufacturer > 0) 
+   {
+    PUSB_DESCRIPTOR_REQUEST Request = (PUSB_DESCRIPTOR_REQUEST)buffer;
+    memset(buffer, 0, sizeof(buffer));
+    Request->ConnectionIndex = pusbNodeInfo->ConnectionIndex;
+    Request->SetupPacket.wValue = (short)((USBDESCRIPTORTYPE_STRING << 8) + pusbNodeInfo->DeviceDescriptor.iManufacturer);
+    Request->SetupPacket.wLength = (short)(nBytes - sizeof(USB_DESCRIPTOR_REQUEST));
+    Request->SetupPacket.wIndex = LANGID_EN_US; // Language Code
+    if (DeviceIoControl(h, IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION,
+                        Request, nBytes, Request, nBytes, &nBytesReturned, NULL))
+    {
+      PUSB_STRING_DESCRIPTOR StringDesc = (PUSB_STRING_DESCRIPTOR)(Request->Data);
+      sProductName = StringDesc->bString;
+    }
+}
+
+//Get The Product Name
+TRACE(_T("      get the product name,\n"));
+
+if (pusbNodeInfo->DeviceDescriptor.iProduct > 0)
+{
+    PUSB_DESCRIPTOR_REQUEST Request = (PUSB_DESCRIPTOR_REQUEST)buffer;
+    memset(buffer, 0, sizeof(buffer));
+    Request->ConnectionIndex = pusbNodeInfo->ConnectionIndex;
+    Request->SetupPacket.wValue = (short)((USBDESCRIPTORTYPE_STRING << 8) + pusbNodeInfo->DeviceDescriptor.iProduct);
+    Request->SetupPacket.wLength = (short)(nBytes - sizeof(USB_DESCRIPTOR_REQUEST));
+    Request->SetupPacket.wIndex = LANGID_EN_US; // Language Code
+    if (DeviceIoControl(h, IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION,
+      Request, nBytes, Request, nBytes, &nBytesReturned, NULL))
+    {
+      PUSB_STRING_DESCRIPTOR StringDesc = (PUSB_STRING_DESCRIPTOR)(Request->Data);
+      sManufacturerName = StringDesc->bString;
+    }
+}
+
+//Get the Serial Number
+/*A USB device may be programmed with a serial number, allowing the host to keep track of different instances of products with the same vendor ID, product ID, and device release number. The serial number is stored as a string descriptor, and the index of that string descriptor is stored in the iSerialNumber field of the device descriptor. If a serial number is not assigned to the device, iSerialNumber is zero.
+
+Microsoft requires that if a serial number is set it must be unique, and each byte in the serial number must be in the range 0x20 <= N <= 0x7F, excluding 0x2C. Windows operating systems always use LANGID 0x0409 to retrieve serial numbers.
+*/
+if (pusbNodeInfo->DeviceDescriptor.iSerialNumber > 0)
+{
+    PUSB_DESCRIPTOR_REQUEST Request = (PUSB_DESCRIPTOR_REQUEST)buffer;
+    memset(buffer, 0, sizeof(buffer));
+    Request->ConnectionIndex = pusbNodeInfo->ConnectionIndex;
+    Request->SetupPacket.wValue = (short)((USBDESCRIPTORTYPE_STRING << 8) + pusbNodeInfo->DeviceDescriptor.iSerialNumber);
+    Request->SetupPacket.wLength = (short)(nBytes - sizeof(USB_DESCRIPTOR_REQUEST));
+    Request->SetupPacket.wIndex = LANGID_EN_US; // Language Code
+    if (DeviceIoControl(h, IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION,
+      Request, nBytes, Request, nBytes, &nBytesReturned, NULL))
+    {
+      PUSB_STRING_DESCRIPTOR StringDesc = (PUSB_STRING_DESCRIPTOR)(Request->Data);
+      sSerialNumber = StringDesc->bString;
+    }
+}
+
+CloseHandle(h);
+
+return true;
+}
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_WIN32
 

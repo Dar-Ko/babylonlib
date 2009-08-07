@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.12 $ $Date: 2009/07/22 19:12:03 $
+  $Revision: 1.13 $ $Date: 2009/08/07 21:45:26 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -31,9 +31,9 @@ LPCTSTR GetUsbStatus(const USB_CONNECTION_STATUS& eStatus);
 
 ///////////////////////////////////////////////////////////////////////////////
 /*USB Device Information container.
-  A USB device is attached to the hub a port. 
+  A USB device is attached to the hub a port.
   A USB device can be any kind of peripheral device, such as a keyboard, mouse,
-  game controller, printer, USB hub and so forth. 
+  game controller, printer, USB hub and so forth.
  */
 class CUsbDevice : public CUsbId
 {
@@ -46,12 +46,12 @@ public:
                            const unsigned int nStringId,
                            LANGID nLangId,
                            CString& strResult);
-  bool CUsbDevice::HasStringDescriptor( 
+  bool CUsbDevice::HasStringDescriptor(
         const PUSB_DEVICE_DESCRIPTOR pusbDevDescriptor,
         const PUSB_CONFIGURATION_DESCRIPTOR pusbConfigDescriptor
         );
 
-
+  CString Bcd2Str(const uint16_t nBcd);
 public:
   CString m_strDevice;       //USB device path
   CString m_strDescription;  //description of the device
@@ -73,6 +73,39 @@ inline CUsbDevice::CUsbDevice() :
 
 inline CUsbDevice::~CUsbDevice()
 {
+}
+
+
+//-----------------------------------------------------------------------------
+/*Converts four digit binary-coded decimal (BCD) number to a text, formatted as
+
+      nn.nn
+
+  Each decimal digit is stored in a four-bit 8421 coded nibble. Leading and
+  trailing zeroes will be truncated.
+
+  Returns text representation of a BCD number.
+ */
+inline CString CUsbDevice::Bcd2Str(const uint16_t nBcd //[in] binary 8421 coded 
+                                                       //decimal number
+                                   )
+{
+TCHAR szResult[6]; //decimal number
+
+szResult[0] = _T('0') + ((0xF0 & HIBYTE(nBcd)) >> 4);
+szResult[1] = _T('0') + ( 0x0F & HIBYTE(nBcd));
+szResult[2] = _T('.');
+szResult[3] = _T('0') + ((0xF0 & LOBYTE(nBcd)) >> 4);
+szResult[4] = _T('0') + ( 0x0F & LOBYTE(nBcd));
+//Cut-off trailing zero character
+if (szResult[4] == _T('0'))
+  szResult[4] =  _T('\0');
+else
+  szResult[5] = _T('\0'); //terminating zero
+
+CString strResult = (szResult[0] == _T('0')) ?
+    (LPCTSTR)(&szResult[1]) : szResult;
+return strResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -196,10 +229,10 @@ CArray<CUsbDevice*>::RemoveAll();
   single USB port on the host computer or another hub.
 
   Hub Provides multiple ports, for attaching devices to the USB bus.
-  Hubs are also responsible for detecting devices that are plugged in or 
-  unplugged and for providing power for attached devices. 
-  Hubs are either bus-powered, drawing power directly from the USB bus or 
-  self-powered, drawing power from an external power supply. 
+  Hubs are also responsible for detecting devices that are plugged in or
+  unplugged and for providing power for attached devices.
+  Hubs are either bus-powered, drawing power directly from the USB bus or
+  self-powered, drawing power from an external power supply.
   Bus-powered hubs are capable of providing 100 mA
   per port for attached devices and they can provide a maximum of four ports
   for devices to be plugged into.
@@ -273,7 +306,7 @@ inline uint16_t CUsbHub::GetPortCount()
     //Disable warning C4127: conditional expression in ASSERT is constant
   #pragma warning (disable: 4127)
   //Number of elements in the list have to match number of ports.
-  ASSERT(m_nPortCount == (unsigned int)nListSize); 
+  ASSERT(m_nPortCount == (unsigned int)nListSize);
   #pragma warning (default: 4127)
 #endif
 return (uint16_t)m_nPortCount;
@@ -322,9 +355,9 @@ protected:
 /*This class browses all USB host controllers USB hubs and USB devices
   attached on the system.
 
-  USB uses a tiered topology so that you can simultaneously attach up to 127 
-  devices to the bus. 
-  There always exists one hub known as the root hub, which is built into 
+  USB uses a tiered topology so that you can simultaneously attach up to 127
+  devices to the bus.
+  There always exists one hub known as the root hub, which is built into
   the host controller.
   USB supports up to seven tier levels, including the root tier and five common
   hubs. The lowest tier supports only a single nonhub device.
@@ -337,13 +370,13 @@ protected:
             |
             +-USB Host Controller --- Device
             |   (root hub)
-            |         
+            |
             .
             .
             .
 
   There are three types of USB components: host controller, hub and device.
-  
+
   See also: CUsbHostController, CUsbHub, CUsbDevice
  */
 class CUsbDeviceTree
@@ -422,6 +455,9 @@ m_usbRootList.RemoveAll();
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.13  2009/08/07 21:45:26  ddarko
+ * Bcd2Str
+ *
  * Revision 1.12  2009/07/22 19:12:03  ddarko
  * Use CAtlArray
  *
