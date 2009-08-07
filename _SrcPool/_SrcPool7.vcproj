@@ -262,6 +262,9 @@
 				RelativePath=".\Cpp\KfFibonacci.cpp">
 			</File>
 			<File
+				RelativePath=".\Cpp\KFileSimple.cpp">
+			</File>
+			<File
 				RelativePath=".\Cpp\KfKepler.cpp">
 			</File>
 			<File
@@ -290,6 +293,9 @@
 			</File>
 			<File
 				RelativePath=".\Cpp\KGifImageDescriptor.cpp">
+			</File>
+			<File
+				RelativePath=".\Cpp\KHtmlAttrList.cpp">
 			</File>
 			<File
 				RelativePath=".\Cpp\KIsLRC.cpp">
@@ -379,6 +385,9 @@
 				RelativePath=".\Cpp\KStrICmp.c">
 			</File>
 			<File
+				RelativePath=".\Cpp\KStringHandler.cpp">
+			</File>
+			<File
 				RelativePath=".\Cpp\KStrIStr.c">
 			</File>
 			<File
@@ -409,6 +418,9 @@
 				RelativePath=".\Cpp\KStrToD.c">
 			</File>
 			<File
+				RelativePath=".\Cpp\KStrToInt.cpp">
+			</File>
+			<File
 				RelativePath=".\Cpp\KStrTrim.cpp">
 			</File>
 			<File
@@ -433,6 +445,9 @@
 				Name="STL"
 				Filter="">
 				<File
+					RelativePath=".\Cpp\Stl\KArrayStl.h">
+				</File>
+				<File
 					RelativePath=".\Cpp\Stl\KBoolStream.h">
 				</File>
 				<File
@@ -443,6 +458,9 @@
 				</File>
 				<File
 					RelativePath=".\Cpp\Stl\KDbgStlA.h">
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KFileExistStl.cpp">
 				</File>
 				<File
 					RelativePath=".\Cpp\Stl\KFileRead.cpp">
@@ -508,6 +526,12 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
 			<File
+				RelativePath=".\Cpp\KArray.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KArrayPtr.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\KBeep.h">
 			</File>
 			<File
@@ -538,6 +562,15 @@
 				RelativePath=".\Cpp\KDbgMacr.h">
 			</File>
 			<File
+				RelativePath=".\Cpp\KDbgMAns.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KFileIni.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KFileSimple.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\KFileSys.h">
 			</File>
 			<File
@@ -553,6 +586,9 @@
 				RelativePath=".\Cpp\KGuid.h">
 			</File>
 			<File
+				RelativePath=".\Cpp\KLinkedListS.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\KMathCst.h">
 			</File>
 			<File
@@ -562,10 +598,19 @@
 				RelativePath=".\Cpp\KMatLog2.inl">
 			</File>
 			<File
+				RelativePath=".\Cpp\KMatrix.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\KNLSCst.h">
 			</File>
 			<File
 				RelativePath=".\Cpp\KOsService.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KPackPop.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KPackPsh.h">
 			</File>
 			<File
 				RelativePath=".\Cpp\KPair.h">
@@ -610,6 +655,9 @@
 				RelativePath=".\Cpp\Win\Res\Win\KStdRes.h">
 			</File>
 			<File
+				RelativePath=".\Cpp\KStrArray.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\KStrExt.h">
 			</File>
 			<File
@@ -649,6 +697,9 @@
 				RelativePath=".\Cpp\KTrace.h">
 			</File>
 			<File
+				RelativePath=".\Cpp\KTraceFx.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\KType32.h">
 			</File>
 			<File
@@ -656,6 +707,12 @@
 			</File>
 			<File
 				RelativePath=".\Cpp\KUsb.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KXmlAttribute.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KXmlNode.h">
 			</File>
 			<File
 				RelativePath=".\Cpp\Win\Res\Win\Resource.h">
