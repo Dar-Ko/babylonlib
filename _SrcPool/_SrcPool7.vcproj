@@ -706,7 +706,7 @@
 				RelativePath=".\Cpp\KTypedef.h">
 			</File>
 			<File
-				RelativePath=".\Cpp\KUsb.h">
+				RelativePath=".\Cpp\Peripheral\KUsb.h">
 			</File>
 			<File
 				RelativePath=".\Cpp\KXmlAttribute.h">
