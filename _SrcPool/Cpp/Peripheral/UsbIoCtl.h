@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.12 $ $Date: 2009/08/07 21:45:13 $
+  $Revision: 1.13 $ $Date: 2009/08/10 20:55:41 $
   $Author: ddarko $
 
   USB device I/O control codes for Microsoft Windows OS.
@@ -452,7 +452,7 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
    in the wValue member, the output buffer must be large enough to hold all
    of the descriptors that are associated with the current configuration.
 
-   See also: "Universal Serial Bus Specification"
+   See also: "Universal Serial Bus Specification", USB_DESCRIPTOR_MAKE_TYPE_AND_INDEX
    */
   typedef struct _USB_DESCRIPTOR_REQUEST
     {
@@ -929,6 +929,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.13  2009/08/10 20:55:41  ddarko
+ * Desceiptor types
+ *
  * Revision 1.12  2009/08/07 21:45:13  ddarko
  * Comments
  *

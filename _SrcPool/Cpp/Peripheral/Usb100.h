@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.10 $ $Date: 2009/08/07 21:45:13 $
+  $Revision: 1.11 $ $Date: 2009/08/10 20:55:41 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -51,37 +51,52 @@ extern "C" {
 #define USB_GETSTATUS_REMOTE_WAKEUP_ENABLED 0x02
 
 /*-----------------------------------------------------------------------------
-  USB descriptor types
+  USB descriptor types.
+  See also: USB_DESCRIPTOR_MAKE_TYPE_AND_INDEX
  */
 
-#define USB_DESCRIPTOR_DEVICE        0x01 /*USB device descriptor type code*/
-#define USB_DESCRIPTOR_CONFIGURATION 0x02 /*USB configuration descriptor type code*/
-#define USB_DESCRIPTOR_STRING        0x03 /*USB string descriptor type code*/
-#define USB_DESCRIPTOR_INTERFACE     0x04 /*USB interface descriptor type code*/
-#define USB_DESCRIPTOR_ENDPOINT      0x05 /*USB endpoint descriptor type code*/
+#define USB_DESCRIPTOR_TYPE_DEVICE        0x01 /*USB device descriptor type code*/
+#define USB_DESCRIPTOR_TYPE_CONFIGURATION 0x02 /*USB configuration descriptor type code*/
+#define USB_DESCRIPTOR_TYPE_STRING        0x03 /*USB string descriptor type code*/
+#define USB_DESCRIPTOR_TYPE_INTERFACE     0x04 /*USB interface descriptor type code*/
+#define USB_DESCRIPTOR_TYPE_ENDPOINT      0x05 /*USB endpoint descriptor type code*/
+
+  /*Hardware design descriptor types.
+    See also: "Usb200.h"
+   */
+#define USB_DESCRIPTOR_TYPE_INTERFACE_POWER 0x08 /*USB interface power consumption descriptor type code*/
+
+/*Makes USB descriptor request value by combining type of descriptor to retrieve
+  in the high byte and the descriptor index in the low byte.
+
+  See also: USB_DESCRIPTOR_REQUEST::wValue, USBDESCRIPTORTYPE_DEVICE, 
+  USBDESCRIPTORTYPE_STRING, USB_DESCRIPTOR_MAKE_TYPE_AND_INDEX
+ */
+#define USB_DESCRIPTOR_REQUEST_VALUE( type, index ) \
+    ((USHORT)(((USHORT)(type) << 8) | (index))
 
 /*USB descriptor types (Microsoft compatible macros)*/
 
 /*USB device descriptor type code*/
-#define USB_DEVICE_DESCRIPTOR_TYPE        USB_DESCRIPTOR_DEVICE
+#define USB_DEVICE_DESCRIPTOR_TYPE          USB_DESCRIPTOR_TYPE_DEVICE
 /*USB configuration descriptor type code*/
-#define USB_CONFIGURATION_DESCRIPTOR_TYPE USB_DESCRIPTOR_CONFIGURATION
+#define USB_CONFIGURATION_DESCRIPTOR_TYPE   USB_DESCRIPTOR_TYPE_CONFIGURATION
 /*USB string descriptor type code*/
-#define USB_STRING_DESCRIPTOR_TYPE        USB_DESCRIPTOR_STRING
+#define USB_STRING_DESCRIPTOR_TYPE          USB_DESCRIPTOR_TYPE_STRING
 /*USB interface descriptor type code*/
-#define USB_INTERFACE_DESCRIPTOR_TYPE     USB_DESCRIPTOR_INTERFACE
+#define USB_INTERFACE_DESCRIPTOR_TYPE       USB_DESCRIPTOR_TYPE_INTERFACE
 /*USB endpoint descriptor type code*/
-#define USB_ENDPOINT_DESCRIPTOR_TYPE      USB_DESCRIPTOR_ENDPOINT
-
-
-/* Hardware design descriptor types */
+#define USB_ENDPOINT_DESCRIPTOR_TYPE        USB_DESCRIPTOR_TYPE_ENDPOINT
+/*Reserved for USB 2.0 specification
+  (deprecated descriptor type code macro, use USB_DEVICE_QUALIFIER_DESCRIPTOR_TYPE)*/
 #define USB_RESERVED_DESCRIPTOR_TYPE        0x06
+/*Specific for USB 1.0 specification
+ (USB 2.0 specification uses USB_OTHER_SPEED_CONFIGURATION_DESCRIPTOR_TYPE)*/
 #define USB_CONFIG_POWER_DESCRIPTOR_TYPE    0x07
-#define USB_INTERFACE_POWER_DESCRIPTOR_TYPE 0x08
-
-/* Macro to make USB descriptors */
-#define USB_DESCRIPTOR_MAKE_TYPE_AND_INDEX( p1, p2 ) \
-    ((USHORT)(((USHORT)(p1) << 8) | (p2))
+/*USB interface power consumption descriptor type code*/
+#define USB_INTERFACE_POWER_DESCRIPTOR_TYPE USB_DESCRIPTOR_TYPE_INTERFACE_POWER
+/*Macro to make USB descriptors*/
+#define USB_DESCRIPTOR_MAKE_TYPE_AND_INDEX  USB_DESCRIPTOR_REQUEST_VALUE
 
 /* USB endpoint types */
 #define USB_ENDPOINT_TYPE_MASK              0x03
@@ -90,11 +105,24 @@ extern "C" {
 #define USB_ENDPOINT_TYPE_BULK              0x02
 #define USB_ENDPOINT_TYPE_INTERRUPT         0x03
 
-/* USB configuration descriptor attributes */
-#define USB_CONFIG_POWERED_MASK             0xC0
-#define USB_CONFIG_BUS_POWERED              0x80
-#define USB_CONFIG_SELF_POWERED             0x40
-#define USB_CONFIG_REMOTE_WAKEUP            0x20
+//-----------------------------------------------------------------------------
+/*USB configuration descriptor attributes.
+
+  See also: USB_CONFIGURATION_DESCRIPTOR::bmAttributes
+ */
+
+#define USB_CONFIGURATION_ATTRIB_REMOTEWAKEUP 0x20  //USB configuration flag 'remote wakeup supported'
+#define USB_CONFIGURATION_ATTRIB_SELFPOWERED  0x40  //USB configuration flag 'device is self-powered'
+#define USB_CONFIGURATION_ATTRIB_BUSPOWERED   0x80  //USB configuration flag 'powered by the bus'
+//Bit mask to power source attributes of USB configuration descriptor
+#define USB_CONFIGURATION_ATTRIB_POWERED_MASK \ 
+  (USB_CONFIGURATION_ATTRIB_SELFPOWERED | USB_CONFIGURATION_ATTRIB_BUSPOWERED)
+
+/*USB configuration descriptor attributes (Microsoft compatible macros)*/
+#define USB_CONFIG_POWERED_MASK  USB_CONFIGURATION_ATTRIB_POWERED_MASK //Bit mask to power source attributes
+#define USB_CONFIG_BUS_POWERED   USB_CONFIGURATION_ATTRIB_BUSPOWERED   //USB configuration flag 'powered by the bus'
+#define USB_CONFIG_SELF_POWERED  USB_CONFIGURATION_ATTRIB_SELFPOWERED  //USB configuration flag 'device is self-powered'
+#define USB_CONFIG_REMOTE_WAKEUP USB_CONFIGURATION_ATTRIB_REMOTEWAKEUP //USB configuration flag 'remote wakeup supported'
 
 /* USB endpoint direction mask */
 #define USB_ENDPOINT_DIRECTION_MASK         0x80
@@ -116,17 +144,47 @@ extern "C" {
 #define USB_REQUEST_SET_INTERFACE           0x0B
 #define USB_REQUEST_SYNC_FRAME              0x0C
 
-/* USB device classes */
-#define USB_DEVICE_CLASS_AUDIO              0x01
-#define USB_DEVICE_CLASS_COMMUNICATIONS     0x02
-#define USB_DEVICE_CLASS_HUMAN_INTERFACE    0x03
+//-----------------------------------------------------------------------------
+/*USB Device Classes.
+  USB defines device types codes used to identify a device’s functionality.
+
+  Class 	Usage   	Description 	                    Examples
+  00h 	Device    	Unspecified                     	Device class is unspecified. Interface descriptors are used for determining the required drivers.
+  01h 	Interface 	Audio                           	Speaker, microphone, sound card
+  02h 	Both      	Communications and CDC Control  	Ethernet adapter, modem, serial port adapter
+  03h 	Interface 	Human Interface Device (HID)    	Keyboard, mouse, joystick
+  05h 	Interface 	Physical Interface Device (PID) 	Force feedback joystick
+  06h 	Interface 	Image                           	Webcam, scanner
+  07h 	Interface 	Printer                         	Laser printer, inkjet printer, CNC machine
+  08h 	Interface 	Mass Storage                     	USB flash drive, memory card reader, digital audio player, digital camera, external drive
+  09h 	Device    	USB hub                         	Full speed hub, hi-speed hub
+  0Ah 	Interface 	CDC-Data                        	(This class is used together with class 02h - Communications and CDC Control.)
+  0Bh 	Interface 	Smart Card                       	USB smart card reader
+  0Dh 	Interface 	Content Security                 	-
+  0Eh 	Interface 	Video                           	Webcam
+  0Fh 	Interface 	Personal Healthcare              	-
+  DCh 	Both      	Diagnostic Device                	USB compliance testing device
+  E0h 	Interface 	Wireless Controller              	Wi-Fi adapter, Bluetooth adapter
+  EFh 	Both      	Miscellaneous                     ActiveSync device
+  FEh 	Interface 	Application Specific             	IrDA Bridge, Test & Measurement Class (USBTMC)[4]
+  FFh 	Both      	Vendor Specific                 	This class code indicates that the device needs vendor specific drivers.
+
+  See also: {html: <a href="http://www.usb.org/developers/defined_class/">USB Class Codes</a>}
+ */
+#define USB_DEVICE_CLASS_AUDIO              0x01 /*Identifier for audio class interfaces. */
+#define USB_DEVICE_CLASS_COMMUNICATIONS     0x02 /*Identifier for communications control class interfaces. */
+#define USB_DEVICE_CLASS_HUMAN_INTERFACE    0x03 /*Identifier for Human Interaction Device (HID) class interfaces. */
 #define USB_DEVICE_CLASS_MONITOR            0x04
-#define USB_DEVICE_CLASS_PHYSICAL_INTERFACE 0x05
-#define USB_DEVICE_CLASS_POWER              0x06
-#define USB_DEVICE_CLASS_PRINTER            0x07
-#define USB_DEVICE_CLASS_STORAGE            0x08
-#define USB_DEVICE_CLASS_HUB                0x09
-#define USB_DEVICE_CLASS_VENDOR_SPECIFIC    0xFF
+#define USB_DEVICE_CLASS_PHYSICAL_INTERFACE 0x05 /*Identifier for Physical Interface Device (PID) class interfaces. */
+#define USB_DEVICE_CLASS_POWER              0x06 /* Image ?? */
+#define USB_DEVICE_CLASS_PRINTER            0x07 /*Identifier for printer class interfaces. */
+#define USB_DEVICE_CLASS_STORAGE            0x08 /*Identifier for mass storage class interfaces. */
+#define USB_DEVICE_CLASS_HUB                0x09 /*Identifier for hub class interfaces. */
+#define USB_DEVICE_CLASS_DATA               0x0A /*Identifier for communications data class interfaces. */
+#define USB_DEVICE_CLASS_APP_SPECIFIC       0xFE /*Identifier for application-specific interfaces.
+                                                   Subclass codes are used to indicate facilities such as
+                                                   firmware update or an IrDA/USB bridge. */
+#define USB_DEVICE_CLASS_VENDOR_SPECIFIC    0xFF /*Identifier for vendor-specific interfaces. */
 
 /*Standard USB Feature Selectors*/
 #define USB_FEATURE_ENDPOINT_STALL          0x00  //USB endpoint halt
@@ -155,7 +213,7 @@ typedef struct _USB_DEVICE_DESCRIPTOR
   {
   UCHAR   bLength;  /*size of the entire data structure [bytes] */
   UCHAR   bDescriptorType;  /*the descriptor type is constant 
-                              USB_DESCRIPTOR_DEVICE = 0x01*/
+                              USB_DESCRIPTOR_TYPE_DEVICE = 0x01*/
   USHORT  bcdUSB;           /*USB specification version supported by device
                               as binary-coded decimal number*/
   UCHAR   bDeviceClass;    /*the class code of the device as assigned by 
@@ -186,7 +244,7 @@ typedef USB_DEVICE_DESCRIPTOR   *PUSB_DEVICE_DESCRIPTOR;
 typedef struct _USB_ENDPOINT_DESCRIPTOR {
     UCHAR   bLength;        /*size of the entire data structure [bytes] */
     UCHAR   bDescriptorType;/*the descriptor type is constant 
-                             USB_DESCRIPTOR_ENDPOINT = 0x05*/
+                             USB_DESCRIPTOR_TYPE_ENDPOINT = 0x05*/
     UCHAR   bEndpointAddress;
     UCHAR   bmAttributes;
     USHORT  wMaxPacketSize;
@@ -197,12 +255,15 @@ typedef USB_ENDPOINT_DESCRIPTOR *PUSB_ENDPOINT_DESCRIPTOR;
 /*USB configuration descriptor contains information about a specific USB device
   configuration. USB devices can support several different configurations in
   which different interfaces on the device might behave in different ways.
+
+  See also: USB_CONFIGURATION_ATTRIB_REMOTEWAKEUP, USB_CONFIGURATION_ATTRIB_SELFPOWERED,
+  USB_CONFIGURATION_ATTRIB_BUSPOWERED
  */
 typedef struct _USB_CONFIGURATION_DESCRIPTOR
   {
   UCHAR   bLength; /*size of the entire data structure [bytes] */
   UCHAR   bDescriptorType; /*the descriptor type is constant 
-                             USB_DESCRIPTOR_CONFIGURATION = 0x02*/
+                             USB_DESCRIPTOR_TYPE_CONFIGURATION = 0x02*/
   USHORT  wTotalLength;  /*[out] total length of data returned for this
                            configuration. This includes the combined length of
                            all structures: USB_CONFIGURATION_DESCRIPTOR,
@@ -234,7 +295,7 @@ typedef USB_CONFIGURATION_DESCRIPTOR    *PUSB_CONFIGURATION_DESCRIPTOR;
 typedef struct _USB_INTERFACE_DESCRIPTOR {
     UCHAR   bLength;        /*size of the entire data structure [bytes] */
     UCHAR   bDescriptorType;/*the descriptor type is constant 
-                             USB_DESCRIPTOR_INTERFACE = 0x04*/
+                             USB_DESCRIPTOR_TYPE_INTERFACE = 0x04*/
     UCHAR   bInterfaceNumber;
     UCHAR   bAlternateSetting;
     UCHAR   bNumEndpoints;
@@ -260,7 +321,7 @@ typedef struct _USB_STRING_DESCRIPTOR
   {
   UCHAR bLength;         /*[in]/[out] the size in bytes of the entire descriptor*/
   UCHAR bDescriptorType; /*[in] the descriptor type is constant 
-                           USB_DESCRIPTOR_STRING = 0x03*/
+                           USB_DESCRIPTOR_TYPE_STRING = 0x03*/
   WCHAR bString[1];      /*[out] requested Unicode string or array of language
                            IDs*/
   } USB_STRING_DESCRIPTOR;
@@ -292,10 +353,12 @@ typedef struct _USB_HUB_DESCRIPTOR
   } USB_HUB_DESCRIPTOR;
 typedef USB_HUB_DESCRIPTOR  *PUSB_HUB_DESCRIPTOR;
 
-/* USB configuration power descriptor */
+/* USB configuration power descriptor 
+   Note: specific for USB 1.0 specification*/
 typedef struct _USB_CONFIGURATION_POWER_DESCRIPTOR {
     UCHAR   bLength;
-    UCHAR   bDescriptorType;
+    UCHAR   bDescriptorType;  /*[in] the descriptor type is constant
+                                USB_CONFIG_POWER_DESCRIPTOR_TYPE = 0x07*/
     UCHAR   SelfPowerConsumedD0[3];
     UCHAR   bPowerSummaryId;
     UCHAR   bBusPowerSavingD1;
@@ -313,7 +376,8 @@ typedef USB_CONFIGURATION_POWER_DESCRIPTOR  *PUSB_CONFIGURATION_POWER_DESCRIPTOR
 /* USB interface power descriptor */
 typedef struct _USB_INTERFACE_POWER_DESCRIPTOR {
     UCHAR   bLength;
-    UCHAR   bDescriptorType;
+    UCHAR   bDescriptorType; /*[in] the descriptor type is constant
+                              USB_DESCRIPTOR_TYPE_INTERFACE_POWER = 0x08*/
     UCHAR   bmCapabilitiesFlags;
     UCHAR   bBusPowerSavingD1;
     UCHAR   bSelfPowerSavingD1;
@@ -339,6 +403,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.11  2009/08/10 20:55:41  ddarko
+ * Desceiptor types
+ *
  * Revision 1.10  2009/08/07 21:45:13  ddarko
  * Comments
  *

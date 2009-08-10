@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.6 $ $Date: 2009/07/22 18:51:55 $
+  $Revision: 1.7 $ $Date: 2009/08/10 20:55:41 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -36,61 +36,6 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // Macros
-
-//-----------------------------------------------------------------------------
-/*Device Descriptor Types
-  USB defines device types codes used to identify a device’s functionality.
-
-  Class 	Usage   	Description 	Examples
-  00h 	Device    	Unspecified                     	Device class is unspecified. Interface descriptors are used for determining the required drivers.
-  01h 	Interface 	Audio                           	Speaker, microphone, sound card
-  02h 	Both      	Communications and CDC Control  	Ethernet adapter, modem, serial port adapter
-  03h 	Interface 	Human Interface Device (HID)    	Keyboard, mouse, joystick
-  05h 	Interface 	Physical Interface Device (PID) 	Force feedback joystick
-  06h 	Interface 	Image                           	Webcam, scanner
-  07h 	Interface 	Printer                         	Laser printer, inkjet printer, CNC machine
-  08h 	Interface 	Mass Storage                     	USB flash drive, memory card reader, digital audio player, digital camera, external drive
-  09h 	Device    	USB hub                         	Full speed hub, hi-speed hub
-  0Ah 	Interface 	CDC-Data                        	(This class is used together with class 02h - Communications and CDC Control.)
-  0Bh 	Interface 	Smart Card                       	USB smart card reader
-  0Dh 	Interface 	Content Security                 	-
-  0Eh 	Interface 	Video                           	Webcam
-  0Fh 	Interface 	Personal Healthcare              	-
-  DCh 	Both      	Diagnostic Device                	USB compliance testing device
-  E0h 	Interface 	Wireless Controller              	Wi-Fi adapter, Bluetooth adapter
-  EFh 	Both      	Miscellaneous                     ActiveSync device
-  FEh 	Interface 	Application Specific             	IrDA Bridge, Test & Measurement Class (USBTMC)[4]
-  FFh 	Both      	Vendor Specific                 	This class code indicates that the device needs vendor specific drivers.
-
-  See also: {html: <a href="http://www.usb.org/developers/defined_class/">USB Class Codes</a>}
- */
- 
-#define CLASS_AUDIO           0x01 /** Identifier for audio class interfaces. */
-#define CLASS_COMM            0x02 /** Identifier for communications control class interfaces. */
-#define CLASS_HID             0x03 /** Identifier for Human Interaction Device (HID) class interfaces. */
-#define CLASS_PRINTER         0x07 /** Identifier for printer class interfaces. */
-#define CLASS_MASS_STORAGE    0x08 /** Identifier for mass storage class interfaces. */
-#define CLASS_HUB             0x09 /** Identifier for hub class interfaces. */
-#define CLASS_DATA            0x0A /** Identifier for communications data class interfaces. */
-#define CLASS_APP_SPECIFIC    0xFE /* Identifier for application-specific interfaces.
-      Subclass codes are used to indicate facilities such as
-     firmware update or an IrDA/USB bridge.
-     */
-#define CLASS_VENDOR_SPECIFIC 0xFF; /** Identifier for vendor-specific interfaces. */
-
-
-//-----------------------------------------------------------------------------
-//Descriptor Types
-
-#define USBDESCRIPTORTYPE_DEVICE            1 /** Indicates a device descriptor */
-#define USBDESCRIPTORTYPE_CONFIGURATION     2 /** Indicates a configuration descriptor */
-#define USBDESCRIPTORTYPE_STRING            3 /** Indicates a string descriptor */
-#define USBDESCRIPTORTYPE_INTERFACE         4 /** Indicates an interface descriptor */
-#define USBDESCRIPTORTYPE_ENDPOINT          5 /** Indicates an endpoint descriptor */
-#define USBDESCRIPTORTYPE_DEVICE_QUALIFIER  6 /** Indicates a USB 2.0 "device qualifier" */
-#define USBDESCRIPTORTYPE_OTHER_SPEED       7 /** Indicates a USB 2.0 "other speed configuration" */
-#define USBDESCRIPTORTYPE_INTERFACE_POWER   8 /** Indicates interface power consumption */
-
 
 //-----------------------------------------------------------------------------
 //Class Descriptor Types

@@ -1,5 +1,5 @@
 /*$RCSfile: Usb200.h,v $: header file
-  $Revision: 1.6 $ $Date: 2009/06/30 17:41:15 $
+  $Revision: 1.7 $ $Date: 2009/08/10 20:55:41 $
   $Author: ddarko $
 
   USB 2.0 definitions
@@ -40,10 +40,19 @@ extern "C" {
 #define USB_PORT_STATUS_LOW_SPEED                     0x0200
 #define USB_PORT_STATUS_HIGH_SPEED                    0x0400
 
-/* USB descriptor types */
-#define USB_DEVICE_QUALIFIER_DESCRIPTOR_TYPE            0x06
-#define USB_OTHER_SPEED_CONFIGURATION_DESCRIPTOR_TYPE   0x07
-#define USB_INTERFACE_ASSOCIATION_DESCRIPTOR_TYPE       0x0B
+  /*USB descriptor types
+    See also: "Usb100.h"
+   */
+
+#define USB_DESCRIPTOR_TYPE_DEVICE_QUALIFIER 0x06 /*Indicates a USB 2.0 "device qualifier" */
+#define USB_DESCRIPTOR_TYPE_OTHER_SPEED      0x07 /*Indicates a USB 2.0 "other speed configuration" */
+#define USB_DESCRIPTOR_TYPE_INTERFACE_ASSOCIATION  0x0B
+
+/*USB descriptor types (Microsoft compatible macros)*/
+
+#define USB_DEVICE_QUALIFIER_DESCRIPTOR_TYPE          USB_DESCRIPTOR_TYPE_DEVICE_QUALIFIER
+#define USB_OTHER_SPEED_CONFIGURATION_DESCRIPTOR_TYPE USB_DESCRIPTOR_TYPE_OTHER_SPEED
+#define USB_INTERFACE_ASSOCIATION_DESCRIPTOR_TYPE     USB_DESCRIPTOR_TYPE_INTERFACE_ASSOCIATION
 
 /*---------------------------------------------------------------------------*/
 /* All structures in this file get one-byte packing.                         */
@@ -113,7 +122,8 @@ typedef USB_DEFAULT_PIPE_SETUP_PACKET   *PUSB_DEFAULT_PIPE_SETUP_PACKET;
 /* USB device qualifier descriptor */
 typedef struct _USB_DEVICE_QUALIFIER_DESCRIPTOR {
     UCHAR   bLength;
-    UCHAR   bDescriptorType;
+    UCHAR   bDescriptorType; /*[in] the descriptor type is constant
+                               USB_DESCRIPTOR_TYPE_DEVICE_QUALIFIER = 0x06*/
     USHORT  bcdUSB;
     UCHAR   bDeviceClass;
     UCHAR   bDeviceSubClass;
@@ -138,7 +148,8 @@ typedef USB_HIGH_SPEED_MAXPACKET    *PUSB_HIGH_SPEED_MAXPACKET;
 /* USB interface association descriptor */
 typedef struct _USB_INTERFACE_ASSOCIATION_DESCRIPTOR {
     UCHAR   bLength;
-    UCHAR   bDescriptorType;
+    UCHAR   bDescriptorType; /*[in] the descriptor type is constant
+                               USB_DESCRIPTOR_TYPE_INTERFACE_ASSOCIATION = 0x0B*/
     UCHAR   bFirstInterface;
     UCHAR   bInterfaceCount;
     UCHAR   bFunctionClass;
@@ -159,6 +170,9 @@ typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    *PUSB_INTERFACE_ASSOCIATION_DESC
 
 /*****************************************************************************
  * $Log: Usb200.h,v $
+ * Revision 1.7  2009/08/10 20:55:41  ddarko
+ * Desceiptor types
+ *
  * Revision 1.6  2009/06/30 17:41:15  ddarko
  * Updated version
  *
