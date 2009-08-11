@@ -347,6 +347,9 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KGetUsbStringDescriptor.cpp">
+			</File>
+			<File
 				RelativePath="..\..\Stl\KStrAtoWChar.cpp">
 				<FileConfiguration
 					Name="Release_SBCS|Win32"
@@ -1061,6 +1064,9 @@
 				RelativePath="..\..\Platform\UsbVid0839.h">
 			</File>
 			<File
+				RelativePath="..\..\Platform\UsbVid0A5F.h">
+			</File>
+			<File
 				RelativePath="..\..\Platform\UsbVid0AA7.h">
 			</File>
 			<File
@@ -1071,6 +1077,9 @@
 			</File>
 			<File
 				RelativePath="..\..\Platform\UsbVid0DD4.h">
+			</File>
+			<File
+				RelativePath="..\..\Platform\UsbVid0FCA.h">
 			</File>
 			<File
 				RelativePath="..\..\Platform\UsbVid152D.h">

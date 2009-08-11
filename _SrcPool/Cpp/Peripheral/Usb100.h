@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.11 $ $Date: 2009/08/10 20:55:41 $
+  $Revision: 1.12 $ $Date: 2009/08/11 21:20:31 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -43,8 +43,11 @@ extern "C" {
 #define BMREQUEST_TO_ENDPOINT     2
 #define BMREQUEST_TO_OTHER        3
 
-/* Maximum USB string length */
-#define MAXIMUM_USB_STRING_LENGTH   255
+/*Maximum USB string length in bytes. The string length includes any optional
+  terminating characters.
+  See also: USB_STRING_DESCRIPTOR::bLength 
+ */
+#define MAXIMUM_USB_STRING_LENGTH   (UCHAR_MAX - 2)
 
 /* Get status return values */
 #define USB_GETSTATUS_SELF_POWERED          0x01
@@ -315,7 +318,7 @@ typedef USB_INTERFACE_DESCRIPTOR    *PUSB_INTERFACE_DESCRIPTOR;
   language IDs the device supports. For this special value, the device returns
   an array of language IDs rather than a Unicode string.
 
-  See also: LANGID
+  See also: LANGID, MAXIMUM_USB_STRING_LENGTH
  */
 typedef struct _USB_STRING_DESCRIPTOR
   {
@@ -403,6 +406,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.12  2009/08/11 21:20:31  ddarko
+ * USB string descriptor
+ *
  * Revision 1.11  2009/08/10 20:55:41  ddarko
  * Desceiptor types
  *

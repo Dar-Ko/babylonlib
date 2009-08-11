@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.13 $ $Date: 2009/08/07 21:45:26 $
+  $Revision: 1.14 $ $Date: 2009/08/11 21:20:31 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -181,7 +181,6 @@ inline CUsbDeviceArray::CUsbDeviceArray()
 
 inline CUsbDeviceArray::~CUsbDeviceArray()
 {
-//RemoveAll();
 }
 
 //-----------------------------------------------------------------------------
@@ -196,10 +195,7 @@ while (i < (int)GetCount())
   CUsbDevice* pElement = GetAt(i);
   if (pElement != NULL)
     {
-    //if (!pElement->m_bHub)
-      delete pElement;
-    //else
-    //  delete ((CUsbHub*)pElement);
+    delete pElement;
     }
   i++;
   }
@@ -217,7 +213,7 @@ CArray<CUsbDevice*>::RemoveAll();
   TRACE1(_T("  number of elements = %d\n"),GetCount());
   while (i < (int)GetCount())
     {
-    TRACE2(_T("   %0.2d. 0x0x%0.8X\n"), i, GetAt(i) );
+    TRACE2(_T("   %0.2d. 0x%0.8X\n"), i, GetAt(i) );
     i++;
     }
   }
@@ -259,9 +255,8 @@ protected:
   void Erase();
 
 public:
-  unsigned int m_nPortCount;     //number of ports on the hub
 
-//protected:
+protected:
   CUsbDeviceArray m_usbNodeList; //hub node connections (ports)
 };
 
@@ -271,22 +266,19 @@ public:
 //-----------------------------------------------------------------------------
 /*Default constructor
  */
-inline CUsbHub::CUsbHub() :
-  m_nPortCount(0)
+inline CUsbHub::CUsbHub()
 {
 m_bHub = true;
 }
 
 inline CUsbHub::CUsbHub(const CUsbDevice& usbSrc) :
-  CUsbDevice(usbSrc),
-  m_nPortCount(0)
+  CUsbDevice(usbSrc)
 {
 m_bHub = true;
 }
 
 inline CUsbHub::CUsbHub(const CUsbHub& usbSrc) :
-  CUsbDevice((CUsbDevice)usbSrc),
-  m_nPortCount(0)
+  CUsbDevice((CUsbDevice)usbSrc)
 {
 m_usbNodeList.Copy(usbSrc.m_usbNodeList);
 }
@@ -301,15 +293,7 @@ Erase();
  */
 inline uint16_t CUsbHub::GetPortCount()
 {
-#ifdef _DEBUG
-  int nListSize = (int)m_usbNodeList.GetCount();
-    //Disable warning C4127: conditional expression in ASSERT is constant
-  #pragma warning (disable: 4127)
-  //Number of elements in the list have to match number of ports.
-  ASSERT(m_nPortCount == (unsigned int)nListSize);
-  #pragma warning (default: 4127)
-#endif
-return (uint16_t)m_nPortCount;
+return (uint16_t)m_usbNodeList.GetCount();
 }
 
 //-----------------------------------------------------------------------------
@@ -318,7 +302,6 @@ return (uint16_t)m_nPortCount;
 inline void CUsbHub::Erase()
 {
 m_usbNodeList.RemoveAll();
-m_nPortCount = 0;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -455,6 +438,9 @@ m_usbRootList.RemoveAll();
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.14  2009/08/11 21:20:31  ddarko
+ * USB string descriptor
+ *
  * Revision 1.13  2009/08/07 21:45:26  ddarko
  * Bcd2Str
  *

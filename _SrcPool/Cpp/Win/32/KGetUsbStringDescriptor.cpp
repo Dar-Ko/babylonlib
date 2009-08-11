@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbStringDescriptor.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/08/11 13:43:31 $
+  $Revision: 1.2 $ $Date: 2009/08/11 21:20:58 $
   $Author: ddarko $
 
   Obtain USB string descriptor.
@@ -29,145 +29,128 @@
   #include <windows.h>
 #endif
 
+    //
+    // Get the array of supported Language IDs, which is returned
+    // in String Descriptor 0
+    //
+    supportedLanguagesString = GetStringDescriptor(hHubDevice,
+                                                   ConnectionIndex,
+                                                   0,
+                                                   0);
+    numLanguageIDs = (StringDescriptor->bLength - 2) / 2;
+    languageIDs = &StringDescriptor->bString[0];
 //-----------------------------------------------------------------------------
-//
-//
-// hHubDevice - Handle of the hub device containing the port from which the
-// String Descriptor will be requested.
-//
-// ConnectionIndex - Identifies the port on the hub to which a device is
-// attached from which the String Descriptor will be requested.
-//
-// DescriptorIndex - String Descriptor index.
-//
-// LanguageID - Language in which the string should be requested.
-//
-//*****************************************************************************
+/*Obtains a string descriptor of the device attached to the specified USB hub 
+  node.
 
-CString GetUsbStringDescriptor(const HANDLE hHubDevice,
-                                const ULONG   ConnectionIndex,
-                                const UCHAR   DescriptorIndex,
-                                const LANGID  LanguageID
-                                )
+  String descriptors provides displayable information describing a descriptor
+  in human-readable form. The inclusion of string descriptors is optional. However,
+  the reference fields like String Descriptor index in Standard Device Descriptor
+  are mandatory.
+  If a device does not support string descriptors, String Descriptor index must
+  be zero to indicate no string descriptor is available.
+  String descriptors use Unicode encodings and may support multiple languages.
+
+  Note: the Unicode string descriptor is not zero-terminated. The string length
+  in bytes is computed by subtracting two from the value of the descriptor
+  length (first byte of the descriptor).
+
+  See also: "Universal Serial Bus Specification Revision 1.1", 
+  Chapters 9.5 Descriptors, 9.6.5 String;
+  "The Unicode Standard, Worldwide Character Encoding, Version 1.0", Volumes 1 and 2, 
+  The Unicode Consortium; LANGID, MAXIMUM_USB_STRING_LENGTH.
+ */
+CString GetUsbStringDescriptor(const HANDLE hHub, //[in] handle of the hub device
+                        //containing the port from which the String Descriptor 
+                        //will be requested.
+                               const unsigned int nPortNo, //[in] port on
+                        //the hub to which a device is attached from the range 
+                        //[1, USB_HUB_DESCRIPTOR::bNumberOfPorts].
+                               const UCHAR   cDescriptorId, //[in] String 
+                        //Descriptor index [1, 255].
+                               LANGID  nLanguageID //[in] = 0 language code
+                                //in which the string should be requested
+                              )
 {
-    BOOL    success;
-    ULONG   nBytes;
-    ULONG   nBytesReturned;
+TRACE1(_T("GetUsbStringDescriptor(id=%d)\n"), cDescriptorId);
 
-    UCHAR   stringDescReqBuf[sizeof(USB_DESCRIPTOR_REQUEST) +
-                             MAXIMUM_USB_STRING_LENGTH];
+CString strResult;
+ASSERT((nPortNo > 0) && (nPortNo <= USB_MAXCOUNT));
+ASSERT(cDescriptorId > 0); //String Descriptor 0 contains the array of
+                           //supported Language IDs
+ASSERT(hHub != INVALID_HANDLE_VALUE);
 
-    PUSB_DESCRIPTOR_REQUEST pusbDescReq = (PUSB_DESCRIPTOR_REQUEST)stringDescReqBuf;
+if ((nPortNo > 0) && 
+    (nPortNo <= USB_MAXCOUNT) &&
+    (cDescriptorId > 0) &&
+    (hHub != INVALID_HANDLE_VALUE))
+  {
+  const LANGID LANGID_EN_US = MAKELANGID(LANG_ENGLISH. SUBLANG_US); //0x0409 English (U.S.)
+  if (nLanguageID == 0)
+    nLanguageID = LANGID_EN_US;
+  //TODO: obatin 1st language from the list
 
-    nBytes = sizeof(stringDescReqBuf);
+  uint8_t usbDevResponse[sizeof(USB_DESCRIPTOR_REQUEST) + 
+                         MAXIMUM_USB_STRING_LENGTH];
 
- 
-    // Zero fill the entire request structure
-    //
-    memset(pusbDescReq, 0, nBytes);
+  ULONG   nBytesReturned; //actual size of the response
 
-    // Indicate the port from which the descriptor will be requested
-    //
-    pusbDescReq->ConnectionIndex = ConnectionIndex;
+  //Set up request for a string desriptor
 
-    //
-    // USBHUB uses URB_FUNCTION_GET_DESCRIPTOR_FROM_DEVICE to process this
-    // IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION request.
-    //
-    // USBD will automatically initialize these fields:
-    //     bmRequest = 0x80
-    //     bRequest  = 0x06
-    //
-    // We must inititialize these fields:
-    //     wValue    = Descriptor Type (high) and Descriptor Index (low byte)
-    //     wIndex    = Zero (or Language ID for String Descriptors)
-    //     wLength   = Length of descriptor buffer
-    //
-    pusbDescReq->SetupPacket.wValue = (USB_STRING_DESCRIPTOR_TYPE << 8)
-                                        | DescriptorIndex;
+  ZeroMemory(usbDevResponse, sizeof(usbDevResponse)); //Zero fill the entire
+                                                      //request structure
+  //Indicate the port number to which the device of interest is attached
+  ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->ConnectionIndex = nPortNo;
+  //Indicate desired string
+  ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket.wValue = 
+    USB_DESCRIPTOR_REQUEST_VALUE(USB_STRING_DESCRIPTOR_TYPE, cDescriptorId);
+  ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket.wIndex = LanguageID;
+  //Indicate size of the space allowed for data transfer
+  ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket.wLength = 
+    (USHORT)(sizeof(usbDevResponse) - sizeof(USB_DESCRIPTOR_REQUEST));
 
-    pusbDescReq->SetupPacket.wIndex = LanguageID;
-
-    pusbDescReq->SetupPacket.wLength = (USHORT)(nBytes - sizeof(USB_DESCRIPTOR_REQUEST));
-
-    // Now issue the get descriptor request.
-    //
-    success = DeviceIoControl(hHubDevice,
-                              IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION,
-                              pusbDescReq,
-                              nBytes,
-                              pusbDescReq,
-                              nBytes,
-                              &nBytesReturned,
-                              NULL);
-
-    //
-    // Do some sanity checks on the return from the get descriptor request.
-    //
-
-    if (!success)
+  //Get the string descriptor
+  if(DeviceIoControl( hHub,
+                      IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION,
+                      (PUSB_DESCRIPTOR_REQUEST)usbDevResponse,
+                      sizeof(usbDevResponse),
+                      (PUSB_DESCRIPTOR_REQUEST)usbDevResponse,
+                      sizeof(usbDevResponse),
+                      &nBytesReturned,
+                      NULL ) == TRUE)
     {
-        OOPS();
-        return NULL;
+    if (nBytesReturned > 1) //Sanity check
+      {
+      USB_STRING_DESCRIPTOR& usbStrDescriptor = 
+        (*PUSB_STRING_DESCRIPTOR)((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->Data;
+      if ((usbStrDescriptor.bLength == nBytesReturned - sizeof(USB_DESCRIPTOR_REQUEST)) &&
+          (usbStrDescriptor.bLength % sizeof(wchar_t) == 0) )
+        {
+        if (usbStrDescriptor.bDescriptorType == USB_STRING_DESCRIPTOR_TYPE)
+          {
+          strResult.Copy(usbStrDescriptor.bString, (usbStrDescriptor.bLength - 2) % sizeof(wchar_t))
+          }
+
+        }
+      }
+    }
+  else
+    {
+      //todo error
     }
 
-    if (nBytesReturned < 2)
-    {
-        OOPS();
-        return NULL;
-    }
+  }
 
-    PUSB_STRING_DESCRIPTOR  pusbStrDescriptor= (PUSB_STRING_DESCRIPTOR)(pusbDescReq+1);
-    PSTRING_DESCRIPTOR_NODE pusbStrDescriptorNode;
-
-    if (pusbStrDescriptor->bDescriptorType != USB_STRING_DESCRIPTOR_TYPE)
-    {
-        OOPS();
-        return NULL;
-    }
-
-    if (pusbStrDescriptor->bLength != nBytesReturned - sizeof(USB_DESCRIPTOR_REQUEST))
-    {
-        OOPS();
-        return NULL;
-    }
-
-    if (pusbStrDescriptor->bLength % 2 != 0)
-    {
-        OOPS();
-        return NULL;
-    }
-
-    //
-    // Looks good, allocate some (zero filled) space for the string descriptor
-    // node and copy the string descriptor to it.
-    //
-
-    pusbStrDescriptorNode = (PSTRING_DESCRIPTOR_NODE)ALLOC(sizeof(STRING_DESCRIPTOR_NODE) +
-                                                    pusbStrDescriptor->bLength);
-
-    if (pusbStrDescriptorNode == NULL)
-    {
-        OOPS();
-        return NULL;
-    }
-
-    pusbStrDescriptorNode->DescriptorIndex = DescriptorIndex;
-    pusbStrDescriptorNode->LanguageID = LanguageID;
-
-    memcpy(pusbStrDescriptorNode->StringDescriptor,
-           pusbStrDescriptor,
-           pusbStrDescriptor->bLength);
-
-    return pusbStrDescriptorNode;
+return strResult;
 }
-
-
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_WIN32
 
 /*****************************************************************************
  * $Log: KGetUsbStringDescriptor.cpp,v $
+ * Revision 1.2  2009/08/11 21:20:58  ddarko
+ * USB string descriptor
+ *
  * Revision 1.1  2009/08/11 13:43:31  ddarko
  * Windows DDK, UsbView
  *
@@ -178,3 +161,20 @@ CString GetUsbStringDescriptor(const HANDLE hHubDevice,
   Environment:          user mode
   Revision History:     04-25-97 : created
  */
+
+/*Universal Serial Bus Specification Revision 1.1", 9.6.5 String;
+  The strings in a USB device may support multiple languages. When requesting a
+  string descriptor, the requester specifies the desired language using
+  a sixteen-bit language ID (LANGID) defined by Microsoft for Windows as 
+  described in Developing International Software for Windows 95 and Windows NT,
+  Nadine Kano, Microsoft Press, Redmond, Washington. 
+  String index zero for all languages returns a string descriptor that contains
+  an array of two-byte LANGID codes supported by the device.
+  Table 9-11 shows the LANGID code array. A USB device may omit all string
+  descriptors.
+  USB devices that omit all string descriptors shall not return an array of 
+  LANGID codes.
+  The array of LANGID codes is not NULL-terminated. The size of the array
+  (in bytes) is computed by subtracting two from the value of the first byte of
+  the descriptor.
+*/

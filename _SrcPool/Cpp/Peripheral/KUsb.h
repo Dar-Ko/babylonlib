@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.7 $ $Date: 2009/08/10 20:55:41 $
+  $Revision: 1.8 $ $Date: 2009/08/11 21:20:31 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -110,6 +110,40 @@
   #pragma pack(push, 1)  //Specifies packing alignment for structure,
                          //union and class members.
 #endif
+
+///////////////////////////////////////////////////////////////////////////////
+/*USB String Descriptor with supported language codes.
+  Device, configuration, and interface descriptors may contain references to
+  string descriptors and the device device may support multiple languages. 
+  String Descriptor with the special index number of zero
+  contains the list of language IDs the device supports.
+
+  Request for the String indexed zero for any language returns a string 
+  descriptor that contains an array of two-byte LANGID codes supported by 
+  the device.
+  USB devices that omit all string descriptors shall not return an array of 
+  LANGID codes.
+  The array of LANGID codes is not NULL-terminated. The size of the array
+  (in bytes) is computed by subtracting two from the value of the first byte of
+  the descriptor.
+
+  See also: LANGID, MAXIMUM_USB_STRING_LENGTH, USB_STRING_DESCRIPTOR,
+  "Universal Serial Bus Specification Revision 1.1", Chapters 9.5 Descriptors, 9.6.5 String;
+ */
+union tagUSB_LANGID_LIST
+  {
+  USB_STRING_DESCRIPTOR usbStrDescriptor;
+  struct
+    {
+    uint8_t bLength;         /*[in]/[out] the size in bytes of the entire descriptor*/
+    uint8_t bDescriptorType; /*[in] the descriptor type is constant 
+                               USB_DESCRIPTOR_TYPE_STRING = 0x03*/
+    LANGID  wLangId[1];      /*[out] list of supported language codes; maximum 
+                               number of supported languges is 127.*/
+    } USB_LANGID_DESCRIPTOR;
+  };
+/*USB String Descriptor with supported language codes.*/
+typedef tagUSB_LANGID_LIST USB_LANGID_LIST;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Universal Serial Bus (USB) device type identification consists of:

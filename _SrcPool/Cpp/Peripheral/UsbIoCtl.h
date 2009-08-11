@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.13 $ $Date: 2009/08/10 20:55:41 $
+  $Revision: 1.14 $ $Date: 2009/08/11 21:20:31 $
   $Author: ddarko $
 
   USB device I/O control codes for Microsoft Windows OS.
@@ -347,8 +347,9 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
    */
   typedef struct _USB_NODE_CONNECTION_INFORMATION
     {
-    ULONG                 ConnectionIndex; /*specifies the number of 
-                the port in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
+    ULONG                 ConnectionIndex; /*specifies the port number to which
+                                the device is attached from the range
+                                [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     USB_DEVICE_DESCRIPTOR DeviceDescriptor; /*attached USB device description*/
     UCHAR                 CurrentConfigurationValue; /*ID of attached USB 
                                            device description configuration*/
@@ -374,8 +375,8 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
    */
   typedef struct _USB_NODE_CONNECTION_DRIVERKEY_NAME
     {
-    ULONG   ConnectionIndex;/*[in] the port number to which the hub is attached
-                         in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
+    ULONG   ConnectionIndex;/*[in] the port number to which the device is attached
+                        from the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     ULONG   ActualLength;  /*[out] the driver's key name length in bytes*/
     WCHAR   DriverKeyName[1]; /*[out] Unicode driver key name for the device
                                that is attached to the hub port*/
@@ -392,7 +393,7 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
   typedef struct _USB_NODE_CONNECTION_NAME
     {
     ULONG   ConnectionIndex; /*[in] the port number to which the hub is attached
-                         in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
+                        from the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     ULONG   ActualLength; /*[out] the attached hub's symbolic link length
                             in bytes*/
     WCHAR   NodeName[1];  /*[out] Unicode symbolic link for the downstream hub
@@ -456,8 +457,9 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
    */
   typedef struct _USB_DESCRIPTOR_REQUEST
     {
-    ULONG   ConnectionIndex; /*[in] specifies the number of 
-                the port in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
+    ULONG   ConnectionIndex; /*[in] specifies the port number to which the device
+                               is attached from the range 
+                               [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     struct
       {
       UCHAR  bmRequest;/*[out] type of USB device request (standard, class or 
@@ -570,8 +572,8 @@ typedef USB_HUB_CAPABILITIES_EX *PUSB_HUB_CAPABILITIES_EX;
 #ifndef USB_KERNEL_IOCTL
 #if (_WIN32_WINNT >= 0x0600)
 typedef struct _USB_CYCLE_PORT_PARAMS {
-    ULONG   ConnectionIndex; /*specifies the number of 
-                the port in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
+    ULONG   ConnectionIndex; /*specifies the port number to which the device is attached 
+                from the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     ULONG   StatusReturned;
 } USB_CYCLE_PORT_PARAMS;
 typedef USB_CYCLE_PORT_PARAMS   *PUSB_CYCLE_PORT_PARAMS;
@@ -773,8 +775,8 @@ typedef struct _USB_HUB_PORT_INFORMATION {
     USB_DEVICE_STATE        DeviceState;
     USHORT                  PortNumber;
     USHORT                  DeviceAddress;
-    ULONG                   ConnectionIndex;  /*specifies the number of 
-                the port in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
+    ULONG                   ConnectionIndex;  /*specifies the port number to which the hub is attached
+                from the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     USB_CONNECTION_STATUS   ConnectionStatus;
 } USB_HUB_PORT_INFORMATION;
 typedef USB_HUB_PORT_INFORMATION    *PUSB_HUB_PORT_INFORMATION;
@@ -849,8 +851,9 @@ typedef struct _USB_DEVICE_INFO {
     UCHAR                   CurrentConfigurationValue;
     USB_DEVICE_SPEED        Speed;
     USHORT                  DeviceAddress;
-    ULONG                   ConnectionIndex; /*specifies the number of 
-                the port in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
+    ULONG                   ConnectionIndex; /*specifies the port number
+                to which the device is attached
+                from the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     USB_CONNECTION_STATUS   ConnectionStatus;
     WCHAR                   PnpHardwareId[128];
     WCHAR                   PnpCompatibleId[128];
@@ -929,6 +932,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.14  2009/08/11 21:20:31  ddarko
+ * USB string descriptor
+ *
  * Revision 1.13  2009/08/10 20:55:41  ddarko
  * Desceiptor types
  *

@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.18 $ $Date: 2009/08/07 21:44:53 $
+  $Revision: 1.19 $ $Date: 2009/08/11 21:20:58 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -79,10 +79,6 @@ CUsbHostController* pusbHc = new CUsbHostController;
 while(pusbHc->GetDeviceInfo(iCount))
   {
   m_usbRootList.Add(pusbHc);
-  #ifdef _DEBUG
-  int n = (int)(m_usbRootList.GetCount() - 1);
-  m_usbRootList[n]->m_usbNodeList.Dump();
-  #endif
   pusbHc = new CUsbHostController; //Get next controller
   iCount++;
   }
@@ -197,7 +193,7 @@ if(GetDevicePath(guidUsbHc,    //the device interface
     #else
       TRACE2(_T("    %d. %s\n"), nMemberIndex, (LPCTSTR)m_strDevice);
     #endif
-    m_nPortCount = Enumerate((LPCTSTR)m_strDevice); //Enumerate USB ports
+    Enumerate((LPCTSTR)m_strDevice); //Enumerate USB ports
     if (GetPortCount() > 0)
       bResult = true;
     }
@@ -278,6 +274,39 @@ unsigned int CUsbHub::Enumerate(LPCTSTR szDevicePath //[in] the USB hub
                                 )
 {
 TRACE(_T("    CUsbHub::Enumerate()\n"));
+/*The enumeration process goes like this:
+
+  1.  Enumerate Host Controllers and Root Hubs.
+      Host controllers currently have symbolic link names of the form HCDx,
+      where x starts at 0.  Use CreateFile() to open each host controller
+      symbolic link.  Create a node in the USB tree to represent each host
+      controller.
+
+      After a host controller has been opened, send the host controller an
+      IOCTL_USB_GET_ROOT_HUB_NAME request to get the symbolic link name of
+      the root hub that is part of the host controller.
+
+  2.  Enumerate Hubs (Root Hubs and External Hubs).
+      Given the name of a hub, use CreateFile() to hub the hub.  Send the
+      hub an IOCTL_USB_GET_NODE_INFORMATION request to get info about the
+      hub, such as the number of downstream ports.  Create a node in the
+      TreeView to represent each hub.
+
+  3.  Enumerate Downstream Ports.
+      Given an handle to an open hub and the number of downstream ports on
+      the hub, send the hub an IOCTL_USB_GET_NODE_CONNECTION_INFORMATION_EX
+      request for each downstream port of the hub to get info about the
+      device (if any) attached to each port.  If there is a device attached
+      to a port, send the hub an IOCTL_USB_GET_NODE_CONNECTION_NAME request
+      to get the symbolic link name of the hub attached to the downstream
+      port.  If there is a hub attached to the downstream port, recurse to
+      step (2).  Create a node in the USB tree to represent each hub port
+      and attached device.
+
+  Reference: 
+    Windows DDK, USBView example, enum.c, 1997-1998 Microsoft Corporation
+ */
+
 unsigned int dwPortCount = 0;
 Erase(); //Prepare the object for new enumeration
 
@@ -350,7 +379,7 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
                             NULL))
           {
           #ifdef _UNICODE
-              TRACE2(_T("      Port %d connection status: %ws.\n"),
+            TRACE2(_T("      Port %d connection status: %ws.\n"),
                         usbPortInfo.ConnectionIndex, //port Id
                         GetUsbStatus(usbPortInfo.ConnectionStatus));
           #else
@@ -411,8 +440,7 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
                     pusbHubDevice->m_strDevice = usbHubName.GetName();
                     TRACE1(_T("        %ws\n"),
                            (LPCTSTR)pusbDevice->m_strDevice);
-                    pusbHubDevice->m_nPortCount =
-                        pusbHubDevice->Enumerate(pusbHubDevice->m_strDevice);
+                    pusbHubDevice->Enumerate(pusbHubDevice->m_strDevice);
                     TRACE(_T("        ------End of enumeration------\n"));
                     }
                   else
@@ -514,17 +542,32 @@ else
             bResult = true;
             }
 
-           //TODO Get sdevice strings.
-//TODO: check multiple conditions
-          if (pDevice->m_strSerialNo.IsEmpty())
+          //Get device string descriptors
+          ASSERT(!m_strDevice.IsEmpty());
+          HANDLE hHub = CreateFile(m_strDevice,
+                                    GENERIC_WRITE,
+                                    FILE_SHARE_WRITE,
+                                    NULL,//if lpSecurityAttributes is NULL,
+                                        //the handle cannot be inherited.
+                                    OPEN_EXISTING,
+                                    0,
+                                    NULL);
+          if (hHub != INVALID_HANDLE_VALUE)
             {
-            pDevice->m_strSerialNo = _T("N/A"); //TODO: get ser no
-            bResult = true;
+
+            if (pDevice->m_strSerialNo.IsEmpty())
+              {
+              pDevice->m_strSerialNo = _T("N/A"); //TODO: get ser no
+              bResult = true;
+              }
+            else //Compare serial numbers
+              {
+              bResult = (pDevice->m_strSerialNo.CompareNoCase(_T("get ser no")) == 0);
+              }
+
+              CloseHandle(hHub);
             }
-          else //Compare serial numbers
-            {
-            bResult = (pDevice->m_strSerialNo.CompareNoCase(_T("get ser no")) == 0);
-            }
+          //TODO: check multiple conditions
 
           if (bResult)
             {
