@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.19 $ $Date: 2009/08/11 21:20:58 $
+  $Revision: 1.20 $ $Date: 2009/08/12 17:21:22 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -542,8 +542,11 @@ else
             bResult = true;
             }
 
-          //Get device string descriptors
-          ASSERT(!m_strDevice.IsEmpty());
+          //Disable warning C4127: conditional expression in ASSERT is constant
+          #pragma warning (disable: 4127)
+            //Get device string descriptors
+            ASSERT(!m_strDevice.IsEmpty());
+          #pragma warning (default: 4127)
           HANDLE hHub = CreateFile(m_strDevice,
                                     GENERIC_WRITE,
                                     FILE_SHARE_WRITE,
@@ -791,105 +794,6 @@ switch((int)eStatus)
 return szResult;
 }
 
-//-----------------------------------------------------------------------------
-//#include "UsbIoCtl.h"
-//Obtain string desriptors
-bool GetDeviceString( const uint16_t wVendorId,
-                const uint16_t wProductId,
-                LPCWSTR HubDevicePath,
-                PUSB_NODE_CONNECTION_INFORMATION pusbNodeInfo,
-                CString& sProductName,
-                CString& sManufacturerName,
-                CString& sSerialNumber,
-                int& PortNum //[out]
-              )
-{
-TRACE2(_T("    GetDeviceString(0x%0.4X, 0x%0.4X)\n"), wVendorId, wProductId);
-
-bool bResult = false;
-HANDLE h;
-const DWORD LANGID_EN_US = MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US); //0x409 English (U.S.)
-
-PortNum = pusbNodeInfo->ConnectionIndex;
-
-bResult = (pusbNodeInfo->DeviceDescriptor.idVendor==wVendorId) || (wVendorId==USBVID_ANY);
-bResult = bResult && ((pusbNodeInfo->DeviceDescriptor.idProduct==wProductId) ||
-                      (wProductId==USBPID_ANY));
-
-if ((!bResult) && (pusbNodeInfo->DeviceIsHub != (BOOLEAN)TRUE))
-    return false; //If the device is not required one and it is not a hub, break away
-
-h = CreateFile(HubDevicePath, GENERIC_WRITE, FILE_SHARE_WRITE, NULL, OPEN_EXISTING, 0, NULL);
-if ( h == INVALID_HANDLE_VALUE)
-  return false;
-
-DWORD nBytesReturned;
-const int BUFFER_SIZE = 2048;
-WCHAR buffer[BUFFER_SIZE];
-int nBytes = BUFFER_SIZE;
-
-//Get The Manufacturer
-TRACE(_T("      get the manufacturer,\n"));
-if (pusbNodeInfo->DeviceDescriptor.iManufacturer > 0) 
-   {
-    PUSB_DESCRIPTOR_REQUEST Request = (PUSB_DESCRIPTOR_REQUEST)buffer;
-    memset(buffer, 0, sizeof(buffer));
-    Request->ConnectionIndex = pusbNodeInfo->ConnectionIndex;
-    Request->SetupPacket.wValue = (short)((USBDESCRIPTORTYPE_STRING << 8) + pusbNodeInfo->DeviceDescriptor.iManufacturer);
-    Request->SetupPacket.wLength = (short)(nBytes - sizeof(USB_DESCRIPTOR_REQUEST));
-    Request->SetupPacket.wIndex = LANGID_EN_US; // Language Code
-    if (DeviceIoControl(h, IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION,
-                        Request, nBytes, Request, nBytes, &nBytesReturned, NULL))
-    {
-      PUSB_STRING_DESCRIPTOR StringDesc = (PUSB_STRING_DESCRIPTOR)(Request->Data);
-      sProductName = StringDesc->bString;
-    }
-}
-
-//Get The Product Name
-TRACE(_T("      get the product name,\n"));
-
-if (pusbNodeInfo->DeviceDescriptor.iProduct > 0)
-{
-    PUSB_DESCRIPTOR_REQUEST Request = (PUSB_DESCRIPTOR_REQUEST)buffer;
-    memset(buffer, 0, sizeof(buffer));
-    Request->ConnectionIndex = pusbNodeInfo->ConnectionIndex;
-    Request->SetupPacket.wValue = (short)((USBDESCRIPTORTYPE_STRING << 8) + pusbNodeInfo->DeviceDescriptor.iProduct);
-    Request->SetupPacket.wLength = (short)(nBytes - sizeof(USB_DESCRIPTOR_REQUEST));
-    Request->SetupPacket.wIndex = LANGID_EN_US; // Language Code
-    if (DeviceIoControl(h, IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION,
-      Request, nBytes, Request, nBytes, &nBytesReturned, NULL))
-    {
-      PUSB_STRING_DESCRIPTOR StringDesc = (PUSB_STRING_DESCRIPTOR)(Request->Data);
-      sManufacturerName = StringDesc->bString;
-    }
-}
-
-//Get the Serial Number
-/*A USB device may be programmed with a serial number, allowing the host to keep track of different instances of products with the same vendor ID, product ID, and device release number. The serial number is stored as a string descriptor, and the index of that string descriptor is stored in the iSerialNumber field of the device descriptor. If a serial number is not assigned to the device, iSerialNumber is zero.
-
-Microsoft requires that if a serial number is set it must be unique, and each byte in the serial number must be in the range 0x20 <= N <= 0x7F, excluding 0x2C. Windows operating systems always use LANGID 0x0409 to retrieve serial numbers.
-*/
-if (pusbNodeInfo->DeviceDescriptor.iSerialNumber > 0)
-{
-    PUSB_DESCRIPTOR_REQUEST Request = (PUSB_DESCRIPTOR_REQUEST)buffer;
-    memset(buffer, 0, sizeof(buffer));
-    Request->ConnectionIndex = pusbNodeInfo->ConnectionIndex;
-    Request->SetupPacket.wValue = (short)((USBDESCRIPTORTYPE_STRING << 8) + pusbNodeInfo->DeviceDescriptor.iSerialNumber);
-    Request->SetupPacket.wLength = (short)(nBytes - sizeof(USB_DESCRIPTOR_REQUEST));
-    Request->SetupPacket.wIndex = LANGID_EN_US; // Language Code
-    if (DeviceIoControl(h, IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION,
-      Request, nBytes, Request, nBytes, &nBytesReturned, NULL))
-    {
-      PUSB_STRING_DESCRIPTOR StringDesc = (PUSB_STRING_DESCRIPTOR)(Request->Data);
-      sSerialNumber = StringDesc->bString;
-    }
-}
-
-CloseHandle(h);
-
-return true;
-}
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_WIN32
 

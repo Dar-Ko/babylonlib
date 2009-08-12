@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbStringDescriptor.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/08/11 21:20:58 $
+  $Revision: 1.3 $ $Date: 2009/08/12 17:21:22 $
   $Author: ddarko $
 
   Obtain USB string descriptor.
@@ -25,20 +25,18 @@
 
   #include "stdafx.h" //Standard system header files
   #include "KTraceAtl.h"
+  #pragma include_alias( "KString.h", "atlstr.h" )
 #else
   #include <windows.h>
 #endif
 
-    //
-    // Get the array of supported Language IDs, which is returned
-    // in String Descriptor 0
-    //
-    supportedLanguagesString = GetStringDescriptor(hHubDevice,
-                                                   ConnectionIndex,
-                                                   0,
-                                                   0);
-    numLanguageIDs = (StringDescriptor->bLength - 2) / 2;
-    languageIDs = &StringDescriptor->bString[0];
+#ifdef _USE_STL
+  #include <string>
+#endif
+#include "KString.h"
+#include "KUsb.h"
+#include "UsbIoCtl.h" //USB_DESCRIPTOR_REQUEST
+
 //-----------------------------------------------------------------------------
 /*Obtains a string descriptor of the device attached to the specified USB hub 
   node.
@@ -73,19 +71,22 @@ CString GetUsbStringDescriptor(const HANDLE hHub, //[in] handle of the hub devic
                               )
 {
 TRACE1(_T("GetUsbStringDescriptor(id=%d)\n"), cDescriptorId);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT((nPortNo > 0) && (nPortNo <= USB_MAXCOUNT));
+  ASSERT(cDescriptorId > 0); //String Descriptor 0 contains the array of
+                            //supported Language IDs
+  ASSERT(hHub != INVALID_HANDLE_VALUE);
+#pragma warning (default: 4127)
 
 CString strResult;
-ASSERT((nPortNo > 0) && (nPortNo <= USB_MAXCOUNT));
-ASSERT(cDescriptorId > 0); //String Descriptor 0 contains the array of
-                           //supported Language IDs
-ASSERT(hHub != INVALID_HANDLE_VALUE);
 
 if ((nPortNo > 0) && 
     (nPortNo <= USB_MAXCOUNT) &&
     (cDescriptorId > 0) &&
     (hHub != INVALID_HANDLE_VALUE))
   {
-  const LANGID LANGID_EN_US = MAKELANGID(LANG_ENGLISH. SUBLANG_US); //0x0409 English (U.S.)
+  const LANGID LANGID_EN_US = MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US); //0x0409 English (U.S.)
   if (nLanguageID == 0)
     nLanguageID = LANGID_EN_US;
   //TODO: obatin 1st language from the list
@@ -102,9 +103,9 @@ if ((nPortNo > 0) &&
   //Indicate the port number to which the device of interest is attached
   ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->ConnectionIndex = nPortNo;
   //Indicate desired string
-  ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket.wValue = 
-    USB_DESCRIPTOR_REQUEST_VALUE(USB_STRING_DESCRIPTOR_TYPE, cDescriptorId);
-  ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket.wIndex = LanguageID;
+  ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket.wValue =
+    USB_DESCRIPTOR_REQUEST_VALUE(USB_DESCRIPTOR_TYPE_STRING, cDescriptorId);
+  ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket.wIndex = nLanguageID;
   //Indicate size of the space allowed for data transfer
   ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket.wLength = 
     (USHORT)(sizeof(usbDevResponse) - sizeof(USB_DESCRIPTOR_REQUEST));
@@ -122,13 +123,32 @@ if ((nPortNo > 0) &&
     if (nBytesReturned > 1) //Sanity check
       {
       USB_STRING_DESCRIPTOR& usbStrDescriptor = 
-        (*PUSB_STRING_DESCRIPTOR)((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->Data;
+        *((PUSB_STRING_DESCRIPTOR)((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->Data);
       if ((usbStrDescriptor.bLength == nBytesReturned - sizeof(USB_DESCRIPTOR_REQUEST)) &&
           (usbStrDescriptor.bLength % sizeof(wchar_t) == 0) )
         {
         if (usbStrDescriptor.bDescriptorType == USB_STRING_DESCRIPTOR_TYPE)
           {
-          strResult.Copy(usbStrDescriptor.bString, (usbStrDescriptor.bLength - 2) % sizeof(wchar_t))
+          //Get length of the desription in characters
+          nBytesReturned = (usbStrDescriptor.bLength - 2) % sizeof(wchar_t);
+          //Copy the string
+          #ifdef _UNICODE
+            memcpy(strResult.GetBuffer(nBytesReturned),
+                  usbStrDescriptor.bString,
+                  (usbStrDescriptor.bLength - 2));
+            strResult.ReleaseBuffer(nBytesReturned);
+          #else
+            LPWSTR strwTemp = new wchar_t[nBytesReturned + 1];
+            if (strwTemp != NULL)
+              {
+              memcpy(strwTemp,
+                    usbStrDescriptor.bString,
+                    (usbStrDescriptor.bLength - 2));
+              strwTemp[nBytesReturned] = (wchar_t) 0;
+              strResult = strwTemp;
+              delete[] strwTemp;
+              }
+          #endif
           }
 
         }
@@ -148,6 +168,9 @@ return strResult;
 
 /*****************************************************************************
  * $Log: KGetUsbStringDescriptor.cpp,v $
+ * Revision 1.3  2009/08/12 17:21:22  ddarko
+ * GetUsbStringDescriptor()
+ *
  * Revision 1.2  2009/08/11 21:20:58  ddarko
  * USB string descriptor
  *
@@ -178,3 +201,15 @@ return strResult;
   (in bytes) is computed by subtracting two from the value of the first byte of
   the descriptor.
 */
+    //
+    // Get the array of supported Language IDs, which is returned
+    // in String Descriptor 0
+    //
+/*
+    supportedLanguagesString = GetStringDescriptor(hHubDevice,
+                                                   ConnectionIndex,
+                                                   0,
+                                                   0);
+    numLanguageIDs = (StringDescriptor->bLength - 2) / 2;
+    languageIDs = &StringDescriptor->bString[0];
+    */
