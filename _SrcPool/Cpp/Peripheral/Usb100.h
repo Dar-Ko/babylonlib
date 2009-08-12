@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.12 $ $Date: 2009/08/11 21:20:31 $
+  $Revision: 1.13 $ $Date: 2009/08/12 17:21:02 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -76,7 +76,7 @@ extern "C" {
   USBDESCRIPTORTYPE_STRING, USB_DESCRIPTOR_MAKE_TYPE_AND_INDEX
  */
 #define USB_DESCRIPTOR_REQUEST_VALUE( type, index ) \
-    ((USHORT)(((USHORT)(type) << 8) | (index))
+    ( (USHORT)(((USHORT)(type) << 8) | (index)) )
 
 /*USB descriptor types (Microsoft compatible macros)*/
 
@@ -118,7 +118,7 @@ extern "C" {
 #define USB_CONFIGURATION_ATTRIB_SELFPOWERED  0x40  //USB configuration flag 'device is self-powered'
 #define USB_CONFIGURATION_ATTRIB_BUSPOWERED   0x80  //USB configuration flag 'powered by the bus'
 //Bit mask to power source attributes of USB configuration descriptor
-#define USB_CONFIGURATION_ATTRIB_POWERED_MASK \ 
+#define USB_CONFIGURATION_ATTRIB_POWERED_MASK \
   (USB_CONFIGURATION_ATTRIB_SELFPOWERED | USB_CONFIGURATION_ATTRIB_BUSPOWERED)
 
 /*USB configuration descriptor attributes (Microsoft compatible macros)*/
@@ -406,6 +406,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.13  2009/08/12 17:21:02  ddarko
+ * USB_DESCRIPTOR_REQUEST_VALUE
+ *
  * Revision 1.12  2009/08/11 21:20:31  ddarko
  * USB string descriptor
  *
