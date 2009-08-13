@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.13 $ $Date: 2009/08/12 17:21:02 $
+  $Revision: 1.14 $ $Date: 2009/08/13 21:27:09 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -318,7 +318,9 @@ typedef USB_INTERFACE_DESCRIPTOR    *PUSB_INTERFACE_DESCRIPTOR;
   language IDs the device supports. For this special value, the device returns
   an array of language IDs rather than a Unicode string.
 
-  See also: LANGID, MAXIMUM_USB_STRING_LENGTH
+  See also: LANGID, MAXIMUM_USB_STRING_LENGTH;
+  "Universal Serial Bus Specification Revision 1.1", Chapters 9.5 Descriptors, 
+  9.6.5 String;
  */
 typedef struct _USB_STRING_DESCRIPTOR
   {
@@ -406,6 +408,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.14  2009/08/13 21:27:09  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.13  2009/08/12 17:21:02  ddarko
  * USB_DESCRIPTOR_REQUEST_VALUE
  *
