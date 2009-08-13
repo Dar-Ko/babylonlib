@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.8 $ $Date: 2009/08/11 21:20:31 $
+  $Revision: 1.9 $ $Date: 2009/08/13 21:27:01 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -84,6 +84,18 @@
  */
 #define USB_MAXCOUNT  127
 
+/*Maximum number of supported languages by a USB device.
+  The size is limited with the largest number that could be stored in the
+  USB_STRING_DESCRIPTOR::bLength, less two for the size of the structure
+  members.
+
+  See also: "Universal Serial Bus Specification Revision 1.1", 
+  Chapters 9.5 Descriptors, 9.6.5 String;
+  LANGID, MAXIMUM_USB_STRING_LENGTH, USB_STRING_DESCRIPTOR, USB_LANGID_LIST.
+ */
+#define USB_MAXCOUNT_LANGID  (MAXIMUM_USB_STRING_LENGTH/sizeof(LANGID))
+
+
 #ifndef USBVID_ANY
   #define USBVID_ANY 0x0000 //undefined or unspecified USB vendor
 #endif
@@ -107,7 +119,7 @@
 #endif
 
 #ifdef _MSC_VER
-  #pragma pack(push, 1)  //Specifies packing alignment for structure,
+  #include <pshpack1.h>  //Specifies packing alignment for structure,
                          //union and class members.
 #endif
 
@@ -127,7 +139,7 @@
   (in bytes) is computed by subtracting two from the value of the first byte of
   the descriptor.
 
-  See also: LANGID, MAXIMUM_USB_STRING_LENGTH, USB_STRING_DESCRIPTOR,
+  See also: LANGID, USB_MAXCOUNT_LANGID, USB_STRING_DESCRIPTOR,
   "Universal Serial Bus Specification Revision 1.1", Chapters 9.5 Descriptors, 9.6.5 String;
  */
 union tagUSB_LANGID_LIST
@@ -140,7 +152,7 @@ union tagUSB_LANGID_LIST
                                USB_DESCRIPTOR_TYPE_STRING = 0x03*/
     LANGID  wLangId[1];      /*[out] list of supported language codes; maximum 
                                number of supported languges is 127.*/
-    } USB_LANGID_DESCRIPTOR;
+    } usbLangIdDescriptor;
   };
 /*USB String Descriptor with supported language codes.*/
 typedef tagUSB_LANGID_LIST USB_LANGID_LIST;
@@ -165,7 +177,7 @@ uint16_t  m_wPid; //USB product identification (PID) number
 };
 
 #ifdef _MSC_VER
-  #pragma pack(pop)
+  #include <poppack.h> //Revert to default packing
 #endif
 
 #if !defined(USBID)
