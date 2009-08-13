@@ -1,5 +1,5 @@
 /*$Workfile: KGetDevDesc.cpp$: implementation file
-  $Revision: 1.3 $ $Date: 2009/07/21 22:21:10 $
+  $Revision: 1.4 $ $Date: 2009/08/13 21:24:52 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Driver Key Name
@@ -59,10 +59,12 @@ TRACE1(_T("      GetUsbDriverKeyName(nPortNo = %d)\n"), nPortId);
 
 //Disable warning C4127: conditional expression in ASSERT is constant
 #pragma warning (disable: 4127)
-  #ifndef USB_MAXCOUNT
-    const unsigned int USB_MAXCOUNT = 127;
+  #ifdef _DEBUG
+    #ifndef USB_MAXCOUNT
+      const unsigned int USB_MAXCOUNT = 127;
+    #endif
+    ASSERT((nPortId > 0) && (nPortId <= (USB_MAXCOUNT+1)));
   #endif
-  ASSERT((nPortId > 0) && (nPortId <= (USB_MAXCOUNT+1)));
 #pragma warning (default: 4127)
 
 //Get driver key name; Check GetLastError() in case of failure.
@@ -91,6 +93,9 @@ return false;
 #endif //_WIN32
 /*****************************************************************************
  * $Log: KUsbDrvKeyName.cpp,v $
+ * Revision 1.4  2009/08/13 21:24:52  ddarko
+ * GetUsbLangIds()
+ *
  * Revision 1.3  2009/07/21 22:21:10  ddarko
  * ASSERT portId
  *

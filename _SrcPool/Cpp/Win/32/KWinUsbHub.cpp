@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.20 $ $Date: 2009/08/12 17:21:22 $
+  $Revision: 1.21 $ $Date: 2009/08/13 21:24:52 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -92,6 +92,30 @@ return iCount;
 
   Returns: true if the requested device is found in the
   USB device tree. Returns false if the device is not present.
+
+  Example:
+      #include "KUsbHub.h" //CUsbDeviceTree class
+      ...
+      CUsbDeviceTree usbTree;
+      int nHcdCount = usbTree.Enumerate();
+
+      //Get information about device
+      uint16_t nVendorId  = USBVID_MICROSOFT;
+      uint16_t nProductId = USBPID_MSMOUSEOPTICAL;
+      CUsbDeviceInfo usbDeviceInfo;
+      if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
+        {
+        printf(_T("Microsoft Basic Optical Mouse is connected.\n"));
+        usbDeviceInfo.m_strProduct += _T("\n");
+        printf(usbDeviceInfo.m_strProduct);
+        usbDeviceInfo.m_strVendor += _T("\n");
+        printf(usbDeviceInfo.m_strVendor);
+        usbDeviceInfo.m_strSerialNo += _T("\n");
+        printf(usbDeviceInfo.m_strSerialNo);
+        }
+      else
+        printf(_T("Microsoft Basic Optical Mouse is disconnected.\n"));
+
 
   See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId,
   SP_DEVICE_INTERFACE_DETAIL_DATA, SP_DEVINFO_DATA, <setupapi.h>,

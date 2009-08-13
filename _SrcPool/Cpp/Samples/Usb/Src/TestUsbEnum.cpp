@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.11 $ $Date: 2009/07/22 16:47:19 $
+  $Revision: 1.12 $ $Date: 2009/08/13 21:24:30 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -86,7 +86,6 @@ _UNUSED(nProductId);
 bool bResult = true;
 try
   {
-#if 0   ///////////////////////////
   //Test log  creation
   g_logTest.m_bResult = false;           //result of the test
 
@@ -215,16 +214,21 @@ try
           //System is without USB cotrollers
           strResult = _T("The system is without USB controllers");
           bResult = true;
+          TsWriteToViewLn(strResult);
+          g_logTest.LogResult(bResult); 
+          TsWriteToViewLn(LOG_EOT);
+          return bResult;
           }
         else
           bResult = false;
           }
 
       TsWriteToViewLn(strResult);
-      g_logTest.LogResult(bResult); //Log object's construction
+      g_logTest.LogResult(bResult);
       }
 
-    //Test USB port enumeration
+    //Test USB port enumeration.
+    //Assumption is that system has a USB host controller.
     if(bResult)
       {
       CUsbHub usbRootHub;
@@ -235,13 +239,12 @@ try
                                 GENERIC_WRITE,
                                 FILE_SHARE_WRITE,
                                 NULL,//if lpSecurityAttributes is NULL,
-                                    //the handle cannot be inherited.
+                                     //the handle cannot be inherited.
                                 OPEN_EXISTING,
                                 0,
                                 NULL);
       if (hHostController != INVALID_HANDLE_VALUE)
         {
-
         //Get the hub name; Check GetLastError() in case of failure.
         TUsbSymbolicName<USB_ROOT_HUB_NAME,
                           IOCTL_USB_GET_ROOT_HUB_NAME> usbRootHubName(hHostController);
@@ -255,11 +258,15 @@ try
           TRACE1(_T("      Failed! Error 0x%0.8X.\n"), GetLastError());
           bResult = false;
           }
+
+        g_logTest.LogResult(bResult);
         CloseHandle(hHostController);
         }
       else
+        {
         bResult = false;
-      g_logTest.LogResult(bResult); //Log object's construction
+        g_logTest.LogResult(bResult);
+        }
 
       if(bResult)
         {
@@ -274,6 +281,40 @@ try
         g_logTest.LogResult(bResult); //Log object's construction
         }
       }
+
+      //Test obtaining script descriptors;
+      //Enumerte USB hub first to obtain number of USB ports.
+      if (bResult)
+        {
+        HANDLE hHub =  CreateFile((LPCTSTR)usbRootHub.m_strDevice,
+                              GENERIC_WRITE,
+                              FILE_SHARE_WRITE,
+                              NULL,//if lpSecurityAttributes is NULL,
+                                    //the handle cannot be inherited.
+                              OPEN_EXISTING,
+                              0,
+                              NULL);
+        if (hHub != INVALID_HANDLE_VALUE)
+          {
+          extern unsigned int GetUsbLangIds(const HANDLE hHub,
+                                            const unsigned int nPortNo,
+                                            LANGID*  arrLanguageID,
+                                            const unsigned int nSize);
+          const unsigned int LISTLANGSIZE = 6;
+          LANGID listLang[LISTLANGSIZE];
+          unsigned int nSupportedLangCount = 0;
+          int nPortNo = 1;
+          while(nPortNo <= usbRootHub.GetPortCount())
+            {
+            nPortNo++;
+            nSupportedLangCount = GetUsbLangIds(hHub, 
+                                                nPortNo,
+                                                listLang,
+                                                LISTLANGSIZE); 
+            }
+          CloseHandle(hHub);
+          }
+        }
 
     if(bResult)
       {
@@ -311,49 +352,9 @@ try
       g_logTest.LogResult(bResult); //Log object's construction
       }
 
-int nHcdCount = 4;
-int nHubCount = 0;
-
+    TsWriteToViewLn(_T("\nEnumerate USB tree\n"));
     CUsbDeviceTree usbTree;
     if (bResult)
-      {
-      //Test USB device enumeration
-      g_logTest.m_szObjectName = _T("CUsbDeviceTree::Enumerate()");
-      g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
-
-      bResult = ((int)nHcdCount == usbTree.Enumerate()); 
-      nHubCount = 0;
-      while((int)nHubCount < usbTree.m_usbRootList.GetCount())
-        {
-        TsWriteToViewLn((LPCTSTR)usbTree.m_usbRootList[nHubCount].m_strDescription);
-        nHubCount++;
-        }
-
-      g_logTest.LogResult(bResult); //Log object's construction
-      }
-
-    if (bResult)
-      {
-      g_logTest.m_szObjectName = _T("CUsbDeviceTree::HasDevice()");
-      g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
-
-      //Find given USB device
-      if(usbTree.HasDevice(USBVID_MICROSOFT, USBPID_MSMOUSEOPTICAL))
-        TsWriteToViewLn(_T("Micorosoft Optical Mouse is connected."));
-      else
-        TsWriteToViewLn(_T("Micorosoft Optical Mouse is disconnected."));
-
-      bResult = true;
-      g_logTest.LogResult(bResult); //Log object's construction
-      }
-    }
-
-#else
-int nHcdCount = 4;
-int nHubCount = 0;
- CUsbDeviceTree usbTree;
-
-
       {
       //Test USB device enumeration
       g_logTest.m_szObjectName = _T("CUsbDeviceTree::Enumerate()");
@@ -392,25 +393,33 @@ int nHubCount = 0;
       TCHAR szMsg[1024];
       //Get information about device
       CUsbDeviceInfo usbDeviceInfo;
-//      if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
-      if(usbTree.GetDevice(USBVID_MICROSOFT, USBPID_MSMOUSEOPTICAL, &usbDeviceInfo))
+      if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
         {
-        //_stprintf(_T("Device (%0.4X, %0.4X,) is connected"),);
-        TsWriteToViewLn(_T("Device is connected."));
+        #ifdef _UNICODE
+          LPCWSTR szFormat=L"Device (%0.4X, %0.4X) is connected:\n%ws\nw%s\nw%s\nport: %d\n";
+        #else
+          LPCSTR  szFormat= "Device (%0.4X, %0.4X) is connected:\n%s\n%s\n%s\nport: %d\n";
+        #endif
+        _stprintf(szMsg, szFormat, 
+                    usbDeviceInfo.m_wVid, usbDeviceInfo.m_wPid,
+                    usbDeviceInfo.m_strProduct,
+                    usbDeviceInfo.m_strVendor,
+                    usbDeviceInfo.m_strSerialNo,
+                    usbDeviceInfo.m_nPortNo
+                   );
         }
       else
         {
-        TsWriteToViewLn(_T("Device is disconnected."));
+        _stprintf(szMsg, _T("Device (%0.4X, %0.4X,) is disconnected"),
+                  nVendorId, nProductId);
         }
+      TsWriteToViewLn(szMsg);
 
       bResult = true;
       g_logTest.LogResult(bResult); //Log object's construction
       }
 
-#endif ///////////////
-
-
-
+    }
   }
 catch(std::out_of_range& eoor)
   {
@@ -450,6 +459,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.12  2009/08/13 21:24:30  ddarko
+ *GetUsbLangIds()
+ *
  *Revision 1.11  2009/07/22 16:47:19  ddarko
  *Test GetDevice()
  *

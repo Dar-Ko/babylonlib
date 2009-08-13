@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbStringDescriptor.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/08/12 17:21:22 $
+  $Revision: 1.4 $ $Date: 2009/08/13 21:24:52 $
   $Author: ddarko $
 
   Obtain USB string descriptor.
@@ -56,7 +56,7 @@
   See also: "Universal Serial Bus Specification Revision 1.1", 
   Chapters 9.5 Descriptors, 9.6.5 String;
   "The Unicode Standard, Worldwide Character Encoding, Version 1.0", Volumes 1 and 2, 
-  The Unicode Consortium; LANGID, MAXIMUM_USB_STRING_LENGTH.
+  The Unicode Consortium; LANGID, USB_MAXCOUNT_LANGID, USB_STRING_DESCRIPTOR.
  */
 CString GetUsbStringDescriptor(const HANDLE hHub, //[in] handle of the hub device
                         //containing the port from which the String Descriptor 
@@ -64,7 +64,7 @@ CString GetUsbStringDescriptor(const HANDLE hHub, //[in] handle of the hub devic
                                const unsigned int nPortNo, //[in] port on
                         //the hub to which a device is attached from the range 
                         //[1, USB_HUB_DESCRIPTOR::bNumberOfPorts].
-                               const UCHAR   cDescriptorId, //[in] String 
+                               const UCHAR  cDescriptorId, //[in] String 
                         //Descriptor index [1, 255].
                                LANGID  nLanguageID //[in] = 0 language code
                                 //in which the string should be requested
@@ -168,6 +168,9 @@ return strResult;
 
 /*****************************************************************************
  * $Log: KGetUsbStringDescriptor.cpp,v $
+ * Revision 1.4  2009/08/13 21:24:52  ddarko
+ * GetUsbLangIds()
+ *
  * Revision 1.3  2009/08/12 17:21:22  ddarko
  * GetUsbStringDescriptor()
  *
@@ -184,32 +187,3 @@ return strResult;
   Environment:          user mode
   Revision History:     04-25-97 : created
  */
-
-/*Universal Serial Bus Specification Revision 1.1", 9.6.5 String;
-  The strings in a USB device may support multiple languages. When requesting a
-  string descriptor, the requester specifies the desired language using
-  a sixteen-bit language ID (LANGID) defined by Microsoft for Windows as 
-  described in Developing International Software for Windows 95 and Windows NT,
-  Nadine Kano, Microsoft Press, Redmond, Washington. 
-  String index zero for all languages returns a string descriptor that contains
-  an array of two-byte LANGID codes supported by the device.
-  Table 9-11 shows the LANGID code array. A USB device may omit all string
-  descriptors.
-  USB devices that omit all string descriptors shall not return an array of 
-  LANGID codes.
-  The array of LANGID codes is not NULL-terminated. The size of the array
-  (in bytes) is computed by subtracting two from the value of the first byte of
-  the descriptor.
-*/
-    //
-    // Get the array of supported Language IDs, which is returned
-    // in String Descriptor 0
-    //
-/*
-    supportedLanguagesString = GetStringDescriptor(hHubDevice,
-                                                   ConnectionIndex,
-                                                   0,
-                                                   0);
-    numLanguageIDs = (StringDescriptor->bLength - 2) / 2;
-    languageIDs = &StringDescriptor->bString[0];
-    */
