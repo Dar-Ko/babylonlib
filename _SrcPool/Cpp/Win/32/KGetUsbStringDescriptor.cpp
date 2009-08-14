@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbStringDescriptor.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2009/08/13 21:24:52 $
+  $Revision: 1.5 $ $Date: 2009/08/14 18:25:19 $
   $Author: ddarko $
 
   Obtain USB string descriptor.
@@ -47,11 +47,15 @@
   are mandatory.
   If a device does not support string descriptors, String Descriptor index must
   be zero to indicate no string descriptor is available.
-  String descriptors use Unicode encodings and may support multiple languages.
+  String descriptors use Unicode encodings and may support multiple
+  languages.
 
   Note: the Unicode string descriptor is not zero-terminated. The string length
   in bytes is computed by subtracting two from the value of the descriptor
   length (first byte of the descriptor).
+
+  Returns requested information, if the device contains one or the empty string.
+  Call GetLastError() to verify successful operation.
 
   See also: "Universal Serial Bus Specification Revision 1.1", 
   Chapters 9.5 Descriptors, 9.6.5 String;
@@ -70,7 +74,7 @@ CString GetUsbStringDescriptor(const HANDLE hHub, //[in] handle of the hub devic
                                 //in which the string should be requested
                               )
 {
-TRACE1(_T("GetUsbStringDescriptor(id=%d)\n"), cDescriptorId);
+TRACE1(_T("GetUsbStringDescriptor(id = %d)\n"), cDescriptorId);
 //Disable warning C4127: conditional expression in ASSERT is constant
 #pragma warning (disable: 4127)
   ASSERT((nPortNo > 0) && (nPortNo <= USB_MAXCOUNT));
@@ -96,6 +100,21 @@ if ((nPortNo > 0) &&
 
   ULONG   nBytesReturned; //actual size of the response
 
+  const int SIZEOF_USB_DESCRIPTOR_REQUEST =  
+        sizeof(((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->ConnectionIndex) +
+        sizeof(((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket);
+
+  #ifdef _DEBUG_VERBOSE
+    if (SIZEOF_USB_DESCRIPTOR_REQUEST == sizeof(USB_DESCRIPTOR_REQUEST))
+      {
+      TRACE(_T("warning C4200:\n  nonstandard Microsoft extension used :\n  zero-sized array in struct USB_DESCRIPTOR_REQUEST.\n"));
+      }
+  #endif
+
+  #pragma warning (disable: 4127)
+    ASSERT((sizeof(usbDevResponse) - SIZEOF_USB_DESCRIPTOR_REQUEST) > 0);
+  #pragma warning (default: 4127)
+
   //Set up request for a string desriptor
 
   ZeroMemory(usbDevResponse, sizeof(usbDevResponse)); //Zero fill the entire
@@ -108,7 +127,7 @@ if ((nPortNo > 0) &&
   ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket.wIndex = nLanguageID;
   //Indicate size of the space allowed for data transfer
   ((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->SetupPacket.wLength = 
-    (USHORT)(sizeof(usbDevResponse) - sizeof(USB_DESCRIPTOR_REQUEST));
+    (USHORT)(sizeof(usbDevResponse) - SIZEOF_USB_DESCRIPTOR_REQUEST);
 
   //Get the string descriptor
   if(DeviceIoControl( hHub,
@@ -124,7 +143,7 @@ if ((nPortNo > 0) &&
       {
       USB_STRING_DESCRIPTOR& usbStrDescriptor = 
         *((PUSB_STRING_DESCRIPTOR)((PUSB_DESCRIPTOR_REQUEST)usbDevResponse)->Data);
-      if ((usbStrDescriptor.bLength == nBytesReturned - sizeof(USB_DESCRIPTOR_REQUEST)) &&
+      if ((usbStrDescriptor.bLength == nBytesReturned - SIZEOF_USB_DESCRIPTOR_REQUEST) &&
           (usbStrDescriptor.bLength % sizeof(wchar_t) == 0) )
         {
         if (usbStrDescriptor.bDescriptorType == USB_STRING_DESCRIPTOR_TYPE)
@@ -150,15 +169,28 @@ if ((nPortNo > 0) &&
               }
           #endif
           }
-
+        else
+          {
+          //IOCTL returned wrong descriptor type
+          SetLastError(ERROR_INVALID_CATEGORY);
+          }
+        }
+      else
+        {
+        //IOCTL returned wrong number of bytes
+        SetLastError(ERROR_INVALID_DATA);
         }
       }
     }
   else
     {
-      //todo error
+    //IOCTL failed.To get extended error information, call GetLastError().
+    TRACE1(_T("  DeviceIoControl failed! Error 0x%0.8X.\n"), GetLastError());
     }
-
+  }
+else
+  {
+  SetLastError(ERROR_INVALID_PARAMETER);
   }
 
 return strResult;
@@ -168,6 +200,9 @@ return strResult;
 
 /*****************************************************************************
  * $Log: KGetUsbStringDescriptor.cpp,v $
+ * Revision 1.5  2009/08/14 18:25:19  ddarko
+ * SetLastError
+ *
  * Revision 1.4  2009/08/13 21:24:52  ddarko
  * GetUsbLangIds()
  *
