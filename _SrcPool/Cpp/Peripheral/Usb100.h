@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.14 $ $Date: 2009/08/13 21:27:09 $
+  $Revision: 1.15 $ $Date: 2009/08/14 18:26:05 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -44,10 +44,11 @@ extern "C" {
 #define BMREQUEST_TO_OTHER        3
 
 /*Maximum USB string length in bytes. The string length includes any optional
-  terminating characters.
+  terminating characters. String descriptors use Unicode encodings.
+
   See also: USB_STRING_DESCRIPTOR::bLength 
  */
-#define MAXIMUM_USB_STRING_LENGTH   (UCHAR_MAX - 2)
+#define MAXIMUM_USB_STRING_LENGTH   (((UCHAR_MAX - 2) / sizeof(wchar_t)) * sizeof(wchar_t))
 
 /* Get status return values */
 #define USB_GETSTATUS_SELF_POWERED          0x01
@@ -408,6 +409,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.15  2009/08/14 18:26:05  ddarko
+ * Correct value for MAXIMUM_USB_STRING_LENGTH
+ *
  * Revision 1.14  2009/08/13 21:27:09  ddarko
  * *** empty log message ***
  *
