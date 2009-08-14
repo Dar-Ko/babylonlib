@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.14 $ $Date: 2009/08/11 21:20:31 $
+  $Revision: 1.15 $ $Date: 2009/08/14 18:27:14 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -250,11 +250,11 @@ public:
   bool Find(const uint16_t wVendorId,
             const uint16_t wProductId,
             CUsbDeviceInfo* pDevice = NULL);
-  uint16_t GetPortCount();
+  uint16_t GetPortCount() const;
+  USB_CONNECTION_STATUS GetStatus(const uint16_t nPortNo) const;
+
 protected:
   void Erase();
-
-public:
 
 protected:
   CUsbDeviceArray m_usbNodeList; //hub node connections (ports)
@@ -291,9 +291,29 @@ Erase();
 //-----------------------------------------------------------------------------
 /*
  */
-inline uint16_t CUsbHub::GetPortCount()
+inline uint16_t CUsbHub::GetPortCount() const
 {
 return (uint16_t)m_usbNodeList.GetCount();
+}
+
+//-----------------------------------------------------------------------------
+/*Obtains the status of the USB connection node.
+  
+  Returns the current status of the device attached to the hub port or
+  NoDeviceConnected if the port is not available or not used.
+
+  See also: USB_CONNECTION_STATUS
+ */
+inline USB_CONNECTION_STATUS CUsbHub::GetStatus(const uint16_t nPortNo //[in]
+                        //hub port number that the device is connected to [1, n]
+                                               ) const
+{
+if ( (nPortNo == 0) || (nPortNo > GetPortCount()) )
+  return NoDeviceConnected;
+CUsbDevice* pDev = m_usbNodeList[nPortNo - 1];
+if (pDev == NULL)
+  return NoDeviceConnected;
+return (pDev->m_eStatus);
 }
 
 //-----------------------------------------------------------------------------
@@ -438,6 +458,9 @@ m_usbRootList.RemoveAll();
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.15  2009/08/14 18:27:14  ddarko
+ * CUsbHub::GetStatus()
+ *
  * Revision 1.14  2009/08/11 21:20:31  ddarko
  * USB string descriptor
  *
