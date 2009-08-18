@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbPortInfo.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/08/18 14:20:09 $
+  $Revision: 1.2 $ $Date: 2009/08/18 14:21:55 $
   $Author: ddarko $
 
   Obtain USB string descriptor.
@@ -36,7 +36,7 @@
 #endif
 
 #ifdef _USE_MSWINDDK
-  #pragma include_alias( "UsbIoCtl.h", "wxp/usbioctl" )
+  #pragma include_alias( "UsbIoCtl.h", "wxp/usbioctl.h" )
 #endif
 
 #include "KUsb.h" //USB_MAXCOUNT
@@ -199,6 +199,9 @@ return bResult;
 
 /*****************************************************************************
  * $Log: KGetUsbPortInfo.cpp,v $
+ * Revision 1.2  2009/08/18 14:21:55  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.1  2009/08/18 14:20:09  ddarko
  * Created
  *
