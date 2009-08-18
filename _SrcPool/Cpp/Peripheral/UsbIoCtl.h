@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.14 $ $Date: 2009/08/11 21:20:31 $
+  $Revision: 1.15 $ $Date: 2009/08/18 21:36:54 $
   $Author: ddarko $
 
   USB device I/O control codes for Microsoft Windows OS.
@@ -133,6 +133,10 @@
     #define IOCTL_USB_GET_NODE_INFORMATION \
         CTL_CODE( FILE_DEVICE_USB, USB_GET_NODE_INFORMATION, METHOD_BUFFERED, \
         FILE_ANY_ACCESS )
+
+    //Request retrieves information about the indicated USB port and the device
+    //that is attached to the port, if there is one (0x0022040C).
+    //See also: IOCTL_USB_GET_NODE_CONNECTION_INFORMATION_EX
     #define IOCTL_USB_GET_NODE_CONNECTION_INFORMATION \
         CTL_CODE( FILE_DEVICE_USB, USB_GET_NODE_CONNECTION_INFORMATION, \
         METHOD_BUFFERED, FILE_ANY_ACCESS )
@@ -347,20 +351,20 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
    */
   typedef struct _USB_NODE_CONNECTION_INFORMATION
     {
-    ULONG                 ConnectionIndex; /*specifies the port number to which
+    ULONG                 ConnectionIndex; /*[in] specifies the port number to which
                                 the device is attached from the range
                                 [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
-    USB_DEVICE_DESCRIPTOR DeviceDescriptor; /*attached USB device description*/
-    UCHAR                 CurrentConfigurationValue; /*ID of attached USB 
+    USB_DEVICE_DESCRIPTOR DeviceDescriptor; /*[out] attached USB device description*/
+    UCHAR                 CurrentConfigurationValue; /*[out] ID of attached USB 
                                            device description configuration*/
-    BOOLEAN               LowSpeed;   /*data transfer speed*/
-    BOOLEAN               DeviceIsHub;/*indicates if attached device is a hub*/
-    USHORT                DeviceAddress;/*bus-relative address of the 
+    BOOLEAN               LowSpeed;   /*[out] data transfer speed*/
+    BOOLEAN               DeviceIsHub;/*[out] indicates if attached device is a hub*/
+    USHORT                DeviceAddress;/*[out] bus-relative address of the 
                                           attached device*/
-    ULONG                 NumberOfOpenPipes;/*number of open USB pipes
+    ULONG                 NumberOfOpenPipes;/*[out] number of open USB pipes
                                               associated with the port*/
-    USB_CONNECTION_STATUS ConnectionStatus; /*connection status of the port*/
-    USB_PIPE_INFO         PipeList[1]; /*list of theopen pipes associated
+    USB_CONNECTION_STATUS ConnectionStatus; /*[out] connection status of the port*/
+    USB_PIPE_INFO         PipeList[1]; /*[out] list of theopen pipes associated
                  with the port, including the associated endpoint descriptor*/
     } USB_NODE_CONNECTION_INFORMATION;
   /*USB node connection information*/
@@ -466,13 +470,15 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
                          vendor), the direction of the data transfer, and the
                          type of data recipient (device, interface, or endpoint).*/
       UCHAR  bRequest;/*[out] request number*/
-      USHORT wValue;  /*type of descriptor to retrieve in the high byte and
-                        the descriptor index in the low byte.*/
-      USHORT wIndex;  /*[in] device-specific index of the descriptor that is
-                        to be retrieved; 0 or language ID for string Descriptors.*/
-      USHORT wLength; /*[in/out] length of the data that is transferred in bytes.*/
+      USHORT wValue;  /*type of descriptor to retrieve in the host endianes high
+                        byte and the descriptor index in the low byte.*/
+      USHORT wIndex;  /*[in] device-specific index in host endianes of
+                         the descriptor that is to be retrieved;
+                         0 or language ID for string Descriptors.*/
+      USHORT wLength; /*[in/out] length in bytes of the data that is transferred
+                        in host endianess.*/
       } SetupPacket;   /*describes a descriptor request*/
-    UCHAR   Data[1];   /*[out] the retrieved descriptors.*/
+    UCHAR   Data[1];   /*[out] the retrieved descriptors in bus endianess.*/
     } USB_DESCRIPTOR_REQUEST;
   /*USB descriptor request*/
   typedef USB_DESCRIPTOR_REQUEST  *PUSB_DESCRIPTOR_REQUEST;
@@ -517,21 +523,24 @@ typedef USB_NODE_CONNECTION_ATTRIBUTES  *PUSB_NODE_CONNECTION_ATTRIBUTES;
      */
     typedef struct _USB_NODE_CONNECTION_INFORMATION_EX
       {
-      ULONG                   ConnectionIndex; /*specifies the number of 
+      ULONG                   ConnectionIndex; /*[in] specifies the number of 
                 the port in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
-      USB_DEVICE_DESCRIPTOR   DeviceDescriptor; /*attached USB device description*/
+      USB_DEVICE_DESCRIPTOR   DeviceDescriptor; /*[out] attached USB device
+                                                  description*/
       UCHAR                   CurrentConfigurationValue; /*ID of attached USB 
                                              device description configuration*/
-      UCHAR                   Speed;  /*data transfer speed of  
+      UCHAR                   Speed;  /*[out] data transfer speed of  
                                         the attached USB device*/
-      BOOLEAN                 DeviceIsHub; /*indicates if attached device is a hub*/
-      USHORT                  DeviceAddress;/*bus-relative address of the 
+      BOOLEAN                 DeviceIsHub;  /*[out] indicates if attached device
+                                             is a hub*/
+      USHORT                  DeviceAddress;/*[out] bus-relative address of the 
                                               attached device*/
-      ULONG                   NumberOfOpenPipes; /*number of open USB pipes
+      ULONG                   NumberOfOpenPipes; /*[out] number of open USB pipes
                                                    associated with the port*/
-      USB_CONNECTION_STATUS   ConnectionStatus; /*connection status of the port*/
-      USB_PIPE_INFO           PipeList[1]; /*list of the open pipes associated
-                 with the port, including the associated endpoint descriptor*/
+      USB_CONNECTION_STATUS   ConnectionStatus;  /*[out] connection status
+                                                   of the port*/
+      USB_PIPE_INFO           PipeList[1]; /*[out] list of the open pipes
+       associated with the port, including the associated endpoint descriptor*/
       } USB_NODE_CONNECTION_INFORMATION_EX;
     /*Extended USB node connection information*/
     typedef USB_NODE_CONNECTION_INFORMATION_EX  *PUSB_NODE_CONNECTION_INFORMATION_EX;
@@ -932,6 +941,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.15  2009/08/18 21:36:54  ddarko
+ * MacOs
+ *
  * Revision 1.14  2009/08/11 21:20:31  ddarko
  * USB string descriptor
  *

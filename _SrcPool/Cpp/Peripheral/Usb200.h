@@ -1,5 +1,5 @@
 /*$RCSfile: Usb200.h,v $: header file
-  $Revision: 1.7 $ $Date: 2009/08/10 20:55:41 $
+  $Revision: 1.8 $ $Date: 2009/08/18 21:36:54 $
   $Author: ddarko $
 
   USB 2.0 definitions
@@ -56,6 +56,7 @@ extern "C" {
 
 /*---------------------------------------------------------------------------*/
 /* All structures in this file get one-byte packing.                         */
+/* All multibyte data fields are in little-endian form.                      */
 #include <pshpack1.h>
 
 /* USB device speeds */
@@ -133,6 +134,11 @@ typedef struct _USB_DEVICE_QUALIFIER_DESCRIPTOR {
     UCHAR   bReserved;
 } USB_DEVICE_QUALIFIER_DESCRIPTOR;
 typedef USB_DEVICE_QUALIFIER_DESCRIPTOR *PUSB_DEVICE_QUALIFIER_DESCRIPTOR;
+/*USB Device Qualifier Descriptor.
+  See also: "USB Specification 2.0", http://www.usb.org.
+ */
+typedef USB_DEVICE_QUALIFIER_DESCRIPTOR IOUSBDeviceQualifierDescriptor;
+
 
 /* USB high speed maximum packet */
 typedef union _USB_HIGH_SPEED_MAXPACKET {
@@ -158,6 +164,11 @@ typedef struct _USB_INTERFACE_ASSOCIATION_DESCRIPTOR {
     UCHAR   iFunction;
 } USB_INTERFACE_ASSOCIATION_DESCRIPTOR;
 typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    *PUSB_INTERFACE_ASSOCIATION_DESCRIPTOR;
+/*USB Inerface Association Descriptor.
+  See also: "ECN to the USB Specification 2.0", http://www.usb.org.
+ */
+typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    IOUSBInterfaceAssociationDescriptor;
+
 /*---------------------------------------------------------------------------*/
 /* Revert to default packing.                                                */
 #include <poppack.h>
@@ -170,6 +181,9 @@ typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    *PUSB_INTERFACE_ASSOCIATION_DESC
 
 /*****************************************************************************
  * $Log: Usb200.h,v $
+ * Revision 1.8  2009/08/18 21:36:54  ddarko
+ * MacOs
+ *
  * Revision 1.7  2009/08/10 20:55:41  ddarko
  * Desceiptor types
  *

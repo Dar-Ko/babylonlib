@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.9 $ $Date: 2009/08/13 21:27:01 $
+  $Revision: 1.10 $ $Date: 2009/08/18 21:36:54 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -122,6 +122,24 @@
   #include <pshpack1.h>  //Specifies packing alignment for structure,
                          //union and class members.
 #endif
+
+/*USB Device Firmware Update Descriptor.
+  See also: "USB Device Firmware Update Specification", http://www.usb.org. 
+ */
+typedef struct tagUSB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR
+  { 
+  uint8_t bLength; 
+  uint8_t bDescriptorType; 
+  uint8_t bmAttributes; 
+  uint8_t wDetachTimeout; 
+  uint8_t wTransferSize; 
+  } USB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR;  
+/*USB Device Firmware Update Descriptor.*/
+typedef USB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR *PUSB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR;
+/*USB Device Firmware Update Descriptor.
+  See also: "USB Device Firmware Update Specification", http://www.usb.org. 
+ */
+typedef USB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR IOUSBDFUDescriptor;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*USB String Descriptor with supported language codes.
