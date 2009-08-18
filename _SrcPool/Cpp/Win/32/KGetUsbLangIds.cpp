@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbLangIds.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/08/14 18:25:19 $
+  $Revision: 1.3 $ $Date: 2009/08/18 14:19:05 $
   $Author: ddarko $
 
   Obtain list of the languges that a USB device supports.
@@ -37,7 +37,7 @@
 
 //-----------------------------------------------------------------------------
 /*Get the list of language codes supported by the USB device.
-  The strings in a USB device may support multiple languages. Rquesting 
+  The strings in a USB device may support multiple languages. Requesting 
   the string with index zero for any language returns a string descriptor that
   contains an array of language codes supported by the device. 
   The device is identified by USB hub port on wich is attached.
@@ -165,8 +165,33 @@ if ((nPortNo > 0) &&
     }
   else
     {
-    //IOCTL failed.To get extended error information, call GetLastError().
-    TRACE1(_T("  DeviceIoControl failed! Error 0x%0.8X.\n"), GetLastError());
+    //Note: on some devices without string descriptors IOCTL fails with
+    //error ERROR_GEN_FAILURE (0x0000001F): "A device attached to the system is
+    //not functioning".
+    DWORD dwLastError = GetLastError();
+    extern bool GetUsbPortInfo(const HANDLE hHub,
+                    const unsigned int nPortNo,
+                    PUSB_NODE_CONNECTION_INFORMATION pusbPortInfo
+                  );
+    USB_NODE_CONNECTION_INFORMATION usbPortInfo;
+    if (GetUsbPortInfo(hHub, nPortNo, &usbPortInfo))
+      {
+      if ( (usbPortInfo.DeviceDescriptor.iManufacturer > 0) ||
+           (usbPortInfo.DeviceDescriptor.iProduct > 0)      ||
+           (usbPortInfo.DeviceDescriptor.iSerialNumber > 0) )
+        {
+        SetLastError(dwLastError);
+        //IOCTL failed.To get extended error information, call GetLastError().
+        TRACE1(_T("  DeviceIoControl failed! Error 0x%0.8X.\n"), GetLastError());
+        }
+      else
+        SetLastError(NO_ERROR);
+      }
+    else
+      {
+      //IOCTL failed.To get extended error information, call GetLastError().
+      TRACE1(_T("  GetUsbPortInfo failed! Error 0x%0.8X.\n"), GetLastError());
+      }
     }
   }
 else
@@ -181,6 +206,9 @@ return (unsigned int)nResult;
 
 /*****************************************************************************
  * $Log: KGetUsbLangIds.cpp,v $
+ * Revision 1.3  2009/08/18 14:19:05  ddarko
+ * fixed faulty devices without string descriptors
+ *
  * Revision 1.2  2009/08/14 18:25:19  ddarko
  * SetLastError
  *
