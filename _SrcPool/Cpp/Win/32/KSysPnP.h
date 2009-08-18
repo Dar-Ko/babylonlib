@@ -43,7 +43,7 @@
 
   See also: MSDN: Windows Driver Kit: Device Installation
  */
-#define SYSTEMENUM_PCI _T("PCI")
+#define SYSTEMENUM_PCI _T("pci")
 
 /*System-supplied PnP enumerator name for for a Small Computer System Interface
   (SCSI) devices.
@@ -221,6 +221,25 @@
   #define SYMBOLICLINKW_HCD L"\\\\.\\HCD%d"
 #endif
 
+///////////////////////////////////////////////////////////////////////////////
+/*Peripheral Component Interconnect (PCI) device identification.
+
+  See also: SYSTEMENUM_PCI,
+ */
+struct tagPciId
+{
+uint16_t  m_wVid; //device vendor identification (VID) number
+uint16_t  m_wPid; //product identification (PID) number
+uint32_t  m_wSubsystem; //hardware subsystem identification number
+uint8_t   m_cRev;  //revision number
+};
+
+/*Peripheral Component Interconnect (PCI) device identification data structure.*/
+typedef tagPciId  PCIID;
+/*Pointer to Peripheral Component Interconnect (PCI) device identification.*/
+typedef tagPciId *LPPCIID;
+
+bool PciId(LPCTSTR szDeviceName, LPPCIID pPciId);
 #endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KSYSPNP_H_
