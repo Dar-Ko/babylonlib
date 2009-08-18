@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbStringDescriptor.cpp,v $: implementation file
-  $Revision: 1.5 $ $Date: 2009/08/14 18:25:19 $
+  $Revision: 1.6 $ $Date: 2009/08/18 14:18:04 $
   $Author: ddarko $
 
   Obtain USB string descriptor.
@@ -149,7 +149,7 @@ if ((nPortNo > 0) &&
         if (usbStrDescriptor.bDescriptorType == USB_STRING_DESCRIPTOR_TYPE)
           {
           //Get length of the desription in characters
-          nBytesReturned = (usbStrDescriptor.bLength - 2) % sizeof(wchar_t);
+          nBytesReturned = (usbStrDescriptor.bLength - 2) / sizeof(wchar_t);
           //Copy the string
           #ifdef _UNICODE
             memcpy(strResult.GetBuffer(nBytesReturned),
@@ -200,6 +200,9 @@ return strResult;
 
 /*****************************************************************************
  * $Log: KGetUsbStringDescriptor.cpp,v $
+ * Revision 1.6  2009/08/18 14:18:04  ddarko
+ * fixed nBytesReturned
+ *
  * Revision 1.5  2009/08/14 18:25:19  ddarko
  * SetLastError
  *
