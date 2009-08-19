@@ -1,5 +1,5 @@
 /*$RCSfile: UsbIoCtl.h,v $: header file
-  $Revision: 1.15 $ $Date: 2009/08/18 21:36:54 $
+  $Revision: 1.16 $ $Date: 2009/08/19 21:14:20 $
   $Author: ddarko $
 
   USB device I/O control codes for Microsoft Windows OS.
@@ -420,13 +420,19 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
 #endif
 
 #ifndef USB_KERNEL_IOCTL
-  /*USB_ROOT_HUB_NAME structure stores the root hub's symbolic device name.*/
+  /*USB_ROOT_HUB_NAME structure stores the root hub's symbolic device name.
+    Example:
+      "USB#ROOT_HUB#4&1bdd60f9&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}"
+  
+    See also: IOCTL_USB_GET_ROOT_HUB_NAME.
+   */
   typedef struct _USB_ROOT_HUB_NAME
     {
     ULONG   ActualLength;   /*size of the entire data structure [bytes] */
     WCHAR   RootHubName[1]; /*root hub's symbolic device name in Unicode*/
     } USB_ROOT_HUB_NAME;
-  typedef USB_ROOT_HUB_NAME   *PUSB_ROOT_HUB_NAME; /*USB root hub name*/
+  /*USB root hub name*/
+  typedef USB_ROOT_HUB_NAME   *PUSB_ROOT_HUB_NAME;
 #endif
 
 
@@ -941,6 +947,9 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
 #endif /* __USBIOCTL_H__ */
 /*****************************************************************************
  * $Log: UsbIoCtl.h,v $
+ * Revision 1.16  2009/08/19 21:14:20  ddarko
+ * ROOT_HUB
+ *
  * Revision 1.15  2009/08/18 21:36:54  ddarko
  * MacOs
  *
