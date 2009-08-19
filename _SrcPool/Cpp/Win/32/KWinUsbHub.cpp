@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.21 $ $Date: 2009/08/13 21:24:52 $
+  $Revision: 1.22 $ $Date: 2009/08/19 21:11:09 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -27,7 +27,6 @@
   #include "KTraceAtl.h"
 #else
   #include <windows.h>
- // #include <string.h>
 #endif
 
 #ifndef TRACE
@@ -192,6 +191,13 @@ if(GetDevicePath(guidUsbHc,    //the device interface
                  strDevicePath //[out] the device path.
                 ))
   {
+  PCIID pciId;
+  if(PciId(strDevicePath, &pciId))
+    {
+    m_wVid = pciId.m_wVid;
+    m_wPid = pciId.m_wDid;
+    }
+
   extern bool GetDeviceDescription(const GUID& guidDev, //[in]
                     const DWORD nMemberIndex,//[in] index to the list of
                     //interfaces in the device information set.
@@ -219,7 +225,13 @@ if(GetDevicePath(guidUsbHc,    //the device interface
     #endif
     Enumerate((LPCTSTR)m_strDevice); //Enumerate USB ports
     if (GetPortCount() > 0)
+      {
+      //Apparently the root hub is operational
+      m_eStatus = DeviceConnected;
       bResult = true;
+      }
+    else
+      m_eStatus = DeviceFailedEnumeration;
     }
   else
     m_strDevice.Empty();
@@ -602,7 +614,6 @@ else
             pDevice->m_wPid = wProductId;
             pDevice->m_eStatus = pUsbNode->m_eStatus;
             pDevice->m_nPortNo = (uint16_t)(i + 1); //Set one-based port Id
-
             }
           }
         else //No additional validation is required
