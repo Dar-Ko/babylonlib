@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.13 $ $Date: 2009/08/14 18:28:55 $
+  $Revision: 1.14 $ $Date: 2009/08/19 21:09:03 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -88,6 +88,16 @@ try
   {
   //Test log  creation
   g_logTest.m_bResult = false;           //result of the test
+
+  //Test parsing device name
+  g_logTest.m_szObjectName = _T("PciId()");
+  g_logTest.m_szFileName   = _T("KPciId.cpp"); //function or object file name
+
+  LPTSTR szDeviceName = _T("\\\\?\\pci#VEN_8086&DEV_24Dd&SubSys_017A1028&REV_02#3&172e68dd&0&ef#{3abf6f2d-71c4-462a-8a92-1e6861e6af27}");
+  PCIID pciId;
+  bResult = PciId(szDeviceName, &pciId);
+
+  g_logTest.LogResult(bResult); //Log object's construction
 
   //Enumerate USB Host controlers
   g_logTest.m_szObjectName = _T("EnumerateHostControllers()");
@@ -221,7 +231,7 @@ try
           }
         else
           bResult = false;
-          }
+        }
 
       TsWriteToViewLn(strResult);
       g_logTest.LogResult(bResult);
@@ -231,10 +241,13 @@ try
     //Assumption is that system has a USB host controller.
     if(bResult)
       {
+      TsWriteToViewLn(_T("\r\nUSB Hub(s)"));
+
       CUsbHub usbRootHub;
       //Open a USB Host Controller.
       g_logTest.m_szObjectName = _T("TUsbSymbolicName::GetName()");
       g_logTest.m_szFileName   = _T("KWinUsb.h"); //function or object file name
+
       HANDLE hHostController = CreateFile((LPCTSTR)strResult,
                                 GENERIC_WRITE,
                                 FILE_SHARE_WRITE,
@@ -245,11 +258,32 @@ try
                                 NULL);
       if (hHostController != INVALID_HANDLE_VALUE)
         {
+
+        if(!GetDeviceDescription(GUID_DEVINTERFACE_USB_HOST_CONTROLLER,
+                            nCount, //1st host controller
+                            usbRootHub.m_strDescription))
+          {
+          TRACE1(_T("      Failed to obtain HDC description: Erros 0x%0.8X.\n"), GetLastError());
+          }
+
         //Get the hub name; Check GetLastError() in case of failure.
         TUsbSymbolicName<USB_ROOT_HUB_NAME,
                           IOCTL_USB_GET_ROOT_HUB_NAME> usbRootHubName(hHostController);
         if (usbRootHubName.IsValid())
           {
+          PCIID pciID;
+          if(PciId((LPCTSTR)strResult, &pciID))
+            {
+            usbRootHub.m_wVid = pciID.m_wVid;
+            usbRootHub.m_wPid = pciID.m_wDid;
+            TRACE1(_T("      PCI subsystem ID: 0x%0.8X.\n"), pciID.m_dwSubsystem);
+            TRACE1(_T("      PCI version:  %4d.\n"), pciID.m_cRev);
+
+            TsWriteToView(_T("  HCD "));
+            TsWriteToView(nCount);
+            TsWriteToView(_T(" : PCI subsystem ID "));
+            TsWriteToViewLn(pciID.m_dwSubsystem);
+            }
           usbRootHub.m_strDevice = usbRootHubName.GetName();
           bResult = true;
           }
@@ -275,6 +309,10 @@ try
 
         unsigned nRootHubPortCount = usbRootHub.Enumerate((LPCTSTR)usbRootHub.m_strDevice);
         bResult = (nRootHubPortCount > 0);
+        if (bResult)
+          usbRootHub.m_eStatus = DeviceConnected;
+        else
+          usbRootHub.m_eStatus = DeviceFailedEnumeration;
 
         TsWriteToView(_T("number of ports = "));
         TsWriteToViewLn(nRootHubPortCount);
@@ -285,6 +323,8 @@ try
       //obtain number of USB ports before requesting string descriptors.
       if (bResult)
         {
+        bool bResultUsbStringDescriptor = false; //result of obtaining string
+                                                //descriptors
         g_logTest.m_szObjectName = _T("GetUsbLangIds()");
         g_logTest.m_szFileName   = _T("KGetUsbLangIds.cpp"); //function or object file name
 
@@ -296,8 +336,10 @@ try
                               OPEN_EXISTING,
                               0,
                               NULL);
+
         if (hHub != INVALID_HANDLE_VALUE)
           {
+          //Test getting list of supported languages
           extern unsigned int GetUsbLangIds(const HANDLE hHub,
                                             const unsigned int nPortNo,
                                             LANGID*  arrLanguageID,
@@ -306,9 +348,10 @@ try
           LANGID listLang[LISTLANGSIZE];
           unsigned int nSupportedLangCount = 0;
           int nPortNo = 1;
+          USB_NODE_CONNECTION_INFORMATION usbPortInfo; //USB port data
           while(nPortNo <= usbRootHub.GetPortCount())
             {
-            if (usbRootHub.GetStatus(nPortNo) != NoDeviceConnected)
+            if (usbRootHub.GetStatus((uint16_t)nPortNo) != NoDeviceConnected)
               {
               nSupportedLangCount = GetUsbLangIds(hHub, 
                                                   nPortNo,
@@ -332,14 +375,125 @@ try
                   TsWriteToView(_T(" Language ID: "));
                   TsWriteToViewLn(listLang[nSupportedLangCount]);
                   }
+
+                //Test getting string description
+                extern bool GetUsbPortInfo(const HANDLE hHub,
+                               const unsigned int nPortNo,
+                               PUSB_NODE_CONNECTION_INFORMATION pusbPortInfo
+                              );
+                extern CString GetUsbStringDescriptor(const HANDLE hHub,
+                                                      const unsigned int nPortNo,
+                                                      const UCHAR  cDescriptorId,
+                                                      LANGID  nLanguageID);
+                if (GetUsbPortInfo(hHub, nPortNo, &usbPortInfo))
+                  {
+                  CString strDescriptor;
+                  //Get vendor description
+                  if (usbPortInfo.DeviceDescriptor.iManufacturer > 0)
+                    {
+                    strDescriptor = GetUsbStringDescriptor(hHub,
+                                    nPortNo,
+                                    usbPortInfo.DeviceDescriptor.iManufacturer,
+                                    listLang[0]);
+
+                    if (strDescriptor.IsEmpty())
+                      {
+                      if (GetLastError() != NO_ERROR)
+                        {
+                        bResultUsbStringDescriptor = false;
+                        break;
+                        }
+                      else
+                        {
+                        TsWriteToViewLn(_T(" Empty string!"));
+                        bResultUsbStringDescriptor = true;
+                        }
+                      }
+                    else
+                      {
+                      TsWriteToView(_T(" Manufacturer: "));
+                      TsWriteToViewLn((LPCTSTR)strDescriptor);
+                      bResultUsbStringDescriptor = true;
+                      }
+                    }
+
+                  //Get product description
+                  if (usbPortInfo.DeviceDescriptor.iProduct > 0)
+                    {
+                    strDescriptor = GetUsbStringDescriptor(hHub,
+                                    nPortNo,
+                                    usbPortInfo.DeviceDescriptor.iProduct,
+                                    listLang[0]);
+
+                    if (strDescriptor.IsEmpty())
+                      {
+                      if (GetLastError() != NO_ERROR)
+                        {
+                        bResultUsbStringDescriptor = false;
+                        break;
+                        }
+                      else
+                        {
+                        TsWriteToViewLn(_T(" Empty string!"));
+                        bResultUsbStringDescriptor = true;
+                        }
+                      }
+                    else
+                      {
+                      TsWriteToView(_T(" Product: "));
+                      TsWriteToViewLn((LPCTSTR)strDescriptor);
+                      bResultUsbStringDescriptor = true;
+                      }
+                    }
+
+                  //Get the Serial Number
+                  if (usbPortInfo.DeviceDescriptor.iSerialNumber > 0)
+                    {
+                    strDescriptor = GetUsbStringDescriptor(hHub,
+                                    nPortNo,
+                                    usbPortInfo.DeviceDescriptor.iSerialNumber,
+                                    listLang[0]);
+
+                    if (strDescriptor.IsEmpty())
+                      {
+                      if (GetLastError() != NO_ERROR)
+                        {
+                        bResultUsbStringDescriptor = false;
+                        break;
+                        }
+                      else
+                        {
+                        TsWriteToViewLn(_T(" Empty string!"));
+                        bResultUsbStringDescriptor = true;
+                        }
+                      }
+                    else
+                      {
+                      TsWriteToView(_T(" Serial Number: "));
+                      TsWriteToViewLn((LPCTSTR)strDescriptor);
+                      bResultUsbStringDescriptor = true;
+                      }
+                    }
+                  }
+                else
+                  {
+                  TRACE1(_T("  GetUsbPortInfo() failed! Error: 0x%0.8X."), GetLastError());
+                  }
                 }
               }
             nPortNo++;
             }
+
           CloseHandle(hHub);
           }
         else
           bResult = false;
+        g_logTest.LogResult(bResult);
+
+        bResult = bResultUsbStringDescriptor;
+        g_logTest.m_szObjectName = _T("GetUsbStringDescriptor()");
+        //function or object file name
+        g_logTest.m_szFileName   = _T("KGetUsbStringDescriptor.cpp");
         g_logTest.LogResult(bResult);
         }
       }
@@ -348,6 +502,8 @@ try
       {
       g_logTest.m_szObjectName = _T("CUsbHostController::CUsbHostController()");
       g_logTest.m_szFileName   = _T("KUsbHub.h"); //function or object file name
+
+      TsWriteToViewLn(_T("\r\nUSB Host Controller(s)"));
 
       CUsbHostController usbHc;
       g_logTest.LogResult(bResult); //Log object's construction
@@ -370,6 +526,8 @@ try
           TRACE2(_T("  %d. %s\n"), nCount, (LPCTSTR)usbHc.m_strDevice);
         #endif
         TsWriteToViewLn((LPCTSTR)usbHc.m_strDevice);
+
+        usbHc.Empty(); //Prepare object for the next iteration
         nHubCount++;
         }
       TRACE1(_T("Number of host controllers: %d.\n"), nHubCount);
@@ -487,6 +645,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.14  2009/08/19 21:09:03  ddarko
+ *Test getting string description
+ *
  *Revision 1.13  2009/08/14 18:28:55  ddarko
  *Test obtaining language codes
  *
