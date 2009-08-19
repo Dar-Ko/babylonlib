@@ -1,5 +1,5 @@
 /*$RCSfile: KPciId.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/08/18 21:35:55 $
+  $Revision: 1.3 $ $Date: 2009/08/19 21:11:35 $
   $Author: ddarko $
 
   Parse Peripheral Component Interconnect (PCI) device name.
@@ -126,7 +126,7 @@ if ((szDeviceName != NULL) &&
             szHexNumber[i] = szPart[i];
             i++;
             }
-          pPciId->m_wPid = (uint16_t)HextoL(szHexNumber);
+          pPciId->m_wDid = (uint16_t)HextoL(szHexNumber);
 
           //Optional identificators
           szPart = _tcsstr(szPart, szSubsys);
@@ -139,10 +139,10 @@ if ((szDeviceName != NULL) &&
               szHexNumber[i] = szPart[i];
               i++;
               }
-            pPciId->m_wSubsystem = (uint32_t)HextoL(szHexNumber);
+            pPciId->m_dwSubsystem = (uint32_t)HextoL(szHexNumber);
             }
           else
-            pPciId->m_wSubsystem = 0;
+            pPciId->m_dwSubsystem = 0;
 
           szPart = _tcsstr(szPart, szRev);
           if(szPart != NULL)
@@ -175,6 +175,9 @@ return bResult;
 #endif //_WIN32
 /*****************************************************************************
  * $Log: KPciId.cpp,v $
+ * Revision 1.3  2009/08/19 21:11:35  ddarko
+ * PCI description
+ *
  * Revision 1.2  2009/08/18 21:35:55  ddarko
  * PciId
  *

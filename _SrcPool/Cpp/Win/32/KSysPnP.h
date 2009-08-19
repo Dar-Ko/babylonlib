@@ -41,7 +41,21 @@
     PCI\VEN_v(4)&DEV_d(4)&CC_c(2)s(2)p(2)
     PCI\VEN_v(4)&DEV_d(4)&CC_c(2)s(2)
 
-  See also: MSDN: Windows Driver Kit: Device Installation
+  where:
+  - CC Class Code (24-bit value located at offset 9, divided into Base Class, 
+    Sub-Class, and Programming interface)
+  - DID Device ID (16-bit value located at offset 2)
+  - PCI refers to an electrical component that conforms to the PCI specification
+  - REV Revision ID  (8-bit value located at offset 8)
+  - SID Subsystem ID  (16-bit value located at offset 2E)
+    The SID is the ID assigned by the manufacturer to uniquely identify the device.
+  - SVID Subsystem Vendor ID  (16-bit value located at offset 2C)
+    The SVID is the ID assigned to the manufacturer by the PCI SIG.
+  - VID Vendor ID (16-bit value located at offset 0)
+
+  See also: MSDN: Windows Driver Kit: Device Installation; 
+  "Specification for Use of PCI IDs with Windows Operating Systems", 
+  http://www.microsoft.com/whdc/archive/pciidspec.mspx
  */
 #define SYSTEMENUM_PCI _T("pci")
 
@@ -223,15 +237,28 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Peripheral Component Interconnect (PCI) device identification.
+  By convention, product identification (device ID, DID, also known as Board ID)
+  identifies a generic chipset class, while vendor and optional subsystem  
+  identification numbers specifies the particular PCI product.
+  The vendor ID identifies the chip manufacturer and the subsystem vendor ID
+  is that of the card manufacturer.
 
   See also: SYSTEMENUM_PCI,
  */
 struct tagPciId
 {
-uint16_t  m_wVid; //device vendor identification (VID) number
-uint16_t  m_wPid; //product identification (PID) number
-uint32_t  m_wSubsystem; //hardware subsystem identification number
-uint8_t   m_cRev;  //revision number
+uint16_t  m_wVid; //chipset vendor identification (VID) number
+uint16_t  m_wDid; //device identification (DID) number
+union
+  {
+  uint32_t m_dwSubsystem; //optional hardware subsystem identification number
+  struct
+    {
+    uint16_t VendorId; //subsystem vendor identification (SVID) number
+    uint16_t DevId;    //subsystem device identification (SID) number
+    } Subsystem;       //optional hardware subsystem identification numbers
+  };
+uint8_t   m_cRev;  //PCI revision number (REV)
 };
 
 /*Peripheral Component Interconnect (PCI) device identification data structure.*/
