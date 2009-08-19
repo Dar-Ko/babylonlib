@@ -1,5 +1,5 @@
 $RCSfile: Usb.txt,v $: developer's note
-$Revision: 1.5 $ $Date: 2009/05/27 19:02:44 $
+$Revision: 1.6 $ $Date: 2009/08/19 21:09:37 $
 $Author: ddarko $
 
 Usb
@@ -127,5 +127,46 @@ Win DDK
     HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Kbdclass\Parameters\AllowDisable
 
   Note: Windows DDK header and libarary are replaced with Open Watcom Project (OWP) files.
-  
+
+LibUsb-Win32 Generic Windows USB Library
+----------------------------------------  
+LibUsb-Win32 is a port of the USB library libusb (http://sf.net/projects/libusb/) to the Windows operating system (Win98SE, WinME, Win2k, WinXP).
+The library allows user space applications to access any USB device on Windows.
+http://libusb-win32.sourceforge.net
+
+Installation
+Filter Driver Installation
+
+    * As of version 0.1.7.10 the filters driver is installed by a user friendly GUI installer which makes the install and uninstall process easier and more secure.
+    * Log in as a user with administrator privileges.
+    * Download the latest filter driver installer (libusb-win32-filter-bin-x.x.x.x.exe).
+    * Close all applications which use USB devices before installing.
+    * Run the installer, and follow it's instructions. Do not run the installer from an USB storage device!
+    * At the end of the installation process the installer will offer to run a test program. This program will verify the correct installation and print the descriptors of all USB devices accessible by the library. The test program can also be run later from the system's start menu.
+    * A reboot isn't necessary.
+
+Device Driver Installation
+
+    * As of version 0.1.7.10 the device driver is distributed as a seperate package which includes everything to use libusb-win32 for single devices as a normal device driver. The installation of the filter driver is not necessary any more!
+    * Log in as a user with administrator privileges.
+    * Download the latest device driver binary package (libusb-win32-device-bin-x.x.x.x.tar.gz).
+    * Extract it to a temporary directory.
+    * Rename and edit the sample inf-file 'libusb.inf' to match your device(s) (modify the vendor and product IDs, strings etc.). Create different inf-files to install different types of devices (devices with different IDs).
+    * Unplug the device(s) from the system.
+    * Open the Windows Device Manager and remove all incorrectly installed USB devices (device entries with a yellow exclamation mark).
+    * Reconnect the device(s) to the system.
+    * When Windows asks for a driver, choose the inf-file(s) created above. On Win2k and WinXP systems, Windows will warn that the driver is is not 'digitally signed'. Ignore this message and continue with the installation.
+    * Open the Windows Device Manager to verify that the device is installed correctly. Run the test program (testlibusb-win.exe) from the 'bin directory'. It should print out the descriptors of your device(s).
+    * A reboot isn't necessary.
+
+Features:
+
+    * Can be used as a filter driver for existing, already installed devices. This feature allows libusb-win32 to communicate with any installed USB device.
+    * Can be used as a normal device driver for devices for which no driver exists (self build/developed USB hardware, etc).
+    * The two methods described above can used in parallel without any problems.
+    * 100% API and functional compatible with the main libusb project.
+    * Supports Bulk and Interrupt transfers.
+    * Supports all Standard Device Requests (control messages) described in chapter 9 of the USB specification.
+    * Supports vendor specific control messages.
+
   

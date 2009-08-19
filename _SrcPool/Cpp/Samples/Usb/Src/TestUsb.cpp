@@ -1,38 +1,134 @@
-// -*- Mode:C++ -*-
+/*$RCSfile: TestUsb.cpp,v $: implementation file
+  $Revision: 1.2 $ $Date: 2009/08/19 21:09:37 $
+  $Author: ddarko $
 
-/**************************************************************************************************/
-/* Test LIBUSB-WIN32, Generic Windows USB Library                                                                                               */
-/* Copyright (C) 1997-2001 GMD - German National Research Center for Information Technology       */
-/* Copyright (C) 2002-2004 Fraunhofer Institute for Media Communication                           */
-/*                                                                                                */
-/**************************************************************************************************/
-/*                                       License                                                  */
-/*                                                                                                */
-/* This library is free software; you can redistribute it and/or modify it under the terms of the */
-/* GNU Library General Public License as published by the Free Software Foundation, version 2.    */
-/*                                                                                                */
-/* This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;      */
-/* without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.      */
-/* See the GNU Library General Public License for more details.                                   */
-/*                                                                                                */
-/* You should have received a copy of the GNU Library General Public License along with this      */
-/* library; if not, write to the Free Software Foundation, Inc., 675 Mass Ave,                    */
-/* Cambridge, MA 02139, USA.                                                                      */
-/**************************************************************************************************/
-// compile: c++ -o usb_test usb_test.c++ -g -lusb
+  Test LIBUSB-WIN32, Generic Windows USB Library.
+  Copyright (C) 1997-2001 GMD - German National Research Center for Information
+               Technology
+  Copyright (C) 2002-2004 Fraunhofer Institute for Media Communication
+  2009-08-14 Darko Kolakovic
+*/
 
+// Group=Examples
+
+#include "stdafx.h"
+#if !defined _KTESTLOG_H_
+ #error wrong stdafx.h header is included!
+ //The project options for this module have "..\..\Win\32" in 
+ //additional include path
+#endif
 
 #include <errno.h>
 #include <stdio.h>  // printf
 #include <string.h> // memset
-#include <usb.h>    // usb_*
 
+/*Requires libusb.lib
+
+  Note: LibUsb-Win32 Generic Windows USB Library have different binearies
+  to be used with different compilers
+ */
+#pragma comment( lib, "libusb" )
+#include "usb.h"    // usb_*
+
+extern CTestLog g_logTest;   //general test logger
+extern bool TsWriteToViewLn(LPCTSTR lszText);
+extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(const unsigned int& nValue);
+extern bool TsWriteToView(const unsigned int& nValue);
+
+void print_string_descriptor (struct usb_string_descriptor*);
+void print_hid_descriptor (struct usb_hid_descriptor*);
+void print_endpoint_descriptor (struct usb_endpoint_descriptor*);
+void print_interface_descriptor (struct usb_interface_descriptor*);
+void print_config_descriptor (struct usb_config_descriptor*);
+void print_device_descriptor (struct usb_device_descriptor*);
+void print_devices (struct usb_device* devices);
+
+//-----------------------------------------------------------------------------
+/*Validates a various methods of handling USB devices.
+
+  Returns true if test is successful; otherwise returns false.
+
+  Note: uses Standard Template Library (STL).
+
+  See also: LIBUSB-WIN32, Generic Windows USB Library 
+ */
+bool TestUsbLib(uint16_t nVendorId , //[in] = 0 USB Vendor ID (VID)
+                uint16_t nProductId  //[in] = 0 USB Product ID (PID)
+               )
+{
+TsWriteToViewLn(_T("Test USB SDK"));
+
+_UNUSED(nVendorId);
+_UNUSED(nProductId);
+
+bool bResult = true;
+try
+  {
+  usb_init();
+
+  usb_set_debug(99);
+
+  usb_find_busses();
+  usb_find_devices();
+
+  struct usb_bus* bus = usb_get_busses();
+
+  while (bus)
+    {
+    printf("--- bus %s start              ---\n", bus->dirname);
+    print_devices(bus->devices);
+    printf("--- bus %s end                ---\n", bus->dirname);
+    
+    bus = bus->next;
+    }
+
+  }
+catch(std::out_of_range& eoor)
+  {
+  #if _MSC_VER == 1200
+    //warning C4710: (MSVC6 STL Release build) function not inlined
+    #pragma warning (push, 3)
+  #endif
+
+  std::_tcout << _T("STL out of range error occured! ") << eoor.what() << std::endl;
+
+  #if _MSC_VER == 1200
+    #pragma warning (pop)
+  #endif
+
+  bResult = false;
+  }
+catch(const std::exception& e)  
+  {
+  #if _MSC_VER == 1200
+    //warning C4710: (MSVC6 STL Release build) function not inlined
+    #pragma warning (disable: 4710)
+  #endif
+
+  std::_tcout << _T("STL exception error occured! ") << e.what() << std::endl;
+  bResult = false;
+  }
+catch(...)
+  {
+  TsWriteToViewLn(_T("An exception error occured!"));
+  bResult = false;
+  }
+TsWriteToViewLn(LOG_EOT);
+
+return bResult;
+}
+
+//-----------------------------------------------------------------------------
 // from post-0.7.1 cvs tree
 int usb_get_string(usb_dev_handle *dev, int index, int langid, char *buf, size_t buflen)
 {
-  return usb_control_msg(dev, USB_ENDPOINT_IN, USB_REQ_GET_DESCRIPTOR, (USB_DT_STRING << 8) + index, langid, buf, buflen, 1000);
+return usb_control_msg(dev, USB_ENDPOINT_IN, USB_REQ_GET_DESCRIPTOR, (USB_DT_STRING << 8) + index, langid, buf, buflen, 1000);
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 int usb_get_string_simple(usb_dev_handle *dev, int index, char *buf, size_t buflen)
 {
   char tbuf[256];
@@ -58,7 +154,7 @@ int usb_get_string_simple(usb_dev_handle *dev, int index, char *buf, size_t bufl
     return -EFBIG;
 
   for (di = 0, si = 2; si < tbuf[0]; si += 2) {
-    if (di >= (buflen - 1))
+    if (di >= (int)(buflen - 1))
       break;
 
     if (tbuf[si + 1])	/* high byte */
@@ -72,6 +168,9 @@ int usb_get_string_simple(usb_dev_handle *dev, int index, char *buf, size_t bufl
   return di;
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 const char* get_class_types (size_t class_type)
 {
   switch (class_type) {
@@ -88,6 +187,9 @@ const char* get_class_types (size_t class_type)
   }
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 const char* get_descriptor_type (size_t descr_type)
 {
   switch (descr_type) {
@@ -104,13 +206,9 @@ const char* get_descriptor_type (size_t descr_type)
   }
 }
 
-void print_string_descriptor (struct usb_string_descriptor*);
-void print_hid_descriptor (struct usb_hid_descriptor*);
-void print_endpoint_descriptor (struct usb_endpoint_descriptor*);
-void print_interface_descriptor (struct usb_interface_descriptor*);
-void print_config_descriptor (struct usb_config_descriptor*);
-void print_device_descriptor (struct usb_device_descriptor*);
-
+//-----------------------------------------------------------------------------
+/*
+ */
 void print_string_descriptor (struct usb_string_descriptor* string)
 {
   if (string) {
@@ -122,6 +220,9 @@ void print_string_descriptor (struct usb_string_descriptor* string)
   }
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 void print_hid_descriptor (struct usb_hid_descriptor* hid)
 {
   if (hid) {
@@ -135,6 +236,9 @@ void print_hid_descriptor (struct usb_hid_descriptor* hid)
   }
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 void print_endpoint_descriptor (struct usb_endpoint_descriptor* endpoint)
 {
   if (endpoint) {
@@ -185,6 +289,9 @@ void print_endpoint_descriptor (struct usb_endpoint_descriptor* endpoint)
   }
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 void print_interface_descriptor (struct usb_interface_descriptor* interface)
 {
   if (interface) {
@@ -227,6 +334,9 @@ void print_interface_descriptor (struct usb_interface_descriptor* interface)
   }
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 void print_config_descriptor (struct usb_config_descriptor* config)
 {
   if (config) {
@@ -273,6 +383,9 @@ void print_config_descriptor (struct usb_config_descriptor* config)
   }
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 void print_device_descriptor (struct usb_device_descriptor* device)
 {
   printf("--- device descriptor start    ---\n");
@@ -289,6 +402,9 @@ void print_device_descriptor (struct usb_device_descriptor* device)
   printf("--- device descriptor end      ---\n");
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 void print_devices (struct usb_device* devices)
 {
   while (devices) {
@@ -336,24 +452,25 @@ void print_devices (struct usb_device* devices)
   }
 }
 
-int main (int, char**)
-{
-  usb_init();
-
-  usb_set_debug(99);
-  
-  usb_find_busses();
-  usb_find_devices();
-  
-  struct usb_bus* bus = usb_get_busses();
-
-  while (bus) {
-    printf("--- bus %s start              ---\n", bus->dirname);
-    print_devices(bus->devices);
-    printf("--- bus %s end                ---\n", bus->dirname);
-    
-    bus = bus->next;
-  }
-  
-  return EXIT_SUCCESS;
-}
+///////////////////////////////////////////////////////////////////////////////
+/******************************************************************************
+ *$Log: TestUsb.cpp,v $
+ *Revision 1.2  2009/08/19 21:09:37  ddarko
+ *Test LIBUSB-WIN32
+ *
+ *****************************************************************************/
+/*****************************************************************************/
+/*                                       License                             */
+/*                                                                           */
+/* This library is free software; you can redistribute it and/or modify it   */
+/* under the terms of the GNU Library General Public License as published    */
+/* by the Free Software Foundation,  version 2.                              */                                                                  
+/* This library is distributed in the hope that it will be useful, but       */
+/* WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY*/
+/* or FITNESS FOR A PARTICULAR PURPOSE.                                      */
+/* See the GNU Library General Public License for more details.              */
+/*                                                                           */
+/* You should have received a copy of the GNU Library General Public License */
+/* along with this library; if not, write to the Free Software Foundation,   */
+/* Inc., 675 Mass Ave, Cambridge, MA 02139, USA.                             */                                         
+/*****************************************************************************/
