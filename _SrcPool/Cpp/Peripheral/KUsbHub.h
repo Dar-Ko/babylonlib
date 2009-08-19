@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.15 $ $Date: 2009/08/14 18:27:14 $
+  $Revision: 1.16 $ $Date: 2009/08/19 21:14:31 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -52,10 +52,12 @@ public:
         );
 
   CString Bcd2Str(const uint16_t nBcd);
+  void Empty();
+
 public:
   CString m_strDevice;       //USB device path
   CString m_strDescription;  //description of the device
-  bool m_bHub;  //device is a hub (TODO: check if class descriptor is sufficient)
+  bool m_bHub;  //device is a hub
   USB_CONNECTION_STATUS m_eStatus; //device status
 };
 
@@ -108,6 +110,20 @@ CString strResult = (szResult[0] == _T('0')) ?
 return strResult;
 }
 
+//-----------------------------------------------------------------------------
+/*Intilizes all fields to the default state.
+  All string members are emptied and device statust is set to NoDeviceConnected.
+ */
+inline void CUsbDevice::Empty()
+{
+m_wVid = USBVID_ANY;           //unspecified USB vendor
+m_wPid = USBPID_ANY;           //unspecified USB product
+m_strDevice.Empty();           //USB device path
+m_strDescription.Empty();      //description of the device
+m_bHub = false;                //device is not a hub
+m_eStatus = NoDeviceConnected; //device status
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 /*
  */
@@ -142,6 +158,8 @@ inline CUsbDeviceInfo::CUsbDeviceInfo() :
 inline CUsbDeviceInfo::~CUsbDeviceInfo()
 {
 }
+
+///////////////////////////////////////////////////////////////////////////////
 
 //#include "KArrayPtr.h" //CArrayPtr template
 #ifdef _USE_ATL
@@ -458,6 +476,9 @@ m_usbRootList.RemoveAll();
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.16  2009/08/19 21:14:31  ddarko
+ * CUsbDevice::Empty
+ *
  * Revision 1.15  2009/08/14 18:27:14  ddarko
  * CUsbHub::GetStatus()
  *
