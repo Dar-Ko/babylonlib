@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsb.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/08/19 21:09:37 $
+  $Revision: 1.3 $ $Date: 2009/08/20 18:59:37 $
   $Author: ddarko $
 
   Test LIBUSB-WIN32, Generic Windows USB Library.
@@ -36,13 +36,13 @@ extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToViewLn(const unsigned int& nValue);
 extern bool TsWriteToView(const unsigned int& nValue);
 
-void print_string_descriptor (struct usb_string_descriptor*);
-void print_hid_descriptor (struct usb_hid_descriptor*);
-void print_endpoint_descriptor (struct usb_endpoint_descriptor*);
-void print_interface_descriptor (struct usb_interface_descriptor*);
-void print_config_descriptor (struct usb_config_descriptor*);
-void print_device_descriptor (struct usb_device_descriptor*);
-void print_devices (struct usb_device* devices);
+void print_string_descriptor (usb_string_descriptor*);
+void print_hid_descriptor (usb_hid_descriptor*);
+void print_endpoint_descriptor (usb_endpoint_descriptor*);
+void print_interface_descriptor (usb_interface_descriptor*);
+void print_config_descriptor (usb_config_descriptor*);
+void print_device_descriptor (usb_device_descriptor*);
+void print_devices (PUSB_DEVICE devices);
 
 //-----------------------------------------------------------------------------
 /*Validates a various methods of handling USB devices.
@@ -72,7 +72,7 @@ try
   usb_find_busses();
   usb_find_devices();
 
-  struct usb_bus* bus = usb_get_busses();
+  usb_bus* bus = usb_get_busses();
 
   while (bus)
     {
@@ -209,7 +209,7 @@ const char* get_descriptor_type (size_t descr_type)
 //-----------------------------------------------------------------------------
 /*
  */
-void print_string_descriptor (struct usb_string_descriptor* string)
+void print_string_descriptor (usb_string_descriptor* string)
 {
   if (string) {
     printf("--- string descriptor start    ---\n");
@@ -223,7 +223,7 @@ void print_string_descriptor (struct usb_string_descriptor* string)
 //-----------------------------------------------------------------------------
 /*
  */
-void print_hid_descriptor (struct usb_hid_descriptor* hid)
+void print_hid_descriptor (usb_hid_descriptor* hid)
 {
   if (hid) {
     printf("--- hid descriptor start       ---\n");
@@ -239,7 +239,7 @@ void print_hid_descriptor (struct usb_hid_descriptor* hid)
 //-----------------------------------------------------------------------------
 /*
  */
-void print_endpoint_descriptor (struct usb_endpoint_descriptor* endpoint)
+void print_endpoint_descriptor (usb_endpoint_descriptor* endpoint)
 {
   if (endpoint) {
     printf("--- endpoint descriptor start  ---\n");
@@ -269,16 +269,16 @@ void print_endpoint_descriptor (struct usb_endpoint_descriptor* endpoint)
     if (endpoint->extra) {
       printf("\textra descr.:     @0x%x+%d\n", endpoint->extra, endpoint->extralen);
       
-      if (endpoint->extralen >= sizeof(struct usb_descriptor_header)) {
-        struct usb_descriptor_header* tmp = (struct usb_descriptor_header*) endpoint->extra;
+      if (endpoint->extralen >= sizeof(usb_descriptor_header)) {
+        usb_descriptor_header* tmp = (usb_descriptor_header*) endpoint->extra;
 
         switch (tmp->bDescriptorType) {
-        case USB_DT_DEVICE:    print_device_descriptor ((struct usb_device_descriptor*) tmp); break;
-        case USB_DT_CONFIG:    print_config_descriptor ((struct usb_config_descriptor*) tmp); break;
-        case USB_DT_STRING:    print_string_descriptor ((struct usb_string_descriptor*) tmp); break;
-        case USB_DT_INTERFACE: print_interface_descriptor ((struct usb_interface_descriptor*) tmp); break;
-        case USB_DT_ENDPOINT:  print_endpoint_descriptor ((struct usb_endpoint_descriptor*) tmp); break;
-        case USB_DT_HID:       print_hid_descriptor ((struct usb_hid_descriptor*) tmp); break;
+        case USB_DT_DEVICE:    print_device_descriptor ((usb_device_descriptor*) tmp); break;
+        case USB_DT_CONFIG:    print_config_descriptor ((usb_config_descriptor*) tmp); break;
+        case USB_DT_STRING:    print_string_descriptor ((usb_string_descriptor*) tmp); break;
+        case USB_DT_INTERFACE: print_interface_descriptor ((usb_interface_descriptor*) tmp); break;
+        case USB_DT_ENDPOINT:  print_endpoint_descriptor ((usb_endpoint_descriptor*) tmp); break;
+        case USB_DT_HID:       print_hid_descriptor ((usb_hid_descriptor*) tmp); break;
         default:               printf("\tunexpected %s descr. (%02X)\n",
                                       get_descriptor_type(tmp->bDescriptorType), tmp->bDescriptorType); break;
         }
@@ -292,7 +292,7 @@ void print_endpoint_descriptor (struct usb_endpoint_descriptor* endpoint)
 //-----------------------------------------------------------------------------
 /*
  */
-void print_interface_descriptor (struct usb_interface_descriptor* interface)
+void print_interface_descriptor (usb_interface_descriptor* interface)
 {
   if (interface) {
     printf("--- interface descriptor start ---\n");
@@ -314,16 +314,16 @@ void print_interface_descriptor (struct usb_interface_descriptor* interface)
     if (interface->extra) {
       printf("\textra descr.:     @0x%x+%d\n", interface->extra, interface->extralen);
       
-      if (interface->extralen >= sizeof(struct usb_descriptor_header)) {
-        struct usb_descriptor_header* tmp = (struct usb_descriptor_header*) interface->extra;
+      if (interface->extralen >= sizeof(usb_descriptor_header)) {
+        usb_descriptor_header* tmp = (usb_descriptor_header*) interface->extra;
 
         switch (tmp->bDescriptorType) {
-        case USB_DT_DEVICE:    print_device_descriptor ((struct usb_device_descriptor*) tmp); break;
-        case USB_DT_CONFIG:    print_config_descriptor ((struct usb_config_descriptor*) tmp); break;
-        case USB_DT_STRING:    print_string_descriptor ((struct usb_string_descriptor*) tmp); break;
-        case USB_DT_INTERFACE: print_interface_descriptor ((struct usb_interface_descriptor*) tmp); break;
-        case USB_DT_ENDPOINT:  print_endpoint_descriptor ((struct usb_endpoint_descriptor*) tmp); break;
-        case USB_DT_HID:       print_hid_descriptor ((struct usb_hid_descriptor*) tmp); break;
+        case USB_DT_DEVICE:    print_device_descriptor ((usb_device_descriptor*) tmp); break;
+        case USB_DT_CONFIG:    print_config_descriptor ((usb_config_descriptor*) tmp); break;
+        case USB_DT_STRING:    print_string_descriptor ((usb_string_descriptor*) tmp); break;
+        case USB_DT_INTERFACE: print_interface_descriptor ((usb_interface_descriptor*) tmp); break;
+        case USB_DT_ENDPOINT:  print_endpoint_descriptor ((usb_endpoint_descriptor*) tmp); break;
+        case USB_DT_HID:       print_hid_descriptor ((usb_hid_descriptor*) tmp); break;
         default:               printf("\tunexpected %s descr. (%02X)\n",
                                       get_descriptor_type(tmp->bDescriptorType), tmp->bDescriptorType); break;
         }
@@ -337,7 +337,7 @@ void print_interface_descriptor (struct usb_interface_descriptor* interface)
 //-----------------------------------------------------------------------------
 /*
  */
-void print_config_descriptor (struct usb_config_descriptor* config)
+void print_config_descriptor (usb_config_descriptor* config)
 {
   if (config) {
     printf("--- config descriptor start    ---\n");
@@ -363,16 +363,16 @@ void print_config_descriptor (struct usb_config_descriptor* config)
     if (config->extra) {
       printf("\textra descr.:     @0x%x+%d\n", config->extra, config->extralen);
       
-      if (config->extralen >= sizeof(struct usb_descriptor_header)) {
-        struct usb_descriptor_header* tmp = (struct usb_descriptor_header*) config->extra;
+      if (config->extralen >= sizeof(usb_descriptor_header)) {
+        usb_descriptor_header* tmp = (usb_descriptor_header*) config->extra;
 
         switch (tmp->bDescriptorType) {
-        case USB_DT_DEVICE:    print_device_descriptor ((struct usb_device_descriptor*) tmp); break;
-        case USB_DT_CONFIG:    print_config_descriptor ((struct usb_config_descriptor*) tmp); break;
-        case USB_DT_STRING:    print_string_descriptor ((struct usb_string_descriptor*) tmp); break;
-        case USB_DT_INTERFACE: print_interface_descriptor ((struct usb_interface_descriptor*) tmp); break;
-        case USB_DT_ENDPOINT:  print_endpoint_descriptor ((struct usb_endpoint_descriptor*) tmp); break;
-        case USB_DT_HID:       print_hid_descriptor ((struct usb_hid_descriptor*) tmp); break;
+        case USB_DT_DEVICE:    print_device_descriptor ((usb_device_descriptor*) tmp); break;
+        case USB_DT_CONFIG:    print_config_descriptor ((usb_config_descriptor*) tmp); break;
+        case USB_DT_STRING:    print_string_descriptor ((usb_string_descriptor*) tmp); break;
+        case USB_DT_INTERFACE: print_interface_descriptor ((usb_interface_descriptor*) tmp); break;
+        case USB_DT_ENDPOINT:  print_endpoint_descriptor ((usb_endpoint_descriptor*) tmp); break;
+        case USB_DT_HID:       print_hid_descriptor ((usb_hid_descriptor*) tmp); break;
         default:               printf("\tunexpected %s descr. (%02X)\n",
                                       get_descriptor_type(tmp->bDescriptorType), tmp->bDescriptorType); break;
         }
@@ -386,7 +386,7 @@ void print_config_descriptor (struct usb_config_descriptor* config)
 //-----------------------------------------------------------------------------
 /*
  */
-void print_device_descriptor (struct usb_device_descriptor* device)
+void print_device_descriptor (usb_device_descriptor* device)
 {
   printf("--- device descriptor start    ---\n");
   printf("\tdescriptor:       %s (%02X, len: %d)\n",
@@ -405,13 +405,13 @@ void print_device_descriptor (struct usb_device_descriptor* device)
 //-----------------------------------------------------------------------------
 /*
  */
-void print_devices (struct usb_device* devices)
+void print_devices (PUSB_DEVICE devices)
 {
   while (devices) {
     printf("--- device %s:%s start       ---\n", devices->bus->dirname, devices->filename);
     print_device_descriptor(&devices->descriptor);
 
-    struct usb_dev_handle* handle = usb_open(devices);
+    usb_dev_handle* handle = usb_open(devices);
 
     if (0 != handle) {
       char* buffer = new char[256];
@@ -455,6 +455,9 @@ void print_devices (struct usb_device* devices)
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsb.cpp,v $
+ *Revision 1.3  2009/08/20 18:59:37  ddarko
+ *Merged with DDK headers
+ *
  *Revision 1.2  2009/08/19 21:09:37  ddarko
  *Test LIBUSB-WIN32
  *
