@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbStringDescriptor.cpp,v $: implementation file
-  $Revision: 1.6 $ $Date: 2009/08/18 14:18:04 $
+  $Revision: 1.7 $ $Date: 2009/08/20 21:23:15 $
   $Author: ddarko $
 
   Obtain USB string descriptor.
@@ -68,7 +68,7 @@ CString GetUsbStringDescriptor(const HANDLE hHub, //[in] handle of the hub devic
                                const unsigned int nPortNo, //[in] port on
                         //the hub to which a device is attached from the range 
                         //[1, USB_HUB_DESCRIPTOR::bNumberOfPorts].
-                               const UCHAR  cDescriptorId, //[in] String 
+                               const uint8_t cDescriptorId, //[in] String 
                         //Descriptor index [1, 255].
                                LANGID  nLanguageID //[in] = 0 language code
                                 //in which the string should be requested
@@ -200,6 +200,9 @@ return strResult;
 
 /*****************************************************************************
  * $Log: KGetUsbStringDescriptor.cpp,v $
+ * Revision 1.7  2009/08/20 21:23:15  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.6  2009/08/18 14:18:04  ddarko
  * fixed nBytesReturned
  *

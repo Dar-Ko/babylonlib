@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.14 $ $Date: 2009/08/19 21:09:03 $
+  $Revision: 1.15 $ $Date: 2009/08/20 21:21:29 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -383,7 +383,7 @@ try
                               );
                 extern CString GetUsbStringDescriptor(const HANDLE hHub,
                                                       const unsigned int nPortNo,
-                                                      const UCHAR  cDescriptorId,
+                                                      const uint8_t cDescriptorId,
                                                       LANGID  nLanguageID);
                 if (GetUsbPortInfo(hHub, nPortNo, &usbPortInfo))
                   {
@@ -645,6 +645,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.15  2009/08/20 21:21:29  ddarko
+ **** empty log message ***
+ *
  *Revision 1.14  2009/08/19 21:09:03  ddarko
  *Test getting string description
  *
