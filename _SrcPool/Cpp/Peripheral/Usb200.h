@@ -1,5 +1,5 @@
 /*$RCSfile: Usb200.h,v $: header file
-  $Revision: 1.8 $ $Date: 2009/08/18 21:36:54 $
+  $Revision: 1.9 $ $Date: 2009/08/20 21:25:36 $
   $Author: ddarko $
 
   USB 2.0 definitions
@@ -75,12 +75,12 @@ typedef enum _USB_DEVICE_TYPE {
 /* Request type */
 typedef union _BM_REQUEST_TYPE {
     struct _BM {
-        UCHAR   Recipient   : 2;
-        UCHAR   Reserved    : 3;
-        UCHAR   Type        : 2;
-        UCHAR   Dir         : 1;
+        uint8_t   Recipient   : 2;
+        uint8_t   Reserved    : 3;
+        uint8_t   Type        : 2;
+        uint8_t   Dir         : 1;
     };
-    UCHAR   B;
+    uint8_t   B;
 } BM_REQUEST_TYPE;
 typedef BM_REQUEST_TYPE *PBM_REQUEST_TYPE;
 
@@ -93,26 +93,26 @@ typedef BM_REQUEST_TYPE *PBM_REQUEST_TYPE;
 typedef struct _USB_DEFAULT_PIPE_SETUP_PACKET
   {
   BM_REQUEST_TYPE bmRequestType;
-  UCHAR           bRequest;
+  uint8_t           bRequest;
   union _wValue
     {
     struct
       {
-      UCHAR   LowByte;
-      UCHAR   HiByte;
+      uint8_t   LowByte;
+      uint8_t   HiByte;
       };
-    USHORT  W;
+    uint16_t  W;
     } wValue;
   union _wIndex
     {
     struct
       {
-      UCHAR   LowByte;
-      UCHAR   HiByte;
+      uint8_t   LowByte;
+      uint8_t   HiByte;
       };
-    USHORT  W;
+    uint16_t  W;
     } wIndex;
-  USHORT          wLength;
+  uint16_t          wLength;
   } USB_DEFAULT_PIPE_SETUP_PACKET;
 typedef USB_DEFAULT_PIPE_SETUP_PACKET   *PUSB_DEFAULT_PIPE_SETUP_PACKET;
 #ifdef _MSC_VER
@@ -122,16 +122,16 @@ typedef USB_DEFAULT_PIPE_SETUP_PACKET   *PUSB_DEFAULT_PIPE_SETUP_PACKET;
 
 /* USB device qualifier descriptor */
 typedef struct _USB_DEVICE_QUALIFIER_DESCRIPTOR {
-    UCHAR   bLength;
-    UCHAR   bDescriptorType; /*[in] the descriptor type is constant
+    uint8_t   bLength;
+    uint8_t   bDescriptorType; /*[in] the descriptor type is constant
                                USB_DESCRIPTOR_TYPE_DEVICE_QUALIFIER = 0x06*/
-    USHORT  bcdUSB;
-    UCHAR   bDeviceClass;
-    UCHAR   bDeviceSubClass;
-    UCHAR   bDeviceProtocol;
-    UCHAR   bMaxPacketSize0;
-    UCHAR   bNumConfigurations;
-    UCHAR   bReserved;
+    uint16_t  bcdUSB;
+    uint8_t   bDeviceClass;
+    uint8_t   bDeviceSubClass;
+    uint8_t   bDeviceProtocol;
+    uint8_t   bMaxPacketSize0;
+    uint8_t   bNumConfigurations;
+    uint8_t   bReserved;
 } USB_DEVICE_QUALIFIER_DESCRIPTOR;
 typedef USB_DEVICE_QUALIFIER_DESCRIPTOR *PUSB_DEVICE_QUALIFIER_DESCRIPTOR;
 /*USB Device Qualifier Descriptor.
@@ -143,25 +143,25 @@ typedef USB_DEVICE_QUALIFIER_DESCRIPTOR IOUSBDeviceQualifierDescriptor;
 /* USB high speed maximum packet */
 typedef union _USB_HIGH_SPEED_MAXPACKET {
     struct _MP {
-        USHORT  MaxPacket   : 11;
-        USHORT  HSmux       : 2;
-        USHORT  Reserved    : 3;
+        uint16_t  MaxPacket   : 11;
+        uint16_t  HSmux       : 2;
+        uint16_t  Reserved    : 3;
     };
-    USHORT  us;
+    uint16_t  us;
 } USB_HIGH_SPEED_MAXPACKET;
 typedef USB_HIGH_SPEED_MAXPACKET    *PUSB_HIGH_SPEED_MAXPACKET;
 
 /* USB interface association descriptor */
 typedef struct _USB_INTERFACE_ASSOCIATION_DESCRIPTOR {
-    UCHAR   bLength;
-    UCHAR   bDescriptorType; /*[in] the descriptor type is constant
+    uint8_t   bLength;
+    uint8_t   bDescriptorType; /*[in] the descriptor type is constant
                                USB_DESCRIPTOR_TYPE_INTERFACE_ASSOCIATION = 0x0B*/
-    UCHAR   bFirstInterface;
-    UCHAR   bInterfaceCount;
-    UCHAR   bFunctionClass;
-    UCHAR   bFunctionSubClass;
-    UCHAR   bFunctionProtocol;
-    UCHAR   iFunction;
+    uint8_t   bFirstInterface;
+    uint8_t   bInterfaceCount;
+    uint8_t   bFunctionClass;
+    uint8_t   bFunctionSubClass;
+    uint8_t   bFunctionProtocol;
+    uint8_t   iFunction;
 } USB_INTERFACE_ASSOCIATION_DESCRIPTOR;
 typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    *PUSB_INTERFACE_ASSOCIATION_DESCRIPTOR;
 /*USB Inerface Association Descriptor.
@@ -181,6 +181,9 @@ typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    IOUSBInterfaceAssociationDescrip
 
 /*****************************************************************************
  * $Log: Usb200.h,v $
+ * Revision 1.9  2009/08/20 21:25:36  ddarko
+ * ISO C99 types
+ *
  * Revision 1.8  2009/08/18 21:36:54  ddarko
  * MacOs
  *
