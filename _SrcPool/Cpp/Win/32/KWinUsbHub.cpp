@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.22 $ $Date: 2009/08/19 21:11:09 $
+  $Revision: 1.23 $ $Date: 2009/08/20 21:22:54 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -140,9 +140,12 @@ while (i < (int)m_usbRootList.GetCount())
   {
   bResult = m_usbRootList[i]->Find(wVendorId, wProductId, pDevice);
   if (bResult)
+    {
     break;
+    }
   i++;
   }
+m_iLastNodeAccessed = i + 1; //Set 1-based search index
 return bResult;
 }
 
@@ -636,7 +639,7 @@ else
       }
     i++;
     }
-
+  m_iLastNodeAccessed = i + 1; //Set 1-based search index
   }
 return bResult;
 }
@@ -646,20 +649,19 @@ return bResult;
 
 //-----------------------------------------------------------------------------
 /*
- Device, configuration, and interface descriptors may contain references to string descriptors. String descriptors are referenced by their one-based index number. A string descriptor contains one or more Unicode strings; each string is a translation of the others into another language.
- Drivers can request the special index number of zero to determine which language IDs the device supports. For this special value, the device returns an array of language IDs rather than a Unicode string.
+  Device, configuration, and interface descriptors may contain references to
+  string descriptors. String descriptors are referenced by their one-based index
+  number. A string descriptor contains one or more Unicode strings.
+  Each string is a translation of the others into another language.
+  Drivers can request the special index number of zero to determine which language
+  IDs the device supports. For this special value, the device returns an array of
+  language IDs rather than a Unicode string.
 
-  String descriptors are referenced by their one-based index
-  number. A string descriptor contains one or more Unicode strings; each string
-  is a translation of the others into another language.
-  Drivers can request the special index number of zero to determine which
-  language IDs the device supports.
-
- See also: USB_STRING_DESCRIPTOR, LANGID
+  See also: USB_STRING_DESCRIPTOR, LANGID, GetUsbStringDescriptor()
  */
 bool CUsbDevice::GetStringDescriptor(const HANDLE hUsbHub, //[in]
                                      const unsigned int nPortId, //[in] USB hub
-           //port number to which a device is attached
+           //port number to which a device is attached [1, P]
                                      const unsigned int nStringId, //[in] index
            //of required string from an array of descriptions [1, N]
                                      LANGID nLangId, //[in] Microsoft language ID
@@ -668,35 +670,13 @@ bool CUsbDevice::GetStringDescriptor(const HANDLE hUsbHub, //[in]
 {
 TRACE2(_T("    CUsbDevice::GetStringDescriptor(port = %d, string Id = %d)\n"),
        nPortId, nStringId);
+extern CString GetUsbStringDescriptor(const HANDLE hHub,
+                                      const unsigned int nPortId,
+                                      const uint8_t  cDescriptorId,
+                                      LANGID  nLanguageID);
 bool bResult = false;
-if (hUsbHub != INVALID_HANDLE_VALUE)
-  {
-    //Disable warning C4127: conditional expression in ASSERT is constant
-  #pragma warning (disable: 4127)
-    ASSERT((nPortId > 0) && (nPortId <= (USB_MAXCOUNT+1)));
-  #pragma warning (default: 4127)
-  if (nStringId > 0)
-    {
-    if (nLangId == 0) //Set default language
-      nLangId = MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US); //0x409 English (U.S.)
-
-    /*Because the string descriptor consists of variable-length data,
-      the desriptor must be obtained it in two steps:
-        1. get required buffer size by issuing the request, passing a data
-           buffer large enough to hold the header for a string
-           descriptor - a USB_STRING_DESCRIPTOR structure. The bLength member
-           of USB_STRING_DESCRIPTOR specifies the size in bytes of the entire
-           descriptor.
-        2. get the desired string. Make the same request with a data buffer
-           of size bLength.
-     */
-    USB_DESCRIPTOR_REQUEST usbDescriptor;
-    usbDescriptor.SetupPacket.wLength = sizeof(usbDescriptor);
-#pragma TODO GetStringDescriptor
-
-    PUSB_DESCRIPTOR_REQUEST pusbDescriptor;
-    }
-  }
+strResult = GetUsbStringDescriptor(hUsbHub, nPortId, (uint8_t)nStringId, nLangId);
+bResult = !strResult.IsEmpty();
 return bResult;
 }
 

@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.16 $ $Date: 2009/08/19 21:14:31 $
+  $Revision: 1.17 $ $Date: 2009/08/20 21:23:41 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -93,7 +93,7 @@ inline CString CUsbDevice::Bcd2Str(const uint16_t nBcd //[in] binary 8421 coded
                                    )
 {
 TCHAR szResult[6]; //decimal number
-
+//TODO: redo HIBYTE & LOBYTE for bigendian CPU; MSVC macros are for littleendians
 szResult[0] = _T('0') + ((0xF0 & HIBYTE(nBcd)) >> 4);
 szResult[1] = _T('0') + ( 0x0F & HIBYTE(nBcd));
 szResult[2] = _T('.');
@@ -183,10 +183,11 @@ private:
 public:
   void  RemoveAll();
 
-#ifdef _DEBUG
-  void Dump();
-#endif
+  #ifdef _DEBUG
+    void Dump();
+  #endif
 };
+
 ///////////////////////////////////////////////////////////////////////////////
 // Inlines
 
@@ -268,6 +269,9 @@ public:
   bool Find(const uint16_t wVendorId,
             const uint16_t wProductId,
             CUsbDeviceInfo* pDevice = NULL);
+  bool FindNext(const uint16_t wVendorId,
+                const uint16_t wProductId,
+                CUsbDeviceInfo* pDevice = NULL);
   uint16_t GetPortCount() const;
   USB_CONNECTION_STATUS GetStatus(const uint16_t nPortNo) const;
 
@@ -276,6 +280,8 @@ protected:
 
 protected:
   CUsbDeviceArray m_usbNodeList; //hub node connections (ports)
+  int m_iLastNodeAccessed; //one-based index of the hub node (port) accessed while
+                           //searching for a device [1, m_usbNodeList.GetSize] 
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -284,19 +290,22 @@ protected:
 //-----------------------------------------------------------------------------
 /*Default constructor
  */
-inline CUsbHub::CUsbHub()
+inline CUsbHub::CUsbHub() :
+  m_iLastNodeAccessed(-1)
 {
 m_bHub = true;
 }
 
 inline CUsbHub::CUsbHub(const CUsbDevice& usbSrc) :
-  CUsbDevice(usbSrc)
+  CUsbDevice(usbSrc),
+  m_iLastNodeAccessed(-1)
 {
 m_bHub = true;
 }
 
 inline CUsbHub::CUsbHub(const CUsbHub& usbSrc) :
-  CUsbDevice((CUsbDevice)usbSrc)
+  CUsbDevice((CUsbDevice)usbSrc),
+  m_iLastNodeAccessed(usbSrc.m_iLastNodeAccessed)
 {
 m_usbNodeList.Copy(usbSrc.m_usbNodeList);
 }
@@ -340,6 +349,7 @@ return (pDev->m_eStatus);
 inline void CUsbHub::Erase()
 {
 m_usbNodeList.RemoveAll();
+m_iLastNodeAccessed = -1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -409,12 +419,18 @@ public:
   bool GetDevice(const uint16_t wVendorId,
                  const uint16_t wProductId,
                  CUsbDeviceInfo* pDevice = NULL);
+  bool GetNextDevice(const uint16_t wVendorId,
+                     const uint16_t wProductId,
+                     CUsbDeviceInfo* pDevice = NULL);
   bool HasDevice(const uint16_t wVendorId,
                  const uint16_t wProductId);
   void RemoveAll();
 public:
   CArray<CUsbHostController*> m_usbRootList; //list of available USB host
-                                            //controllers (root hubs)
+                                             //controllers (root hubs)
+protected:
+  int m_iLastNodeAccessed; //one-based index of the root hub node accessed while
+                           //searching for a device [1, m_usbRootList.GetSize] 
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -423,7 +439,8 @@ public:
 //-----------------------------------------------------------------------------
 /*
  */
-inline CUsbDeviceTree::CUsbDeviceTree()
+inline CUsbDeviceTree::CUsbDeviceTree() :
+  m_iLastNodeAccessed(-1)
 {
 }
 
@@ -467,6 +484,7 @@ while(i < (int)m_usbRootList.GetCount())
   i++;
   }
 m_usbRootList.RemoveAll();
+m_iLastNodeAccessed = -1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -476,6 +494,9 @@ m_usbRootList.RemoveAll();
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.17  2009/08/20 21:23:41  ddarko
+ * Added search index member
+ *
  * Revision 1.16  2009/08/19 21:14:31  ddarko
  * CUsbDevice::Empty
  *
