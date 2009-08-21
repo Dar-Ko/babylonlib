@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.10 $ $Date: 2009/08/18 21:36:54 $
+  $Revision: 1.11 $ $Date: 2009/08/21 21:24:03 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -157,7 +157,7 @@ typedef USB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR IOUSBDFUDescriptor;
   (in bytes) is computed by subtracting two from the value of the first byte of
   the descriptor.
 
-  See also: LANGID, USB_MAXCOUNT_LANGID, USB_STRING_DESCRIPTOR,
+  See also: LANGID, USB_MAXCOUNT_LANGID, USB_STRING_DESCRIPTOR, GetUsbLangIds()
   "Universal Serial Bus Specification Revision 1.1", Chapters 9.5 Descriptors, 9.6.5 String;
  */
 union tagUSB_LANGID_LIST

@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.17 $ $Date: 2009/08/20 21:23:41 $
+  $Revision: 1.18 $ $Date: 2009/08/21 21:24:03 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -48,17 +48,17 @@ public:
                            CString& strResult);
   bool CUsbDevice::HasStringDescriptor(
         const PUSB_DEVICE_DESCRIPTOR pusbDevDescriptor,
-        const PUSB_CONFIGURATION_DESCRIPTOR pusbConfigDescriptor
+        const PUSB_CONFIGURATION_DESCRIPTOR pusbConfigDescriptor = NULL
         );
 
   CString Bcd2Str(const uint16_t nBcd);
   void Empty();
 
 public:
+  bool m_bHub;               //device is a hub
+  USB_CONNECTION_STATUS m_eStatus; //device status
   CString m_strDevice;       //USB device path
   CString m_strDescription;  //description of the device
-  bool m_bHub;  //device is a hub
-  USB_CONNECTION_STATUS m_eStatus; //device status
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -172,7 +172,7 @@ inline CUsbDeviceInfo::~CUsbDeviceInfo()
 ///////////////////////////////////////////////////////////////////////////////
 /*
  */
-class CUsbDeviceArray : public  CArray<CUsbDevice*>
+class CUsbDeviceArray : public CArray<CUsbDevice*>
 {
 public:
   CUsbDeviceArray();
@@ -268,10 +268,10 @@ public:
   unsigned int Enumerate(LPCTSTR szDevicePath);
   bool Find(const uint16_t wVendorId,
             const uint16_t wProductId,
-            CUsbDeviceInfo* pDevice = NULL);
+            CUsbDeviceInfo* pDeviceInfo = NULL);
   bool FindNext(const uint16_t wVendorId,
                 const uint16_t wProductId,
-                CUsbDeviceInfo* pDevice = NULL);
+                CUsbDeviceInfo* pDeviceInfo = NULL);
   uint16_t GetPortCount() const;
   USB_CONNECTION_STATUS GetStatus(const uint16_t nPortNo) const;
 
@@ -418,10 +418,10 @@ public:
   int Enumerate();
   bool GetDevice(const uint16_t wVendorId,
                  const uint16_t wProductId,
-                 CUsbDeviceInfo* pDevice = NULL);
+                 CUsbDeviceInfo* pDeviceInfo = NULL);
   bool GetNextDevice(const uint16_t wVendorId,
                      const uint16_t wProductId,
-                     CUsbDeviceInfo* pDevice = NULL);
+                     CUsbDeviceInfo* pDeviceInfo = NULL);
   bool HasDevice(const uint16_t wVendorId,
                  const uint16_t wProductId);
   void RemoveAll();
@@ -494,6 +494,9 @@ m_iLastNodeAccessed = -1;
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.18  2009/08/21 21:24:03  ddarko
+ * CUsbDevice::GetStringDescriptor()
+ *
  * Revision 1.17  2009/08/20 21:23:41  ddarko
  * Added search index member
  *

@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.23 $ $Date: 2009/08/20 21:22:54 $
+  $Revision: 1.24 $ $Date: 2009/08/21 21:24:19 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -124,7 +124,7 @@ bool CUsbDeviceTree::GetDevice(const uint16_t wVendorId, //[in] USB device
                                   //vendor identification (VID) number.
                                const uint16_t wProductId, //[in] USB product
                                   //identification (PID) number.
-                               CUsbDeviceInfo* pDevice //[in]/[out] = NULL
+                               CUsbDeviceInfo* pDeviceInfo //[in]/[out] = NULL
                                   //description of the reqested USB device;
                                   //desription of the device found is returned.
                                )
@@ -138,7 +138,7 @@ if (m_usbRootList.IsEmpty())
 int i = 0;
 while (i < (int)m_usbRootList.GetCount())
   {
-  bResult = m_usbRootList[i]->Find(wVendorId, wProductId, pDevice);
+  bResult = m_usbRootList[i]->Find(wVendorId, wProductId, pDeviceInfo);
   if (bResult)
     {
     break;
@@ -525,7 +525,7 @@ bool CUsbHub::Find(const uint16_t wVendorId, //[in] USB device
                     //vendor identification (VID) number.
                    const uint16_t wProductId, //[in] USB product
                     //identification (PID) number.
-                   CUsbDeviceInfo* pDevice //[in]/[out] = NULL
+                   CUsbDeviceInfo* pDeviceInfo //[in]/[out] = NULL
                     //description of the reqested USB device;
                     //desription of the device found is returned.
                   )
@@ -545,15 +545,21 @@ bool bResult = false;
 //TODO: check for USBVID_ANY
 if (IsVendor(wVendorId) && IsProduct(wProductId))
   {
-  if (pDevice != NULL)
+  //This hub is the requested USB device
+  if (pDeviceInfo != NULL)
     {
+    *((CUsbId*)pDeviceInfo)    = *(USBID*)this   ;
+    pDeviceInfo->m_bHub        = m_bHub          ;        
+    pDeviceInfo->m_eStatus     = m_eStatus       ;
+    pDeviceInfo->m_strVendor   = _T("N/A")       ;
+    pDeviceInfo->m_strProduct  = m_strDescription;  
+    pDeviceInfo->m_strSerialNo = _T("N/A")       ;
 
-    //TODO check port no, serno
-#pragma todo copy CUsbDevice to pDevice
+#pragma todo check port no, serno
     }
   bResult = true;
   }
-else
+else //Check for the match among attached devices
   {
     //Disable warning C4127: conditional expression in ASSERT is constant
   #pragma warning (disable: 4127)
@@ -571,11 +577,11 @@ else
       if (pUsbNode->IsVendor(wVendorId) &&
           pUsbNode->IsProduct(wProductId) )
         {
-        if(pDevice != NULL)
+        if(pDeviceInfo != NULL)
           {
           //Validate port number
-          if (pDevice->m_nPortNo > 0)
-            bResult = (pDevice->m_nPortNo == (uint16_t)(i + 1));
+          if (pDeviceInfo->m_nPortNo > 0)
+            bResult = (pDeviceInfo->m_nPortNo == (uint16_t)(i + 1));
           else //Ignore port number
             {
             bResult = true;
@@ -590,33 +596,57 @@ else
                                     GENERIC_WRITE,
                                     FILE_SHARE_WRITE,
                                     NULL,//if lpSecurityAttributes is NULL,
-                                        //the handle cannot be inherited.
+                                         //the handle cannot be inherited.
                                     OPEN_EXISTING,
                                     0,
                                     NULL);
           if (hHub != INVALID_HANDLE_VALUE)
             {
-
-            if (pDevice->m_strSerialNo.IsEmpty())
+            extern bool GetUsbPortInfo(const HANDLE hHub,
+                            const unsigned int nPortNo,
+                            PUSB_NODE_CONNECTION_INFORMATION pusbPortInfo
+                          );
+            USB_NODE_CONNECTION_INFORMATION usbPortInfo; //USB port data
+            if (GetUsbPortInfo(hHub, (unsigned int)(i + 1), &usbPortInfo))
               {
-              pDevice->m_strSerialNo = _T("N/A"); //TODO: get ser no
+              CString strDescriptor;
+              //Get the Serial Number
+              if (usbPortInfo.DeviceDescriptor.iSerialNumber > 0)
+                {
+                if(pUsbNode->GetStringDescriptor(hHub, 
+                                    (unsigned int)(i + 1),
+                                    usbPortInfo.DeviceDescriptor.iSerialNumber,
+                                    0,
+                                    strDescriptor))
+                  {
+                    //TODO
+                  }
+                }
+              }
+
+            if (pDeviceInfo->m_strSerialNo.IsEmpty())
+              {
+              pDeviceInfo->m_strSerialNo = _T("N/A"); //TODO: get ser no
               bResult = true;
               }
             else //Compare serial numbers
               {
-              bResult = (pDevice->m_strSerialNo.CompareNoCase(_T("get ser no")) == 0);
+              bResult = (pDeviceInfo->m_strSerialNo.CompareNoCase(_T("get ser no")) == 0);
               }
 
-              CloseHandle(hHub);
+            CloseHandle(hHub);
             }
           //TODO: check multiple conditions
 
           if (bResult)
             {
-            pDevice->m_wVid = wVendorId;
-            pDevice->m_wPid = wProductId;
-            pDevice->m_eStatus = pUsbNode->m_eStatus;
-            pDevice->m_nPortNo = (uint16_t)(i + 1); //Set one-based port Id
+            *((CUsbId*)pDeviceInfo)   = *(USBID*)pUsbNode         ;
+            pDeviceInfo->m_bHub       = pUsbNode->m_bHub          ;        
+            pDeviceInfo->m_eStatus    = pUsbNode->m_eStatus       ;
+            pDeviceInfo->m_nPortNo = (uint16_t)(i + 1); //Set one-based port Id
+            pDeviceInfo->m_strVendor  = _T("N/A")                 ;
+            pDeviceInfo->m_strProduct = pUsbNode->m_strDescription;  
+            pDeviceInfo->m_strSerialNo  = _T("N/A")               ;
             }
           }
         else //No additional validation is required
@@ -627,10 +657,10 @@ else
         if (bResult)
           break;
         }
-      if (pUsbNode->m_bHub)
+
+      if (pUsbNode->m_bHub) //Search through attached external hub
         {
-        //Search through attached hub
-        if ( ((CUsbHub*)pUsbNode)->Find(wVendorId, wProductId, pDevice) )
+        if ( ((CUsbHub*)pUsbNode)->Find(wVendorId, wProductId, pDeviceInfo) )
           {
           bResult = true;
           break;
@@ -648,7 +678,10 @@ return bResult;
 //CUsbDevice class implementation
 
 //-----------------------------------------------------------------------------
-/*
+/*Retreive specified string descriptor. If language ID is not defined (0), method
+  will try to supply string on US English or, if that fails, on the first supported
+  language.
+  
   Device, configuration, and interface descriptors may contain references to
   string descriptors. String descriptors are referenced by their one-based index
   number. A string descriptor contains one or more Unicode strings.
@@ -657,14 +690,14 @@ return bResult;
   IDs the device supports. For this special value, the device returns an array of
   language IDs rather than a Unicode string.
 
-  See also: USB_STRING_DESCRIPTOR, LANGID, GetUsbStringDescriptor()
+  See also: USB_STRING_DESCRIPTOR, LANGID, USB_MAXCOUNT_LANGID, GetUsbStringDescriptor()
  */
 bool CUsbDevice::GetStringDescriptor(const HANDLE hUsbHub, //[in]
                                      const unsigned int nPortId, //[in] USB hub
            //port number to which a device is attached [1, P]
                                      const unsigned int nStringId, //[in] index
            //of required string from an array of descriptions [1, N]
-                                     LANGID nLangId, //[in] Microsoft language ID
+                                     LANGID nLangId, //[in] Microsoft language ID or 0
                                      CString& strResult    //[out] result
                                      )
 {
@@ -674,7 +707,37 @@ extern CString GetUsbStringDescriptor(const HANDLE hHub,
                                       const unsigned int nPortId,
                                       const uint8_t  cDescriptorId,
                                       LANGID  nLanguageID);
+extern unsigned int GetUsbLangIds(const HANDLE hHub,
+                                  const unsigned int nPortNo,
+                                  LANGID*  arrLanguageID,
+                                  const unsigned int nSize);
+
 bool bResult = false;
+if (nLangId == 0)    //!!!!!!!!!TODO: move to separate method
+  {
+  //Verify if requested language is supported by the device. If it is not, offer
+  //strings on US English as most common settings or, if that fails, the first 
+  //language from the list of supported languages.
+  LANGID listLang[USB_MAXCOUNT_LANGID];
+  unsigned int nSupportedLangCount = GetUsbLangIds(hUsbHub, 
+                                                   nPortId,
+                                                   listLang,
+                                                   USB_MAXCOUNT_LANGID);
+  if((nSupportedLangCount > 0) && (GetLastError() != NO_ERROR))
+    {
+    //Try most common language for string descriptors
+    nLangId = 
+      MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US); //0x0409 English (U.S.)
+    nSupportedLangCount--;
+    while((nSupportedLangCount > 0) && (listLang[nSupportedLangCount] != nLangId))
+      {
+      nSupportedLangCount--;
+      }
+    //Set requested language ID or the first one from the list of the supported languages
+    nLangId = listLang[nSupportedLangCount];
+    }
+  }
+
 strResult = GetUsbStringDescriptor(hUsbHub, nPortId, (uint8_t)nStringId, nLangId);
 bResult = !strResult.IsEmpty();
 return bResult;
@@ -695,7 +758,7 @@ return bResult;
  */
 bool CUsbDevice::HasStringDescriptor(
         const PUSB_DEVICE_DESCRIPTOR pusbDevDescriptor, //[in] USB device descriptor
-        const PUSB_CONFIGURATION_DESCRIPTOR pusbConfigDescriptor //[in] USB
+        const PUSB_CONFIGURATION_DESCRIPTOR pusbConfigDescriptor //[in] = NULL USB
         //configuration descriptor
         )
 {
