@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.24 $ $Date: 2009/08/21 21:24:19 $
+  $Revision: 1.25 $ $Date: 2009/08/24 22:02:23 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -135,17 +135,31 @@ bool bResult = false;
 if (m_usbRootList.IsEmpty())
   Enumerate();
 
-int i = 0;
-while (i < (int)m_usbRootList.GetCount())
+if (pDeviceInfo != NULL)
+  pDeviceInfo->m_nTierLevel = USB_ROOTLEVEL + 1; //
+m_iLastNodeAccessed = 0;
+while (m_iLastNodeAccessed < (int)m_usbRootList.GetCount())
   {
-  bResult = m_usbRootList[i]->Find(wVendorId, wProductId, pDeviceInfo);
+  bResult = m_usbRootList[m_iLastNodeAccessed]->Find(wVendorId, wProductId, pDeviceInfo);
   if (bResult)
     {
+    m_iLastNodeAccessed++; //Set 1-based search index
     break;
     }
-  i++;
+  m_iLastNodeAccessed++;
   }
-m_iLastNodeAccessed = i + 1; //Set 1-based search index
+
+if (pDeviceInfo != NULL)
+  {
+  if(bResult)
+    pDeviceInfo->m_nPortNo[USB_ROOTLEVEL] = m_iLastNodeAccessed;
+  else
+    {
+    pDeviceInfo->m_nTierLevel = USB_ROOTLEVEL;
+    ZeroMemory(pDeviceInfo->m_nPortNo, sizeof(pDeviceInfo->m_nPortNo));
+    }
+  }
+
 return bResult;
 }
 
@@ -551,12 +565,11 @@ if (IsVendor(wVendorId) && IsProduct(wProductId))
     *((CUsbId*)pDeviceInfo)    = *(USBID*)this   ;
     pDeviceInfo->m_bHub        = m_bHub          ;        
     pDeviceInfo->m_eStatus     = m_eStatus       ;
-    pDeviceInfo->m_strVendor   = _T("N/A")       ;
+    pDeviceInfo->m_strVendor   = _T("N/A")       ; //TODO: get string from list of known vendors (Intel, etc)
     pDeviceInfo->m_strProduct  = m_strDescription;  
     pDeviceInfo->m_strSerialNo = _T("N/A")       ;
-
-#pragma todo check port no, serno
     }
+  m_iLastNodeAccessed = -1;
   bResult = true;
   }
 else //Check for the match among attached devices
@@ -567,10 +580,10 @@ else //Check for the match among attached devices
   #pragma warning (default: 4127)
 
   //Search through all hub's ports for the required unit
-  int i = 0;
-  while(i < (int)m_usbNodeList.GetCount())
+  m_iLastNodeAccessed = 1; //Set 1-based search index
+  while(m_iLastNodeAccessed <= (int)m_usbNodeList.GetCount())
     {
-    CUsbDevice* pUsbNode = m_usbNodeList[i];
+    CUsbDevice* pUsbNode = m_usbNodeList[m_iLastNodeAccessed - 1];
     if (pUsbNode != NULL)
       {
       //TODO: check for USBVID_ANY
@@ -581,73 +594,104 @@ else //Check for the match among attached devices
           {
           //Validate port number
           if (pDeviceInfo->m_nPortNo > 0)
-            bResult = (pDeviceInfo->m_nPortNo == (uint16_t)(i + 1));
+            bResult = (pDeviceInfo->m_nPortNo == (uint16_t)m_iLastNodeAccessed);
           else //Ignore port number
             {
             bResult = true;
             }
 
-          //Disable warning C4127: conditional expression in ASSERT is constant
-          #pragma warning (disable: 4127)
-            //Get device string descriptors
-            ASSERT(!m_strDevice.IsEmpty());
-          #pragma warning (default: 4127)
-          HANDLE hHub = CreateFile(m_strDevice,
-                                    GENERIC_WRITE,
-                                    FILE_SHARE_WRITE,
-                                    NULL,//if lpSecurityAttributes is NULL,
-                                         //the handle cannot be inherited.
-                                    OPEN_EXISTING,
-                                    0,
-                                    NULL);
-          if (hHub != INVALID_HANDLE_VALUE)
+          if (bResult) //Get string descriptions if any
             {
-            extern bool GetUsbPortInfo(const HANDLE hHub,
-                            const unsigned int nPortNo,
-                            PUSB_NODE_CONNECTION_INFORMATION pusbPortInfo
-                          );
-            USB_NODE_CONNECTION_INFORMATION usbPortInfo; //USB port data
-            if (GetUsbPortInfo(hHub, (unsigned int)(i + 1), &usbPortInfo))
+            //Disable warning C4127: conditional expression in ASSERT is constant
+            #pragma warning (disable: 4127)
+              //Get device string descriptors
+              ASSERT(!m_strDevice.IsEmpty());
+            #pragma warning (default: 4127)
+            HANDLE hHub = CreateFile(m_strDevice,
+                                      GENERIC_WRITE,
+                                      FILE_SHARE_WRITE,
+                                      NULL,//if lpSecurityAttributes is NULL,
+                                          //the handle cannot be inherited.
+                                      OPEN_EXISTING,
+                                      0,
+                                      NULL);
+            if (hHub != INVALID_HANDLE_VALUE)
               {
-              CString strDescriptor;
-              //Get the Serial Number
-              if (usbPortInfo.DeviceDescriptor.iSerialNumber > 0)
+              extern bool GetUsbPortInfo(const HANDLE hHub,
+                              const unsigned int nPortNo,
+                              PUSB_NODE_CONNECTION_INFORMATION pusbPortInfo
+                            );
+              USB_NODE_CONNECTION_INFORMATION usbPortInfo; //USB port data
+              if (GetUsbPortInfo(hHub, 
+                                 (unsigned int)m_iLastNodeAccessed, 
+                                 &usbPortInfo))
                 {
-                if(pUsbNode->GetStringDescriptor(hHub, 
-                                    (unsigned int)(i + 1),
-                                    usbPortInfo.DeviceDescriptor.iSerialNumber,
-                                    0,
-                                    strDescriptor))
+                CString strDescriptor;
+                //Get the Serial Number
+                if (usbPortInfo.DeviceDescriptor.iSerialNumber > 0)
                   {
-                    //TODO
+                  if(!pUsbNode->GetStringDescriptor(hHub, 
+                                      (unsigned int)m_iLastNodeAccessed,
+                                      usbPortInfo.DeviceDescriptor.iSerialNumber,
+                                      0,
+                                      strDescriptor))
+                    {
+                    strDescriptor.Empty();
+                    }
+                  }
+
+                if (pDeviceInfo->m_strSerialNo.IsEmpty())
+                  {
+                  pDeviceInfo->m_strSerialNo = strDescriptor;
+                  }
+                else //Compare serial numbers
+                  {
+                  bResult = 
+                    ((pDeviceInfo->
+                      m_strSerialNo.CompareNoCase((LPCTSTR)strDescriptor)) == 0);
+                  }
+
+                if (bResult) //Obtain further information
+                  {
+                  //Get the vendor description
+                  if (usbPortInfo.DeviceDescriptor.iManufacturer > 0)
+                    {
+                    if(!pUsbNode->GetStringDescriptor(hHub, 
+                                        (unsigned int)m_iLastNodeAccessed,
+                                        usbPortInfo.DeviceDescriptor.iManufacturer,
+                                        0,
+                                        pDeviceInfo->m_strVendor))
+                      {
+                      pDeviceInfo->m_strVendor.Empty();
+                      }
+                    }
+
+                  //Get the product description
+                  if (usbPortInfo.DeviceDescriptor.iProduct > 0)
+                    {
+                    if(!pUsbNode->GetStringDescriptor(hHub, 
+                                        (unsigned int)m_iLastNodeAccessed,
+                                        usbPortInfo.DeviceDescriptor.iProduct,
+                                        0,
+                                        pDeviceInfo->m_strProduct))
+                      {
+                      pDeviceInfo->m_strProduct.Empty();
+                      }
+                    }
                   }
                 }
+
+              CloseHandle(hHub);
               }
 
-            if (pDeviceInfo->m_strSerialNo.IsEmpty())
+            if (bResult) //Set remaining device information
               {
-              pDeviceInfo->m_strSerialNo = _T("N/A"); //TODO: get ser no
-              bResult = true;
+              *((CUsbId*)pDeviceInfo)   = *(USBID*)pUsbNode  ;
+              pDeviceInfo->m_bHub       = pUsbNode->m_bHub   ;        
+              pDeviceInfo->m_eStatus    = pUsbNode->m_eStatus;
               }
-            else //Compare serial numbers
-              {
-              bResult = (pDeviceInfo->m_strSerialNo.CompareNoCase(_T("get ser no")) == 0);
-              }
-
-            CloseHandle(hHub);
             }
-          //TODO: check multiple conditions
 
-          if (bResult)
-            {
-            *((CUsbId*)pDeviceInfo)   = *(USBID*)pUsbNode         ;
-            pDeviceInfo->m_bHub       = pUsbNode->m_bHub          ;        
-            pDeviceInfo->m_eStatus    = pUsbNode->m_eStatus       ;
-            pDeviceInfo->m_nPortNo = (uint16_t)(i + 1); //Set one-based port Id
-            pDeviceInfo->m_strVendor  = _T("N/A")                 ;
-            pDeviceInfo->m_strProduct = pUsbNode->m_strDescription;  
-            pDeviceInfo->m_strSerialNo  = _T("N/A")               ;
-            }
           }
         else //No additional validation is required
           {
@@ -666,10 +710,13 @@ else //Check for the match among attached devices
           break;
           }
         }
+
       }
-    i++;
-    }
-  m_iLastNodeAccessed = i + 1; //Set 1-based search index
+
+    if (m_iLastNodeAccessed >= (int)m_usbNodeList.GetCount())
+      break; //Prevent node number overflow 
+    m_iLastNodeAccessed++;
+    } 
   }
 return bResult;
 }
