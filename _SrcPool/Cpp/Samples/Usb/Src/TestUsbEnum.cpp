@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.15 $ $Date: 2009/08/20 21:21:29 $
+  $Revision: 1.16 $ $Date: 2009/08/24 22:01:44 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -239,6 +239,7 @@ try
 
     //Test USB port enumeration.
     //Assumption is that system has a USB host controller.
+    CUsbId usbTestId;
     if(bResult)
       {
       TsWriteToViewLn(_T("\r\nUSB Hub(s)"));
@@ -276,6 +277,7 @@ try
             {
             usbRootHub.m_wVid = pciID.m_wVid;
             usbRootHub.m_wPid = pciID.m_wDid;
+            usbTestId = (CUsbId)usbRootHub;
             TRACE1(_T("      PCI subsystem ID: 0x%0.8X.\n"), pciID.m_dwSubsystem);
             TRACE1(_T("      PCI version:  %4d.\n"), pciID.m_cRev);
 
@@ -314,7 +316,7 @@ try
         else
           usbRootHub.m_eStatus = DeviceFailedEnumeration;
 
-        TsWriteToView(_T("number of ports = "));
+        TsWriteToView(_T("  number of ports = "));
         TsWriteToViewLn(nRootHubPortCount);
         g_logTest.LogResult(bResult);
         }
@@ -357,7 +359,7 @@ try
                                                   nPortNo,
                                                   listLang,
                                                   LISTLANGSIZE);
-              TsWriteToView(_T("number of supported languages = "));
+              TsWriteToView(_T("  number of supported languages = "));
               TsWriteToViewLn(nSupportedLangCount);
               if (GetLastError() != NO_ERROR)
                 {
@@ -372,7 +374,7 @@ try
                 while(nSupportedLangCount >0)
                   {
                   nSupportedLangCount--;
-                  TsWriteToView(_T(" Language ID: "));
+                  TsWriteToView(_T("  Language ID: "));
                   TsWriteToViewLn(listLang[nSupportedLangCount]);
                   }
 
@@ -405,13 +407,13 @@ try
                         }
                       else
                         {
-                        TsWriteToViewLn(_T(" Empty string!"));
+                        TsWriteToViewLn(_T("   Empty string!"));
                         bResultUsbStringDescriptor = true;
                         }
                       }
                     else
                       {
-                      TsWriteToView(_T(" Manufacturer: "));
+                      TsWriteToView(_T("   Manufacturer: "));
                       TsWriteToViewLn((LPCTSTR)strDescriptor);
                       bResultUsbStringDescriptor = true;
                       }
@@ -434,13 +436,13 @@ try
                         }
                       else
                         {
-                        TsWriteToViewLn(_T(" Empty string!"));
+                        TsWriteToViewLn(_T("   Empty string!"));
                         bResultUsbStringDescriptor = true;
                         }
                       }
                     else
                       {
-                      TsWriteToView(_T(" Product: "));
+                      TsWriteToView(_T("   Product: "));
                       TsWriteToViewLn((LPCTSTR)strDescriptor);
                       bResultUsbStringDescriptor = true;
                       }
@@ -463,13 +465,13 @@ try
                         }
                       else
                         {
-                        TsWriteToViewLn(_T(" Empty string!"));
+                        TsWriteToViewLn(_T("   Empty string!"));
                         bResultUsbStringDescriptor = true;
                         }
                       }
                     else
                       {
-                      TsWriteToView(_T(" Serial Number: "));
+                      TsWriteToView(_T("   Serial Number: "));
                       TsWriteToViewLn((LPCTSTR)strDescriptor);
                       bResultUsbStringDescriptor = true;
                       }
@@ -569,6 +571,16 @@ try
         TsWriteToViewLn(_T("Microsoft Basic Optical Mouse is disconnected."));
 
       bResult = true;
+
+      //Find root hub
+      if (bResult)
+        {
+        bResult = usbTree.HasDevice(usbTestId.m_wVid, usbTestId.m_wPid);
+        if(bResult)
+          TsWriteToViewLn(_T("Required HDC is connected."));
+        else
+          TsWriteToViewLn(_T("Required HDC is disabled."));
+        }
       g_logTest.LogResult(bResult); //Log object's construction
       }
 
@@ -645,6 +657,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.16  2009/08/24 22:01:44  ddarko
+ *Test finding HDC
+ *
  *Revision 1.15  2009/08/20 21:21:29  ddarko
  **** empty log message ***
  *
