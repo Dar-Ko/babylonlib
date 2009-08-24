@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.18 $ $Date: 2009/08/21 21:24:03 $
+  $Revision: 1.19 $ $Date: 2009/08/24 22:02:52 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -125,7 +125,8 @@ m_eStatus = NoDeviceConnected; //device status
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-/*
+/*Data set describing a USB device. Data respresent onaly a subset of possible
+  information abut the USB device.
  */
 class CUsbDeviceInfo : public CUsbId
 {
@@ -134,12 +135,15 @@ public:
   ~CUsbDeviceInfo();
 
 public:
-  bool m_bHub;           //device is a hub
-  USB_CONNECTION_STATUS m_eStatus; //device status
-  uint16_t m_nPortNo;    //hub port number that the device is connected to [1, n]
-  CString m_strVendor;
-  CString m_strProduct;  //description of the device
-  CString m_strSerialNo;
+  bool m_bHub;           //[out] device is a hub
+  USB_CONNECTION_STATUS m_eStatus; //[out] device status
+  int m_nPortNo[USB_TOPLEVEL - 1];  //hub port number that the device
+                                    //is connected to [1, n]
+  int m_nTierLevel;      //[out] the topmost USB tier level whith described device
+                         //[0 , USB_TOPLEVEL - 2]
+  CString m_strVendor;   //[out] manufacturer of the device
+  CString m_strProduct;  //[out} description of the device
+  CString m_strSerialNo; //[in/out] serial number of the device
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -151,8 +155,9 @@ public:
 inline CUsbDeviceInfo::CUsbDeviceInfo() :
   m_bHub(false),
   m_eStatus(NoDeviceConnected),
-  m_nPortNo(0)
+  m_nTierLevel(0)
 {
+ZeroMemory(m_nPortNo, sizeof(m_nPortNo));
 }
 
 inline CUsbDeviceInfo::~CUsbDeviceInfo()
@@ -391,7 +396,7 @@ protected:
   There always exists one hub known as the root hub, which is built into
   the host controller.
   USB supports up to seven tier levels, including the root tier and five common
-  hubs. The lowest tier supports only a single nonhub device.
+  hubs. The topmost tier supports only a single nonhub device.
 
       Tier level:    1                  2         3      ...       7
             +-USB Host Controller -+- Device
@@ -408,7 +413,7 @@ protected:
 
   There are three types of USB components: host controller, hub and device.
 
-  See also: CUsbHostController, CUsbHub, CUsbDevice
+  See also: CUsbHostController, CUsbHub, CUsbDevice, USB_TOPLEVEL
  */
 class CUsbDeviceTree
 {
@@ -494,6 +499,9 @@ m_iLastNodeAccessed = -1;
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.19  2009/08/24 22:02:52  ddarko
+ * USB tier level
+ *
  * Revision 1.18  2009/08/21 21:24:03  ddarko
  * CUsbDevice::GetStringDescriptor()
  *

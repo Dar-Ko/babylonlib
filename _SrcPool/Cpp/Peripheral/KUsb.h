@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.11 $ $Date: 2009/08/21 21:24:03 $
+  $Revision: 1.12 $ $Date: 2009/08/24 22:02:52 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -82,7 +82,18 @@
   communication bandwidth and power consumption of each device and it is
   significantly smaller than number allowed by the standard.
  */
-#define USB_MAXCOUNT  127
+#define USB_MAXCOUNT   127
+
+/*USB supports up to seven tier levels, including the root tier and five common
+  hubs. The topmost tier supports only a single nonhub device.
+  See also: CUsbDeviceTree
+ */
+#define USB_TOPLEVEL    7
+/*USB uses a tiered topology so that you can simultaneously attach up to 127
+  devices to the bus.
+  There always exists one hub known as the root hub at the lowest level.
+ */
+#define USB_ROOTLEVEL   0
 
 /*Maximum number of supported languages by a USB device.
   The size is limited with the largest number that could be stored in the
