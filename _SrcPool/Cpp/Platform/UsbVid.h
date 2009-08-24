@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid.h,v $: header file
-  $Revision: 1.5 $ $Date: 2009/08/06 19:34:38 $
+  $Revision: 1.6 $ $Date: 2009/08/24 17:53:57 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor device identification (VID) list
@@ -22,6 +22,7 @@
 
 #include "UsbVid0000.h" //USB device vendor identification (VID) template
 #include "UsbVid046D.h" //Logitech Inc.
+#include "UsbVid04B0.h" //Nikon Corporation
 #include "UsbVid04B4.h" //Cypress Semiconductor Corporation
 #include "UsbVid04CF.h" //Myson Century, Inc.
 #include "UsbVid050D.h" //Belkin Components
@@ -43,6 +44,9 @@
 #endif //_USBVID_H_
 /*****************************************************************************
  * $Log: UsbVid.h,v $
+ * Revision 1.6  2009/08/24 17:53:57  ddarko
+ * Nikon
+ *
  * Revision 1.5  2009/08/06 19:34:38  ddarko
  * RiM BlackBerry
  *
