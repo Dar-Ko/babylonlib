@@ -1166,6 +1166,9 @@
 				RelativePath="..\..\Platform\UsbVid05E0.h">
 			</File>
 			<File
+				RelativePath="..\..\Platform\UsbVid05E3.h">
+			</File>
+			<File
 				RelativePath="..\..\Platform\UsbVid078B.h">
 			</File>
 			<File

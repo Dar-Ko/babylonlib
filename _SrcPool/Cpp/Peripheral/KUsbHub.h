@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.19 $ $Date: 2009/08/24 22:02:52 $
+  $Revision: 1.20 $ $Date: 2009/08/25 21:27:15 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -112,7 +112,7 @@ return strResult;
 
 //-----------------------------------------------------------------------------
 /*Intilizes all fields to the default state.
-  All string members are emptied and device statust is set to NoDeviceConnected.
+  All string members are emptied and device status is set to NoDeviceConnected.
  */
 inline void CUsbDevice::Empty()
 {
@@ -133,17 +133,25 @@ class CUsbDeviceInfo : public CUsbId
 public:
   CUsbDeviceInfo();
   ~CUsbDeviceInfo();
+public:
+  int GetPortNo() const;
+  void SetPortNo(const int iPortId);
+  void ZeroPortNo();
+  void Empty();
 
 public:
   bool m_bHub;           //[out] device is a hub
   USB_CONNECTION_STATUS m_eStatus; //[out] device status
-  int m_nPortNo[USB_TOPLEVEL - 1];  //hub port number that the device
-                                    //is connected to [1, n]
   int m_nTierLevel;      //[out] the topmost USB tier level whith described device
-                         //[0 , USB_TOPLEVEL - 2]
+                         //[USB_ROOTLEVEL, USB_TOPLEVEL - 1]
   CString m_strVendor;   //[out] manufacturer of the device
   CString m_strProduct;  //[out} description of the device
   CString m_strSerialNo; //[in/out] serial number of the device
+
+private:
+  int m_nPortNo[USB_TOPLEVEL - 1];  //[in/out] number of the hub port number
+                                    //where the device is connected to [1, n]
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -155,13 +163,68 @@ public:
 inline CUsbDeviceInfo::CUsbDeviceInfo() :
   m_bHub(false),
   m_eStatus(NoDeviceConnected),
-  m_nTierLevel(0)
+  m_nTierLevel(USB_ROOTLEVEL)
 {
 ZeroMemory(m_nPortNo, sizeof(m_nPortNo));
 }
 
 inline CUsbDeviceInfo::~CUsbDeviceInfo()
 {
+}
+
+//-----------------------------------------------------------------------------
+/*Set a tiered, one-based port (hub node) index for the current tier level.
+  Because USB uses a tiered topology, identifying a device requires the port
+  number and tier level. The tier level is maintained by m_nTierLevel field.
+
+  See also: USB_MAXCOUNT, USB_TOPLEVEL
+ */
+inline void CUsbDeviceInfo::SetPortNo(const int iPortId //[in] hub port number
+                                      //in the range [1, n]
+                                     )
+{
+#pragma warning (disable: 4127)
+  ASSERT((m_nTierLevel >= USB_ROOTLEVEL) && (m_nTierLevel <= (USB_TOPLEVEL - 1)));
+#pragma warning (default: 4127)
+m_nPortNo[m_nTierLevel - 1] = iPortId;
+}
+
+//-----------------------------------------------------------------------------
+/*Returns USB hub port (node) index for the current tier level.
+ */
+inline int CUsbDeviceInfo::GetPortNo() const
+{
+#pragma warning (disable: 4127)
+  ASSERT((m_nTierLevel >= USB_ROOTLEVEL) && (m_nTierLevel <= (USB_TOPLEVEL - 1)));
+#pragma warning (default: 4127)
+return m_nPortNo[m_nTierLevel - 1];
+}
+
+//-----------------------------------------------------------------------------
+/*Annulling the port indexes and the current tier level.
+
+  See also: USB_MAXCOUNT, USB_TOPLEVEL
+ */
+inline void CUsbDeviceInfo::ZeroPortNo()
+{
+ZeroMemory(m_nPortNo, sizeof(m_nPortNo));
+m_nTierLevel = USB_ROOTLEVEL;
+}
+
+//-----------------------------------------------------------------------------
+/*Intilizes all fields to the default state.
+  All string members are emptied.
+ */
+inline void CUsbDeviceInfo::Empty()
+{
+m_wVid = USBVID_ANY;           //unspecified USB vendor
+m_wPid = USBPID_ANY;           //unspecified USB product
+m_bHub = false;                //device is not a hub
+m_eStatus = NoDeviceConnected; //device status
+m_strVendor.Empty();           //manufacturer of the device
+m_strProduct.Empty();          //description of the device
+m_strSerialNo.Empty();         //serial number of the device
+ZeroPortNo();                  //hub node index
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -248,7 +311,7 @@ CArray<CUsbDevice*>::RemoveAll();
   A USB hub is a device that allows many USB devices to be connected to a
   single USB port on the host computer or another hub.
 
-  Hub Provides multiple ports, for attaching devices to the USB bus.
+  Hub provides multiple ports, for attaching devices to the USB bus.
   Hubs are also responsible for detecting devices that are plugged in or
   unplugged and for providing power for attached devices.
   Hubs are either bus-powered, drawing power directly from the USB bus or
@@ -499,6 +562,9 @@ m_iLastNodeAccessed = -1;
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.20  2009/08/25 21:27:15  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.19  2009/08/24 22:02:52  ddarko
  * USB tier level
  *

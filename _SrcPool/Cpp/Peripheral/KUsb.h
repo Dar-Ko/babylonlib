@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.12 $ $Date: 2009/08/24 22:02:52 $
+  $Revision: 1.13 $ $Date: 2009/08/25 21:27:15 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -93,7 +93,7 @@
   devices to the bus.
   There always exists one hub known as the root hub at the lowest level.
  */
-#define USB_ROOTLEVEL   0
+#define USB_ROOTLEVEL   1
 
 /*Maximum number of supported languages by a USB device.
   The size is limited with the largest number that could be stored in the

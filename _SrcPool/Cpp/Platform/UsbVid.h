@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid.h,v $: header file
-  $Revision: 1.6 $ $Date: 2009/08/24 17:53:57 $
+  $Revision: 1.7 $ $Date: 2009/08/25 21:26:34 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor device identification (VID) list
@@ -27,6 +27,7 @@
 #include "UsbVid04CF.h" //Myson Century, Inc.
 #include "UsbVid050D.h" //Belkin Components
 #include "UsbVid05E0.h" //Motorola Symbol Technologies
+#include "UsbVid05E3.h" //Genesys Logic, Inc.
 #include "UsbVid078B.h" //Suzo-Happ Group
 #include "UsbVid0801.h" //Mag-Tek
 #include "UsbVid0839.h" //Samsung Tecwin Co.
@@ -44,6 +45,9 @@
 #endif //_USBVID_H_
 /*****************************************************************************
  * $Log: UsbVid.h,v $
+ * Revision 1.7  2009/08/25 21:26:34  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.6  2009/08/24 17:53:57  ddarko
  * Nikon
  *

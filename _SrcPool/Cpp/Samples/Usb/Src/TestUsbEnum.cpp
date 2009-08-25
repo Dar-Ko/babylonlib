@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.16 $ $Date: 2009/08/24 22:01:44 $
+  $Revision: 1.17 $ $Date: 2009/08/25 21:28:57 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -589,30 +589,45 @@ try
       g_logTest.m_szObjectName = _T("CUsbDeviceTree::GetDevice()");
       g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
       TCHAR szMsg[1024];
-      //Get information about device
+      #ifdef _UNICODE
+        LPCWSTR szFormat= L"Device (%#0.4X, %#0.4X) is connected:\n%ws\n%ws\n%ws\nport: %d\n";
+      #else
+        LPCSTR szFormat= "Device (%#0.4X, %#0.4X) is connected:\n%s\n%s\n%s\nport: %d\n";
+      #endif
+      //Test obtaining information about device
       CUsbDeviceInfo usbDeviceInfo;
-      if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
+
+      //Get USB Host Controller information
+      bResult = usbTree.GetDevice(usbTestId.m_wVid, usbTestId.m_wPid, &usbDeviceInfo); 
+      if (bResult)
         {
-        #ifdef _UNICODE
-          LPCWSTR szFormat= L"Device (%0.4X, %0.4X) is connected:\n%ws\n%ws\n%ws\nport: %d\n";
-        #else
-          LPCSTR szFormat= "Device (%0.4X, %0.4X) is connected:\n%s\n%s\n%s\nport: %d\n";
-        #endif
         _stprintf(szMsg, szFormat, 
                     usbDeviceInfo.m_wVid, usbDeviceInfo.m_wPid,
                     (LPCTSTR)usbDeviceInfo.m_strProduct,
                     (LPCTSTR)usbDeviceInfo.m_strVendor,
                     (LPCTSTR)usbDeviceInfo.m_strSerialNo,
-                    usbDeviceInfo.m_nPortNo
-                   );
-        }
-      else
-        {
-        _stprintf(szMsg, _T("Device (%0.4X, %0.4X,) is disconnected"),
-                  nVendorId, nProductId);
-        }
-      TsWriteToViewLn(szMsg);
+                    usbDeviceInfo.GetPortNo()
+                  );
+        TsWriteToViewLn(szMsg);
 
+        usbDeviceInfo.Empty();
+        if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
+          {
+          _stprintf(szMsg, szFormat, 
+                      usbDeviceInfo.m_wVid, usbDeviceInfo.m_wPid,
+                      (LPCTSTR)usbDeviceInfo.m_strProduct,
+                      (LPCTSTR)usbDeviceInfo.m_strVendor,
+                      (LPCTSTR)usbDeviceInfo.m_strSerialNo,
+                      usbDeviceInfo.GetPortNo()
+                    );
+          }
+        else
+          {
+            _stprintf(szMsg, _T("Device (%#0.4X, %#0.4X) is disconnected"),
+                    nVendorId, nProductId);
+          }
+        TsWriteToViewLn(szMsg);
+        }
       bResult = true;
       g_logTest.LogResult(bResult); //Log object's construction
       }
@@ -657,6 +672,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.17  2009/08/25 21:28:57  ddarko
+ **** empty log message ***
+ *
  *Revision 1.16  2009/08/24 22:01:44  ddarko
  *Test finding HDC
  *

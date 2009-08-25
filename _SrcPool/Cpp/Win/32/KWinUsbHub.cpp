@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.25 $ $Date: 2009/08/24 22:02:23 $
+  $Revision: 1.26 $ $Date: 2009/08/25 21:28:33 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -136,28 +136,47 @@ if (m_usbRootList.IsEmpty())
   Enumerate();
 
 if (pDeviceInfo != NULL)
-  pDeviceInfo->m_nTierLevel = USB_ROOTLEVEL + 1; //
+  {
+  //Look only the specified root hub node.
+  pDeviceInfo->m_nTierLevel = USB_ROOTLEVEL;
+  m_iLastNodeAccessed = pDeviceInfo->GetPortNo();
+  if (m_iLastNodeAccessed > 0)
+    {
+      //TODO state mashine
+    if (m_iLastNodeAccessed <= m_usbRootList.GetCount())
+      bResult = m_usbRootList[m_iLastNodeAccessed - 1]->Find(wVendorId, 
+                                                             wProductId,
+                                                             pDeviceInfo);
+    return bResult;
+    }
+  }
+
+//Search for the specified device at any port
 m_iLastNodeAccessed = 0;
 while (m_iLastNodeAccessed < (int)m_usbRootList.GetCount())
   {
-  bResult = m_usbRootList[m_iLastNodeAccessed]->Find(wVendorId, wProductId, pDeviceInfo);
+  if (pDeviceInfo != NULL)
+    {
+    pDeviceInfo->ZeroPortNo(); //Set root tier level
+    pDeviceInfo->SetPortNo(m_iLastNodeAccessed + 1); //Set 1-based root hub port index
+    }
+
+  bResult = m_usbRootList[m_iLastNodeAccessed]->Find(wVendorId, 
+                                                     wProductId,
+                                                     pDeviceInfo);
   if (bResult)
     {
-    m_iLastNodeAccessed++; //Set 1-based search index
+    //Set 1-based search index representing the last port accessed
+    m_iLastNodeAccessed++;
     break;
     }
   m_iLastNodeAccessed++;
   }
 
-if (pDeviceInfo != NULL)
+if ((pDeviceInfo != NULL) && (!bResult))
   {
-  if(bResult)
-    pDeviceInfo->m_nPortNo[USB_ROOTLEVEL] = m_iLastNodeAccessed;
-  else
-    {
-    pDeviceInfo->m_nTierLevel = USB_ROOTLEVEL;
-    ZeroMemory(pDeviceInfo->m_nPortNo, sizeof(pDeviceInfo->m_nPortNo));
-    }
+  //The desired device is not found.
+  pDeviceInfo->ZeroPortNo();
   }
 
 return bResult;
@@ -554,6 +573,14 @@ TRACE2(_T("  CUsbHub::Find(0x%4.4X, 0x%4.4X)\n"), wVendorId, wProductId);
 #ifdef _DEBUG
   m_usbNodeList.Dump();
 #endif
+/*Port ID Search state table
+  0 1 2 3 4 5 6  tier
+  0:x:x:x:x:x:x  search all possible ports
+  i:0:x:x:x:x:x  search only root hub node i
+  i:j:0:x:x:x:x  search only extern hub node i:j
+  i:j:k:0:x:x:x  search only extern hub node i:j:k
+  ...
+ */
 
 bool bResult = false;
 //TODO: check for USBVID_ANY
@@ -565,9 +592,13 @@ if (IsVendor(wVendorId) && IsProduct(wProductId))
     *((CUsbId*)pDeviceInfo)    = *(USBID*)this   ;
     pDeviceInfo->m_bHub        = m_bHub          ;        
     pDeviceInfo->m_eStatus     = m_eStatus       ;
-    pDeviceInfo->m_strVendor   = _T("N/A")       ; //TODO: get string from list of known vendors (Intel, etc)
+    pDeviceInfo->m_strVendor   = _T("N/A")       ; //TODO: get string from list of known HDC vendors (Intel, etc)
     pDeviceInfo->m_strProduct  = m_strDescription;  
     pDeviceInfo->m_strSerialNo = _T("N/A")       ;
+    //if ( not root hub or last tier)
+    //  {
+    //  TODO: Get string descriptors 
+    //  }
     }
   m_iLastNodeAccessed = -1;
   bResult = true;
@@ -578,6 +609,12 @@ else //Check for the match among attached devices
   #pragma warning (disable: 4127)
     ASSERT(USB_MAXCOUNT >= GetPortCount()); //Check sanity
   #pragma warning (default: 4127)
+  
+  if (pDeviceInfo != NULL)
+    {
+    pDeviceInfo->m_nTierLevel++; //Set the current tier level
+    m_iLastNodeAccessed = pDeviceInfo->GetPortNo()
+    }
 
   //Search through all hub's ports for the required unit
   m_iLastNodeAccessed = 1; //Set 1-based search index
@@ -593,8 +630,8 @@ else //Check for the match among attached devices
         if(pDeviceInfo != NULL)
           {
           //Validate port number
-          if (pDeviceInfo->m_nPortNo > 0)
-            bResult = (pDeviceInfo->m_nPortNo == (uint16_t)m_iLastNodeAccessed);
+          if (pDeviceInfo->GetPortNo() > 0)
+            bResult = (pDeviceInfo->GetPortNo() == m_iLastNodeAccessed);
           else //Ignore port number
             {
             bResult = true;
@@ -689,6 +726,7 @@ else //Check for the match among attached devices
               *((CUsbId*)pDeviceInfo)   = *(USBID*)pUsbNode  ;
               pDeviceInfo->m_bHub       = pUsbNode->m_bHub   ;        
               pDeviceInfo->m_eStatus    = pUsbNode->m_eStatus;
+              pDeviceInfo->SetPortNo(m_iLastNodeAccessed);
               }
             }
 
