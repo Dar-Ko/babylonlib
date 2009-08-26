@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.20 $ $Date: 2009/08/25 21:27:15 $
+  $Revision: 1.21 $ $Date: 2009/08/26 21:51:06 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -136,7 +136,9 @@ public:
 public:
   int GetPortNo() const;
   void SetPortNo(const int iPortId);
+  void SetPortNo(const unsigned int nTier, const int iPortId);
   void ZeroPortNo();
+  int SearchTier() const;
   void Empty();
 
 public:
@@ -177,6 +179,8 @@ inline CUsbDeviceInfo::~CUsbDeviceInfo()
   Because USB uses a tiered topology, identifying a device requires the port
   number and tier level. The tier level is maintained by m_nTierLevel field.
 
+  Note: if tier level is out of proper range, the port index is not set.
+
   See also: USB_MAXCOUNT, USB_TOPLEVEL
  */
 inline void CUsbDeviceInfo::SetPortNo(const int iPortId //[in] hub port number
@@ -186,7 +190,24 @@ inline void CUsbDeviceInfo::SetPortNo(const int iPortId //[in] hub port number
 #pragma warning (disable: 4127)
   ASSERT((m_nTierLevel >= USB_ROOTLEVEL) && (m_nTierLevel <= (USB_TOPLEVEL - 1)));
 #pragma warning (default: 4127)
-m_nPortNo[m_nTierLevel - 1] = iPortId;
+if ((m_nTierLevel >= USB_ROOTLEVEL) && (m_nTierLevel <= (USB_TOPLEVEL - 1)))
+  m_nPortNo[m_nTierLevel - 1] = iPortId;
+}
+
+/*Set a tiered, one-based port (hub node) index for the given tier level.
+  If tier level is out of proper range, the port index is not set.
+ */
+inline void CUsbDeviceInfo::SetPortNo(const unsigned int nTier, //[in] USB tier
+                                      //level [USB_ROOTLEVEL, USB_TOPLEVEL - 1]
+                                      const int iPortId //[in] hub port number
+                                      //in the range [1, n]
+                                     )
+{
+#pragma warning (disable: 4127)
+  ASSERT((nTier >= USB_ROOTLEVEL) && (nTier <= (USB_TOPLEVEL - 1)));
+#pragma warning (default: 4127)
+if ((nTier >= USB_ROOTLEVEL) && (nTier <= (USB_TOPLEVEL - 1)))
+  m_nPortNo[nTier - 1] = iPortId;
 }
 
 //-----------------------------------------------------------------------------
@@ -209,6 +230,38 @@ inline void CUsbDeviceInfo::ZeroPortNo()
 {
 ZeroMemory(m_nPortNo, sizeof(m_nPortNo));
 m_nTierLevel = USB_ROOTLEVEL;
+}
+
+//-----------------------------------------------------------------------------
+/*Port ID Search state table
+      1 2 3 4 5 6  tier
+      0:x:x:x:x:x  search all possible ports
+      i:0:x:x:x:x  search only root hub node i
+      i:j:0:x:x:x  search only extern hub node i:j
+      i:j:k:0:x:x  search only extern hub node i:j:k
+      ...
+
+  Note: current tier level is maintained by m_nTierLevel member.
+  
+  Returns positive number (1) if required device could be connected to any port;
+  zero (0) if required device have to be connectected on specified port at 
+  the current tier level or negative number (-1) if the search should include 
+  the tier above the current one.
+*/
+inline int CUsbDeviceInfo::SearchTier() const
+{
+if (m_nPortNo[USB_ROOTLEVEL - 1] == 0)
+  return 1; //Look for the device anywhere
+else
+  {
+  //Note: port numbers should be in the range [1, USB_MAXCOUNT]; value 0 have
+  //      special meaning for root tier and different for other levels.
+  //Note: tier levels have one-based indexes.
+  if (m_nPortNo[m_nTierLevel] == 0)
+    return 0; //Stop search on this tier level
+  else
+    return -1; //Search in the next tier level
+  }
 }
 
 //-----------------------------------------------------------------------------
@@ -334,17 +387,21 @@ public:
   CUsbHub(const CUsbDevice& usbSrc);
   ~CUsbHub();
   unsigned int Enumerate(LPCTSTR szDevicePath);
-  bool Find(const uint16_t wVendorId,
-            const uint16_t wProductId,
-            CUsbDeviceInfo* pDeviceInfo = NULL);
-  bool FindNext(const uint16_t wVendorId,
-                const uint16_t wProductId,
-                CUsbDeviceInfo* pDeviceInfo = NULL);
   uint16_t GetPortCount() const;
   USB_CONNECTION_STATUS GetStatus(const uint16_t nPortNo) const;
+  virtual bool Find(const uint16_t wVendorId,
+            const uint16_t wProductId,
+            CUsbDeviceInfo* pDeviceInfo = NULL);
+  //virtual bool FindNext(const uint16_t wVendorId,
+  //              const uint16_t wProductId,
+  //              CUsbDeviceInfo* pDeviceInfo = NULL);
 
 protected:
   void Erase();
+  virtual bool Match(CUsbDevice* pusbDevice, 
+                     const uint16_t wVendorId,
+                     const uint16_t wProductId,
+                     CUsbDeviceInfo* pDeviceInfo = NULL); 
 
 protected:
   CUsbDeviceArray m_usbNodeList; //hub node connections (ports)
@@ -441,6 +498,11 @@ public:
 
 protected:
   bool GetRootHub(LPCTSTR szDevicePath, CString& strRootHubPath);
+  virtual bool Match(CUsbDevice* pusbDevice, 
+                     const uint16_t wVendorId,
+                     const uint16_t wProductId,
+                     CUsbDeviceInfo* pDeviceInfo = NULL); 
+
 };
 
 #ifdef _USE_ATL
@@ -562,6 +624,9 @@ m_iLastNodeAccessed = -1;
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.21  2009/08/26 21:51:06  ddarko
+ * Match()
+ *
  * Revision 1.20  2009/08/25 21:27:15  ddarko
  * *** empty log message ***
  *
