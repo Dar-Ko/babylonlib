@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid.h,v $: header file
-  $Revision: 1.7 $ $Date: 2009/08/25 21:26:34 $
+  $Revision: 1.8 $ $Date: 2009/08/27 14:18:45 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor device identification (VID) list
@@ -26,6 +26,7 @@
 #include "UsbVid04B4.h" //Cypress Semiconductor Corporation
 #include "UsbVid04CF.h" //Myson Century, Inc.
 #include "UsbVid050D.h" //Belkin Components
+#include "UsbVid058F.h" //Alcor Micro, Corp.
 #include "UsbVid05E0.h" //Motorola Symbol Technologies
 #include "UsbVid05E3.h" //Genesys Logic, Inc.
 #include "UsbVid078B.h" //Suzo-Happ Group
@@ -45,6 +46,9 @@
 #endif //_USBVID_H_
 /*****************************************************************************
  * $Log: UsbVid.h,v $
+ * Revision 1.8  2009/08/27 14:18:45  ddarko
+ * Alcor Micro, Corp.
+ *
  * Revision 1.7  2009/08/25 21:26:34  ddarko
  * *** empty log message ***
  *
