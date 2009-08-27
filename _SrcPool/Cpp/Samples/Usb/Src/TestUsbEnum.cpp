@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.17 $ $Date: 2009/08/25 21:28:57 $
+  $Revision: 1.18 $ $Date: 2009/08/27 22:00:25 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -351,6 +351,7 @@ try
           unsigned int nSupportedLangCount = 0;
           int nPortNo = 1;
           USB_NODE_CONNECTION_INFORMATION usbPortInfo; //USB port data
+          bResultUsbStringDescriptor = true;
           while(nPortNo <= usbRootHub.GetPortCount())
             {
             if (usbRootHub.GetStatus((uint16_t)nPortNo) != NoDeviceConnected)
@@ -590,9 +591,9 @@ try
       g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
       TCHAR szMsg[1024];
       #ifdef _UNICODE
-        LPCWSTR szFormat= L"Device (%#0.4X, %#0.4X) is connected:\n%ws\n%ws\n%ws\nport: %d\n";
+        LPCWSTR szFormat= L"Device (%#0.4x, %#0.4x) is connected:\n%ws\n%ws\n%ws\nport: %d\n";
       #else
-        LPCSTR szFormat= "Device (%#0.4X, %#0.4X) is connected:\n%s\n%s\n%s\nport: %d\n";
+        LPCSTR szFormat= "Device (%#0.4x, %#0.4x) is connected:\n%s\n%s\n%s\nport: %d\n";
       #endif
       //Test obtaining information about device
       CUsbDeviceInfo usbDeviceInfo;
@@ -609,26 +610,59 @@ try
                     usbDeviceInfo.GetPortNo()
                   );
         TsWriteToViewLn(szMsg);
-
-        usbDeviceInfo.Empty();
-        if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
+        
+        //Get USB Host Controller information with root hub Id as a filter
+        bResult = usbTree.GetDevice(usbTestId.m_wVid, usbTestId.m_wPid, &usbDeviceInfo);
+        if (bResult)
           {
-          _stprintf(szMsg, szFormat, 
-                      usbDeviceInfo.m_wVid, usbDeviceInfo.m_wPid,
-                      (LPCTSTR)usbDeviceInfo.m_strProduct,
-                      (LPCTSTR)usbDeviceInfo.m_strVendor,
-                      (LPCTSTR)usbDeviceInfo.m_strSerialNo,
-                      usbDeviceInfo.GetPortNo()
-                    );
-          }
-        else
-          {
-            _stprintf(szMsg, _T("Device (%#0.4X, %#0.4X) is disconnected"),
+          //Test obtaining device information
+          usbDeviceInfo.Empty(); //Erase all filters
+          if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
+            {
+            _stprintf(szMsg, szFormat, 
+                        usbDeviceInfo.m_wVid, usbDeviceInfo.m_wPid,
+                        (LPCTSTR)usbDeviceInfo.m_strProduct,
+                        (LPCTSTR)usbDeviceInfo.m_strVendor,
+                        (LPCTSTR)usbDeviceInfo.m_strSerialNo,
+                        usbDeviceInfo.GetPortNo()
+                      );
+            }
+          else
+            {
+            _stprintf(szMsg, _T("Device (%#0.4x, %#0.4x) is disconnected"),
                     nVendorId, nProductId);
+            }
+          TsWriteToViewLn(szMsg);
+
+          //Test finding the device with certain serial number
+          usbDeviceInfo.ZeroPortNo();
+          usbDeviceInfo.m_strSerialNo = L"Darko";
+          if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
+            {
+            _stprintf(szMsg, szFormat, 
+                        usbDeviceInfo.m_wVid, usbDeviceInfo.m_wPid,
+                        (LPCTSTR)usbDeviceInfo.m_strProduct,
+                        (LPCTSTR)usbDeviceInfo.m_strVendor,
+                        (LPCTSTR)usbDeviceInfo.m_strSerialNo,
+                        usbDeviceInfo.GetPortNo()
+                      );
+            }
+          else
+            {
+            #ifdef _UNICODE
+              _stprintf(szMsg, _T("Device (%#0.4x, %#0.4x) S/N %ws is disconnected"),
+                        nVendorId, nProductId, (LPCTSTR) usbDeviceInfo.m_strSerialNo);
+            #else
+              _stprintf(szMsg, _T("Device (%#0.4x, %#0.4x) S/N %s is disconnected"),
+                        nVendorId, nProductId, (LPCTSTR) usbDeviceInfo.m_strSerialNo);
+            #endif
+            }
+          TsWriteToViewLn(szMsg);
+
+
+          bResult = true;
           }
-        TsWriteToViewLn(szMsg);
         }
-      bResult = true;
       g_logTest.LogResult(bResult); //Log object's construction
       }
 
@@ -672,6 +706,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.18  2009/08/27 22:00:25  ddarko
+ *Port number filter
+ *
  *Revision 1.17  2009/08/25 21:28:57  ddarko
  **** empty log message ***
  *

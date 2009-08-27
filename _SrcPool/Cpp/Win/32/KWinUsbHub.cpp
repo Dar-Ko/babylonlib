@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.27 $ $Date: 2009/08/26 21:50:50 $
+  $Revision: 1.28 $ $Date: 2009/08/27 22:00:00 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -160,21 +160,20 @@ while (m_iLastNodeAccessed < (int)m_usbRootList.GetCount())
   {
   if (pDeviceInfo != NULL)
     {
-    pDeviceInfo->ZeroPortNo(); //Set root tier level
+    pDeviceInfo->m_nTierLevel = USB_ROOTLEVEL; //Set root tier level
     }
 
   bResult = m_usbRootList[m_iLastNodeAccessed]->Find(wVendorId, 
                                                      wProductId,
                                                      pDeviceInfo);
+  //Set 1-based search index representing the last port accessed
+  m_iLastNodeAccessed++;
   if (bResult)
     {
-    //Set 1-based search index representing the last port accessed
-    m_iLastNodeAccessed++;
     if (pDeviceInfo != NULL)  //Set 1-based root hub port index
       pDeviceInfo->SetPortNo(USB_ROOTLEVEL, m_iLastNodeAccessed);
     break;
     }
-  m_iLastNodeAccessed++;
   }
 
 if ((pDeviceInfo != NULL) && (!bResult))
@@ -307,12 +306,11 @@ bool CUsbHostController::Match(CUsbDevice* pusbDevice,    //[in] the device
                     //and additional filtering
                     ) 
 {
-TRACE2(_T("    CUsbHostController::Match(%#4.4X, %#4.4X)\n"), wVendorId, wProductId);
+TRACE2(_T("    CUsbHostController::Match(%#4.4x, %#4.4x)\n"), wVendorId, wProductId);
 bool bResult = false;
 
 //TODO: check for USBVID_ANY
-if ((pusbDevice != NULL)            &&
-    pusbDevice->IsVendor(wVendorId) &&
+if (pusbDevice->IsVendor(wVendorId) &&
     pusbDevice->IsProduct(wProductId) )
   {
   //This hub is the requested USB device
@@ -618,13 +616,13 @@ bool CUsbHub::Match(CUsbDevice* pusbDevice,    //[in] the device
                     //and additional filtering
                     ) 
 {
-TRACE2(_T("    CUsbHub::Match(%#4.4X, %#4.4X)\n"), wVendorId, wProductId);
+TRACE2(_T("    CUsbHub::Match(%#4.4x, %#4.4x)\n"), wVendorId, wProductId);
 bool bResult = false;
 //TODO: check for USBVID_ANY
-if ((pusbDevice != NULL)            &&
-    pusbDevice->IsVendor(wVendorId) &&
+if (pusbDevice->IsVendor(wVendorId) &&
     pusbDevice->IsProduct(wProductId) )
   {
+  bResult = true; //Requested and device IDs are matched
   if(pDeviceInfo != NULL)
     {
     //Note: only serial number is validated; the port number is not validated
@@ -731,13 +729,13 @@ if ((pusbDevice != NULL)            &&
       pDeviceInfo->m_eStatus    = pusbDevice->m_eStatus;
       //pDeviceInfo->SetPortNo(m_iLastNodeAccessed);
       }
-//  }
+    }
 
-    }
-  else //No additional validation is required
-    {
-    bResult = true;
-    }
+//    }
+//  else //No additional validation is required
+//    {
+//    bResult = true;
+//    }
   }
 
 return bResult;
@@ -805,19 +803,25 @@ if (pDeviceInfo != NULL)
     bResult = Match(this, wVendorId, wProductId, pDeviceInfo);   
     return bResult;
     }
-  
-  //By default, browse whole USB tree starting from next level
-  pDeviceInfo->m_nTierLevel++;
   }
 
-//------------------------------------------
-//Check for the match among attached devices
+if (Match(this, wVendorId, wProductId, pDeviceInfo))
   {
+  //This hub is the requested USB device
+  bResult = true;
+  }
+else //Check for the match among attached devices
+  {
+  int iUsbTier = -1; //index for the current tier level 
   //Disable warning C4127: conditional expression in ASSERT is constant
   #pragma warning (disable: 4127)
     ASSERT(USB_MAXCOUNT >= GetPortCount()); //Check sanity
   #pragma warning (default: 4127)
-  
+
+  //By default, browse whole USB tree starting from next level
+  if (pDeviceInfo != NULL)
+    iUsbTier = ++pDeviceInfo->m_nTierLevel;
+
   //Search through all hub's ports for the required unit
   m_iLastNodeAccessed = 1; //Set 1-based search index
   while(m_iLastNodeAccessed <= (int)m_usbNodeList.GetCount())
@@ -825,23 +829,22 @@ if (pDeviceInfo != NULL)
     CUsbDevice* pUsbNode = m_usbNodeList[m_iLastNodeAccessed - 1];
     if (pUsbNode != NULL)
       {
-      bResult = Match(pUsbNode, wVendorId, wProductId, pDeviceInfo);
+      bResult = CUsbHub::Match(pUsbNode, wVendorId, wProductId, pDeviceInfo);
+      if(!bResult)
+        {
+        if (pUsbNode->m_bHub) //Search through attached external hub
+          {
+          bResult = ((CUsbHub*)pUsbNode)->Find(wVendorId, wProductId, pDeviceInfo);
+          }
+        }
+
       if (bResult)
         {
         if(pDeviceInfo != NULL) //Set remaining device information
           {
-          pDeviceInfo->SetPortNo(m_iLastNodeAccessed);
+          pDeviceInfo->SetPortNo(iUsbTier, m_iLastNodeAccessed);
           }
-        break;
-        }
-
-      if (pUsbNode->m_bHub) //Search through attached external hub
-        {
-        if ( ((CUsbHub*)pUsbNode)->Find(wVendorId, wProductId, pDeviceInfo) )
-          {
-          bResult = true;
-          break;
-          }
+        break; //Match found 
         }
       }
 
@@ -850,6 +853,7 @@ if (pDeviceInfo != NULL)
     m_iLastNodeAccessed++;
     } 
   }
+
 return bResult;
 }
 
