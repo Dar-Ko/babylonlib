@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.21 $ $Date: 2009/08/26 21:51:06 $
+  $Revision: 1.22 $ $Date: 2009/08/28 21:08:01 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -30,10 +30,10 @@
 LPCTSTR GetUsbStatus(const USB_CONNECTION_STATUS& eStatus);
 
 ///////////////////////////////////////////////////////////////////////////////
-/*USB Device Information container.
-  A USB device is attached to the hub a port.
+/*USB Device descriptor handler.
   A USB device can be any kind of peripheral device, such as a keyboard, mouse,
-  game controller, printer, USB hub and so forth.
+  game controller, printer, USB hub and so forth. USB devices are connected
+  to the system through the ports on the USB hub.
  */
 class CUsbDevice : public CUsbId
 {
@@ -88,7 +88,7 @@ inline CUsbDevice::~CUsbDevice()
 
   Returns text representation of a BCD number.
  */
-inline CString CUsbDevice::Bcd2Str(const uint16_t nBcd //[in] binary 8421 coded 
+inline CString CUsbDevice::Bcd2Str(const uint16_t nBcd //[in] binary 8421 coded
                                                        //decimal number
                                    )
 {
@@ -111,7 +111,7 @@ return strResult;
 }
 
 //-----------------------------------------------------------------------------
-/*Intilizes all fields to the default state.
+/*Initializes all fields to the default state.
   All string members are emptied and device status is set to NoDeviceConnected.
  */
 inline void CUsbDevice::Empty()
@@ -122,162 +122,6 @@ m_strDevice.Empty();           //USB device path
 m_strDescription.Empty();      //description of the device
 m_bHub = false;                //device is not a hub
 m_eStatus = NoDeviceConnected; //device status
-}
-
-///////////////////////////////////////////////////////////////////////////////
-/*Data set describing a USB device. Data respresent onaly a subset of possible
-  information abut the USB device.
- */
-class CUsbDeviceInfo : public CUsbId
-{
-public:
-  CUsbDeviceInfo();
-  ~CUsbDeviceInfo();
-public:
-  int GetPortNo() const;
-  void SetPortNo(const int iPortId);
-  void SetPortNo(const unsigned int nTier, const int iPortId);
-  void ZeroPortNo();
-  int SearchTier() const;
-  void Empty();
-
-public:
-  bool m_bHub;           //[out] device is a hub
-  USB_CONNECTION_STATUS m_eStatus; //[out] device status
-  int m_nTierLevel;      //[out] the topmost USB tier level whith described device
-                         //[USB_ROOTLEVEL, USB_TOPLEVEL - 1]
-  CString m_strVendor;   //[out] manufacturer of the device
-  CString m_strProduct;  //[out} description of the device
-  CString m_strSerialNo; //[in/out] serial number of the device
-
-private:
-  int m_nPortNo[USB_TOPLEVEL - 1];  //[in/out] number of the hub port number
-                                    //where the device is connected to [1, n]
-
-};
-
-///////////////////////////////////////////////////////////////////////////////
-// Inlines
-
-//-----------------------------------------------------------------------------
-/*
- */
-inline CUsbDeviceInfo::CUsbDeviceInfo() :
-  m_bHub(false),
-  m_eStatus(NoDeviceConnected),
-  m_nTierLevel(USB_ROOTLEVEL)
-{
-ZeroMemory(m_nPortNo, sizeof(m_nPortNo));
-}
-
-inline CUsbDeviceInfo::~CUsbDeviceInfo()
-{
-}
-
-//-----------------------------------------------------------------------------
-/*Set a tiered, one-based port (hub node) index for the current tier level.
-  Because USB uses a tiered topology, identifying a device requires the port
-  number and tier level. The tier level is maintained by m_nTierLevel field.
-
-  Note: if tier level is out of proper range, the port index is not set.
-
-  See also: USB_MAXCOUNT, USB_TOPLEVEL
- */
-inline void CUsbDeviceInfo::SetPortNo(const int iPortId //[in] hub port number
-                                      //in the range [1, n]
-                                     )
-{
-#pragma warning (disable: 4127)
-  ASSERT((m_nTierLevel >= USB_ROOTLEVEL) && (m_nTierLevel <= (USB_TOPLEVEL - 1)));
-#pragma warning (default: 4127)
-if ((m_nTierLevel >= USB_ROOTLEVEL) && (m_nTierLevel <= (USB_TOPLEVEL - 1)))
-  m_nPortNo[m_nTierLevel - 1] = iPortId;
-}
-
-/*Set a tiered, one-based port (hub node) index for the given tier level.
-  If tier level is out of proper range, the port index is not set.
- */
-inline void CUsbDeviceInfo::SetPortNo(const unsigned int nTier, //[in] USB tier
-                                      //level [USB_ROOTLEVEL, USB_TOPLEVEL - 1]
-                                      const int iPortId //[in] hub port number
-                                      //in the range [1, n]
-                                     )
-{
-#pragma warning (disable: 4127)
-  ASSERT((nTier >= USB_ROOTLEVEL) && (nTier <= (USB_TOPLEVEL - 1)));
-#pragma warning (default: 4127)
-if ((nTier >= USB_ROOTLEVEL) && (nTier <= (USB_TOPLEVEL - 1)))
-  m_nPortNo[nTier - 1] = iPortId;
-}
-
-//-----------------------------------------------------------------------------
-/*Returns USB hub port (node) index for the current tier level.
- */
-inline int CUsbDeviceInfo::GetPortNo() const
-{
-#pragma warning (disable: 4127)
-  ASSERT((m_nTierLevel >= USB_ROOTLEVEL) && (m_nTierLevel <= (USB_TOPLEVEL - 1)));
-#pragma warning (default: 4127)
-return m_nPortNo[m_nTierLevel - 1];
-}
-
-//-----------------------------------------------------------------------------
-/*Annulling the port indexes and the current tier level.
-
-  See also: USB_MAXCOUNT, USB_TOPLEVEL
- */
-inline void CUsbDeviceInfo::ZeroPortNo()
-{
-ZeroMemory(m_nPortNo, sizeof(m_nPortNo));
-m_nTierLevel = USB_ROOTLEVEL;
-}
-
-//-----------------------------------------------------------------------------
-/*Port ID Search state table
-      1 2 3 4 5 6  tier
-      0:x:x:x:x:x  search all possible ports
-      i:0:x:x:x:x  search only root hub node i
-      i:j:0:x:x:x  search only extern hub node i:j
-      i:j:k:0:x:x  search only extern hub node i:j:k
-      ...
-
-  Note: current tier level is maintained by m_nTierLevel member.
-  
-  Returns positive number (1) if required device could be connected to any port;
-  zero (0) if required device have to be connectected on specified port at 
-  the current tier level or negative number (-1) if the search should include 
-  the tier above the current one.
-*/
-inline int CUsbDeviceInfo::SearchTier() const
-{
-if (m_nPortNo[USB_ROOTLEVEL - 1] == 0)
-  return 1; //Look for the device anywhere
-else
-  {
-  //Note: port numbers should be in the range [1, USB_MAXCOUNT]; value 0 have
-  //      special meaning for root tier and different for other levels.
-  //Note: tier levels have one-based indexes.
-  if (m_nPortNo[m_nTierLevel] == 0)
-    return 0; //Stop search on this tier level
-  else
-    return -1; //Search in the next tier level
-  }
-}
-
-//-----------------------------------------------------------------------------
-/*Intilizes all fields to the default state.
-  All string members are emptied.
- */
-inline void CUsbDeviceInfo::Empty()
-{
-m_wVid = USBVID_ANY;           //unspecified USB vendor
-m_wPid = USBPID_ANY;           //unspecified USB product
-m_bHub = false;                //device is not a hub
-m_eStatus = NoDeviceConnected; //device status
-m_strVendor.Empty();           //manufacturer of the device
-m_strProduct.Empty();          //description of the device
-m_strSerialNo.Empty();         //serial number of the device
-ZeroPortNo();                  //hub node index
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -359,8 +203,10 @@ CArray<CUsbDevice*>::RemoveAll();
   }
 #endif
 
+
 ///////////////////////////////////////////////////////////////////////////////
-/*Handles the USB hub.
+#include "KUsbDeviceInfo.h" //CUsbDeviceInfo class
+/*Handles the USB hub descriptors.
   A USB hub is a device that allows many USB devices to be connected to a
   single USB port on the host computer or another hub.
 
@@ -398,15 +244,15 @@ public:
 
 protected:
   void Erase();
-  virtual bool Match(CUsbDevice* pusbDevice, 
+  virtual bool Match(CUsbDevice* pusbDevice,
                      const uint16_t wVendorId,
                      const uint16_t wProductId,
-                     CUsbDeviceInfo* pDeviceInfo = NULL); 
+                     CUsbDeviceInfo* pDeviceInfo = NULL);
 
 protected:
   CUsbDeviceArray m_usbNodeList; //hub node connections (ports)
   int m_iLastNodeAccessed; //one-based index of the hub node (port) accessed while
-                           //searching for a device [1, m_usbNodeList.GetSize] 
+                           //searching for a device [1, m_usbNodeList.GetSize]
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -450,7 +296,7 @@ return (uint16_t)m_usbNodeList.GetCount();
 
 //-----------------------------------------------------------------------------
 /*Obtains the status of the USB connection node.
-  
+
   Returns the current status of the device attached to the hub port or
   NoDeviceConnected if the port is not available or not used.
 
@@ -478,7 +324,8 @@ m_iLastNodeAccessed = -1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-/*Universal Serial Bus (USB) host controller (also known as the root, root tier
+/*Handles USB host controller descriptors.
+  Universal Serial Bus (USB) host controller (also known as the root, root tier
   or the root hub) controls all traffic on the data bus and also functions as
   a hub. One host controller can control several USB ports.
  */
@@ -498,10 +345,10 @@ public:
 
 protected:
   bool GetRootHub(LPCTSTR szDevicePath, CString& strRootHubPath);
-  virtual bool Match(CUsbDevice* pusbDevice, 
+  virtual bool Match(CUsbDevice* pusbDevice,
                      const uint16_t wVendorId,
                      const uint16_t wProductId,
-                     CUsbDeviceInfo* pDeviceInfo = NULL); 
+                     CUsbDeviceInfo* pDeviceInfo = NULL);
 
 };
 
@@ -521,7 +368,7 @@ protected:
   There always exists one hub known as the root hub, which is built into
   the host controller.
   USB supports up to seven tier levels, including the root tier and five common
-  hubs. The topmost tier supports only a single nonhub device.
+  hubs. The topmost tier supports only a single non-hub device.
 
       Tier level:    1                  2         3      ...       7
             +-USB Host Controller -+- Device
@@ -560,7 +407,7 @@ public:
                                              //controllers (root hubs)
 protected:
   int m_iLastNodeAccessed; //one-based index of the root hub node accessed while
-                           //searching for a device [1, m_usbRootList.GetSize] 
+                           //searching for a device [1, m_usbRootList.GetSize]
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -589,7 +436,7 @@ RemoveAll();
   See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId,
   SP_DEVICE_INTERFACE_DETAIL_DATA, SP_DEVINFO_DATA, <setupapi.h>,
   CUsbDeviceTree::GetDevice();
- */
+*/
 inline bool CUsbDeviceTree::HasDevice(const uint16_t wVendorId, //[in] USB device
                                              //vendor identification (VID) number
                                       const uint16_t wProductId //[in] USB product
@@ -624,6 +471,9 @@ m_iLastNodeAccessed = -1;
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.22  2009/08/28 21:08:01  ddarko
+ * SetPortNo
+ *
  * Revision 1.21  2009/08/26 21:51:06  ddarko
  * Match()
  *

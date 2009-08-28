@@ -1,5 +1,5 @@
 /*$RCSfile: KUsbDeviceInfo.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/08/28 13:57:26 $
+  $Revision: 1.2 $ $Date: 2009/08/28 21:08:01 $
   $Author: ddarko $
 
   USB (Universal Serial Bus) device information container
@@ -25,6 +25,7 @@
 #endif
 #include "KString.h" //CString class replacement
 #include "KUsb.h"    //CUsbId class
+#include "UsbIoCtl.h"//USB_CONNECTION_STATUS enum
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Data set describing a USB device. Data represent only a subset of possible
@@ -40,6 +41,7 @@ public:
   LPCTSTR GetPortNo(CString& strPortId) const;
   void SetPortNo(const int iPortId);
   void SetPortNo(const unsigned int nTier, const int iPortId);
+  bool SetPortNo(LPCTSTR szPortId);
   void ZeroPortNo();
   int  SearchTier() const;
   void Empty();
@@ -190,6 +192,9 @@ ZeroPortNo();                  //hub node index
 #endif  //_KUSBDEVICEINFO_H_
 /*****************************************************************************
  * $Log: KUsbDeviceInfo.h,v $
+ * Revision 1.2  2009/08/28 21:08:01  ddarko
+ * SetPortNo
+ *
  * Revision 1.1  2009/08/28 13:57:26  ddarko
  * Extracted from KUsbHub
  *
