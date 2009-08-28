@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.28 $ $Date: 2009/08/27 22:00:00 $
+  $Revision: 1.29 $ $Date: 2009/08/28 21:06:53 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -86,8 +86,8 @@ return iCount;
 }
 
 //-----------------------------------------------------------------------------
-/*Retreives status and addtional description of the USB device specified by
-  a vendor (VID) and product identification (PID) number. 
+/*Retrieves status and additional description of the USB device specified by
+  a vendor (VID) and product identification (PID) number.
   To search for a device with specific serial number or a device attached to the
   specific USB port, set corresponding fields with pDeviceInfo parameter.
 
@@ -144,10 +144,10 @@ if (pDeviceInfo != NULL)
   m_iLastNodeAccessed = pDeviceInfo->GetPortNo();
   if (m_iLastNodeAccessed > 0)
     {
-    //Match the device connected to specifed port with given Ids
+    //Match the device connected to specified port with given Ids
     //or return false if port number is out of range
     if (m_iLastNodeAccessed <= m_usbRootList.GetCount())
-      bResult = m_usbRootList[m_iLastNodeAccessed - 1]->Find(wVendorId, 
+      bResult = m_usbRootList[m_iLastNodeAccessed - 1]->Find(wVendorId,
                                                              wProductId,
                                                              pDeviceInfo);
     return bResult;
@@ -163,7 +163,7 @@ while (m_iLastNodeAccessed < (int)m_usbRootList.GetCount())
     pDeviceInfo->m_nTierLevel = USB_ROOTLEVEL; //Set root tier level
     }
 
-  bResult = m_usbRootList[m_iLastNodeAccessed]->Find(wVendorId, 
+  bResult = m_usbRootList[m_iLastNodeAccessed]->Find(wVendorId,
                                                      wProductId,
                                                      pDeviceInfo);
   //Set 1-based search index representing the last port accessed
@@ -288,12 +288,12 @@ return bResult;
 
 //-----------------------------------------------------------------------------
 /*Matches given USB root hub with set of arguments.
- 
+
   Returns: true if USB ID and other arguments match the device in question
-  and the description of the device, if required. 
+  and the description of the device, if required.
   Returns false if the device not correspond to the requirements.
 
-  See also: CUsbHub::Find(). CUsbHub::Match() 
+  See also: CUsbHub::Find(). CUsbHub::Match()
  */
 bool CUsbHostController::Match(CUsbDevice* pusbDevice,    //[in] the device
                     //to be matched with other parameters
@@ -304,7 +304,7 @@ bool CUsbHostController::Match(CUsbDevice* pusbDevice,    //[in] the device
                     CUsbDeviceInfo* pDeviceInfo //[in]/[out] = NULL
                     //description of the reqested USB device
                     //and additional filtering
-                    ) 
+                    )
 {
 TRACE2(_T("    CUsbHostController::Match(%#4.4x, %#4.4x)\n"), wVendorId, wProductId);
 bool bResult = false;
@@ -314,19 +314,19 @@ if (pusbDevice->IsVendor(wVendorId) &&
     pusbDevice->IsProduct(wProductId) )
   {
   //This hub is the requested USB device
-  //Note: serial number is not considered 
+  //Note: serial number is not considered
   if (pDeviceInfo != NULL)
     {
     *((CUsbId*)pDeviceInfo)    = *(USBID*)this   ;
-    pDeviceInfo->m_bHub        = m_bHub          ;        
+    pDeviceInfo->m_bHub        = m_bHub          ;
     pDeviceInfo->m_eStatus     = m_eStatus       ;
     pDeviceInfo->m_strVendor   = _T("N/A")       ; //TODO: get string from list of known HDC vendors (Intel, etc)
-    pDeviceInfo->m_strProduct  = m_strDescription;  
+    pDeviceInfo->m_strProduct  = m_strDescription;
     pDeviceInfo->m_strSerialNo = _T("N/A")       ;
     //Note: Port ID is set by the caller
     //if ( not root hub or last tier)
     //  {
-    //  TODO: Get string descriptors 
+    //  TODO: Get string descriptors
     //  }
     }
   m_iLastNodeAccessed = -1;
@@ -337,7 +337,7 @@ return bResult;
 }
 
 //-----------------------------------------------------------------------------
-/*Retreive device path of the hub embedded into host controller.
+/*Retrieve device path of the hub embedded into host controller.
 
   Returns true if successful and the USB root hub device path, otherwise
   returns false.
@@ -388,10 +388,10 @@ return bResult;
 //-----------------------------------------------------------------------------
 /*Enumerate USB hub ports.
 
-  Returns number of availabile USB ports or 0 in case of a failure. Use
-  GetLasteError() to obtain error code.
+  Returns number of available USB ports or 0 in case of a failure. Use
+  GetLastError() to obtain error code.
 
-  Note: if driver key names for devices connetect to the hub are required,
+  Note: if driver key names for devices Connecticut to the hub are required,
   define _USE_USBDRIVERKEYNAME.
  */
 unsigned int CUsbHub::Enumerate(LPCTSTR szDevicePath //[in] the USB hub
@@ -403,32 +403,32 @@ TRACE(_T("    CUsbHub::Enumerate()\n"));
 
   1.  Enumerate Host Controllers and Root Hubs.
       Host controllers currently have symbolic link names of the form HCDx,
-      where x starts at 0.  Use CreateFile() to open each host controller
-      symbolic link.  Create a node in the USB tree to represent each host
+      where x starts at 0. Use CreateFile() to open each host controller
+      symbolic link. Create a node in the USB tree to represent each host
       controller.
 
       After a host controller has been opened, send the host controller an
       IOCTL_USB_GET_ROOT_HUB_NAME request to get the symbolic link name of
       the root hub that is part of the host controller.
 
-  2.  Enumerate Hubs (Root Hubs and External Hubs).
-      Given the name of a hub, use CreateFile() to hub the hub.  Send the
+  2. Enumerate Hubs (Root Hubs and External Hubs).
+      Given the name of a hub, use CreateFile() to hub the hub. Send the
       hub an IOCTL_USB_GET_NODE_INFORMATION request to get info about the
-      hub, such as the number of downstream ports.  Create a node in the
+      hub, such as the number of downstream ports. Create a node in the
       TreeView to represent each hub.
 
-  3.  Enumerate Downstream Ports.
+  3. Enumerate Downstream Ports.
       Given an handle to an open hub and the number of downstream ports on
       the hub, send the hub an IOCTL_USB_GET_NODE_CONNECTION_INFORMATION_EX
       request for each downstream port of the hub to get info about the
-      device (if any) attached to each port.  If there is a device attached
+      device (if any) attached to each port. If there is a device attached
       to a port, send the hub an IOCTL_USB_GET_NODE_CONNECTION_NAME request
       to get the symbolic link name of the hub attached to the downstream
-      port.  If there is a hub attached to the downstream port, recurse to
-      step (2).  Create a node in the USB tree to represent each hub port
+      port. If there is a hub attached to the downstream port, recurse to
+      step (2). Create a node in the USB tree to represent each hub port
       and attached device.
 
-  Reference: 
+  Reference:
     Windows DDK, USBView example, enum.c, 1997-1998 Microsoft Corporation
  */
 
@@ -527,9 +527,9 @@ if ((szDevicePath != NULL) && (szDevicePath[0] != _T('\0')) )
                     usbPortInfo.DeviceDescriptor.idProduct);
               TRACE1(_T("        vendor  Id: 0x%0.4X.\n"),
                     usbPortInfo.DeviceDescriptor.idVendor);
-              TRACE1(_T("        supported USB %s.\n"), 
+              TRACE1(_T("        supported USB %s.\n"),
                 (LPCTSTR) pusbDevice->Bcd2Str(usbPortInfo.DeviceDescriptor.bcdUSB));
-              TRACE1(_T("        device version: %s.\n"), 
+              TRACE1(_T("        device version: %s.\n"),
                 (LPCTSTR) pusbDevice->Bcd2Str(usbPortInfo.DeviceDescriptor.bcdDevice));
               TRACE1(_T("        hub attached: %d\n"), usbPortInfo.DeviceIsHub);
 
@@ -598,12 +598,12 @@ return dwPortCount;
 
 //-----------------------------------------------------------------------------
 /*Matches given USB device with set of arguments.
- 
+
   Returns: true if USB ID and other arguments match the device in question
-  and the description of the device, if required. 
+  and the description of the device, if required.
   Returns false if the device not correspond to the requirements.
 
-  See also: CUsbHub::Find() 
+  See also: CUsbHub::Find()
  */
 bool CUsbHub::Match(CUsbDevice* pusbDevice,    //[in] the device
                     //to be matched with other parameters
@@ -612,9 +612,9 @@ bool CUsbHub::Match(CUsbDevice* pusbDevice,    //[in] the device
                     const uint16_t wProductId, //[in] USB product
                     //identification (PID) number.
                     CUsbDeviceInfo* pDeviceInfo //[in]/[out] = NULL
-                    //description of the reqested USB device
+                    //description of the requested USB device
                     //and additional filtering
-                    ) 
+                    )
 {
 TRACE2(_T("    CUsbHub::Match(%#4.4x, %#4.4x)\n"), wVendorId, wProductId);
 bool bResult = false;
@@ -660,15 +660,15 @@ if (pusbDevice->IsVendor(wVendorId) &&
                       PUSB_NODE_CONNECTION_INFORMATION pusbPortInfo
                     );
       USB_NODE_CONNECTION_INFORMATION usbPortInfo; //USB port data
-      if (GetUsbPortInfo(hHub, 
-                          (unsigned int)m_iLastNodeAccessed, 
+      if (GetUsbPortInfo(hHub,
+                          (unsigned int)m_iLastNodeAccessed,
                           &usbPortInfo))
         {
         CString strDescriptor;
         //Get the Serial Number
         if (usbPortInfo.DeviceDescriptor.iSerialNumber > 0)
           {
-          if(!pusbDevice->GetStringDescriptor(hHub, 
+          if(!pusbDevice->GetStringDescriptor(hHub,
                               (unsigned int)m_iLastNodeAccessed,
                               usbPortInfo.DeviceDescriptor.iSerialNumber,
                               0,
@@ -684,7 +684,7 @@ if (pusbDevice->IsVendor(wVendorId) &&
           }
         else //Compare serial numbers
           {
-          bResult = 
+          bResult =
             ((pDeviceInfo->
               m_strSerialNo.CompareNoCase((LPCTSTR)strDescriptor)) == 0);
           }
@@ -694,7 +694,7 @@ if (pusbDevice->IsVendor(wVendorId) &&
           //Get the vendor description
           if (usbPortInfo.DeviceDescriptor.iManufacturer > 0)
             {
-            if(!pusbDevice->GetStringDescriptor(hHub, 
+            if(!pusbDevice->GetStringDescriptor(hHub,
                                 (unsigned int)m_iLastNodeAccessed,
                                 usbPortInfo.DeviceDescriptor.iManufacturer,
                                 0,
@@ -707,7 +707,7 @@ if (pusbDevice->IsVendor(wVendorId) &&
           //Get the product description
           if (usbPortInfo.DeviceDescriptor.iProduct > 0)
             {
-            if(!pusbDevice->GetStringDescriptor(hHub, 
+            if(!pusbDevice->GetStringDescriptor(hHub,
                                 (unsigned int)m_iLastNodeAccessed,
                                 usbPortInfo.DeviceDescriptor.iProduct,
                                 0,
@@ -725,7 +725,7 @@ if (pusbDevice->IsVendor(wVendorId) &&
     if (bResult) //Set remaining device information
       {
       *((CUsbId*)pDeviceInfo)   = *(USBID*)pusbDevice  ;
-      pDeviceInfo->m_bHub       = pusbDevice->m_bHub   ;        
+      pDeviceInfo->m_bHub       = pusbDevice->m_bHub   ;
       pDeviceInfo->m_eStatus    = pusbDevice->m_eStatus;
       //pDeviceInfo->SetPortNo(m_iLastNodeAccessed);
       }
@@ -742,11 +742,11 @@ return bResult;
 }
 
 //-----------------------------------------------------------------------------
-/*Retreives status and addtional description of the USB device specified by
+/*Retrieves status and additional description of the USB device specified by
   a vendor (VID) and product identification (PID) number.
 
   Returns: true if the requested device is found in the
-  USB device tree and the description of the device, if required. 
+  USB device tree and the description of the device, if required.
   Returns false if the device is not present.
 
   See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId,
@@ -800,7 +800,7 @@ if (pDeviceInfo != NULL)
     {
     //Check only this device for a match
     m_iLastNodeAccessed = -1;
-    bResult = Match(this, wVendorId, wProductId, pDeviceInfo);   
+    bResult = Match(this, wVendorId, wProductId, pDeviceInfo);
     return bResult;
     }
   }
@@ -812,7 +812,7 @@ if (Match(this, wVendorId, wProductId, pDeviceInfo))
   }
 else //Check for the match among attached devices
   {
-  int iUsbTier = -1; //index for the current tier level 
+  int iUsbTier = -1; //index for the current tier level
   //Disable warning C4127: conditional expression in ASSERT is constant
   #pragma warning (disable: 4127)
     ASSERT(USB_MAXCOUNT >= GetPortCount()); //Check sanity
@@ -844,14 +844,14 @@ else //Check for the match among attached devices
           {
           pDeviceInfo->SetPortNo(iUsbTier, m_iLastNodeAccessed);
           }
-        break; //Match found 
+        break; //Match found
         }
       }
 
     if (m_iLastNodeAccessed >= (int)m_usbNodeList.GetCount())
-      break; //Prevent node number overflow 
+      break; //Prevent node number overflow
     m_iLastNodeAccessed++;
-    } 
+    }
   }
 
 return bResult;
@@ -861,10 +861,10 @@ return bResult;
 //CUsbDevice class implementation
 
 //-----------------------------------------------------------------------------
-/*Retreive specified string descriptor. If language ID is not defined (0), method
+/*Retrieve specified string descriptor. If language ID is not defined (0), method
   will try to supply string on US English or, if that fails, on the first supported
   language.
-  
+
   Device, configuration, and interface descriptors may contain references to
   string descriptors. String descriptors are referenced by their one-based index
   number. A string descriptor contains one or more Unicode strings.
@@ -899,17 +899,17 @@ bool bResult = false;
 if (nLangId == 0)    //!!!!!!!!!TODO: move to separate method
   {
   //Verify if requested language is supported by the device. If it is not, offer
-  //strings on US English as most common settings or, if that fails, the first 
+  //strings on US English as most common settings or, if that fails, the first
   //language from the list of supported languages.
   LANGID listLang[USB_MAXCOUNT_LANGID];
-  unsigned int nSupportedLangCount = GetUsbLangIds(hUsbHub, 
+  unsigned int nSupportedLangCount = GetUsbLangIds(hUsbHub,
                                                    nPortId,
                                                    listLang,
                                                    USB_MAXCOUNT_LANGID);
   if((nSupportedLangCount > 0) && (GetLastError() != NO_ERROR))
     {
     //Try most common language for string descriptors
-    nLangId = 
+    nLangId =
       MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US); //0x0409 English (U.S.)
     nSupportedLangCount--;
     while((nSupportedLangCount > 0) && (listLang[nSupportedLangCount] != nLangId))
@@ -927,7 +927,7 @@ return bResult;
 }
 
 //-----------------------------------------------------------------------------
-/*Verifies if the device descriptor or configuration descriptor has device 
+/*Verifies if the device descriptor or configuration descriptor has device
   description.
   Device, configuration and interface descriptors may contain references to
   string descriptors. String descriptors are referenced by their one-based
@@ -986,7 +986,7 @@ return false;
 //
 
 //-----------------------------------------------------------------------------
-/*Return compact description of the device status. For longer description or
+/*Returns compact description of the device status. For longer description or
   different locale, this method have to be customized.
 
     - NoDeviceConnected         Indicates that there is no device connected to

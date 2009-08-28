@@ -1,5 +1,5 @@
 /*$RCSfile: KUsbEnumRootHub.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2009/07/09 22:15:44 $
+  $Revision: 1.5 $ $Date: 2009/08/28 21:06:53 $
   $Author: ddarko $
 
   Enumerates root USB hubs.
@@ -45,17 +45,17 @@
 //-----------------------------------------------------------------------------
 /*Enumerates USB host controllers using its hardware ID.
   Host controller is also known as the root hub, the root tier or
-  simply as the root. 
+  simply as the root.
   The host controller controls all traffic on the PCI bus and also functions
   as a hub.
 
   One or more host controllers can be built into the motherboard of the computer
   or installed as an add-in CardBus or PCI card in the computer to gain additional
-  ports and bandwidth. 
+  ports and bandwidth.
 
   Return: number of root USB hubs found on the system.
 
-  Browses through hardware IDs for an USB device of, enumerationg every ROOT_HUB.
+  Browses through hardware IDs for an USB device of, enumerating every ROOT_HUB.
   Example of USB hardware IDs:
 
     1. USB\ROOT_HUB&VID8086&PID24D2&REV0002
@@ -63,7 +63,7 @@
     3. USB\ROOT_HUB&VID8086&PID24DE&REV0002
     4. USB\ROOT_HUB20&VID8086&PID24DD&REV0002
 
-  A hardware ID is a vendor-defined identification string that Setup uses 
+  A hardware ID is a vendor-defined identification string that Setup uses
   to match a device to an INF file. In most cases, a device has associated with
   it a list of hardware IDs.
 
@@ -106,7 +106,7 @@ if (hDevInfo != INVALID_HANDLE_VALUE)
                       DWORD& dwLen);
     //Get a REG_MULTI_SZ string containing the hardware IDs for an USB device.
     //HardwareIds are supplied by device's INF file in Models section.
-    //List have following format: "hw-id1\0hw-id2\0…hw-idn\0\0" 
+    //List have following format: "hw-id1\0hw-id2\0…hw-idn\0\0"
     //for example:
     //  "USB\ROOT_HUB&VID8086&PID24D2&REV0002\0USB\ROOT_HUB&VID8086&PID24D2\0USB\ROOT_HUB\0\0"
     if(GetDeviceProperty(hDevInfo, //handle to the device information
@@ -147,6 +147,9 @@ return nCount;
 
 /*****************************************************************************
  * $Log: KUsbEnumRootHub.cpp,v $
+ * Revision 1.5  2009/08/28 21:06:53  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.4  2009/07/09 22:15:44  ddarko
  * GetDeviceDescription()
  *

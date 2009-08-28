@@ -696,6 +696,33 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\Peripheral\KUsbDeviceInfo.cpp">
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\Win\32\KUsbDrvKeyName.cpp">
 				<FileConfiguration
 					Name="Release_SBCS|Win32">
@@ -1110,6 +1137,9 @@
 			</File>
 			<File
 				RelativePath="..\..\Peripheral\KUsb.h">
+			</File>
+			<File
+				RelativePath="..\..\Peripheral\KUsbDeviceInfo.h">
 			</File>
 			<File
 				RelativePath="..\..\Win\32\KUsbHid.h">

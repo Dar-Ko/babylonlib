@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.18 $ $Date: 2009/08/27 22:00:25 $
+  $Revision: 1.19 $ $Date: 2009/08/28 21:07:31 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -636,7 +636,7 @@ try
 
           //Test finding the device with certain serial number
           usbDeviceInfo.ZeroPortNo();
-          usbDeviceInfo.m_strSerialNo = L"Darko";
+          usbDeviceInfo.m_strSerialNo = L"SN2008N0824"; //Fake S/N
           if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
             {
             _stprintf(szMsg, szFormat, 
@@ -706,6 +706,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.19  2009/08/28 21:07:31  ddarko
+ **** empty log message ***
+ *
  *Revision 1.18  2009/08/27 22:00:25  ddarko
  *Port number filter
  *

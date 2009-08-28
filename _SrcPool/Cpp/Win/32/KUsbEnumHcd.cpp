@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.4 $ $Date: 2009/07/09 22:15:44 $
+  $Revision: 1.5 $ $Date: 2009/08/28 21:06:53 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -44,17 +44,12 @@
   name. Host controller is also known as the root hub, the root tier or
   simply as the root.
 
-  Note: this method have limit on number of host cotrollers that could be
+  Note: this method have limit on number of host controllers that could be
   enumerated (TODO: verify if HCD module instance numbers are always sequential and
   eliminate the limit).
 
   The host controller controls all traffic on the PCI bus and also functions
   as a hub.
-
-  Host controllers currently have symbolic names (link) of the form HCDx,
-  where x starts at 0. Use CreateFile() to open each host controller
-  symbolic link. Create a node in the TreeView to represent each host
-  controller.
 
   After a host controller has been opened, send the host controller an
   IOCTL_USB_GET_ROOT_HUB_NAME request to get the symbolic link name of
@@ -66,7 +61,7 @@
   devices on pre-Windows XP SP1-based computers, EnumerateRootUsbHub().
  */
 unsigned int EnumerateHostControllers(CStringArray* pHostControllerNames //[out] = NULL
-                                     //list of USB host controller namess
+                                     //list of USB host controller names
                                      )
 {
 TRACE(_T("EnumerateHostControllers()\n"));
@@ -76,6 +71,10 @@ const unsigned short ARBITRARY_NO = 12; //arbitrary maximum of instances
 unsigned int nResult = 0;
 do
   {
+  /*Note: Host controllers currently have symbolic names (link) of the form HCDx,
+    where x starts at 0. Use CreateFile() to open each host controller
+    symbolic link.*/
+
   //Create a symbolic link and open communication with HCD
   wsprintf(szHostControllerName, SYMBOLICLINK_HCD , wInstance);
   HANDLE hHcd = CreateFile(szHostControllerName,
@@ -149,7 +148,7 @@ return nResult;
 
 /*Note: Used code from Microsoft Windows DDK sample USBView
   Module Name:     ENUM.C
-  
+
   Abstract:
     This source file contains the routines which enumerate the USB bus
     and populate the TreeView control.
