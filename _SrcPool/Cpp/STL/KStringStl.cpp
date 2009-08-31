@@ -222,7 +222,10 @@ catch(std::out_of_range e)
     strMsg += _T("\r\n");
     TRACE0(strMsg.c_str());
   #endif
-  ASSERT(false);
+  //Disable warning C4127: conditional expression in ASSERT is constant
+  #pragma warning (disable: 4127)
+    ASSERT(false);
+  #pragma warning (default: 4127)
   }
 }
 
@@ -505,7 +508,10 @@ const CString& CString::operator+=(LPCTSTR lpsz //[in] a pointer to
                       //a zero-terminated string to concatenate to this string.
                                   )
 {
-ASSERT(lpsz != NULL);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(lpsz != NULL);
+#pragma warning (default: 4127)
 m_pData->append(lpsz);
 return *this;
 }
@@ -545,7 +551,10 @@ int CString::CompareNoCase(LPCTSTR lpsz //[in] a zero-terminated string used for
                                         //comparison
                           ) const
 {
-ASSERT(lpsz != NULL);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(lpsz != NULL);
+#pragma warning (default: 4127)
 return _tcsicmp(m_pData->c_str(), lpsz);
 }
 
@@ -571,7 +580,10 @@ int CString::Collate(LPCTSTR lpsz //[in] a zero-terminated string used for
                                   //comparison
                           ) const
 {
-ASSERT(lpsz != NULL);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(lpsz != NULL);
+#pragma warning (default: 4127)
 return _tcscoll(m_pData->c_str(), lpsz);
 }
 
@@ -598,7 +610,10 @@ int CString::CollateNoCase(LPCTSTR lpsz //[in] a zero-terminated string used for
                                         //comparison
                           ) const
 {
-ASSERT(lpsz != NULL);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(lpsz != NULL);
+#pragma warning (default: 4127)
 return _tcsicoll(m_pData->c_str(), lpsz);
 }
 
@@ -634,8 +649,11 @@ if (iFirst + iCount > static_cast<int>(m_pData->length()))
 if (iFirst > static_cast<int>(m_pData->length()))
   iCount = 0;
 
-ASSERT(iFirst >= 0);
-ASSERT(iFirst + iCount <= static_cast<int>(m_pData->length()));
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(iFirst >= 0);
+  ASSERT(iFirst + iCount <= static_cast<int>(m_pData->length()));
+#pragma warning (default: 4127)
 
   //Optimize case of returning entire string
 if (iFirst == 0 && iFirst + iCount == static_cast<int>(m_pData->length()))
@@ -832,7 +850,10 @@ void CString::FormatV(LPCTSTR lpszFormat, //[in] format-control string
 {
 try
   {
-  ASSERT(LONG_MAX > (_tcslen( lpszFormat )/2));
+  //Disable warning C4127: conditional expression in ASSERT is constant
+  #pragma warning (disable: 4127)
+    ASSERT(LONG_MAX > (_tcslen( lpszFormat )/2));
+  #pragma warning (default: 4127)
   long buffer_size = (long)(_tcslen( lpszFormat ) * 2);
   CString format_object( lpszFormat );
 
@@ -1105,7 +1126,10 @@ if ((pchSrc != NULL) && (nChars != 0))
       }
     else //Copy given number of characters
       {
-      ASSERT(strlen(pchSrc) >= (nIndex + nChars));
+      //Disable warning C4127: conditional expression in ASSERT is constant
+      #pragma warning (disable: 4127)
+        ASSERT(strlen(pchSrc) >= (nIndex + nChars));
+      #pragma warning (default: 4127)
       m_pData->assign(&pchSrc[nIndex], nChars);
       }
   #else
@@ -1150,7 +1174,10 @@ void CString::Copy(LPCWSTR pchSrc, //[in] pointer to a string containing
       }
     else //Copy given number of characters
       {
-      ASSERT(wcslen(pchSrc) >= (nIndex + nChars));
+      #pragma warning (disable: 4127)
+        ASSERT(wcslen(pchSrc) >= (nIndex + nChars));
+      #pragma warning (default: 4127)
+
       m_pData->assign(&pchSrc[nIndex], nChars);
       }
   #else
@@ -1311,7 +1338,10 @@ return static_cast<int>(m_pData->find_first_of(lpszCharSet));
 int CString::ReverseFind(TCHAR ch //[in] character to search
                         ) const
 {
-ASSERT(INT_MAX > m_pData->length());
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(INT_MAX > m_pData->length());
+#pragma warning (default: 4127)
 return (int)m_pData->rfind(ch);
 }
 
@@ -1327,7 +1357,10 @@ LPTSTR CString::GetBuffer(int iMinBufLength //[in] minimum size of the character
                        //for a null terminator.
                          )
 {
-ASSERT(iMinBufLength >= 0);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(iMinBufLength >= 0);
+#pragma warning (default: 4127)
 
 m_pData->resize(iMinBufLength + 1);
 m_pData->at(iMinBufLength) = _T('\0'); //Set the null-terminator
