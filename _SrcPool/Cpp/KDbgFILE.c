@@ -43,6 +43,15 @@
     #warning "Compiling for vxWorks."
   #endif
 #endif
+
+#ifndef _T
+  #ifdef _UNICODE
+    #define _T(t) L ## t
+  #else
+    #define _T(t) t
+  #endif
+#endif
+
 /* ////////////////////////////////////////////////////////////////////////// */
 
 /*DumpFILE()----------------------------------------------------------------- */
@@ -74,18 +83,18 @@ void DumpFILE(FILE* fileStream /*[in] pointer to FILE structure*/)
 
 #if _DUMPFILE_TYPE == 100 /*Microsoft, GNU */
   if (fileStream == NULL)
-    TRACE0("FILE* fileStream = NULL;\n");
+    TRACE0(_T("FILE* fileStream = NULL;\n"));
   else
     {
-    TRACE1("FILE* @$%X\n\t{\n",fileStream);
-    TRACE1("\t_ptr     = 0x%08lx\n", fileStream->_ptr     );
-    TRACE1("\t_cnt     = %d\n"     , fileStream->_cnt     );
-    TRACE1("\t_base    = %p\n"     , fileStream->_base    );
-    TRACE1("\t_flag    = %d\n"     , fileStream->_flag    );
-    TRACE1("\t_file    = %d\n"     , fileStream->_file    );
-    TRACE1("\t_charbuf = %d\n"     , fileStream->_charbuf );
-    TRACE1("\t_bufsiz  = %d\n"     , fileStream->_bufsiz  );
-    TRACE1("\t_tmpfname= %s\n\t}\n", fileStream->_tmpfname);
+    TRACE1(_T("FILE* @$%X\n\t{\n"),fileStream);
+    TRACE1(_T("\t_ptr     = 0x%08lx\n"), fileStream->_ptr     );
+    TRACE1(_T("\t_cnt     = %d\n")     , fileStream->_cnt     );
+    TRACE1(_T("\t_base    = %p\n")     , fileStream->_base    );
+    TRACE1(_T("\t_flag    = %d\n")     , fileStream->_flag    );
+    TRACE1(_T("\t_file    = %d\n")     , fileStream->_file    );
+    TRACE1(_T("\t_charbuf = %d\n")     , fileStream->_charbuf );
+    TRACE1(_T("\t_bufsiz  = %d\n")     , fileStream->_bufsiz  );
+    TRACE1(_T("\t_tmpfname= %s\n\t}\n"), fileStream->_tmpfname);
     }
 #endif
 
@@ -152,7 +161,7 @@ void DumpFILEOrigin(long offset, /*[in] number of bytes from origin*/
                    )
 {
 
-TRACE1("Move file pointer %ld bytes from the ",offset);
+TRACE1(_T("Move file pointer %ld bytes from the "),offset);
 switch (origin)
   {
   case SEEK_SET: /*Beginning of file               */
