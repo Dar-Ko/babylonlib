@@ -32,18 +32,18 @@
     #endif
   #endif
 
-  /*Use Microsoft header file instead of this custom file                    */
-  #ifdef WIN32
+  /*Use Microsoft C/C++ header file instead of this custom file*/
+  #ifdef _MSC_VER
     #include <wtypes.h>  //Basic Windows type Definitions
     #include <tchar.h>   //TCHAR typedef
-  #endif
 
-  #if (_MSC_VER < 1300)
-    //Microsoft Visual Studio 6.0 or less
-    //Include only parts of the header file
-    #define __KTCHAR_H__ 1200
-  #else
-    #define __KTCHAR_H__ 1300
+    #if (_MSC_VER < 1300)
+      //Microsoft Visual Studio 6.0 or less
+      //Include only parts of the header file
+      #define __KTCHAR_H__ 1200
+    #else
+      #define __KTCHAR_H__ 1300
+    #endif
   #endif
 
 #endif
@@ -146,7 +146,7 @@ extern "C"
     an error, is encountered.
     WEOF yields the return value, of type wint_t, used to signal the end of a wide stream, or to report an error condition.
    */
-  #define _TEOF     EOF           //
+  #define _TEOF     EOF
 
   /*The following rules apply in determining what symbols are reserved for
     any standard.  These symbols are reserved for the standard and for use
