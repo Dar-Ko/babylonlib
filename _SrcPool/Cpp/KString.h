@@ -439,7 +439,11 @@ CString strResult(str1);
   TCHAR chTemp = TCHAR(ch2);
   strResult.Append(chTemp, 1);
 #else //SBCS
-  ASSERT(sizeof(TCHAR) == 1);
+  //Disable warning C4127: conditional expression in ASSERT is constant
+  #pragma warning (disable: 4127)
+    ASSERT(sizeof(TCHAR) == 1);
+  #pragma warning (default: 4127)
+
   strResult.Append(ch2, 1);
 #endif
 return strResult;
@@ -452,7 +456,10 @@ CString strResult;
   TCHAR chTemp = TCHAR(ch1);
   strResult.Append(chTemp, 1);
 #else //SBCS
-  ASSERT(sizeof(TCHAR) == 1);
+  //Disable warning C4127: conditional expression in ASSERT is constant
+  #pragma warning (disable: 4127)
+    ASSERT(sizeof(TCHAR) == 1);
+  #pragma warning (default: 4127)
   strResult.Append(ch1, 1);
 #endif
 strResult += str2;
