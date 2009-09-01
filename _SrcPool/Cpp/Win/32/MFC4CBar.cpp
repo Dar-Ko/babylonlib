@@ -1,9 +1,13 @@
-/*MFC4CBar.cpp
-  Fix up for the ControlBars
+/*$RCSfile: MFC4CBar.cpp,v $: implementation file
+  $Revision: 1.2 $ $Date: 2009/09/01 15:11:50 $
+  $Author: ddarko $
 
+  Fix: Internal State of ControlBars Corrupted (Q151446)
   Darko Kolakovic
   Aug.  2k
-  */
+ */
+
+// Group=Windows
 
 #include "StdAfx.h"
 #include "MFC4CBar.h"
@@ -19,7 +23,7 @@
 //MFC41CleanUpControlBarState()------------------------------------------------
 /*FIX: Internal State of ControlBars Corrupted ( MFC4.0, 4.1 )
   Article ID: Q151446
-  
+
   Example:
 
      #include "MFC4CBar.h" //MFC41CleanUpControlBarState()
@@ -33,7 +37,7 @@
        #if _MFC_VER == 0x0400 || _MFC_VER == 0x0410
          MFC41CleanUpControlBarState(this, _T("General"));
        #endif
-       ... 
+       ...
        }
 
  */
@@ -98,3 +102,9 @@ state.SaveState(szCtrlBar);
 }
 ///////////////////////////////////////////////////////////////////////////////
 #endif //MFC4.0, 4.1
+/*****************************************************************************
+ * $Log: MFC4CBar.cpp,v $
+ * Revision 1.2  2009/09/01 15:11:50  ddarko
+ * Reformatted
+ *
+ *****************************************************************************/

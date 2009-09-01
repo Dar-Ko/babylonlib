@@ -1,9 +1,14 @@
-/*MFC4MFil.cpp
-  Fix ups for the CMirrorFile
+/*$RCSfile: MFC4MFil.cpp,v $: implementation file
+  $Revision: 1.2 $ $Date: 2009/09/01 15:11:50 $
+  $Author: ddarko $
 
+  Fix: CMirrorFile memory overrun (MSDN Q163253)
   Darko Kolakovic
   March 99
-  */
+ */
+
+// Group=Windows
+
 #include "StdAfx.h"
 #include "MFC4MFil.h" //CFixMirrorFile class
 
@@ -29,20 +34,20 @@
 ///////////////////////////////////////////////////////////////////////////////
 //Open()-----------------------------------------------------------------------
 /*FIX: "Out of Memory" Error When Saving to an Existing File ( MFC4.0 4.1 4.2 )
-  When you save to an existing file in a Visual C++ MFC application, an 
-  "Out of memory" error occurs. The error occurs only when you save over an 
-  existing file on a non-NT platform, such as Windows 95, that is on a network. 
-  Article ID: Q163253 
+  When you save to an existing file in a Visual C++ MFC application, an
+  "Out of memory" error occurs. The error occurs only when you save over an
+  existing file on a non-NT platform, such as Windows 95, that is on a network.
+  Article ID: Q163253
  */
-BOOL CFixMirrorFile::Open(LPCTSTR lpszFileName, 
-                         UINT nOpenFlags, 
+BOOL CFixMirrorFile::Open(LPCTSTR lpszFileName,
+                         UINT nOpenFlags,
                          CFileException* pError
                          )
-{ 
+{
 ASSERT(lpszFileName != NULL);
 m_strMirrorName.Empty();
 
-#ifndef _MAC 
+#ifndef _MAC
   CFileStatus status;
   if (nOpenFlags & CFile::modeCreate) //opened for writing
     {
@@ -53,10 +58,10 @@ m_strMirrorName.Empty();
 
       DWORD dwSecPerClus, dwBytesPerSec, dwFreeClus, dwTotalClus;
       int nBytes = 0;
-      if (GetDiskFreeSpace(strRoot, 
-                           &dwSecPerClus, 
+      if (GetDiskFreeSpace(strRoot,
+                           &dwSecPerClus,
                            &dwBytesPerSec,
-                           &dwFreeClus, 
+                           &dwFreeClus,
                            &dwTotalClus))
         {
         nBytes = dwFreeClus*dwSecPerClus*dwBytesPerSec;
@@ -84,7 +89,7 @@ if (!m_strMirrorName.IsEmpty() &&
   {
   m_strFileName = lpszFileName;
 
-  #ifndef _MAC 
+  #ifndef _MAC
     FILETIME ftCreate, ftAccess, ftModify;
     if (::GetFileTime((HANDLE)m_hFile, &ftCreate, &ftAccess, &ftModify))
       {
@@ -96,21 +101,21 @@ if (!m_strMirrorName.IsEmpty() &&
       // file securities.
     DWORD dwLength = 0;
     PSECURITY_DESCRIPTOR pSecurityDescriptor = NULL;
-    if (GetFileSecurity(lpszFileName, 
+    if (GetFileSecurity(lpszFileName,
                         DACL_SECURITY_INFORMATION,
-                        NULL, 
-                        dwLength, 
+                        NULL,
+                        dwLength,
                         &dwLength))
       {
-      pSecurityDescriptor = (PSECURITY_DESCRIPTOR) new BYTE[dwLength]; 
-      if (::GetFileSecurity(lpszFileName, 
+      pSecurityDescriptor = (PSECURITY_DESCRIPTOR) new BYTE[dwLength];
+      if (::GetFileSecurity(lpszFileName,
                             DACL_SECURITY_INFORMATION,
-                            pSecurityDescriptor, 
-                            dwLength, 
+                            pSecurityDescriptor,
+                            dwLength,
                             &dwLength))
         {
-        SetFileSecurity(m_strMirrorName, 
-                        DACL_SECURITY_INFORMATION, pSecurityDescriptor); 
+        SetFileSecurity(m_strMirrorName,
+                        DACL_SECURITY_INFORMATION, pSecurityDescriptor);
         }
       delete[] (BYTE*)pSecurityDescriptor;
       }
@@ -120,7 +125,14 @@ if (!m_strMirrorName.IsEmpty() &&
   }
 m_strMirrorName.Empty();
 return CFile::Open(lpszFileName, nOpenFlags, pError);
-} 
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_FIX_Q163253
+/*****************************************************************************
+ * $Log: MFC4MFil.cpp,v $
+ * Revision 1.2  2009/09/01 15:11:50  ddarko
+ * Reformatted
+ *
+ *****************************************************************************/
+

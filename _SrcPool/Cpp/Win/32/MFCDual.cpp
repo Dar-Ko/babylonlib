@@ -1,5 +1,5 @@
-/*$RCSfile: MFCDual.cpp,v $: header file
-  $Revision: 1.2 $ $Date: 2008/08/25 15:37:47 $
+/*$RCSfile: MFCDual.cpp,v $: implementation file
+  $Revision: 1.3 $ $Date: 2009/09/01 15:11:50 $
   $Author: ddarko $
 
   Helpful macros for adding dual interface support to MFC application
@@ -120,6 +120,9 @@ return hr;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: MFCDual.cpp,v $
+ * Revision 1.3  2009/09/01 15:11:50  ddarko
+ * Reformatted
+ *
  * Revision 1.2  2008/08/25 15:37:47  ddarko
  * Comments
  *

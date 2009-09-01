@@ -1,9 +1,13 @@
-/*MFC4CBar.h
-  Fix up for the ControlBars
+/*$RCSfile: MFC4CBar.h,v $: header file
+  $Revision: 1.2 $ $Date: 2009/09/01 15:11:50 $
+  $Author: ddarko $
 
+  Fix: Internal State of ControlBars Corrupted (Q151446)
   Darko Kolakovic
   Aug.  2k
-  */
+ */
+
+// Group=Windows
 
 #ifndef _MFC41_CTRLBAR_H_
   #define _MFC41_CTRLBAR_H_
@@ -20,10 +24,17 @@
 #else
   #define MFC41CleanUpControlBarState(pOwner,szCtrlBar)          ((void)0,(void)0)
 #endif //MFC4.0, 4.1
-  
+
   //Aug. 2k D.K. MFC4.2
 void MFCLoadBarState(CFrameWnd* pFrameWnd, LPCTSTR lpszProfileName);
 void MFCSetDockState(CFrameWnd* pOwnerFrame, CDockState& state);
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_MFC41_CTRLBAR_H_
+/*****************************************************************************
+ * $Log: MFC4CBar.h,v $
+ * Revision 1.2  2009/09/01 15:11:50  ddarko
+ * Reformatted
+ *
+ *****************************************************************************/
+
