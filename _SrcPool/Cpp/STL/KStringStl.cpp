@@ -1,4 +1,4 @@
-/*$Workfile: KStringStl.cpp$: implementation file
+/*$RCSfile: KStringStl.cpp$: implementation file
   $Revision: 15$ $Date: 2007-05-03 15:51:12$
   $Author: Darko Kolakovic$
 
@@ -7,6 +7,35 @@
  */
 
 /* Group=Strings                                                             */
+
+#if defined(_MSC_VER) && (_MSC_VER <= 1310)
+/*Microsoft Visual C++ .Net 2003, 32-bit, version 7.1 and lesser*/
+  #ifdef WIN32
+    #if defined _ATL_VER
+      #ifndef _USE_ATL
+        #define _USE_ATL
+      #endif
+    #endif
+
+    #ifdef _USE_ATL
+      //Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)
+      //or preprocessor reports unpaired #endif directive
+
+      #include "stdafx.h" //Standard system header files
+      #include "KTraceAtl.h"
+    #else
+        #include <windows.h>
+        #include <tchar.h> //_istdigit()
+        /*Note: Apperently if <tchar.h> or <ctype.h> header file is included
+          before <windows.h>, the Microsoft C++ compiler v7.1 or lesser in
+          multithreaded Unicode environment instantiates wtype inline functions
+          (_iswdigit, _iswspace, etc.), resulting in multiple defintions and
+          linker error LNK2005.
+          See also: _FIXLNK2005WTYPE
+         */
+    #endif
+  #endif
+#endif //_MSC_VER
 
 #ifdef _DEBUG
   #ifndef _STLP_DEBUG
@@ -20,7 +49,6 @@
 
 #include <string>     //std::string template
 #include "KString.h"  //CString class
-
 #ifdef _STRING_ //STL <string> header included
   #include <new>
   #include <locale>     //std::string template
@@ -934,7 +962,7 @@ catch( ... )
 }
 
 //MSVC 71 runtime_error usess char* even if _UNICODE
-#define _TOWIDE 
+#define _TOWIDE
 //----------------------------------------------------------------------------
 /* throws memory exception
 #ifdef _WIN32
@@ -957,7 +985,7 @@ if ((::FormatMessage(FORMAT_MESSAGE_FROM_STRING|
                      &argList) == 0) ||
     (szTemp == NULL) )
   {
-  
+
   throw std::runtime_error(_TOWIDE("out of memory"));
   }
 
@@ -1061,7 +1089,7 @@ return 0;
 //-----------------------------------------------------------------------------
 /*Adds characters to the end of a string.
  */
-void CString::Append(const CString& source //[in] the string whose characters 
+void CString::Append(const CString& source //[in] the string whose characters
                                            //are to be appended.
                     )
 {
@@ -1081,7 +1109,7 @@ void CString::Append(LPCTSTR string_p //[in] the zero-terminated string
 m_pData->append(string_p);
 }
 
-void CString::Append(TCHAR text_character, //[in] the character value to be appended. 
+void CString::Append(TCHAR text_character, //[in] the character value to be appended.
                      int number_of_times   //[in] the number of characters
                                            //to be appended.
                      )
@@ -1096,14 +1124,14 @@ m_pData->append(number_of_times, text_character);
 //-----------------------------------------------------------------------------
 /*Copies number of single byte characters from a source.
  */
-void CString::Copy(LPCSTR pchSrc, //[in] pointer to a string containing 
+void CString::Copy(LPCSTR pchSrc, //[in] pointer to a string containing
                                   //the single byte characters to be copied.
                    long nChars,   //[in] = (-1) number of characters to be copied
    //from the source. If the number is negative, all characters until terminating
    //zero will be copied. For positive numbers, nChars will be copied disregarding
    //terminating zero if the source have one. It is assumed that the sum of nIndex
    //and nChars is less or equal to the length of the string source.
-               unsigned long nIndex    //[in] = 0 zero-based starting position in 
+               unsigned long nIndex    //[in] = 0 zero-based starting position in
    //source string from where characters will be copied. It is assumed that index
    //of the beginning point is less than length of the string source.
                   )
@@ -1143,14 +1171,14 @@ if ((pchSrc != NULL) && (nChars != 0))
 
 /*Copies number of wide (wchar_t) characters from a source.
  */
-void CString::Copy(LPCWSTR pchSrc, //[in] pointer to a string containing 
+void CString::Copy(LPCWSTR pchSrc, //[in] pointer to a string containing
                    //the wide characters to be copied.
                    long nChars,   //[in] = (-1) number of characters to be copied
   //from the source. If the number is negative, all characters until terminating
   //zero will be copied. For positive numbers, nChars will be copied disregarding
   //terminating zero if the source have one. It is assumed that the sum of nIndex
   //and nChars is less or equal to the length of the string source.
-                   unsigned long nIndex//[in] = 0 zero-based starting position in 
+                   unsigned long nIndex//[in] = 0 zero-based starting position in
   //source string from where characters will be copied. It is assumed that index
   //of the beginning point is less than length of the string source.
                    )
@@ -1523,16 +1551,16 @@ void CString::OemToAnsi()
 #endif //_UNICODE
 //-----------------------------------------------------------------------------
 /*Allocates an Automation–compatible (OLE) length-prefixed string of the type
-  BSTR and copies the contents of the CString object into it, including the 
-  terminating zero character. 
-  Commonly, if this string is passed to a Component Object Model (COM) function 
-  (as an [in] parameter) this requires the caller to free the string, usually 
+  BSTR and copies the contents of the CString object into it, including the
+  terminating zero character.
+  Commonly, if this string is passed to a Component Object Model (COM) function
+  (as an [in] parameter) this requires the caller to free the string, usually
   with ::SysFreeString().
-  
+
   Returns: The newly allocated string.
 
   Note: Microsoft Windows specific (Win).
-  
+
   Example:
       CString strTest = _T("Testing");
       BSTR bstr = strTest.AllocSysString(); //Create and copy string to BST
@@ -1547,8 +1575,8 @@ void CString::OemToAnsi()
       ASSERT(_tcscmp(szBuf, _T("Testing")) == 0);
       ...
       ::SysFreeString(bstr);
-    
-  See also: BSTR, CComBSTR, SysFreeString(), SysAllocString(), 
+
+  See also: BSTR, CComBSTR, SysFreeString(), SysAllocString(),
   Object Linking and Embedding (OLE), Component Object Model (COM).
  */
 BSTR CString::AllocSysString() const
@@ -1558,9 +1586,9 @@ return NULL;
 }
 
 //-----------------------------------------------------------------------------
-/*Copies the contents of the CString object, including the terminating zero 
-  character, into the Automation–compatible (OLE) length-prefixed string of 
-  the type BSTR pointed to by pbstr. If it is required the BSTR referenced by 
+/*Copies the contents of the CString object, including the terminating zero
+  character, into the Automation–compatible (OLE) length-prefixed string of
+  the type BSTR pointed to by pbstr. If it is required the BSTR referenced by
   pbstr may be reallocated and previous content may be freed.
 
   Returns: The newly allocated string.
@@ -1570,10 +1598,10 @@ return NULL;
   Example:
       CString strTest = _T("Testing");
       BSTR bstr = strTest.AllocSysString(); //Create and copy string to BST
-      
+
       strTest = _T("More testing");
       strTest.SetSysString(&bstr); //Copy new value to BST
-      
+
       #ifndef _UNICODE
         //Convert a sequence of wide characters to a corresponding sequence of
         //multibyte characters.
@@ -1586,7 +1614,7 @@ return NULL;
       ...
       ::SysFreeString(bstr);
 
-  See also: BSTR, CComBSTR, SysFreeString(), SysAllocString(), 
+  See also: BSTR, CComBSTR, SysFreeString(), SysAllocString(),
   Object Linking and Embedding (OLE), Component Object Model (COM).
 
  */
