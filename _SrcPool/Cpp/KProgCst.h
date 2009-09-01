@@ -52,12 +52,12 @@
   /*/////////////////////////////////////////////////////////////////////////*/
   /*Unicode-specific characters                                              */
 
-  #define UCSURROGATE1 0xD800
-  #define UCSURROGATE2 0xDC00
+  #define UCSURROGATE1    0xD800
+  #define UCSURROGATE2    0xDC00
   #define UCSURROGATELAST 0xDFFF
-  #define UCHANGUL1 0xAC00
-  #define UCHANGULLAST 0xD7A3
-  #define UCREPLACEMENT 0xFFFD
+  #define UCHANGUL1       0xAC00
+  #define UCHANGULLAST    0xD7A3
+  #define UCREPLACEMENT   0xFFFD
 
   /*Byte Order Mark (BOM) indicates a Unicode file. The value FFFE is not
     a character at all. If an Unicode a file begins with this mark, byte order
@@ -198,12 +198,12 @@
 #else /*__cplusplus  C++ compilation                                         */
   #pragma message ("   C++ compilation " __FILE__ )
 
-  const wchar_t UCSURROGATE1 = 0xD800;
-  const wchar_t UCSURROGATE2 = 0xDC00;
+  const wchar_t UCSURROGATE1    = 0xD800;
+  const wchar_t UCSURROGATE2    = 0xDC00;
   const wchar_t UCSURROGATELAST = 0xDFFF;
-  const wchar_t UCHANGUL1 = 0xAC00;
-  const wchar_t UCHANGULLAST = 0xD7A3;
-  const wchar_t UCREPLACEMENT = 0xFFFD;
+  const wchar_t UCHANGUL1       = 0xAC00;
+  const wchar_t UCHANGULLAST    = 0xD7A3;
+  const wchar_t UCREPLACEMENT   = 0xFFFD;
 
   /*Byte Order Mark (BOM) indicates a Unicode file. The value FFFE is not
     a character at all. If an Unicode a file begins with this mark, byte order
@@ -369,7 +369,7 @@ const unsigned long GiB = 0x40000000UL;
     return ((a || b) && !(a && b));
     }
 #endif
-
+///////////////////////////////////////////////////////////////////////////////
 #endif /*!__cplusplus                                                        */
 
 #ifndef NaN_NUMBER
@@ -543,10 +543,18 @@ const unsigned long GiB = 0x40000000UL;
 #define SWAP_BYTE( ch )  (( ( (ch) << 4 ) | ( (ch) >> 4 ) ))
 
 
-  /*Set of ASCII letters, digits and specal characters '_', ' '              */
-#define ALPHANUMERICSET1 "ABCDEFGHIJKLMNOPQRSTUVWXYZ" \
-                         "abcdefghijklmnopqrstuvwxyz" \
-                         "_" "0123456789"
+  /*Set of wide characters representing Latin letters, digits
+    and specal characters '_', ' '    */
+#define ALPHANUMERICSET1W L"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_ 0123456789"
+  /*Set of condtional width characters representing Latin letters, digits and
+    specal characters '_', ' '    */
+#define ALPHANUMERICSET1T _T("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_ 0123456789")
+  /*Set of Latin letters, digits and specal characters '_', ' '              */
+#define ALPHANUMERICSET1   "ABCDEFGHIJKLMNOPQRSTUVWXYZ" \
+                           "abcdefghijklmnopqrstuvwxyz" \
+                           "_ 0123456789"
+
+
   /*Returns number of elements in an array                                   */
 #define SIZEOFARR(x)  (sizeof (x) / sizeof ((x)[0]))
 
@@ -570,7 +578,7 @@ const unsigned long GiB = 0x40000000UL;
   included in the other. Only range boundaries are examined; it is assumed that
   set elements are within range boundaries and the boudaries are elemenets of sets.
   Returns true if one of the sets includes boundaries of the other.
-*/
+ */
 #define ISRANGEINCLUDED(nA1, nA2, nB1, nB2) \
     ((nA2) >= (nB1) && (nB2) >= (nA1))
 
@@ -578,9 +586,21 @@ const unsigned long GiB = 0x40000000UL;
   included in the other. Only elements within range boundaries are examined; it
   is assumed that set elements are within range boundaries.
   Returns true if one of the sets includes elements within boundaries of the other.
-*/
+ */
 #define ISRANGEEINCLUDED(nA1, nA2, nB1, nB2) \
     ((nA2) > (nB1) && (nB2) > (nA1))
+
+/*Verfies if an array is an empty or insignificant set.
+
+  Example:
+      char* szVec = "123456";
+      if(!ISEMPTY(szVec))
+        printf(szVec);
+
+  Returns true if the array is NULL pointer or if first element is zero;
+  otherwise returns false.
+ */
+#define ISEMPTY(pVec) ((pVec == NULL) || (pVec[0] == 0))
 
 #ifndef __cplusplus
 /* ///////////////////////////////////////////////////////////////////////// */

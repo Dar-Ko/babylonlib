@@ -217,6 +217,37 @@ size_t const SIZE(sizeof(x) / sizeof(x[0]));
 return SIZE;
 }
 
+//-----------------------------------------------------------------------------
+/*Verfies if an array is an empty or insignificant set.
+
+  Example:
+      int arrVec[5];
+      if(!IsEmpty<int>(arrVec))
+        std::cout << arrVec[0];
+
+  Returns true if the array is NULL pointer or if first element is zero;
+  otherwise returns false.
+ */
+template<typename ARRAY> bool IsEmpty(ARRAY* pVec)
+{
+return ((pVec == NULL) || (pVec[0] == 0));
+}
+
+/*Verfies if zero-terminated string is an empty string.
+
+  Example:
+      char* szVec = "123456";
+      if(!IsEmpty(szVec))
+        std::cout << szVec;
+
+  Returns true if the string is NULL pointer or if it is empty;
+  otherwise returns false.
+ */
+template<LPCTSTR> bool IsEmpty(LPCTSTR pVec)
+{
+return ((pVec == NULL) || (pVec[0] == _T('\0')));
+}
+
 #endif //__cplusplus
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KPROGCST_INL_
