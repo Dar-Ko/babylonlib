@@ -1,5 +1,5 @@
 /*$RCSfile: TestCommonUsb.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/08/19 21:09:37 $
+  $Revision: 1.4 $ $Date: 2009/09/01 21:52:21 $
   $Author: ddarko $
 
   Testing USB routines.
@@ -19,6 +19,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TestFindUsbHid(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 extern bool TestUsbEnum(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 extern bool TestUsbLib(uint16_t nVendorId = 0, uint16_t nProductId = 0);
+extern bool TestUsbHelper(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 
 int TestCommonUsb(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 
@@ -39,6 +40,7 @@ TsWriteToViewLn(_T(""));
 PFUNC_TESTUSB funcTest[] =
   {
   //TODO: add Test
+  TestUsbHelper,
   TestUsbEnum,
   TestUsbLib,
   TestFindUsbHid,
@@ -67,6 +69,9 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestCommonUsb.cpp,v $
+ * Revision 1.4  2009/09/01 21:52:21  ddarko
+ * Validating limits of port Id
+ *
  * Revision 1.3  2009/08/19 21:09:37  ddarko
  * Test LIBUSB-WIN32
  *

@@ -544,7 +544,8 @@
 					Name="Debug_Unicode|Win32">
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"/>
+						UsePrecompiledHeader="0"
+						DisableSpecificWarnings="4100"/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode|Win32">
@@ -1072,6 +1073,9 @@
 			</File>
 			<File
 				RelativePath=".\Src\TestUsbEnum.cpp">
+			</File>
+			<File
+				RelativePath=".\Src\TestUsbHelper.cpp">
 			</File>
 			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">

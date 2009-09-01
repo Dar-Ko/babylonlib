@@ -1,5 +1,5 @@
 /*$RCSfile: KUsbDeviceInfo.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/08/28 21:08:01 $
+  $Revision: 1.3 $ $Date: 2009/09/01 21:52:02 $
   $Author: ddarko $
 
   USB (Universal Serial Bus) device information container
@@ -80,42 +80,6 @@ inline CUsbDeviceInfo::~CUsbDeviceInfo()
 }
 
 //-----------------------------------------------------------------------------
-/*Set a tiered, one-based port (hub node) index for the current tier level.
-  Because USB uses a tiered topology, identifying a device requires the port
-  number and tier level. The tier level is maintained by m_nTierLevel field.
-
-  Note: if tier level is out of proper range, the port index is not set.
-
-  See also: USB_MAXCOUNT, USB_TOPLEVEL
- */
-inline void CUsbDeviceInfo::SetPortNo(const int iPortId //[in] hub port number
-                                      //in the range [1, n]
-                                     )
-{
-#pragma warning (disable: 4127)
-  ASSERT((m_nTierLevel >= USB_ROOTLEVEL) && (m_nTierLevel <= (USB_TOPLEVEL - 1)));
-#pragma warning (default: 4127)
-if ((m_nTierLevel >= USB_ROOTLEVEL) && (m_nTierLevel <= (USB_TOPLEVEL - 1)))
-  m_nPortNo[m_nTierLevel - 1] = iPortId;
-}
-
-/*Set a tiered, one-based port (hub node) index for the given tier level.
-  If tier level is out of proper range, the port index is not set.
- */
-inline void CUsbDeviceInfo::SetPortNo(const unsigned int nTier, //[in] USB tier
-                                      //level [USB_ROOTLEVEL, USB_TOPLEVEL - 1]
-                                      const int iPortId //[in] hub port number
-                                      //in the range [1, n]
-                                     )
-{
-#pragma warning (disable: 4127)
-  ASSERT((nTier >= USB_ROOTLEVEL) && (nTier <= (USB_TOPLEVEL - 1)));
-#pragma warning (default: 4127)
-if ((nTier >= USB_ROOTLEVEL) && (nTier <= (USB_TOPLEVEL - 1)))
-  m_nPortNo[nTier - 1] = iPortId;
-}
-
-//-----------------------------------------------------------------------------
 /*Returns USB hub port (node) index for the current tier level.
  */
 inline int CUsbDeviceInfo::GetPortNo() const
@@ -192,6 +156,9 @@ ZeroPortNo();                  //hub node index
 #endif  //_KUSBDEVICEINFO_H_
 /*****************************************************************************
  * $Log: KUsbDeviceInfo.h,v $
+ * Revision 1.3  2009/09/01 21:52:02  ddarko
+ * Validating limits of port Id
+ *
  * Revision 1.2  2009/08/28 21:08:01  ddarko
  * SetPortNo
  *

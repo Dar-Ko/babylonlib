@@ -1,5 +1,5 @@
 /*$RCSfile: TestFindUsbHid.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2009/07/21 22:22:18 $
+  $Revision: 1.5 $ $Date: 2009/09/01 21:52:21 $
   $Author: ddarko $
 
   Test accessing USBHID information.
@@ -12,12 +12,12 @@
 #include "stdafx.h"
 #if !defined _KTESTLOG_H_
  #error wrong stdafx.h header is included!
- //The project options for this module have "..\..\Win\32" in 
+ //The project options for this module have "..\..\Win\32" in
  //additional include path
 #endif
 extern CTestLog g_logTest;   //general test logger
 
-/*Note: A MSVC LNK2005 error occurs when the CRT library and MFC libraries 
+/*Note: A MSVC LNK2005 error occurs when the CRT library and MFC libraries
   (nafxcwd.lib, libcmtd.lib) are linked in the wrong order in Visual C++
   See also: MSDN Article ID: 148652 http://support.microsoft.com/kb/148652
  */
@@ -124,7 +124,7 @@ catch(std::out_of_range& eoor)
 
   bResult = false;
   }
-catch(const std::exception& e)  
+catch(const std::exception& e)
   {
   #if _MSC_VER == 1200
     //warning C4710: (MSVC6 STL Release build) function not inlined
@@ -147,6 +147,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestFindUsbHid.cpp,v $
+ *Revision 1.5  2009/09/01 21:52:21  ddarko
+ *Validating limits of port Id
+ *
  *Revision 1.4  2009/07/21 22:22:18  ddarko
  **** empty log message ***
  *

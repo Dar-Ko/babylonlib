@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.19 $ $Date: 2009/08/28 21:07:31 $
+  $Revision: 1.20 $ $Date: 2009/09/01 21:52:21 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -12,12 +12,12 @@
 #include "stdafx.h"
 #if !defined _KTESTLOG_H_
  #error wrong stdafx.h header is included!
- //The project options for this module have "..\..\Win\32" in 
+ //The project options for this module have "..\..\Win\32" in
  //additional include path
 #endif
 extern CTestLog g_logTest;   //general test logger
 
-/*Note: A MSVC LNK2005 error occurs when the CRT library and MFC libraries 
+/*Note: A MSVC LNK2005 error occurs when the CRT library and MFC libraries
   (nafxcwd.lib, libcmtd.lib) are linked in the wrong order in Visual C++
   See also: MSDN Article ID: 148652 http://support.microsoft.com/kb/148652
  */
@@ -72,7 +72,7 @@ bool TestUsbEnum(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 
   Note: uses Standard Template Library (STL).
 
-  See also: 
+  See also:
  */
 bool TestUsbEnum(uint16_t nVendorId , //[in] = 0 USB Vendor ID (VID)
                  uint16_t nProductId  //[in] = 0 USB Product ID (PID)
@@ -225,7 +225,7 @@ try
           strResult = _T("The system is without USB controllers");
           bResult = true;
           TsWriteToViewLn(strResult);
-          g_logTest.LogResult(bResult); 
+          g_logTest.LogResult(bResult);
           TsWriteToViewLn(LOG_EOT);
           return bResult;
           }
@@ -356,7 +356,7 @@ try
             {
             if (usbRootHub.GetStatus((uint16_t)nPortNo) != NoDeviceConnected)
               {
-              nSupportedLangCount = GetUsbLangIds(hHub, 
+              nSupportedLangCount = GetUsbLangIds(hHub,
                                                   nPortNo,
                                                   listLang,
                                                   LISTLANGSIZE);
@@ -536,7 +536,7 @@ try
       TRACE1(_T("Number of host controllers: %d.\n"), nHubCount);
       //Number of USB root hubs enumerated with two different methods
       //have to be same.
-      bResult = (nHcdCount == nHubCount); 
+      bResult = (nHcdCount == nHubCount);
 
       g_logTest.LogResult(bResult); //Log object's construction
       }
@@ -549,7 +549,7 @@ try
       g_logTest.m_szObjectName = _T("CUsbDeviceTree::Enumerate()");
       g_logTest.m_szFileName   = _T("KWinUsbHub.cpp"); //function or object file name
 
-      bResult = ((int)nHcdCount == usbTree.Enumerate()); 
+      bResult = ((int)nHcdCount == usbTree.Enumerate());
       nHubCount = 0;
       while((int)nHubCount < usbTree.m_usbRootList.GetCount())
         {
@@ -599,10 +599,10 @@ try
       CUsbDeviceInfo usbDeviceInfo;
 
       //Get USB Host Controller information
-      bResult = usbTree.GetDevice(usbTestId.m_wVid, usbTestId.m_wPid, &usbDeviceInfo); 
+      bResult = usbTree.GetDevice(usbTestId.m_wVid, usbTestId.m_wPid, &usbDeviceInfo);
       if (bResult)
         {
-        _stprintf(szMsg, szFormat, 
+        _stprintf(szMsg, szFormat,
                     usbDeviceInfo.m_wVid, usbDeviceInfo.m_wPid,
                     (LPCTSTR)usbDeviceInfo.m_strProduct,
                     (LPCTSTR)usbDeviceInfo.m_strVendor,
@@ -610,7 +610,7 @@ try
                     usbDeviceInfo.GetPortNo()
                   );
         TsWriteToViewLn(szMsg);
-        
+
         //Get USB Host Controller information with root hub Id as a filter
         bResult = usbTree.GetDevice(usbTestId.m_wVid, usbTestId.m_wPid, &usbDeviceInfo);
         if (bResult)
@@ -619,7 +619,7 @@ try
           usbDeviceInfo.Empty(); //Erase all filters
           if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
             {
-            _stprintf(szMsg, szFormat, 
+            _stprintf(szMsg, szFormat,
                         usbDeviceInfo.m_wVid, usbDeviceInfo.m_wPid,
                         (LPCTSTR)usbDeviceInfo.m_strProduct,
                         (LPCTSTR)usbDeviceInfo.m_strVendor,
@@ -639,7 +639,7 @@ try
           usbDeviceInfo.m_strSerialNo = L"SN2008N0824"; //Fake S/N
           if(usbTree.GetDevice(nVendorId, nProductId, &usbDeviceInfo))
             {
-            _stprintf(szMsg, szFormat, 
+            _stprintf(szMsg, szFormat,
                         usbDeviceInfo.m_wVid, usbDeviceInfo.m_wPid,
                         (LPCTSTR)usbDeviceInfo.m_strProduct,
                         (LPCTSTR)usbDeviceInfo.m_strVendor,
@@ -683,7 +683,7 @@ catch(std::out_of_range& eoor)
 
   bResult = false;
   }
-catch(const std::exception& e)  
+catch(const std::exception& e)
   {
   #if _MSC_VER == 1200
     //warning C4710: (MSVC6 STL Release build) function not inlined
@@ -706,6 +706,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.20  2009/09/01 21:52:21  ddarko
+ *Validating limits of port Id
+ *
  *Revision 1.19  2009/08/28 21:07:31  ddarko
  **** empty log message ***
  *
