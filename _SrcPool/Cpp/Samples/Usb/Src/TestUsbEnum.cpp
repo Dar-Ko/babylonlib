@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbEnum.cpp,v $: implementation file
-  $Revision: 1.20 $ $Date: 2009/09/01 21:52:21 $
+  $Revision: 1.21 $ $Date: 2009/09/02 20:59:02 $
   $Author: ddarko $
 
   Test USB tree enumeration.
@@ -10,12 +10,24 @@
 // Group=Examples
 
 #include "stdafx.h"
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+  //Microsoft Visual C/C++ 2005, version 8.0
+  #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES) && (_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES == 0)
+    #undef _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES
+  #endif
+  /*Replace standard CRT functions like strcpy, sprintf, etc. with the more secure
+    template versions (strcpy_s, sprintf_s, ...) that will supply the output
+    buffer size argument automatically.
+   */
+  #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
+#endif
+
 #if !defined _KTESTLOG_H_
  #error wrong stdafx.h header is included!
  //The project options for this module have "..\..\Win\32" in
  //additional include path
 #endif
-extern CTestLog g_logTest;   //general test logger
 
 /*Note: A MSVC LNK2005 error occurs when the CRT library and MFC libraries
   (nafxcwd.lib, libcmtd.lib) are linked in the wrong order in Visual C++
@@ -30,20 +42,6 @@ extern CTestLog g_logTest;   //general test logger
     //than 255 characters
   #pragma warning (disable: 4786)
   #endif
-#endif
-
-extern bool TsWriteToViewLn(LPCTSTR lszText);
-extern bool TsWriteToView(LPCTSTR lszText);
-extern bool TsWriteToViewLn(const unsigned int& nValue);
-extern bool TsWriteToView(const unsigned int& nValue);
-//#include <vector>
-
-#if _MSC_VER < 1300
-  //MSVC/C++ 6.0 or lesser
-  //#pragma include_alias(<iostream>, <iomanip.h>)
-#endif
-#ifdef _USE_STL
-//#include <iostream> //std::endl
 #endif
 
 #ifdef _USE_MSWINDDK
@@ -62,6 +60,13 @@ extern bool TsWriteToView(const unsigned int& nValue);
   #define USBVID_MICROSOFT      0x045E //(Microsoft Corporation)
   #define USBPID_MSMOUSEOPTICAL 0x0083 //Basic Optical Mouse - generic HID
 #endif
+
+extern bool TsWriteToViewLn(LPCTSTR lszText);
+extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(const unsigned int& nValue);
+extern bool TsWriteToView(const unsigned int& nValue);
+
+extern CTestLog g_logTest;   //general test logger
 
 bool TestUsbEnum(uint16_t nVendorId = 0, uint16_t nProductId = 0);
 
@@ -706,6 +711,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbEnum.cpp,v $
+ *Revision 1.21  2009/09/02 20:59:02  ddarko
+ *MSVC++ 8.0
+ *
  *Revision 1.20  2009/09/01 21:52:21  ddarko
  *Validating limits of port Id
  *

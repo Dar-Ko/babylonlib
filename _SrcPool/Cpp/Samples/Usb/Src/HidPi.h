@@ -13,6 +13,11 @@
 #ifndef __HIDPI_H__
 #define __HIDPI_H__
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+  typedef long NTSTATUS, *PNTSTATUS;  //NTSTATUS typedef
+  #define read_only_file once //warning C4068: unknown pragma
+#endif
+
 #if !defined(_ENABLE_AUTODEPEND)
   #pragma read_only_file;
 #endif

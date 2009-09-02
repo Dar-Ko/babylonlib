@@ -13,6 +13,10 @@
 #ifndef _HIDSDI_H
 #define _HIDSDI_H
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+  #define read_only_file once //warning C4068: unknown pragma
+#endif
+
 #if !defined(_ENABLE_AUTODEPEND)
   #pragma read_only_file;
 #endif

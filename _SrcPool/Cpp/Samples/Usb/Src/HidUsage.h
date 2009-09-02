@@ -13,6 +13,10 @@
 #ifndef __HIDUSAGE_H__
 #define __HIDUSAGE_H__
 
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+  #define read_only_file once //warning C4068: unknown pragma
+#endif
+
 #if !defined(_ENABLE_AUTODEPEND)
   #pragma read_only_file;
 #endif

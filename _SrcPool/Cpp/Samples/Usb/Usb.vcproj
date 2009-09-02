@@ -16,10 +16,10 @@
 	<Configurations>
 		<Configuration
 			Name="Release_SBCS|Win32"
-			OutputDirectory=".\..\bin\Release_SBCS\Win32"
-			IntermediateDirectory=".\..\Obj\Release_SBCS\Usb\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			>
@@ -44,19 +44,20 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\Common\Src\Win\32,..\Common\Src\Win,..\..,..\..\STL,..\..\Win\32,..\..\Platform"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_USE_STL"
+				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\STL;..\..\Win\32;..\..\Platform;..\..\Peripheral"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES=1;_USE_STL;_USE_USBDRIVERKEYNAME"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\..\Obj\Release_SBCS\Usb\Win32/Usb.pch"
-				AssemblerListingLocation=".\..\Obj\Release_SBCS\Usb\Win32/"
-				ObjectFile=".\..\Obj\Release_SBCS\Usb\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_SBCS\Usb\Win32/"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
+				CompileAs="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -71,12 +72,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_SBCS\Win32/Usb.exe"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="1.1"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="./Lib"
 				IgnoreDefaultLibraryNames="LIBC.LIB"
-				ProgramDatabaseFile=".\..\bin\Release_SBCS\Win32/Usb.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -91,8 +93,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile=".\..\bin\Release_SBCS\Win32/Usb.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -109,10 +109,10 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_SBCS|Win32"
-			OutputDirectory=".\..\bin\Debug_SBCS\Win32"
-			IntermediateDirectory=".\..\Obj\Debug_SBCS\Usb\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			>
@@ -136,21 +136,21 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Common\Src\Win,..\..,..\..\STL,..\..\Win\32,..\..\Platform"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_USE_STL"
-				MinimalRebuild="true"
+				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\STL;..\..\Win\32;..\..\Platform;..\..\Peripheral"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES=1;_USE_STL;_USE_USBDRIVERKEYNAME"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\..\Obj\Debug_SBCS\Usb\Win32/Usb.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_SBCS\Usb\Win32/"
-				ObjectFile=".\..\Obj\Debug_SBCS\Usb\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_SBCS\Usb\Win32/"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
+				CompileAs="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -166,12 +166,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/VERBOSE:LIB"
-				OutputFile=".\..\bin\Debug_SBCS\Win32/Usb.exe"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="1.1"
-				LinkIncremental="2"
+				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="./Lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/Usb.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -186,8 +187,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile=".\..\bin\Debug_SBCS\Win32/Usb.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -204,10 +203,10 @@
 		</Configuration>
 		<Configuration
 			Name="Debug_Unicode|Win32"
-			OutputDirectory=".\..\bin\Debug_Unicode\Win32"
-			IntermediateDirectory=".\..\Obj\Debug_Unicode\Usb\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="1"
@@ -232,21 +231,21 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\Common\Src\Win\32,..\Common\Src\Win,..\..,..\..\STL,..\..\Win\32,..\..\Platform"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;UNICODE;_USE_STL"
-				MinimalRebuild="true"
+				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\STL;..\..\Win\32;..\..\Platform;..\..\Peripheral"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;UNICODE;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES=1;_USE_STL;_USE_USBDRIVERKEYNAME"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\..\Obj\Debug_Unicode\Usb\Win32/Usb.pch"
-				AssemblerListingLocation=".\..\Obj\Debug_Unicode\Usb\Win32/"
-				ObjectFile=".\..\Obj\Debug_Unicode\Usb\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Debug_Unicode\Usb\Win32/"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				BrowseInformation="1"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
+				CompileAs="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -262,12 +261,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/VERBOSE:LIB"
-				OutputFile=".\..\bin\Debug_Unicode\Win32/Usb.exe"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="1.1"
-				LinkIncremental="2"
+				LinkIncremental="1"
 				SuppressStartupBanner="true"
+				AdditionalLibraryDirectories="./Lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\..\bin\Debug_Unicode\Win32/Usb.pdb"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -282,8 +282,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile=".\..\bin\Debug_Unicode\Win32/Usb.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -300,10 +298,10 @@
 		</Configuration>
 		<Configuration
 			Name="Release_Unicode|Win32"
-			OutputDirectory=".\..\bin\Release_Unicode\Win32"
-			IntermediateDirectory=".\..\Obj\Release_Unicode\Usb\Win32"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="1"
-			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="1"
@@ -329,19 +327,20 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\Common\Src\Win\32,..\Common\Src\Win,..\..,..\..\STL,..\..\Win\32,..\..\Platform"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;UNICODE;_USE_STL"
+				AdditionalIncludeDirectories="..\..;..;.\Src;..\..\STL;..\..\Win\32;..\..\Platform;..\..\Peripheral"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;UNICODE;_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES=1;_USE_STL;_USE_USBDRIVERKEYNAME"
 				StringPooling="true"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\..\Obj\Release_Unicode\Usb\Win32/Usb.pch"
-				AssemblerListingLocation=".\..\Obj\Release_Unicode\Usb\Win32/"
-				ObjectFile=".\..\Obj\Release_Unicode\Usb\Win32/"
-				ProgramDataBaseFileName=".\..\Obj\Release_Unicode\Usb\Win32/"
+				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
+				AssemblerListingLocation="$(IntDir)/"
+				ObjectFile="$(IntDir)/"
+				ProgramDataBaseFileName="$(IntDir)/"
 				WarningLevel="4"
 				SuppressStartupBanner="true"
+				CompileAs="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -356,11 +355,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile=".\..\bin\Release_Unicode\Win32/Usb.exe"
+				OutputFile="$(OutDir)/$(ProjectName).exe"
 				Version="1.1"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				ProgramDatabaseFile=".\..\bin\Release_Unicode\Win32/Usb.pdb"
+				AdditionalLibraryDirectories="./Lib"
+				ProgramDatabaseFile="$(OutDir)/$(ProjectName).pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -375,8 +375,6 @@
 			/>
 			<Tool
 				Name="VCBscMakeTool"
-				SuppressStartupBanner="true"
-				OutputFile=".\..\bin\Release_Unicode\Win32/Usb.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -407,6 +405,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
@@ -417,8 +416,59 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="0"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="0"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KDbgSpdrp.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KGetDeviceProperty.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -427,8 +477,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -437,8 +485,188 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KGetUsbLangIds.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KGetUsbPortInfo.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KGetUsbStringDescriptor.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KPciId.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Stl\KStrAtoWChar.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -451,6 +679,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
@@ -461,8 +690,55 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="0"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="0"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Stl\KStringStl.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -471,8 +747,43 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+						DisableSpecificWarnings="4100"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\KStrIStr.c"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -481,8 +792,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -495,6 +804,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
@@ -505,9 +815,12 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="0"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -515,9 +828,12 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="0"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -525,8 +841,47 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Stl\KStrWtoChar.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -539,6 +894,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
@@ -549,9 +905,12 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="0"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -559,9 +918,12 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="0"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -569,6 +931,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
@@ -576,46 +939,146 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\Win\32\KUsbHub.cpp"
+				RelativePath="..\..\Peripheral\KUsbDeviceInfo.cpp"
 				>
 				<FileConfiguration
 					Name="Release_SBCS|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug_SBCS|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug_Unicode|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release_Unicode|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KUsbDrvKeyName.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KUsbEnumHcd.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KUsbEnumRootHub.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
 			</File>
@@ -627,6 +1090,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
@@ -637,8 +1101,55 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="0"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="0"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						UsePrecompiledHeader="0"
+						BrowseInformation="1"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						Optimization="2"
+						AdditionalIncludeDirectories=""
+						PreprocessorDefinitions=""
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KWinUsbHub.cpp"
+				>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -647,8 +1158,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -657,8 +1166,6 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
 					/>
 				</FileConfiguration>
@@ -671,6 +1178,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 					/>
@@ -680,8 +1188,11 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -689,8 +1200,11 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -698,6 +1212,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 					/>
@@ -711,6 +1226,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="1"
@@ -721,9 +1237,12 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="1"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -731,9 +1250,12 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="1"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -741,11 +1263,16 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="1"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\StdUsb.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\Common\Res\Win\32\Test.rc"
@@ -756,7 +1283,7 @@
 					<Tool
 						Name="VCResourceCompilerTool"
 						PreprocessorDefinitions=""
-						AdditionalIncludeDirectories="\BabelLib\_SrcPool\Cpp\Samples\Common\Res\Win\32"
+						AdditionalIncludeDirectories="\MyDocuments\BabelLib\_SrcPool\Cpp\Samples\Common\Res\Win\32"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -765,7 +1292,7 @@
 					<Tool
 						Name="VCResourceCompilerTool"
 						PreprocessorDefinitions=""
-						AdditionalIncludeDirectories="\BabelLib\_SrcPool\Cpp\Samples\Common\Res\Win\32"
+						AdditionalIncludeDirectories="\MyDocuments\BabelLib\_SrcPool\Cpp\Samples\Common\Res\Win\32"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -773,8 +1300,8 @@
 					>
 					<Tool
 						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
-						AdditionalIncludeDirectories="\BabelLib\_SrcPool\Cpp\Samples\Common\Res\Win\32"
+						PreprocessorDefinitions="_DEBUG;_UNICODE;$(NoInherit)"
+						AdditionalIncludeDirectories="\MyDocuments\BabelLib\_SrcPool\Cpp\Samples\Common\Res\Win\32"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -782,8 +1309,8 @@
 					>
 					<Tool
 						Name="VCResourceCompilerTool"
-						PreprocessorDefinitions=""
-						AdditionalIncludeDirectories="\BabelLib\_SrcPool\Cpp\Samples\Common\Res\Win\32"
+						PreprocessorDefinitions="NDEBUG;_UNICODE;$(NoInherit)"
+						AdditionalIncludeDirectories="\MyDocuments\BabelLib\_SrcPool\Cpp\Samples\Common\Res\Win\32"
 					/>
 				</FileConfiguration>
 			</File>
@@ -795,6 +1322,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 					/>
@@ -804,8 +1332,11 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -813,8 +1344,11 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -822,6 +1356,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 					/>
@@ -835,6 +1370,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 					/>
@@ -844,8 +1380,11 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -853,8 +1392,11 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -862,10 +1404,23 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\TestUsb.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestUsbEnum.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestUsbHelper.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp"
@@ -875,6 +1430,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
@@ -885,9 +1441,12 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="0"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -895,9 +1454,12 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="0"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
+						BasicRuntimeChecks="3"
 						UsePrecompiledHeader="0"
+						BrowseInformation="1"
 					/>
 				</FileConfiguration>
 				<FileConfiguration
@@ -905,6 +1467,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						Optimization="2"
 						AdditionalIncludeDirectories=""
 						PreprocessorDefinitions=""
 						UsePrecompiledHeader="0"
@@ -917,11 +1480,31 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
+				RelativePath=".\Src\HidPi.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\HidSdi.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\HidUsage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KSysPnP.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\KTestLog.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\KUsb.h"
+				RelativePath="..\..\Peripheral\KUsb.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Peripheral\KUsbDeviceInfo.h"
 				>
 			</File>
 			<File
@@ -929,7 +1512,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\Win\32\KUsbHub.h"
+				RelativePath="..\..\Peripheral\KUsbHub.h"
 				>
 			</File>
 			<File
@@ -938,6 +1521,30 @@
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Peripheral\Usb100.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Peripheral\Usb200.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Peripheral\UsbGuid.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Peripheral\UsbIoCtl.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Peripheral\UsbIoDef.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Peripheral\UsbUser.h"
 				>
 			</File>
 			<File
@@ -953,6 +1560,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Platform\UsbVid04B0.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Platform\UsbVid04B4.h"
 				>
 			</File>
@@ -961,7 +1572,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Platform\UsbVid050D.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Platform\UsbVid058F.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Platform\UsbVid05E0.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Platform\UsbVid05E3.h"
 				>
 			</File>
 			<File
@@ -974,6 +1597,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Platform\UsbVid0839.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Platform\UsbVid0A5F.h"
 				>
 			</File>
 			<File
@@ -990,6 +1617,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Platform\UsbVid0DD4.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Platform\UsbVid0FCA.h"
 				>
 			</File>
 			<File
@@ -1011,6 +1642,20 @@
 			>
 			<File
 				RelativePath="..\..\..\..\Doc\Res\icoUsb.ico"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Logs"
+			Filter="log;"
+			SourceControlFiles="false"
+			>
+			<File
+				RelativePath=".\LibraryTest.log"
+				>
+			</File>
+			<File
+				RelativePath=".\LibraryTestUni.log"
 				>
 			</File>
 		</Filter>

@@ -911,7 +911,23 @@ try
      {
         argListNew = argList;
 
-        if ( _vsntprintf( buffer_to_write_to, buffer_size, lpszFormat, argListNew ) == (-1) )
+        if ( 
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+  //Microsoft Visual C/C++ 2005, version 8.0
+          _vsntprintf_s(buffer_to_write_to, //Storage location 
+                       buffer_size + 1,     //size of the buffer for output
+                       buffer_size,  //Maximum number of characters to write
+                       lpszFormat,   //Format specification
+                       argListNew    //list of arguments.
+                       ) 
+#else
+          _vsntprintf( buffer_to_write_to, //Storage location 
+                       buffer_size,  //Maximum number of characters to write
+                       lpszFormat,   //Format specification
+                       argListNew    //list of arguments.
+                       ) 
+#endif
+                          == (-1) )
         {
            buffer_size *= 2;
 
