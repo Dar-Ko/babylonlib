@@ -1,5 +1,5 @@
 /*$RCSfile: KUsbDeviceInfo.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/09/01 21:52:02 $
+  $Revision: 1.4 $ $Date: 2009/09/02 21:51:59 $
   $Author: ddarko $
 
   USB (Universal Serial Bus) device information container
@@ -62,6 +62,12 @@ LPCTSTR CUsbDeviceInfo::GetPortNo(CString& strPortId //[out] formatted
                                  //USB port numbering
                                  ) const
 {
+#if defined(_MSC_VER) && (_MSC_VER >= 1400)
+  //Microsoft Visual C/C++ 2005, version 8.0
+  #define ItoS(value, buffer, size, radix) _itot_s(value, buffer, size, radix)
+#else
+  #define ItoS(value, buffer, size, radix) _itot(value, buffer, radix)
+#endif
 const TCHAR SEPARATOR = _T(':');
 #ifndef INT32_LEN
   const int INT32_LEN = 11; //maximum number of characters representing
@@ -69,7 +75,8 @@ const TCHAR SEPARATOR = _T(':');
 #endif
 TCHAR szPortId[INT32_LEN + 1 + 1];
 //Note: root hub ID is not limited to USB_MAXCOUNT in order to simplify the code
-strPortId = _itot(m_nPortNo[USB_ROOTLEVEL - 1], szPortId, 10);
+ItoS(m_nPortNo[USB_ROOTLEVEL - 1], szPortId, SizeOfArray(szPortId), 10);
+strPortId = szPortId;
 
 szPortId[0] = SEPARATOR;
 int i = 1;
@@ -78,7 +85,7 @@ while(i < (USB_TOPLEVEL - 1))
   if ((m_nPortNo[i] <= 0) || (m_nPortNo[i] > USB_MAXCOUNT))
     break;
 
-  _itot(m_nPortNo[i], &szPortId[1], 10);
+  ItoS(m_nPortNo[i], &szPortId[1], SizeOfArray(szPortId), 10);
   strPortId += szPortId;
   i++;
   }
@@ -217,6 +224,9 @@ return bResult;
 
 /*****************************************************************************
  * $Log: KUsbDeviceInfo.cpp,v $
+ * Revision 1.4  2009/09/02 21:51:59  ddarko
+ * MSVC++ 8.0
+ *
  * Revision 1.3  2009/09/01 21:52:02  ddarko
  * Validating limits of port Id
  *
