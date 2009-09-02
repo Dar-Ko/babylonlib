@@ -83,16 +83,16 @@ extern "C"
 /* C++ encapsulation                                                         */
 #ifdef __cplusplus
 
-class CTestLog : public tagTestEntry
-    {
-    public: 
-      CTestLog();
-      CTestLog(TESTENTRY& testLog);
-      ~CTestLog();
-      void LogTest(TESTENTRY& testLog) const;
-      void LogResult(const bool bTestResult);
-
-    };
+  class CTestLog : public tagTestEntry
+  {
+  public: 
+    CTestLog();
+    CTestLog(TESTENTRY& testLog);
+    ~CTestLog();
+    void LogTest(TESTENTRY& testLog) const;
+    void LogResult(const bool bTestResult);
+    void LogResult();
+  };
 
   inline CTestLog::CTestLog()
     {
@@ -142,6 +142,11 @@ class CTestLog : public tagTestEntry
                        )
     {
     m_bResult = bTestResult;
+    ::LogTest(this);
+    }
+
+  inline void CTestLog::LogResult()
+    {
     ::LogTest(this);
     }
 
