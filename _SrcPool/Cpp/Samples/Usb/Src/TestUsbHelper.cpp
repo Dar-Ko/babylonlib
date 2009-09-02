@@ -1,5 +1,5 @@
 /*$RCSfile: TestUsbHelper.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/09/01 21:52:21 $
+  $Revision: 1.2 $ $Date: 2009/09/02 17:35:33 $
   $Author: ddarko $
 
   Test USB helper methods
@@ -16,6 +16,8 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToViewLn(const unsigned int& nValue);
 extern bool TsWriteToView(const unsigned int& nValue);
+
+extern CTestLog g_logTest;   //general test logger
 
 //-----------------------------------------------------------------------------
 /*Validates a various helper methods for handling USB information.
@@ -35,59 +37,56 @@ TsWriteToViewLn(_T("Test USB Helpers"));
 _UNUSED(nVendorId);
 _UNUSED(nProductId);
 
-bool bResult = true;
+bool& bResult = g_logTest.m_bResult;
+bResult = false;
+
 try
   {
   CUsbDeviceInfo usbDevInfo;
-  bool bTest[] = 
+  struct STestPortNo
     {
-    false, // 0: F
-    false, // 1: F
-    false, // 2: F
-    true , // 3: T
-    true , // 4: T
-    true , // 5: T
-    false, // 6: F
-    true , // 7: T
-    false, // 8: F
-    false, // 9: F
-    false, // A: F
-    false, // B: F
-    false, // C: F
-    false, // D: F
-    true   // E: T
-    };
+    LPCTSTR szTest;
+    bool    bTest;
+    } arrTestPortNo[] =
+      {
+      NULL                    , false, // 0: F 0:0:0:0:0:0
+      _T("")                  , false, // 1: F 0:0:0:0:0:0
+      ALPHANUMERICSET1T       , false, // 2: F 0:0:0:0:0:0
+      _T("0")                 , true , // 3: T 0:0:0:0:0:0
+      _T("1")                 , true , // 4: T 1:0:0:0:0:0
+      _T("0:1")               , true , // 5: T 0:0:0:0:0:0
+      _T("5\t1")              , false, // 6: F 5:0:0:0:0:0
+      _T("1:2:0")             , true , // 7: T 1:2:0:0:0:0
+      _T("!:2:3:\05")         , false, // 8: F 0:0:0:0:0:0
+      _T("9:10:11:\015")      , false, // 9: F 9:10:11:0:0:0
+      _T("::12:13\0")         , false, // A: F 0:0:0:0:0:0
+      _T("1:2:3:4:5:6:7:8:9") , false, // B: F 1:2:3:4:5:6
+      _T("1:2G")              , false, // C: F 1:2:0:0:0:0
+      _T("1:78000:2")         , false, // D: F 1:78000:0:0:0:0
+      _T("21:22:23:24:25:26") ,  true  // E: T 21:22:23:24:25:26
+      };
 
-  LPCTSTR arrTestPortNo[] =
-    {
-    NULL,                   // 0: F 0:0:0:0:0:0
-    _T(""),                 // 1: F 0:0:0:0:0:0
-    ALPHANUMERICSET1T,      // 2: F 0:0:0:0:0:0
-    _T("0"),                // 3: T 0:0:0:0:0:0
-    _T("1"),                // 4: T 1:0:0:0:0:0
-    _T("0:1"),              // 5: T 0:0:0:0:0:0
-    _T("5\t1"),             // 6: F 5:0:0:0:0:0
-    _T("1:2:0"),            // 7: T 1:2:0:0:0:0
-    _T("!:2:3:\05"),        // 8: F 0:0:0:0:0:0
-    _T("9:10:11:\015"),     // 9: F 9:10:11:0:0:0
-    _T("::12:13\0"),        // A: F 0:0:0:0:0:0
-    _T("1:2:3:4:5:6:7:8:9"),// B: F 1:2:3:4:5:6
-    _T("1:2G"),             // C: F 1:2:0:0:0:0
-    _T("1:78000:2"),        // D: F 1:78000:0:0:0:0
-    _T("21:22:23:24:25:26") // E: T 21:22:23:24:25:26
-    };
+  //Test parsing device name
+  g_logTest.m_szObjectName = _T("CUsbDeviceInfo::SetPortNo(LPCTSTR)");
+  g_logTest.m_szFileName   = _T("KUsbDeviceInfo.cpp"); //function or object file name
 
   CString strPortNo;
   int i = 0;
   while (i < SIZEOFARR(arrTestPortNo))
     {
-    bResult = (usbDevInfo.SetPortNo(arrTestPortNo[i]) == bTest[i]);
+    bResult = (usbDevInfo.SetPortNo(arrTestPortNo[i].szTest) == 
+               arrTestPortNo[i].bTest);
     TsWriteToViewLn(usbDevInfo.GetPortNo(strPortNo));
     if(!bResult)
       break;
     i++;
     }
-
+  g_logTest.LogResult();
+  if(bResult)
+    {
+    g_logTest.m_szObjectName = _T("CUsbDeviceInfo::GetPortNo(CString&)");
+    g_logTest.LogResult();
+    }
   }
 catch(std::out_of_range& eoor)
   {
@@ -128,6 +127,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestUsbHelper.cpp,v $
+ *Revision 1.2  2009/09/02 17:35:33  ddarko
+ *test structure
+ *
  *Revision 1.1  2009/09/01 21:52:21  ddarko
  *Validating limits of port Id
  *
