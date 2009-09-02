@@ -1,5 +1,5 @@
 /*$Workfile: UsbVid0801.h$: header file
-  $Revision: 1.4 $ $Date: 2008/04/08 19:32:07 $
+  $Revision: 1.5 $ $Date: 2009/09/02 18:58:15 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -21,18 +21,18 @@
 #define USBVID_0801 _T("Mag-Tek") //VID 2049 Vendor name
 
 #define USBPID_MTKBSWIPEMSR  0x0001 /*MagTek USB KB Swipe/SureSwipe (Dual Head)
-                                   Magnetic Strip Readers
-                                   emulating a USB Human Interface Device (HID)
-                                   keyboard. Part Numbers: 21040107, 21040108,
-                                   21040109, 21040110, 21040122, 21040123,
-                                   21040145, 21040147.
-                                  */
-#define USBPID_MTHIDSWIPEMSR 0x0002 /*MagTek Mini HID Swipe/Full Size/ HID SureSwipe
-                                   (Dual Head) Magnetic Strip Readers.
-                                   Part Numbers: 21040101, 21040102, 21040103,
-                                   21040104, 21040113, 21040114, 21040119,
-                                   21040139, 21040143, 21040140, 21040146.
-                                  */
+                                      Magnetic Strip Readers
+                                      emulating a USB Human Interface Device (HID)
+                                      keyboard. Part Numbers: 21040107, 21040108,
+                                      21040109, 21040110, 21040122, 21040123,
+                                      21040145, 21040147.
+                                     */
+#define USBPID_MTHIDSWIPEMSR 0x0002 /*MagTek Mini HID Swipe/Full Size/HID SureSwipe
+                                      (Dual Head) Magnetic Strip Readers.
+                                      Part Numbers: 21040101, 21040102, 21040103,
+                                      21040104, 21040113, 21040114, 21040119,
+                                      21040139, 21040143, 21040140, 21040146.
+                                     */
 #define USBPID_MT215MSR      0x0003 //MagTek 215/P-Series Insert Magnetic Strip Reader
 #define USBPID_MTMAGNEPRN    0x0009 //MagTek MagnePrint
 #define USBPID_MTMAGNEPRNEN  0x000E //MagTek EncMagnePrint
@@ -45,6 +45,9 @@
 #endif //_USBVID0801_H_
 /*****************************************************************************
  * $Log: UsbVid0801.h,v $
+ * Revision 1.5  2009/09/02 18:58:15  ddarko
+ * Coverted LF to CRLF
+ *
  * Revision 1.4  2008/04/08 19:32:07  ddarko
  * MICR
  *
