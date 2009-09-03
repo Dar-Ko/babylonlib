@@ -1,5 +1,5 @@
 /*$RCSfile: KUsbDeviceInfo.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2009/09/02 21:51:59 $
+  $Revision: 1.5 $ $Date: 2009/09/03 19:47:13 $
   $Author: ddarko $
 
   USB (Universal Serial Bus) device information container
@@ -85,7 +85,7 @@ while(i < (USB_TOPLEVEL - 1))
   if ((m_nPortNo[i] <= 0) || (m_nPortNo[i] > USB_MAXCOUNT))
     break;
 
-  ItoS(m_nPortNo[i], &szPortId[1], SizeOfArray(szPortId), 10);
+  ItoS(m_nPortNo[i], &szPortId[1], SizeOfArray(szPortId) - 1, 10);
   strPortId += szPortId;
   i++;
   }
@@ -224,6 +224,9 @@ return bResult;
 
 /*****************************************************************************
  * $Log: KUsbDeviceInfo.cpp,v $
+ * Revision 1.5  2009/09/03 19:47:13  ddarko
+ * Fixed potential overun
+ *
  * Revision 1.4  2009/09/02 21:51:59  ddarko
  * MSVC++ 8.0
  *
