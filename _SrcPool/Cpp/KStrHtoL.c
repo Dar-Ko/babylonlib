@@ -9,7 +9,15 @@
 /* Group=Strings                                                             */
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
-#include "KTChar.h" /*_tcschr()*/
+#ifdef WIN32
+  #ifdef _MSC_VER
+    /*Microsoft Visual C/C++ compiler*/
+    #include <windows.h>
+    #pragma include_alias( "KTChar.h", "tchar.h" )
+  #endif
+#endif
+
+#include "KTChar.h" /*_istdigit()*/
 
 #ifdef _DEBUG
   static char THIS_FILE[] = __FILE__;
