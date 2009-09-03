@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbPortInfo.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/08/18 14:21:55 $
+  $Revision: 1.3 $ $Date: 2009/09/03 19:11:29 $
   $Author: ddarko $
 
   Obtain USB string descriptor.
@@ -146,7 +146,7 @@ TRACE1(_T("GetUsbPortInfo(nPortNo = %d, extended)\n"), nPortNo);
 //Disable warning C4127: conditional expression in ASSERT is constant
 #pragma warning (disable: 4127)
   ASSERT((nPortNo > 0) && (nPortNo <= USB_MAXCOUNT));
-  ASSERT(pusbPortInfo != NULL 0); //String Descriptor 0 contains the array of
+  ASSERT(pusbPortInfo != NULL); //String Descriptor 0 contains the array of
                             //supported Language IDs
   ASSERT(hHub != INVALID_HANDLE_VALUE);
 #pragma warning (default: 4127)
@@ -165,9 +165,9 @@ if ((nPortNo > 0) &&
                       IOCTL_USB_GET_NODE_CONNECTION_INFORMATION_EX,
                       pusbPortInfo,
                       sizeof(USB_NODE_CONNECTION_INFORMATION_EX),
-                      &usbPortInfo,
+                      pusbPortInfo,
                       sizeof(USB_NODE_CONNECTION_INFORMATION_EX),
-                      pusbPortInfo,  //unused
+                      &nBytesReturned,  //unused
                       NULL))
     {
     if (nBytesReturned > 1) //Sanity check
@@ -199,6 +199,9 @@ return bResult;
 
 /*****************************************************************************
  * $Log: KGetUsbPortInfo.cpp,v $
+ * Revision 1.3  2009/09/03 19:11:29  ddarko
+ * MSVC 8.0 build
+ *
  * Revision 1.2  2009/08/18 14:21:55  ddarko
  * *** empty log message ***
  *

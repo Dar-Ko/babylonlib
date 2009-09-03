@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbLangIds.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/08/18 14:19:05 $
+  $Revision: 1.4 $ $Date: 2009/09/03 19:11:29 $
   $Author: ddarko $
 
   Obtain list of the languges that a USB device supports.
@@ -24,6 +24,9 @@
   #include "stdafx.h" //Standard system header files
   #include "KTraceAtl.h"
   #pragma include_alias( "KString.h", "atlstr.h" )
+  #ifndef UINT8_MAX
+    #define UINT8_MAX 0xff //ISO C99 type definitions: UINT8_MAX
+  #endif
 #else
   #include <windows.h>
 #endif
@@ -206,6 +209,9 @@ return (unsigned int)nResult;
 
 /*****************************************************************************
  * $Log: KGetUsbLangIds.cpp,v $
+ * Revision 1.4  2009/09/03 19:11:29  ddarko
+ * MSVC 8.0 build
+ *
  * Revision 1.3  2009/08/18 14:19:05  ddarko
  * fixed faulty devices without string descriptors
  *

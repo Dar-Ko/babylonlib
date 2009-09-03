@@ -1,5 +1,5 @@
 /*$RCSfile: KGetUsbStringDescriptor.cpp,v $: implementation file
-  $Revision: 1.7 $ $Date: 2009/08/20 21:23:15 $
+  $Revision: 1.8 $ $Date: 2009/09/03 19:11:29 $
   $Author: ddarko $
 
   Obtain USB string descriptor.
@@ -26,6 +26,9 @@
   #include "stdafx.h" //Standard system header files
   #include "KTraceAtl.h"
   #pragma include_alias( "KString.h", "atlstr.h" )
+  #ifndef UINT8_MAX
+    #define UINT8_MAX 0xff //ISO C99 type definitions: UINT8_MAX
+  #endif
 #else
   #include <windows.h>
 #endif
@@ -200,6 +203,9 @@ return strResult;
 
 /*****************************************************************************
  * $Log: KGetUsbStringDescriptor.cpp,v $
+ * Revision 1.8  2009/09/03 19:11:29  ddarko
+ * MSVC 8.0 build
+ *
  * Revision 1.7  2009/08/20 21:23:15  ddarko
  * *** empty log message ***
  *

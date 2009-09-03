@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.29 $ $Date: 2009/08/28 21:06:53 $
+  $Revision: 1.30 $ $Date: 2009/09/03 19:11:29 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -25,6 +25,9 @@
 
   #include "stdafx.h" //Standard system header files
   #include "KTraceAtl.h"
+  #ifndef UINT8_MAX
+    #define UINT8_MAX 0xff //ISO C99 type definitions: UINT8_MAX
+  #endif
 #else
   #include <windows.h>
 #endif
@@ -146,7 +149,7 @@ if (pDeviceInfo != NULL)
     {
     //Match the device connected to specified port with given Ids
     //or return false if port number is out of range
-    if (m_iLastNodeAccessed <= m_usbRootList.GetCount())
+    if (m_iLastNodeAccessed <= (int)m_usbRootList.GetCount())
       bResult = m_usbRootList[m_iLastNodeAccessed - 1]->Find(wVendorId,
                                                              wProductId,
                                                              pDeviceInfo);

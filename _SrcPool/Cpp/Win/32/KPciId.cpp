@@ -1,5 +1,5 @@
 /*$RCSfile: KPciId.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/08/19 21:11:35 $
+  $Revision: 1.4 $ $Date: 2009/09/03 19:11:29 $
   $Author: ddarko $
 
   Parse Peripheral Component Interconnect (PCI) device name.
@@ -88,7 +88,15 @@ if ((szDeviceName != NULL) &&
     (pPciId != NULL) )
   {
   //Normalize string to lowercase
-  LPTSTR szName = _tcslwr(_tcsdup(szDeviceName));
+  #if defined(_MSC_VER) && (_MSC_VER >= 1400)
+    //Microsoft Visual C/C++ 2005, version 8.0
+    LPTSTR szName = _tcsdup(szDeviceName);
+    //Note: buffer size includes terminating zero
+    if (_tcslwr_s(szName, _tcslen(szName) + 1) != NO_ERROR)
+      return bResult;
+  #else
+    LPTSTR szName = _tcslwr(_tcsdup(szDeviceName));
+  #endif
 
   if (szName != NULL)
     {
@@ -175,6 +183,9 @@ return bResult;
 #endif //_WIN32
 /*****************************************************************************
  * $Log: KPciId.cpp,v $
+ * Revision 1.4  2009/09/03 19:11:29  ddarko
+ * MSVC 8.0 build
+ *
  * Revision 1.3  2009/08/19 21:11:35  ddarko
  * PCI description
  *

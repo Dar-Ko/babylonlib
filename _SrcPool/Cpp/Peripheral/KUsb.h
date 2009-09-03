@@ -1,5 +1,5 @@
 /*$RCSfile: KUsb.h,v $: header file
-  $Revision: 1.13 $ $Date: 2009/08/25 21:27:15 $
+  $Revision: 1.14 $ $Date: 2009/09/03 19:11:29 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) device data structures
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KUSB_H_
-  //$RCSkfile: KUsb.h$ sentry
+  //$RCSfile: KUsb.h,v $ sentry
   #define _KUSB_H_
 
 #ifdef _LINUX
@@ -22,9 +22,6 @@
 #include "stdint.h" //ISO C99 type definitions
 
 #include "Usb200.h" //USB 2.0 Specification
-//#ifndef LPCTSTR
-//  #include "KTChar.h"
-//#endif
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
