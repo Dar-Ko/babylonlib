@@ -1,5 +1,5 @@
 /*$Workfile: UsbVid04B4.h$: header file
-  $Revision: 1.4 $ $Date: 2009/07/30 17:08:32 $
+  $Revision: 1.5 $ $Date: 2009/09/09 21:07:32 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -37,7 +37,7 @@
 #define USBPID_USBFLASHCY    0x4616 //Flash Disk (TPP)
 #define USBPID_HIDRS232      0x5500 //Cypress USB HID to COM RS232 Adapter
 #define USBPID_MOUSECC2201   0x6370 //ViewMate Desktop Mouse CC2201
-#define USBPID_CY7C65640     0x6560 //CY7C65640 USB-2.0 "TetraHub"
+#define USBPID_CY7C65640     0x6560 //CY7C65640 USB-2.0 4-port TetraHub
 #define USBPID_CY7C68300A    0x6830 //CY7C68300A EZ-USB AT2 USB 2.0 to ATA/ATAPI
 #define USBPID_ISD300LPCY    0x6831 //Cypress Storage Adapter ISD-300LP
 #define USBPID_CYPCLOCK      0x7417 //Cypress Wireless PC Lock
@@ -53,6 +53,9 @@
 #endif //_USBVID04B4_H_
 /*****************************************************************************
  * $Log: UsbVid04B4.h,v $
+ * Revision 1.5  2009/09/09 21:07:32  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.4  2009/07/30 17:08:32  ddarko
  * Updated
  *
