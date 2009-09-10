@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.30 $ $Date: 2009/09/03 19:11:29 $
+  $Revision: 1.31 $ $Date: 2009/09/10 21:41:03 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -158,7 +158,7 @@ if (pDeviceInfo != NULL)
   }
 
 //Search for the specified device at any port
-m_iLastNodeAccessed = 0;
+m_iLastNodeAccessed = 0; //Ensure that the index is not negative number
 while (m_iLastNodeAccessed < (int)m_usbRootList.GetCount())
   {
   if (pDeviceInfo != NULL)
@@ -838,6 +838,8 @@ else //Check for the match among attached devices
         if (pUsbNode->m_bHub) //Search through attached external hub
           {
           bResult = ((CUsbHub*)pUsbNode)->Find(wVendorId, wProductId, pDeviceInfo);
+          if((!bResult) && (pDeviceInfo != NULL))
+            pDeviceInfo->m_nTierLevel--; //Roll-back tier level
           }
         }
 
@@ -1062,14 +1064,16 @@ return szResult;
 #endif //_WIN32
 
 /*****************************************************************************
- * $Log:
+ * $Log: KWinUsbHub.cpp,v $
+ * Revision 1.31  2009/09/10 21:41:03  ddarko
+ * Fixed search for VID with 2 same external hubs
+ *
  *  5    Biblioteka1.4         2007-08-24 18:15:43  Darko Kolakovic SBCS build
  *  4    Biblioteka1.3         2007-08-24 17:28:43  Darko Kolakovic Debug
  *       information
  *  3    Biblioteka1.2         2007-08-24 10:53:52  Darko Kolakovic Unicode build
  *  2    Biblioteka1.1         2007-08-23 17:21:17  Darko Kolakovic GetDevDesc()
  *  1    Biblioteka1.0         2007-08-22 19:29:10  Darko Kolakovic
- * $
  *****************************************************************************/
 
 /*Note: Used code from Microsoft Windows DDK sample USBView
