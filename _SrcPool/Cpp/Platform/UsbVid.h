@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid.h,v $: header file
-  $Revision: 1.9 $ $Date: 2009/09/09 20:35:51 $
+  $Revision: 1.10 $ $Date: 2009/09/11 20:35:49 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor device identification (VID) list
@@ -33,6 +33,7 @@
 #include "UsbVid078B.h" //Suzo-Happ Group
 #include "UsbVid0801.h" //Mag-Tek
 #include "UsbVid0839.h" //Samsung Tecwin Co.
+#include "UsbVid0A5C.h" //Broadcom Corporation
 #include "UsbVid0A5F.h" //Zebra Technologies
 #include "UsbVid0AA7.h" //Wincor Nixdorf GmbH
 #include "UsbVid0ACD.h" //ID Tech
@@ -47,6 +48,9 @@
 #endif //_USBVID_H_
 /*****************************************************************************
  * $Log: UsbVid.h,v $
+ * Revision 1.10  2009/09/11 20:35:49  ddarko
+ * Broadcom
+ *
  * Revision 1.9  2009/09/09 20:35:51  ddarko
  * Lexar Media
  *
