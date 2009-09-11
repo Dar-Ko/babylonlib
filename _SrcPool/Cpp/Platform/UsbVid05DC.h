@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid05DC.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/09/09 20:35:51 $
+  $Revision: 1.2 $ $Date: 2009/09/11 20:03:25 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -46,8 +46,8 @@
 #define USBPID_JDEXPRESSION                0x0330 //JumpDrive Expression
 #define USBPID_JDTAD                       0x0340 //JumpDrive TAD
 #define USBPID_EXPRESS CARD                0x0350 //Express Card
-#define USBPID_UFDC400                     0x0400 //UFDC
-#define USBPID_UFDC401                     0x0401 //UFDC
+#define USBPID_UFDC400                     0x0400 //USB Flash Drive Card (UFDC)
+#define USBPID_UFDC401                     0x0401 //USB Flash Drive Card (UFDC)
 #define USBPID_LEXARB                       0x0403 //Locked B Device ??
 #define USBPID_LEXARC                       0x0405 //Locked C Device ??
 #define USBPID_LEXARD                       0x0407 //Locked D Device
@@ -105,6 +105,9 @@
 #endif //_USBVID05DC_H_
 /*****************************************************************************
  * $Log: UsbVid05DC.h,v $
+ * Revision 1.2  2009/09/11 20:03:25  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.1  2009/09/09 20:35:51  ddarko
  * Lexar Media
  *
