@@ -1,8 +1,8 @@
 /*$RCSfile: KWinIniHasSection.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/09/16 21:29:36 $
+  $Revision: 1.2 $ $Date: 2009/09/17 21:27:59 $
   $Author: ddarko $
 
-  Configuration file handler (.INI format)
+  Browse section names in a configuration file (.INI format)
   Copyright: CommonSoft Inc.
   2005-05-05  Darko Kolakovic
  */
@@ -10,8 +10,6 @@
 // Group=Windows
 
 #include "stdafx.h" // MFC/ATL core and standard components
-//#include "KType32.h"
-//#include "KProgCst.h"
 #include "KWinStrArray.h" //CStringArray class
 
 #ifdef _USE_ATL
@@ -42,8 +40,8 @@
 #endif
 
 //-----------------------------------------------------------------------------
-/*Retrieves all the keys and values for the specified section of an initialization
-  file. The string is limited to the 256 characters.
+/*Verifies if the initialization file contains the specified configuration
+  section.
   The function is not case-sensitive; the section name can be a combination
   of uppercase and lowercase letters.
 
@@ -56,18 +54,19 @@
      Key3=Value3
      ...
 
-  Returns section paragraph. The maximum section size is 32,767 characters.
+  Returns true if the file have at least one section paragraph with specified name,
+  otherwise returns false.
 
   Note: uses Microsoft Foundation Library (MFC) or
         uses Microsoft Active Template Library (ATL);
-        Microsoft Windows specific (Win32).
+        Microsoft Windows specific (Win16, Win32).
  */
-bool HasGetIniSection(LPCTSTR szFilename, //[in] name of the initialization file.
+bool HasIniSection(LPCTSTR szFilename, //[in] name of the initialization file.
                     //If this parameter does not contain a full path to the file,
                     //the system searches for the file in the Windows directory.
-                      LPCTSTR szSection   //[in] null-terminated string that
+                   LPCTSTR szSection   //[in] null-terminated string that
                     //specifies the name of the section containing the key name.
-                      )
+                   )
 {
 #ifdef _UNICODE
   TRACE1(_T("HasIniSection(%ws)\n"), szSection);
@@ -78,7 +77,7 @@ bool HasGetIniSection(LPCTSTR szFilename, //[in] name of the initialization file
 bool bResult = false;
 extern int GetIniSectionList(CStringArray& strResult,
                              LPCTSTR szFilename,
-                             LPCTSTR szFilter
+                             LPCTSTR szFilter,
                              const int nPosition  = -1);
 CStringArray listSections;
 if((szSection != NULL) && (szSection[0] != _T('\0')) )
@@ -99,11 +98,12 @@ if((szSection != NULL) && (szSection[0] != _T('\0')) )
   }
 return bResult;
 }
-
-
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIniHasSection.cpp,v $
+ Revision 1.2  2009/09/17 21:27:59  ddarko
+ Changed declaration
+
  Revision 1.1  2009/09/16 21:29:36  ddarko
  Created
 
