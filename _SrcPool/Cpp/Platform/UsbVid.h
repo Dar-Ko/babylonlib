@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid.h,v $: header file
-  $Revision: 1.10 $ $Date: 2009/09/11 20:35:49 $
+  $Revision: 1.11 $ $Date: 2009/09/21 13:24:17 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor device identification (VID) list
@@ -26,6 +26,7 @@
 #include "UsbVid04B4.h" //Cypress Semiconductor Corporation
 #include "UsbVid04CF.h" //Myson Century, Inc.
 #include "UsbVid050D.h" //Belkin Components
+#include "UsbVid057B.h" //Y-E Data, Inc.
 #include "UsbVid058F.h" //Alcor Micro, Corp.
 #include "UsbVid05DC.h" //Lexar Media, Inc.
 #include "UsbVid05E0.h" //Motorola Symbol Technologies
@@ -48,6 +49,9 @@
 #endif //_USBVID_H_
 /*****************************************************************************
  * $Log: UsbVid.h,v $
+ * Revision 1.11  2009/09/21 13:24:17  ddarko
+ * Y-A Data
+ *
  * Revision 1.10  2009/09/11 20:35:49  ddarko
  * Broadcom
  *
