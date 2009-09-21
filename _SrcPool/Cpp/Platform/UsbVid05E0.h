@@ -1,5 +1,5 @@
-/*$Workfile: UsbVid05E0.h$: header file
-  $Revision: 1.7 $ $Date: 2008/09/29 14:58:39 $
+/*$RCSfile: UsbVid05E0.h,v $: header file
+  $Revision: 1.8 $ $Date: 2009/09/21 13:26:40 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -8,7 +8,7 @@
  */
 
 #ifndef _USBVID05E0_H_
-  //$Workfile: UsbVid05E0.h$ sentry
+  //$RCSfile: UsbVid05E0.h,v $ sentry
   #define _USBVID05E0_H_
 
 /*1504.	USB device vendor identification (VID) number	Motorola Symbol Technologies	http://www.symbol.com/; http://www.motorola.com/
@@ -58,7 +58,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_USBVID05E0_H_
 /*****************************************************************************
- * $Log:
+ * $Log: UsbVid05E0.h,v $
+ * Revision 1.8  2009/09/21 13:26:40  ddarko
+ * Reformatted
+ *
  *  1    Biblioteka1.0         22/08/2007 10:51:37 AMDarko Kolakovic
- * $
  *****************************************************************************/
