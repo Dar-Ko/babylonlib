@@ -1,6 +1,6 @@
 @echo off
-REM $CVSfile: $: batch command script
-REM $Revision: 1.2 $ $Date: 2009/09/23 13:49:23 $
+REM $RCSfile: KListDsn.bat,v $: batch command script
+REM $Revision: 1.3 $ $Date: 2009/09/23 14:09:59 $
 REM $Author: ddarko $
 REM
 REM List System or User Data Source Names (DSN)
@@ -61,7 +61,7 @@ REM Display the sintax of the command
 :LBLSYNTAX
 COLOR 02
 @ECHO.
-@ECHO $Workfile:$ $Revision: 1.2 $
+@ECHO $RCSfile: KListDsn.bat,v $ $Revision: 1.3 $
 @ECHO Browse Data Source Names (DSN) used for ODBC
 @ECHO.Requires Windows 2000+, reg.exe
 @ECHO.
@@ -88,6 +88,9 @@ IF "%OS%"=="Windows_NT" ENDLOCAL
 
 REM ----------------------------------------------------------------------------
 REM $Log: KListDsn.bat,v $
+REM Revision 1.3  2009/09/23 14:09:59  ddarko
+REM *** empty log message ***
+REM
 REM Revision 1.2  2009/09/23 13:49:23  ddarko
 REM typo
 REM
