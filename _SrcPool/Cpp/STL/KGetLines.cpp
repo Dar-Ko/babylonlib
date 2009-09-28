@@ -79,6 +79,7 @@ bool GetLines(tifstream& fileSource,
       return EXIT_FAILURE; //Failed to open source file
       }
 
+  See also: GetLine(); std::getline(); std::istream::getline();
  */
 bool GetLines(tifstream& fileSource,   //[in/out] file stream to parse
              std::vector<tstring>& arrayLine,  //[out] resulting array

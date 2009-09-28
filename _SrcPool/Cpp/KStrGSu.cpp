@@ -24,8 +24,6 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
-//Functions using MFC
-#ifdef __AFXWIN_H__
 ///////////////////////////////////////////////////////////////////////////////
 // CString Extension functions
 
@@ -34,8 +32,6 @@
   Delimiters specifies possible delimiters of the token to be found in
   strSource. If token is not found, strSource is returned.
   iSubstringIndex is the zero-based index of substring to be found.
-
-  Note: uses Microsoft Foundation Library (MFC).
 
   Example:
       #include "KStrExt.h"
@@ -49,11 +45,11 @@
       ASSERT(strFileName = _T("Subdir/FileName.ext"));
       }
 
-  TODO: replace MFC D.K.
+  See also: strtok(), strtok_r(), GetSubstring(TCHAR*, TCHAR, int)
 */
 CString GetSubstring(CString& strSource, //[in] string to parse
                      LPCTSTR Delimiters, //[in] characters that delimits fields
-                     int iSubstringIndex //[in] token to return starting index of
+                     int iSubstringIndex //[in] index of the desired token
                      )
 {
 CString strToken(strSource);
@@ -73,11 +69,8 @@ return strToken;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-#endif //__AFXWIN_H__
-
-///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log:
+ * $Log: $
  *  6    Biblioteka1.5         2005-04-26 16:39:24  Darko Kolakovic fixed typo
  *  5    Biblioteka1.4         2004-06-01 17:53:14  Darko           time sync
  *  4    Biblioteka1.3         2003-09-04 11:21:19  Darko           Unicode
@@ -85,6 +78,5 @@ return strToken;
  *       comments
  *  2    Biblioteka1.1         2001-12-23 01:20:05  Darko
  *  1    Biblioteka1.0         2001-08-18 16:04:12  Darko
- * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
   ****************************************************************************/

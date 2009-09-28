@@ -25,7 +25,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -87,7 +87,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -148,7 +148,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_SBCS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -209,7 +209,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -272,7 +272,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -330,7 +330,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_SBCS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -392,7 +392,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win"
+				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"

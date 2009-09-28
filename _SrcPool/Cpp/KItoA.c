@@ -8,13 +8,20 @@
 
 /* Group=Strings                                                             */
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
-#include "KTrace.h"   /*ASSERT macro */
-#include "KTypedef.h" /*bool typedef */
-
 #ifdef _MSC_VER
   //warning C4127: conditional expression is constant
   //warning C4706: assignment within conditional expression
   #pragma warning ( disable: 4127 4706 )
+  #pragma include_alias("KTChar.h", "tchar.h")
+  #if _MSC_VER < 1300
+    #pragma include_alias("KTrace.h", "trace.h")
+  #endif
+#endif
+
+#include "KTrace.h"   /*ASSERT macro */
+#include "KTypedef.h" /*bool typedef */
+#ifndef _T
+  #include "KTChar.h"
 #endif
 
 #ifdef _DEBUG

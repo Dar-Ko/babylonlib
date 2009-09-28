@@ -35,10 +35,6 @@
 
   Throws: bad_alloc.
 
-  See also: EOL, EOLUNIX, EOLDOS, EOLMAC,
-  {html: <a href="Documentation/KASCIICharTable.htm#End-of-line_Characters">
-  End-of-line Characters</a>}
-
   Example:
 
       #include "KStrings.h"
@@ -57,6 +53,11 @@
             }
           }
         }
+
+  See also:  EOL, EOLUNIX, EOLDOS, EOLMAC, GetLines(), 
+    std::getline(), std::istream::getline();
+    {html: <a href="Documentation/KASCIICharTable.htm#End-of-line_Characters">
+    End-of-line Characters</a>}
  */
 int GetLine(LPTSTR& szSource,//[in/out] zero-terminated text buffer to parse
             LPTSTR& szLine   //[out] resulting line of text or NULL is szSource

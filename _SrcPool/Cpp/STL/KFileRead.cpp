@@ -8,9 +8,21 @@
 */
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
+#ifdef _MSC_VER
+  //warning C4127: conditional expression is constant
+  //warning C4706: assignment within conditional expression
+  #pragma warning ( disable: 4127 4706 )
+  #pragma include_alias("KTChar.h", "tchar.h")
+  #if _MSC_VER < 1300
+    #pragma include_alias("KTrace.h", "trace.h")
+  #endif
+#endif
 
-#include "KTypedef.h"  //LPCTSTR typedef
-#include "KTrace.h"
+#include "KTrace.h"   /*ASSERT macro */
+#include "KTypedef.h" /*LPCTSTR typedef */
+#ifndef _T
+  #include "KTChar.h"
+#endif
 
 #include <new>      //std::nothrow
 #include <fstream>  //std::ifstream or wifstream
