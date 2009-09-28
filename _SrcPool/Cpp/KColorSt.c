@@ -20,7 +20,7 @@
           #define UNICODE
         #endif
       #endif
-      #pragma include_alias(_T("KTChar.h", "wtypes.h")
+      #pragma include_alias("KTChar.h", "wtypes.h")
     #endif  //_MSC_VER
   #endif  //_WIN32
 
