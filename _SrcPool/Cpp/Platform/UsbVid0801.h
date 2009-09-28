@@ -1,25 +1,19 @@
 /*$Workfile: UsbVid0801.h$: header file
-  $Revision: 1.5 $ $Date: 2009/09/02 18:58:15 $
+  $Revision: 1.6 $ $Date: 2009/09/28 21:02:26 $
   $Author: ddarko $
-
   Universal Serial Bus (USB) vendor specific device identification
   Copyright: CommonSoft Inc.
   2007-08-17 Darko Kolakovic
  */
-
 /* Group=USB ID                                                              */
-
 #ifndef _USBVID0801_H_
   //$Workfile: UsbVid0801.h$ sentry
   #define _USBVID0801_H_
-
 /*2049.	USB device vendor identification (VID) number	Mag-Tek	http://www.magtek.com/
-
   See also: usb-if.tsv, USB Implementers Forum, Inc (USB-IF) at http://www.usb.org
  */
 #define USBVID_MAGTEK 0x0801
 #define USBVID_0801 _T("Mag-Tek") //VID 2049 Vendor name
-
 #define USBPID_MTKBSWIPEMSR  0x0001 /*MagTek USB KB Swipe/SureSwipe (Dual Head)
                                       Magnetic Strip Readers
                                       emulating a USB Human Interface Device (HID)
@@ -40,13 +34,12 @@
 #define USBPID_MTVISAMSR     0x0010 //MagTek VISA Special Magnetic Strip Reader
 #define USBPID_MTMAGENSA4    0x0011 //MagTek Magensa V4
 #define USBPID_MTMINIMICR    0x2251 //MagTek Mini Magnetic Ink Character Recognition (MICR) Reader
-
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_USBVID0801_H_
 /*****************************************************************************
  * $Log: UsbVid0801.h,v $
- * Revision 1.5  2009/09/02 18:58:15  ddarko
- * Coverted LF to CRLF
+ * Revision 1.6  2009/09/28 21:02:26  ddarko
+ * CRLF
  *
  * Revision 1.4  2008/04/08 19:32:07  ddarko
  * MICR
