@@ -24,37 +24,48 @@
 #endif
 
 //GetSubstring()---------------------------------------------------------------
-/*Function returns pointer to beginning of iSubstringIndex token.
+/*Searches the given text for the token indexed with iSubstringIndex parameter
+  Returns pointer to beginning of iSubstringIndex token.
   If the null terminator is found before requested token, function returns
-  a pointer to the null terminator.
+  a pointer to the null terminator. If the token index is non-positive number,
+  function returns pointer to the source string.
+
+  Example:
+
+      #include "KStrings.h"
+      ...
+      LPTSTR szSource = _T("Get pointer to the  5th word in this sentence.");
+      LPTSTR szWord = GetSubstring(szSource, _T(' '), 5);
+      TRACE(szWord);
+
+  See also: strtok(), strtok_r(), GetSubstring(CString&, LPCTSTR, int)
 */
 TCHAR* GetSubstring(TCHAR* szSource,         //[in] null-terminated string to parse
                     TCHAR  chDelimiter,      //[in] delimiter
-                    int    iSubstringIndex   //[in] token to return starting index of
+                    int    iSubstringIndex   //[in] index of the desired token
                     )
 {
-LPTSTR strToken = szSource;
-int   nCount = 0;
   //return string itself
-if (iSubstringIndex == 0)
-  return szSource;
-   //Parse source string and return result
-while (*strToken != _T('\0'))
+if (iSubstringIndex > 0)
   {
-  if (*strToken++ == chDelimiter)
+  int   nCount = 0;
+     //Parse source string and return result
+  while (*szSource != _T('\0'))
     {
-    nCount++;
+    if (*szSource++ == chDelimiter)
+      {
+      nCount++;
 
-    if (iSubstringIndex == nCount)
-      return strToken;
+      if (iSubstringIndex == nCount)
+        break;
+      }
     }
   }
-
-return strToken;
+return szSource;
 }
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  7    Biblioteka1.6         2007-06-15 17:24:29  Darko Kolakovic _USE_MFC for
  *       CString
  *  6    Biblioteka1.5         2004-06-01 17:53:20  Darko           time sync
@@ -64,7 +75,7 @@ return strToken;
  *  3    Biblioteka1.2         2002-01-25 16:58:23  Darko           Updated
  *       comments
  *  2    Biblioteka1.1         2001-12-23 01:21:01  Darko           _DEBUG
- *  1    Biblioteka1.0         2001-08-18 16:04:21  Darko           
+ *  1    Biblioteka1.0         2001-08-18 16:04:21  Darko
  * $
  *  0    Biblioteka0           Darko Kolakovic  May '97
  *****************************************************************************/
