@@ -19,6 +19,8 @@
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 extern bool TestLimits();
+extern bool TestCrtStrdup();
+extern bool TestCrtStrtok(void);
 //extern bool TestTraceC();
 
 //-----------------------------------------------------------------------------
@@ -32,7 +34,9 @@ _Bool TestCommonStdLib()
 {
 bool (*funcTest[])() =
   {
-  TestLimits//,
+  TestLimits,
+  TestCrtStrdup,
+  TestCrtStrtok
   //TestTraceC
   };
 

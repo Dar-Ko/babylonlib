@@ -4208,6 +4208,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\StdLib\Src\TestCrtStrdup.c">
+			</File>
+			<File
+				RelativePath="..\StdLib\Src\TestCrtStrtok.c">
+			</File>
+			<File
 				RelativePath="Src\TestGetLine.cpp">
 				<FileConfiguration
 					Name="Debug_Unicode_MFC|Win32">
@@ -4513,6 +4519,12 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\StdLib\Src\TestStdStrDup.cpp">
+			</File>
+			<File
+				RelativePath="..\StdLib\Src\TestStdStrTok.cpp">
+			</File>
+			<File
 				RelativePath="Src\TestStrDup.cpp">
 				<FileConfiguration
 					Name="Debug_Unicode_MFC|Win32">
@@ -4660,6 +4672,12 @@
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\TestSubstring.cpp">
+			</File>
+			<File
+				RelativePath="..\StdLib\Src\TestText.c">
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\32\TsMfcAbout.cpp">
@@ -5110,6 +5128,9 @@
 						BasicRuntimeChecks="3"
 						BrowseInformation="1"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\Common\Src\TsWriteT.c">
 			</File>
 			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">

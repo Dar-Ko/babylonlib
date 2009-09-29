@@ -21,10 +21,13 @@ extern bool TestIsPalindrome();
 extern bool TestIsVowel();
 extern bool TestReplaceSpace();
 extern bool TestTrim();
+extern bool TestStdStrDup();
 extern bool TestStrDup();
 extern bool TestStrings();
 extern bool TestReplaceEscapeSeq();
-
+extern bool TestStdStrTok();
+extern bool TestSubstring();
+extern bool TestStrTok();
 int TestCommonStrings(void);
 
 int g_iNoofLines = -1;
@@ -110,17 +113,21 @@ TsWriteToViewLn(_T(""));
 
 PFUNC_TEST funcTest[] =
   {
-  TestCharacterSet,
-  TestStringConversion,
-  TestCharConversion,
-  TestStrDup,
-  TestReplaceSpace,
-  TestTrim,
-  TestStrings,
-  TestReplaceEscapeSeq,
-  TestIsPalindrome,
-  TestIsVowel,
-  TestZtoA
+  TestCharacterSet,     // 0
+  TestStringConversion, // 1
+  TestCharConversion,   // 2
+  TestStdStrDup,        // 3
+  TestStrDup,           // 4
+  TestReplaceSpace,     // 5
+  TestTrim,             // 6
+  TestStrings,          // 7
+  TestReplaceEscapeSeq, // 8
+  TestIsPalindrome,     // 9
+  TestIsVowel,          // A
+  TestZtoA,             // B
+  TestStdStrTok,        // C
+  TestSubstring,        // D
+  TestStrTok            // E
   };
 
 int iTestCount = 0;

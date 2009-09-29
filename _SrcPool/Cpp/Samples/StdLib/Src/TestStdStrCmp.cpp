@@ -14,7 +14,7 @@
  */
 
 static const char* version =
-  "$Id: TestStdStrCmp.cpp,v 1.1 2005/03/08 06:27:48 ddarko Exp $";
+  "$Id: TestStdStrCmp.cpp,v 1.2 2009/09/29 21:58:50 ddarko Exp $";
 
 extern int errno;
 
@@ -105,13 +105,14 @@ char *manoj_strncpy(char *dest_p, const char *src_p, size_t n)
   return ret_p;
 }
 
+/*KStrDup.c StrDup
 char *manoj_strdup(const char *src_p)
 {
   char *dest_p = malloc(strlen(src_p) + 1);
   if(dest_p) (void) strcpy(dest_p, src_p);
   return dest_p;
 }
-
+*/
 char *manoj_strcat(char *dest_p, const char *src_p)
 {
   char * ret_p = dest_p;
@@ -521,21 +522,7 @@ char *manoj_strstr(const char *haystack, const char *needle)
  ####################################################################
  ####################################################################
  */
-
-const char *strings_to_test[] =
-  {
-   "This ia a longish text string, but not that long, at that",
-   "The long jump \0 and some trailing text at-that",
-   "",
-   "Some more test strings",
-   "Yet another one",
-   "what-finally-stops--at-at-that point",
-   "aksdy923492p4  p39475 q0349750[q3hf30q79340 320496t034 03q495609324uy509y",
-   "character is considered to be part of the string. The chr at-that point",
-   0
-  };
-
-
+extern "C" char* g_listTestStringsA[];
 int test_strlen(void)
 {
   int retval = 0;
@@ -544,15 +531,15 @@ int test_strlen(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strlen - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
-     if(strlen(strings_to_test[i]) != manoj_strlen(strings_to_test[i]))
+     if(strlen(g_listTestStringsA[i]) != manoj_strlen(g_listTestStringsA[i]))
       {
         retval--;
         fprintf (stderr,
                  "ERROR: manoj_strlen Failed test %d. Got %d, expected %d\n",
-                 i, manoj_strlen(strings_to_test[i]),
-                 strlen(strings_to_test[i]));
+                 i, manoj_strlen(g_listTestStringsA[i]),
+                 strlen(g_listTestStringsA[i]));
       }
 #ifdef DEBUG
      else
@@ -576,12 +563,12 @@ int test_strcpy(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strcpy - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
      char * orig = 0;
      memset(buffer,0,1024);
-     orig = manoj_strcpy(buffer, strings_to_test[i]);
-     if(strcmp(orig,strings_to_test[i]))
+     orig = manoj_strcpy(buffer, g_listTestStringsA[i]);
+     if(strcmp(orig,g_listTestStringsA[i]))
       {
         retval--;
         fprintf (stderr,
@@ -611,14 +598,14 @@ int test_strncpy(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strncpy - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
      char * orig  = 0;
      char * dummy = 0;
      memset(buffer,0,1024);
      memset(copy,0,1024);
-     orig  = manoj_strncpy(buffer, strings_to_test[i], 5);
-     dummy =       strncpy(copy,   strings_to_test[i], 5);
+     orig  = manoj_strncpy(buffer, g_listTestStringsA[i], 5);
+     dummy =       strncpy(copy,   g_listTestStringsA[i], 5);
      if(strcmp(orig,dummy))
       {
         retval--;
@@ -639,44 +626,6 @@ int test_strncpy(void)
   return retval;
 }
 
-int test_strdup(void)
-{
-  int retval = 0;
-  int i = 0;
-
-#ifdef DEBUG
-  fprintf (stderr, "manoj_strdup - ");
-#endif
-  for(i = 0; strings_to_test[i]; i++)
-   {
-     char * orig = 0;
-     orig = manoj_strdup(strings_to_test[i]);
-     if(orig)
-      {
-        if(strcmp(orig,strings_to_test[i]))
-          {
-            retval--;
-            fprintf (stderr,
-                     "ERROR: manoj_strdup Failed test %d. \n",
-                     i);
-          }
-        free(orig);
-      }
-     else
-      {
-        fprintf (stderr,
-                 "ERROR: manoj_strdup Failed test %d -- failed malloc\n",
-                 i);
-      }
-#ifdef DEBUG
-     fprintf (stderr, ".");
-#endif
-   }
-#ifdef DEBUG
-  fprintf (stderr, " - done\n");
-#endif
-  return retval;
-}
 
 
 
@@ -690,7 +639,7 @@ int test_strcat(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strcat - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
      char * orig = 0;
      char * dummy = 0;
@@ -698,8 +647,8 @@ int test_strcat(void)
      memset(copy,0,1024);
      (void) strcpy(buffer, "Original String ");
      (void) strcpy(copy,   "Original String ");
-     orig  = manoj_strcat(buffer, strings_to_test[i]);
-     dummy =       strcat(copy,   strings_to_test[i]);
+     orig  = manoj_strcat(buffer, g_listTestStringsA[i]);
+     dummy =       strcat(copy,   g_listTestStringsA[i]);
      if(strcmp(orig,dummy))
       {
         retval--;
@@ -733,7 +682,7 @@ int test_strncat(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strncat - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
      char * orig  = 0;
      char * dummy = 0;
@@ -741,8 +690,8 @@ int test_strncat(void)
      memset(copy,0,1024);
      (void) strcpy(buffer, "Original String ");
      (void) strcpy(copy,   "Original String ");
-     orig  = manoj_strncat(buffer, strings_to_test[i], 5);
-     dummy =       strncat(copy,   strings_to_test[i], 5);
+     orig  = manoj_strncat(buffer, g_listTestStringsA[i], 5);
+     dummy =       strncat(copy,   g_listTestStringsA[i], 5);
      if(strcmp(orig,dummy))
       {
         retval--;
@@ -776,10 +725,10 @@ int test_strcmp(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strcmp - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
-     int m = manoj_strcmp(strings_to_test[i], "The long jump ");
-     int o =       strcmp(strings_to_test[i], "The long jump ");
+     int m = manoj_strcmp(g_listTestStringsA[i], "The long jump ");
+     int o =       strcmp(g_listTestStringsA[i], "The long jump ");
 
      if(sign(m) != sign(o))
       {
@@ -789,7 +738,7 @@ int test_strcmp(void)
                  i, m, o);
         fprintf (stderr,
                  "ERROR: (%s) != (The long jump )  \n",
-                 strings_to_test[i]);
+                 g_listTestStringsA[i]);
       }
 #ifdef DEBUG
      else
@@ -812,10 +761,10 @@ int test_strncmp(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strncmp - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
-     int m = manoj_strncmp(strings_to_test[i], "The long jump ", 5);
-     int o = strncmp(strings_to_test[i], "The long jump ", 5);
+     int m = manoj_strncmp(g_listTestStringsA[i], "The long jump ", 5);
+     int o = strncmp(g_listTestStringsA[i], "The long jump ", 5);
 
      if(sign(m) != sign(o))
       {
@@ -825,7 +774,7 @@ int test_strncmp(void)
                  i, m, o);
         fprintf (stderr,
                  "ERROR: (The long jump ) != (%s) \n",
-                 strings_to_test[i]);
+                 g_listTestStringsA[i]);
        }
 #ifdef DEBUG
      else
@@ -849,10 +798,10 @@ int test_strcasecmp(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strcasecmp - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
-     int m = manoj_strcasecmp(strings_to_test[i], "The long jump ");
-     int o = strcasecmp(strings_to_test[i], "The long jump ");
+     int m = manoj_strcasecmp(g_listTestStringsA[i], "The long jump ");
+     int o = strcasecmp(g_listTestStringsA[i], "The long jump ");
 
      if(sign(m) != sign(o))
       {
@@ -882,10 +831,10 @@ int test_strncasecmp(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strncasecmp - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
-     int m = manoj_strncasecmp(strings_to_test[i], "The long jump ", 5);
-     int o = strncasecmp(strings_to_test[i], "The long jump ", 5);
+     int m = manoj_strncasecmp(g_listTestStringsA[i], "The long jump ", 5);
+     int o = strncasecmp(g_listTestStringsA[i], "The long jump ", 5);
 
      if(sign(m) != sign(o))
       {
@@ -915,10 +864,10 @@ int test_strchr(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strchr - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
-     if(manoj_strchr(strings_to_test[i], 'j') !=
-        strchr(strings_to_test[i], 'j'))
+     if(manoj_strchr(g_listTestStringsA[i], 'j') !=
+        strchr(g_listTestStringsA[i], 'j'))
       {
         retval--;
         fprintf (stderr,
@@ -946,10 +895,10 @@ int test_strrchr(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strrchr - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
-     if(manoj_strrchr(strings_to_test[i], 'j') !=
-        strrchr(strings_to_test[i], 'j'))
+     if(manoj_strrchr(g_listTestStringsA[i], 'j') !=
+        strrchr(g_listTestStringsA[i], 'j'))
       {
         retval--;
         fprintf (stderr,
@@ -969,135 +918,6 @@ int test_strrchr(void)
   return retval;
 }
 
-int test_strtok(void)
-{
-  int            retval   = 0;
-  int            i        = 0;
-  char          *buffer_p = 0;
-  char          *copy_p   = 0;
-  const char    *delim_p  = " eta";
-  char          *tok1     = 0;
-  char          *tok2     = 0;
-
-
-#ifdef DEBUG
-  fprintf (stderr, "manoj_strtok - ");
-#endif
-
-  buffer_p = malloc(128);
-  if(! buffer_p) return -1;
-
-  copy_p = malloc(128);
-  if(! copy_p) return -1;
-
-  (void) strcpy(buffer_p, "The quick brown fox jumps over the lazy dog");
-  (void) strcpy(copy_p,   "The quick brown fox jumps over the lazy dog");
-
-  tok1 = manoj_strtok(buffer_p, delim_p);
-  tok2 =       strtok(copy_p,   delim_p);
-  if(strcmp(tok1, tok2))
-   {
-     retval--;
-     fprintf (stderr,
-              "ERROR: manoj_strtok Failed test %d. Got (%s), expected (%s)\n",
-              i++, tok1, tok2);
-   }
-#ifdef DEBUG
-  else
-   {
-     fprintf (stderr, ".");
-   }
-#endif
-
-  while((tok1 =  manoj_strtok(0, delim_p)))
-   {
-     tok2 = strtok(0, delim_p);
-     if(strcmp(tok1, tok2))
-      {
-        retval--;
-        fprintf(stderr,
-                "ERROR: manoj_strtok Failed test %d. Got (%s), expected (%s)\n",
-                 i++, tok1, tok2);
-      }
-#ifdef DEBUG
-     else
-      {
-        fprintf (stderr, ".");
-      }
-#endif
-   }
-#ifdef DEBUG
-  fprintf (stderr, " - done\n");
-#endif
-  return retval;
-}
-
-
-int test_strtok_r(void)
-{
-  int            retval   = 0;
-  int            i        = 0;
-  char          *orig_p   = 0;
-  char          *buffer_p = 0;
-  char          *copy_p   = 0;
-  const char    *delim_p  = " eta";
-  char          *tok1     = 0;
-  char          *tok2     = 0;
-
-
-#ifdef DEBUG
-  fprintf (stderr, "manoj_strtok_r - ");
-#endif
-
-  orig_p = malloc(128);
-  if(! orig_p) return -1;
-
-  buffer_p = malloc(128);
-  if(! buffer_p) return -1;
-
-  copy_p = malloc(128);
-  if(! copy_p) return -1;
-
-  (void) strcpy(orig_p, "The quick brown fox jumps over the lazy dog");
-
-  tok1 = manoj_strtok_r(orig_p, delim_p, &buffer_p);
-  tok2 =       strtok_r(orig_p, delim_p, &copy_p);
-  if(strcmp(tok1, tok2))
-   {
-     retval--;
-     fprintf (stderr,
-              "ERROR: manoj_strtok_r Failed test %d. Got (%s), expected (%s)\n",
-              i++, tok1, tok2);
-   }
-#ifdef DEBUG
-  else
-   {
-     fprintf (stderr, ".");
-   }
-#endif
-
-  while((tok1 =  manoj_strtok_r(0, delim_p, &buffer_p)))
-   {
-     tok2 = strtok_r(0, delim_p, &copy_p);
-     if(strcmp(tok1, tok2))
-      {
-        retval--;
-        fprintf (stderr,
-                 "ERROR: manoj_strtok_r Failed test %d. Got (%s), expected (%s)\n",
-                 i++, tok1, tok2);
-      }
-#ifdef DEBUG
-     else
-      {
-        fprintf (stderr, ".");
-      }
-#endif
-   }
-#ifdef DEBUG
-  fprintf (stderr, " - done\n");
-#endif
-  return retval;
-}
 
 int test_strstr(void)
 {
@@ -1107,10 +927,10 @@ int test_strstr(void)
 #ifdef DEBUG
   fprintf (stderr, "manoj_strstr - ");
 #endif
-  for(i = 0; strings_to_test[i]; i++)
+  for(i = 0; g_listTestStringsA[i]; i++)
    {
-     if(manoj_strstr(strings_to_test[i], "at-that") !=
-        strstr(strings_to_test[i], "at-that"))
+     if(manoj_strstr(g_listTestStringsA[i], "at-that") !=
+        strstr(g_listTestStringsA[i], "at-that"))
       {
         retval--;
         fprintf (stderr,

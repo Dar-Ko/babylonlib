@@ -115,7 +115,8 @@ if (bRes)
       }
   }
 
-delete[] szBuffer;
+if (szBuffer != NULL)
+  delete[] szBuffer;
 TsWriteToViewLn(LOG_EOT);
 return bRes;
 }

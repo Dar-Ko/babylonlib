@@ -2,7 +2,7 @@
   $Revision: 5$ $Date: 2007-06-27 16:52:48$
   $Author: Darko Kolakovic$
 
-  Test string trimming
+  Test copying a string
   Copyright: CommonSoft Inc.
   Aug. 2k2 Darko Kolakovic
 */
@@ -21,17 +21,27 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 /*Test of copying a string to a buffer.
 
   Returns: true if successful, otherwise returns false.
+
+  See also: KStrings.h, strdup(); 
+  Microsoft Shell Lightweight Utility Functions shlwapi.lib : StringCbCat(),
+  StringCbCopyEx(), StringCbCopyN(), StringCbCopyNEx(), StringCchCopy(),
+  StringCchCopyEx(), StringCchCopyN(), StringCchCopyNEx(), StrDup().
  */
 bool TestStrDup()
 {
 TsWriteToView(_T("TestStrDup()\r\n"));
+TESTENTRY logEntry;
+bool& bRes = logEntry.m_bResult;
+bRes = true;
 
-bool bRes = true;
 LPCTSTR szText = _T("       CHAPTER VII      \
 THE harder Tom tried to fasten his mind on his book, the more his ideas wandered.\r\n \
 So at last, with a sigh and a yawn, he gave it up.\r\n  \
    \t \v");
 int iTextLen = (int)_tcslen(szText);
+
+logEntry.m_szObjectName = _T("StrDup()");
+logEntry.m_szFileName = _T("KStrDup.c");
 
 LPTSTR szCopy = StrDup(szText);
 if (szCopy == NULL)
@@ -59,6 +69,7 @@ else
   free(szCopy);
   }
 
+LogTest(&logEntry);
 TsWriteToViewLn(LOG_EOT);
 return bRes;
 }

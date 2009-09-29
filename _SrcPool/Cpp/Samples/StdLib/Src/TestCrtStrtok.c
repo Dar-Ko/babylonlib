@@ -1,5 +1,5 @@
 /*$RCSfile: TestCrtStrtok.c,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/09/29 21:51:10 $
+  $Revision: 1.3 $ $Date: 2009/09/29 21:58:50 $
   $Author: ddarko $
 
   Test string tokenizer.
@@ -17,8 +17,6 @@
 extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern const char* g_listTestStringsA[]; //Single-byte character set (SBCS) text samples
-
-
 
 //-----------------------------------------------------------------------------
 /*Test of finding a token in a string.
@@ -88,6 +86,9 @@ return logEntry.m_bResult;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestCrtStrtok.c,v $
+ *Revision 1.3  2009/09/29 21:58:50  ddarko
+ *strtok test
+ *
  *Revision 1.2  2009/09/29 21:51:10  ddarko
  *MSDN example
  *
