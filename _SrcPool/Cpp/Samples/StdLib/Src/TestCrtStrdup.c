@@ -1,5 +1,5 @@
 /*$RCSfile: TestCrtStrdup.c,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/09/29 19:00:41 $
+  $Revision: 1.2 $ $Date: 2009/09/29 21:53:42 $
   $Author: ddarko $
 
   Test copying a string
@@ -10,12 +10,12 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 #include "stdafx.h"
-#include "KStrings.h" //StrDup()
-#include "STL/KOStream.h" //_tcout
+#include <string.h> //strdup(), _strdup()
+#include "KTestLog.h"
 
 extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToViewLn(LPCTSTR lszText);
-extern "C" const char* g_listTestStringsA; //Single-byte cahcarcter set (SBCS) text samples
+extern const char* g_listTestStringsA[]; //Single-byte character set (SBCS) text samples
 
 //TestStrDup()-----------------------------------------------------------------
 /*Test of copying a string to a buffer.
@@ -25,65 +25,60 @@ extern "C" const char* g_listTestStringsA; //Single-byte cahcarcter set (SBCS) t
   See also: KStrings.h, StrDup(),
   Microsoft C run-time libraries: _strdup(), _wcsdup(), _mbsdup().
  */
-int test_strdup(void)
+bool TestCrtStrdup(void)
 {
-  int retval = 0;
-  int i = 0;
+struct tagTestEntry logEntry = 
+  {
+  _T("strdup()"),
+  _T("C run-time libraries"),
+  false
+  };
+int i = 0;
+TsWriteToViewLn(_T("TestCrtStrdup()"));
 
-#ifdef DEBUG
-  fprintf (stderr, "manoj_strdup - ");
-#endif
-  for(i = 0; strings_to_test[i]; i++)
-   {
-     char * orig = 0;
-     orig = strdup(strings_to_test[i]);
-     if(orig)
+/*Test border case with null pointer*/
+logEntry.m_bResult = (strdup(NULL) == NULL);
+if (logEntry.m_bResult)
+  {
+  while(g_listTestStringsA[i] != NULL)
+    {
+    char* szOrig = NULL;
+    szOrig = strdup(g_listTestStringsA[i]);
+
+    if(szOrig != NULL)
       {
-        if(strcmp(orig,strings_to_test[i]))
-          {
-            retval--;
-            fprintf (stderr,
-                     "ERROR: manoj_strdup Failed test %d. \n",
-                     i);
-          }
-        free(orig);
+      logEntry.m_bResult = (strcmp(szOrig,g_listTestStringsA[i]) == 0);
+      free(szOrig);
+      if(!logEntry.m_bResult)
+        {
+        TsWriteToViewLn(_T("Failed test"));
+        break;
+        }
       }
-     else
+    else
       {
-        fprintf (stderr,
-                 "ERROR: manoj_strdup Failed test %d -- failed malloc\n",
-                 i);
+      TsWriteToViewLn(_T("Failed malloc"));
+      logEntry.m_bResult = false;
       }
-#ifdef DEBUG
-     fprintf (stderr, ".");
-#endif
-   }
-#ifdef DEBUG
-  fprintf (stderr, " - done\n");
-#endif
-  return retval;
-}
-
-/*
-bool TestStdStrDup()
-{
-TsWriteToView(_T("TestStrDup()\r\n"));
-TESTENTRY logEntry;
-bool& bRes = logEntry.m_bResult;
-bRes = true;
-
-logEntry.m_szObjectName = _T("strdup()");
-logEntry.m_szFileName = _T("C run-time libraries");
-
+    i++;
+    }
+  }
+else
+  {
+  TsWriteToViewLn(_T("Failed <null> test"));
+  }
 
 LogTest(&logEntry);
 TsWriteToViewLn(LOG_EOT);
-return bRes;
+return logEntry.m_bResult;
 }
-*/
+
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestCrtStrdup.c,v $
+ *Revision 1.2  2009/09/29 21:53:42  ddarko
+ *test completely rewritten
+ *
  *Revision 1.1  2009/09/29 19:00:41  ddarko
  *strdup test
  *
