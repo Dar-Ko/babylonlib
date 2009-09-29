@@ -1,9 +1,10 @@
 /*$RCSfile: TestCrtStrtok.c,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/09/29 21:20:52 $
+  $Revision: 1.2 $ $Date: 2009/09/29 21:51:10 $
   $Author: ddarko $
 
   Test string tokenizer.
-  Feb 20 12:43:59 2003 Manoj Srivastava (srivasta@glaurung.green-gryphon.com)
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  MSVC 2003 CRT
 */
 
 // Group=Examples
@@ -17,6 +18,85 @@ extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern const char* g_listTestStringsA[]; //Single-byte character set (SBCS) text samples
 
+
+
+//-----------------------------------------------------------------------------
+/*Test of finding a token in a string.
+
+  Note: strtok considers consecutive delimiters as single.
+
+  Returns: true if successful, otherwise returns false.
+
+  See also: KStrings.h, strtok_r()
+  Microsoft C run-time libraries: _strtok(), _strtok_l(), strtok_s().
+ */
+
+bool TestCrtStrtok(void)
+{
+struct tagTestEntry logEntry =
+  {
+  _T("strtok()"),
+  _T("C run-time libraries"),
+  false
+  };
+int i = 0;
+TsWriteToViewLn(_T("TestCrtStrtok()"));
+
+
+
+/*Test border case with null pointer*/
+logEntry.m_bResult = (strtok(NULL) == NULL);
+if (logEntry.m_bResult)
+  {
+  char string[] = "A string\tof ,,tokens\nand some  more tokens";
+  char seps[]   = " ,\t\n";
+  char *token;
+  char* listTokens[] =
+  {
+    "A",        //0
+    "string",   //1
+    "of",       //2
+                //consecutive delimiters (" ,,") are swallowed by strtok!
+    "tokens",   //3
+    "and",      //4
+    "some",     //5
+    "more       //6
+    };
+  TsWriteToViewLn(_T("Tokens:"));
+  /*Establish string and get the first token: */
+  token = strtok(string, seps);
+  while(token != NULL)
+    {
+     /*While there are tokens in "string" */
+    printf( " %s\n", token );
+
+    token = strtok( NULL, seps ); /* Get next token:  */
+    }
+
+	logEntry.m_bResult = false;
+  }
+else
+  {
+  TsWriteToViewLn(_T("Failed <null> test"));
+  }
+
+LogTest(&logEntry);
+TsWriteToViewLn(LOG_EOT);
+return logEntry.m_bResult;
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/******************************************************************************
+ *$Log: TestCrtStrtok.c,v $
+ *Revision 1.2  2009/09/29 21:51:10  ddarko
+ *MSDN example
+ *
+ *Revision 1.1  2009/09/29 21:20:52  ddarko
+ *strtok test
+ *
+ *****************************************************************************/
+/*Feb 20 12:43:59 2003 Manoj Srivastava (srivasta@glaurung.green-gryphon.com)
+compares 2 strtok implementations...
 int test_strtok(void)
 {
   int            retval   = 0;
@@ -80,7 +160,7 @@ int test_strtok(void)
   return retval;
 }
 
-
+//--------------------------------------------------------
 int test_strtok_r(void)
 {
   int            retval   = 0;
@@ -146,106 +226,4 @@ int test_strtok_r(void)
 #endif
   return retval;
 }
-
-int test_strstr(void)
-{
-  int            retval   = 0;
-  int            i        = 0;
-
-#ifdef DEBUG
-  fprintf (stderr, "manoj_strstr - ");
-#endif
-  for(i = 0; g_listTestStringsA[i]; i++)
-   {
-     if(manoj_strstr(g_listTestStringsA[i], "at-that") !=
-        strstr(g_listTestStringsA[i], "at-that"))
-      {
-        retval--;
-        fprintf (stderr,
-                 "ERROR: manoj_strstr Failed test %d. \n",
-                 i);
-       }
-#ifdef DEBUG
-     else
-      {
-        fprintf (stderr, ".");
-      } /* end of else */
-#endif
-   }
-#ifdef DEBUG
-  fprintf (stderr, " - done\n");
-#endif
-  return retval;
-}
-
-
-//-----------------------------------------------------------------------------
-/*Test of finding a token in a string.
-
-  Returns: true if successful, otherwise returns false.
-
-  See also: KStrings.h, strtok_r()
-  Microsoft C run-time libraries: _strtok(), _strtok_l(), strtok_s().
- */
-
-bool TestCrtStrtok(void)
-{
-struct tagTestEntry logEntry = 
-  {
-  _T("strdup()"),
-  _T("C run-time libraries"),
-  false
-  };
-int i = 0;
-TsWriteToViewLn(_T("TestCrtStrdup()"));
-
-/*Test border case with null pointer*/
-logEntry.m_bResult = (strdup(NULL) == NULL);
-if (logEntry.m_bResult)
-  {
-  while(g_listTestStringsA[i] != NULL)
-    {
-    char* szOrig = NULL;
-    szOrig = strdup(g_listTestStringsA[i]);
-
-    if(szOrig != NULL)
-      {
-      logEntry.m_bResult = (strcmp(szOrig,g_listTestStringsA[i]) == 0);
-      free(szOrig);
-      if(!logEntry.m_bResult)
-        {
-        TsWriteToViewLn(_T("Failed test"));
-        break;
-        }
-      }
-    else
-      {
-      TsWriteToViewLn(_T("Failed malloc"));
-      logEntry.m_bResult = false;
-      }
-    i++;
-    }
-  }
-else
-  {
-  TsWriteToViewLn(_T("Failed <null> test"));
-  }
-
-LogTest(&logEntry);
-TsWriteToViewLn(LOG_EOT);
-return logEntry.m_bResult;
-}
-
-//////////////////////////////////////////////////////////////////////////////
-/******************************************************************************
- *$Log: TestCrtStrtok.c,v $
- *Revision 1.1  2009/09/29 21:20:52  ddarko
- *strtok test
- *
- *Revision 1.1  2009/09/29 19:00:41  ddarko
- *strdup test
- *
- *Revision 1.2  2009/09/29 18:53:05  ddarko
- *strdup test
- *
- *****************************************************************************/
+*/
