@@ -49,7 +49,10 @@
       Output:
           Some text
 
-  See also: KStrings.h
+  See also: KStrings.h, strdup(); 
+  Microsoft Shell Lightweight Utility Functions: shlwapi.lib, StringCbCat(),
+  StringCbCopyEx(), StringCbCopyN(), StringCbCopyNEx(), StringCchCopy(),
+  StringCchCopyEx(), StringCchCopyN(), StringCchCopyNEx(), StrDup().
  */
 TCHAR* StrDup(LPCTSTR pszSource //[in] Address of a constant zero-terminated
                                 //character string to copy into new memory.
