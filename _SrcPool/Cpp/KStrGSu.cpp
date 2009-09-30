@@ -15,7 +15,8 @@
   #include "KString.h"  //CString class
 #endif //_USE_MFC
 #include "KStrExt.h"  //Declarations
-
+//TODO USe STL
+#pragma todo ("use STL string") 
 #ifdef _DEBUG
   #ifdef _USE_MFC
     #define new DEBUG_NEW
@@ -23,7 +24,7 @@
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
-
+ #ifdef _USE_MFC
 ///////////////////////////////////////////////////////////////////////////////
 // CString Extension functions
 
@@ -69,6 +70,7 @@ return strToken;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+#endif //#ifdef _USE_MFC tood remove it
 /*****************************************************************************
  * $Log: $
  *  6    Biblioteka1.5         2005-04-26 16:39:24  Darko Kolakovic fixed typo
