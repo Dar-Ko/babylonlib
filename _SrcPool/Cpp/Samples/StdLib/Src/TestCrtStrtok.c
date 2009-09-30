@@ -1,5 +1,5 @@
 /*$RCSfile: TestCrtStrtok.c,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/09/29 21:58:50 $
+  $Revision: 1.4 $ $Date: 2009/09/30 20:55:29 $
   $Author: ddarko $
 
   Test string tokenizer.
@@ -14,6 +14,15 @@
 #include <string.h> //strtok()
 #include "KTestLog.h"
 
+#ifdef _MSC_VER
+  #ifdef _INC_STRING /*Microsoft string.h header file*/
+    /*Microsoft CRT _srttok does not handle null pointers*/
+    #define STRTOK_NULLEXCEPTION 20090930
+    #define TRY_EXC __try
+    #define CATCH_EXC(e) __except(TsWriteToView(_T("Failed test ")), EXCEPTION_EXECUTE_HANDLER)
+  #endif
+#endif
+
 extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern const char* g_listTestStringsA[]; //Single-byte character set (SBCS) text samples
@@ -26,7 +35,7 @@ extern const char* g_listTestStringsA[]; //Single-byte character set (SBCS) text
   Returns: true if successful, otherwise returns false.
 
   See also: KStrings.h, strtok_r()
-  Microsoft C run-time libraries: _strtok(), _strtok_l(), strtok_s().
+  Microsoft C run-time libraries: strtok(), _strtok_l(), strtok_s().
  */
 
 bool TestCrtStrtok(void)
@@ -37,20 +46,34 @@ struct tagTestEntry logEntry =
   _T("C run-time libraries"),
   false
   };
-int i = 0;
+
 TsWriteToViewLn(_T("TestCrtStrtok()"));
 
-
-
 /*Test border case with null pointer*/
-logEntry.m_bResult = (strtok(NULL) == NULL);
+TRY_EXC
+  {
+  logEntry.m_bResult = (strtok(NULL, NULL) == NULL);
+  }
+CATCH_EXC(seh)
+  {
+  logEntry.m_szObjectName = _T("strtok(NULL, NULL)");
+  logEntry.m_bResult = false;
+  LogTest(&logEntry);
+  TsWriteToViewLn(logEntry.m_szObjectName);
+
+  //Roll back log entry  
+  logEntry.m_szObjectName = _T("strtok()");
+  logEntry.m_bResult = true;
+  }
+
 if (logEntry.m_bResult)
   {
-  char string[] = "A string\tof ,,tokens\nand some  more tokens";
-  char seps[]   = " ,\t\n";
-  char *token;
+  int i = 0;
+  char listSeparators[]   = " ,\t\n";
+  char szSource[] = "A string\tof ,,tokens\nand some  more tokens";
+  char* szToken;
   char* listTokens[] =
-  {
+    {
     "A",        //0
     "string",   //1
     "of",       //2
@@ -58,20 +81,24 @@ if (logEntry.m_bResult)
     "tokens",   //3
     "and",      //4
     "some",     //5
-    "more       //6
+    "more",     //6
+    "tokens"    //7
     };
   TsWriteToViewLn(_T("Tokens:"));
-  /*Establish string and get the first token: */
-  token = strtok(string, seps);
-  while(token != NULL)
+  /*Establish source and get the first token*/
+  szToken = strtok(szSource, listSeparators);
+  while(szToken != NULL) /*While there are tokens in source*/
     {
-     /*While there are tokens in "string" */
-    printf( " %s\n", token );
-
-    token = strtok( NULL, seps ); /* Get next token:  */
+    TsWriteToViewLn(szToken);
+    logEntry.m_bResult = (strcmp(szToken, listTokens[i]) == 0); 
+    if (!logEntry.m_bResult)
+      {
+      TsWriteToViewLn(_T("Failed test"));
+      break;
+      }
+    szToken = strtok(NULL, listSeparators); /*Get next token*/
+    i++;
     }
-
-	logEntry.m_bResult = false;
   }
 else
   {
@@ -86,6 +113,9 @@ return logEntry.m_bResult;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestCrtStrtok.c,v $
+ *Revision 1.4  2009/09/30 20:55:29  ddarko
+ *MSVC: handling SEH exception
+ *
  *Revision 1.3  2009/09/29 21:58:50  ddarko
  *strtok test
  *
