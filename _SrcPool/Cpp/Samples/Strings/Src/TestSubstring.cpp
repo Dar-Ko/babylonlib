@@ -1,5 +1,5 @@
 /*$RCSfile: TestSubstring.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/09/29 22:00:07 $
+  $Revision: 1.2 $ $Date: 2009/09/30 20:54:36 $
   $Author: ddarko $
 
   Test finding string tokens
@@ -11,6 +11,10 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 #include "stdafx.h"
 #include "KStrings.h" //GetSubstring()
+
+#ifdef WIN32
+  #include <shlwapi.h> //StrCmp()
+#endif
 
 extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToViewLn(LPCTSTR lszText);
@@ -25,6 +29,7 @@ bool TestSubstring()
 TsWriteToView(_T("TestSubstring()\r\n"));
 TESTENTRY logEntry;
 bool& bRes = logEntry.m_bResult;
+//Token index:         0   1       2  3   4   5    6  7    8
 LPTSTR szSource = _T("Get pointer to the 5th word in this sentence.");
 
 //Test common behaviour
@@ -38,76 +43,13 @@ LogTest(&logEntry);
 
 if (bRes)
   {
-    /*
-    //Test trimming leading and trailing spaces
-  std::_tcout << szText << std::endl << "<EOT>" << std::endl
-       << "Text length = " << iTextLen << std::endl
-       << "Trim leading and trailing spaces:" << std::endl;
-
-  _tcscpy(szBuffer, szText);
-  StrTrim(szBuffer);
-  iResultLen = (unsigned int)_tcslen(szBuffer);
-  if (szBuffer[0] != _T('C'))
-    bRes = false;
-  else if (szBuffer[iResultLen - 1] != _T('.'))
-    bRes = false;
-  std::_tcout << szBuffer << std::endl << "<EOT>" << std::endl
-       << "Text length = " << iResultLen << std::endl;
-
-    //Test trimming on text without leading or trailing spaces
+  szWord = GetSubstring(szSource, _T(' '), 5);
+  bRes = (StrCmp(szWord, _T("word in this sentence.")) == 0);
   if (bRes)
     {
-    StrTrim(szBuffer);
-    if (iResultLen != (unsigned int)_tcslen(szBuffer))
-      bRes = false;
-    else if (szBuffer[0] != _T('C'))
-      bRes = false;
-    else if (szBuffer[iResultLen - 1] != _T('.'))
-      bRes = false;
+    szWord = GetSubstring(szSource, _T(' '), 25);
+    bRes = (*szWord == _T('\0')); //Empty string
     }
-
-      //Test replacing multiple spaces with single character
-    if (bRes)
-      {
-      std::_tcout << "Replace multiple spaces:" << std::endl;
-
-        //Test replacing on text without leading or trailing spaces
-      if (ReplaceSpaces(szBuffer) == NULL)
-        bRes = false;
-      else
-        {
-        iResultLen = (unsigned int)_tcslen(szBuffer);
-        if (szBuffer[0] != _T('C'))
-          bRes = false;
-        else if (szBuffer[iResultLen-1] != _T('.'))
-          bRes = false;
-
-        std::_tcout << szBuffer << std::endl << "<EOT>" << std::endl
-             << "Text length = " << iResultLen << std::endl;
-        }
-
-      //Test replacing on text with leading and trailing spaces
-      if (bRes)
-        {
-        _tcscpy(szBuffer, szText);
-        if (ReplaceSpaces(szBuffer) == NULL)
-          bRes = false;
-        else
-          {
-          if (iResultLen != (unsigned int)_tcslen(szBuffer))
-            {
-            bRes = false;
-            iResultLen = (unsigned int)_tcslen(szBuffer);
-            std::_tcout << "Text length = " << iResultLen << std::endl;
-            }
-          else if (szBuffer[0] != _T('C'))
-            bRes = false;
-          else if (szBuffer[iResultLen-1] != _T('.'))
-            bRes = false;
-          }
-        }
-      }
-      */
   }
 
 TsWriteToViewLn(LOG_EOT);
@@ -121,11 +63,13 @@ return bRes;
  */
 bool TestStrTok()
 {
-TsWriteToView(_T("TestStrTok()\r\n"));
+return true; //TODO strtok_r (reentrant)
 
+TsWriteToView(_T("TestStrTok()\r\n"));
+/*/TODO
 TCHAR szSource[256];
 bool bRes = false;
-             //TODO
+             
 bRes = (StrTrimSlash(NULL) == NULL); //Nothing to do
 
   //Test empty string
@@ -138,6 +82,7 @@ if (bRes)
 
 TsWriteToViewLn(LOG_EOT);
 return bRes;
+*/
 }
 
 //////////////////////////////////////////////////////////////////////////////
