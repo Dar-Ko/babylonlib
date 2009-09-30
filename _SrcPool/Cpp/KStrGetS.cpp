@@ -25,10 +25,12 @@
 
 //GetSubstring()---------------------------------------------------------------
 /*Searches the given text for the token indexed with iSubstringIndex parameter
+
   Returns pointer to beginning of iSubstringIndex token.
   If the null terminator is found before requested token, function returns
-  a pointer to the null terminator. If the token index is non-positive number,
-  function returns pointer to the source string.
+  a pointer to the null terminator and token will be an empty string.
+  If the token index is non-positive number, function returns pointer to
+  the source string. If source is the null-pointer, the function returns NULL.
 
   Example:
 
@@ -39,6 +41,7 @@
       TRACE(szWord);
 
   See also: strtok(), strtok_r(), GetSubstring(CString&, LPCTSTR, int)
+  Microsoft C run-time libraries: strtok(), _strtok_l(), strtok_s().
 */
 TCHAR* GetSubstring(TCHAR* szSource,         //[in] null-terminated string to parse
                     TCHAR  chDelimiter,      //[in] delimiter
@@ -46,7 +49,7 @@ TCHAR* GetSubstring(TCHAR* szSource,         //[in] null-terminated string to pa
                     )
 {
   //return string itself
-if (iSubstringIndex > 0)
+if ((iSubstringIndex > 0) && (szSource != NULL))
   {
   int   nCount = 0;
      //Parse source string and return result
