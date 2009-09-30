@@ -1,25 +1,34 @@
+/*$RCSfile: KCExcept.h,v $: header file
+  $Revision: 1.2 $ $Date: 2009/09/30 19:05:08 $
+  $Author: ddarko $
+
+  Exception-handling in ANSI C
+  Copyright: 2000-2008 Adam M. Costello and Cosmin Truta.
+  2008-Jul-19-Sat Adam M. Costello http://www.nicemice.net/amc/
+  Cosmin Truta
+ */
+
+#ifndef _KCEXCEPT_H_
+    //$RCSfile: KCExcept.h,v $ sentry
+  #define _KCEXCEPT_H_
+
+#ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
+  #pragma message ("   #include " __FILE__ )
+#endif
+
+#include <setjmp.h>
+
 /*===
-cexcept.h 2.0.1 (2008-Jul-19-Sat)
-http://www.nicemice.net/cexcept/
-Adam M. Costello
-http://www.nicemice.net/amc/
 
 An interface for exception-handling in ANSI C (C89 and subsequent ISO
 standards), developed jointly with Cosmin Truta.
 
-    Copyright (c) 2000-2008 Adam M. Costello and Cosmin Truta.
-    This software may be modified only if its author and version
-    information is updated accurately, and may be redistributed
-    only if accompanied by this unaltered notice.  Subject to those
-    restrictions, permission is granted to anyone to do anything
-    with this software.  The copyright holders make no guarantees
-    regarding this software, and are not responsible for any damage
-    resulting from its use.
-
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! D.K.
 The cexcept interface is not compatible with and cannot interact
 with system exceptions (like division by zero or memory segmentation
 violation), compiler-generated exceptions (like C++ exceptions), or
 other exception-handling interfaces.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 When using this interface across multiple .c files, do not include
 this header file directly.  Instead, create a wrapper header file that
@@ -187,11 +196,8 @@ is subject to change.
 ===*/
 
 
-#ifndef CEXCEPT_H
-#define CEXCEPT_H
 
 
-#include <setjmp.h>
 
 #define define_exception_type(etype) \
 struct exception_context { \
@@ -244,12 +250,30 @@ struct exception_context { \
   for (;; longjmp(*the_exception_context->penv, 1)) \
     the_exception_context->v.etmp =
 
-
-#endif /* CEXCEPT_H */
-
+/* ////////////////////////////////////////////////////////////////////////// */
+#endif /*_KCEXCEPT_H_*/
 /******************************************************************************
  *$Log: KCExcept.h,v $
+ *Revision 1.2  2009/09/30 19:05:08  ddarko
+ **** empty log message ***
+ *
  *Revision 1.1  2009/09/30 18:28:16  ddarko
  *http://www.nicemice.net/cexcept/
  *
+ * cexcept.h 2.0.1 (2008-Jul-19-Sat) http://www.nicemice.net/cexcept/
+ * Adam M. Costello http://www.nicemice.net/amc/
  ******************************************************************************/
+
+/*===
+  An interface for exception-handling in ANSI C (C89 and subsequent ISO
+  standards), developed jointly with Cosmin Truta.
+
+    Copyright (c) 2000-2008 Adam M. Costello and Cosmin Truta.
+    This software may be modified only if its author and version
+    information is updated accurately, and may be redistributed
+    only if accompanied by this unaltered notice.  Subject to those
+    restrictions, permission is granted to anyone to do anything
+    with this software.  The copyright holders make no guarantees
+    regarding this software, and are not responsible for any damage
+    resulting from its use.
+ */
