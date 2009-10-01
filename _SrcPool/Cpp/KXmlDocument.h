@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/10/01 19:46:58 $
+  $Revision: 1.3 $ $Date: 2009/10/01 21:39:55 $
   $Author: ddarko $
 
   Interface for the CXmlDocument class
@@ -18,9 +18,9 @@
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
   #pragma message ("   #include " __FILE__ )
 #endif
-
-#include <xtl.h>
-#include <stdio.h>
+#if _MSC_VER >= 1400
+  #define _CRT_SECURE_NO_DEPRECATE //fopen() TODO:
+#endif
 
 #define XML_ROOT_NODE 0
 #define XML_MAX_TAGNAME_SIZE  32
@@ -124,6 +124,9 @@ private:
 #endif // !defined(_KXMLDOCUMENT_H_)
 /*****************************************************************************
  * $Log: KXmlDocument.h,v $
+ * Revision 1.3  2009/10/01 21:39:55  ddarko
+ * header files
+ *
  * Revision 1.2  2009/10/01 19:46:58  ddarko
  * Formatting
  *

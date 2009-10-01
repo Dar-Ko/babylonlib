@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/10/01 19:46:58 $
+  $Revision: 1.3 $ $Date: 2009/10/01 21:39:55 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -13,8 +13,9 @@
   #include "stdafx.h"
 #endif  //_MSC_VER
 
-#include "KXmlDocument.h"
+#include <string.h>
 #include <stdio.h>
+#include "KXmlDocument.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -123,7 +124,7 @@ node = GetNextNode(XML_ROOT_NODE);
 while (node>0)
   {
   szCurrentTag = GetNodeTag(node);
-  if( !strcmpi(szCurrentTag,szTag) )
+  if( !_strcmpi(szCurrentTag,szTag) )
     m_nodes++;
 
   node = GetNextNode(node);
@@ -216,11 +217,11 @@ while (node>0)
   szChildTag = GetNodeTag(node);
 
   // does the child's tag match the one we're looking for
-  if ( !strcmpi(szChildTag,szTag) )
+  if ( !_strcmpi(szChildTag,szTag) )
     return node;
 
   // is this actually the parent's closing tag?
-  else if ( !strcmpi(&szChildTag[1],szCurrentTag) )
+  else if ( !_strcmpi(&szChildTag[1],szCurrentTag) )
     return 0;
 
   node = GetNextNode(node);
@@ -300,7 +301,7 @@ node = GetNextNode(XML_ROOT_NODE);
 while (node>0)
   {
   szCurrentTag = GetNodeTag(node);
-  if ( !strcmpi(szCurrentTag,szTag) )
+  if ( !_strcmpi(szCurrentTag,szTag) )
     pFunc(szTag,node);
 
   node = GetNextNode(node);
@@ -310,6 +311,9 @@ while (node>0)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.3  2009/10/01 21:39:55  ddarko
+ * header files
+ *
  * Revision 1.2  2009/10/01 19:46:58  ddarko
  * Formatting
  *
