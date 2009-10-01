@@ -94,7 +94,7 @@ TCHAR* g_xmlDataTypeList[] =
 ///////////////////////////////////////////////////////////////////////////////
 
 //-----------------------------------------------------------------------------
-/*Converts string with XML Schema data type to numerical represntation.
+/*Converts string with XML Schema data type to its numerical representation.
 
   Returns: enum value correspondig to XML data type.
  */

@@ -35,7 +35,7 @@
 /*Default constructor
  */
   CXmlStringData::CXmlStringData() :
-    m_wszData(NULL), 
+    m_wszData(NULL),
     m_szData(NULL)
 {
 }
@@ -55,7 +55,7 @@ if (strSource != NULL)
     iLength = (int)strlen(strSource);
   m_wszData = new wchar_t[iLength + 1];
 
-  if( mbstowcs(m_wszData, strSource, iLength) < 0)
+  if (mbstowcs(m_wszData, strSource, iLength) < 0)
     {
     ASSERT(false); //Invalid multibyte character encountered
     }
@@ -146,7 +146,7 @@ CXmlStringData::operator const char*()
 {
 ASSERT(m_wszData != NULL);
 if (m_wszData == NULL)
-  return NULL; //Instead returning an unrelated text if the input is Null, 
+  return NULL; //Instead returning an unrelated text if the input is Null,
                //return the Null
 
  //Translate wide character text to the single-byte string
@@ -165,17 +165,17 @@ return m_szData;
 }
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  7    Biblioteka1.6         2005-04-14 22:25:25  Darko           deleted MSVC
  *       UNICODE fix
  *  6    Biblioteka1.5         2005-04-12 17:46:49  Darko Kolakovic TRACE fix
  *  5    Biblioteka1.4         2005-04-06 14:45:30  Darko Kolakovic Renamed class
  *       to avoid colision with other xml types
- *  4    Biblioteka1.3         2005-04-06 14:44:06  Darko Kolakovic 
+ *  4    Biblioteka1.3         2005-04-06 14:44:06  Darko Kolakovic
  *  3    Biblioteka1.2         2005-04-03 23:52:30  Darko           explicit
  *       typecast
  *  2    Biblioteka1.1         2005-03-27 02:17:39  Darko           operator const
  *       char*()
- *  1    Biblioteka1.0         2005-03-26 01:10:09  Darko           
+ *  1    Biblioteka1.0         2005-03-26 01:10:09  Darko
  * $
  *****************************************************************************/

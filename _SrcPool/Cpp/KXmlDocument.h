@@ -1,55 +1,64 @@
-// XmlDocument.h: interface for the CXmlDocument class. http://xbmc.org/
-// # svn co http://xbmc.svn.sourceforge.net/svnroot/xbmc/trunk
-///trunk/sources/screensavers/Asteroids/XmlDocument.h – XBMC – Trac
-//////////////////////////////////////////////////////////////////////
+/*$RCSfile: KXmlDocument.h,v $: header file
+  $Revision: 1.2 $ $Date: 2009/10/01 19:46:58 $
+  $Author: ddarko $
 
-#if !defined(AFX_XMLDOCUMENT_H__D68461F7_E0CE_4FA0_B1C9_0541610164E9__INCLUDED_)
-#define AFX_XMLDOCUMENT_H__D68461F7_E0CE_4FA0_B1C9_0541610164E9__INCLUDED_
+  Interface for the CXmlDocument class
+  Copyright: http://xbmc.org/
+  2003-10-14 xbmc.org
+ */
 
-#if _MSC_VER > 1000
-#pragma once
-#endif // _MSC_VER > 1000
+#if defined(_MSC_VER) && (_MSC_VER >= 1020)
+  #pragma once
+#endif
+
+#if !defined(_KXMLDOCUMENT_H_)
+  //$RCSfile: KXmlDocument.h,v $ sentry
+	#define _KXMLDOCUMENT_H_
+
+#ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
+  #pragma message ("   #include " __FILE__ )
+#endif
 
 #include <xtl.h>
 #include <stdio.h>
 
 #define XML_ROOT_NODE 0
-#define XML_MAX_TAGNAME_SIZE	32
-#define XML_MAX_INNERTEXT_SIZE	1024
+#define XML_MAX_TAGNAME_SIZE  32
+#define XML_MAX_INNERTEXT_SIZE  1024
 
 typedef int    XmlNode;
 typedef void (*XmlNodeCallback) (char* szTag, XmlNode node);
 
-
-
+///////////////////////////////////////////////////////////////////////////////
+/*
+ */
 class CXmlDocument
 {
 public:
-	CXmlDocument();
-	virtual ~CXmlDocument();
+  CXmlDocument();
+  virtual ~CXmlDocument();
 
-	void	Create(char* szString);
-	int     Load(char* szFile);
-	void    Close();
-
-	int		GetNodeCount(char* tag);
-
-	void    EnumerateNodes(char* szTag, XmlNodeCallback pFunc);
-
-	XmlNode GetChildNode(XmlNode node, char* szTag);
-	XmlNode GetNextNode(XmlNode node);
-	char*   GetNodeText(XmlNode node);
-	char*   GetNodeTag(XmlNode node);
+  void    Create(char* szString);
+  int     Load(char* szFile);
+  void    Close();
+  int     GetNodeCount(char* tag);
+  void    EnumerateNodes(char* szTag, XmlNodeCallback pFunc);
+  XmlNode GetChildNode(XmlNode node, char* szTag);
+  XmlNode GetNextNode(XmlNode node);
+  char*   GetNodeText(XmlNode node);
+  char*   GetNodeTag(XmlNode node);
 
 private:
-
-	char*	m_doc;
-	int		m_size;
-	int		m_nodes;
-	char	m_szTag[XML_MAX_TAGNAME_SIZE];
-	char	m_szText[XML_MAX_INNERTEXT_SIZE];
+  char* m_doc;
+  int   m_size;
+  int   m_nodes;
+  char  m_szTag[XML_MAX_TAGNAME_SIZE];
+  char  m_szText[XML_MAX_INNERTEXT_SIZE];
 };
 
+///////////////////////////////////////////////////////////////////////////////
+/*
+ */
 class WriteXML
 {
 public:
@@ -67,6 +76,7 @@ public:
     fprintf(m_file, "<%s>\n", m_rootTag);
     return true;
   };
+
   void Close()
   {
     if (m_file)
@@ -79,22 +89,26 @@ public:
     m_rootTag = NULL;
     m_file = NULL;
   };
+
   void WriteTag(const char *szTag, const char *data)
   {
     if (!m_file || !szTag || !data) return;
     fprintf(m_file, "\t<%s>%s</%s>\n", szTag, data, szTag);
   };
+
   void WriteTag(const char *szTag, int data, const char *format = "%i")
   {
     char temp[10];
     sprintf(temp, format, data);
     WriteTag(szTag, temp);
   };
+
   void WriteTag(const char *szTag, float data)
   {
     if (!m_file || !szTag) return;
     fprintf(m_file, "\t<%s>%f</%s>\n", szTag, data, szTag);
   };
+
   void WriteTag(const char *szTag, bool data)
   {
     if (!m_file || !szTag) return;
@@ -107,10 +121,14 @@ private:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-#endif // !defined(AFX_XMLDOCUMENT_H__D68461F7_E0CE_4FA0_B1C9_0541610164E9__INCLUDED_)
+#endif // !defined(_KXMLDOCUMENT_H_)
 /*****************************************************************************
  * $Log: KXmlDocument.h,v $
+ * Revision 1.2  2009/10/01 19:46:58  ddarko
+ * Formatting
+ *
  * Revision 1.1  2009/10/01 19:16:41  ddarko
  * http://xbmc.org/
- *
+ * # svn co http://xbmc.svn.sourceforge.net/svnroot/xbmc/trunk 2003-10-14 xbmc.org
+ * /trunk/sources/screensavers/Asteroids/XmlDocument.h – XBMC – Trac
  *****************************************************************************/
