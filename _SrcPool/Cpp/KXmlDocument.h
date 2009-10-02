@@ -1,9 +1,10 @@
 /*$RCSfile: KXmlDocument.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/10/01 21:39:55 $
+  $Revision: 1.4 $ $Date: 2009/10/02 20:20:53 $
   $Author: ddarko $
 
   Interface for the CXmlDocument class
   Copyright: http://xbmc.org/
+  2009-09-01 Darko Kolakovic
   2003-10-14 xbmc.org
  */
 
@@ -18,16 +19,13 @@
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
   #pragma message ("   #include " __FILE__ )
 #endif
-#if _MSC_VER >= 1400
-  #define _CRT_SECURE_NO_DEPRECATE //fopen() TODO:
-#endif
 
-#define XML_ROOT_NODE 0
-#define XML_MAX_TAGNAME_SIZE  32
+#define XML_ROOT_NODE              0
+#define XML_MAX_TAGNAME_SIZE      32
 #define XML_MAX_INNERTEXT_SIZE  1024
 
 typedef int    XmlNode;
-typedef void (*XmlNodeCallback) (char* szTag, XmlNode node);
+typedef void (*XmlNodeCallback) (LPCTSTR szTag, XmlNode node);
 
 ///////////////////////////////////////////////////////////////////////////////
 /*
@@ -38,22 +36,22 @@ public:
   CXmlDocument();
   virtual ~CXmlDocument();
 
-  void    Create(char* szString);
-  int     Load(char* szFile);
+  bool    Create(LPCTSTR szXmlText);
+  int     Read(LPCTSTR szFilename);
   void    Close();
-  int     GetNodeCount(char* tag);
-  void    EnumerateNodes(char* szTag, XmlNodeCallback pFunc);
-  XmlNode GetChildNode(XmlNode node, char* szTag);
+  int     GetNodeCount(LPCTSTR tag);
+  void    EnumerateNodes(LPCTSTR szTag, XmlNodeCallback pFunc);
+  XmlNode GetChildNode(XmlNode node, LPCTSTR szTag);
   XmlNode GetNextNode(XmlNode node);
-  char*   GetNodeText(XmlNode node);
-  char*   GetNodeTag(XmlNode node);
+  LPTSTR  GetNodeText(XmlNode node);
+  LPTSTR  GetNodeTag(XmlNode node);
 
 private:
-  char* m_doc;
-  int   m_size;
-  int   m_nodes;
-  char  m_szTag[XML_MAX_TAGNAME_SIZE];
-  char  m_szText[XML_MAX_INNERTEXT_SIZE];
+  LPTSTR m_szDocument;  //XML document
+  int    m_iLength;     //length of the document in characters
+  int    m_iNodeCount;
+  TCHAR  m_szTag[XML_MAX_TAGNAME_SIZE];
+  TCHAR  m_szText[XML_MAX_INNERTEXT_SIZE];
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -124,6 +122,9 @@ private:
 #endif // !defined(_KXMLDOCUMENT_H_)
 /*****************************************************************************
  * $Log: KXmlDocument.h,v $
+ * Revision 1.4  2009/10/02 20:20:53  ddarko
+ * Unicode build
+ *
  * Revision 1.3  2009/10/01 21:39:55  ddarko
  * header files
  *

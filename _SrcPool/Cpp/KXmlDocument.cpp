@@ -1,10 +1,11 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/10/01 21:39:55 $
+  $Revision: 1.4 $ $Date: 2009/10/02 20:20:53 $
   $Author: ddarko $
 
   Defines the class behavior.
   Copyright: http://xbmc.org/
   2003-10-14 xbmc.org
+  2009-09-01 Darko Kolakovic
  */
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
@@ -13,9 +14,13 @@
   #include "stdafx.h"
 #endif  //_MSC_VER
 
+#if _MSC_VER >= 1400
+  #define _CRT_SECURE_NO_DEPRECATE //TODO: fopen_s()
+#endif
+
 #include <string.h>
 #include <stdio.h>
-#include "KXmlDocument.h"
+#include "KXmlDocument.h" //CXmlDocument class
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -23,32 +28,46 @@
 //-----------------------------------------------------------------------------
 /*
  */
-CXmlDocument::CXmlDocument()
+CXmlDocument::CXmlDocument() :
+    m_szDocument(NULL),
+    m_iLength(0),
+    m_iNodeCount(0)
 {
-m_doc = 0;
-m_size  = 0;
-m_nodes = 0;
-
-m_szTag[0]  = 0;
-m_szText[0] = 0;
+m_szTag[0]  = _T('\0');
+m_szText[0] = _T('\0');
 }
 
 //-----------------------------------------------------------------------------
 /*
  */
-void CXmlDocument::Create(char* szString)
+bool CXmlDocument::Create(LPCTSTR szXmlText //[in] source XML document, limited
+                         //to INT_MAX characters
+                         )
 {
-m_size = strlen(szString);
-m_doc = new char[m_size+1];
-memcpy(m_doc, szString, m_size+1);
+bool bResult = false;
+if (szXmlText != NULL)
+  {
+  //Copy the text and append terminating zero.
+  m_iLength = (int)_tcslen(szXmlText);
+  if ((m_iLength > 0) && (m_iLength < INT_MAX)) //Overflow validation
+    {
+    m_szDocument = new TCHAR[m_iLength + 1];
+    if (m_szDocument != NULL)
+      {
+      _tcsncpy(m_szDocument, szXmlText, m_iLength);
+      m_szDocument[m_iLength] = _T('\0');
+      bResult = true;
+      }
+    }
+  }
+return bResult;
 }
 
 CXmlDocument::~CXmlDocument()
 {
-if(m_doc)
+if(m_szDocument != NULL)
   {
-  delete[] m_doc;
-  m_doc = NULL;
+  delete[] m_szDocument;
   }
 }
 
@@ -56,40 +75,46 @@ if(m_doc)
 /*Function: xml_load_doc
   Opens an XML document and loads it into memory.
  */
-int CXmlDocument::Load(char* szFile)
+int CXmlDocument::Read(LPCTSTR szFilename //[in]
+                      )
 {
-FILE* hFile;
-
-hFile  = fopen(szFile,"rb");
-if (hFile==NULL)
-{
-  return -1;
-}
-
-fseek(hFile,0,SEEK_END);
-m_size = ftell(hFile);
-
-fseek(hFile,0,SEEK_SET);
-
-m_doc = new char[m_size];
-if (!m_doc)
+if (szFilename != NULL)
   {
-  m_size = 0;
-  fclose(hFile);
-  return -2;
-  }
+  FILE* hFile;
 
-if (fread(m_doc, m_size, 1, hFile) <= 0)
-  {
-  delete[] m_doc;
-  m_doc  = 0;
-  m_size = 0;
-  fclose(hFile);
-  return -3;
-  }
+  hFile  = _tfopen(szFilename, _T("rb"));
+  if (hFile==NULL)
+    {
+    return -1;
+    }
 
-fclose(hFile);
-return 0;
+  fseek(hFile, 0, SEEK_END);
+  ASSERT((ftell(hFile) % sizeof(TCHAR)) == 0); //Unicode files have even number of bytes
+  m_iLength = ftell(hFile)/sizeof(TCHAR);
+
+  fseek(hFile, 0, SEEK_SET);
+
+  m_szDocument = new TCHAR[m_iLength];
+  if (!m_szDocument)
+    {
+    m_iLength = 0;
+    fclose(hFile);
+    return -2;
+    }
+
+  if (fread(m_szDocument, m_iLength, sizeof(TCHAR), hFile) <= 0)
+    {
+    delete[] m_szDocument;
+    m_szDocument  = 0;
+    m_iLength = 0;
+    fclose(hFile);
+    return -3;
+    }
+
+  fclose(hFile);
+  return 0;
+  }
+return -4;
 }
 
 //-----------------------------------------------------------------------------
@@ -98,76 +123,78 @@ return 0;
  */
 void CXmlDocument::Close()
 {
-if (m_doc!=NULL)
+if (m_szDocument != NULL)
   {
-  delete[] m_doc;
-  m_doc  =0;
+  delete[] m_szDocument;
+  m_szDocument = NULL;
   }
 
-m_size =0;
-m_nodes = 0;
-m_szTag[0]  = 0;
-m_szText[0] = 0;
+m_iLength    = 0;
+m_iNodeCount = 0;
+m_szTag[0]  = _T('\0');
+m_szText[0] = _T('\0');
 }
 
 //-----------------------------------------------------------------------------
 /*
  */
-int CXmlDocument::GetNodeCount(char* szTag)
+int CXmlDocument::GetNodeCount(LPCTSTR szTag //[in]
+                              )
 {
-m_nodes = 0;
+m_iNodeCount = 0;
 
-char* szCurrentTag;
-XmlNode node;
+if ((szTag != NULL) && (szTag[0] != _T('\0')))
+ {
+ LPTSTR szCurrentTag;
+ XmlNode xmlNode;
 
-node = GetNextNode(XML_ROOT_NODE);
-while (node>0)
-  {
-  szCurrentTag = GetNodeTag(node);
-  if( !_strcmpi(szCurrentTag,szTag) )
-    m_nodes++;
+ xmlNode = GetNextNode(XML_ROOT_NODE);
+ while (xmlNode > 0)
+   {
+   szCurrentTag = GetNodeTag(xmlNode);
+   if( !_tcsicmp(szCurrentTag, szTag) )
+     m_iNodeCount++;
 
-  node = GetNextNode(node);
-  }
-
-return m_nodes;
+   xmlNode = GetNextNode(xmlNode);
+   }
+ }
+return m_iNodeCount;
 }
 
 //-----------------------------------------------------------------------------
 /*Function: xml_next_tag
   Moves the current position to the next tag.
  */
-XmlNode CXmlDocument::GetNextNode(XmlNode node)
+XmlNode CXmlDocument::GetNextNode(XmlNode xmlNode //[in]
+                                 )
 {
 int  openBracket = -1;
 int  closeBracket = -1;
 int  i;
-char c;
-
-for (i=node; i<m_size; i++)
+for (i = xmlNode; i < m_iLength; i++)
   {
-  c=m_doc[i];
+  TCHAR& c = m_szDocument[i];
 
-  if (openBracket<0)
+  if (openBracket < 0)
     {
-    if (c=='<')
-      openBracket=i;
+    if (c == _T('<'))
+      openBracket = i;
     continue;
     }
 
-  if (closeBracket<0)
+  if (closeBracket < 0)
     {
-    if (c=='>')
+    if (c == _T('>'))
       {
-      closeBracket=i;
+      closeBracket = i;
       break;
       }
     }
   }
 
-if ((openBracket>=0) && (closeBracket>=0))
+if ((openBracket >= 0) && (closeBracket >= 0))
   {
-  return openBracket+1;
+  return openBracket + 1;
   }
 
 return 0;
@@ -177,54 +204,57 @@ return 0;
 /*Function: xml_get_tag_name
   Gets the tag name at the current position (max 32 chars!).
  */
-char* CXmlDocument::GetNodeTag(XmlNode node)
+LPTSTR CXmlDocument::GetNodeTag(XmlNode xmlNode //[in]
+                                )
 {
 int  i;
-char c;
-
-for (i=node; i<m_size; i++)
+for (i = xmlNode; i < m_iLength; i++)
   {
-  c=m_doc[i];
-
-  if ( (c==' ') || (c=='\n') || (c=='\r') || (c=='\t') || (c=='>') )
+  if ( (m_szDocument[i] == _T(' '))  ||
+       (m_szDocument[i] == _T('\n')) ||
+       (m_szDocument[i] == _T('\r')) ||
+       (m_szDocument[i] == _T('\t')) ||
+       (m_szDocument[i] == _T('>')) )
     {
-    memcpy(m_szTag,&m_doc[node],i-node);
-    m_szTag[i-node]=0;
+    _tcsncpy(m_szTag, &m_szDocument[xmlNode], i - xmlNode);
+    m_szTag[i - xmlNode] = _T('\0');
     return m_szTag;
     }
   }
 
-return 0;
+return NULL;
 }
 
 //-----------------------------------------------------------------------------
 /*Function: xml_get_child_tag
   Gets the position of the child tag.
  */
-XmlNode CXmlDocument::GetChildNode(XmlNode node, char* szTag)
+XmlNode CXmlDocument::GetChildNode(XmlNode xmlNode,//[in]
+                                   LPCTSTR szTag   //[in]
+                                  )
 {
-char szCurrentTag[32];
-char* szChildTag;
+TCHAR  szCurrentTag[XML_MAX_TAGNAME_SIZE];
+LPTSTR szChildTag;
 
-// get parent node tag
-strcpy(szCurrentTag,GetNodeTag(node));
+// get parent xmlNode tag
+_tcscpy(szCurrentTag,GetNodeTag(xmlNode));
 
-// get child node
-node = GetNextNode(node);
-while (node>0)
+// get child xmlNode
+xmlNode = GetNextNode(xmlNode);
+while (xmlNode>0)
   {
-  // get child node tag
-  szChildTag = GetNodeTag(node);
+  // get child xmlNode tag
+  szChildTag = GetNodeTag(xmlNode);
 
   // does the child's tag match the one we're looking for
-  if ( !_strcmpi(szChildTag,szTag) )
-    return node;
+  if ( !_tcsicmp(szChildTag, szTag) )
+    return xmlNode;
 
   // is this actually the parent's closing tag?
-  else if ( !_strcmpi(&szChildTag[1],szCurrentTag) )
+  else if ( !_tcsicmp(&szChildTag[1], szCurrentTag) )
     return 0;
 
-  node = GetNextNode(node);
+  xmlNode = GetNextNode(xmlNode);
   }
 
 return 0;
@@ -234,83 +264,90 @@ return 0;
 /*Function: xml_get_tag_text
   Gets the text of a given tag (max limit 128 chars!!).
  */
-char* CXmlDocument::GetNodeText(XmlNode node)
+LPTSTR CXmlDocument::GetNodeText(XmlNode xmlNode //[in]
+                                )
 {
-int i,text=0;
-int opens=1;
-int elements=0;
-char c;
-for (i=node;i<(m_size-1);i++)
-  {
-  c = m_doc[i];
+int i, text = 0;
+int opens = 1;
+int elements = 0;
 
-  switch (c)
+for (i = xmlNode; i < (m_iLength - 1); i++)
+  {
+  switch (m_szDocument[i])
     {
-    case '<':
+    case _T('<'):
       opens++;
-      if (m_doc[i+1]!='/')
+      if (m_szDocument[i + 1]!=_T('/'))
         elements++;
       else
         elements--;
       break;
-    case '>' :
+
+    case _T('>') :
       opens--;
       break;
-    case ' ' :
-    case '\n':
-    case '\r':
-    case '\t':
+
+    case _T(' ') :
+    case _T('\n'):
+    case _T('\r'):
+    case _T('\t'):
       break;
+
     default:
-      if ((opens==0) && (elements==0))
+      if ((opens == 0) && (elements == 0))
         text = i;
       break;
     }
 
-  if (text)
+  if (text > 0)  //??? D.K  move for loop at the bottom here
     break;
   }
 
-if (!text)
-  return 0;
+if (text == 0)
+  return NULL; //??? D.K.
 
-for (i=text;i<m_size;i++)
+for (i = text; i < m_iLength; i++)
   {
-  c = m_doc[i];
-  if (c=='<')
+  if (m_szDocument[i] == _T('<'))
     {
-    memcpy(m_szText,&m_doc[text],i-text);
-    m_szText[i-text]=0;
+    _tcsncpy(m_szText, &m_szDocument[text], i - text);
+    m_szText[i - text] = _T('\0');
     return m_szText;
     }
   }
 
-m_szText[0]=0;
+m_szText[0] = _T('\0');
 return m_szText;
 }
 
 //-----------------------------------------------------------------------------
 /*
  */
-void CXmlDocument::EnumerateNodes(char* szTag, XmlNodeCallback pFunc)
+void CXmlDocument::EnumerateNodes(LPCTSTR szTag,   //[in]
+                                  XmlNodeCallback pFunc //[in]
+                                 )
 {
-char* szCurrentTag;
-XmlNode node;
-
-node = GetNextNode(XML_ROOT_NODE);
-while (node>0)
+if (pFunc != NULL)
   {
-  szCurrentTag = GetNodeTag(node);
-  if ( !_strcmpi(szCurrentTag,szTag) )
-    pFunc(szTag,node);
+  LPTSTR szCurrentTag;
+  XmlNode xmlNode = GetNextNode(XML_ROOT_NODE);
+  while (xmlNode > 0)
+    {
+    szCurrentTag = GetNodeTag(xmlNode);
+    if (_tcsicmp(szCurrentTag, szTag) != 0)
+     pFunc(szTag, xmlNode);
 
-  node = GetNextNode(node);
+    xmlNode = GetNextNode(xmlNode);
+    }
   }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.4  2009/10/02 20:20:53  ddarko
+ * Unicode build
+ *
  * Revision 1.3  2009/10/01 21:39:55  ddarko
  * header files
  *
