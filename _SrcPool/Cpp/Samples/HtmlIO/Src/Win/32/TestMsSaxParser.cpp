@@ -119,7 +119,7 @@ inline HRESULT STDMETHODCALLTYPE CTestMsSaxHandler::endElement(
 {
 CXmlStringData strQuery(pwchQName, cchQName);
 #ifdef _UNICODE //TODO: Unicode _CrtDbgReport
-  TRACE1("CTestMsSaxHandler::endElement(%s)\n", (LPCSTR)strQuery);
+  TRACE1(_T("CTestMsSaxHandler::endElement(%ws)\n"), (LPCSTR)strQuery);
 #else
   TRACE1(_T("CTestMsSaxHandler::endElement(%s)\n"), (LPCSTR)strQuery);
 #endif

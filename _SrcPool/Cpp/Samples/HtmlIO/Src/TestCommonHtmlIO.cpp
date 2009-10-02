@@ -15,6 +15,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 extern bool TestXmlString();
 extern bool TestXmlNode();
+extern bool TestXmlDocument(int argc, TCHAR* argv[]);
 extern bool TestXmlParser(int argc, TCHAR* argv[]);
 extern bool TestXmlFinder(int argc, TCHAR* argv[]);
 
@@ -68,6 +69,18 @@ else
 
 //Test XML Node manipulation
 if (TestXmlNode())
+  {
+  TsWriteToViewLn(LOG_SUCCESS);
+  TsWriteToViewLn(_T(""));
+  }
+else
+  {
+  TsWriteToViewLn(LOG_FAILURE);
+  return EXIT_FAILURE + 1 + iTestCount++;
+  }
+
+//Test simple document reader
+if (TestXmlDocument(argc, argv))
   {
   TsWriteToViewLn(LOG_SUCCESS);
   TsWriteToViewLn(_T(""));
