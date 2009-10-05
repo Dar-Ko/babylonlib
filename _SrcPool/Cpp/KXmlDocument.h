@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.h,v $: header file
-  $Revision: 1.4 $ $Date: 2009/10/02 20:20:53 $
+  $Revision: 1.5 $ $Date: 2009/10/05 21:42:31 $
   $Author: ddarko $
 
   Interface for the CXmlDocument class
@@ -20,12 +20,11 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#define XML_ROOT_NODE              0
+#define XML_POSBEGININING          0  //position at the beginning of XML document
 #define XML_MAX_TAGNAME_SIZE      32
 #define XML_MAX_INNERTEXT_SIZE  1024
 
-typedef int    XmlNode;
-typedef void (*XmlNodeCallback) (LPCTSTR szTag, XmlNode node);
+typedef void (*XmlNodeCallback) (LPCTSTR szTag, int iPos);
 
 ///////////////////////////////////////////////////////////////////////////////
 /*
@@ -41,10 +40,10 @@ public:
   void    Close();
   int     GetNodeCount(LPCTSTR tag);
   void    EnumerateNodes(LPCTSTR szTag, XmlNodeCallback pFunc);
-  XmlNode GetChildNode(XmlNode node, LPCTSTR szTag);
-  XmlNode GetNextNode(XmlNode node);
-  LPTSTR  GetNodeText(XmlNode node);
-  LPTSTR  GetNodeTag(XmlNode node);
+  int     GetChildNode(int iPos, LPCTSTR szTag);
+  int     GetNextNode(int iPos);
+  LPTSTR  GetNodeText(int iPos);
+  LPTSTR  GetNodeTag(int iPos);
 
 private:
   LPTSTR m_szDocument;  //XML document
@@ -63,65 +62,99 @@ public:
   WriteXML() { m_file = NULL; m_rootTag = NULL; };
   ~WriteXML() { Close(); };
 
-  bool Open(const char *szFile, const char *szOpeningTag)
+  bool Open(LPCTSTR szFile,      //[in]
+            LPCTSTR szOpeningTag //[in]
+            )
   {
-    remove(szFile);
-    if (!szFile || !szOpeningTag) return false;
-    m_file = fopen(szFile, "w");
-    if (!m_file) return false;
-    m_rootTag = new char[strlen(szOpeningTag) + 1];
-    strcpy(m_rootTag, szOpeningTag);
-    fprintf(m_file, "<%s>\n", m_rootTag);
+    _tremove(szFile);
+    if (!szFile || !szOpeningTag)
+      return false;
+    m_file = _tfopen(szFile, _T("w"));
+    if (m_file == NULL)
+      return false;
+
+      #ifdef _UNICODE
+        //Write Byte Order Mark (BOM)
+        unsigned short nBOM = UCBYTEORDERMARK;
+        fwrite(&nBOM, sizeof(wchar_t), 1, m_file);
+        LPCTSTR szXmlEncoding = _T("<?xml version=\"1.0\" encoding=\"utf-16\">\n");
+      #else
+        LPCTSTR szXmlEncoding = _T("<?xml version=\"1.0\" encoding=\"utf-8\">\n");
+      #endif
+    fwrite(szXmlEncoding, sizeof(TCHAR), _tcslen(szXmlEncoding), m_file);
+
+    m_rootTag = new TCHAR[_tcslen(szOpeningTag) + 1];
+    _tcscpy(m_rootTag, szOpeningTag);
+    _ftprintf(m_file, _T("<%s>\n"), m_rootTag);
     return true;
   };
 
   void Close()
   {
-    if (m_file)
-    {
-      if (m_rootTag)
-        fprintf(m_file, "</%s>\n", m_rootTag);
+    if (m_file != NULL)
+      {
+      if (m_rootTag != NULL)
+        _ftprintf(m_file, _T("</%s>\n"), m_rootTag);
       fclose(m_file);
-    }
+      }
     delete[] m_rootTag;
     m_rootTag = NULL;
     m_file = NULL;
   };
 
-  void WriteTag(const char *szTag, const char *data)
+  void WriteTag(LPCTSTR szTag, //[in]
+                LPCTSTR data   //[in]
+                )
   {
-    if (!m_file || !szTag || !data) return;
-    fprintf(m_file, "\t<%s>%s</%s>\n", szTag, data, szTag);
+    if (m_file == NULL || 
+        szTag  == NULL || 
+        data   == NULL)
+      return;
+    _ftprintf(m_file, _T("\t<%s>%s</%s>\n"), szTag, data, szTag);
   };
 
-  void WriteTag(const char *szTag, int data, const char *format = "%i")
+  void WriteTag(LPCTSTR szTag, //[in]
+                int data, 
+                LPCTSTR format = _T("%i"))
   {
-    char temp[10];
-    sprintf(temp, format, data);
+    TCHAR temp[10];
+    _stprintf(temp, format, data);
     WriteTag(szTag, temp);
   };
 
-  void WriteTag(const char *szTag, float data)
+  void WriteTag(LPCTSTR szTag, //[in]
+                float data
+                )
   {
-    if (!m_file || !szTag) return;
-    fprintf(m_file, "\t<%s>%f</%s>\n", szTag, data, szTag);
+    if (m_file == NULL || 
+        szTag  == NULL)
+      return;
+    _ftprintf(m_file, _T("\t<%s>%f</%s>\n"), szTag, data, szTag);
   };
 
-  void WriteTag(const char *szTag, bool data)
+  void WriteTag(LPCTSTR szTag, //[in]
+                bool data
+                )
   {
-    if (!m_file || !szTag) return;
-    fprintf(m_file, "\t<%s>%s</%s>\n", szTag, data ? "true" : "false", szTag);
+    if (m_file == NULL || 
+        szTag  == NULL)
+      return;
+    _ftprintf(m_file, _T("\t<%s>%s</%s>\n"), szTag,
+         data ? _T("true") : _T("false"), szTag);
   };
 
 private:
-  char *m_rootTag;
-  FILE *m_file;
+  LPTSTR m_rootTag;
+  FILE*  m_file;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif // !defined(_KXMLDOCUMENT_H_)
 /*****************************************************************************
  * $Log: KXmlDocument.h,v $
+ * Revision 1.5  2009/10/05 21:42:31  ddarko
+ * Unicode XML output
+ *
  * Revision 1.4  2009/10/02 20:20:53  ddarko
  * Unicode build
  *

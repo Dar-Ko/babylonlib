@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2009/10/02 20:20:53 $
+  $Revision: 1.5 $ $Date: 2009/10/05 21:42:31 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -83,7 +83,7 @@ if (szFilename != NULL)
   FILE* hFile;
 
   hFile  = _tfopen(szFilename, _T("rb"));
-  if (hFile==NULL)
+  if (hFile == NULL)
     {
     return -1;
     }
@@ -146,16 +146,16 @@ m_iNodeCount = 0;
 if ((szTag != NULL) && (szTag[0] != _T('\0')))
  {
  LPTSTR szCurrentTag;
- XmlNode xmlNode;
+ int iPos;
 
- xmlNode = GetNextNode(XML_ROOT_NODE);
- while (xmlNode > 0)
+ iPos = GetNextNode(XML_POSBEGININING);
+ while (iPos > 0)
    {
-   szCurrentTag = GetNodeTag(xmlNode);
+   szCurrentTag = GetNodeTag(iPos);
    if( !_tcsicmp(szCurrentTag, szTag) )
      m_iNodeCount++;
 
-   xmlNode = GetNextNode(xmlNode);
+   iPos = GetNextNode(iPos);
    }
  }
 return m_iNodeCount;
@@ -165,13 +165,13 @@ return m_iNodeCount;
 /*Function: xml_next_tag
   Moves the current position to the next tag.
  */
-XmlNode CXmlDocument::GetNextNode(XmlNode xmlNode //[in]
+int CXmlDocument::GetNextNode(int iPos //[in]
                                  )
 {
 int  openBracket = -1;
 int  closeBracket = -1;
 int  i;
-for (i = xmlNode; i < m_iLength; i++)
+for (i = iPos; i < m_iLength; i++)
   {
   TCHAR& c = m_szDocument[i];
 
@@ -204,11 +204,11 @@ return 0;
 /*Function: xml_get_tag_name
   Gets the tag name at the current position (max 32 chars!).
  */
-LPTSTR CXmlDocument::GetNodeTag(XmlNode xmlNode //[in]
+LPTSTR CXmlDocument::GetNodeTag(int iPos //[in]
                                 )
 {
 int  i;
-for (i = xmlNode; i < m_iLength; i++)
+for (i = iPos; i < m_iLength; i++)
   {
   if ( (m_szDocument[i] == _T(' '))  ||
        (m_szDocument[i] == _T('\n')) ||
@@ -216,8 +216,8 @@ for (i = xmlNode; i < m_iLength; i++)
        (m_szDocument[i] == _T('\t')) ||
        (m_szDocument[i] == _T('>')) )
     {
-    _tcsncpy(m_szTag, &m_szDocument[xmlNode], i - xmlNode);
-    m_szTag[i - xmlNode] = _T('\0');
+    _tcsncpy(m_szTag, &m_szDocument[iPos], i - iPos);
+    m_szTag[i - iPos] = _T('\0');
     return m_szTag;
     }
   }
@@ -229,7 +229,7 @@ return NULL;
 /*Function: xml_get_child_tag
   Gets the position of the child tag.
  */
-XmlNode CXmlDocument::GetChildNode(XmlNode xmlNode,//[in]
+int CXmlDocument::GetChildNode(int iPos,//[in]
                                    LPCTSTR szTag   //[in]
                                   )
 {
@@ -237,24 +237,24 @@ TCHAR  szCurrentTag[XML_MAX_TAGNAME_SIZE];
 LPTSTR szChildTag;
 
 // get parent xmlNode tag
-_tcscpy(szCurrentTag,GetNodeTag(xmlNode));
+_tcscpy(szCurrentTag,GetNodeTag(iPos));
 
 // get child xmlNode
-xmlNode = GetNextNode(xmlNode);
-while (xmlNode>0)
+iPos = GetNextNode(iPos);
+while (iPos>0)
   {
   // get child xmlNode tag
-  szChildTag = GetNodeTag(xmlNode);
+  szChildTag = GetNodeTag(iPos);
 
   // does the child's tag match the one we're looking for
   if ( !_tcsicmp(szChildTag, szTag) )
-    return xmlNode;
+    return iPos;
 
   // is this actually the parent's closing tag?
   else if ( !_tcsicmp(&szChildTag[1], szCurrentTag) )
     return 0;
 
-  xmlNode = GetNextNode(xmlNode);
+  iPos = GetNextNode(iPos);
   }
 
 return 0;
@@ -264,14 +264,14 @@ return 0;
 /*Function: xml_get_tag_text
   Gets the text of a given tag (max limit 128 chars!!).
  */
-LPTSTR CXmlDocument::GetNodeText(XmlNode xmlNode //[in]
+LPTSTR CXmlDocument::GetNodeText(int iPos //[in]
                                 )
 {
 int i, text = 0;
 int opens = 1;
 int elements = 0;
 
-for (i = xmlNode; i < (m_iLength - 1); i++)
+for (i = iPos; i < (m_iLength - 1); i++)
   {
   switch (m_szDocument[i])
     {
@@ -330,14 +330,14 @@ void CXmlDocument::EnumerateNodes(LPCTSTR szTag,   //[in]
 if (pFunc != NULL)
   {
   LPTSTR szCurrentTag;
-  XmlNode xmlNode = GetNextNode(XML_ROOT_NODE);
-  while (xmlNode > 0)
+  int iPos = GetNextNode(XML_POSBEGININING);
+  while (iPos > 0)
     {
-    szCurrentTag = GetNodeTag(xmlNode);
+    szCurrentTag = GetNodeTag(iPos);
     if (_tcsicmp(szCurrentTag, szTag) != 0)
-     pFunc(szTag, xmlNode);
+      pFunc(szTag, iPos);
 
-    xmlNode = GetNextNode(xmlNode);
+    iPos = GetNextNode(iPos);
     }
   }
 }
@@ -345,6 +345,9 @@ if (pFunc != NULL)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.5  2009/10/05 21:42:31  ddarko
+ * Unicode XML output
+ *
  * Revision 1.4  2009/10/02 20:20:53  ddarko
  * Unicode build
  *
