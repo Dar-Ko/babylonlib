@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.5 $ $Date: 2009/10/05 21:42:31 $
+  $Revision: 1.6 $ $Date: 2009/10/06 21:55:21 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -11,12 +11,16 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #ifdef _MSC_VER //Micorsoft Visual Studio C++ compiler
-  #include "stdafx.h"
-#endif  //_MSC_VER
+  #if _MSC_VER >= 1400
+    #define _CRT_SECURE_NO_DEPRECATE //TODO: fopen_s()
+  #endif
 
-#if _MSC_VER >= 1400
-  #define _CRT_SECURE_NO_DEPRECATE //TODO: fopen_s()
-#endif
+  #include "stdafx.h"
+
+  #ifdef _CRT_SECURE_NO_DEPRECATE
+    #pragma message ("  _CRT_SECURE_NO_DEPRECATE defined.")
+  #endif
+#endif  //_MSC_VER
 
 #include <string.h>
 #include <stdio.h>
@@ -30,11 +34,10 @@
  */
 CXmlDocument::CXmlDocument() :
     m_szDocument(NULL),
-    m_iLength(0),
-    m_iNodeCount(0)
+    m_iLength(0)
 {
-m_szTag[0]  = _T('\0');
-m_szText[0] = _T('\0');
+m_szElement[0]  = _T('\0');
+m_szValue[0] = _T('\0');
 }
 
 //-----------------------------------------------------------------------------
@@ -65,15 +68,11 @@ return bResult;
 
 CXmlDocument::~CXmlDocument()
 {
-if(m_szDocument != NULL)
-  {
-  delete[] m_szDocument;
-  }
+Close();
 }
 
 //-----------------------------------------------------------------------------
-/*Function: xml_load_doc
-  Opens an XML document and loads it into memory.
+/*Opens an XML document and loads it into memory.
  */
 int CXmlDocument::Read(LPCTSTR szFilename //[in]
                       )
@@ -130,141 +129,211 @@ if (m_szDocument != NULL)
   }
 
 m_iLength    = 0;
-m_iNodeCount = 0;
-m_szTag[0]  = _T('\0');
-m_szText[0] = _T('\0');
+m_szElement[0]  = _T('\0');
+m_szValue[0] = _T('\0');
 }
 
 //-----------------------------------------------------------------------------
-/*
- */
-int CXmlDocument::GetNodeCount(LPCTSTR szTag //[in]
-                              )
-{
-m_iNodeCount = 0;
+/*Obtains number of elements.
 
-if ((szTag != NULL) && (szTag[0] != _T('\0')))
+  Returns: number of all elementswith the given name.
+
+  See also: CXmlNode::EnumerateChildren()
+ */
+int CXmlDocument::Enumerate(LPCTSTR szElementName //[in] XML tag
+                           )
+{
+int iNodeCount = 0;
+
+if ((szElementName != NULL) && (szElementName[0] != _T('\0')))
  {
  LPTSTR szCurrentTag;
  int iPos;
 
- iPos = GetNextNode(XML_POSBEGININING);
+ iPos = GetNextElement(XML_POSBEGININING);
  while (iPos > 0)
    {
-   szCurrentTag = GetNodeTag(iPos);
-   if( !_tcsicmp(szCurrentTag, szTag) )
-     m_iNodeCount++;
+   szCurrentTag = GetName(iPos);
+   if( !_tcsicmp(szCurrentTag, szElementName) )
+     iNodeCount++;
 
-   iPos = GetNextNode(iPos);
+   iPos = GetNextElement(iPos);
    }
  }
-return m_iNodeCount;
+return iNodeCount;
 }
 
 //-----------------------------------------------------------------------------
-/*Function: xml_next_tag
-  Moves the current position to the next tag.
+/*Calls helper static function to further process every XML element found 
+  with given name.
+
+  See also: CXmlDocument::GetNextElement()
  */
-int CXmlDocument::GetNextNode(int iPos //[in]
-                                 )
+void CXmlDocument::Enumerate(LPCTSTR szElementName,   //[in] XML tag
+                             XmlNodeCallback funcXmlProcessor //[in] prcessing function
+                            )
 {
-int  openBracket = -1;
-int  closeBracket = -1;
-int  i;
-for (i = iPos; i < m_iLength; i++)
+if ((funcXmlProcessor != NULL) &&
+    (szElementName != NULL) && (szElementName[0] != _T('\0')))
   {
-  TCHAR& c = m_szDocument[i];
-
-  if (openBracket < 0)
+  LPTSTR szCurrentTag;
+  int iPos = GetNextElement(XML_POSBEGININING);
+  while (iPos > 0)
     {
-    if (c == _T('<'))
-      openBracket = i;
-    continue;
+    szCurrentTag = GetName(iPos);
+    //Find the element and proccess element's data
+    if (_tcsicmp(szCurrentTag, szElementName) == 0)
+      funcXmlProcessor(szElementName, iPos);
+
+    iPos = GetNextElement(iPos);
     }
+  }
+}
 
-  if (closeBracket < 0)
+//-----------------------------------------------------------------------------
+/*Moves the current position to the next XML element (also called a node).
+  An XML element describes the data that it contains. Elements can also contain
+  other elements and attributes.
+
+    <elementA attributeAA="valueAA" attributeAB="valueAB" ...>
+      elementValue
+    </elementA>
+    <elementB attributeBA="valueBA" attributeBB="valueBB" ... />
+
+ Note: range of the iPos is [0, INT_MAX)
+
+ Returns: position of the next XML element or 0 if none is found.
+
+ See also: CXmlDocument::EnumerateNodes()
+ */
+int CXmlDocument::GetNextElement(int iPos //[in] = XML_POSBEGININING position of 
+                                //the  element [0, INT_MAX)
+                                )
+{
+if (iPos > 0)
+  {
+  int  openBracket = -1;
+  int  closeBracket = -1;
+  int  i;
+  for (i = iPos; i < m_iLength; i++)
     {
-    if (c == _T('>'))
+    TCHAR& c = m_szDocument[i];
+
+    if (openBracket < 0)
       {
-      closeBracket = i;
-      break;
+      if (c == _T('<'))
+        openBracket = i;
+      continue;
+      }
+
+    if (closeBracket < 0)
+      {
+      if (c == _T('>'))
+        {
+        closeBracket = i;
+        break;
+        }
       }
     }
-  }
 
-if ((openBracket >= 0) && (closeBracket >= 0))
-  {
-  return openBracket + 1;
+  if ((openBracket >= 0) && (closeBracket >= 0))
+    {
+    return openBracket + 1;
+    }
   }
-
 return 0;
 }
 
 //-----------------------------------------------------------------------------
-/*Function: xml_get_tag_name
-  Gets the tag name at the current position (max 32 chars!).
+/*Obtains the name of the XML element at the given position.
+ 
+ Note: Element's names longer than XML_MAX_TAGNAME_SIZE -1 characters will be
+ truncated.
+  
+  Returns: string containing element's name.
+
+  See also: CXmlNode::GetName()
  */
-LPTSTR CXmlDocument::GetNodeTag(int iPos //[in]
-                                )
+LPTSTR CXmlDocument::GetName(int iPos //[in] = XML_POSBEGININING position of 
+                             //the  element [0, INT_MAX)
+                             )
 {
-int  i;
-for (i = iPos; i < m_iLength; i++)
+if (iPos > 0)
   {
-  if ( (m_szDocument[i] == _T(' '))  ||
-       (m_szDocument[i] == _T('\n')) ||
-       (m_szDocument[i] == _T('\r')) ||
-       (m_szDocument[i] == _T('\t')) ||
-       (m_szDocument[i] == _T('>')) )
+  int  i;
+  for (i = iPos; i < m_iLength; i++)
     {
-    _tcsncpy(m_szTag, &m_szDocument[iPos], i - iPos);
-    m_szTag[i - iPos] = _T('\0');
-    return m_szTag;
+    if ( (m_szDocument[i] == _T(' '))  ||
+         (m_szDocument[i] == _T('\n')) ||
+         (m_szDocument[i] == _T('\r')) ||
+         (m_szDocument[i] == _T('\t')) ||
+         (m_szDocument[i] == _T('>')) )
+      {
+      int iLen = i - iPos;
+      const int BUFFER_CAPACITY = sizeof(m_szElement) * sizeof(TCHAR);
+      if (BUFFER_CAPACITY < iLen)
+        iLen = BUFFER_CAPACITY - 1; //Truncate data to fit the buffer
+
+      _tcsncpy(m_szElement, &m_szDocument[iPos], iLen);
+      m_szElement[iLen] = _T('\0');
+      return m_szElement;
+      }
     }
   }
-
 return NULL;
 }
 
 //-----------------------------------------------------------------------------
-/*Function: xml_get_child_tag
-  Gets the position of the child tag.
+/*Gets the position of the child element with the given name. An element could 
+  have none or more than one children elements with the same name (tag).
+
+  Returns: postion of the subelement or 0 if subelement is not found.
+
+  See also: CXmlNode::GetChild()
  */
-int CXmlDocument::GetChildNode(int iPos,//[in]
-                                   LPCTSTR szTag   //[in]
-                                  )
+int CXmlDocument::GetChild(LPCTSTR szElementName, //[in] parent's tag
+                               int iPos //[in] = XML_POSBEGININING position of 
+                               //parent's element [0, INT_MAX)
+                               )
 {
 TCHAR  szCurrentTag[XML_MAX_TAGNAME_SIZE];
 LPTSTR szChildTag;
 
-// get parent xmlNode tag
-_tcscpy(szCurrentTag,GetNodeTag(iPos));
-
+//Get parent' name
+_tcsncpy(szCurrentTag, GetName(iPos), XML_MAX_TAGNAME_SIZE - 1);
+szCurrentTag[XML_MAX_TAGNAME_SIZE] = _T('\0');
 // get child xmlNode
-iPos = GetNextNode(iPos);
-while (iPos>0)
+iPos = GetNextElement(iPos);
+while (iPos > 0)
   {
-  // get child xmlNode tag
-  szChildTag = GetNodeTag(iPos);
+  szChildTag = GetName(iPos); //Get child xmlNode tag
 
-  // does the child's tag match the one we're looking for
-  if ( !_tcsicmp(szChildTag, szTag) )
+  //Match the child's tag with the one we're looking for
+  if ( !_tcsicmp(szChildTag, szElementName) )
     return iPos;
 
-  // is this actually the parent's closing tag?
+  //Is this actually the parent's closing tag?
   else if ( !_tcsicmp(&szChildTag[1], szCurrentTag) )
     return 0;
 
-  iPos = GetNextNode(iPos);
+  iPos = GetNextElement(iPos);
   }
 
 return 0;
 }
 
 //-----------------------------------------------------------------------------
-/*Function: xml_get_tag_text
-  Gets the text of a given tag (max limit 128 chars!!).
+/*Obtains value of the XML element at the given position.
+
+  Note: Element's data longer than XML_MAX_INNERTEXT_SIZE -1 characters will be
+  truncated.
+
+  Returns: string containing element's value or an empty string.
+
+  See also: CXmlNode::GetValue()
  */
-LPTSTR CXmlDocument::GetNodeText(int iPos //[in]
+LPTSTR CXmlDocument::GetValue(int iPos //[in] position of 
+                               //the element [0, INT_MAX)
                                 )
 {
 int i, text = 0;
@@ -310,41 +379,25 @@ for (i = text; i < m_iLength; i++)
   {
   if (m_szDocument[i] == _T('<'))
     {
-    _tcsncpy(m_szText, &m_szDocument[text], i - text);
-    m_szText[i - text] = _T('\0');
-    return m_szText;
+    int iLen = i - text;
+    const int BUFFER_CAPACITY = sizeof(m_szValue) * sizeof(TCHAR);
+    if (BUFFER_CAPACITY < iLen)
+      iLen = BUFFER_CAPACITY - 1; //Truncate data to fit the buffer
+    _tcsncpy(m_szValue, &m_szDocument[text], iLen);
+    m_szValue[iLen] = _T('\0');
+    return m_szValue;
     }
   }
 
-m_szText[0] = _T('\0');
-return m_szText;
+m_szValue[0] = _T('\0');
+return m_szValue;
 }
-
-//-----------------------------------------------------------------------------
-/*
- */
-void CXmlDocument::EnumerateNodes(LPCTSTR szTag,   //[in]
-                                  XmlNodeCallback pFunc //[in]
-                                 )
-{
-if (pFunc != NULL)
-  {
-  LPTSTR szCurrentTag;
-  int iPos = GetNextNode(XML_POSBEGININING);
-  while (iPos > 0)
-    {
-    szCurrentTag = GetNodeTag(iPos);
-    if (_tcsicmp(szCurrentTag, szTag) != 0)
-      pFunc(szTag, iPos);
-
-    iPos = GetNextNode(iPos);
-    }
-  }
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.6  2009/10/06 21:55:21  ddarko
+ * fixed overflows in CXmlDocument
+ *
  * Revision 1.5  2009/10/05 21:42:31  ddarko
  * Unicode XML output
  *

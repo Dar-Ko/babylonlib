@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.h,v $: header file
-  $Revision: 1.5 $ $Date: 2009/10/05 21:42:31 $
+  $Revision: 1.6 $ $Date: 2009/10/06 21:55:21 $
   $Author: ddarko $
 
   Interface for the CXmlDocument class
@@ -24,10 +24,56 @@
 #define XML_MAX_TAGNAME_SIZE      32
 #define XML_MAX_INNERTEXT_SIZE  1024
 
-typedef void (*XmlNodeCallback) (LPCTSTR szTag, int iPos);
+typedef void (*XmlNodeCallback) (LPCTSTR szElementName, int iPos);
 
 ///////////////////////////////////////////////////////////////////////////////
 /*
+
+  Example:
+      <?xml version="1.0"?>
+      <?xml-stylesheet type="text/xsl" href="myfile.xsl"?>
+      <!-- example XML document -->
+      <parentNode>
+        <intNode>10</intNode>
+        <strNode>string</strNode>
+        <boolNode>true</boolNode>
+        <floatNode>0.3</floatNode>
+      </parentNode>
+      ...
+      int iValue = 0;
+      bool bValue = false;
+      CXmlDocument xmlDoc;
+      if (xmlDoc.Read(_T("myfile.xml")) >= 0) //Read the document file
+        {
+        int iChildPos = 0;
+        int iNodePos = xmlDoc.GetNextElement(XML_POSBEGININING); //Get 1st iNodePos
+        while(iNodePos > 0)
+          {
+          if (strcmpi(xmlDoc.GetName(iNodePos),"parentNode"))
+            {
+            iNodePos = xmlDoc.GetNextElement(iNodePos);
+            continue;
+            }
+
+          if (iChildPos = xmlDoc.GetChildNode(iNodePos,"intNode"))
+            iValue = atoi(xmlDoc.GetValue(iChildPos));
+
+          if (iChildPos = xmlDoc.GetChildNode(iNodePos,"boolNode"))
+            m_bBoolValue = !strcmpi(xmlDoc.GetValue(iChildPos),"true");
+
+          if (iChildPos = xmlDoc.GetChildNode(iNodePos,"floatNode"))
+            m_fFloatValue = (float)atof(xmlDoc.GetValue(iChildPos));
+
+          iNodePos = xmlDoc.GetNextElement(iNodePos);
+          }
+        xmlDoc.Close();
+        }
+
+  See also:  CXmlNode, CXmlAttribute;
+  {html <a href="http://msdn.microsoft.com/en-us/library/ms256153%28VS.100%29.aspx">
+  MSDN: XML Standards Reference: Document Map;</a>
+  <a href="http://www.w3.org/TR/REC-xml/">
+  W3C: Extensible Markup Language (XML) 1.0 (Fifth Edition)</a>}
  */
 class CXmlDocument
 {
@@ -38,19 +84,18 @@ public:
   bool    Create(LPCTSTR szXmlText);
   int     Read(LPCTSTR szFilename);
   void    Close();
-  int     GetNodeCount(LPCTSTR tag);
-  void    EnumerateNodes(LPCTSTR szTag, XmlNodeCallback pFunc);
-  int     GetChildNode(int iPos, LPCTSTR szTag);
-  int     GetNextNode(int iPos);
-  LPTSTR  GetNodeText(int iPos);
-  LPTSTR  GetNodeTag(int iPos);
+  int     Enumerate(LPCTSTR szElementName);
+  void    Enumerate(LPCTSTR szElementName, XmlNodeCallback funcXmlProcessor);
+  int     GetChild(LPCTSTR szElementName, int iPos = XML_POSBEGININING);
+  int     GetNextElement(int iPos = XML_POSBEGININING);
+  LPTSTR  GetValue(int iPos);
+  LPTSTR  GetName(int iPos = XML_POSBEGININING);
 
 private:
   LPTSTR m_szDocument;  //XML document
   int    m_iLength;     //length of the document in characters
-  int    m_iNodeCount;
-  TCHAR  m_szTag[XML_MAX_TAGNAME_SIZE];
-  TCHAR  m_szText[XML_MAX_INNERTEXT_SIZE];
+  TCHAR  m_szElement[XML_MAX_TAGNAME_SIZE];   //element's name (tag)
+  TCHAR  m_szValue[XML_MAX_INNERTEXT_SIZE];   //element's value
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -102,45 +147,45 @@ public:
     m_file = NULL;
   };
 
-  void WriteTag(LPCTSTR szTag, //[in]
+  void WriteTag(LPCTSTR szElementName, //[in]
                 LPCTSTR data   //[in]
                 )
   {
-    if (m_file == NULL || 
-        szTag  == NULL || 
+    if (m_file == NULL ||
+        szElementName  == NULL ||
         data   == NULL)
       return;
-    _ftprintf(m_file, _T("\t<%s>%s</%s>\n"), szTag, data, szTag);
+    _ftprintf(m_file, _T("\t<%s>%s</%s>\n"), szElementName, data, szElementName);
   };
 
-  void WriteTag(LPCTSTR szTag, //[in]
-                int data, 
+  void WriteTag(LPCTSTR szElementName, //[in]
+                int data,
                 LPCTSTR format = _T("%i"))
   {
     TCHAR temp[10];
     _stprintf(temp, format, data);
-    WriteTag(szTag, temp);
+    WriteTag(szElementName, temp);
   };
 
-  void WriteTag(LPCTSTR szTag, //[in]
+  void WriteTag(LPCTSTR szElementName, //[in]
                 float data
                 )
   {
-    if (m_file == NULL || 
-        szTag  == NULL)
+    if (m_file == NULL ||
+        szElementName  == NULL)
       return;
-    _ftprintf(m_file, _T("\t<%s>%f</%s>\n"), szTag, data, szTag);
+    _ftprintf(m_file, _T("\t<%s>%f</%s>\n"), szElementName, data, szElementName);
   };
 
-  void WriteTag(LPCTSTR szTag, //[in]
+  void WriteTag(LPCTSTR szElementName, //[in]
                 bool data
                 )
   {
-    if (m_file == NULL || 
-        szTag  == NULL)
+    if (m_file == NULL ||
+        szElementName  == NULL)
       return;
-    _ftprintf(m_file, _T("\t<%s>%s</%s>\n"), szTag,
-         data ? _T("true") : _T("false"), szTag);
+    _ftprintf(m_file, _T("\t<%s>%s</%s>\n"), szElementName,
+         data ? _T("true") : _T("false"), szElementName);
   };
 
 private:
@@ -152,6 +197,9 @@ private:
 #endif // !defined(_KXMLDOCUMENT_H_)
 /*****************************************************************************
  * $Log: KXmlDocument.h,v $
+ * Revision 1.6  2009/10/06 21:55:21  ddarko
+ * fixed overflows in CXmlDocument
+ *
  * Revision 1.5  2009/10/05 21:42:31  ddarko
  * Unicode XML output
  *
