@@ -28,8 +28,22 @@
 class CXmlAttributeList;
 
 ///////////////////////////////////////////////////////////////////////////////
-// XML Element
-//
+/*This class encapsulates XML element (also called XML node).
+  An XML element describes the data that it contains. Elements can also contain
+  other elements and attributes.
+  Elements are using markup tags that identify its name, start and element's end.
+
+    <elementA attributeAA="valueAA" attributeAB="valueAB" ...>
+      elementValue
+    </elementA>
+    <elementB attributeBA="valueBA" attributeBB="valueBB" ... />
+
+  See also: CXmlAttribute, CXmlDocument;
+  {html <a href="http://msdn.microsoft.com/en-us/library/ms256153%28VS.100%29.aspx">
+  MSDN: XML Standards Reference: Document Map;</a>
+  <a href="http://www.w3.org/TR/REC-xml/">
+  W3C: Extensible Markup Language (XML) 1.0 (Fifth Edition)</a>}
+ */
 class CXmlNode
 {
 public:

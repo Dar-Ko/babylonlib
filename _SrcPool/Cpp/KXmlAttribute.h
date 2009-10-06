@@ -23,8 +23,24 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 /*XML element's attribute.
+  The XML attribute provides additional information about an XML element.
+  Altough it is not specified what type of data should be used as attributes 
+  or elements, it is recommeded to stror metadata (data about data) as 
+  attributes and data itself to store as elements.
+
+    <elementA attributeA="valueA" attributeB="valueB">
+      <childA>value1</childA>
+      <childB>value2</childB>
+    </elementA>
+
   Default identification number is -1. Set this number to unique value on
   node's level in order to simplify and speed-up attribute classification.
+
+  See also: CXmlNode, CXmlDocument
+  {html <a href="http://msdn.microsoft.com/en-us/library/ms256153%28VS.100%29.aspx">
+  MSDN: XML Standards Reference: Document Map;</a>
+  <a href="http://www.w3.org/TR/REC-xml/">
+  W3C: Extensible Markup Language (XML) 1.0 (Fifth Edition)</a>}
  */
 class CXmlAttribute
 {
