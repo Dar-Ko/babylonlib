@@ -32,6 +32,7 @@ class CXmlAttributeList;
   An XML element describes the data that it contains. Elements can also contain
   other elements and attributes.
   Elements are using markup tags that identify its name, start and element's end.
+  A well-formed XML document has exactly one root element.
 
     <elementA attributeAA="valueAA" attributeAB="valueAB" ...>
       elementValue
