@@ -38,6 +38,7 @@ dlldata.c
 idl
 obj
 Obj
+TestIndex.*
 Thumbs.db
 ~*
 ~*.*
