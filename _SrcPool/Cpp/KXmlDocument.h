@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.h,v $: header file
-  $Revision: 1.6 $ $Date: 2009/10/06 21:55:21 $
+  $Revision: 1.7 $ $Date: 2009/10/07 21:43:36 $
   $Author: ddarko $
 
   Interface for the CXmlDocument class
@@ -42,6 +42,7 @@ typedef void (*XmlNodeCallback) (LPCTSTR szElementName, int iPos);
       ...
       int iValue = 0;
       bool bValue = false;
+      float fFloatValue = 0.0;
       CXmlDocument xmlDoc;
       if (xmlDoc.Read(_T("myfile.xml")) >= 0) //Read the document file
         {
@@ -49,20 +50,20 @@ typedef void (*XmlNodeCallback) (LPCTSTR szElementName, int iPos);
         int iNodePos = xmlDoc.GetNextElement(XML_POSBEGININING); //Get 1st iNodePos
         while(iNodePos > 0)
           {
-          if (strcmpi(xmlDoc.GetName(iNodePos),"parentNode"))
+          if (strcmp(xmlDoc.GetName(iNodePos),"parentNode"))
             {
             iNodePos = xmlDoc.GetNextElement(iNodePos);
             continue;
             }
 
-          if (iChildPos = xmlDoc.GetChildNode(iNodePos,"intNode"))
+          if ((iChildPos = xmlDoc.GetChild("intNode", iNodePos)) > 0)
             iValue = atoi(xmlDoc.GetValue(iChildPos));
 
-          if (iChildPos = xmlDoc.GetChildNode(iNodePos,"boolNode"))
-            m_bBoolValue = !strcmpi(xmlDoc.GetValue(iChildPos),"true");
+          if ((iChildPos = xmlDoc.GetChild("boolNode", iNodePos)) > 0)
+            bBoolValue = (_stricmp(xmlDoc.GetValue(iChildPos),"true") == 0);
 
-          if (iChildPos = xmlDoc.GetChildNode(iNodePos,"floatNode"))
-            m_fFloatValue = (float)atof(xmlDoc.GetValue(iChildPos));
+          if ((iChildPos = xmlDoc.GetChild("floatNode", iNodePos)) > 0)
+            fFloatValue = (float)atof(xmlDoc.GetValue(iChildPos));
 
           iNodePos = xmlDoc.GetNextElement(iNodePos);
           }
@@ -89,7 +90,7 @@ public:
   int     GetChild(LPCTSTR szElementName, int iPos = XML_POSBEGININING);
   int     GetNextElement(int iPos = XML_POSBEGININING);
   LPTSTR  GetValue(int iPos);
-  LPTSTR  GetName(int iPos = XML_POSBEGININING);
+  LPTSTR  GetName(const int iPos = XML_POSBEGININING);
 
 private:
   LPTSTR m_szDocument;  //XML document
@@ -197,6 +198,9 @@ private:
 #endif // !defined(_KXMLDOCUMENT_H_)
 /*****************************************************************************
  * $Log: KXmlDocument.h,v $
+ * Revision 1.7  2009/10/07 21:43:36  ddarko
+ * Fixed getting element's name
+ *
  * Revision 1.6  2009/10/06 21:55:21  ddarko
  * fixed overflows in CXmlDocument
  *

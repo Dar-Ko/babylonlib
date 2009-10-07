@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.6 $ $Date: 2009/10/06 21:55:21 $
+  $Revision: 1.7 $ $Date: 2009/10/07 21:43:36 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -19,6 +19,9 @@
 
   #ifdef _CRT_SECURE_NO_DEPRECATE
     #pragma message ("  _CRT_SECURE_NO_DEPRECATE defined.")
+  #endif
+  #ifdef _DEBUG
+    #pragma warning(disable: 4127) //warning C4127: conditional expression is constant
   #endif
 #endif  //_MSC_VER
 
@@ -40,13 +43,21 @@ m_szElement[0]  = _T('\0');
 m_szValue[0] = _T('\0');
 }
 
+CXmlDocument::~CXmlDocument()
+{
+Close();
+}
+
 //-----------------------------------------------------------------------------
-/*
+/*Copies the text to  the allocated conatiner.
+
+  Returns true if successful, otherwise returns false.
  */
 bool CXmlDocument::Create(LPCTSTR szXmlText //[in] source XML document, limited
                          //to INT_MAX characters
                          )
 {
+TRACE1(_T("CXmlDocument::Create(from 0x%0.8X)\n"), szXmlText);
 bool bResult = false;
 if (szXmlText != NULL)
   {
@@ -66,17 +77,14 @@ if (szXmlText != NULL)
 return bResult;
 }
 
-CXmlDocument::~CXmlDocument()
-{
-Close();
-}
-
 //-----------------------------------------------------------------------------
 /*Opens an XML document and loads it into memory.
  */
 int CXmlDocument::Read(LPCTSTR szFilename //[in]
                       )
 {
+TRACE1(_T("CXmlDocument::Read(%s)\n"), szFilename);
+
 if (szFilename != NULL)
   {
   FILE* hFile;
@@ -89,7 +97,7 @@ if (szFilename != NULL)
 
   fseek(hFile, 0, SEEK_END);
   ASSERT((ftell(hFile) % sizeof(TCHAR)) == 0); //Unicode files have even number of bytes
-  m_iLength = ftell(hFile)/sizeof(TCHAR);
+  m_iLength = ftell(hFile) / sizeof(TCHAR);
 
   fseek(hFile, 0, SEEK_SET);
 
@@ -117,11 +125,11 @@ return -4;
 }
 
 //-----------------------------------------------------------------------------
-/*Function: xml_close_doc
-  Closes XML document freeing up resources.
+/*Closes XML document freeing up resources.
  */
 void CXmlDocument::Close()
 {
+TRACE(_T("CXmlDocument::Close()\n"));
 if (m_szDocument != NULL)
   {
   delete[] m_szDocument;
@@ -129,20 +137,24 @@ if (m_szDocument != NULL)
   }
 
 m_iLength    = 0;
-m_szElement[0]  = _T('\0');
-m_szValue[0] = _T('\0');
+m_szElement[0] = _T('\0');
+m_szValue[0]   = _T('\0');
 }
 
 //-----------------------------------------------------------------------------
-/*Obtains number of elements.
+/*Obtains count of specified elements.
 
-  Returns: number of all elementswith the given name.
+  Note: XML element (and attribute) names are case-sensitive.
+
+  Returns: number of all elements with the given name.
 
   See also: CXmlNode::EnumerateChildren()
  */
 int CXmlDocument::Enumerate(LPCTSTR szElementName //[in] XML tag
                            )
 {
+TRACE1(_T("CXmlDocument::Enumerate(%s)\n"), szElementName);
+
 int iNodeCount = 0;
 
 if ((szElementName != NULL) && (szElementName[0] != _T('\0')))
@@ -154,7 +166,7 @@ if ((szElementName != NULL) && (szElementName[0] != _T('\0')))
  while (iPos > 0)
    {
    szCurrentTag = GetName(iPos);
-   if( !_tcsicmp(szCurrentTag, szElementName) )
+   if( !_tcscmp(szCurrentTag, szElementName) )
      iNodeCount++;
 
    iPos = GetNextElement(iPos);
@@ -167,12 +179,16 @@ return iNodeCount;
 /*Calls helper static function to further process every XML element found 
   with given name.
 
+  Note: XML element (and attribute) names are case-sensitive.
+
   See also: CXmlDocument::GetNextElement()
  */
 void CXmlDocument::Enumerate(LPCTSTR szElementName,   //[in] XML tag
                              XmlNodeCallback funcXmlProcessor //[in] prcessing function
                             )
 {
+TRACE1(_T("CXmlDocument::Enumerate(%s, callback())\n"), szElementName);
+
 if ((funcXmlProcessor != NULL) &&
     (szElementName != NULL) && (szElementName[0] != _T('\0')))
   {
@@ -182,7 +198,7 @@ if ((funcXmlProcessor != NULL) &&
     {
     szCurrentTag = GetName(iPos);
     //Find the element and proccess element's data
-    if (_tcsicmp(szCurrentTag, szElementName) == 0)
+    if (_tcscmp(szCurrentTag, szElementName) == 0)
       funcXmlProcessor(szElementName, iPos);
 
     iPos = GetNextElement(iPos);
@@ -200,43 +216,75 @@ if ((funcXmlProcessor != NULL) &&
     </elementA>
     <elementB attributeBA="valueBA" attributeBB="valueBB" ... />
 
- Note: range of the iPos is [0, INT_MAX)
+  This implementation ignores certain malformed XML tags. Ignored are tags without
+  name: '<>', '</>'.
 
- Returns: position of the next XML element or 0 if none is found.
+  Note: range of the iPos is [0, INT_MAX)
 
- See also: CXmlDocument::EnumerateNodes()
+  Returns: position of the next XML element or 0 if none is found.
+
+  See also: CXmlDocument::EnumerateNodes()
  */
 int CXmlDocument::GetNextElement(int iPos //[in] = XML_POSBEGININING position of 
-                                //the  element [0, INT_MAX)
+                                //the element [0, INT_MAX)
                                 )
 {
-if (iPos > 0)
+if (iPos >= 0)
   {
-  int  openBracket = -1;
-  int  closeBracket = -1;
-  int  i;
-  for (i = iPos; i < m_iLength; i++)
+  int  openBracket  = -1; //Used as a guard when iPos points to the middle
+  int  closeBracket = -1; //of an XML tag
+
+  for (iPos; iPos < m_iLength; iPos++)
     {
-    TCHAR& c = m_szDocument[i];
+    TCHAR& c = m_szDocument[iPos];
 
     if (openBracket < 0)
       {
       if (c == _T('<'))
-        openBracket = i;
+        openBracket = iPos;
       continue;
       }
 
     if (closeBracket < 0)
       {
-      if (c == _T('>'))
+      if (c == _T('>')) //Is the tag closed?
         {
-        closeBracket = i;
-        break;
+        if ((iPos - openBracket) == 1)
+          {
+          TRACE1(_T("CXmlDocument::GetNextElement():\n  erroneous XML tag at position %d!"),
+                  iPos);
+          openBracket  = -1;  //Ignore malformed tag '<>'
+          }
+        else
+          {
+          if ((iPos - openBracket) == 2)
+            {
+            //Ignore tags have only single special character
+            switch(m_szDocument[iPos-1])
+              {
+              case _T('/'):  //solidus
+              case _T('?'):  //question mark
+                {
+                TRACE1(_T("CXmlDocument::GetNextElement():\n  erroneous XML tag at position %d!"),
+                        iPos);
+                openBracket  = -1;
+                continue;
+                }
+              }
+            }
+
+          //Found tag's closing character
+          closeBracket = iPos;
+          break;
+          }
         }
       }
     }
 
-  if ((openBracket >= 0) && (closeBracket >= 0))
+  //Return postion of the element name if the XML tag contains at least one
+  //character
+  if ((openBracket  >= 0) &&
+      (closeBracket >  1) )
     {
     return openBracket + 1;
     }
@@ -247,14 +295,14 @@ return 0;
 //-----------------------------------------------------------------------------
 /*Obtains the name of the XML element at the given position.
  
- Note: Element's names longer than XML_MAX_TAGNAME_SIZE -1 characters will be
- truncated.
-  
+  Note: Element's names longer than XML_MAX_TAGNAME_SIZE -1 characters
+  will be truncated.
+
   Returns: string containing element's name.
 
   See also: CXmlNode::GetName()
  */
-LPTSTR CXmlDocument::GetName(int iPos //[in] = XML_POSBEGININING position of 
+LPTSTR CXmlDocument::GetName(const int iPos //[in] = XML_POSBEGININING position of 
                              //the  element [0, INT_MAX)
                              )
 {
@@ -263,6 +311,7 @@ if (iPos > 0)
   int  i;
   for (i = iPos; i < m_iLength; i++)
     {
+    //A white space character marks begining of an XML attribute
     if ( (m_szDocument[i] == _T(' '))  ||
          (m_szDocument[i] == _T('\n')) ||
          (m_szDocument[i] == _T('\r')) ||
@@ -270,7 +319,7 @@ if (iPos > 0)
          (m_szDocument[i] == _T('>')) )
       {
       int iLen = i - iPos;
-      const int BUFFER_CAPACITY = sizeof(m_szElement) * sizeof(TCHAR);
+      const int BUFFER_CAPACITY = sizeof(m_szElement) / sizeof(TCHAR);
       if (BUFFER_CAPACITY < iLen)
         iLen = BUFFER_CAPACITY - 1; //Truncate data to fit the buffer
 
@@ -287,38 +336,44 @@ return NULL;
 /*Gets the position of the child element with the given name. An element could 
   have none or more than one children elements with the same name (tag).
 
+  Note: XML element (and attribute) names are case-sensitive.
+
   Returns: postion of the subelement or 0 if subelement is not found.
 
   See also: CXmlNode::GetChild()
  */
 int CXmlDocument::GetChild(LPCTSTR szElementName, //[in] parent's tag
-                               int iPos //[in] = XML_POSBEGININING position of 
-                               //parent's element [0, INT_MAX)
-                               )
+                          int iPos //[in] = XML_POSBEGININING position of 
+                          //parent's element [0, INT_MAX)
+                          )
 {
 TCHAR  szCurrentTag[XML_MAX_TAGNAME_SIZE];
-LPTSTR szChildTag;
-
-//Get parent' name
-_tcsncpy(szCurrentTag, GetName(iPos), XML_MAX_TAGNAME_SIZE - 1);
-szCurrentTag[XML_MAX_TAGNAME_SIZE] = _T('\0');
-// get child xmlNode
-iPos = GetNextElement(iPos);
-while (iPos > 0)
+ASSERT(szElementName != NULL);
+if (szElementName != NULL)
   {
-  szChildTag = GetName(iPos); //Get child xmlNode tag
+  //Get parent' name and copy it to m_szElement
+  if(GetName(iPos) != NULL) 
+    {
+    _tcsncpy(szCurrentTag, m_szElement, XML_MAX_TAGNAME_SIZE - 1);
+    szCurrentTag[XML_MAX_TAGNAME_SIZE - 1] = _T('\0');
+    // get child xmlNode
+    iPos = GetNextElement(iPos);
+    while (iPos > 0)
+      {
+      TCHAR* const & szChildTag = GetName(iPos); //Get child xmlNode tag
 
-  //Match the child's tag with the one we're looking for
-  if ( !_tcsicmp(szChildTag, szElementName) )
-    return iPos;
+      //Match the child's tag with the one we're looking for
+      if ((szChildTag != NULL) && _tcscmp(szChildTag, szElementName) == 0)
+        return iPos;
 
-  //Is this actually the parent's closing tag?
-  else if ( !_tcsicmp(&szChildTag[1], szCurrentTag) )
-    return 0;
+      //Is this actually the parent's closing tag?
+      else if (_tcscmp(&szChildTag[1], szCurrentTag) == 0)
+        return 0;
 
-  iPos = GetNextElement(iPos);
+      iPos = GetNextElement(iPos);
+      }
+    }
   }
-
 return 0;
 }
 
@@ -380,7 +435,7 @@ for (i = text; i < m_iLength; i++)
   if (m_szDocument[i] == _T('<'))
     {
     int iLen = i - text;
-    const int BUFFER_CAPACITY = sizeof(m_szValue) * sizeof(TCHAR);
+    const int BUFFER_CAPACITY = sizeof(m_szValue) / sizeof(TCHAR);
     if (BUFFER_CAPACITY < iLen)
       iLen = BUFFER_CAPACITY - 1; //Truncate data to fit the buffer
     _tcsncpy(m_szValue, &m_szDocument[text], iLen);
@@ -395,6 +450,9 @@ return m_szValue;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.7  2009/10/07 21:43:36  ddarko
+ * Fixed getting element's name
+ *
  * Revision 1.6  2009/10/06 21:55:21  ddarko
  * fixed overflows in CXmlDocument
  *
