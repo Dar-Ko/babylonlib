@@ -819,6 +819,9 @@
 				RelativePath=".\Src\Win\32\TestMsSaxParser.cpp">
 			</File>
 			<File
+				RelativePath=".\Src\TestXml.c">
+			</File>
+			<File
 				RelativePath=".\Src\TestXmlDocument.cpp">
 			</File>
 			<File

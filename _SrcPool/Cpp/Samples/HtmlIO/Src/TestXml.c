@@ -1,6 +1,5 @@
-
 /*$RCSfile: TestXml.c,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/10/07 14:09:17 $
+  $Revision: 1.2 $ $Date: 2009/10/07 21:42:17 $
   $Author: ddarko $
 
   Global test samples
@@ -13,36 +12,58 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 #include "stdafx.h"
 
-/*XML document text sample
+/*XML document test sample
  */
 TCHAR g_szTestXml[] =
-_T("<?xml version=\"1.0\"?>\
-<?xml-stylesheet type=\"text/xsl\" href=\"myfile.xsl\"?>\
-<!-- example XML document -->\
-<parentNode description=\"Well formed element\">\
-\t<!-- Well formed element -->\
-\t<intNode>10</intNode>\
-\t<strNode>string</strNode>\
-\t<boolNode>true</boolNode>\
-\t<floatNode>0.3</floatNode>\
-\t<emptyNode />\
-\tParent title comes here.\
+_T("<?xml version=\"1.0\"?>\n\
+<?xml-stylesheet type=\"text/xsl\" href=\"myfile.xsl\"?>\n\
+<!-- example XML document -->\n\
+<parentNode description=\"Well formed element\">\n\
+\t<!-- Well formed element -->\n\
+\t<intNode>10</intNode>\n\
+\t<strNode>string</strNode>\n\
+\t<boolNode>true</boolNode>\n\
+\t<floatNode>0.3</floatNode>\n\
+\t<emptyNode />\n\
+\tParent title comes here.\n\
+</parentNode>\n\
+\n\
+ <!-- Long element's names -->\n\
+ <!-- 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF -->\n\
+     <parentNodeABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz>\n\
+     \t1st long node name\n\
+     \t<parentNodeABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn_2ndLONGNAME>\n\
+     \t\t2nd long node name\n\
+     \t</parentNodeABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn_2ndLONGNAME>\n\
+     </parentNodeABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz>\r\n\
+</> <!-- Erroneous element -->\r\n\
+<parentNode description=\"other element\">\
+\t<!-- 2nd well formed element -->\
+\t 2nd well formed element\
+\t<intNode>20</intNode>\
+\t<strNode></strNode>\
+\t<boolNode>any value</boolNode>\
+\t<floatNode>-45E5</floatNode>\
 </parentNode>\
- \
- <!-- Long element's names -->\
- <!-- 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF -->\
-     <parentNodeABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz>\
-     \t1st long node name\
-     \t<parentNodeABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn_2ndLONGNAME>\
-     \t\t2nd long node name\
-     \t</parentNodeABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn_2ndLONGNAME>\
-     </parentNodeABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz>\
-</> <!-- Erroneous element -->\
 ");
+
+/*Wide-character XML Element test sample.
+ */
+const wchar_t* g_wszXmlElement =
+    L"  <magazine style=\"glossy\" frequency=\"monthly\">\n"
+    L"    <title>Road and Track</title>\n"
+    L"    <price>3.50</price>\n"
+    L"    <subscription price=\"24\" per=\"year\"/>\n"
+    L"    <subscription price=\"11.50\" per=\"halfyear\"/>\n"
+    L"    <special_edition per_year=\"1\">Yes</special_edition>\n"
+    L"  </magazine>";
 
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: TestXml.c,v $
+ * Revision 1.2  2009/10/07 21:42:17  ddarko
+ * Test tag names
+ *
  * Revision 1.1  2009/10/07 14:09:17  ddarko
  * Created
  *

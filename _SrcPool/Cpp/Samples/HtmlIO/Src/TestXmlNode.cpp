@@ -24,6 +24,8 @@ extern bool TsWriteToView(const int& iValue);
 
 bool TestXmlNode();
 
+extern "C" const wchar_t* g_wszXmlElement;
+
 //-----------------------------------------------------------------------------
 /*Function validates XML Node manipulations.
 
@@ -35,15 +37,6 @@ TsWriteToView(_T("TestXmlNode()\r\n"));
 bool bRes = true;
 TESTENTRY logEntry =
   {_T("CXmlNode()"), _T("KXmlNode.h"), bRes};
-
-const wchar_t* wszElement =
-    L"  <magazine style=\"glossy\" frequency=\"monthly\">"
-    L"    <title>Road and Track</title>"
-    L"    <price>3.50</price>"
-    L"    <subscription price=\"24\" per=\"year\"/>"
-    L"    <subscription price=\"11.50\" per=\"halfyear\"/>"
-    L"    <special_edition per_year=\"1\">Yes</special_edition>"
-    L"  </magazine>";
 
   //Test construction of the node
 CXmlNode xmlRoot(CXmlString(L"magazine"));
