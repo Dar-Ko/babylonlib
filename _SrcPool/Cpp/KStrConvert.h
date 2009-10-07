@@ -10,6 +10,9 @@
 
 #if defined(_MSC_VER) && (_MSC_VER >= 1020)
   #pragma once
+  #ifdef _DEBUG
+    #pragma warning(disable: 4127) //warning C4127: conditional expression is constant
+  #endif
 #endif
 
 #ifndef _KSTRCONVERT_H_
