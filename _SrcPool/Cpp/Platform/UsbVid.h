@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid.h,v $: header file
-  $Revision: 1.11 $ $Date: 2009/09/21 13:24:17 $
+  $Revision: 1.12 $ $Date: 2009/10/08 15:32:01 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor device identification (VID) list
@@ -21,6 +21,7 @@
  */
 
 #include "UsbVid0000.h" //USB device vendor identification (VID) template
+#include "UsbVid0409.h" //NEC Corporation
 #include "UsbVid046D.h" //Logitech Inc.
 #include "UsbVid04B0.h" //Nikon Corporation
 #include "UsbVid04B4.h" //Cypress Semiconductor Corporation
@@ -41,6 +42,7 @@
 #include "UsbVid0D85.h" //L-1 Identity Solutions - Identix Incorporated
 #include "UsbVid0DD4.h" //Custom Engineering Spa
 #include "UsbVid0FCA.h" //Research In Motion, Ltd.
+#include "UsbVid13FD.h" //Initio Corporation
 #include "UsbVid152D.h" //JMicron Technology Corp.
 #include "UsbVid413C.h" //Dell Computer Corp.
 #include "UsbVid8086.h" //Intel Corporation
@@ -49,6 +51,9 @@
 #endif //_USBVID_H_
 /*****************************************************************************
  * $Log: UsbVid.h,v $
+ * Revision 1.12  2009/10/08 15:32:01  ddarko
+ * Added new devices
+ *
  * Revision 1.11  2009/09/21 13:24:17  ddarko
  * Y-A Data
  *
