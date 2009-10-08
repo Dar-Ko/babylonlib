@@ -1,4 +1,4 @@
-/*$Workfile: TestXmlString.cpp$: implementation file
+/*$RCSfile: TestXmlString.cpp$: implementation file
   $Revision: 3$ $Date: 2005-04-06 14:53:39$
   $Author: Darko Kolakovic$
 
@@ -22,7 +22,36 @@ extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TsWriteToView(const int& iValue);
 
+extern "C" TCHAR g_szTestXmlEscape[];
+
+bool TestXmlEscape();
 bool TestXmlString();
+
+//-----------------------------------------------------------------------------
+/*Function validates XML string conversions.
+
+  Returns: true if successful, otherwise returns false.
+ */
+bool TestXmlEscape()
+{
+TsWriteToViewLn(_T("TestXmlEscape()"));
+extern CString XmlEscape(CString& strData);
+
+TESTENTRY logEntry =
+  {_T("XmlEscape(CString&)"), _T("KXmlEscape.cpp"), true};
+bool& bRes = logEntry.m_bResult;
+//Replace special XML characters
+CString strData(g_szTestXmlEscape);
+XmlEscape(strData);
+
+TsWriteToViewLn((LPCTSTR)strData);
+LogTest(&logEntry);
+
+//TODO: unescape & compare
+
+TsWriteToViewLn(LOG_EOT);
+return bRes;
+}
 
 //-----------------------------------------------------------------------------
 /*Function validates XML string conversions.

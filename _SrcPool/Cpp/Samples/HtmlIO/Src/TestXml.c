@@ -1,5 +1,5 @@
 /*$RCSfile: TestXml.c,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/10/07 21:42:17 $
+  $Revision: 1.3 $ $Date: 2009/10/08 21:37:07 $
   $Author: ddarko $
 
   Global test samples
@@ -49,7 +49,7 @@ _T("<?xml version=\"1.0\"?>\n\
 
 /*Wide-character XML Element test sample.
  */
-const wchar_t* g_wszXmlElement =
+const wchar_t* g_wszTestXmlElement =
     L"  <magazine style=\"glossy\" frequency=\"monthly\">\n"
     L"    <title>Road and Track</title>\n"
     L"    <price>3.50</price>\n"
@@ -58,9 +58,36 @@ const wchar_t* g_wszXmlElement =
     L"    <special_edition per_year=\"1\">Yes</special_edition>\n"
     L"  </magazine>";
 
+/*Test sample of raw text to be convrted to the XML document.
+ */
+TCHAR g_szTestXmlEscape[]=
+_T("do\n\
+  {\n\
+  nDigit = iValue & 7;\n\
+  iValue = (iValue >> 3) & 0x1FFF;\n\
+  *pTemp++ = (TCHAR)(nDigit + _T('0'));\n\
+  }\n\
+  while(iValue > 0);\n\
+\n\
+*pTemp = _T('\0');\n\
+\n\
+/*Reverse string in place*/\n\
+pTemp--; /*Pointer to the last character*/\n\
+while(pBuffer < pTemp)\n\
+  {\n\
+  int cTemp = *pBuffer;\n\
+  *pBuffer++ = *pTemp;\n\
+  *pTemp-- = (TCHAR)cTemp;\n\
+  }\n\
+  _tcout << _T(\"converted number: \") << pBuffer;\n\
+");
+
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: TestXml.c,v $
+ * Revision 1.3  2009/10/08 21:37:07  ddarko
+ * Test XML escape
+ *
  * Revision 1.2  2009/10/07 21:42:17  ddarko
  * Test tag names
  *

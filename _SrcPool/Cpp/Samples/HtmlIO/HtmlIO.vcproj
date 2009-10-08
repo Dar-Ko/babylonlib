@@ -45,7 +45,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="NDEBUG;_STL;WIN32;_CONSOLE,_AFXDLL"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -133,7 +133,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE,_AFXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -223,7 +223,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -311,7 +311,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -401,7 +401,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -492,7 +492,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="NDEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -581,7 +581,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;D:\Development\BabelLib\_SrcPool\Cpp\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL;_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -672,7 +672,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL;_UNICODE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -760,7 +760,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -946,6 +946,14 @@
 			</File>
 			<File
 				RelativePath="..\..\KXmlDataType.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\KXmlDocument.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KXmlEscape.cpp"
 				>
 			</File>
 			<File
@@ -1152,6 +1160,14 @@
 			</File>
 			<File
 				RelativePath=".\Src\Win\32\TestMsSaxParser.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestXml.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestXmlDocument.cpp"
 				>
 			</File>
 			<File
@@ -1382,6 +1398,10 @@
 			</File>
 			<File
 				RelativePath="..\..\KXmlBinding.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\KXmlDocument.h"
 				>
 			</File>
 			<File

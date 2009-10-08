@@ -13,6 +13,7 @@
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
+extern bool TestXmlEscape();
 extern bool TestXmlString();
 extern bool TestXmlNode();
 extern bool TestXmlDocument(int argc, TCHAR* argv[]);
@@ -53,30 +54,27 @@ int TestCommonHtmlIO(int argc, //[in] specifies how many arguments are passed
 TsWriteToViewLn(_T("Validation of HTML and XML parsers"));
 TsWriteToViewLn(_T(""));
 
+PFUNC_TEST funcTest[] =
+  {
+  TestXmlEscape,     // 0
+  TestXmlString,     // 1
+  TestXmlNode,       // 2
+  };
+
 int iTestCount = 0;
-
-//Test basic string handling
-if (TestXmlString())
+while (iTestCount < (sizeof(funcTest)/sizeof(PFUNC_TEST)) )
   {
-  TsWriteToViewLn(LOG_SUCCESS);
-  TsWriteToViewLn(_T(""));
-  }
-else
-  {
-  TsWriteToViewLn(LOG_FAILURE);
-  return EXIT_FAILURE + 1 + iTestCount++;
-  }
-
-//Test XML Node manipulation
-if (TestXmlNode())
-  {
-  TsWriteToViewLn(LOG_SUCCESS);
-  TsWriteToViewLn(_T(""));
-  }
-else
-  {
-  TsWriteToViewLn(LOG_FAILURE);
-  return EXIT_FAILURE + 1 + iTestCount++;
+  if ((funcTest[iTestCount] != NULL) && funcTest[iTestCount]())
+    {
+    TsWriteToViewLn(LOG_SUCCESS);
+    TsWriteToViewLn(_T(""));
+    }
+  else
+    {
+    TsWriteToViewLn(LOG_FAILURE);
+    return EXIT_FAILURE + 1 + iTestCount;
+    }
+  iTestCount++;
   }
 
 //Test simple document reader
