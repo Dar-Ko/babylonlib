@@ -953,8 +953,80 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\Win\32\KXmlEscape.cpp"
+				RelativePath="..\..\KXmlEscape.cpp"
 				>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\KXmlNode.cpp"
@@ -1253,6 +1325,78 @@
 			<File
 				RelativePath=".\Src\TestXmlString.cpp"
 				>
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20090109"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp"
@@ -1264,7 +1408,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						UsePrecompiledHeader="2"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"
 					/>
@@ -1277,7 +1421,7 @@
 						Optimization="0"
 						AdditionalIncludeDirectories=""
 						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="2"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"
 					/>
@@ -1289,7 +1433,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						UsePrecompiledHeader="2"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"
 					/>
@@ -1302,7 +1446,7 @@
 						Optimization="0"
 						AdditionalIncludeDirectories=""
 						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="2"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"
 					/>
@@ -1315,7 +1459,7 @@
 						Optimization="0"
 						AdditionalIncludeDirectories=""
 						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="2"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"
 					/>
@@ -1327,7 +1471,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						UsePrecompiledHeader="2"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"
 					/>
@@ -1340,7 +1484,7 @@
 						Optimization="0"
 						AdditionalIncludeDirectories=""
 						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="2"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"
 					/>
@@ -1352,7 +1496,7 @@
 						Name="VCCLCompilerTool"
 						Optimization="2"
 						AdditionalIncludeDirectories=""
-						UsePrecompiledHeader="2"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"
 					/>
@@ -1365,7 +1509,7 @@
 						Optimization="0"
 						AdditionalIncludeDirectories=""
 						BasicRuntimeChecks="3"
-						UsePrecompiledHeader="2"
+						UsePrecompiledHeader="0"
 						PrecompiledHeaderThrough="stdafx.h"
 						BrowseInformation="1"
 					/>
