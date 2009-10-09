@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.7 $ $Date: 2009/10/07 21:43:36 $
+  $Revision: 1.8 $ $Date: 2009/10/09 17:56:27 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -251,7 +251,7 @@ if (iPos >= 0)
         {
         if ((iPos - openBracket) == 1)
           {
-          TRACE1(_T("CXmlDocument::GetNextElement():\n  erroneous XML tag at position %d!"),
+          TRACE1(_T("CXmlDocument::GetNextElement():\n  erroneous XML tag at position %d!\n"),
                   iPos);
           openBracket  = -1;  //Ignore malformed tag '<>'
           }
@@ -265,7 +265,7 @@ if (iPos >= 0)
               case _T('/'):  //solidus
               case _T('?'):  //question mark
                 {
-                TRACE1(_T("CXmlDocument::GetNextElement():\n  erroneous XML tag at position %d!"),
+                TRACE1(_T("CXmlDocument::GetNextElement():\n  erroneous XML tag at position %d!\n"),
                         iPos);
                 openBracket  = -1;
                 continue;
@@ -450,6 +450,9 @@ return m_szValue;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.8  2009/10/09 17:56:27  ddarko
+ * Unit test
+ *
  * Revision 1.7  2009/10/07 21:43:36  ddarko
  * Fixed getting element's name
  *

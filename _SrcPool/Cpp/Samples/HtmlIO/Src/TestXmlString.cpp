@@ -12,6 +12,7 @@
 #include "stdafx.h"
 #include "KStrConvert.h" //CStrToWide class, CWideToStr class
 #include "KXmlStringData.h"  //CXmlStringData class
+#include "KString.h"  //CString class
 
 #ifdef _DEBUG
   #undef THIS_FILE

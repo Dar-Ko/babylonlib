@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlEscape.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/10/08 21:37:39 $
+  $Revision: 1.2 $ $Date: 2009/10/09 17:56:27 $
   $Author: ddarko $
 
   XML manipulation helpers
@@ -8,11 +8,12 @@
 
 // Group=Windows
 
-#include "stdafx.h" // MFC core and standard components
+#include "stdafx.h" //Core and standard components
 
 #ifndef _T
   #include "KTChar.h" //LPCTSTR typedef
 #endif
+#include "KString.h" //CString class
 
 #ifdef _DEBUG
   #ifdef _USE_MFC
@@ -53,6 +54,9 @@ return strData;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
 * $Log: KXmlEscape.cpp,v $
+* Revision 1.2  2009/10/09 17:56:27  ddarko
+* Unit test
+*
 * Revision 1.1  2009/10/08 21:37:39  ddarko
 * Moved from \Win\32
 *

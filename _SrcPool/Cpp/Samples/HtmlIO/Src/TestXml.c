@@ -1,5 +1,5 @@
 /*$RCSfile: TestXml.c,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/10/08 21:37:07 $
+  $Revision: 1.4 $ $Date: 2009/10/09 17:56:27 $
   $Author: ddarko $
 
   Global test samples
@@ -69,7 +69,7 @@ _T("do\n\
   }\n\
   while(iValue > 0);\n\
 \n\
-*pTemp = _T('\0');\n\
+*pTemp = _T('\\0');\n\
 \n\
 /*Reverse string in place*/\n\
 pTemp--; /*Pointer to the last character*/\n\
@@ -85,6 +85,9 @@ while(pBuffer < pTemp)\n\
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: TestXml.c,v $
+ * Revision 1.4  2009/10/09 17:56:27  ddarko
+ * Unit test
+ *
  * Revision 1.3  2009/10/08 21:37:07  ddarko
  * Test XML escape
  *

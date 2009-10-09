@@ -660,6 +660,63 @@
 				RelativePath="..\..\KXmlDocument.cpp">
 			</File>
 			<File
+				RelativePath="..\..\KXmlEscape.cpp">
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\KXmlNode.cpp">
 			</File>
 			<File
@@ -886,6 +943,60 @@
 			</File>
 			<File
 				RelativePath=".\Src\TestXmlString.cpp">
+				<FileConfiguration
+					Name="Release_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode_MFC|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=20091009"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp">
