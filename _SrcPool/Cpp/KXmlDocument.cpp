@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.10 $ $Date: 2009/10/16 21:41:32 $
+  $Revision: 1.11 $ $Date: 2009/10/16 21:47:50 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -408,7 +408,7 @@ for (i = iPos; i < (m_iLength - 1); i++)
       break;
 
     case _T('/') :  //Element without values i.e. <element attribute="value" />
-      if (m_szDocument[i + 1] != _T('>'))
+      if (m_szDocument[i + 1] == _T('>'))
         {
         m_szValue[0] = _T('\0');
         return m_szValue;
@@ -457,6 +457,9 @@ return m_szValue;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.11  2009/10/16 21:47:50  ddarko
+ * fixed GetValue
+ *
  * Revision 1.10  2009/10/16 21:41:32  ddarko
  * Get element without  value
  *
