@@ -1,5 +1,5 @@
 /*$RCSfile: TestXml.c,v $: implementation file
-  $Revision: 1.4 $ $Date: 2009/10/09 17:56:27 $
+  $Revision: 1.5 $ $Date: 2009/10/16 21:41:32 $
   $Author: ddarko $
 
   Global test samples
@@ -12,7 +12,8 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 #include "stdafx.h"
 
-/*XML document test sample
+/*XML document test sample.
+  This is not well-formed XML document because of multiple root elements.
  */
 TCHAR g_szTestXml[] =
 _T("<?xml version=\"1.0\"?>\n\
@@ -85,6 +86,9 @@ while(pBuffer < pTemp)\n\
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: TestXml.c,v $
+ * Revision 1.5  2009/10/16 21:41:32  ddarko
+ * Get element without  value
+ *
  * Revision 1.4  2009/10/09 17:56:27  ddarko
  * Unit test
  *

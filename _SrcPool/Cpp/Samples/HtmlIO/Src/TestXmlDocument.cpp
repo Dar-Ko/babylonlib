@@ -1,5 +1,5 @@
 /*$RCSfile: TestXmlDocument.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/10/07 21:42:17 $
+  $Revision: 1.3 $ $Date: 2009/10/16 21:41:32 $
   $Author: ddarko $
 
   Test simple XML reader
@@ -104,33 +104,104 @@ try
       iNodePos = xmlDocument.GetNextElement(); //Get 1st iNodePos
       while(iNodePos > 0)
         {
-        if (_tcscmp(xmlDocument.GetName(iNodePos),_T("parentNode")))
+        if (_tcscmp(xmlDocument.GetName(iNodePos),_T("parentNode")) != 0)
           {
           iNodePos = xmlDocument.GetNextElement(iNodePos);
           continue;
           }
         LPCTSTR szElementValue = NULL;
-        if ((iChildPos = xmlDocument.GetChild(_T("intNode"), iNodePos)) > 0)
+        if (bRes && ((iChildPos = xmlDocument.GetChild(_T("intNode"), iNodePos)) > 0))
           szElementValue = xmlDocument.GetValue(iChildPos);
 
-        if ((iChildPos = xmlDocument.GetChild(_T("boolNode"), iNodePos)) > 0)
+        if (bRes && ((iChildPos = xmlDocument.GetChild(_T("boolNode"), iNodePos)) > 0))
           szElementValue = xmlDocument.GetValue(iChildPos);
 
-        if ((iChildPos = xmlDocument.GetChild(_T("floatNode"), iNodePos)) > 0)
+        if (bRes && ((iChildPos = xmlDocument.GetChild(_T("floatNode"), iNodePos)) > 0))
           szElementValue = xmlDocument.GetValue(iChildPos);
+
+        if (bRes && ((iChildPos = xmlDocument.GetChild(_T("emptyNode"), iNodePos)) > 0))
+          {
+          szElementValue = xmlDocument.GetValue(iChildPos);
+          bRes = szElementValue[0] == _T('\0'); //Empty string
+          }
+
+        if (bRes && ((iChildPos = xmlDocument.GetChild(_T("unknowNode"), iNodePos)) > 0))
+          {
+          szElementValue = xmlDocument.GetValue(iChildPos);
+          bRes = false;
+          }
+
+        if (!bRes)
+          break; //Failure
 
         iNodePos = xmlDocument.GetNextElement(iNodePos);
         }
-      xmlDocument.Close();
       LogTest(&logEntry);
       }
 
+    if (bRes)
+      {
+      //Test shorcut for obtaining elements
+      logEntry.m_szObjectName = _T("CXmlDocument::GetElement()");
+      logEntry.m_szFileName   = _T("KXmlDocument.h");
+      iNodePos = xmlDocument.GetElement(_T("parentNode")); //Get 1st node
+      int iChildPos = xmlDocument.GetElement(_T("parentNode"), iNodePos); //Get 2nd node
+      bRes = iChildPos > iNodePos;
+      if (bRes)
+        {
+        while(iNodePos > 0)
+          {
+          LPCTSTR szElementValue = NULL;
+          if (bRes && ((iChildPos = xmlDocument.GetChild(_T("intNode"), iNodePos)) > 0))
+            {
+            szElementValue = xmlDocument.GetValue(iChildPos);
+            bRes = _tcscmp(szElementValue,_T("20")) == 0;
+            }
+
+          if (bRes && ((iChildPos = xmlDocument.GetChild(_T("boolNode"), iNodePos)) > 0))
+            {
+            szElementValue = xmlDocument.GetValue(iChildPos);
+            bRes = _tcscmp(szElementValue,_T("any value")) == 0;
+            }
+
+          if (bRes && ((iChildPos = xmlDocument.GetChild(_T("floatNode"), iNodePos)) > 0))
+            {
+            szElementValue = xmlDocument.GetValue(iChildPos);
+            bRes = _tcscmp(szElementValue,_T("-45E5")) == 0;
+            }
+
+          if (bRes && ((iChildPos = xmlDocument.GetChild(_T("strNode"), iNodePos)) > 0))
+            {
+            szElementValue = xmlDocument.GetValue(iChildPos);
+            bRes = szElementValue[0] == _T('\0'); //Empty string
+            }
+
+          if (!bRes)
+            break; //Failure
+
+          iNodePos = xmlDocument.GetNextElement(iNodePos);
+          }
+        }
+
+      if (bRes)
+        {
+        iNodePos = xmlDocument.GetElement(_T("parentNodeABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmn_2ndLONGNAME"));
+        }
+      LogTest(&logEntry);
+      }
+
+    }
+  xmlDocument.Close();
+
+   if (bRes)
+    {
     //Test reading from a file
     logEntry.m_szObjectName = _T("CXmlDocument::Read()");
     xmlDocument.Read(argv[1]);
 
     LogTest(&logEntry);
     }
+
   }
 catch(...)
   {
@@ -145,6 +216,9 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: TestXmlDocument.cpp,v $
+ * Revision 1.3  2009/10/16 21:41:32  ddarko
+ * Get element without  value
+ *
  * Revision 1.2  2009/10/07 21:42:17  ddarko
  * Test tag names
  *

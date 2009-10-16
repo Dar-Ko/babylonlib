@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.9 $ $Date: 2009/10/16 15:49:52 $
+  $Revision: 1.10 $ $Date: 2009/10/16 21:41:32 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -33,7 +33,7 @@
 // Construction/Destruction
 
 //-----------------------------------------------------------------------------
-/*
+/*Default constructor
  */
 CXmlDocument::CXmlDocument() :
     m_szDocument(NULL),
@@ -296,7 +296,7 @@ return 0;
 /*Obtains the name of the XML element at the given position.
  
   Note: Element's names longer than XML_MAX_TAGNAME_SIZE -1 characters
-  will be truncated.
+  will be truncated. The name is stored in m_szElement member.
 
   Returns: string containing element's name.
 
@@ -333,7 +333,7 @@ return NULL;
 }
 
 //-----------------------------------------------------------------------------
-/*Gets the position of the child element with the given name. An element could 
+/*Gets the position of a child element with the given name. An element could 
   have none or more than one children elements with the same name (tag).
 
   Note: XML element (and attribute) names are case-sensitive.
@@ -343,20 +343,20 @@ return NULL;
   See also: CXmlNode::GetChild()
  */
 int CXmlDocument::GetChild(LPCTSTR szElementName, //[in] parent's tag
-                          int iPos //[in] = XML_POSBEGININING position of 
+                          int iPos //[in] = XML_POSBEGININING position of
                           //parent's element [0, INT_MAX)
                           )
 {
-TCHAR  szCurrentTag[XML_MAX_TAGNAME_SIZE];
+TCHAR szCurrentTag[XML_MAX_TAGNAME_SIZE];
 ASSERT(szElementName != NULL);
 if (szElementName != NULL)
   {
-  //Get parent' name and copy it to m_szElement
+  //Get parent's name and copy it to m_szElement
   if(GetName(iPos) != NULL) 
     {
     _tcsncpy(szCurrentTag, m_szElement, XML_MAX_TAGNAME_SIZE - 1);
     szCurrentTag[XML_MAX_TAGNAME_SIZE - 1] = _T('\0');
-    // get child xmlNode
+    //Get child xmlNode
     iPos = GetNextElement(iPos);
     while (iPos > 0)
       {
@@ -401,11 +401,18 @@ for (i = iPos; i < (m_iLength - 1); i++)
     {
     case _T('<'):
       opens++;
-      if (m_szDocument[i + 1]!=_T('/'))
+      if (m_szDocument[i + 1] != _T('/'))
         elements++;
       else
         elements--;
       break;
+
+    case _T('/') :  //Element without values i.e. <element attribute="value" />
+      if (m_szDocument[i + 1] != _T('>'))
+        {
+        m_szValue[0] = _T('\0');
+        return m_szValue;
+        }
 
     case _T('>') :
       opens--;
@@ -450,6 +457,9 @@ return m_szValue;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.10  2009/10/16 21:41:32  ddarko
+ * Get element without  value
+ *
  * Revision 1.9  2009/10/16 15:49:52  ddarko
  * Typo
  *

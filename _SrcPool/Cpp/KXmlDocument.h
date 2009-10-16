@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.h,v $: header file
-  $Revision: 1.7 $ $Date: 2009/10/07 21:43:36 $
+  $Revision: 1.8 $ $Date: 2009/10/16 21:41:32 $
   $Author: ddarko $
 
   Interface for the CXmlDocument class
@@ -27,7 +27,13 @@
 typedef void (*XmlNodeCallback) (LPCTSTR szElementName, int iPos);
 
 ///////////////////////////////////////////////////////////////////////////////
-/*
+/*Simplistic XML parser, suitable for reading small XML documents.
+  The class does not require well-formed documents. The number of root elements
+  is not validated.
+  The class operates with fixed length strings. XML element names are limited to
+  XML_MAX_TAGNAME_SIZE -1 and XML values to XML_MAX_INNERTEXT_SIZE -1 characters.
+  Reading the XML attributes is not supported. Length of the document is limited
+  to INT_MAX characters.
 
   Example:
       <?xml version="1.0"?>
@@ -50,7 +56,7 @@ typedef void (*XmlNodeCallback) (LPCTSTR szElementName, int iPos);
         int iNodePos = xmlDoc.GetNextElement(XML_POSBEGININING); //Get 1st iNodePos
         while(iNodePos > 0)
           {
-          if (strcmp(xmlDoc.GetName(iNodePos),"parentNode"))
+          if (strcmp(xmlDoc.GetName(iNodePos),"parentNode") != 0)
             {
             iNodePos = xmlDoc.GetNextElement(iNodePos);
             continue;
@@ -70,7 +76,7 @@ typedef void (*XmlNodeCallback) (LPCTSTR szElementName, int iPos);
         xmlDoc.Close();
         }
 
-  See also:  CXmlNode, CXmlAttribute;
+  See also: CXmlNode, CXmlAttribute;
   {html <a href="http://msdn.microsoft.com/en-us/library/ms256153%28VS.100%29.aspx">
   MSDN: XML Standards Reference: Document Map;</a>
   <a href="http://www.w3.org/TR/REC-xml/">
@@ -88,6 +94,7 @@ public:
   int     Enumerate(LPCTSTR szElementName);
   void    Enumerate(LPCTSTR szElementName, XmlNodeCallback funcXmlProcessor);
   int     GetChild(LPCTSTR szElementName, int iPos = XML_POSBEGININING);
+  int     GetElement(LPCTSTR szElementName, int iPos = XML_POSBEGININING);
   int     GetNextElement(int iPos = XML_POSBEGININING);
   LPTSTR  GetValue(int iPos);
   LPTSTR  GetName(const int iPos = XML_POSBEGININING);
@@ -98,6 +105,26 @@ private:
   TCHAR  m_szElement[XML_MAX_TAGNAME_SIZE];   //element's name (tag)
   TCHAR  m_szValue[XML_MAX_INNERTEXT_SIZE];   //element's value
 };
+
+///////////////////////////////////////////////////////////////////////////////
+// Inlines
+
+//-----------------------------------------------------------------------------
+/*Gets the position of an element with the given name.
+
+  Note: XML element (and attribute) names are case-sensitive.
+
+  Returns: postion of the element or 0 if element is not found.
+
+  See also: CXmlDocument::GetChild(), CXmlNode
+ */
+inline int CXmlDocument::GetElement(LPCTSTR szElementName, //[in] parent's tag
+                             int iPos //[in] = XML_POSBEGININING position of 
+                              //parent's element [0, INT_MAX)
+                            )
+{
+return GetChild(szElementName, iPos);
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 /*
@@ -198,6 +225,9 @@ private:
 #endif // !defined(_KXMLDOCUMENT_H_)
 /*****************************************************************************
  * $Log: KXmlDocument.h,v $
+ * Revision 1.8  2009/10/16 21:41:32  ddarko
+ * Get element without  value
+ *
  * Revision 1.7  2009/10/07 21:43:36  ddarko
  * Fixed getting element's name
  *
