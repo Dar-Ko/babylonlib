@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.8 $ $Date: 2009/10/09 17:56:27 $
+  $Revision: 1.9 $ $Date: 2009/10/16 15:49:52 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -10,7 +10,7 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#ifdef _MSC_VER //Micorsoft Visual Studio C++ compiler
+#ifdef _MSC_VER //Microsoft Visual Studio C++ compiler
   #if _MSC_VER >= 1400
     #define _CRT_SECURE_NO_DEPRECATE //TODO: fopen_s()
   #endif
@@ -450,6 +450,9 @@ return m_szValue;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.9  2009/10/16 15:49:52  ddarko
+ * Typo
+ *
  * Revision 1.8  2009/10/09 17:56:27  ddarko
  * Unit test
  *

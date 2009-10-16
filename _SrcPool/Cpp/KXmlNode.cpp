@@ -9,7 +9,7 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#ifdef _MSC_VER //Micorsoft Visual Studio C++ compiler
+#ifdef _MSC_VER //Microsoft Visual Studio C++ compiler
   #include "stdafx.h"
 #endif
 

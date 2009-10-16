@@ -20,7 +20,7 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#ifdef _MSC_VER //Micorsoft C++ compiler
+#ifdef _MSC_VER //Microsoft C++ compiler
     //DATE is defined in <atlcomtime.h> and <wtypes.h>
   #if defined(__ATLCOMTIME_H__) || defined(__wtypes_h__)
     #define DATE DATE

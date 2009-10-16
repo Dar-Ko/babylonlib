@@ -12,7 +12,7 @@
 /*Replaces library header file names with the compiler's aliases*/
 #ifdef _USE_STD_HEADERS
   #ifdef _WIN32
-    #ifdef _MSC_VER //Micorsoft C++ compiler
+    #ifdef _MSC_VER //Microsoft C/C++ compiler
       #ifdef _UNICODE
         #ifndef UNICODE
           //To enable Unicode for some Microsoft Visual C/C++ header files,
