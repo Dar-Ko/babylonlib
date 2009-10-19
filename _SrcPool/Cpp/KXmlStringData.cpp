@@ -55,10 +55,20 @@ if (strSource != NULL)
     iLength = (int)strlen(strSource);
   m_wszData = new wchar_t[iLength + 1];
 
-  if (mbstowcs(m_wszData, strSource, iLength) < 0)
-    {
-    ASSERT(false); //Invalid multibyte character encountered
-    }
+  #if _MSC_VER < 1400
+    if (mbstowcs(m_wszData, strSource, iLength) < 0)
+      {
+      ASSERT(false); //Invalid multibyte character encountered
+      }
+  #else
+    //Microsoft Visual C/C++ 2005, version 8.0
+    #pragma todo('warning C4996: mbstowcs was declared deprecated; use mbstowcs_s instead.')
+    if (mbstowcs(m_wszData, strSource, iLength) < 0)
+      {
+      ASSERT(false); //Invalid multibyte character encountered
+      }
+  #endif
+
   m_wszData[iLength] = wchar_t(0);
   }
 else
@@ -80,7 +90,13 @@ if (strSource != NULL)
     iLength = (int)wcslen(strSource);
   m_wszData = new wchar_t[iLength + 1];
 
-  wcsncpy(m_wszData, strSource, iLength);
+  #if _MSC_VER < 1400
+    wcsncpy(m_wszData, strSource, iLength);
+  #else
+    //Microsoft Visual C/C++ 2005, version 8.0
+    #pragma todo('warning C4996: wcsncpy was declared deprecated; use wcsncpy_s instead.')
+    wcsncpy(m_wszData, strSource, iLength);
+  #endif
   m_wszData[iLength] = wchar_t(0);
   }
 else
@@ -154,11 +170,21 @@ if (m_szData == NULL)
   {
   size_t nSize;
   m_szData = new char[nSize = wcslen(m_wszData) + 1];
-  if(wcstombs(m_szData, m_wszData, nSize) < 0)
-    {
-    ASSERT(false); //Invalid multibyte character encountered
-    }
-  m_szData[nSize -1] = '\0';
+  #if _MSC_VER < 1400
+    if(wcstombs(m_szData, m_wszData, nSize) < 0)
+      {
+      ASSERT(false); //Invalid multibyte character encountered
+      }
+  #else
+    //Microsoft Visual C/C++ 2005, version 8.0
+    #pragma todo('warning C4996: wcstombs was declared deprecated; use wcstombs_s instead.')
+    if(wcstombs(m_szData, m_wszData, nSize) < 0)
+      {
+      ASSERT(false); //Invalid multibyte character encountered
+      }
+  #endif
+
+    m_szData[nSize -1] = '\0';
   }
 
 return m_szData;
