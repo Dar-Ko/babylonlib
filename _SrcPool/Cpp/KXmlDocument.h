@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.h,v $: header file
-  $Revision: 1.8 $ $Date: 2009/10/16 21:41:32 $
+  $Revision: 1.9 $ $Date: 2009/10/19 20:44:35 $
   $Author: ddarko $
 
   Interface for the CXmlDocument class
@@ -31,9 +31,9 @@ typedef void (*XmlNodeCallback) (LPCTSTR szElementName, int iPos);
   The class does not require well-formed documents. The number of root elements
   is not validated.
   The class operates with fixed length strings. XML element names are limited to
-  XML_MAX_TAGNAME_SIZE -1 and XML values to XML_MAX_INNERTEXT_SIZE -1 characters.
+  XML_MAX_TAGNAME_SIZE - 2 and XML values to XML_MAX_INNERTEXT_SIZE - 1 characters.
   Reading the XML attributes is not supported. Length of the document is limited
-  to INT_MAX characters.
+  to INT_MAX - 1 characters.
 
   Example:
       <?xml version="1.0"?>
@@ -53,15 +53,9 @@ typedef void (*XmlNodeCallback) (LPCTSTR szElementName, int iPos);
       if (xmlDoc.Read(_T("myfile.xml")) >= 0) //Read the document file
         {
         int iChildPos = 0;
-        int iNodePos = xmlDoc.GetNextElement(XML_POSBEGININING); //Get 1st iNodePos
+        int iNodePos = xmlDoc.GetElement("parentNode"); //Get 1st iNodePos
         while(iNodePos > 0)
           {
-          if (strcmp(xmlDoc.GetName(iNodePos),"parentNode") != 0)
-            {
-            iNodePos = xmlDoc.GetNextElement(iNodePos);
-            continue;
-            }
-
           if ((iChildPos = xmlDoc.GetChild("intNode", iNodePos)) > 0)
             iValue = atoi(xmlDoc.GetValue(iChildPos));
 
@@ -71,7 +65,8 @@ typedef void (*XmlNodeCallback) (LPCTSTR szElementName, int iPos);
           if ((iChildPos = xmlDoc.GetChild("floatNode", iNodePos)) > 0)
             fFloatValue = (float)atof(xmlDoc.GetValue(iChildPos));
 
-          iNodePos = xmlDoc.GetNextElement(iNodePos);
+          //Get next element
+          iNodePos = xmlDoc.GetElement("parentNode", iNodePos);
           }
         xmlDoc.Close();
         }
@@ -107,26 +102,6 @@ private:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-// Inlines
-
-//-----------------------------------------------------------------------------
-/*Gets the position of an element with the given name.
-
-  Note: XML element (and attribute) names are case-sensitive.
-
-  Returns: postion of the element or 0 if element is not found.
-
-  See also: CXmlDocument::GetChild(), CXmlNode
- */
-inline int CXmlDocument::GetElement(LPCTSTR szElementName, //[in] parent's tag
-                             int iPos //[in] = XML_POSBEGININING position of 
-                              //parent's element [0, INT_MAX)
-                            )
-{
-return GetChild(szElementName, iPos);
-}
-
-///////////////////////////////////////////////////////////////////////////////
 /*
  */
 class WriteXML
@@ -142,7 +117,14 @@ public:
     _tremove(szFile);
     if (!szFile || !szOpeningTag)
       return false;
-    m_file = _tfopen(szFile, _T("w"));
+    #if _MSC_VER < 1400
+      m_file = _tfopen(szFile, _T("w"));
+    #else
+      //Microsoft Visual C/C++ 2005, version 8.0
+      #pragma todo('warning C4996: _wfopen was declared deprecated; use _wfopen_s instead')
+      m_file = NULL; //TODO:
+    #endif
+
     if (m_file == NULL)
       return false;
 
@@ -157,7 +139,14 @@ public:
     fwrite(szXmlEncoding, sizeof(TCHAR), _tcslen(szXmlEncoding), m_file);
 
     m_rootTag = new TCHAR[_tcslen(szOpeningTag) + 1];
-    _tcscpy(m_rootTag, szOpeningTag);
+
+    #if _MSC_VER < 1400
+      _tcscpy(m_rootTag, szOpeningTag);
+    #else
+      //Microsoft Visual C/C++ 2005, version 8.0
+      #pragma todo('warning C4996: wcscpy was declared deprecated; use wcscpy_s instead')
+    #endif
+
     _ftprintf(m_file, _T("<%s>\n"), m_rootTag);
     return true;
   };
@@ -191,7 +180,13 @@ public:
                 LPCTSTR format = _T("%i"))
   {
     TCHAR temp[10];
-    _stprintf(temp, format, data);
+    #if _MSC_VER < 1400
+      _stprintf(temp, format, data);
+    #else
+      //Microsoft Visual C/C++ 2005, version 8.0
+      #pragma todo('warning C4996: _swprintf was declared deprecated')
+    #endif
+
     WriteTag(szElementName, temp);
   };
 
@@ -225,6 +220,9 @@ private:
 #endif // !defined(_KXMLDOCUMENT_H_)
 /*****************************************************************************
  * $Log: KXmlDocument.h,v $
+ * Revision 1.9  2009/10/19 20:44:35  ddarko
+ * Fixed obtaining long element names
+ *
  * Revision 1.8  2009/10/16 21:41:32  ddarko
  * Get element without  value
  *

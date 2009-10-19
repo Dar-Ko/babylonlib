@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.11 $ $Date: 2009/10/16 21:47:50 $
+  $Revision: 1.12 $ $Date: 2009/10/19 20:44:35 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -223,6 +223,47 @@ if ((funcXmlProcessor != NULL) &&
 
   Returns: position of the next XML element or 0 if none is found.
 
+  Example:
+      <?xml version="1.0"?>
+      <?xml-stylesheet type="text/xsl" href="myfile.xsl"?>
+      <!-- example XML document -->
+      <parentNode>
+        <intNode>10</intNode>
+        <strNode>string</strNode>
+        <boolNode>true</boolNode>
+        <floatNode>0.3</floatNode>
+      </parentNode>
+      ...
+      int iValue = 0;
+      bool bValue = false;
+      float fFloatValue = 0.0;
+      CXmlDocument xmlDoc;
+      if (xmlDoc.Read(_T("myfile.xml")) >= 0) //Read the document file
+        {
+        int iChildPos = 0;
+        int iNodePos = xmlDoc.GetNextElement(XML_POSBEGININING); //Get 1st iNodePos
+        while(iNodePos > 0)
+          {
+          if (strcmp(xmlDoc.GetName(iNodePos),"parentNode") != 0)
+            {
+            iNodePos = xmlDoc.GetNextElement(iNodePos);
+            continue;
+            }
+
+          if ((iChildPos = xmlDoc.GetChild("intNode", iNodePos)) > 0)
+            iValue = atoi(xmlDoc.GetValue(iChildPos));
+
+          if ((iChildPos = xmlDoc.GetChild("boolNode", iNodePos)) > 0)
+            bBoolValue = (_stricmp(xmlDoc.GetValue(iChildPos),"true") == 0);
+
+          if ((iChildPos = xmlDoc.GetChild("floatNode", iNodePos)) > 0)
+            fFloatValue = (float)atof(xmlDoc.GetValue(iChildPos));
+
+          iNodePos = xmlDoc.GetNextElement(iNodePos);
+          }
+        xmlDoc.Close();
+        }
+
   See also: CXmlDocument::EnumerateNodes()
  */
 int CXmlDocument::GetNextElement(int iPos //[in] = XML_POSBEGININING position of 
@@ -295,10 +336,11 @@ return 0;
 //-----------------------------------------------------------------------------
 /*Obtains the name of the XML element at the given position.
  
-  Note: Element's names longer than XML_MAX_TAGNAME_SIZE -1 characters
+  Note: Element's names longer than XML_MAX_TAGNAME_SIZE - 2 characters
   will be truncated. The name is stored in m_szElement member.
 
-  Returns: string containing element's name.
+  Returns: string containing element's name. End tag names are prefixed with
+  '/' character.
 
   See also: CXmlNode::GetName()
  */
@@ -321,7 +363,13 @@ if (iPos > 0)
       int iLen = i - iPos;
       const int BUFFER_CAPACITY = sizeof(m_szElement) / sizeof(TCHAR);
       if (BUFFER_CAPACITY < iLen)
-        iLen = BUFFER_CAPACITY - 1; //Truncate data to fit the buffer
+        {
+        iLen = BUFFER_CAPACITY - 2; //Truncate data to fit the buffer
+        //End tag character is also included in the name, so corresponding truncated name
+        //is smaller than buffer length
+        if (m_szDocument[iPos] == _T('/'))
+          iLen++;
+        }
 
       _tcsncpy(m_szElement, &m_szDocument[iPos], iLen);
       m_szElement[iLen] = _T('\0');
@@ -355,6 +403,7 @@ if (szElementName != NULL)
   if(GetName(iPos) != NULL) 
     {
     _tcsncpy(szCurrentTag, m_szElement, XML_MAX_TAGNAME_SIZE - 1);
+     //Insure that string is terminated
     szCurrentTag[XML_MAX_TAGNAME_SIZE - 1] = _T('\0');
     //Get child xmlNode
     iPos = GetNextElement(iPos);
@@ -378,10 +427,42 @@ return 0;
 }
 
 //-----------------------------------------------------------------------------
+/*Gets the position of an element with the given name.
+
+  Note: XML element (and attribute) names are case-sensitive.
+
+  Returns: postion of the element or 0 if element is not found.
+
+  See also: CXmlDocument::GetChild(), CXmlNode
+ */
+int CXmlDocument::GetElement(LPCTSTR szElementName, //[in] elements's name
+                             int iPos //[in] = XML_POSBEGININING position of 
+                              //the element [0, INT_MAX)
+                            )
+{
+if ((szElementName != NULL) && (szElementName[0] != _T('\0')) )
+  {
+  iPos = GetNextElement(iPos); //Get 1st element's position
+  while(iPos > 0)
+    {
+    if (_tcscmp(GetName(iPos), szElementName) == 0)
+      {
+      break;
+      }
+    iPos = GetNextElement(iPos);
+    }
+  }
+else
+  iPos = 0;
+return iPos;
+}
+
+//-----------------------------------------------------------------------------
 /*Obtains value of the XML element at the given position.
 
   Note: Element's data longer than XML_MAX_INNERTEXT_SIZE -1 characters will be
   truncated.
+  Note: Heading whitespace will be truncated, but trailing whitespace will not be.
 
   Returns: string containing element's value or an empty string.
 
@@ -391,20 +472,23 @@ LPTSTR CXmlDocument::GetValue(int iPos //[in] position of
                                //the element [0, INT_MAX)
                                 )
 {
-int i, text = 0;
-int opens = 1;
-int elements = 0;
+int i, iValuePos = 0;
+int iOpenTagCount = 1; //XML tag count
+int iOpenElementCount = 0;
 
+/*Find the lenght of text between start and the end of an element:
+  <element>value</element>
+ */
 for (i = iPos; i < (m_iLength - 1); i++)
   {
   switch (m_szDocument[i])
     {
     case _T('<'):
-      opens++;
-      if (m_szDocument[i + 1] != _T('/'))
-        elements++;
+      iOpenTagCount++;
+      if (m_szDocument[i + 1] == _T('/'))
+        iOpenElementCount--; //Encountered element's ending
       else
-        elements--;
+        iOpenElementCount++; //Encountered element's child node begining
       break;
 
     case _T('/') :  //Element without values i.e. <element attribute="value" />
@@ -413,9 +497,10 @@ for (i = iPos; i < (m_iLength - 1); i++)
         m_szValue[0] = _T('\0');
         return m_szValue;
         }
+      break;
 
-    case _T('>') :
-      opens--;
+    case _T('>') : //Closing the XML tag
+      iOpenTagCount--;
       break;
 
     case _T(' ') :
@@ -425,30 +510,31 @@ for (i = iPos; i < (m_iLength - 1); i++)
       break;
 
     default:
-      if ((opens == 0) && (elements == 0))
-        text = i;
+      if ((iOpenTagCount == 0) && (iOpenElementCount == 0))
+        iValuePos = i;
       break;
     }
 
-  if (text > 0)  //??? D.K  move for loop at the bottom here
-    break;
-  }
-
-if (text == 0)
-  return NULL; //??? D.K.
-
-for (i = text; i < m_iLength; i++)
-  {
-  if (m_szDocument[i] == _T('<'))
+  if (iValuePos > 0)
     {
-    int iLen = i - text;
-    const int BUFFER_CAPACITY = sizeof(m_szValue) / sizeof(TCHAR);
-    if (BUFFER_CAPACITY < iLen)
-      iLen = BUFFER_CAPACITY - 1; //Truncate data to fit the buffer
-    _tcsncpy(m_szValue, &m_szDocument[text], iLen);
-    m_szValue[iLen] = _T('\0');
-    return m_szValue;
+    //If begining of element's value found, copy value to the buffer and exit
+    for (i = iValuePos; i < m_iLength; i++)
+      {
+      if (m_szDocument[i] == _T('<'))
+        {
+        int iLen = i - iValuePos;
+        const int BUFFER_CAPACITY = sizeof(m_szValue) / sizeof(TCHAR);
+        if (BUFFER_CAPACITY < iLen)
+          iLen = BUFFER_CAPACITY - 1; //Truncate data to fit the buffer
+        _tcsncpy(m_szValue, &m_szDocument[iValuePos], iLen);
+        m_szValue[iLen] = _T('\0');
+        return m_szValue; //Return XML data
+        }
+      }
     }
+
+  if (iOpenElementCount < 0)  //Encountered element without value
+    break;
   }
 
 m_szValue[0] = _T('\0');
@@ -457,6 +543,9 @@ return m_szValue;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.12  2009/10/19 20:44:35  ddarko
+ * Fixed obtaining long element names
+ *
  * Revision 1.11  2009/10/16 21:47:50  ddarko
  * fixed GetValue
  *

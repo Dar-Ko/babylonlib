@@ -1,5 +1,5 @@
 /*$RCSfile: TestXml.c,v $: implementation file
-  $Revision: 1.5 $ $Date: 2009/10/16 21:41:32 $
+  $Revision: 1.6 $ $Date: 2009/10/19 20:44:35 $
   $Author: ddarko $
 
   Global test samples
@@ -41,8 +41,12 @@ _T("<?xml version=\"1.0\"?>\n\
 <parentNode description=\"other element\">\
 \t<!-- 2nd well formed element -->\
 \t 2nd well formed element\
-\t<intNode>20</intNode>\
+\t<intNode><count>1</count> 65 66 <id>20</id></intNode>\
+\t<offspringNode><count>1</count>\n\
+\t<!--Element with child nodes, but without a value-->\n\
+<value>20</value></offspringNode>\
 \t<strNode></strNode>\
+\t<emptyNode>\t</emptyNode>\
 \t<boolNode>any value</boolNode>\
 \t<floatNode>-45E5</floatNode>\
 </parentNode>\
@@ -86,6 +90,9 @@ while(pBuffer < pTemp)\n\
 /* ///////////////////////////////////////////////////////////////////////// */
 /*****************************************************************************
  * $Log: TestXml.c,v $
+ * Revision 1.6  2009/10/19 20:44:35  ddarko
+ * Fixed obtaining long element names
+ *
  * Revision 1.5  2009/10/16 21:41:32  ddarko
  * Get element without  value
  *
