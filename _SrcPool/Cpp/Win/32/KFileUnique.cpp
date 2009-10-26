@@ -200,8 +200,8 @@ ftTime.dwHighDateTime = ftTime.dwLowDateTime; //Save value for later
 
 /*Check all files until _taccess() function does not return failure
   with ENOENT: filename or path not found.
-  The function returns –1 if the named file does not exist or
-  is not accessible and sets errno to EACCES or ENOENT .
+  The function returns an error code if the named file does not exist or
+  if is not accessible and also sets errno to EACCES or ENOENT.
  */
 while ((_taccess(szResult, EXIST) == ACCESS_OK) || (errno == EACCES))
   {
