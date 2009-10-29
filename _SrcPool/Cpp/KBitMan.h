@@ -45,8 +45,8 @@
 #define CPY_NBITS( y, yoff, x, xoff, n)                                      \
      (                                                                       \
       ((yoff-xoff) > 0) ?                                                    \
-       RESET_NBITSL( y, yoff, n) | (ExtNbitsL ( x, xoff ,n) << (yoff-xoff)): \
-       RESET_NBITSL( y, yoff, n) | (ExtNbitsL ( x, xoff ,n) >> (xoff-yoff))  \
+       RESET_NBITSL( y, yoff, n) | (EXT_NBITSL ( x, xoff ,n) << (yoff-xoff)): \
+       RESET_NBITSL( y, yoff, n) | (EXT_NBITSL ( x, xoff ,n) >> (xoff-yoff))  \
      )
 
 
@@ -121,7 +121,8 @@ inline uint8_t& ResetNbitsL(uint8_t& x,/*the field of bits to be reset (result) 
   will be filled with zeroes, regardless of the machine. ~(~0<<n) creates a
   mask with ones in the rightmost three (n=3) bits. n must be smaller or
   equal to p + 1.
-  This returns 6-th,5-th,4-th bit, right adjusted.
+
+  Following example returns 6-th,5-th,4-th bit, right adjusted:
 
     x = 156;
     p = 6;
@@ -199,7 +200,7 @@ inline uint8_t ExtNbitsL(uint8_t x, /*the source field of bits                  
                       uint8_t n  /*the number of bits to retrieve             */
                       )
   {
-  x =  EXT_NBITSL( x, p, n);
+  x = EXT_NBITSL( x, p, n);
   return x;
   }
 
@@ -264,7 +265,7 @@ inline TYPE EnableFlag(TYPE& iStatus,const TYPE& uFlags)
 
 //DisableFlag()----------------------------------------------------------------
 /*Returns status after a flags are cleared
- */
+*/
 template <class TYPE>
 inline TYPE DisableFlag(TYPE& iStatus, const TYPE& uFlags)
   {
