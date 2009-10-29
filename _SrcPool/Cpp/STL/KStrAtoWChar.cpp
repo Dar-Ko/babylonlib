@@ -22,8 +22,9 @@ std::wstring AtoWChar(const char* lpString, int iLen = -1);
   Returns STL string with wide-character mapping.
 
   Note: uses Standard Template Library (STL).
+        Note: uses C-Run Time Library (CRT).
 
-  See also: SBCS, _UNICODE
+  See also: SBCS, _UNICODE, mbstowcs()
  */
 std::wstring AtoWChar(const char* lpString, //[in] string to be converted
                       int iLen //[in] = -1 Specifies the number of characters
@@ -54,12 +55,12 @@ return strResult;
 }
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  4    Biblioteka1.3         2007-07-16 18:03:28  Darko Kolakovic Comment
  *  3    Biblioteka1.2         2005-03-21 03:15:58  Darko           Replaced
  *       Microsoft version with ANSI
  *  2    Biblioteka1.1         2004-10-07 12:56:29  Darko           documentation
  *       group
- *  1    Biblioteka1.0         2004-10-06 16:00:46  Darko           
+ *  1    Biblioteka1.0         2004-10-06 16:00:46  Darko
  * $
  *****************************************************************************/

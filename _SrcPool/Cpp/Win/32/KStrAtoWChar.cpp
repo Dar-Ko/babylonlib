@@ -27,7 +27,7 @@ std::wstring AtoWChar(const char* lpString, int iLen = -1);
   Note: uses Standard Template Library (STL).
         Microsoft Windows specific (Win32).
 
-  See also: SBCS, _UNICODE
+  See also: SBCS, _UNICODE, MultiByteToWideChar()
  */
 std::wstring AtoWChar(const char* lpString, //[in] string to be converted
                     int iLen //[in] = -1 Specifies the number of characters
@@ -37,7 +37,11 @@ std::wstring AtoWChar(const char* lpString, //[in] string to be converted
                              //the null-terminator.
                    )
 {
-ASSERT(lpString != NULL);
+//Disable warning C4127: conditional expression in ASSERT is constant
+#pragma warning (disable: 4127)
+  ASSERT(lpString != NULL);
+#pragma warning (default: 4127)
+
 std::wstring strResult;
 if ( lpString != NULL)
   {
