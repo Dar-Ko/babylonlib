@@ -76,10 +76,10 @@
      x 1 1 1   x x x x   <- x | Mask
     n bits right of p are set to one
 */
-inline uint8_t& SetNbitsR(uint8_t& x,/*the field of bits to be set (result) */
-                       uint8_t p, /*the start position of the area to set*/
-                       uint8_t n  /*the number of bits to set            */
-                       )
+inline unsigned int& SetNbitsR(unsigned int& x,//[in, out] the field of bits to be set
+                      uint8_t p, //[in] the start position of the area to set
+                      uint8_t n  //[in] the number of bits to set
+                     )
   {
   x = x | (( ~0 << (p + 1) ) ^ ( ~0 << (p + 1 - n)));
   return x;
@@ -103,9 +103,10 @@ inline uint8_t& SetNbitsR(uint8_t& x,/*the field of bits to be set (result) */
      x 0 0 0   x x x x   <- x & Mask
     n bits left from p are set to zero
 */
-inline uint8_t& ResetNbitsL(uint8_t& x,/*the field of bits to be reset (result) */
-                         uint8_t p, /*the start position of the area to reset*/
-                         uint8_t n  /*the number of bits to reset             */
+inline unsigned int& ResetNbitsL(unsigned int& x,//[in, out] the field of bits
+                                                 //to be reset
+                         uint8_t p, //[in] the start position of the area to reset
+                         uint8_t n  //[in] the number of bits to reset
                          )
   {
   x = RESET_NBITSL( x, p, n);
@@ -137,9 +138,9 @@ inline uint8_t& ResetNbitsL(uint8_t& x,/*the field of bits to be reset (result) 
       0 0 0 0    0 g f e   <- x & Mask
     result is n bits right from p
 */
-inline uint8_t GetNbitsR(uint8_t x, /*the source field of bits                   */
-                      uint8_t p, /*the start position of the area to retrieve */
-                      uint8_t n  /*the number of bits to retrieve             */
+inline unsigned int GetNbitsR(unsigned int x, //[in] the source field of bits
+                      uint8_t p, //[in] the start position of the area to retrieve
+                      uint8_t n  //[in] the number of bits to retrieve
                       )
   {
   x = x >> (p + 1 - n) & ~(~0 << n);
@@ -167,9 +168,9 @@ inline uint8_t GetNbitsR(uint8_t x, /*the source field of bits                  
      0 0 0 0   0 g f e   <- x & Mask
      result is n bits right from p
 */
-inline uint8_t GetNBitsL(uint8_t x, /*the source field of bits                   */
-                      uint8_t p, /*the start position of the area to retrieve */
-                      uint8_t n  /*the number of bits to retrieve             */
+inline unsigned int GetNBitsL(unsigned int x, //[in] the source field of bits
+                      uint8_t p, //[in] the start position of the area to retrieve
+                      uint8_t n  //[in] the number of bits to retrieve
                       )
   {
   x = x >> p & ~(~0 << n);
@@ -195,9 +196,9 @@ inline uint8_t GetNBitsL(uint8_t x, /*the source field of bits                  
      0 g f e   0 0 0 0   <- x & Mask
     result is n bits right from p
 */
-inline uint8_t ExtNbitsL(uint8_t x, /*the source field of bits                   */
-                      uint8_t p, /*the start position of the area to retrieve */
-                      uint8_t n  /*the number of bits to retrieve             */
+inline unsigned int ExtNbitsL(unsigned int x, //[in] the source field of bits
+                      uint8_t p, //[in] the start position of the area to retrieve
+                      uint8_t n  //[in] the number of bits to retrieve
                       )
   {
   x = EXT_NBITSL( x, p, n);
@@ -231,10 +232,11 @@ inline uint8_t ExtNbitsL(uint8_t x, /*the source field of bits                  
      y x x x   y y y y   <- y | x
     result is n bits right from p
 */
-inline uint8_t& CpyNbitsL(uint8_t& y,/*the result                                 */
-                       uint8_t x, /*the source field of bits                   */
-                       uint8_t p, /*the start position of the area to retrieve */
-                       uint8_t n  /*the number of bits to retrieve             */
+inline unsigned int& CpyNbitsL(unsigned int& y,//[out] the result
+                               uint8_t x, //[in] the source field of bits
+                               uint8_t p, //[in] the start position of the area
+                                          //to retrieve
+                               uint8_t n  //[in] the number of bits to retrieve
                        )
   {
   x =  ExtNbitsL(x,p,n);
