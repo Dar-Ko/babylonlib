@@ -738,6 +738,9 @@
 				RelativePath="..\..\KXmlStringData.cpp">
 			</File>
 			<File
+				RelativePath="..\..\KXmlWriter.cpp">
+			</File>
+			<File
 				RelativePath="..\Common\Src\Win\stdafx.cpp">
 				<FileConfiguration
 					Name="Release_SBCS_MFC|Win32">
@@ -1147,6 +1150,9 @@
 			</File>
 			<File
 				RelativePath="..\..\Win\32\KXmlTypeWin.h">
+			</File>
+			<File
+				RelativePath="..\..\KXmlWriter.h">
 			</File>
 			<File
 				RelativePath="..\Common\Src\Win\stdafx.h">

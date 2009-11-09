@@ -796,6 +796,9 @@
 				RelativePath=".\Src\TestRound.cpp">
 			</File>
 			<File
+				RelativePath=".\Src\TestSet.cpp">
+			</File>
+			<File
 				RelativePath=".\Src\TestSwap.cpp">
 				<FileConfiguration
 					Name="Debug_SBCS|Win32">
@@ -932,6 +935,9 @@
 			</File>
 			<File
 				RelativePath="..\..\KRvrRows.h">
+			</File>
+			<File
+				RelativePath="..\..\KSet.h">
 			</File>
 			<File
 				RelativePath="..\..\KSwpByte.h">

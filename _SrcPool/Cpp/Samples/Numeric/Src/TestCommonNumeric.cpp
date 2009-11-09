@@ -43,6 +43,7 @@ extern bool TestPoint();
 extern bool TestQuadraticEquation();
 extern bool TestRealConversion();
 extern bool TestChecksum();
+extern bool TestSet();
 
 
 //-----------------------------------------------------------------------------
@@ -75,7 +76,8 @@ PFUNC_TEST funcTest[] =
   TestPrimes,
   TestRound,
   TestFibonnaci,
-  TestChecksum
+  TestChecksum,
+  TestSet
   };
 
 int iTestCount = 0;
