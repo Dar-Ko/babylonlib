@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.h,v $: header file
-  $Revision: 1.10 $ $Date: 2009/11/09 22:27:36 $
+  $Revision: 1.11 $ $Date: 2009/11/11 18:54:08 $
   $Author: ddarko $
 
   Interface for the CXmlDocument class
@@ -24,6 +24,7 @@
 #define XML_MAX_TAGNAME_SIZE      32
 #define XML_MAX_INNERTEXT_SIZE  1024
 
+//XML node proccesing Callback function
 typedef void (*PFUNC_XMLNODEPROCESS) (LPCTSTR szElementName, int iPos);
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -104,6 +105,9 @@ private:
 #endif // !defined(_KXMLDOCUMENT_H_)
 /*****************************************************************************
  * $Log: KXmlDocument.h,v $
+ * Revision 1.11  2009/11/11 18:54:08  ddarko
+ * renamed callback function
+ *
  * Revision 1.10  2009/11/09 22:27:36  ddarko
  * Moved WriteXML to CXmlWriter
  *

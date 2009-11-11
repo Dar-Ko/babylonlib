@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlDocument.cpp,v $: implementation file
-  $Revision: 1.12 $ $Date: 2009/10/19 20:44:35 $
+  $Revision: 1.13 $ $Date: 2009/11/11 18:54:08 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -184,12 +184,12 @@ return iNodeCount;
   See also: CXmlDocument::GetNextElement()
  */
 void CXmlDocument::Enumerate(LPCTSTR szElementName,   //[in] XML tag
-                             XmlNodeCallback funcXmlProcessor //[in] prcessing function
+                             PFUNC_XMLNODEPROCESS pfXmlProcessor //[in] prcessing function
                             )
 {
 TRACE1(_T("CXmlDocument::Enumerate(%s, callback())\n"), szElementName);
 
-if ((funcXmlProcessor != NULL) &&
+if ((pfXmlProcessor != NULL) &&
     (szElementName != NULL) && (szElementName[0] != _T('\0')))
   {
   LPTSTR szCurrentTag;
@@ -199,7 +199,7 @@ if ((funcXmlProcessor != NULL) &&
     szCurrentTag = GetName(iPos);
     //Find the element and proccess element's data
     if (_tcscmp(szCurrentTag, szElementName) == 0)
-      funcXmlProcessor(szElementName, iPos);
+      pfXmlProcessor(szElementName, iPos);
 
     iPos = GetNextElement(iPos);
     }
@@ -543,6 +543,9 @@ return m_szValue;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlDocument.cpp,v $
+ * Revision 1.13  2009/11/11 18:54:08  ddarko
+ * renamed callback function
+ *
  * Revision 1.12  2009/10/19 20:44:35  ddarko
  * Fixed obtaining long element names
  *
