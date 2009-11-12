@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlWriter.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/11/09 22:27:36 $
+  $Revision: 1.2 $ $Date: 2009/11/12 22:46:59 $
   $Author: ddarko $
 
   Interface for the CXmlWriter class
@@ -35,24 +35,31 @@ public:
   CXmlWriter();
   virtual ~CXmlWriter();
 
-  bool Create(LPCTSTR szFilename, LPCTSTR szOpeningTag);
+  bool Create(LPCTSTR szFilename, LPCTSTR szRootTag);
   void Close();
 
 //Operations
+  virtual void SetTag(LPCTSTR szElementName);
+  virtual void OpenTag();
+  virtual void CloseTag();
   virtual void WriteTag(LPCTSTR szElementName, LPCTSTR szData);
   virtual void WriteTag(LPCTSTR szElementName, const int iData);
   virtual void WriteTag(LPCTSTR szElementName, const float fData);
   virtual void WriteTag(LPCTSTR szElementName, const bool bData);
 
 protected:
-  LPTSTR m_rootTag; //
-  FILE*  m_fileXml; //
+  LPTSTR m_szRootTag; //
+  LPTSTR m_szTag;     //formatted XML tag
+  FILE*  m_fileXml;   //
 };
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif // !defined(_KXMLWRITER_H_)
 /*****************************************************************************
  * $Log: KXmlWriter.h,v $
+ * Revision 1.2  2009/11/12 22:46:59  ddarko
+ * Added parent tag handling
+ *
  * Revision 1.1  2009/11/09 22:27:36  ddarko
  * Moved WriteXML to CXmlWriter
  *
