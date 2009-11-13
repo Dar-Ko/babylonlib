@@ -1,5 +1,5 @@
 /*$RCSfile: KXmlWriter.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/11/13 20:42:38 $
+  $Revision: 1.3 $ $Date: 2009/11/13 21:19:44 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -36,13 +36,13 @@
 /*Default constructor
  */
 CXmlWriter::CXmlWriter() :
-  m_szRootTag(NULL), 
+  m_szRootTag(NULL),
   m_szTag(NULL),
   m_fileXml(NULL)
-{ 
+{
 };
 
-CXmlWriter::~CXmlWriter() 
+CXmlWriter::~CXmlWriter()
 {
 Close();
 ASSERT(m_szRootTag == NULL);
@@ -140,7 +140,7 @@ return false;
 };
 
 //-----------------------------------------------------------------------------
-/*
+/*Closes the root element and writes the document into file.
  */
 void CXmlWriter::Close()
 {
@@ -165,7 +165,19 @@ if (m_szRootTag != NULL)
 };
 
 //-----------------------------------------------------------------------------
-/*
+/*Establishes single nested XML parent tag.
+
+  Example:
+      <rootElement>
+        <parentElement>
+          <childElement1>value1</childElement1>
+        </parentElement>
+        <parentElement>
+          <childElement2>value2</childElement2>
+        </parentElement>
+      </rootElement>
+
+  See also: CXmlWriter::OpenTag(), CXmlWriter::CloseTag().
  */
 void CXmlWriter::SetTag(LPCTSTR szElementName //[in] XML element name or NULL
                        )
@@ -173,7 +185,7 @@ void CXmlWriter::SetTag(LPCTSTR szElementName //[in] XML element name or NULL
 if (m_szTag != NULL)
   delete[] m_szTag;
 
-if((szElementName != NULL) && 
+if((szElementName != NULL) &&
    (szElementName[0] !=  _T('\0')))
   {
   const size_t nLen = _tcslen(szElementName) + 5 + 1;
@@ -192,7 +204,7 @@ if((szElementName != NULL) &&
       _tcscpy(&m_szTag[POSELEMENTNAME], szElementName);
     #else
       //Microsoft Visual C/C++ 2005, version 8.0
-      if(_tcscpy_s(&m_szTag[POSELEMENTNAME], 
+      if(_tcscpy_s(&m_szTag[POSELEMENTNAME],
                    nLen - POSELEMENTNAME,  //Size of the destination buffer in characters
                    szElementName) != S_OK)
         {
@@ -211,7 +223,7 @@ else
 };
 
 //-----------------------------------------------------------------------------
-/*Formats the opening tag of the preset XML element and writes it to 
+/*Formats the opening tag of the preset XML element and writes it to
   the document.
 
   See also: CXmlWriter::SetTag(), CXmlWriter::CloseTag().
@@ -229,7 +241,7 @@ if ((m_fileXml != NULL) && (m_szTag != NULL))
 };
 
 //-----------------------------------------------------------------------------
-/*Formats the closing tag of the preset XML element and writes it to 
+/*Formats the closing tag of the preset XML element and writes it to
   the document.
 
   See also: CXmlWriter::SetTag(), CXmlWriter::OpenTag().
@@ -254,9 +266,9 @@ void CXmlWriter::WriteTag(LPCTSTR szElementName, //[in]
 {
 if (m_fileXml != NULL)
   {
-  if((szElementName  != NULL) && 
+  if((szElementName  != NULL) &&
      (szElementName[0] !=  _T('\0')))
-    if((szData  != NULL) && 
+    if((szData  != NULL) &&
        (szData[0] !=  _T('\0')))
       {
       #ifdef _UNICODE
@@ -264,10 +276,10 @@ if (m_fileXml != NULL)
       #else
         LPCTSTR szFormat = _T("\t\t<%s>%s</%s>\n");
       #endif
-      _ftprintf(m_fileXml, 
-                szFormat, 
-                szElementName, 
-                szData, 
+      _ftprintf(m_fileXml,
+                szFormat,
+                szElementName,
+                szData,
                 szElementName);
       }
   }
@@ -323,10 +335,13 @@ WriteTag(szElementName, szData);
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KXmlWriter.cpp,v $
+ * Revision 1.3  2009/11/13 21:19:44  ddarko
+ * Comment
+ *
  * Revision 1.2  2009/11/13 20:42:38  ddarko
  * Added SetTag();  Fixed leak: Off-line MSVC++ 8.0 2005 documentation states
- * wrongly that 2nd parameter of _tcscpy_s is length in bytes, while actually it is
- * number of characters.
+ * wrongly that 2nd parameter of _tcscpy_s is length in bytes, while actually
+ * it is number of characters.
  *
  * Revision 1.1  2009/11/09 22:27:36  ddarko
  * Moved WriteXML to CXmlWriter
