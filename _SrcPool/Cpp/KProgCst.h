@@ -554,10 +554,69 @@ const unsigned long GiB = 0x40000000UL;
                            "abcdefghijklmnopqrstuvwxyz" \
                            "_ 0123456789"
 
+#ifndef SIZEOFARR
+  #if !defined(__cplusplus)
+    /*Returns number of elements in an array.
 
-  /*Returns number of elements in an array                                   */
-#define SIZEOFARR(x)  (sizeof (x) / sizeof ((x)[0]))
+      Parameters:
+        - X a static array of custom objects.
 
+      Note: the size of the array have to be static.
+      Note: if X is a pointer instead an array, C compilation will produce
+      erroneous result, while C++ compilation will fail.
+
+      Example:
+          POINT ptArray[100];
+          ASSERT(SIZEOFARR(ptArray) == 100);
+          ASSERT((SIZEOFARR(L"0123456789") - SIZEOFARR(L"")) == 10)
+
+     See also: ARRSIZE, _countof, NELEM, NUMBER_OF, _WSPIAPI_COUNTOF, RTL_NUMBER_OF_V1
+     */
+    #define SIZEOFARR(x)  (sizeof (x) / sizeof ((x)[0]))
+  #else
+    extern "C++"
+      {
+      /*Transforms an array of objects to the same length array of bytes.
+        Parameters:
+          - TYPE the type of objects stored in the array.
+          - nCount number of elements of type TYPE stored in the array.
+       */
+      template <class TYPE, size_t nCount>
+      char (&_ArrayCount(TYPE (&X)[nCount]))[nCount];
+      /*Returns number of elements in an array.
+
+        Parameters:
+          - X a static array of custom objects.
+
+        Note: the size of the array have to be static.
+        Note: if X is a pointer instead an array, C compilation will produce
+        erroneous result, while C++ compilation will fail.
+
+        Example:
+            POINT ptArray[100];
+            ASSERT(SIZEOFARR(ptArray) == 100);
+            ASSERT((SIZEOFARR(L"0123456789") - SIZEOFARR(L"")) == 10)
+
+       See also: ARRSIZE, _countof, NELEM, NUMBER_OF, _WSPIAPI_COUNTOF, RTL_NUMBER_OF_V1
+       */
+      #define SIZEOFARR(X) sizeof(_ArrayCount(X))
+      }
+  #endif
+
+  /*Synonyms for SIZEOFARR                                                    */
+  #ifndef ARRSIZE
+    #define ARRSIZE  SIZEOFARR
+  #endif
+  #ifndef _countof
+    #define _countof  SIZEOFARR
+  #endif
+  #ifndef NELEM
+    #define NELEM  SIZEOFARR
+  #endif
+  #ifndef NUMBER_OF
+    #define NUMBER_OF  SIZEOFARR
+  #endif
+#endif
 
 #ifdef _ENDIAN_LITTLE_
  /*Returns 32-bit value with high word initialized with given constant.
