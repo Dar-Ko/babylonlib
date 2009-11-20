@@ -1,5 +1,5 @@
-/*$Workfile: KFileUnique.cpp$: implementation file
-  $Revision: 2$ $Date: 2007-05-08 10:16:42$
+/*$RCSfile: KFileUnique.cpp$: implementation file
+  $Revision: 1.13$ $Date: 2009/11/20 10:16:42$
   $Author: Darko Kolakovic$
 
   Creates unique file name
@@ -96,16 +96,17 @@ TRACE(_T("CreateUniqueFileName()\n"));
 const int EXIST = 0; //existence validation only
 const int ACCESS_OK = 0; //File has required access rights
 const int EOK = 0; //no error occured
-const int NAMESIZE = 8; //size of variable part of the file name is 32-bit
-                        //hexadecimal number
+const int NAMESIZE = 8; //lenght of variable part of the file name represented as
+                        //32-bit hexadecimal number
 int iPos = MAX_PATH;    //space required for the file name
 ASSERT(MAX_PATH > NAMESIZE);
 
+//Calculate the lenght of the full file path
 if((szFilePath != NULL) && (szFilePath[0] != _T('\0')))
   {
   ASSERT(INT_MAX >  _tcslen(szFilePath));
   iPos = (int)_tcslen(szFilePath);
-  ASSERT((iPos-1) >0);
+  ASSERT((iPos-1) > 0);
   if (!IsPathDelim(szFilePath[iPos-1]))
     iPos++; //Add space for directory delimiter
   }
@@ -128,7 +129,7 @@ if (iPos > (MAX_PATH - NAMESIZE))
 
 //Allocate space for the result
 LPTSTR szResult = strResult.GetBuffer(iPos + NAMESIZE);
-#if (_MSC_VER >= 1400) //MSVC++ v8.0
+#ifdef _DEBUG
   const size_t BUFFERLEN = iPos + NAMESIZE;
 #endif
 //Copy directory path
@@ -160,16 +161,17 @@ if ((szPrefix != NULL) && (szPrefix[0] != _T('\0')))
     }
   }
 
-int iNamePos = iPos; //begining of the variable part of the filename
+const int POSNAME = iPos; //begining of the variable part of the filename
+ASSERT(BUFFERLEN - POSNAME > NAMESIZE + 1);
 FILETIME ftTime; //system time
 //32-bit integer is required to create a name
 ASSERT (sizeof(ftTime.dwLowDateTime) <= 4);
 GetSystemTimeAsFileTime(&ftTime);
 //Use lower portion of the FILETIME to create the name
 #if (_MSC_VER >= 1400) //MSVC++ v8.0
-  ItoA(ftTime.dwLowDateTime, &szResult[iNamePos], (BUFFERLEN - iNamePos), 16);
+  ItoA(ftTime.dwLowDateTime, &szResult[POSNAME], NAMESIZE + 1, 16);
 #else
-  ItoA(ftTime.dwLowDateTime, &szResult[iNamePos], 16);
+  ItoA(ftTime.dwLowDateTime, &szResult[POSNAME], 16);
 #endif
 iPos += NAMESIZE;
 
@@ -189,10 +191,11 @@ if ((szExtension != NULL) && (szExtension[0] != _T('\0')))
     i++;
     }
   }
+
 szResult[iPos] = _T('\0'); //Append terminating zero
 ASSERT((MAX_PATH - iPos) > 0); //Check if enough space is allocated
 //Save the character after variable part of filename
-TCHAR chNameEnd = szResult[iNamePos + NAMESIZE];
+TCHAR chNameEnd = szResult[POSNAME + NAMESIZE];
 errno = EOK;           //Clear the current error status
 
 ftTime.dwHighDateTime = ftTime.dwLowDateTime; //Save value for later
@@ -207,7 +210,7 @@ while ((_taccess(szResult, EXIST) == ACCESS_OK) || (errno == EACCES))
   {
   if ((ftTime.dwLowDateTime - ftTime.dwHighDateTime) > 0x1000)
     {
-    //Break theoretical endless loop
+    //Break theoretically endless loop
     TRACE(_T("  Get Temp. name failed!\n"));
     strResult.ReleaseBuffer(0);
     return NULL;
@@ -215,12 +218,12 @@ while ((_taccess(szResult, EXIST) == ACCESS_OK) || (errno == EACCES))
   errno = EOK; //Reset system error
   //Try another name
   #if (_MSC_VER >= 1400) //MSVC++ v8.0
-    ItoA(ftTime.dwLowDateTime, &szResult[iNamePos], (BUFFERLEN - iNamePos), 16);
+    ItoA(ftTime.dwLowDateTime, &szResult[POSNAME], NAMESIZE + 1, 16);
   #else
-    ItoA(ftTime.dwLowDateTime, &szResult[iNamePos], 16);
+    ItoA(ftTime.dwLowDateTime, &szResult[POSNAME], 16);
   #endif
   //Replace terminating zero inserted by ItoA
-  szResult[iNamePos + NAMESIZE] = chNameEnd;
+  szResult[POSNAME + NAMESIZE] = chNameEnd;
   ftTime.dwLowDateTime++; //Try a file name with new number
   }
 
@@ -230,7 +233,9 @@ return strResult;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- *$Log:
+ *$Log: KFileUnique.cpp,v $
+ *Revision 1.13  2009/11/20 20:05:12  dkolakovic
+ *Fixed _itot_s buffer initialization in debug mode
  * 1    Biblioteka1.0         2007-05-04 17:51:55  Darko Kolakovic
- *$
+ *
  *****************************************************************************/
