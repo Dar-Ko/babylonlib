@@ -1,38 +1,37 @@
-/*$Workfile: TestCommonService.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2010/01/21 21:51:53 $
+/*$RCSfile: TestCommonWmi.cpp,v $: implementation file
+  $Revision: 1.1 $ $Date: 2010/01/21 22:18:19 $
   $Author: ddarko $
 
-  Test system service (deamon) routines.
-  Copyright: CommonSoft Inc.
-  2007-02-02 Darko Kolakovic
+  Test WMI routines.
+  2010-01-01 Darko Kolakovic
 */
 
-// Group=Examples
+// Group=Examples Windows
 
 #include "stdafx.h"
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 #ifdef _WIN32
-  extern bool TestWinService();
+  extern bool TestWmi();
 #endif
 
-int TestCommonService(int argc, TCHAR* argv[]);
-int TestCommonService();
+int TestCommonWmi(int argc, TCHAR* argv[]);
+int TestCommonWmi();
 
 //-----------------------------------------------------------------------------
-/*Validates different system service (deamon) routines.
-Defines the entry point for an automated test.
+/*Validates different Windows Management Instrumentation (WMI) routines.
+  Defines the entry point for an automated test.
 
-Returns: EXIT_SUCCESS, which represents a value of 0, if successful. Otherwise
-a non-zero error code is returned.
+  Returns: EXIT_SUCCESS, which represents a value of 0, if successful. Otherwise
+  a non-zero error code is returned.
 */
-int TestCommonService()
+int TestCommonWmi()
 {
-return TestCommonService(0, NULL);
+return TestCommonWmi(0, NULL);
 }
 
 //-----------------------------------------------------------------------------
-/*Validates different system service (deamon) routines.
+/*Validates different Windows Management Instrumentation (WMI) routines..
   Defines the entry point for the test.
 
   Returns: EXIT_SUCCESS, which represents a value of 0, if successful. Otherwise
@@ -47,13 +46,13 @@ int TestCommonService(int argc, //[in] specifies how many arguments are passed
                           //(argv[argc]) is indicated by a NULL pointer.
                       )
 {
-TsWriteToViewLn(_T("Validation of system service methods"));
+TsWriteToViewLn(_T("Validation of WMI methods"));
 TsWriteToViewLn(_T(""));
 
 PFUNC_TEST funcTest[] =
   {
   #ifdef _WIN32
-    TestWinService
+    TestWmi
   #else
     NULL  //Break testing
   #endif
@@ -84,9 +83,8 @@ return EXIT_SUCCESS;
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log:
- *  2    Biblioteka1.1         2005-03-11 16:17:25  Darko Kolakovic Added Console
- *       project
- *  1    Biblioteka1.0         2005-03-11 02:13:52  Darko
- * $
+ * $Log: TestCommonWmi.cpp,v $
+ * Revision 1.1  2010/01/21 22:18:19  ddarko
+ * Created
+ *
  *****************************************************************************/

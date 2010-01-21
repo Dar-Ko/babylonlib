@@ -1,0 +1,18 @@
+$RCSfile: TestWmi.txt,v $: developer's note
+$Revision: 1.1 $ $Date: 2010/01/21 22:18:52 $
+$Author: ddarko $
+
+Samples and test suites for the Windows Management Instrumentation (WMI).
+
+Copyright: Darko Kolakovic
+2010-01-05 Darko Kolakovic
+
+Windows Management Instrumentation (WMI) is a set of specifications from Microsoft for consolidating the management of devices and applications in a network from Windows computing systems. WMI is installed on all computers with Windows Millennium Edition (Me), Windows 2000, Windows XP, or Windows Server 2003. It can be downloaded for computers using Windows 98 or Windows NT 4.0. WMI is the Microsoft implementation of Web Based Enterprise Management (WBEM), which is built on the Common Information Model (CIM), a computer industry standard for defining device and application characteristics so that system administrators and management programs can control devices and applications from multiple manufacturers or sources in the same way.
+(http://searchwindowsserver.techtarget.com/sDefinition/0,,sid68_gci1065292,00.html)
+
+See also: Creating a WMI Application Using C++ (http://msdn.microsoft.com/en-us/library/aa389762%28VS.85%29.aspx)
+
+    CONSOLE APPLICATION : TestWmi Project Overview
+========================================================================
+
+\	TestWmi.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
