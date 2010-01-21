@@ -38,6 +38,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VerInfoTest", "VerInfoTest\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestAtlCtrl", "TestAtlCtrl\TestAtlCtrl.vcproj", "{98AAD432-2416-42B0-8407-591220AE1665}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestWmi", "TestWmi\TestWmi.vcproj", "{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_SBCS_MFC|Win32 = Debug_SBCS_MFC|Win32
@@ -60,8 +62,8 @@ Global
 		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug_Unicode_MFC|Win32.Build.0 = Debug_Unicode_MFC|Win32
 		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug_Unicode|Win32.ActiveCfg = Debug_Unicode_MFC|Win32
 		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug_Unicode|Win32.Build.0 = Debug_Unicode_MFC|Win32
-		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug|Win32.ActiveCfg = Debug_SBCS_MFC|Win32
-		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug|Win32.Build.0 = Debug_SBCS_MFC|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug|Win32.ActiveCfg = Debug_Unicode_MFC|Win32
+		{E4804099-DAA2-4333-A0E9-739E59B40790}.Debug|Win32.Build.0 = Debug_Unicode_MFC|Win32
 		{E4804099-DAA2-4333-A0E9-739E59B40790}.Release_SBCS_MFC|Win32.ActiveCfg = Release_SBCS_MFC|Win32
 		{E4804099-DAA2-4333-A0E9-739E59B40790}.Release_SBCS_MFC|Win32.Build.0 = Release_SBCS_MFC|Win32
 		{E4804099-DAA2-4333-A0E9-739E59B40790}.Release_SBCS|Win32.ActiveCfg = Release_SBCS_MFC|Win32
@@ -100,8 +102,8 @@ Global
 		{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}.Debug_Unicode_MFC|Win32.Build.0 = Debug_Unicode_MFC|Win32
 		{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}.Debug_Unicode|Win32.ActiveCfg = Debug_Unicode_MFC|Win32
 		{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}.Debug_Unicode|Win32.Build.0 = Debug_Unicode_MFC|Win32
-		{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}.Debug|Win32.ActiveCfg = Debug_SBCS_MFC|Win32
-		{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}.Debug|Win32.Build.0 = Debug_SBCS_MFC|Win32
+		{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}.Debug|Win32.ActiveCfg = Debug_Unicode_MFC|Win32
+		{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}.Debug|Win32.Build.0 = Debug_Unicode_MFC|Win32
 		{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}.Release_SBCS_MFC|Win32.ActiveCfg = Release_SBCS_MFC|Win32
 		{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}.Release_SBCS_MFC|Win32.Build.0 = Release_SBCS_MFC|Win32
 		{FAF35EC3-036F-4DFE-8CE4-7B85BA37C0C5}.Release_SBCS|Win32.ActiveCfg = Release_SBCS_MFC|Win32
@@ -292,6 +294,26 @@ Global
 		{98AAD432-2416-42B0-8407-591220AE1665}.Release_Unicode|Win32.Build.0 = Release_Unicode|Win32
 		{98AAD432-2416-42B0-8407-591220AE1665}.Release|Win32.ActiveCfg = Release_Unicode|Win32
 		{98AAD432-2416-42B0-8407-591220AE1665}.Release|Win32.Build.0 = Release_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Debug_SBCS_MFC|Win32.ActiveCfg = Debug_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Debug_SBCS_MFC|Win32.Build.0 = Debug_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Debug_SBCS|Win32.ActiveCfg = Debug_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Debug_SBCS|Win32.Build.0 = Debug_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Debug_Unicode_MFC|Win32.ActiveCfg = Debug_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Debug_Unicode_MFC|Win32.Build.0 = Debug_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Debug_Unicode|Win32.ActiveCfg = Debug_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Debug_Unicode|Win32.Build.0 = Debug_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Debug|Win32.ActiveCfg = Debug_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Debug|Win32.Build.0 = Debug_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Release_SBCS_MFC|Win32.ActiveCfg = Release_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Release_SBCS_MFC|Win32.Build.0 = Release_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Release_SBCS|Win32.ActiveCfg = Release_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Release_SBCS|Win32.Build.0 = Release_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Release_Unicode_MFC|Win32.ActiveCfg = Release_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Release_Unicode_MFC|Win32.Build.0 = Release_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Release_Unicode|Win32.ActiveCfg = Release_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Release_Unicode|Win32.Build.0 = Release_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Release|Win32.ActiveCfg = Release_Unicode|Win32
+		{2E2674F9-6460-41F6-99A2-5BBC92F1AE30}.Release|Win32.Build.0 = Release_Unicode|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
