@@ -1,5 +1,5 @@
 /*$RCSfile: TestCommonWmi.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2010/01/21 22:18:19 $
+  $Revision: 1.2 $ $Date: 2010/01/22 22:26:06 $
   $Author: ddarko $
 
   Test WMI routines.
@@ -37,7 +37,7 @@ return TestCommonWmi(0, NULL);
   Returns: EXIT_SUCCESS, which represents a value of 0, if successful. Otherwise
   a non-zero error code is returned.
  */
-int TestCommonService(int argc, //[in] specifies how many arguments are passed
+int TestCommonWmi(int argc, //[in] specifies how many arguments are passed
                           // to the program from the command line. The value of
                           // argc is at least one: the program name.
                       TCHAR* argv[] //[in] the program arguments as an array of
@@ -84,6 +84,9 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestCommonWmi.cpp,v $
+ * Revision 1.2  2010/01/22 22:26:06  ddarko
+ * Added common output
+ *
  * Revision 1.1  2010/01/21 22:18:19  ddarko
  * Created
  *

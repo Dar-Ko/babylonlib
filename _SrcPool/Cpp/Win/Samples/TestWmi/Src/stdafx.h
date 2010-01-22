@@ -1,5 +1,5 @@
 /*$RCSfile: stdafx.h,v $: header file
-  $Revision: 1.1 $  $Date: 2010/01/21 22:18:19 $
+  $Revision: 1.2 $  $Date: 2010/01/22 22:26:06 $
 
   STandarD Application Template Library
   header file includes standard system header files or project specific header
@@ -53,9 +53,13 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //Project specific header files
+#include "KTestLog.h" /*CTestLog class                          */
 
 /******************************************************************************
  * $Log: stdafx.h,v $
+ * Revision 1.2  2010/01/22 22:26:06  ddarko
+ * Added common output
+ *
  * Revision 1.1  2010/01/21 22:18:19  ddarko
  * Created
  *

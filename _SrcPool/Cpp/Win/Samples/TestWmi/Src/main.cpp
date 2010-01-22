@@ -1,5 +1,5 @@
 /*$RCSfile: main.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2010/01/21 22:18:19 $
+  $Revision: 1.2 $ $Date: 2010/01/22 22:26:06 $
   $Author: ddarko $
 
   Entry point for the applcation
@@ -41,7 +41,7 @@ int _tmain(int argc,      //[in] specifies how many arguments are passed to the
                           //(argv[argc]) is indicated by a NULL pointer.
            )
 {
-TsWriteToViewLn(_T("Start System Services Tests"));
+TsWriteToViewLn(_T("Start WMI Tests"));
 TsWriteToViewLn(_T(""));
 int nRetCode = EXIT_SUCCESS;
 
@@ -52,6 +52,9 @@ return nRetCode;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: main.cpp,v $
+ * Revision 1.2  2010/01/22 22:26:06  ddarko
+ * Added common output
+ *
  * Revision 1.1  2010/01/21 22:18:19  ddarko
  * Created
  *
