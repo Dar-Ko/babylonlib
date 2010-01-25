@@ -439,6 +439,12 @@
 				RelativePath=".\Cpp\KTmCmp.c">
 			</File>
 			<File
+				RelativePath=".\Cpp\KXmlDocument.cpp">
+			</File>
+			<File
+				RelativePath=".\Cpp\KXmlWriter.cpp">
+			</File>
+			<File
 				RelativePath=".\Cpp\KZLineIn.cpp">
 			</File>
 			<Filter
@@ -652,6 +658,9 @@
 				RelativePath=".\Cpp\KRound.h">
 			</File>
 			<File
+				RelativePath=".\Cpp\KSet.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\Win\Res\Win\KStdRes.h">
 			</File>
 			<File
@@ -712,7 +721,13 @@
 				RelativePath=".\Cpp\KXmlAttribute.h">
 			</File>
 			<File
+				RelativePath=".\Cpp\KXmlDocument.h">
+			</File>
+			<File
 				RelativePath=".\Cpp\KXmlNode.h">
+			</File>
+			<File
+				RelativePath=".\Cpp\KXmlWriter.h">
 			</File>
 			<File
 				RelativePath=".\Cpp\Win\Res\Win\Resource.h">
