@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.h,v $: header file
-  $Revision: 1.1 $ $Date: 2010/01/25 20:02:29 $
+  $Revision: 1.2 $ $Date: 2010/01/26 22:47:05 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -26,7 +26,7 @@
 // by Desktop Management Task Force (DMTF). All the WMI interfaces are based
 // on the Component Object Model (COM).
 //
-// Note: Microsoft Windows specific (Win).
+// Note: Microsoft Windows 2000 specific (Win2k).
 //       Requires the .NET Framework Redistributable.
 //       Windows 2000 requires also  WMI Redistributable Components version 1.0.
 //
@@ -46,10 +46,12 @@ private:
 
 // Operations
 public:
+  bool Init(LPCTSTR lpstrDevice = NULL);
+  bool IsConnected();
+  bool Disconnect();
 
 // Implementation
 public:
-
 
 // Overrides
 public:
@@ -62,6 +64,9 @@ public:
 #endif  //_KWMI_H_
 /*****************************************************************************
  * $Log: KWmi.h,v $
+ * Revision 1.2  2010/01/26 22:47:05  ddarko
+ * Initialization of WMI
+ *
  * Revision 1.1  2010/01/25 20:02:29  ddarko
  * Created
  *
