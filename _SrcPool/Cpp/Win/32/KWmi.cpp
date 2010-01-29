@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2010/01/27 22:41:27 $
+  $Revision: 1.3 $ $Date: 2010/01/29 22:47:47 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -8,7 +8,7 @@
  */
 #define _WIN32_DCOM //use DCOM to access COM objects
 #include "stdafx.h"
-//#include <comdef.h> //Native C++ compiler COM support
+#include <comdef.h> //Native C++ compiler COM support, _bstr_t
 //#include "wbemcli.h"        //WMI interface declarations (wbemcli.idl)
 #include "KWmi.h" //CWmi class
 #pragma comment(lib, "wbemuuid.lib")
@@ -76,14 +76,28 @@ if(IsCoInitialized())
 
   Returns: true if successful, otherwise returns false.
  */
-bool CWmi::Init(LPCTSTR lpstrDeviceUri //[in] = NULL URI of the correct WMI namespace.
+bool CWmi::Init(LPCTSTR szDeviceUri, //[in] = NULL URI of the correct WMI namespace.
                 //If it is NULL the default local namespace will be used.
+                LPCTSTR szUserName, //[in] = NULL user name and cannot be an empty string. 
+                LPCTSTR szPassword,  //[in] = NULL user password
+                LPCTSTR szDomain //[in] = NULL name of the domain of the user to
+                //authenticate and can have the following values:
+                //    - NULL   NTLM authentication is used and the NTLM domain of 
+                //             the current user is used. If the domain is specified
+                //             in szUserName, which is the recommended location, then 
+                //             it must not be specified here. 
+                //             Specifying the domain in both parameters results in
+                //             an invalid parameter error.
+                //    - Kerberos:<principal name> Kerberos authentication is used and
+                //      this parameter should contain a Kerberos (NETBIOS) principal name.
+                //    - NTLMDOMAIN:<domain name> NT LAN Manager authentication is used
+                //      and this parameter should contain an NTLM (NETBIOS) domain name.
                )
 {
 #ifdef _UNICODE
-  TRACE1(_T("CWmi::Init(%ws)\n"), lpstrDeviceUri);
+  TRACE1(_T("CWmi::Init(%ws)\n"), szDeviceUri);
 #else
-  TRACE1(_T("CWmi::Init(%s)\n", lpstrDeviceUri);
+  TRACE1(_T("CWmi::Init(%s)\n", szDeviceUri);
 #endif
 
 try
@@ -147,27 +161,67 @@ try
                                  );
       if(SUCCEEDED(hResult))
         {
-        //4. Obtain a pointer to IWbemServices for the root\cimv2 namespace on the local
-        //   or remote computer by calling IWbemLocator::ConnectServer.
-        CComBSTR bstrNamespace = (lpstrDeviceUri != NULL) ? 
-            CComBSTR(lpstrDeviceUri):
-            CComBSTR(NS_WMICIM);
+        //4. Obtain a pointer to IWbemServices for the root\cimv2 namespace on
+        //   the local or remote computer by calling IWbemLocator::ConnectServer.
+        CComBSTR bstrNamespace((szDeviceUri != NULL) ? szDeviceUri : NS_WMICIM);
+        CComBSTR bstrUserName(szUserName);
+        CComBSTR bstrPassword(szPassword);
+
         if (m_pIWbemServices != NULL)
             m_pIWbemServices->Release();
 
         hResult = pIWbemLocator->ConnectServer(bstrNamespace, //URI of WMI
-                                      NULL,                         //current user name
-                                      NULL,                         //current user password
-                                      0,                            //Locale, current
-                                      NULL,                         //Security flags
-                                      0,                            //Authority
-                                      0,                            //Context object
-                                      &m_pIWbemServices);           //IWbemServices proxy
+                                      bstrUserName, //current user name
+                                      bstrPassword,  //current user password
+                                      0,                      //Locale, current _bstr_t(L"MS_409"),
+                                      NULL,                   //Security flags
+ /*_bstr_t(L"ntlmdomain:DomainOrMachine"),*/ NULL,                      //Authority
+                                      0,                      //Context object
+                                      &m_pIWbemServices);     //IWbemServices proxy
         pIWbemLocator->Release();
-        //5. Set IWbemServices proxy security so the WMI service can impersonate the client
-        //   by calling CoSetProxyBlanket.
-
-        return true;
+        if(SUCCEEDED(hResult))
+          {
+          //5. Set IWbemServices proxy security so the WMI service can impersonate
+          //    the client by calling CoSetProxyBlanket.
+          /*Note: to avoid "0x80070005 - Access Denied" error when executing 
+            the ExecQuery() when executing, for example, the ExecQuery(),
+            authenticate each WMI interface call properly.
+            In general, COM security does not allow one process to access another
+            process if you do not set the proper security properties.
+           */
+          #if defined (AUTHN_LEVEL_NONE) //TODO:
+            COAUTHIDENTITY cID;
+            cID.User           = (USHORT*)&szUserName;
+            cID.UserLength     = lstrlen(pszName); //bstrUsername.length();
+            cID.Password       = (USHORT*)&szPassword;
+            cID.PasswordLength = lstrlen(pszPwd); //bstrPassword.length();
+            cID.Domain         = (USHORT*)&szDomain;
+            cID.DomainLength   = lstrlen(pszDom); // bstrDomain.length();
+            cID.Flags          = SEC_WINNT_AUTH_IDENTITY_UNICODE;
+            RPC_AUTH_IDENTITY_HANDLE pAuthInfo = &cID;
+          #endif
+          #ifdef AUTHN_LEVEL_DEFAULT
+            RPC_AUTH_IDENTITY_HANDLE pAuthInfo = NULL;
+          #endif
+#ifdef TODO_REMOTEPROXY //TODO:
+          //Set security levels on a WMI connection
+          hResult = CoSetProxyBlanket(m_pIWbemServices,//Indicates the proxy to set
+                       RPC_C_AUTHN_WINNT,           //use NTLMSSP authentication
+                                                    //service
+                       RPC_C_AUTHZ_NONE,            //authorization service
+                       NULL,                        //server principal name
+                       RPC_C_AUTHN_LEVEL_CALL,      //authentication level
+                       RPC_C_IMP_LEVEL_IMPERSONATE, //impersonation level 
+                       pAuthInfo,                   //client identity; not used
+                                              //for calls on the same computer
+                       EOAC_NONE                    //capabilities of this proxy
+                       );
+#endif
+          if(SUCCEEDED(hResult))
+            {
+            return true;
+            }
+          }
         }
       else
         {
@@ -231,12 +285,55 @@ return false;
  */
 bool CWmi::IsConnected()
 {
-return false;//m_bConnected;
+return true; //false;//m_bConnected;
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
+bool CWmi::Query(LPCTSTR szWqlQuery  //[in] text of the WQL query. This parameter
+                  //cannot be NULL.
+                 )
+{
+#ifdef _UNICODE
+  TRACE1(_T("CWmi::Query(%ws)\n"), szWqlQuery);
+#else
+  TRACE1(_T("CWmi::Query(%s)\n", szWqlQuery);
+#endif
+
+if ((szWqlQuery != NULL) && (szWqlQuery[0] != _T('\0')))
+  {
+  if (IsConnected())
+    {
+    //std::map< std::string, uint64 >& wmiMap;
+    CComBSTR bstrQuery(szWqlQuery);
+    IEnumWbemClassObject* pEnumerator = NULL;
+    HRESULT hResult;
+    hResult = m_pIWbemServices->ExecQuery(bstr_t("WQL"), //required query language
+                              bstrQuery,                 //query text
+                              WBEM_FLAG_FORWARD_ONLY | 
+                              WBEM_FLAG_RETURN_IMMEDIATELY, 
+                              NULL, //no context
+                              &pEnumerator //output enumerator
+                              );
+    if (SUCCEEDED(hResult))
+      {
+      return true;
+      }
+    }
+  else
+    {
+    TRACE(_T("  Query failed because WMI is not initialized!\n"));
+    }
+  }
+return false;
+}
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KWmi.cpp,v $
+ * Revision 1.3  2010/01/29 22:47:47  ddarko
+ * Query (simple)
+ *
  * Revision 1.2  2010/01/27 22:41:27  ddarko
  * *** empty log message ***
  *

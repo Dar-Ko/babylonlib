@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.h,v $: header file
-  $Revision: 1.3 $ $Date: 2010/01/27 22:41:27 $
+  $Revision: 1.4 $ $Date: 2010/01/29 22:47:47 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -39,6 +39,10 @@
 // by Desktop Management Task Force (DMTF). All the WMI interfaces are based
 // on the Component Object Model (COM).
 //
+// WMI will use Remote Procedure Call (RPC) service when accessing objects 
+// remotely. RPC itself uses TCP ports 135 and 445. In addition to those, a 
+// firewall have allow other ports allocated by DCOM dynamically.
+//
 // Note: Microsoft Windows 2000 specific (Win2k).
 //       Requires the .NET Framework Redistributable.
 //       Windows 2000 requires also  WMI Redistributable Components version 1.0.
@@ -65,15 +69,21 @@ private:
 
 // Operations
 public:
-  bool Init(LPCTSTR lpstrDevice = NULL);
   bool IsConnected();
   bool Disconnect();
+  bool Query(LPCTSTR szWqlQuery);
 
 // Implementation
 private:
   bool IsCoInitialized();
+
 // Overrides
 public:
+  virtual bool Init(LPCTSTR szDeviceUri = NULL, 
+                    LPCTSTR szUserName = NULL, 
+                    LPCTSTR szPassword = NULL,
+                    LPCTSTR szDomain = NULL);
+
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -98,6 +108,9 @@ return ((m_hInitializeRes == S_OK) ||
 #endif  //_KWMI_H_
 /*****************************************************************************
  * $Log: KWmi.h,v $
+ * Revision 1.4  2010/01/29 22:47:47  ddarko
+ * Query (simple)
+ *
  * Revision 1.3  2010/01/27 22:41:27  ddarko
  * *** empty log message ***
  *
