@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2010/01/29 22:47:47 $
+  $Revision: 1.4 $ $Date: 2010/02/01 22:28:07 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -291,8 +291,10 @@ return true; //false;//m_bConnected;
 //-----------------------------------------------------------------------------
 /*
  */
-bool CWmi::Query(LPCTSTR szWqlQuery  //[in] text of the WQL query. This parameter
+bool CWmi::Query(LPCTSTR szWqlQuery,  //[in] text of the WQL query. This parameter
                   //cannot be NULL.
+                const long nTimeOut //[in] = WBEM_INFINITE the maximum response 
+                                    //waiting period [ms]
                  )
 {
 #ifdef _UNICODE
@@ -307,7 +309,9 @@ if ((szWqlQuery != NULL) && (szWqlQuery[0] != _T('\0')))
     {
     //std::map< std::string, uint64 >& wmiMap;
     CComBSTR bstrQuery(szWqlQuery);
-    IEnumWbemClassObject* pEnumerator = NULL;
+    IEnumWbemClassObject* pEnumerator = NULL; //interface is used to enumerate 
+                                              //Common Information Model (CIM)
+                                              //objects.
     HRESULT hResult;
     hResult = m_pIWbemServices->ExecQuery(bstr_t("WQL"), //required query language
                               bstrQuery,                 //query text
@@ -318,7 +322,46 @@ if ((szWqlQuery != NULL) && (szWqlQuery[0] != _T('\0')))
                               );
     if (SUCCEEDED(hResult))
       {
-      return true;
+      if(pEnumerator != NULL)
+        {
+        IWbemClassObject* pCimObject = NULL;
+        ULONG             nCount = 0;
+        do
+          {
+          hResult = pEnumerator->Next(nTimeOut, //allowed time period for 
+                                              //response [ms]
+                                    1, //number of requested objects
+                                    &pCimObject, //storage of pointers to 
+                                                 //requested CIM objects
+                                    &nCount //number of objects returned
+                                    );
+          if (FAILED(hResult))
+            {
+            if (hResult != WBEM_S_FALSE)
+              {
+              //WBEM_S_FALSE is returned when the number of objects returned was
+              //less than the number requested, indicating that all elements are
+              //obtained.
+              TRACE1(_T("  IEnumWbemClassObject::Next failed (0x%0.8X)!\n"), hResult);;
+              }
+            break;
+            }
+
+          VARIANT vtProp;
+          //Get the value of the Name property
+          HRESULT hr = pCimObject->Get(L"Name", 0, &vtProp, 0, 0);
+          TRACE1(_T("  Name : %ws.\n"), vtProp.bstrVal);
+          VariantClear(&vtProp);
+
+          } while(hResult != WBEM_S_FALSE);
+
+        pEnumerator->Release();
+        return true;
+        }
+      }
+    else
+      {
+      TRACE1(_T("  ExecQuery failed (0x%0.8X)!\n"), hResult);
       }
     }
   else
@@ -331,6 +374,9 @@ return false;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KWmi.cpp,v $
+ * Revision 1.4  2010/02/01 22:28:07  ddarko
+ * ExecQuery
+ *
  * Revision 1.3  2010/01/29 22:47:47  ddarko
  * Query (simple)
  *

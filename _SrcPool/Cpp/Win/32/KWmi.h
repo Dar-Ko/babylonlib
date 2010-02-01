@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.h,v $: header file
-  $Revision: 1.4 $ $Date: 2010/01/29 22:47:47 $
+  $Revision: 1.5 $ $Date: 2010/02/01 22:28:07 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -71,7 +71,7 @@ private:
 public:
   bool IsConnected();
   bool Disconnect();
-  bool Query(LPCTSTR szWqlQuery);
+  bool Query(LPCTSTR szWqlQuery, const long nTimeOut = WBEM_INFINITE);
 
 // Implementation
 private:
@@ -108,6 +108,9 @@ return ((m_hInitializeRes == S_OK) ||
 #endif  //_KWMI_H_
 /*****************************************************************************
  * $Log: KWmi.h,v $
+ * Revision 1.5  2010/02/01 22:28:07  ddarko
+ * ExecQuery
+ *
  * Revision 1.4  2010/01/29 22:47:47  ddarko
  * Query (simple)
  *

@@ -1,5 +1,5 @@
 /*$RCSfile: TestWmi.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2010/01/26 22:47:05 $
+  $Revision: 1.3 $ $Date: 2010/02/01 22:28:07 $
   $Author: ddarko $
 
   Test WMI routines.
@@ -22,6 +22,7 @@ CWmi wmiTest;
 bResult = wmiTest.Init(NULL);
 if(bResult)
   {
+  bResult = wmiTest.Query(_T("SELECT * FROM Win32_DiskDrive"));
   bResult = wmiTest.Disconnect();
   }
 return bResult;
@@ -30,6 +31,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestWmi.cpp,v $
+ * Revision 1.3  2010/02/01 22:28:07  ddarko
+ * ExecQuery
+ *
  * Revision 1.2  2010/01/26 22:47:05  ddarko
  * Initialization of WMI
  *
