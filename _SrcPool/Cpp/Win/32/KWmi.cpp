@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2010/02/01 22:28:07 $
+  $Revision: 1.5 $ $Date: 2010/02/02 19:19:29 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -337,26 +337,33 @@ if ((szWqlQuery != NULL) && (szWqlQuery[0] != _T('\0')))
                                     );
           if (FAILED(hResult))
             {
-            if (hResult != WBEM_S_FALSE)
-              {
-              //WBEM_S_FALSE is returned when the number of objects returned was
-              //less than the number requested, indicating that all elements are
-              //obtained.
               TRACE1(_T("  IEnumWbemClassObject::Next failed (0x%0.8X)!\n"), hResult);;
-              }
+            break;
+            }
+          if (hResult == WBEM_S_FALSE)
+            {
+            //WBEM_S_FALSE is returned when the number of objects returned was
+            //less than the number requested, indicating that all elements are
+            //obtained.
+            ASSERT(nCount == 0);
             break;
             }
 
           VARIANT vtProp;
           //Get the value of the Name property
           HRESULT hr = pCimObject->Get(L"Name", 0, &vtProp, 0, 0);
-          TRACE1(_T("  Name : %ws.\n"), vtProp.bstrVal);
+          TRACE1(_T("  Name: \"%ws\".\n"), vtProp.bstrVal);
           VariantClear(&vtProp);
 
           } while(hResult != WBEM_S_FALSE);
 
         pEnumerator->Release();
-        return true;
+        if (hResult == WBEM_S_FALSE)
+          return true;
+        else
+          {
+          TRACE1(_T("  IEnumWbemClassObject::Next failed (0x%0.8X)!\n"), hResult);
+          }
         }
       }
     else
@@ -374,6 +381,9 @@ return false;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KWmi.cpp,v $
+ * Revision 1.5  2010/02/02 19:19:29  ddarko
+ * WQL constats
+ *
  * Revision 1.4  2010/02/01 22:28:07  ddarko
  * ExecQuery
  *

@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.h,v $: header file
-  $Revision: 1.5 $ $Date: 2010/02/01 22:28:07 $
+  $Revision: 1.6 $ $Date: 2010/02/02 19:19:30 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -29,6 +29,22 @@
 //Note: Microsoft Windows NT 4.0 and Windows 98 are using this as default space
 //for management
 #define NS_WMIDEFAULT _T("root\\default")
+
+///////////////////////////////////////////////////////////////////////////////
+//Common WMI queries
+
+#define WQL_COMPSYSTEM _T("SELECT * FROM Win32_ComputerSystem") //ComputerSystem WMI class
+#define WQL_OS  _T("SELECT * FROM Win32_OperatingSystem") //OperatingSystem WMI class
+#define WQL_CPU _T("SELECT * FROM Win32_Processor") //Processor WMI class
+#define WQL_RAM _T("SELECT * FROM Win32_PhysicalMemory") //PhysicalMemory WMI class
+#define WQL_HDD _T("SELECT * FROM Win32_DiskDrive") //DiskDrive WMI class
+#define WQL_CDROM _T("SELECT * FROM Win32_CDROMDrive") //CDROMDrive WMI class (CD/DVD/BR ROM Drives)
+#define WQL_TAPE _T("SELECT * FROM Win32_TapeDrive") //TapeDrive WMI class
+#define WQL_NET _T("SELECT * FROM Win32_NetworkAdapter") //NetworkAdapter WMI class
+#define WQL_SWAPP _T("SELECT * FROM Win32_Product") //Product WMI class
+          //class (software applications which are accessible through Windows
+          //'Control Panel'|'Add/Remove Programs' applet)
+#define WQL_NET _T("SELECT * FROM Win32_NetworkAdapter") //NetworkAdapter WMI class
 
 /////////////////////////////////////////////////////////////////////////////
 // CWmi is generic client to the Microsoft Windows Management Instrumentation
@@ -108,6 +124,9 @@ return ((m_hInitializeRes == S_OK) ||
 #endif  //_KWMI_H_
 /*****************************************************************************
  * $Log: KWmi.h,v $
+ * Revision 1.6  2010/02/02 19:19:30  ddarko
+ * WQL constats
+ *
  * Revision 1.5  2010/02/01 22:28:07  ddarko
  * ExecQuery
  *
