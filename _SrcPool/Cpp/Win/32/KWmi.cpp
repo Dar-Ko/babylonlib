@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.cpp,v $: implementation file
-  $Revision: 1.5 $ $Date: 2010/02/02 19:19:29 $
+  $Revision: 1.6 $ $Date: 2010/02/03 23:21:11 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -11,7 +11,18 @@
 #include <comdef.h> //Native C++ compiler COM support, _bstr_t
 //#include "wbemcli.h"        //WMI interface declarations (wbemcli.idl)
 #include "KWmi.h" //CWmi class
-#pragma comment(lib, "wbemuuid.lib")
+#pragma comment(lib, "wbemuuid")
+
+#ifdef _USE_WINSEARCH
+  /*Note: Requires Windows XP Service Pack 2 (SP2) with Windows Desktop Search (WDS) 3.0
+    See also: Windows Search 4.0
+    http://www.microsoft.com/windows/products/winfamily/desktopsearch/default.mspx
+   */
+  #include <propvarutil.h>
+  #pragma comment(lib, "propsys")
+#else
+  extern HRESULT VariantToStringAlloc(REFVARIANT varIn, PWSTR ppszBuf);
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 // CWmi class implementation
@@ -108,8 +119,8 @@ try
     Minimum supported client is Windows 2000 Professional.
    */
   m_hInitializeRes = CoInitializeEx(NULL,
-                                 COINIT_MULTITHREADED
-                                 );
+                                    COINIT_MULTITHREADED
+                                   );
   if(IsCoInitialized())
     {
     //2. Initialize COM process security by calling CoInitializeSecurity.
@@ -348,28 +359,58 @@ if ((szWqlQuery != NULL) && (szWqlQuery[0] != _T('\0')))
             ASSERT(nCount == 0);
             break;
             }
+          ASSERT(pCimObject != NULL);
 
-          VARIANT vtProp;
-          //Get the value of the Name property
-          HRESULT hr = pCimObject->Get(L"Name", 0, &vtProp, 0, 0);
-          TRACE1(_T("  Name: \"%ws\".\n"), vtProp.bstrVal);
-          VariantClear(&vtProp);
+          VARIANT vtCimProperty; //property of the CIM object
+
+          #ifdef _DEBUG
+            //Get the value of the Name property
+            VariantInit(&vtCimProperty);
+            HRESULT hr = pCimObject->Get(L"Name", 0, &vtCimProperty, 0, 0);
+            TRACE1(_T("  Name: \"%ws\".\n"), vtCimProperty.bstrVal);
+            VariantClear(&vtCimProperty);
+         #endif
+
+          pCimObject->BeginEnumeration(WBEM_FLAG_NONSYSTEM_ONLY);
+          VariantInit(&vtCimProperty);
+          CIMTYPE     pvtType;
+          BSTR        pstrName;
+          while (pCimObject->Next(0, &pstrName, &vtCimProperty, &pvtType, NULL) == WBEM_S_NO_ERROR)
+            {
+            LPWSTR wszResult;
+            hr = VariantToStringAlloc(vtCimProperty, &wszResult);
+                    std::wcout << pstrName << " " << vtCimProperty.vt << wszResult << std::endl;
+            if (vtCimProperty.vt == VT_BSTR)
+              {
+              //wmiMap[ asciiEncode(pstrName) ] = trim(asciiEncode(vtCimProperty.bstrVal));
+                        std::wcout << pstrName << ": " << vtCimProperty.bstrVal << std::endl;
+              }
+            SysFreeString(pstrName);
+            VariantClear(&vtCimProperty);
+            }
+  
 
           } while(hResult != WBEM_S_FALSE);
 
         pEnumerator->Release();
         if (hResult == WBEM_S_FALSE)
           return true;
-        else
-          {
-          TRACE1(_T("  IEnumWbemClassObject::Next failed (0x%0.8X)!\n"), hResult);
-          }
         }
       }
     else
       {
       TRACE1(_T("  ExecQuery failed (0x%0.8X)!\n"), hResult);
       }
+    #ifdef _DEBUG
+      extern LPCTSTR DumpWbemErrorCode(const HRESULT hWmiError, LPCTSTR* pszDescription);
+      LPCTSTR szDescription;
+      LPCTSTR szError = DumpWbemErrorCode(hResult, &szDescription);
+      #ifdef _UNICODE
+        TRACE2(_T("  %ws: %ws.\n"), szError, szDescription);
+      #else
+        TRACE2(_T("  %s: %s.\n"), szError, szDescription);
+      #endif
+    #endif
     }
   else
     {
@@ -381,6 +422,9 @@ return false;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KWmi.cpp,v $
+ * Revision 1.6  2010/02/03 23:21:11  ddarko
+ * browse CIM properties
+ *
  * Revision 1.5  2010/02/02 19:19:29  ddarko
  * WQL constats
  *
