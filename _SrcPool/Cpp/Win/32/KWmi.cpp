@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.cpp,v $: implementation file
-  $Revision: 1.6 $ $Date: 2010/02/03 23:21:11 $
+  $Revision: 1.7 $ $Date: 2010/02/04 23:31:10 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -9,7 +9,6 @@
 #define _WIN32_DCOM //use DCOM to access COM objects
 #include "stdafx.h"
 #include <comdef.h> //Native C++ compiler COM support, _bstr_t
-//#include "wbemcli.h"        //WMI interface declarations (wbemcli.idl)
 #include "KWmi.h" //CWmi class
 #pragma comment(lib, "wbemuuid")
 
@@ -21,6 +20,16 @@
   #include <propvarutil.h>
   #pragma comment(lib, "propsys")
 #else
+  #include <OAIdl.h> //REFVARIANT typedef
+  #ifndef _REFVARIANT_DEFINED 
+    //Note: REFVARINAT is defined in Windows 7 Platform SDK
+    #define _REFVARIANT_DEFINED 
+    #ifdef __cplusplus 
+      #define REFVARIANT const VARIANT& 
+    #else 
+      #define REFVARIANT const VARIANT* const 
+    #endif 
+  #endif
   extern HRESULT VariantToStringAlloc(REFVARIANT varIn, PWSTR ppszBuf);
 #endif
 
@@ -361,7 +370,7 @@ if ((szWqlQuery != NULL) && (szWqlQuery[0] != _T('\0')))
             }
           ASSERT(pCimObject != NULL);
 
-          VARIANT vtCimProperty; //property of the CIM object
+          tagVARIANT vtCimProperty; //property of the CIM object
 
           #ifdef _DEBUG
             //Get the value of the Name property
@@ -373,13 +382,19 @@ if ((szWqlQuery != NULL) && (szWqlQuery[0] != _T('\0')))
 
           pCimObject->BeginEnumeration(WBEM_FLAG_NONSYSTEM_ONLY);
           VariantInit(&vtCimProperty);
-          CIMTYPE     pvtType;
-          BSTR        pstrName;
-          while (pCimObject->Next(0, &pstrName, &vtCimProperty, &pvtType, NULL) == WBEM_S_NO_ERROR)
+          CIMTYPE cimType = CIM_EMPTY;
+          BSTR    pstrName;
+          while (pCimObject->Next(0, 
+                                  &pstrName, 
+                                  &vtCimProperty, 
+                                  &cimType, 
+                                  NULL  ) == WBEM_S_NO_ERROR)
             {
-            LPWSTR wszResult;
-            hr = VariantToStringAlloc(vtCimProperty, &wszResult);
-                    std::wcout << pstrName << " " << vtCimProperty.vt << wszResult << std::endl;
+            LPWSTR wszResult = L"NULL";
+            //hr = VariantToStringAlloc(vtCimProperty, wszResult);
+            extern LPCTSTR DumpCimType(CIMTYPE iData);
+            std::wcout << pstrName << " " << vtCimProperty.vt << 
+                " (" << DumpCimType(cimType) << "); " << wszResult << std::endl;
             if (vtCimProperty.vt == VT_BSTR)
               {
               //wmiMap[ asciiEncode(pstrName) ] = trim(asciiEncode(vtCimProperty.bstrVal));
@@ -422,6 +437,9 @@ return false;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KWmi.cpp,v $
+ * Revision 1.7  2010/02/04 23:31:10  ddarko
+ * Update
+ *
  * Revision 1.6  2010/02/03 23:21:11  ddarko
  * browse CIM properties
  *

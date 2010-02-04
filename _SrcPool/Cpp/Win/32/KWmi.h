@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.h,v $: header file
-  $Revision: 1.7 $ $Date: 2010/02/03 23:21:11 $
+  $Revision: 1.8 $ $Date: 2010/02/04 23:31:10 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -32,6 +32,10 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //Common WMI queries
+//See also:   See also: Common Information Model (CIM) Specification Version 2.2 by
+//Distributed Management Task Force, Inc; A.2 SQL Reserved Words 
+//(http://www.dmtf.org/standards/cim/cim_spec_v22)
+
 
 #define WQL_HWSYS _T("SELECT * FROM Win32_ComputerSystem") //ComputerSystem WMI class
 #define WQL_OS    _T("SELECT * FROM Win32_OperatingSystem") //OperatingSystem WMI class
@@ -124,6 +128,9 @@ return ((m_hInitializeRes == S_OK) ||
 #endif  //_KWMI_H_
 /*****************************************************************************
  * $Log: KWmi.h,v $
+ * Revision 1.8  2010/02/04 23:31:10  ddarko
+ * Update
+ *
  * Revision 1.7  2010/02/03 23:21:11  ddarko
  * browse CIM properties
  *

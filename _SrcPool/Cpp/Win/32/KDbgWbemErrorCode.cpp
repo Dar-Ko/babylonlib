@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgWbemErrorCode.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2010/02/03 22:10:50 $
+  $Revision: 1.2 $ $Date: 2010/02/04 23:31:10 $
   $Author: ddarko $
 
   Dumps Web-Based Enterprise Management (WBEM) error descriptions
@@ -312,8 +312,11 @@ return szCode;
 #endif  //_DEBUG
 /*****************************************************************************
  * $Log: KDbgWbemErrorCode.cpp,v $
+ * Revision 1.2  2010/02/04 23:31:10  ddarko
+ * Update
+ *
  * Revision 1.1  2010/02/03 22:10:50  ddarko
  * Created
- *
+ * WMIDiag.vbs Microsoft Corp.
  *****************************************************************************/
 
