@@ -1,5 +1,5 @@
 /*$RCSfile: KWmi.cpp,v $: implementation file
-  $Revision: 1.7 $ $Date: 2010/02/04 23:31:10 $
+  $Revision: 1.8 $ $Date: 2010/02/05 22:39:49 $
   $Author: ddarko $
 
   Microsoft Windows Management Instrumentation (WMI) client.
@@ -30,7 +30,8 @@
       #define REFVARIANT const VARIANT* const 
     #endif 
   #endif
-  extern HRESULT VariantToStringAlloc(REFVARIANT varIn, PWSTR ppszBuf);
+  extern HRESULT VariantToStringAlloc(REFVARIANT varIn, PWSTR* ppszBuf);
+  extern HRESULT VariantToString(REFVARIANT varIn, PWSTR pszBuf, UINT cchBuf);
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -437,6 +438,9 @@ return false;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KWmi.cpp,v $
+ * Revision 1.8  2010/02/05 22:39:49  ddarko
+ * #645
+ *
  * Revision 1.7  2010/02/04 23:31:10  ddarko
  * Update
  *
