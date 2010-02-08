@@ -1,5 +1,5 @@
 /*$RCSfile: KStrLimits.h,v $: header file
-  $Revision: 1.1 $ $Date: 2010/02/08 21:03:09 $
+  $Revision: 1.2 $ $Date: 2010/02/08 22:30:05 $
   $Author: ddarko $
 
   Maximum length of decimal number representation
@@ -58,6 +58,12 @@
   //UINT128_MAX = +340 282 366 920 938 463 463 374 607 431 768 211 455
   const int UINT128_LEN =  40;
 
+  //Maximum number of characters required to represent  32-bit float value;
+  //REAL32_MAX = +3.402 823 466e+38
+  const int REAL32_LEN = (39 + 40); //TODO: solve magic  (40) inhertited from <cvt.h>
+  //Maximum number of characters required to represent  64-bit double value;
+  //REAL64_MAX = +1.797 693 134 862 315 8e+308
+  const int REAL64_LEN = (309 + 40); //TODO: solve magic  (40) inhertited from <cvt.h>
 #else
   //Maximum number of characters required to represent signed char value;
   //INT8_MIN = –128
@@ -91,12 +97,21 @@
   //UINT128_MAX = +340 282 366 920 938 463 463 374 607 431 768 211 455
   #define UINT128_LEN    40
 
+  //Maximum number of characters required to represent  32-bit float value;
+  //REAL32_MAX = +3.402 823 466e+38
+  #define REAL32_LEN (39 + 40) //TODO: solve magic  (40) inhertited from <cvt.h>
+  //Maximum number of characters required to represent  64-bit double value;
+  //REAL64_MAX = +1.797 693 134 862 315 8e+308
+  #define REAL64_LEN (309 + 40) //TODO: solve magic  (40) inhertited from <cvt.h>
 #endif  //__cplusplus
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KSTRLIMITS_H_
 /*****************************************************************************
  * $Log: KStrLimits.h,v $
+ * Revision 1.2  2010/02/08 22:30:05  ddarko
+ * added double precision
+ *
  * Revision 1.1  2010/02/08 21:03:09  ddarko
  * Reassigned
  *

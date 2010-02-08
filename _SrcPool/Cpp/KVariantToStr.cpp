@@ -1,5 +1,5 @@
 /*$RCSfile: KVariantToStr.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2010/02/05 22:39:14 $
+  $Revision: 1.2 $ $Date: 2010/02/08 22:30:05 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -20,11 +20,12 @@
     #pragma message("Unicode literals")
   #endif
 
-  /*Replace  library header file names with the compiler's aliases*/
+  /*Replace library header file names with the compiler's aliases*/
   #pragma include_alias("KTChar.h", "wtypes.h")
   #if _MSC_VER < 1300
     #pragma include_alias("KTrace.h", "trace.h")
   #endif
+  #pragma include_alias(<stdint.h>, <KType32.h>)
 #endif
 
 #ifdef _WIN32
@@ -51,8 +52,8 @@
       #endif
     #endif
 
-  //#include <strsafe.h> //StringCbCopyW()
-  //#pragma comment(lib, "strsafe")
+  #include <strsafe.h> //StringCbCopyW() See TODO
+  #pragma comment(lib, "strsafe")
 
   HRESULT VariantToStringAlloc(REFVARIANT varIn, PWSTR* ppszBuf);
   //extern HRESULT VariantToString(REFVARIANT varIn, PWSTR pszBuf, UINT cchBuf);
@@ -65,9 +66,10 @@
 //Implementation
 #ifdef _KVARINATTOSTRING
 
+#include <stdint.h> //ISO C99 type definitions
 #include "KTrace.h" /*ASSERT macro */
 #include "KTChar.h" /*LPCTSTR typedef*/
-
+#include "KStrLimits.h" //number representation limits
 
 extern "C" long VariantToStringAlloc(const VARIANT* const varIn, wchar_t** ppszBuf);
 
@@ -91,6 +93,7 @@ long VariantToStringAlloc(const VARIANT& varIn, //[in] variant data source.
              )
 {
 long lError = S_OK;
+int iValue = 0;
 if (ppszBuf != NULL)
   {
   switch (varIn.vt)
@@ -109,14 +112,37 @@ if (ppszBuf != NULL)
 
     case VT_I2: //2 byte signed int
       {
-      short iVal = varIn.iVal;
-      *ppszBuf = (LPWSTR)malloc(32);
+      *ppszBuf = (LPWSTR)malloc((INT16_LEN + 1) * sizeof(wchar_t));
       if (*ppszBuf != NULL)
         {
-        StringCbPrintfW(*ppszBuf, 32, L"%hd (0x%hX)", iVal, iVal);
+        lError = _itow_s((int16_t)varIn.iVal, *ppszBuf, INT16_LEN + 1, 10);
         }
       else
-        lError = E_MEMORY;
+        lError = ERROR_NOT_ENOUGH_MEMORY;
+      break;
+      }
+
+    case VT_I4: //4 byte signed int
+      {
+      *ppszBuf = (LPWSTR)malloc((INT32_LEN + 1) * sizeof(wchar_t));
+      if (*ppszBuf != NULL)
+        {
+        lError = _itow_s((int32_t)varIn.lVal, *ppszBuf, INT32_LEN + 1, 10);
+        }
+      else
+        lError = ERROR_NOT_ENOUGH_MEMORY;
+      break;
+      }
+
+    case VT_R4: //4 byte real
+      {
+      *ppszBuf = (LPWSTR)malloc((REAL32_LEN +1) * sizeof(WCHAR));
+      if (*ppszBuf)
+        {
+        ASSERT(STRSAFE_MAX_CCH > (REAL32_LEN +1));
+        lError = StringCbPrintfW(*ppszBuf, (REAL32_LEN +1) * sizeof(WCHAR), L"%10.4f",
+                       (float)varIn.fltVal); //TODO: replace Win API
+        }
       break;
       }
 
@@ -143,18 +169,21 @@ long VariantToStringAlloc(const VARIANT* const varIn, //[in] variant data source
 if(ppszBuf != NULL)
   {
   if (varIn != NULL)
-  {
-  const VARIANT& varValue = *varIn;
-  return VariantToStringAlloc(varValue, ppszBuf);
-  }
+    {
+    const VARIANT& varValue = *varIn;
+    return VariantToStringAlloc(varValue, ppszBuf);
+    }
   *ppszBuf = (wchar_t*)calloc(1, sizeof(wchar_t));
   }
-return -1; //TODO: codes
+return E_INVALIDARG;
 }
 /* ///////////////////////////////////////////////////////////////////////// */
 #endif //_KVARINATTOSTRING
 /******************************************************************************
  *$Log: KVariantToStr.cpp,v $
+ *Revision 1.2  2010/02/08 22:30:05  ddarko
+ *added double precision
+ *
  *Revision 1.1  2010/02/05 22:39:14  ddarko
  *Created
  *
