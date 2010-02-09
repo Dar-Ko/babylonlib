@@ -143,7 +143,7 @@
 
 
 
-#if ( defined(_DOS) || defined(WIN) )
+#if ( defined(_DOS) || defined(DOS) || defined(WIN) || defined(WIN16) )
   #if _MSC_VER <= 850 /*Microsoft Visual C/C++ 1.52 or less            */
     /* /////////////////////////////////////////////////////////////////////// */
     /* // MS Windows 16-bit, DOS 16-bit                                        */
@@ -194,8 +194,39 @@
         #define false false
       #endif //~bool
     #endif /* __cplusplus*/
+
   #endif /*Microsoft Visual C/C++ 1.52 or less            */
-#endif /* _DOS || WIN */
+
+  /*16-bit CURRENCY definition 
+    See also: <variant.h>
+   */
+  #ifndef _tagCY_DEFINED
+    #define _tagCY_DEFINED
+    #define _CY_DEFINED
+    #if !defined (_VARIANT_H_) /*<variant.h>*/
+      /*A currency value stored as a 64-bit long, two's-complement integer
+        value scaled by 10 000 to give a fixed-point number with 15 digits
+        to the left of the decimal point and 4 digits to the right.
+        The range of currency is [-922 337 203 685 477.5808, 922 337 203 685 477.5807].
+
+        See also: CY, CURRENCY.
+       */
+      struct FARSTRUCT tagCY
+        {
+        #ifdef _MAC
+          long Hi;
+          long Lo;
+        #else
+          unsigned long Lo;
+          long          Hi;
+        #endif
+        };
+      typedef tagCY CY;       /*Fixed point currency value. See also: tagCY, CURRENCY.*/
+      typedef tagCY CURRENCY; /*Fixed point currency value. See also: tagCY, CY.*/
+    #endif /*_VARIANT_H_*/
+  #endif _tagCY_DEFINED
+#endif /* _DOS || DOS || WIN || WIN16*/
+
 
 #ifdef _WIN32            /*32-bit Windows OS                                 */
 
@@ -242,6 +273,38 @@
     #endif
 
   #endif /*_MSC_VER                                                          */
+
+  /*32-bit CURRENCY definition 
+    See also: <oaidl.h>
+   */
+  #ifndef _tagCY_DEFINED
+    #define _tagCY_DEFINED
+    #define _CY_DEFINED
+      /*A currency value stored as a 64-bit long, two's-complement integer
+        value scaled by 10 000 to give a fixed-point number with 15 digits
+        to the left of the decimal point and 4 digits to the right.
+        The range of currency is [-922 337 203 685 477.5808, 922 337 203 685 477.5807].
+
+        See also: CY, CURRENCY.
+       */
+    union tagCY
+      {
+      struct
+        {
+        #ifdef _MAC
+          long Hi;
+          long Lo;
+        #else
+          unsigned long Lo;
+          long          Hi;
+        #endif
+        };
+      LONGLONG int64;
+      };
+    typedef tagCY CY;       /*Fixed point currency value. See also: tagCY, CURRENCY.*/
+    typedef tagCY CURRENCY; /*Fixed point currency value. See also: tagCY, CY.*/
+  #endif _tagCY_DEFINED
+
 #else  /*!_WIN32  */
 
   /* /////////////////////////////////////////////////////////////////////// */
