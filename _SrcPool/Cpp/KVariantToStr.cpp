@@ -1,5 +1,5 @@
 /*$RCSfile: KVariantToStr.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2010/02/08 22:30:05 $
+  $Revision: 1.3 $ $Date: 2010/02/09 22:28:44 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -52,7 +52,11 @@
       #endif
     #endif
 
+  #include <atlstr.h> //CString used with VT_CY, VT_DATE; TODO native replacement
   #include <strsafe.h> //StringCbCopyW() See TODO
+  #ifdef _USE_ATL
+    #include <atlcur.h> //CComCurrency class
+  #endif
   #pragma comment(lib, "strsafe")
 
   HRESULT VariantToStringAlloc(REFVARIANT varIn, PWSTR* ppszBuf);
@@ -88,9 +92,9 @@ extern "C" long VariantToStringAlloc(const VARIANT* const varIn, wchar_t** ppszB
   Microsoft COM Framework: _variant_t, comutil.h;
  */
 long VariantToStringAlloc(const VARIANT& varIn, //[in] variant data source.
-              LPWSTR* ppszBuf   //[out] pointer to converted
-              //property value if one exists or empty string if not.
-             )
+                          LPWSTR* ppszBuf   //[out] pointer to converted
+                          //property value if one exists or empty string if not.
+                          )
 {
 long lError = S_OK;
 int iValue = 0;
@@ -101,12 +105,16 @@ if (ppszBuf != NULL)
     case VT_EMPTY: //nothing
       {
       *ppszBuf = _wcsdup(L"<empty>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_NULL: //SQL style Null
       {
       *ppszBuf = _wcsdup(L"<null>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
@@ -137,12 +145,154 @@ if (ppszBuf != NULL)
     case VT_R4: //4 byte real
       {
       *ppszBuf = (LPWSTR)malloc((REAL32_LEN +1) * sizeof(WCHAR));
-      if (*ppszBuf)
+      if (*ppszBuf != NULL)
         {
         ASSERT(STRSAFE_MAX_CCH > (REAL32_LEN +1));
         lError = StringCbPrintfW(*ppszBuf, (REAL32_LEN +1) * sizeof(WCHAR), L"%10.4f",
                        (float)varIn.fltVal); //TODO: replace Win API
         }
+      break;
+      }
+
+    case VT_R8: //8 byte real
+      {
+      *ppszBuf = (LPWSTR)malloc((REAL64_LEN +1) * sizeof(WCHAR));
+      if (*ppszBuf != NULL)
+        {
+        ASSERT(STRSAFE_MAX_CCH > (REAL64_LEN +1));
+        lError = StringCbPrintfW(*ppszBuf, (REAL64_LEN +1) * sizeof(WCHAR), L"%10.4f",
+                       (double)varIn.dblVal); //TODO: replace Win API
+        }
+      break;
+      }
+
+    case VT_CY: //currency
+      {
+      *ppszBuf = (LPWSTR)malloc((CURRENCY_LEN +1) * sizeof(WCHAR));
+      if (*ppszBuf != NULL)
+        {
+        ASSERT(STRSAFE_MAX_CCH > (CURRENCY_LEN +1));
+        if (varIn.cyVal.int64 != 0)
+          lError = StringCbPrintfW(*ppszBuf, (CURRENCY_LEN +1) * sizeof(WCHAR), L"%I64d.%I64d",
+                (__int64)varIn.cyVal.int64 / 10000, (__int64)varIn.cyVal.int64 % 10000 ); //TODO: replace Win API
+        else
+          {
+          *ppszBuf[0] = L'0'; //Fix me
+          *ppszBuf[1] = L'\0';
+          }
+        #ifdef _DEBUG
+          #if defined( _USE_MFC )
+            CString strDbg = COleCurrency(varIn.cyVal).Format();
+            TRACE(strDbg);
+          #enlif defined( _USE_ATL )
+            CComCurrency cyTemp(varIn.cyVal);
+            CAtlStringW strDbg;
+            strDbg.Format("%I64d.%I64d", cyTemp.GetInteger(), cyTemp.GetFraction());
+            TRACE(strDbg);
+          #endif
+        #endif
+        }
+      break;
+      }
+
+    case VT_DATE: //date
+      {
+      #if defined( _USE_MFC )
+        CString strTemp = COleDateTime((DATE)varIn.date).Format( L"%Y-%m-%dT%H:%M:%S");
+      #else
+        LPWSTR strTemp = L"TODO ISO 1900-01-01T00:00:00";
+      #endif
+      *ppszBuf = _wcsdup((LPCWSTR)strTemp);
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
+      break;
+      }
+
+    case VT_BSTR: //OLE Automation string
+      {
+      *ppszBuf = _wcsdup((LPWSTR)varIn.bstrVal);
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
+      break;
+      }
+
+    case VT_DISPATCH: //IDispatch*
+      {
+      *ppszBuf = (LPWSTR)malloc((INT32_LEN + 1 + 1) * sizeof(wchar_t));
+      if (*ppszBuf != NULL)
+        {
+        *ppszBuf[0] = L'H'; //Fix me
+        lError = _itow_s((int32_t)(varIn.pdispVal), ppszBuf[1], INT32_LEN + 1, 16);
+        }
+      else
+        lError = ERROR_NOT_ENOUGH_MEMORY;
+      break;
+      }
+
+    case VT_ERROR: //error code SCODE
+      {
+      *ppszBuf = (LPWSTR)malloc((INT32_LEN + 1) * sizeof(wchar_t));
+      if (*ppszBuf != NULL)
+        {
+        lError = _itow_s((int32_t)varIn.scode, *ppszBuf, INT32_LEN + 1, 10);
+        }
+      else
+        lError = ERROR_NOT_ENOUGH_MEMORY;
+
+      #ifdef _DEBUG
+        SCODE errDbg = varIn.scode;
+        TRACE1(_T("  VT_ERROR error = 0x%8.0x"), errDbg);
+      #endif
+
+      break;
+      }
+
+     case VT_BOOL: //boolean as short int where true=-1 and false=0
+      {
+      *ppszBuf = (LPWSTR)malloc((1 + 1) * sizeof(wchar_t));
+      if (*ppszBuf != NULL)
+        {
+        if (varIn.boolVal == 0)
+          *ppszBuf[0] = L'0'; //Fix me
+        else
+          *ppszBuf[0] = L'1'; //Fix me
+       *ppszBuf[1] = L'\0';
+        }
+      else
+        lError = ERROR_NOT_ENOUGH_MEMORY;
+      break;
+      }
+
+    case VT_VARIANT: //VARIANT* pvarVal
+      {
+      if (varIn.pvarVal == NULL)
+        {
+        *ppszBuf = (LPWSTR)malloc((2 + 1) * sizeof(wchar_t));
+        if (*ppszBuf != NULL)
+          {
+          *ppszBuf[0] = L'H'; //Fix me
+          *ppszBuf[1] = L'0'; //Fix me
+          *ppszBuf[2] = L'\0';
+          }
+        else
+          lError = ERROR_NOT_ENOUGH_MEMORY;
+        }
+      else
+        {
+        const int SANITY_CHECK = 5;
+        static int iSanity = 0;
+        if (iSanity < SANITY_CHECK)
+          {
+          //Recursive loop up to SANITY_CHECK iterations
+          iSanity++;
+          lError = VariantToStringAlloc(*varIn.pvarVal, ppszBuf);
+          }
+        else
+          {
+          lError = ERROR_INVALID_DATA;
+          }
+        }
+
       break;
       }
 
@@ -181,6 +331,9 @@ return E_INVALIDARG;
 #endif //_KVARINATTOSTRING
 /******************************************************************************
  *$Log: KVariantToStr.cpp,v $
+ *Revision 1.3  2010/02/09 22:28:44  ddarko
+ **** empty log message ***
+ *
  *Revision 1.2  2010/02/08 22:30:05  ddarko
  *added double precision
  *
