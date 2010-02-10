@@ -1,5 +1,5 @@
 /*$RCSfile: KStrLimits.h,v $: header file
-  $Revision: 1.3 $ $Date: 2010/02/09 22:28:32 $
+  $Revision: 1.4 $ $Date: 2010/02/10 22:28:23 $
   $Author: ddarko $
 
   Maximum length of decimal number representation
@@ -68,6 +68,10 @@
   //Maximum number of characters required to represent 64-bit fixed point currency value;
   //CY64_MIN = -922 337 203 685 477.5808
   const int CURRENCY_LEN = 21;
+  //Maximum number of characters required to represent 128-bit decimal value
+  //in scientific notification;
+  //DECIMAL_MIN =  -7.922 816 251 426 433 759 354 395 033 5e+28.
+  const int DECIMAL_LEN = 35;
 
 #else
   //Maximum number of characters required to represent signed char value;
@@ -112,6 +116,10 @@
   //Maximum number of characters required to represent 64-bit fixed point currency value;
   //CY64_MIN = -922 337 203 685 477.5808
   #define CURRENCY_LEN    21
+  //Maximum number of characters required to represent 128-bit decimal value
+  //in scientific notification;
+  //DECIMAL_MIN = -7.922 816 251 426 433 759 354 395 033 5e+28.
+  #define DECIMAL_LEN     35
 
 #endif  //__cplusplus
 
@@ -119,6 +127,9 @@
 #endif  //_KSTRLIMITS_H_
 /*****************************************************************************
  * $Log: KStrLimits.h,v $
+ * Revision 1.4  2010/02/10 22:28:23  ddarko
+ * added DECIMAL number
+ *
  * Revision 1.3  2010/02/09 22:28:32  ddarko
  * Added currency struct
  *

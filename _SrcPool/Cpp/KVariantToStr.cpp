@@ -1,5 +1,5 @@
 /*$RCSfile: KVariantToStr.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2010/02/09 22:28:44 $
+  $Revision: 1.4 $ $Date: 2010/02/10 22:28:23 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -166,7 +166,7 @@ if (ppszBuf != NULL)
       break;
       }
 
-    case VT_CY: //currency
+    case VT_CY: //currency 8 byte fixed point
       {
       *ppszBuf = (LPWSTR)malloc((CURRENCY_LEN +1) * sizeof(WCHAR));
       if (*ppszBuf != NULL)
@@ -222,7 +222,7 @@ if (ppszBuf != NULL)
       if (*ppszBuf != NULL)
         {
         *ppszBuf[0] = L'H'; //Fix me
-        lError = _itow_s((int32_t)(varIn.pdispVal), ppszBuf[1], INT32_LEN + 1, 16);
+        lError = _itow_s(static_cast<int32_t>(varIn.pdispVal), ppszBuf[1], INT32_LEN + 1, 16);
         }
       else
         lError = ERROR_NOT_ENOUGH_MEMORY;
@@ -263,36 +263,195 @@ if (ppszBuf != NULL)
       break;
       }
 
-    case VT_VARIANT: //VARIANT* pvarVal
+    case VT_VARIANT: //VARIANT*
       {
-      if (varIn.pvarVal == NULL)
+      *ppszBuf = (LPWSTR)malloc((INT32_LEN + 1 + 1) * sizeof(wchar_t));
+      if (*ppszBuf != NULL)
         {
-        *ppszBuf = (LPWSTR)malloc((2 + 1) * sizeof(wchar_t));
-        if (*ppszBuf != NULL)
-          {
-          *ppszBuf[0] = L'H'; //Fix me
-          *ppszBuf[1] = L'0'; //Fix me
-          *ppszBuf[2] = L'\0';
-          }
-        else
-          lError = ERROR_NOT_ENOUGH_MEMORY;
+        *ppszBuf[0] = L'H'; //Fix me
+        lError = _itow_s((int32_t)(varIn.pvarVal), ppszBuf[1], INT32_LEN + 1, 16);
         }
       else
+        lError = ERROR_NOT_ENOUGH_MEMORY;
+      break;
+      }
+
+    case VT_UNKNOWN: //IUnknown*
+      {
+      *ppszBuf = (LPWSTR)malloc((INT32_LEN + 1 + 1) * sizeof(wchar_t));
+      if (*ppszBuf != NULL)
         {
-        const int SANITY_CHECK = 5;
-        static int iSanity = 0;
-        if (iSanity < SANITY_CHECK)
+        *ppszBuf[0] = L'H'; //Fix me
+        lError = _itow_s((int32_t)(varIn.ppunkVal), ppszBuf[1], INT32_LEN + 1, 16);
+        }
+      else
+        lError = ERROR_NOT_ENOUGH_MEMORY;
+      break;
+      }
+
+    case VT_DECIMAL: //16 byte decimal number
+      {
+      *ppszBuf = (LPWSTR)malloc((DECIMAL_LEN + 1) * sizeof(WCHAR));
+      if (*ppszBuf != NULL)
+        {
+        ASSERT(STRSAFE_MAX_CCH > (DECIMAL_LEN + 1));
+        if ((varIn.decVal.Lo64 == 0) &&
+            (varIn.decVal.Hi32 == 0) )
           {
-          //Recursive loop up to SANITY_CHECK iterations
-          iSanity++;
-          lError = VariantToStringAlloc(*varIn.pvarVal, ppszBuf);
+          *ppszBuf[0] = L'0'; //Fix me
+          *ppszBuf[1] = L'\0';
           }
         else
           {
-          lError = ERROR_INVALID_DATA;
+          lError = VarBstrFromDec(&(static_cast <VARIANT>(varIn)).decVal,
+                                  LOCALE_USER_DEFAULT,
+                                  0, //flags
+                                  (BSTR*)*ppszBuf
+                                 );
+          //TODO: requires 96bit integer 2 string conversion FixMe
+//          lError = StringCbPrintfW(*ppszBuf, (DECIMAL_LEN +1) * sizeof(WCHAR), L"Fix me%d.%d%I64dE%d",
+//                varIn.decVal.Hi32 / 100000 * (char)varIn.decVal.sign,
+//                varIn.decVal.Hi32 % 100000,
+//                (__int64)varIn.decVal.Hi32,
+//                varIn.decVal.scale
+//                ); //TODO: replace Win API
           }
         }
+      break;
+      }
 
+    case VT_RECORD: //user defined type
+      {
+      break;
+      }
+
+    case VT_I1: //signed char
+      {
+      break;
+      }
+
+    case VT_UI1: //unsigned char
+      {
+      break;
+      }
+
+    case VT_UI2: //unsigned short
+      {
+      break;
+      }
+
+    case VT_UI4: //unsigned short
+      {
+      break;
+      }
+
+    case VT_I8: //signed 64-bit int
+      {
+      break;
+      }
+
+    case VT_UI8: //unsigned 64-bit int
+      {
+      break;
+      }
+
+    case VT_INT: //signed machine int
+      {
+      break;
+      }
+
+    case VT_UINT: //unsigned machine int
+      {
+      break;
+      }
+
+    case VT_VOID: //C style void
+      {
+      break;
+      }
+
+    case VT_HRESULT: //Standard return type
+      {
+      break;
+      }
+
+    case VT_PTR: //pointer type
+      {
+      break;
+      }
+
+    case VT_SAFEARRAY: //(use VT_ARRAY in VARIANT)
+      {
+      break;
+      }
+
+    case VT_CARRAY: //C style array
+      {
+      break;
+      }
+
+    case VT_USERDEFINED: //user defined type
+      {
+      break;
+      }
+
+    case VT_LPSTR: //null terminated string
+      {
+      break;
+      }
+
+    case VT_LPWSTR: //wide null terminated string
+      {
+      break;
+      }
+
+    case VT_FILETIME: //FILETIME
+      {
+      break;
+      }
+
+    case VT_BLOB: //Length prefixed bytes
+      {
+      break;
+      }
+
+    case VT_STREAM: //Name of the stream follows
+      {
+      break;
+      }
+
+    case VT_STORAGE: //Name of the storage follows
+      {
+      break;
+      }
+
+    case VT_STREAMED_OBJECT: //Stream contains an object
+      {
+      break;
+      }
+
+    case VT_STORED_OBJECT: //Storage contains an object
+      {
+      break;
+      }
+
+    case VT_BLOB_OBJECT: // Blob contains an object
+      {
+      break;
+      }
+
+    case VT_CF: //Clipboard format
+      {
+      break;
+      }
+
+    case VT_CLSID: // Class ID
+      {
+      break;
+      }
+
+    case VT_VERSIONED_STREAM: //Stream with a GUID version
+      {
       break;
       }
 
@@ -300,7 +459,7 @@ if (ppszBuf != NULL)
       *ppszBuf = _wcsdup(L"<unknown>");
       lError = E_FAIL;
     }
-  }
+ }
 else
   {
   lError = E_INVALIDARG;
@@ -331,6 +490,9 @@ return E_INVALIDARG;
 #endif //_KVARINATTOSTRING
 /******************************************************************************
  *$Log: KVariantToStr.cpp,v $
+ *Revision 1.4  2010/02/10 22:28:23  ddarko
+ *added DECIMAL number
+ *
  *Revision 1.3  2010/02/09 22:28:44  ddarko
  **** empty log message ***
  *
@@ -393,6 +555,12 @@ return E_INVALIDARG;
  *    INT *          VT_BYREF|VT_INT
  *    UINT *         VT_BYREF|VT_UINT
  *  }
+ *
+ * VT_RECORD        struct __tagBRECORD
+ *                    {
+ *                    PVOID        pvRecord;
+ *                    IRecordInfo* pRecInfo;
+ *                    } __VARIANT_NAME_4;
  */
 
 
@@ -405,50 +573,54 @@ return E_INVALIDARG;
  * * [S] - may appear in a Safe Array
  *
  *
- *  VT_EMPTY            [V]   [P]     nothing
- *  VT_NULL             [V]   [P]     SQL style Null
- *  VT_I2               [V][T][P][S]  2 byte signed int
- *  VT_I4               [V][T][P][S]  4 byte signed int
- *  VT_R4               [V][T][P][S]  4 byte real
- *  VT_R8               [V][T][P][S]  8 byte real
- *  VT_CY               [V][T][P][S]  currency
- *  VT_DATE             [V][T][P][S]  date
- *  VT_BSTR             [V][T][P][S]  OLE Automation string
- *  VT_DISPATCH         [V][T][P][S]  IDispatch *
- *  VT_ERROR            [V][T][P][S]  SCODE
- *  VT_BOOL             [V][T][P][S]  True=-1, False=0
- *  VT_VARIANT          [V][T][P][S]  VARIANT *
- *  VT_UNKNOWN          [V][T]   [S]  IUnknown *
- *  VT_DECIMAL          [V][T]   [S]  16 byte fixed point
- *  VT_RECORD           [V]   [P][S]  user defined type
- *  VT_I1               [V][T][P][s]  signed char
- *  VT_UI1              [V][T][P][S]  unsigned char
- *  VT_UI2              [V][T][P][S]  unsigned short
- *  VT_UI4              [V][T][P][S]  unsigned short
- *  VT_I8                  [T][P]     signed 64-bit int
- *  VT_UI8                 [T][P]     unsigned 64-bit int
- *  VT_INT              [V][T][P][S]  signed machine int
- *  VT_UINT             [V][T]   [S]  unsigned machine int
- *  VT_VOID                [T]        C style void
- *  VT_HRESULT             [T]        Standard return type
- *  VT_PTR                 [T]        pointer type
- *  VT_SAFEARRAY           [T]        (use VT_ARRAY in VARIANT)
- *  VT_CARRAY              [T]        C style array
- *  VT_USERDEFINED         [T]        user defined type
- *  VT_LPSTR               [T][P]     null terminated string
- *  VT_LPWSTR              [T][P]     wide null terminated string
- *  VT_FILETIME               [P]     FILETIME
- *  VT_BLOB                   [P]     Length prefixed bytes
- *  VT_STREAM                 [P]     Name of the stream follows
- *  VT_STORAGE                [P]     Name of the storage follows
- *  VT_STREAMED_OBJECT        [P]     Stream contains an object
- *  VT_STORED_OBJECT          [P]     Storage contains an object
- *  VT_VERSIONED_STREAM       [P]     Stream with a GUID version
- *  VT_BLOB_OBJECT            [P]     Blob contains an object
- *  VT_CF                     [P]     Clipboard format
- *  VT_CLSID                  [P]     A Class ID
- *  VT_VECTOR                 [P]     simple counted array
- *  VT_ARRAY            [V]           SAFEARRAY*
- *  VT_BYREF            [V]           void* for local use
- *  VT_BSTR_BLOB                      Reserved for system use
+ *      0 VT_EMPTY            [V]   [P]     nothing
+ *      1 VT_NULL             [V]   [P]     SQL style Null
+ *      2 VT_I2               [V][T][P][S]  2 byte signed int
+ *      3 VT_I4               [V][T][P][S]  4 byte signed int
+ *      4 VT_R4               [V][T][P][S]  4 byte real
+ *      5 VT_R8               [V][T][P][S]  8 byte real
+ *      6 VT_CY               [V][T][P][S]  currency
+ *      7 VT_DATE             [V][T][P][S]  date
+ *      8 VT_BSTR             [V][T][P][S]  OLE Automation string
+ *      9 VT_DISPATCH         [V][T][P][S]  IDispatch *
+ *     10 VT_ERROR            [V][T][P][S]  SCODE
+ *     11 VT_BOOL             [V][T][P][S]  True=-1, False=0
+ *     12 VT_VARIANT          [V][T][P][S]  VARIANT *
+ *     13 VT_UNKNOWN          [V][T]   [S]  IUnknown *
+ *     14 VT_DECIMAL          [V][T]   [S]  16 byte fixed point
+ *        VT_RECORD           [V]   [P][S]  user defined type
+ *     16 VT_I1               [V][T][P][s]  signed char
+ *     17 VT_UI1              [V][T][P][S]  unsigned char
+ *     18 VT_UI2              [V][T][P][S]  unsigned short
+ *     19 VT_UI4              [V][T][P][S]  unsigned short
+ *     20 VT_I8                  [T][P]     signed 64-bit int
+ *     21 VT_UI8                 [T][P]     unsigned 64-bit int
+ *     22 VT_INT              [V][T][P][S]  signed machine int
+ *     23 VT_UINT             [V][T]   [S]  unsigned machine int
+ *     24 VT_VOID                [T]        C style void
+ *     25 VT_HRESULT             [T]        Standard return type
+ *     26 VT_PTR                 [T]        pointer type
+ *     27 VT_SAFEARRAY           [T]        (use VT_ARRAY in VARIANT)
+ *     28 VT_CARRAY              [T]        C style array
+ *     29 VT_USERDEFINED         [T]        user defined type
+ *     30 VT_LPSTR               [T][P]     null terminated string
+ *     31 VT_LPWSTR              [T][P]     wide null terminated string
+ *     64 VT_FILETIME               [P]     FILETIME
+ *     65 VT_BLOB                   [P]     Length prefixed bytes
+ *     66 VT_STREAM                 [P]     Name of the stream follows
+ *     67 VT_STORAGE                [P]     Name of the storage follows
+ *     68 VT_STREAMED_OBJECT        [P]     Stream contains an object
+ *     69 VT_STORED_OBJECT          [P]     Storage contains an object
+ *     70 VT_BLOB_OBJECT            [P]     Blob contains an object
+ *     71 VT_CF                     [P]     Clipboard format
+ *     72 VT_CLSID                  [P]     A Class ID
+ *        VT_VERSIONED_STREAM       [P]     Stream with a GUID version
+ * 0x1000 VT_VECTOR                 [P]     simple counted array
+ * 0x2000 VT_ARRAY            [V]           SAFEARRAY*
+ * 0x4000 VT_BYREF            [V]           void* for local use
+ * 0x8000 VT_RESERVED
+ * 0xFFFF VT_ILLEGAL
+ *        VT_BSTR_BLOB                      Reserved for system use
+ * 0X0FFF VT_ILLEGALMASKED
+ * 0X0FFF VT_TYPEMASK
  */

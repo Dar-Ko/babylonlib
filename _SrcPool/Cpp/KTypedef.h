@@ -197,7 +197,7 @@
 
   #endif /*Microsoft Visual C/C++ 1.52 or less            */
 
-  /*16-bit CURRENCY definition 
+  /*64-bit CURRENCY definition 
     See also: <variant.h>
    */
   #ifndef _tagCY_DEFINED
@@ -224,7 +224,43 @@
       typedef tagCY CY;       /*Fixed point currency value. See also: tagCY, CURRENCY.*/
       typedef tagCY CURRENCY; /*Fixed point currency value. See also: tagCY, CY.*/
     #endif /*_VARIANT_H_*/
+    #define tagCY tagCY
   #endif _tagCY_DEFINED
+
+  /*128-bit DECIMAL definition 
+    See also: <wtypes.h>
+   */
+  #if defined( DECIMAL_NEG ) || defined (_tagDEC_DEFINED)
+    #define tagDEC tagDEC
+  #endif
+  #ifndef tagDEC
+    #define DECIMAL_NEG ((BYTE)0x80) //Negative sign flag used with DECIMAL values
+    #define _tagDEC_DEFINED
+    /*A signed decimal number stored as a 128-bit value where first 96 bits 
+      (12 bytes) represents integer part scaled by a variable power of 10 and
+      last 32 bits (4 bytes) are exponent of 1/10 in the range [0, 28].
+      The range of the decimal number is 
+      +/-79 228 162 514 264 337 593 543 950 335.0.
+     */
+    struct tagDEC
+      {
+      unsigned short wReserved;
+      unsigned char scale; //number of decimal places for the number in the range [0, 28]
+      unsigned char sign;  //sign of number 0 for positive numbers or 
+                           //DECIMAL_NEG for negative numbers
+      unisgned long  Hi32;
+      #ifdef _MAC
+        unisgned long Mid32;
+        unisgned long Lo32;
+      #else
+        unisgned long Lo32;
+        unisgned long Mid32;
+      #endif
+      };
+    typedef tagDEC DECIMAL;
+    #define tagDEC tagDEC
+  #endif //tagDEC
+
 #endif /* _DOS || DOS || WIN || WIN16*/
 
 
@@ -274,19 +310,19 @@
 
   #endif /*_MSC_VER                                                          */
 
-  /*32-bit CURRENCY definition 
+  /*64-bit CURRENCY definition 
     See also: <oaidl.h>
    */
   #ifndef _tagCY_DEFINED
     #define _tagCY_DEFINED
     #define _CY_DEFINED
-      /*A currency value stored as a 64-bit long, two's-complement integer
-        value scaled by 10 000 to give a fixed-point number with 15 digits
-        to the left of the decimal point and 4 digits to the right.
-        The range of currency is [-922 337 203 685 477.5808, 922 337 203 685 477.5807].
+    /*A currency value stored as a 64-bit long, two's-complement integer
+      value scaled by 10 000 to give a fixed-point number with 15 digits
+      to the left of the decimal point and 4 digits to the right.
+      The range of currency is [-922 337 203 685 477.5808, 922 337 203 685 477.5807].
 
-        See also: CY, CURRENCY.
-       */
+      See also: CY, CURRENCY.
+     */
     union tagCY
       {
       struct
@@ -303,7 +339,56 @@
       };
     typedef tagCY CY;       /*Fixed point currency value. See also: tagCY, CURRENCY.*/
     typedef tagCY CURRENCY; /*Fixed point currency value. See also: tagCY, CY.*/
+    #define tagCY tagCY
   #endif _tagCY_DEFINED
+
+  /*128-bit DECIMAL definition 
+    See also: <oledb.h>
+   */
+  #if defined( DECIMAL_NEG ) || defined (_tagDEC_DEFINED)
+    #define tagDEC tagDEC
+  #endif
+  #ifndef tagDEC
+    #define DECIMAL_NEG ((BYTE)0x80) //Negative sign flag used with DECIMAL values
+    #define _tagDEC_DEFINED
+    /*A signed decimal number stored as a 128-bit value where first 96 bits 
+      (12 bytes) represents integer part scaled by a variable power of 10 and
+      last 32 bits (4 bytes) are exponent of 1/10 in the range [0, 28].
+      The range of the decimal number is 
+      +/-79 228 162 514 264 337 593 543 950 335.0.
+     */
+  struct tagDEC
+    {
+    USHORT wReserved;
+    union
+      {
+      struct
+        {
+        BYTE scale; //number of decimal places for the number in the range [0, 28]
+        BYTE sign;  //sign of number 0 for positive numbers or 
+                    //DECIMAL_NEG for negative numbers
+        };
+      USHORT signscale;
+      };
+    ULONG Hi32;
+    union
+      {
+      struct
+        {
+        #ifdef _MAC
+          ULONG Mid32;
+          ULONG Lo32;
+        #else
+          ULONG Lo32;
+          ULONG Mid32;
+        #endif
+        };
+      ULONGLONG Lo64;
+      };
+    };
+    typedef tagDEC DECIMAL;
+    #define tagDEC tagDEC
+  #endif //tagDEC
 
 #else  /*!_WIN32  */
 
