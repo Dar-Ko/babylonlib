@@ -1,5 +1,5 @@
 /*$RCSfile: KVariantToStr.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2010/02/10 22:28:23 $
+  $Revision: 1.5 $ $Date: 2010/02/11 22:41:15 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -75,6 +75,22 @@
 #include "KTChar.h" /*LPCTSTR typedef*/
 #include "KStrLimits.h" //number representation limits
 
+///////////////////////////////////////////////////////////////////////////////
+// Variant access macros. See also: <OleAuto.h>
+
+#ifndef V_ISBYREF
+  //Returns true if VARIANT is a reference to an object
+  #define V_ISBYREF(pvtVar)     ((pvtVar->pvtVar & VT_BYREF) == VT_BYREF)
+#endif
+#ifndef V_ISARRAY
+  //Returns true if VARIANT is an array of objects
+  #define V_ISARRAY(pvtVar)     ((pvtVar->pvtVar & VT_ARRAY) ==VT_ARRAY)
+#endif
+#ifndef V_ISVECTOR
+  //Returns true if VARIANT is an vector of objects
+  #define V_ISVECTOR(pvtVar)    ((pvtVar->pvtVar & VT_VECTOR) == VT_VECTOR)
+#endif
+
 extern "C" long VariantToStringAlloc(const VARIANT* const varIn, wchar_t** ppszBuf);
 
 //-----------------------------------------------------------------------------
@@ -89,7 +105,7 @@ extern "C" long VariantToStringAlloc(const VARIANT* const varIn, wchar_t** ppszB
   VariantToStringAlloc, propvarutil.h
   (http://msdn.microsoft.com/en-us/library/bb776617%28VS.85%29.aspx);
   Microsoft MFC Library: COleVariant; Microsoft ATL: CComVariant;
-  Microsoft COM Framework: _variant_t, comutil.h;
+  Microsoft COM Framework: _variant_t, comutil.h; V_ISARRAY(), OleAuto.h;
  */
 long VariantToStringAlloc(const VARIANT& varIn, //[in] variant data source.
                           LPWSTR* ppszBuf   //[out] pointer to converted
@@ -199,10 +215,26 @@ if (ppszBuf != NULL)
       {
       #if defined( _USE_MFC )
         CString strTemp = COleDateTime((DATE)varIn.date).Format( L"%Y-%m-%dT%H:%M:%S");
+        //TODO: copy str to the resulting BSTR
+      #elif defined ( _OLEAUTO_H_ )
+        //Note: Requiress Oleaut32.dll (for 32-bit systems) or Ole2disp.dll
+        //(for 16-bit systems) 
+         
+        *ppszBuf = (LPWSTR)malloc((255 + 1) * sizeof(WCHAR));
+        if (*ppszBuf != NULL)
+          {
+          (*ppszBuf)[255] = L'\0';
+          lError = VarBstrFromDate((static_cast <VARIANT>(varIn)).date,
+                                    LOCALE_USER_DEFAULT,
+                                    VAR_FOURDIGITYEARS, //flags
+                                    (BSTR*)*ppszBuf
+                                   );
+          ASSERT((*ppszBuf)[255] == L'\0'); //Check for the overflow
+          }
       #else
-        LPWSTR strTemp = L"TODO ISO 1900-01-01T00:00:00";
+        LPWSTR strTemp = L"ISO 1900-01-01T00:00:00";
+        *ppszBuf = _wcsdup((LPCWSTR)strTemp);
       #endif
-      *ppszBuf = _wcsdup((LPCWSTR)strTemp);
       if (*ppszBuf == NULL)
         lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
@@ -218,12 +250,27 @@ if (ppszBuf != NULL)
 
     case VT_DISPATCH: //IDispatch*
       {
-      *ppszBuf = (LPWSTR)malloc((INT32_LEN + 1 + 1) * sizeof(wchar_t));
-      if (*ppszBuf != NULL)
-        {
-        *ppszBuf[0] = L'H'; //Fix me
-        lError = _itow_s(static_cast<int32_t>(varIn.pdispVal), ppszBuf[1], INT32_LEN + 1, 16);
-        }
+      #if !defined( _OLEAUTO_H_ )
+        *ppszBuf = (LPWSTR)malloc((INT32_LEN + 1 + 1) * sizeof(wchar_t));
+        if (*ppszBuf != NULL)
+          {
+          *ppszBuf[0] = L'H'; //Fix me
+          lError = _itow_s((int)(int64_t)(varIn.pdispVal), ppszBuf[1], INT32_LEN + 1, 16);
+          }
+      #else
+        *ppszBuf = (LPWSTR)malloc((255 + 1) * sizeof(WCHAR));
+        if (*ppszBuf != NULL)
+          {
+          (*ppszBuf)[255] = L'\0';
+          //Converts the default property of an IDispatch instance to a BSTR value.
+          lError = VarBstrFromDisp((static_cast <VARIANT>(varIn)).pdispVal,
+                                    LOCALE_USER_DEFAULT,
+                                    0, //flags
+                                    (BSTR*)*ppszBuf
+                                   );
+          ASSERT((*ppszBuf)[255] == L'\0'); //Check for the overflow
+          }
+      #endif
       else
         lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
@@ -269,7 +316,7 @@ if (ppszBuf != NULL)
       if (*ppszBuf != NULL)
         {
         *ppszBuf[0] = L'H'; //Fix me
-        lError = _itow_s((int32_t)(varIn.pvarVal), ppszBuf[1], INT32_LEN + 1, 16);
+        lError = _itow_s((int)(int64_t)(varIn.pvarVal), ppszBuf[1], INT32_LEN + 1, 16);
         }
       else
         lError = ERROR_NOT_ENOUGH_MEMORY;
@@ -282,7 +329,7 @@ if (ppszBuf != NULL)
       if (*ppszBuf != NULL)
         {
         *ppszBuf[0] = L'H'; //Fix me
-        lError = _itow_s((int32_t)(varIn.ppunkVal), ppszBuf[1], INT32_LEN + 1, 16);
+        lError = _itow_s((int)(int64_t)(varIn.ppunkVal), ppszBuf[1], INT32_LEN + 1, 16);
         }
       else
         lError = ERROR_NOT_ENOUGH_MEMORY;
@@ -322,140 +369,231 @@ if (ppszBuf != NULL)
 
     case VT_RECORD: //user defined type
       {
+      *ppszBuf = _wcsdup(L"<VT_RECORD>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_I1: //signed char
       {
+      *ppszBuf = _wcsdup(L"<VT_I1>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_UI1: //unsigned char
       {
+      *ppszBuf = _wcsdup(L"<VT_UI1>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_UI2: //unsigned short
       {
+      *ppszBuf = _wcsdup(L"<VT_UI2>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_UI4: //unsigned short
       {
+      *ppszBuf = _wcsdup(L"<VT_UI4>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_I8: //signed 64-bit int
       {
+      *ppszBuf = _wcsdup(L"<VT_I8>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_UI8: //unsigned 64-bit int
       {
+      *ppszBuf = _wcsdup(L"<VT_UI8>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_INT: //signed machine int
       {
+      *ppszBuf = _wcsdup(L"<VT_INT>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_UINT: //unsigned machine int
       {
+      *ppszBuf = _wcsdup(L"<VT_UINT>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_VOID: //C style void
       {
+      *ppszBuf = _wcsdup(L"<VT_VOID>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_HRESULT: //Standard return type
       {
+      *ppszBuf = _wcsdup(L"<VT_HRESULT>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_PTR: //pointer type
       {
+      *ppszBuf = _wcsdup(L"<VT_PTR>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
-    case VT_SAFEARRAY: //(use VT_ARRAY in VARIANT)
+    case VT_SAFEARRAY: //TYPEDESC array (use VT_ARRAY in VARIANT)
       {
+      *ppszBuf = _wcsdup(L"<VT_SAFEARRAY>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_CARRAY: //C style array
       {
+      *ppszBuf = _wcsdup(L"<VT_CARRAY>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_USERDEFINED: //user defined type
       {
+      *ppszBuf = _wcsdup(L"<VT_USERDEFINED>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_LPSTR: //null terminated string
       {
+      *ppszBuf = _wcsdup(L"<VT_LPSTR>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_LPWSTR: //wide null terminated string
       {
+      *ppszBuf = _wcsdup(L"<VT_LPWSTR>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_FILETIME: //FILETIME
       {
+      *ppszBuf = _wcsdup(L"<VT_FILETIME>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_BLOB: //Length prefixed bytes
       {
+      *ppszBuf = _wcsdup(L"<VT_BLOB>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_STREAM: //Name of the stream follows
       {
+      *ppszBuf = _wcsdup(L"<VT_STREAM>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_STORAGE: //Name of the storage follows
       {
+      *ppszBuf = _wcsdup(L"<VT_STORAGE>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_STREAMED_OBJECT: //Stream contains an object
       {
+      *ppszBuf = _wcsdup(L"<VT_STREAMED_OBJECT>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_STORED_OBJECT: //Storage contains an object
       {
+      *ppszBuf = _wcsdup(L"<VT_STORED_OBJECT>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_BLOB_OBJECT: // Blob contains an object
       {
+      *ppszBuf = _wcsdup(L"<VT_BLOB_OBJECT>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_CF: //Clipboard format
       {
+      *ppszBuf = _wcsdup(L"<VT_CF>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_CLSID: // Class ID
       {
+      *ppszBuf = _wcsdup(L"<VT_CLSID>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     case VT_VERSIONED_STREAM: //Stream with a GUID version
       {
+      *ppszBuf = _wcsdup(L"<VT_VERSIONED_STREAM>");
+      if (*ppszBuf == NULL)
+        lError = ERROR_NOT_ENOUGH_MEMORY;
       break;
       }
 
     default:
+      if(V_ISARRAY(&varIn))
+        TRACE(_T("  V_ISARRAY\n"));
+        //TODO;
+      if(V_ISVECTOR(&varIn))
+        TRACE(_T("  V_ISVECTOR\n"));
+        //TODO;
+      if(V_ISBYREF(&varIn))
+        TRACE(_T("  V_ISBYREF\n"));
+        //TODO;
+
       *ppszBuf = _wcsdup(L"<unknown>");
       lError = E_FAIL;
     }
@@ -490,6 +628,9 @@ return E_INVALIDARG;
 #endif //_KVARINATTOSTRING
 /******************************************************************************
  *$Log: KVariantToStr.cpp,v $
+ *Revision 1.5  2010/02/11 22:41:15  ddarko
+ **** empty log message ***
+ *
  *Revision 1.4  2010/02/10 22:28:23  ddarko
  *added DECIMAL number
  *

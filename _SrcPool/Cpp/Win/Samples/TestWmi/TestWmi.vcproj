@@ -217,6 +217,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\KVarBstrFromStr.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\KVariantToStr.cpp"
 				>
 				<FileConfiguration
