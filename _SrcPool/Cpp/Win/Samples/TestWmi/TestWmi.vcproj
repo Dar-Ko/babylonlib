@@ -273,6 +273,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Samples\Utilities\Src\TestVariant.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Src\TestWmi.cpp"
 				>
 			</File>

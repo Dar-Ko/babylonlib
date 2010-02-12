@@ -1,4 +1,4 @@
-/*$Workfile: TestCommonUtilities.cpp$: implementation file
+/*$RCSfile: TestCommonUtilities.cpp$: implementation file
   $Revision: 2$ $Date: 2007-02-02 13:30:41$
   $Author: Darko Kolakovic$
 
@@ -28,6 +28,7 @@
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TestBeep();
 extern bool TestGuid();
+extern bool TestVariant();
 
 
 //-----------------------------------------------------------------------------
@@ -44,7 +45,8 @@ TsWriteToViewLn(_T(""));
 PFUNC_TEST funcTest[] =
   {
   TestBeep,
-  TestGuid
+  TestGuid,
+  TestVariant
   };
 
 int iTestCount = 0;

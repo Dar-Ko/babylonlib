@@ -1,5 +1,5 @@
 /*$RCSfile: TestCommonWmi.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2010/01/22 22:26:06 $
+  $Revision: 1.3 $ $Date: 2010/02/12 22:49:04 $
   $Author: ddarko $
 
   Test WMI routines.
@@ -11,9 +11,11 @@
 #include "stdafx.h"
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
+extern bool TestVariant();
 #ifdef _WIN32
   extern bool TestWmi();
 #endif
+
 
 int TestCommonWmi(int argc, TCHAR* argv[]);
 int TestCommonWmi();
@@ -51,6 +53,7 @@ TsWriteToViewLn(_T(""));
 
 PFUNC_TEST funcTest[] =
   {
+  TestVariant,
   #ifdef _WIN32
     TestWmi
   #else
@@ -84,6 +87,9 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestCommonWmi.cpp,v $
+ * Revision 1.3  2010/02/12 22:49:04  ddarko
+ * TestVariant
+ *
  * Revision 1.2  2010/01/22 22:26:06  ddarko
  * Added common output
  *

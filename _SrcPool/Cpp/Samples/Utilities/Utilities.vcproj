@@ -841,6 +841,14 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\KVarBstrFromStr.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\KVariantToStr.cpp"
+				>
+			</File>
+			<File
 				RelativePath="Src\main.cpp"
 				>
 				<FileConfiguration
@@ -1083,6 +1091,10 @@
 						BrowseInformation="1"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\TestVariant.cpp"
+				>
 			</File>
 			<File
 				RelativePath="..\Common\Src\TsWriteTxt.cpp"
