@@ -1,5 +1,5 @@
 /*$RCSfile: KVariantToStr.cpp,v $: implementation file
-  $Revision: 1.5 $ $Date: 2010/02/11 22:41:15 $
+  $Revision: 1.6 $ $Date: 2010/02/12 22:46:07 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -61,7 +61,7 @@
 
   HRESULT VariantToStringAlloc(REFVARIANT varIn, PWSTR* ppszBuf);
   //extern HRESULT VariantToString(REFVARIANT varIn, PWSTR pszBuf, UINT cchBuf);
-  #endif //~_USE_WINSEARCH
+  #endif //_USE_WINSEARCH
 #else //Other than Windows 32b
   #define _KVARINATTOSTRING 20100202
 #endif
@@ -215,22 +215,18 @@ if (ppszBuf != NULL)
       {
       #if defined( _USE_MFC )
         CString strTemp = COleDateTime((DATE)varIn.date).Format( L"%Y-%m-%dT%H:%M:%S");
-        //TODO: copy str to the resulting BSTR
+        *ppszBuf = _wcsdup((LPCWSTR)strTemp);
       #elif defined ( _OLEAUTO_H_ )
         //Note: Requiress Oleaut32.dll (for 32-bit systems) or Ole2disp.dll
         //(for 16-bit systems) 
-         
-        *ppszBuf = (LPWSTR)malloc((255 + 1) * sizeof(WCHAR));
-        if (*ppszBuf != NULL)
-          {
-          (*ppszBuf)[255] = L'\0';
-          lError = VarBstrFromDate((static_cast <VARIANT>(varIn)).date,
-                                    LOCALE_USER_DEFAULT,
-                                    VAR_FOURDIGITYEARS, //flags
-                                    (BSTR*)*ppszBuf
-                                   );
-          ASSERT((*ppszBuf)[255] == L'\0'); //Check for the overflow
-          }
+        LPWSTR bstrTemp = NULL;
+        lError = VarBstrFromDate((static_cast <VARIANT>(varIn)).date,
+                                  LOCALE_USER_DEFAULT,
+                                  VAR_FOURDIGITYEARS, //flags
+                                  &bstrTemp
+                                 );
+        *ppszBuf = _wcsdup(bstrTemp);
+        SysFreeString(bstrTemp);
       #else
         LPWSTR strTemp = L"ISO 1900-01-01T00:00:00";
         *ppszBuf = _wcsdup((LPCWSTR)strTemp);
@@ -628,6 +624,9 @@ return E_INVALIDARG;
 #endif //_KVARINATTOSTRING
 /******************************************************************************
  *$Log: KVariantToStr.cpp,v $
+ *Revision 1.6  2010/02/12 22:46:07  ddarko
+ *Fixed VT_DATE, VT_BSTR (WIN32)
+ *
  *Revision 1.5  2010/02/11 22:41:15  ddarko
  **** empty log message ***
  *
