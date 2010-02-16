@@ -197,7 +197,7 @@
 
   #endif /*Microsoft Visual C/C++ 1.52 or less            */
 
-  /*64-bit CURRENCY definition 
+  /*64-bit CURRENCY definition
     See also: <variant.h>
    */
   #ifndef _tagCY_DEFINED
@@ -227,7 +227,7 @@
     #define tagCY tagCY
   #endif _tagCY_DEFINED
 
-  /*128-bit DECIMAL definition 
+  /*128-bit DECIMAL definition
     See also: <wtypes.h>
    */
   #if defined( DECIMAL_NEG ) || defined (_tagDEC_DEFINED)
@@ -236,19 +236,19 @@
   #ifndef tagDEC
     #define DECIMAL_NEG ((BYTE)0x80) //Negative sign flag used with DECIMAL values
     #define _tagDEC_DEFINED
-    /*A signed decimal number stored as a 128-bit value where first 96 bits 
+    /*A signed decimal number stored as a 128-bit value where first 96 bits
       (12 bytes) represents integer part scaled by a variable power of 10 and
       last 32 bits (4 bytes) are exponent of 1/10 in the range [0, 28].
-      The range of the decimal number is 
+      The range of the decimal number is
       +/-79 228 162 514 264 337 593 543 950 335.0.
      */
     struct tagDEC
       {
       unsigned short wReserved;
       unsigned char scale; //number of decimal places for the number in the range [0, 28]
-      unsigned char sign;  //sign of number 0 for positive numbers or 
+      unsigned char sign;  //sign of number 0 for positive numbers or
                            //DECIMAL_NEG for negative numbers
-      unisgned long  Hi32;
+     unsigned long  Hi32;
       #ifdef _MAC
         unisgned long Mid32;
         unisgned long Lo32;
@@ -310,7 +310,7 @@
 
   #endif /*_MSC_VER                                                          */
 
-  /*64-bit CURRENCY definition 
+  /*64-bit CURRENCY definition
     See also: <oaidl.h>
    */
   #ifndef _tagCY_DEFINED
@@ -342,7 +342,7 @@
     #define tagCY tagCY
   #endif _tagCY_DEFINED
 
-  /*128-bit DECIMAL definition 
+  /*128-bit DECIMAL definition
     See also: <oledb.h>
    */
   #if defined( DECIMAL_NEG ) || defined (_tagDEC_DEFINED)
@@ -351,10 +351,10 @@
   #ifndef tagDEC
     #define DECIMAL_NEG ((BYTE)0x80) //Negative sign flag used with DECIMAL values
     #define _tagDEC_DEFINED
-    /*A signed decimal number stored as a 128-bit value where first 96 bits 
+    /*A signed decimal number stored as a 128-bit value where first 96 bits
       (12 bytes) represents integer part scaled by a variable power of 10 and
       last 32 bits (4 bytes) are exponent of 1/10 in the range [0, 28].
-      The range of the decimal number is 
+      The range of the decimal number is
       +/-79 228 162 514 264 337 593 543 950 335.0.
      */
   struct tagDEC
@@ -365,7 +365,7 @@
       struct
         {
         BYTE scale; //number of decimal places for the number in the range [0, 28]
-        BYTE sign;  //sign of number 0 for positive numbers or 
+        BYTE sign;  //sign of number 0 for positive numbers or
                     //DECIMAL_NEG for negative numbers
         };
       USHORT signscale;
