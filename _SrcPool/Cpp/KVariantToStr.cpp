@@ -1,5 +1,5 @@
 /*$RCSfile: KVariantToStr.cpp,v $: implementation file
-  $Revision: 1.6 $ $Date: 2010/02/12 22:46:07 $
+  $Revision: 1.7 $ $Date: 2010/02/16 22:24:26 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -189,8 +189,11 @@ if (ppszBuf != NULL)
         {
         ASSERT(STRSAFE_MAX_CCH > (CURRENCY_LEN +1));
         if (varIn.cyVal.int64 != 0)
+          {
+          const int iSign = (varIn.cyVal.Hi < 0) ?  -1 : 1;
           lError = StringCbPrintfW(*ppszBuf, (CURRENCY_LEN +1) * sizeof(WCHAR), L"%I64d.%I64d",
-                (__int64)varIn.cyVal.int64 / 10000, (__int64)varIn.cyVal.int64 % 10000 ); //TODO: replace Win API
+                (__int64)varIn.cyVal.int64 / 10000, ((__int64)varIn.cyVal.int64 % 10000) * iSign); //TODO: replace Win API
+          }
         else
           {
           *ppszBuf[0] = L'0'; //Fix me
@@ -218,7 +221,7 @@ if (ppszBuf != NULL)
         *ppszBuf = _wcsdup((LPCWSTR)strTemp);
       #elif defined ( _OLEAUTO_H_ )
         //Note: Requiress Oleaut32.dll (for 32-bit systems) or Ole2disp.dll
-        //(for 16-bit systems) 
+        //(for 16-bit systems)
         LPWSTR bstrTemp = NULL;
         lError = VarBstrFromDate((static_cast <VARIANT>(varIn)).date,
                                   LOCALE_USER_DEFAULT,
@@ -238,9 +241,14 @@ if (ppszBuf != NULL)
 
     case VT_BSTR: //OLE Automation string
       {
-      *ppszBuf = _wcsdup((LPWSTR)varIn.bstrVal);
-      if (*ppszBuf == NULL)
-        lError = ERROR_NOT_ENOUGH_MEMORY;
+      if ((LPWSTR)varIn.bstrVal != NULL)
+        {
+        *ppszBuf = _wcsdup((LPWSTR)varIn.bstrVal);
+        if (*ppszBuf == NULL)
+          lError = ERROR_NOT_ENOUGH_MEMORY;
+        }
+      else
+        lError = DISP_E_TYPEMISMATCH;
       break;
       }
 
@@ -259,6 +267,8 @@ if (ppszBuf != NULL)
           {
           (*ppszBuf)[255] = L'\0';
           //Converts the default property of an IDispatch instance to a BSTR value.
+          //Note: if pdispVal == NULL, error DISP_E_TYPEMISMATCH = 0x80020005 is
+          //returned.
           lError = VarBstrFromDisp((static_cast <VARIANT>(varIn)).pdispVal,
                                     LOCALE_USER_DEFAULT,
                                     0, //flags
@@ -284,7 +294,7 @@ if (ppszBuf != NULL)
 
       #ifdef _DEBUG
         SCODE errDbg = varIn.scode;
-        TRACE1(_T("  VT_ERROR error = 0x%8.0x"), errDbg);
+        TRACE1(_T("  VT_ERROR error = 0x%08.0x\n"), errDbg);
       #endif
 
       break;
@@ -296,10 +306,10 @@ if (ppszBuf != NULL)
       if (*ppszBuf != NULL)
         {
         if (varIn.boolVal == 0)
-          *ppszBuf[0] = L'0'; //Fix me
+          (*ppszBuf)[0] = L'0'; //Fix me
         else
-          *ppszBuf[0] = L'1'; //Fix me
-       *ppszBuf[1] = L'\0';
+          (*ppszBuf)[0] = L'1'; //Fix me
+       (*ppszBuf)[1] = L'\0';
         }
       else
         lError = ERROR_NOT_ENOUGH_MEMORY;
@@ -311,8 +321,8 @@ if (ppszBuf != NULL)
       *ppszBuf = (LPWSTR)malloc((INT32_LEN + 1 + 1) * sizeof(wchar_t));
       if (*ppszBuf != NULL)
         {
-        *ppszBuf[0] = L'H'; //Fix me
-        lError = _itow_s((int)(int64_t)(varIn.pvarVal), ppszBuf[1], INT32_LEN + 1, 16);
+        (*ppszBuf)[0] = L'H'; //Fix me
+        lError = _itow_s((int)(int64_t)(varIn.pvarVal), &(*ppszBuf)[1], INT32_LEN + 1, 16);
         }
       else
         lError = ERROR_NOT_ENOUGH_MEMORY;
@@ -324,8 +334,8 @@ if (ppszBuf != NULL)
       *ppszBuf = (LPWSTR)malloc((INT32_LEN + 1 + 1) * sizeof(wchar_t));
       if (*ppszBuf != NULL)
         {
-        *ppszBuf[0] = L'H'; //Fix me
-        lError = _itow_s((int)(int64_t)(varIn.ppunkVal), ppszBuf[1], INT32_LEN + 1, 16);
+        (*ppszBuf)[0] = L'H'; //Fix me
+        lError = _itow_s((int)(int64_t)(varIn.ppunkVal), &(*ppszBuf)[1], INT32_LEN + 1, 16);
         }
       else
         lError = ERROR_NOT_ENOUGH_MEMORY;
@@ -341,14 +351,23 @@ if (ppszBuf != NULL)
         if ((varIn.decVal.Lo64 == 0) &&
             (varIn.decVal.Hi32 == 0) )
           {
-          *ppszBuf[0] = L'0'; //Fix me
-          *ppszBuf[1] = L'\0';
+          (*ppszBuf)[0] = L'0'; //Fix me
+          (*ppszBuf)[1] = L'\0';
           }
         else
           {
-          lError = VarBstrFromDec(&(static_cast <VARIANT>(varIn)).decVal,
-                                  LOCALE_USER_DEFAULT,
-                                  0, //flags
+            VARIANT vtTest;
+   vtTest.vt = VT_DECIMAL;
+   vtTest.decVal.scale = 0x8; //10e-8
+   vtTest.decVal.sign  = DECIMAL_NEG;//
+   vtTest.decVal.Hi32  = 3; //0xF4556677;
+                                      vtTest.decVal.Mid32 = 2;// 0xAABBCCDD;
+                                      vtTest.decVal.Lo32  = 0x08; //10e-8
+
+          lError = VarBstrFromDec(&vtTest.decVal,
+            //&(static_cast <VARIANT>(varIn)).decVal,
+                                  0x0409,// LOCALE_USER_DEFAULT,
+                                  LOCALE_NOUSEROVERRIDE, //flags
                                   (BSTR*)*ppszBuf
                                  );
           //TODO: requires 96bit integer 2 string conversion FixMe
@@ -443,11 +462,21 @@ if (ppszBuf != NULL)
       break;
       }
 
-    case VT_HRESULT: //Standard return type
+    case VT_HRESULT: //Standard return type (SCODE)
       {
-      *ppszBuf = _wcsdup(L"<VT_HRESULT>");
-      if (*ppszBuf == NULL)
+      *ppszBuf = (LPWSTR)malloc((INT32_LEN + 1) * sizeof(wchar_t));
+      if (*ppszBuf != NULL)
+        {
+        lError = _itow_s((int32_t)varIn.scode, *ppszBuf, INT32_LEN + 1, 10);
+        }
+      else
         lError = ERROR_NOT_ENOUGH_MEMORY;
+
+      #ifdef _DEBUG
+        SCODE errDbg = varIn.scode;
+        TRACE1(_T("  VT_HRESULT error = 0x%08.0x\n"), errDbg);
+      #endif
+
       break;
       }
 
@@ -624,6 +653,9 @@ return E_INVALIDARG;
 #endif //_KVARINATTOSTRING
 /******************************************************************************
  *$Log: KVariantToStr.cpp,v $
+ *Revision 1.7  2010/02/16 22:24:26  ddarko
+ **** empty log message ***
+ *
  *Revision 1.6  2010/02/12 22:46:07  ddarko
  *Fixed VT_DATE, VT_BSTR (WIN32)
  *
@@ -728,7 +760,6 @@ return E_INVALIDARG;
  *     12 VT_VARIANT          [V][T][P][S]  VARIANT *
  *     13 VT_UNKNOWN          [V][T]   [S]  IUnknown *
  *     14 VT_DECIMAL          [V][T]   [S]  16 byte fixed point
- *        VT_RECORD           [V]   [P][S]  user defined type
  *     16 VT_I1               [V][T][P][s]  signed char
  *     17 VT_UI1              [V][T][P][S]  unsigned char
  *     18 VT_UI2              [V][T][P][S]  unsigned short
@@ -738,13 +769,14 @@ return E_INVALIDARG;
  *     22 VT_INT              [V][T][P][S]  signed machine int
  *     23 VT_UINT             [V][T]   [S]  unsigned machine int
  *     24 VT_VOID                [T]        C style void
- *     25 VT_HRESULT             [T]        Standard return type
+ *     25 VT_HRESULT             [T]        Standard return type (SCODE)
  *     26 VT_PTR                 [T]        pointer type
  *     27 VT_SAFEARRAY           [T]        (use VT_ARRAY in VARIANT)
  *     28 VT_CARRAY              [T]        C style array
  *     29 VT_USERDEFINED         [T]        user defined type
  *     30 VT_LPSTR               [T][P]     null terminated string
  *     31 VT_LPWSTR              [T][P]     wide null terminated string
+ *     36 VT_RECORD           [V]   [P][S]  user defined type
  *     64 VT_FILETIME               [P]     FILETIME
  *     65 VT_BLOB                   [P]     Length prefixed bytes
  *     66 VT_STREAM                 [P]     Name of the stream follows
@@ -754,7 +786,7 @@ return E_INVALIDARG;
  *     70 VT_BLOB_OBJECT            [P]     Blob contains an object
  *     71 VT_CF                     [P]     Clipboard format
  *     72 VT_CLSID                  [P]     A Class ID
- *        VT_VERSIONED_STREAM       [P]     Stream with a GUID version
+ *     73 VT_VERSIONED_STREAM       [P]     Stream with a GUID version
  * 0x1000 VT_VECTOR                 [P]     simple counted array
  * 0x2000 VT_ARRAY            [V]           SAFEARRAY*
  * 0x4000 VT_BYREF            [V]           void* for local use

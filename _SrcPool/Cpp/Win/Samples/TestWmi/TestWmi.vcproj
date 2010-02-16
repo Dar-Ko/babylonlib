@@ -205,6 +205,26 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\KDbgVariantType.cpp"
+				>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\32\KDbgWbemErrorCode.cpp"
 				>
 				<FileConfiguration
