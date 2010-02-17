@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgVariantType.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2010/02/16 22:22:39 $
+  $Revision: 1.2 $ $Date: 2010/02/17 22:04:54 $
   $Author: ddarko $
 
   Dumps the VARIANT data types.
@@ -66,7 +66,7 @@
           16 VT_I1               [V][T][P][s]  signed char
           17 VT_UI1              [V][T][P][S]  unsigned char
           18 VT_UI2              [V][T][P][S]  unsigned short
-          19 VT_UI4              [V][T][P][S]  unsigned short
+          19 VT_UI4              [V][T][P][S]  unsigned 32-bit int
           20 VT_I8                  [T][P]     signed 64-bit int
           21 VT_UI8                 [T][P]     unsigned 64-bit int
           22 VT_INT              [V][T][P][S]  signed machine int
@@ -219,6 +219,9 @@ return szResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KDbgVariantType.cpp,v $
+ * Revision 1.2  2010/02/17 22:04:54  ddarko
+ * Comment
+ *
  * Revision 1.1  2010/02/16 22:22:39  ddarko
  * Created
  *
