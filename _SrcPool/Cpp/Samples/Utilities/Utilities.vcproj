@@ -536,6 +536,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\KDbgVariantType.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\KGuid.cpp"
 				>
 				<FileConfiguration
