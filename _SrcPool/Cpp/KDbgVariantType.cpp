@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgVariantType.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2010/02/17 22:04:54 $
+  $Revision: 1.3 $ $Date: 2010/02/18 22:22:18 $
   $Author: ddarko $
 
   Dumps the VARIANT data types.
@@ -106,7 +106,9 @@
 
   Returns: zero-terminated string describing data type.
 
-  See also: Microsoft Visual Studio header files wtypes.h, comutil.h, OAIdl.h.
+  See also: Microsoft Visual Studio header files wtypes.h, comutil.h, OAIdl.h;
+  DumpComVariant()
+
  */
 LPCTSTR DumpVariantType(VARIANT varData //[in] varinat data type
                        )
@@ -219,6 +221,9 @@ return szResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KDbgVariantType.cpp,v $
+ * Revision 1.3  2010/02/18 22:22:18  ddarko
+ * Comment
+ *
  * Revision 1.2  2010/02/17 22:04:54  ddarko
  * Comment
  *
