@@ -1186,6 +1186,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\KSafeArray.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\KStrLimits.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\KTypedef.h"
 				>
 			</File>
