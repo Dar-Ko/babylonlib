@@ -29,7 +29,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TestBeep();
 extern bool TestGuid();
 extern bool TestVariant();
-
+extern bool TestSafeArray();
 
 //-----------------------------------------------------------------------------
 /*Validate various helper functions.
@@ -46,7 +46,8 @@ PFUNC_TEST funcTest[] =
   {
   TestBeep,
   TestGuid,
-  TestVariant
+  TestVariant,
+  TestSafeArray
   };
 
 int iTestCount = 0;

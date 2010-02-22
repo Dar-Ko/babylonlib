@@ -293,6 +293,26 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\Samples\Utilities\Src\TestSafeArray.cpp"
+				>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="2"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\..\Samples\Utilities\Src\TestVariant.cpp"
 				>
 			</File>

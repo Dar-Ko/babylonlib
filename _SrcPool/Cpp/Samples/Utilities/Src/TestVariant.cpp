@@ -1,5 +1,5 @@
 /*$RCSfile: TestVariant.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2010/02/17 21:52:18 $
+  $Revision: 1.3 $ $Date: 2010/02/22 22:38:52 $
   $Author: ddarko $
 
   Test VARIANT conversion routines.
@@ -33,7 +33,7 @@ extern "C" VARIANT VarBstrFromStr(LPCWSTR szSource);
   extern long VariantToStringAlloc(const VARIANT& varIn, LPWSTR* ppszBuf);
 #endif //_USE_WINSEARCH
 //-----------------------------------------------------------------------------
-/*Testing generating and handling Universally Unique Identifier (UUID /GUID).
+/*Testing generating and handling VARIANT data type.
 
   Returns: true if successful, otherwise returns false.
  */
@@ -236,6 +236,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestVariant.cpp,v $
+ * Revision 1.3  2010/02/22 22:38:52  ddarko
+ * SAFEARRAYBOUNDS
+ *
  * Revision 1.2  2010/02/17 21:52:18  ddarko
  * Added new test cases
  *

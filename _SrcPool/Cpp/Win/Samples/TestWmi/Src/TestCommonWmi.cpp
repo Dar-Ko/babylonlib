@@ -1,5 +1,5 @@
 /*$RCSfile: TestCommonWmi.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2010/02/12 22:49:04 $
+  $Revision: 1.4 $ $Date: 2010/02/22 22:39:15 $
   $Author: ddarko $
 
   Test WMI routines.
@@ -12,6 +12,7 @@
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TestVariant();
+extern bool TestSafeArray();
 #ifdef _WIN32
   extern bool TestWmi();
 #endif
@@ -54,6 +55,7 @@ TsWriteToViewLn(_T(""));
 PFUNC_TEST funcTest[] =
   {
   TestVariant,
+  TestSafeArray,
   #ifdef _WIN32
     TestWmi
   #else
@@ -87,6 +89,9 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestCommonWmi.cpp,v $
+ * Revision 1.4  2010/02/22 22:39:15  ddarko
+ * SAFEARRAYBOUNDS
+ *
  * Revision 1.3  2010/02/12 22:49:04  ddarko
  * TestVariant
  *
