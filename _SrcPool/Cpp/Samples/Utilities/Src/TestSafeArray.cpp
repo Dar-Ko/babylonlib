@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2010/02/22 22:38:52 $
+  $Revision: 1.2 $ $Date: 2010/02/23 22:59:03 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -35,6 +35,27 @@ VARIANT    varIn; //test input
 LPWSTR     wszResult = NULL; //resulting string
 HRESULT    lError = E_FAIL;  //error code
 
+//Create 3D matrix
+const int DIM_3D = 3;
+
+//Set the dimension of the matrix
+TSafeArrayDim<DIM_3D> saDim(5, 6, 7);
+
+unsigned long nDim = saDim[0];
+bResult = (nDim == 5);
+bResult = bResult && (6 == saDim[1]);
+bResult = bResult && (7 == saDim[2]);
+
+//Change the size of the vectors
+saDim[0] = 3;
+saDim[1] = 4;
+saDim[2] = 5;
+
+if(bResult)
+  {
+  TSafeArray<int, VT_I4, DIM_3D> intArray(saDim);
+  bResult = (intArray.GetDimension() == DIM_3D);
+  }
 
 TsWriteToViewLn(LOG_EOT);
 return bResult;
@@ -43,6 +64,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.2  2010/02/23 22:59:03  ddarko
+ * Create SAFEARRAY
+ *
  * Revision 1.1  2010/02/22 22:38:52  ddarko
  * SAFEARRAYBOUNDS
  *
