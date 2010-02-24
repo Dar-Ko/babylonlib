@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.3 $ $Date: 2010/02/23 22:59:34 $
+  $Revision: 1.4 $ $Date: 2010/02/24 22:48:44 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -79,7 +79,8 @@
 
   } SAFEARRAY;
 
-  typedef struct tagSAFEARRAY SAFEARRAY;
+  typedef struct tagSAFEARRAY SAFEARRAY; //Safe array descriptor
+  typedef SAFEARRAY* LPSAFEARRAY; //Pointer to safe array descriptor
   #define SAFEARRAY SAFEARRAY
 #endif //SAFEARRAY
 
@@ -152,6 +153,7 @@ TSafeArrayDim<DIM>::TSafeArrayDim(int nCount1, //[in]     the number of elements
 switch(DIM)
   {
   case 3:
+    //Note: Visual Basic arrays start with index 0 (lLbound = 0)
     m_saBounds[2].lLbound   = 0;
     m_saBounds[2].cElements = nCount3;
   case 2:
@@ -251,6 +253,7 @@ public:
 
 public:
   VARENUM GetVarType(SAFEARRAY& saSrc) const;
+  VARENUM GetVarType() const;
   unsigned int GetDimension(SAFEARRAY& saSrc) const;
   unsigned int GetDimension() const;
 
@@ -388,20 +391,24 @@ long TSafeArray<TYPE, VARTYPE, DIM>::get_BoundsLength(long idx) const
 template <class TYPE, VARENUM VARTYPE, int DIM>
 VARENUM TSafeArray<TYPE, VARTYPE, DIM>::GetVarType(SAFEARRAY& saSrc //[in]
                                                    //a safe array descriptor
-                  ) const
+                                                  ) const
 {
-VARENUM evarResult = VT_NULL;
+VARENUM evarResult = VT_EMPTY;
+
 #if defined (WIN32)
   #if (__BORLANDC__ >= 0x500)
     #pragma option push -w-8104
   #endif //__BORLANDC__
-
+/*
   //type definition of function handling safe arrays
-  typedef HRESULT (__stdcall* PFUNC_SAFEARRAY)(SAFEARRAY* psa, VARTYPE* pvt);
+  //typedef HRESULT (* PFUNC_SAFEARRAY)(SAFEARRAY*, VARTYPE*);
+static HRESULT (* SafeArrayGetVartypeProc)(SAFEARRAY*, VARTYPE*) = NULL;
   //address of the procedure used to retreive VARTYPE
   //Note: not all versions of OleAut32.dll export SafeArrayGetVartype function!
-  static PFUNC_SAFEARRAY SafeArrayGetVartypeProc = NULL;
+  //static PFUNC_SAFEARRAY SafeArrayGetVartypeProc = NULL;
   static HINSTANCE hOleAut32 = ::LoadLibrary(_T("oleaut32.dll"));
+  //FixMe: FreeLibrary(hOleAut32) at destructor; consider using CDllLoader class D.K.
+
   if (hOleAut32 != NULL)
     {
     SafeArrayGetVartypeProc = ::GetProcAddress(hOleAut32, "SafeArrayGetVartype");
@@ -415,8 +422,10 @@ VARENUM evarResult = VT_NULL;
     else
       {
       TRACE(_T("  OleAut32.dll: SafeArrayGetVartype is not supported in current DLL version!\n"));
+      if(::FreeLibrary(hOleAut32))
+        hOleAut32 = NULL;
       //TODO: Lock & unclock
-      if (saSrc.pvData != NULl)
+      if (saSrc.pvData != NULL)
         {
         VARIANT& varTemp = ((VARIANT*)saSrc.pvData)[0];
         evarResult = varTemp.vt;
@@ -427,11 +436,22 @@ VARENUM evarResult = VT_NULL;
     {
     TRACE(_T("  Failed to load OleAut32.dll!\n"));
     }
+  */
   #if (__BORLANDC__ >= 0x500)
     #pragma option pop
   #endif //__BORLANDC__
 #endif
 return evarResult;
+}
+
+template <class TYPE, VARENUM VARTYPE, int DIM>
+VARENUM TSafeArray<TYPE, VARTYPE, DIM>::GetVarType() const
+{
+if(m_psaData != NULL)
+  {
+  return GetVarType(*m_psaData);
+  }
+return VT_EMPTY;
 }
 
 //-----------------------------------------------------------------------------
@@ -507,6 +527,9 @@ void TSafeArray<TYPE, VARTYPE, DIM>::Destroy()
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.4  2010/02/24 22:48:44  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.3  2010/02/23 22:59:34  ddarko
  * TSafeArray
  *
