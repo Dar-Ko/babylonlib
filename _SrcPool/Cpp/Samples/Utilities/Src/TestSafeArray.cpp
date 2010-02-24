@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2010/02/23 22:59:03 $
+  $Revision: 1.3 $ $Date: 2010/02/24 22:49:25 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -31,9 +31,6 @@ bool TestSafeArray()
 {
 TRACE(_T("TestSafeArray()\n"));
 bool bResult = false;
-VARIANT    varIn; //test input
-LPWSTR     wszResult = NULL; //resulting string
-HRESULT    lError = E_FAIL;  //error code
 
 //Create 3D matrix
 const int DIM_3D = 3;
@@ -55,15 +52,105 @@ if(bResult)
   {
   TSafeArray<int, VT_I4, DIM_3D> intArray(saDim);
   bResult = (intArray.GetDimension() == DIM_3D);
+  bResult = bResult && (intArray.GetVarType() == VT_I4);
+  }
+
+if (bResult)
+  {
+  extern bool TestTSafeArrayAssignment();
+  bResult = TestTSafeArrayAssignment();
   }
 
 TsWriteToViewLn(LOG_EOT);
 return bResult;
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
+bool TestTSafeArrayAssignment()
+{
+TRACE(_T("TestTSafeArrayAssignment()\n"));
+bool bResult = false;
+//Create 20 x 10 matrix
+const int DIM_2D = 2;
+//2D array [20][10] bounds
+SAFEARRAYBOUND saBounds[DIM_2D] = { {10, 0}, {20, 0} };
+
+#ifdef _WIN32 //Requires OLE 32 (OleAut32.dll)
+  LPSAFEARRAY psaArray = ::SafeArrayCreate(VT_I4, DIM_2D, saBounds);
+#else
+  /*Allocate space for the safe array and append additional safe array bounds if
+    array is  multi-dimensional.
+   */
+  LPSAFEARRAY psaArray = 
+      (LPSAFEARRAY) new uint8_t[sizeof(SAFEARRAY) + sizeof(SAFEARRAYBOUND)*(DIM_2D - 1)] ;
+  if(psaArray != NULL)
+    {
+    psaArray->pvData = new int32_t[saBounds[0].cElements * saBounds[1].cElements];
+    if(psaArray->pvData != NULL)
+      {
+      psaArray->cDims = DIM_2D;
+      psaArray->cbElements = sizeof(int32_t);
+      psaArray->cLocks = 0;
+      psaArray->fFeatures = 128; //Note: array's attributes could not be 0
+      //Copy bounds of the last dimenision at the begining
+      psaArray->rgsabound[0].cElements = saBounds[DIM_2D - 1].cElements;
+      psaArray->rgsabound[0].lLbound   = saBounds[DIM_2D - 1].lLbound;
+      psaArray->rgsabound[1].cElements = saBounds[DIM_2D - 2].cElements;
+      psaArray->rgsabound[1].lLbound   = saBounds[DIM_2D - 2].lLbound;
+      }
+    else
+      {
+      delete psaArray;
+      psaArray = NULL;
+      }
+    }
+#endif
+
+if(psaArray != NULL)
+  {
+  //Fill array with values
+  int iIndex0, iIndex1;
+  const int iIndexEnd0 = (int)psaArray->rgsabound[0].cElements;
+  const int iIndexEnd1 = (int)psaArray->rgsabound[1].cElements;
+  int32_t* arrData = (int32_t*)psaArray->pvData;
+
+  for(iIndex0 = 0; iIndex0 < iIndexEnd0; iIndex0++)
+    {
+    for(iIndex1 = 0; iIndex1 < iIndexEnd1; iIndex1++)
+      {
+      (&arrData[iIndex0 * iIndexEnd1])[iIndex1] = iIndex0 * 1000 + iIndex1;
+      }
+    }
+
+  //Create a copy of the safe array
+  TSafeArray<int32_t, VT_I4, DIM_2D> intArray(psaArray);
+  bResult = (intArray.GetDimension() == DIM_2D);
+  bResult = bResult && (intArray.GetVarType() == VT_I4);
+
+  #ifdef _WIN32 //Requires OLE 32 (OleAut32.dll)
+    if(FAILED(::SafeArrayDestroy(psaArray))) //Destroy array
+      {
+      TRACE(_T("  SafeArrayDestroy() failed!\n"));
+      bResult = false;
+      }
+  #else
+    delete[] psaArray->pvData;
+    delete[] psaArray;
+    psaArray = NULL;
+  #endif
+  }
+
+
+return bResult;
+}
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.3  2010/02/24 22:49:25  ddarko
+ * Test assigment constructor
+ *
  * Revision 1.2  2010/02/23 22:59:03  ddarko
  * Create SAFEARRAY
  *
