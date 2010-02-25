@@ -1,5 +1,5 @@
 /*$RCSfile: KVariantToStr.cpp,v $: implementation file
-  $Revision: 1.8 $ $Date: 2010/02/17 22:05:18 $
+  $Revision: 1.9 $ $Date: 2010/02/25 22:46:14 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -679,6 +679,9 @@ return E_INVALIDARG;
 #endif //_KVARINATTOSTRING
 /******************************************************************************
  *$Log: KVariantToStr.cpp,v $
+ *Revision 1.9  2010/02/25 22:46:14  ddarko
+ **** empty log message ***
+ *
  *Revision 1.8  2010/02/17 22:05:18  ddarko
  **** empty log message ***
  *
@@ -707,7 +710,7 @@ return E_INVALIDARG;
 
 /* VARIANT STRUCTURE (OAIdl.h)
  *  {
- *  VARTYPE vt;
+ *  VARTYPE vt;      VARENUM
  *  WORD wReserved1;
  *  WORD wReserved2;
  *  WORD wReserved3;
@@ -762,11 +765,10 @@ return E_INVALIDARG;
  *                    PVOID        pvRecord;
  *                    IRecordInfo* pRecInfo;
  *                    } __VARIANT_NAME_4;
- */
-
-
- /*
+ *
+ *
  * VARENUM usage key (wtypes.h), (comutil.h)
+ * corresponds to VARTYPE 16-bit value
  *
  * * [V] - may appear in a VARIANT
  * * [T] - may appear in a TYPEDESC
