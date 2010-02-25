@@ -313,6 +313,18 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Src\TestSafeArrayIDispatch.cpp"
+				>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath="..\..\..\Samples\Utilities\Src\TestVariant.cpp"
 				>
 			</File>

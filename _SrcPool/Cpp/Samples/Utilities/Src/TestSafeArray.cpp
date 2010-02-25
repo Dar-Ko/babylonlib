@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2010/02/24 22:49:25 $
+  $Revision: 1.4 $ $Date: 2010/02/25 22:44:10 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -32,9 +32,10 @@ bool TestSafeArray()
 TRACE(_T("TestSafeArray()\n"));
 bool bResult = false;
 
-//Create 3D matrix
 const int DIM_3D = 3;
+const int DIM_2D = 2;
 
+//Create 3D matrix.
 //Set the dimension of the matrix
 TSafeArrayDim<DIM_3D> saDim(5, 6, 7);
 
@@ -53,12 +54,48 @@ if(bResult)
   TSafeArray<int, VT_I4, DIM_3D> intArray(saDim);
   bResult = (intArray.GetDimension() == DIM_3D);
   bResult = bResult && (intArray.GetVarType() == VT_I4);
+  //Get address of the array descriptor
+  LPSAFEARRAY* ppTemp = &intArray;
+  bResult = bResult && (ppTemp != NULL);
+  bResult = bResult && (intArray.GetBoundsLength(0) == 3);
+  bResult = bResult && (intArray.GetBoundsLength(1) == 4);
+  bResult = bResult && (intArray.GetBoundsLength(2) == 5);
   }
 
 if (bResult)
   {
   extern bool TestTSafeArrayAssignment();
   bResult = TestTSafeArrayAssignment();
+  }
+
+if (bResult)
+  {
+  try
+    {
+    //Create a [10,10] table of wide characters and initalize each row 
+    //with 10 letters.
+    const int ROW = 10;
+    const int COL = 10;
+    TSafeArrayDim<DIM_2D> sa2Dim(ROW, COL);
+    TSafeArray<wchar_t, VT_I2, 2> wArray(sa2Dim);
+
+    wchar_t wAlphabet[COL] =
+      {0x0061, 0x03B1, 0x0430, 0xFB21, 0xFE8D, 
+      0xF900, 0xFF8F, 0x10A0, 0x0F00, 0xE01};
+    for(int i = 0; i < ROW; i++)
+      {
+      for(int j = 0; j < COL; j++)
+        {
+        //wArray[j][i] = wAlphabet[i] + j;
+        }
+      }
+
+    }
+  catch(...)
+    {
+    bResult = false;
+    TRACE(_T("  An exception occured\n"));
+    }
   }
 
 TsWriteToViewLn(LOG_EOT);
@@ -148,6 +185,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.4  2010/02/25 22:44:10  ddarko
+ * Test safe array operations
+ *
  * Revision 1.3  2010/02/24 22:49:25  ddarko
  * Test assigment constructor
  *
