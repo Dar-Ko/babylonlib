@@ -22,6 +22,10 @@ extern bool TestKeywordNamespace();
 extern bool TestKeywordTypename();
 extern bool TestKeywordExplicit();
 extern bool TestKeywordMutable();
+extern bool TestTemplateSpecialization();
+extern bool TestTemplateMemeber();
+extern bool TestTemplateOrdering();
+extern bool TestEnumMath();
 
 int TestCppConformance(void);
 
@@ -47,7 +51,11 @@ PFUNC_TEST funcTest[] =
   TestKeywordNamespace,
   TestKeywordTypename,
   TestKeywordExplicit,
-  TestKeywordMutable
+  TestKeywordMutable,
+  TestTemplateSpecialization,
+  TestTemplateMemeber,
+  TestTemplateOrdering,
+  TestEnumMath
 
   };
 
