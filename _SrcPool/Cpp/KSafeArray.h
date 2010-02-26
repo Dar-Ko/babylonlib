@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.5 $ $Date: 2010/02/25 22:46:43 $
+  $Revision: 1.6 $ $Date: 2010/02/26 22:52:51 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -262,13 +262,22 @@ public:
   unsigned int GetDimension() const;
   unsigned int GetBoundsLength(const unsigned int nDimId) const;
 
-  long        Elements();
-  void        Attach(SAFEARRAY* psaData);
+  //long        Elements();
+  bool        Attach(SAFEARRAY* psaData);
   SAFEARRAY*  Detach();
 
 public:
+  template <int DIM> class TSaIterator
+    {
+    protected:
+      TSafeArray& m_saArray;
+      unsigned int const m_nSize;
+    public:
+      TSaIterator(TSafeArray& saOwner, unsigned int nCount);
+      TYPE& operator[] (int index);
+    };
+  TSaIterator<DIM> operator[] (int index);
   SAFEARRAY** operator&();
-  //TSAAccessorT<TYPE, DIM> operator[] (int index);
 
 protected:
   SAFEARRAY*   m_psaData; //data container describing the array
@@ -400,7 +409,7 @@ if (m_psaData != NULL)
         TRACE(_T("  The array is currently locked.\n"));
         break;
       case E_INVALIDARG:
-        TRACE(_T("  The item pointed to by psa is not a safe array descriptor.\n"));
+        TRACE(_T("  The item pointed to by m_psaData is not a safe array descriptor.\n"));
         break;
       default:
         TRACE(_T("  Failed to destroy the array.\n"));
@@ -421,12 +430,15 @@ TSafeArray<TYPE, TYPEVAR, DIM>::operator& ()
 return &m_psaData;
 }
 
-//////////////-==================================
-//template <class TYPE, VARENUM TYPEVAR, int DIM> TSAAccessorT<TYPE, DIM>
-//TSafeArray<TYPE, TYPEVAR, DIM>::operator[] (int index)
-//{
-//  return TSAAccessorT<TYPE, DIM>(m_psaData, index);
-//}
+//-----------------------------------------------------------------------------
+/*Returns subarray with number of dimensions decreased by one.
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM> TSAAccessorT<TYPE, DIM>
+TSafeArray<TYPE, TYPEVAR, DIM>::operator[] (int index //[in]
+                                           )
+{
+return TSaIterator<DIM>(m_psaData, index);
+}
 
 //-----------------------------------------------------------------------------
 /*Returns the VARTYPE stored in the given safe array.
@@ -449,19 +461,10 @@ VARENUM evarResult = VT_EMPTY;
   static HINSTANCE hOleAut32 = ::LoadLibrary(_T("oleaut32.dll"));
   //FixMe: FreeLibrary(hOleAut32) at destructor; consider using CDllLoader class D.K.
 
-  if ((saSrc.fFeatures & FADF_UNKNOWN) == FADF_UNKNOWN)
-    {
-    /*MSDN: SafeArrayGetVartype can sometimes fail to return VT_UNKNOWN
-      for SAFEARRAY types that are based on IUnknown. Callers should
-      additionally check whether the SAFEARRAY type's fFeatures field has
-      the FADF_UNKNOWN flag set.
-     */
-    return VT_UNKNOWN;
-    }
-
   if (hOleAut32 != NULL)
     {
-    SafeArrayGetVartypeProc = (PFUNC_SAVARTYPE)::GetProcAddress(hOleAut32, "SafeArrayGetVartype");
+    SafeArrayGetVartypeProc = (PFUNC_SAVARTYPE)::GetProcAddress(hOleAut32,
+                                                                "SafeArrayGetVartype");
     if(SafeArrayGetVartypeProc!= NULL)
       {
       if(FAILED(SafeArrayGetVartypeProc(&saSrc,
@@ -469,6 +472,29 @@ VARENUM evarResult = VT_EMPTY;
         {
         TRACE(_T("  OleAut32.dll: SafeArrayGetVartype() failed!\n"));
         }
+      /*Note: When Windows has a SAFEARRAY of type VT_DISPATCH with FADF_HAVEIID,
+        it returns VT_UNKNOWN instead of VT_DISPATCH.
+        Reference: atlcore.h: AtlSafeArrayGetActualVartype()
+      */
+      if(evarResult == VT_UNKNOWN)
+        {
+        if( (saSrc.fFeatures & FADF_HAVEIID) == FADF_HAVEIID) &&
+            (saSrc.fFeatures & FADF_DISPATCH) == FADF_DISPATCH) )
+          {
+          evarResult = VT_DISPATCH;
+          }
+        }
+
+      if ((saSrc.fFeatures & FADF_UNKNOWN) == FADF_UNKNOWN)
+        {
+        /*MSDN: SafeArrayGetVartype can sometimes fail to return VT_UNKNOWN
+          for SAFEARRAY types that are based on IUnknown. Callers should
+          additionally check whether the SAFEARRAY type's fFeatures field has
+          the FADF_UNKNOWN flag set.
+         */
+        evarResult = VT_UNKNOWN;
+        }
+
       }
     else
       {
@@ -535,7 +561,7 @@ return 0;
  */
 template <class TYPE, VARENUM TYPEVAR, int DIM>
 unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetBoundsLength(
-                  const unsigned int nDimId //[in] 0-based index of array dimension 
+                  const unsigned int nDimId //[in] 0-based index of array dimension
                                             //for which to get the number of elments
                                                             ) const
 {
@@ -600,6 +626,9 @@ return psaResult;
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.6  2010/02/26 22:52:51  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.5  2010/02/25 22:46:43  ddarko
  * Attach and detach
  *
@@ -616,5 +645,5 @@ return psaResult;
  * Created
  *
  *****************************************************************************/
-/*(c) Borland (see C++ Builder 5)
+/*(c) Borland (see C++ Builder 5, VCL, safearry.h)
  */
