@@ -300,6 +300,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=1"
 						UsePrecompiledHeader="2"
 					/>
 				</FileConfiguration>
@@ -308,6 +309,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
+						PreprocessorDefinitions="_USE_ATL=1"
 						UsePrecompiledHeader="2"
 					/>
 				</FileConfiguration>

@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2010/02/25 22:44:10 $
+  $Revision: 1.5 $ $Date: 2010/03/01 23:52:18 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -14,6 +14,9 @@
 #ifdef _WIN32
   #include <oleauto.h> //VarBstrFromDate()
   #pragma comment(lib, "oleaut32")
+  #ifdef _USE_ATL //use Microsoft ATL
+    #include <atlsafe.h> //CComSafeArray template
+  #endif //_USE_ATL
 #endif
 #include "KSafeArray.h"
 
@@ -30,10 +33,73 @@ extern "C" VARIANT VarBstrFromStr(LPCWSTR szSource);
 bool TestSafeArray()
 {
 TRACE(_T("TestSafeArray()\n"));
-bool bResult = false;
+bool bResult = true;
 
 const int DIM_3D = 3;
 const int DIM_2D = 2;
+
+const int COL = 10;
+const int ROW = 8;
+//test controll table
+wchar_t wAlphabet[ROW][COL] =
+  {0x0061, 0x03B1, 0x0430, 0xFB21, 0xFE8D, 
+   0xF900, 0xFF8F, 0x10A0, 0x0F00, 0xE01};
+
+for(int i = 1; i < ROW; i++)
+  {
+  for(int j = 0; j < COL; j++)
+    {
+    //Intialize the table with consecutive characters from each alphabet
+    wAlphabet[i][j] = wAlphabet[i - 1][j] + 1;
+    }
+  }
+
+#ifdef _USE_ATL
+  if(bResult)
+    {
+    //Create a multidimensional array, using Microsoft ATL.
+    CComSafeArrayBound comsaBound[DIM_2D];  
+    //Set the array comsaBound structure
+    comsaBound[0].SetCount(COL); //Number of columns
+    comsaBound[0].SetLowerBound(0);
+    comsaBound[1].SetCount(ROW); //Number of rows
+    comsaBound[1].SetLowerBound(0);
+    //Create the two-dimensional array
+    CComSafeArray<USHORT> comsaD2(comsaBound, DIM_2D);
+
+    //Write elements
+    int32_t aIndex[DIM_2D]; //container used to store array indexes
+    for (int x = 0; x < COL; x++)
+      {
+      for (int y = 0; y < ROW; y++)
+        {
+        aIndex[0] = x;
+        aIndex[1] = y;
+        HRESULT hr = comsaD2.MultiDimSetAt((LONG*)aIndex, (USHORT)wAlphabet[x][y]);
+        ASSERT(hr == S_OK);
+        }
+     }
+    //Read elements
+    for (int x = 0; x < COL; x++)
+      {
+      for (int y = 0; y < ROW; y++)
+        {
+        wchar_t cElement;
+        aIndex[0]=x;
+        aIndex[1]=y;
+        HRESULT hr = comsaD2.MultiDimGetAt((LONG*)aIndex, *(USHORT*)&cElement);
+        ATLASSERT(hr == S_OK);
+        bResult = bResult && (cElement == wAlphabet[x][y]);
+        ASSERT(bResult == TRUE);
+        }
+      }
+    //Subscript operator returns only values from 0-th column
+    wchar_t cTemp = comsaD2[1];
+    bResult = bResult && (cTemp == wAlphabet[1][0]);
+    cTemp = comsaD2[2];
+    bResult = bResult && (cTemp == wAlphabet[2][0]);
+    }
+#endif //_USE_ATL
 
 //Create 3D matrix.
 //Set the dimension of the matrix
@@ -72,16 +138,12 @@ if (bResult)
   {
   try
     {
-    //Create a [10,10] table of wide characters and initalize each row 
+    //Create a [ROW, COL] table of wide characters and initalize each row 
     //with 10 letters.
-    const int ROW = 10;
-    const int COL = 10;
     TSafeArrayDim<DIM_2D> sa2Dim(ROW, COL);
     TSafeArray<wchar_t, VT_I2, 2> wArray(sa2Dim);
 
-    wchar_t wAlphabet[COL] =
-      {0x0061, 0x03B1, 0x0430, 0xFB21, 0xFE8D, 
-      0xF900, 0xFF8F, 0x10A0, 0x0F00, 0xE01};
+
     for(int i = 0; i < ROW; i++)
       {
       for(int j = 0; j < COL; j++)
@@ -185,6 +247,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.5  2010/03/01 23:52:18  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.4  2010/02/25 22:44:10  ddarko
  * Test safe array operations
  *
