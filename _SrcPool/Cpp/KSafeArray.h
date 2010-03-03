@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.7 $ $Date: 2010/03/03 00:07:48 $
+  $Revision: 1.8 $ $Date: 2010/03/03 23:19:22 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -57,7 +57,8 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef SAFEARRAY
-  /*TODO: Description
+  /*The SAFEARRAY structure defines a multidimensional array of
+    Microsoft Object Linking and Embedding (OLE) Automation types.
 
     See also: SAFEARRAYBOUND, TSafeArrayDim, TSafeArray.
    */
@@ -75,7 +76,7 @@
     uint32_t cLocks;      //lock counter of the array
   #endif
   void* pvData;                //contained data elements
-  SAFEARRAYBOUND rgsabound[1]; //array dimension bounds
+  SAFEARRAYBOUND rgsabound[1]; //array dimension bounds, represented in reverse order
 
   } SAFEARRAY;
 
@@ -123,6 +124,12 @@ public:
   uint32_t& operator [](int iDimension);
   uint32_t  operator [](int iDimension) const;
 
+  int32_t  GetLowerBound(const unsigned int nDimId = 0) const;
+  int32_t  SetLowerBound(int32_t nNewValue, const unsigned int nDimId = 0);
+  int32_t  GetUpperBound(const unsigned int nDimId = 0) const;
+  uint32_t GetCount(const unsigned int nDimId = 0) const;
+  uint32_t SetCount(uint32_t nNewValue, const unsigned int nDimId = 0);
+
 public:
   SAFEARRAYBOUND m_saBounds[DIM]; //the bounds of the multi-dimensional safe array
 };
@@ -139,7 +146,7 @@ public:
 template <int DIM>
 TSafeArrayDim<DIM>::TSafeArrayDim()
 {
-ASSERTE(DIM > 0);
+ASSERT(DIM > 0);
 }
 
 /*
@@ -214,12 +221,76 @@ if ((iDimension >= 0) && (iDimension < DIM))
 return 0;
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
+template <int DIM>
+int32_t  TSafeArrayDim<DIM>::GetLowerBound(const unsigned int nDimId //[in] = 0
+                                  //the array dimension from the range [0, DIM)
+                                                ) const
+{
+return m_saBounds[nDimId].lLbound;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template <int DIM>
+int32_t  TSafeArrayDim<DIM>::SetLowerBound(int32_t nNewValue, //[in]
+                                           const unsigned int nDimId //[in] = 0
+                                  //the array dimension from the range [0, DIM)
+                                                )
+{
+ASSERT(DIM > nDimId);
+m_saBounds[nDimId].lLbound = nNewValue;
+return m_saBounds[nDimId].lLbound;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template <int DIM>
+int32_t  TSafeArrayDim<DIM>::GetUpperBound(const unsigned int nDimId //[in] = 0
+                                  //the array dimension from the range [0, DIM)
+                                                ) const
+{
+ASSERT(DIM > nDimId);
+return m_saBounds[nDimId].lLbound + m_saBounds[nDimId].cElements - 1;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template <int DIM>
+uint32_t TSafeArrayDim<DIM>::GetCount(const unsigned int nDimId //[in] = 0
+                                  //the array dimension from the range [0, DIM)
+                                                ) const
+{
+ASSERT(DIM > nDimId);
+return m_saBounds[nDimId].cElements;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template <int DIM>
+uint32_t TSafeArrayDim<DIM>::SetCount(uint32_t nNewValue, //[in]
+                                      const unsigned int nDimId //[in] = 0
+                                  //the array dimension from the range [0, DIM)
+                                                )
+{
+ASSERT(DIM > nDimId);
+m_saBounds[nDimId].cElements = nNewValue;
+return m_saBounds[nDimId].cElements;
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 /*This class is a wrapper for the SAFEARRAY structure, simplifying creation
-  of onedimensional and multidimensional arrays of almost any of the 
+  of onedimensional and multidimensional arrays of almost any of the
   VARIANT-supported types.
 
-  The lower bound of a safe arrays can start at any value within the range of 
+  The lower bound of a safe arrays can start at any value within the range of
   integer, if they are going to be accessed by languages such as Visual Basic.
   Arrays that are accessed through C++ should use a lower bound of 0.
 
@@ -268,24 +339,31 @@ public:
   unsigned int GetDimensions(SAFEARRAY& saSrc) const;
   unsigned int GetDimensions() const;
   unsigned int GetBoundsLength(const unsigned int nDimId) const;
+  bool         GetBoundLower(int32_t* pnResult, const unsigned int  nDimId = 0) const;
+  bool         GetBoundUpper(int32_t* pnResult, const unsigned int  nDimId = 0) const;
   unsigned int GetCount(const unsigned int nDimId = 0) const;
+  bool        IsValidIdx(int index, const unsigned int nDimId = 0) const;
   bool        Attach(SAFEARRAY* psaData);
   SAFEARRAY*  Detach();
 
 public:
-  template <class SUBTYPE, int SUBDIM> 
+  template <class SUBTYPE, int SUBDIM>
   class TSaIterator
     {
     protected:
       TSafeArray<TYPE, TYPEVAR, DIM>& m_saArray;
-      unsigned int const m_nSize;
     public:
       TSaIterator(TSafeArray<TYPE, TYPEVAR, DIM>& saOwner, int nIndex);
-      TYPE& operator[] (int index);
+      //TSaIterator<TYPE, SUBDIM - 1> operator[] (int index);
+      TYPE operator[] (int index);
     };
 
+  typedef typename TSafeArray<TYPE, TYPEVAR, DIM>::TSaIterator<TYPE, DIM-1>* LPSAITERATOR;
+  typedef typename TSafeArray<TYPE, TYPEVAR, DIM>::TSaIterator<TYPE, DIM-1>   CSaIterator;
+
   TSafeArray<TYPE, TYPEVAR, DIM>& operator=(const TSafeArray<TYPE, TYPEVAR, DIM>& saSrc);
-  /*TSaIterator<TYPE, DIM>*/ TYPE& operator[] (int index);
+  TSafeArray<TYPE, TYPEVAR, DIM>& operator=(const SAFEARRAY& saSrc);
+  CSaIterator operator[] (int index);
   SAFEARRAY** operator&();
   operator const SAFEARRAY*() const;
   operator SAFEARRAY*();
@@ -297,6 +375,8 @@ protected:
 
 protected:
   SAFEARRAY*   m_psaData; //data container describing the array
+  unsigned int m_nIndices[DIM]; //vector of indexes for each dimension of the array
+                                //stored in reverse order
 };
 
 #define TSafeArrayT TSafeArray //TODO: Synonim description
@@ -337,6 +417,14 @@ TSafeArray<TYPE, TYPEVAR, DIM>::TSafeArray(TSafeArrayDim<DIM>& saDimension //[in
   m_psaData = NULL;
   #pragma TODO
 #endif
+if (m_psaData != NULL)
+  {
+  #ifdef _DEBUG
+    ASSERT(Lock());
+  #else
+    Lock();
+  #endif
+  }
 }
 
 /*Copy constructor
@@ -346,6 +434,10 @@ TSafeArray<TYPE, TYPEVAR, DIM>::TSafeArray(const TSafeArray<TYPE, TYPEVAR, DIM>&
                                           ) :
   m_psaData(NULL)
 {
+/*Note: The variant types VT_DISPATCH, VT_UNKNOWN, and VT_BSTR are pointers,
+  and do not require another level of indirection.
+ */
+
 #ifdef _DEBUG
   ASSERT(Copy(saSrc.m_psaData));
 #else
@@ -497,7 +589,7 @@ return bResult;
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Assignment operator.
  */
 template <class TYPE, VARENUM TYPEVAR, int DIM>
 TSafeArray<TYPE, TYPEVAR, DIM>& TSafeArray<TYPE, TYPEVAR, DIM>::operator=(
@@ -505,6 +597,22 @@ TSafeArray<TYPE, TYPEVAR, DIM>& TSafeArray<TYPE, TYPEVAR, DIM>::operator=(
                                                                          )
 {
 *this = saSrc.m_psa;
+return *this;
+
+}
+
+/*Assignment operator.
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+TSafeArray<TYPE, TYPEVAR, DIM>& TSafeArray<TYPE, TYPEVAR, DIM>::operator=(
+  const SAFEARRAY& saSrc //[in]
+  )
+{
+#ifdef _DEBUG
+  ASSERT(Copy(&saSrc));
+#else
+  Copy(&saSrc);
+#endif
 return *this;
 }
 
@@ -534,16 +642,22 @@ return m_psaData;
 
 //-----------------------------------------------------------------------------
 /*Returns subarray with number of dimensions decreased by one.
+  Throws error code of unsigned int type if index is out the range.
  */
 template <class TYPE, VARENUM TYPEVAR, int DIM>
-TYPE& /**/
-TSafeArray<TYPE, TYPEVAR, DIM>::operator[] (int index //[in]
+typename TSafeArray<TYPE, TYPEVAR, DIM>::CSaIterator
+                    TSafeArray<TYPE, TYPEVAR, DIM>::operator[] (int index //[in]
                                            )
 {
-TSaIterator<TYPE, DIM-1> saResult(*this, index);
-static TYPE t = 65;
-return t;
-//return 
+ASSERT(m_psaData != NULL);
+if (!IsValidIdx(index))
+  {
+  ASSERT(false); //Index is out of range
+  throw (unsigned int)(E_INVALIDARG);
+  }
+
+CSaIterator saResult(*this, index);
+return saResult;
 }
 
 //-----------------------------------------------------------------------------
@@ -640,7 +754,7 @@ return VT_EMPTY;
 /*Obtains variant type stored in the array, which could be any of the following
  types:
 
-      VARTYPE  Description 
+      VARTYPE  Description
       VT_I1       int8_t
       VT_I2       int16_t
       VT_I4       int32_t
@@ -703,31 +817,119 @@ unsigned int nResult = 0;
 if (m_psaData != NULL)
   {
   ASSERT(nDimId < GetDimensions());
-  #ifdef _WIN32
-    long lLowerBound, lUpperBound;
-    //Note: the array dimension id used by Component Automation is 1-based
-    //sequential number.
-    if(SUCCEEDED(::SafeArrayGetLBound(m_psaData, nDimId + 1, &lLowerBound)))
-      if(SUCCEEDED(::SafeArrayGetUBound(m_psaData, nDimId + 1, &lUpperBound)))
-        nResult = (lUpperBound - lLowerBound) + 1;
-  #else
-    #pragma TODO
-  #endif
+  int32_t lLowerBound, lUpperBound;
+  //Note: the array dimension id used by Component Automation is 1-based
+  //sequential number.
+  if(GetBoundLower(&lLowerBound, nDimId))
+    if(GetBoundUpper(&lUpperBound, nDimId))
+      nResult = (lUpperBound - lLowerBound) + 1;
   }
 return nResult;
 }
 
 /*Returns the number of elements in the array.
- 
+
   See also: TSafeArray::GetBoundsLength()
  */
 template <class TYPE, VARENUM TYPEVAR, int DIM>
-unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetCount(const unsigned int nDimId //[in] = 0
-                                       //the array dimension from the range [0, DIM)
+unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetCount(
+                                       const unsigned int nDimId //[in] = 0
+                               //the array dimension from the range [0, DIM)
                                                      ) const
 {
 //Note: this method is added to keep compatibility with ATL
 return GetBoundsLength(nDimId);
+}
+
+//-----------------------------------------------------------------------------
+/*Returns true and the lower bound for a given dimension of the array, if it is
+  successful; otherwise returns false and 0 as the bound value.
+
+  See also: SAFEARRAYBOUND, TSafeArrayDim.
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+bool TSafeArray<TYPE, TYPEVAR, DIM>::GetBoundLower(
+                                       int32_t* pnResult, //[out] the lower bound
+                                       const unsigned int nDimId //[in] = 0
+                               //the array dimension from the range [0, DIM)
+                                                      ) const
+{
+ASSERT(m_psaData != NULL);
+ASSERT(pnResult != NULL);
+ASSERT(DIM > nDimId);
+#ifdef _WIN32
+    //Note: the array dimension id used by Component Automation is 1-based
+    //sequential number.
+  if(FAILED(::SafeArrayGetLBound(m_psaData, nDimId + 1, (LONG*)pnResult)))
+    {
+    *pnResult = 0;
+    TRACE(_T("  ::SafeArrayGetLBound() failed!\n"));
+    ASSERT(*pnResult != 0); //HRESULT  != S_OK
+    return false;
+    }
+#else
+  #pragma TODO
+  *pnResult = 0;
+  return false;
+#endif
+return true;
+}
+
+//-----------------------------------------------------------------------------
+/*Returns true and the upper bound for a given dimension of the array, if it is
+  successful; otherwise returns false and 0 as the bound value.
+
+  See also: SAFEARRAYBOUND, TSafeArrayDim.
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+bool TSafeArray<TYPE, TYPEVAR, DIM>::GetBoundUpper(
+                                       int32_t* pnResult, //[out] the lower bound
+                                       const unsigned int nDimId //[in] = 0
+                               //the array dimension from the range [0, DIM)
+                                                          ) const
+{
+ASSERT(m_psaData != NULL);
+ASSERT(pnResult != NULL);
+ASSERT(DIM > nDimId);
+#ifdef _WIN32
+    //Note: the array dimension id used by Component Automation is 1-based
+    //sequential number.
+  if(FAILED(::SafeArrayGetUBound(m_psaData, nDimId + 1, (LONG*)pnResult)))
+    {
+    *pnResult = 0;
+    TRACE(_T("  ::SafeArrayGetUBound() failed!\n"));
+    ASSERT(*pnResult != 0); //HRESULT  != S_OK
+    return false;
+    }
+#else
+  #pragma TODO
+  *pnResult = 0;
+  return false;
+#endif
+return true;
+}
+
+//-----------------------------------------------------------------------------
+/*Examines if the element index for the given dimension is within bounds.
+
+  Returns true if the index is within allowed range [LowerBound, UpperBound].
+  If the index is outside the range or if safe array bounds are not accessible
+  at the time, returns false.
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+bool TSafeArray<TYPE, TYPEVAR, DIM>::IsValidIdx(int index, //[in]
+                                          const unsigned int nDimId //[in] = 0
+                                  //the array dimension from the range [0, DIM)
+                                                ) const
+{
+int32_t lLowerBound, lUpperBound;
+//Note: the array dimension id used by Component Automation is 1-based
+//sequential number.
+if(GetBoundLower(&lLowerBound, nDimId))
+  if(GetBoundUpper(&lUpperBound, nDimId))
+    return ((lUpperBound >= index) && (lLowerBound <= index));
+
+return false; //Failed to obtain array's bounds
 }
 
 //-----------------------------------------------------------------------------
@@ -778,11 +980,35 @@ TSafeArray<TYPE, TYPEVAR, DIM>::TSaIterator<SUBTYPE, SUBDIM>::TSaIterator(
                                  TSafeArray<TYPE, TYPEVAR, DIM>& saOwner, //[in]
                                  int nIndex //[in]
                                                         ) :
-  m_saArray(saOwner),
-  m_nSize(nIndex)
+  m_saArray(saOwner)
 {
 ASSERT(nIndex >= 0);
-//ASSERT(nIndex < m_saArray.GetCount(m_saArray.GetDimensions() - DIM + 1));
+/*The least significant index is stored at 0-th position. The index of the 1st 
+  dimension is stored as the last element of the vector with indices.
+ */
+m_saArray.m_nIndices[SUBDIM] = nIndex;
+}
+
+//=============================================================================
+/*
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+  template <class SUBTYPE, int SUBDIM>
+//typename TSafeArray<TYPE, TYPEVAR, DIM>::TSaIterator<int, SUBDIM - 1> 
+TYPE 
+TSafeArray<TYPE, TYPEVAR, DIM>::
+  TSaIterator<SUBTYPE, SUBDIM>::operator[](int index //[in]
+                                                                         )
+{
+if (!m_saArray.IsValidIdx(index, SUBDIM))
+  {
+  ASSERT(false); //Index is out of range
+  throw (unsigned int)(E_INVALIDARG);
+  }
+TYPE saResult = 77;
+int a = SUBDIM;
+TSaIterator<TYPE, SUBDIM - 1> saResultatica(m_saArray, index);
+return saResult;
 }
 
   #endif /*__BORLANDC__                                                      */
@@ -791,6 +1017,9 @@ ASSERT(nIndex >= 0);
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.8  2010/03/03 23:19:22  ddarko
+ * subscript operator
+ *
  * Revision 1.7  2010/03/03 00:07:48  ddarko
  * Fixed nested template
  *
@@ -815,3 +1044,4 @@ ASSERT(nIndex >= 0);
  *****************************************************************************/
 /*(c) Borland (see C++ Builder 5, VCL, safearry.h)
  */
+
