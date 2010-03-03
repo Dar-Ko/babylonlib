@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.6 $ $Date: 2010/03/03 00:06:27 $
+  $Revision: 1.7 $ $Date: 2010/03/03 23:18:40 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -140,29 +140,64 @@ if (bResult)
 
 if (bResult)
   {
+  //Create a [ROW, COL] table of wide characters and initalize each row 
+  //with 10 letters.
+  TSafeArrayDim<DIM_2D> sa2Dim(ROW, COL);
+  TSafeArray<wchar_t,  VT_I2,  DIM_2D> wArray(sa2Dim);
+
+  typedef TSafeArray<uint16_t, VT_UI2, 4> SPACE; //4-dimensional space
+  TSafeArrayDim<4> sa4Dim;
+  sa4Dim[0] = 3;
+  sa4Dim[1] = 4;
+  sa4Dim[2] = 5;
+  sa4Dim[3] = 6;
+  SPACE nSpace(sa4Dim);
+  
   try
     {
-    //Create a [ROW, COL] table of wide characters and initalize each row 
-    //with 10 letters.
-    TSafeArrayDim<DIM_2D> sa2Dim(ROW, COL);
-    TSafeArray<wchar_t, VT_I2, 2> wArray(sa2Dim);
+    //Validate subscript operations
 
-    wchar_t cTemp = wArray[2];
+    //Get reference to the 3D space, in 2nd universe
+    SPACE::CSaIterator spaceVolume = nSpace[2];
+    //Get reference to the surface, in 3rd sector
+    SPACE::TSaIterator<uint16_t, DIM_2D> spacePlane = spaceVolume[3]; //Get the character indexed as [2][5]
+    //Get reference to the trajectory, on 1st area
+    SPACE::TSaIterator<uint16_t, DIM_2D -1> spaceLine = spacePlane[1]; //Get the character indexed as [2][5]
+    //Get reference to the end point  of 5th segment
+    SPACE::TSaIterator<uint16_t, 0> spaceDot = spaceLine[5]; //Get the character indexed as [2][5]
 
-    for(int i = 0; i < ROW; i++)
-      {
-      for(int j = 0; j < COL; j++)
-        {
-        //wArray[j][i] = wAlphabet[i] + j;
-        }
-      }
+    TSafeArray<wchar_t, VT_I2, DIM_2D>::CSaIterator csaTemp = wArray[2];
+    //TSafeArray<wchar_t, VT_I2, DIM_2D>::TSaIterator<wchar_t, DIM_2D - 1> cLetter = csaTemp[5];  //Get the character indexed as [2][5]
 
+    wchar_t cLetter = csaTemp[5];  //Get the character indexed as [2][5]
+
+
+
+    //Check error handling
+    TSafeArray<wchar_t, VT_I2, 2>::CSaIterator csaErrorneus = wArray[22];
     }
-  catch(...)
+  catch(unsigned int nError)
     {
-    bResult = false;
-    TRACE(_T("  An exception occured\n"));
+    switch (nError) 
+      {
+    case E_INVALIDARG:
+      TRACE(_T("  Index is out of bounds!\n"));
+      //Expected exception
+      break;
+    default:
+      TRACE(_T("  An exception occured while accessing array's elements!\n"));
+      bResult = false; //Unhandled exception
+      }
     }
+
+  for(int i = 0; i < ROW; i++)
+    {
+    for(int j = 0; j < COL; j++)
+      {
+      //wArray[j][i] = wAlphabet[i] + j;
+      }
+    }
+
   }
 
 TsWriteToViewLn(LOG_EOT);
@@ -252,6 +287,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.7  2010/03/03 23:18:40  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.6  2010/03/03 00:06:27  ddarko
  * *** empty log message ***
  *
