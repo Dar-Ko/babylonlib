@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.5 $ $Date: 2010/03/01 23:52:18 $
+  $Revision: 1.6 $ $Date: 2010/03/03 00:06:27 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -118,12 +118,16 @@ saDim[2] = 5;
 if(bResult)
   {
   TSafeArray<int, VT_I4, DIM_3D> intArray(saDim);
-  bResult = (intArray.GetDimension() == DIM_3D);
+  bResult = (intArray.GetDimensions() == DIM_3D);
   bResult = bResult && (intArray.GetVarType() == VT_I4);
+  bResult = bResult && (intArray.GetType() == VT_I4);
+  //Validate type casting
+  LPSAFEARRAY psaTemp = (LPSAFEARRAY)intArray;
+  bResult = bResult && (psaTemp != NULL);
   //Get address of the array descriptor
   LPSAFEARRAY* ppTemp = &intArray;
   bResult = bResult && (ppTemp != NULL);
-  bResult = bResult && (intArray.GetBoundsLength(0) == 3);
+  bResult = bResult && (intArray.GetCount() == 3);
   bResult = bResult && (intArray.GetBoundsLength(1) == 4);
   bResult = bResult && (intArray.GetBoundsLength(2) == 5);
   }
@@ -143,6 +147,7 @@ if (bResult)
     TSafeArrayDim<DIM_2D> sa2Dim(ROW, COL);
     TSafeArray<wchar_t, VT_I2, 2> wArray(sa2Dim);
 
+    wchar_t cTemp = wArray[2];
 
     for(int i = 0; i < ROW; i++)
       {
@@ -225,7 +230,7 @@ if(psaArray != NULL)
 
   //Create a copy of the safe array
   TSafeArray<int32_t, VT_I4, DIM_2D> intArray(psaArray);
-  bResult = (intArray.GetDimension() == DIM_2D);
+  bResult = (intArray.GetDimensions() == DIM_2D);
   bResult = bResult && (intArray.GetVarType() == VT_I4);
 
   #ifdef _WIN32 //Requires OLE 32 (OleAut32.dll)
@@ -247,6 +252,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.6  2010/03/03 00:06:27  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.5  2010/03/01 23:52:18  ddarko
  * *** empty log message ***
  *
