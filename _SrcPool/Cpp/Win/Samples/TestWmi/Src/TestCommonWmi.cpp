@@ -1,5 +1,5 @@
 /*$RCSfile: TestCommonWmi.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2010/02/22 22:39:15 $
+  $Revision: 1.5 $ $Date: 2010/03/03 00:08:12 $
   $Author: ddarko $
 
   Test WMI routines.
@@ -11,6 +11,8 @@
 #include "stdafx.h"
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
+extern bool TestTemplateSimpleNesting();
+extern bool TestTemplateNesting();
 extern bool TestVariant();
 extern bool TestSafeArray();
 #ifdef _WIN32
@@ -54,6 +56,8 @@ TsWriteToViewLn(_T(""));
 
 PFUNC_TEST funcTest[] =
   {
+  TestTemplateSimpleNesting,
+  TestTemplateNesting,
   TestVariant,
   TestSafeArray,
   #ifdef _WIN32
@@ -89,6 +93,9 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestCommonWmi.cpp,v $
+ * Revision 1.5  2010/03/03 00:08:12  ddarko
+ * Fixed nested template
+ *
  * Revision 1.4  2010/02/22 22:39:15  ddarko
  * SAFEARRAYBOUNDS
  *

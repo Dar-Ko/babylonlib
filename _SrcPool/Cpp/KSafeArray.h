@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.6 $ $Date: 2010/02/26 22:52:51 $
+  $Revision: 1.7 $ $Date: 2010/03/03 00:07:48 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -215,7 +215,14 @@ return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/*TODO: Description
+/*This class is a wrapper for the SAFEARRAY structure, simplifying creation
+  of onedimensional and multidimensional arrays of almost any of the 
+  VARIANT-supported types.
+
+  The lower bound of a safe arrays can start at any value within the range of 
+  integer, if they are going to be accessed by languages such as Visual Basic.
+  Arrays that are accessed through C++ should use a lower bound of 0.
+
   Parameters:
     - TYPE
     - TYPEVAR variant type
@@ -249,35 +256,44 @@ public:
   TSafeArray();
   TSafeArray(SAFEARRAY* psaSrc);
   TSafeArray(TSafeArrayDim<DIM>& saDimension);
+  TSafeArray(const TSafeArray<TYPE, TYPEVAR, DIM>& saSrc);
   ~TSafeArray();
 
-  TSafeArray(const TSafeArray<TYPE, TYPEVAR, DIM>& saSrc);
-  TSafeArray<TYPE, TYPEVAR, DIM>& operator=(const TSafeArray<TYPE, TYPEVAR, DIM>& saSrc);
 
 public:
   bool    Destroy();
   VARENUM GetVarType(SAFEARRAY& saSrc) const;
   VARENUM GetVarType() const;
-  unsigned int GetDimension(SAFEARRAY& saSrc) const;
-  unsigned int GetDimension() const;
+  VARTYPE GetType() const;
+  unsigned int GetDimensions(SAFEARRAY& saSrc) const;
+  unsigned int GetDimensions() const;
   unsigned int GetBoundsLength(const unsigned int nDimId) const;
-
-  //long        Elements();
+  unsigned int GetCount(const unsigned int nDimId = 0) const;
   bool        Attach(SAFEARRAY* psaData);
   SAFEARRAY*  Detach();
 
 public:
-  template <int DIM> class TSaIterator
+  template <class SUBTYPE, int SUBDIM> 
+  class TSaIterator
     {
     protected:
-      TSafeArray& m_saArray;
+      TSafeArray<TYPE, TYPEVAR, DIM>& m_saArray;
       unsigned int const m_nSize;
     public:
-      TSaIterator(TSafeArray& saOwner, unsigned int nCount);
+      TSaIterator(TSafeArray<TYPE, TYPEVAR, DIM>& saOwner, int nIndex);
       TYPE& operator[] (int index);
     };
-  TSaIterator<DIM> operator[] (int index);
+
+  TSafeArray<TYPE, TYPEVAR, DIM>& operator=(const TSafeArray<TYPE, TYPEVAR, DIM>& saSrc);
+  /*TSaIterator<TYPE, DIM>*/ TYPE& operator[] (int index);
   SAFEARRAY** operator&();
+  operator const SAFEARRAY*() const;
+  operator SAFEARRAY*();
+
+protected:
+  bool Copy(const SAFEARRAY* psaSrc);
+  bool Lock();
+  bool Unlock();
 
 protected:
   SAFEARRAY*   m_psaData; //data container describing the array
@@ -299,37 +315,10 @@ TSafeArray<TYPE, TYPEVAR, DIM>::TSafeArray() :
 
 template <class TYPE, VARENUM TYPEVAR, int DIM>
 TSafeArray<TYPE, TYPEVAR, DIM>::TSafeArray(SAFEARRAY* psaSrc //[in]
-                                          )
+                                          ) :
+  m_psaData(NULL)
 {
-ASSERT(psaSrc != NULL);
-if (psaSrc != NULL)
-  {
-  //Match the size and the type of the source and target
-  if ((GetVarType(*psaSrc) == TYPEVAR) &&
-      (GetDimension(*psaSrc) == DIM))
-    {
-    #ifdef _WIN32
-      /*Note: SafeArrayCopy() calls the string or variant manipulation
-        functions if the array to copy contains either of these data types.
-        If the array being copied contains object references, the reference
-        counts for the objects are incremented.
-       */
-      if(FAILED(::SafeArrayCopy(psaSrc, &m_psaData)))
-        {
-        TRACE(_T("  SafeArrayCopy() failed!\n"));
-        m_psaData = NULL;
-        }
-    #else
-      m_psaData = psaSrc; //Attach the source
-      #pragma TODO //TODO: copy the source
-    #endif
-    }
-  else
-    {
-    TRACE(_T("TSafeArray::TSafeArray(SAFEARRAY*)\n  Failure: Source and target are not compatible!\n"));
-    m_psaData = NULL;
-    }
-  }
+Copy(psaSrc);
 }
 
 /*Creates a new array descriptor, allocates and initializes the data for
@@ -354,26 +343,14 @@ TSafeArray<TYPE, TYPEVAR, DIM>::TSafeArray(TSafeArrayDim<DIM>& saDimension //[in
  */
 template <class TYPE, VARENUM TYPEVAR, int DIM>
 TSafeArray<TYPE, TYPEVAR, DIM>::TSafeArray(const TSafeArray<TYPE, TYPEVAR, DIM>& saSrc //[in]
-                                          )
+                                          ) :
+  m_psaData(NULL)
 {
-if (src.m_psaData != NULL)
-  {
-  #ifdef _WIN32
-    /*Note: SafeArrayCopy() calls the string or variant manipulation
-      functions if the array to copy contains either of these data types.
-      If the array being copied contains object references, the reference
-      counts for the objects are incremented.
-     */
-    if(FAILED(::SafeArrayCopy(saSrc.m_psaData, &m_psaData)))
-      {
-      TRACE(_T("  SafeArrayCopy() failed!\n"));
-      m_psaData = NULL;
-      }
-  #else
-    m_psaData = NULL;
-    #pragma TODO
-  #endif
-  }
+#ifdef _DEBUG
+  ASSERT(Copy(saSrc.m_psaData));
+#else
+  Copy(saSrc.m_psaData);
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -382,7 +359,11 @@ if (src.m_psaData != NULL)
 template <class TYPE, VARENUM TYPEVAR, int DIM>
 TSafeArray<TYPE, TYPEVAR, DIM>::~TSafeArray()
 {
-Destroy();
+#ifdef _DEBUG
+  ASSERT(Destroy());
+#else
+  Destroy();
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -397,47 +378,172 @@ bool TSafeArray<TYPE, TYPEVAR, DIM>::Destroy()
 TRACE(_T("TSafeArray::Destroy()\n"));
 if (m_psaData != NULL)
   {
-  #ifdef _WIN32
-    HRESULT hResult = ::SafeArrayDestroy(m_psaData);
-    switch(hResult)
-      {
-      case S_OK:
-        m_psaData = NULL;
-        return true;
-        break;
-      case DISP_E_ARRAYISLOCKED:
-        TRACE(_T("  The array is currently locked.\n"));
-        break;
-      case E_INVALIDARG:
-        TRACE(_T("  The item pointed to by m_psaData is not a safe array descriptor.\n"));
-        break;
-      default:
-        TRACE(_T("  Failed to destroy the array.\n"));
-      }
-  #else
-    #pragma TODO
-  #endif
+  if(Unlock())
+    {
+    #ifdef _WIN32
+      HRESULT hResult = ::SafeArrayDestroy(m_psaData);
+      switch(hResult)
+        {
+        case S_OK:
+          m_psaData = NULL;
+          return true;
+          break;
+        case DISP_E_ARRAYISLOCKED:
+          TRACE(_T("  The array is currently locked.\n"));
+          break;
+        case E_INVALIDARG:
+          TRACE(_T("  The item pointed to by m_psaData is not a safe array descriptor.\n"));
+          break;
+        default:
+          TRACE(_T("  Failed to destroy the array.\n"));
+        }
+    #else
+      #pragma TODO
+    #endif
+    }
   }
+else
+  return true;
 return false;
+}
+
+//-----------------------------------------------------------------------------
+/*Increments the lock count of an array. An array cannot be deleted while it is
+  locked.
+
+  Returns true on success or false on failure.
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+bool TSafeArray<TYPE, TYPEVAR, DIM>::Lock()
+{
+TRACE(_T("TSafeArray::Lock()\n"));
+ASSERT(m_psaData != NULL);
+#ifdef _WIN32
+  /*Increments the lock count of an array, and places a pointer to the array
+    data in pvData of the array descriptor.
+    The pointer in the array descriptor is valid until SafeArrayUnlock is called.
+   */
+  if (SUCCEEDED(SafeArrayLock(m_psaData)))
+    return true;
+#else
+  #pragma TODO
+#endif
+return false;
+}
+
+//-----------------------------------------------------------------------------
+/*Decrements the lock count of an array so it can be freed or resized.
+
+  Returns true on success or false on failure.
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+bool TSafeArray<TYPE, TYPEVAR, DIM>::Unlock()
+{
+TRACE(_T("TSafeArray::Unlock()\n"));
+ASSERT(m_psaData != NULL);
+#ifdef _WIN32
+  if (SUCCEEDED(SafeArrayUnlock(m_psaData)))
+    return true;
+#else
+  #pragma TODO
+#endif
+return false;
+}
+
+//-----------------------------------------------------------------------------
+/*Copies the contents of a safe array descriptor into this object.
+
+  Returns true on success or false on failure.
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+bool TSafeArray<TYPE, TYPEVAR, DIM>::Copy(const SAFEARRAY* psaSrc //[in] the safe
+                                          //array to copy
+                                          )
+{
+TRACE(_T("TSafeArray::Copy()\n"));
+bool bResult = false;
+ASSERT(psaSrc != NULL);
+if (psaSrc != NULL)
+  {
+  //Match the type of the source and target
+  if( (GetVarType(*const_cast <SAFEARRAY*>(psaSrc)) == TYPEVAR) &&
+      (GetDimensions(*const_cast <SAFEARRAY*>(psaSrc)) == DIM) )
+    {
+    if(Destroy()) //Clean up previous content
+      {
+      #ifdef _WIN32
+        /*Note: SafeArrayCopy() calls the string or variant manipulation
+          functions if the array to copy contains either of these data types.
+          If the array being copied contains object references, the reference
+          counts for the objects are incremented.
+         */
+        if(FAILED(::SafeArrayCopy(const_cast <SAFEARRAY*>(psaSrc), &m_psaData)))
+          {
+          TRACE(_T("  SafeArrayCopy() failed!\n"));
+          }
+      #else
+        m_psaData = psaSrc; //Attach the source
+        #pragma TODO //TODO: copy the source
+      #endif
+      bResult = Lock();
+      }
+    }
+  else
+    {
+    TRACE(_T("TSafeArray::TSafeArray(SAFEARRAY*)\n  Failure: Source and target are not compatible!\n"));
+    }
+  }
+return bResult;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+TSafeArray<TYPE, TYPEVAR, DIM>& TSafeArray<TYPE, TYPEVAR, DIM>::operator=(
+                             const TSafeArray<TYPE, TYPEVAR, DIM>& saSrc //[in]
+                                                                         )
+{
+*this = saSrc.m_psa;
+return *this;
 }
 
 //-----------------------------------------------------------------------------
 /*Returns the address of the safe array descriptor.
  */
-template <class TYPE, VARENUM TYPEVAR, int DIM> SAFEARRAY**
-TSafeArray<TYPE, TYPEVAR, DIM>::operator& ()
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+SAFEARRAY** TSafeArray<TYPE, TYPEVAR, DIM>::operator& ()
 {
 return &m_psaData;
 }
 
 //-----------------------------------------------------------------------------
+/*Returns the the safe array descriptor.
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+TSafeArray<TYPE, TYPEVAR, DIM>::operator const SAFEARRAY*() const
+{
+return m_psaData;
+}
+
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+TSafeArray<TYPE, TYPEVAR, DIM>::operator SAFEARRAY*()
+{
+return m_psaData;
+}
+
+//-----------------------------------------------------------------------------
 /*Returns subarray with number of dimensions decreased by one.
  */
-template <class TYPE, VARENUM TYPEVAR, int DIM> TSAAccessorT<TYPE, DIM>
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+TYPE& /**/
 TSafeArray<TYPE, TYPEVAR, DIM>::operator[] (int index //[in]
                                            )
 {
-return TSaIterator<DIM>(m_psaData, index);
+TSaIterator<TYPE, DIM-1> saResult(*this, index);
+static TYPE t = 65;
+return t;
+//return 
 }
 
 //-----------------------------------------------------------------------------
@@ -478,8 +584,8 @@ VARENUM evarResult = VT_EMPTY;
       */
       if(evarResult == VT_UNKNOWN)
         {
-        if( (saSrc.fFeatures & FADF_HAVEIID) == FADF_HAVEIID) &&
-            (saSrc.fFeatures & FADF_DISPATCH) == FADF_DISPATCH) )
+        if( ((saSrc.fFeatures & FADF_HAVEIID) == FADF_HAVEIID) &&
+            ((saSrc.fFeatures & FADF_DISPATCH) == FADF_DISPATCH) )
           {
           evarResult = VT_DISPATCH;
           }
@@ -531,11 +637,37 @@ if(m_psaData != NULL)
 return VT_EMPTY;
 }
 
+/*Obtains variant type stored in the array, which could be any of the following
+ types:
+
+      VARTYPE  Description 
+      VT_I1       int8_t
+      VT_I2       int16_t
+      VT_I4       int32_t
+      VT_I8       int64_t
+      VT_UI1      uint8_t
+      VT_UI2      uint16_t
+      VT_UI4      uint32_t
+      VT_UI8      uint64_t
+      VT_R4       float
+      VT_R8       double
+      VT_DECIMAL  DECIMAL*
+      VT_VARIANT  VARIANT*
+      VT_CY       CURRENCY
+
+  Returns the type of data stored in the array.
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+VARTYPE TSafeArray<TYPE, TYPEVAR, DIM>::GetType() const
+{
+return static_cast<VARTYPE>(TYPEVAR);
+}
+
 //-----------------------------------------------------------------------------
 /*Returns number of dimensions of the safe array.
  */
 template <class TYPE, VARENUM TYPEVAR, int DIM>
-unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetDimension(SAFEARRAY& saSrc //[in]
+unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetDimensions(SAFEARRAY& saSrc //[in]
                                                           //a safe array descriptor
                   ) const
 {
@@ -547,17 +679,19 @@ unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetDimension(SAFEARRAY& saSrc //[in
 }
 
 template <class TYPE, VARENUM TYPEVAR, int DIM>
-unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetDimension() const
+unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetDimensions() const
 {
 if(m_psaData != NULL)
   {
-  return GetDimension(*m_psaData);
+  return GetDimensions(*m_psaData);
   }
 return 0;
 }
 
 //-----------------------------------------------------------------------------
 /*Returns the number of elements for specified dimension of the safe array.
+
+  See also: TSafeArray::GetCount()
  */
 template <class TYPE, VARENUM TYPEVAR, int DIM>
 unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetBoundsLength(
@@ -568,7 +702,7 @@ unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetBoundsLength(
 unsigned int nResult = 0;
 if (m_psaData != NULL)
   {
-  ASSERT(nDimId < GetDimension());
+  ASSERT(nDimId < GetDimensions());
   #ifdef _WIN32
     long lLowerBound, lUpperBound;
     //Note: the array dimension id used by Component Automation is 1-based
@@ -583,6 +717,19 @@ if (m_psaData != NULL)
 return nResult;
 }
 
+/*Returns the number of elements in the array.
+ 
+  See also: TSafeArray::GetBoundsLength()
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+unsigned int TSafeArray<TYPE, TYPEVAR, DIM>::GetCount(const unsigned int nDimId //[in] = 0
+                                       //the array dimension from the range [0, DIM)
+                                                     ) const
+{
+//Note: this method is added to keep compatibility with ATL
+return GetBoundsLength(nDimId);
+}
+
 //-----------------------------------------------------------------------------
 /*Attaches the given safe array descriptor to this object.
  */
@@ -594,12 +741,13 @@ bool TSafeArray<TYPE, TYPEVAR, DIM>::Attach(SAFEARRAY* psaNew //[in] the compati
 if (psaNew != NULL)
   {
   if( (GetVarType(*psaNew) == TYPEVAR) &&
-      (GetDimension(*psaNew) == DIM) )
+      (GetDimensions(*psaNew) == DIM) )
     {
     if(Destroy())
       {
       m_psaData = psaNew;
-      return true;
+      if(Lock())
+        return true;
       }
     }
   }
@@ -615,9 +763,26 @@ return false;
 template <class TYPE, VARENUM TYPEVAR, int DIM>
 SAFEARRAY* TSafeArray<TYPE, TYPEVAR, DIM>::Detach()
 {
+Unlock();
 LPSAFEARRAY psaResult = m_psaData;
 m_psaData = NULL;
 return psaResult;
+}
+
+//=============================================================================
+/*
+ */
+template <class TYPE, VARENUM TYPEVAR, int DIM>
+ template <class SUBTYPE, int SUBDIM>
+TSafeArray<TYPE, TYPEVAR, DIM>::TSaIterator<SUBTYPE, SUBDIM>::TSaIterator(
+                                 TSafeArray<TYPE, TYPEVAR, DIM>& saOwner, //[in]
+                                 int nIndex //[in]
+                                                        ) :
+  m_saArray(saOwner),
+  m_nSize(nIndex)
+{
+ASSERT(nIndex >= 0);
+//ASSERT(nIndex < m_saArray.GetCount(m_saArray.GetDimensions() - DIM + 1));
 }
 
   #endif /*__BORLANDC__                                                      */
@@ -626,6 +791,9 @@ return psaResult;
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.7  2010/03/03 00:07:48  ddarko
+ * Fixed nested template
+ *
  * Revision 1.6  2010/02/26 22:52:51  ddarko
  * *** empty log message ***
  *
