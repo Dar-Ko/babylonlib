@@ -1,5 +1,5 @@
 /*$RCSfile: TestTemplateNesting.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2010/03/02 23:02:15 $
+  $Revision: 1.2 $ $Date: 2010/03/03 00:07:01 $
   $Author: ddarko $
 
   Test C++ compiler conformance of nesting template classes.
@@ -8,6 +8,13 @@
 */
 
 /* Group=Examples                                                            */
+
+#ifdef _USE_ATL
+  #include <iostream>
+  //Active Template Libaray (ATL)
+  #include <atlbase.h>
+  #include "KTraceAtl.h"
+#endif
 
 #include "TestConformance.h"
 #ifndef _T
@@ -19,6 +26,7 @@
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
+#ifndef HAS_NO_TEMPLATE_INSIDE_TEMPLATE_SUPPORT
 ///////////////////////////////////////////////////////////////////////////////
 // Nested template classes
 //
@@ -94,6 +102,7 @@ X<T>::TNested<U>::~TNested()
 {
 TRACE(_T("X<T>::TNested<U>::~TNested()\n"));
 }
+#endif //HAS_NO_TEMPLATE_INSIDE_TEMPLATE_SUPPORT
 
 /*---------------------------------------------------------------------------*/
 /*Validates C++ compiler conformance on template classes nested inside of
@@ -104,19 +113,28 @@ TRACE(_T("X<T>::TNested<U>::~TNested()\n"));
 bool TestTemplateNesting()
 {
 bool bResult = false;
-X<int> xInt(101);
-xInt.Out();
-bResult = (xInt.GetValue() == 101);
+#ifndef HAS_NO_TEMPLATE_INSIDE_TEMPLATE_SUPPORT
+  X<int> xInt(101);
+  xInt.Out();
+  bResult = (xInt.GetValue() == 101);
 
-X<char> xChar('c');
-xChar.Out();
-bResult = bResult && (xInt.GetValue() == (int)'c');
+  X<char> xChar('c');
+  xChar.Out();
+  bResult = bResult && (xChar.GetValue() == (int)'c');
+#else
+  TRACE(_T("HAS_NO_TEMPLATE_INSIDE_TEMPLATE_SUPPORT\n"));
+  TsWriteToViewLn(_T("HAS_NO_TEMPLATE_INSIDE_TEMPLATE_SUPPORT\n"));
+#endif //HAS_NO_TEMPLATE_INSIDE_TEMPLATE_SUPPORT
+
 return bResult;
 }
 
 /* ////////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  * $Log: TestTemplateNesting.cpp,v $
+ * Revision 1.2  2010/03/03 00:07:01  ddarko
+ * MSVC 2005 Cimpilation
+ *
  * Revision 1.1  2010/03/02 23:02:15  ddarko
  * Nested template classes
  *
