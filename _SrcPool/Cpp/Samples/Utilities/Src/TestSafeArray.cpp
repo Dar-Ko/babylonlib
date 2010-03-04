@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.7 $ $Date: 2010/03/03 23:18:40 $
+  $Revision: 1.8 $ $Date: 2010/03/04 22:21:16 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -156,22 +156,30 @@ if (bResult)
   try
     {
     //Validate subscript operations
+    int32_t testLower, testUpper;
+    for(int iSubdim = (4 - 1); (iSubdim >= 0) && bResult; iSubdim--)
+      {
+      bResult = nSpace.GetBoundLower(&testLower, iSubdim);
+      bResult = bResult && nSpace.GetBoundUpper(&testUpper, iSubdim);
+      TRACE3(_T("Safe Subarray %d range [%d, %d]\n"), 
+            iSubdim, testLower, testUpper);
+      }
+     if(!bResult)
+       throw((unsigned int)ERROR_NOACCESS);
 
-    //Get reference to the 3D space, in 2nd universe
-    SPACE::CSaIterator spaceVolume = nSpace[2];
-    //Get reference to the surface, in 3rd sector
-    SPACE::TSaIterator<uint16_t, DIM_2D> spacePlane = spaceVolume[3]; //Get the character indexed as [2][5]
-    //Get reference to the trajectory, on 1st area
-    SPACE::TSaIterator<uint16_t, DIM_2D -1> spaceLine = spacePlane[1]; //Get the character indexed as [2][5]
-    //Get reference to the end point  of 5th segment
-    SPACE::TSaIterator<uint16_t, 0> spaceDot = spaceLine[5]; //Get the character indexed as [2][5]
+    //Get reference to the 3D space, in 4th universe [4]
+    SPACE::CSaIterator spaceVolume = nSpace[4];
+    //Get reference to the surface, in 3rd sector [3][4]
+    SPACE::TSaIterator<uint16_t, DIM_2D> spacePlane = spaceVolume[3];
+    //Get reference to the trajectory, on 1st area [1][3][4]
+    SPACE::TSaIterator<uint16_t, DIM_2D -1> spaceLine = spacePlane[1];
+    //Get reference to the end point of 2nd segment [2][1][3][4]
+    SPACE::TSaIterator<uint16_t, 0> spaceDot = spaceLine[2];
 
-    TSafeArray<wchar_t, VT_I2, DIM_2D>::CSaIterator csaTemp = wArray[2];
+      TSafeArray<wchar_t, VT_I2, DIM_2D>::CSaIterator csaTemp = wArray[2];
     //TSafeArray<wchar_t, VT_I2, DIM_2D>::TSaIterator<wchar_t, DIM_2D - 1> cLetter = csaTemp[5];  //Get the character indexed as [2][5]
 
-    wchar_t cLetter = csaTemp[5];  //Get the character indexed as [2][5]
-
-
+    //wchar_t cLetter = csaTemp[5];  //Get the character indexed as [2][5]
 
     //Check error handling
     TSafeArray<wchar_t, VT_I2, 2>::CSaIterator csaErrorneus = wArray[22];
@@ -287,6 +295,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.8  2010/03/04 22:21:16  ddarko
+ * test subsscript operator
+ *
  * Revision 1.7  2010/03/03 23:18:40  ddarko
  * *** empty log message ***
  *

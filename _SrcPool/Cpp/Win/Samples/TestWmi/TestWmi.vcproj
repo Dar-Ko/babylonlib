@@ -304,7 +304,7 @@
 					>
 					<Tool
 						Name="VCCLCompilerTool"
-						PreprocessorDefinitions="_USE_ATL=1"
+						PreprocessorDefinitions="_USE_ATL=1, _DEBUG_SASUBSCRIPRT=1"
 						UsePrecompiledHeader="2"
 					/>
 				</FileConfiguration>

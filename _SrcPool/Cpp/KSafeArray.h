@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.8 $ $Date: 2010/03/03 23:19:22 $
+  $Revision: 1.9 $ $Date: 2010/03/04 22:21:16 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -140,16 +140,18 @@ public:
 // Inlines
 
 //------------------------------------------------------------------------------
-/*Default constructor used to create n-dimensional arrays or with elements
-  bounded differently than in C (TODO: better description required)
+/*Default constructor used to create n-dimensional arrays. The lower bounds and
+  sizes of each subarray are initalized to 0.
  */
 template <int DIM>
 TSafeArrayDim<DIM>::TSafeArrayDim()
 {
 ASSERT(DIM > 0);
+memset(m_saBounds,0, sizeof(m_saBounds));
 }
 
-/*
+/*Used to create 3-dimensional arrays. The lower bounds of each subarray is 
+  initalized to 0. Subarray's lenghts are set to the new values.
  */
 template <int DIM>
 TSafeArrayDim<DIM>::TSafeArrayDim(int nCount1, //[in]     the number of elements in
@@ -195,9 +197,10 @@ return m_saBounds;
 }
 
 //------------------------------------------------------------------------------
-/*
-  Returns the number of elements in the multi-dimensional array for the given
-  dimension.
+/*Allows to set the size of a subarray. Subarray's lower bound is left unchanged.
+
+  Returns reference to the number of elements in the multi-dimensional array
+  for the given dimension.
  */
 template <int DIM>
 uint32_t& TSafeArrayDim<DIM>::operator[](int iDimension //[in] 0-based index of array's
@@ -209,6 +212,9 @@ ASSERT(iDimension < DIM);
 return *(uint32_t*)&m_saBounds[iDimension].cElements;
 }
 
+/*Returns the number of elements in the multi-dimensional array for the given
+  dimension.
+ */
 template <int DIM>
 uint32_t TSafeArrayDim<DIM>::operator[](int iDimension //[in] 0-based index of array's
                                        //bound form the range [0, DIM)
@@ -350,12 +356,12 @@ public:
   template <class SUBTYPE, int SUBDIM>
   class TSaIterator
     {
-    protected:
-      TSafeArray<TYPE, TYPEVAR, DIM>& m_saArray;
     public:
       TSaIterator(TSafeArray<TYPE, TYPEVAR, DIM>& saOwner, int nIndex);
-      //TSaIterator<TYPE, SUBDIM - 1> operator[] (int index);
-      TYPE operator[] (int index);
+    public:
+      TSaIterator<SUBTYPE, SUBDIM - 1> operator[] (int index);
+    protected:
+      TSafeArray<TYPE, TYPEVAR, DIM>& m_saArray;
     };
 
   typedef typename TSafeArray<TYPE, TYPEVAR, DIM>::TSaIterator<TYPE, DIM-1>* LPSAITERATOR;
@@ -598,7 +604,6 @@ TSafeArray<TYPE, TYPEVAR, DIM>& TSafeArray<TYPE, TYPEVAR, DIM>::operator=(
 {
 *this = saSrc.m_psa;
 return *this;
-
 }
 
 /*Assignment operator.
@@ -620,7 +625,7 @@ return *this;
 /*Returns the address of the safe array descriptor.
  */
 template <class TYPE, VARENUM TYPEVAR, int DIM>
-SAFEARRAY** TSafeArray<TYPE, TYPEVAR, DIM>::operator& ()
+SAFEARRAY** TSafeArray<TYPE, TYPEVAR, DIM>::operator&()
 {
 return &m_psaData;
 }
@@ -649,8 +654,12 @@ typename TSafeArray<TYPE, TYPEVAR, DIM>::CSaIterator
                     TSafeArray<TYPE, TYPEVAR, DIM>::operator[] (int index //[in]
                                            )
 {
+#ifdef _DEBUG_SASUBSCRIPRT
+  TRACE2(_T("TSafeArray<DIM=%d>::operator[%d]\n"),
+         DIM, index);
+#endif
 ASSERT(m_psaData != NULL);
-if (!IsValidIdx(index))
+if (!IsValidIdx(index, DIM - 1))
   {
   ASSERT(false); //Index is out of range
   throw (unsigned int)(E_INVALIDARG);
@@ -982,11 +991,16 @@ TSafeArray<TYPE, TYPEVAR, DIM>::TSaIterator<SUBTYPE, SUBDIM>::TSaIterator(
                                                         ) :
   m_saArray(saOwner)
 {
+#ifdef _DEBUG_SASUBSCRIPRT
+  TRACE3(_T("TSafeArray<DIM=%d>::TSaIterator<SUBDIM=%d>(%d)\n"),
+         DIM, SUBDIM, nIndex);
+#endif
+
 ASSERT(nIndex >= 0);
 /*The least significant index is stored at 0-th position. The index of the 1st 
   dimension is stored as the last element of the vector with indices.
  */
-m_saArray.m_nIndices[SUBDIM] = nIndex;
+m_saArray.m_nIndices[(DIM - 1) - SUBDIM] = nIndex;
 }
 
 //=============================================================================
@@ -994,20 +1008,29 @@ m_saArray.m_nIndices[SUBDIM] = nIndex;
  */
 template <class TYPE, VARENUM TYPEVAR, int DIM>
   template <class SUBTYPE, int SUBDIM>
-//typename TSafeArray<TYPE, TYPEVAR, DIM>::TSaIterator<int, SUBDIM - 1> 
-TYPE 
+typename TSafeArray<TYPE, TYPEVAR, DIM>::TSaIterator<SUBTYPE, SUBDIM - 1> 
 TSafeArray<TYPE, TYPEVAR, DIM>::
   TSaIterator<SUBTYPE, SUBDIM>::operator[](int index //[in]
                                                                          )
 {
+#ifdef _DEBUG_SASUBSCRIPRT
+  TRACE3(_T("TSafeArray<DIM=%d>::TSaIterator<SUBDIM=%d>::operator[%d]\n"),
+         DIM, SUBDIM, index);
+#endif
+
 if (!m_saArray.IsValidIdx(index, SUBDIM))
   {
+  #ifdef _DEBUG
+    int dbgLower, dbgUpper;
+    m_saArray.GetBoundLower(&dbgLower, SUBDIM);
+    m_saArray.GetBoundUpper(&dbgUpper, SUBDIM);
+    TRACE3(_T("  Index = %d is out of range [%d, %d]!\n"), 
+          index, dbgLower, dbgUpper);
+  #endif
   ASSERT(false); //Index is out of range
   throw (unsigned int)(E_INVALIDARG);
   }
-TYPE saResult = 77;
-int a = SUBDIM;
-TSaIterator<TYPE, SUBDIM - 1> saResultatica(m_saArray, index);
+TSaIterator<SUBTYPE, SUBDIM - 1> saResult(m_saArray, index);
 return saResult;
 }
 
@@ -1017,6 +1040,9 @@ return saResult;
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.9  2010/03/04 22:21:16  ddarko
+ * test subsscript operator
+ *
  * Revision 1.8  2010/03/03 23:19:22  ddarko
  * subscript operator
  *
@@ -1044,4 +1070,3 @@ return saResult;
  *****************************************************************************/
 /*(c) Borland (see C++ Builder 5, VCL, safearry.h)
  */
-
