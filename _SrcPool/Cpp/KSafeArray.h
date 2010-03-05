@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.9 $ $Date: 2010/03/04 22:21:16 $
+  $Revision: 1.10 $ $Date: 2010/03/05 22:31:41 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -289,6 +289,16 @@ ASSERT(DIM > nDimId);
 m_saBounds[nDimId].cElements = nNewValue;
 return m_saBounds[nDimId].cElements;
 }
+////////////////////////////////////////////////////////////////////////////////
+/*
+ */
+template<class TYPE, int DIM>
+TYPE& SafeArrayGet(const int nIndex //[in]
+                  )
+{
+static TYPE tResult;
+return tResult;
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -360,6 +370,7 @@ public:
       TSaIterator(TSafeArray<TYPE, TYPEVAR, DIM>& saOwner, int nIndex);
     public:
       TSaIterator<SUBTYPE, SUBDIM - 1> operator[] (int index);
+      friend TYPE& SafeArrayGet<SUBTYPE, SUBDIM>(const int nIndex);
     protected:
       TSafeArray<TYPE, TYPEVAR, DIM>& m_saArray;
     };
@@ -1030,6 +1041,7 @@ if (!m_saArray.IsValidIdx(index, SUBDIM))
   ASSERT(false); //Index is out of range
   throw (unsigned int)(E_INVALIDARG);
   }
+SafeArrayGet<SUBTYPE, SUBDIM - 1>(index);
 TSaIterator<SUBTYPE, SUBDIM - 1> saResult(m_saArray, index);
 return saResult;
 }
@@ -1040,6 +1052,9 @@ return saResult;
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.10  2010/03/05 22:31:41  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.9  2010/03/04 22:21:16  ddarko
  * test subsscript operator
  *

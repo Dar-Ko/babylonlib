@@ -1,5 +1,5 @@
 /*$RCSfile: TestTemplateNesting.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2010/03/03 00:07:01 $
+  $Revision: 1.3 $ $Date: 2010/03/05 22:31:41 $
   $Author: ddarko $
 
   Test C++ compiler conformance of nesting template classes.
@@ -73,7 +73,6 @@ protected:
   the member template.
   Local classes are not allowed to have member templates.
  */
-
 template <class T>
 template <class U>
 X<T>::TNested<U>::TNested()
@@ -102,6 +101,7 @@ X<T>::TNested<U>::~TNested()
 {
 TRACE(_T("X<T>::TNested<U>::~TNested()\n"));
 }
+
 #endif //HAS_NO_TEMPLATE_INSIDE_TEMPLATE_SUPPORT
 
 /*---------------------------------------------------------------------------*/
@@ -124,6 +124,7 @@ bool bResult = false;
 #else
   TRACE(_T("HAS_NO_TEMPLATE_INSIDE_TEMPLATE_SUPPORT\n"));
   TsWriteToViewLn(_T("HAS_NO_TEMPLATE_INSIDE_TEMPLATE_SUPPORT\n"));
+  bResult = true;
 #endif //HAS_NO_TEMPLATE_INSIDE_TEMPLATE_SUPPORT
 
 return bResult;
@@ -132,6 +133,9 @@ return bResult;
 /* ////////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  * $Log: TestTemplateNesting.cpp,v $
+ * Revision 1.3  2010/03/05 22:31:41  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.2  2010/03/03 00:07:01  ddarko
  * MSVC 2005 Cimpilation
  *

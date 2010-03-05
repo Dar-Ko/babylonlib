@@ -1,5 +1,5 @@
 /*$RCSfile: TestCommonWmi.cpp,v $: implementation file
-  $Revision: 1.5 $ $Date: 2010/03/03 00:08:12 $
+  $Revision: 1.6 $ $Date: 2010/03/05 22:31:41 $
   $Author: ddarko $
 
   Test WMI routines.
@@ -13,6 +13,7 @@
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TestTemplateSimpleNesting();
 extern bool TestTemplateNesting();
+extern bool TestTemplateSpecialization();
 extern bool TestVariant();
 extern bool TestSafeArray();
 #ifdef _WIN32
@@ -58,6 +59,7 @@ PFUNC_TEST funcTest[] =
   {
   TestTemplateSimpleNesting,
   TestTemplateNesting,
+  TestTemplateSpecialization,
   TestVariant,
   TestSafeArray,
   #ifdef _WIN32
@@ -93,6 +95,9 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestCommonWmi.cpp,v $
+ * Revision 1.6  2010/03/05 22:31:41  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.5  2010/03/03 00:08:12  ddarko
  * Fixed nested template
  *
