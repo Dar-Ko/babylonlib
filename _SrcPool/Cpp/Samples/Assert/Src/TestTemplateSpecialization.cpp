@@ -1,5 +1,5 @@
 /*$RCSfile: TestTemplateSpecialization.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2010/02/26 22:20:39 $
+  $Revision: 1.2 $ $Date: 2010/03/05 15:31:28 $
   $Author: ddarko $
 
   Test C++ compiler conformance to partial specialization of templates.
@@ -20,25 +20,52 @@
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 ///////////////////////////////////////////////////////////////////////////////
-// Partial specialization
-// BZ_PARTIAL_SPECIALIZATION
-template<class T_type, int N>
-class foo {
+/*Partial Template Specialization
+  If a class template has more than one template parameter, you can specialize
+  the class template for one or a set of particular parameterized values or types.
+  That is, you might want to provide a template that matches a general template
+  except that some of the template parameters have been replaced by actual types
+  or values.
+  The definition of a partial specialization is completely disjointed from
+  the definition of the general template. The partial specialization may have
+  a completely different set of members from the generic class template.
+  A class template partial specialization must have its own definitions for its
+  member functions, static data members, and nested types, the same as for
+  a class template specialization. The generic definitions for the members of
+  a class template are never used to instantiate the members of the class
+  template partial specialization.
+
+  See also: {html: <a href="http://msdn.microsoft.com/en-us/magazine/cc163754.aspx"
+  Generic Programming: Template Specialization by Stanley B. Lippman</a>}
+ */
+template<class TYPE, int NUMBER>
+class TPartialSpecialization
+{
 public:
   enum bar { z = 0 };
 };
 
-template<int N>
-class foo<double, N> {
+#ifndef HAS_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+//==============================================================================
+/*Partial specialization of TYPE argument
+ */
+template<int NUMBER>
+class TPartialSpecialization<double, NUMBER>
+{
 public:
   enum bar { z = 1 };
 };
 
-template<class T_type>
-class foo<T_type, 2> {
+/*Partial specialization of NUMBER argument
+ */
+template<class TYPE>
+class TPartialSpecialization<TYPE, 2>
+{
 public:
   enum bar { z = 2 };
 };
+
+#endif //HAS_NO_TEMPLATE_PARTIAL_SPECIALIZATION
 
 /*---------------------------------------------------------------------------*/
 /*Validates C++ compiler conformance. Compiler will report an error
@@ -49,22 +76,33 @@ public:
  */
 bool TestTemplateSpecialization()
 {
-    if ((foo<int,3>::z == 0) && (foo<double,3>::z == 1)
-       && (foo<float,2>::z == 2))
-           return 0;
-    else
-        return 1;
+if (TPartialSpecialization<int,3>::z    == 0)
+  {
+  #ifndef HAS_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+    if( (TPartialSpecialization<double,3>::z == 1)  &&
+        (TPartialSpecialization<float,2>::z   == 2) )
+      return true;
+  #else //Specialization is not supported
+    return true;
+  #endif //HAS_NO_TEMPLATE_PARTIAL_SPECIALIZATION
+
+  }
+return false;
 }
 
 /* ////////////////////////////////////////////////////////////////////////// */
 /******************************************************************************
  * $Log: TestTemplateSpecialization.cpp,v $
+ * Revision 1.2  2010/03/05 15:31:28  ddarko
+ * Adjusted test result
+ *
  * Revision 1.1  2010/02/26 22:20:39  ddarko
  * Template Conformance Test; www.oonumerics.org/blitz/
  *
  *****************************************************************************/
 
-/*The "Blitz++ Artistic License"
+/*define BZ_PARTIAL_SPECIALIZATION
+The "Blitz++ Artistic License"
 (with thanks and apologies to authors of the Perl Artistic License)
 
 Preamble
