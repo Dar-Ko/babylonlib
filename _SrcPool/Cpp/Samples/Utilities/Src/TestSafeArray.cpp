@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.8 $ $Date: 2010/03/04 22:21:16 $
+  $Revision: 1.9 $ $Date: 2010/03/08 22:40:13 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -155,6 +155,11 @@ if (bResult)
   
   try
     {
+    TSaReductor<wchar_t, DIM_2D> sarTemp(wArray, 1);
+    VARENUM eTemp = sarTemp;
+    wchar_t sDummy;
+    wchar_t* pTemp = sarTemp.GetType(sDummy);
+
     //Validate subscript operations
     int32_t testLower, testUpper;
     for(int iSubdim = (4 - 1); (iSubdim >= 0) && bResult; iSubdim--)
@@ -295,6 +300,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.9  2010/03/08 22:40:13  ddarko
+ * template specialization issue
+ *
  * Revision 1.8  2010/03/04 22:21:16  ddarko
  * test subsscript operator
  *
