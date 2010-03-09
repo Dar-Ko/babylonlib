@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.9 $ $Date: 2010/03/08 22:40:13 $
+  $Revision: 1.10 $ $Date: 2010/03/09 22:51:42 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -155,10 +155,34 @@ if (bResult)
   
   try
     {
-    TSaReductor<wchar_t, DIM_2D> sarTemp(wArray, 1);
-    VARENUM eTemp = sarTemp;
-    wchar_t sDummy;
-    wchar_t* pTemp = sarTemp.GetType(sDummy);
+    //Test variant helper methods
+    if (bResult)
+      {
+      TSaReductor<uint16_t, 4> sarTempB(nSpace, 2);
+      VARENUM eTemp = sarTempB;
+      if (eTemp == VT_UI2)
+        {
+        uint16_t nDummy;
+        uint16_t* pTemp = sarTempB.GetType(nDummy);
+        bResult = (pTemp != NULL);
+        }
+      else
+        bResult = false;
+      }
+
+    if (bResult)
+      {
+      TSaReductor<wchar_t, DIM_2D> sarTempA(wArray, 1);
+      VARENUM eTemp = sarTempA;
+      if (eTemp == VT_UI2)
+        {
+        wchar_t sDummy;
+        wchar_t* pTemp = sarTempA.GetType(sDummy);
+        bResult = (pTemp != NULL);
+        }
+      else
+        bResult = false;
+      }
 
     //Validate subscript operations
     int32_t testLower, testUpper;
@@ -300,6 +324,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.10  2010/03/09 22:51:42  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.9  2010/03/08 22:40:13  ddarko
  * template specialization issue
  *

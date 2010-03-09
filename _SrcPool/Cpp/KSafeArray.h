@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.11 $ $Date: 2010/03/08 22:40:13 $
+  $Revision: 1.12 $ $Date: 2010/03/09 22:51:42 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -290,8 +290,9 @@ m_saBounds[nDimId].cElements = nNewValue;
 return m_saBounds[nDimId].cElements;
 }
 ////////////////////////////////////////////////////////////////////////////////
-template<class TYPE, VARENUM TYPEVAR, int DIM> class TSafeArray;
+template<class TYPE, VARENUM TYPEVAR, int DIM> class TSafeArray; //Forward declaration
 
+//Generic type to variant type conversion helper
 template <class TYPE>
 struct TSaType
 {
@@ -302,17 +303,6 @@ enum
 operator VARENUM();
 };
 
-template <> 
-struct TSaType<wchar_t>
-{
-enum
-  {
-  VARIANT_TYPE = VT_I2
-  };
-operator VARENUM();
-};
-
-
 //-----------------------------------------------------------------------------
 /*
  */
@@ -321,6 +311,44 @@ TSaType<TYPE>::operator VARENUM()
 {
 return static_cast<VARENUM>(VARIANT_TYPE);
 }
+
+//Type to variant type conversion helper
+#define TSATYPE2VAR(TYPE, TYPEVAR) \
+template <> \
+struct TSaType<TYPE> \
+{ \
+enum \
+  { \
+  VARIANT_TYPE = TYPEVAR \
+  }; \
+operator VARENUM() \
+  { \
+  return static_cast<VARENUM>(VARIANT_TYPE); \
+  } \
+};
+
+/*Specialized type conversion helpers
+ */
+TSATYPE2VAR(char      , VT_I1      ); //CHAR
+TSATYPE2VAR(uint8_t   , VT_UI1     ); //BYTE
+TSATYPE2VAR(wchar_t   , VT_I2      ); //WCHAR
+TSATYPE2VAR(int16_t   , VT_I2      ); //SHORT
+TSATYPE2VAR(uint16_t  , VT_UI2     ); //USHORT
+TSATYPE2VAR(int32_t   , VT_I4      ); //LONG
+TSATYPE2VAR(LONG      , VT_I4      ); //int32_t
+TSATYPE2VAR(uint32_t  , VT_UI4     ); //ULONG
+TSATYPE2VAR(ULONG     , VT_UI4     ); //uint32_t
+TSATYPE2VAR(int64_t   , VT_I8      ); //LONGLONG
+TSATYPE2VAR(uint64_t  , VT_UI8     ); //ULONGLONG
+TSATYPE2VAR(float     , VT_R4      ); //FLOAT
+TSATYPE2VAR(double    , VT_R8      ); //DOUBLE
+TSATYPE2VAR(DECIMAL   , VT_DECIMAL );
+TSATYPE2VAR(VARIANT   , VT_VARIANT );
+TSATYPE2VAR(CURRENCY  , VT_CY      );
+TSATYPE2VAR(BSTR      , VT_BSTR    );
+TSATYPE2VAR(LPCWSTR   , VT_BSTR    );
+TSATYPE2VAR(LPUNKNOWN , VT_UNKNOWN );
+TSATYPE2VAR(LPDISPATCH, VT_DISPATCH);
 
 //=============================================================================
 template<class TYPE, int DIM, int SUBDIM = DIM - 1>
@@ -331,7 +359,6 @@ private:
 public:
   TSaReductor(TSafeArray<TYPE,
                          static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE),
-                         //static_cast<VARENUM>(TSaReductor<TYPE, DIM>::VARIANT_TYPE), 
                          DIM>& saOwner,
               int nIndex);
 public:
@@ -378,6 +405,9 @@ TSaReductor<TYPE, DIM, SUBDIM>::operator VARENUM()
 return static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE);
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 template<class TYPE, int DIM, int SUBDIM>
 TYPE* TSaReductor<TYPE, DIM, SUBDIM>::GetType(TYPE& oElement //[in]
                                )
@@ -385,6 +415,113 @@ TYPE* TSaReductor<TYPE, DIM, SUBDIM>::GetType(TYPE& oElement //[in]
 return &oElement;
 }
 
+//=============================================================================
+/*Specialized safe array dimension denominator for the zeroth dimension.
+ */
+template<class TYPE, int DIM>
+class TSaReductor<TYPE, DIM, 1>
+{
+private:
+  TSaReductor(){};
+public:
+  TSaReductor(TSafeArray<TYPE,
+                         static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE),
+                         DIM>& saOwner,
+              int nIndex);
+  operator VARENUM();
+
+  TYPE& operator[] (int index);
+  TYPE& operator[] (int index) const;
+  TYPE* GetType(TYPE& oElement);
+
+protected:
+  TSafeArray<TYPE, static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE), DIM>& m_saArray; //data container
+};
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template<class TYPE, int DIM>
+TSaReductor<TYPE, DIM, 1>::TSaReductor(
+  TSafeArray<TYPE, static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE), DIM>& saOwner, //[in]
+  int nIndex //[in]
+                                   ) :
+  m_saArray(saOwner)
+{
+#ifdef _DEBUG_SASUBSCRIPRT
+  TRACE2(_T("TSaReductor<DIM=%d, SUBDIM=1>::TSaReductor(%d)\n"),
+         DIM, nIndex);
+#endif
+
+ASSERT(nIndex >= 0);
+/*The least significant index is stored at 0-th position. The index of the 1st 
+  dimension is stored as the last element of the vector with indices.
+ */
+m_saArray.m_nIndices[DIM - 1] = nIndex;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template<class TYPE, int DIM>
+TSaReductor<TYPE, DIM, 1>::operator VARENUM()
+{
+return static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE);
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template<class TYPE, int DIM>
+TYPE* TSaReductor<TYPE, DIM, 1>::GetType(TYPE& oElement //[in]
+                                        )
+{
+return &oElement;
+}
+
+//==============================================================================
+/*Specialization for BSTR
+ */
+template<int DIM>
+class TSaReductor<BSTR, DIM, 1>
+{
+private:
+  TSaReductor(){};
+public:
+  TSaReductor(TSafeArray<BSTR,
+                         static_cast<VARENUM>(TSaType<BSTR>::VARIANT_TYPE),
+                         DIM>& saOwner,
+              int nIndex);
+  operator VARENUM();
+
+  BSTR& operator[] (int index);
+  BSTR& operator[] (int index) const;
+  BSTR* GetType(BSTR& oElement);
+
+protected:
+  TSafeArray<BSTR, static_cast<VARENUM>(TSaType<BSTR>::VARIANT_TYPE), DIM>& m_saArray; //data container
+};
+
+template<int DIM>
+BSTR TSaReductor<BSTR, DIM, 1>::GetType(BSTR& oElement //[in]
+                                        )
+{
+return oElement;
+}
+
+template<int DIM>
+LPUNKNOWN TSaReductor<LPUNKNOWN, DIM, 1>::GetType(LPUNKNOWN& oElement //[in]
+                                        )
+{
+return oElement;
+}
+
+template<int DIM>
+LPDISPATCH TSaReductor<LPDISPATCH, DIM, 1>::GetType(LPDISPATCH& oElement //[in]
+                                        )
+{
+return oElement;
+}
 /*
  * /
 template<class TYPE, VARENUM TYPEVAR, int DIM>
@@ -1151,6 +1288,9 @@ return saResult;
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.12  2010/03/09 22:51:42  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.11  2010/03/08 22:40:13  ddarko
  * template specialization issue
  *
