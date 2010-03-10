@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.10 $ $Date: 2010/03/09 22:51:42 $
+  $Revision: 1.11 $ $Date: 2010/03/10 22:17:27 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -117,7 +117,7 @@ saDim[2] = 5;
 
 if(bResult)
   {
-  TSafeArray<int, VT_I4, DIM_3D> intArray(saDim);
+  TSafeArray<DIM_3D, int, VT_I4> intArray(saDim);
   bResult = (intArray.GetDimensions() == DIM_3D);
   bResult = bResult && (intArray.GetVarType() == VT_I4);
   bResult = bResult && (intArray.GetType() == VT_I4);
@@ -143,9 +143,12 @@ if (bResult)
   //Create a [ROW, COL] table of wide characters and initalize each row 
   //with 10 letters.
   TSafeArrayDim<DIM_2D> sa2Dim(ROW, COL);
-  TSafeArray<wchar_t,  VT_I2,  DIM_2D> wArray(sa2Dim);
+  TSafeArray<DIM_2D, wchar_t> wArray(sa2Dim);
 
-  typedef TSafeArray<uint16_t, VT_UI2, 4> SPACE; //4-dimensional space
+  typedef TSafeArray<4, //4-dimensional space
+                     uint16_t,
+                     static_cast<VARENUM>(TSaType<uint16_t>::VARIANT_TYPE)
+                     > SPACE; 
   TSafeArrayDim<4> sa4Dim;
   sa4Dim[0] = 3;
   sa4Dim[1] = 4;
@@ -158,13 +161,19 @@ if (bResult)
     //Test variant helper methods
     if (bResult)
       {
-      TSaReductor<uint16_t, 4> sarTempB(nSpace, 2);
-      VARENUM eTemp = sarTempB;
+      //Create helper specialized for one-dimensional arrays and set index to 1
+      TSaReductor<wchar_t, DIM_2D> sarTempA(wArray, 1);
+      VARENUM eTemp = sarTempA;
       if (eTemp == VT_UI2)
         {
-        uint16_t nDummy;
-        uint16_t* pTemp = sarTempB.GetType(nDummy);
-        bResult = (pTemp != NULL);
+        wchar_t sDummy = L'D';
+        bResult = sarTempA.SetAt(sDummy, 2);
+        if(bResult)
+          {
+          sDummy = 0;
+          bResult = (sarTempA.GetAt(sDummy, 2) && 
+                     (sDummy == L'D')             );
+          }
         }
       else
         bResult = false;
@@ -172,13 +181,11 @@ if (bResult)
 
     if (bResult)
       {
-      TSaReductor<wchar_t, DIM_2D> sarTempA(wArray, 1);
-      VARENUM eTemp = sarTempA;
+      TSaReductor<uint16_t, 4> sarTempB(nSpace, 2);
+      VARENUM eTemp = sarTempB;
       if (eTemp == VT_UI2)
         {
-        wchar_t sDummy;
-        wchar_t* pTemp = sarTempA.GetType(sDummy);
-        bResult = (pTemp != NULL);
+        bResult = true;
         }
       else
         bResult = false;
@@ -205,13 +212,13 @@ if (bResult)
     //Get reference to the end point of 2nd segment [2][1][3][4]
     SPACE::TSaIterator<uint16_t, 0> spaceDot = spaceLine[2];
 
-      TSafeArray<wchar_t, VT_I2, DIM_2D>::CSaIterator csaTemp = wArray[2];
-    //TSafeArray<wchar_t, VT_I2, DIM_2D>::TSaIterator<wchar_t, DIM_2D - 1> cLetter = csaTemp[5];  //Get the character indexed as [2][5]
+      TSafeArray<DIM_2D, wchar_t>::CSaIterator csaTemp = wArray[2];
+    //TSafeArray<wchar_t, VT_UI2, DIM_2D>::TSaIterator<wchar_t, DIM_2D - 1> cLetter = csaTemp[5];  //Get the character indexed as [2][5]
 
     //wchar_t cLetter = csaTemp[5];  //Get the character indexed as [2][5]
 
     //Check error handling
-    TSafeArray<wchar_t, VT_I2, 2>::CSaIterator csaErrorneus = wArray[22];
+    TSafeArray<DIM_2D, wchar_t>::CSaIterator csaErrorneus = wArray[22];
     }
   catch(unsigned int nError)
     {
@@ -220,6 +227,14 @@ if (bResult)
     case E_INVALIDARG:
       TRACE(_T("  Index is out of bounds!\n"));
       //Expected exception
+      break;
+    case DISP_E_BADINDEX:
+      TRACE(_T("  The specified index or vector with indexes is invalid!\n"));
+      bResult = false; 
+      break;
+    case E_OUTOFMEMORY:
+      TRACE(_T("  Memory could not be allocated!\n"));
+      bResult = false; 
       break;
     default:
       TRACE(_T("  An exception occured while accessing array's elements!\n"));
@@ -301,7 +316,7 @@ if(psaArray != NULL)
     }
 
   //Create a copy of the safe array
-  TSafeArray<int32_t, VT_I4, DIM_2D> intArray(psaArray);
+  TSafeArray<DIM_2D, int32_t, VT_I4> intArray(psaArray);
   bResult = (intArray.GetDimensions() == DIM_2D);
   bResult = bResult && (intArray.GetVarType() == VT_I4);
 
@@ -324,6 +339,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.11  2010/03/10 22:17:27  ddarko
+ * defaulted template parameter(s)
+ *
  * Revision 1.10  2010/03/09 22:51:42  ddarko
  * *** empty log message ***
  *
