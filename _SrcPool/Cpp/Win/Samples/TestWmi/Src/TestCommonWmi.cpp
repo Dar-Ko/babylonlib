@@ -1,5 +1,5 @@
 /*$RCSfile: TestCommonWmi.cpp,v $: implementation file
-  $Revision: 1.7 $ $Date: 2010/03/10 22:17:27 $
+  $Revision: 1.8 $ $Date: 2010/03/11 22:55:56 $
   $Author: ddarko $
 
   Test WMI routines.
@@ -12,6 +12,7 @@
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TestTemplateSpecialization();
+extern bool TestTemplateTypedef();
 extern bool TestVariant();
 extern bool TestSafeArray();
 #ifdef _WIN32
@@ -56,6 +57,7 @@ TsWriteToViewLn(_T(""));
 PFUNC_TEST funcTest[] =
   {
   TestTemplateSpecialization,
+  TestTemplateTypedef,
   TestVariant,
   TestSafeArray,
   #ifdef _WIN32
@@ -91,6 +93,9 @@ return EXIT_SUCCESS;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestCommonWmi.cpp,v $
+ * Revision 1.8  2010/03/11 22:55:56  ddarko
+ * test compiler conformance
+ *
  * Revision 1.7  2010/03/10 22:17:27  ddarko
  * defaulted template parameter(s)
  *
