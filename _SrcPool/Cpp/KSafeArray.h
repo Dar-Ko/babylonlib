@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.13 $ $Date: 2010/03/10 22:17:27 $
+  $Revision: 1.14 $ $Date: 2010/03/11 22:56:43 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -370,6 +370,8 @@ TSATYPE2VAR(LPUNKNOWN , VT_UNKNOWN );
 TSATYPE2VAR(LPDISPATCH, VT_DISPATCH);
 
 //=============================================================================
+/*
+ */
 template<class TYPE, int DIM, int SUBDIM = DIM - 1>
 class TSaReductor
 {
@@ -533,9 +535,9 @@ return saResult;
   Arrays that are accessed through C++ should use a lower bound of 0.
 
   Parameters:
+    - DIM     number of dimensions of the safe array.
     - TYPE    data type stored in the conatiner
     - TYPEVAR variant type classification of a TYPE variable.
-    - DIM     number of dimensions of the safe array.
 
   Examples:
       //Create different array types
@@ -600,11 +602,12 @@ public:
     protected:
       TSafeArray<DIM, TYPE, TYPEVAR>& m_saArray;
     };
-
-  typedef typename TSafeArray<DIM, TYPE, TYPEVAR>::TSaIterator<TYPE, DIM-1>* LPSAITERATOR;
-  typedef typename TSafeArray<DIM, TYPE, TYPEVAR>::TSaIterator<TYPE, DIM-1>   CSaIterator;
   friend TSaReductor<TYPE, DIM, DIM - 1>;
+  //N-1 dimesional safe array container used to reduce number of
+  //array's dimesions
+  typedef TSaReductor<TYPE, DIM, DIM - 1> CSaIterator;
 
+  //typedef template<class TYPE, int DIM, int SUBDIM>TSaReductor<TYPE, DIM, DIM - 1> CSaIterator;
   TSafeArray<DIM, TYPE, TYPEVAR>& operator=(const TSafeArray<DIM, TYPE, TYPEVAR>& saSrc);
   TSafeArray<DIM, TYPE, TYPEVAR>& operator=(const SAFEARRAY& saSrc);
   CSaIterator operator[] (int index);
@@ -888,8 +891,7 @@ return m_psaData;
   Throws error code of unsigned int type if index is out the range.
  */
 template <int DIM, class TYPE, VARENUM TYPEVAR>
-typename TSafeArray<DIM, TYPE, TYPEVAR>::CSaIterator
-                    TSafeArray<DIM, TYPE, TYPEVAR>::operator[] (int index //[in]
+typename TSafeArray<DIM, TYPE, TYPEVAR>::CSaIterator TSafeArray<DIM, TYPE, TYPEVAR>::operator[] (int index //[in]
                                            )
 {
 #ifdef _DEBUG_SASUBSCRIPRT
@@ -1316,15 +1318,6 @@ TSafeArray<DIM, TYPE, TYPEVAR>::TSaIterator<SUBTYPE, SUBDIM>::TSaIterator(
                                                         ) :
   m_saArray(saOwner)
 {
-#ifdef _DEBUG_SASUBSCRIPRT
-  TRACE3(_T("TSafeArray<DIM=%d>::TSaIterator<SUBDIM=%d>(%d)\n"),
-         DIM, SUBDIM, nIndex);
-#endif
-
-ASSERT(nIndex >= 0);
-/*The least significant index is stored at 0-th position. The index of the 1st 
-  dimension is stored as the last element of the vector with indices.
- */
 m_saArray.m_nIndices[(DIM - 1) - SUBDIM] = nIndex;
 }
 
@@ -1366,6 +1359,9 @@ return saResult;
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.14  2010/03/11 22:56:43  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.13  2010/03/10 22:17:27  ddarko
  * defaulted template parameter(s)
  *
