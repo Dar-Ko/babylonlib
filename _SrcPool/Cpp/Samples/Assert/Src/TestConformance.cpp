@@ -27,6 +27,7 @@ extern bool TestTemplateMemeber();
 extern bool TestTemplateOrdering();
 extern bool TestTemplateSimpleNesting();
 extern bool TestTemplateNesting();
+extern bool TestTemplateTypedef();
 extern bool TestEnumMath();
 
 int TestCppConformance(void);
@@ -59,6 +60,7 @@ PFUNC_TEST funcTest[] =
   TestTemplateOrdering,
   TestTemplateSimpleNesting,
   TestTemplateNesting,
+  TestTemplateTypedef,
   TestEnumMath
 
   };
