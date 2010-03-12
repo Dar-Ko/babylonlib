@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.11 $ $Date: 2010/03/10 22:17:27 $
+  $Revision: 1.12 $ $Date: 2010/03/12 22:52:57 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -37,9 +37,10 @@ bool bResult = true;
 
 const int DIM_3D = 3;
 const int DIM_2D = 2;
+const int DIM_1D = 1;
 
-const int COL = 10;
-const int ROW = 8;
+const int ROW = 8;  //number of rows
+const int COL = 10; //number of columns
 //test controll table
 wchar_t wAlphabet[ROW][COL] =
   {0x0061, 0x03B1, 0x0430, 0xFB21, 0xFE8D, 
@@ -49,7 +50,15 @@ for(int i = 1; i < ROW; i++)
   {
   for(int j = 0; j < COL; j++)
     {
-    //Intialize the table with consecutive characters from each alphabet
+    /*Intialize the table with consecutive characters from each alphabet
+        a, alpha, 1072, 64289, 65165, 63744, 65423, 4256, 3840, 3585
+        b,  beta, 1073, ...
+        c, gamma, 1074, ...
+        .    .      .
+        .    .      .
+        .    .      .
+        h, tetha, 1079, 64296, 65172, 63751, 65430, 4263, 3847, 3592
+     */
     wAlphabet[i][j] = wAlphabet[i - 1][j] + 1;
     }
   }
@@ -57,52 +66,52 @@ for(int i = 1; i < ROW; i++)
 #ifdef _USE_ATL
   if(bResult)
     {
-    //Create a multidimensional array, using Microsoft ATL.
+    //Create a multidimensional array ROWxCOL, using Microsoft ATL.
     CComSafeArrayBound comsaBound[DIM_2D];  
     //Set the array comsaBound structure
-    comsaBound[0].SetCount(COL); //Number of columns
-    comsaBound[0].SetLowerBound(0);
     comsaBound[1].SetCount(ROW); //Number of rows
     comsaBound[1].SetLowerBound(0);
+    comsaBound[0].SetCount(COL); //Number of columns
+    comsaBound[0].SetLowerBound(0);
     //Create the two-dimensional array
     CComSafeArray<USHORT> comsaD2(comsaBound, DIM_2D);
 
     //Write elements
     int32_t aIndex[DIM_2D]; //container used to store array indexes
-    for (int x = 0; x < COL; x++)
+    for (int y = 0; y < ROW; y++)
       {
-      for (int y = 0; y < ROW; y++)
+      for (int x= 0; x < COL; x++)
         {
-        aIndex[0] = x;
-        aIndex[1] = y;
-        HRESULT hr = comsaD2.MultiDimSetAt((LONG*)aIndex, (USHORT)wAlphabet[x][y]);
+        aIndex[1] = y; //row index
+        aIndex[0] = x; //column index
+        HRESULT hr = comsaD2.MultiDimSetAt((LONG*)aIndex, (USHORT)wAlphabet[y][x]);
         ASSERT(hr == S_OK);
         }
      }
     //Read elements
-    for (int x = 0; x < COL; x++)
+    for (int y = 0; y < ROW; y++)
       {
-      for (int y = 0; y < ROW; y++)
+      for (int x = 0; x < COL; x++)
         {
         wchar_t cElement;
-        aIndex[0]=x;
-        aIndex[1]=y;
+        aIndex[1]=y; //row index
+        aIndex[0]=x; //column index
         HRESULT hr = comsaD2.MultiDimGetAt((LONG*)aIndex, *(USHORT*)&cElement);
         ATLASSERT(hr == S_OK);
-        bResult = bResult && (cElement == wAlphabet[x][y]);
+        bResult = bResult && (cElement == wAlphabet[y][x]);
         ASSERT(bResult == TRUE);
         }
       }
-    //Subscript operator returns only values from 0-th column
-    wchar_t cTemp = comsaD2[1];
-    bResult = bResult && (cTemp == wAlphabet[1][0]);
-    cTemp = comsaD2[2];
-    bResult = bResult && (cTemp == wAlphabet[2][0]);
+    //Subscript operator returns only values from 0-th row
+    wchar_t cTemp = comsaD2[1]; //result is 'aplha'
+    bResult = bResult && (cTemp == wAlphabet[0][1]);
+    cTemp = comsaD2[2];         //result is 'a'
+    bResult = bResult && (cTemp == wAlphabet[0][2]);
     }
 #endif //_USE_ATL
 
 //Create 3D matrix.
-//Set the dimension of the matrix
+//Set the dimension of the data cube [7][6][5]
 TSafeArrayDim<DIM_3D> saDim(5, 6, 7);
 
 unsigned long nDim = saDim[0];
@@ -140,29 +149,34 @@ if (bResult)
 
 if (bResult)
   {
+  //Create an array of wide characters
+  TSafeArrayDim<DIM_1D> sa1Dim(COL);
+  TSafeArray<DIM_1D, wchar_t> wVector(sa1Dim);
+
   //Create a [ROW, COL] table of wide characters and initalize each row 
   //with 10 letters.
-  TSafeArrayDim<DIM_2D> sa2Dim(ROW, COL);
-  TSafeArray<DIM_2D, wchar_t> wArray(sa2Dim);
+  TSafeArrayDim<DIM_2D> sa2Dim(COL, ROW);
+  TSafeArray<DIM_2D, wchar_t> wMatrix(sa2Dim);
 
+  //Create 4-dimensional space [6][5][4][3]
   typedef TSafeArray<4, //4-dimensional space
                      uint16_t,
                      static_cast<VARENUM>(TSaType<uint16_t>::VARIANT_TYPE)
                      > SPACE; 
-  TSafeArrayDim<4> sa4Dim;
+  TSafeArrayDim<4> sa4Dim; //space boundaries [6, 5, 4, 3]
   sa4Dim[0] = 3;
   sa4Dim[1] = 4;
   sa4Dim[2] = 5;
   sa4Dim[3] = 6;
   SPACE nSpace(sa4Dim);
-  
+
   try
     {
     //Test variant helper methods
     if (bResult)
       {
       //Create helper specialized for one-dimensional arrays and set index to 1
-      TSaReductor<wchar_t, DIM_2D> sarTempA(wArray, 1);
+      TSaReductor<wchar_t, DIM_1D> sarTempA(wVector, 1);
       VARENUM eTemp = sarTempA;
       if (eTemp == VT_UI2)
         {
@@ -191,7 +205,7 @@ if (bResult)
         bResult = false;
       }
 
-    //Validate subscript operations
+    //Validate boundary operations
     int32_t testLower, testUpper;
     for(int iSubdim = (4 - 1); (iSubdim >= 0) && bResult; iSubdim--)
       {
@@ -200,25 +214,45 @@ if (bResult)
       TRACE3(_T("Safe Subarray %d range [%d, %d]\n"), 
             iSubdim, testLower, testUpper);
       }
+
      if(!bResult)
        throw((unsigned int)ERROR_NOACCESS);
 
+    //Validate subscript operations
+    TSaReductor<wchar_t, DIM_2D> csaTemp = wMatrix[1]; //set to Greek alphabet
+    TSaReductor<wchar_t, DIM_2D, 0> cLetter = csaTemp[4];  //Get the character indexed as [2][5]
+    wchar_t wValue = wAlphabet[4][1]; //set value to epsilon
+    bResult = cLetter.SetAt(wValue, 4);
+    
+    wchar_t wLetter = wMatrix[1][4];  //Get the character indexed as [4][1]
+    ASSERT(wValue == VarType);
+    if(wValue != VarType)
+      throw ((unsigned int)ERROR_BAD_ARGUMENTS);
+
+    int VarType = csaTemp[4]; //Implicit cast from VARENUM to int = 18 (VT_UI2)
+
     //Get reference to the 3D space, in 4th universe [4]
-    SPACE::CSaIterator spaceVolume = nSpace[4];
-    //Get reference to the surface, in 3rd sector [3][4]
-    SPACE::TSaIterator<uint16_t, DIM_2D> spacePlane = spaceVolume[3];
-    //Get reference to the trajectory, on 1st area [1][3][4]
-    SPACE::TSaIterator<uint16_t, DIM_2D -1> spaceLine = spacePlane[1];
-    //Get reference to the end point of 2nd segment [2][1][3][4]
-    SPACE::TSaIterator<uint16_t, 0> spaceDot = spaceLine[2];
-
-      TSafeArray<DIM_2D, wchar_t>::CSaIterator csaTemp = wArray[2];
-    //TSafeArray<wchar_t, VT_UI2, DIM_2D>::TSaIterator<wchar_t, DIM_2D - 1> cLetter = csaTemp[5];  //Get the character indexed as [2][5]
-
-    //wchar_t cLetter = csaTemp[5];  //Get the character indexed as [2][5]
+    #ifdef HAS_NO_TYPEDEF_INSIDE_TEMPLATE
+      TSaReductor<uint16_t, 4> spaceVolume = nSpace[4]; //SUBDIM = DIM_3D
+    #else
+      SPACE::CSaIterator spaceVolume = nSpace[4]; //SUBDIM = DIM_3D
+    #endif
+    //Get reference to the surface, in 3rd sector [4][3]
+    TSaReductor<uint16_t, 4, DIM_2D> spacePlane = spaceVolume[3];
+    //Get reference to the trajectory, on 1st area [4][3][1]
+    TSaReductor<uint16_t, 4, DIM_2D -1> spaceLine = spacePlane[1];
+    //Get reference to the end point of 2nd segment [4][3][1][2]
+    TSaReductor<uint16_t, 4, 0> spaceDot = spaceLine[2];
+    uint16_t nValue = 0xFEED;
+    bResult = spaceDot.SetAt(nValue, 2); //Set element [4][3][1][2]
+    if (bResult)
+      {
+      uint16_t nTest = nSpace[4][3][1][2];
+      bResult = (nTest == nValue);
+      }
 
     //Check error handling
-    TSafeArray<DIM_2D, wchar_t>::CSaIterator csaErrorneus = wArray[22];
+    TSafeArray<DIM_2D, wchar_t>::CSaIterator csaErrorneus = wMatrix[22];
     }
   catch(unsigned int nError)
     {
@@ -339,6 +373,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.12  2010/03/12 22:52:57  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.11  2010/03/10 22:17:27  ddarko
  * defaulted template parameter(s)
  *

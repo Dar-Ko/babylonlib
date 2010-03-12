@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.14 $ $Date: 2010/03/11 22:56:43 $
+  $Revision: 1.15 $ $Date: 2010/03/12 22:52:10 $
   $Author: ddarko $
 
   Converts a variant value of a VARIANT structure to a string.
@@ -372,7 +372,7 @@ TSATYPE2VAR(LPDISPATCH, VT_DISPATCH);
 //=============================================================================
 /*
  */
-template<class TYPE, int DIM, int SUBDIM = DIM - 1>
+template<class TYPE, int DIM, int DIM_ID = DIM - 1>
 class TSaReductor
 {
 private:
@@ -384,7 +384,7 @@ public:
               int nIndex);
 public:
   operator VARENUM();
-  TSaReductor<TYPE, DIM, DIM - 1> operator[] (int index);
+  TSaReductor<TYPE, DIM, DIM_ID - 1> operator[] (int index);
 
 protected:
   TSafeArray<DIM, TYPE, static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE)>& m_saArray; //data container
@@ -396,39 +396,76 @@ protected:
 //-----------------------------------------------------------------------------
 /*
  */
-template<class TYPE, int DIM, int SUBDIM>
-TSaReductor<TYPE, DIM, SUBDIM>::TSaReductor(
+template<class TYPE, int DIM, int DIM_ID>
+TSaReductor<TYPE, DIM, DIM_ID>::TSaReductor(
   TSafeArray<DIM, TYPE, static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE)>& saOwner, //[in]
   int nIndex //[in]
                                    ) :
   m_saArray(saOwner)
 {
 #ifdef _DEBUG_SASUBSCRIPRT
-  TRACE3(_T("TSaReductor<DIM=%d, SUBDIM=%d>::TSaReductor(%d)\n"),
-         DIM, SUBDIM, nIndex);
+  TRACE3(_T("TSaReductor<DIM=%d, DIM_ID=%d>::TSaReductor(%d)\n"),
+         DIM, DIM_ID, nIndex);
 #endif
 
 ASSERT(nIndex >= 0);
 /*The least significant index is stored at 0-th position. The index of the 1st 
   dimension is stored as the last element of the vector with indices.
  */
-m_saArray.m_nIndices[(DIM - 1) - SUBDIM] = nIndex;
+m_saArray.m_nIndices[(DIM - 1) - DIM_ID] = nIndex;
 }
 
 //-----------------------------------------------------------------------------
 /*
  */
-template<class TYPE, int DIM, int SUBDIM>
-TSaReductor<TYPE, DIM, SUBDIM>::operator VARENUM()
+template<class TYPE, int DIM, int DIM_ID>
+TSaReductor<TYPE, DIM, DIM_ID - 1> TSaReductor<TYPE, DIM, DIM_ID>::operator[](int index //[in]
+                                                                         )
+{
+#ifdef _DEBUG_SASUBSCRIPRT
+  TRACE3(_T("TSaReductor<DIM=%d, DIM_ID=%d>::operator[%d]\n"),
+         DIM, DIM_ID, index);
+#endif
+
+if (!m_saArray.IsValidIdx(index, DIM_ID))
+  {
+  #ifdef _DEBUG
+    int dbgLower, dbgUpper;
+    m_saArray.GetBoundLower(&dbgLower, DIM_ID);
+    m_saArray.GetBoundUpper(&dbgUpper, DIM_ID);
+    TRACE3(_T("  Index = %d is out of range [%d, %d]!\n"), 
+          index, dbgLower, dbgUpper);
+  #endif
+  ASSERT(false); //Index is out of range
+  throw (unsigned int)(E_INVALIDARG);
+  }
+
+TSaReductor<TYPE, DIM, DIM_ID - 1> saResult(m_saArray, index);
+return saResult;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+template<class TYPE, int DIM, int DIM_ID>
+TSaReductor<TYPE, DIM, DIM_ID>::operator VARENUM()
 {
 return static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE);
 }
 
 //=============================================================================
 /*Specialized safe array dimension denominator for the zeroth dimension.
+
+  Example:
+      //Create an array of wide characters
+      const int DIM_1D =  1;
+      const int SIZE   = 10;
+      TSafeArrayDim<DIM_1D>        sa1Dim(SIZE);
+      TSafeArray<DIM_1D, wchar_t>  wVector(sa1Dim);
+      TSaReductor<wchar_t, DIM_1D> sarTempA(wArray, 1);
  */
 template<class TYPE, int DIM>
-class TSaReductor<TYPE, DIM, 1>
+class TSaReductor<TYPE, DIM, 0>
 {
 private:
   TSaReductor(){};
@@ -453,14 +490,14 @@ protected:
 /*
  */
 template<class TYPE, int DIM>
-TSaReductor<TYPE, DIM, 1>::TSaReductor(
+TSaReductor<TYPE, DIM, 0>::TSaReductor(
   TSafeArray<DIM, TYPE, static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE)>& saOwner, //[in]
   int nIndex //[in]
                                    ) :
   m_saArray(saOwner)
 {
 #ifdef _DEBUG_SASUBSCRIPRT
-  TRACE2(_T("TSaReductor<DIM=%d, SUBDIM=1>::TSaReductor(%d)\n"),
+  TRACE2(_T("TSaReductor<DIM=%d, DIM_ID=0>::TSaReductor(%d)\n"),
          DIM, nIndex);
 #endif
 
@@ -475,7 +512,7 @@ m_saArray.m_nIndices[DIM - 1] = nIndex;
 /*
  */
 template<class TYPE, int DIM>
-TSaReductor<TYPE, DIM, 1>::operator VARENUM()
+TSaReductor<TYPE, DIM, 0>::operator VARENUM()
 {
 return static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE);
 }
@@ -486,13 +523,13 @@ return static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE);
   Returns true on success, or false on failure.
  */
 template<class TYPE, int DIM>
-bool TSaReductor<TYPE, DIM, 1>::GetAt(TYPE& oElement, //[out] reference to 
+bool TSaReductor<TYPE, DIM, 0>::GetAt(TYPE& oElement, //[out] reference to 
                                       //the data returned
                                       const int index //[in] index of the element in
                                       //the zeroeth dimension of the array
                                      ) const
 {
-m_saArray.m_nIndices[0] = index;
+m_saArray.m_nIndices[DIM -1] = index;
 return m_saArray.GetAt(oElement, m_saArray.m_nIndices);
 }
 
@@ -502,28 +539,14 @@ return m_saArray.GetAt(oElement, m_saArray.m_nIndices);
   Returns true on success, or false on failure.
  */
 template<class TYPE, int DIM>
-bool TSaReductor<TYPE, DIM, 1>::SetAt(TYPE& oElement, //[in] the new value
+bool TSaReductor<TYPE, DIM, 0>::SetAt(TYPE& oElement, //[in] the new value
                                       const int index //[in] index of the element in
                                       //the zeroeth dimension of the array
                                      )
 {
-m_saArray.m_nIndices[0] = index;
+m_saArray.m_nIndices[DIM - 1] = index;
 return m_saArray.SetAt(oElement, m_saArray.m_nIndices);
 }
-
-/*
- * /
-template<int DIM, class TYPE, VARENUM TYPEVAR>
-typename TSafeArray< DIM, TYPE, TYPEVAR>::TSaIterator<TYPE, DIM - 1>
-SafeArrayGet(const int nIndex //[in]
-            )
-{
-TSafeArray<DIM, TYPE, TYPEVAR>::TSaIterator<TYPE, DIM - 1> saResult();//(m_saArray, index);
-
-return saResult;
-}*/
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 /*This class is a wrapper for the SAFEARRAY structure, simplifying creation
@@ -591,23 +614,11 @@ public:
   bool  SetAt(TYPE& oElement, uint32_t nIndices[DIM]);
 
 public:
-  template <class SUBTYPE, int SUBDIM>
-  class TSaIterator
-    {
-    public:
-      TSaIterator(TSafeArray<DIM, TYPE, TYPEVAR>& saOwner, int nIndex);
-    public:
-      TSaIterator<SUBTYPE, SUBDIM - 1> operator[] (int index);
-      //friend typename TSafeArray<DIM, TYPE, TYPEVAR>::TSaIterator<TYPE, DIM - 1> SafeArrayGet<TYPE, DIM>(const int nIndex);
-    protected:
-      TSafeArray<DIM, TYPE, TYPEVAR>& m_saArray;
-    };
-  friend TSaReductor<TYPE, DIM, DIM - 1>;
+  template<typename RTYPE, int RDIM, int RSUBDIM> friend class TSaReductor;
   //N-1 dimesional safe array container used to reduce number of
   //array's dimesions
   typedef TSaReductor<TYPE, DIM, DIM - 1> CSaIterator;
 
-  //typedef template<class TYPE, int DIM, int SUBDIM>TSaReductor<TYPE, DIM, DIM - 1> CSaIterator;
   TSafeArray<DIM, TYPE, TYPEVAR>& operator=(const TSafeArray<DIM, TYPE, TYPEVAR>& saSrc);
   TSafeArray<DIM, TYPE, TYPEVAR>& operator=(const SAFEARRAY& saSrc);
   CSaIterator operator[] (int index);
@@ -891,7 +902,8 @@ return m_psaData;
   Throws error code of unsigned int type if index is out the range.
  */
 template <int DIM, class TYPE, VARENUM TYPEVAR>
-typename TSafeArray<DIM, TYPE, TYPEVAR>::CSaIterator TSafeArray<DIM, TYPE, TYPEVAR>::operator[] (int index //[in]
+typename TSafeArray<DIM, TYPE, TYPEVAR>::CSaIterator 
+  TSafeArray<DIM, TYPE, TYPEVAR>::operator[] (int index //[in]
                                            )
 {
 #ifdef _DEBUG_SASUBSCRIPRT
@@ -1307,58 +1319,15 @@ m_psaData = NULL;
 return psaResult;
 }
 
-//=============================================================================
-/*
- */
-template <int DIM, class TYPE, VARENUM TYPEVAR>
- template <class SUBTYPE, int SUBDIM>
-TSafeArray<DIM, TYPE, TYPEVAR>::TSaIterator<SUBTYPE, SUBDIM>::TSaIterator(
-                                 TSafeArray<DIM, TYPE, TYPEVAR>& saOwner, //[in]
-                                 int nIndex //[in]
-                                                        ) :
-  m_saArray(saOwner)
-{
-m_saArray.m_nIndices[(DIM - 1) - SUBDIM] = nIndex;
-}
-
-//=============================================================================
-/*
- */
-template <int DIM, class TYPE, VARENUM TYPEVAR>
-  template <class SUBTYPE, int SUBDIM>
-typename TSafeArray<DIM, TYPE, TYPEVAR>::TSaIterator<SUBTYPE, SUBDIM - 1> 
-TSafeArray<DIM, TYPE, TYPEVAR>::
-  TSaIterator<SUBTYPE, SUBDIM>::operator[](int index //[in]
-                                                                         )
-{
-#ifdef _DEBUG_SASUBSCRIPRT
-  TRACE3(_T("TSafeArray<DIM=%d>::TSaIterator<SUBDIM=%d>::operator[%d]\n"),
-         DIM, SUBDIM, index);
-#endif
-
-if (!m_saArray.IsValidIdx(index, SUBDIM))
-  {
-  #ifdef _DEBUG
-    int dbgLower, dbgUpper;
-    m_saArray.GetBoundLower(&dbgLower, SUBDIM);
-    m_saArray.GetBoundUpper(&dbgUpper, SUBDIM);
-    TRACE3(_T("  Index = %d is out of range [%d, %d]!\n"), 
-          index, dbgLower, dbgUpper);
-  #endif
-  ASSERT(false); //Index is out of range
-  throw (unsigned int)(E_INVALIDARG);
-  }
-//SafeArrayGet<DIM, TYPE, TYPEVAR - 1>(index);
-TSaIterator<SUBTYPE, SUBDIM - 1> saResult(m_saArray, index);
-return saResult;
-}
-
   #endif /*__BORLANDC__                                                      */
 #endif /*__cplusplus*/
 ///////////////////////////////////////////////////////////////////////////////
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.15  2010/03/12 22:52:10  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.14  2010/03/11 22:56:43  ddarko
  * *** empty log message ***
  *
