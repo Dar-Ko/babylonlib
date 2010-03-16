@@ -1,8 +1,8 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.15 $ $Date: 2010/03/12 22:52:10 $
+  $Revision: 1.16 $ $Date: 2010/03/16 14:42:40 $
   $Author: ddarko $
 
-  Converts a variant value of a VARIANT structure to a string.
+  Handles multidimensional SAFEARRAY.
   Copyright: babylonlib.sourceforge.net
   2010-02-10 Darko Kolakovic
 */
@@ -475,7 +475,7 @@ public:
                          static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE)
                          >& saOwner,
               int nIndex);
-  operator VARENUM();
+  //operator VARENUM();
 
   TYPE& operator[] (int index);
   TYPE& operator[] (int index) const;
@@ -510,12 +510,12 @@ m_saArray.m_nIndices[DIM - 1] = nIndex;
 
 //-----------------------------------------------------------------------------
 /*
- */
+ * /
 template<class TYPE, int DIM>
 TSaReductor<TYPE, DIM, 0>::operator VARENUM()
 {
 return static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE);
-}
+}*/
 
 //-----------------------------------------------------------------------------
 /*Retrieves a single element from a multidimensional safe array.
@@ -1325,6 +1325,9 @@ return psaResult;
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.16  2010/03/16 14:42:40  ddarko
+ * Comment
+ *
  * Revision 1.15  2010/03/12 22:52:10  ddarko
  * *** empty log message ***
  *
