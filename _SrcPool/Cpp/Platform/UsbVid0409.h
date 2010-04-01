@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid0409.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/10/08 15:32:01 $
+  $Revision: 1.2 $ $Date: 2010/04/01 19:23:08 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -27,7 +27,7 @@
 #define USBPID_KBDNECJ14              0x0014 //NEC Japanese Keyboard
 #define USBPID_KBDNEC109JHUB          0x0019 //109 Japanese Keyboard with Bus-Powered Hub
 #define USBPID_KBDNECPC98HUB          0x001A //PC98 Series Layout Keyboard with Bus-Powered Hub
-#define USBPID_NECBARCODE             0x001F //Generic bar code scanner
+#define USBPID_NECBARCODE             0x001F //Generic bar code scanner i.e. Densei ES5584
 #define USBPID_KBDNECMINIHUB          0x0025 //Mini Keyboard with Bus-Powered Hub
 #define USBPID_MONITORNECMULTISYNC    0x0027 //MultiSync Monitor
 #define USBPID_STORAGENECCLIK         0x002C //Clik!-USB Drive
@@ -66,6 +66,9 @@
 #endif //_USBVID0409_H_
 /*****************************************************************************
  * $Log: UsbVid0409.h,v $
+ * Revision 1.2  2010/04/01 19:23:08  ddarko
+ * Comment
+ *
  * Revision 1.1  2009/10/08 15:32:01  ddarko
  * Added new devices
  *
