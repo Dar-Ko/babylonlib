@@ -1,5 +1,5 @@
 /*$RCSfile: KIsAppStopped.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2010/07/07 18:24:26 $
+  $Revision: 1.3 $ $Date: 2010/07/07 19:58:09 $
   $Author: ddarko $
 
   Checks if application is responsive.
@@ -38,7 +38,7 @@
 bool IsAppStopped(HWND hWnd //[in] handle to the window to be tested.
                   )
 {
-TRACE1(_T("IsAppStopped(hWnd = %08X\n"), hWnd);
+TRACE1(_T("IsAppStopped(hWnd = %08X)\n"), hWnd);
 if (!IsWindow(hWnd))
   return SetLastError(ERROR_INVALID_PARAMETER), true; //Abtop: Alekcahdp Fedopob
 
@@ -103,6 +103,9 @@ return true; //Default result
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KIsAppStopped.cpp,v $
+ * Revision 1.3  2010/07/07 19:58:09  ddarko
+ * TRACE improvment
+ *
  * Revision 1.2  2010/07/07 18:24:26  ddarko
  * *** empty log message ***
  *
