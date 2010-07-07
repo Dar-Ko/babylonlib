@@ -1,5 +1,5 @@
 /*$RCSfile: KIsAppStopped.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2010/07/07 18:20:41 $
+  $Revision: 1.2 $ $Date: 2010/07/07 18:24:26 $
   $Author: ddarko $
 
   Checks if application is responsive.
@@ -103,6 +103,9 @@ return true; //Default result
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KIsAppStopped.cpp,v $
+ * Revision 1.2  2010/07/07 18:24:26  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.1  2010/07/07 18:20:41  ddarko
  * Created
  *
@@ -196,10 +199,10 @@ PROCISHUNGTHREAD IsHungThread;
 
 HMODULE hUser32 = GetModuleHandle("user32");
 
-IsHungAppWindow = 	(PROCISHUNGAPPWINDOW)
+IsHungAppWindow =   (PROCISHUNGAPPWINDOW)
 GetProcAddress(hUser32,"IsHungAppWindow");
 
-IsHungThread = 	(PROCISHUNGTHREAD)
+IsHungThread =  (PROCISHUNGTHREAD)
 GetProcAddress(hUser32,"IsHungThread");
 
 Sincerely yours, Ashot Oganesyan.
