@@ -3,7 +3,8 @@ $Revision: 3$ $Date: 2005-05-16 10:50:24$
 $Author: Darko Kolakovic$
 
 \	_LibraryTest.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	_LibraryTest.vcproj Microsoft Developer Studio 2005 Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
+\	_LibraryTest.vcproj Microsoft Developer Studio 2008 Project (VcProj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
+\	_LibraryTest8.vcproj Microsoft Developer Studio 2005 Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	_LibraryTest7.vcproj Microsoft Developer Studio .Net 2003 Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
 TODO: \	_LibraryTest.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
 TODO: \	_LibraryTest.vcp	Microsoft eMbedded Visual Tools Project (VCP) file is a generated build file, format version 6.02 (eVC6).	WinCE
