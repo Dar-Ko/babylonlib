@@ -1,5 +1,10 @@
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8281595A-5F67-4BC3-BB99-3CD5B898274B}"
+	ProjectSection(SolutionItems) = preProject
+		_Samples.txt = _Samples.txt
+	EndProjectSection
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assert", "Assert\Assert.vcproj", "{BD93E42E-2C09-4313-9743-FC9D50E5FC0C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Complex", "Complex\Complex.vcproj", "{99F6D0D6-31A5-430B-85A3-F897C6A476F8}"
@@ -44,11 +49,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "StlTools", "StlTools\StlTools.vcproj", "{5FAC5B84-60A4-4D8A-BC2F-652C709DE8AE}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SerialIO", "SerialIO\SerialIO.vcproj", "{FCE8D72D-CC69-4563-B284-A1D2DAD7B3E6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8281595A-5F67-4BC3-BB99-3CD5B898274B}"
-	ProjectSection(SolutionItems) = preProject
-		_Samples.txt = _Samples.txt
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Usb", "Usb\Usb.vcproj", "{2930C64A-5BC8-4D50-B2DE-AE3B8B403708}"
 EndProject

@@ -9,5 +9,6 @@ Copyright: CommonSoft Inc.
 
 \	_Doc.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	_Doc.vcp	Microsoft eMbedded Visual Tools Project (VCP) file is a generated build file, format version 6.02 (eVC6).	WinCE
-\	_Doc.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
+\	_Doc.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 9.0 (MSVC8 2008).	Win32
 \	_Doc7.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	_Doc8.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32

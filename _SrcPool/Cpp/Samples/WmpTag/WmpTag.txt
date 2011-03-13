@@ -1,5 +1,5 @@
 $RCSfile: WmpTag.txt,v $: developer's note
-$Revision: 1.1 $ $Date: 2009/05/05 16:16:14 $
+$Revision: 1.2 $ $Date: 2011/03/13 07:10:47 $
 $Author: ddarko $
 
 WmpTag Project Overview
@@ -7,7 +7,7 @@ WmpTag Project Overview
 
 CONSOLE APPLICATION
 
-\	WmpTag.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
+\	WmpTag.vcproj	Microsoft Developer Studio .Net 2008 Project (vcproj) file is a generated build file, format version 9 (MSVC9).	Win32
 \	WmpTag7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 
 WmpTag.vcproj

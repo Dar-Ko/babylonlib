@@ -3,7 +3,8 @@ $Workfile: SerialIO.txt$: developer's note
 $Revision: 3$ $Date: 22/08/2007 7:24:00 PM$
 $Author: Darko Kolakovic$
 
-\	SerialIO.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
+\	SerialIO.vcproj	Microsoft Developer Studio 2008 Project (vcproj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
+\	SerialIO8.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	SerialIO7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 
 

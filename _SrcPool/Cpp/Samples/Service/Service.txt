@@ -2,7 +2,8 @@ $Workfile: S:\_SrcPool\Cpp\Samples\Service\Service.txt$: developer's note
 $Revision: 1$ $Date: 2007-02-02 10:50:37$
 $Author: Darko Kolakovic$
 
-\	Service.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
+\	Service.vcproj	Microsoft Developer Studio 2008 Project (vcproj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
+\	Service8.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	Service7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 
 Microsoft Visual Studio C++ 2005 v8.0

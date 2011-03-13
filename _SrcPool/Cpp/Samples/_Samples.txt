@@ -13,7 +13,7 @@ Copyright: CommonSoft Inc.
 \	_Samples.FNG	Falch.net DevloperStudio Workspace Group (FNG) file is a generated build file, format version 2.0 (CW9).	PalmOS
 \	_Samples.FNP	Falch.net DevloperStudio Project (FNP) file is a generated build file, format version 2.0 (CW9).	PalmOS
 \	_Samples.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
-\	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 9.0 (MSVC8 2005).	Win32
+\	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
 \	_Samples8.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
 \	_Samples.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	_Samples7.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32

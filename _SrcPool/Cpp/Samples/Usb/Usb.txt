@@ -1,5 +1,5 @@
 $RCSfile: Usb.txt,v $: developer's note
-$Revision: 1.6 $ $Date: 2009/08/19 21:09:37 $
+$Revision: 1.7 $ $Date: 2011/03/13 07:10:47 $
 $Author: ddarko $
 
 Usb
@@ -43,7 +43,8 @@ This is not required if the target is Windows console (subsystem:console).
 
 \	Usb.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	Usb7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
-\	Usb.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8 (MSVC8).	Win32
+\	Usb8.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8 (MSVC8 2005).	Win32
+\	Usb.vcproj	Microsoft Developer Studio 2009 Project (vcproj) file is a generated build file, format version 9 (MSVC9 2008).	Win32
 
 
 MSCVC/C++ 6.0 Notes

@@ -5,7 +5,8 @@ $Author: Darko Kolakovic$
 \	StreamIO.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 TODO: \	StreamIO.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
 TODO: \	StreamIO.vcp	Microsoft eMbedded Visual Tools Project (VCP) file is a generated build file, format version 6.02 (eVC6).	WinCE
-\	StreamIO.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
+\	StreamIO.vcproj	Microsoft Developer Studio 2008 Project (vcproj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
+\	StreamIO8.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	StreamIO7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 
 

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="8.00"
 	Name="SrcPoolWin32"
 	ProjectGUID="{E4804099-DAA2-4333-A0E9-739E59B40790}"
 	RootNamespace="Win"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -796,12 +795,10 @@
 				>
 			</File>
 			<File
-				RelativePath=".\32\KErrnoFromLastError.cpp"
-				>
+				RelativePath=".\32\KErrnoFromLastError.cpp">
 			</File>
 			<File
-				RelativePath=".\32\KFileGetDirectory.cpp"
-				>
+				RelativePath=".\32\KFileGetDirectory.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KFileNameFit.cpp"
@@ -920,12 +917,10 @@
 				>
 			</File>
 			<File
-				RelativePath=".\32\KLastErrorFromErrno.cpp"
-				>
+				RelativePath=".\32\KLastErrorFromErrno.cpp">
 			</File>
 			<File
-				RelativePath=".\32\KListEx.cpp"
-				>
+				RelativePath=".\32\KListEx.cpp">
 			</File>
 			<File
 				RelativePath=".\32\KPropPgR.cpp"

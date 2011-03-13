@@ -3,7 +3,8 @@ $Revision: 1$ $Date: 2005-05-16 10:56:10$
 $Author: Darko Kolakovic$
 
 \	Numeric.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	Numeric.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
+\	Numeric.vcproj	Microsoft Developer Studio 2008 Project (vcproj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
+\	Numeric8.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	Numeric7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 \	Numeric.vcp	Microsoft eMbedded Visual Tools Project (VCP) file is a generated build file, format version 6.02 (eVC6).	WinCE
 

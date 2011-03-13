@@ -12,7 +12,8 @@ If MFC TestDocument/TestView framework is used, it is required to initialize glo
 This is not required if the target is Windows console (subsystem:console).
 
 \	Strings.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	Strings.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
+\	Strings.vcproj	Microsoft Developer Studio 2008 Project (vcproj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
+\	Strings8.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	Strings7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 \	Strings.wpj	Wind River Tornado Project (WPJ) file is a generated build file, format version 2.2.	VxWorks
 
