@@ -8,6 +8,8 @@ $Author: Darko$
 \	HtmlIO.dsp	Microsoft Developer Studio Project (DSP) file is a generated build file, format version 6.00 (MSVC6).	Win32
 \	HtmlIO.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
 
+To make build dependant of the Standard Template Library (STL), define _STL (depreciated) or _USE_STL (prefered).
+
 Template class CStringT requires header file <atlstr.h> for non-MFC versions. <cstringt.h> is required for MFC-only string objects.
 Microsoft Visual C++ 6.0 reports <atlstr.h> is missing. It is replaced with <atlmisc.h> found in Windows Template Library (WTL).
 WTL 7.1 is used in this example requires global CAppModule _Module to be defined in the project;

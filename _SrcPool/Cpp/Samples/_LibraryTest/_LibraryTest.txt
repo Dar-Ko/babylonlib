@@ -12,6 +12,8 @@ TODO: \	_LibraryTest.vcp	Microsoft eMbedded Visual Tools Project (VCP) file is a
 Library Test
 Samples and test suite for various functions, classes and algorithms using Babylon Library
 
+To make build dependant of the Standard Template Library (STL), define _STL (depreciated) or _USE_STL (prefered).
+
 Microsoft Visual Studio C++ 2005 v8.0
 Conversion Issues:
 - Visual C++ now supports a secure version of the C Runtime Library. Use of this library is turned on by default. You may see some warnings about deprecated functions when you build your project. It is advised that you correct these warnings, in order to make your code more secure. 

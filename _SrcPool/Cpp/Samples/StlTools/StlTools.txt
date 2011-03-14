@@ -7,6 +7,8 @@ $Author: Darko Kolakovic$
 \	StlTools8.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	StlTools7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 
+To make build dependant of the Standard Template Library (STL), define _STL (depreciated) or _USE_STL (prefered).
+
 If compiled with MSVC 7.+ .Net in same directory where are object compiled with previous version of Visual Studio (MSVC 6.0 for example), following error will occur:
   LINK : fatal error LNK1104: cannot open file 'libcid.lib'
 Solution is to clean all intermidiate files (.obj) and to recomile the project again.

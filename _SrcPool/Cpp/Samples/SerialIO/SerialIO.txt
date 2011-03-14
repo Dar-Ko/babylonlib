@@ -7,6 +7,7 @@ $Author: Darko Kolakovic$
 \	SerialIO8.vcproj	Microsoft Developer Studio 2005 Project (vcproj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	SerialIO7.vcproj	Microsoft Developer Studio .Net 2003 Project (vcproj) file is a generated build file, format version 7.10 (MSVC7.3).	Win32
 
+To make build dependant of the Standard Template Library (STL), define _STL (depreciated) or _USE_STL (prefered).
 
 USB Concerns
   Microsoft Windows Driver Development Kit (DDK) 2600.1106 is used to build USB test
