@@ -1,4 +1,4 @@
-/*$Workfile: KProgCst.h$: header file
+/*$RCSfile: KProgCst.h$: header file
   $Revision: 28$ $Date: 2007-05-31 16:43:24$
   $Author: Darko Kolakovic$
 
@@ -541,7 +541,24 @@ const unsigned long GiB = 0x40000000UL;
 #define SWAP_WORD_ENDIAN(w)  ((WORD) ((WORD) ((w)<<8)|((w)>>8)))
   /*Swaps tailing nibble with nibble from the beginning of the byte          */
 #define SWAP_BYTE( ch )  (( ( (ch) << 4 ) | ( (ch) >> 4 ) ))
-
+  /*Swap values of distinct variables having the same data type without using
+    a temporary variable.
+    Varibles have to distinct (to be on different storage locations), otherwise
+    result will be 0.
+    In most practical scenarios, the trivial swap algorithm using a temporary
+    variable is more efficient, in particular where CPU allows parallel 
+    execution. Situations in which XOR swapping may be beneficial are:
+    using microcontrollers with very limited RAM, CPU with highly optimized
+    XOR swap command.
+   */
+#define SWAP_INT(px, py)  {  \
+  if ((int*)px != (int*)py)  \
+    {            \
+    *px ^= *py;  \
+    *py ^= *px;  \
+    *px ^= *py;  \
+    }            \
+  }
 
   /*Set of wide characters representing Latin letters, digits
     and specal characters '_', ' '    */
