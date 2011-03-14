@@ -19,3 +19,11 @@ Conversion Issues:
 - The single-threaded run-time library switches (/MLd, /ML) have been removed from the C++ compiler. The project has been automatically converted to use the corresponding multi-threaded run-time library switches (/MTd, /MT). 
 - Due to the requirement that Visual C++ projects produce an embedded (by default) Windows SxS manifest, manifest files in the project are automatically excluded from building with the Manifest Tool. It is recommended that the dependency information contained in any manifest files be converted to "#pragma comment(linker,"<insert dependency here>")" in a header file that is included from your source code. If your project already embeds a manifest in the RT_MANIFEST resource section through a resource (.rc) file, the line will need to be commented out before the project will build correctly. 
 - Due to a conformance change in the C++ compiler, code change may be required before your project will build without errors. Previous versions of the C++ compiler allowed specification of member function pointers by member function name (e.g. MemberFunctionName). The C++ standard requires a fully qualified name with the use of the address-of operator (e.g. &ClassName::MemberFunctionName). If your project contains forms or controls used in the Windows Forms Designer, you may have to change code in InitializeComponent because the designer generated code used the non-conformant syntax in delegate construction (used in event handlers).
+
+Microsoft Visual Studio C++ 2008 v9.0
+- Compiler Warning (level 3) C4996 
+  This function or variable may be unsafe. Consider using s..._s instead. Some CRT and Standard C++ Library functions have been deprecated in favor of new, more secure functions.
+  To disable deprecation, use _CRT_SECURE_NO_WARNINGS.
+  C4996 can also occur if you use MFC or ATL functions that were deprecated for security reasons. To suppress these warnings, see _AFX_SECURE_NO_WARNINGS and _ATL_SECURE_NO_WARNINGS.
+
+  C4996 can also occur when you use the marshaling library. In this case C4996 is an error, not a warning. This error will occur when you use marshal_as to convert between two data types that require a marshal_context Class. You will also receive this error when the marshaling library does not support a conversion.

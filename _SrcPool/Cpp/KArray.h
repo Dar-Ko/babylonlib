@@ -1,5 +1,5 @@
 /*$RCSfile: KArray.h,v $: header file
-  $Revision: 1.3 $ $Date: 2009/07/13 22:04:31 $
+  $Revision: 1.4 $ $Date: 2011/03/14 06:56:32 $
   $Author: ddarko $
 
   Dynamic array of objects.
@@ -23,7 +23,8 @@
   #include <afxtempl.h>
 #elif defined (_USE_ATL) //Microsoft Active Template Library (ATL)
 #else
-//TODO:
+  //TODO:
+  #pragma TODO(write CArray implemetation without MFC/ATL.)
 /*The CArray class supports arrays that are are similar to C arrays, but can dynamically shrink and grow as necessary.
 
 Array indexes always start at position 0. You can decide whether to fix the upper bound or allow the array to expand when you add elements past the current bound. Memory is allocated contiguously to the upper bound, even if some elements are null.
@@ -517,6 +518,9 @@ void CArray<TYPE, ARG_TYPE>::AssertValid() const
 #endif  //_KARRAY_H_
 /*****************************************************************************
  * $Log: KArray.h,v $
+ * Revision 1.4  2011/03/14 06:56:32  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.3  2009/07/13 22:04:31  ddarko
  * Comment
  *

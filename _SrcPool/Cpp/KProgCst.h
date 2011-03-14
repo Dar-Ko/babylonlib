@@ -8,7 +8,7 @@
  */
 
 #ifndef __KPROGCST_H__
-    /*$Workfile: KProgCst.h$ sentry */
+    /*$RCSfile: KProgCst.h$ sentry */
   #define __KPROGCST_H__
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */

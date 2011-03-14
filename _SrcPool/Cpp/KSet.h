@@ -1,5 +1,5 @@
 /*$RCSfile: KSet.h,v $: header file
-  $Revision: 1.1 $ $Date: 2011/03/13 07:10:47 $
+  $Revision: 1.2 $ $Date: 2011/03/14 06:56:32 $
   $Author: ddarko $
 
   A template for handling sets.
@@ -22,10 +22,10 @@
 /* ///////////////////////////////////////////////////////////////////////// */
 #ifdef __cplusplus
 
-#include "simple.h"
+//erase! dk #include "simple.h"
 #include "limits.h"
-#include "iostream.h"
-#include "setx.h"
+#include <iostream>
+//#include "setx.h"
 
 #ifdef __TURBOC__
   #pragma warn -sig
@@ -75,9 +75,9 @@ public:
 
   size_t Cardinality();
 
-  friend ostream & operator <<
+  friend std::ostream & operator <<
     (
-    ostream & os,
+    std::ostream & os,
     const TSet<TYPE> & s
     );
 
@@ -91,16 +91,16 @@ protected:
   void Destroy();
   static void CalcIdxOff
     (
-    T x,
+    TYPE x,
     size_t & idx,
     unsigned int & off
     );
 
 private:
   bool Bounded;  // is this set bounded?
-  T MinValue;     // minimum bit value
-  T MaxValue;     // maximum bit value
-  T Offset;       // offset first bit when bounded
+  TYPE MinValue;     // minimum bit value
+  TYPE MaxValue;     // maximum bit value
+  TYPE Offset;       // offset first bit when bounded
   size_t Alloc;     // number of elements in Data
   size_t Bytes;     // number of bytes in Data
   size_t Count;     // number of elements in set
@@ -410,13 +410,13 @@ return false;
 template <class TYPE>
   void TSet<TYPE>::Incl
     (
-    T x
+    TYPE x
     )
 {
 if (Bounded)
   {
   if ((x <= MaxValue) && (x >= MinValue))
-    x = (T)(x - Offset);
+    x = (TYPE)(x - Offset);
   else
     throw SetEx(SX_BOUNDS);
   }
@@ -436,7 +436,7 @@ if (!(Data[idx] & off))
 template <class TYPE>
   void TSet<TYPE>::Incl
     (
-    const T * array,
+    const TYPE * array,
     size_t no
     )
 {
@@ -450,13 +450,13 @@ for (size_t i = 0; i < no; ++i)
 template <class TYPE>
   void TSet<TYPE>::Excl
     (
-    T x
+    TYPE x
     )
 {
 if (Bounded)
   {
   if ((x <= MaxValue) && (x >= MinValue))
-    x = (T)(x - Offset);
+    x = (TYPE)(x - Offset);
   else
     throw SetEx(SX_BOUNDS);
   }
@@ -476,7 +476,7 @@ if (Data[idx] & off)
 template <class TYPE>
   void TSet<TYPE>::Excl
     (
-    const T * array,
+    const TYPE * array,
     size_t no
     )
 {
@@ -496,7 +496,7 @@ memset(Data,'\xff',Bytes);
 if (Bounded)
   Count = size_t(MaxValue - MinValue + 1);
 else
-  Count = size_t((1ul << (sizeof(T) * CHAR_BIT)) - 1);
+  Count = size_t((1ul << (sizeof(TYPE) * CHAR_BIT)) - 1);
 }
 
 //-----------------------------------------------------------------------------
@@ -609,7 +609,7 @@ if (Bounded)
   }
 else
   {
-  bits = 1ul << (sizeof(T) * CHAR_BIT);
+  bits = 1ul << (sizeof(TYPE) * CHAR_BIT);
   }
 
 Bytes = (size_t)(bits  / (unsigned long)CHAR_BIT);
@@ -674,12 +674,12 @@ Count = 0;
 template <class TYPE>
   inline void TSet<TYPE>::CalcIdxOff
     (
-    T x,
+    TYPE x,
     size_t & idx,
     unsigned int & off
     )
 {
-idx = x / T(sizeof(unsigned int) * CHAR_BIT);
+idx = x / TYPE(sizeof(unsigned int) * CHAR_BIT);
 
 off = 1u << (unsigned int)((x - (idx *
           sizeof(unsigned int) * CHAR_BIT)));
@@ -699,9 +699,9 @@ return Count;
 /*
  */
 template <class TYPE>
-  ostream & operator <<
+  std::ostream & operator <<
     (
-    ostream & os,
+    std::ostream & os,
     const TSet<TYPE> & s
     )
     {
@@ -728,10 +728,14 @@ template <class TYPE>
 #endif // _KSET_H_
 /******************************************************************************
 * $Log: KSet.h,v $
+* Revision 1.2  2011/03/14 06:56:32  ddarko
+* *** empty log message ***
+*
 * Revision 1.1  2011/03/13 07:10:47  ddarko
 * MSVC 2008 v9
 *
 *****************************************************************************/
+#ifdef TODONRE
 /*http://www.osl.iu.edu/research/mtl/reference/html/Vector.html
 Description  
 Not to be confused with the std::vector class. The MTL Vector concept is a Container in which every element has a corresponding index. The elements do not have to be sorted by their index, and the indices do not necessarily have to start at 0. Also the indices do not have to form a contiguous range. The iterator type must be a model of IndexedIterator. Vector is not a refinement of RandomAccessContainer (even though Vector defines operator[]) because Vector does not guarantee amortized constant time for that operation (to allow fo sparse vectors). Note also that the invariant a[n] == advance(A.begin(), n) that applies to RandomAccessContainer does not apply to Vector, since the a[i] is defined for Vector to return the element with the ith index. So a[n] == *i if and only if i.index() == n. The indices of the elements in the subrange remain the same. For example, here is a vector written in terms of index-value pairs: x = [ (0,2), (1,5), (2,3), (3,1), (4,9) ] The subrange [1,3) of x can be obtained with y = x(1,3) which results in y = [ (1,5), (2,3) ] The subrange vector is a reference to a particular portion of the original vector. If you wish to have the subrange vector's starting index to be zero just do the following: y = x(1,3).adjust_index(-1); The adjust_index(delta) function does not affect the indexing of the original vector.  
@@ -1343,5 +1347,4 @@ vec(const Container& x)
 } /* namespace mtl */
 
 #endif
-
 

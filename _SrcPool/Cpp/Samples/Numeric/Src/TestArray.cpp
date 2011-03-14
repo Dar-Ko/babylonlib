@@ -1,5 +1,5 @@
 /*$Workfile: TestLinkedList.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2009/07/15 20:53:04 $
+  $Revision: 1.2 $ $Date: 2011/03/14 06:56:32 $
   $Author: ddarko $
 
   Test dynamic array
@@ -89,7 +89,7 @@ if(bRes)
   while (i < LISTSIZE)
     {
     LPTSTR szTemp = new TCHAR[64];
-    arrLines.Add(szTemp);
+    arrLines.Add(&szTemp);
     i++;
     }
   bRes = ( arrLines.GetCount() == LISTSIZE);
@@ -128,6 +128,9 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestArray.cpp,v $
+ * Revision 1.2  2011/03/14 06:56:32  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.1  2009/07/15 20:53:04  ddarko
  * Test CArray
  *
