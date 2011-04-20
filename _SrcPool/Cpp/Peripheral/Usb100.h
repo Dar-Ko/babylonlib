@@ -1,5 +1,5 @@
 /*$RCSfile: Usb100.h,v $: header file
-  $Revision: 1.17 $ $Date: 2009/08/20 21:25:36 $
+  $Revision: 1.18 $ $Date: 2011/04/20 15:31:58 $
   $Author: ddarko $
 
   USB 1.0 definitions
@@ -59,11 +59,11 @@ extern "C" {
   See also: USB_DESCRIPTOR_MAKE_TYPE_AND_INDEX
  */
 
-#define USB_DESCRIPTOR_TYPE_DEVICE        0x01 /*USB device descriptor type code*/
+#define USB_DESCRIPTOR_TYPE_DEVICE        0x01 /*USB device descriptor type code       */
 #define USB_DESCRIPTOR_TYPE_CONFIGURATION 0x02 /*USB configuration descriptor type code*/
-#define USB_DESCRIPTOR_TYPE_STRING        0x03 /*USB string descriptor type code*/
-#define USB_DESCRIPTOR_TYPE_INTERFACE     0x04 /*USB interface descriptor type code*/
-#define USB_DESCRIPTOR_TYPE_ENDPOINT      0x05 /*USB endpoint descriptor type code*/
+#define USB_DESCRIPTOR_TYPE_STRING        0x03 /*USB string descriptor type code       */
+#define USB_DESCRIPTOR_TYPE_INTERFACE     0x04 /*USB interface descriptor type code    */
+#define USB_DESCRIPTOR_TYPE_ENDPOINT      0x05 /*USB endpoint descriptor type code     */
 
   /*Hardware design descriptor types.
     See also: "Usb200.h"
@@ -79,6 +79,7 @@ extern "C" {
 #define USB_DESCRIPTOR_REQUEST_VALUE( type, index ) \
     ( (uint16_t)(((uint16_t)(type) << 8) | (index)) )
 
+/****************************************************/
 /*USB descriptor types (Microsoft compatible macros)*/
 
 /*USB device descriptor type code*/
@@ -154,7 +155,7 @@ extern "C" {
 /*USB Device Classes.
   USB defines device types codes used to identify a device’s functionality.
 
-  Class 	Usage   	Description 	                    Examples
+  Class 	Usage   	Description 	                  	Examples
   00h 	Device    	Unspecified                     	Device class is unspecified. Interface descriptors are used for determining the required drivers.
   01h 	Interface 	Audio                           	Speaker, microphone, sound card
   02h 	Both      	Communications and CDC Control  	Ethernet adapter, modem, serial port adapter
@@ -162,17 +163,17 @@ extern "C" {
   05h 	Interface 	Physical Interface Device (PID) 	Force feedback joystick
   06h 	Interface 	Image                           	Webcam, scanner
   07h 	Interface 	Printer                         	Laser printer, inkjet printer, CNC machine
-  08h 	Interface 	Mass Storage                     	USB flash drive, memory card reader, digital audio player, digital camera, external drive
+  08h 	Interface 	Mass Storage                    	USB flash drive, memory card reader, digital audio player, digital camera, external drive
   09h 	Device    	USB hub                         	Full speed hub, hi-speed hub
   0Ah 	Interface 	CDC-Data                        	(This class is used together with class 02h - Communications and CDC Control.)
-  0Bh 	Interface 	Smart Card                       	USB smart card reader
-  0Dh 	Interface 	Content Security                 	-
+  0Bh 	Interface 	Smart Card                      	USB smart card reader
+  0Dh 	Interface 	Content Security                	-
   0Eh 	Interface 	Video                           	Webcam
-  0Fh 	Interface 	Personal Healthcare              	-
-  DCh 	Both      	Diagnostic Device                	USB compliance testing device
-  E0h 	Interface 	Wireless Controller              	Wi-Fi adapter, Bluetooth adapter
-  EFh 	Both      	Miscellaneous                     ActiveSync device
-  FEh 	Interface 	Application Specific             	IrDA Bridge, Test & Measurement Class (USBTMC)[4]
+  0Fh 	Interface 	Personal Healthcare             	-
+  DCh 	Both      	Diagnostic Device               	USB compliance testing device
+  E0h 	Interface 	Wireless Controller             	Wi-Fi adapter, Bluetooth adapter
+  EFh 	Both      	Miscellaneous                   	ActiveSync device
+  FEh 	Interface 	Application Specific            	IrDA Bridge, Test & Measurement Class (USBTMC)[4]
   FFh 	Both      	Vendor Specific                 	This class code indicates that the device needs vendor specific drivers.
 
   See also: {html: <a href="http://www.usb.org/developers/defined_class/">USB Class Codes</a>}
@@ -221,30 +222,31 @@ extern "C" {
 typedef struct _USB_DEVICE_DESCRIPTOR 
   {
   uint8_t  bLength;  /*size of the entire data structure [bytes] */
-  uint8_t  bDescriptorType;  /*the descriptor type is constant 
-                             USB_DESCRIPTOR_TYPE_DEVICE = 0x01*/
-  uint16_t bcdUSB;           /*USB specification version supported by device
-                             as binary-coded decimal number*/
+  uint8_t  bDescriptorType; /*the descriptor type is constant 
+                              USB_DESCRIPTOR_TYPE_DEVICE = 0x01*/
+  uint16_t bcdUSB;          /*USB specification version supported by device
+                              as binary-coded decimal number*/
   uint8_t  bDeviceClass;    /*the class code of the device as assigned by 
-                            the USB specification group.*/
+                              the USB specification group.*/
   uint8_t  bDeviceSubClass; /*the subclass code of the device as assigned by 
-                            the USB specification group.*/
+                              the USB specification group.*/
   uint8_t  bDeviceProtocol; /*protocol code of the device as assigned by
-                            the USB specification group.*/
+                              the USB specification group.*/
   uint8_t  bMaxPacketSize0; /*the maximum packet size, in bytes, for endpoint
-                            zero of the device. The value must be set to 8, 16, 32, or 64.*/
+                              zero of the device. The value must be set to 
+                              8, 16, 32, or 64.*/
   uint16_t idVendor;        /*vendor identifier for the device as assigned by
-                            the USB specification committee.*/
+                              the USB specification committee.*/
   uint16_t idProduct;       /*the product identifier as assigned by
-                            the manufacturer.*/
+                              the manufacturer.*/
   uint16_t bcdDevice;       /*the version of the device as binary-coded decimal
-                            number*/
+                              number*/
   uint8_t  iManufacturer;   /*index of the string with manufacturer name*/ 
   uint8_t  iProduct;        /*index of the string with device description*/ 
   uint8_t  iSerialNumber;   /*index of the string with serial number
-                            for the device*/
+                              for the device*/
   uint8_t  bNumConfigurations; /*the total number of possible configurations
-                                for the device.*/
+                                 for the device.*/
   } USB_DEVICE_DESCRIPTOR;
 /*USB device descriptor*/
 typedef USB_DEVICE_DESCRIPTOR   *PUSB_DEVICE_DESCRIPTOR;
@@ -253,16 +255,18 @@ typedef USB_DEVICE_DESCRIPTOR   *PUSB_DEVICE_DESCRIPTOR;
  */
 typedef USB_DEVICE_DESCRIPTOR   IOUSBDeviceDescriptor;
 
-/* USB endpoint descriptor */
-typedef struct _USB_ENDPOINT_DESCRIPTOR {
-    uint8_t   bLength;        /*size of the entire data structure [bytes] */
-    uint8_t   bDescriptorType;/*the descriptor type is constant 
-                             USB_DESCRIPTOR_TYPE_ENDPOINT = 0x05*/
-    uint8_t   bEndpointAddress;
-    uint8_t   bmAttributes;
-    uint16_t  wMaxPacketSize;
-    uint8_t   bInterval;
-} USB_ENDPOINT_DESCRIPTOR;
+/*USB endpoint descriptor */
+typedef struct _USB_ENDPOINT_DESCRIPTOR 
+  {
+  uint8_t   bLength;        /*size of the entire data structure [bytes] */
+  uint8_t   bDescriptorType;/*the descriptor type is constant 
+                              USB_DESCRIPTOR_TYPE_ENDPOINT = 0x05*/
+  uint8_t   bEndpointAddress;
+  uint8_t   bmAttributes;
+  uint16_t  wMaxPacketSize;
+  uint8_t   bInterval;
+  } USB_ENDPOINT_DESCRIPTOR;
+/*USB endpoint descriptor */
 typedef USB_ENDPOINT_DESCRIPTOR *PUSB_ENDPOINT_DESCRIPTOR;
 /*Descriptor for a USB Endpoint.
   See also: "USB Specification 1.1", http://www.usb.org.
@@ -315,20 +319,21 @@ typedef USB_CONFIGURATION_DESCRIPTOR    *PUSB_CONFIGURATION_DESCRIPTOR;
  */
 typedef USB_CONFIGURATION_DESCRIPTOR    IOUSBConfigurationDescriptor;
 
-
-/* USB interface descriptor */
-typedef struct _USB_INTERFACE_DESCRIPTOR {
-    uint8_t bLength;        /*size of the entire data structure [bytes] */
-    uint8_t bDescriptorType;/*the descriptor type is constant 
-                              USB_DESCRIPTOR_TYPE_INTERFACE = 0x04*/
-    uint8_t bInterfaceNumber;
-    uint8_t bAlternateSetting;
-    uint8_t bNumEndpoints;
-    uint8_t bInterfaceClass;
-    uint8_t bInterfaceSubClass;
-    uint8_t bInterfaceProtocol;
-    uint8_t iInterface;
-} USB_INTERFACE_DESCRIPTOR;
+/*USB interface descriptor */
+typedef struct _USB_INTERFACE_DESCRIPTOR 
+  {
+  uint8_t bLength;        /*size of the entire data structure [bytes] */
+  uint8_t bDescriptorType;/*the descriptor type is constant 
+                            USB_DESCRIPTOR_TYPE_INTERFACE = 0x04*/
+  uint8_t bInterfaceNumber;
+  uint8_t bAlternateSetting;
+  uint8_t bNumEndpoints;
+  uint8_t bInterfaceClass;
+  uint8_t bInterfaceSubClass;
+  uint8_t bInterfaceProtocol;
+  uint8_t iInterface;
+  } USB_INTERFACE_DESCRIPTOR;
+/*USB interface descriptor */
 typedef USB_INTERFACE_DESCRIPTOR    *PUSB_INTERFACE_DESCRIPTOR;
 /*Descriptor for a USB Interface.
   See also: "USB Specification 1.1", http://www.usb.org.
@@ -359,11 +364,13 @@ typedef struct _USB_STRING_DESCRIPTOR
 /*USB string descriptor*/
 typedef USB_STRING_DESCRIPTOR   *PUSB_STRING_DESCRIPTOR;
 
-/* USB common descriptor */
-typedef struct _USB_COMMON_DESCRIPTOR {
-    uint8_t   bLength;
-    uint8_t   bDescriptorType;
-} USB_COMMON_DESCRIPTOR;
+/*USB common descriptor */
+typedef struct _USB_COMMON_DESCRIPTOR 
+  {
+  uint8_t   bLength;
+  uint8_t   bDescriptorType;
+  } USB_COMMON_DESCRIPTOR;
+/*USB common descriptor */
 typedef USB_COMMON_DESCRIPTOR   *PUSB_COMMON_DESCRIPTOR;
 /*Standard header used for all USB descriptors.
   Used to read the length of a descriptor so that we can allocate storage for
@@ -387,44 +394,50 @@ typedef struct _USB_HUB_DESCRIPTOR
   uint8_t  bRemoveAndPowerMask[64];//power control and removable bitmasks
                                //for up to 255 (256 ?) ports (?! max devices on host controller is 127 D.K. (verify))
   } USB_HUB_DESCRIPTOR;
+/*USB hub descriptor.*/
 typedef USB_HUB_DESCRIPTOR  *PUSB_HUB_DESCRIPTOR;
 
-/* USB configuration power descriptor 
-   Note: specific for USB 1.0 specification*/
-typedef struct _USB_CONFIGURATION_POWER_DESCRIPTOR {
-    uint8_t   bLength;
-    uint8_t   bDescriptorType;  /*[in] the descriptor type is constant
+/*USB power configuration descriptor 
+  Note: specific for USB 1.0 specification
+ */
+typedef struct _USB_CONFIGURATION_POWER_DESCRIPTOR 
+  {
+  uint8_t   bLength;
+  uint8_t   bDescriptorType;  /*[in] the descriptor type is constant
                                 USB_CONFIG_POWER_DESCRIPTOR_TYPE = 0x07*/
-    uint8_t   SelfPowerConsumedD0[3];
-    uint8_t   bPowerSummaryId;
-    uint8_t   bBusPowerSavingD1;
-    uint8_t   bSelfPowerSavingD1;
-    uint8_t   bBusPowerSavingD2;
-    uint8_t   bSelfPowerSavingD2;
-    uint8_t   bBusPowerSavingD3;
-    uint8_t   bSelfPowerSavindD3;
-    uint16_t  TransitionTimeFromD1;
-    uint16_t  TransitionTimeFromD2;
-    uint16_t  TransitionTimeFromD3;
-} USB_CONFIGURATION_POWER_DESCRIPTOR;
+  uint8_t   SelfPowerConsumedD0[3];
+  uint8_t   bPowerSummaryId;
+  uint8_t   bBusPowerSavingD1;
+  uint8_t   bSelfPowerSavingD1;
+  uint8_t   bBusPowerSavingD2;
+  uint8_t   bSelfPowerSavingD2;
+  uint8_t   bBusPowerSavingD3;
+  uint8_t   bSelfPowerSavindD3;
+  uint16_t  TransitionTimeFromD1;
+  uint16_t  TransitionTimeFromD2;
+  uint16_t  TransitionTimeFromD3;
+  } USB_CONFIGURATION_POWER_DESCRIPTOR;
+/*USB power configuration descriptor */
 typedef USB_CONFIGURATION_POWER_DESCRIPTOR  *PUSB_CONFIGURATION_POWER_DESCRIPTOR;
 
-/* USB interface power descriptor */
-typedef struct _USB_INTERFACE_POWER_DESCRIPTOR {
-    uint8_t   bLength;
-    uint8_t   bDescriptorType; /*[in] the descriptor type is constant
-                              USB_DESCRIPTOR_TYPE_INTERFACE_POWER = 0x08*/
-    uint8_t   bmCapabilitiesFlags;
-    uint8_t   bBusPowerSavingD1;
-    uint8_t   bSelfPowerSavingD1;
-    uint8_t   bBusPowerSavingD2;
-    uint8_t   bSelfPowerSavingD2;
-    uint8_t   bBusPowerSavingD3;
-    uint8_t   bSelfPowerSavingD3;
-    uint16_t  TransitionTimeFromD1;
-    uint16_t  TransitionTimeFromD2;
-    uint16_t  TransitionTimeFromD3;
-} USB_INTERFACE_POWER_DESCRIPTOR;
+/*USB interface power descriptor */
+typedef struct _USB_INTERFACE_POWER_DESCRIPTOR 
+  {
+  uint8_t   bLength;
+  uint8_t   bDescriptorType; /*[in] the descriptor type is constant
+                               USB_DESCRIPTOR_TYPE_INTERFACE_POWER = 0x08*/
+  uint8_t   bmCapabilitiesFlags;
+  uint8_t   bBusPowerSavingD1;
+  uint8_t   bSelfPowerSavingD1;
+  uint8_t   bBusPowerSavingD2;
+  uint8_t   bSelfPowerSavingD2;
+  uint8_t   bBusPowerSavingD3;
+  uint8_t   bSelfPowerSavingD3;
+  uint16_t  TransitionTimeFromD1;
+  uint16_t  TransitionTimeFromD2;
+  uint16_t  TransitionTimeFromD3;
+  } USB_INTERFACE_POWER_DESCRIPTOR;
+/*USB interface power descriptor */
 typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /* ------------------------------------------------------------------------- */
@@ -439,6 +452,9 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
 
 /*****************************************************************************
  * $Log: Usb100.h,v $
+ * Revision 1.18  2011/04/20 15:31:58  ddarko
+ * formatting
+ *
  * Revision 1.17  2009/08/20 21:25:36  ddarko
  * ISO C99 types
  *
