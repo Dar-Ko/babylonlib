@@ -17,10 +17,10 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#include "KTypedef.h" //uint8 definition
+#include "KTypedef.h" //ISO C99 type definitions
 
-const uint8 GIF_EXTENSION_INTRODUCER = 0x21;  //GIF extension introducer identifies a GIF
-                              //Extension block  (0x21, '!')
+const uint8 GIF_EXTENSION_INTRODUCER = 0x21;  //GIF extension introducer;
+                                //identifies a GIF Extension block  (0x21, '!')
 const uint8 GIF_IMAGE_SEPARATOR = 0x2C; //GIF image separator identifies
                                        //begining of an Image Descriptor block
                                        //(0x2C, ',')
@@ -77,19 +77,19 @@ public:
   CGifDataSubblock();
   virtual ~CGifDataSubblock();
   uint8* Copy(const uint8* pDataSubblock);
-  bool CopyAll(uint8* pImageData);
-  void RemoveAll();
-  int GetSize() const;
-  bool SetSize(const unsigned int nNewSize);
+  bool   CopyAll(uint8* pImageData);
+  void   RemoveAll();
+  int    GetSize() const;
+  bool   SetSize(const unsigned int nNewSize);
+  uint8* GetBuffer();
   uint8& operator[](int nIndex);
   uint8  operator[](int nIndex) const;
   static int GetAllSubblockLength(uint8* pSubblockData);
   static int GetAllDataLength(uint8* pSubblockData, unsigned int& nBlockCount);
-  uint8* GetBuffer();
 
 private:
   unsigned int  m_nSize; //data block size in bytes [0,255]
-  uint8*         m_pData; //data container
+  uint8*        m_pData; //data container
 };
 
 ///////////////////////////////////////////////////////////////////////////////
