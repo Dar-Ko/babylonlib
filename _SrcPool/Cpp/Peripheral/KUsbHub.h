@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.h$: header file
-  $Revision: 1.22 $ $Date: 2009/08/28 21:08:01 $
+  $Revision: 1.23 $ $Date: 2011/04/21 22:14:15 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -220,6 +220,9 @@ CArray<CUsbDevice*>::RemoveAll();
   for devices to be plugged into.
   Self-powered hubs, on the other hand, typically provide 500 mA per port
   and they can provide more than four ports.
+  Hubs are capable of supporting any speed or type of USB peripheral that is 
+  connected on their downstream ports. USB 2.0 hub provides support for high-speed,
+  full-speed, and low-speed USB peripherals.
   Hubs can be stand-alone devices or they can be integrated into other devices
   such as keyboards and monitors.
 
@@ -240,7 +243,7 @@ public:
             CUsbDeviceInfo* pDeviceInfo = NULL);
   //virtual bool FindNext(const uint16_t wVendorId,
   //              const uint16_t wProductId,
-  //              CUsbDeviceInfo* pDeviceInfo = NULL);
+  //              CUsbDeviceInfo* pDeviceInfo = NULL); TODO; 
 
 protected:
   void Erase();
@@ -471,6 +474,9 @@ m_iLastNodeAccessed = -1;
 #endif  //_KUSBHUB_H_
 /*****************************************************************************
  * $Log: KUsbHub.h,v $
+ * Revision 1.23  2011/04/21 22:14:15  ddarko
+ * comment
+ *
  * Revision 1.22  2009/08/28 21:08:01  ddarko
  * SetPortNo
  *

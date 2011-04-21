@@ -1,5 +1,5 @@
 /*$RCSfile: Usb200.h,v $: header file
-  $Revision: 1.9 $ $Date: 2009/08/20 21:25:36 $
+  $Revision: 1.10 $ $Date: 2011/04/21 22:14:15 $
   $Author: ddarko $
 
   USB 2.0 definitions
@@ -24,7 +24,7 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#include "Usb100.h"
+#include "Usb100.h" /*USB 1.0 definitions*/
 
 #ifdef __cplusplus
 extern "C" {
@@ -181,6 +181,9 @@ typedef USB_INTERFACE_ASSOCIATION_DESCRIPTOR    IOUSBInterfaceAssociationDescrip
 
 /*****************************************************************************
  * $Log: Usb200.h,v $
+ * Revision 1.10  2011/04/21 22:14:15  ddarko
+ * comment
+ *
  * Revision 1.9  2009/08/20 21:25:36  ddarko
  * ISO C99 types
  *
