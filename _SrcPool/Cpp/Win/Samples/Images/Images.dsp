@@ -96,7 +96,7 @@ SOURCE=.\ImagesTest.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KBmpViewer.cpp
+SOURCE=..\..\..\Samples\@ToDo\KBmpViewer.cpp
 
 !IF  "$(CFG)" == "Images - Win32 Release"
 
@@ -109,23 +109,23 @@ SOURCE=..\..\KBmpViewer.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGif.cpp
+SOURCE=..\..\..\KGif.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGifImageData.cpp
+SOURCE=..\..\..\KGifImageData.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGifImageDescriptor.cpp
+SOURCE=..\..\..\KGifImageDescriptor.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGifLzw.cpp
+SOURCE=..\..\..\Samples\@ToDo\KGifLzw.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGifViewer.cpp
+SOURCE=..\..\..\Samples\@ToDo\KGifViewer.cpp
 # End Source File
 # Begin Source File
 
@@ -149,35 +149,35 @@ SOURCE=.\TestGifViewer.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\KBitmap.h
+SOURCE=..\..\..\KBitmap.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KBmpViewer.h
+SOURCE=..\..\..\Samples\@ToDo\KBmpViewer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGif.h
+SOURCE=..\..\..\KGif.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGifImageData.h
+SOURCE=..\..\..\KGifImageData.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGifImageDescriptor.h
+SOURCE=..\..\..\KGifImageDescriptor.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGifLzw.h
+SOURCE=..\..\..\Samples\@ToDo\KGifLzw.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGifViewer.h
+SOURCE=..\..\..\Samples\@ToDo\KGifViewer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KProgCst.h
+SOURCE=..\..\..\KProgCst.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
