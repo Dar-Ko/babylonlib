@@ -1,0 +1,13 @@
+﻿$RCSfile: BabylonLib.txt,v $: developer's note
+$Revision: 1.1 $ $Date: 2011/04/21 16:44:14 $
+$Author: ddarko $
+
+
+Microsoft Visual Studio format versions
+
+	Visual Studio	 .vcproj   	   .sln
+	     ver.    	format ver.	format ver.
+	-------------------------------------------
+	2003  7.1    	   7.1     	    8.0    	xxx8.sln <- xxx7.vcproj
+	2005  8.0    	   8.0     	    9.0    	xxx9.sln <- xxx8.vcproj
+	2008  9.0    	   9.0     	   10.0    	 xxx.sln <-  xxx.vcproj working version
