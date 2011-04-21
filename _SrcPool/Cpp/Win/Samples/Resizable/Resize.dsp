@@ -106,7 +106,7 @@ SOURCE=.\IpFrame.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KDbgOSVI.cpp
+SOURCE=..\..\32\KDbgOSVI.cpp
 
 !IF  "$(CFG)" == "Resizable - Win32 Release"
 
@@ -122,43 +122,43 @@ SOURCE=..\..\KDbgOSVI.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KDbgPrpS.cpp
+SOURCE=..\..\32\KDbgPrpS.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KDlgItem.cpp
+SOURCE=..\..\32\KDlgItem.cpp
 # ADD CPP /I "Samples\Resizable"
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KDlgItLs.cpp
+SOURCE=..\..\32\KDlgItLs.cpp
 # ADD CPP /I "Samples\Resizable"
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KDlgRsiz.cpp
+SOURCE=..\..\32\KDlgRsiz.cpp
 # ADD CPP /I "Samples\Resizable"
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGetPrSu.cpp
+SOURCE=..\..\32\KGetPrSu.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KGetPrTy.cpp
+SOURCE=..\..\32\KGetPrTy.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KPropPgR.cpp
+SOURCE=..\..\32\KPropPgR.cpp
 # ADD CPP /I "Samples\Resizable"
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KPropShR.cpp
+SOURCE=..\..\32\KPropShR.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KWinPlac.cpp
+SOURCE=..\..\32\KWinPlac.cpp
 
 !IF  "$(CFG)" == "Resizable - Win32 Release"
 
@@ -255,27 +255,27 @@ SOURCE=.\IpFrame.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KDlgItem.h
+SOURCE=..\..\32\KDlgItem.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KDlgItLs.h
+SOURCE=..\..\32\KDlgItLs.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KDlgRsiz.h
+SOURCE=..\..\32\KDlgRsiz.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KPropPgR.h
+SOURCE=..\..\32\KPropPgR.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KPropShR.h
+SOURCE=..\..\32\KPropShR.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KWinPlac.h
+SOURCE=..\..\32\KWinPlac.h
 # End Source File
 # Begin Source File
 
