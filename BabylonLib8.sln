@@ -1,21 +1,21 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SrcPoolWin32", "_SrcPool\Cpp\Win\SrcPoolWin32.vcproj", "{E4804099-DAA2-4333-A0E9-739E59B40790}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SrcPoolWin32", "_SrcPool\Cpp\Win\SrcPoolWin327.vcproj", "{E4804099-DAA2-4333-A0E9-739E59B40790}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_SrcPoolCpp", "_SrcPool\_SrcPool.vcproj", "{36497428-ED6B-4061-ABCD-D1FADF09B5BF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_SrcPoolCpp", "_SrcPool\_SrcPool7.vcproj", "{36497428-ED6B-4061-ABCD-D1FADF09B5BF}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Samples", "_SrcPool\Cpp\Samples\_Samples.vcproj", "{06741D7E-9675-4FC4-92E4-F03C2E2D4F63}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Samples", "_SrcPool\Cpp\Samples\_Samples7.vcproj", "{06741D7E-9675-4FC4-92E4-F03C2E2D4F63}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Util", "Util\_Util.vcproj", "{C8E6F84B-F415-458D-BCC8-CD2DFAA3A8AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Util", "Util\_Util7.vcproj", "{C8E6F84B-F415-458D-BCC8-CD2DFAA3A8AA}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Doc", "Doc\_Doc.vcproj", "{A09C7AF7-9DBA-496B-943A-2228927853D7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_Doc", "Doc\_Doc7.vcproj", "{A09C7AF7-9DBA-496B-943A-2228927853D7}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
