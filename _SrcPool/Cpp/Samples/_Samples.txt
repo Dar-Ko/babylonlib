@@ -13,11 +13,13 @@ Copyright: CommonSoft Inc.
 \	_Samples.FNG	Falch.net DevloperStudio Workspace Group (FNG) file is a generated build file, format version 2.0 (CW9).	PalmOS
 \	_Samples.FNP	Falch.net DevloperStudio Project (FNP) file is a generated build file, format version 2.0 (CW9).	PalmOS
 \	_Samples.mcp	Metrowerks CodeWarrior Project (MCP) file is a generated build file, format version 9.00 (CW9).	PalmOS
-\	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
-\	_Samples8.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
-\	_Samples.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
-\	_Samples7.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
 \	_Samples.vcw	Microsoft eMbedded Visual Tools Workspace (VCW) file is a generated build file, format version 6.02 (eVC6).	WinCE
+\	_Samples8.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 8.0 (MSVC7 2003).	Win32
+\	_Samples9.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 9.0 (MSVC8 2005).	Win32
+\	_Samples.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 10.0 (MSVC9 2008).	Win32
+\	_Samples7.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
+\	_Samples8.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
+\	_Samples.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
 
 _Samples Workspace Project components
 
@@ -73,6 +75,14 @@ Conversion Issues:
 - Due to the requirement that Visual C++ projects produce an embedded (by default) Windows SxS manifest, manifest files in the project are automatically excluded from building with the Manifest Tool. It is recommended that the dependency information contained in any manifest files be converted to "#pragma comment(linker,"<insert dependency here>")" in a header file that is included from your source code. If your project already embeds a manifest in the RT_MANIFEST resource section through a resource (.rc) file, the line will need to be commented out before the project will build correctly.
 - Due to a conformance change in the C++ compiler, code change may be required before your project will build without errors. Previous versions of the C++ compiler allowed specification of member function pointers by member function name (e.g. MemberFunctionName). The C++ standard requires a fully qualified name with the use of the address-of operator (e.g. &ClassName::MemberFunctionName). If your project contains forms or controls used in the Windows Forms Designer, you may have to change code in InitializeComponent because the designer generated code used the non-conformant syntax in delegate construction (used in event handlers).
 
+Microsoft Visual Studio format versions
+
+	Visual Studio	 .vcproj   	   .sln
+	     ver.    	format ver.	format ver.
+	-------------------------------------------
+	2003  7.1    	   7.1     	    8.0    	xxx8.sln <- xxx7.vcproj
+	2005  8.0    	   8.0     	    9.0    	xxx9.sln <- xxx8.vcproj
+	2008  9.0    	   9.0     	   10.0    	 xxx.sln <-  xxx.vcproj working version
 
 Borland C++ Compiler
 

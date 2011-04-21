@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="windows-1250"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="8.00"
 	Name="Console"
 	ProjectGUID="{533C43D2-3A63-4754-9BAD-B07F62AB4166}"
-	RootNamespace="Console"
 	Keyword="MFCProj"
-	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
 		<Platform
@@ -46,7 +44,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
+				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
 				PreprocessorDefinitions="NDEBUG;_STL;WIN32;_CONSOLE;_AFXDLL"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -78,8 +76,6 @@
 				SuppressStartupBanner="true"
 				ProgramDatabaseFile=".\..\bin\Release_SBCS_MFC\Win32/Console.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -99,6 +95,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -133,7 +132,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
+				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
 				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_AFXDLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -168,8 +167,6 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\..\bin\Debug_SBCS_MFC\Win32/Console.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -189,6 +186,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -224,7 +224,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
+				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -257,8 +257,6 @@
 				SuppressStartupBanner="true"
 				ProgramDatabaseFile=".\..\bin\Release_SBCS\Win32/Console.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -278,6 +276,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -312,7 +313,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
+				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -346,8 +347,6 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/Console.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -367,6 +366,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -402,7 +404,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
+				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
 				PreprocessorDefinitions="_DEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL;_DEBUG_INCL_PREPROCESS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -435,8 +437,6 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\..\bin\Debug_Unicode_MFC\Win32/Console.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -456,6 +456,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -492,7 +495,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
+				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
 				PreprocessorDefinitions="NDEBUG;_STL;WIN32;_CONSOLE;_UNICODE;_AFXDLL"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -524,8 +527,6 @@
 				SuppressStartupBanner="true"
 				ProgramDatabaseFile=".\..\bin\Release_Unicode_MFC\Win32/Console.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -545,6 +546,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -580,7 +584,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
+				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL;_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -614,8 +618,6 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\..\bin\Debug_Unicode\Win32/Console.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -635,6 +637,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -671,7 +676,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
+				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_STL;_UNICODE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -704,8 +709,6 @@
 				SuppressStartupBanner="true"
 				ProgramDatabaseFile=".\..\bin\Release_Unicode\Win32/Console.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -725,6 +728,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -759,7 +765,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32;..\..\Win\32"
+				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -793,8 +799,6 @@
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\..\bin\Debug_SBCS\Win32/Console.pdb"
 				SubSystem="1"
-				RandomizedBaseAddress="1"
-				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -814,6 +818,9 @@
 			/>
 			<Tool
 				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
