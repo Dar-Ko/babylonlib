@@ -42,7 +42,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="S:\_SrcPool\Cpp"
+				AdditionalIncludeDirectories=".."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;WINVER=0x0501"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -112,7 +112,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="S:\_SrcPool\Cpp"
+				AdditionalIncludeDirectories=".."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;WINVER=0x0501"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
@@ -176,7 +176,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="S:\_SrcPool\Cpp"
+				AdditionalIncludeDirectories=".."
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;WINVER=0x0501"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
@@ -241,7 +241,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="S:\_SrcPool\Cpp"
+				AdditionalIncludeDirectories=".."
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;WINVER=0x0501"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -795,10 +795,12 @@
 				>
 			</File>
 			<File
-				RelativePath=".\32\KErrnoFromLastError.cpp">
+				RelativePath=".\32\KErrnoFromLastError.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\32\KFileGetDirectory.cpp">
+				RelativePath=".\32\KFileGetDirectory.cpp"
+				>
 			</File>
 			<File
 				RelativePath=".\32\KFileNameFit.cpp"
@@ -917,10 +919,12 @@
 				>
 			</File>
 			<File
-				RelativePath=".\32\KLastErrorFromErrno.cpp">
+				RelativePath=".\32\KLastErrorFromErrno.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\32\KListEx.cpp">
+				RelativePath=".\32\KListEx.cpp"
+				>
 			</File>
 			<File
 				RelativePath=".\32\KPropPgR.cpp"

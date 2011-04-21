@@ -16,8 +16,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug_SBCS|Win32"
-			OutputDirectory=".\_Util___Win32_Debug_SBCS"
-			IntermediateDirectory=".\_Util___Win32_Debug_SBCS"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="10"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -40,8 +40,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release_SBCS|Win32"
-			OutputDirectory=".\_Util___Win32_Release_SBCS"
-			IntermediateDirectory=".\_Util___Win32_Release_SBCS"
+			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
+			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="10"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -120,11 +120,11 @@
 			>
 		</File>
 		<File
-			RelativePath="Util\RegsvrAdd.reg"
+			RelativePath=".\RegsvrAdd.reg"
 			>
 		</File>
 		<File
-			RelativePath=".\RegsvrAdd.reg"
+			RelativePath="Util\RegsvrAdd.reg"
 			>
 		</File>
 		<File

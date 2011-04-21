@@ -11,8 +11,11 @@ Copyright: CommonSoft Inc.
 
 
 \	_SamplesWin.dsw	Microsoft Developer Studio Workspace (DSW) file is a generated build file, format version 6.00 (MSVC6).	Win32
-\	_SamplesWin8.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 8 (MSVC7 2003).	Win32
-\	_SamplesWin.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 9 (MSVC8 2005).	Win32
+\	_SamplesWin8.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 8.0 (MSVC7 2003).	Win32
+\	_SamplesWin9.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 9.0 (MSVC8 2005).	Win32
+\	TODO: _SamplesWin.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 10.0 (MSVC9 2008).	Win32
+\	_SamplesWin8.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
+\	TODO: _SamplesWin.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
 
 Projects:
 _LibraryTest
@@ -25,3 +28,12 @@ _LibraryTest
 ? Timer  MSVC6
 ? VerInfoTest  MSVC6
 ? WinOSVer  MSVC6
+
+Microsoft Visual Studio format versions
+
+	Visual Studio	 .vcproj   	   .sln
+	     ver.    	format ver.	format ver.
+	-------------------------------------------
+	2003  7.1    	   7.1     	    8.0    	xxx8.sln <- xxx7.vcproj
+	2005  8.0    	   8.0     	    9.0    	xxx9.sln <- xxx8.vcproj
+	2008  9.0    	   9.0     	   10.0    	 xxx.sln <-  xxx.vcproj working version

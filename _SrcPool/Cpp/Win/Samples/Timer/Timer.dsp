@@ -91,7 +91,7 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\KTaskIco.cpp
+SOURCE=..\..\32\KTaskIco.cpp
 
 !IF  "$(CFG)" == "Timer - Win32 Release"
 
@@ -104,7 +104,7 @@ SOURCE=..\..\KTaskIco.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KTimer.cpp
+SOURCE=..\..\32\KTimer.cpp
 
 !IF  "$(CFG)" == "Timer - Win32 Release"
 
@@ -117,7 +117,7 @@ SOURCE=..\..\KTimer.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KTimerW.cpp
+SOURCE=..\..\32\KTimerW.cpp
 
 !IF  "$(CFG)" == "Timer - Win32 Release"
 
@@ -155,15 +155,15 @@ SOURCE=.\TimerProc.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\KTaskIco.h
+SOURCE=..\..\32\KTaskIco.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KTimer.h
+SOURCE=..\..\32\KTimer.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\KTimerW.h
+SOURCE=..\..\32\KTimerW.h
 # End Source File
 # Begin Source File
 
