@@ -55,3 +55,9 @@ Excerpt from <atlapp.h>
 To solve the issue, don't use ATL with minimized CRT library, while compiling the application.
 Change project configuration as follows:
   Project Property Page | Configuration Properties | General | Minimize CRT Use in ATL : No
+
+Microsoft Visual Studio C++ 2008 v9.0
+======================================
+- Web deployment to the local IIS server is no longer supported. The Web Deployment build tool has been removed from your project settings. 
+- ActiveX references no longer support per-configuration settings. To generate a custom interop wrapper, use tlbimp/aximp to generate the interop assembly and add it as an assembly reference. 
+- This application has been updated to include settings related to the User Account Control (UAC) feature of Windows Vista. By default, when run on Windows Vista with UAC enabled, this application is marked to run with the same privileges as the process that launched it. This marking also disables the application from running with virtualization. You can change UAC related settings from the Property Pages of the project. 

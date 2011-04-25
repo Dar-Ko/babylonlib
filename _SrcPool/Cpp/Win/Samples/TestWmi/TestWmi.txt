@@ -1,5 +1,5 @@
 $RCSfile: TestWmi.txt,v $: developer's note
-$Revision: 1.1 $ $Date: 2010/01/21 22:18:52 $
+$Revision: 1.2 $ $Date: 2011/04/25 20:56:52 $
 $Author: ddarko $
 
 Samples and test suites for the Windows Management Instrumentation (WMI).
@@ -16,3 +16,9 @@ See also: Creating a WMI Application Using C++ (http://msdn.microsoft.com/en-us/
 ========================================================================
 
 \	TestWmi.vcproj Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
+
+Microsoft Visual Studio C++ 2008 v9.0
+======================================
+- ATL Server support has been removed from this version of Visual Studio. In case your ATL Project uses any ATL Server functionality, your project may not build. Please consult the MSDN documentation for a list of alternatives. 
+- Web deployment to the local IIS server is no longer supported. The Web Deployment build tool has been removed from your project settings. 
+- This application has been updated to include settings related to the User Account Control (UAC) feature of Windows Vista. By default, when run on Windows Vista with UAC enabled, this application is marked to run with the same privileges as the process that launched it. This marking also disables the application from running with virtualization. You can change UAC related settings from the Property Pages of the project. 
