@@ -1,5 +1,5 @@
 /*$Workfile: KHresult.h$: header file
-  $Revision: 1.12 $ $Date: 2008/09/15 14:20:51 $
+  $Revision: 1.13 $ $Date: 2011/04/25 20:31:44 $
   $Author: ddarko $
 
   Handles HRESULT error codes
@@ -162,7 +162,24 @@ if( FAILED(m_hr) )
 }
 
 //-----------------------------------------------------------------------------
-/*Assign the result of an operation to the object.
+/*Assign the result of an operation to the object. If the result fails, 
+  an exception will be thrown.
+
+  Example:
+    HRESULT MyFunction() 
+    {
+    HResult hr(S_OK);
+    try 
+      {
+      hr = pcomObj->MyMethod();
+      }
+    catch(HRESULT hResult) 
+      {
+      throw hResult;
+      }
+    return S_OK;
+    }
+  
  */
 inline CHresult::CHresult(const HRESULT hResult //[in] error value
                           ) throw(KEXCEPTIONTYPE) :
