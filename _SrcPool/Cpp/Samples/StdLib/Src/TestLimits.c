@@ -24,6 +24,7 @@ bool TestLimits()
 {
 bool bResult = true;
 TsWriteToViewLn(_T("TestLimits()"));
+#pragma TODO
 
 TsWriteToViewLn(LOG_EOT);
 
@@ -36,7 +37,7 @@ return bResult;
  *  1    Biblioteka1.0         2004-11-25 21:59:31  Darko
  * $
  *****************************************************************************/
-
+#if 0
 //PalmPilot Category:	PocketC
 //limits.c
 
@@ -180,3 +181,4 @@ main()
 
   return 0;
 }
+#endif //0

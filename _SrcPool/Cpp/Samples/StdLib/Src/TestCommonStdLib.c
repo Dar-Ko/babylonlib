@@ -19,9 +19,10 @@
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 extern bool TestLimits();
-extern bool TestCrtStrdup();
-extern bool TestCrtStrtok(void);
-//extern bool TestTraceC();
+extern bool TestCrtStrDup();
+extern bool TestCrtStrTok(void);
+extern bool TestNaN();
+extern bool TestCrtPrintF();
 
 //-----------------------------------------------------------------------------
 /*Validates different C Standard Library routines.
@@ -35,9 +36,10 @@ _Bool TestCommonStdLib()
 bool (*funcTest[])() =
   {
   TestLimits,
-  TestCrtStrdup,
-  TestCrtStrtok
-  //TestTraceC
+  TestCrtStrDup,
+  TestCrtStrTok,
+  TestCrtPrintF,
+  TestNaN
   };
 
 int iTestCount = 0;

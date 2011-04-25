@@ -1,5 +1,5 @@
 /*$RCSfile: TestCrtStrdup.c,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/09/29 21:53:42 $
+  $Revision: 1.3 $ $Date: 2011/04/25 20:31:06 $
   $Author: ddarko $
 
   Test copying a string
@@ -25,7 +25,7 @@ extern const char* g_listTestStringsA[]; //Single-byte character set (SBCS) text
   See also: KStrings.h, StrDup(),
   Microsoft C run-time libraries: _strdup(), _wcsdup(), _mbsdup().
  */
-bool TestCrtStrdup(void)
+bool TestCrtStrDup(void)
 {
 struct tagTestEntry logEntry = 
   {
@@ -34,7 +34,7 @@ struct tagTestEntry logEntry =
   false
   };
 int i = 0;
-TsWriteToViewLn(_T("TestCrtStrdup()"));
+TsWriteToViewLn(_T("TestCrtStrDup()"));
 
 /*Test border case with null pointer*/
 logEntry.m_bResult = (strdup(NULL) == NULL);
@@ -76,6 +76,9 @@ return logEntry.m_bResult;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestCrtStrdup.c,v $
+ *Revision 1.3  2011/04/25 20:31:06  ddarko
+ *Updated test case
+ *
  *Revision 1.2  2009/09/29 21:53:42  ddarko
  *test completely rewritten
  *

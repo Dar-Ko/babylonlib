@@ -12,6 +12,10 @@
 #include "stdafx.h"
 #include "Resource.h"
 
+#ifndef __AFXWIN_H__
+  #error include required MFC header files in 'stdafx.h'
+#endif
+
 #ifdef _DEBUG
   #define new DEBUG_NEW
   #undef THIS_FILE
@@ -29,7 +33,7 @@ CWinApp theApp;
 #endif
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
-extern int TestAssertMain();
+extern int TestCommonStdLib();
 
 //-----------------------------------------------------------------------------
 /*Validates different debugging and tracing routines.
@@ -53,7 +57,7 @@ if (!AfxWinInit(::GetModuleHandle(NULL), NULL, ::GetCommandLine(), 0))
   }
 else
   {
-  nRetCode = TestAssertMain();
+  nRetCode = TestCommonStdLib();
   }
 
 return nRetCode;

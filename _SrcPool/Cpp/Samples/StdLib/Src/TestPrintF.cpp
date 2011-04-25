@@ -1,8 +1,30 @@
-// crt_printf.c
+/*$RCSfile: TestCrtStrtok.c,v $: implementation file
+  $Revision: 1.4 $ $Date: 2009/09/30 20:55:29 $
+  $Author: ddarko $
 
-#include <stdio.h>
+  Test displaying formatted output.
+  Copyright (c) Microsoft Corporation. All rights reserved.
+  MSVC 2003 CRT
+*/
 
-/* This program uses the printf and wprintf functions
+// Group=Examples
+
+#include "stdafx.h"
+#include <stdio.h>  //printf()
+#include "KTestLog.h" //TESTENTRY struct
+extern bool TsWriteToView(LPCTSTR lszText);
+extern bool TsWriteToViewLn(LPCTSTR lszText);
+extern bool TsWriteToViewLn(const int& iValue);
+//-----------------------------------------------------------------------------
+/*Test of producing formatted output.
+
+  Returns: true if successful, otherwise returns false.
+
+  See also: printf()
+  Microsoft C run-time libraries: printf(), wprintf()... TODO: description
+ 
+
+* This program uses the printf and wprintf functions
  * to produce formatted output.
  * http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vclib/html/_crt_printf.2c_.wprintf.asp
 
@@ -54,12 +76,25 @@
  printf(_T( "The value='%sz' (should be 'abc')" ), _T( "abcdef" ), 3 );
 
  */
-bool TestPrintF( void )
+bool TestStdPrintF()
 {
+bool bRes = true;
+int iRes = -1;
+
    char   ch = 'h', *string = "computer";
    int    count = -9234;
    double fp = 251.7366;
    wchar_t wch = L'w', *wstring = L"Unicode";
+
+  TESTENTRY logEntry = 
+  {_T("printf()"), _T("C run-time libraries"), false};
+TsWriteToViewLn(_T("TestStdPrintF()"));
+
+/*%% - % followed by another % character will write % to stdout.
+ */
+iRes = printf("Percent symbol: %%d.\n", 10);
+//Expected result: 'Percent symbol: %d.' (value 10 should be ignored!)
+bRes = (iRes == 20);
 
    /* Display integers. */
    printf( "Integer formats:\n"
@@ -91,21 +126,69 @@ bool TestPrintF( void )
    /* Display pointer. */
    printf( "\nAddress as:   %p\n", &count);
 
-   /* Count characters printed. */
-   printf( "\nDisplay to here:\n" );
-   printf( "1234567890123456%n78901234567890\n", &count );
-   printf( "   Number displayed: %d\n\n", count );
-}
-
-
-int main(argc, argv)
-        int argc;
-        char **argv;
-{
-
 printf("%.0e %.0f %.0g\n", 0.0, 0.0, 0.0);
 //Result should have been: 0e+00 0 0
 printf("%#.0e %#.0f %#.0g\n", 0.0, 0.0, 0.0);
 //Result should have been: 0.e+00 0. 0.
-exit(0);
+
+/*%n - Number of characters successfully written so far to the stream or 
+buffer; this value is stored in the integer whose address is given as the
+argument.
+
+Note: The %n format is inherently insecure and is disabled by default;
+if %n is encountered in a format string, the invalid parameter handler is
+invoked. To enable %n support, see _set_printf_count_output().
+*/
+TsWriteToView("Number of characters written before %%n specifier: ");
+__try
+  {
+  if(_get_printf_count_output() == FALSE)
+    {
+    /*Enable support of the %n format in printf, _printf_l, 
+      wprintf, _wprintf_l-family functions.
+
+      Note: MS Visual Studio 2005 fails to enable %n format.
+      MS Visual Studio 2005 SP2 fixed the issue.
+     */
+    _set_printf_count_output(TRUE);
+    }
+
+  printf( "%n\n", &count );
+  bRes = (count == 0);
+  printf( "1234567890123456%n%%n78901234567890\n", &count );
+  bRes = bRes && (count == 16);
+  }
+__except(EXCEPTION_EXECUTE_HANDLER)
+  {
+  logEntry.m_bResult = bRes = false;
+  unsigned long nExc = GetExceptionCode();
+  TRACE1("prinf(%%n) failed with exception %u.\n", nExc);
+  count = -1; //Failed test
+  }
+
+TsWriteToViewLn(count);
+
+
+logEntry.m_bResult = bRes;
+LogTest(&logEntry);
+
+return bRes;
 }
+
+//-----------------------------------------------------------------------------
+/*C-language wrapper for the test of printf().
+  Returns: true if successful, otherwise returns false.
+
+  See also: TestStdPrintF()
+  Microsoft C run-time libraries: printf(), wprintf().
+ */
+extern "C"
+bool TestCrtPrintF(void)
+{
+return TestStdPrintF();
+}
+
+//////////////////////////////////////////////////////////////////////////////
+/******************************************************************************
+ *$Log: $
+ *****************************************************************************/

@@ -1,5 +1,5 @@
 /*$RCSfile: TestStdStrDup.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/09/29 21:57:44 $
+  $Revision: 1.4 $ $Date: 2011/04/25 20:31:06 $
   $Author: ddarko $
 
   C++ wrapper for string copying test
@@ -11,7 +11,7 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 #include "stdafx.h"
 
-extern "C" bool TestCrtStrdup(void);
+extern "C" bool TestCrtStrDup(void);
 
 //TestStrDup()-----------------------------------------------------------------
 /*Test of copying a string to a buffer.
@@ -23,12 +23,15 @@ extern "C" bool TestCrtStrdup(void);
  */
 bool TestStdStrDup()
 {
-return TestCrtStrdup();
+return TestCrtStrDup();
 }
 
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestStdStrDup.cpp,v $
+ *Revision 1.4  2011/04/25 20:31:06  ddarko
+ *Updated test case
+ *
  *Revision 1.3  2009/09/29 21:57:44  ddarko
  *C++ wrapper
  *

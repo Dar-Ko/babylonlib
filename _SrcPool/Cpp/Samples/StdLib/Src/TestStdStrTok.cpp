@@ -1,5 +1,5 @@
 /*$RCSfile: TestStdStrTok.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2009/09/30 20:54:36 $
+  $Revision: 1.3 $ $Date: 2011/04/25 20:31:06 $
   $Author: ddarko $
 
   C++ wrapper for string tokenizer test
@@ -11,7 +11,7 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 #include "stdafx.h"
 
-extern "C" bool TestCrtStrtok(void);
+extern "C" bool TestCrtStrTok(void);
 
 //TestStrDup()-----------------------------------------------------------------
 /*Test of finding a token in a string.
@@ -23,12 +23,15 @@ extern "C" bool TestCrtStrtok(void);
  */
 bool TestStdStrTok()
 {
-return TestCrtStrtok();
+return TestCrtStrTok();
 }
 
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestStdStrTok.cpp,v $
+ *Revision 1.3  2011/04/25 20:31:06  ddarko
+ *Updated test case
+ *
  *Revision 1.2  2009/09/30 20:54:36  ddarko
  *Test substrings
  *

@@ -1,5 +1,5 @@
 /*$RCSfile: TestCrtStrtok.c,v $: implementation file
-  $Revision: 1.4 $ $Date: 2009/09/30 20:55:29 $
+  $Revision: 1.5 $ $Date: 2011/04/25 20:31:06 $
   $Author: ddarko $
 
   Test string tokenizer.
@@ -17,9 +17,9 @@
 #ifdef _MSC_VER
   #ifdef _INC_STRING /*Microsoft string.h header file*/
     /*Microsoft CRT _srttok does not handle null pointers*/
-    #define STRTOK_NULLEXCEPTION 20090930
+    #define STRTOK_NULLEXCEPTION TsWriteToView(_T("Failed test ")) // TODO: exception handler
     #define TRY_EXC __try
-    #define CATCH_EXC(e) __except(TsWriteToView(_T("Failed test ")), EXCEPTION_EXECUTE_HANDLER)
+    #define CATCH_EXC(e) __except(STRTOK_NULLEXCEPTION, EXCEPTION_EXECUTE_HANDLER)
   #endif
 #endif
 
@@ -37,8 +37,7 @@ extern const char* g_listTestStringsA[]; //Single-byte character set (SBCS) text
   See also: KStrings.h, strtok_r()
   Microsoft C run-time libraries: strtok(), _strtok_l(), strtok_s().
  */
-
-bool TestCrtStrtok(void)
+bool TestCrtStrTok(void)
 {
 struct tagTestEntry logEntry =
   {
@@ -47,7 +46,7 @@ struct tagTestEntry logEntry =
   false
   };
 
-TsWriteToViewLn(_T("TestCrtStrtok()"));
+TsWriteToViewLn(_T("TestCrtStrTok()"));
 
 /*Test border case with null pointer*/
 TRY_EXC
@@ -56,6 +55,10 @@ TRY_EXC
   }
 CATCH_EXC(seh)
   {
+  unsigned long nExc = GetExceptionCode();
+  TRACE1("strtok(NULL, NULL) is not supported (Error: 0x%x).\n", nExc);
+  //Microsoft CRT results with Access Violation exception  0xC0000005
+
   logEntry.m_szObjectName = _T("strtok(NULL, NULL)");
   logEntry.m_bResult = false;
   LogTest(&logEntry);
@@ -113,6 +116,9 @@ return logEntry.m_bResult;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestCrtStrtok.c,v $
+ *Revision 1.5  2011/04/25 20:31:06  ddarko
+ *Updated test case
+ *
  *Revision 1.4  2009/09/30 20:55:29  ddarko
  *MSVC: handling SEH exception
  *
