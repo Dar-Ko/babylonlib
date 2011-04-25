@@ -4,6 +4,7 @@
 	Version="9.00"
 	Name="StdLib"
 	ProjectGUID="{7D4D1375-C502-4930-BA80-C83F9B211413}"
+	RootNamespace="StdLib"
 	TargetFrameworkVersion="131072"
 	>
 	<Platforms>
@@ -45,7 +46,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_UNICODE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -133,7 +134,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -226,7 +227,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -313,7 +314,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -405,7 +406,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..\Common\Src\Win,..\Common\Src\Win\32,..\Common\Res\Win,..\Common\Res\Win\32"
+				AdditionalIncludeDirectories="..\..;..\..\Win\32;..\Common\Src\Win;..\Common\Src\Win\32;..\Common\Res\Win;..\Common\Res\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -477,6 +478,160 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath="..\..\KTestLog.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Common\Res\Win\32\Test.rc"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestCommonStdLib.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestCrtStrdup.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestCrtStrtok.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestLimits.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestNaNC.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestPrintF.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Src\TestStdExc.c"
+				>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\TestStdStrCmp.cpp"
+				>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\TestText.c"
+				>
+			</File>
+			<File
+				RelativePath="..\Common\Src\TsWriteT.c"
+				>
+			</File>
+			<File
+				RelativePath="..\Common\Src\TsWriteTxt.cpp"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl"
+			>
+			<File
+				RelativePath="..\..\KStdLib.h"
+				>
+			</File>
+			<File
+				RelativePath="..\Common\Src\Win\stdafx.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
+			>
+		</Filter>
+		<Filter
+			Name="STD"
+			>
+			<File
 				RelativePath="Src\main.c"
 				>
 				<FileConfiguration
@@ -538,68 +693,161 @@
 					/>
 				</FileConfiguration>
 			</File>
+		</Filter>
+		<Filter
+			Name="MFC"
+			>
 			<File
-				RelativePath="..\Common\Res\Win\32\Test.rc"
+				RelativePath=".\Src\Win\32\main.cpp"
 				>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)\$(InputName)1.obj"
+						XMLDocumentationFileName="$(IntDir)\$(InputName)1.xdc"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\Src\TestCommonStdLib.c"
+				RelativePath=".\Src\TestStdStrDup.cpp"
 				>
-			</File>
-			<File
-				RelativePath=".\Src\TestCrtStrdup.c"
-				>
-			</File>
-			<File
-				RelativePath=".\Src\TestCrtStrtok.c"
-				>
-			</File>
-			<File
-				RelativePath=".\Src\TestLimits.c"
-				>
-			</File>
-			<File
-				RelativePath=".\Src\TestNaNC.c"
-				>
-			</File>
-			<File
-				RelativePath=".\Src\TestPrintF.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Src\TestStdExc.c"
-				>
-			</File>
-			<File
-				RelativePath=".\Src\TestStdStrCmp.cpp"
-				>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\Src\TestStdStrTok.cpp"
 				>
-			</File>
-			<File
-				RelativePath=".\Src\TestText.c"
-				>
+				<FileConfiguration
+					Name="Release_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_Unicode|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_SBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug_MBCS|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl"
+			Name="Logs"
+			Filter="log"
 			>
 			<File
-				RelativePath="..\..\KStdLib.h"
+				RelativePath=".\LibraryTest.log"
 				>
 			</File>
-			<File
-				RelativePath="..\Common\Src\Win\stdafx.h"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-			>
 		</Filter>
 		<File
 			RelativePath="StdLib.txt"
