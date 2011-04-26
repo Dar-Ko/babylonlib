@@ -15,7 +15,7 @@
 
 #include "KTypedef.h" //LPCTSTR typedef
 #include "KBeep.h"    //CBeep class
-#include "KOctave.h" //note Ids
+#include "KOctave.h"  //note Ids
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 
@@ -41,6 +41,32 @@ CBeep A;
 A.m_iFrequency = (int16)(g_iOctave3[ID_NOTE_A]/1000); //note A3 [Hz]
 A.Start();
 
+//Beethoven's 9th symphony "Ode an die Freude"
+Note snd9thSynphony[] =
+  {
+    { g_iOctave3[ID_NOTE_D  ], g_nSemiBreve    }, //D3 -repeatBeg 
+    { g_iOctave3[ID_NOTE_E  ], g_nSemiBreve / 2}, //E3 
+    {          NOTE_REST     , g_nSemiBreve / 8}, //rest
+    { g_iOctave3[ID_NOTE_C  ], g_nSemiBreve * 2}, //C3
+    { g_iOctave3[ID_NOTE_G  ], g_nSemiBreve    }, //G3
+    { g_iOctave3[ID_NOTE_E  ], g_nSemiBreve    }, //E3 -repeatEnd
+    {          NOTE_REST     , g_nSemiBreve / 2}, //rest
+    
+    { g_iOctave3[ID_NOTE_F  ], g_nSemiBreve    }, //F3
+    { g_iOctave3[ID_NOTE_G  ], g_nSemiBreve    }, //G3 -repeatBeg 
+    { g_iOctave3[ID_NOTE_F  ], g_nSemiBreve    }, //F3
+    { g_iOctave3[ID_NOTE_E  ], g_nSemiBreve    }, //E3
+    { g_iOctave3[ID_NOTE_D  ], g_nSemiBreve    }, //D3
+    { g_iOctave3[ID_NOTE_C  ], g_nSemiBreve    }, //C3 -repeatEnd
+    { g_iOctave3[ID_NOTE_D  ], g_nSemiBreve    }, //D3
+    { g_iOctave3[ID_NOTE_E  ], g_nSemiBreve    }, //E3
+    { g_iOctave3[ID_NOTE_E  ], g_nSemiBreve * 2}, //E3
+    { g_iOctave3[ID_NOTE_D  ], g_nSemiBreve / 2}, //D3
+    { g_iOctave3[ID_NOTE_D  ], g_nSemiBreve    }  //D3
+  };
+ 
+//todo: play an array D.K.
+ 
 TsWriteToViewLn(LOG_EOT);
 return bRes;
 }

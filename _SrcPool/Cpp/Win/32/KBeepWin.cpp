@@ -34,7 +34,7 @@
   
   Example:
       #include "KBeep.h"    //CBeep class
-      #include "KOctave.h" //note Ids
+      #include "KOctave.h"  //note Ids
       void MyFunc()
       {
       CBeep A; //note A3 [Hz]
@@ -50,10 +50,16 @@ TRACE(_T("CBeep::Start()\n"));
   The function is synchronous; it does not return control to its caller until
   the sound finishes.
  */
-if ( !::Beep(m_iFrequency, m_nDuration) )
+uint32 iCount = 0;
+while(iCount < m_nCount)
   {
-  extern void SystemErrMessage(UINT uiSystemError);
-  SystemErrMessage(GetLastError());
+  if ( !::Beep(m_iFrequency, m_nDuration) )
+    {
+    extern void SystemErrMessage(UINT uiSystemError);
+    SystemErrMessage(GetLastError());
+    break;
+    }
+  iCount++;
   }
 }
 

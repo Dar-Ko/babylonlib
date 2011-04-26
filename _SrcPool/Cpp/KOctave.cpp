@@ -175,9 +175,9 @@ Note g_sndWarning[] =
 //Error Message sound
 Note g_sndError[] =
   {
-    { g_iOctave3[ID_NOTE_B  ]*2, g_nSemiBreve    },  //B3
+    { g_iOctave3[ID_NOTE_B  ]*2, g_nSemiBreve    },  //B4
     {            NOTE_REST     , g_nSemiBreve / 2},  //rest
-    { g_iOctave3[ID_NOTE_B  ]*2, g_nSemiBreve    }   //B3
+    { g_iOctave3[ID_NOTE_B  ]*2, g_nSemiBreve    }   //B4
   };
 
 //Information Message sound
