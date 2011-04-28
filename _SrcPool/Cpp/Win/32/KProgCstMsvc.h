@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.7 $ $Date: 2009/04/03 20:36:16 $
+  $Revision: 1.8 $ $Date: 2011/04/28 22:07:26 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -245,11 +245,48 @@
     #define _KINEXDECL _KIMPORTDECL
   #endif /*_USE_EXPORT*/
 #endif
+
+/*///////////////////////////////////////////////////////////////////////////*/
+/*Common declartions
+ */
+
+/*8-bit data type allowing acces to indvidual bit-fields.
+
+  Note: using bit-fields is potentially thread unsafe, if multiple mutexes
+  are used to guard different fields. Use instead single mutex to protect
+  all fields together.
+
+  Note: The type-specifier for the bit-field declarator must be unsigned int,
+  signed int, or int.
+  A Microsoft extension to the ANSI C standard allows char and long types 
+  (both signed and unsigned) for bit fields.
+  
+ */
+typedef union tagSTATUS8
+  {
+  uint8  BYTE; //Eight binary digits long unit of data.
+
+  struct tagBIT
+    {
+    uint8 B0 :1; //Bit 0: Least Significant Bit (LSB)
+    uint8 B1 :1; //Bit 1
+    uint8 B2 :1; //Bit 2
+    uint8 B3 :1; //Bit 3
+    uint8 B4 :1; //Bit 4
+    uint8 B5 :1; //Bit 5
+    uint8 B6 :1; //Bit 6
+    uint8 B7 :1; //Bit 7: Most Signficant Bit (MSB)
+    } BIT;  //Binary digit
+  } STATUS8;
+
 /* ///////////////////////////////////////////////////////////////////////// */
   #endif /*_MSC_VER */
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.8  2011/04/28 22:07:26  ddarko
+ * status with bit-field access
+ *
  * Revision 1.7  2009/04/03 20:36:16  ddarko
  * fixed _MSC_VER for errno
  *
