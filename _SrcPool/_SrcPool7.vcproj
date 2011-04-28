@@ -1,236 +1,355 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="8.00"
 	Name="_SrcPoolCpp"
 	ProjectGUID="{36497428-ED6B-4061-ABCD-D1FADF09B5BF}"
 	RootNamespace="_SrcPool"
-	Keyword="Win32Proj">
+	Keyword="Win32Proj"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug_Unicode|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="4"
-			CharacterSet="1">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_UNICODE"
-				StringPooling="TRUE"
-				MinimalRebuild="TRUE"
+				StringPooling="true"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				SmallerTypeCheck="TRUE"
-				RuntimeLibrary="5"
-				BufferSecurityCheck="TRUE"
-				TreatWChar_tAsBuiltInType="TRUE"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="1"
+				BufferSecurityCheck="true"
+				TreatWChar_tAsBuiltInType="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				BrowseInformation="1"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/BabylonSWin32.lib"/>
+				OutputFile="$(OutDir)/BabylonSWin32.lib"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release_Unicode|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="4"
-			CharacterSet="1">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;_UNICODE"
-				RuntimeLibrary="4"
-				TreatWChar_tAsBuiltInType="TRUE"
+				RuntimeLibrary="0"
+				TreatWChar_tAsBuiltInType="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
 				OutputFile="$(OutDir)/BabylonSWin32.lib"
-				IgnoreAllDefaultLibraries="TRUE"/>
+				IgnoreAllDefaultLibraries="true"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Debug_SBCS|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="4"
-			CharacterSet="0">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
-				StringPooling="TRUE"
-				MinimalRebuild="TRUE"
+				StringPooling="true"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				SmallerTypeCheck="TRUE"
-				RuntimeLibrary="5"
-				BufferSecurityCheck="TRUE"
-				TreatWChar_tAsBuiltInType="TRUE"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="1"
+				BufferSecurityCheck="true"
+				TreatWChar_tAsBuiltInType="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				BrowseInformation="1"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/BabylonSWin32.lib"/>
+				OutputFile="$(OutDir)/BabylonSWin32.lib"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release_SBCS|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(ConfigurationName)\$(PlatformName)"
 			IntermediateDirectory="$(SolutionDir)Obj\$(ConfigurationName)\$(ProjectName)\$(PlatformName)"
 			ConfigurationType="4"
-			CharacterSet="0">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
-				RuntimeLibrary="4"
+				RuntimeLibrary="0"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="3"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/BabylonSWin32.lib"/>
+				OutputFile="$(OutDir)/BabylonSWin32.lib"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Debug_MBCS|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
-			CharacterSet="0">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="0"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
-				StringPooling="TRUE"
-				MinimalRebuild="TRUE"
+				StringPooling="true"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
-				SmallerTypeCheck="TRUE"
-				RuntimeLibrary="5"
-				BufferSecurityCheck="TRUE"
-				TreatWChar_tAsBuiltInType="TRUE"
+				SmallerTypeCheck="true"
+				RuntimeLibrary="1"
+				BufferSecurityCheck="true"
+				TreatWChar_tAsBuiltInType="true"
 				UsePrecompiledHeader="0"
 				PrecompiledHeaderFile="$(IntDir)/$(TargetName).pch"
 				BrowseInformation="1"
 				WarningLevel="4"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="4"/>
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)/BabylonSWin32.lib"/>
+				OutputFile="$(OutDir)/BabylonSWin32.lib"
+			/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"/>
-			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -239,566 +358,748 @@
 		<Filter
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
-			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
+			>
 			<File
-				RelativePath=".\Cpp\KColorShade.cpp">
+				RelativePath=".\Cpp\KColorShade.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KDate.cpp">
+				RelativePath=".\Cpp\KDate.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KDateConv.cpp">
+				RelativePath=".\Cpp\KDateConv.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KDateCst.c">
+				RelativePath=".\Cpp\KDateCst.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KDateTm.c">
+				RelativePath=".\Cpp\KDateTm.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KDbgFILE.c">
+				RelativePath=".\Cpp\KDbgFILE.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KfFibonacci.cpp">
+				RelativePath=".\Cpp\KfFibonacci.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KFileSimple.cpp">
+				RelativePath=".\Cpp\KFileSimple.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KfKepler.cpp">
+				RelativePath=".\Cpp\KfKepler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KfNewtRp.cpp">
+				RelativePath=".\Cpp\KfNewtRp.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KfQuadEq.cpp">
+				RelativePath=".\Cpp\KfQuadEq.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGetFileExt.cpp">
+				RelativePath=".\Cpp\KGetFileExt.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGetFileExtension.cpp">
+				RelativePath=".\Cpp\KGetFileExtension.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGetLine.cpp">
+				RelativePath=".\Cpp\KGetLine.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGetLRC.cpp">
+				RelativePath=".\Cpp\KGetLRC.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGif.cpp">
+				RelativePath=".\Cpp\KGif.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGifImageData.cpp">
+				RelativePath=".\Cpp\KGifImageData.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGifImageDescriptor.cpp">
+				RelativePath=".\Cpp\KGifImageDescriptor.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KHtmlAttrList.cpp">
+				RelativePath=".\Cpp\KHtmlAttrList.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KIsLRC.cpp">
+				RelativePath=".\Cpp\KIsLRC.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KIsPrimeNo.cpp">
+				RelativePath=".\Cpp\KIsPrimeNo.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KItoA.c">
+				RelativePath=".\Cpp\KItoA.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KItoOct.c">
+				RelativePath=".\Cpp\KItoOct.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KMatFact.cpp">
+				RelativePath=".\Cpp\KMatFact.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KMod10.cpp">
+				RelativePath=".\Cpp\KMod10.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KRandomGauss.cpp">
+				RelativePath=".\Cpp\KRandomGauss.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KRandomUniform.cpp">
+				RelativePath=".\Cpp\KRandomUniform.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrAtoI.cpp">
+				RelativePath=".\Cpp\KStrAtoI.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrAtoU.c">
+				RelativePath=".\Cpp\KStrAtoU.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrBool.cpp">
+				RelativePath=".\Cpp\KStrBool.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrBtoA.c">
+				RelativePath=".\Cpp\KStrBtoA.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrBtoH.cpp">
+				RelativePath=".\Cpp\KStrBtoH.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrBtoU.c">
+				RelativePath=".\Cpp\KStrBtoU.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrCatV.c">
+				RelativePath=".\Cpp\KStrCatV.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrCtoA.c">
+				RelativePath=".\Cpp\KStrCtoA.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrDup.c">
+				RelativePath=".\Cpp\KStrDup.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrEnum.cpp">
+				RelativePath=".\Cpp\KStrEnum.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrEscC.c">
+				RelativePath=".\Cpp\KStrEscC.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrExC.cpp">
+				RelativePath=".\Cpp\KStrExC.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrFindNoCase.cpp">
+				RelativePath=".\Cpp\KStrFindNoCase.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrFit.cpp">
+				RelativePath=".\Cpp\KStrFit.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrGetF.cpp">
+				RelativePath=".\Cpp\KStrGetF.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrGetLine.cpp">
+				RelativePath=".\Cpp\KStrGetLine.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrGetS.cpp">
+				RelativePath=".\Cpp\KStrGetS.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrGetW.cpp">
+				RelativePath=".\Cpp\KStrGetW.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrGSu.cpp">
+				RelativePath=".\Cpp\KStrGSu.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrHtoL.c">
+				RelativePath=".\Cpp\KStrHtoL.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrICmp.c">
+				RelativePath=".\Cpp\KStrICmp.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStringHandler.cpp">
+				RelativePath=".\Cpp\KStringHandler.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrIStr.c">
+				RelativePath=".\Cpp\KStrIStr.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrLowC.c">
+				RelativePath=".\Cpp\KStrLowC.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrOtoL.c">
+				RelativePath=".\Cpp\KStrOtoL.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrPCpy.c">
+				RelativePath=".\Cpp\KStrPCpy.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrRpl.cpp">
+				RelativePath=".\Cpp\KStrRpl.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrRplEscSeq.cpp">
+				RelativePath=".\Cpp\KStrRplEscSeq.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrRplSpaces.cpp">
+				RelativePath=".\Cpp\KStrRplSpaces.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrRplT.cpp">
+				RelativePath=".\Cpp\KStrRplT.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrRTab.c">
+				RelativePath=".\Cpp\KStrRTab.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrToD.c">
+				RelativePath=".\Cpp\KStrToD.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrToInt.cpp">
+				RelativePath=".\Cpp\KStrToInt.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrTrim.cpp">
+				RelativePath=".\Cpp\KStrTrim.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrTrSl.c">
+				RelativePath=".\Cpp\KStrTrSl.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrUtDJ.c">
+				RelativePath=".\Cpp\KStrUtDJ.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrUtoD.c">
+				RelativePath=".\Cpp\KStrUtoD.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KTestLog.cpp">
+				RelativePath=".\Cpp\KTestLog.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KTmCmp.c">
+				RelativePath=".\Cpp\KTmCmp.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KXmlDocument.cpp">
+				RelativePath=".\Cpp\KXmlDocument.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KXmlWriter.cpp">
+				RelativePath=".\Cpp\KXmlWriter.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KZLineIn.cpp">
+				RelativePath=".\Cpp\KZLineIn.cpp"
+				>
 			</File>
 			<Filter
 				Name="STL"
-				Filter="">
+				>
 				<File
-					RelativePath=".\Cpp\Stl\KArrayStl.h">
+					RelativePath=".\Cpp\Stl\KArrayStl.h"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KBoolStream.h">
+					RelativePath=".\Cpp\Stl\KBoolStream.h"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KDateStr.cpp">
+					RelativePath=".\Cpp\Stl\KDateStr.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KDbgLimits.cpp">
+					RelativePath=".\Cpp\Stl\KDbgLimits.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KDbgStlA.h">
+					RelativePath=".\Cpp\Stl\KDbgStlA.h"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KFileExistStl.cpp">
+					RelativePath=".\Cpp\Stl\KFileExistStl.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KFileRead.cpp">
+					RelativePath=".\Cpp\Stl\KFileRead.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KGetFileExtn.cpp">
+					RelativePath=".\Cpp\Stl\KGetFileExtn.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KGetFileName.cpp">
+					RelativePath=".\Cpp\Stl\KGetFileName.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KGetLines.cpp">
+					RelativePath=".\Cpp\Stl\KGetLines.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KHexStream.h">
+					RelativePath=".\Cpp\Stl\KHexStream.h"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KIntStream.cpp">
+					RelativePath=".\Cpp\Stl\KIntStream.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KOStream.h">
+					RelativePath=".\Cpp\Stl\KOStream.h"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KSkipWSp.cpp">
+					RelativePath=".\Cpp\Stl\KSkipWSp.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KStrAtoWChar.cpp">
+					RelativePath=".\Cpp\Stl\KStrAtoWChar.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KStringStl.cpp">
+					RelativePath=".\Cpp\Stl\KStringStl.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KStrRplEOL.cpp">
+					RelativePath=".\Cpp\Stl\KStrRplEOL.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KStrStream.cpp">
+					RelativePath=".\Cpp\Stl\KStrStream.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KStrUppr.cpp">
+					RelativePath=".\Cpp\Stl\KStrUppr.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KStrWtoChar.cpp">
+					RelativePath=".\Cpp\Stl\KStrWtoChar.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KTString.h">
+					RelativePath=".\Cpp\Stl\KTString.h"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KUcsToHex.cpp">
+					RelativePath=".\Cpp\Stl\KUcsToHex.cpp"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KXmlAttributeVector.h">
+					RelativePath=".\Cpp\Stl\KXmlAttributeVector.h"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KXmlElementVector.h">
+					RelativePath=".\Cpp\Stl\KXmlElementVector.h"
+					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KXmlTypeStl.h">
+					RelativePath=".\Cpp\Stl\KXmlTypeStl.h"
+					>
 				</File>
 			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
+			>
 			<File
-				RelativePath=".\Cpp\KArray.h">
+				RelativePath=".\Cpp\KArray.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KArrayPtr.h">
+				RelativePath=".\Cpp\KArrayPtr.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KBeep.h">
+				RelativePath=".\Cpp\KBeep.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KBitMan.h">
+				RelativePath=".\Cpp\KBitMan.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KCharCst.h">
+				RelativePath=".\Cpp\KCharCst.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KColorCt.h">
+				RelativePath=".\Cpp\KColorCt.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KComplex.h">
+				RelativePath=".\Cpp\KComplex.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KComplxB.h">
+				RelativePath=".\Cpp\KComplxB.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KConvCst.h">
+				RelativePath=".\Cpp\KConvCst.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KDate.h">
+				RelativePath=".\Cpp\KDate.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KDateConv.h">
+				RelativePath=".\Cpp\KDateConv.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KDbgMacr.h">
+				RelativePath=".\Cpp\KDbgMacr.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KDbgMAns.h">
+				RelativePath=".\Cpp\KDbgMAns.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KFileIni.h">
+				RelativePath=".\Cpp\KFileIni.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KFileSimple.h">
+				RelativePath=".\Cpp\KFileSimple.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KFileSys.h">
+				RelativePath=".\Cpp\KFileSys.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGif.h">
+				RelativePath=".\Cpp\KGif.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGifImageData.h">
+				RelativePath=".\Cpp\KGifImageData.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGifImageDescriptor.h">
+				RelativePath=".\Cpp\KGifImageDescriptor.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KGuid.h">
+				RelativePath=".\Cpp\KGuid.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KLinkedListS.h">
+				RelativePath=".\Cpp\KLinkedListS.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KMathCst.h">
+				RelativePath=".\Cpp\KMathCst.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KMathCst.inl">
+				RelativePath=".\Cpp\KMathCst.inl"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KMatLog2.inl">
+				RelativePath=".\Cpp\KMatLog2.inl"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KMatrix.h">
+				RelativePath=".\Cpp\KMatrix.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KNLSCst.h">
+				RelativePath=".\Cpp\KNLSCst.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KOsService.h">
+				RelativePath=".\Cpp\KOsService.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KPackPop.h">
+				RelativePath=".\Cpp\KPackPop.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KPackPsh.h">
+				RelativePath=".\Cpp\KPackPsh.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KPair.h">
+				RelativePath=".\Cpp\KPair.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KPhysCst.h">
+				RelativePath=".\Cpp\KPhysCst.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KPoint.h">
+				RelativePath=".\Cpp\KPoint.h"
+				>
 			</File>
 			<File
-				RelativePath=".\cpp\KProgCst.h">
+				RelativePath=".\cpp\KProgCst.h"
+				>
 			</File>
 			<File
-				RelativePath=".\cpp\KProgCst.inl">
+				RelativePath=".\cpp\KProgCst.inl"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KRandom.h">
+				RelativePath=".\Cpp\KRandom.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KRandomCongr.h">
+				RelativePath=".\Cpp\KRandomCongr.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KRandomGauss.h">
+				RelativePath=".\Cpp\KRandomGauss.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KRandomUniform.h">
+				RelativePath=".\Cpp\KRandomUniform.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KReal4Cv.h">
+				RelativePath=".\Cpp\KReal4Cv.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KReal4IE.h">
+				RelativePath=".\Cpp\KReal4IE.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KReal8Cv.h">
+				RelativePath=".\Cpp\KReal8Cv.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KRound.h">
+				RelativePath=".\Cpp\KRound.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KSet.h">
+				RelativePath=".\Cpp\KSet.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Win\Res\Win\KStdRes.h">
+				RelativePath=".\Cpp\Win\Res\Win\KStdRes.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrArray.h">
+				RelativePath=".\Cpp\KStrArray.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrExt.h">
+				RelativePath=".\Cpp\KStrExt.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KString.h">
+				RelativePath=".\Cpp\KString.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStrings.h">
+				RelativePath=".\Cpp\KStrings.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KSwpByte.h">
+				RelativePath=".\Cpp\KSwpByte.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KSwpByteOrder.h">
+				RelativePath=".\Cpp\KSwpByteOrder.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KSwpElements.h">
+				RelativePath=".\Cpp\KSwpElements.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KSwpRows.h">
+				RelativePath=".\Cpp\KSwpRows.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KTChar.h">
+				RelativePath=".\Cpp\KTChar.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KTestLog.h">
+				RelativePath=".\Cpp\KTestLog.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KTime.h">
+				RelativePath=".\Cpp\KTime.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Win\16\KTime16.h">
+				RelativePath=".\Cpp\Win\16\KTime16.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KTmConv.h">
+				RelativePath=".\Cpp\KTmConv.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KTrace.h">
+				RelativePath=".\Cpp\KTrace.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KTraceFx.h">
+				RelativePath=".\Cpp\KTraceFx.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KType32.h">
+				RelativePath=".\Cpp\KType32.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KTypedef.h">
+				RelativePath=".\Cpp\KTypedef.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Peripheral\KUsb.h">
+				RelativePath=".\Cpp\Peripheral\KUsb.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KXmlAttribute.h">
+				RelativePath=".\Cpp\KXmlAttribute.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KXmlDocument.h">
+				RelativePath=".\Cpp\KXmlDocument.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KXmlNode.h">
+				RelativePath=".\Cpp\KXmlNode.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KXmlWriter.h">
+				RelativePath=".\Cpp\KXmlWriter.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Win\Res\Win\Resource.h">
+				RelativePath=".\Cpp\Win\Res\Win\Resource.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Platform\UsbVid0000.h">
+				RelativePath=".\Cpp\Platform\UsbVid0000.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Platform\UsbVid046D.h">
+				RelativePath=".\Cpp\Platform\UsbVid046D.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Platform\UsbVid04CF.h">
+				RelativePath=".\Cpp\Platform\UsbVid04CF.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Platform\UsbVid05E0.h">
+				RelativePath=".\Cpp\Platform\UsbVid05E0.h"
+				>
 			</File>
 			<Filter
 				Name="STL Header Files"
-				Filter="">
+				>
 			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
+			>
 			<File
-				RelativePath=".\Cpp\Win\Res\Win\32\KSrcPool.rc">
+				RelativePath=".\Cpp\Win\Res\Win\32\KSrcPool.rc"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Win\Res\Win\SrcPool.ico">
+				RelativePath=".\Cpp\Win\Res\Win\SrcPool.ico"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="ToDo Files"
-			Filter="">
+			>
 			<File
-				RelativePath=".\Cpp\KChecksum.h">
+				RelativePath=".\Cpp\KChecksum.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Win\32\KClrShem.cpp">
+				RelativePath=".\Cpp\Win\32\KClrShem.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\Win\32\KClrShem.h">
+				RelativePath=".\Cpp\Win\32\KClrShem.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KCmdLineParser.cpp">
+				RelativePath=".\Cpp\KCmdLineParser.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KCmdLineParser.h">
+				RelativePath=".\Cpp\KCmdLineParser.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KCrc32.h">
+				RelativePath=".\Cpp\KCrc32.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KIpAddress.h">
+				RelativePath=".\Cpp\KIpAddress.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KMatGcd.c">
+				RelativePath=".\Cpp\KMatGcd.c"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KNetByte.h">
+				RelativePath=".\Cpp\KNetByte.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStringStd.cpp">
+				RelativePath=".\Cpp\KStringStd.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Cpp\KStringStd.h">
+				RelativePath=".\Cpp\KStringStd.h"
+				>
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\_SrcPool.txt">
+			RelativePath=".\_SrcPool.txt"
+			>
 		</File>
 	</Files>
 	<Globals>

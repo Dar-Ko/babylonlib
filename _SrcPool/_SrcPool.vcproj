@@ -621,10 +621,6 @@
 				Name="STL"
 				>
 				<File
-					RelativePath=".\Cpp\Stl\KBoolStream.h"
-					>
-				</File>
-				<File
 					RelativePath=".\Cpp\Stl\KDateStr.cpp"
 					>
 				</File>
@@ -633,7 +629,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KDbgStlA.h"
+					RelativePath=".\Cpp\STL\KFileExistStl.cpp"
 					>
 				</File>
 				<File
@@ -653,15 +649,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KHexStream.h"
-					>
-				</File>
-				<File
 					RelativePath=".\Cpp\Stl\KIntStream.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Cpp\Stl\KOStream.h"
 					>
 				</File>
 				<File
@@ -693,23 +681,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\Cpp\Stl\KTString.h"
-					>
-				</File>
-				<File
 					RelativePath=".\Cpp\Stl\KUcsToHex.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\Cpp\Stl\KXmlAttributeVector.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Cpp\Stl\KXmlElementVector.h"
-					>
-				</File>
-				<File
-					RelativePath=".\Cpp\Stl\KXmlTypeStl.h"
 					>
 				</File>
 			</Filter>
@@ -942,6 +914,46 @@
 			<Filter
 				Name="STL Header Files"
 				>
+				<File
+					RelativePath=".\Cpp\STL\KArrayStl.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Cpp\STL\KBinStream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KBoolStream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KDbgStlA.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KHexStream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KOStream.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KTString.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KXmlAttributeVector.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KXmlElementVector.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Cpp\Stl\KXmlTypeStl.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
