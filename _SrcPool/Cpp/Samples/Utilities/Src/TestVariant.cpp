@@ -1,5 +1,5 @@
 /*$RCSfile: TestVariant.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2010/02/22 22:38:52 $
+  $Revision: 1.4 $ $Date: 2011/04/28 22:04:39 $
   $Author: ddarko $
 
   Test VARIANT conversion routines.
@@ -44,6 +44,10 @@ bool bResult = false;
 VARIANT    varIn; //test input
 LPWSTR     wszResult = NULL; //resulting string
 HRESULT    lError = E_FAIL;  //error code
+
+  //Test log creation
+TESTENTRY logEntry =
+  {_T("VarBstrFromStr()"), _T("KVarBstrFromStr.cpp"), false};
 
 //Test LPWSTR to VT_BSTR conversion
 varIn = VarBstrFromStr(NULL);
@@ -229,6 +233,10 @@ if (bResult)
 
   }
 
+  //Write test log
+logEntry.m_bResult = bResult;
+LogTest(&logEntry);
+
 TsWriteToViewLn(LOG_EOT);
 return bResult;
 }
@@ -236,6 +244,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestVariant.cpp,v $
+ * Revision 1.4  2011/04/28 22:04:39  ddarko
+ * Added to test log
+ *
  * Revision 1.3  2010/02/22 22:38:52  ddarko
  * SAFEARRAYBOUNDS
  *
