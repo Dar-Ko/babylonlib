@@ -77,10 +77,10 @@ inline CBeep::~CBeep()
  */
 inline void CBeep::Dump()
   {
-  TRACE2("CBeep\n  {\n  m_iFrequency = %d Hz\n  m_nDuration = %d ms\n",
+  TRACE2(_T("CBeep\n  {\n  m_iFrequency = %d Hz\n  m_nDuration = %d ms\n"),
           m_iFrequency,
           m_nDuration);
-  TRACE2("  m_nDelay = %d ms\n  m_nCount = %d\n  }\n",
+  TRACE2(_T("  m_nDelay = %d ms\n  m_nCount = %d\n  }\n"),
           m_nDelay,
           m_nCount);
   }
