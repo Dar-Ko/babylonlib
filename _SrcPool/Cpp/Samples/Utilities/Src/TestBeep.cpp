@@ -27,6 +27,9 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 bool TestBeep()
 {
 TsWriteToViewLn(_T("TestBeep()\a"));
+  //Test log creation
+TESTENTRY logEntry =
+{_T("CBeep::CBeep()"), _T("KBeep.h"), false};
 
 bool bRes = true;
 if (bRes)
@@ -41,32 +44,45 @@ CBeep A;
 A.m_iFrequency = (int16)(g_iOctave3[ID_NOTE_A]/1000); //note A3 [Hz]
 A.Start();
 
+const uint32 nMeasureNote = 200;
 //Beethoven's 9th symphony "Ode an die Freude"
 Note snd9thSynphony[] =
   {
-    { g_iOctave3[ID_NOTE_D  ], g_nSemiBreve    }, //D3 -repeatBeg 
-    { g_iOctave3[ID_NOTE_E  ], g_nSemiBreve / 2}, //E3 
-    {          NOTE_REST     , g_nSemiBreve / 8}, //rest
-    { g_iOctave3[ID_NOTE_C  ], g_nSemiBreve * 2}, //C3
-    { g_iOctave3[ID_NOTE_G  ], g_nSemiBreve    }, //G3
-    { g_iOctave3[ID_NOTE_E  ], g_nSemiBreve    }, //E3 -repeatEnd
-    {          NOTE_REST     , g_nSemiBreve / 2}, //rest
-    
-    { g_iOctave3[ID_NOTE_F  ], g_nSemiBreve    }, //F3
-    { g_iOctave3[ID_NOTE_G  ], g_nSemiBreve    }, //G3 -repeatBeg 
-    { g_iOctave3[ID_NOTE_F  ], g_nSemiBreve    }, //F3
-    { g_iOctave3[ID_NOTE_E  ], g_nSemiBreve    }, //E3
-    { g_iOctave3[ID_NOTE_D  ], g_nSemiBreve    }, //D3
-    { g_iOctave3[ID_NOTE_C  ], g_nSemiBreve    }, //C3 -repeatEnd
-    { g_iOctave3[ID_NOTE_D  ], g_nSemiBreve    }, //D3
-    { g_iOctave3[ID_NOTE_E  ], g_nSemiBreve    }, //E3
-    { g_iOctave3[ID_NOTE_E  ], g_nSemiBreve * 2}, //E3
-    { g_iOctave3[ID_NOTE_D  ], g_nSemiBreve / 2}, //D3
-    { g_iOctave3[ID_NOTE_D  ], g_nSemiBreve    }  //D3
+    { g_iOctave3[ID_NOTE_D  ], nMeasureNote    }, //D3 -repeatBeg
+    { g_iOctave3[ID_NOTE_E  ], nMeasureNote / 2}, //E3
+    //{          NOTE_REST     , nMeasureNote / 8}, //rest
+    { g_iOctave3[ID_NOTE_C  ], nMeasureNote * 2}, //C3
+    { g_iOctave3[ID_NOTE_G  ], nMeasureNote    }, //G3
+    { g_iOctave3[ID_NOTE_E  ], nMeasureNote    }, //E3 -repeatEnd
+    //{          NOTE_REST     , nMeasureNote / 2}, //rest
+
+    { g_iOctave3[ID_NOTE_F  ], nMeasureNote    }, //F3
+    { g_iOctave3[ID_NOTE_G  ], nMeasureNote    }, //G3 -repeatBeg
+    { g_iOctave3[ID_NOTE_F  ], nMeasureNote    }, //F3
+    { g_iOctave3[ID_NOTE_E  ], nMeasureNote    }, //E3
+    { g_iOctave3[ID_NOTE_D  ], nMeasureNote    }, //D3
+    { g_iOctave3[ID_NOTE_C  ], nMeasureNote    }, //C3 -repeatEnd
+    { g_iOctave3[ID_NOTE_D  ], nMeasureNote    }, //D3
+    { g_iOctave3[ID_NOTE_E  ], nMeasureNote    }, //E3
+    { g_iOctave3[ID_NOTE_E  ], nMeasureNote * 2}, //E3
+    { g_iOctave3[ID_NOTE_D  ], nMeasureNote / 2}, //D3
+    { g_iOctave3[ID_NOTE_D  ], nMeasureNote    }  //D3
   };
- 
-//todo: play an array D.K.
- 
+
+//todo: play an array D.K. 
+//todo: play pause D.K.
+int i = 0;
+while (i < 16)
+ {
+ A.m_iFrequency = (int16)(snd9thSynphony[i].m_nPitch/1000);
+ A.m_nDuration  = snd9thSynphony[i].m_nDuration;
+ A.Start();
+ i++;
+ }
+  //Write test log
+logEntry.m_bResult = bRes;
+LogTest(&logEntry);
+
 TsWriteToViewLn(LOG_EOT);
 return bRes;
 }

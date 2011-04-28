@@ -22,7 +22,6 @@
   #endif
 #endif
 
-#define _USE_STL  //TODO: replace STL with generic console << LOG_SUCCESS;
 #include "stdafx.h"
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
@@ -30,6 +29,7 @@ extern bool TestBeep();
 extern bool TestGuid();
 extern bool TestVariant();
 extern bool TestSafeArray();
+extern bool TestBitManipulation();
 
 //-----------------------------------------------------------------------------
 /*Validate various helper functions.
@@ -44,6 +44,7 @@ TsWriteToViewLn(_T(""));
 
 PFUNC_TEST funcTest[] =
   {
+  TestBitManipulation,
   TestBeep,
   TestGuid,
   TestVariant,
@@ -54,7 +55,13 @@ int iTestCount = 0;
 while (iTestCount < (sizeof(funcTest)/sizeof(PFUNC_TEST)) )
   {
   if ((funcTest[iTestCount] != NULL) && funcTest[iTestCount]())
-    std::_tcout << LOG_SUCCESS << std::endl << std::endl;
+    {
+    #ifdef _USE_STL
+      std::_tcout << LOG_SUCCESS << std::endl << std::endl;
+    #else
+       //TODO: replace STL with generic console << LOG_SUCCESS;
+    #endif
+    }
   else
     {
     TsWriteToViewLn(LOG_FAILURE);

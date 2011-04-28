@@ -28,6 +28,7 @@ extern bool TestReplaceEscapeSeq();
 extern bool TestStdStrTok();
 extern bool TestSubstring();
 extern bool TestStrTok();
+extern bool TestBintoA();
 int TestCommonStrings(void);
 
 int g_iNoofLines = -1;
@@ -120,14 +121,15 @@ PFUNC_TEST funcTest[] =
   TestStrDup,           // 4
   TestReplaceSpace,     // 5
   TestTrim,             // 6
-  TestStrings,          // 7
-  TestReplaceEscapeSeq, // 8
-  TestIsPalindrome,     // 9
-  TestIsVowel,          // A
-  TestZtoA,             // B
-  TestStdStrTok,        // C
-  TestSubstring,        // D
-  TestStrTok            // E
+  TestBintoA,           // 7
+  TestStrings,          // 8
+  TestReplaceEscapeSeq, // 9
+  TestIsPalindrome,     // A
+  TestIsVowel,          // B
+  TestZtoA,             // C
+  TestStdStrTok,        // D
+  TestSubstring,        // E
+  TestStrTok            // F
   };
 
 int iTestCount = 0;

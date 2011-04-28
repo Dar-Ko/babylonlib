@@ -38,7 +38,11 @@ TsWriteToViewLn(_T("TestGuid()"));
 
 bool bRes = true;
 
-TRACE1(("UUID = %ws\n"), (LPCTSTR)GuidToStr(g_testGUID));
+  //Test log creation
+TESTENTRY logEntry =
+{_T("CGuid::CGuid()"), _T("KGuid.h"), false};
+
+TRACE1(_T("UUID = %ws\n"), (LPCTSTR)GuidToStr(g_testGUID));
 TsWriteToViewLn((LPCTSTR)GuidToStr(g_testGUID));
 
   //Test construction
@@ -62,9 +66,12 @@ if (bRes)
 
  //Test generating UUID
 TestC.Create();
-TRACE1(("new UUID = %ws\n"), (LPCTSTR)GuidToStr(TestC));
+TRACE1(_T("new UUID = %ws\n"), (LPCTSTR)GuidToStr(TestC));
 TsWriteToViewLn((LPCTSTR)GuidToStr(TestC));
 
+  //Write test log
+logEntry.m_bResult = bRes;
+LogTest(&logEntry);
 
 TsWriteToViewLn(LOG_EOT);
 return bRes;

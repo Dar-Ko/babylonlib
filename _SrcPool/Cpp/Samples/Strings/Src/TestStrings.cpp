@@ -68,12 +68,11 @@ StrCatV(szOutput, _T("The "), _T("quick "), _T("brown "), _T("dog "),
                   0 );
 TsWriteToView(szOutput);
 
-  //Test BintoA()
+  //Test BintoU()
 DWORD dwTest = 0x0A0A0101;
 strText.Format(_T("Hex %X = bin %s\r\n"), dwTest,
                 BintoA(szOutput, dwTest, 32, 0, _T('1'), _T('0') ));
 TsWriteToView(strText);
-  //Test BintoU()
 DWORD dwRes = BintoU(szOutput);
 ASSERT(dwRes == dwTest);
 strText = UtoDec(dwRes,szOutput);

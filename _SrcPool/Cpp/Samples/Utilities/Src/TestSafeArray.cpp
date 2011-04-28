@@ -1,5 +1,5 @@
 /*$RCSfile: TestSafeArray.cpp,v $: implementation file
-  $Revision: 1.12 $ $Date: 2010/03/12 22:52:57 $
+  $Revision: 1.13 $ $Date: 2011/04/28 21:59:22 $
   $Author: ddarko $
 
   Test SAFEARRAY conversion routines.
@@ -34,6 +34,10 @@ bool TestSafeArray()
 {
 TRACE(_T("TestSafeArray()\n"));
 bool bResult = true;
+
+  //Test log creation
+TESTENTRY logEntry =
+{_T("TSafeArrayDim<DIM_3D>::TSafeArrayDim()"), _T("KSafeArray.h"), false};
 
 const int DIM_3D = 3;
 const int DIM_2D = 2;
@@ -225,11 +229,12 @@ if (bResult)
     bResult = cLetter.SetAt(wValue, 4);
     
     wchar_t wLetter = wMatrix[1][4];  //Get the character indexed as [4][1]
+
+    int VarType = csaTemp[4]; //Implicit cast from VARENUM to int = 18 (VT_UI2)
+
     ASSERT(wValue == VarType);
     if(wValue != VarType)
       throw ((unsigned int)ERROR_BAD_ARGUMENTS);
-
-    int VarType = csaTemp[4]; //Implicit cast from VARENUM to int = 18 (VT_UI2)
 
     //Get reference to the 3D space, in 4th universe [4]
     #ifdef HAS_NO_TYPEDEF_INSIDE_TEMPLATE
@@ -286,6 +291,10 @@ if (bResult)
 
   }
 
+  //Write test log
+logEntry.m_bResult = bResult;
+LogTest(&logEntry);
+
 TsWriteToViewLn(LOG_EOT);
 return bResult;
 }
@@ -297,12 +306,17 @@ bool TestTSafeArrayAssignment()
 {
 TRACE(_T("TestTSafeArrayAssignment()\n"));
 bool bResult = false;
+  //Test log creation
+TESTENTRY logEntry =
+  {_T("SafeArrayCreate()"), _T("KSafeArray.h"), false};
+
 //Create 20 x 10 matrix
 const int DIM_2D = 2;
 //2D array [20][10] bounds
 SAFEARRAYBOUND saBounds[DIM_2D] = { {10, 0}, {20, 0} };
 
 #ifdef _WIN32 //Requires OLE 32 (OleAut32.dll)
+  logEntry.m_szFileName = _T("OleAuto.h");
   LPSAFEARRAY psaArray = ::SafeArrayCreate(VT_I4, DIM_2D, saBounds);
 #else
   /*Allocate space for the safe array and append additional safe array bounds if
@@ -367,12 +381,18 @@ if(psaArray != NULL)
   #endif
   }
 
+  //Write test log
+logEntry.m_bResult = bResult;
+LogTest(&logEntry);
 
 return bResult;
 }
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestSafeArray.cpp,v $
+ * Revision 1.13  2011/04/28 21:59:22  ddarko
+ * Created
+ *
  * Revision 1.12  2010/03/12 22:52:57  ddarko
  * *** empty log message ***
  *

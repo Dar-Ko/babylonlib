@@ -4,6 +4,7 @@
 	Version="9.00"
 	Name="Strings"
 	ProjectGUID="{56622C63-980D-451D-8C58-07F2653B4174}"
+	RootNamespace="Strings"
 	Keyword="MFCProj"
 	TargetFrameworkVersion="131072"
 	>
@@ -46,7 +47,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..,..\Common\Src\Win"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USE_MFC"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -137,7 +138,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..,..\Common\Src\Win"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USE_MFC"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -227,7 +228,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\..,..\Common\Src\Win"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_SBCS"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_SBCS;_USE_MFC"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -4823,6 +4824,10 @@
 						BrowseInformation="1"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Src\TestBtoA.cpp"
+				>
 			</File>
 			<File
 				RelativePath="Src\TestCharConversion.cpp"
