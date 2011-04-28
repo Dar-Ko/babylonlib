@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.16 $ $Date: 2010/03/16 14:42:40 $
+  $Revision: 1.17 $ $Date: 2011/04/28 22:08:49 $
   $Author: ddarko $
 
   Handles multidimensional SAFEARRAY.
@@ -8,7 +8,7 @@
 */
 
 #ifndef _KSAFEARRAY_H_
-    /*RCSfile: $ sentry*/
+    /*$RCSfile: KSafeArray.h,v $ sentry*/
   #define _KSAFEARRAY_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   /*Preprocessor: debugging included files     */
@@ -150,7 +150,7 @@ ASSERT(DIM > 0);
 memset(m_saBounds,0, sizeof(m_saBounds));
 }
 
-/*Used to create 3-dimensional arrays. The lower bounds of each subarray is 
+/*Used to create 3-dimensional arrays. The lower bounds of each subarray is
   initalized to 0. Subarray's lenghts are set to the new values.
  */
 template <int DIM>
@@ -378,9 +378,9 @@ class TSaReductor
 private:
   TSaReductor(){};
 public:
-  TSaReductor(TSafeArray<DIM, 
-                         TYPE, 
-                         static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE)>& saOwner, 
+  TSaReductor(TSafeArray<DIM,
+                         TYPE,
+                         static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE)>& saOwner,
               int nIndex);
 public:
   operator VARENUM();
@@ -409,7 +409,7 @@ TSaReductor<TYPE, DIM, DIM_ID>::TSaReductor(
 #endif
 
 ASSERT(nIndex >= 0);
-/*The least significant index is stored at 0-th position. The index of the 1st 
+/*The least significant index is stored at 0-th position. The index of the 1st
   dimension is stored as the last element of the vector with indices.
  */
 m_saArray.m_nIndices[(DIM - 1) - DIM_ID] = nIndex;
@@ -433,7 +433,7 @@ if (!m_saArray.IsValidIdx(index, DIM_ID))
     int dbgLower, dbgUpper;
     m_saArray.GetBoundLower(&dbgLower, DIM_ID);
     m_saArray.GetBoundUpper(&dbgUpper, DIM_ID);
-    TRACE3(_T("  Index = %d is out of range [%d, %d]!\n"), 
+    TRACE3(_T("  Index = %d is out of range [%d, %d]!\n"),
           index, dbgLower, dbgUpper);
   #endif
   ASSERT(false); //Index is out of range
@@ -475,7 +475,7 @@ public:
                          static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE)
                          >& saOwner,
               int nIndex);
-  //operator VARENUM();
+  /**/operator VARENUM(); // 2011-04-24 erases comment out block; to do: test it ! DK*/
 
   TYPE& operator[] (int index);
   TYPE& operator[] (int index) const;
@@ -502,7 +502,7 @@ TSaReductor<TYPE, DIM, 0>::TSaReductor(
 #endif
 
 ASSERT(nIndex >= 0);
-/*The least significant index is stored at 0-th position. The index of the 1st 
+/*The least significant index is stored at 0-th position. The index of the 1st
   dimension is stored as the last element of the vector with indices.
  */
 m_saArray.m_nIndices[DIM - 1] = nIndex;
@@ -510,12 +510,12 @@ m_saArray.m_nIndices[DIM - 1] = nIndex;
 
 //-----------------------------------------------------------------------------
 /*
- * /
+ */
 template<class TYPE, int DIM>
 TSaReductor<TYPE, DIM, 0>::operator VARENUM()
 {
 return static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE);
-}*/
+}// 2011-04-24 erases comment out block; to do test it ! DK*/
 
 //-----------------------------------------------------------------------------
 /*Retrieves a single element from a multidimensional safe array.
@@ -523,7 +523,7 @@ return static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE);
   Returns true on success, or false on failure.
  */
 template<class TYPE, int DIM>
-bool TSaReductor<TYPE, DIM, 0>::GetAt(TYPE& oElement, //[out] reference to 
+bool TSaReductor<TYPE, DIM, 0>::GetAt(TYPE& oElement, //[out] reference to
                                       //the data returned
                                       const int index //[in] index of the element in
                                       //the zeroeth dimension of the array
@@ -583,8 +583,8 @@ return m_saArray.SetAt(oElement, m_saArray.m_nIndices);
 
   See also: SAFEARRAYBOUND, TSafeArrayDim, SAFEARRAY.
  */
-template <int DIM, 
-          class TYPE, 
+template <int DIM,
+          class TYPE,
           VARENUM TYPEVAR = static_cast<VARENUM>(TSaType<TYPE>::VARIANT_TYPE)>
 class TSafeArray
 {
@@ -902,7 +902,7 @@ return m_psaData;
   Throws error code of unsigned int type if index is out the range.
  */
 template <int DIM, class TYPE, VARENUM TYPEVAR>
-typename TSafeArray<DIM, TYPE, TYPEVAR>::CSaIterator 
+typename TSafeArray<DIM, TYPE, TYPEVAR>::CSaIterator
   TSafeArray<DIM, TYPE, TYPEVAR>::operator[] (int index //[in]
                                            )
 {
@@ -1176,7 +1176,7 @@ return true;
   Returns true on success, or false on failure.
  */
 template <int DIM, class TYPE, VARENUM TYPEVAR>
-bool TSafeArray<DIM, TYPE, TYPEVAR>::GetAt(TYPE& oElement, //[out] reference to 
+bool TSafeArray<DIM, TYPE, TYPEVAR>::GetAt(TYPE& oElement, //[out] reference to
                                       //the data returned.
                                            uint32_t nIndices[DIM] //[in] vector
                           //of indexes for each dimension in the reverese order.
@@ -1187,8 +1187,8 @@ ASSERT(m_psaData != NULL);
 #ifdef _WIN32
   HRESULT hResult;
   if(nIndices == NULL)
-    hResult = SafeArrayGetElement(m_psaData, 
-                                  (LONG*)const_cast<uint32_t*>(m_nIndices), 
+    hResult = SafeArrayGetElement(m_psaData,
+                                  (LONG*)const_cast<uint32_t*>(m_nIndices),
                                   &oElement);
   else
     hResult = SafeArrayGetElement(m_psaData, (LONG*)nIndices, &oElement);
@@ -1229,12 +1229,12 @@ ASSERT(m_psaData != NULL);
 #ifdef _WIN32
   HRESULT hResult;
   if(nIndices == NULL)
-    hResult = SafeArrayPutElement(m_psaData, 
-                                  (LONG*)const_cast<uint32_t*>(m_nIndices), 
+    hResult = SafeArrayPutElement(m_psaData,
+                                  (LONG*)const_cast<uint32_t*>(m_nIndices),
                                   TSaGetRef(oElement));
   else
-    hResult = SafeArrayPutElement(m_psaData, 
-                                  (LONG*)nIndices, 
+    hResult = SafeArrayPutElement(m_psaData,
+                                  (LONG*)nIndices,
                                   TSaGetRef(oElement));
 
   if (SUCCEEDED(hResult))
@@ -1325,6 +1325,9 @@ return psaResult;
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.17  2011/04/28 22:08:49  ddarko
+ * Fixed compilation error
+ *
  * Revision 1.16  2010/03/16 14:42:40  ddarko
  * Comment
  *
