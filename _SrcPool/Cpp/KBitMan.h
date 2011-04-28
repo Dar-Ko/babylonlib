@@ -49,7 +49,31 @@
        RESET_NBITSL( y, yoff, n) | (EXT_NBITSL ( x, xoff ,n) >> (xoff-yoff))  \
      )
 
+/*---------------------------------------------------------------------------*/
+/*Calculate parity of all bits of value 1. Result is stord in the input
+  value.
+  Return 1 if the total number of bits of value 1 is odd or 0 if it is even.
+ */
+#define PARITY(x)                               \
+    {                                           \
+    uint32 nTmp = (uint32)x;                    \
+    nTmp ^= nTmp >> 1;                          \
+    nTmp ^= nTmp >> 2;                          \
+    nTmp = (nTmp & 0x11111111U) * 0x11111111U;  \
+    x = (nTmp >> (sizeof(nTmp) - 4)) & 1;       \
+    }
 
+/*Calculate parity of 64-bit long data. Result is stored in the input value.
+  Return 1 if the total number of bits of value 1 is odd or 0 if it is even.
+ */
+#define PARITY64(x)                             \
+    {                                           \
+    uint64 nTmp = (uint64)x;                    \
+    nTmp ^= nTmp >> 1;                          \
+    nTmp ^= nTmp >> 2;                          \
+    nTmp = (nTmp & 0x1111111111111111UL) * 0x1111111111111111UL;  \
+    x = (nTmp >> (sizeof(nTmp) - 4)) & 1;       \
+    }
 
 #ifdef __cplusplus
 ///////////////////////////////////////////////////////////////////////////////
@@ -248,10 +272,10 @@ inline unsigned int& CpyNbitsL(unsigned int& y,//[out] the result
 
 //GetFlag()--------------------------------------------------------------------
 /*Gets a flag value.
-  Returns TRUE if a flag is set, otherwise FALSE
+  Returns true if a flag is set, otherwise false
  */
 template <class TYPE>
-inline BOOL GetFlag(const TYPE& iStatus,const TYPE&  uFlag)
+inline bool GetFlag(const TYPE& iStatus,const TYPE&  uFlag)
    {
    return ((iStatus & uFlag) == uFlag);
    };
@@ -295,6 +319,28 @@ template <class T> T SetNthBit (T& Status,const unsigned int& nPos)
 template <class T> T ResetNthBit (T& Status,const unsigned int& nPos)
   {
   return (Status & ~(1 << nPos));
+  }
+
+//-----------------------------------------------------------------------------
+/*Reverse order of bits in the given value.
+ */
+template <typename T> T ReverseBits (T value //[in] bits to be reversed
+                                     )
+  {
+  #ifndef CHAR_BIT
+    const T CHAR_BIT = 8 ; //Number of bits in a byte
+  #endif
+
+  T result = 0;
+  int iCount = CHAR_BIT * sizeof(value);
+  while(value > 0) //Reverse bits until only 0 are left
+    {
+    result = (result << 1) | (value & 1);
+    value >>= 1;
+    --iCount;
+    }
+  result <<= iCount; //Shift remaining bits
+  return result;
   }
 
 ///////////////////////////////////////////////////////////////////////////////
