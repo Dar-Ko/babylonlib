@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..,.\Src"
+				AdditionalIncludeDirectories="..\..,..,.\Src;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -136,7 +136,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..,.\Src"
+				AdditionalIncludeDirectories="..\..,..,.\Src;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -226,7 +226,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\..,..,.\Src"
+				AdditionalIncludeDirectories="..\..,..,.\Src;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="true"
 				RuntimeLibrary="0"
@@ -315,7 +315,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..,.\Src"
+				AdditionalIncludeDirectories="..\..,..,.\Src;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_USE_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -406,7 +406,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\..,..,.\Src"
+				AdditionalIncludeDirectories="..\..,..,.\Src;..\..\Win\32"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_USE_STL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -977,6 +977,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Src\TestBitManipulation.cpp"
+				>
+			</File>
+			<File
 				RelativePath="Src\TestCommonUtilities.cpp"
 				>
 				<FileConfiguration
@@ -1187,6 +1191,10 @@
 			</File>
 			<File
 				RelativePath="..\..\KPoint.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\KProgCst.h"
 				>
 			</File>
 			<File
