@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.8 $ $Date: 2011/04/28 22:07:26 $
+  $Revision: 1.9 $ $Date: 2011/04/29 16:03:41 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -258,9 +258,14 @@
 
   Note: The type-specifier for the bit-field declarator must be unsigned int,
   signed int, or int.
-  A Microsoft extension to the ANSI C standard allows char and long types 
-  (both signed and unsigned) for bit fields.
-  
+  A Microsoft extension to the ANSI C standard allows char and long types
+  (both signed and unsigned) for bit fields. Also bit-fields with types of the
+  same size are packed to fit machine word (32 or 64 bit long). If types for
+  adjacent bit-fields are of different sizes then the padding is inserted.
+
+  Note: ANSI C standard does not prescribe bit-field order, allowing different
+  compiler implementations. Typically, the order of bit-fields are reversed
+  between big and little endian architectures.
  */
 typedef union tagSTATUS8
   {
@@ -284,6 +289,9 @@ typedef union tagSTATUS8
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.9  2011/04/29 16:03:41  ddarko
+ * Added bit-field notes
+ *
  * Revision 1.8  2011/04/28 22:07:26  ddarko
  * status with bit-field access
  *
