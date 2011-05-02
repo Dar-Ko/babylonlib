@@ -49,6 +49,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Timer", "Timer\Timer.vcproj
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinOsVer", "WinOSVer\WinOsVer.vcproj", "{141128CE-D238-4E08-AD10-6FBF1947DAC7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Launch", "Launch\Launch.vcproj", "{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug_SBCS_MFC|Win32 = Debug_SBCS_MFC|Win32
@@ -403,6 +405,26 @@ Global
 		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release_Unicode|Win32.Build.0 = Release_Unicode|Win32
 		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release|Win32.ActiveCfg = Release_Unicode|Win32
 		{141128CE-D238-4E08-AD10-6FBF1947DAC7}.Release|Win32.Build.0 = Release_Unicode|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Debug_SBCS_MFC|Win32.ActiveCfg = Debug|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Debug_SBCS_MFC|Win32.Build.0 = Debug|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Debug_SBCS|Win32.ActiveCfg = Debug|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Debug_SBCS|Win32.Build.0 = Debug|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Debug_Unicode_MFC|Win32.ActiveCfg = Debug|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Debug_Unicode_MFC|Win32.Build.0 = Debug|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Debug_Unicode|Win32.ActiveCfg = Debug|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Debug_Unicode|Win32.Build.0 = Debug|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Debug|Win32.ActiveCfg = Debug|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Debug|Win32.Build.0 = Debug|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Release_SBCS_MFC|Win32.ActiveCfg = Release|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Release_SBCS_MFC|Win32.Build.0 = Release|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Release_SBCS|Win32.ActiveCfg = Release|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Release_SBCS|Win32.Build.0 = Release|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Release_Unicode_MFC|Win32.ActiveCfg = Release|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Release_Unicode_MFC|Win32.Build.0 = Release|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Release_Unicode|Win32.ActiveCfg = Release|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Release_Unicode|Win32.Build.0 = Release|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Release|Win32.ActiveCfg = Release|Win32
+		{59ABCB36-44AF-40FB-95E4-9BD7F8869F52}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

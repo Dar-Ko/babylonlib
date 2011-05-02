@@ -1,0 +1,37 @@
+========================================================================
+    CONSOLE APPLICATION : Launch Project Overview
+========================================================================
+
+AppWizard has created this Launch application for you.  
+
+This file contains a summary of what you will find in each of the files that
+make up your Launch application.
+
+
+Launch.vcproj
+    This is the main project file for VC++ projects generated using an Application Wizard. 
+    It contains information about the version of Visual C++ that generated the file, and 
+    information about the platforms, configurations, and project features selected with the
+    Application Wizard.
+
+Launch.cpp
+    This is the main application source file.
+
+/////////////////////////////////////////////////////////////////////////////
+Other standard files:
+
+StdAfx.h, StdAfx.cpp
+    These files are used to build a precompiled header (PCH) file
+    named Launch.pch and a precompiled types file named StdAfx.obj.
+
+/////////////////////////////////////////////////////////////////////////////
+Other notes:
+
+AppWizard uses "TODO:" comments to indicate parts of the source code you
+should add to or customize.
+
+Microsoft Visual Studio 2008 v.9.0
+==================================
+This application has been updated to include settings related to the User Account Control (UAC) feature of Windows Vista. By default, when run on Windows Vista with UAC enabled, this application is marked to run with the same privileges as the process that launched it. This marking also disables the application from running with virtualization. You can change UAC related settings from the Property Pages of the project.
+
+/////////////////////////////////////////////////////////////////////////////
