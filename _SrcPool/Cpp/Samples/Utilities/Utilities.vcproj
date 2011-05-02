@@ -988,6 +988,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\TestBitset.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\Strings\Src\TestBtoA.cpp"
 				>
 			</File>

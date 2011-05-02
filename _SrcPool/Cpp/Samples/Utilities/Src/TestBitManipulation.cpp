@@ -1,5 +1,5 @@
 /*$RCSfile: TestBitManipulation.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2011/04/28 21:59:22 $
+  $Revision: 1.2 $ $Date: 2011/05/02 22:10:58 $
   $Author: ddarko $
 
   Test bitwise operations
@@ -26,7 +26,9 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TsWriteToView(LPCTSTR lszText);
 extern bool TsWriteToView(const int& iValue);
 extern bool TestBintoA();
-
+#ifdef _USE_STL
+  extern bool TestBitset();
+#endif
 
 DEFINE_GUID(g_testGUID,
             0x340BC870, 0xA012, 37819, 0x20, 57, 132, 189, 0x73, 0x4D, 0x76, 0xE7);
@@ -39,6 +41,9 @@ DEFINE_GUID(g_testGUID,
 bool TestBitManipulation()
 {
 bool bRes = TestBintoA(); //Test helper
+if (bRes)
+  bRes = TestBitset();
+
 if (bRes)
   {
   TsWriteToViewLn(_T("TestBitManipulation()"));
@@ -154,7 +159,14 @@ return bRes;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestBitManipulation.cpp,v $
+ *Revision 1.2  2011/05/02 22:10:58  ddarko
+ *testing <bitset>
+ *
  *Revision 1.1  2011/04/28 21:59:22  ddarko
  *Created
  *
  *****************************************************************************/
+
+/*Reference: Bit Twiddling Hacks by Sean Eron Anderson
+  http://graphics.stanford.edu/~seander/bithacks.html 
+ */
