@@ -393,7 +393,7 @@ return (m_uPack.l[0] + m_uPack.l[1] + m_uPack.l[2] + m_uPack.l[3]);
 
   Returns: true if this is the null UUID; if not, return s false;
  */
-bool CGuid::IsNull() const
+inline bool CGuid::IsNull() const
 {
 return (m_uPack.l[0] == 0 &&
         m_uPack.l[1] == 0 &&
@@ -589,17 +589,18 @@ inline void CGuid::Create()
 #include <objbase.h> //CoCreateGuid()
 /*Creates a GUID, a unique 128-bit integer used for CLSIDs and interface identifiers.
   The CoCreateGuid function calls the RPC function UuidCreate, which creates a GUID,
- a globally unique 128-bit integer. Use the CoCreateGuid function when you need
- an absolutely unique number that you will use as a persistent identifier in
- a distributed environment.To a very high degree of certainty, this function
- returns a unique value – no other invocation, on the same or any other system
- (networked or not), should return the same value.
+  a globally unique 128-bit integer. Use the CoCreateGuid function when you need
+  an absolutely unique number that you will use as a persistent identifier in
+  a distributed environment.To a very high degree of certainty, this function
+  returns a unique value – no other invocation, on the same or any other system
+  (networked or not), should return the same value.
 
-
+  Returns a GUID, a unique 128-bit integer or 0 in case of failure.
  */
-GUID& CreateUuid(GUID& guid)
+inline GUID& CreateUuid(GUID& guid //[in/out] reference to the requested GUID
+                       )
 {
-if (CoCreateGuid( &guid ) != S_OK)
+if (CoCreateGuid(&guid) != S_OK)
   {
   guid.Data1 = 0;
   guid.Data2 = 0;
@@ -616,4 +617,7 @@ if (CoCreateGuid( &guid ) != S_OK)
 return guid;
 }
 
-#endif
+#endif //_WIN32
+///////////////////////////////////////////////////////////////////////////////
+/*$Log: $
+ */
