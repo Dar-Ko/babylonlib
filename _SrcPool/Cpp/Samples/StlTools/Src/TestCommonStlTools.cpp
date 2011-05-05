@@ -20,6 +20,7 @@ extern bool TestUcstoHex();
 extern bool TestWideChar();
 extern bool TestStringClass();
 extern bool TestArrayPtr();
+extern bool TestBitset();
 
 int TestCommonStlTools();
 
@@ -39,6 +40,7 @@ PFUNC_TEST funcTest[] =
   {
   TestStlLimits,
   TestNullChar,
+  TestBitset,
   TestStlStringCfg,
   TestWideChar,
   TestReplaceEol,
