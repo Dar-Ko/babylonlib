@@ -22,32 +22,64 @@
 
 /*Set n left of position p bits to zero.
  */
-#define RESET_NBITSL( x, p, n)                                            \
-     (                                                                    \
-      x & ~((~0 << p) ^ ( ~0 << (p + n)) )                                \
+#define RESET_NBITSL( x, p, n)             \
+     (                                     \
+      x & ~((~0 << p) ^ ( ~0 << (p + n)) ) \
      )
 
 /*EXT_NBITSL()---------------------------------------------------------------*/
 
 /*Extract n bits left of position p.
   ~(~0<<n) creates a mask with ones, and mask is moved left p times.
+  Note: sum of n and p must not exceed the number of bits in value x.
 
   Example: n=2, p=3, x=1001 1111 result: x=0001 1000
  */
-#define EXT_NBITSL( x, p, n)                                              \
-     (                                                                    \
-      x & (~(~0 << n) << p)                               \
+#define EXT_NBITSL( x, p, n)       \
+     (                             \
+      x & (~(~0 << n) << p)        \
      )
 
 /*CPY_NBITS()----------------------------------------------------------------*/
 /*Copy n bits left from position xoff in x to y on position yoff.
  */
 #define CPY_NBITS( y, yoff, x, xoff, n)                                      \
-     (                                                                       \
-      ((yoff-xoff) > 0) ?                                                    \
-       RESET_NBITSL( y, yoff, n) | (EXT_NBITSL ( x, xoff ,n) << (yoff-xoff)): \
-       RESET_NBITSL( y, yoff, n) | (EXT_NBITSL ( x, xoff ,n) >> (xoff-yoff))  \
-     )
+    (                                                                        \
+     ((yoff-xoff) > 0) ?                                                     \
+      RESET_NBITSL( y, yoff, n) | (EXT_NBITSL ( x, xoff ,n) << (yoff-xoff)): \
+      RESET_NBITSL( y, yoff, n) | (EXT_NBITSL ( x, xoff ,n) >> (xoff-yoff))  \
+    )
+
+
+/*---------------------------------------------------------------------------*/
+/*Gets a flag value from any continuous chunk of data x.
+  Returns 1 if a flag is set, otherwise returns 0.
+
+  Example:
+        p % 8  <-        p & 7   counter [0, 7]
+    8- (p % 8)  <=  7 - (p & 7)  counter [7, 0]
+
+    GUID x = {0x04030201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    //x = b0000 0100 0000 0011 0000 0010 0000 0001 0000 ...
+    p = sizeof(x) * CHAR_BIT;
+    while(--p >= 0)
+      {
+      nResult = GET_FLAG((GUID)nTestData, p);
+      std::_tcout << nResult;
+      if ((p % 4) == 0)
+        std::_tcout << _T(" ");
+      }
+    std::_tcout << std::endl;
+
+    Output:
+      Little endian architecture
+      0000 ... 0010 0000 1100 0000 0100 0000 1000 0000
+ */
+#define GET_FLAG(x, p)                                            \
+    (                                                             \
+       ( ((const int8_t*)&(x))[(p) >> 3] & 0x80 >> ((p) & 7) ) >> \
+       (7 - ((p) & 7) )                                           \
+    )
 
 /*---------------------------------------------------------------------------*/
 /*Calculate parity of all bits of value 1. Result is stord in the input
@@ -56,7 +88,7 @@
  */
 #define PARITY(x)                               \
     {                                           \
-    uint32 nTmp = (uint32)x;                    \
+    uint32 nTmp = (uint32_t)x;                    \
     nTmp ^= nTmp >> 1;                          \
     nTmp ^= nTmp >> 2;                          \
     nTmp = (nTmp & 0x11111111U) * 0x11111111U;  \
@@ -68,7 +100,7 @@
  */
 #define PARITY64(x)                             \
     {                                           \
-    uint64 nTmp = (uint64)x;                    \
+    uint64 nTmp = (uint64_t)x;                    \
     nTmp ^= nTmp >> 1;                          \
     nTmp ^= nTmp >> 2;                          \
     nTmp = (nTmp & 0x1111111111111111UL) * 0x1111111111111111UL;  \
@@ -173,6 +205,7 @@ inline unsigned int GetNbitsR(unsigned int x, //[in] the source field of bits
 
 //GetNBitsL()------------------------------------------------------------------
 /*Get n bits left of position p. Desired bits are right adjusted.
+  Note: sum of n and p must not exceed the number of bits in value x.
 
   Example:
      x>>p moves the desired field of bits to the right.
@@ -193,10 +226,17 @@ inline unsigned int GetNbitsR(unsigned int x, //[in] the source field of bits
      result is n bits right from p
 */
 inline unsigned int GetNBitsL(unsigned int x, //[in] the source field of bits
-                      uint8_t p, //[in] the start position of the area to retrieve
-                      uint8_t n  //[in] the number of bits to retrieve
+                      unsigned int p, //[in] the start position of the area to retrieve
+                      unsigned int n  //[in] the number of bits to retrieve
                       )
   {
+  #ifdef _DEBUG
+    #ifndef CHAR_BIT
+      const T CHAR_BIT = 8; //Number of bits in a byte
+    #endif
+    ASSERT((p+n) <= (CHAR_BIT * sizeof(x)));
+  #endif
+
   x = x >> p & ~(~0 << n);
   return x;
   }
@@ -273,27 +313,52 @@ inline unsigned int& CpyNbitsL(unsigned int& y,//[out] the result
 //GetFlag()--------------------------------------------------------------------
 /*Gets a flag value.
   Returns true if a flag is set, otherwise false
+
+  Parameter:
+    - TYPE the basic type of the value to be examined.
+
+  Example:
+    #include "KBitMan.h"
+    ...
+  uint32 nValue     = 0x1111000;
+  uint32 nMaskTrue  = 0x0011000;
+  uint32 nMaskFalse = 0x0001100;
+
+  bool bRes = GetFlag(nValue, nMaskTrue);  //check if flags are up
+  bRes = !GetFlag(nValue, nMaskFalse);      //check if one flag is down
  */
 template <class TYPE>
-inline bool GetFlag(const TYPE& iStatus,const TYPE&  uFlag)
+inline bool GetFlag(const TYPE& iStatus, //[in] bit array to be examined
+                    const TYPE&  uFlag   //[in] bit mask
+                    )
    {
    return ((iStatus & uFlag) == uFlag);
    };
 
 //EnableFlag()-----------------------------------------------------------------
 /*Returns status after a flags are set.
+
+  Parameter:
+    - TYPE the basic type of the value to be manipulated.
  */
 template <class TYPE>
-inline TYPE EnableFlag(TYPE& iStatus,const TYPE& uFlags)
+inline TYPE EnableFlag(TYPE& iStatus,     //[in] bit array
+                       const TYPE& uFlags //[in] bit mask
+                       )
    {
    return(iStatus = iStatus | uFlags);
    };
 
 //DisableFlag()----------------------------------------------------------------
 /*Returns status after a flags are cleared
-*/
+
+  Parameter:
+    - TYPE the basic type of the value to be manipulated.
+ */
 template <class TYPE>
-inline TYPE DisableFlag(TYPE& iStatus, const TYPE& uFlags)
+inline TYPE DisableFlag(TYPE& iStatus,     //[in] bit array
+                        const TYPE& uFlags //[in] bit mask
+                        )
   {
   #ifdef _DEBUG
     //Note: This allows to set breakpoint on the intermediate result. D.K.
@@ -307,28 +372,48 @@ inline TYPE DisableFlag(TYPE& iStatus, const TYPE& uFlags)
 
 //SetNthBit()------------------------------------------------------------------
 /*Set bit on position nPos to 1
+
+  Parameter:
+    - T the basic type of the value to be manipulated.
  */
-template <class T> T SetNthBit (T& Status,const unsigned int& nPos)
+template <class T> T SetNthBit (T& Status,               //[in] bit array
+                                const unsigned int& nPos //[in]
+                                )
   {
   return (Status | 1 << nPos);
   }
 
 //ResetNthBit()----------------------------------------------------------------
 /*Set bit on position nPos to 0
+
+  Parameter:
+    - T the basic type of the value to be manipulated.
  */
-template <class T> T ResetNthBit (T& Status,const unsigned int& nPos)
+template <class T> T ResetNthBit (T& Status,               //[in] bit array
+                                  const unsigned int& nPos //[in]
+                                  )
   {
   return (Status & ~(1 << nPos));
   }
 
 //-----------------------------------------------------------------------------
 /*Reverse order of bits in the given value.
+
+  Returns the value with the individual bits ordered in oposite way.
+
+  Parameter:
+    - T the basic type of the value to be reversed.
+
+  Example:
+    #include "KBitMan.h"
+    ...
+    uint32 nResult = ReverseBits<uint32>(0xD2E30021);
  */
 template <typename T> T ReverseBits (T value //[in] bits to be reversed
                                      )
   {
   #ifndef CHAR_BIT
-    const T CHAR_BIT = 8 ; //Number of bits in a byte
+    const T CHAR_BIT = 8; //Number of bits in a byte
   #endif
 
   T result = 0;

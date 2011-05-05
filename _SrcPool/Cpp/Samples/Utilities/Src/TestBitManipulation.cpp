@@ -1,5 +1,5 @@
 /*$RCSfile: TestBitManipulation.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2011/05/02 22:10:58 $
+  $Revision: 1.3 $ $Date: 2011/05/05 21:28:21 $
   $Author: ddarko $
 
   Test bitwise operations
@@ -11,16 +11,12 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"StdAfx.h" option)       */
 
-// Each dll/exe must initialize the GUIDs once.  This is done in one of
-// two ways.  If you are not using precompiled headers for the file(s) which
-// initializes the GUIDs, define INITGUID before including <objbase.h>.
-// Microsoft's DEFINE_GUID uses C linkage and therfore generated numbers are global.
-
 #include "stdafx.h"
 #include "KTypedef.h"
 #include "KStrings.h"   //BintoA()
 #include "STL/KBinStream.h" //BintoStream()
 #include "KBitMan.h"    //Bitwise operations
+#include "KGuid.h"      //CGuid class
 
 extern bool TsWriteToViewLn(LPCTSTR lszText);
 extern bool TsWriteToView(LPCTSTR lszText);
@@ -30,11 +26,8 @@ extern bool TestBintoA();
   extern bool TestBitset();
 #endif
 
-DEFINE_GUID(g_testGUID,
-            0x340BC870, 0xA012, 37819, 0x20, 57, 132, 189, 0x73, 0x4D, 0x76, 0xE7);
-
 //-----------------------------------------------------------------------------
-/*Testing generating and handling Universally Unique Identifier (UUID /GUID).
+/*Testing various operations with bits.
 
   Returns: true if successful, otherwise returns false.
  */
@@ -112,6 +105,15 @@ if (bRes)
 
   nResult = ReverseBits<uint32>(nValue);
   bRes = bRes && (nValue == ReverseBits<uint32>(nResult));
+
+  CGuid nTestData; //data structure used for testing
+  nTestData.m_uPack.b.Data1 = 0x04030201; //b0000 0100 0000 0011 0000 0010 0000 0001
+  #ifdef TEST_C2676
+    /*Following will produce compiler error: 
+      'CGuid' does not define binary '>' operator (MSVC++ error C2676)
+     */
+    CGuid nTestRes = ReverseBits<CGuid>(nTestData);
+  #endif
     //Write test log
   logEntry.m_bResult = bRes;
   LogTest(&logEntry);
@@ -151,6 +153,51 @@ if (bRes)
   logEntry.m_bResult = bRes;
   LogTest(&logEntry);
 
+  //Test bit masks
+  nValue = 0x1111000;            //b0000 0001 0001 0001 0001 0000 0000 0000
+  uint32 nMaskTrue  = 0x0011000; //b0000 0000 0000 0001 0001 0000 0000 0000
+  uint32 nMaskFalse = 0x0001100; //b0000 0000 0000 0000 0001 0001 0000 0000
+
+  logEntry.m_szObjectName = _T("GetFlag<>()");
+
+  bRes = bRes && ( GetFlag(nValue, nMaskTrue));  //check if flags are up
+  bRes = bRes && (!GetFlag(nValue, nMaskFalse)); //check if one flag is down
+
+    //Write test log
+  logEntry.m_bResult = bRes;
+  LogTest(&logEntry);
+
+  //Test obtaining flag value from the chunk of data
+  logEntry.m_szObjectName = _T("GET_FLAG(x, p)");
+  nValue = 0;
+  int p;
+  while(nValue <= 255)
+    {
+    std::_tcout << nValue << _T(" = ");
+    p = CHAR_BIT;
+    while (--p >= 0)
+      {
+      std::_tcout << GET_FLAG(nValue, p);
+      }
+    std::_tcout << std::endl;
+    nValue++;
+    }
+
+  p = sizeof((GUID)nTestData) * CHAR_BIT;
+  while(--p >= 0)
+    {
+    nResult = GET_FLAG((GUID)nTestData, p);
+    std::_tcout << nResult;
+    if ((p % 4) == 0)
+      std::_tcout << _T(" ");
+    }
+  std::_tcout << std::endl;
+
+    //Write test log
+  logEntry.m_bResult = bRes;
+  LogTest(&logEntry);
+
+
   TsWriteToViewLn(LOG_EOT);
   }
 return bRes;
@@ -159,6 +206,9 @@ return bRes;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestBitManipulation.cpp,v $
+ *Revision 1.3  2011/05/05 21:28:21  ddarko
+ *GET_FLAG()
+ *
  *Revision 1.2  2011/05/02 22:10:58  ddarko
  *testing <bitset>
  *

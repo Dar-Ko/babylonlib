@@ -882,8 +882,12 @@ try
 
   bTmp1 = true;
   bRes = true;
-  for (int i = 0; (i < CMPTESTCOUNT) && bRes; i++)
+  int i = 0;
+  while((i < CMPTESTCOUNT) && bRes)
+    {
     bRes = (bCmpRes[0][i] == bCmpRes[1][i]);
+    i++;
+    }
   if (bRes)
     TsWriteToViewLn(bRes);
   else
@@ -912,7 +916,7 @@ try
 
   bTmp1 = true;
   bRes = true;
-  for (int i = 0; (i < CMPTESTCOUNT) && bRes; i++)
+  for (i = 0; (i < CMPTESTCOUNT) && bRes; i++)
     bRes = (bCmpRes[0][i] == bCmpRes[1][i]);
   if (bRes)
     TsWriteToViewLn(bRes);
@@ -942,7 +946,7 @@ try
 
   bTmp1 = true;
   bRes = true;
-  for (int i = 0; (i < CMPTESTCOUNT) && bRes; i++)
+  for (i = 0; (i < CMPTESTCOUNT) && bRes; i++)
     bRes = (bCmpRes[0][i] == bCmpRes[1][i]);
   if (bRes)
     TsWriteToViewLn(bRes);
@@ -972,7 +976,7 @@ try
 
   bTmp1 = true;
   bRes = true;
-  for (int i = 0; (i < CMPTESTCOUNT) && bRes; i++)
+  for (i = 0; (i < CMPTESTCOUNT) && bRes; i++)
     bRes = (bCmpRes[0][i] == bCmpRes[1][i]);
   if (bRes)
     TsWriteToViewLn(bRes);
@@ -1002,7 +1006,7 @@ try
 
   bTmp1 = true;
   bRes = true;
-  for (int i = 0; (i < CMPTESTCOUNT) && bRes; i++)
+  for (i = 0; (i < CMPTESTCOUNT) && bRes; i++)
     bRes = (bCmpRes[0][i] == bCmpRes[1][i]);
   if (bRes)
     TsWriteToViewLn(bRes);
@@ -1032,7 +1036,7 @@ try
 
   bTmp1 = true;
   bRes = true;
-  for (int i = 0; (i < CMPTESTCOUNT) && bRes; i++)
+  for (i = 0; (i < CMPTESTCOUNT) && bRes; i++)
     bRes = (bCmpRes[0][i] == bCmpRes[1][i]);
   if (bRes)
     TsWriteToViewLn(bRes);
