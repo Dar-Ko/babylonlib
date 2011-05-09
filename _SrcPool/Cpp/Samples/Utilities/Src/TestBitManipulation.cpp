@@ -1,5 +1,5 @@
 /*$RCSfile: TestBitManipulation.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2011/05/05 21:28:21 $
+  $Revision: 1.4 $ $Date: 2011/05/09 21:44:21 $
   $Author: ddarko $
 
   Test bitwise operations
@@ -43,7 +43,7 @@ if (bRes)
   #ifndef CHAR_BIT
     const T CHAR_BIT = 8 ; //Number of bits in a byte
   #endif
-  TCHAR szOutput[sizeof(uint32) * CHAR_BIT + 1];
+  TCHAR szOutput[sizeof(uint32_t) * CHAR_BIT + 1];
 
     //Test log creation
   TESTENTRY logEntry =
@@ -88,23 +88,23 @@ if (bRes)
   #else
     LPCTSTR FORMAT1 = _T("nValue = %s\n");
   #endif
-  uint32 nValue = 0xD2E31200; //b1101 0010 1110 0011 0001 0010 0000 0000
+  uint32_t nValue = 0xD2E31200; //b1101 0010 1110 0011 0001 0010 0000 0000
   TRACE1(FORMAT1, BintoA(szOutput, nValue, 32, 0, _T('1'), _T('0')));
 
   std::_tcout << _T("value   = "); 
-  BintoStream<uint32>(std::_tcout, nValue) << std::endl;
+  BintoStream<uint32_t>(std::_tcout, nValue) << std::endl;
 
-  uint32 nResult = ReverseBits<uint32>(nValue);
+  uint32_t nResult = ReverseBits<uint32_t>(nValue);
   TRACE1(FORMAT1, BintoA(szOutput, nResult, 32, 0, _T('1'), _T('0')));
   std::_tcout << _T("reverse = ");
-  BintoStream<uint32>(std::_tcout, nResult) << std::endl;
+  BintoStream<uint32_t>(std::_tcout, nResult) << std::endl;
 
-  bRes = bRes && (nValue == ReverseBits<uint32>(nResult));  //Validate result
+  bRes = bRes && (nValue == ReverseBits<uint32_t>(nResult));  //Validate result
 
   nValue = 0xD2E30021; //b1101 0010 1110 0011 0000 0000 0010 0001
 
-  nResult = ReverseBits<uint32>(nValue);
-  bRes = bRes && (nValue == ReverseBits<uint32>(nResult));
+  nResult = ReverseBits<uint32_t>(nValue);
+  bRes = bRes && (nValue == ReverseBits<uint32_t>(nResult));
 
   CGuid nTestData; //data structure used for testing
   nTestData.m_uPack.b.Data1 = 0x04030201; //b0000 0100 0000 0011 0000 0010 0000 0001
@@ -154,9 +154,9 @@ if (bRes)
   LogTest(&logEntry);
 
   //Test bit masks
-  nValue = 0x1111000;            //b0000 0001 0001 0001 0001 0000 0000 0000
-  uint32 nMaskTrue  = 0x0011000; //b0000 0000 0000 0001 0001 0000 0000 0000
-  uint32 nMaskFalse = 0x0001100; //b0000 0000 0000 0000 0001 0001 0000 0000
+  nValue = 0x1111000;              //b0000 0001 0001 0001 0001 0000 0000 0000
+  uint32_t nMaskTrue  = 0x0011000; //b0000 0000 0000 0001 0001 0000 0000 0000
+  uint32_t nMaskFalse = 0x0001100; //b0000 0000 0000 0000 0001 0001 0000 0000
 
   logEntry.m_szObjectName = _T("GetFlag<>()");
 
@@ -177,26 +177,77 @@ if (bRes)
     p = CHAR_BIT;
     while (--p >= 0)
       {
-      std::_tcout << GET_FLAG(nValue, p);
+      std::_tcout << (nResult = GET_FLAG(nValue, p));
+      //Validate test result
+      bRes = bRes && ( nResult == (((nValue & (1 << p)) != 0) ? 1 : 0) );
+      //FixMe: reverse bit order D.K.
       }
     std::_tcout << std::endl;
     nValue++;
     }
 
-  p = sizeof((GUID)nTestData) * CHAR_BIT;
-  while(--p >= 0)
+  if(bRes)
     {
-    nResult = GET_FLAG((GUID)nTestData, p);
-    std::_tcout << nResult;
-    if ((p % 4) == 0)
-      std::_tcout << _T(" ");
+    p = sizeof((GUID)nTestData) * CHAR_BIT;
+    while(--p >= 0)
+      {
+      nResult = GET_FLAG((GUID)nTestData, p);
+      std::_tcout << nResult;
+      if ((p % 4) == 0)
+        std::_tcout << _T(" ");
+      }
+    std::_tcout << std::endl;
+
+    //Validate (127-32)th bit
+    bRes = bRes && 
+           (GET_FLAG((GUID)nTestData,
+              ((sizeof((GUID)nTestData) - sizeof(uint32_t)) * CHAR_BIT -1)) == 1);
     }
-  std::_tcout << std::endl;
 
     //Write test log
   logEntry.m_bResult = bRes;
   LogTest(&logEntry);
 
+  //Test setting a flag on arbitrary sized data chunk
+  logEntry.m_szObjectName = _T("SET_FLAG(x, p)");
+
+  nValue = 0x1111000;              //b0000 0001 0001 0001 0001 0000 0000 0000
+  p = 0;//sizeof(nValue) * CHAR_BIT;
+  while (p < 255)
+    {
+    std::_tcout << p << _T(". ")                     << std::endl <<
+     (       p % 8 ) << _T(": ") << (      p & 7  )  << _T(" counter [0, 7]") << std::endl <<
+     (    8-(p % 8)) << _T(": ") << (    7-(p & 7))  << _T(" counter [7, 0]") << std::endl <<
+     (0x80>>(p % 8)) << _T(": ") << (0x80>>(p & 7))  << _T(" increment 2^p ") << std::endl <<
+     (       p % 8 ) << _T(": ") << (      p & 7  )  << _T(" counter [0, 7]") << std::endl <<
+     (       p / 8 ) << _T(": ") << (      p >> 3 )  << _T(" div 8") << std::endl;
+p++;
+    }
+ p= 0;
+ while (p < sizeof(nValue) * CHAR_BIT)
+ {
+   nValue = 0;
+   SET_FLAG(nValue, p);
+BintoStream<uint32_t>(std::_tcout, nValue) << std::endl;
+   p++;
+ }
+  p = 30;
+  nValue = 0x1111000;    
+  ((int8_t*)&nValue)[(p)/CHAR_BIT] |=  (0x80>>((p)%CHAR_BIT));
+
+    SET_FLAG(nValue, p);  //0x41111000 = b0100 0001 0001 0001 0001 0000 0000 0000
+
+//  #define SET_FLAG(x, pos) (x[(pos)/CHAR_BIT] |=  (0x80>>((pos)%CHAR_BIT)))
+
+    //Write test log
+//  logEntry.m_bResult = bRes;
+//  LogTest(&logEntry);
+
+//#define CLR_FLAG(X, pos) (x[(pos)/BICHAR_BITTS] &= ~(0x80>>((pos)%CHAR_BIT)))
+
+    //Write test log
+  logEntry.m_bResult = bRes;
+  LogTest(&logEntry);
 
   TsWriteToViewLn(LOG_EOT);
   }
@@ -206,6 +257,9 @@ return bRes;
 //////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  *$Log: TestBitManipulation.cpp,v $
+ *Revision 1.4  2011/05/09 21:44:21  ddarko
+ **** empty log message ***
+ *
  *Revision 1.3  2011/05/05 21:28:21  ddarko
  *GET_FLAG()
  *
