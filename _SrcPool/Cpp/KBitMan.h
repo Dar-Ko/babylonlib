@@ -15,29 +15,45 @@
   #pragma message ("   #include " __FILE__ )
 #endif
 
+#ifndef CHAR_BIT
+  #define CHAR_BIT      8         /*Number of bits in a byte. 
+                                    See also: <limits.h>*/
+#endif
+#ifndef BYTE_MSB
+  #define BYTE_MSB (CHAR_BIT -1) /*Index of Most Signficant Bit (MSB) in a byte*/
+#endif
+#if _ENDIAN_ORDER_ == _ENDIAN_BIG_
+  #define _MASK_8BIT(pos)  (0x80 >> ((pos) & BYTE_MSB) )) // 2^p [1, 128]
+#endif
+#if _ENDIAN_ORDER_ == _ENDIAN_LITTLE_
+  #define _MASK_nBIT(pos)  (1 << (pos))     // 2^p p is not limited
+  #define _MASK_8BIT(pos)  (1 << ((_MASK_nBIT) & BYTE_MSB))     // 2^p [1, 128]
+#endif
+                                      
 /*///////////////////////////////////////////////////////////////////////////*/
 /*Macros                                                                     */
 
 /*RESET_NBITSL()-------------------------------------------------------------*/
 
-/*Set n left of position p bits to zero.
+/*Set n left of position pos bits to zero.
  */
-#define RESET_NBITSL( x, p, n)             \
-     (                                     \
-      x & ~((~0 << p) ^ ( ~0 << (p + n)) ) \
+#define RESET_NBITSL( x, pos, n)               \
+     (                                         \
+      x & ~((~0 << pos) ^ ( ~0 << (pos + n)) ) \
      )
 
 /*EXT_NBITSL()---------------------------------------------------------------*/
 
-/*Extract n bits left of position p.
-  ~(~0<<n) creates a mask with ones, and mask is moved left p times.
-  Note: sum of n and p must not exceed the number of bits in value x.
+/*Extract n bits left of position pos.
+  ~(~0<<n) creates a mask with ones and mask is moved left pos times.
+  Note: sum of n and pos must not exceed the number of bits in value x.
 
-  Example: n=2, p=3, x=1001 1111 result: x=0001 1000
+  Example: n=2, pos=3, x=1001 1111 result: x=0001 1000
+   ~0 = 1111 1111
  */
-#define EXT_NBITSL( x, p, n)       \
-     (                             \
-      x & (~(~0 << n) << p)        \
+#define EXT_NBITSL( x, pos, n)    \
+     (                            \
+      x & (~(~0 << n) << pos)     \
      )
 
 /*CPY_NBITS()----------------------------------------------------------------*/
@@ -50,14 +66,25 @@
       RESET_NBITSL( y, yoff, n) | (EXT_NBITSL ( x, xoff ,n) >> (xoff-yoff))  \
     )
 
+#define GET_MBITS(x, mask) ((x)  &   (mask))
+#define SET_MBITS(x, mask) ((x) |=   (mask))
+#define CLR_MBITS(x, mask) ((x) &= (~(mask)))
+#define TGL_MBITS(x, mask) ((x) ^=   (mask))
+
+#define GET_BIT(x, pos) GET_MBITS((x), _MASK_nBIT))  //Check bit
+#define SET_BIT(x, pos) SET_MBITS((x), _MASK_nBIT))
+#define CLR_BIT(x, pos) CLR_MBITS((x), _MASK_nBIT))
+#define TGL_BIT(x, pos) TGL_MBITS((x), _MASK_nBIT)) //Toggle bit
 
 /*---------------------------------------------------------------------------*/
 /*Gets a flag value from any continuous chunk of data x.
   Returns 1 if a flag is set, otherwise returns 0.
 
   Example:
-        p % 8  <-        p & 7   counter [0, 7]
-    8- (p % 8)  <=  7 - (p & 7)  counter [7, 0]
+            p % 8  <-        p & 7   counter [0, 7]
+         7-(p % 8) <-     7-(p & 7)  counter [7, 0]
+     0x80>>(p % 8) <- 0x80>>(p & 7)  decrement 2^p [128, 1]
+            p / 8  <-        p >> 3  divide by 8
 
     GUID x = {0x04030201, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     //x = b0000 0100 0000 0011 0000 0010 0000 0001 0000 ...
@@ -75,20 +102,31 @@
       Little endian architecture
       0000 ... 0010 0000 1100 0000 0100 0000 1000 0000
  */
-#define GET_FLAG(x, p)                                            \
-    (                                                             \
-       ( ((const int8_t*)&(x))[(p) >> 3] & 0x80 >> ((p) & 7) ) >> \
-       (7 - ((p) & 7) )                                           \
+#define GET_FLAG(x, pos)                                                     \
+    (                                                                        \
+       ( ((const int8_t*)&(x))[(pos) >> 3] & 0x80 >> ((pos) & BYTE_MSB) ) >> \
+         (BYTE_MSB - ((pos) & BYTE_MSB) )                                    \
     )
 
 /*---------------------------------------------------------------------------*/
-/*Calculate parity of all bits of value 1. Result is stord in the input
+/*Sets a bit at any position in continuous chunk of data x.
+  Returns 1 if a flag is set, otherwise returns 0.
+ */
+#define SET_FLAG(x, pos) SET_MBITS(((int8_t*)&(x))[(pos) >> 3], _MASK_8BIT(pos))
+
+/*---------------------------------------------------------------------------*/
+/*Reset a bit at any position in continuous chunk of data x.
+ */
+#define CLR_FLAG(x, pos)  CLR_MBITS(((int8_t*)&(x))[(pos) >> 3], _MASK_8BIT(pos))
+
+/*---------------------------------------------------------------------------*/
+/*Calculate parity of all bits of value 1. Result is stored in the input
   value.
   Return 1 if the total number of bits of value 1 is odd or 0 if it is even.
  */
 #define PARITY(x)                               \
     {                                           \
-    uint32 nTmp = (uint32_t)x;                    \
+    uint32_t nTmp = (uint32_t)x;                \
     nTmp ^= nTmp >> 1;                          \
     nTmp ^= nTmp >> 2;                          \
     nTmp = (nTmp & 0x11111111U) * 0x11111111U;  \
@@ -100,7 +138,7 @@
  */
 #define PARITY64(x)                             \
     {                                           \
-    uint64 nTmp = (uint64_t)x;                    \
+    uint64_t nTmp = (uint64_t)x;                \
     nTmp ^= nTmp >> 1;                          \
     nTmp ^= nTmp >> 2;                          \
     nTmp = (nTmp & 0x1111111111111111UL) * 0x1111111111111111UL;  \
@@ -116,7 +154,7 @@
 #endif
 
 //SetNbitsR()-----------------------------------------------------------------
-/*Set n right bits of position p to TRUE (one); n must be smaller than p + 1.
+/*Set n right bits of position pos to TRUE (one); n must be smaller than pos + 1.
 
   Example:
     x = 0;
@@ -133,16 +171,16 @@
     n bits right of p are set to one
 */
 inline unsigned int& SetNbitsR(unsigned int& x,//[in, out] the field of bits to be set
-                      uint8_t p, //[in] the start position of the area to set
-                      uint8_t n  //[in] the number of bits to set
+                      uint8_t pos, //[in] the start position of the area to set
+                      uint8_t n    //[in] the number of bits to set
                      )
   {
-  x = x | (( ~0 << (p + 1) ) ^ ( ~0 << (p + 1 - n)));
+  x = x | (( ~0 << (pos + 1) ) ^ ( ~0 << (pos + 1 - n)));
   return x;
   }
 
 //ResetNbitsL()----------------------------------------------------------------
-/*Set n left bits to zero from position p;
+/*Set n left bits to zero from position pos;
 
   Example:
     x = 255;
@@ -161,16 +199,16 @@ inline unsigned int& SetNbitsR(unsigned int& x,//[in, out] the field of bits to 
 */
 inline unsigned int& ResetNbitsL(unsigned int& x,//[in, out] the field of bits
                                                  //to be reset
-                         uint8_t p, //[in] the start position of the area to reset
-                         uint8_t n  //[in] the number of bits to reset
+                         uint8_t pos, //[in] the start position of the area to reset
+                         uint8_t n    //[in] the number of bits to reset
                          )
   {
-  x = RESET_NBITSL( x, p, n);
+  x = RESET_NBITSL( x, pos, n);
   return x;
   }
 
 //GetNbitsR()------------------------------------------------------------------
-/*Get n bits right of position p.
+/*Get n bits right of position pos.
 
   Example:
   x>>(p+1-n) moves the desired field of three bits to the right end of the
@@ -195,17 +233,17 @@ inline unsigned int& ResetNbitsL(unsigned int& x,//[in, out] the field of bits
     result is n bits right from p
 */
 inline unsigned int GetNbitsR(unsigned int x, //[in] the source field of bits
-                      uint8_t p, //[in] the start position of the area to retrieve
-                      uint8_t n  //[in] the number of bits to retrieve
+                      uint8_t pos, //[in] the start position of the area to retrieve
+                      uint8_t n    //[in] the number of bits to retrieve
                       )
   {
-  x = x >> (p + 1 - n) & ~(~0 << n);
+  x = x >> (pos + 1 - n) & ~(~0 << n);
   return x;
   }
 
 //GetNBitsL()------------------------------------------------------------------
-/*Get n bits left of position p. Desired bits are right adjusted.
-  Note: sum of n and p must not exceed the number of bits in value x.
+/*Get n bits left of position pos. Desired bits are right adjusted.
+  Note: sum of n and pos must not exceed the number of bits in value x.
 
   Example:
      x>>p moves the desired field of bits to the right.
@@ -226,23 +264,23 @@ inline unsigned int GetNbitsR(unsigned int x, //[in] the source field of bits
      result is n bits right from p
 */
 inline unsigned int GetNBitsL(unsigned int x, //[in] the source field of bits
-                      unsigned int p, //[in] the start position of the area to retrieve
-                      unsigned int n  //[in] the number of bits to retrieve
+                      unsigned int pos, //[in] the start position of the area to retrieve
+                      unsigned int n    //[in] the number of bits to retrieve
                       )
   {
   #ifdef _DEBUG
     #ifndef CHAR_BIT
       const T CHAR_BIT = 8; //Number of bits in a byte
     #endif
-    ASSERT((p+n) <= (CHAR_BIT * sizeof(x)));
+    ASSERT((pos+n) <= (CHAR_BIT * sizeof(x)));
   #endif
 
-  x = x >> p & ~(~0 << n);
+  x = x >> pos & ~(~0 << n);
   return x;
   }
 
 //ExtNbitsL()------------------------------------------------------------------
-/*Extract n bits left of position p.
+/*Extract n bits left of position pos.
 
   Example:
     x = 156;
@@ -261,16 +299,16 @@ inline unsigned int GetNBitsL(unsigned int x, //[in] the source field of bits
     result is n bits right from p
 */
 inline unsigned int ExtNbitsL(unsigned int x, //[in] the source field of bits
-                      uint8_t p, //[in] the start position of the area to retrieve
-                      uint8_t n  //[in] the number of bits to retrieve
+                      uint8_t pos, //[in] the start position of the area to retrieve
+                      uint8_t n    //[in] the number of bits to retrieve
                       )
   {
-  x = EXT_NBITSL( x, p, n);
+  x = EXT_NBITSL( x, pos, n);
   return x;
   }
 
 //CpyNbitsL()------------------------------------------------------------------
-/*Copy n bits from source x left of position p to target y.
+/*Copy n bits from source x left of position pos to target y.
 
   Example:
     ~(~0<<n) creates a mask with ones, and mask is moved left p times.
@@ -298,13 +336,13 @@ inline unsigned int ExtNbitsL(unsigned int x, //[in] the source field of bits
 */
 inline unsigned int& CpyNbitsL(unsigned int& y,//[out] the result
                                uint8_t x, //[in] the source field of bits
-                               uint8_t p, //[in] the start position of the area
+                               uint8_t pos, //[in] the start position of the area
                                           //to retrieve
                                uint8_t n  //[in] the number of bits to retrieve
                        )
   {
-  x =  ExtNbitsL(x,p,n);
-  ResetNbitsL(y,p,n);
+  x =  ExtNbitsL(x, pos, n);
+  ResetNbitsL(y, pos, n);
   y = y | x;
   return y;
   }
