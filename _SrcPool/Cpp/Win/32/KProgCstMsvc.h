@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.9 $ $Date: 2011/04/29 16:03:41 $
+  $Revision: 1.10 $ $Date: 2011/05/09 21:07:53 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -266,6 +266,8 @@
   Note: ANSI C standard does not prescribe bit-field order, allowing different
   compiler implementations. Typically, the order of bit-fields are reversed
   between big and little endian architectures.
+
+  See also: BYTE_MSB
  */
 typedef union tagSTATUS8
   {
@@ -289,6 +291,9 @@ typedef union tagSTATUS8
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.10  2011/05/09 21:07:53  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.9  2011/04/29 16:03:41  ddarko
  * Added bit-field notes
  *
