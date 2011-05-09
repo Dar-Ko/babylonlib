@@ -4,6 +4,7 @@
 	Version="9.00"
 	Name="_Util"
 	ProjectGUID="{C8E6F84B-F415-458D-BCC8-CD2DFAA3A8AA}"
+	RootNamespace="_Util"
 	Keyword="MakeFileProj"
 	TargetFrameworkVersion="131072"
 	>
@@ -72,6 +73,22 @@
 			>
 		</File>
 		<File
+			RelativePath=".\AttribSH.reg"
+			>
+		</File>
+		<File
+			RelativePath=".\DisableAutorun.reg"
+			>
+		</File>
+		<File
+			RelativePath=".\KBuildVer.vb"
+			>
+		</File>
+		<File
+			RelativePath=".\KCvsBranch.bat"
+			>
+		</File>
+		<File
 			RelativePath=".\KCvsizer.bat"
 			>
 		</File>
@@ -84,11 +101,31 @@
 			>
 		</File>
 		<File
+			RelativePath=".\KGenLib.bat"
+			>
+		</File>
+		<File
+			RelativePath=".\KGetDuplicates.sql"
+			>
+		</File>
+		<File
+			RelativePath=".\KListAcl.bat"
+			>
+		</File>
+		<File
+			RelativePath=".\KListDsn.bat"
+			>
+		</File>
+		<File
 			RelativePath=".\KRegHxSHelp.bat"
 			>
 		</File>
 		<File
 			RelativePath=".\KSetThis.bat"
+			>
+		</File>
+		<File
+			RelativePath=".\KSidList.vbs"
 			>
 		</File>
 		<File
@@ -121,7 +158,7 @@
 			>
 		</File>
 		<File
-			RelativePath="Util\RegsvrAdd.reg"
+			RelativePath=".\MsvcDisableVss.reg"
 			>
 		</File>
 		<File
@@ -129,7 +166,31 @@
 			>
 		</File>
 		<File
+			RelativePath=".\RemoteDesktopListeningPort.reg"
+			>
+		</File>
+		<File
+			RelativePath=".\UsbGlobalSerialNumber.reg"
+			>
+		</File>
+		<File
+			RelativePath=".\Ux2Dos.mac"
+			>
+		</File>
+		<File
 			RelativePath=".\Vc71vars32.bat"
+			>
+		</File>
+		<File
+			RelativePath=".\WinAutoUpdate.reg"
+			>
+		</File>
+		<File
+			RelativePath=".\WinVistaJavaScript.reg"
+			>
+		</File>
+		<File
+			RelativePath=".\WinXpJavaScript.reg"
 			>
 		</File>
 	</Files>
