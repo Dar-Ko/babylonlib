@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.10 $ $Date: 2011/05/09 21:07:53 $
+  $Revision: 1.11 $ $Date: 2011/05/10 18:42:35 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -257,7 +257,7 @@
   all fields together.
 
   Note: The type-specifier for the bit-field declarator must be unsigned int,
-  signed int, or int.
+  signed int or int.
   A Microsoft extension to the ANSI C standard allows char and long types
   (both signed and unsigned) for bit fields. Also bit-fields with types of the
   same size are packed to fit machine word (32 or 64 bit long). If types for
@@ -271,18 +271,18 @@
  */
 typedef union tagSTATUS8
   {
-  uint8  BYTE; //Eight binary digits long unit of data.
+  uint8_t  BYTE; //Eight binary digits long unit of data.
 
   struct tagBIT
     {
-    uint8 B0 :1; //Bit 0: Least Significant Bit (LSB)
-    uint8 B1 :1; //Bit 1
-    uint8 B2 :1; //Bit 2
-    uint8 B3 :1; //Bit 3
-    uint8 B4 :1; //Bit 4
-    uint8 B5 :1; //Bit 5
-    uint8 B6 :1; //Bit 6
-    uint8 B7 :1; //Bit 7: Most Signficant Bit (MSB)
+    uint8_t B0 :1; //Bit 0: Least Significant Bit (LSB)
+    uint8_t B1 :1; //Bit 1
+    uint8_t B2 :1; //Bit 2
+    uint8_t B3 :1; //Bit 3
+    uint8_t B4 :1; //Bit 4
+    uint8_t B5 :1; //Bit 5
+    uint8_t B6 :1; //Bit 6
+    uint8_t B7 :1; //Bit 7: Most Signficant Bit (MSB)
     } BIT;  //Binary digit
   } STATUS8;
 
@@ -291,6 +291,9 @@ typedef union tagSTATUS8
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.11  2011/05/10 18:42:35  ddarko
+ * C99 stdint
+ *
  * Revision 1.10  2011/05/09 21:07:53  ddarko
  * *** empty log message ***
  *
