@@ -29,7 +29,12 @@ extern bool TestBeep();
 extern bool TestGuid();
 extern bool TestVariant();
 extern bool TestSafeArray();
+extern bool TestBintoA();
+extern "C" bool TestBits();
 extern bool TestBitManipulation();
+#ifdef _USE_STL
+  extern bool TestBitset();
+#endif
 
 //-----------------------------------------------------------------------------
 /*Validate various helper functions.
@@ -44,6 +49,11 @@ TsWriteToViewLn(_T(""));
 
 PFUNC_TEST funcTest[] =
   {
+  TestBintoA, //Test helper
+  #ifdef _USE_STL
+    TestBitset,
+  #endif
+  TestBits,
   TestBitManipulation,
   TestBeep,
   TestGuid,

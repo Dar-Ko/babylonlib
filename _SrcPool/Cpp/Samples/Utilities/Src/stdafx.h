@@ -6,7 +6,6 @@
   files that are used frequently, but are changed infrequently.
 */
 
-
 #if !defined(_UTILITIES_STDAFX_H_)
   /*$Workfile: stdafx.h$ sentry */
   #define _UTILITIES_STDAFX_H_ 21032
@@ -22,29 +21,29 @@
 //////////////////////////////////////////////////////////////////////////////
 //Common header files
 #include "Common/Src/Win/stdafx.h"
-#if defined (_USE_STL) && !defined(_USE_MFC)
-  #pragma message( "Using STL string substitute for CString" )
-  #include "STL/KTString.h"
-  class CString: public tstring
-  {
-  public:
-    void Empty()
-      {
-      tstring::erase();
-      };
-    const CString& operator=(LPTSTR lpsz)
-      {
-      tstring::operator=(lpsz);
-      return *this;
-      }
-    operator LPCTSTR() const
-      {
-      return c_str();
-      }
-
-  };
+#ifdef __cplusplus
+  #if defined (_USE_STL) && !defined(_USE_MFC)
+    #pragma message( "Using STL string substitute for CString" )
+    #include "STL/KTString.h"
+    class CString: public tstring
+    {
+    public:
+      void Empty()
+        {
+        tstring::erase();
+        };
+      const CString& operator=(LPTSTR lpsz)
+        {
+        tstring::operator=(lpsz);
+        return *this;
+        }
+      operator LPCTSTR() const
+        {
+        return c_str();
+        }
+    };
+  #endif
 #endif
-
 ///////////////////////////////////////////////////////////////////////////////
 #endif // !defined(_UTILITIES_STDAFX_H_)
 /*****************************************************************************

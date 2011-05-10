@@ -988,7 +988,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Src\TestBitset.cpp"
+				RelativePath=".\Src\TestBits.c"
+				>
+			</File>
+			<File
+				RelativePath="..\StlTools\Src\TestBitset.cpp"
 				>
 			</File>
 			<File
@@ -1121,6 +1125,10 @@
 			</File>
 			<File
 				RelativePath=".\Src\TestVariant.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\Common\Src\TsWriteT.c"
 				>
 			</File>
 			<File
