@@ -26,8 +26,8 @@
   #define _MASK_8BIT(pos)  (0x80 >> ((pos) & BYTE_MSB) )) // 2^p [1, 128]
 #endif
 #if _ENDIAN_ORDER_ == _ENDIAN_LITTLE_
-  #define _MASK_nBIT(pos)  (1 << (pos))     // 2^p p is not limited
-  #define _MASK_8BIT(pos)  (1 << ((_MASK_nBIT) & BYTE_MSB))     // 2^p [1, 128]
+  #define _MASK_nBIT(pos)  (1 << (pos))     // 2^p p is not limited. pos is 0 based index
+  #define _MASK_8BIT(pos)  (1 << ((_MASK_nBIT(pos)) & BYTE_MSB))     // 2^p [1, 128]
 #endif
                                       
 /*///////////////////////////////////////////////////////////////////////////*/
@@ -66,15 +66,51 @@
       RESET_NBITSL( y, yoff, n) | (EXT_NBITSL ( x, xoff ,n) >> (xoff-yoff))  \
     )
 
-#define GET_MBITS(x, mask) ((x)  &   (mask))
-#define SET_MBITS(x, mask) ((x) |=   (mask))
-#define CLR_MBITS(x, mask) ((x) &= (~(mask)))
-#define TGL_MBITS(x, mask) ((x) ^=   (mask))
+/*---------------------------------------------------------------------------*/
+/*Set simultaneously number of the bits defined by mask.
 
-#define GET_BIT(x, pos) GET_MBITS((x), _MASK_nBIT))  //Check bit
-#define SET_BIT(x, pos) SET_MBITS((x), _MASK_nBIT))
-#define CLR_BIT(x, pos) CLR_MBITS((x), _MASK_nBIT))
-#define TGL_BIT(x, pos) TGL_MBITS((x), _MASK_nBIT)) //Toggle bit
+  Example:
+    uint32_t nValue = 0x0A;
+    uint32_t nMask  = 0x30;
+    SET_MBITS(nValue, nMask);
+    ASSERT(nValue == 0x3A);
+ */
+#define SET_MBITS(x, mask) ((x) |=   (mask))
+/*Reset simultaneously number of the bits defined by mask.
+ */
+#define CLR_MBITS(x, mask) ((x) &= (~(mask)))
+/*Toggles values of the bits defined by mask.
+ */
+#define TGL_MBITS(x, mask) ((x) ^=   (mask))
+/*Obtain values of the bits defined by mask.
+
+  Example:
+    uint32_t nValue = 0x3A);
+    uint32_t nResult = GET_MBITS(nValue, 0x30);
+    ASSERT(nResult == 0x30);
+ */
+#define GET_MBITS(x, mask) ((x)  &   (mask))
+
+/*---------------------------------------------------------------------------*/
+/*Set single bit at the given position within any basic type.
+  Position of bit is zero-based index, where the bit at position 0 is
+  Least Significant Bit (LSB).
+
+  Example:
+    uint32_t nValue = 0;
+    SET_BIT(nValue, 10);
+    ASSERT(nValue == 0x200);
+ */
+#define SET_BIT(x, pos) SET_MBITS((x), _MASK_nBIT(pos))
+/*Reset single bit at the given position within any basic type.
+ */
+#define CLR_BIT(x, pos) CLR_MBITS((x), _MASK_nBIT(pos))
+/*Toggle value of the single bit at the given position.
+ */
+#define TGL_BIT(x, pos) TGL_MBITS((x), _MASK_nBIT(pos))
+/*Get the value of the single bit at the given position.
+ */
+#define GET_BIT(x, pos) GET_MBITS((x), _MASK_nBIT(pos))
 
 /*---------------------------------------------------------------------------*/
 /*Gets a flag value from any continuous chunk of data x.
