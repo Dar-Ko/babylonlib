@@ -1,9 +1,9 @@
-// Windows Template Library - WTL version 8.0
+// Windows Template Library - WTL version 8.1
 // Copyright (C) Microsoft Corporation. All rights reserved.
 //
 // This file is a part of the Windows Template Library.
 // The use and distribution terms for this software are covered by the
-// Common Public License 1.0 (http://opensource.org/osi3.0/licenses/cpl1.0.php)
+// Common Public License 1.0 (http://opensource.org/licenses/cpl1.0.php)
 // which can be found in the file CPL.TXT at the root of this distribution.
 // By using this software in any fashion, you are agreeing to be bound by
 // the terms of this license. You must not remove this notice, or
@@ -401,7 +401,38 @@ public:
 		return (bstrText != NULL) ? TRUE : FALSE;
 	}
 #endif // !_ATL_NO_COM
-#endif // !_WIN32_WCE
+
+#elif _ATL_VER >= 0x800
+	int GetMenuItemCount() const
+	{
+		ATLASSERT(::IsMenu(m_hMenu));
+		return ATL::GetMenuItemCount(m_hMenu);
+	}
+
+	UINT GetMenuItemID(int nPos) const
+	{
+		ATLASSERT(::IsMenu(m_hMenu));
+		return ATL::GetMenuItemID(m_hMenu, nPos);
+	}
+
+	UINT GetMenuState(UINT nID, UINT nFlags) const
+	{
+		ATLASSERT(::IsMenu(m_hMenu));
+		return ATL::GetMenuState(m_hMenu, nID, nFlags);
+	}
+
+	int GetMenuString(UINT nIDItem, LPTSTR lpString, int nMaxCount, UINT nFlags) const
+	{
+		ATLASSERT(::IsMenu(m_hMenu));
+		return ATL::GetMenuString(m_hMenu, nIDItem, lpString, nMaxCount, nFlags);
+	}
+
+	int GetMenuStringLen(UINT nIDItem, UINT nFlags) const
+	{
+		ATLASSERT(::IsMenu(m_hMenu));
+		return ATL::GetMenuString(m_hMenu, nIDItem, NULL, 0, nFlags);
+	}
+#endif // _ATL_VER >= 0x800
 
 #if defined(_WTL_USE_CSTRING) || defined(__ATLSTR_H__)
 	int GetMenuString(UINT nIDItem, _CSTRING_NS::CString& strText, UINT nFlags) const
