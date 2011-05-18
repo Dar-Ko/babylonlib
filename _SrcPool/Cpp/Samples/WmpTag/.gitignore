@@ -3,9 +3,12 @@
 *.BAK
 *.bsc
 *.clw
+*.cod
 *.cvs
 *.dsw
 *.dump
+*.exe
+*.exp
 *.idb
 *.ilk
 *.log
@@ -19,8 +22,10 @@
 *.pdb
 *.plg
 *.res
+*.RES
 *.sbr
 *.scc
+*.SCC
 *.sln
 *.suo
 *.sym
@@ -31,6 +36,7 @@
 *.vco
 *.vic
 *.vspscc
+*.wrn
 *.~*
 *.??$
 *_i.c
@@ -43,5 +49,6 @@ idl
 obj
 Obj
 Thumbs.db
+_UpgradeReport_Files
 ~*
 ~*.*
