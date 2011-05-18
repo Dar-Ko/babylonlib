@@ -1,5 +1,6 @@
 *.aps
 *.bak
+*.BAK
 *.bsc
 *.clw
 *.cvs
@@ -10,6 +11,7 @@
 *.log
 *.lst
 *.ncb
+*.map
 *.obj
 *.old
 *.opt
@@ -21,13 +23,16 @@
 *.scc
 *.sln
 *.suo
+*.sym
 *.tmp
+*.user
 *.vcb
 *.vcl
 *.vco
 *.vic
 *.vspscc
 *.~*
+*.??$
 *_i.c
 *_p.c
 .project

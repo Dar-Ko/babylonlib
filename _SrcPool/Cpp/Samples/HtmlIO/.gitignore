@@ -1,5 +1,6 @@
 *.aps
 *.bak
+*.BAK
 *.bsc
 *.clw
 *.cvs
@@ -10,6 +11,7 @@
 *.log
 *.lst
 *.ncb
+*.map
 *.obj
 *.old
 *.opt
@@ -19,8 +21,10 @@
 *.res
 *.sbr
 *.scc
+*.SCC
 *.sln
 *.suo
+*.sym
 *.tmp
 *.user
 *.vcb
@@ -29,6 +33,7 @@
 *.vic
 *.vspscc
 *.~*
+*.??$
 *_i.c
 *_p.c
 .project
@@ -38,7 +43,6 @@ dlldata.c
 idl
 obj
 Obj
-TestIndex.*
 Thumbs.db
 ~*
 ~*.*

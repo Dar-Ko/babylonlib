@@ -1,14 +1,17 @@
 *.aps
 *.bak
+*.BAK
 *.bsc
 *.clw
 *.cvs
+
 *.dump
 *.idb
 *.ilk
 *.log
 *.lst
 *.ncb
+*.map
 *.obj
 *.old
 *.opt
@@ -20,6 +23,7 @@
 *.scc
 
 *.suo
+*.sym
 *.tmp
 *.user
 *.vcb
@@ -28,15 +32,16 @@
 *.vic
 *.vspscc
 *.~*
+*.??$
 *_i.c
 *_p.c
 .project
-bin
 Bin
+bin
 dlldata.c
 idl
-Obj
 obj
+Obj
 Thumbs.db
 ~*
 ~*.*
