@@ -1,20 +1,37 @@
 Windows Template Library (WTL) is a C++ library for developing Windows applications and UI components. It extends ATL (Active Template Library) and provides a set of classes for controls, dialogs, frame windows, GDI objects, and more.
-Operating System: All 32-bit MS Windows (95/98/NT/2000/XP) 
-v8.0.7161
+Operating System: All 32-bit MS Windows (95/98/NT/2000/XP/CE) 
+
+v8.0.7161 @ wtl.cvs.sourceforge.net
+v8.1.9129 @ wtl.svn.sourceforge.net/viewvc/wtl/
 
 http://sourceforge.net/projects/wtl
 
- Anonymous CVS Access
+Subversion Access
+
+Browse Subversion Repository @ http://wtl.svn.sourceforge.net/viewvc/wtl/
+
+This project's SourceForge.net Subversion repository can be checked out through SVN with the following instruction set:
+svn co https://wtl.svn.sourceforge.net/svnroot/wtl wtl 
+
+Deprecated CVS Access
 
 This project's SourceForge.net CVS repository can be checked out through anonymous (pserver) CVS with the following instruction set. The module you wish to check out must be specified as the modulename. When prompted for a password for anonymous, simply press the Enter key. To determine the names of the modules created by this project, you may examine their CVS repository via the provided web-based CVS repository viewer.
 
 cvs -d:pserver:anonymous@wtl.cvs.sourceforge.net:/cvsroot/wtl login
- 
 cvs -z3 -d:pserver:anonymous@wtl.cvs.sourceforge.net:/cvsroot/wtl co -P modulename 
 
 
 Introduction
 ------------
+Windows Template Library, or WTL, is a set of classes that extend ATL to support more complex user interfaces for either applications or various UI components, while maintaining the big advantage of ATL - small and fast code. WTL classes were designed to be the best and the easiest way to implement rich Win32 based UI for ATL based applications, servers, components, and controls.
+
+WTL provides support for implementing many user interface elements, from frame and popup windows, to MDI, standard and common controls, common dialogs, property sheets and pages, GDI objects, UI updating, scrollable windows, splitter windows, command bars, etc. The WTL classes are mostly templated and use minimal instance data and inline functions. They were not designed as a framework, so they do not force a particular application model, and can accommodate any. The classes do not use hooks or thread local storage, so they have no restrictions that those techniques impose. They also have no inter-dependencies and can be freely mixed with straight SDK code. In summary, WTL delivers very small and efficient code, very close in size and speed to SDK programs, while presenting a more logical, object oriented model to a programmer.
+
+ 
+
+ 
+Introduction
+
  
 
 Windows Template Library, or WTL, is a set of classes that extend ATL to support more complex user interfaces for either applications or various UI components, while maintaining the big advantage of ATL - small and fast code. WTL classes were designed to be the best and the easiest way to implement rich Win32 based UI for ATL based applications, servers, components, and controls.
@@ -439,15 +456,15 @@ ATL/WTL AppWizard generates starting code for a WTL application. It has options 
 
 You can choose the following options:
 
-    * Application type (SDI, multi thread SDI, MDI, TabView, Explorer, dialog based)
-    * Support for hosting ActiveX controls
-    * COM server support
-    * Class implementation in .CPP files
-    * Common Control manifest
-    * Unicode character set
-    * Toolbar, rebar, command bar, status bar
-    * View window, and it's type (generic, dialog based form, or a list box, edit, list view, tree view, rich edit based, HTML page, scroll window)
-    * For dialog based apps or a form based view window - support for hosting ActiveX controls in the dialog
+    Application type (SDI, multi thread SDI, MDI, TabView, Explorer, dialog based)
+    Support for hosting ActiveX controls
+    COM server support
+    Class implementation in .CPP files
+    Common Control manifest
+    Unicode character set
+    Toolbar, rebar, command bar, status bar
+    View window, and it's type (generic, dialog based form, or a list box, edit, list view, tree view, rich edit based, HTML page, scroll window)
+    For dialog based apps or a form based view window - support for hosting ActiveX controls in the dialog
 
  
 
@@ -521,16 +538,13 @@ Notes
 
 There are two ways to fix this:
 
-    *
+    In the main .CPP file of your project, replace the line
+        hRes = _Module.Init(NULL, hInstance);
+    with this one
+        hRes = _Module.Init(NULL, hInstance, &LIBID_ATLLib);
+     
 
-      In the main .CPP file of your project, replace the line
-          hRes = _Module.Init(NULL, hInstance);
-      with this one
-          hRes = _Module.Init(NULL, hInstance, &LIBID_ATLLib);
-       
-    *
-
-      Compile you project with _ATL_DLL defined (dynamic link to ATL)
+    Compile you project with _ATL_DLL defined (dynamic link to ATL)
 
 ~    Several of the sample programs included with WTL were extended to support building for Windows CE. These samples are not specially redesigned for Windows CE, but just modified to allow you to compile and run them on the Windows CE platforms. The samples are: BmpView, GuidGen, and MTPad.
 
@@ -540,9 +554,7 @@ There are two ways to fix this:
 
  
 
-~    The old AppWizards for VC++ 6.0 and eVC++ 4.0/3.0 are not included in this version of WTL because they cannot be a part of an Open Source project. They are still available in the previous release, WTL 7.1.
-
- 
+~    The old AppWizards for VC++ 6.0 and eVC++ 4.0/3.0 are not included in this version of WTL because they cannot be a part of an Open Source project. They are still available in the previous release, WTL 7.1. 
 
  
 
