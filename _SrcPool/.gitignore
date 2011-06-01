@@ -1,11 +1,15 @@
 *.aps
+*.APS
 *.bak
 *.BAK
 *.bsc
 *.clw
+*.cod
 *.cvs
 
 *.dump
+*.exe
+*.exp
 *.idb
 *.ilk
 *.log
@@ -19,6 +23,7 @@
 *.pdb
 *.plg
 *.res
+*.RES
 *.sbr
 *.scc
 *.SCC
@@ -32,10 +37,13 @@
 *.vco
 *.vic
 *.vspscc
+*.vssscc
+*.wrn
 *.~*
 *.??$
 *_i.c
 *_p.c
+*.xls
 .project
 Bin
 bin
@@ -43,6 +51,8 @@ dlldata.c
 idl
 obj
 Obj
+OBJ
 Thumbs.db
+_UpgradeReport_Files
 ~*
 ~*.*
