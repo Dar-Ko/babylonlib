@@ -1,4 +1,5 @@
 *.aps
+*.APS
 *.bak
 *.BAK
 *.bsc
@@ -36,11 +37,13 @@
 *.vco
 *.vic
 *.vspscc
+*.vssscc
 *.wrn
 *.~*
 *.??$
 *_i.c
 *_p.c
+*.xls
 .project
 Bin
 bin
@@ -48,6 +51,7 @@ dlldata.c
 idl
 obj
 Obj
+OBJ
 Thumbs.db
 _UpgradeReport_Files
 ~*
