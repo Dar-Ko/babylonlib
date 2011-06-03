@@ -1,7 +1,7 @@
 /*$RCSfile: stdafx.h,v $: header file
-  $Revision: 1.2 $  $Date: 2009/05/05 20:15:34 $
+  $Revision: 1.3 $  $Date: 2011/06/03 17:17:35 $
 
-  STandarD Application Template Library
+  STandarD Application FrameworX
   header file includes standard system header files or project specific header
   files that are used frequently, but are changed infrequently.
 */
@@ -37,6 +37,9 @@
 
 /******************************************************************************
  * $Log: stdafx.h,v $
+ * Revision 1.3  2011/06/03 17:17:35  ddarko
+ * CVS tags
+ *
  * Revision 1.2  2009/05/05 20:15:34  ddarko
  * *** empty log message ***
  *
