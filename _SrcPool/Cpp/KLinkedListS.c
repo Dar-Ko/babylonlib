@@ -21,6 +21,8 @@
   Note: Uses malloc() to create a copy of the new element.
 
   Returns: pointer to the last element.
+  
+  See also: struct ListNode, template ListNode
  */
 PLISTNODE LinkedListSAddTail(PLISTNODE pEndNode,/*[in] last of the elements in
                                                   a list*/

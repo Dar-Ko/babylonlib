@@ -1,5 +1,5 @@
-/*$Workfile: TestLinkedList.cpp$: implementation file
-  $Revision: 1.2 $ $Date: 2011/03/14 06:56:32 $
+/*$RCSfile: TestArray.cpp,v $: implementation file
+  $Revision: 1.3 $ $Date: 2011/06/06 15:55:25 $
   $Author: ddarko $
 
   Test dynamic array
@@ -128,6 +128,9 @@ return bRes;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: TestArray.cpp,v $
+ * Revision 1.3  2011/06/06 15:55:25  ddarko
+ * Comments
+ *
  * Revision 1.2  2011/03/14 06:56:32  ddarko
  * *** empty log message ***
  *

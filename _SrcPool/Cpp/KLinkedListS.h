@@ -17,7 +17,11 @@
 
 #ifdef __cplusplus
 ///////////////////////////////////////////////////////////////////////////////
-/*Linked List Node
+/*Linked List Node. 
+  Each node holds reference to the next node in a list and any data encapsulated
+  in the node itself. An empty node indicates the last node.
+  
+  See also: TLinkedListS, struct ListNode (C language), LinkedListSAddTail()
  */
 template <typename DATATYPE> struct ListNode
   {
@@ -27,7 +31,7 @@ template <typename DATATYPE> struct ListNode
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Singly Linked List is a collection of list nodes. Each node holds reference
-  to the next node in the list an any data encapsulated in the node itself.
+  to the next node in the list and any data encapsulated in the node itself.
   To store the list, you only need a reference to the first node in the list.
   An empty node indicates the last node. Default inserts are made at the head
   of the list.
@@ -277,7 +281,11 @@ if (pNode != NULL)
  /*End of List tag*/
 #define END_OF_LIST (NULL)
 
-/*
+/*Linked List Node.
+  Each node holds reference to the next node in a list and any data encapsulated
+  in the node itself. An empty node indicates the last node.
+  
+  See also: LinkedListSAddTail(); template ListNode (C++ language)
  */
 struct ListNode
   {
