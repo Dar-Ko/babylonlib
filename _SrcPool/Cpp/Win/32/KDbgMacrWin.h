@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgMacrWin.h,v $: header file
-  $Revision: 1.1 $ $Date: 2011/06/07 20:33:09 $
+  $Revision: 1.2 $ $Date: 2011/06/07 21:26:34 $
   $Author: ddarko $
 
   Dumps values of some predefined macros specifying Microsoft Windows platform.
@@ -56,50 +56,56 @@
   #ifdef WINVER
     /*Windows Target Version Macros
 
-     +---------------------+---------------------------------+
-     |   Macros to Define  |   Minimum System Required       |
-     +---------------------+---------------------------------+
-     | WINVER=0x030A       |Windows 3.1                      |
-     |                     |                                 |
-     | WINVER=0x0400       |Windows 95 and Windows NT 4.0    |
-     |                     |                                 |
-     |_WIN32_WINDOWS=0x0410|Windows 98 and Windows NT 4.0    |
-     |WINVER=0x0400        |                                 |
-     |                     |                                 |
-     |_WIN32_WINNT=0x0400  |Windows NT 4.0                   |
-     |WINVER=0x0400        |                                 |
-     |                     |                                 |
-     |_WIN32_WINDOWS=0x0410|Windows 98                       |
-     |                     |                                 |
-     |_WIN32_WINDOWS=0x0490|Windows Millenium                |
-     |                     |                                 |
-     |WINVER=0x040A        |Windows 98 4.10                  |
-     |                     |                                 |
-     |WINVER=0x045A        |Windows Millenium 4.90           |
-     |                     |                                 |
-     |WINVER=0x0500        |Windows 98 and Windows 2000      |
-     |                     |                                 |
-     |_WIN32_WINNT=0x0500  |Windows 2000                     |
-     |WINVER=0x0500        |                                 |
-     |                     |                                 |
-     |_WIN32_WINNT=0x0501  |Windows XP                       |
-     |WINVER=0x0501        |                                 |
-     |                     |                                 |
-     |_WIN32_WINNT=0x0502  |Windows Server 2003 family       |
-     |                     |                                 |
-     |WINVER=0x0600        |Windows Vista                    |
-     |                     |                                 |
-     |_WIN64               |                                 |
-     +---------------------+---------------------------------+
-     |_WIN32_IE=0x0300     |Internet Explorer 3.0, 3.01, 3.02|
-     |_WIN32_IE=0x0400     |Internet Explorer 4.0            |
-     |_WIN32_IE=0x0401     |Internet Explorer 4.01           |
-     |_WIN32_IE=0x0500     |Internet Explorer 5.0, 5.0a, 5.0b|
-     |_WIN32_IE=0x0501     |Internet Explorer 5.01           |
-     |_WIN32_IE=0x0532     |Internet Explorer 5.5            |
-     |_WIN32_IE=0x0600     |Internet Explorer 6.00           |
-     |_WIN32_IE=0x0700     |Internet Explorer 7.00           |
-     +---------------------+---------------------------------+
+     +---------------------+-------------------------------------+
+     |   Macros to Define  |   Minimum System Required           |
+     +---------------------+-------------------------------------+
+     | WINVER=0x030A       |Windows 3.1                          |
+     |                     |                                     |
+     | WINVER=0x0400       |Windows 95 and Windows NT 4.0        |
+     |                     |                                     |
+     |_WIN32_WINDOWS=0x0410|Windows 98 and Windows NT 4.0        |
+     |WINVER=0x0400        |                                     |
+     |                     |                                     |
+     |_WIN32_WINNT=0x0400  |Windows NT 4.0                       |
+     |WINVER=0x0400        |                                     |
+     |                     |                                     |
+     |_WIN32_WINDOWS=0x0410|Windows 98                           |
+     |                     |                                     |
+     |_WIN32_WINDOWS=0x0490|Windows Millenium                    |
+     |                     |                                     |
+     |WINVER=0x040A        |Windows 98 4.10                      |
+     |                     |                                     |
+     |WINVER=0x045A        |Windows Millenium 4.90               |
+     |                     |                                     |
+     |WINVER=0x0500        |Windows 98 and Windows 2000          |
+     |                     |                                     |
+     |_WIN32_WINNT=0x0500  |Windows 2000                         |
+     |WINVER=0x0500        |                                     |
+     |                     |                                     |
+     |_WIN32_WINNT=0x0501  |Windows XP, Windows Server 2003      |
+     |WINVER=0x0501        |                                     |
+     |                     |                                     |
+     |_WIN32_WINNT=0x0502  |Windows XP SP2,                      |
+     |                     |Windows Server 2003 SP1              |
+     |                     |                                     |
+     |_WIN32_WINNT=0x0600  |Windows Vista, Windows Server 2008   |
+     |WINVER=0x0600        |                                     |
+     |                     |                                     |
+     |_WIN32_WINNT=0x0601  |Windows 7                            |
+     |WINVER=0x0601        |                                     |
+     |                     |                                     |
+     |_WIN64               |                                     |
+     +---------------------+-------------------------------------+
+     |_WIN32_IE=0x0300     |Internet Explorer 3.0, 3.01, 3.02    |
+     |_WIN32_IE=0x0400     |Internet Explorer 4.0                |
+     |_WIN32_IE=0x0401     |Internet Explorer 4.01               |
+     |_WIN32_IE=0x0500     |Internet Explorer 5.0, 5.0a, 5.0b    |
+     |_WIN32_IE=0x0501     |Internet Explorer 5.01               |
+     |_WIN32_IE=0x0532     |Internet Explorer 5.5                |
+     |_WIN32_IE=0x0600     |Internet Explorer 6.00               |
+     |_WIN32_IE=0x0700     |Internet Explorer 7.00               |
+     |_WIN32_IE=0x0800     |Internet Explorer 8.00               |
+     +---------------------+-------------------------------------+
 
      Note: Setting WINVER to 0x0500 implies _WIN32_IE=0x0400
      */
@@ -118,11 +124,13 @@
     #elif WINVER == 0x0500
       #pragma message ("Target OS is MS Windows 2000 or 98.")
     #elif WINVER == 0x0501
-      #pragma message ("Target OS is MS Windows XP.")
+      #pragma message ("Target OS is MS Windows XP or 2003.")
     #elif WINVER == 0x0502
-      #pragma message ("Target OS is MS Windows 2003 5.2.")
+      #pragma message ("Target OS is MS Windows 2003 SP1 or XP SP2")
     #elif WINVER == 0x0600
-      #pragma message ("Target OS is MS Windows Vista.")
+      #pragma message ("Target OS is MS Windows Vista or 2008.")
+    #elif WINVER == 0x0601
+      #pragma message ("Target OS is MS Windows 7.")
     #else
       #pragma message ("Target OS is MS Windows ?.?.")
     #endif
@@ -137,6 +145,10 @@
       #pragma message ("Target OS is MS Windows XP (WINNT).")
     #elif _WIN32_WINNT == 0x0502
       #pragma message ("Target OS is MS Windows Server 2003 family.")
+    #elif _WIN32_WINNT == 0x0600
+      #pragma message ("Target OS is MS Windows Vista.")
+    #elif _WIN32_WINNT == 0x0601
+      #pragma message ("Target OS is MS Windows 7.")
     #else
       #pragma message ("Target OS is MS Windows ?? (WINNT).")
     #endif
@@ -176,6 +188,9 @@
 #endif /*_KDBGMACRWIN_H_                                                     */
 /*****************************************************************************
  * $Log: KDbgMacrWin.h,v $
+ * Revision 1.2  2011/06/07 21:26:34  ddarko
+ * Added Win7
+ *
  * Revision 1.1  2011/06/07 20:33:09  ddarko
  * Extracted Windows macros from KDbgmacr.h
  *
