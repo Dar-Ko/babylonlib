@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgMacrMsvc.h,v $: header file
-  $Revision: 1.2 $ $Date: 2008/12/17 15:56:46 $
+  $Revision: 1.3 $ $Date: 2011/06/07 19:41:14 $
   $Author: ddarko $
 
   Dumps values of some Microsoft specific predefined macros
@@ -24,21 +24,27 @@
 
   /*Microsoft-Specific macros ---------------------------------------------- */
 
-  #if _MSC_VER >= 1300
-    #pragma message ("Microsoft Visual C++.NET compiler")
+  #if _MSC_VER >= 1400
+    #pragma message ("Microsoft Visual Studio C++ compiler")
   #else
-    #if _MSC_VER >= 800
-      #pragma message ("Microsoft Visual C/C++ compiler")
+    #if _MSC_VER >= 1300
+      #pragma message ("Microsoft Visual C++.NET compiler")
     #else
-     #if _MSC_VER > 600
-       #pragma message ("Microsoft C/C++ compiler")
+      #if _MSC_VER >= 800
+        #pragma message ("Microsoft Visual C/C++ compiler")
       #else
-        #pragma message ("Microsoft C compiler")
+       #if _MSC_VER > 600
+         #pragma message ("Microsoft C/C++ compiler")
+        #else
+          #pragma message ("Microsoft C compiler")
+        #endif
       #endif
     #endif
   #endif
-
- /*Current version of Microsoft compiler.
+ /*Current version of Microsoft compiler. Version number is combined of
+   the major and minor number. The major number is the first component of
+   the period-delimited version number and the minor number is 
+   the second component.
    The _MSC_VER macro will have one of the following values depending upon
    the particular Microsoft compiler:
 
@@ -57,9 +63,11 @@
       Visual C++, 32-bit, version 6.0           1200
       Visual C++ .Net 2002, 32-bit, version 7.0 1300
       Visual C++ .Net 2003, 32-bit, version 7.1 1310
-      Visual C/C++ 2005, version 8.0            1400
+      Visual Studio C/C++ 2005, version 8.0     1400
+      Visual Studio C/C++ 2008, version 9.0     1500
+      Visual Studio C/C++ 2010, version 10.0    1600
 
-   See also: Q65472
+   See also: Q65472, _MSC_VER
   */
   const int g__MSC_VER = _MSC_VER;
   #if _MSC_VER == 600
@@ -114,6 +122,14 @@
     #pragma message ("  2005 ver. 8.0")
     #define DBGMSC_VER 0x1400 /*Trace MSVC version*/
   #endif
+  #if _MSC_VER == 1500
+    #pragma message ("  2008 ver. 9.0")
+    #define DBGMSC_VER 0x1500 /*Trace MSVC version*/
+  #endif
+  #if _MSC_VER == 1600
+    #pragma message ("  2010 ver. 10.0")
+    #define DBGMSC_VER 0x1600 /*Trace MSVC version*/
+  #endif
   #ifndef DBGMSC_VER
     #pragma message ("  ver. unknown")
   #endif
@@ -122,8 +138,10 @@
   /*Compilation conditions
    */
   #ifdef _DEBUG
+     /*Defined when you compile with /LDd, /MDd, and /MTd.*/
      #pragma message ("Debug version")
   #else
+     /*NDEBUG defineded isnatd _DEBUG*/
     #pragma message ("Release version")
   #endif
   /*Preprocessor Directives for Generic-Text Mappings                      */
@@ -186,13 +204,75 @@
       #pragma message ("Use CRT Secure Template Overloads (C++).")
     #endif
   #endif
-
+       
+       
+  #ifdef _Wp64
+     /*Defined when specifying /Wp64 (Detect 64-Bit Portability Issues)
+      */
+     #pragma message ("Detecting 64-Bit Portability Issues.")
+  #endif
+  #ifdef _VC_NODEFAULTLIB
+     /*Defined when /Zl is used; see /Zl (Omit Default Library Name)
+      */
+     #pragma message ("Omit Default Library Names.")
+  #endif
+  #ifdef _OPENMP
+     /*Defined when compiling with /openmp, returns an integer representing 
+       the date of the OpenMP specification implemented by Visual C++.
+       Example:
+          // _OPENMP_dir.cpp; compile with: /openmp 
+          #include <stdio.h> 
+          int main() 
+            {
+            printf("%d\n", _OPENMP);
+            }       
+      */
+     #pragma message ("OpenMP specification used.")
+  #endif
+        
+  /*Managed application specification*/      
+    #ifdef __CLR_VER
+    /*The version of the common language runtime (CLR) used when
+      the application was compiled.
+      The value returned will be in the following format:
+            Mmmbbbbb where:
+            M is the major version of the runtime
+            mm is the minor version of the runtime
+            bbbbb is the build number.
+      Example:
+          //compile with: /clr
+          using namespace System;
+          int main() 
+            {
+            Console::WriteLine(__CLR_VER);
+            }
+     */
+    const int g__CLR_VER = __CLR_VER;
+  #endif  
+  #ifdef _MANAGED
+    /*Defined /clr is specified. Value of _MANAGED is 1.
+      Creates CLR metadata for the application.
+     */
+     #pragma message ("Create Managed Assemblies.")
+  #endif
+  #ifdef __cplusplus_cli
+    /*Defined when you compile with /clr, /clr:pure, or /clr:safe. 
+      Value of __cplusplus_cli is 200406.
+      __cplusplus_cli is in effect throughout the translation unit.
+     
+     */ 
+     #pragma message ("Create Microsoft Intermediate Language (MSIL) output.")
+  #endif
+       
 #endif /*_MSC_VER */
 
 /* ///////////////////////////////////////////////////////////////////////// */
 #endif /*_KDBGMACRMSVC_H_                                                     */
 /*****************************************************************************
  * $Log: KDbgMacrMsvc.h,v $
+ * Revision 1.3  2011/06/07 19:41:14  ddarko
+ * MSVC 2010
+ *
  * Revision 1.2  2008/12/17 15:56:46  ddarko
  * Formating
  *

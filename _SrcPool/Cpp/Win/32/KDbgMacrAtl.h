@@ -35,7 +35,7 @@
     #endif
 
      /*Current version of Active Template Library (ATL).
-       See also: atldef.h
+       See also: atldef.h; _ATL_VER
       */
     const int g__ATL_VER = _ATL_VER;
     #if _ATL_VER == 0x0100 /*Active Template Library version 1.0*/
@@ -66,6 +66,10 @@
       #pragma message ("  ver. 8.00")
       #define DBGATL_VER 0x0800 /*Trace ATL version*/
     #endif
+    #if _ATL_VER == 0x0900
+      #pragma message ("  ver. 9.00")
+      #define DBGATL_VER 0x0900 /*Trace ATL version*/
+    #endif
     #ifndef DBGATL_VER
       #pragma message ("  ver. unknown")
     #endif
@@ -90,6 +94,17 @@
     #pragma message ("ATL Free-threaded.")
   #endif
 
+  #ifdef _ATL_DISABLE_NO_VTABLE
+    #pragma message ("ATL with no vtables: __declspec(novtable).")
+  #endif
+  
+  #ifndef _ATL_PACKING
+    #pragma message ("ATL default packing is 8 bytes.")
+  #endif
+
+  #ifdef _ATL_NO_SERVICE
+    #pragma message ("ATL service disabled.")
+  #endif
 #endif /*_MSC_VER */
 
  /*List Windows Template Library (WTL) macros*/

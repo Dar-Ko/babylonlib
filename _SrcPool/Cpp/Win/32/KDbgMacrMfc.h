@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgMacrMfc.h,v $: header file
-  $Revision: 1.2 $ $Date: 2008/09/18 18:30:19 $
+  $Revision: 1.3 $ $Date: 2011/06/07 19:41:14 $
   $Author: ddarko $
 
   Dumps values of some Microsoft specific predefined macros
@@ -29,6 +29,7 @@
   #ifdef _MFC_VER
     #pragma message ("Included Microsoft Fundation Class (MFC) library.")
      /*Current version of Microsoft Fundation Class (MFC) library.
+       See allso: afxver.h; _MFC_VER
       */
     const int g__MFC_VER = _MFC_VER;
     #if _MFC_VER == 0x0320
@@ -71,7 +72,11 @@
       #pragma message ("  ver. 8.00")
       #define DBGMFC_VER 0x0800 /*Trace MFC version*/
     #endif
-    #ifndef DBGMFC_VER
+     #if _MFC_VER == 0x0A00
+      #pragma message ("  ver. 10.00") /*Visual Studio 2010*/
+      #define DBGMFC_VER 0x0A00 /*Trace MFC version*/
+    #endif
+   #ifndef DBGMFC_VER
       #pragma message ("  ver. unknown")
     #endif
   #endif
@@ -91,6 +96,9 @@
 #endif /*_KDBGMACRMFC_H_                                                     */
 /*****************************************************************************
  * $Log: KDbgMacrMfc.h,v $
+ * Revision 1.3  2011/06/07 19:41:14  ddarko
+ * MSVC 2010
+ *
  * Revision 1.2  2008/09/18 18:30:19  ddarko
  * Update patch
  *
