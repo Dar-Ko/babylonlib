@@ -40,16 +40,26 @@ std::wstring AtoWChar(const char* lpString, //[in] string to be converted
 #pragma warning (default: 4127)
 
 std::wstring strResult;
-if ( lpString != NULL)
+if (lpString != NULL)
   {
-  if (iLen == -1)
-    iLen = strlen(lpString);
   size_t nSize;
-  wchar_t* szTemp = new wchar_t[nSize = (size_t)iLen + 1];
-  mbstowcs(szTemp, lpString, iLen);
-  szTemp[iLen] = wchar_t(0);
-  strResult = szTemp;
-  delete [] szTemp;
+  if (iLen <= -1)
+    {
+    nSize = strlen(lpString);
+    }
+  wchar_t* szTemp = new wchar_t[nSize + 1];
+  if (szTemp != NULL)
+    {
+    #if _MSC_VER >= 1400  //MSVC 2005
+      size_t nResult = 0;
+      mbstowcs_s(&nResult, szTemp, nSize + 1, lpString, _TRUNCATE);
+    #else
+      mbstowcs(szTemp, lpString, nSize);
+    #endif
+    szTemp[nSize] = wchar_t(0); //Terminate string with zero
+    strResult = szTemp;
+    delete [] szTemp;
+    }
   }
 return strResult;
 }
