@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCase.h,v $: header file
-  $Revision: 1.1 $ $Date: 2011/06/22 20:41:31 $
+  $Revision: 1.2 $ $Date: 2011/06/22 20:44:30 $
   $Author: ddarko $
 
   switch statement helper
@@ -28,8 +28,8 @@
             defaut: szResult = _T("unknown");
             }
      */
-    #define KCONSTCASE(saErr) \
-      case saErr: szResult = L#saErr; break;
+    #define KCONSTCASE(cst) \
+      case cst: szResult = L#cst; break;
   #else //_SBCS
     /*Part of code that converts value of a name constant to the string.
       Requires szResult variable to be defined before usage.
@@ -44,14 +44,17 @@
             defaut: szResult = _T("unknown");
             }
      */
-    #define KCONSTCASE(saErr) \
-      case saErr: szResult = #saErr; break;
+    #define KCONSTCASE(cst) \
+      case cst: szResult = #cst; break;
   #endif //_UNICODE
 
 /* ///////////////////////////////////////////////////////////////////////// */
 #endif  /*__KPROGCASE_H__                                                     */
 /*****************************************************************************
  * $Log: KProgCase.h,v $
+ * Revision 1.2  2011/06/22 20:44:30  ddarko
+ * renamed arg
+ *
  * Revision 1.1  2011/06/22 20:41:31  ddarko
  * Created
  *
