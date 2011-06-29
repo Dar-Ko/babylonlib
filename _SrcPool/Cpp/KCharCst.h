@@ -3,7 +3,7 @@
   $Author: Darko Kolakovic$
 
   ASCII Control Characters Table
-  Copyright: CommonSoft Inc.
+  Copyright: CommonSoft Inc. GPL
   D. Kolakovic 4.6.92
 */
 /* Group=Strings                                                             */
@@ -238,16 +238,16 @@
    */
   const int EOLMAC  = CR;//end of line in MacOS
   const int EOLUNIX = LF;//end of line in Unix, Linux, QNX
-  const char* const EOLDOSA = "\r\n"; //CR LF pair is end of line in DOS, MS Windows
-  const char* const EOLWINA = "\r\n"; //CR LF pair is end of line in DOS, MS Windows
+  const char* const EOLDOSA = "\r\n"; //CR LF pair is end of line in DOS
+  const char* const EOLWINA = "\r\n"; //CR LF pair is end of line in MS Windows
   #ifdef _UNICODE
     #ifndef _WCHAR_T_DEFINED
       typedef unsigned short wchar_t;
       #define wchar_t wchar_t
       #define _WCHAR_T_DEFINED
     #endif
-    const wchar_t* const EOLDOSW = L"\r\n"; //CR LF pair is end of line in DOS, MS Windows
-    const wchar_t* const EOLWINW = L"\r\n"; //CR LF pair is end of line in DOS, MS Windows
+    const wchar_t* const EOLDOSW = L"\r\n"; //CR LF pair is end of line in DOS
+    const wchar_t* const EOLWINW = L"\r\n"; //CR LF pair is end of line in MS Windows
     #define EOLDOS EOLDOSW
     #define EOLWIN EOLWINW
   #else
@@ -266,6 +266,10 @@
   #endif
   #ifdef _MAC
     const int EOL = EOLMAC; //end of line (MacOS)
+  #else
+     const int EOL = LF;    //end of line
+     //Note: EOL is pair of characters CR, LF; Microsoft Windows 
+     //specific (Win, DOS).
   #endif
 
 #endif /*!_cplusplus                                                          */
