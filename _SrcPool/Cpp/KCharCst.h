@@ -255,15 +255,6 @@
     #define EOLWIN EOLWINA
   #endif
 
-  #ifdef _WIN32
-    const int EOL = LF; //end of line (previous character is CR)
-  #endif
-  #ifdef WIN16
-    const int EOL = LF; //end of line (previous character is CR)
-  #endif
-  #ifdef _MSDOS
-    const int EOL = LF; //end of line (previous character is CR)
-  #endif
   #ifdef _MAC
     const int EOL = EOLMAC; //end of line (MacOS)
   #else
