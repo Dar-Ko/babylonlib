@@ -1,5 +1,5 @@
 /*$RCSfile: KUpdatePnPDrv.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2011/08/18 21:27:15 $
+  $Revision: 1.2 $ $Date: 2011/08/18 21:32:06 $
   Device Console
   command-line interface for managing devices
   $Author: ddarko $
@@ -9,6 +9,11 @@
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
 #include <windows.h>
+
+#ifdef _USE_SETUPAPI
+  #include <setupapi.h>
+  #pragma comment(lib, "setupapi") //Setup application programming interface 
+#endif
 
 #include <api/newdev.h>  /*WDK 6000: Driver Installation header
          Available in Microsoft Windows 2000 and later versions of Windows.*/
@@ -245,7 +250,10 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KUpdatePnPDrv.cpp,v $
+ * Revision 1.2  2011/08/18 21:32:06  ddarko
+ * link with setupapi.lib
+ *
  * Revision 1.1  2011/08/18 21:27:15  ddarko
- * Created  from several WDK examples
+ * Created from several WDK examples
  *
  *****************************************************************************/
