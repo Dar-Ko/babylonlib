@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.1 $ $Date: 2011/08/09 20:34:43 $
+  $Revision: 1.2 $ $Date: 2011/08/18 21:25:23 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -8,17 +8,55 @@
  */
 
 #ifndef _KDLL_H_
-  //KCrc32.h sentry
+  //$RCSfile: KDll.h,v $ sentry
   #define _KDLL_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
 #endif
 
-#ifndef HINSTANCE
-  #define HINSTANCE int
-#endif
- 
+
+#ifdef _WIN32
+  #ifndef _ASSERT
+    #include <crtdbg.h>
+  #endif
+
+  #ifndef TRACE 
+    #ifdef _UNICODE
+      #define TRACE(msg) _RPTW0(_CRT_WARN, msg)
+    #else
+      #define TRACE(msg) _RPT0(_CRT_WARN, msg)
+    #endif
+  #endif TRACE
+
+  #ifndef TRACE1 
+    #ifdef _UNICODE
+      #define TRACE1(msg, arg1) _RPTW1(_CRT_WARN, msg, arg1)
+    #else
+      #define TRACE1(msg, arg1) _RPT1(_CRT_WARN, msg, arg1)
+    #endif
+  #endif TRACE1
+
+  #ifndef TRACE2 
+    #ifdef _UNICODE
+      #define TRACE2(msg, arg1, arg2) _RPTW2(_CRT_WARN, msg, arg1, arg2)
+    #else
+      #define TRACE2(msg, arg1, arg2) _RPT2(_CRT_WARN, msg, arg1, arg2)
+    #endif
+  #endif //TRACE2
+
+  #ifndef _T
+    #define _T(Text) TEXT(Text)
+  #endif
+
+#else //!WIN32
+
+  #ifndef HINSTANCE
+    #define HINSTANCE int
+  #endif
+
+#endif //_WIN32
+
 ///////////////////////////////////////////////////////////////////////////////
 //Helper class encapsulating a Dynamic-Link Library (DLL) loading.
 // 
@@ -27,17 +65,17 @@ class CDll
 public:
   CDll();
   CDll(LPCTSTR szDllName);
-  ~CDLL();
+  ~CDll();
   bool Load(LPCTSTR szDllName);
-  void Free();
+  bool Free();
   bool IsOpen() const;
   operator HINSTANCE() const;
 protected:
   HINSTANCE m_hLibrary; //handle to the module
   
 private:
-  CDll(const TDll&);
-  CDll& operator=(const TDll&);
+  CDll(const CDll&);
+  CDll& operator=(const CDll&);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -59,7 +97,7 @@ Load(szDllName);
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Destructor
  */
 inline CDll::~CDll()
 {
@@ -89,9 +127,10 @@ bool CDll::Load(LPCTSTR szDllName //[in] null-terminated string that names
  //Reload the library
 Free();
 #ifndef _WIN16
-  m_hLibrary = ::LoadLibrary(szDllName);
+  _ASSERT(sizeof(HINSTANCE) == sizeof(HMODULE));
+  m_hLibrary = static_cast<HINSTANCE>(::LoadLibrary(szDllName));
 #else
-  m_hLibrary = (HINSTANCE)::LoadLibraryEx32W(szDllName, NULL, 0);
+  m_hLibrary = (HMODULE)::LoadLibraryEx32W(szDllName, NULL, 0);
 #endif
 
 #ifdef _DEBUG
@@ -109,19 +148,26 @@ return IsOpen();
  */
 inline bool CDll::IsOpen() const
 {
-return (m_hLibrary > NULL);
+return (m_hLibrary > NULL); //>= (HINSTANCE)32
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*This function decrements the reference count of the loaded DLL module. 
+  When the reference count reaches zero, the module is unmapped from the address
+  space of the calling process. 
  */
-inline void Free()
+inline bool CDll::Free()
 {
-if (m_hLibrary > NULL) //>= (HINSTANCE)32
+if (IsOpen())
   {
-  ::FreeLibrary(m_hLibrary);
-  m_hLibrary = NULL;
+  if (::FreeLibrary(m_hLibrary) == FALSE)
+    {
+    //TODO GetLastError()
+    return false;  
+    }
+   m_hLibrary = NULL; //FixMe: Even if it is handle < 32
   }
+return true;
 }
 #endif //_Win32 specific
 
@@ -129,6 +175,9 @@ if (m_hLibrary > NULL) //>= (HINSTANCE)32
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.2  2011/08/18 21:25:23  ddarko
+ *Added quick fix for TRACE
+ *
  *Revision 1.1  2011/08/09 20:34:43  ddarko
  *Commited 1st version
  *
