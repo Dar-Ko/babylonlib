@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.2 $ $Date: 2011/08/18 21:25:23 $
+  $Revision: 1.3 $ $Date: 2011/09/15 21:23:19 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -91,7 +91,8 @@ inline CDll::CDll() :
 
 inline CDll::CDll(LPCTSTR szDllName //[in] null-terminated string that names 
                                     //the DLL file. 
-                  ) 
+                  ) :
+   m_hLibrary(NULL)
 {
 Load(szDllName);
 }
@@ -126,6 +127,7 @@ bool CDll::Load(LPCTSTR szDllName //[in] null-terminated string that names
 {
  //Reload the library
 Free();
+
 #ifndef _WIN16
   _ASSERT(sizeof(HINSTANCE) == sizeof(HMODULE));
   m_hLibrary = static_cast<HINSTANCE>(::LoadLibrary(szDllName));
@@ -133,14 +135,49 @@ Free();
   m_hLibrary = (HMODULE)::LoadLibraryEx32W(szDllName, NULL, 0);
 #endif
 
-#ifdef _DEBUG
-  if (!IsOpen())
+DWORD dwErr = ::GetLastError();
+TRACE2(_T("  ::LoadLibrary(%s) GetLastError = 0x%X.\n"), szDllName, dwErr);
+
+if (!IsOpen())
+  {
+  TRACE2(_T("CDll::Load(%s) failed (Error 0x%X)\n"), szDllName, dwErr);
+  if(dwErr == ERROR_MOD_NOT_FOUND)
     {
-    DWORD dwErr = ::GetLastError();
-    TRACE2(_T("CDll::Load(%S) failed (Error 0x%X)\n"), szDllName, dwErr);
+    /*BUG: LoadLibrary and LoadLibraryEx Functions Fail If Directory Name Contains
+           a Period.
+      Windows specific
+      
+      The LoadLibrary or the LoadLibraryEx function may fail with error 126
+      (ERROR_MOD_NOT_FOUND) if a directory name in the path contains a period.
+      According to the Microsoft Platform Software Development Kit (SDK) 
+      documentation for LoadLibrary and LoadLibraryEx, if you do not include the
+      file name extension with the file name, the system tries to load a file with
+      no extension. If such a file does not exist, the .dll extension is appended 
+      to the file name, and the system tries to load the file again.
+      The error occurs only if the directory in the path that is passed to 
+      LoadLibrary or LoadLibraryEx contains a period (.) and if no extension is 
+      appended to the .dll file name.
+      To work around this problem, specify a fully qualified file name that includes
+      the file name extension:
+          hDll = LoadLibrary("C:\\MY.DLLs\\ABC.DLL");
+      instead 
+          hDLL = LoadLibrary("C:\\MY.DLLs\\ABC"); //Failed with ERROR_MOD_NOT_FOUND
+       Ref:. MSDN Article ID: 324468
+     */
+     TRACE(_T("  The specified module could not be found!\n"));
+     }
+  return false; //Failure
+  }
+else
+  {
+  if(dwErr == ERROR_BAD_EXE_FORMAT)
+    {
+    //TODO: Why some dlls return follwing status:
+    //"not a valid Win32 application. 193(0x00C1)"?
+    SetLastError(NO_ERROR);
     }
-#endif
-return IsOpen();
+  return true; //Success
+  }
 }
 
 //-----------------------------------------------------------------------------
@@ -162,6 +199,10 @@ if (IsOpen())
   {
   if (::FreeLibrary(m_hLibrary) == FALSE)
     {
+    #ifdef _DEBUG
+      DWORD dwError = GetLastError();
+      TRACE2(TEXT("  FreeLibrary(%08X) failed 0x%08x!\n"), m_hLibrary, dwError);
+    #endif
     //TODO GetLastError()
     return false;  
     }
@@ -175,6 +216,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.3  2011/09/15 21:23:19  ddarko
+ *Constructor initialization
+ *
  *Revision 1.2  2011/08/18 21:25:23  ddarko
  *Added quick fix for TRACE
  *
@@ -182,26 +226,3 @@ return true;
  *Commited 1st version
  *
  *****************************************************************************/
-
-/*BUG: LoadLibrary and LoadLibraryEx Functions Fail If Directory Name Contains
-       a Period.
-  Windows specific
-  
-  The LoadLibrary or the LoadLibraryEx function may fail with error 126
-  (ERROR_MOD_NOT_FOUND) if a directory name in the path contains a period.
-  According to the Microsoft Platform Software Development Kit (SDK) 
-  documentation for LoadLibrary and LoadLibraryEx, if you do not include the
-  file name extension with the file name, the system tries to load a file with
-  no extension. If such a file does not exist, the .dll extension is appended 
-  to the file name, and the system tries to load the file again.
-  The error occurs only if the directory in the path that is passed to 
-  LoadLibrary or LoadLibraryEx contains a period (.) and if no extension is 
-  appended to the .dll file name.
-  To work around this problem, specify a fully qualified file name that includes
-  the file name extension:
-      hDll = LoadLibrary("C:\\MY.DLLs\\ABC.DLL");
-  instead 
-      hDLL = LoadLibrary("C:\\MY.DLLs\\ABC"); //Failed with ERROR_MOD_NOT_FOUND
-   Ref:. MSDN Article ID: 324468
- */
- 
