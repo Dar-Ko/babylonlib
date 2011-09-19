@@ -1,5 +1,5 @@
 /*$RCSfile: KUpdatePnPDrv.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2011/08/18 21:32:06 $
+  $Revision: 1.3 $ $Date: 2011/09/19 22:42:27 $
   Device Console
   command-line interface for managing devices
   $Author: ddarko $
@@ -168,20 +168,21 @@ if(!bResult)
         if (!bResult)
           {
           dwError = GetLastError();
+          TRACE1(TEXT("  SetupCopyOEMInf()\n"), dwError);
           switch (dwError)
             {
             case ERROR_FILE_NOT_FOUND:
               {
-              TRACE(TEXT("  ERROR_FILE_NOT_FOUND\n"));
+              TRACE(TEXT("    (2) ERROR_FILE_NOT_FOUND\n"));
               break;
               }
             case ERROR_FILE_EXISTS:
               {
-              TRACE(TEXT("  ERROR_FILE_EXISTS\n"));
+              TRACE(TEXT("    ERROR_FILE_EXISTS\n"));
               break;
               }
             default:
-              TRACE1(TEXT("  SetupCopyOEMInf()\n    ERROR: 0x%X.\n"), dwError);
+              TRACE1(TEXT("    ERROR: 0x%X.\n"), dwError);
             }
           }
         else
@@ -250,6 +251,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KUpdatePnPDrv.cpp,v $
+ * Revision 1.3  2011/09/19 22:42:27  ddarko
+ * Debug trace
+ *
  * Revision 1.2  2011/08/18 21:32:06  ddarko
  * link with setupapi.lib
  *
