@@ -1,5 +1,5 @@
 /*$Workfile: KUsbHub.cpp$: implementation file
-  $Revision: 1.31 $ $Date: 2009/09/10 21:41:03 $
+  $Revision: 1.32 $ $Date: 2011/09/19 22:45:10 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) Host Controller
@@ -120,8 +120,11 @@ return iCount;
       else
         printf(_T("Microsoft Basic Optical Mouse is disconnected.\n"));
 
+  Note: To view Hidden Devices in the Windows XP device manager:
+    1.  Add environment variable SET DEVMGR_SHOW_NONPRESENT_DEVICES=1
+    2.  set Computer Management | Device Manager | View Menu | Show Hidden Devices
 
-  See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId,
+    See also: USB Implementers Forum, Inc (USB-IF) at http://www.usb.org; CUsbId,
   SP_DEVICE_INTERFACE_DETAIL_DATA, SP_DEVINFO_DATA, <setupapi.h>,
   CUsbDeviceTree::HasDevice(), CUsbHub::Find();
  */
@@ -1065,6 +1068,9 @@ return szResult;
 
 /*****************************************************************************
  * $Log: KWinUsbHub.cpp,v $
+ * Revision 1.32  2011/09/19 22:45:10  ddarko
+ * Comment
+ *
  * Revision 1.31  2009/09/10 21:41:03  ddarko
  * Fixed search for VID with 2 same external hubs
  *
