@@ -591,6 +591,7 @@ if (IsVersionInfo())
   }
 return -1;
 }
+
 //::GetCompanyName()-------------------------------------------------------------
 /*If successful returns TRUE and Company Name entry, otherwise returns FALSE.
  */
@@ -815,6 +816,10 @@ return TRUE;
       DWORD dwFileDateLS;       //the least significant 32 bits of the file's 64-bit
                                 //creation date and time stamp
       };
+  
+    For example the flag value VS_FF_DEBUG in the file's VS_FIXEDFILEINFO block,
+    which is built from the VERSIONINFO resource in a Win32 resource file,
+    reflects the Debug build.
 
   Returns: TRUE if successful, otherwise returns FALSE.
 
