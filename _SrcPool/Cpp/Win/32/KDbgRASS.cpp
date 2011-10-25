@@ -26,12 +26,13 @@
   static char THIS_FILE[] = __FILE__;
 #endif
 
-#ifndef _T
-  #if !defined _MBCS && !defined _UNICODE
-      /*ASCII character (8-bit)*/
-    #define _T(x)      x
+#ifndef KCONSTCASE
+  #ifdef _UNICODE
+    #define KCONSTCASE(idVal) \
+      KCONSTCASE(idVal: szResult = L#idVal; break;
   #else
-    #define _T(x)      L ## x
+    #define KCONSTCASE(idVal) \
+      KCONSTCASE(idVal: szResult = #idVal; break;
   #endif
 #endif
 
@@ -42,34 +43,36 @@
  */
 LPTSTR DumpRASConnState(const RASCONNSTATE& rasState)
 {
+LPTSTR szResult = NULL;
 switch (rasState)
   {
-  case RASCS_OpenPort           : return _T("RASCS_OpenPort");
-  case RASCS_PortOpened         : return _T("RASCS_PortOpened");
-  case RASCS_ConnectDevice      : return _T("RASCS_ConnectDevice");
-  case RASCS_DeviceConnected    : return _T("RASCS_DeviceConnected");
-  case RASCS_AllDevicesConnected: return _T("RASCS_AllDevicesConnected");
-  case RASCS_Authenticate       : return _T("RASCS_Authenticate");
-  case RASCS_AuthNotify         : return _T("RASCS_AuthNotify");
-  case RASCS_AuthRetry          : return _T("RASCS_AuthRetry");
-  case RASCS_AuthCallback       : return _T("RASCS_AuthCallback");
-  case RASCS_AuthChangePassword : return _T("RASCS_AuthChangePassword");
-  case RASCS_AuthProject        : return _T("RASCS_AuthProject");
-  case RASCS_AuthLinkSpeed      : return _T("RASCS_AuthLinkSpeed");
-  case RASCS_AuthAck            : return _T("RASCS_AuthAck");
-  case RASCS_ReAuthenticate     : return _T("RASCS_ReAuthenticate");
-  case RASCS_Authenticated      : return _T("RASCS_Authenticated");
-  case RASCS_PrepareForCallback : return _T("RASCS_PrepareForCallback");
-  case RASCS_WaitForModemReset  : return _T("RASCS_WaitForModemReset");
-  case RASCS_WaitForCallback    : return _T("RASCS_WaitForCallback");
-  case RASCS_Interactive        : return _T("RASCS_Interactive");
-  case RASCS_RetryAuthentication: return _T("RASCS_RetryAuthentication");
-  case RASCS_CallbackSetByCaller: return _T("RASCS_CallbackSetByCaller");
-  case RASCS_PasswordExpired    : return _T("RASCS_PasswordExpired");
-  case RASCS_Connected          : return _T("RASCS_Connected");
-  case RASCS_Disconnected       : return _T("RASCS_Disconnected");
+  KCONSTCASE(RASCS_OpenPort           );
+  KCONSTCASE(RASCS_PortOpened         );
+  KCONSTCASE(RASCS_ConnectDevice      );
+  KCONSTCASE(RASCS_DeviceConnected    );
+  KCONSTCASE(RASCS_AllDevicesConnected);
+  KCONSTCASE(RASCS_Authenticate       );
+  KCONSTCASE(RASCS_AuthNotify         );
+  KCONSTCASE(RASCS_AuthRetry          );
+  KCONSTCASE(RASCS_AuthCallback       );
+  KCONSTCASE(RASCS_AuthChangePassword );
+  KCONSTCASE(RASCS_AuthProject        );
+  KCONSTCASE(RASCS_AuthLinkSpeed      );
+  KCONSTCASE(RASCS_AuthAck            );
+  KCONSTCASE(RASCS_ReAuthenticate     );
+  KCONSTCASE(RASCS_Authenticated      );
+  KCONSTCASE(RASCS_PrepareForCallback );
+  KCONSTCASE(RASCS_WaitForModemReset  );
+  KCONSTCASE(RASCS_WaitForCallback    );
+  KCONSTCASE(RASCS_Interactive        );
+  KCONSTCASE(RASCS_RetryAuthentication);
+  KCONSTCASE(RASCS_CallbackSetByCaller);
+  KCONSTCASE(RASCS_PasswordExpired    );
+  KCONSTCASE(RASCS_Connected          );
+  KCONSTCASE(RASCS_Disconnected       );
   default: return _T("Unknown RAS Status");
   }
+return szResult;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
