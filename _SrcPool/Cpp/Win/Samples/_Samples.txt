@@ -37,3 +37,53 @@ Microsoft Visual Studio format versions
 	2003  7.1    	   7.1     	    8.0    	xxx8.sln <- xxx7.vcproj
 	2005  8.0    	   8.0     	    9.0    	xxx9.sln <- xxx8.vcproj
 	2008  9.0    	   9.0     	   10.0    	 xxx.sln <-  xxx.vcproj working version
+
+
+Partial Assembly failed for Microsoft.VC80 CRT
+---------------------------------------------------
+While running the debug (or release) version of the application, following message apears:
+  "This application has failed to start because the application configuration is incorrect.
+    Reinstalling the application may fix this problem."
+
+Event log have next entries:
+  "Resolve Partial Assembly failed for Microsoft.VC80.DebugCRT.
+   Reference error message: The referenced assembly is not installed on your system."
+and
+  "Generate Activation Context failed for \\?\C:\ISAPI\Content Control\IIS_Content_Control.dll.
+   Reference error message: The referenced assembly is not installed on your system."
+
+When Visual Studio is installed, these libraries are place in the Windows Side-By-Side (SxS)
+assembly cache, meaning they will always be found by an application when run on the machine
+with MSVC installed.
+The merge modules (.msm) should also be doing the same thing. 
+It is possible that the merge modules are for an older version of the CRT/MFC runtimes.
+If this is the case, rebuild application with current version of CRT libraries.
+
+Solution:
+  - Debug build
+    1. Install Visual Studio 2005 on the target machine. 
+       This will install the necessary MSVCR80D.DLL etc to the WinSxS folder or
+    2. copy the contents (including manifest) of the
+        %PROGFILES%\microsoft visual studio 8\vc\redist\Debug_NonRedist\x86\Microsoft.VC80.DebugCRT
+       and
+        %PROGFILES%\microsoft visual studio 8\vc\redist\Debug_NonRedist\x86\Microsoft.VC80.DebugMFC
+       folders to the same folder as your built DLL.
+    3. Create a small setup that includes microsoft_vc80_debugcrt_x86.msm MSM merge module from
+       "%PROGFILES%\common files\merge modules\" directory and run created setup on the target machine.
+       Ref.: http://msdn2.microsoft.com/en-us/library/ms235285(en-US,VS.80).aspx
+
+  - Release build
+    1. Install MSVC80 CRT assembly on the target machine by executing vcredist_x86.exe from
+        %PROGFILES%Microsoft Visual Studio 8\SDK\v2.0\BootStrapper\Packages\vcredist_x86\
+    2. Copy the contents of 
+        %PROGFILES%\Microsoft Visual Studio 8\VC\redist\x86\Microsoft.VC80.MFC 
+       to the same folder as your DLL.
+    3. Create a small setup that includes Microsoft_VC80_MFC_x86.msm MSM merge module from
+       "%PROGFILES%\common files\merge modules\" directory and run created setup on the target machine.
+       To create setup project:
+        a. open Visual Studio and created a Regular Setup Project
+        b. add the required Merge Modules (.msm) from "%PROGFILES%\common files\merge modules\" 
+           to the project
+        c. buid the deployment project
+
+
