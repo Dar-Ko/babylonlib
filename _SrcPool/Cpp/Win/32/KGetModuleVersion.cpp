@@ -1,5 +1,5 @@
 /*$RCSfile: KGetModuleVersion.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2011/09/19 22:44:03 $
+  $Revision: 1.2 $ $Date: 2011/11/03 00:07:44 $
   $Author: ddarko $
 
   Retrieve file version of a module.
@@ -53,12 +53,20 @@ if ((szModuleName == NULL) || (szModuleName[0] == _T('\0')))
 
 TRACE1(_T("GetModuleVersion(%s)"), szModuleName);
 uint32 dwHandle = 0; 
-uint32 nLength = GetFileVersionInfoSize(szModuleName, &dwHandle);
+
+#if _MSC_VER > 1200
+  LPCTSTR& pModuleName = szModuleName;
+#else //MSVC 6.0
+  LPTSTR pModuleName = const_cast<LPTSTR>(szModuleName);
+#endif
+
+uint32 nLength = GetFileVersionInfoSize(pModuleName, &dwHandle);
+
 if (nLength > 0)
   {
   LPBYTE lpVersionInfo = (LPBYTE)new char[nLength];
   ASSERT(lpVersionInfo != NULL);
-  if (GetFileVersionInfo( szModuleName, 0, nLength, lpVersionInfo) == TRUE)
+  if (GetFileVersionInfo( pModuleName, 0, nLength, lpVersionInfo) == TRUE)
     {
     VS_FIXEDFILEINFO* pFileInfo = NULL;
     UINT nFileInfoSize = 0;
@@ -83,6 +91,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KGetModuleVersion.cpp,v $
+ * Revision 1.2  2011/11/03 00:07:44  ddarko
+ * MSVC 6.0 build
+ *
  * Revision 1.1  2011/09/19 22:44:03  ddarko
  * Moved from old repository
  *
