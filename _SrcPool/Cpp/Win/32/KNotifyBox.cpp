@@ -1,5 +1,5 @@
 /*$Workfile: KStaticEx.cpp$: implementation file
-  $Revision: 1.1 $ $Date: 2011/10/03 20:34:17 $
+  $Revision: 1.2 $ $Date: 2011/12/22 16:15:25 $
   $Author: ddarko $
 
   Defines the class behavior.
@@ -16,6 +16,8 @@
   #undef THIS_FILE
   static char THIS_FILE[] = __FILE__;
 #endif
+
+#ifndef _USE_MSFLUENUI_ //Microsoft Fluent UI
 
 ///////////////////////////////////////////////////////////////////////////////
 // CNotifyBox class
@@ -46,6 +48,7 @@ TRACE0(_TEXT("CNotifyBox::CNotifyBox()\n"));
  */
 CNotifyBox::~CNotifyBox()
 {
+TRACE0(_TEXT("CNotifyBox::~CNotifyBox()\n"));
 }
 
 //-----------------------------------------------------------------------------
@@ -80,8 +83,12 @@ delete this;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+#endif //_USE_MSFLUENUI_ Microsoft Fluent UI
 /*****************************************************************************
  * $Log: KNotifyBox.cpp,v $
+ * Revision 1.2  2011/12/22 16:15:25  ddarko
+ * Microsoft Fluent UI implementation
+ *
  * Revision 1.1  2011/10/03 20:34:17  ddarko
  * Created
  *
