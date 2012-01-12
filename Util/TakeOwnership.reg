@@ -1,0 +1,36 @@
+Windows Registry Editor Version 5.00
+;$RCSfile: TakeOwnership.reg,v $: Windows Registry configuration file
+;$Revision: 1.1 $ $Date: 2012/01/12 18:18:40 $
+;$Author: ddarko $
+;
+;Insert File Ownership menu items in the Windows Explorer context menu.
+;Requires regedit.exe.
+;Note: WinVista specific, Win7 specific;
+;2010-12-19 Darko Kolakovic
+
+;Add "Take Ownership" shell menu items
+[HKEY_CLASSES_ROOT\*\shell\runas]
+@="Take Ownership"
+"NoWorkingDirectory"=""
+
+[HKEY_CLASSES_ROOT\*\shell\runas\command]
+@="cmd.exe /c takeown /f \"%1\" && icacls \"%1\" /grant administrators:F"
+"IsolatedCommand"="cmd.exe /c takeown /f \"%1\" && icacls \"%1\" /grant administrators:F"
+
+[HKEY_CLASSES_ROOT\Directory\shell\runas]
+@="Take Ownership"
+"NoWorkingDirectory"=""
+
+[HKEY_CLASSES_ROOT\Directory\shell\runas\command]
+@="cmd.exe /c takeown /f \"%1\" /r /d y && icacls \"%1\" /grant administrators:F /t"
+"IsolatedCommand"="cmd.exe /c takeown /f \"%1\" /r /d y && icacls \"%1\" /grant administrators:F /t"
+
+;Remove "Take Ownership" shell menu items
+;[-HKEY_CLASSES_ROOT\*\shell\runas]
+;[-HKEY_CLASSES_ROOT\Directory\shell\runas]
+
+;------------------------------------------------------------------------------
+;$Log: TakeOwnership.reg,v $
+;Revision 1.1  2012/01/12 18:18:40  ddarko
+;Moved to repository
+;
