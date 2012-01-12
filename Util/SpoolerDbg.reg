@@ -1,0 +1,28 @@
+REGEDIT4
+;$RCSfile: SpoolerDbg.reg,v $: Windows Registry configuration file
+;$Revision: 1.1 $ $Date: 2012/01/12 17:58:06 $
+;$Author: ddarko $
+;
+;Enable enhanced spooler debugging
+;Requires regedit.exe.
+;Note: Win32 specific;
+;2010-12-19 Darko Kolakovic
+
+;Enable enhanced spooler debugging
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\VEHEnabled]
+@="Enable Print Verifier Log Files"
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\VEHDbgBreakOnFatalVEHCode]
+@="Enable Print Verifier Debug Break"
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\VEHReportFaultOnFatalVEHCode]
+@="Enable Print Verifier Debug Break Reporting"
+
+;Disable enhanced spooler debugging
+;[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\VEHEnabled]
+;[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\VEHDbgBreakOnFatalVEHCode]
+;[-HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Print\VEHReportFaultOnFatalVEHCode]
+
+;------------------------------------------------------------------------------
+;$Log: SpoolerDbg.reg,v $
+;Revision 1.1  2012/01/12 17:58:06  ddarko
+;Moved to repository
+;
