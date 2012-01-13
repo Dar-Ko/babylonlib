@@ -1,4 +1,4 @@
-/*$Workfile: KOStream.h$: header file
+/*$RCSfile: KOStream.h$: header file
   $Revision: 17$ $Date: 2007-07-16 18:02:59$
   $Author: Darko Kolakovic$
 
@@ -8,7 +8,7 @@
  */
 
 #ifndef _KOSTREAM_H_
-    //$Workfile: KOStream.h$ sentry
+    //$RCSfile: KOStream.h$ sentry
   #define _KOSTREAM_H_
 
 #ifndef __cplusplus
@@ -111,6 +111,8 @@
   #endif
   typedef std::wostringstream tostringstream;
   typedef std::wistringstream tistringstream;
+  typedef std::wstringstream   tstringstream;
+
     //Provides a stream interface to read or write characters from or to strings.
   typedef std::wstreambuf     tstreambuf;
     //Performs output operations with a stream buffer.
@@ -140,6 +142,7 @@
   #endif
   typedef std::ostringstream tostringstream;
   typedef std::istringstream tistringstream;
+  typedef std::stringstream  tstringstream;
   typedef std::streambuf     tstreambuf;
   typedef std::ostream       tostream;
   typedef std::istream       tistream;
@@ -158,7 +161,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
- * $Log:
+ * $Log: $
  *  17   Biblioteka1.16        2007-07-16 18:02:59  Darko Kolakovic ToDo!
  *  16   Biblioteka1.15        2007-07-10 17:54:46  Darko Kolakovic pragma
  *  15   Biblioteka1.14        2007-05-03 15:50:12  Darko Kolakovic KSTL_IO 1400
@@ -182,5 +185,4 @@
  *  3    Biblioteka1.2         2003-09-22 22:26:26  Darko           formatting
  *  2    Biblioteka1.1         2003-09-22 21:26:34  Darko           Unicode
  *  1    Biblioteka1.0         2003-09-22 18:34:47  Darko
- * $
  *****************************************************************************/
