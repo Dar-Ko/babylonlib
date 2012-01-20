@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="Utf-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20001102//EN"   "http://www.w3.org/TR/2000/CR-SVG-20001102/DTD/svg-20001102.dtd">
 <!--
-  $Workfile: KDocument.svg$: Scalable Vector Graphics (SVG) Resource file
-  $Revision: 1$ $Date: 2005-08-03 13:33:15$
+  $RCSfile: KDocument.svg$: Scalable Vector Graphics (SVG) Resource file
+  $Revision: 2$ $Date: 22/08/2007 10:49:02 AM$
   $Author: Darko Kolakovic$
 
   HTML Document layout
@@ -22,7 +22,8 @@
   </g>
 <!-- ===========================================================================
  $Log: 
-  1    Biblioteka1.0         2005-08-03 13:33:15  Darko Kolakovic 
+  2    Biblioteka1.1         22/08/2007 10:49:02 AMDarko Kolakovic Time
+  1    Biblioteka1.0         03/08/2005 1:33:15 PMDarko Kolakovic 
  $
  -->
 </svg>
