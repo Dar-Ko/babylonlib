@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstLin.h,v $: header file
-  $Revision: 1.1 $ $Date: 2012/01/20 21:01:45 $
+  $Revision: 1.2 $ $Date: 2012/01/20 21:03:45 $
   $Author: ddarko $
 
   Constants used in conjuncture with Linux environment
@@ -17,7 +17,7 @@
 
   #ifndef _KLINUX
     #if defined(linux) || defined(__linux) || defined(__linux__)
-      /*Defined whan target OS is Linux. */
+      /*Defined when target OS is Linux. */
       #define _KLINUX  1
     #endif
   #endif  /!_KLINUX
@@ -35,6 +35,9 @@
 #endif  /*__KPROGCSTLIN_H__*/
 /*****************************************************************************
  * $Log: KProgCstLin.h,v $
+ * Revision 1.2  2012/01/20 21:03:45  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.1  2012/01/20 21:01:45  ddarko
  * Created
  *
