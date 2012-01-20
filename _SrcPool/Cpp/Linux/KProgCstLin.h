@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstLin.h,v $: header file
-  $Revision: 1.2 $ $Date: 2012/01/20 21:03:45 $
+  $Revision: 1.3 $ $Date: 2012/01/20 22:08:56 $
   $Author: ddarko $
 
   Constants used in conjuncture with Linux environment
@@ -26,6 +26,10 @@
   /*/////////////////////////////////////////////////////////////////////////*/
   /* Global macros                                                           */
 
+  #ifndef INVALID_HANDLE_VALUE
+    /*Invalid value of the handle to an object.     */
+    #define INVALID_HANDLE_VALUE ((int)-1)
+  #endif
   #ifndef IS_HANDLE_VALID
     /*Validates a handle to an object.     */
     #define IS_HANDLE_VALID(handle)  ((int)handle > 0)
@@ -35,6 +39,9 @@
 #endif  /*__KPROGCSTLIN_H__*/
 /*****************************************************************************
  * $Log: KProgCstLin.h,v $
+ * Revision 1.3  2012/01/20 22:08:56  ddarko
+ * INVALID_HANDLE_VALUE
+ *
  * Revision 1.2  2012/01/20 21:03:45  ddarko
  * *** empty log message ***
  *
