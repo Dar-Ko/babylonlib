@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.11 $ $Date: 2011/05/10 18:42:35 $
+  $Revision: 1.12 $ $Date: 2012/01/26 16:23:16 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -155,11 +155,6 @@
   #define _get_errno(perr) (*perr = errno)
 #endif
 
-
-/*Note   When porting DLL source code from Win16 to Win32, replace each instance
-  of __export with __declspec(dllexport).
- */
-
 /*Microsoft 16-bit compiler---------------------------------------------------*/
 #ifdef MSC        /*Microsoft C - Windows 3.0 Compiler 16-bit*/
   #define _KMSVC16 1630
@@ -179,6 +174,9 @@
     Microsoft Windows operating system without listing the name of the function
     in the EXPORTS section of the DLL's module definition (.DEF) file.
 
+    Note:When porting DLL source code from Win16 to Win32, replace each instance
+    of __export with __declspec(dllexport).
+    
     Specific to Microsoft C/C++ Optimizing Compiler v7.0+
    */
   #define _KEXPORTDECL  __export
@@ -207,7 +205,7 @@
     Note   When porting DLL source code from Win16 to Win32, replace each instance
     of __export with _KEXPORTDECL.
      .
-    See also: _KIMPORTDECL, _KINEXDECL,._USE_EXPORT, __declspec, dllexport
+    See also: _KIMPORTDECL, _KINEXDECL, _USE_EXPORT, __declspec, dllexport
    */
   #define _KEXPORTDECL  __declspec(dllexport)
 #endif
@@ -215,7 +213,7 @@
   /*This storage-class specification explicitly define the object as external to
     DLL's client, which can be the executable file or another DLL.
 
-    See also: _KEXPORTDECL, _KINEXDECL,._USE_EXPORT, __declspec, dllimport
+    See also: _KEXPORTDECL, _KINEXDECL, _USE_EXPORT, __declspec, dllimport
    */
    #define _KIMPORTDECL  __declspec(dllimport)
 #endif
@@ -237,7 +235,7 @@
         _KINEXDECL return_type <function name>
         _KINEXDECL data_type <data name>
 
-      See also: _KEXPORTDECL, _KIMPORTDECL,._USE_EXPORT, __declspec, dllexport,
+      See also: _KEXPORTDECL, _KIMPORTDECL, _USE_EXPORT, __declspec, dllexport,
       dllimport
      */
     #define _KINEXDECL _KEXPORTDECL
@@ -291,6 +289,9 @@ typedef union tagSTATUS8
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.12  2012/01/26 16:23:16  ddarko
+ * Comments
+ *
  * Revision 1.11  2011/05/10 18:42:35  ddarko
  * C99 stdint
  *
