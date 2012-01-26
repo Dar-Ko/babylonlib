@@ -720,40 +720,16 @@ const unsigned long GiB = 0x40000000UL;
   #include "KProgCstMsvc.h"
 #endif /*_MSC_VER*/
 #if defined(__GNUC__) /*GNU C/C++ Compiler                                   */
-  //#include "KProgCstGnuc.h" TODO:
+  #include "KProgCstGnuc.h"
 #endif
 #if defined(__MWERKS__) /*Metrowerks Code Warrior C/C++ Compiler             */
   //#include "KProgCstMwcw.h" TODO:
 #endif
 
-#ifndef _UNUSED
-  /*Resolves the compiler warning about unused arguments
-
-    Example:
-        void main (int x, int y)
-        {
-        _UNUSED(y);
-        x = 3;
-        ...
-        }
-   */
-  #define _UNUSED(x) ((void)x)
-#endif
-
 #ifndef UNUSED_ARG
-  #if defined(__GNUC__) //TODO: Move to KProgCstGnuc.h D.K.
-    /*GNU C/C++ */
-    #if !defined(__cplusplus)
-      /*Attribute of unused function arguments */
-      #define UNUSED_ARG(param) param __attribute__((__unused__))
-    #else
-      //GNU C++ doesn't support this attribute
-      #define UNUSED_ARG
-    #endif
-  #endif /*__GNUC__*/
 //  #define UNUSED_ARG(param) do {/* null */} while (&param == 0)
 //  #define UNUSED_ARG(param) param = *(&param);
-  #if defined(__MWERKS__)
+  #if defined(__MWERKS__)//TODO: Move to KProgCstMwcw.h D.K.
     /*Metrowerks Code Warrior*/
     #define UNUSED_ARG(param)    &(param)
   #endif
