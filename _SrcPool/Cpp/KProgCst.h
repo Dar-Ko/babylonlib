@@ -639,15 +639,29 @@ const unsigned long GiB = 0x40000000UL;
  /*Returns 32-bit value with high word initialized with given constant.
    Low word is initialized to zero.
   */
-  #define MAKEHIWORD(x) ( ((DWORD)((WORD)(x))) << 16 )
+  #define MAKEHIWORD(x) ( ((uint32_t)((uint16_t)(x))) << 16 )
 
  /*Returns 32-bit value with low word initialized with given constant.
    High word is initialized to zero.
   */
-  #define MAKELOWORD(x) ((DWORD)((WORD)(x)))
+  #define MAKELOWORD(x) ((uint32_t)((uint16_t)(x)))
+  #ifndef LOWORD
+    /*Returns the low-order word from the given 32-bit value.*/
+    #define LOWORD(x)   ((uint16_t)((uint32_t)(x) & 0xffff))
+  #endif
+  #ifndef HIWORD
+    /*Returns the high-order word from the given 32-bit value.*/
+    #define HIWORD(x)   ((uint16_t)((uint32_t)(x) >> 16))
+  #endif
 #else
-  #define MAKEHIWORD(x) ((DWORD)((WORD)(x)))
-  #define MAKELOWORD(x) ( ((DWORD)((WORD)(x))) << 16 )
+  #define MAKEHIWORD(x) ((uint32_t)((uint16_t)(x)))
+  #define MAKELOWORD(x) ( ((uint32_t)((uint16_t)(x))) << 16 )
+  #ifndef LOWORD
+    #define LOWORD(x)   ((uint16_t)((uint32_t)(x) >> 16))
+  #endif
+  #ifndef HIWORD
+    #define HIWORD(x)   ((uint16_t)((uint32_t)(x) & 0xffff))
+  #endif
 #endif /*_ENDIAN_LITTLE_                                                     */
 
 /*Verifies if one set of numbers defined with range boundaries [n1, n2] is
@@ -746,64 +760,6 @@ const unsigned long GiB = 0x40000000UL;
     Synonim to _UNUSED, UNUSED.
    */
   #define UNUSED_ARG _UNUSED
-#endif
-
-#ifndef _KEXPORTDECL
-  /*This storage-class specification explicitly define the DLL’s interface to
-    its client, which can be the executable file or another DLL. The attribute
-    allows the compiler to generate the export names automatically and place
-    them in a library (.lib) file.
-    When building your DLL, you typically create a header file that contains
-    the function prototypes and/or classes you are exporting, and add
-    the _KEXPORTDECL specification to the declarations in the header file.
-    This modifiers are used to export classes, functions, and data.
-
-    Examples:
-        class _KINEXDECL <class name>
-        return_type _KINEXDECL <function name>
-        data_type _KINEXDECL <data name>
-
-    Note: ANSI compatibility compiler option disables __declspec.
-
-    See also: _KIMPORTDECL, _KINEXDECL,._USE_EXPORT, __declspec, dllexport
-   */
-  #define _KEXPORTDECL  __declspec(dllexport)
-#endif
-#ifndef _KIMPORTDECL
-  /*This storage-class specification explicitly define the object as external to
-    DLL's client, which can be the executable file or another DLL.
-
-    Note: ANSI compatibility compiler option disables __declspec.
-
-    See also: _KEXPORTDECL, _KINEXDECL,._USE_EXPORT, __declspec, dllimport
-   */
-   #define _KIMPORTDECL  __declspec(dllimport)
-#endif
-
-//Export declartion; to declare class neither exported nor imported,
-//undefine _PREMIUM_EXPORT and _PREMIUM_INEX
-#ifndef _KINEXDECL
-  #ifdef _USE_EXPORT
-    /*Command the linker to enter an object name into an export table for the
-      module.
-      When building your DLL, you typically create a header file that contains
-      the function prototypes and/or classes you are exporting, add
-      the _KINEXDECL specification to the declarations in the header file and
-      define _USE_EXPORT. Undefined _USE_EXPORT implies import specification.
-      This modifiers are used to export classes, functions, and data.
-
-      Examples:
-          class _KINEXDECL <class name>
-          return_type _KINEXDECL <function name>
-          data_type _KINEXDECL <data name>
-
-      See also: _KEXPORTDECL, _KIMPORTDECL,._USE_EXPORT, __declspec, dllexport,
-      dllimport
-     */
-    #define _KINEXDECL _KEXPORTDECL
-  #else /*!_USE_EXPORT*/
-    #define _KINEXDECL _KIMPORTDECL
-  #endif /*_USE_EXPORT*/
 #endif
 
 /* ///////////////////////////////////////////////////////////////////////// */
