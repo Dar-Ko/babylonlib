@@ -70,6 +70,30 @@ while(iCount > 0)
 return chLRC;
 }
 
+//TODO: test
+uint32_t GetLRC(uint32_t* pnData, //[in] data buffer
+                uint32_t nCount   //[in] number of data elements
+               )
+{
+uint32_t nLRC = 0xAAAAAAAA;
+const int INT_SIZE = 32; //data size in bits
+while(nCount > 0)
+  {
+  nLRC ^= *pbData++;
+  if ( nLRC != 0 )
+    {
+    while((nLRC != 0) && 
+           (((1L << (INT_SIZE - 1)) & nLRC) != 0) )
+      {
+      //if the last bit is 1, double the value
+      nLRC <<= 1;
+      }
+    }
+   nCount--;   
+  }
+
+return nLRC;
+}
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log:
@@ -81,3 +105,34 @@ return chLRC;
  *
  * Revision 0  1989 D.K.  Created
  ******************************************************************************/
+DWORD test_checksum( const DWORD * buffer, DWORD number_of_entries )
+{
+#if ! defined( BITBOOL )
+#define BITBOOL(x) (!(!(x)))
+#endif
+
+#if ! defined( bit_test )
+#define bit_test(  arg, posn ) BITBOOL((arg) & (1L << (posn)))
+#endif
+
+   DWORD checksum = 0xAAAAAAAA; // Initialize the checksum
+
+   DWORD loop_index = 0;
+
+   while( loop_index < number_of_entries )
+   {
+      checksum ^= buffer[ loop_index ];
+
+      if ( checksum != 0 )
+      {
+         while( bit_test( checksum, 31 ) == 1 && checksum != 0 )
+         {
+            checksum <<= 1;
+         }
+      }
+
+      loop_index++;
+   }
+
+   return( checksum );
+}
