@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.12 $ $Date: 2012/01/26 16:23:16 $
+  $Revision: 1.13 $ $Date: 2012/01/28 00:22:42 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -219,7 +219,7 @@
 #endif
 
 //Export declartion; to declare class neither exported nor imported,
-//undefine _PREMIUM_EXPORT and _PREMIUM_INEX
+//undefine _KEXPORTDECL, and _KINEXDECL
 #ifndef _KINEXDECL
   #ifdef _USE_EXPORT
     /*Command the linker to enter an object name into an export table for the
@@ -289,6 +289,9 @@ typedef union tagSTATUS8
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.13  2012/01/28 00:22:42  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.12  2012/01/26 16:23:16  ddarko
  * Comments
  *
