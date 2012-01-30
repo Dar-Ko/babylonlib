@@ -1,5 +1,5 @@
 ﻿$RCSfile: BabylonLib.txt,v $: developer's note
-$Revision: 1.2 $ $Date: 2011/04/21 20:25:54 $
+$Revision: 1.3 $ $Date: 2012/01/30 14:10:55 $
 $Author: ddarko $
 
 Babylon Library is a collection of simple routines and classes that could be used as building blocks of larger projects. Many of the methods are portable and adjusted for use in embedded systems.
@@ -36,6 +36,20 @@ Microsoft Visual Studio format versions
 	2005  8.0    	   8.0     	    9.0    	xxx9.sln <- xxx8.vcproj
 	2008  9.0    	   9.0     	   10.0    	 xxx.sln <-  xxx.vcproj working version
 
+Linux
+-----
+Virtual Machine:
+In a Linux virtual machine, shared folders appear under /mnt/hgfs. So the shared folder would appear as /mnt/hgfs/<shared folder>. 
+
+CVS Linux:
+- install <selected package>
+  <selected package> is 'cvs' or 'cvsnt;
+		sudo apt-get install <selected package>
+- set /home/<user>/.cvspass
+  set the CVSROOT environment variable
+		export CVSROOT=:pserver:<cvsuser>@<cvsserverurl>:/CVS
+		cvs login
+  if .cvspass does not exist, it will be created
   
 Copyright
 ---------
