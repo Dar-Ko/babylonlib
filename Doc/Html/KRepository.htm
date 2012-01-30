@@ -113,6 +113,19 @@
     &nbsp;<br />
     cvs -z3 -d:ext:<i>developername</i>@babylonlib.cvs.sourceforge.net:/cvsroot/babylonlib
     co -P <i>modulename</i> </tt></p>
+    <h4>Linux:</h4>
+    <ul>
+     <li>
+     install <i>selectedPackage</i>, where the package is &#39;<i>cvs</i>&#39; or &#39;<i>cvsnt</i>&#39;<br /> 
+     <pre>sudo apt-get install <i>selectedPackage</i><pre>
+     </li>
+     <li>
+     set /home/<i>user</i>/.cvspass cogiguration file
+  set the CVSROOT environment variable
+		<pre>export CVSROOT=:pserver:cvsuser@cvsserverurl:/CVS
+cvs login</pre>
+  if <i>.cvspass</i> does not exist, it will be created</li>
+    </ul>
     <p class="Note"><b>NOTE:</b> UNIX file and directory names are case
     sensitive. The path to the project CVSROOT must be specified using lowercase
     characters (i.e. /cvsroot/babylonlib)

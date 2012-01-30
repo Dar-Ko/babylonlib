@@ -1,4 +1,4 @@
-$Workfile: _Samples.txt$: developer's note
+$RCSfile: _Samples.txt$: developer's note
 $Revision: 15$ $Date: 2007-07-16 17:51:27$
 $Author: Darko Kolakovic$
 
@@ -93,3 +93,18 @@ Following workaraound ignores those in applications compiled with Borland compil
    #include <floats.h>
   _clear87();
   _control87( MCW_EM, MCW_EM );
+
+Virtual Machine:
+----------------
+In a Linux virtual machine, shared folders appear under /mnt/hgfs. So the shared folder would appear as /mnt/hgfs/<shared folder>. 
+
+CVS Linux:
+----------
+- install <selected package>
+  <selected package> is 'cvs' or 'cvsnt;
+		sudo apt-get install <selected package>
+- set /home/<user>/.cvspass
+  set the CVSROOT environment variable
+		export CVSROOT=:pserver:<cvsuser>@<cvsserverurl>:/CVS
+		cvs login
+  if .cvspass does not exist, it will be created
