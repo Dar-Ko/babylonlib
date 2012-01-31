@@ -472,6 +472,7 @@
     #ifndef ASSERT
 
       #ifdef __GNUC__
+        #include <assert.h> //assert
         #ifdef assert
           /*The ANSI assert macro is typically used to identify logic errors
             during program development, by implementing the expression
