@@ -1,5 +1,5 @@
 /*$RCSfile: KLinBase.h,v $: header file
-  $Revision: 1.1 $ $Date: 2012/01/30 23:43:43 $
+  $Revision: 1.2 $ $Date: 2012/01/31 00:07:50 $
   $Author: ddarko $
 
   Constants used in conjuncture with Linux environment
@@ -18,6 +18,26 @@
  #ifdef _UNICODE
    //TODO:
  #else  //single-byte
+ 
+  #ifndef _T
+    /*Generic text literals
+
+      Example:
+        TRACE0(_T("This is a message\n"));
+
+      See also: _TEXT
+     */
+    #define _T(t)     t
+  #endif
+
+  #define _tmain      main
+  #define __targv     __argv
+  #ifdef  _POSIX_
+    #define _tenviron   environ
+  #else
+    #define _tenviron  _environ
+  #endif
+  
    #ifndef FillMemory
     /*Fills a block of memory with a specified value.
       Requires <string.h> header file.
@@ -83,6 +103,9 @@
 #endif  /*__KLINBASE_H__*/
 /*****************************************************************************
  * $Log: KLinBase.h,v $
+ * Revision 1.2  2012/01/31 00:07:50  ddarko
+ * Linux: ZeroMemory()
+ *
  * Revision 1.1  2012/01/30 23:43:43  ddarko
  * Created
  *
