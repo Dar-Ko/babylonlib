@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstGnuc.h,v $: header file
-  $Revision: 1.2 $ $Date: 2012/01/31 00:08:49 $
+  $Revision: 1.3 $ $Date: 2012/02/01 18:59:16 $
   $Author: ddarko $
 
   Constants used in conjuncture with GNU C
@@ -82,25 +82,25 @@
       
       Note: The name default does not refer to compiler defaults. Like the name hidden, it comes from visibility names defined by the ELF format. A symbol with default visibility has the kind of visibility that all symbols do if no special mechanisms are used—that is, it is exported as part of the public interface. 
       
-      See also: _KEXPORTDECL, _KIMPORTDECL, _USE_EXPORT, ___attribute__ , visibility
+      See also: _KEXPORTDECL, _KIMPORTDECL, _USE_EXPORT, __attribute__ , visibility
       
       Specific to GCC 4.0
      */
-    #define _KEXPORTDECL  ___attribute__ ((visibility("default")))
+    #define _KEXPORTDECL  __attribute__ ((visibility("default")))
   #endif
   #ifndef _KIMPORTDECL
   /*This specification explicitly describe the object as external to a client of
     the shared library (DLL), which can be the executable file or another DLL.
     It has no effect on the way how an object is stored.
 
-    See also: _KEXPORTDECL, _KINEXDECL,._USE_EXPORT, ___attribute__ , visibility
+    See also: _KEXPORTDECL, _KINEXDECL,._USE_EXPORT, __attribute__ , visibility
    */
      #define _KIMPORTDECL __attribute__ ((visibility("default")))
   #endif
 
   #ifndef _KPRIVATEDECL
     //-fvisibility=hidden
-    #define _KPRIVATEDECL  ___attribute__ ((visibility("hidden")))
+    #define _KPRIVATEDECL  __attribute__ ((visibility("hidden")))
   #endif
 
   //Export declartion; to declare class neither exported nor imported,
@@ -120,7 +120,7 @@
           _KINEXDECL return_type <function name>
           _KINEXDECL data_type <data name>
 
-        See also: _KEXPORTDECL, _KIMPORTDECL, _USE_EXPORT, ___attribute__ , visibility
+        See also: _KEXPORTDECL, _KIMPORTDECL, _USE_EXPORT, __attribute__ , visibility
        */
       #define _KINEXDECL _KEXPORTDECL
     #else /*!_USE_EXPORT*/
@@ -158,6 +158,9 @@
 #endif  /*__KPROGCSTGNUC_H__*/
 /*****************************************************************************
  * $Log: KProgCstGnuc.h,v $
+ * Revision 1.3  2012/02/01 18:59:16  ddarko
+ * __attribute__ (bug 20120201)
+ *
  * Revision 1.2  2012/01/31 00:08:49  ddarko
  * _UNUSED()
  *
