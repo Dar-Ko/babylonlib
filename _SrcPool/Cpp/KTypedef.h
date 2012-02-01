@@ -111,13 +111,16 @@
       typedef unsigned int bool;
       #define bool bool
     #endif
-    #ifndef true
+    #ifndef false
       #define false static_cast<bool>(0)
+    #endif   /* false */
+    #ifndef true
       #define true  static_cast<bool>(1)
-      #define true true
-      #define false false
-      #define __bool_true_false_are_defined         1
     #endif   /* true */
+    #if (__bool_true_false_are_defined == 0)
+      #undef __bool_true_false_are_defined
+    #endif
+    #define __bool_true_false_are_defined         1
   #endif /*__bool_true_false_are_defined*/
 
 #endif /*__cplusplus*/
