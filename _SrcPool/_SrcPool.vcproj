@@ -382,7 +382,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Cpp\KDbgCimType.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Cpp\KDbgFILE.c"
+				>
+			</File>
+			<File
+				RelativePath=".\Cpp\KDbgVariantType.cpp"
 				>
 			</File>
 			<File
@@ -614,6 +622,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Cpp\KVariantToStr.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Cpp\KZLineIn.cpp"
 				>
 			</File>
@@ -784,6 +796,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Cpp\KProgCase.h"
+				>
+			</File>
+			<File
 				RelativePath=".\cpp\KProgCst.h"
 				>
 			</File>
@@ -821,6 +837,10 @@
 			</File>
 			<File
 				RelativePath=".\Cpp\KRound.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Cpp\KSet.h"
 				>
 			</File>
 			<File
