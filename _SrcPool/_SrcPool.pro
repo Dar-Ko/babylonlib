@@ -10,6 +10,26 @@ TARGET = _SrcPool
 TEMPLATE = lib
 CONFIG += staticlib
 
+CONFIG(debug, debug|release)
+  {
+  RCC_DIR = "$$ParentDirectory/src/Obj/Debug/RCCFiles"
+  UI_DIR = "$$ParentDirectory/src/Obj/Debug/UICFiles"
+  MOC_DIR = "$$ParentDirectory/src/Obj/Debug/MOCFiles"
+  OBJECTS_DIR = "$$ParentDirectory/src/Obj/Debug"
+  DESTDIR = "$$ParentDirectory/debug/linux"
+  DEFINES += _DEBUG
+  }
+
+CONFIG(release, debug|release)
+  {
+  RCC_DIR = "$$ParentDirectory/src/Obj/Release/RCCFiles"
+  UI_DIR = "$$ParentDirectory/src/Obj/Release/UICFiles"
+  MOC_DIR = "$$ParentDirectory/src/Obj/Release/MOCFiles"
+  OBJECTS_DIR = "$$ParentDirectory/src/Obj/Release"
+  DESTDIR = "$$ParentDirectory/bin/release/linux"
+  DEFINES += NDEBUG
+  }
+
 SOURCES += \
     Cpp/KZLineIn.cpp \
     Cpp/KXmlWriter.cpp \
