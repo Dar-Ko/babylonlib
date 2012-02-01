@@ -1,5 +1,5 @@
 ﻿$RCSfile: BabylonLib.txt,v $: developer's note
-$Revision: 1.3 $ $Date: 2012/01/30 14:10:55 $
+$Revision: 1.4 $ $Date: 2012/02/01 15:37:26 $
 $Author: ddarko $
 
 Babylon Library is a collection of simple routines and classes that could be used as building blocks of larger projects. Many of the methods are portable and adjusted for use in embedded systems.
@@ -13,6 +13,7 @@ Copyright: CommonSoft Inc.
 \	BabylonLib.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 10.0 (MSVC9 2008).	Win32
 \	BabylonLib8.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	BabylonLib.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
+\	BabylonLib.pro	Qt Creator 2.3.1 Project (pro)  file is a generated build file.	Win32
 
 Workspace:
   Project "_SrcPoolCpp"   _SrcPool\
@@ -44,11 +45,11 @@ In a Linux virtual machine, shared folders appear under /mnt/hgfs. So the shared
 CVS Linux:
 - install <selected package>
   <selected package> is 'cvs' or 'cvsnt;
-		sudo apt-get install <selected package>
+    sudo apt-get install <selected package>
 - set /home/<user>/.cvspass
   set the CVSROOT environment variable
-		export CVSROOT=:pserver:<cvsuser>@<cvsserverurl>:/CVS
-		cvs login
+    export CVSROOT=:pserver:<cvsuser>@<cvsserverurl>:/CVS
+    cvs login
   if .cvspass does not exist, it will be created
   
 Copyright
