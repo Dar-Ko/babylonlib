@@ -91,7 +91,7 @@
 
   /*Compile-time assertion produces compiler error if expression is false.
    */
-  #define ASSERT_CL(expr) typedef char __AssertCompiler__[(expr) ? 1 : -1]
+#define ASSERT_CL(expr) {typedef char __AssertCompiler__[(expr) ? 1 : -1];}
 
   /* ----------------------------------------------------------------------- */
   /* GNU C/C++ compiler                                                      */
