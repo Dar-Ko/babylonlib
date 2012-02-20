@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.4 $ $Date: 2012/02/20 17:23:14 $
+  $Revision: 1.5 $ $Date: 2012/02/20 18:02:32 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -112,10 +112,11 @@ return m_hLibrary;
 
 //-----------------------------------------------------------------------------
 /*Obtains the address of an exported symbol in the DLL
-  Returns address of the symbol.
+  Returns address of the symbol or NULL in case of failure.
  */
-inline void* CDll::operator() (LPCTSTR szSymbolName //[in]
-                        ) const
+inline void* CDll::operator() (LPCTSTR szSymbolName //[in] null-terminated string
+                                                   //containing the symbol name
+                               ) const
 {
 return GetSymbolAdr(szSymbolName);
 }
@@ -201,8 +202,15 @@ return (m_hLibrary > NULL); //>= (HINSTANCE)32
   no compile-time type checking, make sure that the parameters to the function
   are correct so that you do not overstep the memory allocated on the stack and
   cause an access violation.
+  
+  Returns the address of the exported function or variable, if the function succeeds.
+  If the function fails, the return value is NULL. To get extended error information,
+  call GetLastError().
  */
-inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolName //[in]
+inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolName //[in] function or variable name
+                              //or the function's ordinal value. If this parameter is
+							  //an ordinal value, it must be in the low-order word;
+							  //the high-order word must be zero.
                                 ) const
 {
 _ASSERT(IsOpen());
@@ -266,10 +274,12 @@ m_hLibrary = dlopen(szDllName, RTLD_LAZY);
 
 if (!IsOpen())
   {
-  LPSTR szError = dlerror(); //Get description of the most recent error
-  if (szError == NULL)
+  #ifdef _DEBUG
+    LPSTR szError = dlerror(); //Get description of the most recent error
+      if (szError == NULL)
     szError = "";
-  TRACE2(_T("CDll::Load(%s) failed: %s\n"), szDllName, szError);
+    TRACE2(_T("CDll::Load(%s) failed: %s\n"), szDllName, szError);
+  #endif
   return false; //Failure
   }
 return true; //Success
@@ -289,7 +299,11 @@ return (m_hLibrary > NULL);
   no compile-time type checking, make sure that the parameters to the function
   are correct so that you do not overstep the memory allocated on the stack and
   cause an access violation.
- */
+  
+   Returns the address of the exported function or variable, if the function succeeds.
+   If the function fails, the return value is NULL. To get extended error information,
+   call dlerror().
+  */
 inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolName //[in]
                                 ) const
 {
@@ -325,6 +339,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.5  2012/02/20 18:02:32  ddarko
+ *Comment
+ *
  *Revision 1.4  2012/02/20 17:23:14  ddarko
  *Linux version
  *
