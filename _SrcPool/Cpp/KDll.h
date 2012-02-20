@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.3 $ $Date: 2011/09/15 21:23:19 $
+  $Revision: 1.4 $ $Date: 2012/02/20 17:23:14 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -49,12 +49,6 @@
     #define _T(Text) TEXT(Text)
   #endif
 
-#else //!WIN32
-
-  #ifndef HINSTANCE
-    #define HINSTANCE int
-  #endif
-
 #endif //_WIN32
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -69,7 +63,10 @@ public:
   bool Load(LPCTSTR szDllName);
   bool Free();
   bool IsOpen() const;
+  void* GetSymbolAdr(LPCTSTR szSymbolName) const;
   operator HINSTANCE() const;
+  void* operator() (LPCTSTR szSymbolName) const;
+	
 protected:
   HINSTANCE m_hLibrary; //handle to the module
   
@@ -111,6 +108,16 @@ Free();
 inline CDll::operator HINSTANCE() const
 {
 return m_hLibrary;
+}
+
+//-----------------------------------------------------------------------------
+/*Obtains the address of an exported symbol in the DLL
+  Returns address of the symbol.
+ */
+inline void* CDll::operator() (LPCTSTR szSymbolName //[in]
+                        ) const
+{
+return GetSymbolAdr(szSymbolName);
 }
 
 #ifdef _WIN32
@@ -189,6 +196,20 @@ return (m_hLibrary > NULL); //>= (HINSTANCE)32
 }
 
 //-----------------------------------------------------------------------------
+/*Obtain the address of an exported function in the DLL.
+  Because you are calling the DLL function through a pointer and there is
+  no compile-time type checking, make sure that the parameters to the function
+  are correct so that you do not overstep the memory allocated on the stack and
+  cause an access violation.
+ */
+inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolName //[in]
+                                ) const
+{
+_ASSERT(IsOpen());
+return (void*)::GetProcAddress(m_hLibrary, szSymbolName);
+}
+
+//-----------------------------------------------------------------------------
 /*This function decrements the reference count of the loaded DLL module. 
   When the reference count reaches zero, the module is unmapped from the address
   space of the calling process. 
@@ -212,10 +233,101 @@ return true;
 }
 #endif //_Win32 specific
 
+//=============================================================================
+#if defined(LINUX) || defined(OS_X)
+  #include <dlfcn.h> //interface to dynamic linking loader
+
+  #ifndef HINSTANCE
+    #define HINSTANCE int
+  #endif
+  
+//-----------------------------------------------------------------------------
+/*This function maps the specified DLL file into the address space of the calling
+  process. 
+
+  Returns true if the module is successfuly loaded.
+ */
+inline 
+bool CDll::Load(LPCTSTR szDllName //[in] null-terminated string that names 
+                                   //the shared library file. 
+               ) 
+{
+ //Reload the library
+Free();
+#ifdef _UNICODE
+ #error "Convert shared library name to single byte character string"
+#endif
+/*Perform lazy binding. Only resolve symbols as the code that references 
+  them is executed. If the symbol is never referenced, then it is never 
+  resolved. Lazy binding is only performed for function references; references
+  to variables are always immediately bound when the library is loaded.
+ */
+m_hLibrary = dlopen(szDllName, RTLD_LAZY);
+
+if (!IsOpen())
+  {
+  LPSTR szError = dlerror(); //Get description of the most recent error
+  if (szError == NULL)
+    szError = "";
+  TRACE2(_T("CDll::Load(%s) failed: %s\n"), szDllName, szError);
+  return false; //Failure
+  }
+return true; //Success
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+inline bool CDll::IsOpen() const
+{
+return (m_hLibrary > NULL);
+}
+
+//-----------------------------------------------------------------------------
+/*Obtain the address of an exported function in the DLL.
+  Because you are calling the DLL function through a pointer and there is
+  no compile-time type checking, make sure that the parameters to the function
+  are correct so that you do not overstep the memory allocated on the stack and
+  cause an access violation.
+ */
+inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolName //[in]
+                                ) const
+{
+_ASSERT(IsOpen());
+dlerror();    //Clear any existing error
+return dlsym(m_hLibrary, szSymbolName);
+}
+
+//-----------------------------------------------------------------------------
+/*This function decrements the reference count of the loaded DLL module. 
+  When the reference count reaches zero, then the dynamic library is unloaded. 
+ */
+inline bool CDll::Free()
+{
+if (IsOpen())
+  {
+  if (dlclose(m_hLibrary) == FALSE)
+    {
+    #ifdef _DEBUG
+      char* szError = dlerror();
+	  if(szError == NULL)
+	    szError = "";
+      TRACE2(TEXT("CDll::Free(%08X) failed: %s!\n"), m_hLibrary, szError);
+    #endif
+    return false;  
+    }
+   m_hLibrary = NULL;
+  }
+return true;
+}  
+#endif //LINUX
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.4  2012/02/20 17:23:14  ddarko
+ *Linux version
+ *
  *Revision 1.3  2011/09/15 21:23:19  ddarko
  *Constructor initialization
  *
