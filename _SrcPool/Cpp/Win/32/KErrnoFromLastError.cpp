@@ -1,5 +1,5 @@
 /*$RCSfile: KErrnoFromLastError.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2009/07/02 19:38:39 $
+  $Revision: 1.4 $ $Date: 2012/02/22 15:08:20 $
   $Author: ddarko $
 
   Mapping between errno and Windows error codes
@@ -45,16 +45,16 @@
 /*Translates Windows API error codes to POSIX error codes.
   Mapping of error codes is done as close as possible to intentioned meaning.
 
-  Returns: errno value.
+  Returns: POSIX error code.
 
   Note:  Microsoft Windows specific (Win32).
 
-  See also: <winerror.h>, <errno.h>, GetLastError()
+  See also: <winerror.h>, <errno.h>, GetLastError(), errno_t
  */
-errno_t ErrnoFromLastError(const DWORD dwError //[in]
-                           )
+errno_t ErrnoFromLastError(const DWORD dwError //[in] Windows API error code
+                          )
 {
-errno_t nErrno = -1;
+errno_t nErrno = -1; //POSIX error code
 
 switch(dwError)
   {
@@ -71,7 +71,7 @@ switch(dwError)
   case ERROR_BAD_PATHNAME:        //The specified path is invalid.
   case ERROR_BAD_NETPATH:         //The network path was not found.
   case ERROR_FILENAME_EXCED_RANGE://The filename or extension is too long.
-    dwError = ENOENT;           // =  2
+    nErrno = ENOENT;              // =  2
     break;
 
   // ESRCH =  3
@@ -80,16 +80,16 @@ switch(dwError)
   // ENXIO =  6
 
   case ERROR_BAD_ENVIRONMENT:     //The environment is incorrect.
-    dwError = E2BIG;              // = 7
+    nErrno = E2BIG;               // = 7
     break;
 
   // ENOEXEC = 8
 
   case ERROR_BAD_FORMAT:
-  case ERROR_INVALID_HANDLE:      //The handle is invalid.
+  case ERROR_INVALID_HANDLE:        //The handle is invalid.
   case ERROR_INVALID_TARGET_HANDLE: //The target internal file identifier is incorrect.
   case ERROR_DIRECT_ACCESS_HANDLE:  //Operation other than raw disk I/O not permitted.
-    dwError = EBADF;              // =  9
+    nErrno = EBADF;                 // =  9
     break;
 
   // ECHILD = 10
@@ -99,7 +99,7 @@ switch(dwError)
   case ERROR_NOT_ENOUGH_MEMORY:   //Not enough storage is available.
   case ERROR_INVALID_BLOCK:       //The storage control block address is invalid.
   case ERROR_NOT_ENOUGH_QUOTA:    //Not enough quota is available to process this command.
-    dwError = ENOMEM;             // = 12
+    nErrno = ENOMEM;              // = 12
     break;
 
   case ERROR_ACCESS_DENIED:       //Access denied.
@@ -111,7 +111,7 @@ switch(dwError)
   case ERROR_DRIVE_LOCKED:        //The disk is in use or locked by another process.
   case ERROR_LOCK_FAILED:         //Unable to lock a region of a file.
   case ERROR_SEEK_ON_DEVICE:      //The file pointer cannot be set on the specified device or file.
-    dwError = EACCES;             // = 13
+    nErrno = EACCES;              // = 13
     break;
 
   // EFAULT = 14
@@ -119,11 +119,11 @@ switch(dwError)
 
   case ERROR_FILE_EXISTS:         //The file exists.
   case ERROR_ALREADY_EXISTS:      //Cannot create a file when that file already exists.
-    dwError = EEXIST;             // = 17
+    nErrno = EEXIST;              // = 17
     break;
 
   case ERROR_NOT_SAME_DEVICE:     //The system cannot move the file to a different disk drive.
-    dwError = EXDEV;              // = 18
+    nErrno = EXDEV;               // = 18
     break;
   // ENODEV  = 19
   // ENOTDIR = 20
@@ -131,21 +131,21 @@ switch(dwError)
 
   case ERROR_INVALID_ACCESS:      //The access code is invalid.
   case ERROR_INVALID_DATA:        //The data is invalid.
-    dwError = EINVAL;             // = 22
+    nErrno = EINVAL;              // = 22
     break;
 
   // ENFILE = 23
 
   case ERROR_HANDLE_EOF:          //Reached the end of the file.
   case ERROR_TOO_MANY_OPEN_FILES: //The system cannot open the file.
-    dwError = EMFILE;             // = 24
+    nErrno = EMFILE;              // = 24
     break;
 
   // ENOTTY = 25
   // EFBIG  = 27
 
   case ERROR_DISK_FULL:           //There is not enough space on the disk.
-    dwError = ENOSPC;             // = 28
+    nErrno = ENOSPC;              // = 28
     break;
 
   // ESPIPE        = 29
@@ -160,22 +160,24 @@ switch(dwError)
   // ENOSYS        = 40
 
   case ERROR_DIR_NOT_EMPTY:       //The directory is not empty.
-    dwError = ENOTEMPTY;          // = 41
+    nErrno = ENOTEMPTY;           // = 41
     break;
 
   // EILSEQ        = 42
   // STRUNCATE     = 80
   default:
-    nErrorno = 0xFFFF;  //Uknown or unhandled or not mapped error code
-
+    nErrno = 0xFFFF;  //Unknown or unhandled or not mapped error code
   }
 
-return nErrorno;
+return nErrno;
 }
 #endif //_WIN32
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: KErrnoFromLastError.cpp,v $
+ * Revision 1.4  2012/02/22 15:08:20  ddarko
+ * Fixed return value
+ *
  * Revision 1.3  2009/07/02 19:38:39  ddarko
  * Replaced TRACE with ATL header
  *
