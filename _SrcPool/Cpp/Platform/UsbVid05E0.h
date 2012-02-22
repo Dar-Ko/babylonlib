@@ -1,22 +1,21 @@
 /*$RCSfile: UsbVid05E0.h,v $: header file
-  $Revision: 1.8 $ $Date: 2009/09/21 13:26:40 $
+  $Revision: 1.9 $ $Date: 2012/02/22 14:45:00 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
   Copyright: CommonSoft Inc.
   2007-08-17 Darko Kolakovic
  */
-
 #ifndef _USBVID05E0_H_
   //$RCSfile: UsbVid05E0.h,v $ sentry
   #define _USBVID05E0_H_
 
 /*1504.	USB device vendor identification (VID) number	Motorola Symbol Technologies	http://www.symbol.com/; http://www.motorola.com/
-
   See also: usb-if.tsv, USB Implementers Forum, Inc (USB-IF) at http://www.usb.org
  */
 #define USBVID_SYMBOL 0x05E0
 #define USBVID_05E0 _T("Motorola Symbol Technologies") //VID 1504 Vendor name
+
 
 /*MiniScan MS4404/MS4407 USB scanner product identification (PID) number.
   Device is configured for Simple COM Port Emulation (Rev:NBRPVAAK5).
@@ -59,8 +58,12 @@
 #endif //_USBVID05E0_H_
 /*****************************************************************************
  * $Log: UsbVid05E0.h,v $
+ * Revision 1.9  2012/02/22 14:45:00  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.8  2009/09/21 13:26:40  ddarko
  * Reformatted
  *
  *  1    Biblioteka1.0         22/08/2007 10:51:37 AMDarko Kolakovic
  *****************************************************************************/
+
