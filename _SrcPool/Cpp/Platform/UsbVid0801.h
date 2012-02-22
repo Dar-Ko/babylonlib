@@ -1,5 +1,5 @@
-/*$Workfile: UsbVid0801.h$: header file
-  $Revision: 1.6 $ $Date: 2009/09/28 21:02:26 $
+/*$RCSfile: UsbVid0801.h,v $: header file
+  $Revision: 1.7 $ $Date: 2012/02/22 14:53:06 $
   $Author: ddarko $
   Universal Serial Bus (USB) vendor specific device identification
   Copyright: CommonSoft Inc.
@@ -7,7 +7,7 @@
  */
 /* Group=USB ID                                                              */
 #ifndef _USBVID0801_H_
-  //$Workfile: UsbVid0801.h$ sentry
+  //$RCSfile: UsbVid0801.h,v $ sentry
   #define _USBVID0801_H_
 /*2049.	USB device vendor identification (VID) number	Mag-Tek	http://www.magtek.com/
   See also: usb-if.tsv, USB Implementers Forum, Inc (USB-IF) at http://www.usb.org
@@ -38,6 +38,9 @@
 #endif //_USBVID0801_H_
 /*****************************************************************************
  * $Log: UsbVid0801.h,v $
+ * Revision 1.7  2012/02/22 14:53:06  ddarko
+ * Update
+ *
  * Revision 1.6  2009/09/28 21:02:26  ddarko
  * CRLF
  *

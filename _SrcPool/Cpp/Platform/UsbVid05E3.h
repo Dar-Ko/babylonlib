@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid05E3.h,v $: header file
-  $Revision: 1.1 $ $Date: 2009/08/25 21:26:34 $
+  $Revision: 1.2 $ $Date: 2012/02/22 14:53:06 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -25,7 +25,7 @@
 #define USBPID_KBD_GLPS2                 0x000A //Keyboard with PS/2 Port
 #define USBPID_MOUSE_GLB                 0x000B //Mouse
 #define USBPID_NINTENDOGAMEBOYADVANCESP  0x0100 //Nintendo Game Boy Advance SP
-#define USBPID_SCANPACIFICIMAGE1800U	   0x0120 //Pacific Image Electronics PrimeFilm 1800u slide/negative scanner
+#define USBPID_SCANPACIFICIMAGE1800U     0x0120 //Pacific Image Electronics PrimeFilm 1800u slide/negative scanner
 #define USBPID_CARD_CFSM_RW              0x0131 //CF/SM Reader/Writer
 #define USBPID_SCANMULTIPLESLIDES3600    0x0142 //Multiple Slides Scanner-3600
 #define USBPID_SCANMULTIPLEFRAMESFILM36X 0x0143 //Multiple Frames Film Scanner-36 series
@@ -36,7 +36,7 @@
 #define USBPID_GLUSB98PT_LPT             0x0300 //GLUSB98PT Parallel Port
 #define USBPID_USB2LPT_REL2              0x0301 //USB2LPT Cable Release2
 #define USBPID_HUB_GL6                   0x0406 //Hub
-#define USBPID_GL620H2H             	   0x0501 //GL620USB Host-Host interface
+#define USBPID_GL620H2H                  0x0501 //GL620USB Host-Host interface
 #define USBPID_GL620GENELINK             0x0502 //GL620USB-A GeneLink USB-USB Bridge
 #define USBPID_KBDHIDFILTER              0x0504 //HID Keyboard Filter
 #define USBPID_HUB_GLUSB11B              0x0604 //USB 1.1 Hub
@@ -79,6 +79,9 @@
 #endif //_USBVID05E3_H_
 /*****************************************************************************
  * $Log: UsbVid05E3.h,v $
+ * Revision 1.2  2012/02/22 14:53:06  ddarko
+ * Update
+ *
  * Revision 1.1  2009/08/25 21:26:34  ddarko
  * *** empty log message ***
  *

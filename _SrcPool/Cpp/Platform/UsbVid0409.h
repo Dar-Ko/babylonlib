@@ -1,5 +1,5 @@
 /*$RCSfile: UsbVid0409.h,v $: header file
-  $Revision: 1.2 $ $Date: 2010/04/01 19:23:08 $
+  $Revision: 1.3 $ $Date: 2012/02/22 14:53:06 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -20,7 +20,7 @@
   usb.ids, List of USB ID's by Stephen J. Gowdy at http://www.linux-usb.org/usb.ids.
  */
 #define USBVID_NEC 0x0409
-#define USBVID_0409 _T("$VENDOR") //VID 1033 Vendor name
+#define USBVID_0409 _T("NEC Corporation") //VID 1033 Vendor name
 
 #define USBPID_MOUSENECPC98           0x0011 //PC98 Series Layout Keyboard Mouse
 #define USBPID_ATERMIT75DSU           0x0012 //ATerm IT75DSU ISDN TA
@@ -66,6 +66,9 @@
 #endif //_USBVID0409_H_
 /*****************************************************************************
  * $Log: UsbVid0409.h,v $
+ * Revision 1.3  2012/02/22 14:53:06  ddarko
+ * Update
+ *
  * Revision 1.2  2010/04/01 19:23:08  ddarko
  * Comment
  *
