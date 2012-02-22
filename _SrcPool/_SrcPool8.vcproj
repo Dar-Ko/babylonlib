@@ -899,6 +899,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Cpp\KTraceFx.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Cpp\KType32.h"
 				>
 			</File>
