@@ -1,5 +1,5 @@
 /*$Workfile: UsbVid046D.h$: header file
-  $Revision: 1.8 $ $Date: 2009/08/05 14:05:36 $
+  $Revision: 1.9 $ $Date: 2012/02/22 14:35:17 $
   $Author: ddarko $
 
   Universal Serial Bus (USB) vendor specific device identification
@@ -112,10 +112,10 @@
 #define USBPID_QUICKCAMPROFORNOTEBOOKS          0x0991 //QuickCam Pro for Notebooks
 #define USBPID_QUICKCAMCOMMUNICATEDELUXE        0x0992 //QuickCam Communicate Deluxe
 #define USBPID_QUICKCAMORBITSPHEREAF            0x0994 //QuickCam Orbit/Sphere AF
-#define USBPID_QUICKCAMCOMMUNICATE5500       		0x09A1 //QuickCam Communicate MP/S5500
-#define USBPID_QUICKCAMCOMMUNICATEDELUXE7500		0x09A2 //QuickCam Communicate Deluxe/S7500
-#define USBPID_QUICKCAME3500                		0x09A4 //QuickCam E 3500
-#define USBPID_QUICKCAMVISIONPRO            		0x09A6 //QuickCam Vision Pro
+#define USBPID_QUICKCAMCOMMUNICATE5500          0x09A1 //QuickCam Communicate MP/S5500
+#define USBPID_QUICKCAMCOMMUNICATEDELUXE7500    0x09A2 //QuickCam Communicate Deluxe/S7500
+#define USBPID_QUICKCAME3500                    0x09A4 //QuickCam E 3500
+#define USBPID_QUICKCAMVISIONPRO                0x09A6 //QuickCam Vision Pro
 #define USBPID_ORBICAMACER                      0x09B0 //Acer OrbiCam
 #define USBPID_WEBCAMFUJITSU                    0X09B2 //Fujitsu Webcam
 #define USBPID_QUICKCAMMICDELL                  0x09C0 //QuickCam for Dell Notebooks Mic
