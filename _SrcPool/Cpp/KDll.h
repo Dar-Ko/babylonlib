@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.5 $ $Date: 2012/02/20 18:02:32 $
+  $Revision: 1.6 $ $Date: 2012/02/23 18:11:09 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -64,11 +64,11 @@ public:
   bool Free();
   bool IsOpen() const;
   void* GetSymbolAdr(LPCTSTR szSymbolName) const;
-  operator HINSTANCE() const;
+  operator HMODULE() const;
   void* operator() (LPCTSTR szSymbolName) const;
-	
+
 protected:
-  HINSTANCE m_hLibrary; //handle to the module
+  HMODULE m_hLibrary; //handle to the module
   
 private:
   CDll(const CDll&);
@@ -105,7 +105,7 @@ Free();
 //-----------------------------------------------------------------------------
 /*Returns handle to the module.
  */
-inline CDll::operator HINSTANCE() const
+inline CDll::operator HMODULE() const
 {
 return m_hLibrary;
 }
@@ -121,7 +121,7 @@ inline void* CDll::operator() (LPCTSTR szSymbolName //[in] null-terminated strin
 return GetSymbolAdr(szSymbolName);
 }
 
-#ifdef _WIN32
+#if defined (_WIN32) || defined (_WIN16)
 //-----------------------------------------------------------------------------
 /*This function maps the specified DLL file into the address space of the calling
   process. 
@@ -136,11 +136,14 @@ bool CDll::Load(LPCTSTR szDllName //[in] null-terminated string that names
  //Reload the library
 Free();
 
-#ifndef _WIN16
-  _ASSERT(sizeof(HINSTANCE) == sizeof(HMODULE));
-  m_hLibrary = static_cast<HINSTANCE>(::LoadLibrary(szDllName));
-#else
+#if definded (_WIN16)
+  //Load a 32-bit DLL within 16-bit code 
   m_hLibrary = (HMODULE)::LoadLibraryEx32W(szDllName, NULL, 0);
+#elif defined (WINCE)
+  _ASSERT(sizeof(HINSTANCE) == sizeof(HMODULE));
+  m_hLibrary = static_cast<HMODULE>(::LoadLibrary(szDllName));
+#else  //WIN32, WIN64
+  m_hLibrary = ::LoadLibrary(szDllName);
 #endif
 
 DWORD dwErr = ::GetLastError();
@@ -209,9 +212,9 @@ return (m_hLibrary > NULL); //>= (HINSTANCE)32
  */
 inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolName //[in] function or variable name
                               //or the function's ordinal value. If this parameter is
-							  //an ordinal value, it must be in the low-order word;
-							  //the high-order word must be zero.
-                                ) const
+                              //an ordinal value, it must be in the low-order word;
+                              //the high-order word must be zero.
+                              ) const
 {
 _ASSERT(IsOpen());
 return (void*)::GetProcAddress(m_hLibrary, szSymbolName);
@@ -245,8 +248,8 @@ return true;
 #if defined(LINUX) || defined(OS_X)
   #include <dlfcn.h> //interface to dynamic linking loader
 
-  #ifndef HINSTANCE
-    #define HINSTANCE int
+  #ifndef HMODULE
+    #define HMODULE void*
   #endif
   
 //-----------------------------------------------------------------------------
@@ -339,6 +342,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.6  2012/02/23 18:11:09  ddarko
+ *HMODULE
+ *
  *Revision 1.5  2012/02/20 18:02:32  ddarko
  *Comment
  *
