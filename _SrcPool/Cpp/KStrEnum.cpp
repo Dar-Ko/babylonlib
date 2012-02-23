@@ -16,6 +16,8 @@
 /*Determines the number of substrings delimited with separator character.
 
   Returns: number of delimited text parts.
+
+   See also: GetWord(), GetFirstSpace() 
  */
 int EnumSubstring(const TCHAR* strSource, //[in] zero-terminated string to search
                   TCHAR chDelimiter//[in]= '\n' text separator
@@ -38,6 +40,8 @@ return iSubstringIndex;
 
   Returns: number of delimited text parts or 0 if separator word is an empty
   string.
+
+  See also: GetWord(), GetFirstSpace() 
  */
 int EnumSubstring(const TCHAR* strSource, //[in] zero-terminated string to search
                   const TCHAR* szDelimiter //[in] a zero-terminated word used as 

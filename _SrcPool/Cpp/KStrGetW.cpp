@@ -25,11 +25,13 @@
 #endif
 
 //GetWord()--------------------------------------------------------------------
-/*Function copies  a single word from the source string to the destination
+/*Function copies a single word from the source string to the destination
   buffer. Words have to be separated with one white space character or with
   null-character.
 
   Returns: pointer to next character in source string following the word.
+
+  See also: GetFirstSpace(), EnumSubstring()
  */
 TCHAR* GetWord(TCHAR* lpszResult, //[out] pointer to destination buffer
                TCHAR* lpszSource  //[in] pointer to a source string

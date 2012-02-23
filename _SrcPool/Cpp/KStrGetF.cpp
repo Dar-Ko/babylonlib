@@ -15,6 +15,8 @@
 
 //GetFirstSpace()--------------------------------------------------------------------
 /*Returns pointer to first white space or null-character found.
+
+  See also: GetWord(), EnumSubstring()
  */
 TCHAR* GetFirstSpace(TCHAR* lpszSource  //[in] pointer to a source string
                      )
