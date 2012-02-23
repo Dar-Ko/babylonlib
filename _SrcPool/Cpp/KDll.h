@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.6 $ $Date: 2012/02/23 18:11:09 $
+  $Revision: 1.7 $ $Date: 2012/02/23 18:39:28 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -126,6 +126,23 @@ return GetSymbolAdr(szSymbolName);
 /*This function maps the specified DLL file into the address space of the calling
   process. 
 
+  With both implicit and explicit linking, Windows first searches for system DLLs,
+  such as Kernel32.dll and User32.dll. Windows then searches for the DLLs in
+  the following sequence:
+    1. The absolute path, if specified by the DLL file name parameter 
+    2. The directory where the executable module for the current process is located.
+    3. The current directory.
+    4. The Windows system directory.
+    5. The Windows directory.
+    6. The directories listed in the PATH environment variable.
+
+   WinCE specific:
+    1. The absolute path specified by the DLL file name parameter 
+    2. The .exe launch directory 
+    3. The Windows directory 
+    4. ROM DLL files 
+    5. An OEM-specified search path, 
+   
   Returns true if the module is successfuly loaded.
  */
 inline 
@@ -143,6 +160,14 @@ Free();
   _ASSERT(sizeof(HINSTANCE) == sizeof(HMODULE));
   m_hLibrary = static_cast<HMODULE>(::LoadLibrary(szDllName));
 #else  //WIN32, WIN64
+  /*Note Windows Me/98/95:  If you are using LoadLibrary to load a module that
+    contains a resource whose numeric identifier is greater than 0x7FFF, 
+    LoadLibrary fails. If you are attempting to load a 16-bit DLL directly from
+    32-bit code, LoadLibrary fails. If you are attempting to load a DLL whose
+    subsystem version is greater than 4.0, LoadLibrary fails.
+    If your DllMain function tries to call the Unicode version of a function,
+    LoadLibrary fails.
+   */
   m_hLibrary = ::LoadLibrary(szDllName);
 #endif
 
@@ -342,6 +367,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.7  2012/02/23 18:39:28  ddarko
+ *Comment
+ *
  *Revision 1.6  2012/02/23 18:11:09  ddarko
  *HMODULE
  *
