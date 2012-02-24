@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.7 $ $Date: 2012/02/23 18:39:28 $
+  $Revision: 1.8 $ $Date: 2012/02/24 00:09:17 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -156,7 +156,7 @@ Free();
 #if definded (_WIN16)
   //Load a 32-bit DLL within 16-bit code 
   m_hLibrary = (HMODULE)::LoadLibraryEx32W(szDllName, NULL, 0);
-#elif defined (WINCE)
+#elif defined (_WIN32_WCE) //WinCE
   _ASSERT(sizeof(HINSTANCE) == sizeof(HMODULE));
   m_hLibrary = static_cast<HMODULE>(::LoadLibrary(szDllName));
 #else  //WIN32, WIN64
@@ -367,6 +367,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.8  2012/02/24 00:09:17  ddarko
+ *_WIN32_WCE
+ *
  *Revision 1.7  2012/02/23 18:39:28  ddarko
  *Comment
  *
