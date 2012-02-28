@@ -47,8 +47,8 @@
   #endif
 #endif
 
-tostream& operator<<(tostream& outStream, const  int64 iValue);
-tostream& operator<<(tostream& outStream, const uint64 nValue);
+tostream& operator<<(tostream& outStream, const  int64_t iValue);
+tostream& operator<<(tostream& outStream, const uint64_t nValue);
 tostream& operator<<(tostream& outStream, const std::valarray<double>& vArray);
 
 //-----------------------------------------------------------------------------
