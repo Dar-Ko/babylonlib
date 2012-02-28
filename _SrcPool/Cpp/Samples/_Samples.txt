@@ -108,3 +108,21 @@ CVS Linux:
 		export CVSROOT=:pserver:<cvsuser>@<cvsserverurl>:/CVS
 		cvs login
   if .cvspass does not exist, it will be created
+
+Warning :unreferenced formal parameter
+--------------------------------------
+To disable the warning use:
+MSVC:
+  #pragma warning( disable : 4100 ) //Warning : unreferenced formal parameter
+GCC:
+  #pragma GCC diagnostic ignored "-Wunused-parameter" //warning: unused parameter
+  To see which flags you can be disabled, add in make file 
+    CFLAGS += -fdiagnostics-show-option
+  See also: __unused variable qualifier.
+
+To enable the warning use:
+MSVC:
+  #pragma warning( default : 4100 )//Warning : unreferenced formal parameter
+GCC:
+  #pragma GCC diagnostic warning "-Wunused-parameter" //warning: unused parameter
+
