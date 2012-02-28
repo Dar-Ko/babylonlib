@@ -57,7 +57,7 @@ tostream& operator<<(tostream& outStream, const std::valarray<double>& vArray);
   Note: uses Standard Template Library (STL).
  */
 tostream& operator<<(tostream& outStream, //[out] output stream
-                     const int64 iValue   //[in] value to write
+                     const int64_t iValue   //[in] value to write
                      )
 {
 const std::ios_base::fmtflags fmtFlags = outStream.flags();
@@ -99,7 +99,7 @@ return (outStream << szOut);
   Note: uses Standard Template Library (STL).
  */
 tostream& operator<<(tostream& outStream, //[out] output stream
-                     const uint64 nValue  //[in] value to write
+                     const uint64_t nValue  //[in] value to write
                      )
 {
 const std::ios_base::fmtflags fmtFlags = outStream.flags();
