@@ -126,3 +126,29 @@ MSVC:
 GCC:
   #pragma GCC diagnostic warning "-Wunused-parameter" //warning: unused parameter
 
+Linux:
+======
+To include working directory in the DLL search path, add . to the environment variable:
+  export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
+  echo $LD_LIBRARY_PATH
+
+To browse exported functions:
+  nm -D -C -g libIOModule.so
+
+Qt Creator with Ubuntu 10.10 and higher
+---------------------------------------
+ptrace: Operation not permitted when attaching gdb to application run in terminal
+  Description: while debugging console application, the error box shows up:
+    "ptrace: Operation not permitted"
+  Reason: A PTRACE scope is set to 1, limiting PTRACE only to direct child processes, like gdb.  gdb's "attach" doesn't work.
+  Solution: Change PTRACE scope to "0", enabling the more permissive mode:
+    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+  or
+    change in /etc/sysctl.d/10-ptrace.conf value of kernel.yama.ptrace_scope to 0.
+
+openSUSE:
+---------
+To allow access to serial port devices ttySx to an user, add the user to user's group "dialout":
+  - log as root user
+  - add <user> to "dialout" group:
+        usermod <user> -G dialout
