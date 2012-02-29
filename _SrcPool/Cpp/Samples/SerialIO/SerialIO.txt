@@ -42,7 +42,7 @@ To include working directory in the DLL search path, add . to the environment va
   echo $LD_LIBRARY_PATH
 
 To browse exported functions:
-  nm -D -C -g libIOModule.so
+  nm -D -C -g libname.so
 
 Qt Creator with Ubuntu 10.10 and higher
 ---------------------------------------
