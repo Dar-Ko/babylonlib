@@ -9,6 +9,9 @@ $Author: Darko Kolakovic$
 
 To make build dependant of the Standard Template Library (STL), define _STL (depreciated) or _USE_STL (prefered).
 
+Windows
+=======
+
 If compiled with MSVC 7.+ .Net in same directory where are object compiled with previous version of Visual Studio (MSVC 6.0 for example), following error will occur:
   LINK : fatal error LNK1104: cannot open file 'libcid.lib'
 Solution is to clean all intermidiate files (.obj) and to recomile the project again.
@@ -22,3 +25,27 @@ Conversion Issues:
 - The single-threaded run-time library switches (/MLd, /ML) have been removed from the C++ compiler. The project has been automatically converted to use the corresponding multi-threaded run-time library switches (/MTd, /MT). 
 - Due to the requirement that Visual C++ projects produce an embedded (by default) Windows SxS manifest, manifest files in the project are automatically excluded from building with the Manifest Tool. It is recommended that the dependency information contained in any manifest files be converted to "#pragma comment(linker,"<insert dependency here>")" in a header file that is included from your source code. If your project already embeds a manifest in the RT_MANIFEST resource section through a resource (.rc) file, the line will need to be commented out before the project will build correctly. 
 - Due to a conformance change in the C++ compiler, code change may be required before your project will build without errors. Previous versions of the C++ compiler allowed specification of member function pointers by member function name (e.g. MemberFunctionName). The C++ standard requires a fully qualified name with the use of the address-of operator (e.g. &ClassName::MemberFunctionName). If your project contains forms or controls used in the Windows Forms Designer, you may have to change code in InitializeComponent because the designer generated code used the non-conformant syntax in delegate construction (used in event handlers).
+
+Linux
+=====
+
+DLL Search Path
+---------------
+To include working directory in the DLL search path, add . to the environment variable:
+  export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
+  echo $LD_LIBRARY_PATH
+
+To browse exported functions:
+  nm -D -C -g libname.so
+
+Qt Creator with Ubuntu 10.10 and higher
+---------------------------------------
+ptrace: Operation not permitted when attaching gdb to application run in terminal
+  Description: while debugging console application, the error box shows up:
+    "ptrace: Operation not permitted"
+  Reason: A PTRACE scope is set to 1, limiting PTRACE only to direct child processes, like gdb.  gdb's "attach" doesn't work.
+  Solution: Change PTRACE scope to "0", enabling the more permissive mode:
+    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+  or
+    change in /etc/sysctl.d/10-ptrace.conf value of kernel.yama.ptrace_scope to 0.
+

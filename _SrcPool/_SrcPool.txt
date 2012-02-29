@@ -48,7 +48,8 @@ Conversion Issues:
 - Due to a conformance change in the C++ compiler, code change may be required before your project will build without errors. Previous versions of the C++ compiler allowed specification of member function pointers by member function name (e.g. MemberFunctionName). The C++ standard requires a fully qualified name with the use of the address-of operator (e.g. &ClassName::MemberFunctionName). If your project contains forms or controls used in the Windows Forms Designer, you may have to change code in InitializeComponent because the designer generated code used the non-conformant syntax in delegate construction (used in event handlers).
 
 Linux
------
+=====
+
 Virtual Machine:
 In a Linux virtual machine, shared folders appear under /mnt/hgfs. So the shared folder would appear as /mnt/hgfs/<shared folder>. 
 
@@ -61,6 +62,33 @@ CVS Linux:
 		export CVSROOT=:pserver:<cvsuser>@<cvsserverurl>:/CVS
 		cvs login
   if .cvspass does not exist, it will be created
+
+DLL Search Path
+---------------
+To include working directory in the DLL search path, add . to the environment variable:
+  export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH
+  echo $LD_LIBRARY_PATH
+
+To browse exported functions:
+  nm -D -C -g libIOModule.so
+
+Qt Creator with Ubuntu 10.10 and higher
+---------------------------------------
+ptrace: Operation not permitted when attaching gdb to application run in terminal
+  Description: while debugging console application, the error box shows up:
+    "ptrace: Operation not permitted"
+  Reason: A PTRACE scope is set to 1, limiting PTRACE only to direct child processes, like gdb.  gdb's "attach" doesn't work.
+  Solution: Change PTRACE scope to "0", enabling the more permissive mode:
+    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+  or
+    change in /etc/sysctl.d/10-ptrace.conf value of kernel.yama.ptrace_scope to 0.
+
+openSUSE:
+---------
+To allow access to serial port devices ttySx to an user, add the user to user's group "dialout":
+  - log as root user
+  - add <user> to "dialout" group:
+        usermod <user> -G dialout
 
 Warning :unreferenced formal parameter
 --------------------------------------
