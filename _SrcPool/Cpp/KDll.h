@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.9 $ $Date: 2012/03/02 22:22:39 $
+  $Revision: 1.10 $ $Date: 2012/03/02 23:25:14 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -113,6 +113,21 @@ return m_hLibrary;
 //-----------------------------------------------------------------------------
 /*Obtains the address of an exported symbol in the DLL
   Returns address of the symbol or NULL in case of failure.
+  
+  Example:
+     #include "KDll.h"
+     typedef void (*PFDLLFUNC)();
+     ...
+     CDll dllMyLib("DllName");
+     if (dllMyLib.IsOpen())
+      {
+      
+      PFDLLFUNC SomeFunc = (PFDLLFUNC)dllMyLib("SomeFuncName");
+      if (SomeFunc != NULL)
+        SomeFunc();
+      dllMyLib.Free();
+      }
+  
  */
 inline void* CDll::operator() (LPCTSTR szSymbolName //[in] null-terminated string
                                                    //containing the symbol name
@@ -314,7 +329,7 @@ if (!IsOpen())
   #ifdef _DEBUG
     LPSTR szError = dlerror(); //Get description of the most recent error
       if (szError == NULL)
-    szError = "";
+    szError = const_cast<LPSTR>("");
     TRACE2(_T("CDll::Load(%s) failed: %s\n"), szDllName, szError);
   #endif
   return false; //Failure
@@ -362,7 +377,7 @@ if (IsOpen())
     #ifdef _DEBUG
       char* szError = dlerror();
     if(szError == NULL)
-      szError = "";
+      szError = const_cast<LPSTR>("");
       TRACE2(TEXT("CDll::Free(%08X) failed: %s!\n"), m_hLibrary, szError);
     #endif
     return false;
@@ -376,6 +391,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.10  2012/03/02 23:25:14  ddarko
+ *Fixed warning
+ *
  *Revision 1.9  2012/03/02 22:22:39  ddarko
  *Linux update
  *
