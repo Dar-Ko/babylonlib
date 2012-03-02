@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.10 $ $Date: 2012/03/02 23:25:14 $
+  $Revision: 1.11 $ $Date: 2012/03/02 23:29:06 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -378,7 +378,7 @@ if (IsOpen())
       char* szError = dlerror();
     if(szError == NULL)
       szError = const_cast<LPSTR>("");
-      TRACE2(TEXT("CDll::Free(%08X) failed: %s!\n"), m_hLibrary, szError);
+        TRACE2(TEXT("CDll::Free(0x%08X) failed: %s!\n"), (unsigned)m_hLibrary, szError);
     #endif
     return false;
     }
@@ -391,6 +391,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.11  2012/03/02 23:29:06  ddarko
+ *Fixed warning
+ *
  *Revision 1.10  2012/03/02 23:25:14  ddarko
  *Fixed warning
  *
