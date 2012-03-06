@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstLin.h,v $: header file
-  $Revision: 1.4 $ $Date: 2012/03/06 20:20:21 $
+  $Revision: 1.5 $ $Date: 2012/03/06 21:14:15 $
   $Author: ddarko $
 
   Constants used in conjuncture with Linux environment
@@ -62,8 +62,8 @@
 
   #ifndef Sleep
      /*Suspends the execution of the current thread for at least the specified
-       interval.*/
-    #define Sleep usleep
+       period given in ms.*/
+     #define Sleep(ms) usleep(ms*1000)
   #endif
   
   /* /////////////////////////////////////////////////////////////////////// */
@@ -71,6 +71,9 @@
 #endif  /*__KPROGCSTLIN_H__*/
 /*****************************************************************************
  * $Log: KProgCstLin.h,v $
+ * Revision 1.5  2012/03/06 21:14:15  ddarko
+ * Sleep(ms)
+ *
  * Revision 1.4  2012/03/06 20:20:21  ddarko
  * Added new defines
  *
