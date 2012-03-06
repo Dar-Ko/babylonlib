@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstMsvc.h,v $: header file
-  $Revision: 1.13 $ $Date: 2012/01/28 00:22:42 $
+  $Revision: 1.14 $ $Date: 2012/03/06 20:19:39 $
   $Author: ddarko $
 
   Constants used in conjuncture with MSVC/C++
@@ -130,6 +130,12 @@
     #define UNUSED_ARG _UNUSED
   #endif
 
+  #ifndef _DEPRECATED
+    /*Indicates that a function identifier may no longer be supported in
+      a future release or should no longer be used. */
+    #define _DEPRECATED(func) __declspec(deprecated) func
+  #endif
+  
 #if _MSC_VER < 1400
   //Older version than Microsoft Visual C/C++ 2005, version 8.0
   typedef int errno_t; //global error type
@@ -289,6 +295,9 @@ typedef union tagSTATUS8
 #endif  /*__KPROGCSTMSVC_H__*/
 /*****************************************************************************
  * $Log: KProgCstMsvc.h,v $
+ * Revision 1.14  2012/03/06 20:19:39  ddarko
+ * Added new defines
+ *
  * Revision 1.13  2012/01/28 00:22:42  ddarko
  * *** empty log message ***
  *

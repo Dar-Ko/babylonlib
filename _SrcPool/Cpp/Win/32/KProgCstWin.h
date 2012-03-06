@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstWin.h,v $: header file
-  $Revision: 1.1 $ $Date: 2012/01/20 21:04:17 $
+  $Revision: 1.2 $ $Date: 2012/03/06 20:19:39 $
   $Author: ddarko $
 
   Constants used in conjuncture with Windows environment
@@ -49,11 +49,21 @@
     #define IS_HANDLE_VALID(handle)  (((HANDLE)handle) != INVALID_HANDLE_VALUE)
   #endif
 
+  #ifndef FillMemory
+    #define FillMemory(dest, count, fill)    memset((dest),(fill),(count))
+  #endif
+  #ifndef ZeroMemory
+    #define ZeroMemory(dest, count)          memset((dest), 0, (count))
+  #endif
+
   /* /////////////////////////////////////////////////////////////////////// */
   #endif /*_KWINDOWS */
 #endif  /*__KPROGCSTWIN_H__*/
 /*****************************************************************************
  * $Log: KProgCstWin.h,v $
+ * Revision 1.2  2012/03/06 20:19:39  ddarko
+ * Added new defines
+ *
  * Revision 1.1  2012/01/20 21:04:17  ddarko
  * Created
  *

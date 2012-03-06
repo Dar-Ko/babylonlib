@@ -1,5 +1,5 @@
 /*$RCSfile: KProgCstGnuc.h,v $: header file
-  $Revision: 1.3 $ $Date: 2012/02/01 18:59:16 $
+  $Revision: 1.4 $ $Date: 2012/03/06 20:20:21 $
   $Author: ddarko $
 
   Constants used in conjuncture with GNU C
@@ -62,6 +62,12 @@
       Synonim to _UNUSED, UNUSED.
      */
     #define UNUSED_ARG _UNUSED
+  #endif
+
+  #ifndef _DEPRECATED
+    /*Indicates that a function identifier may no longer be supported in
+      a future release or should no longer be used. */
+    #define _DEPRECATED(func) func __attribute__ ((deprecated))
   #endif
 
   #ifndef _KEXPORTDECL
@@ -129,11 +135,19 @@
   #endif
 #endif //__GNUC__ >= 4
 
-
+/*-----------------------------------------------------------------------------
+  __GNUC__ < 4
+ */
 #ifndef _UNUSED
    //  #define _UNUSED(param) do {/* null */} while (&param == 0) D.K.  TODO: test
   #define _UNUSED(param) param = *(&param);
 #endif
+
+#ifndef _DEPRECATED
+  #pragma message("warning: function is no longer be supported in a future release.")
+  #define _DEPRECATED(func) func
+#endif
+
 #ifndef _KEXPORTDECL
   #define _KEXPORTDECL
 #endif
@@ -158,6 +172,9 @@
 #endif  /*__KPROGCSTGNUC_H__*/
 /*****************************************************************************
  * $Log: KProgCstGnuc.h,v $
+ * Revision 1.4  2012/03/06 20:20:21  ddarko
+ * Added new defines
+ *
  * Revision 1.3  2012/02/01 18:59:16  ddarko
  * __attribute__ (bug 20120201)
  *
