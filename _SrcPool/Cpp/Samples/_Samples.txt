@@ -20,6 +20,7 @@ Copyright: CommonSoft Inc.
 \	_Samples7.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 7.10 (MSVC7 2003).	Win32
 \	_Samples8.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	_Samples.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
+\	_Samples.pro	Qt Creator Subdirs Project (pro) file, is a generated build file (v4.7.4).	Linux, Win32
 
 _Samples Workspace Project components
 
