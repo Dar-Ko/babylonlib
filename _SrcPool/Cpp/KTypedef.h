@@ -106,6 +106,12 @@
     #endif
   #endif /*__MWERKS__*/
 
+  #ifdef __GNUG__ /*GNU C++ compiler*/
+    #if !defined (__bool_true_false_are_defined)
+      #define __bool_true_false_are_defined 1
+    #endif
+  #endif
+
   #if !defined (__bool_true_false_are_defined) || (__bool_true_false_are_defined == 0)
     #ifndef bool
       typedef unsigned int bool;
@@ -491,7 +497,7 @@
 
   #ifndef UINT64
     /*VxWorks, DOS, PalmOS have not int64*/
-    #if !defined(VXWORKS) && !defined(_DOS) && !(_PALMOS)
+   #if !defined(VXWORKS) && !defined(_DOS) && !(_PALMOS) && !(__GNUC__)
         /*A 64-bit unsigned integer                                          */
       typedef unsigned int64 UINT64;
       #ifndef uint64
@@ -802,6 +808,12 @@
 #endif
 #ifdef __MWERKS__      /*Metrowerks CodeWarrior C/C++ compiler               */
   #include <limits.h>  /*Ranges for the integral data types used by MW CW    */
+#endif
+#ifdef __GNUG__       /*GNU C++ compiler                                     */
+  #include <climits>
+#endif
+#ifdef __GNUC__        /*GNU C compiler                                      */
+  #include <limits.h>
 #endif
 
   /*Check compiler data type sizes                                           */

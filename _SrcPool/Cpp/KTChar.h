@@ -821,6 +821,14 @@ extern "C"
   #define wchar_t wchar_t
 #endif
 
+#ifdef __WCHAR_TYPE__
+  //wide character type is predefined
+  //Note: size of wchar_t is compiler implementation dependant and
+  //could be 2 or 4 bytes
+  //See also: ISO C Standard, 7.17 Common definitions; <stddef.h>
+  #define wchar_t wchar_t
+#endif
+
 #ifndef wchar_t
   typedef unsigned short wchar_t;
   #define wchar_t wchar_t

@@ -1,7 +1,7 @@
 #-------------------------------------------------
 #
 #  $RCSfile: Console.pro,v $: QtCreator project file
-#  $Revision: 1.1 $ $Date: 2012/03/08 20:14:44 $
+#  $Revision: 1.2 $ $Date: 2012/03/09 20:30:10 $
 #  $Author: ddarko $
 #
 #-------------------------------------------------
@@ -60,13 +60,18 @@ OTHER_FILES += \
     LibraryTest.log \
     Console.txt
 
+INCLUDEPATH += \
+    ./Src \
+    ../..
+
 HEADERS += \
     ../../KDbgMacr.h \
     ../../KTestLog.h \
     ../../KTrace.h \
     ../../KTraceFx.h \
     KVersion.h \
-    ../../KCmdLineParser.h
+    ../../KCmdLineParser.h \
+    Src/version.h
 
 SOURCES += \
     ../../KTestLog.cpp \
@@ -80,6 +85,15 @@ SOURCES += \
     Src/TestCommonConsole.cpp
 
 unix{
+  INCLUDEPATH += \
+    ../Common/Src/Linux \
+    ../../Linux
+
+  HEADERS += \
+    ../Common/Src/Linux/stdafx.h \
+    ../../Linux/KLinDef.h
+
   SOURCES += \
     ../../Linux/KVersion.c
   }
+

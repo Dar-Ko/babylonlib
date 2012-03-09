@@ -594,7 +594,7 @@
      */
     #define TRACEINFO TRACE2(_T("%s(%i): "),__TFILE__,__LINE__); _TRACE_HANDLER
 
-  #endif ./*_TRACE_OUTPUT*/
+  #endif  /*_TRACE_OUTPUT*/
 
 /* ========================================================================= */
 /* Release (non-debug) build version                                         */

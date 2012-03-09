@@ -386,7 +386,7 @@ enum eWeekday
   #define LANG_CURRENT LANG_NEUTRAL
 #endif
 
-#if LANG_CURRENT == LANG_NEUTRAL
+#if (LANG_CURRENT == LANG_NEUTRAL)
     /*Default date format  YYYY-MM-DD*/
   #define DATE_FORMAT  _DATE_FORMAT_STD
     /*Default time format  hh:mm:ss  */
@@ -397,7 +397,7 @@ enum eWeekday
   #define DATE_STR     _DATE_STR
 #endif
 
-#if LANG_CURRENT == LANG_ENGLISH
+#if (LANG_CURRENT == LANG_ENGLISH)
     /*Default date format  DD/MM/YYYY*/
   #define DATE_FORMAT  _T("%2d/%2d/%4d")
     /*Default time format   hh:mm:ss */
@@ -408,7 +408,7 @@ enum eWeekday
   #define DATE_STR     _DATE_STR
 #endif
 
-#if LANG_CURRENT == LANG_GERMAN
+#if (LANG_CURRENT == LANG_GERMAN)
     /*Default date format  DD.MM.YYYY*/
   #define DATE_FORMAT  _T("%2d.%2d.%4d")
     /*Default time format   hh:mm:ss */

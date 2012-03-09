@@ -1,5 +1,5 @@
 /*$RCSfile: KLinDef.h,v $: header file
-  $Revision: 1.1 $ $Date: 2012/03/06 20:20:15 $
+  $Revision: 1.2 $ $Date: 2012/03/09 20:29:23 $
   $Author: ddarko $
 
   Constants used in conjuncture with Linux environment
@@ -46,7 +46,12 @@ typedef uint32_t*           LPDWORD;
 
 typedef long*                LPLONG;
 
-typedef unsigned int           UINT;
+#ifndef UINT
+  /*An unsigned integer           */
+  typedef unsigned int UINT;
+  #define UINT UINT
+#endif
+
 typedef unsigned int*          PUINT;
 
 typedef int                     INT;
@@ -128,6 +133,9 @@ typedef int                    HFILE;
 #endif  /*__KLINDEF_H__*/
 /*****************************************************************************
  * $Log: KLinDef.h,v $
+ * Revision 1.2  2012/03/09 20:29:23  ddarko
+ * GNU C++
+ *
  * Revision 1.1  2012/03/06 20:20:15  ddarko
  * Created
  *

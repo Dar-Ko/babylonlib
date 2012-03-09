@@ -1,18 +1,18 @@
 /*$RCSfile: KVersion.c,v $: implementation file
-  $Revision: 1.1 $ $Date: 2012/02/02 18:14:10 $
+  $Revision: 1.2 $ $Date: 2012/03/09 20:29:23 $
   $Author: ddarko $
 
   Module version information.
   Copyright: CommonSoft Inc.
   2008-12-12 Darko Kolakovic
  */
-#if defined (__linux) || defined (_LINUX)
+#if defined (__linux) || defined (_LINUX) || defined (LINUX)
 #include "version.h"
 #ifndef _KEXPORTDECL
   #include "KProgCstLin.h"
 #endif
 #ifndef lint
-  static char *rcsid = "@(#)$Id: KVersion.c,v 1.1 2012/02/02 18:14:10 ddarko Exp $";
+  static char *rcsid = "@(#)$Id: KVersion.c,v 1.2 2012/03/09 20:29:23 ddarko Exp $";
 #endif /* not lint */
 
 const char* g_szVersion = _VERSION_STR; //descriptive version number
@@ -50,6 +50,9 @@ return nVersion;
 #endif //_LINUX
 /*****************************************************************************
  * $Log: KVersion.c,v $
+ * Revision 1.2  2012/03/09 20:29:23  ddarko
+ * GNU C++
+ *
  * Revision 1.1  2012/02/02 18:14:10  ddarko
  * Retrieved form defunct repository
  *

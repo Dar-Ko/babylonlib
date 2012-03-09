@@ -46,7 +46,7 @@ if (!s_bTestLogInitalized) //Initialize only once
   if (s_fileTestLog != NULL)
     {
     s_bTestLogInitalized = true;
-    LPTSTR szEntry;
+    LPCTSTR szEntry;
     LPCTSTR szEOL = _T("\n"); //end-of-line
 
     #ifndef _UNICODE

@@ -39,12 +39,17 @@
   #include <strstrea.h>
 #endif
 
-#if _MSC_VER < 1200
+#if defined(_MSC_VER) && (_MSC_VER < 1200)
   #include <iostream.h>
   #include <iomanip.h>  //std::endl
 #endif
 
 #if _MSC_VER >= 1200
+  #include <iostream>
+  #include <iomanip>    //std::endl
+#endif
+
+#if defined (__GNUG__)
   #include <iostream>
   #include <iomanip>    //std::endl
 #endif

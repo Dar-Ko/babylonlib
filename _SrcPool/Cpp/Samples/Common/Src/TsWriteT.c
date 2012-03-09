@@ -15,6 +15,7 @@
   #endif
   #undef _USE_AFX
 #endif
+
 #include "stdafx.h"
 #include <stdio.h>
 

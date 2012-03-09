@@ -57,8 +57,8 @@ extern "C"
   _K_EXTRNDECL_ LPTSTR StrTrim(LPTSTR szSource);
   _K_EXTRNDECL_ LPTSTR StrTrimSlash(LPTSTR szSource);
   _K_EXTRNDECL_ LPTSTR CharToEsc(TCHAR cEsc);
-  _K_EXTRNDECL_ DWORD  BintoU(TCHAR* lpszValue);
-  _K_EXTRNDECL_ TCHAR* BintoA(TCHAR* szResult,DWORD dwValue,int iMsBit,int iLsBit,
+  _K_EXTRNDECL_ long  BintoU(TCHAR* lpszValue);
+  _K_EXTRNDECL_ TCHAR* BintoA(TCHAR* szResult,long lValue,int iMsBit,int iLsBit,
                               TCHAR iTrueChar,TCHAR iFalseChar);
   _K_EXTRNDECL_ TCHAR* ChtoAscii(int ch);
   _K_EXTRNDECL_ long   HextoL(LPCTSTR szSource);
