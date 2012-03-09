@@ -37,7 +37,6 @@ typedef enum tagCmdLineOptionArgType
 #define CMDLINE_ARG_MULTI 0x02 //Command option has more than one arguments
 #define CMDLINE_ARG_X0R   0x08 //Command option arguments are mutually exclusive
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //Description of the command line option
 union CmdLineDescription     
@@ -54,12 +53,13 @@ union CmdLineDescription
  */
 typedef struct tagCmdLineOption
 {
-TCHAR m_cOption; //single alphanumeric character from the portable character set
-CMDLINEARGTYPE m_typeArg;       //option argument type
-unsigned int   m_nArg;
-CmdLineDescription m_cmdDesc;   //description of the command line option
+TCHAR              m_cOption; //single alphanumeric character from the portable character set
+CMDLINEARGTYPE     m_typeArg; //option argument type
+unsigned int       m_nArg;
+CmdLineDescription m_cmdDesc; //description of the command line option
 } CMDLINEOPTION, *PCMDLINEOPTION;
 
+#ifdef __cplusplus
 ///////////////////////////////////////////////////////////////////////////////
 /*CCmdLineParser is a class for parsing command arguments passed to 
   an application through the main entry point. The class expect that command 
@@ -118,7 +118,7 @@ inline CCmdLineParser& CCmdLineParser::operator=(const CCmdLineParser& dtValue /
 ...
 return *this;
 }*/
-
+#endif //__cplusplus
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_KCCMDLINEPARSER_H_
 /*****************************************************************************
