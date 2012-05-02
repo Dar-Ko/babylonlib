@@ -1,5 +1,5 @@
 /*$RCSfile: KVersion.c,v $: implementation file
-  $Revision: 1.2 $ $Date: 2012/03/09 20:29:23 $
+  $Revision: 1.3 $ $Date: 2012/05/02 13:57:27 $
   $Author: ddarko $
 
   Module version information.
@@ -12,7 +12,10 @@
   #include "KProgCstLin.h"
 #endif
 #ifndef lint
-  static char *rcsid = "@(#)$Id: KVersion.c,v 1.2 2012/03/09 20:29:23 ddarko Exp $";
+  #ifdef __GNUC__
+    #pragma GCC diagnostic ignored "-Wunused-variable"
+  #endif
+  static char *rcsid = "@(#)$Id: KVersion.c,v 1.3 2012/05/02 13:57:27 ddarko Exp $";
 #endif /* not lint */
 
 const char* g_szVersion = _VERSION_STR; //descriptive version number
@@ -50,6 +53,9 @@ return nVersion;
 #endif //_LINUX
 /*****************************************************************************
  * $Log: KVersion.c,v $
+ * Revision 1.3  2012/05/02 13:57:27  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.2  2012/03/09 20:29:23  ddarko
  * GNU C++
  *
