@@ -1,5 +1,5 @@
 // $RCSfile: atlctrls.h,v $: header file
-// $Revision: 1.4 $ $Date: 2011/05/18 19:56:43 $
+// $Revision: 1.5 $ $Date: 2012/05/22 17:17:22 $
 // Windows standard and common controls
 // Windows Template Library - WTL version 8.1
 // Copyright (C) Microsoft Corporation. All rights reserved.
@@ -16,10 +16,6 @@
 #define __ATLCTRLS_H__
 
 #pragma once
-
-#ifndef __cplusplus
-	#error ATL requires C++ compilation (use a .cpp suffix)
-#endif
 
 #ifndef __ATLAPP_H__
 	#error atlctrls.h requires atlapp.h to be included first
@@ -1816,9 +1812,7 @@ public:
 	{
 		int nMin = 0, nMax = 0;
 		::GetScrollRange(m_hWnd, SB_CTL, &nMin, &nMax);
-		SCROLLINFO info = { 0 };
-		info.cbSize = sizeof(SCROLLINFO);
-		info.fMask = SIF_PAGE;
+		SCROLLINFO info = { sizeof(SCROLLINFO), SIF_PAGE };
 		if(::GetScrollInfo(m_hWnd, SB_CTL, &info))
 			nMax -= ((info.nPage - 1) > 0) ? (info.nPage - 1) : 0;
 
@@ -3937,11 +3931,14 @@ public:
 	}
 #endif // (_WIN32_WINNT >= 0x0600)
 
-	// single-selection only
+	// Note: selects only one item
 	BOOL SelectItem(int nIndex)
 	{
 		ATLASSERT(::IsWindow(m_hWnd));
-		ATLASSERT((GetStyle() & LVS_SINGLESEL) != 0);
+
+		// multi-selection only: de-select all items
+		if((GetStyle() & LVS_SINGLESEL) == 0)
+			SetItemState(-1, 0, LVIS_SELECTED);
 
 		BOOL bRet = SetItemState(nIndex, LVIS_SELECTED | LVIS_FOCUSED, LVIS_SELECTED | LVIS_FOCUSED);
 		if(bRet)
@@ -8355,8 +8352,8 @@ public:
 		REBARINFO rbi = { 0 };
 		rbi.cbSize = sizeof(REBARINFO);
 		rbi.fMask = RBIM_IMAGELIST;
-		if( (BOOL)::SendMessage(m_hWnd, RB_GETBARINFO, 0, (LPARAM)&rbi) == FALSE ) return CImageList();
-		return CImageList(rbi.himl);
+		BOOL bRet = (BOOL)::SendMessage(m_hWnd, RB_GETBARINFO, 0, (LPARAM)&rbi);
+		return CImageList((bRet != FALSE) ? rbi.himl : NULL);
 	}
 
 	BOOL SetImageList(HIMAGELIST hImageList)
