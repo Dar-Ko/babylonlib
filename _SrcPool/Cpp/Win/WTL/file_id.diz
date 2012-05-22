@@ -27,92 +27,38 @@ Windows Template Library, or WTL, is a set of classes that extend ATL to support
 
 WTL provides support for implementing many user interface elements, from frame and popup windows, to MDI, standard and common controls, common dialogs, property sheets and pages, GDI objects, UI updating, scrollable windows, splitter windows, command bars, etc. The WTL classes are mostly templated and use minimal instance data and inline functions. They were not designed as a framework, so they do not force a particular application model, and can accommodate any. The classes do not use hooks or thread local storage, so they have no restrictions that those techniques impose. They also have no inter-dependencies and can be freely mixed with straight SDK code. In summary, WTL delivers very small and efficient code, very close in size and speed to SDK programs, while presenting a more logical, object oriented model to a programmer.
 
- 
-
- 
-Introduction
-
- 
-
-Windows Template Library, or WTL, is a set of classes that extend ATL to support more complex user interfaces for either applications or various UI components, while maintaining the big advantage of ATL - small and fast code. WTL classes were designed to be the best and the easiest way to implement rich Win32 based UI for ATL based applications, servers, components, and controls.
-
- 
-
-WTL provides support for implementing many user interface elements, from frame and popup windows, to MDI, standard and common controls, common dialogs, property sheets and pages, GDI objects, UI updating, scrollable windows, splitter windows, command bars, etc. The WTL classes are mostly templated and use minimal instance data and inline functions. They were not designed as a framework, so they do not force a particular application model, and can accommodate any. The classes do not use hooks or thread local storage, so they have no restrictions that those techniques impose. They also have no inter-dependencies and can be freely mixed with straight SDK code. In summary, WTL delivers very small and efficient code, very close in size and speed to SDK programs, while presenting a more logical, object oriented model to a programmer.
-
- 
-
- 
-
 Features And Installation
-
- 
 
 This is the sixth public release of WTL, after WTL 3.0, 3.1, 7.0, 7.1, and 7.5. It is also the second release of WTL under the Common Public License, enabling developers from the WTL community to contribute to the library.
 
- 
-
 WTL classes can be used with either VC++ 6.0 and ATL 3.0, VC++ .NET 2002 and ATL 7.0, VC++ .NET 2003 and ATL 7.1, VC++ 2005 with ATL 8.0, or EVC++ 4.0 or 3.0 with ATL for Windows CE. AppWizard for VC++ .NET 2002 and 2003, and Visual C++ 2005 is included.
-
- 
 
 The WTL classes are provided in header files located in the include directory. The only header files that must be included is atlapp.h, while others can be used when needed. The name of the file doesn't mean that you have to create an application, just that atlapp.h contains base definitions required for WTL projects.
 
- 
-
 To install WTL, just copy the whole directory structure, or unpack the archive file, to the location of your choice. Please be sure to add the WTL\include directory to the list of include directories in VC++, so that the compiler can find them when you include them in your projects..
-
- 
 
 Setup programs for the AppWizard are provided. After executing the setup scripts, ATL/WTL AppWizard will appear in the list of AppWizards when you select File.New.Project in VC++ IDE. The file AppWiz\setup70.js is the setup script for VC++ .NET 2002, AppWiz\setup71.js is for VC++ .NET 2003, and AppWiz\setup80.js is for VC++ 2005. AppWizCE\setup80.js is setup script for VC++ 2005 SmartDevice projects.
 
- 
-
 To manually install AppWizard for VC++ .NET 2002/2003, copy all WTLAppWiz.* files from AppWiz\Files to VC++ .NET projects directory, %VC7DIR%\Vc7\vcprojects, where %VC7DIR% is the directory where VC++ .NET 2002/2003 is installed. After that, open WTLAppWiz.vsz and modify the like that contains ABSOLUTE_PATH to contain %WTLDIR%\AppWiz\Files, where %WTLDIR% is the directory where WTL files are.
 
- 
-
 Platform support and requirements:
-
- 
-
     Compiler/IDE/ATL:
-
             Visual C++ 6.0   (ATL 3.0)
-
             Visual C++.NET 2002   (ATL 7.0)
-
             Visual C++.NET 2003   (ATL 7.1)
-
             Visual C++ 2005   (ATL 8.0)
 
- 
-
     SDK (optional):
-
             Any Platform SDK from January 2000 release up to the latest Windows SDK
 
- 
-
     Windows CE development:
-
             eMbedded Visual C++ 3.0 - Pocket PC, Pocket PC 2002
-
             eMbedded Visual C++ 4.0 - STANDARDSDK_410, Pocket PC 2003, Smartphone 2003,
-
                                                      STANDARDSDK_500, Pocket PC 2003 SE, Smartphone 2003 SE
-
             Visual C++ 2005 - Pocket PC 2003 SE, Smartphone 2003 SE, STANDARDSDK_500,
-
                                        Windows Mobile 5.0 (Pocket PC and Smartphone),
                                        Windows Mobile 6.0 (Standard and Professional)
-
- 
-
- 
-
 Packing List
-
  
 File Name: 	Description:
 readme.htm 	this file
@@ -169,13 +115,8 @@ AppWizMobile\
     setup80.js 	AppWizard Mobile setup program for VC++ 2005
     Files\... 	WTL AppWizard Mobile for VC++ 2005 files
 
- 
-
- 
-
 Class Overview
 
- 
 usage:        	mi base 	   - 	   a base class (multiple inheritance)
   	client 	   - 	   wrapper class for a handle
   	as-is 	   - 	   to be used directly
@@ -183,7 +124,6 @@ usage:        	mi base 	   - 	   a base class (multiple inheritance)
   	helper 	   - 	   a helper class
   	base 	   - 	   implementation base class
 
- 
 class name: 	usage: 	description:
 
 App/module support
@@ -442,17 +382,9 @@ CExpandListBox 	client 	Expand List Box control
 CExpandEdit 	client 	Expand Edit control
 CExpandCapEdit 	client 	Expand CapEdit control
 
- 
-
- 
-
 ATL/WTL AppWizard
 
- 
-
 ATL/WTL AppWizard generates starting code for a WTL application. It has options to create code for different application types and features.
-
- 
 
 You can choose the following options:
 
@@ -466,101 +398,46 @@ You can choose the following options:
     View window, and it's type (generic, dialog based form, or a list box, edit, list view, tree view, rich edit based, HTML page, scroll window)
     For dialog based apps or a form based view window - support for hosting ActiveX controls in the dialog
 
- 
-
 ATL/WTL AppWizard supports VC++ .NET 2002 and 2003,and VC++ 2005.
 
- 
-
- 
-
 Support for Windows CE
-
- 
-
 WTL now fully supports building projects for the Windows CE platforms. This initial support for Windows CE was implemented primarily for eMbedded Visual C++ 4.0 with Pocket PC 2003 and SmartPhone 2003 SDKs. However, it can be used with other versions and configurations. For instance, Standard SDK 4.1 or 5.0 is supported as well. Considerable effort was made to provide the best Windows CE support, however, there might be some limitations because different platforms provide different programming support. SmartDevice projects with Visual Studio 2005 are also supported, and it also includes an AppWizard for VS2005.
-
- 
 
 The support for Windows CE was not designed to port projects for the desktop version of Windows as-is to the Windows CE platforms, but to allow use of the same library, WTL, for both desktop Windows and Windows CE. Applications for Windows CE are often designed in a different way, and they use different platform services. WTL depends on the version of ATL provided with each Windows CE platform, and supports controls and services that are appropriate and supported for each Windows CE platform.
 
- 
-
- 
-
 Support for Visual C++ 2005 Express
-
- 
-
 WTL 8.0 supports using Visual C++ Express Edition to build projects. Since Visual C++ 2005 Express ships without ATL, you have to use a version of ATL that ships with the Platform SDK.
-
- 
 
 The WTL App Wizard can be installed by running AppWiz\setup80x.js program. The App Wizard generates code in the stdafx.h file that allows use of ATL3 from the Platform SDK. That code is used if WTL_USE_SDK_ATL3 is defined, so you can comment the line in stdafx.h that defines WTL_USE_SDK_ATL3 to use the project with different versions of Visual C++ or ATL.
 
- 
-
 Note that Release builds will generate some warnings, since ATL3 from Platform SDK is an old version of ATL which doesn't quite match the newer compiler and CRT files. You can ignore those warnings, as they do not indicate any real problems with the code.
 
- 
-
- 
-
 Notes
-
- 
-
 ~    WTL provides several classes that are also present in ATL 7.0 and 7.1. The classes are: CSize, CPoint, CRect, and CString in atlmisc.h. While their existence will not cause any problems, their usage might. You should qualify the class you want to use with a namespace to resolve ambiguity, either ATL or WTL namespace, depending on which implementation you want to use. Alternatively, you can conditionally exclude WTL implementations, by defining preprocessor symbol _WTL_NO_WTYPES for CSize, CPoint, and CRect; and _WTL_NO_CSTRING for CString.
-
- 
-
 ~    If you use WTL 8.0 with VC++ 6.0/ATL 3.0 and define _ATL_STATIC_REGISTRY, you'll get errors referring to the ambiguous symbol ATL. This is caused by a bug in ATL 3.0 - in atlbase.h, the file statreg.h is included inside of the ATL namespace, and it contains another namespace ATL declaration. Because of that, the compiler cannot decide between ATL:: and ATL::ATL:: namespaces. The solution is either to fix the atlbase.h, or to surround atlbase.h include declaration with following statements:
 
- 
-
     #define ATL   ATLFIX
-
     #include <atlapp.h>
-
     #undef ATL
-
     namespace ATL = ::ATLFIX;
 
- 
-
 ~    Windows XP allows applications to use Common Controls version 6, which supports only Unicode applications. While WTL allows creation of Ansi applications that use Common Controls 6, that should be used only for test programs and is not recommended or supported for released projects. If you want to use Common Controls 6, build your application as Unicode.
-
- 
-
 ~    If you build your app that hosts ActiveX controls with VC++ 7.x, you can see this assert failing:
-
     !InlineIsEqualGUID(*m_plibid, GUID_NULL) && "Did you forget to pass the LIBID to CComModule::Init?"
 
 There are two ways to fix this:
-
     In the main .CPP file of your project, replace the line
         hRes = _Module.Init(NULL, hInstance);
     with this one
         hRes = _Module.Init(NULL, hInstance, &LIBID_ATLLib);
      
-
     Compile you project with _ATL_DLL defined (dynamic link to ATL)
 
 ~    Several of the sample programs included with WTL were extended to support building for Windows CE. These samples are not specially redesigned for Windows CE, but just modified to allow you to compile and run them on the Windows CE platforms. The samples are: BmpView, GuidGen, and MTPad.
-
- 
-
 ~    WTL supports building projects with EVC++ 3.0 only for Pocket PC and Pocket PC 2002 platforms, as other platforms don't provide minimum support for ATL or other required libraries.
-
- 
-
 ~    The old AppWizards for VC++ 6.0 and eVC++ 4.0/3.0 are not included in this version of WTL because they cannot be a part of an Open Source project. They are still available in the previous release, WTL 7.1. 
 
- 
-
 Changes Between WTL 8.0 And 7.5
-
- 
 
 New and improved:
 
@@ -568,22 +445,11 @@ New and improved:
     ModuleHelper functions for uniform support of ATL3 and ATL7 module classes
     SecureHelper functions for support of secure and non-secure run-time functions
     Support for new Vista features:
-
-        *
-
-          Support for new messages for common controls, dialogs, etc.
-        *
-
-          Support for TaskDialog
-        *
-
-          New Shell file dialogs (IFileOpenDialog and IFileSaveDialog)
-        *
-
-          New Aero Wizard support classes
-        *
-
-          New classes for Buffered Paint and Buffered Animation
+        *          Support for new messages for common controls, dialogs, etc.
+        *          Support for TaskDialog
+        *          New Shell file dialogs (IFileOpenDialog and IFileSaveDialog)
+        *          New Aero Wizard support classes
+        *          New classes for Buffered Paint and Buffered Animation
 
     New TabView classes
     New dialog class that uses in-memory dialog templates
@@ -594,69 +460,38 @@ New and improved:
     New class CFileDialogEx that supports GetOpenFileNameEx for Windows Mobile 5
     New features for the App Wizard:
 
-        *
-
-          New default version values
-        *
-
-          Unicode build option
-        *
-
-          Support for TabView applications
-        *
-
-          Support for Explorer applications
+        *          New default version values
+        *          Unicode build option
+        *          Support for TabView applications
+        *          Support for Explorer applications
 
     Updates for the desktop App Wizard:
 
-        *
-
-          Added calls to set font for views based on controls that use font
-        *
-
-          Added scroll window as another view type
+        *          Added calls to set font for views based on controls that use font
+        *          Added scroll window as another view type
 
     Support for VC2005 Express:
 
-        *
-
-          Setup for VS2005x
-        *
-
-          Changes in default.js to take into account that VC2005x does not have a resource editor
-        *
-
-          Generated code allows use of ATL3 from the Platform SDK
+        *          Setup for VS2005x
+        *          Changes in default.js to take into account that VC2005x does not have a resource editor
+        *          Generated code allows use of ATL3 from the Platform SDK
 
     New AppWizard for Mobile 2003 and 2005 platforms
     New samples:
 
-        *
-
-          Aero - demonstrates the Vista Glass UI
-        *
-
-          MiniPie - Windows Mobile 2005 PPC and Smartphone sample
-        *
-
-          TabBrowser - a web browser using TabView class
+        *          Aero - demonstrates the Vista Glass UI
+        *          MiniPie - Windows Mobile 2005 PPC and Smartphone sample
+        *          TabBrowser - a web browser using TabView class
 
     MTPad sample updated to show usage of CRichEditFindReplaceImpl and CEditCommands/CRichEditComma
-
- 
 
 Fixes and enhancements:
 
     Command Bar:
 
-        *
+        *          Added support for menu items with bitmaps on Vista
+        *          Fix: Keyboard cues shown even if the window is disabled
 
-          Added support for menu items with bitmaps on Vista
-        *
-
-          Fix: Keyboard cues shown even if the window is disabled
-
-     
 
     CFolderDialog:
 
