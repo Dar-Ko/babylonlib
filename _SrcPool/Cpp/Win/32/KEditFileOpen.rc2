@@ -1,0 +1,49 @@
+// Microsoft Visual C++ generated resource script.
+//
+
+#include "resource.h"
+#ifdef APSTUDIO_INVOKED
+  #error this file is not editable by Microsoft Visual C++
+#endif //APSTUDIO_INVOKED
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Add manually edited resources here...
+
+#include "KEditFileOpen.h"
+
+/////////////////////////////////////////////////////////////////////////////
+// English resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENC)
+  #ifdef _WIN32
+    LANGUAGE LANG_ENGLISH, SUBLANG_DEFAULT
+    #pragma code_page(1252)
+  #endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+// File Open edit control
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_DDXFILE_TT_MODIFY   "Modify"
+    IDS_DDXFILE_OK          "OK"
+    IDS_DDXFILE_EDIT_TEXT   "..."
+    IDP_DDXFILE_OVERWRITE_PROMPT 
+                            "%1\nThis file already exists.\nReplace existing file?"
+    IDP_DDXFILE_REQUIRE_VALID_FILE "Please select a valid file"
+    IDS_DDXFILE_PLEASE_SPECIFY_A_FILENAME "Please specify a file"
+    IDS_DDXFILE_ALL_EXTENSION_FILTER "All Files (*.*)|*.*||"
+END
+#endif    // English resources
+/////////////////////////////////////////////////////////////////////////////
