@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.h,v $: header file
-  $Revision: 1.2 $ $Date: 2012/06/04 13:41:30 $
+  $Revision: 1.3 $ $Date: 2012/06/04 20:12:04 $
   $Author: ddarko $
 
   Defines the interface for a MFC control to get a filename using the file
@@ -83,38 +83,49 @@ protected:
   CToolTipCtrl         m_ToolTip;
 };
 
+////////////////////////////////////////////////////////////////////////////////
+/*The class encapsulates the Windows common file dialog box. Common file dialog 
+  boxes provide an easy way to implement File Open and File Save As dialog boxes
+  (as well as other file-selection dialog boxes) in a manner consistent with 
+  Windows standards.
+ */
 class  CDDXFileFileNameDialog : public CFileDialog
 {
 public:
 //Constructors / Destructors
-#if (_MSC_VER >= 1500)
-  CDDXFileFileNameDialog(BOOL bOpenFileDialog, LPCTSTR lpszDefExt = NULL, LPCTSTR lpszFileName = NULL, 
-                         DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, LPCTSTR lpszFilter = NULL, 
-                         CWnd* pParentWnd = NULL, DWORD dwSize = 0,	BOOL bVistaStyle = TRUE);
-#else
-  CDDXFileFileNameDialog(BOOL bOpenFileDialog, LPCTSTR lpszDefExt = NULL, LPCTSTR lpszFileName = NULL, 
-                         DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, LPCTSTR lpszFilter = NULL, 
-                         CWnd* pParentWnd = NULL, DWORD dwSize = 0);
-#endif
+  #if (_MSC_VER >= 1500)
+    CDDXFileFileNameDialog(BOOL bOpenFileDialog, LPCTSTR lpszDefExt = NULL, LPCTSTR lpszFileName = NULL,
+                           DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, LPCTSTR lpszFilter = NULL,
+                           CWnd* pParentWnd = NULL, DWORD dwSize = 0,  BOOL bVistaStyle = TRUE);
+  #else
+    CDDXFileFileNameDialog(BOOL bOpenFileDialog, LPCTSTR lpszDefExt = NULL, LPCTSTR lpszFileName = NULL,
+                           DWORD dwFlags = OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT, LPCTSTR lpszFilter = NULL,
+                           CWnd* pParentWnd = NULL, DWORD dwSize = 0);
+  #endif
+  virtual ~CDDXFileFileNameDialog()
+    {
+    }
+
+//Member variables
+protected:
+  CEditFileOpen* m_pBuddy;
+  BOOL           m_bSetOkCaption;
 
 //Methods
+public:
   void SetBuddy(CEditFileOpen* pBuddy);
-#if (_MSC_VER >= 1500)  
-  BOOL UsingVistaStyle() const { return m_bVistaStyle; };
-#endif  
+  #if (_MSC_VER >= 1500)
+    BOOL UsingVistaStyle() const { return m_bVistaStyle; };
+  #endif
 
 protected:
-	DECLARE_DYNAMIC(CDDXFileFileNameDialog)
+  DECLARE_DYNAMIC(CDDXFileFileNameDialog)
 
   virtual void OnInitDone();
   virtual BOOL OnFileNameOK();
-	//virtual void OnTypeChange();
 
   DECLARE_MESSAGE_MAP()
 
-//Member variables
-  CEditFileOpen* m_pBuddy;
-  BOOL                 m_bSetOkCaption;
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -127,6 +138,10 @@ class CEditFileOpen : public CEdit
 public:
 //Constructors / Destructors
   CEditFileOpen();
+  virtual ~CEditFileOpen()
+  {
+    ATLTRACE(_T("CEditFileOpen::~CEditFileOpen()\n"));
+  }
 
 //Methods
   BOOL SubclassEdit(HWND hEdit, UINT nModifyButtonID = static_cast<UINT>(-1));
@@ -140,9 +155,9 @@ public:
   //Set/Get the extension filter string used in the common dialog
   void SetCommonDialogExtensionFilter(const CString& sFilter) { m_sCommonDialogExtFilter = sFilter; };
   CString GetCommonDialogExtensionFilter() const { return m_sCommonDialogExtFilter; };
-  
+
   //Get/Set the caption used for the "Ok" button in the common dialog
-  void SetCommonDialogOkCaption(const CString& sCaption) { m_sCommonDialogOkCaption = sCaption; };
+  void SetCommonDialogOkCaption(const CString& strCaption) { m_sCommonDialogOkCaption = strCaption; };
   CString GetCommonDialogOkCaption() const { return m_sCommonDialogOkCaption; };
 
   //Get/Set the size used for the common dialog structure (Defaults to 0 which means use the OS default value)
@@ -154,15 +169,15 @@ public:
   void SetCommonVistaStyle(BOOL bVistaStyle) { m_bVistaStyle = bVistaStyle; };
   BOOL GetCommonVistaStyle() const { return m_bVistaStyle; };
 #endif
-  
-  //Get/Set the Modify button caption 
-  void SetModifyButtonCaption(const CString& sCaption) { m_sModifyButtonCaption = sCaption; };
+
+  //Get/Set the Modify button caption
+  void SetModifyButtonCaption(const CString& strCaption) { m_sModifyButtonCaption = strCaption; };
   CString GetModifyButtonCaption() const { return m_sModifyButtonCaption; };
 
   //Get/Set the ToolTip text for the edit button
   void SetModifyButtonToolTipText(const CString& sText) { m_sModifyButtonToolTipText = sText; };
   CString GetModifyButtonToolTipText() const { return m_sModifyButtonToolTipText; };
-  
+
   //Get/Set the common dialog flags value
   void SetCommonDialogFlags(DWORD dwFlags) { m_dwCommonDialogFlags = dwFlags; };
   DWORD GetCommonDialogFlags() const { return m_dwCommonDialogFlags; };
@@ -172,11 +187,11 @@ public:
   BOOL GetAutoComplete() const { return m_bAutoComplete; };
   void SetAutoCompleteFlags(DWORD dwFlags) { m_dwAutoCompleteFlags = dwFlags; };
   DWORD GetAutoCompleteFlags() const { return m_dwAutoCompleteFlags; };
-  
+
 //Misc virtual functions
   virtual CString GetOverwritePromptString(const CString& sFilename);
   virtual void Edit();   //Bring up the file picker dialog
-  
+
 protected:
   afx_msg void OnEnable(BOOL bEnable);
 
@@ -195,9 +210,9 @@ protected:
   CString                      m_sModifyButtonCaption;
   CString                      m_sModifyButtonToolTipText;
   DWORD                        m_dwCommonDialogFlags;
-  DWORD                        m_dwCommonDialogSize; 
+  DWORD                        m_dwCommonDialogSize;
 #if (_MSC_VER >= 1500)
-  BOOL                         m_bVistaStyle;  
+  BOOL                         m_bVistaStyle;
 #endif
   BOOL                         m_bAutoComplete;
   DWORD                        m_dwAutoCompleteFlags;
@@ -218,16 +233,13 @@ void DDV_FilenameControlNotEmpty(CDataExchange* pDX, CEditFileOpen& rControl, UI
 #endif //_KEDITFILEOPEN_H_
 /*****************************************************************************
  * $Log: KEditFileOpen.h,v $
- * Revision 1.2  2012/06/04 13:41:30  ddarko
- * RC Complier condition
- *
- * Revision 1.1  2012/06/04 13:24:17  ddarko
- * Created
+ * Revision 1.3  2012/06/04 20:12:04  ddarko
+ * AutoCompleteObject failure
  *
  * Created: PJN / 19-03-1997
  *
  *****************************************************************************
-/*Copyright (c) 1997 - 2011 by PJ Naughter (Web: www.naughter.com, 
+/*Copyright (c) 1997 - 2011 by PJ Naughter (Web: www.naughter.com,
   Email: pjna@naughter.com)
   All rights reserved.
 

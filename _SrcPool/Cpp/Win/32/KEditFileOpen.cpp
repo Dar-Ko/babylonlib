@@ -1,8 +1,8 @@
 /*$RCSfile: KEditFileOpen.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2012/06/04 13:41:30 $
+  $Revision: 1.3 $ $Date: 2012/06/04 20:12:04 $
   $Author: ddarko $
 
-  Implementation for a MFC control to get a filename using the file open/save 
+  Implementation for a MFC control to get a filename using the file open/save
   as common dialogs
   Copyright: 1997 - 2011 by PJ Naughter
   Created: PJN / 19-03-1997
@@ -31,7 +31,7 @@ BEGIN_MESSAGE_MAP(CEditFileOpen, CEdit)
 END_MESSAGE_MAP()
 
 CEditFileOpen::CEditFileOpen() : m_dwCommonDialogFlags(OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT),
-                                             m_bAutoComplete(TRUE),
+                                             m_bAutoComplete(FALSE), //FixMe: exception on destroy, if AutoComplete = TRUE
                                              m_dwAutoCompleteFlags(ACO_AUTOSUGGEST | ACO_FILTERPREFIXES),
                                            #if (_MSC_VER >= 1500)
                                              m_bVistaStyle(TRUE),
@@ -41,15 +41,16 @@ CEditFileOpen::CEditFileOpen() : m_dwCommonDialogFlags(OFN_HIDEREADONLY | OFN_OV
 }
 
 BOOL CEditFileOpen::SubclassEdit(HWND hEdit, UINT nModifyButtonID)
-{   
+{
+  ATLTRACE(_T("CEditFileOpen::SubclassEdit()\n"));
   //test our inputs
   if (!IsWindow(hEdit))
   {
+    TRACE(_T("  Window handle is invalid!\n"));
     ASSERT(FALSE);
-    TRACE(_T("CEditFileOpen::SubclassEdit, window handle is invalid!\n"));
     return FALSE;
-  }                
-  
+  }
+
   //subclass the control
   if (SubclassWindow(hEdit))
   {
@@ -59,7 +60,7 @@ BOOL CEditFileOpen::SubclassEdit(HWND hEdit, UINT nModifyButtonID)
   }
   else
   {
-    TRACE(_T("CEditFileOpen::SubclassEdit, Could not subclass edit control!\n"));
+    TRACE(_T("  Could not subclass edit control!\n"));
     ASSERT(FALSE);
     return FALSE;
   }
@@ -71,9 +72,9 @@ void CEditFileOpen::SetAutoComplete(BOOL bAutoComplete)
   m_bAutoComplete = bAutoComplete;
 
   //Also let the auto complete object know
-  if (m_pAutoCompleteObject)
+  if (m_pAutoCompleteObject != NULL)
   {
-    if (m_bAutoComplete)
+    if (m_bAutoComplete == TRUE)
     {
       HRESULT hr = m_pAutoCompleteObject->SetOptions(m_dwAutoCompleteFlags);
       if (FAILED(hr))
@@ -90,13 +91,14 @@ void CEditFileOpen::SetAutoComplete(BOOL bAutoComplete)
 
 HRESULT CEditFileOpen::InitializeAutoComplete()
 {
-  if (m_bAutoComplete)
+  ATLTRACE(_T("CEditFileOpen::InitializeAutoComplete() m_bAutoComplete = %d\n"), m_bAutoComplete);
+  if ((m_bAutoComplete == TRUE) && (m_pAutoCompleteObject == NULL))
   {
     //Create the auto complete object
     HRESULT hr = m_pAutoCompleteObject.CoCreateInstance(CLSID_AutoComplete, NULL, CLSCTX_INPROC_SERVER);
     if (FAILED(hr))
     {
-      TRACE(_T("CEditFileOpen::InitializeAutoComplete, failed to create AutoComplete object, Error:%08X\n"), hr);
+      TRACE(_T("  failed to create AutoComplete object, Error: %08X\n"), hr);
       return hr;
     }
 
@@ -106,7 +108,7 @@ HRESULT CEditFileOpen::InitializeAutoComplete()
     hr = CoCreateInstance(CLSID_ACListISF, NULL, CLSCTX_INPROC_SERVER, IID_IACList2, reinterpret_cast<void**>(&m_pAutoCompleteSourceObject));
     if (FAILED(hr))
     {
-      TRACE(_T("CEditFileOpen::InitializeAutoComplete, failed to create AutoComplete filesystem source object, Error:%08X\n"), hr);
+      TRACE(_T("  failed to create AutoComplete filesystem source object, Error: %08X\n"), hr);
       return hr;
     }
 
@@ -114,7 +116,7 @@ HRESULT CEditFileOpen::InitializeAutoComplete()
     hr = m_pAutoCompleteSourceObject->SetOptions(ACLO_FILESYSONLY);
     if (FAILED(hr))
     {
-      TRACE(_T("CEditFileOpen::InitializeAutoComplete, failed to set AutoComplete filesystem source object options, Error:%08X\n"), hr);
+      TRACE(_T("  failed to set AutoComplete filesystem source object options, Error: %08X\n"), hr);
       return hr;
     }
 
@@ -122,13 +124,13 @@ HRESULT CEditFileOpen::InitializeAutoComplete()
     hr = m_pAutoCompleteObject->SetOptions(m_dwAutoCompleteFlags);
     if (FAILED(hr))
     {
-      TRACE(_T("CEditFileOpen::InitializeAutoComplete, failed to set AutoComplete object options, Error:%08X\n"), hr);
+      TRACE(_T("  failed to set AutoComplete object options, Error: %08X\n"), hr);
       return hr;
     }
     hr = m_pAutoCompleteObject->Init(GetSafeHwnd(), m_pAutoCompleteSourceObject, NULL, NULL);
     if (FAILED(hr))
     {
-      TRACE(_T("CEditFileOpen::InitializeAutoComplete, failed to initialize AutoComplete object, Error:%08X\n"), hr);
+      TRACE(_T("  failed to initialize AutoComplete object, Error: %08X\n"), hr);
       return hr;
     }
   }
@@ -143,7 +145,7 @@ BOOL CEditFileOpen::AddModifyButton(UINT nModifyButtonID)
   AFXASSUME(pParent);
 
   //Work out the dimensions of the modify button and the resized edit control
-  CRect editRect;  
+  CRect editRect;
   GetWindowRect(editRect);
   pParent->ScreenToClient(editRect);
   CRect btnRect;
@@ -154,24 +156,24 @@ BOOL CEditFileOpen::AddModifyButton(UINT nModifyButtonID)
   //Calculate the width of the button based on the text we are going to put on in
   CDC* pDC = pParent->GetDC();
   int nButtonWidth = 0;
-	if (pDC)
+  if (pDC)
   {
     //Setup the DC
-		CFont* pNewFont = pParent->GetFont();
-		CFont* pOldFont = pDC->SelectObject(pNewFont);
+    CFont* pNewFont = pParent->GetFont();
+    CFont* pOldFont = pDC->SelectObject(pNewFont);
 
     //Get the button width
-		CSize SizeText = pDC->GetTextExtent(_T("    "), 4); //We allow for some space around the button caption
-		pDC->LPtoDP(&SizeText);
-		nButtonWidth = SizeText.cx;
-		SizeText = pDC->GetTextExtent(m_sModifyButtonCaption, m_sModifyButtonCaption.GetLength());
-		pDC->LPtoDP(&SizeText);
-		nButtonWidth += SizeText.cx;
+    CSize SizeText = pDC->GetTextExtent(_T("    "), 4); //We allow for some space around the button caption
+    pDC->LPtoDP(&SizeText);
+    nButtonWidth = SizeText.cx;
+    SizeText = pDC->GetTextExtent(m_sModifyButtonCaption, m_sModifyButtonCaption.GetLength());
+    pDC->LPtoDP(&SizeText);
+    nButtonWidth += SizeText.cx;
 
     //Restore the DC
-		pDC->SelectObject(pOldFont);
-	}
-	else
+    pDC->SelectObject(pOldFont);
+  }
+  else
     nButtonWidth = btnRect.Height()*8/10;  //width is 8/10 of height
 
   //Now that we have the width we can fill out the rest of the buttons rect position
@@ -202,22 +204,26 @@ BOOL CEditFileOpen::AddModifyButton(UINT nModifyButtonID)
   return TRUE;
 }
 
-void CEditFileOpen::OnEnable(BOOL bEnable) 
+void CEditFileOpen::OnEnable(BOOL bEnable)
 {
   //Let the base class do its thing
-	CEdit::OnEnable(bEnable);
-	
+  CEdit::OnEnable(bEnable);
+
   //reflect the enabled state of this control to the buddy button control
-	m_ctrlModifyButton.EnableWindow(bEnable);
+  m_ctrlModifyButton.EnableWindow(bEnable);
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 void CEditFileOpen::Edit()
 {
+  ATLTRACE(_T("CEditFileOpen::Edit()\n"));
   //Retrieve the current filename to use as the initial value
   CString sCurrentFilename;
   GetWindowText(sCurrentFilename);
 
-  //Make sure the browse button at least works if a directory is 
+  //Make sure the browse button at least works if a directory is
   //currently selected
   int nCurrentFilenameLength = sCurrentFilename.GetLength();
   if (nCurrentFilenameLength)
@@ -226,33 +232,38 @@ void CEditFileOpen::Edit()
       sCurrentFilename += _T("*.*");
   }
 
-  //Bring up the common dialog                
-#if (_MSC_VER >= 1500)  
-  CDDXFileFileNameDialog dlg(TRUE, NULL, sCurrentFilename, m_dwCommonDialogFlags, m_sCommonDialogExtFilter, GetParent(), m_dwCommonDialogSize, m_bVistaStyle);
-#else
-  CDDXFileFileNameDialog dlg(TRUE, NULL, sCurrentFilename, m_dwCommonDialogFlags, m_sCommonDialogExtFilter, GetParent(), m_dwCommonDialogSize);
-#endif
+  //Bring up the common dialog
+  #if (_MSC_VER >= 1500)
+    CDDXFileFileNameDialog dlg(TRUE, NULL, sCurrentFilename, m_dwCommonDialogFlags,
+                               m_sCommonDialogExtFilter, GetParent(), 
+                               m_dwCommonDialogSize, m_bVistaStyle);
+  #else
+    CDDXFileFileNameDialog dlg(TRUE, NULL, sCurrentFilename, m_dwCommonDialogFlags, 
+                               m_sCommonDialogExtFilter, GetParent(), 
+                               m_dwCommonDialogSize);
+  #endif
   dlg.SetBuddy(this);
 
   //Modify the title to the desired value
   if (m_sCommonDialogTitle.GetLength())
     dlg.m_ofn.lpstrTitle = m_sCommonDialogTitle;
 
-#if (_MSC_VER >= 1500)  
-	#if (WINVER >= 0x0600)
-		//Modify the text on the OK button to be the specified value, since it will not be done via OnInitDone 
-		//which is where we change OK button text for non Vista style File dialogs. This is because OnInitDone
-		//is not supported for Vista style File dialogs
-		if (dlg.UsingVistaStyle())
-		{
-		  CComPtr<IFileOpenDialog> pFileOpenDialog;
-		  pFileOpenDialog.Attach(dlg.GetIFileOpenDialog());
-		  if (pFileOpenDialog)
-			  pFileOpenDialog->SetOkButtonLabel(CStringW(m_sCommonDialogOkCaption));
-		}
-	#endif
-#endif 
-    
+  #if (_MSC_VER >= 1500)
+    #if (WINVER >= 0x0600)
+      //Modify the text on the OK button to be the specified value, since it will
+      //not be done via OnInitDone which is where we change OK button text for
+      //non Vista style File dialogs.
+      //This is because OnInitDone is not supported for Vista style File dialogs
+      if (dlg.UsingVistaStyle())
+      {
+        CComPtr<IFileOpenDialog> pFileOpenDialog;
+        pFileOpenDialog.Attach(dlg.GetIFileOpenDialog());
+        if (pFileOpenDialog)
+          pFileOpenDialog->SetOkButtonLabel(CStringW(m_sCommonDialogOkCaption));
+      }
+    #endif
+  #endif
+
   //bring up the dialog and if the user hits ok, then set the text in this control to the new filename
   if (dlg.DoModal() == IDOK)
     SetWindowText(dlg.GetPathName());
@@ -286,7 +297,7 @@ BOOL CEditFileOpen::LoadStringResources()
     if (!m_sCommonDialogExtFilter.LoadString(IDS_DDXFILE_ALL_EXT_FILTER))
       return FALSE;
   }
-  
+
   return TRUE;
 }
 
@@ -299,44 +310,44 @@ CString CEditFileOpen::GetOverwritePromptString(const CString& sFilename)
 
 void DDX_FilenameControl(CDataExchange* pDX, int nIDC, CEditFileOpen& rControl, UINT nModifyButtonID)
 {
-	if ((rControl.m_hWnd == NULL) && (rControl.GetControlUnknown() == NULL)) //not subclassed yet
-	{
-		ASSERT(!pDX->m_bSaveAndValidate);
+  if ((rControl.m_hWnd == NULL) && (rControl.GetControlUnknown() == NULL)) //not subclassed yet
+  {
+    ASSERT(!pDX->m_bSaveAndValidate);
 
-		pDX->PrepareEditCtrl(nIDC);
-	  HWND hWndCtrl;
-	  pDX->m_pDlgWnd->GetDlgItem(nIDC, &hWndCtrl);
-		if ((hWndCtrl != NULL) && !rControl.SubclassEdit(hWndCtrl, nModifyButtonID))
-		{
-			ASSERT(FALSE); //possibly trying to subclass twice?
-			AfxThrowNotSupportedException();
-		}
+    pDX->PrepareEditCtrl(nIDC);
+    HWND hWndCtrl;
+    pDX->m_pDlgWnd->GetDlgItem(nIDC, &hWndCtrl);
+    if ((hWndCtrl != NULL) && !rControl.SubclassEdit(hWndCtrl, nModifyButtonID))
+    {
+      ASSERT(FALSE); //possibly trying to subclass twice?
+      AfxThrowNotSupportedException();
+    }
 #ifndef _AFX_NO_OCC_SUPPORT
-		else
-		{
-		 if (hWndCtrl == NULL)
-		 {
-			 if (pDX->m_pDlgWnd->GetOleControlSite(nIDC) != NULL)
-			   rControl.AttachControlSite(pDX->m_pDlgWnd, nIDC);
-		 }
-		 else
-		 {
-		   //If the control has reparented itself (e.g., invisible control),
-		   //make sure that the CWnd gets properly wired to its control site.
-		   if (pDX->m_pDlgWnd->m_hWnd != ::GetParent(rControl.m_hWnd))
-			   rControl.AttachControlSite(pDX->m_pDlgWnd);
-		 }
-		}
+    else
+    {
+     if (hWndCtrl == NULL)
+     {
+       if (pDX->m_pDlgWnd->GetOleControlSite(nIDC) != NULL)
+         rControl.AttachControlSite(pDX->m_pDlgWnd, nIDC);
+     }
+     else
+     {
+       //If the control has reparented itself (e.g., invisible control),
+       //make sure that the CWnd gets properly wired to its control site.
+       if (pDX->m_pDlgWnd->m_hWnd != ::GetParent(rControl.m_hWnd))
+         rControl.AttachControlSite(pDX->m_pDlgWnd);
+     }
+    }
 #endif //!_AFX_NO_OCC_SUPPORT
-	}
+  }
 }
 
 void DDX_FilenameValue(CDataExchange* pDX, CEditFileOpen& rControl, CString& sFile)
 {
   if (pDX->m_bSaveAndValidate)
-    rControl.GetWindowText(sFile); 
+    rControl.GetWindowText(sFile);
   else
-    rControl.SetWindowText(sFile);     
+    rControl.SetWindowText(sFile);
 }
 
 void DDV_FilenameControlNotFolder(CDataExchange* pDX, CEditFileOpen& rControl, UINT nFailureResourceID, UINT nHelpID)
@@ -346,7 +357,7 @@ void DDV_FilenameControlNotFolder(CDataExchange* pDX, CEditFileOpen& rControl, U
     CString sFile;
     rControl.GetWindowText(sFile);
     DWORD dwAttributes = GetFileAttributes(sFile);
-    
+
     if ((dwAttributes != INVALID_FILE_ATTRIBUTES) && (dwAttributes & FILE_ATTRIBUTE_DIRECTORY))
     {
       AfxMessageBox(nFailureResourceID, MB_OK | MB_ICONEXCLAMATION, nHelpID);
@@ -363,7 +374,7 @@ void DDV_FilenameControlMustExist(CDataExchange* pDX, CEditFileOpen& rControl, U
     CString sFile;
     rControl.GetWindowText(sFile);
     DWORD dwAttributes = GetFileAttributes(sFile);
-    
+
     //Check to see if the file exists
     if (dwAttributes == INVALID_FILE_ATTRIBUTES)
     {
@@ -381,7 +392,7 @@ void DDV_FilenameControlOverwritePrompt(CDataExchange* pDX, CEditFileOpen& rCont
     CString sFile;
     rControl.GetWindowText(sFile);
     DWORD dwAttributes = GetFileAttributes(sFile);
-    
+
     if (dwAttributes != INVALID_FILE_ATTRIBUTES)
     {
       //Prompt the user if we can overwrite and if we get a negative indication, then fail the validation
@@ -400,7 +411,7 @@ void DDV_FilenameControlNotEmpty(CDataExchange* pDX, CEditFileOpen& rControl, UI
   {
     CString sFile;
     rControl.GetWindowText(sFile);
-    
+
     //Check to see if the file exists
     if (sFile.IsEmpty())
     {
@@ -416,7 +427,7 @@ void DDV_FilenameControlNotEmpty(CDataExchange* pDX, CEditFileOpen& rControl, UI
 BEGIN_MESSAGE_MAP(CDDXFileModifyButton, CButton)
   ON_CONTROL_REFLECT(BN_CLICKED, OnClicked)
 END_MESSAGE_MAP()
-        
+
 CDDXFileModifyButton::CDDXFileModifyButton() : m_pBuddy(NULL),
                                                m_bFirstPreTranslateMessageCall(TRUE)
 {
@@ -426,15 +437,15 @@ void CDDXFileModifyButton::SetBuddy(CEditFileOpen* pBuddy)
 {
   //Validate our parameters
   ASSERT(pBuddy);
-  
+
   m_pBuddy = pBuddy;
 }
 
-BOOL CDDXFileModifyButton::PreTranslateMessage(MSG* pMsg) 
-{                 
+BOOL CDDXFileModifyButton::PreTranslateMessage(MSG* pMsg)
+{
   //Validate our parameters
   ASSERT(m_pBuddy);
-    
+
   //create the tooltip
   if (m_bFirstPreTranslateMessageCall)
   {
@@ -448,7 +459,7 @@ BOOL CDDXFileModifyButton::PreTranslateMessage(MSG* pMsg)
     }
     m_bFirstPreTranslateMessageCall = FALSE;
   }
-  
+
   //give the tooltip a chance to handle the message if is is valid
   if (m_ToolTip.GetSafeHwnd() != NULL)
     m_ToolTip.RelayEvent(pMsg);
@@ -456,22 +467,31 @@ BOOL CDDXFileModifyButton::PreTranslateMessage(MSG* pMsg)
   return CButton::PreTranslateMessage(pMsg);
 }
 
-void CDDXFileModifyButton::OnClicked() 
+void CDDXFileModifyButton::OnClicked()
 {
+  ATLTRACE(_T("CDDXFileModifyButton::OnClicked()\n"));
   //Validate our parameters
   AFXASSUME(m_pBuddy);
 
   //Ask the buddy to show the dialog
   m_pBuddy->Edit();
-}                        
+}
 
 
 IMPLEMENT_DYNAMIC(CDDXFileFileNameDialog, CFileDialog)
 
 #if (_MSC_VER >= 1500)
-CDDXFileFileNameDialog::CDDXFileFileNameDialog(BOOL bOpenFileDialog, LPCTSTR lpszDefExt, LPCTSTR lpszFileName, DWORD dwFlags, LPCTSTR lpszFilter, CWnd* pParentWnd, DWORD dwSize,	BOOL bVistaStyle) :	CFileDialog(bOpenFileDialog, lpszDefExt, lpszFileName, dwFlags, lpszFilter, pParentWnd, dwSize, bVistaStyle),
+CDDXFileFileNameDialog::CDDXFileFileNameDialog(BOOL bOpenFileDialog, LPCTSTR lpszDefExt,
+              LPCTSTR lpszFileName, DWORD dwFlags, LPCTSTR lpszFilter, CWnd* pParentWnd, 
+              DWORD dwSize,  BOOL bVistaStyle) :  
+    CFileDialog(bOpenFileDialog, lpszDefExt, lpszFileName, dwFlags, 
+                lpszFilter, pParentWnd, dwSize, bVistaStyle),
 #else
-CDDXFileFileNameDialog::CDDXFileFileNameDialog(BOOL bOpenFileDialog, LPCTSTR lpszDefExt, LPCTSTR lpszFileName, DWORD dwFlags, LPCTSTR lpszFilter, CWnd* pParentWnd, DWORD dwSize) :	CFileDialog(bOpenFileDialog, lpszDefExt, lpszFileName, dwFlags, lpszFilter, pParentWnd, dwSize),
+CDDXFileFileNameDialog::CDDXFileFileNameDialog(BOOL bOpenFileDialog, LPCTSTR lpszDefExt,
+                                LPCTSTR lpszFileName, DWORD dwFlags, LPCTSTR lpszFilter, 
+                                CWnd* pParentWnd, DWORD dwSize) :
+    CFileDialog(bOpenFileDialog, lpszDefExt, lpszFileName, dwFlags, 
+                lpszFilter, pParentWnd, dwSize),
 #endif
   m_bSetOkCaption(FALSE)
 {
@@ -484,7 +504,7 @@ void CDDXFileFileNameDialog::SetBuddy(CEditFileOpen* pBuddy)
 {
   //Valiate our parameters
   ASSERT(pBuddy);
-  
+
   m_pBuddy = pBuddy;
 }
 
@@ -499,48 +519,55 @@ void CDDXFileFileNameDialog::OnInitDone()
     SetControlText(IDOK, sOkCaption);
 }
 
+//-----------------------------------------------------------------------------
+/*This method is called by File Open dialog to validate the filename entered 
+  in the dialog box.
+
+  Returns TRUE if the filename is not a valid filename; otherwise returns FALSE.
+  If TRUE (1) is returned, the dialog box will remain displayed for the user to 
+  enter another filename. The dialog procedure dismisses the dialog if the return
+  is FALSE (0).
+ */
 BOOL CDDXFileFileNameDialog::OnFileNameOK()
 {
+  ATLTRACE("CDDXFileFileNameDialog::OnFileNameOK()\n");
   //Let the base class do its thing
   BOOL rVal = CFileDialog::OnFileNameOK();
   if (!rVal)  //if the filename passed the parent tests then put it through our own tests
   {
-		//check for overwrite if that flag is used, since the file open
-		//common dialog will not bother looking at this flag
-		if (m_ofn.Flags & OFN_OVERWRITEPROMPT)
-		{
-			//Retrieve the filename selected
-			CString sPath(GetFolderPath());
+    //check for overwrite if that flag is used, since the file open
+    //common dialog will not bother looking at this flag
+    if (m_ofn.Flags & OFN_OVERWRITEPROMPT)
+    {
+      //Retrieve the filename selected
+      CString strPath(GetFolderPath());
 
-			//check to see if the file already exists
-			CFileStatus fs;
-			if (GetFileAttributes(sPath) != INVALID_FILE_ATTRIBUTES)
-			{
-				ASSERT(m_pBuddy);
-				CString sMessage(m_pBuddy->GetOverwritePromptString(sPath));
+      //check to see if the file already exists
+      CFileStatus fs;
+      if (GetFileAttributes(strPath) != INVALID_FILE_ATTRIBUTES)
+      {
+        ASSERT(m_pBuddy);
+        CString strMessage(m_pBuddy->GetOverwritePromptString(strPath));
 
-				//ensure the title is the same as the common dialog caption
-				CString sCaption(m_pBuddy->GetCommonDialogTitle());
-				rVal = (MessageBox(sMessage, sCaption, MB_YESNO | MB_ICONQUESTION) != IDYES);
-			}
-		}
-	}
+        //ensure the title is the same as the common dialog caption
+        CString strCaption(m_pBuddy->GetCommonDialogTitle());
+        rVal = (MessageBox(strMessage, strCaption, MB_YESNO | MB_ICONQUESTION) != IDYES);
+      }
+    }
+  }
   return rVal;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KEditFileOpen.cpp,v $
- * Revision 1.2  2012/06/04 13:41:30  ddarko
- * RC Complier condition
- *
- * Revision 1.1  2012/06/04 13:24:17  ddarko
- * Created
+ * Revision 1.3  2012/06/04 20:12:04  ddarko
+ * AutoCompleteObject failure
  *
  * Created: PJN / 19-03-1997
  *
  *****************************************************************************
-/*Copyright (c) 1997 - 2011 by PJ Naughter (Web: www.naughter.com, 
+/*Copyright (c) 1997 - 2011 by PJ Naughter (Web: www.naughter.com,
   Email: pjna@naughter.com)
   All rights reserved.
 
