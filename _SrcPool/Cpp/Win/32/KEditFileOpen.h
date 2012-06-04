@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.h,v $: header file
-  $Revision: 1.1 $ $Date: 2012/06/04 13:24:17 $
+  $Revision: 1.2 $ $Date: 2012/06/04 13:41:30 $
   $Author: ddarko $
 
   Defines the interface for a MFC control to get a filename using the file
@@ -10,10 +10,32 @@
 
 ////////////////////////////////// Defines ////////////////////////////////////
 
-#pragma once
-
 #ifndef _KEDITFILEOPEN_H_
   #define _KEDITFILEOPEN_H_
+
+#if !defined(IDS_DDXFILE_TT_MODIFY)
+  #define IDS_DDXFILE_TT_MODIFY           1
+#endif
+#if !defined(IDS_DDXFILE_OK)
+  #define IDS_DDXFILE_OK                  2
+#endif
+#if !defined(IDS_DDXFILE_EDIT_TEXT)
+  #define IDS_DDXFILE_EDIT_TEXT           3
+#endif
+#if !defined(IDP_DDXFILE_OVERWRITE_PROMPT)
+  #define IDP_DDXFILE_OVERWRITE_PROMPT    4
+#endif
+#if !defined(IDP_DDXFILE_REQUIRE_VALID_FILE)
+  #define IDP_DDXFILE_REQUIRE_VALID_FILE  5
+#endif
+#if !defined(IDS_DDXFILE_PROMPT_FILENAME)
+  #define IDS_DDXFILE_PROMPT_FILENAME     6
+#endif
+#if !defined(IDS_DDXFILE_ALL_EXT_FILTER)
+  #define IDS_DDXFILE_ALL_EXT_FILTER      7
+#endif
+
+#ifndef RC_INVOKED //!RC Compiler
 
 #ifndef __ATLWIN_H__
 #pragma message("DDXFile as of v1.21 requires ATL support to implement its functionality. If your project is MFC only, then you need to update it to include ATL support")
@@ -192,9 +214,13 @@ void DDV_FilenameControlMustExist(CDataExchange* pDX, CEditFileOpen& rControl, U
 void DDV_FilenameControlOverwritePrompt(CDataExchange* pDX, CEditFileOpen& rControl, UINT nHelpID = static_cast<UINT>(-1));
 void DDV_FilenameControlNotEmpty(CDataExchange* pDX, CEditFileOpen& rControl, UINT nFailureResourceID, UINT nHelpID = static_cast<UINT>(-1));
 ///////////////////////////////////////////////////////////////////////////////
+#endif //!RC_INVOKED
 #endif //_KEDITFILEOPEN_H_
 /*****************************************************************************
  * $Log: KEditFileOpen.h,v $
+ * Revision 1.2  2012/06/04 13:41:30  ddarko
+ * RC Complier condition
+ *
  * Revision 1.1  2012/06/04 13:24:17  ddarko
  * Created
  *

@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2012/06/04 13:24:17 $
+  $Revision: 1.2 $ $Date: 2012/06/04 13:41:30 $
   $Author: ddarko $
 
   Implementation for a MFC control to get a filename using the file open/save 
@@ -278,12 +278,12 @@ BOOL CEditFileOpen::LoadStringResources()
   }
   if (m_sCommonDialogTitle.IsEmpty())
   {
-    if (!m_sCommonDialogTitle.LoadString(IDS_DDXFILE_PLEASE_SPECIFY_A_FILENAME))
+    if (!m_sCommonDialogTitle.LoadString(IDS_DDXFILE_PROMPT_FILENAME))
       return FALSE;
   }
   if (m_sCommonDialogExtFilter.IsEmpty())
   {
-    if (!m_sCommonDialogExtFilter.LoadString(IDS_DDXFILE_ALL_EXTENSION_FILTER))
+    if (!m_sCommonDialogExtFilter.LoadString(IDS_DDXFILE_ALL_EXT_FILTER))
       return FALSE;
   }
   
@@ -531,6 +531,9 @@ BOOL CDDXFileFileNameDialog::OnFileNameOK()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KEditFileOpen.cpp,v $
+ * Revision 1.2  2012/06/04 13:41:30  ddarko
+ * RC Complier condition
+ *
  * Revision 1.1  2012/06/04 13:24:17  ddarko
  * Created
  *

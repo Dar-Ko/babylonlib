@@ -42,8 +42,8 @@ BEGIN
     IDP_DDXFILE_OVERWRITE_PROMPT 
                             "%1\nThis file already exists.\nReplace existing file?"
     IDP_DDXFILE_REQUIRE_VALID_FILE "Please select a valid file"
-    IDS_DDXFILE_PLEASE_SPECIFY_A_FILENAME "Please specify a file"
-    IDS_DDXFILE_ALL_EXTENSION_FILTER "All Files (*.*)|*.*||"
+    IDS_DDXFILE_PROMPT_FILENAME "Please specify a file"
+    IDS_DDXFILE_ALL_EXT_FILTER "All Files (*.*)|*.*||"
 END
 #endif    // English resources
 /////////////////////////////////////////////////////////////////////////////
