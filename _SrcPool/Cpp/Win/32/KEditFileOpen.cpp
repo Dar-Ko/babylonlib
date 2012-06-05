@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.cpp,v $: implementation file
-  $Revision: 1.4 $ $Date: 2012/06/05 20:38:07 $
+  $Revision: 1.5 $ $Date: 2012/06/05 21:27:55 $
   $Author: ddarko $
 
   Implementation for a MFC control to get a filename using the file open/save
@@ -67,7 +67,8 @@ BOOL CEditFileOpen::SubclassEdit(HWND hEdit, UINT nModifyButtonID)
 }
 
 //-----------------------------------------------------------------------------
-/*
+/*Handles pressed Enter key (VK_RETURN) event.
+
   Returns nonzero if the message was translated and should not be dispatched; 
   FALSE if the message was not translated and should be dispatched.
  */
@@ -626,6 +627,9 @@ BOOL CDDXFileFileNameDialog::OnFileNameOK()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KEditFileOpen.cpp,v $
+ * Revision 1.5  2012/06/05 21:27:55  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.4  2012/06/05 20:38:07  ddarko
  * Added notification to parent on VK_RETURN or CFileDialog IDOK events
  *
