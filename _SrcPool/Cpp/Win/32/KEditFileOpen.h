@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.h,v $: header file
-  $Revision: 1.3 $ $Date: 2012/06/04 20:12:04 $
+  $Revision: 1.4 $ $Date: 2012/06/05 20:38:07 $
   $Author: ddarko $
 
   Defines the interface for a MFC control to get a filename using the file
@@ -193,6 +193,10 @@ public:
   virtual void Edit();   //Bring up the file picker dialog
 
 protected:
+  void Notify();
+  virtual BOOL PreTranslateMessage(MSG* pMsg);
+
+protected:
   afx_msg void OnEnable(BOOL bEnable);
 
   DECLARE_MESSAGE_MAP()
@@ -233,8 +237,11 @@ void DDV_FilenameControlNotEmpty(CDataExchange* pDX, CEditFileOpen& rControl, UI
 #endif //_KEDITFILEOPEN_H_
 /*****************************************************************************
  * $Log: KEditFileOpen.h,v $
- * Revision 1.3  2012/06/04 20:12:04  ddarko
- * AutoCompleteObject failure
+ * Revision 1.4  2012/06/05 20:38:07  ddarko
+ * Added notification to parent on VK_RETURN or CFileDialog IDOK events
+ *
+ * Revision 1.2  2012/06/04 21:00:41  ec11691
+ * http://www.naughter.com
  *
  * Created: PJN / 19-03-1997
  *

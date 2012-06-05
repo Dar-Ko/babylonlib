@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2012/06/04 20:12:04 $
+  $Revision: 1.4 $ $Date: 2012/06/05 20:38:07 $
   $Author: ddarko $
 
   Implementation for a MFC control to get a filename using the file open/save
@@ -66,6 +66,29 @@ BOOL CEditFileOpen::SubclassEdit(HWND hEdit, UINT nModifyButtonID)
   }
 }
 
+//-----------------------------------------------------------------------------
+/*
+  Returns nonzero if the message was translated and should not be dispatched; 
+  FALSE if the message was not translated and should be dispatched.
+ */
+BOOL CEditFileOpen::PreTranslateMessage(MSG* pMsg)
+{
+if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN )
+  {
+  //const int idCtrl= GetFocus()->GetDlgCtrlID();
+  if ( pMsg->hwnd == GetSafeHwnd() )
+    {
+    Notify();
+    return TRUE;
+    }
+  }
+
+return CEdit::PreTranslateMessage(pMsg);
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
 void CEditFileOpen::SetAutoComplete(BOOL bAutoComplete)
 {
   //Save the setting in the member variable
@@ -218,7 +241,7 @@ void CEditFileOpen::OnEnable(BOOL bEnable)
  */
 void CEditFileOpen::Edit()
 {
-  ATLTRACE(_T("CEditFileOpen::Edit()\n"));
+  ATLTRACE(_T("  CEditFileOpen::Edit()\n"));
   //Retrieve the current filename to use as the initial value
   CString sCurrentFilename;
   GetWindowText(sCurrentFilename);
@@ -266,12 +289,48 @@ void CEditFileOpen::Edit()
 
   //bring up the dialog and if the user hits ok, then set the text in this control to the new filename
   if (dlg.DoModal() == IDOK)
-    SetWindowText(dlg.GetPathName());
+    {
+    CWnd::SetWindowText(dlg.GetPathName());
+    Notify(); //Notify the owner about the update
+    }
 }
 
+//-----------------------------------------------------------------------------
+/*Notify current update to the parent .
+  The WM_NOTIFY message is sent to buddy window when an event has occurred 
+  Sent with the message is notification information with code NM_RETURN.
+ */
+void CEditFileOpen::Notify()
+{
+ATLTRACE(_T("  CEditFileOpen::Notify()\n"));
+
+CWnd* pOwner = GetOwner();
+if (pOwner != NULL)
+  {
+  ASSERT_VALID(pOwner);
+  NMHDR hdr;   //information about a notification message
+  hdr.hwndFrom = m_hWnd;//Handle to control sending message
+  hdr.idFrom =          //Identifier of control sending message
+       GetDlgCtrlID();
+  hdr.code = NM_RETURN; //Notification code
+
+  #ifdef _DEBUG
+    LRESULT pResult =
+  #endif
+      pOwner->SendMessage(WM_NOTIFY,
+                         (WPARAM)GetDlgCtrlID(),
+                         (LPARAM)&hdr);
+  }
+}
+
+//-----------------------------------------------------------------------------
+/*Set default titles and captions.
+  Returns TRUE if succesful or FALSE if a resource string fails to load.
+ */
 BOOL CEditFileOpen::LoadStringResources()
 {
-  //Use the default strings, a derived class can change this implementation or call the "Set.." functions directly
+  //Use the default strings, a derived class can change this implementation or 
+  //call the "Set.." functions directly
   if (m_sCommonDialogOkCaption.IsEmpty())
   {
     if (!m_sCommonDialogOkCaption.LoadString(IDS_DDXFILE_OK))
@@ -307,6 +366,9 @@ CString CEditFileOpen::GetOverwritePromptString(const CString& sFilename)
   AfxFormatString1(sReturn, IDP_DDXFILE_OVERWRITE_PROMPT, sFilename);
   return sReturn;
 }
+
+///////////////////////////////////////////////////////////////////////////////
+//DDX/DDV Helpers
 
 void DDX_FilenameControl(CDataExchange* pDX, int nIDC, CEditFileOpen& rControl, UINT nModifyButtonID)
 {
@@ -423,7 +485,8 @@ void DDV_FilenameControlNotEmpty(CDataExchange* pDX, CEditFileOpen& rControl, UI
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-//
+// CDDXFileModifyButton
+
 BEGIN_MESSAGE_MAP(CDDXFileModifyButton, CButton)
   ON_CONTROL_REFLECT(BN_CLICKED, OnClicked)
 END_MESSAGE_MAP()
@@ -477,6 +540,8 @@ void CDDXFileModifyButton::OnClicked()
   m_pBuddy->Edit();
 }
 
+///////////////////////////////////////////////////////////////////////////////
+// CDDXFileFileNameDialog
 
 IMPLEMENT_DYNAMIC(CDDXFileFileNameDialog, CFileDialog)
 
@@ -561,8 +626,11 @@ BOOL CDDXFileFileNameDialog::OnFileNameOK()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KEditFileOpen.cpp,v $
- * Revision 1.3  2012/06/04 20:12:04  ddarko
- * AutoCompleteObject failure
+ * Revision 1.4  2012/06/05 20:38:07  ddarko
+ * Added notification to parent on VK_RETURN or CFileDialog IDOK events
+ *
+ * Revision 1.2  2012/06/04 21:00:41  ec11691
+ * http://www.naughter.com
  *
  * Created: PJN / 19-03-1997
  *
