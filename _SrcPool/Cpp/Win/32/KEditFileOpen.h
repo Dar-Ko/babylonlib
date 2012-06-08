@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.h,v $: header file
-  $Revision: 1.4 $ $Date: 2012/06/05 20:38:07 $
+  $Revision: 1.5 $ $Date: 2012/06/08 22:04:20 $
   $Author: ddarko $
 
   Defines the interface for a MFC control to get a filename using the file
@@ -198,6 +198,7 @@ protected:
 
 protected:
   afx_msg void OnEnable(BOOL bEnable);
+  //afx_msg BOOL OnNcCreate(LPCREATESTRUCT lpCreateStruct);
 
   DECLARE_MESSAGE_MAP()
 
@@ -237,6 +238,9 @@ void DDV_FilenameControlNotEmpty(CDataExchange* pDX, CEditFileOpen& rControl, UI
 #endif //_KEDITFILEOPEN_H_
 /*****************************************************************************
  * $Log: KEditFileOpen.h,v $
+ * Revision 1.5  2012/06/08 22:04:20  ddarko
+ * WS_VISIBLE for buddy button
+ *
  * Revision 1.4  2012/06/05 20:38:07  ddarko
  * Added notification to parent on VK_RETURN or CFileDialog IDOK events
  *

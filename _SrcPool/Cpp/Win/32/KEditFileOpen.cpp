@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.cpp,v $: implementation file
-  $Revision: 1.5 $ $Date: 2012/06/05 21:27:55 $
+  $Revision: 1.6 $ $Date: 2012/06/08 22:04:20 $
   $Author: ddarko $
 
   Implementation for a MFC control to get a filename using the file open/save
@@ -76,12 +76,20 @@ BOOL CEditFileOpen::PreTranslateMessage(MSG* pMsg)
 {
 if ( pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_RETURN )
   {
-  //const int idCtrl= GetFocus()->GetDlgCtrlID();
   if ( pMsg->hwnd == GetSafeHwnd() )
     {
     Notify();
     return TRUE;
     }
+  }
+
+if ( pMsg->message == WM_SHOWWINDOW ) //FixMe: WM_SHOWWINDOW never received
+  {
+  if(m_ctrlModifyButton.GetSafeHwnd() != NULL)
+    {
+    m_ctrlModifyButton.ShowWindow((pMsg->wParam == TRUE) ? SW_SHOW : SW_HIDE);
+    }
+
   }
 
 return CEdit::PreTranslateMessage(pMsg);
@@ -113,6 +121,9 @@ void CEditFileOpen::SetAutoComplete(BOOL bAutoComplete)
   }
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 HRESULT CEditFileOpen::InitializeAutoComplete()
 {
   ATLTRACE(_T("CEditFileOpen::InitializeAutoComplete() m_bAutoComplete = %d\n"), m_bAutoComplete);
@@ -162,8 +173,12 @@ HRESULT CEditFileOpen::InitializeAutoComplete()
   return S_OK;
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 BOOL CEditFileOpen::AddModifyButton(UINT nModifyButtonID)
 {
+  ATLTRACE(_T("CEditFileOpen::AddModifyButton(ID=%d)\n"), nModifyButtonID);
   //Validate our parameters
   CWnd* pParent = GetParent();
   AFXASSUME(pParent);
@@ -210,8 +225,11 @@ BOOL CEditFileOpen::AddModifyButton(UINT nModifyButtonID)
   SetWindowPos(NULL, 0, 0, editRect.Width() - btnRect.Width() - 1, editRect.Height(), SWP_NOACTIVATE | SWP_NOMOVE | SWP_SHOWWINDOW | SWP_NOZORDER);
 
   //dynamically create the modify button control
-  DWORD dwButtonStyles = WS_TABSTOP | WS_VISIBLE | WS_CHILD | WS_GROUP;
-  if (GetStyle() & WS_DISABLED)
+  DWORD dwButtonStyles = WS_TABSTOP | WS_CHILD | WS_GROUP;
+  const DWORD dwParentStyle = GetStyle();
+  if (dwParentStyle & WS_VISIBLE)
+    dwButtonStyles |= WS_VISIBLE;
+  if (dwParentStyle & WS_DISABLED)
     dwButtonStyles |= WS_DISABLED;
   if (!m_ctrlModifyButton.Create(m_sModifyButtonCaption, dwButtonStyles, btnRect, pParent, nModifyButtonID))
     return FALSE;
@@ -297,9 +315,9 @@ void CEditFileOpen::Edit()
 }
 
 //-----------------------------------------------------------------------------
-/*Notify current update to the parent .
-  The WM_NOTIFY message is sent to buddy window when an event has occurred 
-  Sent with the message is notification information with code NM_RETURN.
+/*Notify current update to the parent.
+  The WM_NOTIFY message is sent to parent window when an event has occurred 
+  Notification information NMHDR with code NM_RETURN is associated with the message.
  */
 void CEditFileOpen::Notify()
 {
@@ -311,8 +329,8 @@ if (pOwner != NULL)
   ASSERT_VALID(pOwner);
   NMHDR hdr;   //information about a notification message
   hdr.hwndFrom = m_hWnd;//Handle to control sending message
-  hdr.idFrom =          //Identifier of control sending message
-       GetDlgCtrlID();
+  hdr.idFrom = GetDlgCtrlID(); //Identifier of control sending message
+       
   hdr.code = NM_RETURN; //Notification code
 
   #ifdef _DEBUG
@@ -371,7 +389,13 @@ CString CEditFileOpen::GetOverwritePromptString(const CString& sFilename)
 ///////////////////////////////////////////////////////////////////////////////
 //DDX/DDV Helpers
 
-void DDX_FilenameControl(CDataExchange* pDX, int nIDC, CEditFileOpen& rControl, UINT nModifyButtonID)
+//-----------------------------------------------------------------------------
+/*
+ */
+void DDX_FilenameControl(CDataExchange* pDX, 
+                         int nIDC, 
+                         CEditFileOpen& rControl, 
+                         UINT nModifyButtonID)
 {
   if ((rControl.m_hWnd == NULL) && (rControl.GetControlUnknown() == NULL)) //not subclassed yet
   {
@@ -405,6 +429,9 @@ void DDX_FilenameControl(CDataExchange* pDX, int nIDC, CEditFileOpen& rControl, 
   }
 }
 
+//-----------------------------------------------------------------------------
+/*
+ */
 void DDX_FilenameValue(CDataExchange* pDX, CEditFileOpen& rControl, CString& sFile)
 {
   if (pDX->m_bSaveAndValidate)
@@ -413,7 +440,13 @@ void DDX_FilenameValue(CDataExchange* pDX, CEditFileOpen& rControl, CString& sFi
     rControl.SetWindowText(sFile);
 }
 
-void DDV_FilenameControlNotFolder(CDataExchange* pDX, CEditFileOpen& rControl, UINT nFailureResourceID, UINT nHelpID)
+//-----------------------------------------------------------------------------
+/*
+ */
+void DDV_FilenameControlNotFolder(CDataExchange* pDX, 
+                                  CEditFileOpen& rControl, 
+                                  UINT nFailureResourceID, //error message resource ID
+                                  UINT nHelpID)
 {
   if (pDX->m_bSaveAndValidate)
   {
@@ -421,7 +454,8 @@ void DDV_FilenameControlNotFolder(CDataExchange* pDX, CEditFileOpen& rControl, U
     rControl.GetWindowText(sFile);
     DWORD dwAttributes = GetFileAttributes(sFile);
 
-    if ((dwAttributes != INVALID_FILE_ATTRIBUTES) && (dwAttributes & FILE_ATTRIBUTE_DIRECTORY))
+    if ((dwAttributes != INVALID_FILE_ATTRIBUTES) && 
+        (dwAttributes & FILE_ATTRIBUTE_DIRECTORY))
     {
       AfxMessageBox(nFailureResourceID, MB_OK | MB_ICONEXCLAMATION, nHelpID);
       pDX->PrepareEditCtrl(rControl.GetDlgCtrlID());
@@ -430,7 +464,13 @@ void DDV_FilenameControlNotFolder(CDataExchange* pDX, CEditFileOpen& rControl, U
   }
 }
 
-void DDV_FilenameControlMustExist(CDataExchange* pDX, CEditFileOpen& rControl, UINT nFailureResourceID, UINT nHelpID)
+//-----------------------------------------------------------------------------
+/*
+ */
+void DDV_FilenameControlMustExist(CDataExchange* pDX, 
+                                  CEditFileOpen& rControl, 
+                                  UINT nFailureResourceID, //error message resource ID
+                                  UINT nHelpID)
 {
   if (pDX->m_bSaveAndValidate)
   {
@@ -448,7 +488,12 @@ void DDV_FilenameControlMustExist(CDataExchange* pDX, CEditFileOpen& rControl, U
   }
 }
 
-void DDV_FilenameControlOverwritePrompt(CDataExchange* pDX, CEditFileOpen& rControl, UINT nHelpID)
+//-----------------------------------------------------------------------------
+/*
+ */
+void DDV_FilenameControlOverwritePrompt(CDataExchange* pDX, 
+                                        CEditFileOpen& rControl, 
+                                        UINT nHelpID)
 {
   if (pDX->m_bSaveAndValidate)
   {
@@ -458,8 +503,11 @@ void DDV_FilenameControlOverwritePrompt(CDataExchange* pDX, CEditFileOpen& rCont
 
     if (dwAttributes != INVALID_FILE_ATTRIBUTES)
     {
-      //Prompt the user if we can overwrite and if we get a negative indication, then fail the validation
-      if (AfxMessageBox(rControl.GetOverwritePromptString(sFile), MB_YESNO | MB_ICONQUESTION, nHelpID) != IDYES)
+      //Prompt the user if we can overwrite and if we get a negative 
+      //indication, then fail the validation
+      if (AfxMessageBox(rControl.GetOverwritePromptString(sFile), 
+                        MB_YESNO | MB_ICONQUESTION, 
+                        nHelpID)          != IDYES)
       {
         pDX->PrepareEditCtrl(rControl.GetDlgCtrlID());
         pDX->Fail();
@@ -468,7 +516,13 @@ void DDV_FilenameControlOverwritePrompt(CDataExchange* pDX, CEditFileOpen& rCont
   }
 }
 
-void DDV_FilenameControlNotEmpty(CDataExchange* pDX, CEditFileOpen& rControl, UINT nFailureResourceID, UINT nHelpID)
+//-----------------------------------------------------------------------------
+/*
+ */
+void DDV_FilenameControlNotEmpty(CDataExchange* pDX, 
+                                 CEditFileOpen& rControl, 
+                                 UINT nFailureResourceID,  //error message resource ID
+                                 UINT nHelpID)
 {
   if (pDX->m_bSaveAndValidate)
   {
@@ -627,6 +681,9 @@ BOOL CDDXFileFileNameDialog::OnFileNameOK()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KEditFileOpen.cpp,v $
+ * Revision 1.6  2012/06/08 22:04:20  ddarko
+ * WS_VISIBLE for buddy button
+ *
  * Revision 1.5  2012/06/05 21:27:55  ddarko
  * *** empty log message ***
  *
