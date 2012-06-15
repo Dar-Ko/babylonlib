@@ -442,11 +442,9 @@ return m_bHasBeenModified;
 //::DoDataExchange()-----------------------------------------------------------
 /*Called by the framework to exchange and validate dialog data.
 
-  Note: Validation failure creates CUserException and debug message:
-        First-chance exception in Premium.exe (MFC40D.DLL): 0xAddr:
-        Microsoft C++ Exception.
-        Don't catch CUserException because UpdateData handles it and
-        returns FALSE.
+  Note: UpdateData() handles CUserException thrown when validation fails.
+        Debug build report "First-chance exception in Application" could be 
+        safely ignored.
  */
 void CDateCtrl::DoDataExchange(CDataExchange* pDX)
 {

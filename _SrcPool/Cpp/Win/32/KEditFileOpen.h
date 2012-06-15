@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.h,v $: header file
-  $Revision: 1.5 $ $Date: 2012/06/08 22:04:20 $
+  $Revision: 1.6 $ $Date: 2012/06/15 12:47:56 $
   $Author: ddarko $
 
   Defines the interface for a MFC control to get a filename using the file
@@ -182,6 +182,9 @@ public:
   void SetCommonDialogFlags(DWORD dwFlags) { m_dwCommonDialogFlags = dwFlags; };
   DWORD GetCommonDialogFlags() const { return m_dwCommonDialogFlags; };
 
+  void SetFileOpenDialog() {m_bOpenFileDialog = TRUE;};
+  void SetFileSaveAsDialog() {m_bOpenFileDialog = FALSE;};
+
   //Auto completion settings
   void SetAutoComplete(BOOL bAutoComplete);
   BOOL GetAutoComplete() const { return m_bAutoComplete; };
@@ -220,6 +223,9 @@ protected:
   BOOL                         m_bVistaStyle;
 #endif
   BOOL                         m_bAutoComplete;
+  BOOL                         m_bOpenFileDialog;       //specifies what type of 
+                              //dialog box to create; TRUE contructs a File Open 
+                              //dialog box, FALSE constructs a File Save As dialog box.
   DWORD                        m_dwAutoCompleteFlags;
   ATL::CComPtr<IAutoComplete2> m_pAutoCompleteObject;
   ATL::CComPtr<IACList2>       m_pAutoCompleteSourceObject;
@@ -238,10 +244,16 @@ void DDV_FilenameControlNotEmpty(CDataExchange* pDX, CEditFileOpen& rControl, UI
 #endif //_KEDITFILEOPEN_H_
 /*****************************************************************************
  * $Log: KEditFileOpen.h,v $
- * Revision 1.5  2012/06/08 22:04:20  ddarko
- * WS_VISIBLE for buddy button
+ * Revision 1.6  2012/06/15 12:47:56  ddarko
+ * Update
  *
- * Revision 1.4  2012/06/05 20:38:07  ddarko
+ * Revision 1.5  2012/06/11 22:00:03  ec11691
+ * Added Version trigger edit control
+ *
+ * Revision 1.4  2012/06/08 21:58:34  ec11691
+ * Added displaying and hiding controls
+ *
+ * Revision 1.3  2012/06/05 20:38:31  ec11691
  * Added notification to parent on VK_RETURN or CFileDialog IDOK events
  *
  * Revision 1.2  2012/06/04 21:00:41  ec11691

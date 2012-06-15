@@ -1,5 +1,5 @@
-/*$Workfile: S:\_SrcPool\Cpp\Samples\Service\Src\main.cpp$: implementation file
-  $Revision: 1$ $Date: 2007-02-02 13:18:46$
+/*$Workfile: main.cpp$: implementation file
+  $Revision: 2$ $Date: 2007-02-21 09:21:19$
   $Author: Darko Kolakovic$
 
   Test system services routines.
@@ -54,6 +54,7 @@ return nRetCode;
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: 
+ *  2    Biblioteka1.1         2007-02-21 09:21:19  Darko Kolakovic Commenet
  *  1    Biblioteka1.0         2007-02-02 13:18:46  Darko Kolakovic 
  * $
  *****************************************************************************/

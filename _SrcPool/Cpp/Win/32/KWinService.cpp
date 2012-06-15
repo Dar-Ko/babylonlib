@@ -290,3 +290,251 @@ DWORD MyServiceInitialization(DWORD argc, LPTSTR *argv, DWORD *specificError)
  *  1    Biblioteka1.0         2007-02-06 11:00:42  Darko Kolakovic
  * $
  *****************************************************************************/
+ 
+ //----------------------------------------------------------------------------
+ BOOL WaitForServiceToReachState(SC_HANDLE hService, DWORD dwDesiredState,
+                                 SERVICE_STATUS* pss, DWORD dwMilliseconds) {
+ 
+    DWORD dwLastState, dwLastCheckPoint;
+    BOOL  fFirstTime = TRUE; // Don't compare state & checkpoint the first time through
+    BOOL  fServiceOk = TRUE;
+    DWORD dwTimeout = GetTickCount() + dwMilliseconds;
+ 
+    // Loop until the service reaches the desired state,
+    // an error occurs, or we timeout
+    while  (TRUE) {
+       // Get current state of service
+       fServiceOk = ::QueryServiceStatus(hService, pss);
+ 
+       // If we can't query the service, we're done
+       if (!fServiceOk) break;
+ 
+       // If the service reaches the desired state, we're done
+       if (pss->dwCurrentState == dwDesiredState) break;
+ 
+       // If we timed-out, we're done
+       if ((dwMilliseconds != INFINITE) && (dwTimeout > GetTickCount())) {
+          SetLastError(ERROR_TIMEOUT); 
+          break;
+       }
+ 
+       // If this is our first time, save the service's state & checkpoint
+       if (fFirstTime) {
+          dwLastState = pss->dwCurrentState;
+          dwLastCheckPoint = pss->dwCheckPoint;
+          fFirstTime = FALSE;
+       } else {
+          // If not first time & state has changed, save state & checkpoint
+          if (dwLastState != pss->dwCurrentState) {
+             dwLastState = pss->dwCurrentState;
+             dwLastCheckPoint = pss->dwCheckPoint;
+          } else {
+             // State hasn't change, check that checkpoint is increasing
+             if (pss->dwCheckPoint > dwLastCheckPoint) {
+                // Checkpoint has increased, save checkpoint
+                dwLastCheckPoint = pss->dwCheckPoint;
+             } else {
+                // Checkpoint hasn't increased, service failed, we're done!
+                fServiceOk = FALSE; 
+                break;
+             }
+          }
+       }
+       // We're not done, wait the specified period of time
+       Sleep(pss->dwWaitHint);
+    }
+ 
+    // Note: The last SERVICE_STATUS is returned to the caller so
+    // that the caller can check the service state and error codes.
+    return(fServiceOk);
+ }
+
+//---------------------------------------------------------------------------
+DWORD StopService(LPCTSTR pszInternalName)
+{
+	DWORD dwResult      = S_OK;
+
+	SC_HANDLE hSCM      = NULL; 
+	SC_HANDLE hService  = NULL;
+
+
+	do
+	{
+		// Connect to the SCM 
+
+		hSCM = ::OpenSCManager( NULL, NULL, SC_MANAGER_CONNECT );
+
+		if( hSCM == NULL ) 
+		{
+			dwResult = GetLastError();
+			break;
+		}
+
+
+		// Open the service 
+		hService = ::OpenService( hSCM, pszInternalName, SERVICE_STOP);// | SERVICE_QUERY_STATUS );
+		if( hService == NULL )
+		{
+			dwResult = GetLastError(); 
+			break;
+		}
+
+
+		// Ask the service to stop 
+		SERVICE_STATUS ss;
+
+		if( !::ControlService( hService, SERVICE_CONTROL_STOP, &ss ) )
+		{
+			DWORD dwErrCode = GetLastError(); 
+
+			if( dwErrCode != ERROR_SERVICE_NOT_ACTIVE )
+			{
+				dwResult = dwErrCode; 
+				break;
+			}
+		}
+
+
+		// Wait until it stopped (or timeout expired)
+		if( !WaitForServiceToReachState( hService, SERVICE_STOPPED, &ss, INFINITE ) )
+		{
+			dwResult = GetLastError();
+			break;
+		}
+
+	} 
+	while(0);
+
+
+	// Cleanup 
+	if( hService != NULL )
+		::CloseServiceHandle( hService );
+
+	if( hSCM != NULL )
+		::CloseServiceHandle( hSCM );
+
+	return dwResult; 
+}
+
+//---------------------------------------------------------------------------
+DWORD StartService(LPCTSTR pszInternalName)
+{
+DWORD dwStatus      = S_OK;
+char szCode[16] = {0};  //error code
+extern void log(const std::string& strMsg);
+std::string strLogEntry;
+
+SERVICE_STATUS_PROCESS ssStatus;
+DWORD dwOldCheckPoint = 0;
+DWORD dwStartTickCount;
+
+SC_HANDLE schSCManager = OpenSCManager(NULL,                    // local machine 
+                            NULL,                    // ServicesActive database 
+                            SC_MANAGER_ALL_ACCESS);  // full access rights 
+ 
+if (schSCManager != NULL) 
+  {
+  SC_HANDLE schService = OpenService(schSCManager,          // SCM database 
+                                     pszInternalName,          // service name
+                                     SERVICE_ALL_ACCESS);    //TODO: see that the service is in not running currently. 
+
+  if (schService != NULL)
+    {
+    /*- When a driver service is started, the StartService function does not
+        return until the device driver has finished initializing.
+      - When a service is started, the Service Control Manager (SCM) spawns
+        the service process, if necessary. StartService returns when the SCM
+        receives notification from the service control dispatcher that 
+        the ServiceMain thread for this service was created successfully.
+        Current state of the service is set to SERVICE_START_PENDING.
+     */
+    if (StartService(schService,  // handle to service 
+                     0,           // number of arguments 
+                     NULL) != FALSE)
+      {
+      DWORD dwBytesNeeded = 0;
+      dwStartTickCount = GetTickCount();
+
+      //Check the status until the service is no longer start pending
+
+      //TODO: replace loop with WaitForServiceToReachState D.K.
+      while (QueryServiceStatusEx(schService,             // handle to service 
+                                  SC_STATUS_PROCESS_INFO, // info level
+                                  (LPBYTE)&ssStatus,              // address of structure
+                                  sizeof(SERVICE_STATUS_PROCESS), // size of structure
+                                  &dwBytesNeeded ) != FALSE)
+        {
+        if( ssStatus.dwCurrentState == SERVICE_RUNNING )
+          {
+          dwStatus = S_OK;
+          break;  //Service is running
+          }
+
+        if( ssStatus.dwCurrentState == SERVICE_START_PENDING )
+          {
+          if ( ssStatus.dwCheckPoint > dwOldCheckPoint ) //Check if any progress is made
+            {
+            dwStartTickCount = GetTickCount();
+            dwOldCheckPoint = ssStatus.dwCheckPoint;
+            }
+          else //Check if we are waiting more then hinted period
+            {
+            if((GetTickCount() - dwStartTickCount) > ssStatus.dwWaitHint)
+              {
+              break; //Bail out
+              }
+            }
+          Sleep(1500); //Give time or more
+          }
+        }
+
+      if (ssStatus.dwCurrentState != SERVICE_RUNNING)
+        {
+        //Failed to start the service
+        dwStatus = GetLastError();
+        strLogEntry = "StartService() time expired: system error 0x";
+        _itoa_s(dwStatus, szCode, 16, 16);
+        strLogEntry += szCode;
+        log(strLogEntry);
+        }
+
+      }
+    else
+      {
+      dwStatus = GetLastError();
+      if(dwStatus != ERROR_SERVICE_ALREADY_RUNNING)
+        {
+        strLogEntry = "StartService() failed: system error 0x";
+        }
+      else
+        {
+        strLogEntry = pszInternalName;
+        strLogEntry += " is running: 0x";
+        }
+      _itoa_s(dwStatus, szCode, 16, 16);
+      strLogEntry += szCode;
+      log(strLogEntry);
+      }
+
+    CloseServiceHandle(schService);
+    }
+  else
+    { 
+    dwStatus = GetLastError();
+    strLogEntry = "OpenService() failed: system error 0x";
+    _itoa_s(dwStatus, szCode, 16, 16);
+    strLogEntry += szCode;
+    log(strLogEntry);
+    }
+  }
+else
+  {
+  dwStatus = GetLastError();
+  strLogEntry = "OpenSCManager() failed: system error 0x";
+  _itoa_s(dwStatus, szCode, 16, 16);
+  strLogEntry += szCode;
+  log(strLogEntry);
+  }
+
+return dwStatus;
+}

@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.h,v $: header file
-  $Revision: 1.1 $ $Date: 2012/05/29 20:41:01 $
+  $Revision: 1.2 $ $Date: 2012/06/15 12:45:30 $
   $Author: ddarko $
 
   Interface of the CEditFileOpen class
@@ -22,7 +22,7 @@
 #include "atlctrls.h" //CEditT
 
 ///////////////////////////////////////////////////////////////////////////////
-//CEditFileOpen extends functionality of the MFC Button class.
+//CEditFileOpen extends functionality of the CEdit class.
 //
 //Note: uses Active Template Library (ATL);
 //      Microsoft Windows specific (Win).
@@ -98,6 +98,9 @@ ATLTRACE(L"CEditFileOpen::CButtonBuddy::CButtonBuddy()\n");
 #endif  //_KEDITFILEOPEN_H_
 /*****************************************************************************
  * $Log: KEditFileOpen.h,v $
+ * Revision 1.2  2012/06/15 12:45:30  ddarko
+ * Update
+ *
  * Revision 1.1  2012/05/29 20:41:01  ddarko
  * Copied from old repository
  *

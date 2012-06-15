@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgMacrMsvc.h,v $: header file
-  $Revision: 1.3 $ $Date: 2011/06/07 19:41:14 $
+  $Revision: 1.4 $ $Date: 2012/06/15 12:47:56 $
   $Author: ddarko $
 
   Dumps values of some Microsoft specific predefined macros
@@ -266,10 +266,29 @@
        
 #endif /*_MSC_VER */
 
+#ifdef RC_INVOKED //Microsoft Resource Compiler (RC)
+  /*Supported preprocessor directives:
+      - Macro definitions: #define and #undef
+      - Conditional compilation: #if, #ifdef, #ifndef, #else, #elif, #endif
+      - Header files: #include
+      - Compile-time error: #error
+    */
+  #ifdef _MSC_VER //Not defined when RC is invoked
+    #pragma message ("RC_INVOKED  Resource Compiler (RC) defined!")
+  #endif
+#endif /*RC_INVOKED */
+#ifdef APSTUDIO_INVOKED //Microsoft Developer Studio (AppStudio) resource editor
+  #ifdef _MSC_VER //Not defined when AppStudio is invoked
+    #pragma message ("APSTUDIO_INVOKED Developer Studio (AppStudio) defined!")
+  #endif
+#endif /*APSTUDIO_INVOKED*/
 /* ///////////////////////////////////////////////////////////////////////// */
-#endif /*_KDBGMACRMSVC_H_                                                     */
+#endif /*_KDBGMACRMSVC_H_                                                    */
 /*****************************************************************************
  * $Log: KDbgMacrMsvc.h,v $
+ * Revision 1.4  2012/06/15 12:47:56  ddarko
+ * Update
+ *
  * Revision 1.3  2011/06/07 19:41:14  ddarko
  * MSVC 2010
  *

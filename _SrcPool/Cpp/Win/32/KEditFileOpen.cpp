@@ -1,5 +1,5 @@
 /*$RCSfile: KEditFileOpen.cpp,v $: implementation file
-  $Revision: 1.6 $ $Date: 2012/06/08 22:04:20 $
+  $Revision: 1.7 $ $Date: 2012/06/15 12:47:56 $
   $Author: ddarko $
 
   Implementation for a MFC control to get a filename using the file open/save
@@ -27,16 +27,18 @@
 
 
 BEGIN_MESSAGE_MAP(CEditFileOpen, CEdit)
+  //ON_WM_NCCREATE()
   ON_WM_ENABLE()
 END_MESSAGE_MAP()
 
 CEditFileOpen::CEditFileOpen() : m_dwCommonDialogFlags(OFN_HIDEREADONLY | OFN_OVERWRITEPROMPT),
                                              m_bAutoComplete(FALSE), //FixMe: exception on destroy, if AutoComplete = TRUE
                                              m_dwAutoCompleteFlags(ACO_AUTOSUGGEST | ACO_FILTERPREFIXES),
-                                           #if (_MSC_VER >= 1500)
-                                             m_bVistaStyle(TRUE),
-                                           #endif
-                                             m_dwCommonDialogSize(0)
+                                             #if (_MSC_VER >= 1500)
+                                               m_bVistaStyle(TRUE),
+                                             #endif
+                                             m_dwCommonDialogSize(0),
+                                             m_bOpenFileDialog(TRUE)
 {
 }
 
@@ -65,6 +67,22 @@ BOOL CEditFileOpen::SubclassEdit(HWND hEdit, UINT nModifyButtonID)
     return FALSE;
   }
 }
+
+//-----------------------------------------------------------------------------
+/*
+  Returns nonzero if the nonclient area is created. It is 0 if an error occurs; the Create function will return failure in this case.
+
+ * /
+BOOL CEditFileOpen::OnNcCreate(LPCREATESTRUCT lpCreateStruct)
+{
+ATLTRACE(_T("CEditFileOpen::OnNcCreate()\n"));
+  const DWORD dwParentStyle = GetStyle();
+  if (dwParentStyle & WS_VISIBLE)
+    ATLTRACE(_T("    WS_VISIBLE\n"));
+    //dwButtonStyles |= WS_VISIBLE;
+
+return TRUE;
+}*/
 
 //-----------------------------------------------------------------------------
 /*Handles pressed Enter key (VK_RETURN) event.
@@ -276,11 +294,11 @@ void CEditFileOpen::Edit()
 
   //Bring up the common dialog
   #if (_MSC_VER >= 1500)
-    CDDXFileFileNameDialog dlg(TRUE, NULL, sCurrentFilename, m_dwCommonDialogFlags,
+    CDDXFileFileNameDialog dlg(m_bOpenFileDialog, NULL, sCurrentFilename, m_dwCommonDialogFlags,
                                m_sCommonDialogExtFilter, GetParent(), 
                                m_dwCommonDialogSize, m_bVistaStyle);
   #else
-    CDDXFileFileNameDialog dlg(TRUE, NULL, sCurrentFilename, m_dwCommonDialogFlags, 
+    CDDXFileFileNameDialog dlg(m_bOpenFileDialog, NULL, sCurrentFilename, m_dwCommonDialogFlags, 
                                m_sCommonDialogExtFilter, GetParent(), 
                                m_dwCommonDialogSize);
   #endif
@@ -495,6 +513,7 @@ void DDV_FilenameControlOverwritePrompt(CDataExchange* pDX,
                                         CEditFileOpen& rControl, 
                                         UINT nHelpID)
 {
+  ATLTRACE(_T("  DDV_FilenameControlOverwritePrompt(m_hWnd = %08X)\n"), rControl.m_hWnd);
   if (pDX->m_bSaveAndValidate)
   {
     CString sFile;
@@ -681,13 +700,16 @@ BOOL CDDXFileFileNameDialog::OnFileNameOK()
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KEditFileOpen.cpp,v $
- * Revision 1.6  2012/06/08 22:04:20  ddarko
- * WS_VISIBLE for buddy button
+ * Revision 1.7  2012/06/15 12:47:56  ddarko
+ * Update
  *
- * Revision 1.5  2012/06/05 21:27:55  ddarko
- * *** empty log message ***
+ * Revision 1.5  2012/06/11 22:00:03  ec11691
+ * Added Version trigger edit control
  *
- * Revision 1.4  2012/06/05 20:38:07  ddarko
+ * Revision 1.4  2012/06/08 21:58:34  ec11691
+ * Added displaying and hiding controls
+ *
+ * Revision 1.3  2012/06/05 20:38:30  ec11691
  * Added notification to parent on VK_RETURN or CFileDialog IDOK events
  *
  * Revision 1.2  2012/06/04 21:00:41  ec11691
