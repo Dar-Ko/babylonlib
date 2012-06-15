@@ -1,5 +1,5 @@
 /*$RCSfile: KPackPop.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/08/05 19:22:46 $
+  $Revision: 1.3 $ $Date: 2012/06/15 13:14:18 $
   $Author: ddarko $
 
   Restores packing alignment for structure, union, and class members.
@@ -9,11 +9,12 @@
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
 #endif
- /*++
+
 
 #if !(defined(lint)
   #undef ALIGNDATA
   #define ALIGNDATA
+
   //////////////////////////////////////////////////////////////////////////////
   /*Restore previous packing alignment for structure, union and class members.
     An include file is needed because various compilers do this in different
@@ -52,6 +53,9 @@
 #endif //lint
 /******************************************************************************
  * $Log: KPackPop.h,v $
+ * Revision 1.3  2012/06/15 13:14:18  ddarko
+ * Update
+ *
  * Revision 1.2  2009/08/05 19:22:46  ddarko
  * Updated
  *
