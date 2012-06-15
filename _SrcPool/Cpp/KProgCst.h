@@ -620,6 +620,7 @@ const unsigned long GiB = 0x40000000UL;
       }
   #endif
 
+  
   /*Synonyms for SIZEOFARR                                                    */
   #ifndef ARRSIZE
     #define ARRSIZE  SIZEOFARR
@@ -632,6 +633,23 @@ const unsigned long GiB = 0x40000000UL;
   #endif
   #ifndef NUMBER_OF
     #define NUMBER_OF  SIZEOFARR
+  #endif
+  #ifndef SIZEOF
+    #define SIZEOF  SIZEOFARR
+  #endif
+#endif
+
+#ifndef ENDOFARR
+  /*Returns the pointer to the last element of an array
+   */
+  #define ENDOFARR(X) ((X) + SIZEOFARR(X))
+  
+  /*Synonyms for ENDOFARR                                                    */
+  #ifndef ENDOF
+    #define ENDOF  ENDOFARR
+  #endif
+  #ifndef TAILOF
+    #define TAILOF  ENDOFARR
   #endif
 #endif
 
