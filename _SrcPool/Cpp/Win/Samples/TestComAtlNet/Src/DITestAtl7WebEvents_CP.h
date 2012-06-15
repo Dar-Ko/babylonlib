@@ -1,6 +1,6 @@
 /*$Workfile: DITestAtl7WebEvents_CP.h$: header file
-  $Revision: 4$ $Date: 2007-03-11 02:19:56$
-  $Author: Darko$
+  $Revision: 5$ $Date: 2007-03-15 16:04:34$
+  $Author: Darko Kolakovic$
 
   Connection Point Object
   Copyright: CommonSoft Inc

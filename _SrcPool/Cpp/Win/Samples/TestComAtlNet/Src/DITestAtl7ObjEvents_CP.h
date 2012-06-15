@@ -1,5 +1,5 @@
 /*$Workfile: DITestAtl7ObjEvents_CP.h$: header file
-  $Revision: 2$ $Date: 2007-03-02 20:21:48$
+  $Revision: 3$ $Date: 2007-03-15 16:04:29$
   $Author: Darko Kolakovic$
 
   Connection Point Object

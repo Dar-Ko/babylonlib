@@ -1,4 +1,4 @@
-; $Workfile: TestButtonDlg.h$:
+; $Workfile: TestComAtl.def$:
 ; Declares the module exports.
 
 LIBRARY      "TestComAtl.DLL"
