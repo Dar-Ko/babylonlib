@@ -381,6 +381,21 @@
       tCrtDbgReport(_CRT_WARN, NULL, 0, NULL,
                     _T("Another example with %s\n"), szUnicode);
       }
+      
+  Bug: _CrtDbgReport can't handle the wide string correctly when the wide string
+  contains non-ascii characters.
+  Error message:
+        "_CrtDbgReport: String too long or IO Error"
+  Workaround:
+    In the code set correct language for the debug builds:
+    #include <locale.h>
+    #ifdef _DEBUG
+      _tsetlocale(LC_ALL, _T("japanese")); // you should set the country code of yours
+    #endif // _DEBUG
+
+  You should see this fixed in Beta 2 of Visual Studio 2010.
+  http://connect.microsoft.com/VisualStudio/feedback/details/425215/bug-with-trace-and-crtdbgreport
+   
  */
   _CRTIMP int __cdecl tCrtDbgReport(int nRptType,    //[in] report type:
                                      //_CRT_WARN, _CRT_ERROR, _CRT_ASSERT.
