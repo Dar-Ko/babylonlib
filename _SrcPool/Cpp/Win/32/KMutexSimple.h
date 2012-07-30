@@ -1,5 +1,5 @@
 /*$RCSfile: KMutexSimple.h,v $: header file
-  $Revision: 1.2 $ $Date: 2009/03/01 06:12:21 $
+  $Revision: 1.3 $ $Date: 2012/07/30 15:49:07 $
   $Author: ddarko $
 
   Single instance Windows application
@@ -69,7 +69,7 @@ private:
   }
 
 public:
-  CMutexSimple(TCHAR* szMutexName);
+  CMutexSimple(LPCTSTR szMutexName);
   virtual ~CMutexSimple();
 //Operations
   bool IsCreated();
@@ -96,14 +96,14 @@ protected:
       CMutexSimple g_SingleInstanceObj(_T("Local\\MY_LOCAL_MUTEX"));
 
  */
-inline CMutexSimple::CMutexSimple(TCHAR* szMutexName //[in] case-sensitive mutex
+inline CMutexSimple::CMutexSimple(LPCTSTR szMutexName //[in] case-sensitive mutex
                                                      //name
                                   )
 {
 ASSERT((szMutexName != NULL) && (szMutexName[0] != _T('\0')));
 
 SetLastError(NO_ERROR);
-m_hMutex = CreateMutex(NULL, FALSE, strMutexName);
+m_hMutex = CreateMutex(NULL, FALSE, szMutexName);
 m_dwLastError = GetLastError();
   //Note: the system closes the mutex handle automatically when the process
   //terminates
@@ -121,7 +121,7 @@ if (m_hMutex!= NULL)
 //------------------------------------------------------------------------------
 /*
  */
-bool CMutexSimple::IsCreated()
+inline bool CMutexSimple::IsCreated()
 {
   //If mutex is already created error is ERROR_ALREADY_EXISTS; if mutex is
   //created  with NULL security descriptor, error is ERROR_ACCESS_DENIED.
@@ -133,11 +133,31 @@ if((m_dwLastError == ERROR_ALREADY_EXISTS) ||
 return false;
 
 }
+///////////////////////////////////////////////////////////////////////////////
 
+/*TODO: better way
+
+    LPCTSTR szSingleInstance = _T("Global\\fffff");
+    HANDLE h = OpenMutex(MUTEX_ALL_ACCESS , 0 , szSingleInstance);
+
+    if(h != NULL)
+      return false;
+    else
+      h = CreateMutex(0 , 0 , szSingleInstance);
+ 
+*/
+
+/*Single instance of an Windows appplication.
+  See also: CMutexSimple 
+ */
+typedef CMutexSimple _SingleInstance;
 ///////////////////////////////////////////////////////////////////////////////
 #endif //__KWINMUTEX_H__
 /*****************************************************************************
  * $Log: KMutexSimple.h,v $
+ * Revision 1.3  2012/07/30 15:49:07  ddarko
+ * Fixed inline
+ *
  * Revision 1.2  2009/03/01 06:12:21  ddarko
  * Created
  *
