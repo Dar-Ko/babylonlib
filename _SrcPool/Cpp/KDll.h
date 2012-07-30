@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.11 $ $Date: 2012/03/02 23:29:06 $
+  $Revision: 1.12 $ $Date: 2012/07/30 15:43:28 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -257,7 +257,8 @@ inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolName //[in] function or variable
                               ) const
 {
 _ASSERT(IsOpen());
-return (void*)::GetProcAddress(m_hLibrary, szSymbolName);
+
+return (void*)::GetProcAddress(m_hLibrary, CT2A(szSymbolNameA));
 }
 
 //-----------------------------------------------------------------------------
@@ -391,6 +392,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.12  2012/07/30 15:43:28  ddarko
+ *GetSymbolAdr Unicode version
+ *
  *Revision 1.11  2012/03/02 23:29:06  ddarko
  *Fixed warning
  *
