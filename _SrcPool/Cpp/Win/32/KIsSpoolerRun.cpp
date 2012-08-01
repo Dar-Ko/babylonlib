@@ -1,5 +1,5 @@
 /*$RCSfile: KIsSpoolerRun.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2011/12/22 15:53:06 $
+  $Revision: 1.2 $ $Date: 2012/08/01 18:16:44 $
   $Author: ddarko $
 
   Verifies Windows spooler service.
@@ -24,7 +24,7 @@
 bool IsSpoolerRunning()
 {
 SC_HANDLE hServiceManager = OpenSCManager(NULL, NULL, SC_MANAGER_ALL_ACCESS);
-LPCTSTR szServiceName = ("Spooler");
+LPCTSTR szServiceName = _T("Spooler");
 if (hServiceManager != NULL) 
   {
   //Connect to the spooler
@@ -45,6 +45,9 @@ return false;
 }
 /*****************************************************************************
  * $Log: KIsSpoolerRun.cpp,v $
+ * Revision 1.2  2012/08/01 18:16:44  ddarko
+ * Service name
+ *
  * Revision 1.1  2011/12/22 15:53:06  ddarko
  * Moved from local repository
  *
