@@ -1,5 +1,5 @@
 /*$RCSfile: KDbgMemory.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2012/09/25 17:24:10 $
+  $Revision: 1.2 $ $Date: 2012/09/25 17:36:50 $
   $Author: ddarko $
  */
 #include <afx.h>
@@ -15,11 +15,14 @@
 
 #ifdef _DEBUG
 //DumpMemory()-----------------------------------------------------------------
-/*Provides a convenient way to detect memory leaks in your program. 
+/*Provides a convenient way to detect memory leaks caused when memory allocated
+  using the new operator is not deallocated using delete.  
   A “memory leak” occurs when memory for an object is allocated on the heap but
   not deallocated when it is no longer required. Such memory leaks can eventually
   lead to out-of-memory errors. 
 
+  See also: CMemoryState struct
+  
   Example:
     #include "U_DumpDb.h"  //declarations
     CMyClass::CMyClass()
@@ -37,7 +40,8 @@
       #endif
       }
  */
-void DumpMemory(DUMP_MEM Action)
+void DumpMemory(DUMP_MEM Action //[in] memory dump actions
+               )
 {
 switch (Action)
   {
@@ -46,7 +50,7 @@ switch (Action)
     g_newMemState.Checkpoint();
     if( g_diffMemState.Difference( g_oldMemState, g_newMemState ) )
       {
-      TRACE0("\nMemory leaked!\n");
+      TRACE0(_T("\nMemory leaked!\n"));
       g_diffMemState.DumpAllObjectsSince();
       g_diffMemState.DumpStatistics();
       }
@@ -63,6 +67,9 @@ switch (Action)
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KDbgMemory.cpp,v $
+ * Revision 1.2  2012/09/25 17:36:50  ddarko
+ * Comment
+ *
  * Revision 1.1  2012/09/25 17:24:10  ddarko
  * Extracted from U_DumpDb
  *

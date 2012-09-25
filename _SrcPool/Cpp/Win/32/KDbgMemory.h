@@ -1,13 +1,15 @@
-/*U_DumpDb.h
-  Debug functions
-  Modules U_Dump.cpp
-          D_SysErr.cpp
-  2003-09-20
-  D. Kolakovic
- */
+/*$RCSfile: KDbgMemory.h,v $: header file
+  $Revision: 1.2 $ $Date: 2012/09/25 17:36:50 $
+  $Author: ddarko $
 
-#ifndef _U_DUMPFUNC_H_
-  #define _U_DUMPFUNC_H_
+  Dumps heap memory allocations.
+  D. Kolakovic 2003-09-20
+*/
+/* Group=Diagnostic                                                          */
+
+#ifndef _KDBGMEMORY_H_
+    /*$RCSfile: KDbgMemory.h,v $ sentry */
+  #define _KDBGMEMORY_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
@@ -26,10 +28,13 @@ enum DUMP_MEM   //Memory dump actions
   #define DumpMemory(Action)          ((void)0)
 #endif
 ///////////////////////////////////////////////////////////////////////////////
-#endif //_U_DUMPFUNC_H_
+#endif //_KDBGMEMORY_H_
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KDbgMemory.h,v $
+ * Revision 1.2  2012/09/25 17:36:50  ddarko
+ * Comment
+ *
  * Revision 1.1  2012/09/25 17:24:10  ddarko
  * Extracted from U_DumpDb
  *
