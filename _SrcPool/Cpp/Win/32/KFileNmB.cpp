@@ -94,7 +94,7 @@ if (!::FindNextFile(m_Handle, &m_FindData))
   m_bDone = true;
   if (GetLastError() != ERROR_NO_MORE_FILES)
     {
-    TRACE1("::FindNextFile() failed (0x%0.8X)!\n", GetLastError());
+    TRACE1(_T("::FindNextFile() failed (0x%0.8X)!\n"), GetLastError());
     }
   return _T("");
   }

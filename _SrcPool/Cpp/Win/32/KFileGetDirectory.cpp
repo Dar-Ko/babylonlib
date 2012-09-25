@@ -20,7 +20,7 @@
   Characters "\", "/" and ":" are used as directory and drive separators.
 
   Returns: length of the directory name, and directory name itself, if string
-  buffer has been given.
+  buffer has been given. The returned path ends with the directory separator.
 
   Note: Microsoft DOS specific (DOS),
         Microsoft Windows specific (Win).
@@ -36,7 +36,6 @@ UINT AFXAPI GetFileDirectory(LPTSTR szPathName, //[in] fully qualified file name
                              LPTSTR szDirectory,//[in/out] buffer where result
                                                 //is copied or NULL
                              UINT nDirSize //[in] buffer size in characters
-                                           //(wide charecters for Unicode version)
                              )
 {
 #ifdef __AFXWIN_H__

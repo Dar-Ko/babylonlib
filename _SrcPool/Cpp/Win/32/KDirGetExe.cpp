@@ -8,23 +8,26 @@
  */
 // Group=Windows
 
-#include <stdafx>
+#include "stdafx.h"
 
 #if !defined(_USE_MFC)
   #include "KString.h"  //CString.h
 #endif
 
 CString GetExeDirectory();
+extern UINT GetFileDirectory(LPTSTR szPathName, LPTSTR szDirectory,UINT nDirSize);
 
 //GetExeDirectory()------------------------------------------------------------
 /*Retrieves the full path for the executable file used to create the calling
   process.
 
   Returns: string object containing executable directory.
+  
+  See also: GetAppPath(), GetModuleFileName()
  */
 CString GetExeDirectory()
 {
-TRACE(_T("GetExeDirectory()"));
+TRACE(_T("  GetExeDirectory()\n"));
 
 CString strResult;
 LPSTR szBuff = strResult.GetBuffer(_MAX_PATH);
@@ -33,7 +36,7 @@ VERIFY(::GetModuleFileName(NULL, szBuff, _MAX_PATH));
 GetFileDirectory(szBuff,szBuff,_MAX_PATH);
 strResult.ReleaseBuffer();
 
-TRACE(_T("  executable directory is %s.\n"), strResult);
+TRACE1(_T("    executable directory is %s.\n"), (LPCTSTR)strResult);
 return strResult;
 }
 ///////////////////////////////////////////////////////////////////////////////

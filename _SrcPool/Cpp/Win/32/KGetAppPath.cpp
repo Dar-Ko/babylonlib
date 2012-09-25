@@ -1,5 +1,5 @@
 /*$RCSfile: KGetAppPath.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/10/26 18:21:29 $
+  $Revision: 1.2 $ $Date: 2012/09/25 19:01:04 $
   $Author: ddarko $
 
   Retrieves application's path
@@ -7,6 +7,9 @@
  */
 
 #include "stdafx.h"
+#if !defined(_USE_MFC)
+  #include "KString.h"  //CString.h
+#endif
 
 //-----------------------------------------------------------------------------
 /*Retrieves the path for the file that contains the specified module.
@@ -14,10 +17,12 @@
   is a path ending with directory delimiter '/'.
 
   Returns application's path or an empty string in case of failure.
+  
+  See also: GetExeDirectory(),  GetModuleFileName()
  */
 CString GetAppPath()
 {
-ATLTRACE(_T("GetAppPath()\n"));
+TRACE(_T("GetAppPath()\n"));
 CString strPath; //application's fully qualified path
 
 LPTSTR szPath = strPath.GetBuffer(MAX_PATH);
@@ -30,7 +35,7 @@ if ((nSize == 0) || (nSize == MAX_PATH))
     of the buffer is zero, the return value is zero and the last error code is
     ERROR_SUCCESS.
    */
-  ATLTRACE2(_T("  Failed GetModuleFileName: error ox%08X!\n"), GetLastError());
+  TRACE1(_T("  Failed GetModuleFileName: error 0X%08X!\n"), GetLastError());
   szPath[0] = _T('\0');
   }
 
@@ -43,7 +48,7 @@ if (lpBuffer != NULL)
 
   if ((nSize == 0) || (nSize == nBufferLength))
     {
-    ATLTRACE2(_T("  Failed GetFullPathName: error ox%08X!\n"), GetLastError());
+    TRACE1(_T("  Failed GetFullPathName: error 0X%08X!\n"), GetLastError());
     szPath[0] = _T('\0');
     }
   else
@@ -66,7 +71,7 @@ if (lpBuffer != NULL)
   }
 else
   {
-  ATLTRACE2(_T("  Failed to allocate lpBuffer: error ox%08X!\n"), GetLastError());
+  TRACE1(_T("  Failed to allocate lpBuffer: error 0x%08X!\n"), GetLastError());
   szPath[0] = _T('\0');
   }
 
@@ -82,13 +87,16 @@ strPath.ReleaseBuffer();  //Free extra space and set string length
   #endif
 #endif
 
-ATLTRACE2(TRACEFORMAT, strPath);
+TRACE1(TRACEFORMAT, (LPCTSTR)strPath);
 return strPath;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log: KGetAppPath.cpp,v $
+ * Revision 1.2  2012/09/25 19:01:04  ddarko
+ * Fixed TRACE
+ *
  * Revision 1.1  2009/10/26 18:21:29  ddarko
  * Moved from old repository
  *
