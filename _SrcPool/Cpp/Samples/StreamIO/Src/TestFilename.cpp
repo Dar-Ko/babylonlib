@@ -68,7 +68,7 @@ try
   {
   std::vector<tstring> listFileNames;
 
-  //Test log  creation
+  //Test log creation
   g_logTest.m_szObjectName = _T("CFileNameBrowser::CFileNameBrowser(LPCTSTR)");
   g_logTest.m_szFileName   = _T("KFileNmB.cpp"); //function or object file name
   g_logTest.m_bResult      = false;              //result of the test

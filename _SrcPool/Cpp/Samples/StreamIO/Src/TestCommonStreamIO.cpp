@@ -16,6 +16,7 @@ extern bool TsWriteToViewLn(LPCTSTR lszText);
 
 extern bool TestGetLines(LPCTSTR szFileName);
 extern bool TestFilename();
+extern bool TestFileFolder();
 
 int TestCommonStreamIO();
 int TestCommonStreamIO(LPCTSTR szFileName);
@@ -55,10 +56,28 @@ PFUNC_TEST funcTest[] =
   {
   //TODO: add Test
   TestFilename,
+  TestFileFolder,
   NULL
   };
 
+int iTestCount = 0;
+while (iTestCount < (sizeof(funcTest)/sizeof(PFUNC_TEST)) )
+  {
+  if ((funcTest[iTestCount] != NULL) && funcTest[iTestCount]())
+    {
+    TsWriteToViewLn(LOG_SUCCESS);
+    TsWriteToViewLn(_T(""));
+    }
+  else
+    {
+    TsWriteToViewLn(LOG_FAILURE);
+    return EXIT_FAILURE + 50 + iTestCount;
+    }
+  iTestCount++;
+  }
+
  //List with test file names
+//TODO: replace path with current directory
 TCHAR* szTestFile[] =
   {
    //Zero length file
@@ -112,22 +131,6 @@ else
       TsWriteToViewLn(LOG_SUCCESS);
       TsWriteToViewLn(_T(""));
       }
-  }
-
-int iTestCount = 0;
-while (iTestCount < (sizeof(funcTest)/sizeof(PFUNC_TEST)) )
-  {
-  if ((funcTest[iTestCount] != NULL) && funcTest[iTestCount]())
-    {
-    TsWriteToViewLn(LOG_SUCCESS);
-    TsWriteToViewLn(_T(""));
-    }
-  else
-    {
-    TsWriteToViewLn(LOG_FAILURE);
-    return EXIT_FAILURE + 50 + iTestCount;
-    }
-  iTestCount++;
   }
 
 return EXIT_SUCCESS;

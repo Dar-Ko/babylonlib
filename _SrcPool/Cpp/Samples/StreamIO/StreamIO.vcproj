@@ -337,6 +337,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KDirGetExe.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Win\16\KFileExist.c"
 				>
 			</File>
@@ -385,6 +389,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Win\32\KFileGetDirectory.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Win\32\KFileNmB.cpp"
 				>
 			</File>
@@ -398,6 +406,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Win\32\KFileUnique.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Win\32\KGetAppPath.cpp"
 				>
 			</File>
 			<File
@@ -417,7 +429,6 @@
 				>
 				<FileConfiguration
 					Name="Debug_SBCS|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -513,6 +524,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Src\TestFileDir.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Src\TestFilename.cpp"
 				>
 			</File>
@@ -568,6 +583,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Win\32\KFileNmB.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\KFileSys.h"
 				>
 			</File>
 			<File
