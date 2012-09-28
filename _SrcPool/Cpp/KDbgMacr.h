@@ -1,4 +1,4 @@
-/*$Workfile: KDbgMacr.h$: header file
+/*$RCSfile: KDbgMacr.h$: header file
   $Revision: 50$ $Date: 2007-05-31 16:43:23$
   $Author: Darko Kolakovic$
 
@@ -400,7 +400,7 @@
   #include "KDbgMacrMsvc.h" /*Microsoft-Specific macros Microsoft Visual Studio*/
   #include "KDbgMacrMfc.h"  /*Microsoft-Specific macros Microsoft Fundation Class (MFC) library*/
   #include "KDbgMacrAtl.h"  /*List Active Template Library macros*/
-  #include "KDbggMacrWin.h" /*Macros specifying Microsoft Windows platform*/
+  #include "KDbgMacrWin.h" /*Macros specifying Microsoft Windows platform*/
 
   #ifdef _M_ALPHA
     #pragma message ("Compiling for for DEC ALPHA platform.")
