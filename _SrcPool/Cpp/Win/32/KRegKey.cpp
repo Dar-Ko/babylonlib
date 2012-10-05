@@ -128,7 +128,7 @@ BOOL CRegistryKey::Create(HKEY hKey,        //Identifies a currently open key
                          )
 {
 ASSERT(hKey != NULL);
-if ((lpszKeyName == NULL) || (lpszKeyName[0] = _T('\0'))
+if( (lpszKeyName == NULL) || (lpszKeyName[0] = _T('\0')) )
   return false; //Subkey parameter cannot be NULL.
 
 DWORD dwDisposition; //a variable that receives one of the following disposition values:

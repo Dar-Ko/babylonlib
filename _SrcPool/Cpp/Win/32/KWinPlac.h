@@ -92,7 +92,8 @@ inline CWindowPlacement& CWindowPlacement::operator=(const CWindowPlacement& Sou
 {
 m_strEntry   = Source.m_strEntry;
 m_strSection = Source.m_strSection;
-return operator =((const tagWINDOWPLACEMENT)Source);
+*this = ((const tagWINDOWPLACEMENT)Source);
+return (*this);
 }
 
 //::Empty------------------------------------------------------------------

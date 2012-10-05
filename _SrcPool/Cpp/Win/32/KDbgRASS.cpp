@@ -29,10 +29,10 @@
 #ifndef KCONSTCASE
   #ifdef _UNICODE
     #define KCONSTCASE(idVal) \
-      KCONSTCASE(idVal: szResult = L#idVal; break;
+      case idVal: szResult = L#idVal; break;
   #else
     #define KCONSTCASE(idVal) \
-      KCONSTCASE(idVal: szResult = #idVal; break;
+      case idVal: szResult = #idVal; break;
   #endif
 #endif
 

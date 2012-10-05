@@ -480,7 +480,7 @@ void CHyperLink::ReportError(int nError //[in] error code
         case SE_ERR_ACCESSDENIED:    str = _T("The operating system denied\naccess to the specified file."); break;                                        // 5
         case SE_ERR_OOM:             str = _T("There was not enough memory to complete the operation."); break;                                            // 8
         case ERROR_BAD_FORMAT:       str = _T("The .EXE file is invalid\n(non-Win32 .EXE or error in .EXE image)."); break;                                //11
-        case SE_ERR_SHARE:           str = _T("A sharing violation occurred.");                                                                           //26
+        case SE_ERR_SHARE:           str = _T("A sharing violation occurred."); break;                                                                     //26
         case SE_ERR_ASSOCINCOMPLETE: str = _T("The filename association is\nincomplete or invalid."); break;                                               //27
         case SE_ERR_DDETIMEOUT:      str = _T("The DDE transaction could not\nbe completed because the request timed out."); break;                        //28
         case SE_ERR_DDEFAIL:         str = _T("The DDE transaction failed."); break;                                                                       //29

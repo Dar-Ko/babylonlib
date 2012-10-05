@@ -1,6 +1,6 @@
 /*$Workfile: KGetDomainName2k.cpp$: implementation file
-  $Revision: 2$ $Date: 2004-10-01 22:34:55$
-  $Author: Darko$
+  $Revision: 3$ $Date: 2007-05-04 11:32:32$
+  $Author: Darko Kolakovic$
 
   Get Windows 2000 domain name
   Copyright: CommonSoft Inc.
@@ -31,18 +31,20 @@ bool GetDomainName(BSTR* bstrDomainName //[out] DNS name of the local computer's
 HRESULT hResult;
 IADsADSystemInfo *pADsys;
 hResult = CoCreateInstance(CLSID_ADSystemInfo,
-                      NULL,
-                      CLSCTX_INPROC_SERVER,
-                      IID_IADsADSystemInfo,
-                      (void**)&pADsys);
+                            NULL,
+                            CLSCTX_INPROC_SERVER,
+                            IID_IADsADSystemInfo,
+                            (void**)&pADsys);
 if (SUCCEEDED(hResult))
   {
-  hResult = pADsys->get_DomainDNSName(bstrDomainName);
+  if (pADsys != NULL)
+    {
+    hResult = pADsys->get_DomainDNSName(bstrDomainName);
 
-  if (pADsys)
     pADsys->Release();
-  if (SUCCEEDED(hResult))
-    return true;
+    if (SUCCEEDED(hResult))
+      return true;
+    }
   }
 return false;
 }

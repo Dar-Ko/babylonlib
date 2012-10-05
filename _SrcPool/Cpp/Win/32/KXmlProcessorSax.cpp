@@ -58,7 +58,6 @@ VERIFY(::CoInitialize(NULL) == S_OK);
 
 //-----------------------------------------------------------------------------
 /*Destructor closes the COM library on the current thread.
-  Throws E_UNEXPECTED
  */
 CXmlProcessorSax::~CXmlProcessorSax()
 {
@@ -74,7 +73,8 @@ catch(_com_error &e)
 catch(...)
   {
   ATLTRACE2(ATL::atlTraceCOM, 0, _T("  Generic exception trown by ATL Release()!\n"));
-  throw _com_error(E_UNEXPECTED);
+  ASSERT(FALSE);
+  abort(); //Abadon the execution
   }
 ::CoUninitialize();
 }

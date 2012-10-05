@@ -1,5 +1,5 @@
 $RCSfile: TestWmi.txt,v $: developer's note
-$Revision: 1.3 $ $Date: 2011/10/25 21:10:41 $
+$Revision: 1.4 $ $Date: 2012/10/05 19:12:06 $
 $Author: ddarko $
 
 Samples and test suites for the Windows Management Instrumentation (WMI).
@@ -74,3 +74,123 @@ Solution:
         b. add the required Merge Modules (.msm) from "%PROGFILES%\common files\merge modules\" 
            to the project
         c. buid the deployment project
+
+WDK Build Environment Refactoring:
+=================================
+ref: http://www.tech-archive.net/Archive/Development/microsoft.public.development.device.drivers/2005-08/msg00980.html
+     http://download.microsoft.com/download/f/0/5/f05a42ce-575b-4c60-82d6-208d3754b2d6/WDK_BE-Refactoring.ppt
+
+
+Header File Changes in the Windows Driver Kit:
+http://download.microsoft.com/download/5/D/6/5D6EAF2B-7DDF-476B-93DC-7CF0072878E6/headers.doc
+
+
+These describe the changes between the old DDK and the WDK, including the header file reorganisation that has taken place and led to my build problems.
+
+
+In the release notes for version 5112 WDK, there’s the following brief mention of the changes:
+
+Header Versioning Activated
+This release of the WDK implements a versioned header system. The overall effect of this new system is that the WDK no longer contains operating system-specific include directories under \inc. The WDK build environments are configured for this change, but customized build environments that have hard-coded include paths might break.
+
+Workaround: Use the WDK build environments, or update customized build environments appropriately.
+
+>From the above 2 URLs, I found the following essential information:
+
+----
+
+1) The WDK build environment defines the constant NTDDI_VERSION to match the driver’s build environment.
+
+- Since various projects in Tony’s updated Application Manager solution use the DDK, and I’m building them in Microsoft Visual Studio .NET, this is the crux of the problem. If I was to build all the projects using the WDK build environment, in theory, this build problem shouldn’t exist.
+
+
+2) In order to still be able to build in Visual Studio, the solution is to define NTDDI_VERSION with a target operating system value
+
+Table 1: Windows Operating System Version Constants
+
+Constant Version of operating system
+
+NTDDI_WIN2K Windows 2000
+NTDDI_WINXP Windows XP
+NTDDI_WS03 Windows Server 2003
+NTDDI_LONGHORN Windows Longhorn
+
+(declared in the new sdkddkver.h header file)
+
+· DO be sure that you build your drivers within the build environment provided by the DDK, or that you define the necessary environment variables to ensure that NTDDI_VERSION is correctly defined.
+
+----
+Taking into account this information, as a test, I added this line at the
+top of RulesInfo.cpp
+
+#define NTDDI_VERSION NTDDI_WINXP
+
+The resulting RulesInfo.i file then contained:
+
+(OSVER(NTDDI_WINXP) == NTDDI_WIN2K && SPVER(NTDDI_WINXP) >=5) ||
+(OSVER(NTDDI_WINXP) == NTDDI_WINXP && SPVER(NTDDI_WINXP) >=2) ||
+(OSVER(NTDDI_WINXP) == NTDDI_WS03 && SPVER(NTDDI_WINXP) >=1) ||
+(OSVER(NTDDI_WINXP) >= NTDDI_WINLH)
+
+
+Indicating that OSVER and SPVER were still undefined.
+
+I found that these are defined in the new “sdkddkver.h” header file, and that is #included in the DDK version of “windows.h”, found at:
+C:\WINDDK\5112\inc\api
+
+So, after all that, the main thing I needed to do was to ensure that this include file directory is listed at the top of the Include Directories in Visual Studio’s Tools -> Options… -> Projects -> VC++ Directories settings.
+It then turned out that NTDDI_VERSION gets #defined in “sdkddkver.h” too, so #define'ing it wasn’t necessary in my source file.
+
+After this primary reason for my build problem, I then had another 3 -
+here's how I resolved them:
+
+1) Even though everything in the project compiled, no .obj files were being created, and it couldn’t link.
+
+- It turns out that that having the “C/C++ -> Preprocessor -> Generate
+Processed File“ project setting set to “With Line Numbers (/P)” caused no ..obj files to be created!?! Turning it off fixed the problem.
+
+
+2) There was then a problem with another project in the solution against the WDK:
+
+
+c:\WINDDK\5112\inc\api\usb200.h(85) : error C2332: 'struct' : missing tag name
+c:\WINDDK\5112\inc\api\usb200.h(85) : error C2011: '__unnamed' : 'enum' type redefinition
+C:\WINDDK\5112\inc\api\shlwapi.h(1482) : see declaration of '__unnamed'
+c:\WINDDK\5112\inc\api\usb200.h(85) : error C2059: syntax error : 'constant'
+c:\WINDDK\5112\inc\api\usb200.h(85) : error C2334: unexpected token(s) preceding '{'; skipping apparent function body
+
+In usb200.h, the following was defined:
+
+typedef union _USB_HIGH_SPEED_MAXPACKET {
+struct _MP {
+USHORT MaxPacket:11; /* 0..10 */
+USHORT HSmux:2; /* 11..12 */
+USHORT Reserved:3; /* 13..15 */
+};
+
+USHORT us;
+
+} USB_HIGH_SPEED_MAXPACKET, *PUSB_HIGH_SPEED_MAXPACKET;
+
+But this caused a problem because _MP is already a #defined constant in
+mbctype.h:
+/* bit masks for MBCS character types */
+
+#define _MS 0x01 /* MBCS single-byte symbol */
+#define _MP 0x02 /* MBCS punct */
+
+….
+
+So my inelegant fix for this to put #undef _MP above the #include
+<afxtempl.h> line in the project's stdafx.h file.
+
+3) A simple one – the PUSB_NODE_CONNECTION_INFORMATION_EX used in this
+project is defined within “#if (_WIN32_WINNT >= 0x0501)” in
+C:\WINDDK\5112\inc\api\usbioctl.h
+It wasn't inside a #ifdef in the previous DDK version.
+
+So I simply updated the _WIN32_WINNT #define in the project's stdafx.h file
+as follows:
+
+#define _WIN32_WINNT 0x0501 // Change this to the appropriate value to
+target Windows 2000 or later.
