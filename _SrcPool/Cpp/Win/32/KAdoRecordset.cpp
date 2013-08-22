@@ -1,6 +1,6 @@
 /*$Workfile: KAdoRecordset.cpp$: implementation file
-  $Revision: 6$ $Date: 2005-04-29 01:13:01$
-  $Author: Darko$
+  $Revision: 7$ $Date: 2007-02-06 10:56:30$
+  $Author: Darko Kolakovic$
 
   Defines the class behaviors for the application.
   Copyright: CommonSoft Inc.
