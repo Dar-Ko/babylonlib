@@ -1,5 +1,5 @@
 /*$RCSfile: EnumComDrivers.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2013/08/27 17:03:38 $
+  $Revision: 1.2 $ $Date: 2013/08/27 17:19:14 $
   $Author: ddarko $; PJ Naughter
   Enumerate the serial ports installed on a PC
 */
@@ -38,35 +38,35 @@ bool EnumerateRunningDrivers(CSimpleArray<UINT>& ports, CSimpleArray<CString>& f
       ports.Add(nPort);
 
       HKEY hDeviceKey;
-      LONG lRes = RegOpenKeyEx(HKEY_LOCAL_MACHINE, 
-                               DeviceInfo.szDeviceKey, 
-                               0, 
-                               KEY_READ, 
+      LONG lRes = RegOpenKeyEx(HKEY_LOCAL_MACHINE,
+                               DeviceInfo.szDeviceKey,
+                               0,
+                               KEY_READ,
                                &hDeviceKey);
-                               
+
       if(lRes == ERROR_SUCCESS)
-      { 
+      {
         LPCTSTR pszValueName =  _T("FriendlyName");
         DWORD dwSize = 0;
         DWORD dwType = 0;
         lRes = RegQueryValueEx(hDeviceKey,
-                               pszValueName, 
-                               NULL, 
-                               &dwType, 
-                               NULL, 
+                               pszValueName,
+                               NULL,
+                               &dwType,
+                               NULL,
                                &dwSize);
-        ATLASSERT(dwType == REG_SZ);
 
         if(lRes == ERROR_SUCCESS)
         {
+          ATLASSERT(dwType == REG_SZ);
           LPTSTR pszValue = new TCHAR[dwSize / sizeof(TCHAR)];
           if(pszValue != NULL)
           {
-            lRes = RegQueryValueEx(hDeviceKey, 
-                                   pszValueName, 
-                                   NULL, 
+            lRes = RegQueryValueEx(hDeviceKey,
+                                   pszValueName,
+                                   NULL,
                                    &dwType,
-                                   (BYTE*)pszValue, 
+                                   (BYTE*)pszValue,
                                    &dwSize);
 
             if(lRes == ERROR_SUCCESS)
