@@ -93,7 +93,7 @@
 
   Any application with a top-level window can receive basic notifications by
   processing the WM_DEVICECHANGE message. Event DBT_DEVTYP_VOLUME for sound
-  notifucation and DBT_DEVICEARRIVAL, DBT_DEVICEREMOVECOMPLETE events for
+  notification and DBT_DEVICEARRIVAL, DBT_DEVICEREMOVECOMPLETE events for
   devices using ports are also automatically  broadcast to all top-level windows.
   Other types of application, like services, have to be registered to PnP
   manager for device notifications.
