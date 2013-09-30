@@ -1,4 +1,4 @@
-/*$Workfile: KRegKey.cpp$: implementation file
+/*$RCSfile: KRegKey.cpp$: implementation file
   $Revision: 14$ $Date: 2007-05-10 16:56:29$
   $Author: Darko Kolakovic$
 
@@ -152,6 +152,7 @@ return (RegCreateKeyEx(hKey,        // handle of an open key
 /*The function opens the specified key. If lpszKeyName parameter is NULL or a
   pointer to an empty string, the function initializes m_hKey member to the same
   handle that was passed in.
+  If user is a restricted access user, opening a key will fail. 
   A single registry key can be opened only 65534 times; after that function fails.
 
   Predefined reserved key handle values are:
@@ -160,11 +161,11 @@ return (RegCreateKeyEx(hKey,        // handle of an open key
     HKEY_CURRENT_USER
     HKEY_LOCAL_MACHINE
     HKEY_USERS
-    HKEY_PERFORMANCE_DATA
+    HKEY_PERFORMANCE_DATA   (Windows NT/2000)
     HKEY_PERFORMANCE_TEXT
     HKEY_PERFORMANCE_NLSTEXT
     HKEY_CURRENT_CONFIG
-    HKEY_DYN_DATA
+    HKEY_DYN_DATA           (Windows 95/98)
 
   Registry Specific Access Rights         Description (REGSAM WinNT.h)
     KEY_ALL_ACCESS                     Combination of KEY_QUERY_VALUE,
@@ -213,13 +214,79 @@ return (RegOpenKeyEx(hKey, lpszKeyName, _RESERVED_FOR_FUTURE_USE,
                      samDesired, &m_hKey) == ERROR_SUCCESS);
 }
 
+//-----------------------------------------------------------------------------
+/*The function opens the specified key for the reading only.
+  If lpszKeyName parameter is NULL or a pointer to an empty string, the function 
+  initializes m_hKey member to the same handle that was passed in.
+  Use this method if user is a restricted access user.
+  A single registry key can be opened only 65534 times; after that function fails.
+  
+  Returns TRUE if successful, otherwise returns FALSE;
+  
+  See also: CRegistryKey::Open(), RegOpenKeyEx()
+ */
+BOOL OpenToRead(HKEY hKey, LPCTSTR szKey)
+{
+ASSERT(hKey != NULL);
+//Note: ERROR_NO_SYSTEM_RESOURCES is returned if the key is opened more than
+//65534 times.
+return (RegOpenKeyEx(hKey, lpszKeyName, _RESERVED_FOR_FUTURE_USE,
+                     KEY_READ, &m_hKey) == ERROR_SUCCESS);
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+BOOL CRegistryKey::SetValue(const DWORD dwValue,
+                            LPCTSTR lpszValueName //[in] = NULL
+                            )
+{
+ASSERT(m_hKey != NULL);
+const DWORD dwType = REG_DWORD;
+	
+if(::RegSetValueEx(m_hKey, 
+                    lpValueName, 
+					_RESERVED_FOR_FUTURE_USE, 
+					dwType, 
+					(LPBYTE)&dwValue, 
+					sizeof(DWORD)) == ERROR_SUCCESS)
+  {
+  ::RegFlushKey(m_hKey);
+  return TRUE;
+  }
+return FALSE;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+BOOL CRegistryKey::GetValue(DWORD& dwValue,
+                         LPCTSTR lpszValueName //[in] = NULL
+                         )
+{
+ASSERT(m_hKey != NULL);
+
+const DWORD dwType = REG_DWORD;
+DWORD lpcbData = sizeof(DWORD);
+dwValue = 0;	
+		
+BOOL bRet = (RegQueryValueEx(m_hKey,
+		lpValueName,
+		NULL,
+		&dwType, 
+		(BYTE*)(DWORD)&dwValue,
+		&lpcbData) == ERROR_SUCCESS);
+
+return bRet;
+}
+
 //::SetStringValue()-----------------------------------------------------------
 /*The function associates a text string with a specified key. This value must
   be a text string and cannot have a name.
  */
-BOOL CRegistryKey::SetStringValue(LPCTSTR lpszValue,
-                                  LPCTSTR lpszValueName //NULL
-                                  )
+BOOL CRegistryKey::SetValue(LPCTSTR lpszValue,
+                            LPCTSTR lpszValueName //[in] = NULL
+                            )
 {
 ASSERT(m_hKey != NULL);
 return (RegSetValueEx(m_hKey, lpszValueName, _RESERVED_FOR_FUTURE_USE, REG_SZ,
@@ -233,10 +300,10 @@ return (RegSetValueEx(m_hKey, lpszValueName, _RESERVED_FOR_FUTURE_USE, REG_SZ,
 #ifdef __AFXWIN_H__         //Include MFC library
 /*
  */
-BOOL CRegistryKey::GetStringValue(CString& strResult,
-                                  LPCTSTR lpszValueName //=NULL The key name of
-                                                        //the string to be queried
-                                  )
+BOOL CRegistryKey::GetValue(CString& strResult,
+                            LPCTSTR lpszValueName //[in] = NULL The key name of
+                                                 //the string to be queried
+                            )
 {
 ASSERT(m_hKey != NULL);
 strResult.Empty();
@@ -269,14 +336,14 @@ return FALSE;
 //::GetStringValue()-----------------------------------------------------------
 /*
  */
-BOOL CRegistryKey::GetStringValue(LPTSTR szResult,
-                                  DWORD* pnBufferSize, //Points to a variable
+BOOL CRegistryKey::GetValue(LPTSTR szResult,
+                            DWORD* pnBufferSize, //Points to a variable
                                   //that specifies the size, in bytes, of the buffer
                                   //pointed to by the szResult parameter. When
                                   //the function returns, this variable contains
                                   //the size of the data copied to lpData.
-                                  LPCTSTR lpszValueName// = NULL
-                                  )
+                            LPCTSTR lpszValueName// = NULL
+                            )
 {
 ASSERT(m_hKey != NULL);
 DWORD dwCount = 0;
@@ -307,6 +374,68 @@ if (lRes == ERROR_SUCCESS)
 return FALSE;
 }
 #endif  //__AFXWIN_H__
+
+//-----------------------------------------------------------------------------
+/*Get the number of subkeys.
+
+  Returns -1 in case of a failure.
+ */
+int CRegistryKey::Enumerate()
+{
+DWORD dwSubKeyCount;
+DWORD dwValueCount;
+DWORD dwClassNameLength = CLASS_NAME_LENGTH;
+DWORD dwMaxSubKeyName;
+DWORD dwMaxValueName; 
+DWORD dwMaxValueLength;
+FILETIME ftLastWritten;
+_TCHAR szClassBuffer[CLASS_NAME_LENGTH];
+//Retrieve information about the specified registry key.
+LONG lResult = ::RegQueryInfoKey(m_hKey, 
+                                 szClassBuffer, 
+								 &dwClassNameLength,
+                                 NULL, 
+								 &dwSubKeyCount, 
+								 &dwMaxSubKeyName, 
+								 NULL, &dwValueCount,
+	                             &dwMaxValueName, &dwMaxValueLength, 
+								 NULL, &ftLastWritten);
+			
+if (lResult != ERROR_SUCCESS) 
+  return -1;
+return (int)dwSubKeyCount;
+}
+
+//-----------------------------------------------------------------------------
+/*Get the number of values that are associated with the key.
+
+  Returns -1 in case of a failure.
+ */
+int CRegistryKey::EnumerateValue()
+{
+DWORD dwSubKeyCount;
+DWORD dwValueCount;
+DWORD dwClassNameLength = CLASS_NAME_LENGTH;
+DWORD dwMaxSubKeyName;
+DWORD dwMaxValueName; 
+DWORD dwMaxValueLength;
+FILETIME ftLastWritten;
+_TCHAR szClassBuffer[CLASS_NAME_LENGTH];
+//Retrieve information about the specified registry key.
+LONG lResult = ::RegQueryInfoKey(m_hKey, 
+                                 szClassBuffer, 
+								 &dwClassNameLength,
+                                 NULL, 
+								 &dwSubKeyCount, 
+								 &dwMaxSubKeyName, 
+								 NULL, &dwValueCount,
+	                             &dwMaxValueName, &dwMaxValueLength, 
+								 NULL, &ftLastWritten);
+			
+if (lResult != ERROR_SUCCESS) 
+  return -1;
+return (int)dwValueCount;
+}
 
 //::GetData()------------------------------------------------------------------
 /*The function retrieves the data for a specified value name
@@ -413,6 +542,120 @@ if(lRes == ERROR_SUCCESS)
 return FALSE;
 }
 
+//-----------------------------------------------------------------------------
+/*Obtain the size, in bytes, of a data value associated with the current key.
+
+  Returns the size of the data value. In case of a failure returns -1.
+ */
+int CRegistryKey::GetDataSize(LPCTSTR lpszValueName //[in] name of the data value to query
+                              )
+{
+DWORD dwSize = 1;
+LONG lResult = ::RegQueryValueEx(m_hKey, 
+                                 lpszValueName,
+                                 NULL, NULL, NULL, &dwSize);
+
+if (lResult != ERROR_SUCCESS) 
+   return -1;
+return (int)dwSize;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+DWORD CRegistryKey::GetDataType(LPCTSTR lpszValueName //[in] name of the data value to query
+                              )
+{
+DWORD dwType = 1;
+LONG lResult = ::RegQueryValueEx(m_hKey, 
+                                  lpszValueName,
+		                          NULL, &dwType, NULL, NULL);
+
+if (lResult == ERROR_SUCCESS) 
+  return dwType;
+
+return 0;
+}
+
+//-----------------------------------------------------------------------------
+/*Deletes the subkeys and values of the specified key recursively.
+ 
+  See also: SHDeleteKey(), SHDeleteEmptyKey(), RegDeleteTree(), MSDN Q142491 
+ */
+ BOOL CRegistryKey::DeleteTree(LPTSTR pKeyName, HKEY hTreeKey)
+{
+/*MSDN: Q142491 http://support.microsoft.com/kb/142491
+    In Windows 95, the RegDeleteKey function not only deletes the particular key 
+	specified but also any subkey descendants. In contrast, the Windows NT version
+	of this function deletes only the particular key specified and will not delete 
+	any key that has subkey descendants.
+    To delete a key and all of its subkeys in Windows NT, a recursive delete 
+	function is implemented using RegEnumKeyEx and RegDeleteKey. This recursive
+	delete function uses the following simple two-step algorithm:
+     1. Traverse down each subkey branch, one branch at a time, enumerating keys 
+	    at each subkey level, until the last subkey leaf is reached.
+     2. Individually delete each subkey in reverse succession, one branch at 
+	    a time, until the specified key is deleted.
+	Note: always enumerate subkey index zero (that is, DWORD iSubkey = 0). 
+	Because keys are re-indexed after each key is deleted, the use of a non-zero 
+	subkey index would result in keys not being deleted. This in turn would 
+	result in the failure of the RegDeleteKey function when an attempt is made
+	to delete the subkey's parent key. 
+ */	
+ASSERT(hTreeKey != NULL);
+
+if ( pKeyName &&  lstrlen(pKeyName)) //Do not allow NULL or empty key name
+{
+  DWORD dwRtn;
+  //Note: If, between the time of the delete privilege test and the actual
+  //attempt to delete, the key protection is altered, the recursive delete function 
+  //will ail. 
+ if( (dwRtn = RegOpenKeyEx(hTreeKey,pKeyName,
+	                        0, 
+							KEY_ENUMERATE_SUB_KEYS | DELETE, 
+							&hKey )) == ERROR_SUCCESS)
+  {
+  HKEY    hKey;
+
+  while (dwRtn == ERROR_SUCCESS )
+	{
+	   DWORD dwSubKeyLength = MAX_KEY_LENGTH;
+       TCHAR   szSubKey[MAX_KEY_LENGTH]; // (256) this should be dynamic.
+//LPTSTR  pSubKey = NULL;
+	   
+	   dwRtn = RegEnumKeyEx(
+					  hKey,
+					  0,       // always index zero
+					  szSubKey,
+					  &dwSubKeyLength,
+					  NULL,
+					  NULL,
+					  NULL,
+					  NULL
+					);
+
+	   if(dwRtn == ERROR_NO_MORE_ITEMS)
+	   {
+		  dwRtn = RegDeleteKey(hTreeKey, pKeyName);
+		  break;
+	   }
+	   else 
+	   {
+	   if(dwRtn == ERROR_SUCCESS)
+		  dwRtn = DeleteTree(szSubKey, hKey);
+		  }
+	}
+	RegCloseKey(hKey);
+	// Do not save return code because error
+	// has already occurred
+ }
+}
+else
+ dwRtn = ERROR_BADKEY;
+
+return dwRtn; 
+}
+ 
 ///////////////////////////////////////////////////////////////////////////////
 #endif  //_WIN32
 
@@ -452,7 +695,7 @@ return strDestination;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log:
+ * $Log: $
  *  12   Biblioteka1.11        2005-05-04 01:27:33  Darko           stdafx
  *  11   Biblioteka1.10        2005-05-03 11:16:09  Darko Kolakovic Unicode build
  *  10   Biblioteka1.9         2005-04-26 11:35:24  Darko Kolakovic Document groups
@@ -464,12 +707,11 @@ return strDestination;
  *  6    Biblioteka1.5         2003-09-03 20:09:01  Darko           defined NDEBUG
  *       ASSERT
  *  5    Biblioteka1.4         2003-08-09 14:11:16  Darko           formatting
- *  4    Biblioteka1.3         2002-01-29 23:21:42  Darko           Used lbraries
+ *  4    Biblioteka1.3         2002-01-29 23:21:42  Darko           Used libraries
  *       notes
  *  3    Biblioteka1.2         2002-01-25 16:57:49  Darko           Updated
  *       comments
  *  2    Biblioteka1.1         2001-08-17 00:37:56  Darko           Update
  *  1    Biblioteka1.0         2001-07-07 01:13:45  Darko
- * $
  *****************************************************************************/
 
