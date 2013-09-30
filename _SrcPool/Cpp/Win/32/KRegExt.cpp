@@ -1,4 +1,4 @@
-/*$Workfile: KRegExt.cpp$: implementation file
+/*$RSCfile: KRegExt.cpp$: implementation file
   $Revision: 9$ $Date: 2005-05-03 01:46:22$
   $Author: Darko$
 
@@ -193,9 +193,89 @@ if ((lRes == ERROR_SUCCESS) && (dwType == REG_MULTI_SZ))
 
 return FALSE;
 }
+
+//-----------------------------------------------------------------------------
+/*
+ The integral part of a DateTime value is the number of days that have passed since 12/30/1899. 
+	The fractional part of a DateTime value is the time of day.
+ */
+BOOL CRegExt::GetReadDateTime(COleDateTime& dtValue, //[out]
+                              LPCTSTR lpszValueName //[in] = NULL
+                             )
+{
+COleDateTime dt;
+const DWORD dwType = REG_BINARY;
+DWORD dwSize = sizeof(dt);
+if (::RegQueryValueEx(m_hKey,  NULL,
+		              &dwType, 
+					  (LPBYTE)&dt, &dwSize) == ERROR_SUCCESS) 
+  {
+  dtValue = dt;
+  return TRUE;
+  }
+return FALSE;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+BOOL CRegExt::SetDateTime(COleDateTime dtValue,
+                          LPCTSTR lpszValueName //[in] = NULL
+                          )
+{
+if (::RegSetValueEx(m_hKey, LlpszValueName, 
+                     0,
+	                 REG_BINARY, 
+					 (LPBYTE)&dtValue, 
+					 sizeof(dtValue)) != ERROR_SUCCESS) 
+  bSuccess = FALSE;
+	
+::RegFlushKey(m_hKey);
+
+return bSuccess;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+BOOL CRegExt::GetRealNumber(double& dValue, //[out]
+                            LPCTSTR lpszValueName //[in] = NULL
+                            )
+{
+double d;
+const DWORD dwType = REG_BINARY;
+DWORD dwSize = sizeof(dt);
+if (::RegQueryValueEx(m_hKey,  NULL,
+		              &dwType, 
+					  (LPBYTE)&dt, &dwSize) == ERROR_SUCCESS) 
+  {
+  dValue = d;
+  return TRUE;
+  }
+return FALSE;
+}
+
+//-----------------------------------------------------------------------------
+/*
+ */
+BOOL CRegExt::SetRealNumber(double dValue, //[out]
+                            LPCTSTR lpszValueName //[in] = NULL
+                            )
+{
+BOOL bSuccess = TRUE;
+if (::RegSetValueEx(m_hKey, 
+                    lpszValueName, 0,
+		            REG_BINARY, 
+					(LPBYTE)&dValue, 
+					sizeof(dValue)) != ERROR_SUCCESS) 
+  bSuccess = FALSE;
+		
+::RegFlushKey(hKey);
+return bSuccess;
+}
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
- * $Log: 
+ * $Log: $
  *  9    Biblioteka1.8         2005-05-03 01:46:22  Darko           comments, case
  *       of included files
  *  8    Biblioteka1.7         2004-10-01 22:35:15  Darko           stdafx.h
@@ -208,5 +288,4 @@ return FALSE;
  *  3    Biblioteka1.2         2001-07-07 01:10:52  Darko           
  *  2    Biblioteka1.1         2001-06-08 23:51:37  Darko           VSS
  *  1    Biblioteka1.0         2000-08-13 15:57:23  Darko           
- * $
- *****************************************************************************/
+  *****************************************************************************/
