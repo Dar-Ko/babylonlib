@@ -10,7 +10,7 @@
 
 /*Note: MS VC/C++ - Disable precompiled headers (/Yu"stdafx.h" option)       */
 
-#include "stdafx.h"
+//#include "stdafx.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //Win 32b
@@ -47,58 +47,11 @@
   #endif
 #endif
 
+const int MAX_KEY_LENGTH = 256; //Size of temporary buffer
+
 /////////////////////////////////////////////////////////////////////////////
 /* CRegistryKey
-
-    Predefined Value Types        VALUE   Description (WinNT.h)
-    REG_NONE                        0  No value type
-    REG_SZ                          1  Unicode nul terminated string
-    REG_EXPAND_SZ                   2  Unicode nul terminated string with
-                                       environment variable references)
-    REG_BINARY                      3  Free form binary
-    REG_DWORD                       4  32-bit number
-    REG_DWORD_LITTLE_ENDIAN         4  32-bit number (same as REG_DWORD)
-    REG_DWORD_BIG_ENDIAN            5  32-bit number
-    REG_LINK                        6  Symbolic Link (unicode)
-    REG_MULTI_SZ                    7  Multiple Unicode strings
-    REG_RESOURCE_LIST               8  Resource list in the resource map
-    REG_FULL_RESOURCE_DESCRIPTOR    9  Resource list in the hardware description
-    REG_RESOURCE_REQUIREMENTS_LIST  10
-
-
-    Registry Specific Access Rights       Description (REGSAM WinNT.h)
-    KEY_ALL_ACCESS                   Combination of KEY_QUERY_VALUE,
-                                                    KEY_ENUMERATE_SUB_KEYS,
-                                                    KEY_NOTIFY,
-                                                    KEY_CREATE_SUB_KEY,
-                                                    KEY_CREATE_LINK and
-                                                    KEY_SET_VALUE access.
-    KEY_CREATE_LINK              32  Permission to create a symbolic link.
-    KEY_CREATE_SUB_KEY            4  Permission to create subkeys.
-    KEY_ENUMERATE_SUB_KEYS        8  Permission to enumerate subkeys.
-    KEY_EXECUTE                      Permission for read access.
-    KEY_NOTIFY                   16  Permission for change notification.
-    KEY_QUERY_VALUE               1  Permission to query subkey data.
-    KEY_READ                         Combination of KEY_QUERY_VALUE,
-                                                    KEY_ENUMERATE_SUB_KEYS,
-                                                and KEY_NOTIFY access.
-    KEY_SET_VALUE                 2  Permission to set subkey data.
-    KEY_WRITE                        Combination of KEY_SET_VALUE and
-                                                    KEY_CREATE_SUB_KEY access.
  */
-
-//::Close()--------------------------------------------------------------------
-/*The function releases the handle of the specified key.
- */
-void CRegistryKey::Close()
-{
-if (m_hKey != NULL)
-  {
-  LONG lRes = RegCloseKey(m_hKey);
-  ASSERT(lRes == ERROR_SUCCESS);
-  m_hKey = NULL;
-  }
-}
 
 
 //::Create()-------------------------------------------------------------------
@@ -128,8 +81,8 @@ BOOL CRegistryKey::Create(HKEY hKey,        //Identifies a currently open key
                          )
 {
 ASSERT(hKey != NULL);
-if( (lpszKeyName == NULL) || (lpszKeyName[0] = _T('\0')) )
-  return false; //Subkey parameter cannot be NULL.
+if( (lpszKeyName == NULL) || (lpszKeyName[0] == _T('\0')) )
+  return FALSE; //Subkey parameter cannot be NULL.
 
 DWORD dwDisposition; //a variable that receives one of the following disposition values:
                      //REG_CREATED_NEW_KEY     The key did not exist and was created.
@@ -225,31 +178,60 @@ return (RegOpenKeyEx(hKey, lpszKeyName, _RESERVED_FOR_FUTURE_USE,
   
   See also: CRegistryKey::Open(), RegOpenKeyEx()
  */
-BOOL OpenToRead(HKEY hKey, LPCTSTR szKey)
+BOOL CRegistryKey::OpenToRead(HKEY hKey, LPCTSTR szSubkey)
 {
 ASSERT(hKey != NULL);
 //Note: ERROR_NO_SYSTEM_RESOURCES is returned if the key is opened more than
 //65534 times.
-return (RegOpenKeyEx(hKey, lpszKeyName, _RESERVED_FOR_FUTURE_USE,
+return (RegOpenKeyEx(hKey, szSubkey, _RESERVED_FOR_FUTURE_USE,
                      KEY_READ, &m_hKey) == ERROR_SUCCESS);
 }
 
 //-----------------------------------------------------------------------------
 /*
  */
+BOOL CRegistryKey::HasKey(LPCTSTR szSubkey)
+{
+ASSERT(m_hKey != NULL);
+return CRegistryKey::HasKey(m_hKey, szSubkey);
+}
+
+//-----------------------------------------------------------------------------
+/*Determine if the specified subkey exists. Key names are not case sensitive.
+ */
+BOOL CRegistryKey::HasKey(HKEY hKey, LPCTSTR szSubkey)
+{
+ASSERT(szSubkey[0] != '\\');
+HKEY hSubkey;
+LONG lResult = ::RegOpenKeyEx(hKey, 
+              LPCTSTR(szSubkey), 
+              0,
+              KEY_READ, 
+              &hSubkey);
+::RegCloseKey(hSubkey);
+if (lResult == ERROR_FILE_NOT_FOUND)
+  return FALSE;
+
+return TRUE;  //ERROR_SUCCESS, Access right or other errors
+}
+
+
+//-----------------------------------------------------------------------------
+/*
+ */
 BOOL CRegistryKey::SetValue(const DWORD dwValue,
-                            LPCTSTR lpszValueName //[in] = NULL
+                            LPCTSTR szValueName //[in] = NULL
                             )
 {
 ASSERT(m_hKey != NULL);
 const DWORD dwType = REG_DWORD;
-	
+  
 if(::RegSetValueEx(m_hKey, 
-                    lpValueName, 
-					_RESERVED_FOR_FUTURE_USE, 
-					dwType, 
-					(LPBYTE)&dwValue, 
-					sizeof(DWORD)) == ERROR_SUCCESS)
+                    szValueName, 
+          _RESERVED_FOR_FUTURE_USE, 
+          dwType, 
+          (LPBYTE)&dwValue, 
+          sizeof(DWORD)) == ERROR_SUCCESS)
   {
   ::RegFlushKey(m_hKey);
   return TRUE;
@@ -261,21 +243,21 @@ return FALSE;
 /*
  */
 BOOL CRegistryKey::GetValue(DWORD& dwValue,
-                         LPCTSTR lpszValueName //[in] = NULL
+                         LPCTSTR szValueName //[in] = NULL
                          )
 {
 ASSERT(m_hKey != NULL);
 
-const DWORD dwType = REG_DWORD;
+DWORD dwType = REG_DWORD;
 DWORD lpcbData = sizeof(DWORD);
-dwValue = 0;	
-		
+dwValue = 0;  
+    
 BOOL bRet = (RegQueryValueEx(m_hKey,
-		lpValueName,
-		NULL,
-		&dwType, 
-		(BYTE*)(DWORD)&dwValue,
-		&lpcbData) == ERROR_SUCCESS);
+                              szValueName,
+                              _RESERVED_FOR_FUTURE_USE,
+                              &dwType, 
+                              (LPBYTE)&dwValue,
+                              &lpcbData) == ERROR_SUCCESS);
 
 return bRet;
 }
@@ -361,10 +343,13 @@ if (szResult == NULL)
 if (lRes == ERROR_SUCCESS)
   {
   ASSERT(dwType == REG_SZ); //Validate if registry is a string
-  dwCount = *pnBufferSize
-  lRes = RegQueryValueEx(m_hKey, (LPTSTR)lpszValueName,
-                        NULL, &dwType,
-                        szResult, pnBufferSize);
+  dwCount = *pnBufferSize;
+  lRes = RegQueryValueEx(m_hKey, 
+                         (LPTSTR)lpszValueName,
+                        NULL, 
+                        &dwType,
+                        (LPBYTE)szResult, 
+                        pnBufferSize);
   ASSERT(lRes == ERROR_SUCCESS);
   *pnBufferSize = dwCount; //Return real string length
   return TRUE;
@@ -384,23 +369,23 @@ int CRegistryKey::Enumerate()
 {
 DWORD dwSubKeyCount;
 DWORD dwValueCount;
-DWORD dwClassNameLength = CLASS_NAME_LENGTH;
+DWORD dwClassNameLength = MAX_KEY_LENGTH;
 DWORD dwMaxSubKeyName;
 DWORD dwMaxValueName; 
 DWORD dwMaxValueLength;
 FILETIME ftLastWritten;
-_TCHAR szClassBuffer[CLASS_NAME_LENGTH];
+_TCHAR szClassBuffer[MAX_KEY_LENGTH];
 //Retrieve information about the specified registry key.
 LONG lResult = ::RegQueryInfoKey(m_hKey, 
                                  szClassBuffer, 
-								 &dwClassNameLength,
+                 &dwClassNameLength,
                                  NULL, 
-								 &dwSubKeyCount, 
-								 &dwMaxSubKeyName, 
-								 NULL, &dwValueCount,
-	                             &dwMaxValueName, &dwMaxValueLength, 
-								 NULL, &ftLastWritten);
-			
+                 &dwSubKeyCount, 
+                 &dwMaxSubKeyName, 
+                 NULL, &dwValueCount,
+                               &dwMaxValueName, &dwMaxValueLength, 
+                 NULL, &ftLastWritten);
+      
 if (lResult != ERROR_SUCCESS) 
   return -1;
 return (int)dwSubKeyCount;
@@ -415,23 +400,23 @@ int CRegistryKey::EnumerateValue()
 {
 DWORD dwSubKeyCount;
 DWORD dwValueCount;
-DWORD dwClassNameLength = CLASS_NAME_LENGTH;
+DWORD dwClassNameLength = MAX_KEY_LENGTH;
 DWORD dwMaxSubKeyName;
 DWORD dwMaxValueName; 
 DWORD dwMaxValueLength;
 FILETIME ftLastWritten;
-_TCHAR szClassBuffer[CLASS_NAME_LENGTH];
+_TCHAR szClassBuffer[MAX_KEY_LENGTH];
 //Retrieve information about the specified registry key.
 LONG lResult = ::RegQueryInfoKey(m_hKey, 
                                  szClassBuffer, 
-								 &dwClassNameLength,
+                 &dwClassNameLength,
                                  NULL, 
-								 &dwSubKeyCount, 
-								 &dwMaxSubKeyName, 
-								 NULL, &dwValueCount,
-	                             &dwMaxValueName, &dwMaxValueLength, 
-								 NULL, &ftLastWritten);
-			
+                 &dwSubKeyCount, 
+                 &dwMaxSubKeyName, 
+                 NULL, &dwValueCount,
+                               &dwMaxValueName, &dwMaxValueLength, 
+                 NULL, &ftLastWritten);
+      
 if (lResult != ERROR_SUCCESS) 
   return -1;
 return (int)dwValueCount;
@@ -569,7 +554,7 @@ DWORD CRegistryKey::GetDataType(LPCTSTR lpszValueName //[in] name of the data va
 DWORD dwType = 1;
 LONG lResult = ::RegQueryValueEx(m_hKey, 
                                   lpszValueName,
-		                          NULL, &dwType, NULL, NULL);
+                              NULL, &dwType, NULL, NULL);
 
 if (lResult == ERROR_SUCCESS) 
   return dwType;
@@ -582,78 +567,79 @@ return 0;
  
   See also: SHDeleteKey(), SHDeleteEmptyKey(), RegDeleteTree(), MSDN Q142491 
  */
- BOOL CRegistryKey::DeleteTree(LPTSTR pKeyName, HKEY hTreeKey)
+ BOOL CRegistryKey::DeleteTree(LPTSTR szSubkey, HKEY hTreeKey)
 {
 /*MSDN: Q142491 http://support.microsoft.com/kb/142491
-    In Windows 95, the RegDeleteKey function not only deletes the particular key 
-	specified but also any subkey descendants. In contrast, the Windows NT version
-	of this function deletes only the particular key specified and will not delete 
-	any key that has subkey descendants.
+  Ref.: "Deleting a Key with Subkeys"  http://msdn.microsoft.com/en-us/library/ms724235%28VS.85%29.aspx
+  In Windows 95, the RegDeleteKey function not only deletes the particular key 
+  specified but also any subkey descendants. In contrast, the Windows NT version
+  of this function deletes only the particular key specified and will not delete 
+  any key that has subkey descendants.
     To delete a key and all of its subkeys in Windows NT, a recursive delete 
-	function is implemented using RegEnumKeyEx and RegDeleteKey. This recursive
-	delete function uses the following simple two-step algorithm:
+  function is implemented using RegEnumKeyEx and RegDeleteKey. This recursive
+  delete function uses the following simple two-step algorithm:
      1. Traverse down each subkey branch, one branch at a time, enumerating keys 
-	    at each subkey level, until the last subkey leaf is reached.
+      at each subkey level, until the last subkey leaf is reached.
      2. Individually delete each subkey in reverse succession, one branch at 
-	    a time, until the specified key is deleted.
-	Note: always enumerate subkey index zero (that is, DWORD iSubkey = 0). 
-	Because keys are re-indexed after each key is deleted, the use of a non-zero 
-	subkey index would result in keys not being deleted. This in turn would 
-	result in the failure of the RegDeleteKey function when an attempt is made
-	to delete the subkey's parent key. 
- */	
+      a time, until the specified key is deleted.
+  Note: always enumerate subkey index zero (that is, DWORD iSubkey = 0). 
+  Because keys are re-indexed after each key is deleted, the use of a non-zero 
+  subkey index would result in keys not being deleted. This in turn would 
+  result in the failure of the RegDeleteKey function when an attempt is made
+  to delete the subkey's parent key. 
+ */  
 ASSERT(hTreeKey != NULL);
-
-if ( pKeyName &&  lstrlen(pKeyName)) //Do not allow NULL or empty key name
+LONG lResult;
+if ( (szSubkey != NULL) &&  lstrlen(szSubkey)) //Do not allow NULL or empty key name
 {
-  DWORD dwRtn;
+
+  HKEY  hKey = NULL;
   //Note: If, between the time of the delete privilege test and the actual
   //attempt to delete, the key protection is altered, the recursive delete function 
   //will ail. 
- if( (dwRtn = RegOpenKeyEx(hTreeKey,pKeyName,
-	                        0, 
-							KEY_ENUMERATE_SUB_KEYS | DELETE, 
-							&hKey )) == ERROR_SUCCESS)
+  if( (lResult = RegOpenKeyEx(hTreeKey,
+                              szSubkey,
+                              _RESERVED_FOR_FUTURE_USE, 
+                              KEY_ENUMERATE_SUB_KEYS | DELETE, 
+                              &hKey )) == ERROR_SUCCESS)
   {
-  HKEY    hKey;
 
-  while (dwRtn == ERROR_SUCCESS )
-	{
-	   DWORD dwSubKeyLength = MAX_KEY_LENGTH;
-       TCHAR   szSubKey[MAX_KEY_LENGTH]; // (256) this should be dynamic.
-//LPTSTR  pSubKey = NULL;
-	   
-	   dwRtn = RegEnumKeyEx(
-					  hKey,
-					  0,       // always index zero
-					  szSubKey,
-					  &dwSubKeyLength,
-					  NULL,
-					  NULL,
-					  NULL,
-					  NULL
-					);
+    while (lResult == ERROR_SUCCESS )
+    {
+      DWORD dwSubKeyLength = MAX_KEY_LENGTH;
+      TCHAR   szSubKey[MAX_KEY_LENGTH]; // (256) this should be dynamic.
+      //LPTSTR  pSubKey = NULL;
 
-	   if(dwRtn == ERROR_NO_MORE_ITEMS)
-	   {
-		  dwRtn = RegDeleteKey(hTreeKey, pKeyName);
-		  break;
-	   }
-	   else 
-	   {
-	   if(dwRtn == ERROR_SUCCESS)
-		  dwRtn = DeleteTree(szSubKey, hKey);
-		  }
-	}
-	RegCloseKey(hKey);
-	// Do not save return code because error
-	// has already occurred
- }
+      lResult = RegEnumKeyEx(hKey,
+                              0,       // always index zero
+                              szSubKey,
+                              &dwSubKeyLength,
+                              NULL,
+                              NULL,
+                              NULL,
+                              NULL
+                              );
+
+      if(lResult == ERROR_NO_MORE_ITEMS)
+      {
+        lResult = RegDeleteKey(hTreeKey, szSubkey);
+        break;
+      }
+      else 
+      {
+        if(lResult == ERROR_SUCCESS)
+          lResult = DeleteTree(szSubKey, hKey);
+      }
+    }
+    RegCloseKey(hKey);
+    // Do not save return code because error
+    // has already occurred
+  }
 }
 else
- dwRtn = ERROR_BADKEY;
+  lResult = ERROR_BADKEY;
 
-return dwRtn; 
+return lResult; 
 }
  
 ///////////////////////////////////////////////////////////////////////////////

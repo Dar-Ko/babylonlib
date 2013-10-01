@@ -9,11 +9,21 @@
 // Group=Windows
 
 #ifndef _KREGKEY_H_
-    //$Workfile: KRegKey.h$ sentry
+    //$RCSfile: KRegKey.h$ sentry
   #define _KREGKEY_H_
 
 #ifdef _DEBUG_INCL_PREPROCESS   //Preprocessor: debugging included files
   #pragma message ("   #include " __FILE__ )
+#endif
+
+#if defined _USE_ATL || defined _ATL_VER
+  #include <atlbase.h> //CRegKey class
+  #include <atlstr.h>  //CString class
+  #ifndef ASSERT
+    #include "KTraceAtl.h"
+  #endif
+#else
+  #include "ATL/CRegKey.h" //CRegKey class
 #endif
 
 #ifndef _WINREG_
@@ -25,37 +35,76 @@
   #define _RESERVED_FOR_FUTURE_USE 0
 #endif
 /////////////////////////////////////////////////////////////////////////////
-//CRegistryKey handles operations with registry file.
-//
-// See also: CRegKey
-//Note: Microsoft Windows specific (Win).
-class CRegistryKey
+/*CRegistryKey handles operations with registry file.
+
+
+    Predefined Value Types        VALUE   Description (WinNT.h)
+    REG_NONE                        0  No value type
+    REG_SZ                          1  Unicode nul terminated string
+    REG_EXPAND_SZ                   2  Unicode nul terminated string with
+                                       environment variable references)
+    REG_BINARY                      3  Free form binary
+    REG_DWORD                       4  32-bit number
+    REG_DWORD_LITTLE_ENDIAN         4  32-bit number (same as REG_DWORD)
+    REG_DWORD_BIG_ENDIAN            5  32-bit number
+    REG_LINK                        6  Symbolic Link (unicode)
+    REG_MULTI_SZ                    7  Multiple Unicode strings
+    REG_RESOURCE_LIST               8  Resource list in the resource map
+    REG_FULL_RESOURCE_DESCRIPTOR    9  Resource list in the hardware description
+    REG_RESOURCE_REQUIREMENTS_LIST  10
+
+
+    Registry Specific Access Rights       Description (REGSAM WinNT.h)
+    KEY_ALL_ACCESS                   Combination of KEY_QUERY_VALUE,
+                                                    KEY_ENUMERATE_SUB_KEYS,
+                                                    KEY_NOTIFY,
+                                                    KEY_CREATE_SUB_KEY,
+                                                    KEY_CREATE_LINK and
+                                                    KEY_SET_VALUE access.
+    KEY_CREATE_LINK              32  Permission to create a symbolic link.
+    KEY_CREATE_SUB_KEY            4  Permission to create subkeys.
+    KEY_ENUMERATE_SUB_KEYS        8  Permission to enumerate subkeys.
+    KEY_EXECUTE                      Permission for read access.
+    KEY_NOTIFY                   16  Permission for change notification.
+    KEY_QUERY_VALUE               1  Permission to query subkey data.
+    KEY_READ                         Combination of KEY_QUERY_VALUE,
+                                                    KEY_ENUMERATE_SUB_KEYS,
+                                                and KEY_NOTIFY access.
+    KEY_SET_VALUE                 2  Permission to set subkey data.
+    KEY_WRITE                        Combination of KEY_SET_VALUE and
+                                                    KEY_CREATE_SUB_KEY access.
+  See also: CRegKey
+  Note: Microsoft Windows specific (Win).
+ */
+class CRegistryKey : public CRegKey
 {
 public:
   CRegistryKey();
-  ~CRegistryKey();
+  virtual ~CRegistryKey();
 
 // Attributes
-public:
-  HKEY m_hKey;
+//public:
+//  HKEY m_hKey;
 
 // Operations
 public:
   BOOL Create(HKEY hKey, LPCTSTR lpszKeyName = NULL, REGSAM samDesired = KEY_ALL_ACCESS);
   BOOL Open  (HKEY hKey, LPCTSTR lpszKeyName = NULL, REGSAM samDesired = KEY_ALL_ACCESS);
-  BOOL OpenToRead(HKEY hKey, LPCTSTR szKey);
-  BOOL Save(LPCTSTR lpszFileName)
+  BOOL OpenToRead(HKEY hKey, LPCTSTR szSubkey);
+  BOOL Save(LPCTSTR lpszFileName);
   BOOL Delete(HKEY hKey, LPCTSTR szSubKey);
-  BOOL Load(HKEY hKey, LPCTSTR lpszSubKey, LPCSTR lpszFileName);
-  BOOL Restore(LPCSTR lpszFileName, DWORD dwFlags);
-  void Close();
+  BOOL Load(HKEY hKey, LPCTSTR lpszSubKey, LPCTSTR lpszFileName);
+  BOOL Restore(LPCTSTR lpszFileName, DWORD dwFlags);
+  BOOL HasKey(LPCTSTR szSubkey);
+  static BOOL HasKey(HKEY hKey, LPCTSTR szSubkey);
   int  Enumerate();
-  
+  BOOL DeleteTree(LPTSTR pKeyName, HKEY hTreeKey);
+   
   BOOL DeleteValue(LPCTSTR lpValueName);
   int EnumerateValue();
-  BOOL GetValue(DWORD& dwValue, LPCTSTR lpszValueName = NULL);
-  BOOL SetValue(const DWORD dwValue, LPCTSTR lpszValueName = NULL);
-  BOOL SetStringValue(LPCTSTR lpszValue, LPCTSTR lpszValueName = NULL);
+  BOOL GetValue(DWORD& dwValue, LPCTSTR szValueName = NULL);
+  BOOL SetValue(const DWORD dwValue, LPCTSTR szValueName = NULL);
+  BOOL SetValue(LPCTSTR lpszValue, LPCTSTR szValueName = NULL);
   #ifdef __AFXWIN_H__   //MFC library
     BOOL GetValue(CString& strResult, LPCTSTR lpszValueName = NULL);
   #else
@@ -73,9 +122,9 @@ protected:
 ///////////////////////////////////////////////////////////////////////////////
 // Inlines
 
-inline CRegistryKey::CRegistryKey() :
-  m_hKey(NULL)
-{}
+inline CRegistryKey::CRegistryKey()
+{
+}
 
 inline CRegistryKey::~CRegistryKey()
 {
@@ -88,14 +137,14 @@ Close();
   the return value is FALSE.
  */
 inline BOOL CRegistryKey::Delete(HKEY hKey, LPCTSTR szSubKey)
-{	
+{  
 return (::RegDeleteKey(hKey, szSubKey) == ERROR_SUCCESS);
 }
 
 //-----------------------------------------------------------------------------
 /*
  */
-inline BOOL CRegistryKey::Load(HKEY hKey, LPCTSTR lpszSubKey, LPCSTR lpszFileName)
+inline BOOL CRegistryKey::Load(HKEY hKey, LPCTSTR lpszSubKey, LPCTSTR lpszFileName)
 {
  return (::RegLoadKey(hKey, lpszSubKey, lpszFileName) == ERROR_SUCCESS);
 }
@@ -123,13 +172,13 @@ inline BOOL CRegistryKey::Save(LPCTSTR lpszFileName)
  
  See also: RegRestoreKey()
  */
-inline BOOL CRegistryKey::Restore(LPCSTR lpszFileName, //[in] name of the file 
+inline BOOL CRegistryKey::Restore(LPCTSTR lpszFileName, //[in] name of the file 
                                   //with the registry information
                                   DWORD dwFlags //[in] indicate how the keys
-		//are to be restored:
-		// - REG_FORCE_RESTORE (Windows NT:  This value is not supported)
-        // - REG_WHOLE_HIVE_VOLATILE
-								  )
+    //are to be restored:
+    // - REG_FORCE_RESTORE (Windows NT:  This value is not supported)
+    // - REG_WHOLE_HIVE_VOLATILE
+                                  )
 {
   ASSERT(m_hKey != NULL);
   return (::RegRestoreKey(m_hKey, lpszFileName, dwFlags) == ERROR_SUCCESS);
@@ -142,35 +191,35 @@ inline BOOL CRegistryKey::Restore(LPCSTR lpszFileName, //[in] name of the file
   See also: RegDeleteValue(), CRegKey::DeleteValue()
  */
 inline BOOL CRegistryKey::DeleteValue(LPCTSTR lpValueName)
-{	
-return (::RegDeleteValue(m_hKey,(LPCSTR)lpValueName) == ERROR_SUCCESS);
+{  
+return (::RegDeleteValue(m_hKey, lpValueName) == ERROR_SUCCESS);
 }
 ///////////////////////////////////////////////////////////////////////////////
 
 CString& operator<<(CString& strDestination, CRegistryKey& regSource);
 
 #ifdef _DEBUG
-	#ifdef __AFXWIN_H__         //Include MFC library
-	//operator<<()-----------------------------------------------------------------
-	/*Outputs the CRegistryKey object to the dump context.
+  #ifdef __AFXWIN_H__         //Include MFC library
+  //operator<<()-----------------------------------------------------------------
+  /*Outputs the CRegistryKey object to the dump context.
 
-	  Note: uses Microsoft Foundation Library (MFC).
+    Note: uses Microsoft Foundation Library (MFC).
 
-	  Group=Diagnostic
-	 */
-	inline CDumpContext& AFXAPI operator<<(CDumpContext& dc, CRegistryKey& Data)
-	{
-	dc << _T("CRegistryKey @")
-	   << (PVOID)&Data
-	   << _T(" HKEY ");
-	if (Data.m_hKey == NULL)
-	  dc << _T("NULL");
-	else
-	  dc << Data.m_hKey;
-	dc << _T("\n");
-	return dc;
-	}
-	#endif //__AFXWIN_H__
+    Group=Diagnostic
+   */
+  inline CDumpContext& AFXAPI operator<<(CDumpContext& dc, CRegistryKey& Data)
+  {
+  dc << _T("CRegistryKey @")
+     << (PVOID)&Data
+     << _T(" HKEY ");
+  if (Data.m_hKey == NULL)
+    dc << _T("NULL");
+  else
+    dc << Data.m_hKey;
+  dc << _T("\n");
+  return dc;
+  }
+  #endif //__AFXWIN_H__
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
