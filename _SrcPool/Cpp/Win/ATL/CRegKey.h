@@ -11,7 +11,7 @@
 #ifndef __ATLBASE_H__
 
 #pragma once
-/////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 // CRegKey
 
 class CRegKey
@@ -93,6 +93,9 @@ public:
 	LONG DeleteValue(LPCTSTR lpszValue) throw();
 };
 
+///////////////////////////////////////////////////////////////////////////////
+// Inlines
+
 inline CRegKey::CRegKey() throw() : 
 	m_hKey( NULL ), m_samWOW64(0)
 {
@@ -110,7 +113,9 @@ inline CRegKey::CRegKey(HKEY hKey) throw() :
 }
 
 inline CRegKey::~CRegKey() throw()
-{Close();}
+{
+Close();
+}
 
 inline CRegKey& CRegKey::operator=( CRegKey& key ) throw()
 {
@@ -180,12 +185,16 @@ inline LONG CRegKey::DeleteValue(LPCTSTR lpszValue) throw()
 	return RegDeleteValue(m_hKey, (LPTSTR)lpszValue);
 }
 
+//::Close()--------------------------------------------------------------------
+/*The function releases the handle of the specified key.
+ */
 inline LONG CRegKey::Close() throw()
 {
 	LONG lRes = ERROR_SUCCESS;
 	if (m_hKey != NULL)
 	{
 		lRes = RegCloseKey(m_hKey);
+		ASSERT(lRes == ERROR_SUCCESS);
 		m_hKey = NULL;
 	}
 	m_samWOW64 = 0;
