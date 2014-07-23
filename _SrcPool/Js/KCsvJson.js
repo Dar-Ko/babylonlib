@@ -1,6 +1,7 @@
 /**
  * csvjson.js - A script to convert between CSV and JSON formats
  * Author: Aaron Snoswell (@aaronsnoswell, elucidatedbianry.com)
+ * D.K 2014-07 Fixed parsing Windows end-of-line (CRLF)
  */
 
 //----------------------------------------------------------------------------
