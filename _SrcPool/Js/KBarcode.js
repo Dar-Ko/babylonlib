@@ -1,5 +1,5 @@
 ﻿//$RCSfile: KBarcode.js,v $: script file
-//$Revision: 1.1 $ $Date: 2013/12/19 22:03:54 $
+//$Revision: 1.2 $ $Date: 2014/07/23 18:59:01 $
 //$Author: ddarko $
 //
 //Create EAN13 barcode widget
@@ -27,13 +27,18 @@ var stop = '10100000000000';
 
 //
 // encode EAN13(JAN13)
-//
-
-function drawEan13(context, data, x, y, w, h) {
+// Example:
+//	drawEan13(context, '201234567890', 139, 400, 2, 80);
+function drawEan13(context, //[in] canvas
+                    data, //[in] 12 + 1 digits long integer
+					x, 	y, //[in] position
+					w,  //[in] single bar with
+					h   //[in] height of barcode
+					) {
 
     // check data length
     if (!/^\d{12,13}$/.test(data)) {
-        throw new Error('invalid data');
+        throw new Error('Invalid data to format EAN-13');
     }
 
     // calculate check digit
@@ -47,7 +52,7 @@ function drawEan13(context, data, x, y, w, h) {
 
     // check digit
     if (data.length < 13) {
-        data += cd;
+        data += cd; //append checksum value
     }
     else if (cd != parseInt(data.charAt(12))) {
         throw new Error('invalid check digit');
