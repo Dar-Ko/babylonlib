@@ -1,6 +1,6 @@
 //$Workfile: KValidate.js$: script file
-//$Revision: 3$ $Date: 2007-02-23 18:14:52$
-//$Author: Darko Kolakovic$
+//$Revision: 1.2.2.1 $ $Date: 2014/02/07 20:01:49 $
+//$Author: ec11691 $
 //
 //Validate simple data types
 //Copyright: CommonSoft Inc
@@ -41,12 +41,21 @@ if ((cValue != null) && (cValue.length == 1))
   {
    //Same as ((cValue.charAt(0) >= "0") && (cValue.charAt(0) <= "9"))
   var arrayValidChars="0123456789";
-  if (arrayValidChars.indexOf(cValue)!=-1)
+  if (arrayValidChars.indexOf(cValue)!=-1) //(cValue.match(/[0-9]/) != null)
     {
     return true;
     }
   }
 return false;
+}
+
+function isNumeric(strValue)
+{
+  if (strValue.match(/[^0-9]/g) != null)
+  {
+    return false;
+  }
+  return true;
 }
 
 //------------------------------------------------------------------------------
@@ -150,6 +159,38 @@ return (oValue===oUndefined);
 function isNumber(nValue)
 {
 return ((typeof nValue == 'number') || (nValue instanceof Number));
+
+/*Unary operator + will return NaN (Not a Number) if the string is not valid number
+var numNum = +nValue; 
+return ( !(isNaN(numNum)) );
+ */
+}
+
+//------------------------------------------------------------------------------
+/*Validate if the argument is a currency number in format 'n,nnn.nn', where 
+  thousands separtor ',' and decimal point '.' are optional.
+
+  Returns: true if the argument passed to the function is a currency; if not,
+  returns false.
+ */
+function isCurrency(nValue)
+{
+/*Regex:
+  ^[0-9]       The number must start with 0-9
+  \d*          The number can then have any number of any digits
+  (...)$       Look at the next group from the end (...)$
+  (...)?(...)? Look for two groups optionally. The first is for the comma, the second is for the decimal.
+  (,\d{3}){1}  Look for one occurrence of a comma followed by exactly three digits
+  \.\d{0,2}    Look for a decimal followed by zero, one, or two digits.
+*/
+
+var regex = /^[0-9]\d*(((,\d{3}){1})?(\.\d{0,2})?)$/;
+if (nValue.match(regex) != null)
+  {
+  return true;
+  }
+return false;
+
 }
 
 //------------------------------------------------------------------------------
@@ -174,132 +215,138 @@ function isRegexp(oRegexp)
 return (oRegexp && (oRegexp.constructor == RegExp));
 }
 
-function isValidCommonURL(a)
+//------------------------------------------------------------------------------
+/*Validate if argument is valid URL string.
+ */
+function isUrl(strAddress)
 {
-  if (a === undefined)
+  if (strAddress === undefined)
   {
-    return false
+    return false;
   }
-  if (a.length > 256)
+  if (strAddress.length > 256)
   {
-    return false
+    return false;
   }
-  if (null == a.match(/^(https?)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/))
+  if (null == strAddress.match(/^(https?)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/))
   {
-    return false
+    return false;
   }
-  return true
+  return true;
 }
 
-function isValidDeviceID(b)
+function SanitizeUrl(c)
 {
-  var a = true;
-  if (!(b.match(/^[-0-9A-Za-z_\.]{1,30}$/)))
+  var d = c;
+  var a;
+  if ((d.match(/^http/) == null) && (d.match(/^https/) == null) && (d.match(/^ftp/) == null))
   {
-    a = false
+    a = 0;
   }
-  return a
+  else
+  {
+    var b = RegExp("[a-zA-Z0-9;/?:@&=+$,-_.!~*'()%]+$");
+    if (d.match(b) == null)
+    {
+      a = 0;
+    }
+    else
+    {
+      a = 1;
+    }
+  } if (1 == a)
+  {
+    return c;
+  }
+  else
+  {
+    return "";
+  }
 }
 
-function isValidIPAddress(b)
+//------------------------------------------------------------------------------
+/*Validate if argument is valid IP address in the format 'aaa.bbb.ccc.ddd' .
+ */
+function isIpAddress(b)
 {
   if (b.match(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/) == null)
   {
-    return false
+    return false;
   }
   var a = b.split(".");
-  if (!((0 <= a[0] && a[0] <= 255) && (0 <= a[1] && a[1] <= 255) && (0 <= a[2] && a[2] <= 255) && (0 <= a[3] && a[3] <= 255)))
+  if (!((0 <= a[0] && a[0] <= 255) && 
+        (0 <= a[1] && a[1] <= 255) && 
+		(0 <= a[2] && a[2] <= 255) && 
+		(0 <= a[3] && a[3] <= 255)))
   {
-    return false
+    return false;
   }
   for (i = 0; i < 4; i++)
   {
-    a[i] = parseInt(a[i], 10)
+    a[i] = parseInt(a[i], 10);
   }
   var c = "" + a[0] + "." + a[1] + "." + a[2] + "." + a[3];
   if (0 == a[0])
   {
-    return false
+    return false;
   }
   if ("127.0.0.1" == c)
   {
-    return false
+    return false;
   }
   if ("255.255.255.255" == c)
   {
-    return false
+    return false;
   }
   if (224 <= a[0] && a[0] <= 239)
   {
-    return false
+    return false;
   }
   if (240 <= a[0] && a[0] <= 255)
   {
-    return false
+    return false;
   }
   if (255 == a[3])
   {
-    return false
+    return false;
   }
-  return true
+  return true;
 }
 
-function isValidRetryInterval(b)
+function isDeviceId(b)
 {
   var a = true;
-  if (!((100 <= Number(b)) && (Number(b) <= 60000)) || !b.match(/^-?[0-9]+$/))
+  if (!(b.match(/^[-0-9A-Za-z_\.]{1,30}$/)))
   {
-    a = false
+    a = false;
   }
-  return a
+  return a;
 }
 
 function isValidHour(a)
 {
   if (0 == a.length)
   {
-    return false
+    return false;
   }
   if (!((0 <= Number(a)) && (Number(a) <= 23)))
   {
-    return false
+    return false;
   }
-  return true
+  return true;
 }
 
 function isValidMinute(a)
 {
   if (0 == a.length)
   {
-    return false
+    return false;
   }
   if (!((0 <= Number(a)) && (Number(a) <= 59)))
   {
-    return false
+    return false;
   }
-  return true
-}
-
-function isValidDelayTime(b)
-{
-  var a = true;
-  if (!((0 <= Number(b)) && (Number(b) <= 24)))
-  {
-    a = false
-  }
-  else
-  {
-    if (!(b.length <= 2))
-    {
-      a = false
-    }
-  }
-  return a
-}
-
-function isValidFileURL(a)
-{
-  return isValidCommonURL(a)
+  return true;
 }
 
 function isZip(b)
@@ -307,9 +354,9 @@ function isZip(b)
   var a = true;
   if (!(b.match(/.+\.(zip)$/i)))
   {
-    a = false
+    a = false;
   }
-  return a
+  return a;
 }
 
 function isBin(b)
@@ -317,34 +364,56 @@ function isBin(b)
   var a = true;
   if (!(b.match(/.+\.(bin)$/i)))
   {
-    a = false
+    a = false;
   }
-  return a
+  return a;
 }
 
-function isValidProxy(a)
+function isJavascript(c)
 {
-  return isValidCommonURL(a)
+  var a = true;
+  if (!(b(c)))
+  {
+    a = false;
+  }
+  else
+  {
+    if (!(c.match(/.+\.(js)$/i)))
+    {
+      a = false;
+    }
+  }
+  return a;
+
+  function b(e)
+  {
+    var d = true;
+    if (e.length == 0)
+    {
+      d = false;
+    }
+    return d;
+  }
 }
 
-function isValidID(b)
+function isValidId(b)
 {
   var a = true;
   if (!(b.match(/^[-0-9A-Za-z_\.]{0,30}$/)))
   {
-    a = false
+    a = false;
   }
-  return a
+  return a;
 }
 
-function isValidIDLength(b)
+function isValidIdLength(b)
 {
   var a = true;
   if (!((0 <= b.length) && (b.length <= 30)))
   {
-    a = false
+    a = false;
   }
-  return a
+  return a;
 }
 
 function isValidPassword(b)
@@ -352,9 +421,9 @@ function isValidPassword(b)
   var a = true;
   if (!(b.match(/^[-0-9A-Za-z_\.]{0,30}$/)))
   {
-    a = false
+    a = false;
   }
-  return a
+  return a;
 }
 
 function isValidPasswordLength(b)
@@ -362,14 +431,9 @@ function isValidPasswordLength(b)
   var a = true;
   if (!((0 <= b.length) && (b.length <= 30)))
   {
-    a = false
+    a = false;
   }
-  return a
-}
-
-function isValidURL(a)
-{
-  return isValidCommonURL(a)
+  return a;
 }
 
 function isValidInterval(b)
@@ -377,56 +441,27 @@ function isValidInterval(b)
   var a = true;
   if (!(b.match(/^\d{1,5}$/)))
   {
-    a = false
+    a = false;
   }
   else
   {
     if (!((1 <= Number(b)) && (Number(b) <= 86400)))
     {
-      a = false
+      a = false;
     }
   }
-  return a
+  return a;
 }
 
-function isValidSettingsFileURL(a)
-{
-  return isValidCommonURL(a)
-}
-
-function isValidUpdateFileURL(a)
-{
-  return isValidCommonURL(a)
-}
-
-function isValidAdministrator(b)
-{
-  var a = true;
-  if (!(b.match(/^[^\t\n\r\f\v]*$/)))
-  {
-    a = false
-  }
-  return a
-}
-
-function isValidAdministratorLength(b)
-{
-  var a = true;
-  if (!((0 <= b.length) && (b.length <= 255)))
-  {
-    a = false
-  }
-  return a
-}
 
 function isValidLocation(b)
 {
   var a = true;
   if (!(b.match(/^[^\t\n\r\f\v]*$/)))
   {
-    a = false
+    a = false;
   }
-  return a
+  return a;
 }
 
 function isValidLocationLength(b)
@@ -444,13 +479,13 @@ function isValidDigestPassword(c)
   var b = true;
   if (!(c.match(/^[a-zA-Z0-9]*$/)))
   {
-    b = false
+    b = false;
   }
   else
   {
     if (!(a(c)))
     {
-      b = false
+      b = false;
     }
   }
   return b;
@@ -460,103 +495,41 @@ function isValidDigestPassword(c)
     var d = true;
     if (!(e.length <= 30))
     {
-      d = false
+      d = false;
     }
-    return d
-  }
-}
-
-function isJavascript(c)
-{
-  var a = true;
-  if (!(b(c)))
-  {
-    a = false
-  }
-  else
-  {
-    if (!(c.match(/.+\.(js)$/i)))
-    {
-      a = false
-    }
-  }
-  return a;
-
-  function b(e)
-  {
-    var d = true;
-    if (e.length == 0)
-    {
-      d = false
-    }
-    return d
-  }
-}
-
-function SanitizeUrl(c)
-{
-  var d = c;
-  var a;
-  if ((d.match(/^http/) == null) && (d.match(/^https/) == null) && (d.match(/^ftp/) == null))
-  {
-    a = 0
-  }
-  else
-  {
-    var b = RegExp("[a-zA-Z0-9;/?:@&=+$,-_.!~*'()%]+$");
-    if (d.match(b) == null)
-    {
-      a = 0
-    }
-    else
-    {
-      a = 1
-    }
-  } if (1 == a)
-  {
-    return c
-  }
-  else
-  {
-    return ""
+    return d;
   }
 }
 
 function isWindows()
 {
-  return (-1 != navigator.platform.indexOf("Win"))
+  return (-1 != navigator.platform.indexOf("Win"));
 }
 
-function isNumeric(a)
-{
-  if (a.match(/[^0-9]/g) != null)
-  {
-    return false
-  }
-  return true
-}
-
-function isValidProxyURL(a)
-{
-  return isValidCommonURL(a)
-}
-
+//------------------------------------------------------------------------------
+/*
+ */
 function isIos()
 {
-  if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i))
+  if (navigator.userAgent.match(/iPhone/i) || 
+      navigator.userAgent.match(/iPad/i)   || 
+	  navigator.userAgent.match(/iPod/i))
   {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
+//------------------------------------------------------------------------------
+/*
+ */
 function isAndroid()
 {
   if (navigator.userAgent.match(/Android/i))
   {
-    return true
+    return true;
   }
-  return false
+  return false;
 }
 
 function isValidNetMask(d)
@@ -644,17 +617,7 @@ function isValidNetMask(d)
   }
 }
 
-function isValidGateway(a)
-{
-  return isValidIPAddress(a)
-}
-
-function isValidDNSServer(a)
-{
-  return isValidIPAddress(a)
-}
-
-function isValidSSID(a)
+function isValidSsid(a)
 {
   return (a.match(/^[\x21\x24-\x7E]{1,32}$/) != null)
 }
