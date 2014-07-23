@@ -1,33 +1,11 @@
-/**
- * csvjson.js - A script to convert between CSV and JSON formats
- * Author: Aaron Snoswell (@aaronsnoswell, elucidatedbianry.com)
- * D.K 2014-07 Fixed parsing Windows end-of-line (CRLF)
- */
+//$RCSfile: KCsvJson.js,v $: script file
+//$Revision: 1.3 $ $Date: 2014/07/23 19:33:18 $
+//$Author: ddarko $
+//
+//conversion between CSV and JSON formats
+//Aaron Snoswell (@aaronsnoswell, elucidatedbianry.com)
+//D.K. 2014-07 Fixed parsing Windows end-of-line (CRLF)
 
-//----------------------------------------------------------------------------
-/*splitCSV function (c) 2009 Brian Huisman, see http://www.greywyvern.com/?post=258
-  Works by splitting on separators first, then patching together quoted values
- */
- String.prototype.splitCSV = function(sep) {
-	for (var foo = this.split(sep = sep || ","), x = foo.length - 1, tl; x >= 0; x--) {
-		if (foo[x].replace(/"\s+$/, '"').charAt(foo[x].length - 1) == '"') {
-			//Last character is quote mark
-			if ((tl = foo[x].replace(/^\s+"/, '"')).length > 1 && tl.charAt(0) == '"') {
-				foo[x] = foo[x].replace(/^\s*"|"\s*$/g, '').replace(/""/g, '"');
-			} 
-			else if (x) {
-				foo.splice(x - 1, 2, [foo[x - 1], foo[x]].join(sep));
-			} 
-			else {
-				foo = foo.shift().split(sep).concat(foo);
-			}
-
-		} 
-		else 
-			foo[x].replace(/""/g, '"');
-	};
-  return foo;
-};
 
 ////////////////////////////////////////////////////////////////////////////////
 // Namespace
@@ -55,6 +33,8 @@ var csvjson = {};
 
 	 Note: an empty line of text is treated as the end of the set.
 
+	 Requires: KParseCvsLine.js
+
 	 @required csvdata {string} The CSV data, formatted as a string.
 	 @param args.delim {string} The delimiter used to seperate CSV
 	 items. Defauts to ','.
@@ -74,7 +54,7 @@ var csvjson = {};
 		csvdata = csvdata.replace(/\x0D/g, '\n');     //MacOS: Replace CR with LF
 
 		var csvlines = csvdata.split("\n");
-		var csvheaders = csvlines[0].splitCSV(delim);
+		var csvheaders = csvlines[0].parseCvsLine(delim);
 		var csvrows = csvlines.slice(1, csvlines.length);
 
 		if (!header) {
@@ -90,7 +70,7 @@ var csvjson = {};
 		for(var r in csvrows) {
 			if (csvrows.hasOwnProperty(r)) {
 				var row = csvrows[r];
-				var rowitems = row.splitCSV(delim);
+				var rowitems = row.parseCvsLine(delim);
 
 				// Break if we're at the new line.
 				if(row.length == 0)
