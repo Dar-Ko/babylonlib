@@ -116,6 +116,18 @@ if (typeof arrValue == 'object')
 return false;
 }
 
+//--------------------------------------------------------------------------
+/*Validate if the argument is an object.
+ */
+function isObject(val)
+{
+	if (val === null) 
+		{
+		return false;
+		}
+	return ((typeof val === 'function') || (typeof val === 'object'));
+}
+
 //------------------------------------------------------------------------------
 /*Validate if an object is null.
   The null value is a primitive value that represents the null, empty or
@@ -474,41 +486,34 @@ function isValidLocationLength(b)
   return a
 }
 
-function isValidDigestPassword(c)
+//-----------------------------------------------------------------------------
+/*Encrypted password is defined as hexadecimal string longer than 30 digits.
+ */
+function isValidDigestPassword(hexPassword)
 {
-  var b = true;
-  if (!(c.match(/^[a-zA-Z0-9]*$/)))
-  {
-    b = false;
-  }
-  else
-  {
-    if (!(a(c)))
-    {
-      b = false;
-    }
-  }
-  return b;
-
-  function a(e)
-  {
-    var d = true;
-    if (!(e.length <= 30))
-    {
-      d = false;
-    }
-    return d;
-  }
+	var bRes = true;
+	if (!(hexPassword.match(/^[a-zA-Z0-9]*$/)))
+	{
+		bRes = false;
+	}
+	else
+	{
+		if (hexPassword.length > 30)
+		{
+			bRes = false;
+		}
+	}
+	return bRes;
 }
 
 function isWindows()
 {
-  return (-1 != navigator.platform.indexOf("Win"));
+return (-1 != navigator.platform.indexOf("Win"));
 }
 
 //------------------------------------------------------------------------------
 /*
- */
+*/
 function isIos()
 {
   if (navigator.userAgent.match(/iPhone/i) || 
