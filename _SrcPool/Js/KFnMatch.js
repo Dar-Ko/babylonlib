@@ -8,7 +8,7 @@
 
 //-----------------------------------------------------------------------------
 /*Filename pattern matching. Matches a filename with a pattern consisting of
-  charaters and wildcards. The special characters used as wildcards are:
+  characters and wildcards. The special characters used as wildcards are:
 
      Wildcard    Description
        *        matches everything
