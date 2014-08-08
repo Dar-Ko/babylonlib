@@ -180,7 +180,7 @@ return ( !(isNaN(numNum)) );
 
 //------------------------------------------------------------------------------
 /*Validate if the argument is a currency number in format 'n,nnn.nn', where 
-  thousands separtor ',' and decimal point '.' are optional.
+  thousands separator ',' and decimal point '.' are optional.
 
   Returns: true if the argument passed to the function is a currency; if not,
   returns false.
@@ -246,6 +246,25 @@ function isUrl(strAddress)
   }
   return true;
 }
+
+//--------------------------------------------------------------------------
+/*Returns true id the object is valid date type. Date value is not validated.
+ */
+function isDateValid(dateObject) {
+	if (Object.prototype.toString.call(dateObject) === "[object Date]") {
+		if (isNaN(dateObject.getTime())) {  // dateObject.valueOf() could also work here
+			return false;  //Date is not valid
+		}
+		else {
+			return true; //Date is valid
+		}
+	}
+	else {
+		return false; //Not a date type
+	}
+}
+
+
 
 function SanitizeUrl(c)
 {
