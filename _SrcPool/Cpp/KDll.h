@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.12 $ $Date: 2012/07/30 15:43:28 $
+  $Revision: 1.13 $ $Date: 2014/08/11 20:02:18 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -302,11 +302,11 @@ return true;
   This variable is ignored for set-user-ID and set-group-ID programs.
 
   If szDllName is a NULL pointer, then the returned handle is for the main
-  program. This handle resolves symbols in the main program, then sinbols in all 
-  shared libraries loaded at program startup and then in all shared libraries loaded 
+  program. This handle resolves symbols in the main program, then symbols in all 
+  shared libraries loaded at program start-up and then in all shared libraries loaded 
   with the flag RTLD_GLOBAL.
  
-  Returns true if the module is successfuly loaded.
+  Returns true if the module is successfully loaded.
  */
 inline
 bool CDll::Load(LPCTSTR szDllName //[in] null-terminated string that names
@@ -392,6 +392,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.13  2014/08/11 20:02:18  ddarko
+ **** empty log message ***
+ *
  *Revision 1.12  2012/07/30 15:43:28  ddarko
  *GetSymbolAdr Unicode version
  *
@@ -423,6 +426,6 @@ return true;
  *Added quick fix for TRACE
  *
  *Revision 1.1  2011/08/09 20:34:43  ddarko
- *Commited 1st version
+ *Committed 1st version
  *
  *****************************************************************************/
