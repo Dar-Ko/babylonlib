@@ -1,5 +1,5 @@
 /*$RCSfile: KUpdatePnPDrv.cpp,v $: implementation file
-  $Revision: 1.3 $ $Date: 2011/09/19 22:42:27 $
+  $Revision: 1.4 $ $Date: 2014/08/11 20:18:04 $
   Device Console
   command-line interface for managing devices
   $Author: ddarko $
@@ -44,15 +44,15 @@ bool UpdatePnpDrv(LPCTSTR szHardwareId, LPCTSTR szFullInfPath,
 
 //-----------------------------------------------------------------------------
 /*Updates the drivers for devices with specified hardware identifier. If there
-  are no such devices connected to the computer, the INF file will be copyied
+  are no such devices connected to the computer, the INF file will be copied
   to the system, making it ready for automatic installation when the device is 
-  connectected.
+  connected.
   A hardware identifier is the device identification string used by setup to 
   locate the information (INF) file that best matches the device.
 
   The maximum length of a NULL-terminated hardware identifier is MAX_DEVICE_ID_LEN.
 
-  Returns true if successful, othewise returnrs false. To get extended error 
+  Returns true if successful, otherwise returns false. To get extended error 
   information, call GetLastError().
 
   Note: requires Microsoft Windows Me, Windows 2000 and later (Win2k) 
@@ -67,7 +67,7 @@ bool UpdatePnpDrv(LPCTSTR szHardwareId,  //[in] hardware identifier of the devic
                           //following flags:
                           // - INSTALLFLAG_NONINTERACTIVE signal failure if
                           //   any attempt to display UI is detected
-                          // - INSTALLFLAG_READONLY  do not atempt to change any 
+                          // - INSTALLFLAG_READONLY  do not attempt to change any 
                           //   of installation files
                           // - INSTALLFLAG_FORCE  installs new drivers if device is
                           //   connected
@@ -192,7 +192,7 @@ if(!bResult)
       /*Note: (Ref.: WDK Sample) There may exist, however, devices that were 
         once connected to the computer, but presently are not.If it is required
         for such devices to be re-installed, retrieve the list of non-present
-        devices and tagg them for re-installation. This will invoke
+        devices and tag them for re-installation. This will invoke
         the "New Hardware Found" process again.
        */
       break;
@@ -226,7 +226,7 @@ if(!bResult)
       }
     case ERROR_CANCELLED: //0x000004C7
       {
-      //The operation was canceled by the user.
+      //The operation was cancelled by the user.
       TRACE(TEXT("  ERROR_CANCELLED\n"));
       break;
       }
@@ -251,6 +251,9 @@ return bResult;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KUpdatePnPDrv.cpp,v $
+ * Revision 1.4  2014/08/11 20:18:04  ddarko
+ * typo
+ *
  * Revision 1.3  2011/09/19 22:42:27  ddarko
  * Debug trace
  *

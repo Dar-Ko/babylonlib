@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.13 $ $Date: 2014/08/11 20:02:18 $
+  $Revision: 1.14 $ $Date: 2014/08/11 20:18:04 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -223,7 +223,7 @@ else
   {
   if(dwErr == ERROR_BAD_EXE_FORMAT)
     {
-    //TODO: Why some dlls return follwing status:
+    //TODO: Why some dlls return following status:
     //"not a valid Win32 application. 193(0x00C1)"?
     SetLastError(NO_ERROR);
     }
@@ -392,6 +392,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.14  2014/08/11 20:18:04  ddarko
+ *typo
+ *
  *Revision 1.13  2014/08/11 20:02:18  ddarko
  **** empty log message ***
  *
