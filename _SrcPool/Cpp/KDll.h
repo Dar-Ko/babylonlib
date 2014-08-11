@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.14 $ $Date: 2014/08/11 20:18:04 $
+  $Revision: 1.15 $ $Date: 2014/08/11 21:41:45 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -19,6 +19,12 @@
 #ifdef _WIN32
   #ifndef _ASSERT
     #include <crtdbg.h>
+  #endif
+
+  #ifndef CT2A //Conversion macro
+    #include <atlbase.h>
+    #include <atlconv.h>
+    using namespace ATL;
   #endif
 
   #ifndef TRACE
@@ -168,7 +174,7 @@ bool CDll::Load(LPCTSTR szDllName //[in] null-terminated string that names
  //Reload the library
 Free();
 
-#if definded (_WIN16)
+#if defined (_WIN16)
   //Load a 32-bit DLL within 16-bit code
   m_hLibrary = (HMODULE)::LoadLibraryEx32W(szDllName, NULL, 0);
 #elif defined (_WIN32_WCE) //WinCE
@@ -223,7 +229,6 @@ else
   {
   if(dwErr == ERROR_BAD_EXE_FORMAT)
     {
-    //TODO: Why some dlls return following status:
     //"not a valid Win32 application. 193(0x00C1)"?
     SetLastError(NO_ERROR);
     }
@@ -250,7 +255,7 @@ return (m_hLibrary > NULL); //>= (HINSTANCE)32
   If the function fails, the return value is NULL. To get extended error information,
   call GetLastError().
  */
-inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolName //[in] function or variable name
+inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolNameA //[in] function or variable name
                               //or the function's ordinal value. If this parameter is
                               //an ordinal value, it must be in the low-order word;
                               //the high-order word must be zero.
@@ -392,6 +397,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.15  2014/08/11 21:41:45  ddarko
+ *ATL namespace
+ *
  *Revision 1.14  2014/08/11 20:18:04  ddarko
  *typo
  *
