@@ -1,5 +1,5 @@
 /*$RCSfile: KDll.h,v $: header file
-  $Revision: 1.15 $ $Date: 2014/08/11 21:41:45 $
+  $Revision: 1.16 $ $Date: 2014/08/11 22:24:48 $
   $Author: ddarko $
 
   Helper class encapsulating a dynamic-link library (DLL) loading.
@@ -69,9 +69,11 @@ public:
   bool Load(LPCTSTR szDllName);
   bool Free();
   bool IsOpen() const;
-  void* GetSymbolAdr(LPCTSTR szSymbolName) const;
+  void* GetSymbolAdr(LPCWSTR szSymbolName) const;
+  void* GetSymbolAdr(LPCSTR szSymbolName) const;
   operator HMODULE() const;
-  void* operator() (LPCTSTR szSymbolName) const;
+  void* operator() (LPCWSTR szSymbolName) const;
+  void* operator() (LPCSTR szSymbolName) const;
 
 protected:
   HMODULE m_hLibrary; //handle to the module
@@ -135,7 +137,14 @@ return m_hLibrary;
       }
   
  */
-inline void* CDll::operator() (LPCTSTR szSymbolName //[in] null-terminated string
+inline void* CDll::operator() (LPCWSTR szSymbolName //[in] null-terminated string
+                                                   //containing the symbol name
+                               ) const
+{
+return GetSymbolAdr(szSymbolName);
+}
+
+inline void* CDll::operator() (LPCSTR szSymbolName //[in] null-terminated string
                                                    //containing the symbol name
                                ) const
 {
@@ -255,15 +264,24 @@ return (m_hLibrary > NULL); //>= (HINSTANCE)32
   If the function fails, the return value is NULL. To get extended error information,
   call GetLastError().
  */
-inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolNameA //[in] function or variable name
+inline void* CDll::GetSymbolAdr(LPCWSTR szSymbolNameW //[in] function or variable name
                               //or the function's ordinal value. If this parameter is
                               //an ordinal value, it must be in the low-order word;
                               //the high-order word must be zero.
                               ) const
 {
 _ASSERT(IsOpen());
+return (void*)::GetProcAddress(m_hLibrary, CW2A(szSymbolNameW));
+}
 
-return (void*)::GetProcAddress(m_hLibrary, CT2A(szSymbolNameA));
+inline void* CDll::GetSymbolAdr(LPCSTR szSymbolNameA //[in] function or variable name
+                              //or the function's ordinal value. If this parameter is
+                              //an ordinal value, it must be in the low-order word;
+                              //the high-order word must be zero.
+                              ) const
+{
+_ASSERT(IsOpen());
+return (void*)::GetProcAddress(m_hLibrary, szSymbolNameA);
 }
 
 //-----------------------------------------------------------------------------
@@ -313,8 +331,7 @@ return true;
  
   Returns true if the module is successfully loaded.
  */
-inline
-bool CDll::Load(LPCTSTR szDllName //[in] null-terminated string that names
+inline bool CDll::Load(LPCTSTR szDllName //[in] null-terminated string that names
                                    //the shared library file.
                )
 {
@@ -362,12 +379,21 @@ return (m_hLibrary > NULL);
    If the function fails, the return value is NULL. To get extended error information,
    call dlerror().
   */
-inline void* CDll::GetSymbolAdr(LPCTSTR szSymbolName //[in]
+inline void* CDll::GetSymbolAdr(LPCSTR szSymbolName //[in] function or variable name
                                 ) const
 {
 _ASSERT(IsOpen());
 dlerror();    //Clear any existing error
 return dlsym(m_hLibrary, szSymbolName);
+}
+
+inline void* CDll::GetSymbolAdr(LPCWSTR szSymbolName //[in] function or variable name
+                                ) const
+{
+_ASSERT(IsOpen());
+#error "Convert name to single byte character string"
+dlerror();    //Clear any existing error
+return NULL;//TODO: dlsym(m_hLibrary, szSymbolName);
 }
 
 //-----------------------------------------------------------------------------
@@ -397,6 +423,9 @@ return true;
 #endif  //_KDLL_H_
 /******************************************************************************
  *$Log: KDll.h,v $
+ *Revision 1.16  2014/08/11 22:24:48  ddarko
+ *Unicode names
+ *
  *Revision 1.15  2014/08/11 21:41:45  ddarko
  *ATL namespace
  *
