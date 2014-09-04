@@ -1,5 +1,5 @@
 //$RCSfile: KStopwatch.js,v $: script file
-//$Revision: 1.2 $ $Date: 2014/09/04 22:16:19 $
+//$Revision: 1.3 $ $Date: 2014/09/04 22:54:09 $
 //$Author: ddarko $
 //
 //Stopwatch
@@ -77,7 +77,8 @@ function CStopwatch() {
 	this.toString = function(){
 	var h = m = s = ms = 0;
 	var strResult = '';
- 
+	var time = this.time();
+
 	h = Math.floor( time / (60 * 60 * 1000) );
 	time = time % (60 * 60 * 1000);
 	m = Math.floor( time / (60 * 1000) );
