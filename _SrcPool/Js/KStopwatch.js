@@ -1,5 +1,5 @@
 //$RCSfile: KStopwatch.js,v $: script file
-//$Revision: 1.1 $ $Date: 2014/09/04 22:11:54 $
+//$Revision: 1.2 $ $Date: 2014/09/04 22:16:19 $
 //$Author: ddarko $
 //
 //Stopwatch
@@ -20,7 +20,6 @@
 				<input type="button" value="reset" onclick="reset()">
 			</body>
 			</html>
-	
  */
 function CStopwatch() {
 	var	startAt	= 0; // time of last start / resume. (0 if not running)
@@ -50,10 +49,16 @@ function CStopwatch() {
 
 	};
 
-	this.reset = function() {
+	//-------------------------------------------------------------------------
+	/* Reset a paused stopwatch
+	 */
+	 this.reset = function() {
 		lapTime = startAt = 0;
 	};
-
+	
+	//-------------------------------------------------------------------------
+	/* Returns lapsed time in [ms]
+	 */
 	this.time = function() {
 		return lapTime + (startAt ? now() - startAt : 0);
 	};
