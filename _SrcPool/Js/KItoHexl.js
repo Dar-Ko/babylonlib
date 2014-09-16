@@ -1,5 +1,5 @@
 //$RCSfile: KItoHexl.js,v $: script file
-//$Revision: 1.1 $ $Date: 2014/09/16 18:22:50 $
+//$Revision: 1.2 $ $Date: 2014/09/16 21:46:12 $
 //$Author: ddarko $
 //
 //Hexadecimal representation of unsigned integer
@@ -8,7 +8,7 @@
 //-----------------------------------------------------------------------------
 /*Returns hexadecimal representation of unsigned integer
    @param
-  digits - maximum number of digits, for 32-bit integer,  number of digits is 8
+   digits - maximum number of digits, for 32-bit integer,  number of digits is 8
   */
 function getHex(value, digits) {
   /*Note: It performs faster than .toString(16) on 1-2 byte numbers and
@@ -23,10 +23,12 @@ function getHex(value, digits) {
     return result;
 }
 
-function toHex(value) {
-  return  ("0"+(Number(value).toString(16))).slice(-2).toUpperCase()
+//convert last byte to signed hex (negative values are prefixed with -)
+function toHex(int8) {
+  return  ("0"+(Number(int8).toString(16))).slice(-2).toUpperCase()
 }
 
+//No padding, number to unsigned hex
 function decimalToHexString(number)
 {
 //32-bit integer
@@ -38,6 +40,7 @@ function decimalToHexString(number)
     return number.toString(16).toUpperCase();
 }
 
-function dec2hex(i) {
-   return (i+0x10000).toString(16).substr(-4).toUpperCase();
+//covert last 16 bit (short integer) to unsigned hex
+function dec2hex(uint16) {
+   return (uint16+0x10000).toString(16).substr(-4).toUpperCase();
 }

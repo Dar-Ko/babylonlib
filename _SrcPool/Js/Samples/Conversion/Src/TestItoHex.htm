@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en-CA" xmlns="http://www.w3.org/1999/xhtml">
+<!-- Group=Examples -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Language" content="en-ca" />
+  <meta name="RCSFile" content="$RCSFile: TestFnMatch.htm$: documentation" />
+  <meta name="Revision" content="$Revision: 1.1 $ $Date: 2014/09/16 21:46:13 $" />
+  <meta name="Editor" content="$Author: ddarko $" />
+  <meta name="Copyright"
+    content="&copy; Darko Kolakovi&#263;, 1985-2032, All Rights Reserved." />
+  <meta name="author" content="Darko Kolakovi&#263;" />
+  <meta name="robots" content="index" />
+  <meta name="keywords" content="JavaScript, test, integer" />
+  <meta name="description" content="Test of the number representation" />
+  <link rel="stylesheet" type="text/css" media="all"
+    href="../../../../../Doc/Res/KDocument.css" />
+  <link rel="icon" type="image/ico"
+    href="../../../../../Doc/Res/icoJavaScript.ico" />
+  <title>Test FnMatch()</title>
+  <!-- Common -->
+  <script language="JavaScript" type="text/javascript" src="../../Common/Src/TsWriteTxt.js"></script>
+  <!-- Test objects -->
+  <script language="JavaScript" type="text/javascript" src="../../../KItoHexl.js"></script>
+  <!-- Test -->
+  <script language="JavaScript" type="text/javascript" src="TestItoHex.js"></script>
+
+</head>
+
+<body>
+  <h2>Test getHex()</h2>
+  <p class="codeJs">
+    <a href="../../../KItoHexl.js" title="Script">
+      <img src="../../../../../Doc/Res/S/icoJavaScript.gif" alt="JavaScript" border="0" />
+      Source Code</a>
+  </p>
+
+  <script language="JavaScript" type="text/javascript">
+    var bResult = false;
+    bResult = TestItoHex();
+    if (!bResult)
+      TsWriteToViewLn(LOG_FAILURE);
+  </script>
+  <noscript>
+    <p style="color:red">JavaScript seems to be disabled!</p>
+  </noscript>
+
+</body>
+
+</html>
