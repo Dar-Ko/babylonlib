@@ -1,5 +1,5 @@
 //$RCSfile: KStrUtil.js,v $: script file
-//$Revision: 1.1 $ $Date: 2014/07/24 13:40:10 $
+//$Revision: 1.2 $ $Date: 2014/09/16 18:22:37 $
 //$Author: ddarko $
 //
 //String extensions
@@ -13,7 +13,7 @@ String.prototype.replaceAll = function (source, token, replace) {
 }
 
 //-----------------------------------------------------------------------------
-//Retuns date and time in the ISO 8601 format
+//Returns date and time in the ISO 8601 format
 function iso8601Date(date) {
 	var year = date.getFullYear();
 	var month = ("0" + (date.getMonth() + 1)).slice(-2);
