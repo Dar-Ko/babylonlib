@@ -59,7 +59,7 @@ REM Start the paragraph in the new line
 @echo  */>> _tmpFile
 if exist %TmpAppendix% type %TmpAppendix% >> _tmpFile
 
-REM Create backup copy of the file in the quiestion and replace the the original
+REM Create backup copy of the file in the question and replace the the original
 if exist ~%* (del ~%*)
 ren %* ~%*
 ren _tmpFile %*
@@ -98,7 +98,7 @@ set TmpHeaderFilteType1=
 set TmpHeaderFileType=
 :LBLTHEEND
 REM ============================================================================
-REM $Log:
+REM $Log: $
 REM  1    Biblioteka1.0         2007-07-10 13:46:30  Darko Kolakovic
-REM $
+
 

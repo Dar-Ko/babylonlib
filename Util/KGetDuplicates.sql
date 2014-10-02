@@ -1,5 +1,5 @@
 /*$RCSfile: KGetDuplicates.sql,v $: Transact-SQL script file
-  $Revision: 1.1 $ $Date: 2008/06/02 21:28:17 $
+  $Revision: 1.2 $ $Date: 2014/10/02 16:48:15 $
   $Author: ddarko $
 
   List all duplicate records from a database table.
@@ -19,7 +19,7 @@ GO
  */
 CREATE PROCEDURE sp_GetDuplicates
   @sTable varchar(255), --Name of the source table
-  @sFields varchar(1024) --list of the columns to be browsed for duplacte records
+  @sFields varchar(1024) --list of the columns to be browsed for duplicate records
 AS
 DECLARE @sSql AS varchar(5000)
   /*Create the query request*/
@@ -36,6 +36,9 @@ GO
 
 /*------------------------------------------------------------------------------
  *$Log: KGetDuplicates.sql,v $
+ *Revision 1.2  2014/10/02 16:48:15  ddarko
+ *comment
+ *
  *Revision 1.1  2008/06/02 21:28:17  ddarko
  *Created
  *

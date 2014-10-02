@@ -1,5 +1,5 @@
 '$RCSfile: KSidList.vbs,v $: script file
-'$Revision: 1.2 $ $Date: 2011/05/09 13:40:18 $
+'$Revision: 1.3 $ $Date: 2014/10/02 16:48:15 $
 '$Author: ddarko $
 '
 'Lists all the user accounts, their SIDs and Profile paths.
@@ -41,7 +41,7 @@ Set colAccounts = objWMIService.ExecQuery _
 For Each objAccount in colAccounts
   If objAccount.Name = "HelpAssistant" or objAccount.Name = "SUPPORT_388945a0" then
   else
-    b.writeline "Username   : " & objAccount.Name
+    b.writeline "User name  : " & objAccount.Name
     b.writeline "SID        : " & objAccount.SID
     b.writeline "Profile dir: " & GetHomePath(objAccount.SID)
     b.writeblanklines 1

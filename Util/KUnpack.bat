@@ -56,7 +56,7 @@ GOTO LBLTHEEND
 @ECHO _Fine_
 GOTO LBLEND
 
-REM Display the sintax of the command
+REM Display the syntax of the command
 :LBLSYNTAX
 COLOR 02
 @ECHO.

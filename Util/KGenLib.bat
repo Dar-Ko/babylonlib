@@ -30,7 +30,7 @@ DUMPBIN /EXPORTS %1.dll >> %1.def
 REM Modify the output list
 @echo Delete all columns but "name" column from %1.def file.
 @echo Move all C++ decorated names to %1.cpp file.
-REM Exportded C functions or functions specified with the _cdecl attribute could
+REM Exported C functions or functions specified with the _cdecl attribute could
 REM be used without any modifications
 pause
 :LBLLIB

@@ -1,6 +1,6 @@
 @echo off
 REM $RCSfile: KListDsn.bat,v $: batch command script
-REM $Revision: 1.3 $ $Date: 2009/09/23 14:09:59 $
+REM $Revision: 1.4 $ $Date: 2014/10/02 16:48:15 $
 REM $Author: ddarko $
 REM
 REM List System or User Data Source Names (DSN)
@@ -57,11 +57,11 @@ if %3.==. (
 goto LBLEND
 
 
-REM Display the sintax of the command
+REM Display the syntax of the command
 :LBLSYNTAX
 COLOR 02
 @ECHO.
-@ECHO $RCSfile: KListDsn.bat,v $ $Revision: 1.3 $
+@ECHO $RCSfile: KListDsn.bat,v $ $Revision: 1.4 $
 @ECHO Browse Data Source Names (DSN) used for ODBC
 @ECHO.Requires Windows 2000+, reg.exe
 @ECHO.
@@ -88,6 +88,9 @@ IF "%OS%"=="Windows_NT" ENDLOCAL
 
 REM ----------------------------------------------------------------------------
 REM $Log: KListDsn.bat,v $
+REM Revision 1.4  2014/10/02 16:48:15  ddarko
+REM comment
+REM
 REM Revision 1.3  2009/09/23 14:09:59  ddarko
 REM *** empty log message ***
 REM
@@ -104,7 +107,7 @@ REM   Operation  [QUERY | ADD | DELETE | COPY | SAVE | LOAD | UNLOAD | RESTORE |
 REM               COMPARE | EXPORT | IMPORT ]
 REM
 REM Return Code: (Except of REG COMPARE)
-REM   0 - Succussful
+REM   0 - Successful
 REM   1 - Failed
 REM For help on a specific operation type:
 REM   REG Operation /?

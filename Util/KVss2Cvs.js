@@ -21,7 +21,7 @@
 
   The script uses the Automation interface to Visual SourceSafe (VSS). VSS does
   not store date when in VSS a file was deleted, therefore such files are not
-  labeled correctly after moving to CVS Attic. Branching is ignored becouse of
+  labelled correctly after moving to CVS Attic. Branching is ignored because of
   different meaning of a branch in to systems.
   'Shared file' flag is also ignored.
  */
@@ -47,13 +47,13 @@ var g_szVssProject     = "$/Build Versions/2002 06 10/Catapult_RAD/OCXs/DirSeeke
   SourceSafe retains deleted items until they are purged or recovered.
   The Deleted property of a VSSItem is used to set or retrieve the current
   deleted state of the object. When a project is deleted, all of
-  its files and subprojects are deleted as well.
+  its files and sub-projects are deleted as well.
  */
 var g_bVssIncludeDeleted  = true;
 
 // File specifications for the conversion
 // To skip all subdirectories, leave g_szVssFilterSubdir empty
-// Filter uses Unix wildcard charaters *, ? and [].
+// Filter uses Unix wildcard characters *, ? and [].
 var g_szVssFilterFilename  = "*";   //VSS filename filter
 var g_szVssFilterSubdir    = "[!xyq]";//"*";   //VSS subdirectory name filter
 var g_bCaseComaparaison    = false; //true if case-sensitive
@@ -85,7 +85,7 @@ var rcs_repository  = "C:\\Development\\catapult3.a";
 var rcs_path        = "";
 
 
-// With quiet set to true, the script will not popup for any reason,
+// With quiet set to true, the script will not pop-up for any reason,
 // including errors
 // With verbose set to true, the script will print out all RCS commands
 // as they are run, directory and files creation
@@ -331,7 +331,7 @@ var versions  = new Enumerator(item.Versions);
 var cmds      = new stack();
 var created   = false;
 
-// Set an upper bound for the time on the checkin
+// Set an upper bound for the time on the checking
 var lastDate = new Date();
 lastDate.setFullYear(lastDate.getFullYear() + 1);
 
@@ -357,7 +357,7 @@ while (!created && !versions.atEnd())
     - Created
     - Deleted
     - Destroyed
-    - Labeled <label>
+    - Labelled <label>
     - Moved <old SourceSafe path> to <new SourceSafe path>
     - Renamed <old name> to <new name>
     - Shared <SourceSafe file path>
@@ -365,7 +365,7 @@ while (!created && !versions.atEnd())
     - Pinned
     - Purged
     - Recovered
-    - Rollback to version <number>
+    - Roll back to version <number>
     - Unpinned
     Bug: Moved action is impossible to produce because of the bug in the
     Microsoft software.
@@ -384,11 +384,11 @@ while (!created && !versions.atEnd())
     cmds.push(c);
     lastDate = new Date(c.date);
     }
-  else if (version.Action.substring(0, 7) == "Labeled")
+  else if (version.Action.substring(0, 7) == "Labelled")
     {
     cmds.push(new label(localfile, version.Label));
     }
-  else if (version.Action.substring(0, 19) == "Rollback to version")
+  else if (version.Action.substring(0, 19) == "Roll-back to version")
     {
     var c = new checkin(localfile, version, false, item.Binary, lastDate);
     cmds.push(c);
@@ -506,7 +506,7 @@ else
 //-----------------------------------------------------------------------------
 function FixupComment(comment)
 {
-//Comment cannot consist of only whitespace
+//Comment cannot consist of only white-space
 if (comment.match(/^\s*$/))
   comment = ".";
 
@@ -583,7 +583,7 @@ else
 
 //-----------------------------------------------------------------------------
 /*Filename pattern matching. Matches a filename with a pattern consisting of
-  charaters and wildcards. The special characters used as wildcards are:
+  characters and wildcards. The special characters used as wildcards are:
 
      Wildcard    Description
        *        matches everything
@@ -675,7 +675,7 @@ return EOF;
 //
 function ExecRCSCmd(cmd,     //[in] a command to be executed
                     options, //[in] the command arguments
-                    szFilename //[in] file name to proccess
+                    szFilename //[in] file name to process
                    )
 {
 var cmdline = "\"" + rcs_path + cmd + "\" " + options + " \"" + szFilename + "\"";
