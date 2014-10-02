@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta content="en-us" name="WT.seg_1"><link rel="canonical" href="http://msdn.microsoft.com/en-us/library/vstudio/x98tx3cf%28v=vs.110%29.aspx">
+	<meta name="DCS.dcsuri" content="/en-us/library/x98tx3cf(d=default,l=en-us,v=vs.100).aspx">
+	<meta name="NormalizedUrl" content="http://msdn.microsoft.com/en-us/library/x98tx3cf(d=default,l=en-us,v=vs.100).aspx">
+	<meta name="ms.normalizedurl" content="http://msdn.microsoft.com/en-us/library/x98tx3cf(d=default,l=en-us,v=vs.100).aspx">
+	<meta name="DCSext.ProductFamily" content="LIB_DG">
+	<meta name="DCSext.Product" content="ALM_debug">
+	<meta name="DCSext.Title" content="Finding Memory Leaks Using the CRT Library">
+	<meta name="VotingContextUrl" content="http://msdn.microsoft.com/en-us/library/x98tx3cf(d=default,l=en-us,v=vs.100).aspx">
+	<meta name="MN" content="EE4293BF-3:32:23 PM">
+	<meta name="Search.ShortId" content="x98tx3cf">
+	<meta name="ms.shortidmsdn" content="x98tx3cf">
+	<meta name="Ms.Locale" content="en-us">
+	<meta name="ms.prodver" content="VS.100">
+	<meta name="ms.contentlang" content="EN">
+	<meta name="ms.lang" content="EN">
+	<meta name="ms.loc" content="US">
+	<meta name="ms.sitever" content="2014.09.11.0002">
+	<meta name="ms.assetid" content="cf6dc7a6-cd12-4283-b1b6-ea53915f7ed1">
+	<meta name="ms.auth" content="0">
+
+        <title>Finding Memory Leaks Using the CRT Library</title>
+
+        
+    <style type="text/css">
+body{font:.875em/1.35 'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;}h1{color:#707070;font:100 2.571em/1.167 'Segoe UI Light','Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;margin-top:0;}h2,h3,.contentWrapper h2 a,.contentWrapper h3 a,.heading{color:#db7100;font-family:'Segoe UI Light','Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;font-size:1.286em;font-weight:normal;margin:0;padding-bottom:5px;padding-top:5px;}h4,.subheading{color:#2a2a2a;font-size:.857em;font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;font-weight:bold;margin:0;}h5,h6{font-size:.857em;font-weight:normal;line-height:130%;margin:0;}a:link,a:hover,a:visited{text-decoration:none;}img{border:0;}div#body{padding-top:35px;clear:both;}div#content{overflow-x:auto!important;min-height:300px;word-wrap:break-word;}.BostonPostCard>div+div+div{width:auto!important;}*:first-child+html .BostonPostCard>div+div+div{width:740px!important;height:30px!important;}*:first-child+html #contentFeedback{height:20px!important;}*:first-child+html div#content{overflow:hidden;}*:first-child+html div#nstext img[usemap="#excel2"]{border:none;}div#nstext img[usemap="#excel2"]{border:none 0\0/IE8/IE9;}.clear{clear:both;}.majorTitle{display:none;}.parameter{font-style:italic;}.multicol th,.multicol td,td.innercol,.innercol table td{border:none;padding:0 12px 0 0;}#mainBody ul li{list-style-image:none;}p{color:#2a2a2a;margin-top:0;margin-bottom:0;padding-bottom:15px;line-height:18px;}.topic a,.topic a:link{text-decoration:none;color:#00709f;}.topic a:visited,.topic a:active{text-decoration:none;color:#03697a;}.topic a:hover{text-decoration:none;color:#3390b1;}.topic a.active,.topic a.active:link,.topic a.active:hover,.topic a.active:visited,.topic a.active:active{color:#2a2a2a;}table{border-collapse:collapse;padding-bottom:20px;padding-top:20px;}div#content table{width:100%;}td,th{border-bottom:1px solid #dbdbdb;margin:10px;padding-top:10px;padding-bottom:10px;padding-right:8px;padding-left:8px;}th{background-color:#ededed;color:#636363;text-align:left;}td{color:#2a2a2a;vertical-align:top;}table p:last-child{padding-bottom:0;}.errorMessage{font-size:36px;font-family:'Segoe UI Light','Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;color:#707070;}.errormessageSpacing{margin-top:3px;}table .BostonPostCard p{padding-bottom:5px;}table.members{width:100%;}table.members td{min-width:72px;}span.sup{vertical-align:super;}span.sub{vertical-align:sub;font-size:smaller;}.summary{margin-top:15px;}div.mtps-table{display:inline-table;border-collapse:collapse;width:100%;}div.mtps-thead{display:table-header-group;}span.mtps-caption{display:table-caption;padding:4pt;}div.mtps-row{display:table-row;padding:4pt;border:1px solid #dbdbdb;}span.mtps-cell{display:table-cell;padding:4pt;}span.mtps-th{display:table-cell;padding:4pt;background-color:#ededed;}div.alert>table{border-width:0;}div.alert th{background-color:#ededed;padding:10px 11px 5px;border-width:0;border-collapse:collapse;border-spacing:0;border-style:hidden;font-weight:bold;}div.alert td{border-width:0;padding:10px 8px;}div.alert img{padding-right:5px;border:0;}div.alert p{margin:0;}div.FVB_date{font-style:italic;color:#555;font-size:smaller;margin-bottom:5px;}.controlPlaceholder{color:#aaa;background-color:#eee;padding:10px;font-style:italic;}.input,.label{font-weight:700;}div.footerPrintView{font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;clear:both;padding-top:10px;display:none;}.code{font-family:Consolas,Courier,monospace;color:#006400;}.multiViewItemHeading{margin-top:15px;font-style:italic;margin-bottom:3px;}.topic .title{font-family:Segoe UI,Verdana,Arial;}#curversion{font-size:13px;color:#5d5d5d;}ol ol{list-style-type:lower-alpha;}ol ol ol{list-style-type:lower-roman;}
+.codeSnippetContainer{min-width:260px;clear:both;}.codeSnippetContainerTabs{vertical-align:middle;height:23px;position:relative;z-index:1;}.codeSnippetContainerTabs>div:first-child{border-left:1px solid #939393;}.codeSnippetContainerTab{font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif!important;font-size:13px;line-height:17px;font-style:normal!important;height:22px;float:left;width:auto;padding:0 15px 0 15px;vertical-align:baseline;color:#2a2a2a;background-color:transparent;border-top:solid 1px #939393;border-right:solid 1px #939393;}.codeSnippetContainerTabActive{font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif!important;font-size:13px;line-height:17px;font-style:normal!important;height:22px;float:left;width:auto;padding:0 15px 0 15px;vertical-align:baseline;color:#707070;border-top:solid 1px #939393;border-right:solid 1px #939393;border-bottom:solid 1px #fff;background-color:transparent;}.codeSnippetContainerTabPhantom{font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif!important;font-size:13px;line-height:17px;font-style:normal!important;height:22px;float:left;width:auto;padding:0 15px 0 15px;vertical-align:baseline;color:#c2c2c2;background:#f8f8f8;border-top:solid 1px #939393;border-right:solid 1px #939393;}.codeSnippetContainerTabSingle{font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif!important;font-size:13px;line-height:17px;font-style:normal!important;height:23px;float:left;width:auto;vertical-align:baseline;color:#707070;position:relative;background-color:#fff;}.codeSnippetContainerTabSingle{border-top:1px solid #939393;border-bottom:1px solid #fff;border-left:1px solid #939393;border-top-left-radius:4px;border-right:1px solid #939393;border-top-right-radius:4px;}.codeSnippetContainerTabSingle a{padding:0 8px 0 8px;display:inline-block;}.codeSnippetContainerTab a,.codeSnippetContainerTab a:link,.codeSnippetContainerTab a:visited,.codeSnippetContainerTab a:active{font-weight:bold;text-decoration:none;position:relative;top:2px;}.codeSnippetContainerTabActive a,.codeSnippetContainerTabActive a:link,.codeSnippetContainerTabActive a:visited,.codeSnippetContainerTabActive a:active{color:#000;font-weight:bold;text-decoration:none;position:relative;top:2px;}.codeSnippetContainerTabPhantom a,.codeSnippetContainerTabPhantom a:link,.codeSnippetContainerTabPhantom a:visited,.codeSnippetContainerTabPhantom a:active{color:#8b8b8b!important;text-decoration:none;position:relative;top:2px;}.codeSnippetContainerTabSingle a,.codeSnippetContainerTabSingle a:link,.codeSnippetContainerTabSingle a:visited,.codeSnippetContainerTabSingle a:active{color:#000;font-weight:bold;text-decoration:none;position:relative;top:2px;}.codeSnippetContainerTab a:hover{color:#707070;position:relative;top:2px;}.codeSnippetContainerTabActive a:hover{color:#707070;position:relative;top:2px;}.codeSnippetContainerTabPhantom a:hover{color:#c2c2c2;position:relative;top:2px;}.codeSnippetContainerTabSingle a:hover{color:#707070;position:relative;top:2px;}.codeSnippetContainerCodeContainer{border-left:solid 1px #939393;border-bottom:solid 1px #939393;border-right:solid 1px #939393;border-top:solid 1px #939393;clear:both;margin-bottom:12px;position:relative;top:-1px;}.codeSnippetToolBar{width:auto;height:auto;}.codeSnippetToolBarText{float:right;top:-8px;position:relative;background-color:#fff;width:auto;padding-left:0;padding-right:0;height:0;vertical-align:top;}.codeSnippetToolBarText a:link,.codeSnippetToolBarText a:visited,.codeSnippetToolBarText a:active{margin-left:15px;margin-right:15px;font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif!important;font-size:10px;font-style:normal!important;color:#2a2a2a;text-decoration:none;background-color:#fff;padding-left:8px;padding-right:8px;}.codeSnippetToolBarText a:hover{color:#3390b1;}.codeSnippetToolBarText a,.codeSnippetToolBarText a:link{text-decoration:none;color:#1364c4;}.codeSnippetToolBarText a:visited,.codeSnippetToolBarText a:active{text-decoration:none;color:#03697a;}.codeSnippetContainerCode{width:auto;margin:0;padding-right:21px;padding-left:21px;padding-top:10px;padding-bottom:10px;}.codeSnippetContainerCode div{padding:0;margin:0;}.codeSnippetContainerCode pre{padding:5px;margin:0;font-family:Consolas,Courier,monospace!important;font-style:normal;font-weight:normal;overflow:auto;word-wrap:normal;}.highlight{background:#ffffc6;}
+.programmingSelector{display:none;font-size:14px;color:#2a2a2a;float:right;padding-bottom:10px;}.programmingSelector .selectorSeparator{padding-left:8px;padding-right:8px;}.programmingSelector .selectorCurrent{font-family:'Segoe UI Semibold','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;}.programmingSelector .selectorAvailable{color:#0095c4;}.programmingSelector .selectorDisabled{color:#c2c2c2;}.programmingSelector .selectortitle{padding-right:4px;}#mainSection{clear:both;}
+.LW_CollapsibleArea_TitleDiv{font-family:'Segoe UI Semibold','Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif!important;font-size:18px;font-style:normal!important;padding-top:20px;padding-bottom:5px;}.LW_CollapsibleArea_TitleDiv_Collapsed{font-family:'Segoe UI Semibold','Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif!important;font-size:18px;font-style:normal!important;padding-top:20px;padding-bottom:20px;}.LW_CollapsibleArea_TitleDiv a:hover{color:#db7100;text-decoration:none;}.LW_CollapsibleArea_TitleDiv_Collapsed a:hover{color:#db7100;text-decoration:none;}.LW_CollapsibleArea_HrDiv{padding-top:0;}.LW_CollapsibleArea_Hr{border-style:none;color:#e5e5e5;display:none;}.sectionblock{padding-left:15px;display:block;padding-bottom:20px;}.sectionblock ol{list-style-type:decimal;}.sectionblock ol ol{list-style-type:lower-alpha;}.sectionblock ol ol ol{list-style-type:lower-roman;}.sectionnone{padding-left:15px;display:none;}.LW_CollapsibleArea_TitleAhref{cursor:hand;outline:none;}.LW_CollapsibleArea_Img{border-width:0;vertical-align:middle;margin-bottom:0;float:left;margin-top:7px;display:inline-block;}.LW_CollapsibleArea_TitleDiv DIV a:link,.LW_CollapsibleArea_TitleDiv DIV a:hover,.LW_CollapsibleArea_TitleDiv DIV a:visited,.LW_CollapsibleArea_TitleDiv DIV a:focus{color:#000;text-decoration:none;}.LW_CollapsibleArea_TitleDiv_Collapsed DIV a:link,.LW_CollapsibleArea_TitleDiv_Collapsed DIV a:hover,.LW_CollapsibleArea_TitleDiv_Collapsed DIV a:visited,.LW_CollapsibleArea_TitleDiv_Collapsed DIV a:focus{color:#db7100;text-decoration:none;}.LW_CollapsibleArea_Img{display:block;padding:0 5px 0 0;}.LW_CollapsibleArea_Title{display:block;}.LongTitle .LW_CollapsibleArea_Title,.ActualLongTitle .LW_CollapsibleArea_Title{display:block;width:98%;float:left;}.ActualLongTitle .LW_CollapsibleArea_TitleDiv:before,.ActualLongTitle .LW_CollapsibleArea_TitleDiv:after{content:" ";display:table;}.ActualLongTitle .LW_CollapsibleArea_TitleDiv:after{clear:both;}.TitleEmpty .sectionblock div,.NoTitle .sectionblock div{padding-top:8px;}
+.communityContentContainer{clear:both;border-top:1px solid #dbdbdb;min-height:40px;margin-top:34px;}.communityContentHeader{padding:16px 0;border-bottom:1px solid #d5d5d5;}.communityContentHeaderTitle{font-family:'Segoe UI Light','Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;font-size:18px;color:#db7100;}.communityContentAddButton{border-style:none;float:left;padding:12px 16px 0;text-align:center;cursor:pointer;color:#2c729c;}a.communityContentAddLink,.communityContentAnnotationTitle,.communityContentAnnotationBody,.communityContentAnnotationUserContainer,.communityContentAnnotationDateContainer,a.communityContentCommentEditLink,a.communityContentDeleteLink{font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;}a.communityContentAddLink{font-size:12px;color:#fff;display:block;cursor:pointer;}.communityContentAnnotation{border-bottom:1px solid #dbdbdb;padding-top:20px;padding-bottom:10px;color:#2a2a2a;}.communityContentAnnotationTitle{font-size:14px;padding-bottom:5px;}.communityContentAnnotationBody{font-size:12px;line-height:18px;padding-bottom:10px;word-wrap:break-word;}.communityContentAnnotationBody>pre{white-space:pre-wrap;}.communityContentAnnotationAvatarContainer{float:left;padding-right:5px;width:34px;}.communityContentAnnotationAvatar IMG{border:0;}.communityContentAnnotationUserDateContainer{padding-top:3px;}.communityContentAnnotationUserContainer{font-size:10px;padding-bottom:5px;line-height:1.35;}.communityContentAnnotationUserContainer,.communityContentAnnotationUserContainer A{color:#2c729c;}.communityContentAnnotationDateContainer{font-size:10px;line-height:1.35;}a.communityContentCommentEditLink,a.communityContentDeleteLink{font-size:10px;color:#2c729c;padding-left:20px;}.communityContentHeaderTitleContainer h2{color:green;float:left;font-size:18px;}
+.topicNotInScope{position:relative;padding-bottom:10px;clear:both;}.topicNotInScopeDisclaimer{background-color:#efeeef;font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;font-size:12px;color:#2a2a2a;border:1px solid #939393;padding-left:10px;padding-right:10px;padding-top:9px;padding-bottom:9px;}.topicNotInScopeDisclaimerText{padding-left:26px;padding-right:0;}.topicNotInScopeSwitchCollectionContainer{float:right;}.topicNotInScopeSwitchCollection{float:left;padding-left:5px;padding-right:5px;}.topicNotInScopeCollectionPicker{display:none;width:auto;right:10px;position:absolute;list-style-type:none;z-index:2;border:1px solid #939393;background-color:#fff;padding-left:10px;padding-right:10px;padding-top:5px;margin:0;top:30px;}.topicNotInScopeCollectionPickerItem{height:20px;margin-bottom:2px;}.topicNotInScopeImageContainer{float:left;}.topicNotInScopeImageContainer2{float:left;margin-top:5px;}.topicNotInScopeImageContainer>img{max-width:none!important;}.CustomizedCenter_link{float:right;margin-right:10px;}
+.feedViewerBulletList ul{padding-top:0;padding-bottom:0;}.feedViewerBulletList ul li{padding-bottom:0;}.feedViewerBasic{}.feedViewerItem{padding-bottom:15px;}A.feedViewerLink{font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;font-size:12px;}A.feedViewerLink,A:active.feedViewerLink{color:#00709f;}A:hover.feedViewerLink{color:#3390b1;}A:visited.feedViewerLink{color:#03697a;}.feedViewerDescription{padding-top:5px;}.feedViewerDescription,.feedViewerDateAuthor{font-size:12px;font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;color:#2a2a2a;margin-top:0;margin-bottom:0;line-height:18px;}.feedViewerDate{}.feedViewerAuthor{}
+.clip10x10,.clip10x46,.clip11x6,.clip11x12,.clip16x16,.clip20x20,.clip20x21,.clip22x30,.clip23x23,.clip25x25,.clip26x23,.clip29x29,.clip30x24,.clip30x25,.clip31x24,.clip32x24,.clip38x23,.clip51x24{position:relative;overflow:hidden;}.clip10x10{width:10px;height:10px;}.clip10x46{width:10px;height:46px;}.clip11x6{width:11px;height:6px;}.clip11x12{width:11px;height:12px;}.clip16x16{width:16px;height:16px;}.clip20x20{width:20px;height:20px;}.clip20x21{width:20px;height:21px;}.clip22x30{width:22px;height:30px;}.clip23x23{width:23px;height:23px;}.clip25x25{width:25px;height:25px;}.clip26x23{width:26px;height:23px;}.clip29x29{width:29px;height:29px;}.clip30x24{width:30px;height:24px;}.clip30x25{width:30px;height:25px;}.clip31x24{width:31px;height:24px;}.clip32x24{width:32px;height:24px;}.clip38x23{width:38px;height:23px;}.clip51x24{width:51px;height:24px;}.clip10x10 img,.clip10x10 input,.clip10x46 img,.clip10x46 input,.clip11x6 img,.clip11x6 input,.clip11x12 img,.clip11x12 input,.clip16x16 img,.clip16x16 input,.clip20x20 img,.clip20x20 input,.clip20x21 img,.clip20x21 input,.clip22x30 img,.clip22x30 input,.clip23x23 img,.clip23x23 input,.clip25x25 img,.clip25x25 input,.clip26x23 img,.clip26x23 input,.clip29x29 img,.clip29x29 input,.clip30x24 img,.clip30x24 input,.clip30x25 img,.clip30x25 input,.clip31x24 img,.clip31x24 input,.clip32x24 img,.clip32x24 input,.clip38x23 img,.clip38x23 input,.clip51x24 img,.clip51x24 input{position:absolute;margin:0;padding:0;width:auto;height:auto;}.cl_footer_logo{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -3px -3px;width:90px;height:16px;overflow:hidden;}.isd_search{top:-3px;left:-100px;}.search_icon_technet{top:-3px;left:-127px;}.search_gray{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -163px -3px;width:17px;height:17px;overflow:hidden;}.cl_footer_feedback_icon{top:-3px;left:-187px;}.cl_ContentFallback_Alert{top:-3px;left:-214px;}.cl_msdn_close{top:-3px;left:-246px;}.cl_printhelp_logo{top:-3px;left:-275px;}.cl_nav_resize_close{top:-3px;left:-305px;}.cl_nav_resize_open{top:-3px;left:-322px;}.toc_collapsed{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -339px -3px;width:17px;height:17px;overflow:hidden;}.toc_expanded{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -363px -3px;width:17px;height:17px;overflow:hidden;}.toc_empty{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -387px -3px;width:17px;height:17px;overflow:hidden;}.cl_rss_button{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -411px -3px;width:17px;height:17px;overflow:hidden;}.tocSearchFilter{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -435px -3px;width:12px;height:14px;overflow:hidden;}.tocSearchTagClose{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -454px -3px;width:9px;height:9px;overflow:hidden;}.cl_CollapsibleArea_expanding{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -470px -3px;width:9px;height:12px;overflow:hidden;}.cl_CollapsibleArea_collapsing{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -486px -3px;width:9px;height:12px;overflow:hidden;}.topicNotInScopeInformationImage{top:-3px;left:-502px;}.cl_lw_vs_seperator{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -525px -3px;width:1px;height:17px;overflow:hidden;}.cl_lw_vs_arrow{top:-3px;left:-533px;}.isd_settings{top:-3px;left:-550px;}.isd_print{top:-3px;left:-583px;}.isd_print_arrow{top:-3px;left:-616px;}.closedCaptionImage{top:-3px;left:-661px;}.muteImage{top:-3px;left:-700px;}.pausedImage{top:-3px;left:-738px;}.playImage{top:-3px;left:-796px;}.restartImage{top:-3px;left:-854px;}.rewindImage{top:-3px;left:-893px;}.skipImage{top:-3px;left:-930px;}.soundImage{top:-3px;left:-968px;}.tickImage{top:-3px;left:-1005px;}.topicNotInScopeDropdownImage{top:-3px;left:-1023px;}.cl_IC46226{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1041px -3px;width:11px;height:11px;overflow:hidden;}.cl_IC28506{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1059px -3px;width:11px;height:11px;overflow:hidden;}.cl_IC90381{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1077px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC131682{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1100px -3px;width:15px;height:15px;overflow:hidden;}.cl_IC160177{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1122px -3px;width:10px;height:10px;overflow:hidden;}.cl_IC131792{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1139px -3px;width:17px;height:11px;overflow:hidden;}.cl_IC128933{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1163px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC169559{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1186px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC116110{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1209px -3px;width:12px;height:10px;overflow:hidden;}.cl_IC101471{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1228px -3px;width:16px;height:14px;overflow:hidden;}.cl_IC103139{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1251px -3px;width:10px;height:10px;overflow:hidden;}.cl_IC6709{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1268px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC115567{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1291px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC155188{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1314px -3px;width:17px;height:16px;overflow:hidden;}.cl_IC9948{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1338px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC100399{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1361px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC166620{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1384px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC29808{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1407px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC11304{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1430px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC134134{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1453px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC90369{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1476px -3px;width:10px;height:12px;overflow:hidden;}.cl_IC79755{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1493px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC157541{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1516px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC141795{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1539px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC89523{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1562px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC157062{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1585px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC34952{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1608px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC91302{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1631px -3px;width:16px;height:11px;overflow:hidden;}.cl_IC53205{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1654px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC148674{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1677px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC74937{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1700px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC82306{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1723px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC36774{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1746px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC169559{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1769px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC101171{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1792px -3px;width:7px;height:10px;overflow:hidden;}.cl_IC130242{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1806px -3px;width:13px;height:10px;overflow:hidden;}.cl_IC150820{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1826px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC25161{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1849px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC64394{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1872px -3px;width:16px;height:16px;overflow:hidden;}.cl_IC153696{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1895px -3px;width:14px;height:18px;overflow:hidden;}.cl_IC37116{background:url('/Areas/Epx/Content/Images/ImageSprite.png') no-repeat scroll -1916px -3px;width:16px;height:16px;overflow:hidden;}
+#ux-header{background-color:#000;display:block;width:100%;margin:0 auto;position:relative;font-size:16px;line-height:1;font-family:'Segoe UI',Tahoma,Helvetica,Sans-Serif;}#ux-header div.left{float:left;}#ux-header div.right{float:right;}#ux-header a{text-decoration:none;}#ux-header a:focus{outline:1px dotted #fff;}#ux-header button:focus{outline:1px dotted #000;}#ux-header img{border:none;}#ux-header input[type="text"]:focus{outline:0;}#ux-header header{display:inline-block;width:100%;margin-top:11px;}#ux-header header nav ul li div.subNav,#ux-header header nav.tocLevel2{width:100%;background-color:#3b3b3b;padding:3px 0 4px;margin-top:4px;left:0;}#ux-header header nav ul li div.subNav ul,#ux-header header>nav ul{max-width:1180px;width:97%;margin:0 auto;}#ux-header header nav ul{font-size:.8125em;line-height:1.875em;padding-left:0;margin:0 auto;}#ux-header header nav ul li{display:inline-block;margin:0;background-image:none;padding:0 38px 0 0;}#ux-header header nav ul li a{color:#ebebeb;-o-transition:.3s ease-in-out;-ms-transition:.3s ease-in-out;-moz-transition:.3s ease-in-out;-webkit-transition:.3s ease-in-out;transition:.3s ease-in-out;}#ux-header header nav ul li a:hover{color:#00bcf2;text-decoration:none;}#ux-header header nav ul li.current>a{color:#6cdfff;}#ux-header header div.row{clear:both;margin:0 auto;}#ux-header header div.row div.right div.auxNav a,#ux-header header div.row div.top a{color:#fff;line-height:1.5em;font-size:.875em;}#ux-header header div.row div.right div.auxNav a:hover,#ux-header header div.row div.right div.auxNav div#Fragment_Subscriptions a:hover,#ux-header header div.row div.top a:hover{color:#9c9c9c;text-decoration:none;}#ux-header header div.row div.left div.siteLogo{margin:0 0 0 -1px;}#ux-header header div.row div.left a.msdnLogoImg{display:block;margin-bottom:5px;}#ux-header header div.row div.left a.msdnLogoImg img{border:none;}#ux-header header div.row div.left a.msdnLogoTxt{font-size:.6875em;color:#fff;margin:0 0 14px 0;display:block;}#ux-header header div.row div.left div#Fragment_SiteLogo .LinkWithImage>a{display:inline-block;font-size:1.5em;color:#fff;text-decoration:none;letter-spacing:.5px;margin-left:-1px;}#ux-header header div.row div.left div#Fragment_SiteLogo .LinkWithImage>a>img{vertical-align:top;margin-right:7px;border:none;}#ux-header header div.row div.left nav{margin-top:9px;margin-bottom:3px;}#ux-header header div.row div.left nav>ul{line-height:2.125em;}#ux-header header div.row div.left nav ul li div.subNav{display:none;font-size:1.25em;}#ux-header header div.row div#grip{display:none;cursor:pointer;}#ux-header header div.row div.right{color:#9c9c9c;font-size:.8125em;}#ux-header header div.row div.right div.auxNav div{margin-left:23px;display:inline-block;}#ux-header header div.row div.right div.auxNav div#Fragment_Subscriptions a{font-family:'Segoe UI Semibold',Tahoma,Helvetica,Sans-Serif;}#ux-header header div.row div.right div.SearchBox form#HeaderSearchForm{border:1px solid #3b3b3b;display:inline-block;float:right;width:280px;background-color:#eee;}#ux-header header div.row div.right div.SearchBox form#HeaderSearchForm input{background-color:#eee;border:0;height:22px;width:240px;color:#3b3b3b;display:inline-block;margin:1px 0 0 0;padding:1px 4px 1px 10px;float:left;}#ux-header header div.row div.right div.SearchBox form#HeaderSearchForm button{background-color:#eee;border:0;margin:3px 2px 0 0;cursor:pointer;color:#3b3b3b;display:inline-block;float:right;}#ux-header header div.row div.right.desktop div.auxNav{max-width:610px;text-align:right;margin:-4px 0 11px 0;}#ux-header header div.row div.right.desktop div.SearchBox{clear:both;position:relative;width:initial;float:initial;border:initial;height:initial;}#ux-header header nav.tocLevel2{clear:both;}#ux-header header #droor span#singleCol,#ux-header header #droor span#doubleCol{display:none;}#ux-header header div.right.mobile,#ux-header header div.top.mobile{display:none;}#ux-header .SignedOutProfileElement{display:none;}#ux-header a.createProfileLink{max-width:250px;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;margin-right:23px;}#ux-header div.row div.right div.SearchBox{margin:0;width:auto;height:auto;padding:0;border:0;background-color:inherit;font-size:.8125em;font-family:'Segoe UI regular',Tahoma,Helvetica,Sans-Serif;}#ux-header #Fragment_SocialLinks{margin-top:11px;line-height:1;float:right;}#ux-header #Fragment_SocialLinks .linkList .linkListTitle{float:left;color:#ebebeb;font-size:.75em;margin-top:9px;}#ux-header #Fragment_SocialLinks .linkList ul{display:inline-block;}#ux-header #Fragment_SocialLinks .linkList ul li{margin-left:15px;}#ux-header #Fragment_SocialLinks .linkList ul li>a{display:inline-block;color:transparent;text-indent:-100000px;}#ux-header #SearchFlyoutContainer{color:#3b3b3b!important;padding:0!important;width:252px!important;border-left:solid 1px #eee!important;border-right:solid 1px #eee!important;border-bottom:solid 1px #eee!important;}#ux-header #SearchFlyoutContainer ul{margin:0!important;padding:0!important;}#ux-header #SearchFlyoutContainer ul li{font-size:.813em!important;padding-top:10px!important;padding-bottom:13px!important;padding-left:10px!important;}#ux-header #SearchFlyoutContainer ul li:hover{background-color:#1570a6!important;color:#fff!important;text-decoration:none!important;}#ux-header[dir="rtl"] div.left{float:right;}#ux-header[dir="rtl"] div.right{float:left;}#ux-header[dir="rtl"] header div.row div.left div.siteLogo{margin:0 -1px 0 0;}#ux-header[dir="rtl"] header div.row div.right div.auxNav div{margin-right:23px;margin-left:0;}#ux-header[dir="rtl"] header div.row div.right div.SearchBox form#HeaderSearchForm{float:left;background-color:#eee;}#ux-header[dir="rtl"] header div.row div.right div.SearchBox form#HeaderSearchForm input{padding:1px 10px 1px 4px;float:right;}#ux-header[dir="rtl"] header div.row div.right div.SearchBox form#HeaderSearchForm button{float:left;margin:3px 3px 4px 3px;}#ux-header[dir="rtl"] nav ul li{padding:0 0 0 38px;}#ux-header[dir="rtl"] #Fragment_SocialLinks{float:left;}#ux-header[dir="rtl"] #Fragment_SocialLinks .linkList .linkListTitle{float:right;}#ux-header[dir="rtl"] #Fragment_SocialLinks .linkList ul li{margin-left:0;margin-right:15px;}#ux-header[dir="rtl"] #SearchFlyoutContainer{left:0!important;}#ux-header[dir="rtl"] #SearchFlyoutContainer ul li{padding-right:10px!important;padding-left:0!important;}
+.wechatShare{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -3px -3px;width:21px;height:21px;overflow:hidden;}.weiboShare{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -31px -3px;width:21px;height:21px;overflow:hidden;}.cnContactShare{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -59px -3px;width:21px;height:21px;overflow:hidden;}.facebook{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -87px -3px;width:21px;height:21px;overflow:hidden;}.googlePlus{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -115px -3px;width:21px;height:21px;overflow:hidden;}.twitter{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -143px -3px;width:25px;height:21px;overflow:hidden;}.logo{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -175px -3px;width:68px;height:14px;overflow:hidden;}.header-search-button{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -250px -3px;width:19px;height:18px;overflow:hidden;}.rtl .header-search-button{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -276px -3px;width:19px;height:18px;overflow:hidden;}.selectLocale a:after{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -302px -3px;width:24px;height:24px;overflow:hidden;}.office:after{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -333px -3px;width:17px;height:20px;overflow:hidden;}.windowsBlue:after{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -357px -3px;width:19px;height:19px;overflow:hidden;}.visualStudio:after{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -383px -3px;width:19px;height:19px;overflow:hidden;}.nokia:after{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -409px -3px;width:19px;height:19px;overflow:hidden;}.row div#grip{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -435px -3px;width:24px;height:13px;overflow:hidden;}.vkOne{background:url('/Areas/Centers/Themes/StandardDevCenter/Content/HeaderFooterSprite.png') no-repeat scroll -466px -3px;width:21px;height:21px;overflow:hidden;}
+.linkList>ul{margin:0;padding:0;list-style-type:none;}.linkList>ul>li{list-style-type:none;background:none;padding:0;margin:0;}.linkList ul.horizontal>li{float:left;}.rtl .linkList>ul.horizontal>li{float:right;}.linkList ul.horizontal>li.divider:last-child{display:none;}
+div.printExportMenus{float:right;font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;font-size:10px;margin-right:9px;}div.printExportMenus a,div.printExportMenus a:visited,div.printExportMenus a:link,div.printExportMenus a:hover,div.printExportMenus a:active{color:#fff;padding:0 7px;background-color:#666;margin:3px 3px 0 3px;}div.printExportMenus a#isd_printABook{display:none;}div.printExportMenus a.exportToolBarShown{margin:0;border:solid 3px #e5e5e5;border-bottom:solid 5px #e5e5e5;}div.rtl.printExportMenus{float:left;}div.rtl.printExportMenus{margin-right:0;margin-left:9px;}
+div#leftNav{float:left;margin:0 28px 0 0;width:215px;min-height:10px;position:relative;}div#tocnav{font-family:'Segoe UI',Verdana,Arial;font-size:1em;overflow-x:hidden;line-height:normal;width:calc(100% - 10px);}div#tocnav>div{overflow-x:hidden;white-space:normal;width:auto;margin-bottom:10px;}div#leftNav a,div#leftNav a:link,div#leftNav a:visited{color:#1364c4;text-decoration:none;}div#tocnav>div>a,div#tocnav>div>a:link,div#tocnav>div>a:visited{display:block;margin-left:22px;overflow:hidden;}div#tocnav>div>span.emptyHref{text-decoration:none;display:block;margin-left:22px;overflow:hidden;}div#tocnav>div.current>a,div#tocnav>div.current>a:link,div#tocnav>div.current>a:visited{color:#e66a38;text-decoration:none;}div#tocnav>div>a.toc_expanded,div#tocnav>div>a.toc_collapsed,div#tocnav>div>span.toc_empty{float:left;display:inline-block;margin-left:4px;vertical-align:top;}div#tocnav>div>span.toc_empty{background:none;outline:none;}div#tocnav>div.toclevel1{padding-left:13px;}div#tocnav>div.toclevel2{padding-left:26px;}div#tocnav>div.toclevel3{padding-left:39px;}div#tocnav>div.toclevel4{padding-left:52px;}div#tocnav>div.toclevel5{padding-left:65px;}div#tocnav>div.toclevel6{padding-left:78px;}div#tocnav>div.toclevel7{padding-left:91px;}div#tocnav>div.toclevel8{padding-left:104px;}div#tocnav>div.toclevel9{padding-left:117px;}div#tocnav>div.toclevel10{padding-left:130px;}
+a#NavigationResize{position:absolute;top:12px;margin:0;width:7px;height:22px;cursor:pointer;overflow:hidden;display:none;}a#NavigationResize>img{border:none;position:relative;max-width:none;}div#leftNav{margin:0 -1px 0 0;border-right:1px solid #b6b6b6;}div#leftNav.leftNavResize0>div{display:none!important;}div#content{padding-left:20px;margin:0;}div#content .navpage div>hr{border-left:0;}div#toc-resizable-ew{cursor:e-resize;width:15px;top:0;height:100%;position:absolute;display:block;font-size:.5px;right:-7px;}div#toc-resizable-ew.rtl{left:-7px;right:auto;}
+.lw_vs{position:relative;margin-top:-8px;margin-bottom:10px;padding-bottom:2px;}.lw_vs div{float:left;}.cl_lw_vs_seperator{margin-left:10px;}.cl_lw_vs_seperatorhide{width:8px;height:17px;overflow:hidden;}#vsLink{margin-left:10px;margin-right:4px;font-size:1em;}.cl_vs_arrow{margin-top:5px;margin-right:5px;cursor:pointer;}#vsPanel{position:absolute;top:20px;border:#bdbdbd 1px solid;padding-bottom:10px;background-color:#fff;margin:0 0 0 10px;padding-left:10px;padding-right:10px;display:none;padding-top:10px;list-style-type:none;z-index:2;}#vsPanel a:visited{color:#960bb4;}#vsPanel LI{margin-bottom:2px;font-size:1em;}
+.libraryMemberFilter{display:none;margin-bottom:5px;overflow:auto;}.libraryMemberFilter .filterContainer{float:right;}.libraryMemberFilter .filterContainer label{display:inline;}.libraryMemberFilter .libraryFilterInherited{margin:0 5px;vertical-align:middle;}.libraryMemberFilter .libraryFilterProtected{margin:0 5px 0 15px;vertical-align:middle;}html[dir="rtl"] .libraryMemberFilter .filterContainer{float:left;}
+div#ux-footer{display:block;background-color:#eee;width:100%;margin:0 auto;font-size:16px;font-family:'Segoe UI',Tahoma,Helvetica,Sans-Serif;}div#ux-footer a{text-decoration:none;}div#ux-footer a:focus{outline:1px dotted #000;}div#ux-footer .left{float:left;}div#ux-footer .right{float:right;}div#ux-footer .clear{clear:both;}div#ux-footer footer.top{display:block;width:97%;margin:0 auto;position:relative;}div#ux-footer footer.top .linkListTitle{font-size:.8125em;color:#000;line-height:1.875em;margin-top:35px;}div#ux-footer footer.top ul>li>a{font-size:.6875em;color:#1570a6;line-height:1.875em;}div#ux-footer footer.top div#rightLinks>div{float:left;width:33.3%;}div#ux-footer footer.top div#rightLinks>div.nth-child-4n{clear:both;}div#ux-footer footer.top div#rightLinks>div.feedbackContainer{width:66.6%;font-size:100%;color:#000;}div#ux-footer footer.top div.feedbackContainer div#feedbackSection3 div{margin-bottom:3px;}div#ux-footer footer.top div.feedbackContainer div#feedbackSection3 div div.ui-checkbox input{vertical-align:middle;margin-top:-2px;}div#ux-footer footer.top div.feedbackContainer div#feedbackSection1,div#ux-footer footer.top div.feedbackContainer div#feedbackSection2,div#ux-footer footer.top div.feedbackContainer div#feedbackSection3,div#ux-footer footer.top div.feedbackContainer div#feedbackSection4 div.left span.counter,div#ux-footer footer.top div.feedbackContainer div#feedbackSection5{font-size:.8125em;color:#000;}div#ux-footer footer.top div.feedbackContainer div textarea#feedbackTextArea.TellUsMoreTextBoxSearchLoaded{color:#949494;font-size:.75em;}div#ux-footer footer.top div.feedbackContainer div textarea#feedbackTextArea.TellUsMoreTextBoxSearch{font-size:.8125em;}div#ux-footer #Fragment_LeftLinks{width:25%;float:left;}div#ux-footer #Fragment_LeftLinks>.linkList>ul>li>a{font-size:.8125em;height:30px;display:inline-block;margin-top:10px;color:#000;line-height:1.25em;}div#ux-footer #Fragment_LeftLinks>.linkList>ul>li>a:after{content:" ";display:block;float:left;margin:0 10px 0 0;}div#ux-footer #rightLinks{float:left;width:75%;}div#ux-footer footer.bottom{display:block;width:97%;margin:0 auto;padding:45px 0;position:relative;line-height:1;clear:both;}div#ux-footer footer.bottom span.localeContainer{width:25%;float:left;display:inline-block;}div#ux-footer footer.bottom span.localeContainer a{font-size:.6875em;background-color:#4d4d4d;color:#fff;display:inline-block;text-decoration:none;line-height:2em;padding-left:9px;}div#ux-footer footer.bottom span.localeContainer a:after{content:" ";display:block;float:right;margin-left:9px;background-color:#1570a6;}div#ux-footer footer.bottom span.copyright{font-size:.6875em;line-height:1.7em;float:left;margin-right:20px;display:inline-block;}div#ux-footer footer.bottom span.logo{display:inline-block;margin-right:20px;}div#ux-footer #Fragment_BottomLinks>.linkList>ul{float:left;width:50%;}div#ux-footer #Fragment_BottomLinks>.linkList>ul>li{display:inline-block;margin-right:20px;}div#ux-footer #Fragment_BottomLinks>.linkList>ul>li>a{color:#1570a6;font-size:.6875em;line-height:1.5em;}div#ux-footer[dir="rtl"] div#footerSock div#footerSockInner div.rating{float:right;margin-right:25%;margin-left:0;}div#ux-footer[dir="rtl"] div#footerSock div#footerSockInner div.buttons>.button{margin:0 0 0 10px;}div#ux-footer[dir="rtl"] .right{float:left;}div#ux-footer[dir="rtl"] .left{float:right;}div#ux-footer[dir="rtl"] #Fragment_LeftLinks{float:right;}div#ux-footer[dir="rtl"] #Fragment_LeftLinks>.linkList>ul>li>a:after{float:right;margin:0 0 0 10px;}div#ux-footer[dir="rtl"] #rightLinks{float:right;}div#ux-footer[dir="rtl"] footer.top div#rightLinks>div{float:right;}div#ux-footer[dir="rtl"] footer.bottom span.localeContainer{float:right;}div#ux-footer[dir="rtl"] footer.bottom span.localeContainer a{padding-right:9px;padding-left:0;}div#ux-footer[dir="rtl"] footer.bottom span.localeContainer a:after{float:left;margin:0 9px 0 0;}div#ux-footer[dir="rtl"] footer.bottom span.logo{margin-right:0;margin-left:20px;}div#ux-footer[dir="rtl"] footer.bottom span.copyright{float:right;margin-right:0;margin-left:20px;}div#ux-footer[dir="rtl"] #Fragment_BottomLinks>.linkList>ul{float:right;}div#ux-footer[dir="rtl"] #Fragment_BottomLinks>.linkList>ul>li{float:right;margin-right:0;margin-left:20px;}body.IE8 div#ux-footer #Fragment_LeftLinks{min-width:180px;}body.IE8 div#ux-footer footer.top div#rightLinks>div div{padding-right:10px;}body.IE8 div#ux-footer footer.bottom span.localeContainer{min-width:170px;}body.IE8 div#ux-footer #Fragment_BottomLinks>.linkList>ul{display:block;min-width:370px;}body.IE8 div#ux-footer[dir="rtl"] footer.top div#rightLinks>div div{padding-right:0;padding-left:10px;}div#footerSock{background-color:#d2d2d2;color:#000;line-height:16px;}div#footerSock div#footerSockInner{width:1180px;margin:auto;padding:27px 0 32px 0;}div#footerSock div#footerSockInner div.rating,div#footerSock div#footerSockInner div.userVoice{margin-left:25%;}div#footerSock div#footerSockInner div.rating div.buttons,div#footerSock div#footerSockInner div.userVoice div.buttons{margin-top:10px;min-width:150px;}div#footerSock div#footerSockInner div.rating div.buttons>.button,div#footerSock div#footerSockInner div.userVoice div.buttons>.button{cursor:pointer;font-size:14px;font-weight:600;line-height:16px;border:none;background-color:#00bcf2;color:#000;margin:0 10px 0 0;}div#footerSock div#footerSockInner div.rating div.buttons>.button:hover,div#footerSock div#footerSockInner div.userVoice div.buttons>.button:hover{background-color:#000;color:#fff;}div#footerSock div#footerSockInner div.rating div.buttons>.button:focus,div#footerSock div#footerSockInner div.userVoice div.buttons>.button:focus{outline:1px dotted #000;border:none;}div#footerSock div#footerSockInner div.rating div.buttons>.button::-moz-focus-inner,div#footerSock div#footerSockInner div.userVoice div.buttons>.button::-moz-focus-inner{border:0;}div#footerSock div#footerSockInner div.rating div.title,div#footerSock div#footerSockInner div.userVoice div.title{line-height:20px;margin:0 0 15px 0;font-size:18px;font-weight:600;color:#000;font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;clear:none;}div#footerSock div#footerSockInner div.rating div.description,div#footerSock div#footerSockInner div.userVoice div.description{font-size:14px;}div#footerSock div#footerSockInner div.userVoice{min-width:231px;width:27%;}div#footerSock div#footerSockInner div.userVoice div.description{margin-bottom:32px;}div#footerSock div#footerSockInner div.userVoice>div.buttons>.button{padding:4px 18px 8px 18px;}div#footerSock div#footerSockInner div.rating{min-width:290px;display:none;width:38%;}div#footerSock div#footerSockInner div.rating div.description{margin-bottom:26px;}div#footerSock div#footerSockInner div.rating div.buttons>.button{padding:7px 18px;}div#footerSock div#footerSockInner div.rating textarea{margin-bottom:6px;width:99%;height:160px;border:0;resize:none;}div#footerSock div#footerSockInner div.rating div#ratingSection2,div#footerSock div#footerSockInner div.rating div#ratingSection3{display:none;}div#footerSock div#footerSockInner div.rating div#ratingSection2 div.title{margin:0 0 15px 0;}div#footerSock div#footerSockInner div.rating div#ratingSection2 div.counter{font-size:14px;color:#505050;}div#footerSock div#footerSockInner div.rating div#ratingSection2 div.buttons{margin-top:8px;}div#footerSock.both div#footerSockInner div.rating{margin-left:0;float:left;}div#footerSock.both div#footerSockInner div.userVoice{margin-left:50%;}div#footerSock.librarySock div#footerSockInner{width:97%;}body:not(.FF) div#ux-footer div#footerSock.both div.userVoice>div.buttons>.button{padding-top:5px;padding-bottom:6px;}
+body{font-size:12px;max-width:1220px;padding-left:12px;padding-right:12px;margin-left:auto;margin-right:auto;}body.library #megabladeContainer #megabladeContainerCenter{width:1220px;}div#body{margin:0;padding-top:19px;}table{padding:0;}div#content table,div#content th,div#content td{border:1px solid #bbb;}.contentWrapper h2 a,.contentWrapper h3 a,.heading{color:#000;}h1,h1.heading{font-size:3em;color:#707070;}h2,h3,h4{color:#2a2a2a;}h2{font-size:1.833em;}.subheading{font-size:1.833em;}h3{font-size:1.5em;}h4{font-size:1.33em;}.topic a,.topic a:link{text-decoration:none;color:#1364c4;}.topic a:visited,.topic a:active{text-decoration:none;color:#03697a;}.topic a:hover{text-decoration:none;color:#3390b1;}.topic a.active,.topic a.active:link,.topic a.active:hover,.topic a.active:visited,.topic a.active:active{color:#2a2a2a;}.communityContentHeaderTitle,.communityEditor .additionTopicTitle{color:#000;}div#leftNav{width:280px;}div#tocnav{margin:-20px 0 0 -4px;font-size:1.0803em;}.toclevel0:first-child{margin-top:16px;}div#tocnav div{margin-bottom:5px;margin-left:18px;}div#tocnav>div.current>a,div#tocnav>div.current>a:link,div#tocnav>div.current>a:hover,div#tocnav>div.current>a:focus,div#tocnav>div.current>a:visited{color:#000;font-weight:bold;}div#tocnav>div.toclevel1{padding-left:17px;}div#tocnav>div.toclevel2{padding-left:34px;}div#tocnav>div.toclevel3{padding-left:51px;}div#tocnav>div.toclevel4{padding-left:68px;}div#tocnav>div.toclevel5{padding-left:85px;}div#tocnav>div.toclevel6{padding-left:102px;}div#tocnav>div.toclevel7{padding-left:119px;}div#tocnav>div.toclevel8{padding-left:136px;}div#tocnav>div.toclevel9{padding-left:153px;}div#tocnav>div.toclevel10{padding-left:170px;}a#NavigationResize{top:44px;}.LW_CollapsibleArea_Title{font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;}.LW_CollapsibleArea_TitleDiv{margin-top:9px;margin-bottom:19px;padding:0;}.LW_CollapsibleArea_TitleDiv div a,.LW_CollapsibleArea_TitleDiv div a:link,.LW_CollapsibleArea_TitleDiv div a:hover,.LW_CollapsibleArea_TitleDiv div a:visited,.LW_CollapsibleArea_TitleDiv div a:focus{color:#000;}.codeSnippetContainerTab{border:1px solid #939393;border-left:none;background-color:#eff5ff;font-size:1em;}.codeSnippetContainerTab a,.codeSnippetContainerTab a:link,.codeSnippetContainerTab a:hover,.codeSnippetContainerTab a:visited,.codeSnippetContainerTab a:focus{color:#1364c4;font-weight:bold;}.codeSnippetContainerTabActive{border-left:none;background-color:#fff;border-bottom:1px solid #fff;font-size:1em;}.codeSnippetContainerTabActive a,.codeSnippetContainerTabActive a:link,.codeSnippetContainerTabActive a:hover,.codeSnippetContainerTabActive a:visited,.codeSnippetContainerTabActive a:focus{color:#000;font-weight:bold;}.codeSnippetContainerTabSingle{padding:-1px 15px 0 15px;background-color:#fff;border-top:1px solid #939393;border-right:1px solid #939393;font-size:1em;top:auto;left:auto;}.codeSnippetContainerTabSingle a,.codeSnippetContainerTabSingle a:link,.codeSnippetContainerTabSingle a:hover,.codeSnippetContainerTabSingle a:visited,.codeSnippetContainerTabSingle a:focus{color:#000;font-weight:bold;}.codeSnippetContainerTabPhantom{border-left:none;font-size:1em;font-weight:bold;background-color:#f8f8f8;color:#8b8b8b!important;border-bottom:1px solid #fff;}.codeSnippetContainerTabs>div:first-child{border-left:1px solid #939393;border-top-left-radius:4px;}.codeSnippetContainerTabs>div:last-child{border-right:1px solid #939393;border-top-right-radius:4px;}div.lw_vs{margin-bottom:35px;}
+body{font-size:13px;color:#000;max-width:none;padding:0;}#page,#ux-banner{min-width:768px;}#body{padding-left:12px;padding-right:12px;margin-top:6px;}h1,h1.title,.topic h1.title{font-size:2.769em;font-weight:normal;font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;color:#000;}h1.heading,h2,h2.heading,h2.subheading,h3,h3.subheading,h4,h4.subheading,h5,h5.subheading,.LW_CollapsibleArea_Title{font-family:'Segoe UI Semibold','Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;color:#000;}h1.heading,h2,h2.heading,h2.subheading,.LW_CollapsibleArea_Title{font-size:1.769em;}.LW_CollapsibleArea_TitleDiv{font-family:'Segoe UI Semibold','Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;font-size:13px;}.LW_CollapsibleArea_Img{margin-top:12px;}a#expandCollapseAll,a#isd_print,a#isd_printABook{display:inline-block;margin-top:10px;margin-right:6px;font-family:'Segoe UI','Lucida Grande',Verdana,Arial,Helvetica,sans-serif;font-size:10px;color:#fff;padding:0 7px;background-color:#666;}h3,h3.subheading{font-size:1.231em;}h4,h4.subheading{font-size:1.077em;font-weight:normal;}h5,h5.subheading{font-size:1em;}.exportToolBar{margin-top:26px;}body.library div#ux-banner div.left{padding-left:15px;}body.library div#ux-banner div.banner div.right{float:right;padding-right:15px;}body.library #ux-footer{margin-top:30px;}#ux-header,#ux-footer{line-height:1;width:auto;}#ux-header header{width:98%;padding:0 1% 0 1%;}#ux-header ul{margin:0;}    
+    </style>
+    </head>
+    <body>
+        
+<h1 class="title">Finding Memory Leaks Using the CRT Library</h1>
+<p class="title">Ref.:
+<a href="http://msdn.microsoft.com/en-us/library/x98tx3cf%28v=VS.100%29.aspx">
+http://msdn.microsoft.com/en-us/library/x98tx3cf(v=VS.100).aspx</a></p>
+<p>Memory leaks, defined as the failure to correctly deallocate memory that was 
+previously allocated, are among the most subtle and hard-to-detect bugs in C/C++ 
+applications. A small memory leak might not be noticed at first, but over time, 
+a progressive memory leak can cause symptoms that range from decreased 
+performance to crashing when the application runs out of memory. Worse, a 
+leaking application that uses up all available memory can cause another 
+application to crash, creating confusion as to which application is responsible. 
+Even seemingly harmless memory leaks might be symptomatic of other problems that 
+should be corrected.</p>
+<p>The Visual Studio debugger and C Run-Time (CRT) libraries provide you with 
+the means for detecting and identifying memory leaks.</p>
+<div>
+	<div>
+		<a title="Click to collapse. Double-click to collapse all." class="LW_CollapsibleArea_TitleAhref" role="button" href="javascript:void(0)">
+		<span class="LW_CollapsibleArea_Title">Enabling Memory Leak Detection</span></a><div class="LW_CollapsibleArea_HrDiv">
+&nbsp;</div>
+	</div>
+	<div class="sectionblock">
+		<a id="sectionToggle0"></a>The primary tools for detecting memory leaks 
+		are the debugger and the C&nbsp;Run-Time Libraries (CRT) debug heap 
+		functions.<p>To enable the debug heap functions, include the following 
+		statements in your program:</p>
+		<div id="code-snippet-1" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_dfd08121-6068-490f-bc11-4c1146309a69" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>#define _CRTDBG_MAP_ALLOC
+#include &lt;stdlib.h&gt;
+#include &lt;crtdbg.h&gt;</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p>For the CRT functions to work correctly, the <span class="input">
+		#include</span> statements must follow the order shown here.</p>
+		<p>Including crtdbg.h maps the <strong>malloc</strong> and the
+		<a href="http://msdn.microsoft.com/en-us/library/we1whae7%28v=vs.100%29.aspx">
+		free</a> functions to their debug versions,
+		<a href="http://msdn.microsoft.com/en-us/library/faz3a37z%28v=vs.100%29.aspx">
+		_malloc_dbg</a> and <strong>free</strong>, which track memory allocation 
+		and deallocation. This mapping occurs only in debug builds, which have
+		<strong>_DEBUG</strong>. Release builds use the ordinary <strong>malloc</strong> 
+		and <strong>free</strong> functions.</p>
+		<p>The <span class="input">#define</span> statement maps a base version 
+		of the CRT heap functions to the corresponding debug version. If you 
+		omit the <span class="input">#define</span> statement, the memory leak 
+		dump will be less detailed.</p>
+		<p>After you have enabled the debug heap functions by using these 
+		statements, you can place a call to <strong>_CrtDumpMemoryLeaks</strong> 
+		before an application exit point to display a memory-leak report when 
+		your application exits:</p>
+		<div id="code-snippet-2" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_22751ff9-e714-41d6-b0a9-f06f8b4106c7" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>_CrtDumpMemoryLeaks();
+</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p>If your application has multiple exits, you do not need to manually 
+		place a call to
+		<a href="http://msdn.microsoft.com/en-us/library/d41t22sb%28v=vs.100%29.aspx">
+		_CrtDumpMemoryLeaks</a> at every exit point. A call to <strong>_CrtSetDbgFlag</strong> 
+		at the beginning of your application will cause an automatic call to
+		<strong>_CrtDumpMemoryLeaks</strong> at each exit point. You must set 
+		the two bit fields shown here:</p>
+		<div id="code-snippet-3" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_e017c983-9c04-4c93-a7a7-5952a0a93124" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p>By default, <strong>_CrtDumpMemoryLeaks</strong> outputs the 
+		memory-leak report to the <span class="label">Debug</span> pane of the
+		<span class="label">Output</span> window. You can use <strong>_CrtSetReportMode</strong> 
+		to redirect the report to another location.</p>
+		<p>If you use a library, the library might reset the output to another 
+		location. In that case, you can set the output location back to the
+		<span class="label">Output</span> window, as shown here:</p>
+		<div id="code-snippet-4" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_2f0ac78b-941b-4ccf-8bb9-fc61d24d1945" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>_CrtSetReportMode( _CRT_ERROR, _CRTDBG_MODE_DEBUG );</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div>
+	<div>
+		<a class="LW_CollapsibleArea_TitleAhref" title="Click to collapse. Double-click to collapse all." role="button" href="javascript:void(0)">
+		<span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img">
+		</span><span class="LW_CollapsibleArea_Title">Interpreting the 
+		Memory-Leak Report</span></a><div class="LW_CollapsibleArea_HrDiv">
+&nbsp;</div>
+	</div>
+	<div class="sectionblock">
+		<a id="sectionToggle1"></a>If your application does not define
+		<span class="code">_CRTDBG_MAP_ALLOC</span>,
+		<a href="http://msdn.microsoft.com/en-us/library/d41t22sb%28v=vs.100%29.aspx">
+		_CrtDumpMemoryLeaks</a> displays a memory-leak report that looks like 
+		this:<div id="code-snippet-5" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_4b79f3a5-e68e-44d2-b9af-1643ca373a9b" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>Detected memory leaks!
+Dumping objects -&gt;
+{18} normal block at 0x00780E80, 64 bytes long.
+ Data: &lt;                &gt; CD CD CD CD CD CD CD CD CD CD CD CD CD CD CD CD
+Object dump complete.</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p>If your application defines <span class="code">_CRTDBG_MAP_ALLOC</span>, 
+		the memory-leak report looks like this:</p>
+		<div id="code-snippet-6" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_3a3a4eaf-978c-417f-a43c-58483b840ef4" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>Detected memory leaks!
+Dumping objects -&gt;
+C:\PROGRAM FILES\VISUAL STUDIO\MyProjects\leaktest\leaktest.cpp(20) : {18} 
+normal block at 0x00780E80, 64 bytes long.
+ Data: &lt;                &gt; CD CD CD CD CD CD CD CD CD CD CD CD CD CD CD CD
+Object dump complete.</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p>The difference is that the second report shows name of the file and 
+		the line number where the leaked memory is first allocated. </p>
+		<p>Whether you define <span class="code">_CRTDBG_MAP_ALLOC</span> or 
+		not, the memory-leak report will display the following information:</p>
+		<ul>
+			<li>The memory allocation number, which is <span class="code">18</span> 
+			in this example</li>
+			<li>The
+			<a href="http://msdn.microsoft.com/en-us/library/htdyz80k%28v=vs.100%29.aspx">
+			block type</a>, which is <span class="code">normal</span> in this 
+			example. </li>
+			<li>The hexadecimal memory location, which is <span class="code">
+			0x00780E80</span> in this example.</li>
+			<li>The size of the block, <span class="code">64 bytes</span> in 
+			this example.</li>
+			<li>The first 16 bytes of data in the block, in hexadecimal form.</li>
+		</ul>
+		<p>The memory-leak report identifies a block of memory as normal, 
+		client, or CRT. A <span class="parameter">normal block</span> is 
+		ordinary memory allocated by your program. A <span class="parameter">
+		client block</span> is a special type of memory block used by MFC 
+		programs for objects that require a destructor. The MFC
+		<span class="code">new</span> operator creates either a normal block or 
+		a client block, as appropriate for the object being created. A
+		<span class="parameter">CRT block</span> is allocated by the CRT library 
+		for its own use. The CRT library handles the deallocation for these 
+		blocks. Therefore, it is unlikely you will see these in the memory leak 
+		report unless something is significantly wrong, for example, the CRT 
+		library is corrupted.</p>
+		<p>There are two other types of memory blocks that never appear in 
+		memory-leak reports. A <span class="parameter">free block</span> is 
+		memory that has been released. That means it is not leaked, by 
+		definition. An <span class="parameter">ignore block</span> is memory 
+		that you have explicitly marked to exclude it from the memory-leak 
+		report.</p>
+		<p>These techniques work for memory allocated using the standard CRT
+		<strong>malloc</strong> function. If your program allocates memory using 
+		the C++ <strong>new</strong> operator, however, you need to redefine
+		<strong>new</strong> if you want to see the file and line numbers in the 
+		memory-leak report. You can do that with a block of code that looks like 
+		this:</p>
+		<div id="code-snippet-7" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_9d834f52-dbeb-4e4e-89de-c1beeb5a441d" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>#ifdef _DEBUG
+   #ifndef DBG_NEW
+      #define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+      #define new DBG_NEW
+   #endif
+#endif  // _DEBUG</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		Many people are reporting that it causes compiler errors<p>
+		Ref.: &nbsp;<a href="http://stackoverflow.com/questions/5909062/compiling-error-when-overwriting-new">http://stackoverflow.com/questions/5909062/compiling-error-when-overwriting-new</a> <br>
+
+		Ref.: 
+		<a href="https://groups.google.com/forum/#%21msg/boost-list/RU6ie3PBwOY/OBPjpuPA9wMJ">https://groups.google.com/forum/#!msg/boost-list/RU6ie3PBwOY/OBPjpuPA9wMJ</a></p>
+		<p>
+		&nbsp;The following lines worked without redefining <i>new()</i></p>
+		
+		<pre>		#ifdef _CHECK_MEMORY_LEAKS_
+		  #define _CRTDBG_MAP_ALLOC
+		  #define _CRTDBG_MAP_ALLOC_NEW
+		  #include &lt;stdlib.h&gt;
+		  #include &lt;crtdbg.h&gt;
+		#endif &nbsp; //_CHECK_MEMORY_LEAKS_
+		
+		#ifdef _DEBUG
+		  #define new DEBUG_NEW
+		#endif
+		</pre>
+
+		
+		
+	</div>
+	
+
+
+	
+</div>
+<div>
+	<div>
+
+		<p>
+		<a class="LW_CollapsibleArea_TitleAhref" title="Click to collapse. Double-click to collapse all." role="button" href="javascript:void(0)">
+&nbsp;<span class="LW_CollapsibleArea_Title">Setting Breakpoints on a 
+		Memory Allocation Number</span></a></p>
+		<div class="LW_CollapsibleArea_HrDiv">
+&nbsp;</div>
+	</div>
+	<div class="sectionblock">
+		<a id="sectionToggle2"></a>The memory allocation number tells you when a 
+		leaked memory block was allocated. A block with a memory allocation 
+		number of 18, for example, is the 18th block of memory allocated during 
+		the run of the application. The CRT report counts all memory-block 
+		allocations during the run. This includes allocations by the CRT library 
+		and other libraries such as MFC. Therefore, a block with a memory 
+		allocation number of 18 may not be the 18th memory block allocated by 
+		your code. Typically, it will not be.<p>You can use the allocation 
+		number to set a breakpoint on the memory allocation.</p>
+		<h3 class="procedureSubHeading">To set a memory-allocation breakpoint 
+		using the Watch window</h3>
+		<div class="subSection">
+			<ol>
+				<li>Set a breakpoint near the start of your application, and 
+				then start your application.</li>
+				<li>When the application breaks at the breakpoint, the
+				<span class="label">Watch</span> window.</li>
+				<li>In the <span class="label">Watch</span> window, type
+				<span class="code">_crtBreakAlloc</span> in in the
+				<span class="label">Name</span> column.<p>If you are using the 
+				multithreaded DLL version of the CRT library (the /MD option), 
+				include the context operator: <span class="code">
+				{,,msvcr100d.dll}_crtBreakAlloc</span></p></li>
+				<li>Press <span class="label">RETURN</span>.<p>The debugger 
+				evaluates the call and places the result in the
+				<span class="label">Value</span> column. This value will be –1 
+				if you have not set any breakpoints on memory allocations.</p></li>
+				<li>In the <span class="label">Value</span> column, replace the 
+				value shown with the allocation number of the memory allocation 
+				where you want to break.</li>
+			</ol>
+		</div>
+		<p>After you set a breakpoint on a memory-allocation number, you can 
+		continue to debug. Be careful to run the program under the same 
+		conditions as the previous run so that the memory-allocation order does 
+		not change. When your program breaks at the specified memory allocation, 
+		you can use the <span class="label">Call Stack</span> window and other 
+		debugger windows to determine the conditions under which the memory was 
+		allocated. Then, you can continue execution to observe what happens to 
+		the object and determine why it is not correctly deallocated.</p>
+		<p>Setting a data breakpoint on the object might also be helpful. For 
+		more information, see
+		<a href="http://msdn.microsoft.com/en-us/library/350dyxd0%28v=vs.100%29.aspx">
+		How to: Set a Data Breakpoint (Native Only)</a>.</p>
+		<p>You can also set memory-allocation breakpoints in code. There are two 
+		ways to do this:</p>
+		<div id="code-snippet-8" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_d66b3758-0c9d-470d-ab77-fc5281e0a546" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>_crtBreakAlloc = 18;</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p>or:</p>
+		<div id="code-snippet-9" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_c89431e9-50a8-49b7-a383-30bd2d702a9a" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>_CrtSetBreakAlloc(18);</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="communityContentAnnotationBody">
+			Setting a breakpoint at the earliest point in our app deosn't work.&nbsp;<p>
+			We needed to set in crt code as in the blog:<br>
+			<a>
+			http://rdaemons.blogspot.co.uk/2011/03/visual-c-2010-detecting-memory-leaks.html</a><br>
+			<br>
+			C:\Program Files\Microsoft Visual Studio 10.0\VC\crt\src\crt0dat.c<br>
+			_initterm_e() function</p></div>
+&nbsp;</div>
+</div>
+<div>
+	<div>
+		<a class="LW_CollapsibleArea_TitleAhref" title="Click to collapse. Double-click to collapse all." role="button" href="javascript:void(0)">
+		<span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img">
+		</span><span class="LW_CollapsibleArea_Title">Comparing Memory States</span></a><div class="LW_CollapsibleArea_HrDiv">
+&nbsp;</div>
+	</div>
+	<div class="sectionblock">
+		<a id="sectionToggle3"></a>Another technique for locating memory leaks 
+		involves taking snapshots of the application's memory state at key 
+		points. To take a snapshot of the memory state at a given point in your 
+		application, create a <strong>_CrtMemState</strong> structure and pass 
+		it to the <strong>_CrtMemCheckpoint</strong> function. This function 
+		fills in the structure with a snapshot of the current memory state:<div id="code-snippet-10" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_119c1b47-bc22-42ad-811f-000455045bb3" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>_CrtMemState s1;
+_CrtMemCheckpoint( &amp;s1 );</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p><strong>_CrtMemCheckpoint</strong> fills in the structure with a 
+		snapshot of the current memory state.</p>
+		<p>To output the contents of a <strong>_CrtMemState</strong> structure, 
+		pass the structure to the <strong>_ CrtMemDumpStatistics</strong> 
+		function:</p>
+		<div id="code-snippet-11" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_2bf48f12-1b16-4468-bd1f-6e8d07190615" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>_CrtMemDumpStatistics( &amp;s1 );</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p><strong>_ CrtMemDumpStatistics</strong> outputs a dump of memory 
+		state that looks like this:</p>
+		<div id="code-snippet-12" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_a2a5128f-c50a-413b-88b5-977943e0931b" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>0 bytes in 0 Free Blocks.
+0 bytes in 0 Normal Blocks.
+3071 bytes in 16 CRT Blocks.
+0 bytes in 0 Ignore Blocks.
+0 bytes in 0 Client Blocks.
+Largest number used: 3071 bytes.
+Total allocations: 3764 bytes.</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p>To determine whether a memory leak has occurred in a section of code, 
+		you can take snapshots of the memory state before and after the section, 
+		and then use <strong>_ CrtMemDifference</strong> to compare the two 
+		states:</p>
+		<div id="code-snippet-13" class="codeSnippetContainer" xmlns="">
+			<div class="codeSnippetContainerTabs">
+&nbsp;</div>
+			<div class="codeSnippetContainerCodeContainer">
+				<div class="codeSnippetToolBar">
+					<div class="codeSnippetToolBarText">
+&nbsp;</div>
+				</div>
+				<div id="CodeSnippetContainerCode_d47ab331-c58d-4cd8-b197-80b1329e360b" class="codeSnippetContainerCode" dir="ltr">
+					<div style="color:Black;">
+						<pre>_CrtMemCheckpoint( &amp;s1 );
+// memory allocations take place here
+_CrtMemCheckpoint( &amp;s2 );
+
+if ( _CrtMemDifference( &amp;s3, &amp;s1, &amp;s2) )
+   _CrtMemDumpStatistics( &amp;s3 );</pre>
+					</div>
+				</div>
+			</div>
+		</div>
+		<p><strong>_CrtMemDifference</strong> compares the memory states
+		<span class="code">s1</span> and <span class="code">s2</span> and 
+		returns a result in (<span class="code">s3</span>) that is the 
+		difference of <span class="code">s1</span> and <span class="code">s2</span>.
+		</p>
+		<p>One technique for finding memory leaks begins by placing <strong>_CrtMemCheckpoint</strong> 
+		calls at the beginning and end of your application, then using <strong>_CrtMemDifference</strong> 
+		to compare the results. If <strong>_CrtMemDifference</strong> shows a 
+		memory leak, you can add more <strong>_CrtMemCheckpoint</strong> calls 
+		to divide your program using a binary search until you have isolated the 
+		source of the leak.</p></div>
+</div>
+<div>
+	<div>
+		<a class="LW_CollapsibleArea_TitleAhref" title="Click to collapse. Double-click to collapse all." role="button" href="javascript:void(0)">
+		<span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img">
+		</span><span class="LW_CollapsibleArea_Title">False positives</span></a></div>
+	<div class="sectionblock">
+		<a id="sectionToggle4"></a>In some cases, <strong>_CrtDumpMemoryLeaks</strong> 
+		can give false indications of memory leaks. This might occur if you use 
+		a library that marks internal allocations as _NORMAL_BLOCKs instead of
+		<strong>_CRT_BLOCK</strong>s or <strong>_CLIENT_BLOCK</strong>s. In that 
+		case, <strong>_CrtDumpMemoryLeaks</strong> is unable to tell the 
+		difference between user allocations and internal library allocations. If 
+		the global destructors for the library allocations run after the point 
+		where you call <strong>_CrtDumpMemoryLeaks</strong>, every internal 
+		library allocation is reported as a memory leak. Older versions of the 
+		Standard Template Library, earlier than Visual Studio .NET, caused
+		<strong>_CrtDumpMemoryLeaks</strong> to report such false positives, but 
+		this has been fixed in recent releases.</div>
+</div>
+<div>
+	<div>
+		<a class="LW_CollapsibleArea_TitleAhref" title="Click to collapse. Double-click to collapse all." role="button" href="javascript:void(0)">
+		<span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img">
+		</span><span class="LW_CollapsibleArea_Title">See Also</span></a></div>
+	<div class="sectionblock">
+		<a id="seeAlsoToggle"></a>
+		<h4 class="subHeading">Concepts</h4>
+		<div class="seeAlsoStyle">
+			<a href="http://msdn.microsoft.com/en-us/library/ms242231%28v=vs.100%29.aspx">
+			Debugger Security</a></div>
+		<h4 class="subHeading">Other Resources</h4>
+		<div class="seeAlsoStyle">
+			<a href="http://msdn.microsoft.com/en-us/library/974tc9t1%28v=vs.100%29.aspx">
+			The CRT Debug Heap</a></div>
+		<div class="seeAlsoStyle">
+			<a href="http://msdn.microsoft.com/en-us/library/k70yt3e2%28v=vs.100%29.aspx">
+			Debugging Native Code</a></div>
+		<div class="seeAlsoStyle">
+			<a href="http://msdn.microsoft.com/en-us/library/c99kz476%28v=vs.100%29.aspx">
+			Detecting Memory Leaks in MFC</a></div>
+	</div>
+</div>
+        
+</body></html>
