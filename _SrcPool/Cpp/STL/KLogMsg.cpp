@@ -1,5 +1,5 @@
 /*$RCSfile: KLogMsg.cpp,v $: implementation file
-  $Revision: 1.2 $ $Date: 2011/11/11 22:01:40 $
+  $Revision: 1.3 $ $Date: 2014/10/08 17:49:26 $
   $Author: ddarko $
 
   Log a message to the file
@@ -42,7 +42,7 @@ out << tm->tm_year << '-' <<
      const char *ISO8601  = "%Y-%m-%d %H:%M:%S.#9.9ld%z";
      const char *ISO8601Z = "%Y-%m-%d %H:%M:%S.#9.9ldZ";
   #else
-     // otherwise only %Z is guarenteed to be defined
+     // otherwise only %Z is guaranteed to be defined
      //"Mon, 02 Jan 2001 18:11:12 +0000 (GMT) +999999999 nsec"
      const char *RFC822   = "%a, %d %b %Y %H:%M:%S %Z +#9ld nsec";
      //"2001-01-02 10:11:12.9999999999-0800"
@@ -63,8 +63,11 @@ out.close();
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log: KLogMsg.cpp,v $
+ * Revision 1.3  2014/10/08 17:49:26  ddarko
+ * *** empty log message ***
+ *
  * Revision 1.2  2011/11/11 22:01:40  ddarko
- * Added formating
+ * Added formatting
  *
  * Revision 1.1  2011/11/11 20:26:49  ddarko
  * Created
