@@ -1,5 +1,5 @@
 /*$RCSfile: KSafeArray.h,v $: header file
-  $Revision: 1.17 $ $Date: 2011/04/28 22:08:49 $
+  $Revision: 1.18 $ $Date: 2014/10/08 17:42:29 $
   $Author: ddarko $
 
   Handles multidimensional SAFEARRAY.
@@ -37,7 +37,7 @@
 
     Example:
       //If an array was specified in a C-like syntax as a [2][5], it would have
-      //two elements in the rgsabound vector. Element 0 has an lLbound of 0 and
+      //two elements in the SAFEARRAY::rgsabound vector. Element 0 has an lLbound of 0 and
       //a cElements of 2. Element 1 has an lLbound of 0 and a cElements of 5.
 
     See also: SAFEARRAY, TSafeArrayDim, TSafeArray.
@@ -141,7 +141,7 @@ public:
 
 //------------------------------------------------------------------------------
 /*Default constructor used to create n-dimensional arrays. The lower bounds and
-  sizes of each subarray are initalized to 0.
+  sizes of each subarray are initialized to 0.
  */
 template <int DIM>
 TSafeArrayDim<DIM>::TSafeArrayDim()
@@ -151,7 +151,7 @@ memset(m_saBounds,0, sizeof(m_saBounds));
 }
 
 /*Used to create 3-dimensional arrays. The lower bounds of each subarray is
-  initalized to 0. Subarray's lenghts are set to the new values.
+  initialized to 0. Subarray's lengths are set to the new values.
  */
 template <int DIM>
 TSafeArrayDim<DIM>::TSafeArrayDim(int nCount1, //[in]     the number of elements in
@@ -550,7 +550,7 @@ return m_saArray.SetAt(oElement, m_saArray.m_nIndices);
 
 ////////////////////////////////////////////////////////////////////////////////
 /*This class is a wrapper for the SAFEARRAY structure, simplifying creation
-  of onedimensional and multidimensional arrays of almost any of the
+  of one-dimensional and multidimensional arrays of almost any of the
   VARIANT-supported types.
 
   The lower bound of a safe arrays can start at any value within the range of
@@ -559,7 +559,7 @@ return m_saArray.SetAt(oElement, m_saArray.m_nIndices);
 
   Parameters:
     - DIM     number of dimensions of the safe array.
-    - TYPE    data type stored in the conatiner
+    - TYPE    data type stored in the container
     - TYPEVAR variant type classification of a TYPE variable.
 
   Examples:
@@ -615,8 +615,8 @@ public:
 
 public:
   template<typename RTYPE, int RDIM, int RSUBDIM> friend class TSaReductor;
-  //N-1 dimesional safe array container used to reduce number of
-  //array's dimesions
+  //N-1 dimensional safe array container used to reduce number of
+  //array's dimensions
   typedef TSaReductor<TYPE, DIM, DIM - 1> CSaIterator;
 
   TSafeArray<DIM, TYPE, TYPEVAR>& operator=(const TSafeArray<DIM, TYPE, TYPEVAR>& saSrc);
@@ -637,7 +637,7 @@ protected:
                               //stored in reverse order
 };
 
-#define TSafeArrayT TSafeArray //TODO: Synonim description
+#define TSafeArrayT TSafeArray //TODO: Synonym description
 
 ///////////////////////////////////////////////////////////////////////////////
 // Inlines
@@ -664,7 +664,7 @@ Copy(psaSrc);
  */
 template <int DIM, class TYPE, VARENUM TYPEVAR>
 TSafeArray<DIM, TYPE, TYPEVAR>::TSafeArray(TSafeArrayDim<DIM>& saDimension //[in]
-                                           //a vector of bounds difining the array
+                                           //a vector of bounds defining the array
                                           )
 {
 #ifdef _WIN32
@@ -720,7 +720,7 @@ TSafeArray<DIM, TYPE, TYPEVAR>::~TSafeArray()
 /*Destroys the safe array descriptor and all of the data in the array. If
   objects are stored in the array, Release is called on each object in the array.
 
-  Returns true if the array is successfuly destroyed; otherwise returns false.
+  Returns true if the array is successfully destroyed; otherwise returns false.
  */
 template <int DIM, class TYPE, VARENUM TYPEVAR>
 bool TSafeArray<DIM, TYPE, TYPEVAR>::Destroy()
@@ -936,7 +936,7 @@ VARENUM evarResult = VT_EMPTY;
     #pragma option push -w-8104
   #endif //__BORLANDC__
 
-  //address of the procedure used to retreive VARTYPE
+  //address of the procedure used to retrieve VARTYPE
   //Note: not all versions of OleAut32.dll export SafeArrayGetVartype function!
   static PFUNC_SAVARTYPE SafeArrayGetVartypeProc = NULL;
   static HINSTANCE hOleAut32 = ::LoadLibrary(_T("oleaut32.dll"));
@@ -1325,6 +1325,9 @@ return psaResult;
 #endif /* _KSAFEARRAY_H_                                                     */
 /*****************************************************************************
  * $Log: KSafeArray.h,v $
+ * Revision 1.18  2014/10/08 17:42:29  ddarko
+ * fixed typos
+ *
  * Revision 1.17  2011/04/28 22:08:49  ddarko
  * Fixed compilation error
  *
