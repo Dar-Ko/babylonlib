@@ -1,4 +1,4 @@
-/*$Workfile: KAbout.h$: header file
+/*$RCSfile: KAbout.h$: header file
   $Revision: 7$ $Date: 2005-04-26 11:28:08$
   $Author: Darko Kolakovic$
 
@@ -26,7 +26,7 @@
 //Displays the version number the copyright notice of this application.
 //
 //Example:
-//      #include "KAbout.h"  //CAboutDlg dialog
+//      #include "KAbout.h"  //CAboutDlg dialogue
 //      /*Handles ID_APP_ABOUT command displaying the dialog
 //       */
 //      void CMyApp::OnAppAbout()

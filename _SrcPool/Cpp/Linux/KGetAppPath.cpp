@@ -1,5 +1,5 @@
 /*$RCSfile: KGetAppPath.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2014/10/09 18:28:50 $
+  $Revision: 1.2 $ $Date: 2014/10/09 18:40:15 $
   $Author: ddarko $
 
   Retrieves application's path
@@ -42,12 +42,7 @@ int bytes = MIN(readlink(szTmp, pBuf, len), len - 1);
  */
 if ((nSize == 0) || (nSize == MAX_PATH))
   {
-  /*Windows XP/2000:  If the buffer is too small to hold the module
-    name, the function returns size of the buffer. The last error code remains
-    ERROR_SUCCESS (ERROR_INSUFFICIENT_BUFFER for older OS versions). If size
-    of the buffer is zero, the return value is zero and the last error code is
-    ERROR_SUCCESS.
-   */
+
   TRACE1(_T("  Failed GetModuleFileName: error 0X%08X!\n"), GetLastError());
   szPath[0] = _T('\0');
   }
@@ -134,6 +129,9 @@ return strPath;
  */
 /******************************************************************************
  * $Log: KGetAppPath.cpp,v $
+ * Revision 1.2  2014/10/09 18:40:15  ddarko
+ * Comment
+ *
  * Revision 1.1  2014/10/09 18:28:50  ddarko
  * Created
  *

@@ -1,5 +1,5 @@
 /*$RCSfile: KLinFileSimple.cpp,v $: implementation file
-  $Revision: 1.1 $ $Date: 2009/05/07 21:13:05 $
+  $Revision: 1.2 $ $Date: 2014/10/09 18:40:15 $
   $Author: ddarko $
 
   Basic file-handling API wrapper.
@@ -9,7 +9,7 @@
 
 #include "KFileSimple.h" //Declarations
 
-#ifdef _LINUX
+#ifdef __linux
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -48,6 +48,9 @@ void CFileSimple::Write()
 
 /******************************************************************************
  *$Log: KLinFileSimple.cpp,v $
+ *Revision 1.2  2014/10/09 18:40:15  ddarko
+ *Comment
+ *
  *Revision 1.1  2009/05/07 21:13:05  ddarko
  *Created
  *

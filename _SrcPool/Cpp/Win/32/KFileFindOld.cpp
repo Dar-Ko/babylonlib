@@ -1,4 +1,4 @@
-/*$Workfile: KFileFindOld.cpp$: implementation file
+/*$RCSfile: KFileFindOld.cpp$: implementation file
   $Revision: 4$ $Date: 2007-05-03 15:53:45$
   $Author: Darko Kolakovic$
 
@@ -41,7 +41,8 @@
   is based on the last time file has been written. 
   To get extended error information, call GetLastError().
 
-  Note: Microsoft Windows specific (Win).
+  Note: uses Microsoft Foundation Library (MFC);
+        Microsoft Windows specific (Win).
 
   Example:
     CString strOldFile;

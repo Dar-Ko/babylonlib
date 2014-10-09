@@ -1,4 +1,4 @@
-/*$Workfile: $: implementation file
+/*$RCSfile: $: implementation file
   $Revision: 1.1 $ $Date: 2007/09/12 20:40:58 $
   $Author: ddarko $
 

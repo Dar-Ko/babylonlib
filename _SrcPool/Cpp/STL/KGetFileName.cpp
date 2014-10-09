@@ -1,4 +1,4 @@
-/*$Workfile: KGetFileName.cpp$: implementation file
+/*$RCSfile: KGetFileName.cpp$: implementation file
   $Revision: 3$ $Date: 2007-07-10 17:54:01$
   $Author: Darko Kolakovic$
 

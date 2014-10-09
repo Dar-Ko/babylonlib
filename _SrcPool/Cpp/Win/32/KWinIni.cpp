@@ -1,5 +1,5 @@
-/*$Workfile: KWinIni.cpp$: implementation file
-  $Revision: 1.10 $ $Date: 2009/03/18 18:48:16 $
+/*$RCSfile: KWinIni.cpp,v $: implementation file
+  $Revision: 1.11 $ $Date: 2014/10/09 18:40:16 $
   $Author: ddarko $
 
   Configuration file handler (.INI format)
@@ -123,7 +123,7 @@ int GetIniSectionList(CStringArray& strResult, //[out] list of sections
                       LPCTSTR szFilter,   //[in] null-terminated string that
          //specifies name token included in a section name. If it is NULL or
          //an empty string, all section names that are found will be returned.
-                      const int nPosition //[in] = -1 expected postion of filter
+                      const int nPosition //[in] = -1 expected position of filter
          //substring; if it is -1, the substring could appear anywhere in
          //the section name.
                       )
@@ -135,7 +135,7 @@ int iSectionCount = 0;
 
 if((szFilename != NULL) && (szFilename[0] != _T('\0')) )
   {
-  bool bReadSuccessfully = false; //true if  all section names are processsed
+  bool bReadSuccessfully = false; //true if  all section names are processed
   int nStep = 1;      //buffer granule increment
   long lBuffSize = 0; //text buffer size;
   LPTSTR listSection = NULL;  //buffer that receives the section names associated
@@ -226,7 +226,7 @@ return iSectionCount; //Return number of sections
 /*Retrieves a string from the specified section in an initialization file.
   The string is limited to the 256 characters.
   The function is not case-sensitive; the section name can be a combination
-  of uppercase and lowercase letters.
+  of upper case and lower case letters.
   A section in the initialization file must have the following form:
 
     [section]
@@ -302,7 +302,7 @@ return strResult;
 
   Returns the integer value of the string that follows the specified entry if
   the function is successful. When you retrieve a signed integer, you should
-  cast the value into an int.
+  cast the value into an <int>.
   The return value is the value of the nDefault parameter if the function does
   not find the entry. The return value is 0 if the value that corresponds to
   the specified entry is not an integer.
@@ -437,7 +437,7 @@ if((szFilename != NULL)          &&
                            NULL);
   if (hFile != INVALID_HANDLE_VALUE)
     {
-    /*Assupmtion is that configuration files are smaller than 0xffffffff bytes.
+    /*Assumption is that configuration files are smaller than 0xffffffff bytes.
       If expected file size is larger than INVALID_FILE_SIZE = 0xffffffff bytes,
       GetFileSizeEx() have to be used or
       GetFileSize(HANDLE hFile, LPDWORD lpFileSizeHigh).
@@ -733,6 +733,9 @@ return false;
 ////////////////////////////////////////////////////////////////////////////////
 /*******************************************************************************
  $Log: KWinIni.cpp,v $
+ Revision 1.11  2014/10/09 18:40:16  ddarko
+ Comment
+
  Revision 1.10  2009/03/18 18:48:16  ddarko
  Added filter postion to GetIniSectionList()
 

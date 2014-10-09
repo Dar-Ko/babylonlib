@@ -1,4 +1,4 @@
-/*$Workfile: KBeepLin.cpp$: implementation file
+/*$RCSfile: KBeepLin.cpp$: implementation file
   $Revision: 2$ $Date: 2005-05-18 18:32:31$
   $Author: Darko Kolakovic$
 
@@ -37,7 +37,7 @@
 #ifdef __linux
 
 /////////////////////////////////////////////////////////////////////////////
-// CBeep on platforms compatibile with IBM-PC architecture.
+// CBeep on platforms compatible with IBM-PC architecture.
 // Linux, GNU C++ compiler
 
 #include <linux/kd.h>
