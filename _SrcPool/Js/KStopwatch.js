@@ -1,5 +1,5 @@
 //$RCSfile: KStopwatch.js,v $: script file
-//$Revision: 1.3 $ $Date: 2014/09/04 22:54:09 $
+//$Revision: 1.4 $ $Date: 2014/10/14 17:15:18 $
 //$Author: ddarko $
 //
 //Stopwatch
@@ -42,11 +42,15 @@ function CStopwatch() {
 	//-------------------------------------------------------------------------
 	/* Stop or pause stopwatch
 	 */
-	 this.stop = function() {
-		lapTime	= startAt ? lapTime + now() - startAt : lapTime;
-		startAt	= 0;
-		clearInterval(this.timer);
-
+	this.stop = function () {
+		try {
+			lapTime = startAt ? lapTime + now() - startAt : lapTime;
+			startAt = 0;
+			clearInterval(this.timer);
+		}
+		catch (exp) {
+			alert(exp);
+		}
 	};
 
 	//-------------------------------------------------------------------------
@@ -55,7 +59,14 @@ function CStopwatch() {
 	 this.reset = function() {
 		lapTime = startAt = 0;
 	};
-	
+
+	//-------------------------------------------------------------------------
+	/* Move stopwatch for number of milliseconds
+	 */
+	this.move = function (ms) {
+		startAt = startAt + ms;
+	};
+
 	//-------------------------------------------------------------------------
 	/* Returns lapsed time in [ms]
 	 */
