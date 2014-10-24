@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<!--
+	 $Id: index.htm,v 1.1 2014/10/24 14:21:54 ddarko Exp $
+ -->
+<html lang="en-CA">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="refresh" content="1;url=http://localhost/Html/">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<meta name="Revision" content="$Revision: 1.1 $ $Date: 2014/10/24 14:21:54 $" />
+		<meta name="Author" content="$Author: ddarko $" />		
+		<link rel="icon" type="image/x-icon" href="favicon.ico" />
+		<link rel="SHORTCUT ICON" href="favicon.ico" />
+		<script type="text/javascript">
+		window.location.href = "http://" + window.location.host + "/Html/";
+			var metas = document.getElementsByTagName["meta"];
+			for (var i = 0; i < metas.length;i++) {
+				if (metas[i].getAttribute("http-equiv") && metas[i].getAttribute("http-equiv")=="refresh") {
+				metas[i].setAttribute("content","1,url=" + window.location.href);
+				}
+			}
+			var link = document.getElementById("linkRedirection");
+			link.setAttribute('href', window.location.href);
+		</script>
+		<title>Page Redirection</title>
+	</head>
+	<body>
+		If you are not redirected automatically, follow the <a id="linkRedirection" href='http://localhost/Html/'>link to documents</a>
+	</body>
+</html>
