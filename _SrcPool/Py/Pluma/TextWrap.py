@@ -1,23 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
-# Text Wrap Gedit Plugin
+# Text Wrap Pluma Plugin
 #
-# This file is part of the Text Wrap Plugin for Gedit
-# Copyright (C) 2008-2009 Christian Hartmann <christian.hartmann@berlin.de>
-#
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 # This plugin is intended to ease the setting of Text Wrap (aka Line Wrap,
 # Word Wrap) by either a Keyboard Shortcurt (currently sticked to Shift-Ctrl-B),
 # a new entry in the View Menu or by an Icon in the Toolbar. The use of either
@@ -25,32 +9,26 @@
 # new or new opened files is taken from the setting in the Preferences dialog
 # and remembered per file as long thew file is open.
 
-# Parts of this plugin are based on the work of Mike Doty <mike@psyguygames.com>
-# who wrotes the infamous SplitView plugin. The rest is inspired from the Python
-# Plugin Howto document and the Python-GTK documentation.
-
-# CHANGELOG
-# =========
-# * 2008-10-10:
-#   0.1 initial release for private use only
-# * 2009-04-26:
-#   0.2 changed filenames from textwrap to TextWrap as it conflicts with
-#   /usr/lib/python2.6/textwrap.py when loading the plugin. Unfortunately
-#   i have no real clue what actualy is causing this conflict. This might
-#   be reasoned by a change in the Gedit Python Plugin Loader, as this has
-#   not been happening before upgrading pluma or a prerequisite of it through
-#   an upgrade of my Ubuntu to 8.10 or 9.04. Added a couple documentst mainly
-#   to ease the burdon of installation for pluma plugin beginners and made it
-#   public available on my company website: http://hartmann-it-design.de/pluma
-
-# https://github.com/infirit/pluma-plugins/blob/master/Textwrap/TextWrap
+# Copyright (C) 2008-2009 Christian Hartmann <christian.hartmann@berlin.de>
+#
 
 
-# import basic requisites
-import pluma
-import gtk
+# Import basic requisites
+import gi
+gi.require_version('Gtk'  , '3.0')
+gi.require_version('Pluma', '1.0')
 
-# for the texts in the UI elements we use gettext (do we realy?)
+from gi.repository import GObject, Gtk, Pluma  # Pluma
+
+# Try to import Peas for the new style
+try:
+    gi.require_version('Peas', '1.0')
+    from gi.repository import Peas
+    HAS_PEAS = True
+except:
+    HAS_PEAS = False
+
+# for the texts in the UI elements we use gettext (do we really?)
 from gettext import gettext as _
 
 # just a constant used in several places herein
@@ -72,9 +50,6 @@ ui_str = """<ui>
 </ui>
 """
 
-
-
-
 # define the plugin helper class
 class ToggleTextWrapHelper:
 
@@ -83,7 +58,7 @@ class ToggleTextWrapHelper:
         self._DEBUG = False
 
         if self._DEBUG:
-            print "Plugin", plugin_name, "created for", window
+            print ("Plugin", plugin_name, "created for", window)
         self._window = window
         self._plugin = plugin
 
@@ -96,16 +71,16 @@ class ToggleTextWrapHelper:
         _active_view = self._window.get_active_view()
         try:
             _current_wrap_mode = _active_view.get_wrap_mode()
-            if _current_wrap_mode == gtk.WRAP_NONE:
+            if _current_wrap_mode == Gtk.WrapMode.NONE:
                 self._initial_toggle_state = False
             else:
                 self._initial_toggle_state = True
             if self._DEBUG:
-                print "Plugin", plugin_name, "from current wrap mode using initial toggle state", self._initial_toggle_state
+                print ("Plugin", plugin_name, "from current wrap mode using initial toggle state", self._initial_toggle_state)
         except:
             self._initial_toggle_state = _initial_toggle_state_default
             if self._DEBUG:
-                print "Plugin", plugin_name, "using _default_ initial toggle state", _initial_toggle_state_default
+                print ("Plugin", plugin_name, "using _default_ initial toggle state", _initial_toggle_state_default)
 
         # Add "Toggle Text Wrap" to the View menu and to the Toolbar
         self._insert_ui_items()
@@ -113,7 +88,7 @@ class ToggleTextWrapHelper:
 
     def deactivate(self):
         if self._DEBUG:
-            print "Plugin", plugin_name, "stopped for", self._window
+            print ("Plugin", plugin_name, "stopped for", self._window)
         self._remove_ui_items()
         self._window = None
         self._plugin = None
@@ -123,7 +98,7 @@ class ToggleTextWrapHelper:
         # Get the GtkUIManager
         self._manager = self._window.get_ui_manager()
         # Create a new action group
-        self._action_group = gtk.ActionGroup("PluginActions")
+        self._action_group = Gtk.ActionGroup("PluginActions")
 
         ## LEFT IN AS AN EXAMPLE:
         ## Create a toggle action (the classic way) ...
@@ -142,7 +117,7 @@ class ToggleTextWrapHelper:
         #None
         self._action_group.add_toggle_actions([(
                 "ToggleTextWrap",
-                gtk.STOCK_OK,
+                Gtk.STOCK_OK,
                 _("Text Wrap"),
                 "<Ctrl><Shift>B",
                 _("Toggle Current Text Wrap Setting"),
@@ -153,7 +128,7 @@ class ToggleTextWrapHelper:
         self._ui_id = self._manager.add_ui_from_string(ui_str)
         # Debug merged ui
         if self._DEBUG:
-            print self._manager.get_ui()
+            print (self._manager.get_ui())
 
 
     def _remove_ui_items(self):
@@ -170,16 +145,16 @@ class ToggleTextWrapHelper:
     def update_ui(self):
         self._action_group.set_sensitive(self._window.get_active_document() != None)
         if self._DEBUG:
-            print "Plugin", plugin_name, "called for UI update", self._window
+            print ("Plugin", plugin_name, "called for UI update", self._window)
         try:
             # Get initial state from word wrapping in this view (if any)
             _active_view = self._window.get_active_view()
             _current_wrap_mode = _active_view.get_wrap_mode()
             if self._DEBUG:
-                print "Plugin", plugin_name, "current wrap mode", _current_wrap_mode
+                print ("Plugin", plugin_name, "current wrap mode", _current_wrap_mode)
             # Get our action and set state according to current wrap mode
             _current_action = self._action_group.get_action("ToggleTextWrap")
-            if _current_wrap_mode == gtk.WRAP_NONE:
+            if _current_wrap_mode == Gtk.WrapMode.NONE:
                 _current_action.set_active(False)
             else:
                 _current_action.set_active(True)
@@ -189,44 +164,81 @@ class ToggleTextWrapHelper:
 
     def on_toggle_linebreak(self, action):
         if self._DEBUG:
-            print "Plugin", plugin_name, "action in", self._window
+            print ("Plugin", plugin_name, "action in", self._window)
         _active_view = self._window.get_active_view()
         _current_wrap_mode = _active_view.get_wrap_mode()
         if self._DEBUG:
-            print "Plugin", plugin_name, "current wrap mode", _current_wrap_mode
+            print ("Plugin", plugin_name, "current wrap mode", _current_wrap_mode)
         _current_action = self._action_group.get_action("ToggleTextWrap")
         _is_active = _current_action.get_active()
         if self._DEBUG:
-            print "Plugin", plugin_name, "current action state", _is_active
+            print ("Plugin", plugin_name, "current action state", _is_active)
         if _is_active:
-            _active_view.set_wrap_mode(gtk.WRAP_WORD)
+            _active_view.set_wrap_mode(Gtk.WrapMode.WORD)
         else:
-            _active_view.set_wrap_mode(gtk.WRAP_NONE)
+            _active_view.set_wrap_mode(Gtk.WrapMode.NONE)
 
 
     def _console(self, vartext):
         if self._DEBUG:
-            print "Plugin", plugin_name, vartext
+            print ("Plugin", plugin_name, vartext)
 
 
-
-
+###############################################################################
 # define the plugin derivate class
-class ToggleTextWrapPlugin(pluma.Plugin):
+class ToggleTextWrapPlugin(GObject.Object, Pluma.WindowActivatable):
+    __gtype_name__ = "ToggleTextWrapPlugin"
+    window = GObject.Property(type=Pluma.Window)
 
     def __init__(self):
-        pluma.Plugin.__init__(self)
+        GObject.Object.__init__(self)
         self._instances = {}
 
 
-    def activate(self, window):
-        self._instances[window] = ToggleTextWrapHelper(self, window)
+    def do_activate(self):
+        self._instances[self.window] = ToggleTextWrapHelper(self, self.window)
 
 
-    def deactivate(self, window):
-        self._instances[window].deactivate()
-        del self._instances[window]
+    def do_deactivate(self):
+        self._instances[self.window].deactivate()
+        del self._instances[self.window]
 
 
-    def update_ui(self, window):
-        self._instances[window].update_ui()
+    def do_update_ui(self):
+        self._instances[self.window].update_ui()
+
+###############################################################################
+# $Log
+#  2026-01-15 adapted the code to work with pluma v1.26.1 on MATE v24.04 DK
+# $
+# * 2009-04-26:
+#   0.2 changed filenames from textwrap to TextWrap as it conflicts with
+#   /usr/lib/python2.6/textwrap.py when loading the plugin. Unfortunately
+#   i have no real clue what actually is causing this conflict. This might
+#   be reasoned by a change in the Gedit Python Plugin Loader, as this has
+#   not been happening before upgrading pluma or a prerequisite of it through
+#   an upgrade of my Ubuntu to 8.10 or 9.04. Added a couple documents mainly
+#   to ease the burden of installation for pluma plugin beginners and made it
+#   public available on my company website: http://hartmann-it-design.de/pluma
+#   Ref.: https://github.com/infirit/pluma-plugins/blob/master/Textwrap/TextWrap
+# * 2008-10-10:
+#   0.1 initial release for private use only
+# * # This file is (was) part of the Text Wrap Plugin for Gedit
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Parts of this plugin are based on the work of Mike Doty <mike@psyguygames.com>
+# who wrote the infamous SplitView plugin. The rest is inspired from the Python
+# Plugin Howto document and the Python-GTK documentation.
+

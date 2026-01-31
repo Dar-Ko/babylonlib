@@ -1,11 +1,11 @@
-[Pluma Plugin]
-Loader=python
+[Plugin]
+Loader=python3
 Module=TextWrap
-IAge=2
+IAge=3
 Icon=gtk-ok
-Authors=Christian Hartmann <gedit@hartmann-it-design.de>
-Copyright=Copyright (C) 2008-2009 Christian Hartmann
-Website=http://hartmann-it-design.de/gedit/
+#Authors=Christian Hartmann <gedit@hartmann-it-design.de>
+#Copyright=Copyright (C) 2008-2009 Christian Hartmann
+#Website=http://hartmann-it-design.de/gedit/
 Name=Text Wrap
 Name[de]=Textumbruch
 Description=Toggle Text Wrap Setting by Menu Entry or Toolbar Button
