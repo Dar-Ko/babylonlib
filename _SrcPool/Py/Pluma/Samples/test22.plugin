@@ -1,0 +1,7 @@
+[Plugin]
+Loader=python3
+Module=test22
+IAge=3
+Name=Test XXII
+Description=Test Plugin 22; Run Pluma: G_MESSAGES_DEBUG=all pluma 2>&1
+Authors=Tester
