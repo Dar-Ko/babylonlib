@@ -4,7 +4,7 @@ REM $Revision: 1$ $Date: 2006-11-01 11:21:11$
 REM $Author: Darko Kolakovic$
 REM
 REM Obtain the exit codes (ERRORLEVEL) returned by commands.
-REM Note: DOS, Microsoft Windows (Win32) specific
+REM Note: DOS, Microsoft Windows (Win) specific
 REM Copyright: CommonSoft Inc
 REM 2006-10-07 Darko Kolakovic
 

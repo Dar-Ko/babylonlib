@@ -38,8 +38,8 @@
   Project name have following format:
         $/<project name>/<sub project name>/...
 */
-//var g_szVssProject     = "\\\\TPDC01\\VSS\\$/Build Versions/2002 06 10/Catapult_RAD";
-var g_szVssProject     = "$/Build Versions/2002 06 10/Catapult_RAD/OCXs/DirSeekerControl/";
+//var g_szVssProject     = "\\\\UNC\\MACHINE\\VSS\\$/Build Versions/ProjectName/";
+var g_szVssProject     = "$/Build Versions/ProjectName/";
 //var g_szVssProject     = "$/";
 /*Indicate if deleted VSS items are to be included in the current items
   collection. The default value of this parameter is false.
@@ -65,12 +65,12 @@ var max_comment_len = 400;   // depends on various path lengths
 // VSS repositories, you may have to specify the one you
 // want by setting the environmental variable SSDIR *before*
 // running this script.
-var vss_ini_file    = "\\\\tpdc01\\VSS\\srcsafe.ini";
+var vss_ini_file    = "\\\\UNC\\VSS\\srcsafe.ini";
 var vss_username    = "DKolakovic";
 var vss_password    = "a";
 
 // Destination directory
-var rcs_repository  = "C:\\Development\\catapult3.a";
+var rcs_repository  = "C:\\Development\\target";
 //var rcs_repository  = "c:\\cvsroot";
 
 // Directory containing ci.exe, diff.exe and rcs.exe.  This can be
