@@ -5,13 +5,19 @@
 # Open Pluma and go to Edit > Preferences > Plugins > check Test22.
 #
 # There are two different plugin systems:
-# Old (before MATE 2.0): Use Pluma.WindowActivatable and property window of 
+# Old (before MATE 2.0): Use Pluma.WindowActivatable and property window of
 #  type Pluma.Window.
-# New (MATE 2.0+): Use Peas.Activatable and property object of type 
+# New (MATE 2.0+): Use Peas.Activatable and property object of type
 #  GObject.Object (but when used with Pluma, it will be a Pluma.Window).
 
 import sys
-print('DEBUG:', sys.version) # Python 2.7
+
+DEBUG = True
+# If DEBUG is True, self.log becomes a printing function.
+# If False, it becomes a lambda that does nothing.
+TRACE = lambda s, *args: print(f"[{s}]:", *args) if DEBUG else (lambda *args: None)
+
+TRACE('INFO', sys.version) # Python 2.7
 
 import gi
 gi.require_version('Gtk'  , '3.0')
@@ -27,7 +33,7 @@ try:
 except:
     HAS_PEAS = False
 
-print('DEBUG: Peas is available :=', HAS_PEAS)
+TRACE('INFO', 'Peas is available :=', HAS_PEAS)
 
 ###############################################################################
 # Debugging helper examines the type of the window
@@ -35,38 +41,38 @@ def is_pluma_window(window):
     # Check if it's a Pluma.Window
     if not isinstance(window, Pluma.Window):
         # Try to cast it (for debugging)
-        print(f"DEBUG: Object type: {type(window)}")
-        print(f"DEBUG: Object attributes: {dir(window)[:10]}...")
+        TRACE('DEBUG', f"Object type: {type(window)}")
+        TRACE('DEBUG', f"Object attributes: {dir(window)[:10]}...")
 
         if hasattr(window, 'get_title'):
-            print(f"DEBUG: Has get_title method, assuming it's a window")
+            TRACE('DEBUG', f"\tHas get_title method, assuming it's a window")
         else:
-            print(f"ERROR: Not a Pluma.Window and missing window methods")
+            TRACE('ERROR', f"\tNot a Pluma.Window and missing window methods")
             return False
     else:
-        print(f"INFO: Confirmed Pluma.Window: Title = '{window.get_title()}'")
+        TRACE('INFO',f"Confirmed Pluma.Window: Title = '{window.get_title()}'")
     return True
 
 ###############################################################################
 # Common functionality for both plugin styles
 class TestPluginCommon:
     def _real_activate(self):
-        print('DEBUG: TestPlugin _real_activate:', self.window)
+        TRACE('DEBUG', 'TestPlugin _real_activate:', self.window)
 
         # Debugging: check if self.window is a Pluma.Window
         is_pluma_window(self.window)
 
     def _real_deactivate(self):
-        print('DEBUG: TestPlugin _real_deactivate:', self.window)
+        TRACE('DEBUG', 'TestPlugin _real_deactivate:', self.window)
 
     def _real_update_state(self):
-        print('DEBUG: TestPlugin _real_update_state:', self.window)
+        TRACE('DEBUG', 'TestPlugin _real_update_state:', self.window)
         pass
 
 ###############################################################################
 # Define the plugin class conditionally
 if HAS_PEAS and not hasattr(Pluma, 'WindowActivatable'):
-    print('DEBUG: Using Peas for new (Ubuntu 24.04) style')
+    TRACE('DEBUG', 'Using Peas for new (Ubuntu 24.04) style')
     class TestPlugin(GObject.Object, Peas.Activatable, TestPluginCommon):
         __gtype_name__ = "TestPluginPeas"
         object = GObject.Property(type=GObject.Object)
@@ -74,37 +80,37 @@ if HAS_PEAS and not hasattr(Pluma, 'WindowActivatable'):
         def __init__(self):
             GObject.Object.__init__(self)
             self.window = None
-            print('DEBUG: __init__: ', self.__gtype_name__)
+            TRACE('DEBUG', '__init__: ', self.__gtype_name__)
 
         def do_activate(self):
             # In the new style, the window is passed as self.object
             self.window = self.object
             self._real_activate()
-        
+
         def do_deactivate(self):
             self._real_deactivate()
             self.window = None
-        
+
         def do_update_state(self):
             self._real_update_state()
             pass
 else:
     # Old style plugin with Pluma
-    print('DEBUG: Using Pluma old style')
+    TRACE('DEBUG', 'Using Pluma old style')
     class TerminalPlugin(GObject.Object, Pluma.WindowActivatable, TestPluginCommon):
         __gtype_name__ = "TestPluginPluma"
         window = GObject.Property(type=Pluma.Window)
-        
+
         def __init__(self):
             GObject.Object.__init__(self)
-            print('DEBUG: __init__: ', self.__gtype_name__)
+            TRACE('DEBUG', '__init__: ', self.__gtype_name__)
 
         def do_activate(self):
             self._real_activate()
-        
+
         def do_deactivate(self):
             self._real_deactivate()
-        
+
         def do_update_state(self):
             self._real_update_state()
             pass
