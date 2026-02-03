@@ -100,12 +100,12 @@
    */
   #define UCPRIVATEUSEZONE 0xFFFF
 
-  /*Validates if a vule is equal to Unicode Byte Order Mark (BOM) in underlaying
+  /*Validates if a vule is equal to Unicode Byte Order Mark (BOM) in underlying
     architecture (big or little endian).
    */
   #define ISUCBOM(x) (UCBYTEORDERMARK == (0xFFFFU & (x)))
 
-  /*Validates three subsequent 8-bit characters are equalt to UTF-8
+  /*Validates three subsequent 8-bit characters are equal to UTF-8
     Byte Order Mark (BOM).
     UTF-8 encoded file begins with 0xEF, 0xBB, 0xBF bytes.
    */
@@ -250,7 +250,7 @@
    */
   const uint8_t UTF8BYTEORDERMARK[] = {0xEF, 0xBB, 0xBF};
 
-  /*Validates if a value is equal to Unicode Byte Order Mark (BOM) in underlaying
+  /*Validates if a value is equal to Unicode Byte Order Mark (BOM) in underlying
     architecture (big or little endian).
    */
 inline bool ISUCBOM(const wchar_t x //[in] value to validate
@@ -279,7 +279,7 @@ inline bool ISUCBOMBE(const uint8_t x[2] //[in] value to validate
           (0xFF == x[1]) );
   }
 
-  /*Validates three subsequent 8-bit characters are equalt to UTF-8
+  /*Validates three subsequent 8-bit characters are equal to UTF-8
     Byte Order Mark (BOM).
     UTF-8 encoded file begins with 0xEF, 0xBB, 0xBF bytes.
    */
@@ -484,7 +484,7 @@ const unsigned long GiB = 0x40000000UL;
   #define _ENDIAN_LOW_INDEX  0
 
   #ifndef _GET_WORD_ALIGNP
-  //Copy a WORD value byte by byte, becouse on some architectures (WORD*)pcHostValue
+  //Copy a WORD value byte by byte, because on some architectures (WORD*)pcHostValue
   //will round pointer to match WORD increments giving a result equal to
   //*(WORD*)(pcHostValue/sizeof(WORD))
     #define _GET_WORD_ALIGNP(pBYTE) \
@@ -493,7 +493,7 @@ const unsigned long GiB = 0x40000000UL;
   #endif
 
   #ifndef _GET_DWORD_ALIGNP
-  //Copy a DWORD value byte by byte, becouse on some architectures (DWORD*)pcHostValue
+  //Copy a DWORD value byte by byte, because on some architectures (DWORD*)pcHostValue
   //will round pointer to match DWORD increments giving a result equal to
   //*(DWORD*)(pcHostValue/sizeof(DWORD))
     #define _GET_DWORD_ALIGNP(pBYTE) \
@@ -543,10 +543,10 @@ const unsigned long GiB = 0x40000000UL;
 #define SWAP_BYTE( ch )  (( ( (ch) << 4 ) | ( (ch) >> 4 ) ))
   /*Swap values of distinct variables having the same data type without using
     a temporary variable.
-    Varibles have to distinct (to be on different storage locations), otherwise
+    Variables have to distinct (to be on different storage locations), otherwise
     result will be 0.
     In most practical scenarios, the trivial swap algorithm using a temporary
-    variable is more efficient, in particular where CPU allows parallel 
+    variable is more efficient, in particular where CPU allows parallel
     execution. Situations in which XOR swapping may be beneficial are:
     using microcontrollers with very limited RAM, CPU with highly optimized
     XOR swap command.
@@ -561,12 +561,12 @@ const unsigned long GiB = 0x40000000UL;
   }
 
   /*Set of wide characters representing Latin letters, digits
-    and specal characters '_', ' '    */
+    and special characters '_', ' '    */
 #define ALPHANUMERICSET1W L"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_ 0123456789"
-  /*Set of condtional width characters representing Latin letters, digits and
-    specal characters '_', ' '    */
+  /*Set of conditional width characters representing Latin letters, digits and
+    special characters '_', ' '    */
 #define ALPHANUMERICSET1T _T("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_ 0123456789")
-  /*Set of Latin letters, digits and specal characters '_', ' '              */
+  /*Set of Latin letters, digits and special characters '_', ' '              */
 #define ALPHANUMERICSET1   "ABCDEFGHIJKLMNOPQRSTUVWXYZ" \
                            "abcdefghijklmnopqrstuvwxyz" \
                            "_ 0123456789"
@@ -620,7 +620,7 @@ const unsigned long GiB = 0x40000000UL;
       }
   #endif
 
-  
+
   /*Synonyms for SIZEOFARR                                                    */
   #ifndef ARRSIZE
     #define ARRSIZE  SIZEOFARR
@@ -643,7 +643,7 @@ const unsigned long GiB = 0x40000000UL;
   /*Returns the pointer to the last element of an array
    */
   #define ENDOFARR(X) ((X) + SIZEOFARR(X))
-  
+
   /*Synonyms for ENDOFARR                                                    */
   #ifndef ENDOF
     #define ENDOF  ENDOFARR
@@ -684,7 +684,7 @@ const unsigned long GiB = 0x40000000UL;
 
 /*Verifies if one set of numbers defined with range boundaries [n1, n2] is
   included in the other. Only range boundaries are examined; it is assumed that
-  set elements are within range boundaries and the boudaries are elemenets of sets.
+  set elements are within range boundaries and the boundaries are elements of sets.
   Returns true if one of the sets includes boundaries of the other.
  */
 #define ISRANGEINCLUDED(nA1, nA2, nB1, nB2) \
@@ -698,7 +698,7 @@ const unsigned long GiB = 0x40000000UL;
 #define ISRANGEEINCLUDED(nA1, nA2, nB1, nB2) \
     ((nA2) > (nB1) && (nB2) > (nA1))
 
-/*Verfies if an array is an empty or insignificant set.
+/*Verifies if an array is an empty or insignificant set.
 
   Example:
       char* szVec = "123456";
@@ -725,14 +725,14 @@ const unsigned long GiB = 0x40000000UL;
    */
   #define NaN_DVALUE(NAN)   (NAN.dValue)
 
-  /*Returnes TRUE if two float numbers are equal within an error represented
+  /*Returns TRUE if two float numbers are equal within an error represented
     with epsilon.
     Epsilon is defined as as the smallest positive number x, such that x+1.0
     is not equal to 1.0. FLT_EPSILON is defined in <Float.h> as 1.192092896e-07F
    */
   #define IS_EQUAL_FLOAT(a,b) (((b - FLT_EPSILON) < a) && (a <( b + FLT_EPSILON)))
 
-  /*Returnes TRUE if two double numbers are equal within an error represented
+  /*Returns TRUE if two double numbers are equal within an error represented
     with epsilon.
     Epsilon is defined as as the smallest positive number x, such that x+1.0
     is not equal to 1.0. DBL_EPSILON is defined in <Float.h> as 2.2204460492503131e-016
@@ -769,13 +769,13 @@ const unsigned long GiB = 0x40000000UL;
 
 #ifndef UNUSED
   /*Resolves the compiler warning about unused arguments.
-    Synonim to _UNUSED, UNUSED_ARG.
+    Synonym to _UNUSED, UNUSED_ARG.
    */
   #define UNUSED _UNUSED
 #endif
 #ifndef UNUSED_ARG
   /*Resolves the compiler warning about unused arguments.
-    Synonim to _UNUSED, UNUSED.
+    Synonym to _UNUSED, UNUSED.
    */
   #define UNUSED_ARG _UNUSED
 #endif

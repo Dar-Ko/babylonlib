@@ -69,7 +69,7 @@ long gcd(long Operand1, //[in] first whole number
     gcd(A,B) = gcd(B, |A-B|/2).
 
   It consists of eliminating the least significant bit at each loop iteration.
-  Knuth [20,§4.5.2] quotes text "Chiu Chang Suan Shu" [~100 AD, China]:
+  Knuth [20,ï¿½4.5.2] quotes text "Chiu Chang Suan Shu" [~100 AD, China]:
   - If halving is possible, take half.
   - Otherwise write down the denominator and the numerator and subtract
     the smaller from the greater.
@@ -188,7 +188,7 @@ long gcd(long Operand1, //[in] first whole number
     gcd(A,B) = gcd(B, |A-B|/2).
 
   It consists of eliminating the least significant bit at each loop iteration.
-  Knuth [20,§4.5.2] quotes text "Chiu Chang Suan Shu" [~100 AD, China]:
+  Knuth [20,ï¿½4.5.2] quotes text "Chiu Chang Suan Shu" [~100 AD, China]:
   - If halving is possible, take half.
   - Otherwise write down the denominator and the numerator,
   - and subtract the smaller from the greater.

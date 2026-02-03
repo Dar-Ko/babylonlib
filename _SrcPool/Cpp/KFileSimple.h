@@ -52,7 +52,7 @@ public:
     //access rights
     FILE_R = 0x01, //opens  file for reading.
     FILE_A = 0x02, //opens file for appending.
-    FILE_RA = FILE_R | FILE_A  //opens file for reading and appendig.
+    FILE_RA = FILE_R | FILE_A  //opens file for reading and appending.
 
     };
 
@@ -64,7 +64,7 @@ protected:
 // Inlines
 
 //------------------------------------------------------------------------------
-/*The default constructor does not open a file but rather initalizes file
+/*The default constructor does not open a file but rather initializes file
   descriptor to null.
  */
 inline CFileSimple::CFileSimple() :

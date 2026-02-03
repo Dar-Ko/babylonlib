@@ -46,7 +46,7 @@
   are equal to zero:
       lcm(0, 0) = 0.
 
-  See alco: GreatestCommonDivisor, gcd()
+  See alo: GreatestCommonDivisor, gcd()
  */
 template <typename TYPE>
 TYPE lcm(TYPE Operand1, //[in] first operand

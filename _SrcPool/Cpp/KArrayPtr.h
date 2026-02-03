@@ -62,7 +62,7 @@ CArrayPtr<TYPE>::CArrayPtr(const CArrayPtr& src //[in] source of the elements
 Copy(src);
 }
 
-/*Frees up any resources used by the objectes refered by the array elements.
+/*Frees up any resources used by the objects referred by the array elements.
  */
 template <class TYPE>
 CArrayPtr<TYPE>::~CArrayPtr()
@@ -72,7 +72,7 @@ RemoveAll();
 
 //-----------------------------------------------------------------------------
 /*Removes all of the elements a user-defined type and frees the memory allocated
-  to the refering objects.
+  to the referring objects.
 
   Note: It is assumed that objects are created with new operator.
 
@@ -92,7 +92,7 @@ RemoveAll();
 template <class TYPE>
 void CArrayPtr<TYPE>::RemoveAll()
 {
-//Free resoures hold by refering object
+//Free resources hold by referring object
 int i = 0;
 while ( i < GetSize())
   {
@@ -106,7 +106,7 @@ CArray<TYPE*>::RemoveAll(); //Delete array elements
 }
 
 //-----------------------------------------------------------------------------
-/*Removes one element from the array and frees refering object. Any remaining
+/*Removes one element from the array and frees referring object. Any remaining
   elements are shifted down and the upper bound is decremented,
 
   Note: It is assumed that objects are created with PTYPE::new operator.
@@ -170,7 +170,7 @@ while(i < src.GetSize() )
 /*****************************************************************************
  * $Log: KArrayPtr.h,v $
  * Revision 1.5  2009/07/22 16:44:58  ddarko
- * Copy using copy constructor instead assigment
+ * Copy using copy constructor instead assignment
  *
  * Revision 1.4  2009/07/21 22:17:37  ddarko
  * Copy NULL elements

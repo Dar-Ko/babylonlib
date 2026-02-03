@@ -203,10 +203,27 @@ protected:
 
 ///////////////////////////////////////////////////////////////////////////////
 /*Plain Text Extension
-  The Plain Text Extension contains textual data and the parameters necessary to render that data as a graphic, in a simple form. The textual data will be encoded with the 7-bit printable ASCII characters. Text data are rendered using a grid of character cells defined by the parameters in the block fields. Each character is rendered in an individual cell. The textual data in this block is to be rendered as mono-spaced characters, one character per cell, with a best fitting font and size. For further information, see the section on Recommendations below. The data characters are taken sequentially from the data portion of the block and rendered within a cell, starting with the upper left cell in the grid and proceeding from left to right and from top to bottom. Text data is rendered until the end of data is reached or the character grid is filled. The Character Grid contains an integral number of cells; in the case that the cell dimensions do not allow for an integral number, fractional cells must be discarded;
-an encoder must be careful to specify the grid dimensions accurately so that this does not happen. This block requires a Global Color Table to be available; the colors used by this block reference the Global Color Table in the Stream if there is one, or the Global Color Table from a previous Stream, if one was saved. This block is a graphic rendering block, therefore it may be modified by a Graphic Control Extension. This block is OPTIONAL; any number of them may appear in the Data Stream.
-
-
+  The Plain Text Extension contains textual data and the parameters necessary
+  to render that data as a graphic, in a simple form. The textual data will be
+  encoded with the 7-bit printable ASCII characters. Text data are rendered using
+  a grid of character cells defined by the parameters in the block fields.
+  Each character is rendered in an individual cell. The textual data in this
+  block is to be rendered as mono-spaced characters, one character per cell,
+  with a best fitting font and size. For further information, see the section
+  on Recommendations below. The data characters are taken sequentially from
+  the data portion of the block and rendered within a cell, starting with
+  the upper left cell in the grid and proceeding from left to right and from top
+  to bottom. Text data is rendered until the end of data is reached or the character
+  grid is filled. The Character Grid contains an integral number of cells; in
+  the case that the cell dimensions do not allow for an integral number,
+  fractional cells must be discarded;
+  an encoder must be careful to specify the grid dimensions accurately so that
+  this does not happen. This block requires a Global Color Table to be available;
+  the colors used by this block reference the Global Color Table in the Stream
+  if there is one, or the Global Color Table from a previous Stream, if one was
+  saved. This block is a graphic rendering block, therefore it may be modified
+  by a Graphic Control Extension. This block is OPTIONAL; any number of them may
+  appear in the Data Stream.
  */
 class CGifPlainTextExt : protected CGifExtension
 {
@@ -570,7 +587,7 @@ private:
   // #pragma pack(push, 1)
 #pragma pack(1)
   char m_cSignature[3]; //data stream signature identifying valid GIF format
-  char m_cVersion[3];   //version number indefies the minimum set of capabilities
+  char m_cVersion[3];   //version number identifies the minimum set of capabilities
                         //required of a decoder in order to fully process
                         //data stream
   CGifLogicalScreenDescriptor m_gifScreenDescriptor; //logical screen descriptor
@@ -585,14 +602,14 @@ public:
 /*This class encapsulates images in Graphics Interchange Format(c) (GIF) devised
   initially for transmitting graphical images over phone lines via modems.
   Size of an image file is reduced by the Lempel-Ziv Welch (LZW) algorithm,
-  derived from Huffman Coding compression. LZW algorithm is modified to acomodate
+  derived from Huffman Coding compression. LZW algorithm is modified to accommodate
   image scan line packets.
   GIF format supports up to 256 (8-bit) colors per color palette and it is most
   suitable for images with few distinctive colors (e.g., graphics drawing).
   This data container is compliant with image formats versions 87a and 89a.
 
   A GIF data stream is a sequence of data blocks and sub-blocks representing
-  a collection of graphics. Each block contains variuos parameters and data
+  a collection of graphics. Each block contains various parameters and data
   relevant in reproduction of an image.
 
   In order to provide a synchronization for the termination of a GIF image file,

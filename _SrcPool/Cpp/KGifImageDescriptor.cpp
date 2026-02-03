@@ -2,7 +2,7 @@
   $Revision: 6$ $Date: 2003-11-03 12:10:09$
   $Author: Darko$
   
-  Describes an image enbedded in GIF(c) Data Stream.
+  Describes an image embedded in GIF(c) Data Stream.
   GIF and 'Graphics Interchange Format' are trademarks of CompuServe, 
   Incorporated.
  */ 
@@ -96,7 +96,7 @@ if (szOutput != NULL)
           "{\nm_wLeftPos = %d,\nm_wTopPos = %d,\n"
           "m_wWidth = %d,\nm_wHeight = %d,\n"
           "m_cControlFlags = 0x%x (has%s Local Color Table,\n"
-          "%Sintrelaced image,\n"
+          "%sintrelaced image,\n"
           "Table is%s sorted,\n"
           "Local Color Table Size %d),\n",
           m_wLeftPos, //SWAP

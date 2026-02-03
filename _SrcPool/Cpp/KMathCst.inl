@@ -63,7 +63,7 @@ return x*x*x;
   logN(x) = log(x) / log(n)
  */
 template <class TYPE, class BASE> inline TYPE logN(TYPE x,//[in] value whose
-                                                //logarithm is to be found. 
+                                                //logarithm is to be found.
                                                    BASE n //[in]
                                                    )
 {
@@ -74,7 +74,7 @@ return log(x)/log(n);
 
 #if _MSC_VER > 1300
 template <class TYPE> inline TYPE logN(TYPE x,//[in] value whose
-                                              //logarithm is to be found. 
+                                              //logarithm is to be found.
                                        int n  //[in]
                                        )
 {
@@ -117,12 +117,12 @@ return fabs(x);
       {html:<br /><img src="Images/eqVectorNorm.gif" border="0"
                         alt="abs(Z)=sqrt(&Sigma;(Zi**2))" />
             <br /><img src="Images/eqComplexNo.gif" border="0"
-                        alt="Z= x +i*y" />                        
+                        alt="Z= x +i*y" />
             <br /><img src="Images/eqPhasorMod.gif" border="0"
-                        alt="abs(Z)=sqrt( Z.x*Z.x + Z.y*Z.y ). 
+                        alt="abs(Z)=sqrt( Z.x*Z.x + Z.y*Z.y ).
       }
     On overflow, returns HUGE_VAL and sets errno to ERANGE.
-    
+
     Example:
         #include "KMathCst.inl"
         #include "STL/KOStream.h"
@@ -132,8 +132,8 @@ return fabs(x);
           double dAbs; //absolute value of a complex number
 
           dAbs = Absolute(Z);
-          std::_tcout << _T("|Z| = |") << Z.x 
-                      << _T(" + i") << Z.y 
+          std::_tcout << _T("|Z| = |") << Z.x
+                      << _T(" + i") << Z.y
                       << _T("| = ") << dAbs << std::endl;
           }
         Output: |Z| = |3.000 + i4.000| = 5.000
@@ -186,7 +186,7 @@ return value == 0 ? 0 : (value < 0 ? -1 : 1);
   Returns: arc [rad]
  */
 template<class TYPE>
-inline double DegMinSec2Rad(const TYPE& Degrees,//[in] arc degrees [°]
+inline double DegMinSec2Rad(const TYPE& Degrees,//[in] arc degrees [ï¿½]
                             const TYPE& Minutes,//[in] arc minutes [']
                             const TYPE& Seconds //[in] arc seconds ["]
                             )
@@ -199,13 +199,13 @@ return ( ((Degrees*60.0 + Minutes)*60.0 + Seconds)*CST_SEC2RAD );
  */
 template <class radType>
 void Rad2DegMinSec(const radType& fRadian, //[in] value to convert [rad]
-                   radType& nDeg,          //[out] result in range[0,60][°]
+                   radType& nDeg,          //[out] result in range[0,60][ï¿½]
                    radType& nMin,          //[out] result in range[0,60][']
                    radType& dSec           //[out] result in range[0,60]["]
                    )
 {
 double dDeg = Rad2Deg((double)fRadian);
-nDeg = (radType)(int)dDeg;  //Get integer part [°]
+nDeg = (radType)(int)dDeg;  //Get integer part [ï¿½]
 dDeg *= 60.0;
 nMin = (radType)((int)dDeg % 60); //Get reminder ["]
 dDeg *= 60.0;
@@ -251,7 +251,7 @@ template<> inline void SWAP(int& a, //[in] a value to be replaced with second
                             int& b  //[in] a value to be replaced with first
                             )
 {
-  //Swaping values without a temporary value
+  //Swapping values without a temporary value
 a ^= b;
 b ^= a;
 a ^= b;
@@ -261,7 +261,7 @@ template<> inline void SWAP(unsigned int& a, //[in] a value to be replaced with 
                             unsigned int& b  //[in] a value to be replaced with first
                             )
 {
-  //Swaping values without a temporary value
+  //Swapping values without a temporary value
 a ^= b;
 b ^= a;
 a ^= b;
@@ -338,7 +338,7 @@ return (int)floor(log10(dValue));
 
 //Round()----------------------------------------------------------------------
 /*Rounds a double float number within given precision.
-  Following alorithm is used:
+  Following algorithm is used:
 
       y = floor(x * 10^n + 0.5) / 10^n;
 
@@ -405,10 +405,10 @@ return (int)floor(x + 0.5);
  *       specialization for unsigned int
  *  10   Biblioteka1.9         08/07/2002 9:51:04 PMDarko           SWAP
  *       specialization for int
- *  9    Biblioteka1.8         04/04/2002 1:12:53 AMDarko           Documenation
+ *  9    Biblioteka1.8         04/04/2002 1:12:53 AMDarko           Documentation
  *       update
  *  8    Biblioteka1.7         08/03/2002 3:04:43 PMDarko Kolakovic Updated comment
- *  7    Biblioteka1.6         29/01/2002 11:21:29 PMDarko           Used lbraries
+ *  7    Biblioteka1.6         29/01/2002 11:21:29 PMDarko           Used libraries
  *       notes
  *  6    Biblioteka1.5         29/01/2002 3:40:51 PMDarko           Tag update
  *  5    Biblioteka1.4         17/08/2001 12:37:44 AMDarko           Update

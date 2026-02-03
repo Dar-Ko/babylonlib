@@ -44,7 +44,7 @@ public:
 public:
   int_least16_t m_iEpoch; /*first year in an epoch used in year calculation.
                             date.da_year member contains number of years since
-                            epoch beginnig. If epoch year is 1, date.da_year
+                            epoch beginning. If epoch year is 1, date.da_year
                             is a calendar year.
 
                             Note: calendar years begins with the year 01.
@@ -70,7 +70,7 @@ public:
 // Inlines
 
 //-----------------------------------------------------------------------------
-/*Deafult constructor initializes date to 0001-01-01.
+/*Default constructor initializes date to 0001-01-01.
 
   See also: date, YEAR_EPOCH_DOS, YEAR_EPOCH_UNIX, YEAR_EPOCH_TM
  */
@@ -183,7 +183,7 @@ return (int_fast16_t)(da_year + m_iEpoch);
   Note: To avoid overflow condition, sum of da_year and m_iEpoch members have
   to be less than INT_LEAST16_MAX.
 
-  Returns: beginnig of previous epoch.
+  Returns: beginning of previous epoch.
  */
 inline int_least16_t CDate::SetEpoch(const int_least16_t iNewEpoch)
 {

@@ -43,12 +43,12 @@
       YYYYMMDD or YYYYcMMcDD
       where
         YYYY is year [0, 9999]. Meaning of the numbers depends of
-             the implemtation and current epoch m_iEpoch
+             the implementation and current epoch m_iEpoch
         MM   is month [1, 12]
         DD   is day of the month [1, 31]
         c    number separator.
 
-  See also: _DATE_FORMAT_STD_BASIC, CDate::opertor=(), International Standard
+  See also: _DATE_FORMAT_STD_BASIC, CDate::operator=(), International Standard
   {html: <a href="Documentation/ISO8601.htm">ISO 8601:2000</a>}
   Data elements and interchange formats,
   {html: <a href="Documentation/RFC3339.htm">RFC 3339</a>}
@@ -117,13 +117,13 @@ tmtValue.tm_yday = GetDayOfYear();
 /*Converts date to zero-terminated string in ISO 8601 basic date format:
       YYYYMMDD where
         YYYY is year [0000, 9999]. Meaning of the numbers depends of
-             the implemtation and current epoch m_iEpoch
+             the implementation and current epoch m_iEpoch
         MM   is month [01, 12]
         DD   is day of the month [01, 31]
 
   Method requires a szTarget to store 9 characters. Method does not check szTarget
   overflow condition.
-  Overide this method if different date format is desired.
+  Override this method if different date format is desired.
 
   Returns: pointer to szTarget containing date in basic format.
 
@@ -166,13 +166,13 @@ return szTarget;
       YYYYMMDD or YYYYcMMcDD
       where
         YYYY is year [0, 9999]. Meaning of the numbers depends of
-             the implemtation and current epoch m_iEpoch
+             the implementation and current epoch m_iEpoch
         MM   is month [1, 12]
         DD   is day of the month [1, 31]
         c    number separator.
 
-  This implematation will accept any non-digit character as number separator. Also,
-  signed numbers are allowed and the leading zeros are not neccessary, allowing
+  This implementation will accept any non-digit character as number separator. Also,
+  signed numbers are allowed and the leading zeros are not necessary, allowing
   conversion from following format:
 
       +YY/MMDD

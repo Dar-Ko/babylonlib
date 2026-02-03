@@ -17,7 +17,7 @@
   #ifdef _UNICODE
     /*Part of code that converts value of a name constant to the string.
       Requires szResult variable to be defined before usage.
-      
+
       Example:
           ...
           LPTSTR szResult:
@@ -33,7 +33,7 @@
   #else //_SBCS
     /*Part of code that converts value of a name constant to the string.
       Requires szResult variable to be defined before usage.
-      
+
       Example:
           ...
           LPTSTR szResult:

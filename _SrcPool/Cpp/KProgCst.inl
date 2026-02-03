@@ -218,7 +218,7 @@ return SIZE;
 }
 
 //-----------------------------------------------------------------------------
-/*Verfies if an array is an empty or insignificant set.
+/*Verifies if an array is an empty or insignificant set.
 
   Example:
       int arrVec[5];
@@ -233,7 +233,7 @@ template<typename ARRAY> bool IsEmpty(ARRAY* pVec)
 return ((pVec == NULL) || (pVec[0] == 0));
 }
 
-/*Verfies if zero-terminated string is an empty string.
+/*Verifies if zero-terminated string is an empty string.
 
   Example:
       char* szVec = "123456";

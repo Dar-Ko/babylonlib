@@ -5,8 +5,8 @@
   National language support constants.
   This files is largely ported from the Win32 header WinNLS.h.
  */
-//TODO: move locales (LCID) & associated maros to differnt header file D.K.
- 
+//TODO: move locales (LCID) & associated macros to different header file D.K.
+
 #ifndef _KNLSCST_H_
   /*$Workfile: KNLSCst.h$ sentry*/
   #define _KNLSCST_H_
@@ -16,13 +16,13 @@
 //Primary language IDs.                                                      */
 
 /*The following two combinations of primary language ID and sublanguage ID have
-  special semantics: 
+  special semantics:
 
       Primary Language ID   Sublanguage ID      Result
       -------------------   ---------------     ------------------------
       LANG_NEUTRAL          SUBLANG_NEUTRAL     Language neutral
       LANG_NEUTRAL          SUBLANG_DEFAULT     Process default language
-      LANG_NEUTRAL          SUBLANG_SYS_DEFAULT System default language   
+      LANG_NEUTRAL          SUBLANG_SYS_DEFAULT System default language
  */
 #define LANG_NEUTRAL                     0x00
 
@@ -62,7 +62,7 @@
 
 /*
 ///////////////////////////////////////////////////////////////////////////////
-// Sublanguage IDs. The name immediately following SUBLANG_ defines which 
+// Sublanguage IDs. The name immediately following SUBLANG_ defines which
 // primary language ID that sublanguage ID can be combined with to form a valid
 // language ID.                                                              */
 
@@ -71,7 +71,7 @@
 #define SUBLANG_SYS_DEFAULT              0x02    /* system default */
 
 #define SUBLANG_CHINESE_SIMPLIFIED       0x02    /* Chinese (Simplified) */
-#define SUBLANG_CHINESE_TRADITIONAL      0x01    /* Chinese (Traditional) */ 
+#define SUBLANG_CHINESE_TRADITIONAL      0x01    /* Chinese (Traditional) */
 #define SUBLANG_CHINESE_HONGKONG         0x33
 #define SUBLANG_CHINESE_SINGAPORE        0x04
 #define SUBLANG_DUTCH                    0x01    /* Dutch */
@@ -140,7 +140,7 @@
 #ifndef _LCID_DEFINED
   #define _LCID_DEFINED
 
-  /*Locale ID is a DWORD value which is the combination of a language ID 
+  /*Locale ID is a DWORD value which is the combination of a language ID
     and a reserved area.  The bits are allocated as follows:
 
         +-----------------------+-------------------------+
@@ -163,7 +163,7 @@
 
 #endif /*_LCID_DEFINED                                                       */
 
-/* 
+/*
 ///////////////////////////////////////////////////////////////////////////////
 // NLS component Macros                                                      */
 
@@ -189,11 +189,11 @@
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_KNLSCST_H_
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  3    Biblioteka1.2         2005-04-29 00:11:28  Darko           Comment
  *  2    Biblioteka1.1         2002-01-25 15:57:19  Darko           Updated
  *       comments
- *  1    Biblioteka1.0         2001-10-15 10:38:03  Darko           
+ *  1    Biblioteka1.0         2001-10-15 10:38:03  Darko
  * $
  * D.K. 2k This files is largely ported from the Win32 header WinNLS.h.
  *****************************************************************************/

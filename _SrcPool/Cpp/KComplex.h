@@ -220,7 +220,7 @@ return ::I(*this);
 /*Determines whether the complex number is finite.
 
   Returns: true if both real and imaginary part of the complex number are
-  between (–INF, +INF). Returns false if any component is infinite or a NaN.
+  between (ï¿½INF, +INF). Returns false if any component is infinite or a NaN.
  */
 template<class TYPE>
 inline bool TComplex<TYPE>::IsFinite() const

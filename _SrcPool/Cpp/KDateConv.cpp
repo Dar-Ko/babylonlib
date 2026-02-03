@@ -26,7 +26,7 @@
 // CDateConv class
 
 //-----------------------------------------------------------------------------
-/*Nuber of seconds in one day [s/day].
+/*Number of seconds in one day [s/day].
  */
 const double CDateConv::SpDAY = (60.0*60.0*24.0);
 
@@ -49,7 +49,7 @@ if( dValue >= 0 ) //No problem if positive
   m_dateValue = dValue;
 else
   {
-    //If negative, must convert since negative dates not continuous
+    //If negative, must convert since negative dates are not continuous
     //(examples: -.75 to -1.25, -.50 to -1.50, -.25 to -1.75)
   m_dateValue = floor(dValue); // m_dateValue is now whole part
 
@@ -61,7 +61,7 @@ else
 //-----------------------------------------------------------------------------
 /*
  */
-CDateConv::CDateConv(int iYear,  //[in] nYear  [100, 9999] MS specific TOOD
+CDateConv::CDateConv(int iYear,  //[in] nYear  [100, 9999] MS specific TODO
                     int iMonth, //[in] nMonth [1, 12] 
                     int iDay,   //[in] nDay   [1, 31] 
                     int iHour,  //[in]= 0 nHour  [0, 23] 
@@ -153,7 +153,7 @@ long n4Day;             // Day within 4 year block
 long n4Yr;              // Year within 4 year block (0,1,2 or 3)
 BOOL bLeap4 = TRUE;     // TRUE if 4 year block includes leap year
 
-//double dTemp = m_dateValue; // tempory serial date
+//double dTemp = m_dateValue; // temporary serial date
 
 // If a valid date, then this conversion should not overflow
 //lNDays = (long)dTemp;

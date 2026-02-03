@@ -93,7 +93,7 @@
 //-----------------------------------------------------------------------------
 /*Verifies if a character is a file path delimiter.
 
-  Returns: true if the character is one of the recognized delimeters or false
+  Returns: true if the character is one of the recognized delimiters or false
   if it is not.
  */
 inline bool IsPathDelim(const TCHAR ch //[in] path delimiter

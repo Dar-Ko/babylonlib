@@ -21,7 +21,7 @@
 //IsPrimeNo()------------------------------------------------------------------
 /*Validates prime numbers.
   A prime number nValue or prime for short, is a positive integer having itself
-  as only distinct positive divisor other than 1. All other nubers are called 
+  as only distinct positive divisor other than 1. All other numbers are called 
   a composite numbers.
   The number 1 is a special case which is considered neither prime nor 
   composite number.
@@ -61,7 +61,7 @@ return true;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// Test case used to compare alogorithms
+// Test case used to compare algorithms
 #ifdef _DEBUG_TEST
 /*Test algorithm for validating prime numbers.
 

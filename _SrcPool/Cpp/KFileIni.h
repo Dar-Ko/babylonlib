@@ -2,7 +2,7 @@
   $Revision: 1.1 $ $Date: 2009/01/06 22:28:06 $
   $Author: ddarko $
 
-  Configuration file hanlder for storing application's setting
+  Configuration file handler for storing application's setting
   Copyright: CommonSoft Inc.
   1990 Darko Kolakovic
  */
@@ -16,21 +16,21 @@
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
-/*This class is used to stores and retreive configuration parameters in INI 
-  format,  usualy used during application's initialization. 
+/*This class is used to stores and retrieve configuration parameters in INI
+  format, usually used during application's initialization.
   The INI file format is a de facto standard for configuration files.
   INI format have three basic elements: section, parameter and comment.
 
     [sectionname]
     parametername = value
     ;comment
-  Sections are used to group parameters. Section name is enclosed with square 
-  brackets ([ and ]). Sections end at the next section declaration or the end 
+  Sections are used to group parameters. Section name is enclosed with square
+  brackets ([ and ]). Sections end at the next section declaration or the end
   of the file.
-  Parametars are given as name and value pair. 
+  Parameters are given as name and value pair.
   Comments are all lines that are not section names or parameters and will be
-  ignored
-  Comments usually begin with semicolon (;) or number sign (#) and continue 
+  ignored.
+  Comments usually begin with semicolon (;) or number sign (#) and continue
   to the end of the line.
  */
 class CFileIni

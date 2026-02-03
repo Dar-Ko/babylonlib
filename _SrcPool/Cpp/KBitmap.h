@@ -112,7 +112,7 @@ typedef struct tagBITMAPINFOHEADER
  */
 typedef struct tagRGBQUAD
   {
-  BYTE    rgbBlue;   /*pecifies the intensity of blue in the color.*/
+  BYTE    rgbBlue;   /*Specifies the intensity of blue in the color.*/
   BYTE    rgbGreen;  /*Specifies the intensity of green in the color. */
   BYTE    rgbRed;    /*Specifies the intensity of red in the color. */
   BYTE    rgbReserved; /*Reserved; must be zero.*/
@@ -134,7 +134,7 @@ typedef struct tagRGBQUAD
      +------------------+
      | BITMAPINFOHEADER | image parameters (40 bytes)
      +------------------+
-     |     RGBQUAD[]    | Pallete (RGB quad) (n bytes) optional field
+     |     RGBQUAD[]    | Palette (RGB quad) (n bytes) optional field
      +------------------+
      |       BYTE[]     | image data (m bytes)
      +------------------+
@@ -153,7 +153,7 @@ typedef struct tagDIBITMAP
 /*BITMAPARRAYHEADER is used to establish a linked list of BITMAPFILEHEADER
   structures for a bitmap file with multiple images in it.  There is no
   equivalent structure in the Windows SDK.  Its analogues in the OS/2 toolkit
-  are the BITMAPARRAYFILEHEADER and BITMAPARRAYFILEHEADER2 strucutres.
+  are the BITMAPARRAYFILEHEADER and BITMAPARRAYFILEHEADER2 structures.
 
   A BITMAPFILEHEADER structure is always concatenated to the end of a
   BITMAPARRAYHEADER structure.

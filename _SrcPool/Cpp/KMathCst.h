@@ -66,7 +66,7 @@
 #define CST_COSPI_4   CST_INVSQRT2
   //{html: Arc second in radians 1" = &pi;/(180*60*60) [rad] }
 #define CST_SEC2RAD   4.84813681109535993589914102357948e-6
-/*{html: Euler-Mascheroni (also known as gamma) constant &gamma; is deifined
+/*{html: Euler-Mascheroni (also known as gamma) constant &gamma; is defined
   as:
      <br /><img src="Images/eqGammaConst.gif"
      alt="&gamma; = lim(Sum(1/k - ln(n))); k[1,n];  x-&gt;INF;" border="0"> }

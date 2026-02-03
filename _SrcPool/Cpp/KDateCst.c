@@ -158,8 +158,8 @@ return nResult;
 
 struct date IntoYMD (long nDays)
 {
-    // This algorithm is based on Algorithm 199, CACM, Aug 1963. The
-    // algorithm is not valid for dates before Sep 14, 1752.
+    // This algorithm is based on Algorithm 199, CACM, Aug 1963.
+    // The algorithm is not valid for dates before Sep 14, 1752.
     unsigned long d;
     unsigned long j = nDays - 1721119L;
     struct date retVal;
@@ -190,8 +190,8 @@ struct date IntoYMD (long nDays)
 #endif
 long IntoDays  (const struct date/*&*/ s)
 {
-    // This algorithm is based on Algorithm 199, CACM, Aug 1963. The
-    // algorithm is not valid for dates before Sep 14, 1752.
+    // This algorithm is based on Algorithm 199, CACM, Aug 1963.
+    // The algorithm is not valid for dates before Sep 14, 1752.
 unsigned long c ;
 unsigned long yy;
 
@@ -370,7 +370,7 @@ public:
 
 
   /**
-   * Returns a string representation of the given date and time formated
+   * Returns a string representation of the given date and time formatted
    * in conformance to RFC2822.
    *
    * @param utcTime    a date and time in UTC
@@ -382,7 +382,7 @@ public:
 
 
   /**
-   * Returns a string representation of the given date and time formated
+   * Returns a string representation of the given date and time formatted
    * in conformance to RFC2822.
    *
    * Provided for convenience, the function is equivalent to
@@ -2037,8 +2037,8 @@ public:
     //  };
 
    //   enum moon_phase {
-    //        new_moon, waxing_crescent, first_quater, waxing_gibbous,
-    //        full_moon, waning_gibbous, third_quater, waning_crescent
+    //        new_moon, waxing_crescent, first_quarter, waxing_gibbous,
+    //        full_moon, waning_gibbous, third_quarter, waning_crescent
    //   };
 
       zDate();

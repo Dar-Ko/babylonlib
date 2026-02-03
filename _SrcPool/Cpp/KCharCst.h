@@ -69,7 +69,7 @@
 
         BOXD-R-   BOXH- BOXD-H-  BOXD-L-
                 +---------+-----+
-          BOXV- ¦  BOXV-H-¦     |BOXV-
+          BOXV- ï¿½  BOXV-H-ï¿½     |BOXV-
         BOXV-R- +---------+-----+BOXV-L-
                 +---------+-----+
         BOXU-R-         BOXU-H-  BOXU-L-
@@ -259,7 +259,7 @@
     const int EOL = EOLMAC; //end of line (MacOS)
   #else
      const int EOL = LF;    //end of line
-     //Note: EOL is pair of characters CR, LF; Microsoft Windows 
+     //Note: EOL is pair of characters CR, LF; Microsoft Windows
      //specific (Win, DOS).
   #endif
 

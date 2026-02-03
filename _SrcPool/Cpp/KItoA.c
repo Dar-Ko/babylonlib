@@ -71,7 +71,7 @@
 */
 LPTSTR ItoA(int iValue,     /*[in] number to be converted                    */
            LPTSTR szResult, /*[in] pointer to string buffer                  */
-           int iRadix       /*[in] base of value; must be in the range 2 – 36*/
+           int iRadix       /*[in] base of value; must be in the range 2 ï¿½ 36*/
           )
 {
 bool   bIsNegative;

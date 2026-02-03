@@ -34,7 +34,7 @@
      */
     #undef ALIGNDATA
     #define ALIGNDATA __attribute__((__packed__))
-    #define PACK_STRUCT ALIGNDATA /*Synonim for ALIGNDATA */
+    #define PACK_STRUCT ALIGNDATA /*Synonym for ALIGNDATA */
 
     /*Note: For compatibility with Microsoft Windows compilers, GCC added support
       for a set of #pragma directives which change the maximum alignment of

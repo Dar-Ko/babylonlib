@@ -107,7 +107,7 @@ else //Create data container
     {
       //Copy usefull data
     unsigned int i = 0;
-      //Note: if buffer size is suffucient to hold new data, we will just copy
+      //Note: if buffer size is sufficient to hold new data, we will just copy
       //data into it. That is faster, but we will have waste of memory.
       //All memory will be freed in the destructor D.K.
     const uint8* pData = &pDataSubblock[1];
@@ -136,7 +136,7 @@ if ( m_pData != NULL)
 
 //::GetAllSubblockLength()-----------------------------------------------------
 /*Obtains total size of all sequential data sub-blocks. Total size includes sizes
-  of Sub-block headers resereved for block's size information.
+  of Sub-block headers reserved for block's size information.
 
      +- +------------------+
    T |  |   block size i   |  i number of bytes in the data sub-block [0,255]
@@ -302,7 +302,7 @@ if( iSize < 0)
 if (SetSize(iSize))
   {
   iSize = pSubblockData[0];
-  int i = 1; //First byte is reserved for block lenght
+  int i = 1; //First byte is reserved for block length
   int j = 0;
   while ( iSize > GIF_BLOCKTERMINATOR )
     {
@@ -666,7 +666,7 @@ const unsigned int CGifCommentExt::GetLength()
 {
 return (sizeof(GIF_EXTENSION_INTRODUCER) + 
         sizeof(GIF_EXT_COMMENT) 
-        //Here goes variabile comment data
+        //Here goes variable comment data
         );
 }
 
@@ -730,7 +730,7 @@ return (sizeof(GIF_EXTENSION_INTRODUCER) +
         sizeof(uint8) +
         sizeof(uint8) * 8 +
         sizeof(uint8) * 3 
-        //Here goes variabile application data
+        //Here goes variable application data
         );
 }
 
@@ -878,7 +878,7 @@ if (nTableSize <= MAX_SIZE)
   {
   //If new table could not fit in the space of previous table, create
   //bigger table. Actual size of allocated buffer is not stored, 
-  //resulting in unneccessary reallocation in some situations.
+  //resulting in unnecessary reallocation in some situations.
   if (nTableSize > m_nSize)
     {
     RemoveAll();

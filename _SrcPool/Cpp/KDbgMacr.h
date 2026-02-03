@@ -1467,12 +1467,12 @@ __STDC_ISO_10646__ macro evaluates to an integer constant of the form yyyymmL (f
   #warning      "Intel C++ Compiler"
 #endif
 
-/*The Intel® C++ Compiler 10.0 for Linux supports the predefined macros listed in the table below. The compiler also includes predefined macros specified by the ISO/ANSI standard.
+/*The Intelï¿½ C++ Compiler 10.0 for Linux supports the predefined macros listed in the table below. The compiler also includes predefined macros specified by the ISO/ANSI standard.
 
 The following designations apply:
 Label 	Meaning
 i32 	Included on systems based on IA-32 architecture.
-i64em 	Included on systems based on Intel® 64 architecture.
+i64em 	Included on systems based on Intelï¿½ 64 architecture.
 i64 	Included on systems based on IA-64 architecture.
 
 Macro Name 	Value 	i32 	i64em 	i64
@@ -1529,12 +1529,12 @@ __pic__ 	Defined as 1 when -fPIC is specified. 	X 	X 	X
 _PGO_INSTRUMENT 	Defined as 1 when -prof-gen[x] is specified. 	X 	X 	X
 _PLACEMENT_DELETE 	1 	X 	X 	X
 __PTRDIFF_TYPE__ 	int on IA-32 architecture
-long on Intel® 64 architecture
+long on Intelï¿½ 64 architecture
 long on IA-64 architecture 	X 	X 	X
 __REGISTER_PREFIX__ 	  	X 	X 	X
 __SIGNED_CHARS__ 	1 	X 	X 	X
 __SIZE_TYPE__ 	unsigned on IA-32 architecture
-unsigned long on Intel® 64 architecture
+unsigned long on Intelï¿½ 64 architecture
 unsigned long on IA-64 architecture 	X 	X 	X
 __SSE__ 	Defined as 1 for processors that support SSE instructions. 	X 	X
 __SSE2__ 	Defined as 1 for processors that support SSE2 instructions. 	X 	X
@@ -1547,7 +1547,7 @@ __USER_LABEL_PREFIX__ 	  	X 	X 	X
 __VERSION__ 	Intel version string 	X 	X 	X
 __WCHAR_T 	1 	X 	X 	X
 __WCHAR_TYPE__ 	long int on IA-32
-int on Intel® 64 architecture
+int on Intelï¿½ 64 architecture
 int on IA-64 architecture 	X 	X 	X
 __WINT_TYPE__ 	unsigned int 	X 	X 	X
 __x86_64 	1 	  	X

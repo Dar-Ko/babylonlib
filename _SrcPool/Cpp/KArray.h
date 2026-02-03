@@ -19,12 +19,12 @@
 
 #if defined (_USE_STL)
   #include "STL/KArrayStl.h" //Standard Template Library (STL)
-#elif defined (_USE_MFC) //Microsoft Fundation Classes Library (MFC)
+#elif defined (_USE_MFC) //Microsoft Foundation Classes Library (MFC)
   #include <afxtempl.h>
 #elif defined (_USE_ATL) //Microsoft Active Template Library (ATL)
 #else
   //TODO:
-  #pragma TODO(write CArray implemetation without MFC/ATL.)
+  #pragma TODO(write CArray implementation without MFC/ATL.)
 /*The CArray class supports arrays that are are similar to C arrays, but can dynamically shrink and grow as necessary.
 
 Array indexes always start at position 0. You can decide whether to fix the upper bound or allow the array to expand when you add elements past the current bound. Memory is allocated contiguously to the upper bound, even if some elements are null.
@@ -395,7 +395,7 @@ void CArray<TYPE, ARG_TYPE>::InsertAt(INT_PTR nIndex, ARG_TYPE newElement, INT_P
     // inserting in the middle of the array
     INT_PTR nOldSize = m_nSize;
     SetSize(m_nSize + nCount, -1);  // grow it to new size
-    // destroy intial data before copying over it
+    // destroy initial data before copying over it
     for( int i = 0; i < nCount; i++ )
       (m_pData + nOldSize + i)->~TYPE();
     // shift old data up to fill gap

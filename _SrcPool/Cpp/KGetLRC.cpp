@@ -82,14 +82,14 @@ while(nCount > 0)
   nLRC ^= *pbData++;
   if ( nLRC != 0 )
     {
-    while((nLRC != 0) && 
+    while((nLRC != 0) &&
            (((1L << (INT_SIZE - 1)) & nLRC) != 0) )
       {
       //if the last bit is 1, double the value
       nLRC <<= 1;
       }
     }
-   nCount--;   
+   nCount--;
   }
 
 return nLRC;

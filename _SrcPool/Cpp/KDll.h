@@ -121,7 +121,7 @@ return m_hLibrary;
 //-----------------------------------------------------------------------------
 /*Obtains the address of an exported symbol in the DLL
   Returns address of the symbol or NULL in case of failure.
-  
+
   Example:
      #include "KDll.h"
      typedef void (*PFDLLFUNC)();
@@ -129,13 +129,13 @@ return m_hLibrary;
      CDll dllMyLib("DllName");
      if (dllMyLib.IsOpen())
       {
-      
+
       PFDLLFUNC SomeFunc = (PFDLLFUNC)dllMyLib("SomeFuncName");
       if (SomeFunc != NULL)
         SomeFunc();
       dllMyLib.Free();
       }
-  
+
  */
 inline void* CDll::operator() (LPCWSTR szSymbolName //[in] null-terminated string
                                                    //containing the symbol name
@@ -173,7 +173,7 @@ return GetSymbolAdr(szSymbolName);
     4. ROM DLL files
     5. An OEM-specified search path,
 
-  Returns true if the module is successfuly loaded.
+  Returns true if the module is successfully loaded.
  */
 inline
 bool CDll::Load(LPCTSTR szDllName //[in] null-terminated string that names
@@ -325,10 +325,10 @@ return true;
   This variable is ignored for set-user-ID and set-group-ID programs.
 
   If szDllName is a NULL pointer, then the returned handle is for the main
-  program. This handle resolves symbols in the main program, then symbols in all 
-  shared libraries loaded at program start-up and then in all shared libraries loaded 
+  program. This handle resolves symbols in the main program, then symbols in all
+  shared libraries loaded at program start-up and then in all shared libraries loaded
   with the flag RTLD_GLOBAL.
- 
+
   Returns true if the module is successfully loaded.
  */
 inline bool CDll::Load(LPCTSTR szDllName //[in] null-terminated string that names

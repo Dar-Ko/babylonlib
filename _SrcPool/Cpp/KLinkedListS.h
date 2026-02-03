@@ -44,7 +44,7 @@ template <typename DATATYPE> struct ListNode
       {
       int iNoofElements = 0;
       TLinkedListS<unsigned int> listTest;      //list of unsigned integers
-        //Append elemnts
+        //Append elements
       listTest.AddTail(202);
       listTest.AddTail(303);
       listTest.AddTail(404);
@@ -92,7 +92,7 @@ m_pElement = END_OF_LIST;
 }
 
 //-----------------------------------------------------------------------------
-/*Copyes another list instance over the current list.
+/*Copies another list instance over the current list.
  */
 template <typename DATATYPE>
 TLinkedListS<DATATYPE>::TLinkedListS(const TLinkedListS& listValue //[in] list
@@ -275,7 +275,7 @@ if (pNode != NULL)
   }
 }
 
-#else /*C complation*/
+#else /*C compilation*/
 /* ////////////////////////////////////////////////////////////////////////// */
 
  /*End of List tag*/

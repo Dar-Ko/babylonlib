@@ -196,109 +196,109 @@ const struct SHtmlChEntity g_listHtmlChEntity[] =
     {0x003C, _T("lt")      /*, Html3, 060 */ },//002 < less-than sign
     {0x003E, _T("gt")      /*, Html3, 062 */ },//003 > greater-than sign
     {0x00A0, _T("nbsp")    /*, Html3, 160 */ },//004   non-breaking space
-    {0x00A1, _T("iexcl")   /*, Html3, 161 */ },//005 ¡ inverted exclamation mark
-    {0x00A2, _T("cent")    /*, Html3, 162 */ },//006 ¢ cent sign
-    {0x00A3, _T("pound")   /*, Html3, 163 */ },//007 £ pound sign
-    {0x00A4, _T("curren")  /*, Html3, 164 */ },//008 ¤ currency sign
-    {0x00A5, _T("yen")     /*, Html3, 165 */ },//009 ¥ yen sign = yuan sign
-    {0x00A6, _T("brvbar")  /*, Html3, 166 */ },//010 ¦ broken bar = broken vertical bar
-    {0x00A7, _T("sect")    /*, Html3, 167 */ },//011 § section sign
-    {0x00A8, _T("uml")     /*, Html3, 168 */ },//012 ¨ diaeresis = spacing diaeresis
-    {0x00A9, _T("copy")    /*, Html3, 169 */ },//013 © copyright sign
-    {0x00AA, _T("ordf")    /*, Html3, 170 */ },//014 ª feminine ordinal indicator
-    {0x00AB, _T("laquo")   /*, Html3, 171 */ },//015 « left-pointing double angle quotation mark = left guillemet
-    {0x00AC, _T("not")     /*, Html3, 172 */ },//016 ¬ not sign
-    {0x00AD, _T("shy")     /*, Html3, 173 */ },//017 ­ soft hyphen = discretionary hyphen
-    {0x00AE, _T("reg")     /*, Html3, 174 */ },//018 ® registered sign = registered trade mark sign
-    {0x00AF, _T("macr")    /*, Html3, 175 */ },//019 ¯ macron = spacing macron = overline = APL overbar
-    {0x00B0, _T("deg")     /*, Html3, 176 */ },//020 ° degree sign
-    {0x00B1, _T("plusmn")  /*, Html3, 177 */ },//021 ± plus-minus sign = plus-or-minus sign
-    {0x00B2, _T("sup2")    /*, Html3, 178 */ },//022 ² superscript two = superscript digit two = squared
-    {0x00B3, _T("sup3")    /*, Html3, 179 */ },//023 ³ superscript three = superscript digit three = cubed
-    {0x00B4, _T("acute")   /*, Html3, 180 */ },//024 ´ acute accent = spacing acute
-    {0x00B5, _T("micro")   /*, Html3, 181 */ },//025 µ micro sign
-    {0x00B6, _T("para")    /*, Html3, 182 */ },//026 ¶ pilcrow sign = paragraph sign
-    {0x00B7, _T("middot")  /*, Html3, 183 */ },//027 · middle dot = Georgian comma = Greek middle dot
-    {0x00B8, _T("cedil")   /*, Html3, 184 */ },//028 ¸ cedilla = spacing cedilla
-    {0x00B9, _T("sup1")    /*, Html3, 185 */ },//029 ¹ superscript one = superscript digit one
-    {0x00BA, _T("ordm")    /*, Html3, 186 */ },//030 º masculine ordinal indicator
-    {0x00BB, _T("raquo")   /*, Html3, 187 */ },//031 » right-pointing double angle quotation mark = right guillemet
-    {0x00BC, _T("frac14")  /*, Html3, 188 */ },//032 ¼ vulgar fraction one quarter
-    {0x00BD, _T("frac12")  /*, Html3, 189 */ },//033 ½ vulgar fraction one half
-    {0x00BE, _T("frac34")  /*, Html3, 190 */ },//034 ¾ vulgar fraction three quarters
-    {0x00BF, _T("iquest")  /*, Html3, 191 */ },//035 ¿ inverted question mark
-    {0x00C0, _T("Agrave")  /*, Html3, 192 */ },//036 À latin capital letter A with grave
-    {0x00C1, _T("Aacute")  /*, Html3, 193 */ },//037 Á latin capital letter A with acute
-    {0x00C2, _T("Acirc")   /*, Html3, 194 */ },//038 Â latin capital letter A with circumflex
-    {0x00C3, _T("Atilde")  /*, Html3, 195 */ },//039 Ã latin capital letter A with tilde
-    {0x00C4, _T("Auml")    /*, Html3, 196 */ },//040 Ä latin capital letter A with diaeresis
-    {0x00C5, _T("Aring")   /*, Html3, 197 */ },//041 Å latin capital letter A with ring above.
-    {0x00C6, _T("AElig")   /*, Html3, 198 */ },//042 Æ latin capital ligature AE
-    {0x00C7, _T("Ccedil")  /*, Html3, 199 */ },//043 Ç latin capital letter C with cedilla
-    {0x00C8, _T("Egrave")  /*, Html3, 200 */ },//044 È latin capital letter E with grave
-    {0x00C9, _T("Eacute")  /*, Html3, 201 */ },//045 É latin capital letter E with acute
-    {0x00CA, _T("Ecirc")   /*, Html3, 202 */ },//046 Ê latin capital letter E with circumflex
-    {0x00CB, _T("Euml")    /*, Html3, 203 */ },//047 Ë latin capital letter E with diaeresis
-    {0x00CC, _T("Igrave")  /*, Html3, 204 */ },//048 Ì latin capital letter I with grave
-    {0x00CD, _T("Iacute")  /*, Html3, 205 */ },//049 Í latin capital letter I with acute
-    {0x00CE, _T("Icirc")   /*, Html3, 206 */ },//050 Î latin capital letter I with circumflex
-    {0x00CF, _T("Iuml")    /*, Html3, 207 */ },//051 Ï latin capital letter I with diaeresis
-    {0x00D0, _T("ETH")     /*, Html3, 208 */ },//052 Ð latin capital letter ETH
-    {0x00D1, _T("Ntilde")  /*, Html3, 209 */ },//053 Ñ latin capital letter N with tilde
-    {0x00D2, _T("Ograve")  /*, Html3, 210 */ },//054 Ò latin capital letter O with grave
-    {0x00D3, _T("Oacute")  /*, Html3, 211 */ },//055 Ó latin capital letter O with acute
-    {0x00D4, _T("Ocirc")   /*, Html3, 212 */ },//056 Ô latin capital letter O with circumflex
-    {0x00D5, _T("Otilde")  /*, Html3, 213 */ },//057 Õ latin capital letter O with tilde
-    {0x00D6, _T("Ouml")    /*, Html3, 214 */ },//058 Ö latin capital letter O with diaeresis
-    {0x00D7, _T("times")   /*, Html3, 215 */ },//059 × multiplication sign
-    {0x00D8, _T("Oslash")  /*, Html3, 216 */ },//060 Ø latin capital letter O with stroke
-    {0x00D9, _T("Ugrave")  /*, Html3, 217 */ },//061 Ù latin capital letter U with grave
-    {0x00DA, _T("Uacute")  /*, Html3, 218 */ },//062 Ú latin capital letter U with acute
-    {0x00DB, _T("Ucirc")   /*, Html3, 219 */ },//063 Û latin capital letter U with circumflex
-    {0x00DC, _T("Uuml")    /*, Html3, 220 */ },//064 Ü latin capital letter U with diaeresis
-    {0x00DD, _T("Yacute")  /*, Html3, 221 */ },//065 Ý latin capital letter Y with acute
-    {0x00DE, _T("THORN")   /*, Html3, 222 */ },//066 Þ latin capital letter THORN
-    {0x00DF, _T("szlig")   /*, Html3, 223 */ },//067 ß latin small letter sharp s
-    {0x00E0, _T("agrave")  /*, Html3, 224 */ },//068 à latin small letter a with grave
-    {0x00E1, _T("aacute")  /*, Html3, 225 */ },//069 á latin small letter a with acute
-    {0x00E2, _T("acirc")   /*, Html3, 226 */ },//070 â latin small letter a with circumflex
-    {0x00E3, _T("atilde")  /*, Html3, 227 */ },//071 ã latin small letter a with tilde
-    {0x00E4, _T("auml")    /*, Html3, 228 */ },//072 ä latin small letter a with diaeresis
-    {0x00E5, _T("aring")   /*, Html3, 229 */ },//073 å latin small letter a with ring above
-    {0x00E6, _T("aelig")   /*, Html3, 230 */ },//074 æ latin small ligature ae
-    {0x00E7, _T("ccedil")  /*, Html3, 231 */ },//075 ç latin small letter c with cedilla
-    {0x00E8, _T("egrave")  /*, Html3, 232 */ },//076 è latin small letter e with grave
-    {0x00E9, _T("eacute")  /*, Html3, 233 */ },//077 é latin small letter e with acute
-    {0x00EA, _T("ecirc")   /*, Html3, 234 */ },//078 ê latin small letter e with circumflex
-    {0x00EB, _T("euml")    /*, Html3, 235 */ },//079 ë latin small letter e with diaeresis
-    {0x00EC, _T("igrave")  /*, Html3, 236 */ },//080 ì latin small letter i with grave
-    {0x00ED, _T("iacute")  /*, Html3, 237 */ },//081 í latin small letter i with acute
-    {0x00EE, _T("icirc")   /*, Html3, 238 */ },//082 î latin small letter i with circumflex
-    {0x00EF, _T("iuml")    /*, Html3, 239 */ },//083 ï latin small letter i with diaeresis
-    {0x00F0, _T("eth")     /*, Html3, 240 */ },//084 ð latin small letter eth
-    {0x00F1, _T("ntilde")  /*, Html3, 241 */ },//085 ñ latin small letter n with tilde
-    {0x00F2, _T("ograve")  /*, Html3, 242 */ },//086 ò latin small letter o with grave
-    {0x00F3, _T("oacute")  /*, Html3, 243 */ },//087 ó latin small letter o with acute
-    {0x00F4, _T("ocirc")   /*, Html3, 244 */ },//088 ô latin small letter o with circumflex
-    {0x00F5, _T("otilde")  /*, Html3, 245 */ },//089 õ latin small letter o with tilde
-    {0x00F6, _T("ouml")    /*, Html3, 246 */ },//090 ö latin small letter o with diaeresis
-    {0x00F7, _T("divide")  /*, Html3, 247 */ },//091 ÷ division sign
-    {0x00F8, _T("oslash")  /*, Html3, 248 */ },//092 ø latin small letter o with stroke
-    {0x00F9, _T("ugrave")  /*, Html3, 249 */ },//093 ù latin small letter u with grave
-    {0x00FA, _T("uacute")  /*, Html3, 250 */ },//094 ú latin small letter u with acute
-    {0x00FB, _T("ucirc")   /*, Html3, 251 */ },//095 û latin small letter u with circumflex
-    {0x00FC, _T("uuml")    /*, Html3, 252 */ },//096 ü latin small letter u with diaeresis
-    {0x00FD, _T("yacute")  /*, Html3, 253 */ },//097 ý latin small letter y with acute
-    {0x00FE, _T("thorn")   /*, Html3, 254 */ },//098 þ latin small letter thorn
-    {0x00FF, _T("yuml")    /*, Html3, 255 */ },//099 ÿ latin small letter y with diaeresis
-    {0x0152, _T("OElig")   /*, HTML4, 338 */ },//100 Œ latin capital ligature OE
-    {0x0153, _T("oelig")   /*, HTML4, 339 */ },//101 œ latin small ligature oe
-    {0x0160, _T("Scaron")  /*, HTML4, 352 */ },//102 Š latin capital letter S with caron
-    {0x0161, _T("scaron")  /*, HTML4, 353 */ },//103 š latin small letter s with caron
-    {0x0178, _T("Yuml")    /*, HTML4, 376 */ },//104 Ÿ latin capital letter Y with diaeresis
-    {0x0192, _T("fnof")    /*, Lat_B, 402 */ },//105 ƒ latin small f with hook = function = florin
-    {0x02C6, _T("circ")    /*, HTML4, 710 */ },//106 ˆ modifier letter circumflex accent
-    {0x02DC, _T("tilde")   /*, HTML4, 732 */ },//107 ˜ small tilde
+    {0x00A1, _T("iexcl")   /*, Html3, 161 */ },//005 ï¿½ inverted exclamation mark
+    {0x00A2, _T("cent")    /*, Html3, 162 */ },//006 ï¿½ cent sign
+    {0x00A3, _T("pound")   /*, Html3, 163 */ },//007 ï¿½ pound sign
+    {0x00A4, _T("curren")  /*, Html3, 164 */ },//008 ï¿½ currency sign
+    {0x00A5, _T("yen")     /*, Html3, 165 */ },//009 ï¿½ yen sign = yuan sign
+    {0x00A6, _T("brvbar")  /*, Html3, 166 */ },//010 ï¿½ broken bar = broken vertical bar
+    {0x00A7, _T("sect")    /*, Html3, 167 */ },//011 ï¿½ section sign
+    {0x00A8, _T("uml")     /*, Html3, 168 */ },//012 ï¿½ diaeresis = spacing diaeresis
+    {0x00A9, _T("copy")    /*, Html3, 169 */ },//013 ï¿½ copyright sign
+    {0x00AA, _T("ordf")    /*, Html3, 170 */ },//014 ï¿½ feminine ordinal indicator
+    {0x00AB, _T("laquo")   /*, Html3, 171 */ },//015 ï¿½ left-pointing double angle quotation mark = left guillemet
+    {0x00AC, _T("not")     /*, Html3, 172 */ },//016 ï¿½ not sign
+    {0x00AD, _T("shy")     /*, Html3, 173 */ },//017 ï¿½ soft hyphen = discretionary hyphen
+    {0x00AE, _T("reg")     /*, Html3, 174 */ },//018 ï¿½ registered sign = registered trade mark sign
+    {0x00AF, _T("macr")    /*, Html3, 175 */ },//019 ï¿½ macron = spacing macron = overline = APL overbar
+    {0x00B0, _T("deg")     /*, Html3, 176 */ },//020 ï¿½ degree sign
+    {0x00B1, _T("plusmn")  /*, Html3, 177 */ },//021 ï¿½ plus-minus sign = plus-or-minus sign
+    {0x00B2, _T("sup2")    /*, Html3, 178 */ },//022 ï¿½ superscript two = superscript digit two = squared
+    {0x00B3, _T("sup3")    /*, Html3, 179 */ },//023 ï¿½ superscript three = superscript digit three = cubed
+    {0x00B4, _T("acute")   /*, Html3, 180 */ },//024 ï¿½ acute accent = spacing acute
+    {0x00B5, _T("micro")   /*, Html3, 181 */ },//025 ï¿½ micro sign
+    {0x00B6, _T("para")    /*, Html3, 182 */ },//026 ï¿½ pilcrow sign = paragraph sign
+    {0x00B7, _T("middot")  /*, Html3, 183 */ },//027 ï¿½ middle dot = Georgian comma = Greek middle dot
+    {0x00B8, _T("cedil")   /*, Html3, 184 */ },//028 ï¿½ cedilla = spacing cedilla
+    {0x00B9, _T("sup1")    /*, Html3, 185 */ },//029 ï¿½ superscript one = superscript digit one
+    {0x00BA, _T("ordm")    /*, Html3, 186 */ },//030 ï¿½ masculine ordinal indicator
+    {0x00BB, _T("raquo")   /*, Html3, 187 */ },//031 ï¿½ right-pointing double angle quotation mark = right guillemet
+    {0x00BC, _T("frac14")  /*, Html3, 188 */ },//032 ï¿½ vulgar fraction one quarter
+    {0x00BD, _T("frac12")  /*, Html3, 189 */ },//033 ï¿½ vulgar fraction one half
+    {0x00BE, _T("frac34")  /*, Html3, 190 */ },//034 ï¿½ vulgar fraction three quarters
+    {0x00BF, _T("iquest")  /*, Html3, 191 */ },//035 ï¿½ inverted question mark
+    {0x00C0, _T("Agrave")  /*, Html3, 192 */ },//036 ï¿½ latin capital letter A with grave
+    {0x00C1, _T("Aacute")  /*, Html3, 193 */ },//037 ï¿½ latin capital letter A with acute
+    {0x00C2, _T("Acirc")   /*, Html3, 194 */ },//038 ï¿½ latin capital letter A with circumflex
+    {0x00C3, _T("Atilde")  /*, Html3, 195 */ },//039 ï¿½ latin capital letter A with tilde
+    {0x00C4, _T("Auml")    /*, Html3, 196 */ },//040 ï¿½ latin capital letter A with diaeresis
+    {0x00C5, _T("Aring")   /*, Html3, 197 */ },//041 ï¿½ latin capital letter A with ring above.
+    {0x00C6, _T("AElig")   /*, Html3, 198 */ },//042 ï¿½ latin capital ligature AE
+    {0x00C7, _T("Ccedil")  /*, Html3, 199 */ },//043 ï¿½ latin capital letter C with cedilla
+    {0x00C8, _T("Egrave")  /*, Html3, 200 */ },//044 ï¿½ latin capital letter E with grave
+    {0x00C9, _T("Eacute")  /*, Html3, 201 */ },//045 ï¿½ latin capital letter E with acute
+    {0x00CA, _T("Ecirc")   /*, Html3, 202 */ },//046 ï¿½ latin capital letter E with circumflex
+    {0x00CB, _T("Euml")    /*, Html3, 203 */ },//047 ï¿½ latin capital letter E with diaeresis
+    {0x00CC, _T("Igrave")  /*, Html3, 204 */ },//048 ï¿½ latin capital letter I with grave
+    {0x00CD, _T("Iacute")  /*, Html3, 205 */ },//049 ï¿½ latin capital letter I with acute
+    {0x00CE, _T("Icirc")   /*, Html3, 206 */ },//050 ï¿½ latin capital letter I with circumflex
+    {0x00CF, _T("Iuml")    /*, Html3, 207 */ },//051 ï¿½ latin capital letter I with diaeresis
+    {0x00D0, _T("ETH")     /*, Html3, 208 */ },//052 ï¿½ latin capital letter ETH
+    {0x00D1, _T("Ntilde")  /*, Html3, 209 */ },//053 ï¿½ latin capital letter N with tilde
+    {0x00D2, _T("Ograve")  /*, Html3, 210 */ },//054 ï¿½ latin capital letter O with grave
+    {0x00D3, _T("Oacute")  /*, Html3, 211 */ },//055 ï¿½ latin capital letter O with acute
+    {0x00D4, _T("Ocirc")   /*, Html3, 212 */ },//056 ï¿½ latin capital letter O with circumflex
+    {0x00D5, _T("Otilde")  /*, Html3, 213 */ },//057 ï¿½ latin capital letter O with tilde
+    {0x00D6, _T("Ouml")    /*, Html3, 214 */ },//058 ï¿½ latin capital letter O with diaeresis
+    {0x00D7, _T("times")   /*, Html3, 215 */ },//059 ï¿½ multiplication sign
+    {0x00D8, _T("Oslash")  /*, Html3, 216 */ },//060 ï¿½ latin capital letter O with stroke
+    {0x00D9, _T("Ugrave")  /*, Html3, 217 */ },//061 ï¿½ latin capital letter U with grave
+    {0x00DA, _T("Uacute")  /*, Html3, 218 */ },//062 ï¿½ latin capital letter U with acute
+    {0x00DB, _T("Ucirc")   /*, Html3, 219 */ },//063 ï¿½ latin capital letter U with circumflex
+    {0x00DC, _T("Uuml")    /*, Html3, 220 */ },//064 ï¿½ latin capital letter U with diaeresis
+    {0x00DD, _T("Yacute")  /*, Html3, 221 */ },//065 ï¿½ latin capital letter Y with acute
+    {0x00DE, _T("THORN")   /*, Html3, 222 */ },//066 ï¿½ latin capital letter THORN
+    {0x00DF, _T("szlig")   /*, Html3, 223 */ },//067 ï¿½ latin small letter sharp s
+    {0x00E0, _T("agrave")  /*, Html3, 224 */ },//068 ï¿½ latin small letter a with grave
+    {0x00E1, _T("aacute")  /*, Html3, 225 */ },//069 ï¿½ latin small letter a with acute
+    {0x00E2, _T("acirc")   /*, Html3, 226 */ },//070 ï¿½ latin small letter a with circumflex
+    {0x00E3, _T("atilde")  /*, Html3, 227 */ },//071 ï¿½ latin small letter a with tilde
+    {0x00E4, _T("auml")    /*, Html3, 228 */ },//072 ï¿½ latin small letter a with diaeresis
+    {0x00E5, _T("aring")   /*, Html3, 229 */ },//073 ï¿½ latin small letter a with ring above
+    {0x00E6, _T("aelig")   /*, Html3, 230 */ },//074 ï¿½ latin small ligature ae
+    {0x00E7, _T("ccedil")  /*, Html3, 231 */ },//075 ï¿½ latin small letter c with cedilla
+    {0x00E8, _T("egrave")  /*, Html3, 232 */ },//076 ï¿½ latin small letter e with grave
+    {0x00E9, _T("eacute")  /*, Html3, 233 */ },//077 ï¿½ latin small letter e with acute
+    {0x00EA, _T("ecirc")   /*, Html3, 234 */ },//078 ï¿½ latin small letter e with circumflex
+    {0x00EB, _T("euml")    /*, Html3, 235 */ },//079 ï¿½ latin small letter e with diaeresis
+    {0x00EC, _T("igrave")  /*, Html3, 236 */ },//080 ï¿½ latin small letter i with grave
+    {0x00ED, _T("iacute")  /*, Html3, 237 */ },//081 ï¿½ latin small letter i with acute
+    {0x00EE, _T("icirc")   /*, Html3, 238 */ },//082 ï¿½ latin small letter i with circumflex
+    {0x00EF, _T("iuml")    /*, Html3, 239 */ },//083 ï¿½ latin small letter i with diaeresis
+    {0x00F0, _T("eth")     /*, Html3, 240 */ },//084 ï¿½ latin small letter eth
+    {0x00F1, _T("ntilde")  /*, Html3, 241 */ },//085 ï¿½ latin small letter n with tilde
+    {0x00F2, _T("ograve")  /*, Html3, 242 */ },//086 ï¿½ latin small letter o with grave
+    {0x00F3, _T("oacute")  /*, Html3, 243 */ },//087 ï¿½ latin small letter o with acute
+    {0x00F4, _T("ocirc")   /*, Html3, 244 */ },//088 ï¿½ latin small letter o with circumflex
+    {0x00F5, _T("otilde")  /*, Html3, 245 */ },//089 ï¿½ latin small letter o with tilde
+    {0x00F6, _T("ouml")    /*, Html3, 246 */ },//090 ï¿½ latin small letter o with diaeresis
+    {0x00F7, _T("divide")  /*, Html3, 247 */ },//091 ï¿½ division sign
+    {0x00F8, _T("oslash")  /*, Html3, 248 */ },//092 ï¿½ latin small letter o with stroke
+    {0x00F9, _T("ugrave")  /*, Html3, 249 */ },//093 ï¿½ latin small letter u with grave
+    {0x00FA, _T("uacute")  /*, Html3, 250 */ },//094 ï¿½ latin small letter u with acute
+    {0x00FB, _T("ucirc")   /*, Html3, 251 */ },//095 ï¿½ latin small letter u with circumflex
+    {0x00FC, _T("uuml")    /*, Html3, 252 */ },//096 ï¿½ latin small letter u with diaeresis
+    {0x00FD, _T("yacute")  /*, Html3, 253 */ },//097 ï¿½ latin small letter y with acute
+    {0x00FE, _T("thorn")   /*, Html3, 254 */ },//098 ï¿½ latin small letter thorn
+    {0x00FF, _T("yuml")    /*, Html3, 255 */ },//099 ï¿½ latin small letter y with diaeresis
+    {0x0152, _T("OElig")   /*, HTML4, 338 */ },//100 ï¿½ latin capital ligature OE
+    {0x0153, _T("oelig")   /*, HTML4, 339 */ },//101 ï¿½ latin small ligature oe
+    {0x0160, _T("Scaron")  /*, HTML4, 352 */ },//102 ï¿½ latin capital letter S with caron
+    {0x0161, _T("scaron")  /*, HTML4, 353 */ },//103 ï¿½ latin small letter s with caron
+    {0x0178, _T("Yuml")    /*, HTML4, 376 */ },//104 ï¿½ latin capital letter Y with diaeresis
+    {0x0192, _T("fnof")    /*, Lat_B, 402 */ },//105 ï¿½ latin small f with hook = function = florin
+    {0x02C6, _T("circ")    /*, HTML4, 710 */ },//106 ï¿½ modifier letter circumflex accent
+    {0x02DC, _T("tilde")   /*, HTML4, 732 */ },//107 ï¿½ small tilde
     {0x0391, _T("Alpha")   /*, Greek, 913 */ },//108 ? greek capital letter alpha
     {0x0392, _T("Beta")    /*, Greek, 914 */ },//109 ? greek capital letter beta
     {0x0393, _T("Gamma")   /*, Greek, 915 */ },//110 G greek capital letter gamma
@@ -324,7 +324,7 @@ const struct SHtmlChEntity g_listHtmlChEntity[] =
     {0x03A8, _T("Psi")     /*, Greek, 936 */ },//130 ? greek capital letter psi
     {0x03A9, _T("Omega")   /*, Greek, 937 */ },//131 O greek capital letter omega
     {0x03B1, _T("alpha")   /*, Greek, 945 */ },//132 a greek small letter alpha
-    {0x03B2, _T("beta")    /*, Greek, 946 */ },//133 ß greek small letter beta
+    {0x03B2, _T("beta")    /*, Greek, 946 */ },//133 ï¿½ greek small letter beta
     {0x03B3, _T("gamma")   /*, Greek, 947 */ },//134 ? greek small letter gamma
     {0x03B4, _T("delta")   /*, Greek, 948 */ },//135 d greek small letter delta
     {0x03B5, _T("epsilon") /*, Greek, 949 */ },//136 e greek small letter epsilon
@@ -334,7 +334,7 @@ const struct SHtmlChEntity g_listHtmlChEntity[] =
     {0x03B9, _T("iota")    /*, Greek, 953 */ },//140 ? greek small letter iota
     {0x03BA, _T("kappa")   /*, Greek, 954 */ },//141 ? greek small letter kappa
     {0x03BB, _T("lambda")  /*, Greek, 955 */ },//142 ? greek small letter lambda
-    {0x03BC, _T("mu")      /*, Greek, 956 */ },//143 µ greek small letter mu
+    {0x03BC, _T("mu")      /*, Greek, 956 */ },//143 ï¿½ greek small letter mu
     {0x03BD, _T("nu")      /*, Greek, 957 */ },//144 ? greek small letter nu
     {0x03BE, _T("xi")      /*, Greek, 958 */ },//145 ? greek small letter xi
     {0x03BF, _T("omicron") /*, Greek, 959 */ },//146 ? greek small letter omicron
@@ -351,37 +351,37 @@ const struct SHtmlChEntity g_listHtmlChEntity[] =
     {0x03D1, _T("thetasym")/*, Greek, 977 */ },//157 ? greek small letter theta symbol
     {0x03D2, _T("upsih")   /*, Greek, 978 */ },//158 ? greek upsilon with hook symbol
     {0x03D6, _T("piv")     /*, Greek, 982 */ },//159 ? greek pi symbol
-    {0x2002, _T("ensp")    /*, glyph, */ },//160   en space, ½ em, nut
+    {0x2002, _T("ensp")    /*, glyph, */ },//160   en space, ï¿½ em, nut
     {0x2003, _T("emsp")    /*, glyph, */ },//161   em space. mutton, equal to type size in points
     {0x2009, _T("thinsp")  /*, glyph, */ },//162 ? thin space, 1/5 em
     {0x200C, _T("zwnj")    /*, glyph, */ },//163 ? zero width non-joiner (formatting)
     {0x200D, _T("zwj")     /*, glyph, */ },//164 ? zero width joiner (formatting)
     {0x200E, _T("lrm")     /*, glyph, */ },//165 ? left-to-right mark (formatting)
     {0x200F, _T("rlm")     /*, glyph, */ },//166 ? right-to-left mark (formatting)
-    {0x2013, _T("ndash")   /*, HTML4,8211 */ },//167 – en dash
-    {0x2014, _T("mdash")   /*, HTML4,8212 */ },//168 — em dash
-    {0x2018, _T("lsquo")   /*, HTML4,8216 */ },//169 ‘ left single quotation mark
-    {0x2019, _T("rsquo")   /*, HTML4,8217 */ },//170 ’ right single quotation mark
-    {0x201A, _T("sbquo")   /*, HTML4,8218 */ },//171 ‚ single low-9 quotation mark
-    {0x201C, _T("ldquo")   /*, HTML4,8220 */ },//172 “ left double quotation mark
-    {0x201D, _T("rdquo")   /*, HTML4,8221 */ },//173 ” right double quotation mark
-    {0x201E, _T("bdquo")   /*, HTML4,8222 */ },//174 „ double low-9 quotation mark
-    {0x2020, _T("dagger")  /*, HTML4,8224 */ },//175 † dagger
-    {0x2021, _T("Dagger")  /*, HTML4,8225 */ },//176 ‡ double dagger
-    {0x2022, _T("bull")    /*, punct,8226 */ },//177 • bullet = black small circle
-    {0x2026, _T("hellip")  /*, punct,8230 */ },//178 … horizontal ellipsis = three dot leader
-    {0x2030, _T("permil")  /*, HTML4,8240 */ },//179 ‰ per mille sign
+    {0x2013, _T("ndash")   /*, HTML4,8211 */ },//167 ï¿½ en dash
+    {0x2014, _T("mdash")   /*, HTML4,8212 */ },//168 ï¿½ em dash
+    {0x2018, _T("lsquo")   /*, HTML4,8216 */ },//169 ï¿½ left single quotation mark
+    {0x2019, _T("rsquo")   /*, HTML4,8217 */ },//170 ï¿½ right single quotation mark
+    {0x201A, _T("sbquo")   /*, HTML4,8218 */ },//171 ï¿½ single low-9 quotation mark
+    {0x201C, _T("ldquo")   /*, HTML4,8220 */ },//172 ï¿½ left double quotation mark
+    {0x201D, _T("rdquo")   /*, HTML4,8221 */ },//173 ï¿½ right double quotation mark
+    {0x201E, _T("bdquo")   /*, HTML4,8222 */ },//174 ï¿½ double low-9 quotation mark
+    {0x2020, _T("dagger")  /*, HTML4,8224 */ },//175 ï¿½ dagger
+    {0x2021, _T("Dagger")  /*, HTML4,8225 */ },//176 ï¿½ double dagger
+    {0x2022, _T("bull")    /*, punct,8226 */ },//177 ï¿½ bullet = black small circle
+    {0x2026, _T("hellip")  /*, punct,8230 */ },//178 ï¿½ horizontal ellipsis = three dot leader
+    {0x2030, _T("permil")  /*, HTML4,8240 */ },//179 ï¿½ per mille sign
     {0x2032, _T("prime")   /*, MathO,8242 */ },//180 ' prime = minutes = feet unit
     {0x2033, _T("Prime")   /*, MathO,8243 */ },//181 ? double prime = seconds = inches
-    {0x2039, _T("lsaquo")  /*, HTML4,8249 */ },//182 ‹ single left-pointing angle quotation mark
-    {0x203A, _T("rsaquo")  /*, HTML4,8250 */ },//183 › single right-pointing angle quotation mark
+    {0x2039, _T("lsaquo")  /*, HTML4,8249 */ },//182 ï¿½ single left-pointing angle quotation mark
+    {0x203A, _T("rsaquo")  /*, HTML4,8250 */ },//183 ï¿½ single right-pointing angle quotation mark
     {0x203E, _T("oline")   /*, punct,8254 */ },//184 ? overline = spacing overscore
     {0x2044, _T("frasl")   /*, MathO,8260 */ },//185 / fraction slash
-    {0x20AC, _T("euro")    /*, glyph, */ },//186 € euro sign
+    {0x20AC, _T("euro")    /*, glyph, */ },//186 ï¿½ euro sign
     {0x2111, _T("image")   /*, MathL,8465 */ },//187 I blackletter capital I = imaginary part symbol
-    {0x2118, _T("weierp")  /*, MathL,8472 */ },//188 P script capital P = power set = Weierstraß elliptic function
+    {0x2118, _T("weierp")  /*, MathL,8472 */ },//188 P script capital P = power set = Weierstraï¿½ elliptic function
     {0x211C, _T("real")    /*, MathL,8476 */ },//189 R blackletter capital R = real part symbol
-    {0x2122, _T("trade")   /*, glyph, */ },//190 ™ trade mark sign
+    {0x2122, _T("trade")   /*, glyph, */ },//190 ï¿½ trade mark sign
     {0x2135, _T("alefsym") /*, MathL,8501 */ },//191 ? alef symbol = first transfinite cardinal - countable
     {0x2190, _T("larr")    /*, Arrow,8592 */ },//192 ? leftwards arrow
     {0x2191, _T("uarr")    /*, Arrow,8593 */ },//193 ? upwards arrow
@@ -397,7 +397,7 @@ const struct SHtmlChEntity g_listHtmlChEntity[] =
     {0x2200, _T("forall")  /*, MathO,8704 */ },//203 ? for all
     {0x2202, _T("part")    /*, MathO,8706 */ },//204 ? partial differential
     {0x2203, _T("exist")   /*, MathO,8707 */ },//205 ? existential quantifier, there exists
-    {0x2205, _T("empty")   /*, MathO,8709 */ },//206 Ø empty set = null set = diameter
+    {0x2205, _T("empty")   /*, MathO,8709 */ },//206 ï¿½ empty set = null set = diameter
     {0x2207, _T("nabla")   /*, MathO,8711 */ },//207 ? nabla = backward difference = gradient, del
     {0x2208, _T("isin")    /*, MathO,8712 */ },//208 ? element of set
     {0x2209, _T("notin")   /*, MathO,8713 */ },//209 ? not an element of set
@@ -418,7 +418,7 @@ const struct SHtmlChEntity g_listHtmlChEntity[] =
     {0x2234, _T("there4")  /*, MathO,8756 */ },//224 ? therefore
     {0x223C, _T("sim")     /*, MathO,8764 */ },//225 ~ tilde operator = varies with = similar to
     {0x2245, _T("cong")    /*, MathO,8773 */ },//226 ? approximately equal to
-    {0x2248, _T("asymp")   /*, MathO,8776 */ },//227 ˜ almost equal to = asymptotic to
+    {0x2248, _T("asymp")   /*, MathO,8776 */ },//227 ï¿½ almost equal to = asymptotic to
     {0x2260, _T("ne")      /*, MathO,8800 */ },//228 ? not equal to
     {0x2261, _T("equiv")   /*, MathO,8801 */ },//229 = identical to
     {0x2264, _T("le")      /*, MathO,8804 */ },//230 = less-than or equal to
@@ -431,7 +431,7 @@ const struct SHtmlChEntity g_listHtmlChEntity[] =
     {0x2295, _T("oplus")   /*, MathO,8853 */ },//237 ? circled plus = direct sum
     {0x2297, _T("otimes")  /*, MathO,8855 */ },//238 ? circled times = vector product
     {0x22A5, _T("perp")    /*, MathO,8869 */ },//239 ? up tack = orthogonal to = perpendicular
-    {0x22C5, _T("sdot")    /*, MathO,8901 */ },//240 · dot operator
+    {0x22C5, _T("sdot")    /*, MathO,8901 */ },//240 ï¿½ dot operator
     {0x2308, _T("lceil")   /*, MathO,8968 */ },//241 ? left ceiling = apl upstile
     {0x2309, _T("rceil")   /*, MathO,8969 */ },//242 ? right ceiling
     {0x230A, _T("lfloor")  /*, MathO,8970 */ },//243 ? left floor = apl downstile
@@ -512,4 +512,3 @@ const struct SHtmlChEntity g_listHtmlChEntityLat2[] =
  * Created
  *
  *****************************************************************************/
-

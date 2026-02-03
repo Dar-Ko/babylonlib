@@ -30,7 +30,7 @@
   }
   History: Gauss, Carl Friedrich [1777-1855]
  */
-typedef template <> class TComplexBase<int> CGausssianInt;
+typedef template <> class TComplexBase<int> CGaussianInt;
 
 #else //Use Standard Template Library (STL)
   #include <complex>
@@ -46,7 +46,7 @@ typedef template <> class TComplexBase<int> CGausssianInt;
   }
   History: Gauss, Carl Friedrich [1777-1855]
  */
-typedef template <> class std::complex<int> CGausssianInt;
+typedef template <> class std::complex<int> CGaussianInt;
 
 #endif //_STL_
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ typedef template <> class std::complex<int> CGausssianInt;
 
 /*///////////////////////////////////////////////////////////////////////////*/
 /******************************************************************************
- * $Log: 
- *  1    Biblioteka1.0         2005-06-21 17:46:35  Darko Kolakovic 
+ * $Log:
+ *  1    Biblioteka1.0         2005-06-21 17:46:35  Darko Kolakovic
  * $
  *****************************************************************************/

@@ -154,7 +154,7 @@ inline TPoint<TYPE>::TPoint(const TPoint<TYPE>& tptPoint //[in] value to copy
     }
 
   //::operator CPoint()--------------------------------------------------------
-  /*Returns coordnate pair (x,y). Values are truncated to LONG.
+  /*Returns coordinate pair (x,y). Values are truncated to LONG.
    */
   template<class TYPE>
   inline TPoint<TYPE>::operator CPoint()
@@ -554,9 +554,9 @@ return  (Angle ==  (TYPE)0) ?
 ///////////////////////////////////////////////////////////////////////////////
 /******************************************************************************
  * $Log:
- *  7    Biblioteka1.6         4/4/2002 1:13:01 AM  Darko           Documenation
+ *  7    Biblioteka1.6         4/4/2002 1:13:01 AM  Darko           Documentation
  *       update
- *  6    Biblioteka1.5         1/29/2002 11:21:33 PMDarko           Used lbraries
+ *  6    Biblioteka1.5         1/29/2002 11:21:33 PMDarko           Used libraries
  *       notes
  *  5    Biblioteka1.4         1/25/2002 4:57:34 PM Darko           Updated
  *       comments

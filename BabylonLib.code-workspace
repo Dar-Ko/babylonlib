@@ -4,5 +4,19 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"cSpell.words": [
+			"babylonlib",
+			"Biblioteka",
+			"Darko",
+			"ddarko",
+			"endians",
+			"inkjet",
+			"Kolakovic",
+			"littleendians",
+			"microcontrollers",
+			"phasor",
+			"stdafx"
+		]
+	}
 }

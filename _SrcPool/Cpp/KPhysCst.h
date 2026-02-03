@@ -18,7 +18,7 @@
 //-----------------------------------------------------------------------------
 // Group=Constants
 
-  //Temperature of 0°Celsius in [K]
+  //Temperature of 0ï¿½Celsius in [K]
 #define CST_0C2K     273.15
   //Speed of light in vacuum [m/s]
 #define CST_c        299792458.
@@ -62,7 +62,7 @@
   */
 #define CST_Qe       1.602176487e-19
 
-  //Acceleration g due to Earth's gravity at sea level, 45° latitude [m/s2]
+  //Acceleration g due to Earth's gravity at sea level, 45ï¿½ latitude [m/s2]
 #define CST_g        9.806194
   /*Universal Gravitational Constant G {html:[m<sup>3</sup>/g s<sup>2</sup>]} is
     the constant of proportionality relating force to mass and distance in
@@ -128,7 +128,7 @@
 
   //One one-hundredth part [%] See also: percent()
 #define CST_PERCENT = 1.0/100.0;
-  //One one-thousandth part[‰]=ANSI(TTF)137
+  //One one-thousandth part[ï¿½]=ANSI(TTF)137
 #define CST_PERMILL = 1.0/1000.0;
 
   /*decibel per neper
@@ -155,13 +155,13 @@
 #define CST_Vref 0.775
 
   /*{html:
-    Speed of sound in air at 20°C [m/s].
+    Speed of sound in air at 20ï¿½C [m/s].
     Speed of sound in the air depends on the temperature:
-      v<sub>sa</sub>[m/s]=0.6T[°C] + 331.
+      v<sub>sa</sub>[m/s]=0.6T[ï¿½C] + 331.
     }
    */
 #define CST_Vsa  343
-  //Speed of sound in water at 20°C [m/s]
+  //Speed of sound in water at 20ï¿½C [m/s]
 #define CST_Vsw 1525
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -196,7 +196,7 @@ template <class TYPE> inline TYPE VpV2dB(const TYPE& fV,const TYPE& fVref)
 /*{html:
   Converts Power attenuation [W/W] to decibels [dB].
 
-  decibel [dB] is relative unit of measurement on logarithimic scale.
+  decibel [dB] is relative unit of measurement on logarithmic scale.
   One dB is equal to ten times the logarithm of the ratio of the measured or
   calculated power (or sound intensity) and a reference power (for example
   before attenuation).

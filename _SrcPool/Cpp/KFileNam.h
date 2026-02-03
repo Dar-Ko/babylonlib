@@ -20,7 +20,7 @@
 List of the logical disk identifiers (LDID) used in Device Information File (.INF):
     00 Null LDID; this LDID can be used to create a new LDID
     01 Source drive:\ pathname
-    02 Temporary Setup directory; this is valid only during Windows 95 Setup
+    02 Temporary Setup directory; this is valid only during Windowsï¿½95 Setup
     03 Uninstall directory
     04 Backup directory
     10 Windows directory
@@ -50,7 +50,7 @@ typedef enum LDID_
   {
    LDID$NULL     = 00, //Null LDID; this LDID can be used to create a new LDID
    LDID$SOURCE   = 01, //Source drive:\ pathname
-   LDID$TMPSET   = 02, //Temporary Setup directory; this is valid only during Windows 95 Setup
+   LDID$TMPSET   = 02, //Temporary Setup directory; this is valid only during Windowsï¿½95 Setup
    LDID$UNISTT   = 03, //Uninstall directory
    LDID$BACKUP   = 04, //Backup directory
    LDID_WIN      = 10, //Windows directory

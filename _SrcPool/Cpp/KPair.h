@@ -48,7 +48,7 @@ public:
   P = (x,y)
  */
 template<class TYPE>
-inline TPair<TYPE>::TPair(const TYPE& a, //[in]= 0 first element of the setr
+inline TPair<TYPE>::TPair(const TYPE& a, //[in]= 0 first element of the set
                           const TYPE& b  //[in]= 0 second element of the set
                          ):
   TPoint<TYPE>(a,b)

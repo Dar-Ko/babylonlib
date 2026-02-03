@@ -42,10 +42,10 @@ const double CST_FTpKNUK= 6080.0;//foot per knot (UK nautical mile)
 
   //Temperature
 
-const double CST_oCoF1 =5.0/9.0; //°Fahrenheit to °Celsius coef.Tc = 5(Tf-32)/9
-const double CST_oCoF2 =   32.0; //°Fahrenheit to °Celsius part.
-const double CST_oF2oRk= 459.67; //difference between °Fahrenheit and °Rankine
-const double CST_oCoR  =4.0/5.0; //°Reaumur to °Celsius coef
+const double CST_oCoF1 =5.0/9.0; //ï¿½Fahrenheit to ï¿½Celsius coef.Tc = 5(Tf-32)/9
+const double CST_oCoF2 =   32.0; //ï¿½Fahrenheit to ï¿½Celsius part.
+const double CST_oF2oRk= 459.67; //difference between ï¿½Fahrenheit and ï¿½Rankine
+const double CST_oCoR  =4.0/5.0; //ï¿½Reaumur to ï¿½Celsius coef
 
   //Force
 
@@ -65,15 +65,15 @@ const double CST_JpBTU =1055.06; //joule per British thermal unit
 const double CST_PApATM=101325.;  //pascal per standard atmosphere
 const double CST_TORRpATM= 760.;  //torr(almost as mmHg) per standard atmosphere
 const double CST_PApBAR=    1e5;  //pascal per bar
-const double CST_PApINH2O=249.089;//pascal per inch of water at 4°C
+const double CST_PApINH2O=249.089;//pascal per inch of water at 4ï¿½C
 
 
 ///////////////////////////////////////////////////////////////////////////////
 #endif //_KCONVCST_H_
 /*****************************************************************************
- * $Log: 
+ * $Log:
  *  2    Biblioteka1.1         2003-09-22 21:25:45  Darko           formatting
- *  1    Biblioteka1.0         2003-09-11 15:51:49  Darko           Exctracted from
+ *  1    Biblioteka1.0         2003-09-11 15:51:49  Darko           Extracted from
  *       U_Conv.h
  * $
  *  0   Jan. 97 created  D. Kolakovic

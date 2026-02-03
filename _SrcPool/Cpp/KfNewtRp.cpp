@@ -107,7 +107,7 @@ while(iMaxIter > 0)
 return false; //failed after iMaxIter iterations
 }
 
-/*(2) The derivative dy/dx is aproximated with:
+/*(2) The derivative dy/dx is approximated with:
   {html:
    <br /><img src="Images/eqApproxDerivative.gif" border="0"
           alt="(y[n+1] - y[n])/(x[n+1] - x[n]) = (y[n+1] - y[n])/Dx">

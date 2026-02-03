@@ -357,7 +357,7 @@ return !(*this == guidValue);
 }
 
 //-----------------------------------------------------------------------------
-/*Converts othis object to Globally Unique Identifier (GUID).
+/*Converts this object to Globally Unique Identifier (GUID).
 
   Returns: Globally Unique Identifier (GUID).
  */
@@ -367,7 +367,7 @@ return m_uPack.a;
 }
 
 //-----------------------------------------------------------------------------
-/*Converts othis object to Universally Unique Identifier (UUID).
+/*Converts this object to Universally Unique Identifier (UUID).
 
   Returns: Universally Unique Identifier (UUID).
  * /
@@ -544,7 +544,7 @@ inline void CGuid::Create()
 
 #elif defined(_LINUX)
   //Required libuuid lib
-  uuid_generate((uuid_t*)&m_uPack.v); //Accesing byte array to store new UUID
+  uuid_generate((uuid_t*)&m_uPack.v); //Accessing byte array to store new UUID
 #else
 
   {
@@ -592,7 +592,7 @@ inline void CGuid::Create()
   a globally unique 128-bit integer. Use the CoCreateGuid function when you need
   an absolutely unique number that you will use as a persistent identifier in
   a distributed environment.To a very high degree of certainty, this function
-  returns a unique value – no other invocation, on the same or any other system
+  returns a unique value ï¿½ no other invocation, on the same or any other system
   (networked or not), should return the same value.
 
   Returns a GUID, a unique 128-bit integer or 0 in case of failure.

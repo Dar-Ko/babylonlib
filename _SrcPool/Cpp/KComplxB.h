@@ -159,7 +159,7 @@ return (_ccI = Im);
 //::Rho()----------------------------------------------------------------------
 #include "KMathCst.inl" //Absolute()
 /*Returns a radius of complex number in the polar form.
-  Radius is equal to the magnitide of the phasor represented by complex number.
+  Radius is equal to the magnitude of the phasor represented by complex number.
   Phasor is a rotating vector vector representing a periodical quantity.
 
   {html:<br /><img src="Images/eqComplexNo.gif" border="0"

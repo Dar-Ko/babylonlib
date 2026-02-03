@@ -19,7 +19,7 @@
   A note is a unit of fixed pitch and defined duration (breve).
   Pitch is the dominant frequency of a note produced by a musical instrument.
   English notation assigns letter names: A, B, C, D, E, F and G for seven notes.
-  {html: With two modifiers sharp &#9839; and flat &#9837; it posible to
+  {html: With two modifiers sharp &#9839; and flat &#9837; it is possible to
   represent 12 notes of diatonic octave. }
   Sharp raises and flat lowers the pitch of a note by a semitone.
   Each note symbol have a specific pitch regardless of the octave in which

@@ -71,7 +71,7 @@
     #undef _GET_WORD_ALIGNP
   #endif
   #ifndef _GET_WORD_ALIGNP
-  /*Copy a uint16 value byte by byte, becouse on some architectures (uint16*)
+  /*Copy a uint16 value byte by byte, because on some architectures (uint16*)
     pcHostValue
     will round pointer to match uint16 increments giving a result equal to
               *(uint16*)(pcHostValue/sizeof(uint16))
@@ -85,7 +85,7 @@
     #undef _GET_DWORD_ALIGNP
   #endif
   #ifndef _GET_DWORD_ALIGNP
-  //Copy a uint32 value byte by byte, becouse on some architectures (uint32*)pcHostValue
+  //Copy a uint32 value byte by byte, because on some architectures (uint32*)pcHostValue
   //will round pointer to match uint32 increments giving a result equal to
   //*(uint32*)(pcHostValue/sizeof(uint32))
     #define _GET_DWORD_ALIGNP(pBYTE) \
@@ -189,7 +189,7 @@ return ntohs(m_netValue);
 }
 
 //::operator BYTE*()-----------------------------------------------------------
-/*Returns pointer to the internal data conatiner.
+/*Returns pointer to the internal data container.
  */
 inline NetWord::operator BYTE*() const
 {
