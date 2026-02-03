@@ -46,7 +46,7 @@
 /*TODO: Begin emitting predefined sound.
 
   Example:
-      #include "KBeep.h"    //CBeep class
+      #include "KBeep.h"   //CBeep class
       #include "KOctave.h" //note Ids
       void MyFunc()
       {
