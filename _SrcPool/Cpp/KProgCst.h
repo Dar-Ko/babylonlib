@@ -505,30 +505,7 @@ const unsigned long GiB = 0x40000000UL;
 
 #endif
 
-/*---------------------------------------------------------------------------*/
-/*Metrowerks CodeWarrior Compiler                                            */
-#if defined(__MWERKS__)/* Metrowerks CodeWarrior Compiler                    */
-  #if __option (little_endian)
-    /*Byte order, according to significance of bytes                         */
-    #define _ENDIAN_ORDER_ _ENDIAN_LITTLE_
-  #else
-    /*Byte order, according to significance of bytes                         */
-    #define _ENDIAN_ORDER_ _ENDIAN_BIG_
-  #endif
 
-  #ifndef _ENDIAN_ORDER_
-    #ifdef _MSL_LITTLE_ENDIAN
-      #if (_MSL_LITTLE_ENDIAN == 1)
-        #define _ENDIAN_ORDER_ _ENDIAN_LITTLE_
-      #elif (_MSL_LITTLE_ENDIAN == 0)
-        #define _ENDIAN_ORDER_ _ENDIAN_BIG_
-      #else
-        #pragma message ("_MSL_: Unknown Endian byte order.")
-      #endif
-    #endif /*_MSL_LITTLE_ENDIAN*/
-  #endif /*_ENDIAN_ORDER_*/
-
-#endif /*__MWERKS__                                                          */
 
 /*///////////////////////////////////////////////////////////////////////////*/
 /* Global macros                                                             */
@@ -755,17 +732,9 @@ const unsigned long GiB = 0x40000000UL;
   #include "KProgCstGnuc.h"
 #endif
 #if defined(__MWERKS__) /*Metrowerks Code Warrior C/C++ Compiler             */
-  //#include "KProgCstMwcw.h" TODO:
+  #include "KProgCstMwcw.h"
 #endif
 
-#ifndef UNUSED_ARG
-//  #define UNUSED_ARG(param) do {/* null */} while (&param == 0)
-//  #define UNUSED_ARG(param) param = *(&param);
-  #if defined(__MWERKS__)//TODO: Move to KProgCstMwcw.h D.K.
-    /*Metrowerks Code Warrior*/
-    #define UNUSED_ARG(param)    &(param)
-  #endif
-#endif /* UNUSED_ARG */
 
 #ifndef UNUSED
   /*Resolves the compiler warning about unused arguments.
