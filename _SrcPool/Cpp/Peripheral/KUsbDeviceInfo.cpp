@@ -23,10 +23,10 @@
   #else
     #include <windows.h>
     #include <tchar.h> //_istdigit()
-    /*Note: Apperently if <tchar.h> header file is included  before <windows.h>,
+    /*Note: Apparently if <tchar.h> header file is included before <windows.h>,
       the Microsoft C++ compiler v7.1 or lesser in multithreaded Unicode environment
       instantiates wtype inline functions (_iswdigit, _iswspace, etc.), resulting
-      in multiple defintions and linker error LNK2005.
+      in multiple definitions and linker error LNK2005.
       See also: _FIXLNK2005WTYPE
      */
   #endif

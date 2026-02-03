@@ -253,7 +253,7 @@ typedef enum _USB_HUB_NODE {
 
 #ifndef USB_KERNEL_IOCTL
   /*USB_HUB_INFORMATION structure contains information about an USB hub.*/
-  typedef struct _USB_HUB_INFORMATION 
+  typedef struct _USB_HUB_INFORMATION
     {
     USB_HUB_DESCRIPTOR HubDescriptor;  /*selected hub information*/
     BOOLEAN            HubIsBusPowered;/*indicates whether the hub is powered*/
@@ -280,7 +280,7 @@ typedef USB_MI_PARENT_INFORMATION   *PUSB_MI_PARENT_INFORMATION;
                                 a non-hub composite device:
 
                                 - UsbHub indicates that the device is a hub.
-                                - UsbMIParent the device is a composite device 
+                                - UsbMIParent the device is a composite device
                                   with multiple interfaces.
                                */
     union
@@ -355,11 +355,11 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
                                 the device is attached from the range
                                 [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     USB_DEVICE_DESCRIPTOR DeviceDescriptor; /*[out] attached USB device description*/
-    UCHAR                 CurrentConfigurationValue; /*[out] ID of attached USB 
+    UCHAR                 CurrentConfigurationValue; /*[out] ID of attached USB
                                            device description configuration*/
     BOOLEAN               LowSpeed;   /*[out] data transfer speed*/
     BOOLEAN               DeviceIsHub;/*[out] indicates if attached device is a hub*/
-    USHORT                DeviceAddress;/*[out] bus-relative address of the 
+    USHORT                DeviceAddress;/*[out] bus-relative address of the
                                           attached device*/
     ULONG                 NumberOfOpenPipes;/*[out] number of open USB pipes
                                               associated with the port*/
@@ -423,7 +423,7 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
   /*USB_ROOT_HUB_NAME structure stores the root hub's symbolic device name.
     Example:
       "USB#ROOT_HUB#4&1bdd60f9&0#{f18a0e88-c30c-11d0-8815-00a0c906bed8}"
-  
+
     See also: IOCTL_USB_GET_ROOT_HUB_NAME.
    */
   typedef struct _USB_ROOT_HUB_NAME
@@ -451,7 +451,7 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
 #endif
 
 #ifndef USB_KERNEL_IOCTL
-  /*USB_DESCRIPTOR_REQUEST structure is used with the 
+  /*USB_DESCRIPTOR_REQUEST structure is used with the
    IOCTL_USB_GET_DESCRIPTOR_FROM_NODE_CONNECTION I/O control request to retrieve
    one or more descriptors for the device that is associated with the indicated
    connection index.
@@ -468,11 +468,11 @@ typedef USB_CONNECTION_STATUS   *PUSB_CONNECTION_STATUS;
   typedef struct _USB_DESCRIPTOR_REQUEST
     {
     ULONG   ConnectionIndex; /*[in] specifies the port number to which the device
-                               is attached from the range 
+                               is attached from the range
                                [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     struct
       {
-      UCHAR  bmRequest;/*[out] type of USB device request (standard, class or 
+      UCHAR  bmRequest;/*[out] type of USB device request (standard, class or
                          vendor), the direction of the data transfer, and the
                          type of data recipient (device, interface, or endpoint).*/
       UCHAR  bRequest;/*[out] request number*/
@@ -504,7 +504,7 @@ typedef USB_HUB_CAPABILITIES    *PUSB_HUB_CAPABILITIES;
 #ifndef USB_KERNEL_IOCTL
 #if (_WIN32_WINNT >= 0x0501)
 typedef struct _USB_NODE_CONNECTION_ATTRIBUTES {
-    ULONG                   ConnectionIndex; /*specifies the number of 
+    ULONG                   ConnectionIndex; /*specifies the number of
                 the port in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     USB_CONNECTION_STATUS   ConnectionStatus;
     ULONG                   PortAttributes;
@@ -529,17 +529,17 @@ typedef USB_NODE_CONNECTION_ATTRIBUTES  *PUSB_NODE_CONNECTION_ATTRIBUTES;
      */
     typedef struct _USB_NODE_CONNECTION_INFORMATION_EX
       {
-      ULONG                   ConnectionIndex; /*[in] specifies the number of 
+      ULONG                   ConnectionIndex; /*[in] specifies the number of
                 the port in the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
       USB_DEVICE_DESCRIPTOR   DeviceDescriptor; /*[out] attached USB device
                                                   description*/
-      UCHAR                   CurrentConfigurationValue; /*ID of attached USB 
+      UCHAR                   CurrentConfigurationValue; /*ID of attached USB
                                              device description configuration*/
-      UCHAR                   Speed;  /*[out] data transfer speed of  
+      UCHAR                   Speed;  /*[out] data transfer speed of
                                         the attached USB device*/
       BOOLEAN                 DeviceIsHub;  /*[out] indicates if attached device
                                              is a hub*/
-      USHORT                  DeviceAddress;/*[out] bus-relative address of the 
+      USHORT                  DeviceAddress;/*[out] bus-relative address of the
                                               attached device*/
       ULONG                   NumberOfOpenPipes; /*[out] number of open USB pipes
                                                    associated with the port*/
@@ -587,7 +587,7 @@ typedef USB_HUB_CAPABILITIES_EX *PUSB_HUB_CAPABILITIES_EX;
 #ifndef USB_KERNEL_IOCTL
 #if (_WIN32_WINNT >= 0x0600)
 typedef struct _USB_CYCLE_PORT_PARAMS {
-    ULONG   ConnectionIndex; /*specifies the port number to which the device is attached 
+    ULONG   ConnectionIndex; /*specifies the port number to which the device is attached
                 from the range [1, USB_HUB_DESCRIPTOR::bNumberOfPorts]*/
     ULONG   StatusReturned;
 } USB_CYCLE_PORT_PARAMS;
@@ -957,7 +957,7 @@ typedef USB_DEVICE_PERFORMANCE_INFO *PUSB_DEVICE_PERFORMANCE_INFO;
  * USB string descriptor
  *
  * Revision 1.13  2009/08/10 20:55:41  ddarko
- * Desceiptor types
+ * Descriptor types
  *
  * Revision 1.12  2009/08/07 21:45:13  ddarko
  * Comments

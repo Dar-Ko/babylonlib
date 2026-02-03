@@ -97,7 +97,7 @@
   USB_STRING_DESCRIPTOR::bLength, less two for the size of the structure
   members.
 
-  See also: "Universal Serial Bus Specification Revision 1.1", 
+  See also: "Universal Serial Bus Specification Revision 1.1",
   Chapters 9.5 Descriptors, 9.6.5 String;
   LANGID, MAXIMUM_USB_STRING_LENGTH, USB_STRING_DESCRIPTOR, USB_LANGID_LIST.
  */
@@ -132,34 +132,34 @@
 #endif
 
 /*USB Device Firmware Update Descriptor.
-  See also: "USB Device Firmware Update Specification", http://www.usb.org. 
+  See also: "USB Device Firmware Update Specification", http://www.usb.org.
  */
 typedef struct tagUSB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR
-  { 
-  uint8_t bLength; 
-  uint8_t bDescriptorType; 
-  uint8_t bmAttributes; 
-  uint8_t wDetachTimeout; 
-  uint8_t wTransferSize; 
-  } USB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR;  
+  {
+  uint8_t bLength;
+  uint8_t bDescriptorType;
+  uint8_t bmAttributes;
+  uint8_t wDetachTimeout;
+  uint8_t wTransferSize;
+  } USB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR;
 /*USB Device Firmware Update Descriptor.*/
 typedef USB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR *PUSB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR;
 /*USB Device Firmware Update Descriptor.
-  See also: "USB Device Firmware Update Specification", http://www.usb.org. 
+  See also: "USB Device Firmware Update Specification", http://www.usb.org.
  */
 typedef USB_DEVICE_FIRMWARE_UPDATE_DESCRIPTOR IOUSBDFUDescriptor;
 
 ///////////////////////////////////////////////////////////////////////////////
 /*USB String Descriptor with supported language codes.
   Device, configuration, and interface descriptors may contain references to
-  string descriptors and the device device may support multiple languages. 
+  string descriptors and the device device may support multiple languages.
   String Descriptor with the special index number of zero
   contains the list of language IDs the device supports.
 
-  Request for the String indexed zero for any language returns a string 
-  descriptor that contains an array of two-byte LANGID codes supported by 
+  Request for the String indexed zero for any language returns a string
+  descriptor that contains an array of two-byte LANGID codes supported by
   the device.
-  USB devices that omit all string descriptors shall not return an array of 
+  USB devices that omit all string descriptors shall not return an array of
   LANGID codes.
   The array of LANGID codes is not NULL-terminated. The size of the array
   (in bytes) is computed by subtracting two from the value of the first byte of
@@ -174,9 +174,9 @@ union tagUSB_LANGID_LIST
   struct
     {
     uint8_t bLength;         /*[in]/[out] the size in bytes of the entire descriptor*/
-    uint8_t bDescriptorType; /*[in] the descriptor type is constant 
+    uint8_t bDescriptorType; /*[in] the descriptor type is constant
                                USB_DESCRIPTOR_TYPE_STRING = 0x03*/
-    LANGID  wLangId[1];      /*[out] list of supported language codes; maximum 
+    LANGID  wLangId[1];      /*[out] list of supported language codes; maximum
                                number of supported languges is 127.*/
     } usbLangIdDescriptor;
   };

@@ -76,7 +76,6 @@ ZeroMemory(m_nPortNo, sizeof(m_nPortNo));
 }
 
 inline CUsbDeviceInfo::~CUsbDeviceInfo()
-{
 }
 
 //-----------------------------------------------------------------------------

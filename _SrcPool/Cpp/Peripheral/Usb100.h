@@ -153,7 +153,7 @@ extern "C" {
 
 //-----------------------------------------------------------------------------
 /*USB Device Classes.
-  USB defines device types codes used to identify a device’s functionality.
+  USB defines device types codes used to identify a deviceï¿½s functionality.
 
   Class 	Usage   	Description 	                  	Examples
   00h 	Device    	Unspecified                     	Device class is unspecified. Interface descriptors are used for determining the required drivers.
@@ -387,7 +387,7 @@ typedef struct _USB_HUB_DESCRIPTOR
   uint8_t  bDescriptorType;     //descriptor type; default value for hub
                               //is constant USBCLASSDESCRIPTOR_HUB = 0x29
   uint8_t  bNumberOfPorts;      //number of ports on the hub
-  uint16_t wHubCharacteristics; //hub charateristics
+  uint16_t wHubCharacteristics; //hub characteristics
   uint8_t  bPowerOnToPowerGood; //time, in 2 ms increments, that it
                               //takes the device to turn on completely
   uint8_t  bHubControlCurrent;  //maximum current consumption [mA]
@@ -474,7 +474,7 @@ typedef USB_INTERFACE_POWER_DESCRIPTOR  *PUSB_INTERFACE_POWER_DESCRIPTOR;
  * USB string descriptor
  *
  * Revision 1.11  2009/08/10 20:55:41  ddarko
- * Desceiptor types
+ * Descriptor types
  *
  * Revision 1.10  2009/08/07 21:45:13  ddarko
  * Comments
