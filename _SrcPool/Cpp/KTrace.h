@@ -285,7 +285,7 @@
       #define _DBG_ERROR  _CRT_ERROR   /*Erroneous Condition report type*/
     #endif
     #ifndef _DBG_ASSERT
-      #define _DBG_ASSERT _CRT_ASSERT  /*Assertation Failure report type*/
+      #define _DBG_ASSERT _CRT_ASSERT  /*Assertion Failure report type*/
     #endif
 
     #ifdef _DEBUGTOLOG
@@ -318,7 +318,7 @@
       #endif //!AFX/MFC
     #endif //__cplusplus
 
-    #if !defined(_AFX) && !defined(_ATL) /*MFC and ATL not included and all 
+    #if !defined(_AFX) && !defined(_ATL) /*MFC and ATL not included and all
                                            TRACE macros are undefined*/
       /*Windows SDK version                                                   */
       #ifdef _MFC_VER
@@ -743,6 +743,6 @@
  *  1    User: Dkolakovic   4/18/01 3:46p  ASSERT
  *  2    User: Dkolakovic   4/17/01 2:18p  Replaced output with stdio printf (VxWorks)
  * $
- * Aug. 96 renamed macroes to be MFC-like (source-level compatibility) D.K.
+ * Aug. 96 renamed macros to be MFC-like (source-level compatibility) D.K.
  * Oct. 94 created D.K.
  *****************************************************************************/

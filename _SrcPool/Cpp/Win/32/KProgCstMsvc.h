@@ -119,23 +119,24 @@
 
   #ifndef UNUSED
     /*Resolves the compiler warning about unused arguments.
-      Synonim to _UNUSED, UNUSED_ARG.
+      Synonym to _UNUSED, UNUSED_ARG.
      */
     #define UNUSED _UNUSED
   #endif
   #ifndef UNUSED_ARG
     /*Resolves the compiler warning about unused arguments.
-      Synonim to _UNUSED, UNUSED.
+      Synonym to _UNUSED, UNUSED.
      */
     #define UNUSED_ARG _UNUSED
   #endif
 
   #ifndef _DEPRECATED
     /*Indicates that a function identifier may no longer be supported in
-      a future release or should no longer be used. */
+      a future release or should no longer be used. 
+      Note: MSVC 2008 redefines _DEPRECATED in <yvals.h> */
     #define _DEPRECATED(func) __declspec(deprecated) func
   #endif
-  
+
 #if _MSC_VER < 1400
   //Older version than Microsoft Visual C/C++ 2005, version 8.0
   typedef int errno_t; //global error type
@@ -182,7 +183,7 @@
 
     Note:When porting DLL source code from Win16 to Win32, replace each instance
     of __export with __declspec(dllexport).
-    
+
     Specific to Microsoft C/C++ Optimizing Compiler v7.0+
    */
   #define _KEXPORTDECL  __export
@@ -190,7 +191,7 @@
 #endif /*_KMSVC16*/
 
 #ifndef _KEXPORTDECL
-  /*This storage-class specification explicitly define the DLL’s interface to
+  /*This storage-class specification explicitly define the DLLï¿½s interface to
     its client, which can be the executable file or another DLL. The attribute
     allows the compiler to generate the export names automatically and place
     them in a library (.lib) file.
@@ -251,10 +252,10 @@
 #endif
 
 /*///////////////////////////////////////////////////////////////////////////*/
-/*Common declartions
+/*Common declarations
  */
 
-/*8-bit data type allowing acces to indvidual bit-fields.
+/*8-bit data type allowing access to individual bit-fields.
 
   Note: using bit-fields is potentially thread unsafe, if multiple mutexes
   are used to guard different fields. Use instead single mutex to protect
@@ -286,7 +287,7 @@ typedef union tagSTATUS8
     uint8_t B4 :1; //Bit 4
     uint8_t B5 :1; //Bit 5
     uint8_t B6 :1; //Bit 6
-    uint8_t B7 :1; //Bit 7: Most Signficant Bit (MSB)
+    uint8_t B7 :1; //Bit 7: Most Significant Bit (MSB)
     } BIT;  //Binary digit
   } STATUS8;
 

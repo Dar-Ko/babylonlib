@@ -31,7 +31,7 @@
     #define _DBG_ERROR  2   /*Erroneous Condition report type*/
   #endif
   #ifndef _DBG_ASSERT
-    #define _DBG_ASSERT 3  /*Assertation Failure report type*/
+    #define _DBG_ASSERT 3  /*Assertion Failure report type*/
   #endif
 
   /* /////////////////////////////////////////////////////////////////////// */
@@ -46,7 +46,7 @@
       #include <ErrorMgr.h>
 
       #ifndef _DBG_BREAK
-        /*Macro causes a debugger break after validating emulator fetures.
+        /*Macro causes a debugger break after validating emulator features.
 
             sysFileCSystem                 'psys'
             kPalmOSEmulatorFeatureCreator  'pose'
@@ -97,15 +97,15 @@
       #ifdef __cplusplus
         extern "C" void DbgReport( int iReportType,
                 LPCTSTR szFileName,
-                unsigned int nLineNumber, 
-                LPCTSTR szModuleName, 
+                unsigned int nLineNumber,
+                LPCTSTR szModuleName,
                 LPCTSTR szMessage,
                 ...);
       #else
         void DbgReport( int iReportType,
                 LPCTSTR szFileName,
-                unsigned int nLineNumber, 
-                LPCTSTR szModuleName, 
+                unsigned int nLineNumber,
+                LPCTSTR szModuleName,
                 LPCTSTR szMessage,
                 ...);
       #endif
@@ -212,7 +212,7 @@
 
 /* ///////////////////////////////////////////////////////////////////////// */
 #else
-    #error "Included PalmOS specfic header file."
+    #error "Included PalmOS specific header file."
 #endif /*__PALMOS__*/
 
 /* ///////////////////////////////////////////////////////////////////////// */

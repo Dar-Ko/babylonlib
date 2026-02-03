@@ -182,7 +182,7 @@
  * _UNUSED()
  *
  * Revision 1.1  2012/01/26 16:22:37  ddarko
- * Extracted specific defintions from KProgCst.h
+ * Extracted specific definitions from KProgCst.h
  *
  * Jan. 97 D. Kolakovic
  *****************************************************************************/
@@ -258,7 +258,7 @@ public:
    static void foo(int a);
 };
 
-This also helps producing more optimised code: when you declare something defined outside the current compilation unit, GCC cannot know if that symbol resides inside or outside the DSO in which the current compilation unit will eventually end up; so, GCC must assume the worst and route everything through the GOT (Global Offset Table) which carries overhead both in code space and extra (costly) relocations for the dynamic linker to perform. To tell GCC a class, struct, function or variable is defined within the current DSO you must specify hidden visibility manually within its header file declaration (using the example above, you declare such things with DLLLOCAL). This causes GCC to generate optimal code.
+This also helps producing more optimized code: when you declare something defined outside the current compilation unit, GCC cannot know if that symbol resides inside or outside the DSO in which the current compilation unit will eventually end up; so, GCC must assume the worst and route everything through the GOT (Global Offset Table) which carries overhead both in code space and extra (costly) relocations for the dynamic linker to perform. To tell GCC a class, struct, function or variable is defined within the current DSO you must specify hidden visibility manually within its header file declaration (using the example above, you declare such things with DLLLOCAL). This causes GCC to generate optimal code.
 
 But this is of course cumbersome: this is why -fvisibility was added. With -fvisibility=hidden, you are telling GCC that every declaration not explicitly marked with a visibility attribute has a hidden visibility. And like in the example above, even for classes marked as visible (exported from the DSO), you may still want to mark e.g. private members as hidden, so that optimal code will be produced when calling them (from within the DSO).
 

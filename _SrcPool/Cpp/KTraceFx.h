@@ -3,7 +3,7 @@
   $Author: Darko Kolakovic$
 
   Debugging helpers
-  Copyright: Alberto García-Baquero Vega
+  Copyright: Alberto Garcï¿½a-Baquero Vega
   Copyright: Darko Kolakovic 2001-05-01
   www.flipcode.com
  */
@@ -293,8 +293,8 @@
  * $Log:
  *  1    Biblioteka1.0         2004-11-24 10:52:04  Darko Kolakovic
  * $
- * Darko Kolakovic: _MESSAGELINENO, KMESSAGE 2001-05-01; ComonSoftInc
+ * Darko Kolakovic: _MESSAGELINENO, KMESSAGE 2001-05-01; CommonSoftInc
  * Posted at BabylonLib.SourceForge.net
- * Alberto García-Baquero Vega: FIXME; TODO;
+ * Alberto Garcï¿½a-Baquero Vega: FIXME; TODO;
  * Posted at www.flipcode.com as Tip Of The Day.
  *****************************************************************************/

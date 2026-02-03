@@ -24,7 +24,7 @@
 #include "D_GFont.h"  //font name TODO: FixMe!
 /*Call this function as part of the WM_ERASEBKGND message handling to display
   a logo in the right bottom corner of the frame client area.
-  Returns allways TRUE to signal tha no further background painting is required.
+  Returns always TRUE to signal tha no further background painting is required.
 
    Pseudocode:
       {
@@ -32,7 +32,7 @@
       (as default OnEraseBkgnd would do);
       Create a font;
       Calculate the logo display size;
-      Substract staus bar height from client area size, if any;
+      Substract status bar height from client area size, if any;
       Draw shadows;
       Display the logo;
       Release resources;
@@ -44,7 +44,7 @@
 
   See also: KB Q129471 article.
 
-  Note: uses Microsoft Fundation Library (MFC).
+  Note: uses Microsoft Foundation Library (MFC).
   Note: Microsoft Windows specific (Win).
 
   Example:
@@ -147,7 +147,7 @@ rtTextBox = saveRect1;
 pDC->SetTextColor(GetSysColor(COLOR_BTNFACE));
 pDC->DrawText(strLogo, &rtTextBox, DT_VCENTER | DT_SINGLELINE | DT_CENTER);
 
-  //Testore the DC state and release resources
+  //Restore the DC state and release resources
 pDC->SelectObject(oldFont);
 pDC->SetTextColor(oldColor);
 pDC->SetBkMode(OPAQUE);
@@ -160,7 +160,7 @@ return TRUE;
 ///////////////////////////////////////////////////////////////////////////////
 /*****************************************************************************
  * $Log:
- *  6    Biblioteka1.5         2002-01-29 23:21:26  Darko           Used lbraries
+ *  6    Biblioteka1.5         2002-01-29 23:21:26  Darko           Used libraries
  *       notes
  *  5    Biblioteka1.4         2002-01-29 15:40:41  Darko           Tag update
  *  4    Biblioteka1.3         2001-08-19 23:54:05  Darko           Butyfier
