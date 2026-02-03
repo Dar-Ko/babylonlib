@@ -23,7 +23,7 @@
   is a path ending with directory delimiter '/'.
 
   Returns application's path or an empty string in case of failure.
-  
+
   See also: getcwd()
  */
 CString GetAppPath()
@@ -75,7 +75,7 @@ return strPath;
   is a path ending with directory delimiter '/'.
 
   Returns application's path or an empty string in case of failure.
-  
+
   See also: getcwd()
  */
 CString GetAppPath()
@@ -90,14 +90,14 @@ if (pstat_getproc( &ps, sizeof( ps ), 0, getpid() ) >= 0)
   {
     if (pstat_getpathname( szPath, PATH_MAX, &ps.pst_fid_text ) < 0)
       {
-	  TRACE1(_T("  Failed pstat_getpathname\n"));
+    TRACE1(_T("  Failed pstat_getpathname\n"));
       szPath[0] = _T('\0');
       }
   }
  else
   {
   szPath[0] = _T('\0');
-  }  
+  }
 strPath.ReleaseBuffer();  //Free extra space and set string length
 //TRACE1(TRACEFORMAT, (LPCTSTR)strPath);
 return strPath;
@@ -105,24 +105,24 @@ return strPath;
 #endif //_HP_UX_
 ///////////////////////////////////////////////////////////////////////////////
 /*Notes: Microsoft Visual Studio
-    GetModuleFileName()    Retrieves the fully qualified path for the file that 
+    GetModuleFileName()    Retrieves the fully qualified path for the file that
 	contains the specified module. The module must have been loaded by the current process.
 	http://msdn.microsoft.com/en-us/library/windows/desktop/ms683197%28v=vs.85%29.aspx
-	
+
 	GetCurrentDirectory()  Retrieves the current directory for the current process.
 	http://msdn.microsoft.com/en-us/library/windows/desktop/aa364934%28v=vs.85%29.aspx
-	
+
 	_getcwd(), _wgetcwd()  POSIX: Gets the current working directory.
-	This API CANNOT be used in Windows Store applications 
+	This API CANNOT be used in Windows Store applications
 	MSVC 2013 /ZW option ref.: "CRT functions not supported with /ZW";
 	http://msdn.microsoft.com/library/windows/apps/jj606124.aspx).
 	http://msdn.microsoft.com/en-us/library/sf98bd4y.aspx
-	
+
 	Other
-	
+
 	current_path() Boost: Returns: current_path() at the time of entry to main().
 	http://www.boost.org/doc/libs/1_36_0/libs/filesystem/doc/reference.html
-	
+
 	getcwd(), getwd(), get_current_dir_name() Linux: get current working directory
 	http://unixhelp.ed.ac.uk/CGI/man-cgi?getcwd+3
 	https://developer.apple.com/library/mac/documentation/Darwin/Reference/ManPages/man3/getcwd.3.html

@@ -53,13 +53,13 @@
 
   #ifndef UNUSED
     /*Resolves the compiler warning about unused arguments.
-      Synonim to _UNUSED, UNUSED_ARG.
+      Synonym to _UNUSED, UNUSED_ARG.
      */
     #define UNUSED _UNUSED
   #endif
   #ifndef UNUSED_ARG
     /*Resolves the compiler warning about unused arguments.
-      Synonim to _UNUSED, UNUSED.
+      Synonym to _UNUSED, UNUSED.
      */
     #define UNUSED_ARG _UNUSED
   #endif
@@ -71,12 +71,12 @@
   #endif
 
   #ifndef _KEXPORTDECL
-    /*The object attribute can be used to export a function or an object from 
+    /*The object attribute can be used to export a function or an object from
       a shared library (also knows as dynamic-link library DLL). The attribute
       allows the compiler to generate the export names automatically and place
       them in a library (.so) file.
-      Eqivalent to -fvisibility=default
-      
+      Equivalent to -fvisibility=default
+
       TODO: description
       use the '-export-symbols' switch of libtool to specify a file that lists the symbols to be exported.
        -export-symbols symfile.sym       use symbol file (.sym) to tell the linker to export listed symbols
@@ -85,11 +85,11 @@
         __attribute__ ((visibility("hidden"))) or
         -fvisibility=hidden compiler switch
       This modifier is used to export classes, functions, and data.
-      
-      Note: The name default does not refer to compiler defaults. Like the name hidden, it comes from visibility names defined by the ELF format. A symbol with default visibility has the kind of visibility that all symbols do if no special mechanisms are used—that is, it is exported as part of the public interface. 
-      
+
+      Note: The name default does not refer to compiler defaults. Like the name hidden, it comes from visibility names defined by the ELF format. A symbol with default visibility has the kind of visibility that all symbols do if no special mechanisms are usedï¿½that is, it is exported as part of the public interface.
+
       See also: _KEXPORTDECL, _KIMPORTDECL, _USE_EXPORT, __attribute__ , visibility
-      
+
       Specific to GCC 4.0
      */
     #define _KEXPORTDECL  __attribute__ ((visibility("default")))
@@ -109,7 +109,7 @@
     #define _KPRIVATEDECL  __attribute__ ((visibility("hidden")))
   #endif
 
-  //Export declartion; to declare class neither exported nor imported,
+  //Export declaration; to declare class neither exported nor imported,
   //undefine _PREMIUM_EXPORT and _PREMIUM_INEX
   #ifndef _KINEXDECL
     #ifdef _USE_EXPORT
@@ -162,7 +162,7 @@
 #endif
 
 /*///////////////////////////////////////////////////////////////////////////*/
-/*Common declartions
+/*Common declarations
  */
 
 /* TODO: */
@@ -188,18 +188,18 @@
  *****************************************************************************/
 
  /*http://gcc.gnu.org/wiki/Visibility   TODO: D.K.
- 
+
  Why is the new C++ visibility support so useful?
 
 Put simply, it hides most of the ELF symbols which would have previously (and unnecessarily) been public. This means:
 
     It very substantially improves load times of your DSO (Dynamic Shared Object). For example, a huge C++ template-based library which was tested (the TnFOX Boost.Python bindings library) now loads in eight seconds rather than over six minutes!
 
-    It lets the optimiser produce better code. PLT indirections (when a function call or variable access must be looked up via the Global Offset Table such as in PIC code) can be completely avoided, thus substantially avoiding pipeline stalls on modern processors and thus much faster code. Furthermore when most of the symbols are bound locally, they can be safely elided (removed) completely through the entire DSO. This gives greater latitude especially to the inliner which no longer needs to keep an entry point around "just in case".
+    It lets the optimizer produce better code. PLT indirections (when a function call or variable access must be looked up via the Global Offset Table such as in PIC code) can be completely avoided, thus substantially avoiding pipeline stalls on modern processors and thus much faster code. Furthermore when most of the symbols are bound locally, they can be safely elided (removed) completely through the entire DSO. This gives greater latitude especially to the inliner which no longer needs to keep an entry point around "just in case".
 
     It reduces the size of your DSO by 5-20%. ELF's exported symbol table format is quite a space hog, giving the complete mangled symbol name which with heavy template usage can average around 1000 bytes. C++ templates spew out a huge amount of symbols and a typical C++ library can easily surpass 30,000 symbols which is around 5-6Mb! Therefore if you cut out the 60-80% of unnecessary symbols, your DSO can be megabytes smaller!
 
-    Much lower chance of symbol collision. The old woe of two libraries internally using the same symbol for different things is finally behind us with this patch. Hallelujah! 
+    Much lower chance of symbol collision. The old woe of two libraries internally using the same symbol for different things is finally behind us with this patch. Hallelujah!
 
 Although the library quoted above is an extreme case, the new visibility support reduced the exported symbol table from > 200,000 symbols to less than 18,000. Some 21Mb was knocked off the binary size as well!
 
@@ -293,7 +293,7 @@ Step-by-step guide
 
 The following instructions are how to add full support to your library, yielding the highest quality code with the greatest reductions in binary size, load times and link times. All new code should have this support from the beginning! And it's worth your while especially in speed critical libraries to spend the few days required to implement it fully - it's a once off investment of time with nothing but good resulting forever more. You can however add basic support to your library in far less time though it is not recommended that you do so.
 
-    Place something along the lines of the following code in your master header file (or a specific header that you will include everywhere). This code is taken from the aforementioned TnFOX library: 
+    Place something along the lines of the following code in your master header file (or a specific header that you will include everywhere). This code is taken from the aforementioned TnFOX library:
 
 // Generic helper definitions for shared library support
 #if defined _WIN32 || defined __CYGWIN__
@@ -308,7 +308,6 @@ The following instructions are how to add full support to your library, yielding
   #else
     #define FOX_HELPER_DLL_IMPORT
     #define FOX_HELPER_DLL_EXPORT
-    #define FOX_HELPER_DLL_LOCAL
   #endif
 #endif
 
@@ -352,7 +351,7 @@ The following instructions are how to add full support to your library, yielding
 
     Individual member functions of an exported class that are not part of the interface, in particular ones which are private, and are not used by friend code, should be marked individually with FOX_LOCAL.
 
-    In your build system (Makefile etc), you will probably wish to add the -fvisibility=hidden and -fvisibility-inlines-hidden options to the command line arguments of every GCC invocation. Remember to test your library thoroughly afterwards, including that all exceptions correctly traverse shared object boundaries. 
+    In your build system (Makefile etc), you will probably wish to add the -fvisibility=hidden and -fvisibility-inlines-hidden options to the command line arguments of every GCC invocation. Remember to test your library thoroughly afterwards, including that all exceptions correctly traverse shared object boundaries.
 
-If you want to see before and after results, use the command nm -C -D <library>.so which lists all exported symbols in demangled form. 
+If you want to see before and after results, use the command nm -C -D <library>.so which lists all exported symbols in demangled form.
 */

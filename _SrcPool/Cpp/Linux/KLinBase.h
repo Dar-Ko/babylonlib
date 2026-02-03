@@ -18,7 +18,7 @@
  #ifdef _UNICODE
    //TODO:
  #else  //single-byte
- 
+
   #ifndef _T
     /*Generic text literals
 
@@ -37,11 +37,11 @@
   #else
     #define _tenviron  _environ
   #endif
-  
+
    #ifndef FillMemory
     /*Fills a block of memory with a specified value.
       Requires <string.h> header file.
-      
+
       Example:
         #include <string.h>
         ...
@@ -53,7 +53,7 @@
   #ifndef ZeroMemory
     /*Fills a block of memory with zeros.
       Requires <string.h> header file.
-      
+
       Example:
         #include <string.h>
         ...
@@ -63,16 +63,16 @@
     #define ZeroMemory(dest, count)          memset((dest), 0, (count))
   #endif
   #ifndef MoveMemory
-    /*Moves a copies of memory from one location to another. If some regions of 
+    /*Moves a copies of memory from one location to another. If some regions of
       the source area and the destination overlap, it is ensured that the original
       source characters in the overlapping region are copied before being
       overwritten.
       Requires <string.h> header file.
       Parameters:
-      - dest  Destination object. 
-      - src   Source object. 
-      - count Number of characters to copy. 
-      
+      - dest  Destination object.
+      - src   Source object.
+      - count Number of characters to copy.
+
       Example:
         #include <string.h>
         ...
@@ -85,14 +85,14 @@
     /*Copies a block of memory from one location to another.
       If the source and destination overlap, this function does not ensure that
       the original source characters in the overlapping region are copied before
-      being overwritten. 
+      being overwritten.
       Requires <string.h> header file.
      */
     #define CopyMemory(dest, src, count)     memcpy((dest), (src), (count))
   #endif
   #ifndef EqualMemory
     /*Compares content of two blocks of memory.
-      Returns true if content is indetical, otherwise returns false.
+      Returns true if content is identical, otherwise returns false.
       Requires <string.h> header file.
      */
     #define EqualMemory(dest, src, count)    (memcmp((dest), (src), (count)) == 0)

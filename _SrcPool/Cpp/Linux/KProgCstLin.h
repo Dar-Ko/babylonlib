@@ -21,7 +21,7 @@
       #define _KLINUX  1
     #endif
   #endif  /*_KLINUX*/
-   
+
   #ifdef _KLINUX /*Linux OS family*/
   /*/////////////////////////////////////////////////////////////////////////*/
   /* Global macros                                                           */
@@ -52,7 +52,7 @@
     /*Validates a handle to an object.     */
     #define IS_HANDLE_VALID(handle)  ((int)handle > 0)
   #endif
-  
+
   #ifndef FillMemory
     #define FillMemory(dest, count, fill)    memset((dest),(fill),(count))
   #endif
@@ -65,7 +65,7 @@
        period given in ms.*/
      #define Sleep(ms) usleep(ms*1000)
   #endif
-  
+
   /* /////////////////////////////////////////////////////////////////////// */
   #endif //_KLINUX
 #endif  /*__KPROGCSTLIN_H__*/
