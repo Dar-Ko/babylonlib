@@ -26,7 +26,7 @@
 
   To define a TMatrix, first choose a type for the TMatrix elements.
   Usually, this is float or double. It must be a type which implements
-  the usual aritmetic operations: addition, subtraction, multiplication,
+  the usual arithmetic operations: addition, subtraction, multiplication,
   division and comparison.
 
   Then define a TMatrix type as follows:
