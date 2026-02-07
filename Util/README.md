@@ -1,5 +1,8 @@
-- [`KExtractLines.ps1`](KExtractLines.ps1)   Extract lines from a source file containing a specific keyword and saves them to a target file
 - [`KConvertZip27z.ps1`](KConvertZip27z.ps1)   Convert all .zip archives to .7z
+- [`KCreateABC.ps1`](KCreateABC.ps1)   Creates file-system based and alphabetically sorted indexing categories
+- [`KExtractLines.ps1`](KExtractLines.ps1)   Extract lines from a source file containing a specific keyword and saves them to a target file
+- [`KFontProperties.ps1`](KFontProperties.ps1)   Retrieves the properties of a font installed on the system
+
 
 
 
@@ -7,7 +10,7 @@
 - [`KCvsBranch.bat`](KCvsBranch.bat)   Replaces CVS revision tag with a branch name
 - [`KCvsizer.bat`](KCvsizer.bat)   Inserts a header paragraph with CVS keywords and footer text
 - [`KErrLvl.bat`](KErrLvl.bat)   Obtains the exit codes (ERRORLEVEL) returned by commands
-- [KGenLib.bat](KGenLib.bat)   Creates 32-bit import libraries .LIB from .DLL built with a Microsoft compiler
+- [`KGenLib.bat`](KGenLib.bat)   Creates 32-bit import libraries .LIB from .DLL built with a Microsoft compiler
 - [`KListAcl.bat`](KListAcl.bat)   Lists the ACL (Access Control List) of a file or directory
 - [`KListDsn.bat`](KListDsn.bat)   Lists the ODBC Data Source Names (DSNs) configured on the system
 - [`KRegHxSHelp.bat`](KRegHxSHelp.bat)   Registers .HXS help files with the Windows Help system
