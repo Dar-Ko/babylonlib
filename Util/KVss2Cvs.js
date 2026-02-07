@@ -66,8 +66,8 @@ var max_comment_len = 400;   // depends on various path lengths
 // want by setting the environmental variable SSDIR *before*
 // running this script.
 var vss_ini_file    = "\\\\UNC\\VSS\\srcsafe.ini";
-var vss_username    = "DKolakovic";
-var vss_password    = "a";
+var vss_username    = "USERNAME";
+var vss_password    = "PSWD";
 
 // Destination directory
 var rcs_repository  = "C:\\Development\\target";
