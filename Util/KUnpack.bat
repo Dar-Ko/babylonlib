@@ -1,5 +1,5 @@
 @echo off
-REM $Workfile: S:\Util\KUnPack.bat$: Batch command script file
+REM $Workfile: KUnPack.bat$: Batch command script file
 REM $Revision: 1$ $Date: 2007-07-10 15:44:34$
 REM $Author: Darko Kolakovic$
 REM
@@ -60,7 +60,7 @@ REM Display the syntax of the command
 :LBLSYNTAX
 COLOR 02
 @ECHO.
-@ECHO $Workfile: S:\Util\KUnPack.bat$ $Revision: 1$
+@ECHO $Workfile: KUnPack.bat$ $Revision: 1$
 @ECHO Unpack archives in current directory and all subdirectories.
 @ECHO.Requires Windows 2000+, UnRar.exe or JRE
 @ECHO.

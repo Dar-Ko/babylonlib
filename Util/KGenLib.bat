@@ -1,5 +1,5 @@
 @echo off
-REM $Workfile: $: batch command script
+REM $Workfile: KGenLib.bat$: batch command script
 REM $Revision: 1.2 $ $Date: 2007/07/27 19:49:44 $
 REM $Author: dkolakovic $
 REM

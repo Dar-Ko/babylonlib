@@ -1,4 +1,4 @@
-/*$RCSfile: CreateUsageLogSp.sql,v $: Transact-SQL script file
+/*$RCSfile: KFileWrite.sql,v $: Transact-SQL script file
   $Revision: 1$ $Date: 2007-03-12 11:21:52$
   $Author: Darko Kolakovic$
 

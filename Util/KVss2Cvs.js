@@ -2,7 +2,7 @@
   $Revision: 5$ $Date: 2007-01-11 11:02:54$
   $Author: Darko Kolakovic$
 
-  Converts  Microsoft Visual SourceSafe repository to CVS format.
+  Converts Microsoft Visual SourceSafe repository to CVS format.
   Copyright: 1999-2001 Curt Hagenlocher
   1999-11-30 Curt Hagenlocher
  */
