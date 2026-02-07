@@ -1,3 +1,4 @@
+#!/usr/bin/env pwsh
 <#
  .SYNOPSIS
     Extract lines from a source file containing a specific keyword and saves 
