@@ -27,6 +27,8 @@
 *.~*
 atl.h
 bin
+.DS_Store
+
 CVS
 cvs
 obj

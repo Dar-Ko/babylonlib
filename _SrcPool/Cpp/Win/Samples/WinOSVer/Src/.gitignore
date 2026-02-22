@@ -8,3 +8,5 @@
 *.sln
 obj
 bin
+.DS_Store
+

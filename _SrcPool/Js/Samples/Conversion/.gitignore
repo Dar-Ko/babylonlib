@@ -6,3 +6,5 @@ bin
 Conversion.sln
 Conversion.suo
 Conversion.csproj.user
+.DS_Store
+

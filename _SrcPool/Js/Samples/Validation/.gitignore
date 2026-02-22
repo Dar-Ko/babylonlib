@@ -32,3 +32,5 @@ cvs
 *.vcl
 *.vic
 *.dump
+.DS_Store
+

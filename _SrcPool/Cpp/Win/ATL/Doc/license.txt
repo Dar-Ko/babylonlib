@@ -50,7 +50,7 @@ audio, music, text, and "applets" incorporated into the SOFTWARE PRODUCT), the
 accompanying printed materials, and any copies of the SOFTWARE PRODUCT are
 owned by Microsoft or its suppliers. The SOFTWARE PRODUCT is protected by
 copyright laws and international treaty provisions. Therefore, you must treat
-the SOFTWARE PRODUCT like any other copyrighted material exce t that you may
+the SOFTWARE PRODUCT like any other copyrighted material except that you may
 either (a) make one copy of the SOFTWARE PRODUCT solely for backup or archival
 purposes or (b) install the SOFTWARE PRODUCT on a single computer provided you
 keep the original solely for backup or archival purposes. You may not copy the
@@ -182,31 +182,31 @@ STATES AND JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY
 FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, THE ABOVE LIMITATION MAY NOT APPLY TO
 YOU.
 
-Si vous avez acquis votre produit Microsoft au CANADA, la garantie limit‚e
+Si vous avez acquis votre produit Microsoft au CANADA, la garantie limitï¿½e
 suivante vous concerne :
 
 GARANTIE LIMITEE
 
 GARANTIE LIMITEE - Sauf pour celles du REDISTRIBUTABLES, qui sont fournies
 "comme telles", sans aucune garantie quelle qu'elle soit, Microsoft garantit
-que (a) la performance du LOGICIEL sera substantiellement en conformit‚ avec
-le(s) manuel(s) de produits qui accompagne(nt) le LOGICIEL pour une p‚riode de
-quatre-vingt-dix (90) jours … compter de la date de r‚ception ; et (b) tout
-mat‚riel fourni par Microsoft accompagnant le LOGICIEL sera exempt de d‚faut
-de matiŠre premiŠre ou de vice de fabrication dans des conditions normales
-d'utilisation et d'entretien pour une p‚riode d'un an … compter de la date de
-r‚ception. Toute garantie implicite concernant le LOGICIEL et le mat‚riel est
-limit‚e … quatre-vingt-dix (90) jours et un (1) an, respectivement.
+que (a) la performance du LOGICIEL sera substantiellement en conformitï¿½ avec
+le(s) manuel(s) de produits qui accompagne(nt) le LOGICIEL pour une pï¿½riode de
+quatre-vingt-dix (90) jours ï¿½ compter de la date de rï¿½ception ; et (b) tout
+matï¿½riel fourni par Microsoft accompagnant le LOGICIEL sera exempt de dï¿½faut
+de matiï¿½re premiï¿½re ou de vice de fabrication dans des conditions normales
+d'utilisation et d'entretien pour une pï¿½riode d'un an ï¿½ compter de la date de
+rï¿½ception. Toute garantie implicite concernant le LOGICIEL et le matï¿½riel est
+limitï¿½e ï¿½ quatre-vingt-dix (90) jours et un (1) an, respectivement.
 
 RECOURS DU CLIENT - La seule obligation de Microsoft et votre recours exclusif
-seront, au choix de Microsoft, soit (a) le remboursement du prix pay‚ ou (b)
-la r‚paration ou le remplacement du LOGICIEL ou du mat‚riel qui n'est pas
-conforme … la Garantie Limit‚e de Microsoft et qui est retourn‚ … Microsoft
-avec une copie de votre re‡u. Cette Garantie Limit‚e est nulle si le d‚faut du
-LOGICIEL ou du mat‚riel est caus‚ par un accident, un traitement abusif ou une
+seront, au choix de Microsoft, soit (a) le remboursement du prix payï¿½ ou (b)
+la rï¿½paration ou le remplacement du LOGICIEL ou du matï¿½riel qui n'est pas
+conforme ï¿½ la Garantie Limitï¿½e de Microsoft et qui est retournï¿½ ï¿½ Microsoft
+avec une copie de votre reï¿½u. Cette Garantie Limitï¿½e est nulle si le dï¿½faut du
+LOGICIEL ou du matï¿½riel est causï¿½ par un accident, un traitement abusif ou une
 mauvaise application. Tout LOGICIEL de remplacem ent sera garanti pour le
-reste de la p‚riode de garantie initiale ou pour trente (30) jours, selon
-laquelle de ces deux p‚riodes est la plus longue.
+reste de la pï¿½riode de garantie initiale ou pour trente (30) jours, selon
+laquelle de ces deux pï¿½riodes est la plus longue.
 
 AUCUNE AUTRE GARANTIE - MICROSOFT DESAVOUE TOUTE AUTRE GARANTIE, EXPRESSE OU
 IMPLICITE, Y COMPRIS MAIS NE SE LIMITANT PAS AUX GARANTIES IMPLICITES DU
@@ -223,16 +223,16 @@ CE, MEME SI MICROSOFT A ETE AVISE DE LA POSSIBILITE DE TELS DOMMAGES. EN TOUT
 CAS, LA SEULE OBLIGATION DE MICROSOFT EN VERTU DE TOUTE DISPOSITION DE CETTE
 CONVENTION SE LIMITERA AU MONTANT EN FAIT PAYE PAR VOUS POUR LE LOGICIEL.
 
-La pr‚sente Convention est r‚gie par les lois de la province d'Ontario,
-Canada. Chacune des parties … la pr‚sente reconnaŒt irr‚vocablement la
-comp‚tence des tribunaux de la province d'Ontario et consent … instituer tout
-litige qui pourrait d‚couler de la pr‚sente auprŠs des tribunaux situ‚s dans
+La prï¿½sente Convention est rï¿½gie par les lois de la province d'Ontario,
+Canada. Chacune des parties ï¿½ la prï¿½sente reconnaï¿½t irrï¿½vocablement la
+compï¿½tence des tribunaux de la province d'Ontario et consent ï¿½ instituer tout
+litige qui pourrait dï¿½couler de la prï¿½sente auprï¿½s des tribunaux situï¿½s dans
 le district judiciaire de York, province d'Ontario.
 
-Au cas o— vous auriez des questions concernant cette licence ou que vous
-d‚siriez vous mettre en rapport avec Microsoft pour quelque raison que ce
+Au cas oï¿½ vous auriez des questions concernant cette licence ou que vous
+dï¿½siriez vous mettre en rapport avec Microsoft pour quelque raison que ce
 soit, veuillez contacter la succursale Microsoft desservant votre pays, dont
-l'adresse est fournie dans ce produit, ou ‚crire … : Microsoft Sales
+l'adresse est fournie dans ce produit, ou ï¿½crire ï¿½ : Microsoft Sales
 Information Center, One Microsoft Way, Redmond, Washington 98052-6399.
 
 --------------------------------------------------------------------------------
@@ -240,7 +240,7 @@ bccSDK
 
 Copyright (c) 2005-2008, Darko Miletic
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of ‚
+Permission is hereby granted, free of charge, to any person obtaining a copy of ï¿½
 this software and associated documentation files (the "Software"), to deal in the
 Software without restriction, including without limitation the rights to use,
 copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the

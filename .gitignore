@@ -85,4 +85,6 @@ _UpgradeReport_Files
 UpgradeLog*.XML
 ~*
 ~*.*
-Util/README.md
+_Notes.md
+.DS_Store
+
