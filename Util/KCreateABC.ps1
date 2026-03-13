@@ -1,10 +1,12 @@
 #!/usr/bin/env pwsh
 <#
  .SYNOPSIS
-	Create 26 new subfolders named as single letter from the set [A,Z]
+	Create indexing system based on OS file-system.
  .DESCRIPTION
-	The script will create folders A through Z in the specified base directory,
-	skipping any that already exist, and provide detailed feedback about the operation.
+	The script will create folders named as single letter from the set [A,Z]
+	in the specified base directory,
+	If a folder already exist, the script will skip it and provide detailed
+	feedback about the operation.
  .PARAMETER BaseFolder
 	The parent folder where the new subfolders will be created
  .EXAMPLE
