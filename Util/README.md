@@ -4,7 +4,10 @@
 - [`KFontProperties.ps1`](KFontProperties.ps1)   Retrieves the properties of a font installed on the system
 - [`KSpotlightImages.ps1`](KSpotlightImages.ps1)   Retrieves the Spotlight images from the system and saves them to a specified directory
 
-
+- [`KCollectIndexFiles.sh`](KCollectIndexFiles.sh)   Collects all index files from the given directory and its subdirectories into a temporary folder
+- [`KDirList.sh`](KDirList.sh)   Creates a content list file to each subdirectory from the given directory recursively
+- [`KFindText.sh`](KFindText.sh)   Find text files containing specific phrases with various filtering and display options
+- [`KSyncFile.sh`](KSyncFile.sh)   Synchronize files between two directories, based on modification UTC timestamps.
 
 - [`KCreateABC.bat`](KCreateABC.bat)   Creates file-system based and alphabetically sorted indexing categories
 - [`KCvsBranch.bat`](KCvsBranch.bat)   Replaces CVS revision tag with a branch name
