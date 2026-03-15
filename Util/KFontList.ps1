@@ -1,12 +1,12 @@
 <#
  .SYNOPSIS
-	Trial 3
+	Trial 4
 	Displays font metadata and other basic information on files in the given
 	folder
  .PARAMETER Directory
     The path to the folder with font files
  .EXAMPLE
-    pwsh .\KListFonts.ps1 -Directory "C:\Windows\Fonts\" -Verbose
+    pwsh .\KFontList.ps1 -Directory "C:\Windows\Fonts\" -Verbose
  .NOTES
     The script will overwrite existing target files.
     Handles files up to 1GB in size (PowerShell's default limit).
@@ -22,7 +22,7 @@ param (
     [string]$Directory,
 
     # Default is English (US). Set to "All" to skip filtering.
-    [string]$Language = "jp-JP"
+    [string]$Language = "en-US"
 )
 
 Add-Type -AssemblyName PresentationCore
@@ -41,58 +41,45 @@ $Files = Get-ChildItem -Path $Directory -Include $Extensions -Recurse -ErrorActi
 $Files | ForEach-Object {
     $CurrentFile = $_
     try {
-        $Uri = [System.Uri]$CurrentFile.FullName
-        $FontFamilies = [System.Windows.Media.Fonts]::GetFontFamilies($Uri)
+        # Directly load the font file as a GlyphTypeface for raw table access
+        $GlyphType = New-Object System.Windows.Media.GlyphTypeface -ArgumentList $CurrentFile.FullName
+        
+        # Every font has at least one name record. We'll iterate through all available languages.
+        foreach ($LangKey in $GlyphType.FamilyNames.Keys) {
+            
+            $LangTag = $LangKey.IetfLanguageTag
+            
+            # Helper function to safely pull from dictionaries or fall back
+            function Get-FontValue($Dict, $Key) {
+                if ($null -eq $Dict) { return "N/A" }
+                if ($Dict.ContainsKey($Key)) { return $Dict[$Key] }
+                return ($Dict.Values | Select-Object -First 1)
+            }
 
-        foreach ($Family in $FontFamilies) {
-            # SAFETY CHECK: Ensure FamilyNames is not null
-            if ($null -eq $Family.FamilyNames) { continue }
+            # Extract fields directly from the GlyphTypeface object
+            $FamilyName = Get-FontValue $GlyphType.FamilyNames $LangKey
+            $FaceName   = Get-FontValue $GlyphType.FaceNames $LangKey
+            $Copyright  = Get-FontValue $GlyphType.Copyrights $LangKey
+            $VersionStr = Get-FontValue $GlyphType.VersionStrings $LangKey
+            
+            # Parse the Locale [en-US, Regular] from the version strings
+            $Country = "N/A"; $ParsedStyle = "N/A"
+            $AllVersions = ($GlyphType.VersionStrings.Values -join " ")
+            if ($AllVersions -match '\[\w{2}-(?<Country>\w{2}),\s*(?<Style>[^\]]+)\]') {
+                $Country = $Matches.Country
+                $ParsedStyle = $Matches.Style
+            }
 
-            foreach ($LangKey in $Family.FamilyNames.Keys) {
-                $LangTag = $LangKey.IetfLanguageTag
-                $FamilyName = $Family.FamilyNames[$LangKey]
-
-                foreach ($Typeface in $Family.GetTypefaces()) {
-                    
-                    # 1. Safe FaceName Retrieval
-                    $FaceName = "N/A"
-                    if ($null -ne $Typeface.FaceNames) {
-                        $FaceName = if ($Typeface.FaceNames.ContainsKey($LangKey)) { $Typeface.FaceNames[$LangKey] } else { @($Typeface.FaceNames.Values)[0] }
-                    }
-
-                    # 2. Safe Copyright Retrieval
-                    $Copyright = "N/A"
-                    if ($null -ne $Family.Copyrights) {
-                        $Copyright = if ($Family.Copyrights.ContainsKey($LangKey)) { $Family.Copyrights[$LangKey] } else { @($Family.Copyrights.Values)[0] }
-                    }
-
-                    # 3. Safe Version Retrieval
-                    $Version = "N/A"
-                    if ($null -ne $Typeface.VersionStrings) {
-                        $Version = if ($Typeface.VersionStrings.ContainsKey($LangKey)) { $Typeface.VersionStrings[$LangKey] } else { @($Typeface.VersionStrings.Values)[0] }
-                    }
-
-                    # 4. Parse Locale [en-US, Regular]
-                    $Country = "N/A"; $ParsedStyle = "N/A"
-                    if ($null -ne $Typeface.VersionStrings) {
-                        $RawLocale = @($Typeface.VersionStrings.Values) -join " "
-                        if ($RawLocale -match '\[\w{2}-(?<Country>\w{2}),\s*(?<Style>[^\]]+)\]') {
-                            $Country = $Matches.Country; $ParsedStyle = $Matches.Style
-                        }
-                    }
-
-                    [PSCustomObject]@{
-                        FileName   = $CurrentFile.Name
-                        FamilyName = $FamilyName
-                        FaceName   = $FaceName
-                        Language   = $LangTag
-                        Version    = $Version
-                        Copyright  = $Copyright
-                        Country    = $Country
-                        Parsed     = $ParsedStyle
-                        URI        = $Uri.AbsoluteUri
-                    }
-                }
+            [PSCustomObject]@{
+                FamilyName = $FamilyName
+                FaceName   = $FaceName
+                Language   = $LangTag
+                Version    = $VersionStr
+                Copyright  = $Copyright
+                Country    = $Country
+                Parsed     = $ParsedStyle
+                FileName   = $CurrentFile.Name
+                URI        = $CurrentFile.FullName
             }
         }
     } catch {
