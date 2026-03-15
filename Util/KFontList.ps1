@@ -1,5 +1,6 @@
 <#
  .SYNOPSIS
+	Trial 3
 	Displays font metadata and other basic information on files in the given
 	folder
  .PARAMETER Directory
