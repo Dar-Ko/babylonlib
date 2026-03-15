@@ -1,7 +1,8 @@
 - [`KConvertZip27z.ps1`](KConvertZip27z.ps1)   Convert all .zip archives to .7z
 - [`KCreateABC.ps1`](KCreateABC.ps1)   Creates file-system based and alphabetically sorted indexing categories
 - [`KExtractLines.ps1`](KExtractLines.ps1)   Extract lines from a source file containing a specific keyword and saves them to a target file
-- [`KFontProperties.ps1`](KFontProperties.ps1)   Retrieves the properties of a font installed on the system
+- [`KFontList.ps1`](KFontList.ps1)   Retrieves font metadata and other basic information on files in the given folder
+- [`KFontProperties.ps1`](KFontProperties.ps1)   Displays the properties of a font installed on the system
 - [`KSpotlightImages.ps1`](KSpotlightImages.ps1)   Retrieves the Spotlight images from the system and saves them to a specified directory
 
 - [`KCollectIndexFiles.sh`](KCollectIndexFiles.sh)   Collects all index files from the given directory and its subdirectories into a temporary folder
