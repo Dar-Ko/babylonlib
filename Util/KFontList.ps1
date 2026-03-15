@@ -1,6 +1,5 @@
 <#
  .SYNOPSIS
-	Trial 2
 	Displays font metadata and other basic information on files in the given
 	folder
  .PARAMETER Directory
@@ -22,7 +21,7 @@ param (
     [string]$Directory,
 
     # Default is English (US). Set to "All" to skip filtering.
-    [string]$Language = "en-us"
+    [string]$Language = "jp-JP"
 )
 
 Add-Type -AssemblyName PresentationCore
@@ -45,45 +44,44 @@ $Files | ForEach-Object {
         $FontFamilies = [System.Windows.Media.Fonts]::GetFontFamilies($Uri)
 
         foreach ($Family in $FontFamilies) {
-            # Each Family can have multiple language translations
+            # SAFETY CHECK: Ensure FamilyNames is not null
+            if ($null -eq $Family.FamilyNames) { continue }
+
             foreach ($LangKey in $Family.FamilyNames.Keys) {
-                
                 $LangTag = $LangKey.IetfLanguageTag
                 $FamilyName = $Family.FamilyNames[$LangKey]
 
                 foreach ($Typeface in $Family.GetTypefaces()) {
                     
-                    # 1. Get FaceName (Style like "Bold", "Italic") for this language
-                    $FaceName = if ($Typeface.FaceNames.ContainsKey($LangKey)) { 
-                        $Typeface.FaceNames[$LangKey] 
-                    } else { 
-                        @($Typeface.FaceNames.Values)[0] 
+                    # 1. Safe FaceName Retrieval
+                    $FaceName = "N/A"
+                    if ($null -ne $Typeface.FaceNames) {
+                        $FaceName = if ($Typeface.FaceNames.ContainsKey($LangKey)) { $Typeface.FaceNames[$LangKey] } else { @($Typeface.FaceNames.Values)[0] }
                     }
 
-                    # 2. Get Copyright for this language
-                    $Copyright = if ($Family.Copyrights.ContainsKey($LangKey)) { 
-                        $Family.Copyrights[$LangKey] 
-                    } else { 
-                        @($Family.Copyrights.Values)[0] 
+                    # 2. Safe Copyright Retrieval
+                    $Copyright = "N/A"
+                    if ($null -ne $Family.Copyrights) {
+                        $Copyright = if ($Family.Copyrights.ContainsKey($LangKey)) { $Family.Copyrights[$LangKey] } else { @($Family.Copyrights.Values)[0] }
                     }
 
-                    # 3. Get Version string for this language
-                    $Version = if ($Typeface.VersionStrings.ContainsKey($LangKey)) { 
-                        $Typeface.VersionStrings[$LangKey] 
-                    } else { 
-                        @($Typeface.VersionStrings.Values)[0] 
+                    # 3. Safe Version Retrieval
+                    $Version = "N/A"
+                    if ($null -ne $Typeface.VersionStrings) {
+                        $Version = if ($Typeface.VersionStrings.ContainsKey($LangKey)) { $Typeface.VersionStrings[$LangKey] } else { @($Typeface.VersionStrings.Values)[0] }
                     }
 
-                    # 4. Parse the Locale string for Country/Style (as previously requested)
+                    # 4. Parse Locale [en-US, Regular]
                     $Country = "N/A"; $ParsedStyle = "N/A"
-                    $RawLocale = @($Typeface.VersionStrings.Values)[0]
-                    if ($RawLocale -match '\[\w{2}-(?<Country>\w{2}),\s*(?<Style>[^\]]+)\]') {
-                        $Country = $Matches.Country
-                        $ParsedStyle = $Matches.Style
+                    if ($null -ne $Typeface.VersionStrings) {
+                        $RawLocale = @($Typeface.VersionStrings.Values) -join " "
+                        if ($RawLocale -match '\[\w{2}-(?<Country>\w{2}),\s*(?<Style>[^\]]+)\]') {
+                            $Country = $Matches.Country; $ParsedStyle = $Matches.Style
+                        }
                     }
 
-                    # Output the full row
                     [PSCustomObject]@{
+                        FileName   = $CurrentFile.Name
                         FamilyName = $FamilyName
                         FaceName   = $FaceName
                         Language   = $LangTag
@@ -91,7 +89,6 @@ $Files | ForEach-Object {
                         Copyright  = $Copyright
                         Country    = $Country
                         Parsed     = $ParsedStyle
-                        FileName   = $CurrentFile.Name
                         URI        = $Uri.AbsoluteUri
                     }
                 }
