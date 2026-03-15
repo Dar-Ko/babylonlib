@@ -1,5 +1,5 @@
 - [`KConvertZip27z.ps1`](KConvertZip27z.ps1)   Convert all .zip archives to .7z
-- [`KCreateABC.ps1`](KCreateABC.ps1)   Creates file-system based and alphabetically sorted indexing categories
+- [`KCreateABC.ps1`](KCreateABC.ps1)   Create indexing system [A,Z] based on OS file-system.
 - [`KExtractLines.ps1`](KExtractLines.ps1)   Extract lines from a source file containing a specific keyword and saves them to a target file
 - [`KFontProperties.ps1`](KFontProperties.ps1)   Retrieves the properties of a font installed on the system
 - [`KSpotlightImages.ps1`](KSpotlightImages.ps1)   Retrieves the Spotlight images from the system and saves them to a specified directory
@@ -9,7 +9,7 @@
 - [`KFindText.sh`](KFindText.sh)   Find text files containing specific phrases with various filtering and display options
 - [`KSyncFile.sh`](KSyncFile.sh)   Synchronize files between two directories, based on modification UTC timestamps.
 
-- [`KCreateABC.bat`](KCreateABC.bat)   Creates file-system based and alphabetically sorted indexing categories
+- [`KCreateABC.bat`](KCreateABC.bat)   Create indexing system [A,Z] based on OS file-system.
 - [`KCvsBranch.bat`](KCvsBranch.bat)   Replaces CVS revision tag with a branch name
 - [`KCvsizer.bat`](KCvsizer.bat)   Inserts a header paragraph with CVS keywords and footer text
 - [`KErrLvl.bat`](KErrLvl.bat)   Obtains the exit codes (ERRORLEVEL) returned by commands

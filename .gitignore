@@ -1,17 +1,20 @@
+# Project specific
+_Notes.md
+.vs
+_noviteti
+BabylonLib-build-desktop-Qt_4_7_4_for_Desktop_-_MinGW_4_4__Qt_SDK__Debug
+
 # CVS default ignores begin
 tags
 TAGS
 .make.state
 .nse_depinfo
-*~
 \#*
 .#*
 ,*
 _$*
 *$
 *.old
-*.bak
-*.BAK
 *.orig
 *.rej
 .del-*
@@ -20,21 +23,32 @@ _$*
 *.o
 *.obj
 *.so
-*.exe
 *.Z
 *.elc
 *.ln
 core
 # CVS default ignores end
-*.aps
-*.APS
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor
 *.bak
 *.BAK
+~*
+~*.*
+*.~*
+*~
+
+*.aps
+*.APS
 *.bsc
 *.clw
 *.cod
 *.cvs
 
+# MSVC
 *.dump
 *.exe
 *.exp
@@ -67,7 +81,6 @@ core
 *.vspscc
 *.vssscc
 *.wrn
-*.~*
 *.??$
 *_i.c
 *_p.c
@@ -80,11 +93,10 @@ idl
 obj
 Obj
 OBJ
-Thumbs.db
+
 _UpgradeReport_Files
 UpgradeLog*.XML
-~*
-~*.*
-_Notes.md
-.DS_Store
+
+
+
 

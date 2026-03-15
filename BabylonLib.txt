@@ -13,7 +13,7 @@ Copyright: CommonSoft Inc.
 \	BabylonLib.sln	Microsoft Developer Studio .Net Solution (sln) file is a generated build file, format version 10.0 (MSVC9 2008).	Win32
 \	BabylonLib8.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 8.0 (MSVC8 2005).	Win32
 \	BabylonLib.vcproj	Microsoft Developer Studio .Net Project (VcProj) file is a generated build file, format version 9.0 (MSVC9 2008).	Win32
-\	BabylonLib.pro	Qt Creator 2.3.1 Project (pro)  file is a generated build file.	Win32
+\	BabylonLib.pro	Qt Creator 2.3.1 Project (pro) file is a generated build file.	Win32
 
 Workspace:
   Project "_SrcPoolCpp"   _SrcPool\

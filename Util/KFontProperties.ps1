@@ -313,6 +313,7 @@ if (-not $FontFolder) {
 # Execute the script without agreeing with the execution policy
 if ($IsWindows -or [Environment]::OSVersion.Platform -eq [System.PlatformID]::Win32NT) {
     try {
+        # Execute the script without agreeing with the execution policy
         Set-ExecutionPolicy Bypass -Scope Process -Force
         Write-Verbose "Execution policy set to Bypass for current Windows session"
     }
