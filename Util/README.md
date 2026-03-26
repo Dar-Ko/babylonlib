@@ -5,9 +5,11 @@
 - [`KSpotlightImages.ps1`](KSpotlightImages.ps1)   Retrieves the Spotlight images from the system and saves them to a specified directory
 
 - [`KCollectIndexFiles.sh`](KCollectIndexFiles.sh)   Collects all index files from the given directory and its subdirectories into a temporary folder
-- [`KDirList.sh`](KDirList.sh)   Creates a content list file to each subdirectory from the given directory recursively
+- [`KDirList.sh`](KDirList.sh)   Creates a content list file to each subdirectory from the given directory recursively.
 - [`KFindText.sh`](KFindText.sh)   Find text files containing specific phrases with various filtering and display options
 - [`KSyncFile.sh`](KSyncFile.sh)   Synchronize files between two directories, based on modification UTC timestamps.
+
+- [`KDirLists.py`](KDirLists.py)   Creates a content list file to each subdirectory from the given directory recursively.
 
 - [`KCreateABC.bat`](KCreateABC.bat)   Create indexing system [A,Z] based on OS file-system.
 - [`KCvsBranch.bat`](KCvsBranch.bat)   Replaces CVS revision tag with a branch name
