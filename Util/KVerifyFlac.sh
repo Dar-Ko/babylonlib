@@ -1,14 +1,14 @@
 #!/bin/bash
 #
 # .SYNOPSIS
-# Verify integrity of FLAC audio files in a directory
+#    Verify integrity of FLAC audio files in a directory
 # .USAGE
-#  ./KVerifyFlac.sh [directory]
-#  If directory is omitted, current directory is used.
+#    ./KVerifyFlac.sh [directory]
+#    If directory is omitted, current directory is used.
 # .DESCRIPTION
-# The script recursively finds all .flac files (case-insensitive) and runs
-# 'flac -wt' (test/decode mode) on each. Any errors are written to
-# flac-errors.txt inside the target directory. A summary is printed to stdout.
+#    The script recursively finds all .flac files (case-insensitive) and runs
+#    'flac -wt' (test/decode mode) on each. Any errors are written to
+#    flac-errors.txt inside the target directory. A summary is printed to stdout.
 
 set -euo pipefail
 
@@ -18,7 +18,7 @@ if ! command -v flac &> /dev/null; then
     exit 1
 fi
 
-# Determine target directory (argument or current dir)
+# Use provided directory or default to current directory
 TARGET_DIR="${1:-.}"
 if [ ! -d "$TARGET_DIR" ]; then
     echo "ERROR: Directory '$TARGET_DIR' does not exist."
@@ -31,11 +31,12 @@ ERROR_LOG="$TARGET_DIR/flac-errors.txt"
 # Clear or create new error log
 > "$ERROR_LOG"
 
+# Counters for summary
 total_files=0
 error_files=0
 
 echo "Verifying FLAC audio files on '$TARGET_DIR'"
-# Use find with -print0 to handle filenames with spaces or special characters
+
 while IFS= read -r -d '' flac_file; do
     ((++total_files))
     echo -n "Checking: $flac_file ... "
@@ -53,6 +54,7 @@ while IFS= read -r -d '' flac_file; do
         echo "$err_output" >> "$ERROR_LOG"
         echo "" >> "$ERROR_LOG"   # blank line separator
     fi
+# Use find with -print0 to handle filenames with spaces or special characters
 done < <(find "$TARGET_DIR" -type f -iname "*.flac" -print0)
 
 # Print summary
