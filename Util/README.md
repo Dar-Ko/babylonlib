@@ -10,6 +10,8 @@
 - [`KDirList.sh`](KDirList.sh)   Creates a content list file to each subdirectory from the given directory recursively
 - [`KFindText.sh`](KFindText.sh)   Find text files containing specific phrases with various filtering and display options
 - [`KSyncFile.sh`](KSyncFile.sh)   Synchronize files between two directories, based on modification UTC timestamps.
+- [`KVerifyFlac.sh`](KVerifyFlac.sh)   Verify integrity of FLAC audio files in a given directory
+- [`KVerifyMp3.sh`](KVerifyMp3.sh)   Verify integrity of MP3 audio files in a given directory
 
 - [`KCreateABC.bat`](KCreateABC.bat)   Creates file-system based and alphabetically sorted indexing categories
 - [`KCvsBranch.bat`](KCvsBranch.bat)   Replaces CVS revision tag with a branch name
