@@ -1,12 +1,18 @@
 <#
  .SYNOPSIS
-	Trial 4
-	Displays font metadata and other basic information on files in the given
-	folder
+    Trial 5
+    Displays font metadata and other basic information on files in the given
+    folder
  .PARAMETER Directory
     The path to the folder with font files
+ .PARAMETER Language
+    Filter the FontFamilies collection by language. Default language is en-US".
+    If the font has not the required language is not available, the first available
+    will be presented. To disable filtering, set the value to "All".
  .EXAMPLE
     pwsh .\KFontList.ps1 -Directory "C:\Windows\Fonts\" -Verbose
+    pwsh .\KFontList.ps1 -Directory "C:\Windows\Fonts\" -Locale "ja-jp"
+    pwsh .\KFontList.ps1 -Directory "C:\Windows\Fonts\" -Locale "All"
  .NOTES
     The script will overwrite existing target files.
     Handles files up to 1GB in size (PowerShell's default limit).
@@ -18,37 +24,50 @@
 #>
 
 param (
+    # The path to the input folder
     [Parameter(Mandatory=$true)]
     [string]$Directory,
-
+    #Filter the FontFamilies collection by language.
     # Default is English (US). Set to "All" to skip filtering.
     [string]$Language = "en-US"
 )
 
-Add-Type -AssemblyName PresentationCore
 
-$Extensions = "*.ttf", "*.otf", "*.woff", "*.woff2"
-$Files = Get-ChildItem -Path $Directory -Include $Extensions -Recurse -ErrorAction SilentlyContinue
+#[System.Windows.Media.GlyphTypeface]
+
+# Set the preference to 'Continue' to display verbose messages
+# If the user runs the script with -Verbose, this becomes 'Continue' automatically
+# $VerbosePreference = "Continue"
+
+Add-Type -AssemblyName PresentationCore
 
 # Convert string to the required XmlLanguage type for dictionary lookups
 $TargetLang = [System.Windows.Markup.XmlLanguage]::GetLanguage($Language)
 Write-Verbose "Scan fonts in $Directory..."
 Write-Verbose "TargetLang = $TargetLang"
 
+# Define the file extensions to look for
 $Extensions = "*.ttf", "*.otf", "*.woff", "*.woff2"
-$Files = Get-ChildItem -Path $Directory -Include $Extensions -Recurse -ErrorAction SilentlyContinue
+# Get all matching files
+$Files = Get-ChildItem -Path $Directory -Include $Extensions -Recurse `
+        -ErrorAction SilentlyContinue
 
+<# Note: To stream data into Out-GridView from a loop, you must use
+  the ForEach-Object cmdlet (the pipeline version) rather than
+  the foreach ($item in $collection) statement
+ #>
 $Files | ForEach-Object {
+    # Process each file
     $CurrentFile = $_
+    # Check if it is a font file (PresentationCore can't read zip/7z/shx directly)
     try {
         # Directly load the font file as a GlyphTypeface for raw table access
         $GlyphType = New-Object System.Windows.Media.GlyphTypeface -ArgumentList $CurrentFile.FullName
-        
+
         # Every font has at least one name record. We'll iterate through all available languages.
-        foreach ($LangKey in $GlyphType.FamilyNames.Keys) {
-            
+
             $LangTag = $LangKey.IetfLanguageTag
-            
+
             # Helper function to safely pull from dictionaries or fall back
             function Get-FontValue($Dict, $Key) {
                 if ($null -eq $Dict) { return "N/A" }
@@ -85,4 +104,4 @@ $Files | ForEach-Object {
     } catch {
         Write-Verbose "Could not parse: $($CurrentFile.Name): $($_.Exception.Message)"
     }
-} | Out-GridView -Title "Fonts in $Directory (Filter: $Language)"
+} | Out-GridView -Title "$Directory (Filter: $Language)"
