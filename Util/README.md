@@ -1,17 +1,19 @@
 - [`KConvertZip27z.ps1`](KConvertZip27z.ps1)   Convert all .zip archives to .7z
-- [`KCreateABC.ps1`](KCreateABC.ps1)   Create indexing system [A,Z] based on OS file-system.
+- [`KCreateABC.ps1`](KCreateABC.ps1)   Creates file-system based and alphabetically sorted indexing categories
 - [`KExtractLines.ps1`](KExtractLines.ps1)   Extract lines from a source file containing a specific keyword and saves them to a target file
-- [`KFontProperties.ps1`](KFontProperties.ps1)   Retrieves the properties of a font installed on the system
+- [`KFindTracks.ps1`](KFindTracks.ps1)   Compares two folders by file base name (ignoring extensions)
+- [`KFontList.ps1`](KFontList.ps1)   Retrieves font metadata and other basic information on files in the given folder
+- [`KFontProperties.ps1`](KFontProperties.ps1)   Displays the properties of a font installed on the system
 - [`KSpotlightImages.ps1`](KSpotlightImages.ps1)   Retrieves the Spotlight images from the system and saves them to a specified directory
 
 - [`KCollectIndexFiles.sh`](KCollectIndexFiles.sh)   Collects all index files from the given directory and its subdirectories into a temporary folder
-- [`KDirList.sh`](KDirList.sh)   Creates a content list file to each subdirectory from the given directory recursively.
+- [`KDirList.sh`](KDirList.sh)   Creates a content list file to each subdirectory from the given directory recursively
 - [`KFindText.sh`](KFindText.sh)   Find text files containing specific phrases with various filtering and display options
 - [`KSyncFile.sh`](KSyncFile.sh)   Synchronize files between two directories, based on modification UTC timestamps.
+- [`KVerifyFlac.sh`](KVerifyFlac.sh)   Verify integrity of FLAC audio files in a given directory
+- [`KVerifyMp3.sh`](KVerifyMp3.sh)   Verify integrity of MP3 audio files in a given directory
 
-- [`KDirLists.py`](KDirLists.py)   Creates a content list file to each subdirectory from the given directory recursively.
-
-- [`KCreateABC.bat`](KCreateABC.bat)   Create indexing system [A,Z] based on OS file-system.
+- [`KCreateABC.bat`](KCreateABC.bat)   Creates file-system based and alphabetically sorted indexing categories
 - [`KCvsBranch.bat`](KCvsBranch.bat)   Replaces CVS revision tag with a branch name
 - [`KCvsizer.bat`](KCvsizer.bat)   Inserts a header paragraph with CVS keywords and footer text
 - [`KErrLvl.bat`](KErrLvl.bat)   Obtains the exit codes (ERRORLEVEL) returned by commands
