@@ -9,7 +9,7 @@ import sys
 for root, dirs, files in os.walk(sys.argv[1]):
     for dr in dirs:
         dr = os.path.join(root, dr)
-        open(os.path.join(dr, "_2Index.txt"), "wt").write(
-            "\r\n\\\t".join(f for f in os.listdir(dr) if f != "_2Index.txt")
+        open(os.path.join(dr, "_nIndex.txt"), "wt").write(
+            "\r\n\\\t".join(f for f in os.listdir(dr) if f != "_nIndex.txt")
             )
 

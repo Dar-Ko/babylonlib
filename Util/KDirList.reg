@@ -1,0 +1,22 @@
+Windows Registry Editor Version 5.00
+;$Workfile: S:\Util\KDirList.reg$: Windows Registry configuration file
+;$Revision: 1.1 $ $Date: 20267/05/19 10:08:11 $
+;$Author: darko314 $
+;
+;Add "Create TSV index here" to Explorer Context Menu
+;The KDirList.ps1 script traverses directories from a starting path and creates
+; _Index.tsv files containing directory contents.
+; PowerShell parameters:
+; -NoExit to see output (for debugging) or
+;   -WindowStyle Hidden - Run without showing window
+; -ExecutionPolicy Bypass - Allows script to run or
+;   -ExecutionPolicy Unrestricted
+; -Command - Run commands directly
+; -NoProfile - Faster startup (skips loading profile scripts)
+;Note: After merging with the Registry, restart the Explorer to updated the configuration.
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\KDirList]
+@="Create TSV index here"
+
+[HKEY_CLASSES_ROOT\Directory\Background\shell\KDirList\command]
+@="powershell.exe -NoExit -NoProfile -ExecutionPolicy Bypass -Command \"Set-Location '%V'; & 'D:\\Projects\\babylonlib\\Util\\KDirList.ps1'\""
