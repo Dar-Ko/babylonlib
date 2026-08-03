@@ -1,4 +1,4 @@
-Babylon Library is a collection of simple routines and classes that could be used as building blocks of larger projects. Many of the methods are portable and adjusted for use in embedded systems.
+Babylon Library is a collection of simple routines and classes that can be used as building blocks for larger projects. Many of the methods are portable and adapted for use in embedded systems.
 
 * * *
 
