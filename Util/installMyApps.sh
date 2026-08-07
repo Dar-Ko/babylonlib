@@ -27,9 +27,9 @@ apt update && apt upgrade -y
 # 1. Native APT Loop
 # If one package fails or changes upstream, the script will skip it and finish the rest.
 apt_apps=(
-    "7zip" "acetoneiso""asunder" "caja-actions" "cifs-utils" "curl" "dconf-editor" 
+    "7zip" "acetoneiso" "asunder" "caja-actions" "cifs-utils" "curl" "dconf-editor" 
     "duplicity" "flatpak" "git" "gthumb" "keepassxc" 
-    "krop" "meld" "naps2" "pavucontrol" "pdfarranger" 
+    "krop" "meld" "pavucontrol" "pdfarranger" 
     "qbittorrent" "remaster-iso" 
     "remmina" "remmina-plugin-rdp" "remmina-plugin-vnc" 
     "sayonara" "smplayer"
@@ -46,36 +46,36 @@ done
 # ----------------------------
 # --classic flag grants the application full access to your system's files
 echo "Installing Snap applications..."
-SNAP_OUTPUT=$(snap install code --classic 2>&1)         # Visual Studio Code
-if [ $? -ne 0 ]; then
+# Visual Studio Code
+if ! SNAP_OUTPUT=$(snap install code --classic 2>&1); then
     echo "ERROR: $SNAP_OUTPUT"
 fi
-SNAP_OUTPUT=$(snap install gimp 2>&1)                   # GIMP GNU Image Manipulation Program
-if [ $? -ne 0 ]; then
+# GIMP GNU Image Manipulation Program
+if ! SNAP_OUTPUT=$(snap install gimp 2>&1); then
     echo "ERROR: $SNAP_OUTPUT"
 fi
-SNAP_OUTPUT=$(snap install joplin-desktop 2>&1)         # Joplin Note-Taking App
-if [ $? -ne 0 ]; then
+# Joplin Note-Taking App
+if ! SNAP_OUTPUT=$(snap install joplin-desktop 2>&1); then
     echo "ERROR: $SNAP_OUTPUT"
 fi
-SNAP_OUTPUT=$(snap install opera 2>&1)                  # Opera Web Browser
-if [ $? -ne 0 ]; then
+# Opera Web Browser
+if ! SNAP_OUTPUT=$(snap install opera 2>&1); then
     echo "ERROR: $SNAP_OUTPUT"
 fi
-SNAP_OUTPUT=$(snap install picard 2>&1)                 # MusicBrainz Picard 
-if [ $? -ne 0 ]; then
+# MusicBrainz Picard 
+if ! SNAP_OUTPUT=$(snap install picard 2>&1); then
     echo "ERROR: $SNAP_OUTPUT"
 fi
-SNAP_OUTPUT=$(snap install powershell --classic 2>&1)   # Microsoft PowerShell
-if [ $? -ne 0 ]; then
+# Microsoft PowerShell
+if ! SNAP_OUTPUT=$(snap install powershell --classic 2>&1); then
     echo "ERROR: $SNAP_OUTPUT"
 fi
-SNAP_OUTPUT=$(snap install thunderbird 2>&1)            # Mozilla Thunderbird Email Client
-if [ $? -ne 0 ]; then
+# Mozilla Thunderbird Email Client
+if ! SNAP_OUTPUT=$(snap install thunderbird 2>&1); then
     echo "ERROR: $SNAP_OUTPUT"
 fi
-SNAP_OUTPUT=$(snap install whatsapp-desktop-linux 2>&1) # WhatsApp Desktop Client
-if [ $? -ne 0 ]; then
+# WhatsApp Desktop Client
+if ! SNAP_OUTPUT=$(snap install whatsapp-desktop-linux 2>&1); then
     echo "ERROR: $SNAP_OUTPUT"
 fi
 
@@ -273,7 +273,7 @@ fi
 echo "Installing RustDesk..."
 # Download the latest RustDesk .deb package from GitHub releases.
 # GitHub API responds with JSON data, including a field named "browser_download_url".
-PACKAGE_URL=$(curl -s https://api.github.com/repos/rustdesk/rustdesk/releases/latest 2>/dev/null | grep browser_download_url | grep 'x86_64.*\.deb' | cut -d '"' -f 4 | head -1)
+PACKAGE_URL=$(curl -s https://api.github.com/repos/rustdesk/rustdesk/releases/latest 2>/dev/null | grep browser_download_url | grep 'bionic_amd64.deb' | cut -d '"' -f 4 | head -1)
 # If API failed, use fallback version
 if [ -z "$PACKAGE_URL" ]; then
     echo "WARNING: Failed to fetch RustDesk latest version."
@@ -363,3 +363,4 @@ echo "5. ProtonVPN: Launch the GUI and sign in to your account."
 echo "6. RustDesk: Launch the application and configure your remote desktop settings."
 echo "7. Tailscale: Run 'sudo tailscale up' to authenticate and connect to your network."
 echo "8. ZeroTier: Run 'sudo zerotier-cli join <network-id>' to connect to your ZeroTier network."
+echo "NOTE: Please log out and back in (or reboot) for Flatpak applications to appear in your menu."
