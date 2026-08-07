@@ -1,0 +1,6 @@
+*.js filter=version
+*.ps1 filter=version
+*.py filter=version
+*.sh filter=version
+*.sql filter=version
+
