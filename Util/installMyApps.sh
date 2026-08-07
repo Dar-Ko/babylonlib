@@ -8,7 +8,9 @@
 #    This script installs a curated set of applications and tools on Ubuntu 24.04+.
 # .NOTE
 #    This script is intended for personal use and may require modifications for other environments.
-#    Ensure the script runs with root privileges
+#    Ensure the script runs with root privileges.
+# .NOTE
+#    Version: $VERSION$
 
 if [ "$EUID" -ne 0 ]; then
   echo "Please run this script using sudo: sudo ./installMyApps.sh"
@@ -17,7 +19,7 @@ fi
 
 echo "=========================================="
 echo " Starting Expanded Application Setup"
-echo "=========================================="
+echo "------------------------------------------"
 
 # Refresh packages with new repositories active
 apt update && apt upgrade -y
@@ -44,14 +46,38 @@ done
 # ----------------------------
 # --classic flag grants the application full access to your system's files
 echo "Installing Snap applications..."
-snap install code --classic         # Visual Studio Code
-snap install gimp                   # GIMP GNU Image Manipulation Program
-snap install joplin-desktop         # Joplin Note-Taking App
-snap install opera                  # Opera Web Browser
-snap install picard                 # MusicBrainz Picard 
-snap install powershell --classic   # Microsoft PowerShell
-snap install thunderbird       # Mozilla Thunderbird Email Client
-snap install whatsapp-desktop-linux # WhatsApp Desktop Client
+SNAP_OUTPUT=$(snap install code --classic 2>&1)         # Visual Studio Code
+if [ $? -ne 0 ]; then
+    echo "ERROR: $SNAP_OUTPUT"
+fi
+SNAP_OUTPUT=$(snap install gimp 2>&1)                   # GIMP GNU Image Manipulation Program
+if [ $? -ne 0 ]; then
+    echo "ERROR: $SNAP_OUTPUT"
+fi
+SNAP_OUTPUT=$(snap install joplin-desktop 2>&1)         # Joplin Note-Taking App
+if [ $? -ne 0 ]; then
+    echo "ERROR: $SNAP_OUTPUT"
+fi
+SNAP_OUTPUT=$(snap install opera 2>&1)                  # Opera Web Browser
+if [ $? -ne 0 ]; then
+    echo "ERROR: $SNAP_OUTPUT"
+fi
+SNAP_OUTPUT=$(snap install picard 2>&1)                 # MusicBrainz Picard 
+if [ $? -ne 0 ]; then
+    echo "ERROR: $SNAP_OUTPUT"
+fi
+SNAP_OUTPUT=$(snap install powershell --classic 2>&1)   # Microsoft PowerShell
+if [ $? -ne 0 ]; then
+    echo "ERROR: $SNAP_OUTPUT"
+fi
+SNAP_OUTPUT=$(snap install thunderbird 2>&1)            # Mozilla Thunderbird Email Client
+if [ $? -ne 0 ]; then
+    echo "ERROR: $SNAP_OUTPUT"
+fi
+SNAP_OUTPUT=$(snap install whatsapp-desktop-linux 2>&1) # WhatsApp Desktop Client
+if [ $? -ne 0 ]; then
+    echo "ERROR: $SNAP_OUTPUT"
+fi
 
 # 3. Flatpak Absolute Exceptions
 # ------------------------------
@@ -76,6 +102,11 @@ flatpak install flathub com.calibre_ebook.calibre -y
 # (sudo apt upgrade) will not automatically update those package wrapper in the future.
 
 mkdir -p /etc/apt/keyrings
+# Ensure curl is installed for API access
+if ! command -v curl &> /dev/null; then
+    echo "Installing curl for API access..."
+    apt install -y curl || echo "ERROR: Could not install curl."
+fi
 
 # AppImageLauncher Official Setup
 echo "Installing AppImageLauncher..."
@@ -223,33 +254,87 @@ else
     echo "ERROR: ProtonVPN repository package not downloaded. Skipping installation."
 fi
 
-# RustDesk Official Setup
-echo "Installing RustDesk..."
-# Download the latest RustDesk .deb package from GitHub releases
-PACKAGE_URL=$(curl -s https://api.github.com/repos/rustdesk/rustdesk/releases/latest | grep browser_download_url | grep 'linux.deb' | cut -d '"' -f 4)
-PACKAGE_NAME="/tmp/rustdesk.deb"
+# R-Linux Data Recovery Setup
+echo "Installing R-Linux Data Recovery..."
+PACKAGE_URL="https://www.r-studio.com/downloads/RLinux6_x64.deb"
+PACKAGE_NAME="/tmp/rlinux.deb"
 if wget -q -O "$PACKAGE_NAME" "$PACKAGE_URL"; then
-    echo "Installing RustDesk from $PACKAGE_NAME..."
-    dpkg -i "$PACKAGE_NAME" || (apt --fix-broken install -y && dpkg -i "$PACKAGE_NAME") || echo "ERROR: Failed to install RustDesk."
-    rm "$PACKAGE_NAME"
+    # Installing R-Linux from $PACKAGE_NAME"
+    dpkg -i "$PACKAGE_NAME" || {
+        # Fixing dependencies and retrying"
+        apt --fix-broken install -y && dpkg -i "$PACKAGE_NAME"
+    } || echo "ERROR: Failed to install R-Linux."
+    rm "$PACKAGE_NAME" 2>/dev/null
+else
+    echo "ERROR: Failed to download R-Linux .deb package."
+fi
+
+# RustDesk Remote Desktop Setup
+echo "Installing RustDesk..."
+# Download the latest RustDesk .deb package from GitHub releases.
+# GitHub API responds with JSON data, including a field named "browser_download_url".
+PACKAGE_URL=$(curl -s https://api.github.com/repos/rustdesk/rustdesk/releases/latest 2>/dev/null | grep browser_download_url | grep 'x86_64.*\.deb' | cut -d '"' -f 4 | head -1)
+# If API failed, use fallback version
+if [ -z "$PACKAGE_URL" ]; then
+    echo "WARNING: Failed to fetch RustDesk latest version."
+    # Using fallback version 1.4.9
+    PACKAGE_URL="https://github.com/rustdesk/rustdesk/releases/download/1.4.9/rustdesk-1.4.9-x86_64.deb"
+fi
+PACKAGE_NAME="/tmp/rustdesk.deb"
+# Downloading RustDesk"
+if wget -q -O "$PACKAGE_NAME" "$PACKAGE_URL"; then
+    dpkg -i "$PACKAGE_NAME" || { 
+        # Fixing dependencies and retrying"
+        apt --fix-broken install -y && dpkg -i "$PACKAGE_NAME"
+    } || echo "ERROR: Failed to install RustDesk."
+    rm "$PACKAGE_NAME" 2>/dev/null
 else
     echo "ERROR: Failed to download RustDesk .deb package."
 fi
 
+# SMPlayer Setup
+echo "Installing SMPlayer..."
+# Adding the official PPA for the latest version.
+add-apt-repository ppa:alex-p/smplayer -y
+# Updating package cache
+apt update
+apt install -y smplayer smplayer-themes || echo "ERROR: Failed to install SMPlayer."
 
 # TailScale zero-config mesh networking setup
-echo "Adding Tailscale Repository..."
-curl -fsSL https://tailscale.com/install.sh | sh
-
-# 5. Official Automated Scripts (Tailscale, ZeroTier, )
 echo "Installing Tailscale..."
-curl -fsSL https://tailscale.com | sh
+# Add Tailscale's package signing key and repository
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
+apt update
+apt install -y tailscale || echo "ERROR: Failed to install Tailscale."
 
+# Viber Setup
+echo "Installing Viber Desktop..."
+# Download the official Viber .deb package from Viber's CDN
+PACKAGE_URL="https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb"
+PACKAGE_NAME="/tmp/viber.deb"
+
+if wget -q -O "$PACKAGE_NAME" "$PACKAGE_URL"; then
+    # Try installing with apt first (better dependency handling)
+    if ! apt install -y "$PACKAGE_NAME" 2>/dev/null; then
+        # Fallback to dpkg with dependency fix
+        dpkg -i "$PACKAGE_NAME" || {
+            apt --fix-broken install -y && dpkg -i "$PACKAGE_NAME"
+        } || echo "ERROR: Failed to install Viber."
+    fi
+    rm "$PACKAGE_NAME" 2>/dev/null
+else
+    echo "ERROR: Failed to download Viber .deb package."
+fi
+
+# ZeroTier zero-config mesh networking setup
 echo "Installing ZeroTier..."
-curl -s https://zerotier.com | bash
-
-
-
+# Install ZeroTier using the official one-line installer
+curl -s https://install.zerotier.com | bash
+# Check if installation was successful
+if ! command -v zerotier-cli &> /dev/null; then
+    echo "ERROR: ZeroTier installation failed."
+fi
 
 # 7. Standalone Portable Setup (AppImage)
 echo "Setting up Portable Applications Directory..."
@@ -260,7 +345,7 @@ mkdir -p /opt/AppImages
 gsettings set org.gnome.desktop.app-folders folder-children "['Utilities']" 2>/dev/null || true
 
 
-echo "=========================================="
+echo "------------------------------------------"
 echo " Installation process finished! "
 echo "=========================================="
 echo "Manual tasks left:"
@@ -273,4 +358,8 @@ echo "  1. Dashboard:   openclaw dashboard"
 echo "  2. Status:      openclaw gateway status"
 echo "  3. Test agent:  openclaw agent --message \"Hello!\""
 echo "  4. Reconfigure: openclaw onboard"
-echo "  OpenClaw documentation: https://openclaw.ai
+echo "  OpenClaw documentation: https://openclaw.ai"
+echo "5. ProtonVPN: Launch the GUI and sign in to your account."
+echo "6. RustDesk: Launch the application and configure your remote desktop settings."
+echo "7. Tailscale: Run 'sudo tailscale up' to authenticate and connect to your network."
+echo "8. ZeroTier: Run 'sudo zerotier-cli join <network-id>' to connect to your ZeroTier network."
