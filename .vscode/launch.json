@@ -1,15 +1,24 @@
 {
+    // Debug configuration for Bash scripts
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "bashdb",
-            "request": "launch",
-            "name": "Debug Current Script (sudo)",
-            "program": "${file}",
-            "args": [],
-            "cwd": "${workspaceFolder}",
-            "terminalKind": "integrated",
-            "bashdbPath": "${workspaceFolder}/.vscode/sudo-bashdb-wrapper.sh"
+            "type": "bashdb",              // Uses the Bash Debug extension
+            "request": "launch",           // Starts a new debug session
+            "name": "Debug Current bash Script (sudo)",
+            "program": "${file}",          // The script to debug; uses the currently open file
+            "args": [],                    // Arguments to pass to the script; currently empty
+            "cwd": "${workspaceFolder}",   // Sets the current working directory to the workspace folder
+            "terminalKind": "integrated",  // Uses the integrated terminal for debugging
+
+            // Uncomment for verbose debugging output:
+            // "env": { "DEBUG": "true" },
+            // pathBashdb property specified if Bash Debug (rogalmic) is used
+            "pathBashdb": "${workspaceFolder}/.vscode/sudo-bashdb-wrapper.sh"
+            // pathBash property specified if  Bash Debugger (mads-hartmann) is used
+            // "pathBash": "${workspaceFolder}/.vscode/sudo-bashdb-wrapper.sh"
+
+
         }
     ]
 }
