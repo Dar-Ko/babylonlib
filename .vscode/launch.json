@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "bashdb",
+            "request": "launch",
+            "name": "Debug Current Script (sudo)",
+            "program": "${file}",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "terminalKind": "integrated",
+            "bashdbPath": "${workspaceFolder}/.vscode/sudo-bashdb-wrapper.sh"
+        }
+    ]
+}
