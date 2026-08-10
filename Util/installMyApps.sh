@@ -35,7 +35,7 @@ echo "=========================================="
 echo " Starting Expanded Application Setup"
 echo "------------------------------------------"
 DBG_TRACE "0."
-if false; then
+
 # Refresh packages with new repositories active
 apt update && apt upgrade -y
 
@@ -281,7 +281,7 @@ echo "deb [signed-by=/etc/apt/keyrings/naps2.gpg] https://downloads.naps2.com ./
 apt update
 apt install -y naps2 || echo "ERROR: Failed to install NAPS2."
 DBG_TRACE "4.8"
-fi # +++++++++++++++++++++++
+
 # OpenClaw AI Assistant Setup
 echo "Installing OpenClaw AI Assistant..."
 echo "=========================================="
