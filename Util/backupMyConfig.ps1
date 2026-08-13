@@ -8,13 +8,54 @@
     application configs, SSH keys, and personal documents. It also generates
     a list of installed packages for reinstallation after downgrade.
     Intended to be run on Ubuntu MATE 26.04 before downgrading to 24.04.
+    The script saves the backup to /home/backup and creates a log file (backup.log) .
+    The restoration process will involve copying these files back to their
+    original locations.
+.EXAMPLE
+    chmod +x KBackupMate.ps1
+    sudo pwsh ./KBackupMate.ps1
+    # to restore packages:
+    sudo dpkg --set-selections < installed-packages.txt
+    sudo apt-get dselect-upgrade
+    # to restore  Snap packages:
+    while read -r line; do
+        snap install $line
+    done < installed-snaps.txt
+.NOTES
+    Backups of system configurations:
+    PPAs and repositories (APT sources /etc/apt/sources.list and sources.list.d/)
+    Cron Jobs (system and user crontabs)
+    NetworkManager Connections
+    CUPS Printer configurations
+    SSH Host Keys (/etc/ssh/)
+    Samba State (/var/lib/samba/)
+.NOTES
+    The script generates four different package lists:
+    installed-packages.txt - Complete package list with selection states (install/deinstall)
+    installed-packages-with-versions.txt - Detailed list with version numbers
+    manually-installed-packages.txt - Only packages manually installed (not dependencies)
+    installed-snaps.txt - List of installed Snap packages (if Snap is installed)
 .NOTES
     Date:   October 26, 2023
-    Version: 2.0 - Fixed user directory backup issue
+    Version: %VERSION-HASH%
 #>
 
 # --- Configuration ---
-$USER_HOME = $env:HOME
+# DETECT THE REAL USER (even when running with sudo)
+if ($env:SUDO_USER) {
+    # Running with sudo - get the real user
+    $REAL_USER = $env:SUDO_USER
+    $USER_HOME = "/home/$REAL_USER"
+    Write-Host "Detected sudo: Running as root, but real user is: $REAL_USER" -ForegroundColor Yellow
+    Write-Host "Using home directory: $USER_HOME" -ForegroundColor Yellow
+} else {
+    # Running as normal user
+    $REAL_USER = $env:USER
+    $USER_HOME = $env:HOME
+    Write-Host "Running as normal user: $REAL_USER" -ForegroundColor Green
+    Write-Host "Using home directory: $USER_HOME" -ForegroundColor Green
+}
+
 $BACKUP_BASE = "/home/backup"
 $TIMESTAMP = Get-Date -Format "yyyyMMdd_HHmmss"
 $BACKUP_DIR = Join-Path -Path $BACKUP_BASE -ChildPath "ubuntu_downgrade_backup_$TIMESTAMP"
@@ -24,6 +65,7 @@ $BACKUP_LOG = Join-Path -Path $BACKUP_DIR -ChildPath "backup.log"
 Write-Host "Starting backup for downgrade from Ubuntu 26.04 to 24.04..." -ForegroundColor Cyan
 Write-Host "Backup will be stored in: $BACKUP_DIR" -ForegroundColor Yellow
 Write-Host "User home directory: $USER_HOME" -ForegroundColor Yellow
+Write-Host "Real username: $REAL_USER" -ForegroundColor Yellow
 
 # Create the backup and log directories
 New-Item -ItemType Directory -Path $BACKUP_DIR -Force | Out-Null
@@ -38,8 +80,13 @@ function Log-Message {
 }
 
 Log-Message "--- Backup Process Started ---"
-Log-Message "User: $env:USER"
+Log-Message "Real User: $REAL_USER"
 Log-Message "Home directory: $USER_HOME"
+if ($env:SUDO_USER) {
+    Log-Message "Running with sudo (elevated privileges for system files)"
+} else {
+    Log-Message "Running without sudo (normal user privileges)"
+}
 
 # --- Generate Package List ---
 Log-Message "Generating list of installed packages..."
@@ -91,8 +138,17 @@ foreach ($dir in $appDirs) {
     if (Test-Path $src) {
         $dest = Join-Path -Path $BACKUP_DIR -ChildPath $dir
         Log-Message "Copying $src to $dest"
+        # Ensure correct ownership (use real user, not root)
         Copy-Item -Path $src -Destination $dest -Recurse -Force
-        Log-Message "  ✓ Copied successfully"
+        if ($?) {
+            Log-Message "  ✓ Copied successfully"
+            # Fix ownership if running as sudo
+            if ($env:SUDO_USER) {
+                chown -R $REAL_USER":"$REAL_USER $dest 2>/dev/null
+            }
+        } else {
+            Log-Message "  ✗ ERROR: Failed to copy"
+        }
     } else {
         Log-Message "  ✗ Warning: $src not found, skipping."
     }
@@ -106,7 +162,7 @@ if (Test-Path "/etc/samba/smb.conf") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "etc/samba"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
     Log-Message "Copying /etc/samba/smb.conf to $dest"
-    sudo cp /etc/samba/smb.conf "$dest/smb.conf.bak"
+    cp /etc/samba/smb.conf "$dest/smb.conf.bak" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied successfully"
     } else {
@@ -121,7 +177,7 @@ if (Test-Path "/etc/hosts") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "etc"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
     Log-Message "Copying /etc/hosts to $dest"
-    sudo cp /etc/hosts "$dest/hosts.bak"
+    cp /etc/hosts "$dest/hosts.bak" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied successfully"
     } else {
@@ -138,7 +194,7 @@ if (Test-Path "/etc/fstab") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "etc"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
     Log-Message "Copying /etc/fstab to $dest"
-    sudo cp /etc/fstab "$dest/fstab.bak"
+    cp /etc/fstab "$dest/fstab.bak" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied successfully"
     } else {
@@ -152,7 +208,7 @@ Log-Message "Backing up APT sources..."
 if (Test-Path "/etc/apt/sources.list") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "etc/apt"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
-    sudo cp /etc/apt/sources.list "$dest/sources.list.bak"
+    cp /etc/apt/sources.list "$dest/sources.list.bak" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied /etc/apt/sources.list to $dest"
     } else {
@@ -162,7 +218,7 @@ if (Test-Path "/etc/apt/sources.list") {
 if (Test-Path "/etc/apt/sources.list.d") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "etc/apt/sources.list.d"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
-    sudo cp -r /etc/apt/sources.list.d/* "$dest/" 2>/dev/null
+    cp -r /etc/apt/sources.list.d/* "$dest/" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied /etc/apt/sources.list.d to $dest"
     } else {
@@ -177,12 +233,19 @@ if (Test-Path $sshSrc) {
     $sshDest = Join-Path -Path $BACKUP_DIR -ChildPath ".ssh"
     Log-Message "Copying $sshSrc to $sshDest"
     Copy-Item -Path $sshSrc -Destination $sshDest -Recurse -Force
-    Log-Message "  ✓ Copied successfully"
+    if ($?) {
+        Log-Message "  ✓ Copied successfully"
+        if ($env:SUDO_USER) {
+            chown -R $REAL_USER":"$REAL_USER $sshDest 2>/dev/null
+        }
+    } else {
+        Log-Message "  ✗ ERROR: Failed to copy"
+    }
 } else {
     Log-Message "Warning: $sshSrc not found, skipping."
 }
 
-# --- Backup User Directories (FIXED) ---
+# --- Backup User Directories ---
 Log-Message "========================================"
 Log-Message "BACKING UP USER DIRECTORIES"
 Log-Message "========================================"
@@ -214,8 +277,14 @@ foreach ($dir in $userDirs) {
         
         Copy-Item -Path $src -Destination $dest -Recurse -Force -ErrorAction Continue
         
-        if ($LASTEXITCODE -eq 0 -or $?) {
+        if ($?) {
             Log-Message "  ✓ Copied successfully!"
+            
+            # Fix ownership if running as sudo
+            if ($env:SUDO_USER) {
+                chown -R $REAL_USER":"$REAL_USER $dest 2>/dev/null
+                Log-Message "  ✓ Ownership fixed to $REAL_USER"
+            }
             
             # Verify copy
             if (Test-Path $dest) {
@@ -247,7 +316,7 @@ if (Test-Path "/etc/ssh") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "etc/ssh"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
     Log-Message "Copying /etc/ssh to $dest"
-    sudo cp -r /etc/ssh/* "$dest/" 2>/dev/null
+    cp -r /etc/ssh/* "$dest/" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied successfully"
     } else {
@@ -263,7 +332,7 @@ if (Test-Path "/var/lib/samba") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "var/lib/samba"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
     Log-Message "Copying /var/lib/samba to $dest"
-    sudo cp -r /var/lib/samba/* "$dest/" 2>/dev/null
+    cp -r /var/lib/samba/* "$dest/" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied successfully"
     } else {
@@ -278,7 +347,7 @@ Log-Message "Backing up cron jobs..."
 if (Test-Path "/etc/crontab") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "etc"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
-    sudo cp /etc/crontab "$dest/crontab.bak" 2>/dev/null
+    cp /etc/crontab "$dest/crontab.bak" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied /etc/crontab to $dest"
     }
@@ -286,16 +355,21 @@ if (Test-Path "/etc/crontab") {
 if (Test-Path "/etc/cron.d") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "etc/cron.d"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
-    sudo cp -r /etc/cron.d/* "$dest/" 2>/dev/null
+    cp -r /etc/cron.d/* "$dest/" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied /etc/cron.d to $dest"
     }
 }
 
-# Backup user crontab
+# Backup user crontab (as the real user, not root)
 Log-Message "Backing up user crontab (if exists)..."
 $USER_CRON_FILE = Join-Path -Path $BACKUP_DIR -ChildPath "crontab-user.txt"
-crontab -l > $USER_CRON_FILE 2>&1
+if ($env:SUDO_USER) {
+    # Run crontab as the real user
+    sudo -u $REAL_USER crontab -l > $USER_CRON_FILE 2>&1
+} else {
+    crontab -l > $USER_CRON_FILE 2>&1
+}
 if ($LASTEXITCODE -eq 0) {
     Log-Message "  ✓ User crontab saved to: $USER_CRON_FILE"
 } else {
@@ -307,7 +381,7 @@ Log-Message "Backing up NetworkManager connections..."
 if (Test-Path "/etc/NetworkManager/system-connections") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "etc/NetworkManager/system-connections"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
-    sudo cp -r /etc/NetworkManager/system-connections/* "$dest/" 2>/dev/null
+    cp -r /etc/NetworkManager/system-connections/* "$dest/" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied NetworkManager connections to $dest"
     }
@@ -320,7 +394,7 @@ Log-Message "Backing up CUPS printer configurations..."
 if (Test-Path "/etc/cups/printers.conf") {
     $dest = Join-Path -Path $BACKUP_DIR -ChildPath "etc/cups"
     New-Item -ItemType Directory -Path $dest -Force | Out-Null
-    sudo cp /etc/cups/printers.conf "$dest/printers.conf.bak" 2>/dev/null
+    cp /etc/cups/printers.conf "$dest/printers.conf.bak" 2>/dev/null
     if ($LASTEXITCODE -eq 0) {
         Log-Message "  ✓ Copied CUPS printers.conf to $dest"
     }
@@ -340,11 +414,15 @@ Write-Host "`n=== Generated Backup Files ===" -ForegroundColor Cyan
 if (Test-Path $BACKUP_DIR) {
     $items = Get-ChildItem -Path $BACKUP_DIR -Recurse -File -ErrorAction SilentlyContinue
     if ($items) {
+        $totalSize = 0
         $items | ForEach-Object {
             $relativePath = $_.FullName.Substring($BACKUP_DIR.Length + 1)
             $sizeKB = [math]::Round($_.Length / 1KB, 2)
+            $totalSize += $_.Length
             Write-Host "  $relativePath ($sizeKB KB)" -ForegroundColor Gray
         }
+        $totalMB = [math]::Round($totalSize / 1MB, 2)
+        Write-Host "`n  Total backup size: $totalMB MB" -ForegroundColor Yellow
     } else {
         Write-Host "  No files found in backup directory!" -ForegroundColor Red
     }
@@ -371,3 +449,6 @@ Write-Host "`nBackup complete. Please ensure the backup directory is saved to an
 Write-Host "Package lists generated. To reinstall packages after downgrade, use:" -ForegroundColor Yellow
 Write-Host "  sudo dpkg --set-selections < installed-packages.txt" -ForegroundColor Yellow
 Write-Host "  sudo apt-get dselect-upgrade" -ForegroundColor Yellow
+Write-Host "`nIMPORTANT: Since you ran with sudo, backup files in $BACKUP_DIR" -ForegroundColor Yellow
+Write-Host "may be owned by root. To fix ownership after backup:" -ForegroundColor Yellow
+Write-Host "  sudo chown -R $REAL_USER:$REAL_USER $BACKUP_DIR" -ForegroundColor Yellow
