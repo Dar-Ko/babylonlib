@@ -40,10 +40,17 @@
     Version: %VERSION-HASH%
 #>
 
-# Force PowerShell to render colors as ANSI sequences even when not in
-# an interactive terminal. Otherwise redirecting to stdout will make PowerShell
-# strip color codes.
-$PSStyle.OutputRendering = 'Ansi'
+try {
+    # Force PowerShell to render colors as ANSI sequences even when not in
+    # an interactive terminal. Otherwise redirecting to stdout will make PowerShell
+    # strip color codes.
+    $global:PSStyle.OutputRendering = 'Ansi'
+    } catch {
+    Write-Host "$([char]0x1b)[31m✗ PSStyle ForegroundColor failed: $_ $([char]0x1b)[0m"
+    # Fallback for older PowerShell
+    Write-Host "$([char]0x1b)[33m PoverShell ver. ${PSVersionTable}.PSVersion $([char]0x1b)[0m"
+    $env:TERM = 'xterm-256color'
+    }
 
 # --- Configuration ---
 # DETECT THE REAL USER (even when running with sudo)
@@ -307,7 +314,7 @@ foreach ($dir in $userDirs) {
         Log-Message "  ✗ Warning: $src not found, skipping."
         # List what's actually in the home directory for debugging
         if ($dir -eq "Documents") {
-            Log-Message "  Contents of $USER_HOME:"
+            Log-Message "  Contents of ${USER_HOME}:"
             Get-ChildItem -Path $USER_HOME -ErrorAction SilentlyContinue | ForEach-Object {
                 Log-Message "    - $($_.Name)"
             }
@@ -456,4 +463,4 @@ Write-Host "  sudo dpkg --set-selections < installed-packages.txt" -ForegroundCo
 Write-Host "  sudo apt-get dselect-upgrade" -ForegroundColor Yellow
 Write-Host "`nIMPORTANT: Since you ran with sudo, backup files in $BACKUP_DIR" -ForegroundColor Yellow
 Write-Host "may be owned by root. To fix ownership after backup:" -ForegroundColor Yellow
-Write-Host "  sudo chown -R $REAL_USER:$REAL_USER $BACKUP_DIR" -ForegroundColor Yellow
+Write-Host "  sudo chown -R ${REAL_USER}:${REAL_USER} $BACKUP_DIR" -ForegroundColor Yellow
