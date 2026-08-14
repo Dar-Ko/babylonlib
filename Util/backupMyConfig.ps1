@@ -12,8 +12,8 @@
     The restoration process will involve copying these files back to their
     original locations.
 .EXAMPLE
-    chmod +x KBackupMate.ps1
-    sudo pwsh ./KBackupMate.ps1
+    chmod +x backupMyConfig.ps1
+    sudo pwsh ./backupMyConfig.ps1
     # to restore packages:
     sudo dpkg --set-selections < installed-packages.txt
     sudo apt-get dselect-upgrade
@@ -36,9 +36,14 @@
     manually-installed-packages.txt - Only packages manually installed (not dependencies)
     installed-snaps.txt - List of installed Snap packages (if Snap is installed)
 .NOTES
-    Date:   October 26, 2023
+    Date:    2026-08-14
     Version: %VERSION-HASH%
 #>
+
+# Force PowerShell to render colors as ANSI sequences even when not in
+# an interactive terminal. Otherwise redirecting to stdout will make PowerShell
+# strip color codes.
+$PSStyle.OutputRendering = 'Ansi'
 
 # --- Configuration ---
 # DETECT THE REAL USER (even when running with sudo)
