@@ -106,115 +106,109 @@ function Copy-Items {
         [string]$DestinationRoot
     )
     
-    Read-Host "(109) Check if $SourcePath is a file. Press Enter to continue"
-   
-    # Check if it's a specific file with an extension (not a wildcard)
-    if (Test-Path $SourcePath -PathType Leaf) {
-        # It's a specific file - copy it directly
-        $relativePath = $SourcePath.TrimStart('/')
-        $dest = Join-Path -Path $DestinationRoot -ChildPath $relativePath
-        $destDir = Split-Path -Path $dest -Parent
-        
-        Write-Log "  Source file: $SourcePath" -ForegroundColor Gray
-        Write-Log "  Dest file: $dest" -ForegroundColor Gray
-        
-        Write-Log "    Relative: $relativePath" -ForegroundColor Gray
-        Write-Log "    Dest Dir: $destDir" -ForegroundColor Gray
-
-        New-Item -ItemType Directory -Path $destDir -Force -ErrorAction SilentlyContinue
-        if (-not (Test-Path $destDir)) {
-            Write-Log "  ✗ ERROR (126): Failed to create directory: $destDir" -ForegroundColor Red
-            return $false
-        }
-        Copy-Item -Path $SourcePath -Destination $dest -Force -ErrorAction SilentlyContinue
-        
-        if ($?) {
-            Write-Log "  ✓ Copied successfully (132)" -ForegroundColor Green
-            return $true
-        } else {
-            Write-Log "  ✗ ERROR (135): Failed to copy" -ForegroundColor Red
-            return $false
-        }
-    }
-
-    Read-Host "(140) Press Enter to continue" 
-
+    Write-Log "  Copying: $SourcePath"
+    #Read-Host "(110) Copying: $SourcePath. Press Enter to continue"
+    
     # Check if the path contains wildcard characters
-    if ($SourcePath -match '[*?\[\]]') {
+    $hasWildcards = $SourcePath -match '[*?\[\]]'
+    
+    if ($hasWildcards) {
+        # --- WILDCARD HANDLING ---
         # Split path into directory and pattern
         $directory = Split-Path -Path $SourcePath -Parent
         $pattern = Split-Path -Path $SourcePath -Leaf
         
+        # If no directory specified, use current directory
+        if ([string]::IsNullOrEmpty($directory)) {
+            $directory = "."
+        }
+        
         # Check if directory exists
-        if (-not (Test-Path $directory)) {
-            Write-Log "  ⚠ Warning (146): Directory '$directory' not found, skipping wildcard pattern." -ForegroundColor Yellow
+        if (-not (Test-Path $directory -PathType Container)) {
+            Write-Log "  ⚠ Warning: Directory '$directory' not found, skipping wildcard pattern." -ForegroundColor Yellow
             return $false
         }
         
-        Read-Host "(150) Press Enter to continue" 
-
-        # Build the destination directory (preserve path structure)
-        $relativeDir = $directory.TrimStart('/')
-        $destDir = Join-Path -Path $DestinationRoot -ChildPath $relativeDir
-        New-Item -ItemType Directory -Path $destDir -Force | Out-Null
+        Write-Log "  Searching for pattern '$pattern' in '$directory'" -ForegroundColor Gray
         
-        # Get matching files
-        $matchingFiles = Get-ChildItem -Path $SourcePath -ErrorAction SilentlyContinue
+        # Get matching items (files and directories)
+        $matchingItems = Get-ChildItem -Path $SourcePath -ErrorAction SilentlyContinue
         
-        if (-not $matchingFiles -or $matchingFiles.Count -eq 0) {
-            Write-Log "  ⚠ Warning ($($MyInvocation.ScriptLineNumber)): No files matching pattern '$pattern' in '$directory'" -ForegroundColor Yellow
+        if (-not $matchingItems -or $matchingItems.Count -eq 0) {
+            Write-Log "  ⚠ Warning: No items matching pattern '$pattern' in '$directory'" -ForegroundColor Yellow
             return $false
         }
         
-        Write-Log "  Found $($matchingFiles.Count) file(s) matching pattern '$pattern'"
+        Write-Log "  Found $($matchingItems.Count) item(s) matching pattern '$pattern'"
         
-        # Copy each matching file
+        # Copy each matching item
         $copiedCount = 0
-        foreach ($file in $matchingFiles) {
-            if ($file.PSIsContainer) {
-                # If it's a directory, copy recursively
-                $destSubDir = Join-Path -Path $destDir -ChildPath $file.Name
-                Copy-Item -Path $file.FullName -Destination $destSubDir -Recurse -Force 2>/dev/null
+        $totalCount = $matchingItems.Count
+        
+        foreach ($item in $matchingItems) {
+            # Build the relative path from the directory
+            # This preserves the original filename/directory name
+            $itemRelativePath = $item.FullName.TrimStart('/')
+            $dest = Join-Path -Path $DestinationRoot -ChildPath $itemRelativePath
+            $destDir = Split-Path -Path $dest -Parent
+            
+            # Create the destination directory
+            New-Item -ItemType Directory -Path $destDir -Force | Out-Null
+            
+            if ($item.PSIsContainer) {
+                # It's a directory - copy recursively
+                Write-Log "    Copying directory: $($item.Name)/" -ForegroundColor Gray
+                Copy-Item -Path $item.FullName -Destination $dest -Recurse -Force 2>/dev/null
             } else {
-                # Copy file
-                Copy-Item -Path $file.FullName -Destination $destDir -Force 2>/dev/null
+                # It's a file - copy it
+                Write-Log "    Copying file: $($item.Name)" -ForegroundColor Gray
+                Copy-Item -Path $item.FullName -Destination $dest -Force 2>/dev/null
             }
             
             if ($?) {
                 $copiedCount++
-                Write-Log "    ✓ Copied: $($file.Name) (185)" -ForegroundColor Green
+                Write-Log "    ✓ Copied: $($item.Name)" -ForegroundColor Green
             } else {
-                Write-Log "    ✗ ERROR (187): Failed to copy: $($file.Name)" -ForegroundColor Red
+                Write-Log "    ✗ ERROR: Failed to copy: $($item.Name)" -ForegroundColor Red
             }
         }
         
-        Write-Log "  ✓ Copied $copiedCount of $($matchingFiles.Count) items"
-        return $true
+        Write-Log "  ✓ Copied $copiedCount of $totalCount items"
+        return ($copiedCount -eq $totalCount)
+        
     } else {
-        # No wildcard - use standard copy
-        if (Test-Path $SourcePath) {
-            Read-Host "(196) Test-Path $SourcePath. Press Enter to continue"
-
-            $relativePath = $SourcePath.TrimStart('/')
-            $dest = Join-Path -Path $DestinationRoot -ChildPath $relativePath
-            $destDir = Split-Path -Path $dest -Parent
-            New-Item -ItemType Directory -Path $destDir -Force | Out-Null
-            
-            if (Test-Path $SourcePath -PathType Container) {
-                Copy-Item -Path $SourcePath -Destination $dest -Recurse -Force 2>/dev/null
-            } else {
-                Copy-Item -Path $SourcePath -Destination $dest -Force 2>/dev/null
-            }
-            
-            if ($?) {
-                Write-Log "  ✓ Copied successfully (210)" -ForegroundColor Green
-                return $true
-            } else {
-                Write-Log "  ✗ ERROR: Failed to copy" -ForegroundColor Red
-                return $false
-            }
+        # --- NO WILDCARD - Standard copy ---
+        if (-not (Test-Path $SourcePath)) {
+            Write-Log "  ⚠ Warning: Source '$SourcePath' not found, skipping." -ForegroundColor Yellow
+            return $false
+        }
+        
+        # Build destination path preserving full structure
+        $relativePath = $SourcePath.TrimStart('/')
+        $dest = Join-Path -Path $DestinationRoot -ChildPath $relativePath
+        $destDir = Split-Path -Path $dest -Parent
+        
+        Write-Log "    Source: $SourcePath" -ForegroundColor Gray
+        Write-Log "    Dest: $dest" -ForegroundColor Gray
+        Write-Log "    Dest Dir: $destDir" -ForegroundColor Gray
+        
+        # Create the destination directory
+        New-Item -ItemType Directory -Path $destDir -Force | Out-Null
+        
+        # Check if it's a directory or file
+        if (Test-Path $SourcePath -PathType Container) {
+            Write-Log "  Copying directory recursively..." -ForegroundColor Gray
+            Copy-Item -Path $SourcePath -Destination $dest -Recurse -Force 2>/dev/null
         } else {
-            Write-Log "  ⚠ Warning (210): $SourcePath not found, skipping." -ForegroundColor Yellow
+            Write-Log "  Copying file..." -ForegroundColor Gray
+            Copy-Item -Path $SourcePath -Destination $dest -Force 2>/dev/null
+        }
+        
+        if ($?) {
+            Write-Log "  ✓ Copied successfully" -ForegroundColor Green
+            return $true
+        } else {
+            Write-Log "  ✗ ERROR: Failed to copy" -ForegroundColor Red
             return $false
         }
     }
@@ -447,7 +441,7 @@ if ($env:SUDO_USER) {
     Write-Log "Running without sudo (normal user privileges)"
 }
 
-Read-Host "(441) Press Enter to continue"
+#Read-Host "(444) Generating list of installed packages. Press Enter to continue"
 
 # --- Generate Package List ---
 Write-Log "Generating list of installed packages..."
@@ -506,11 +500,14 @@ try {
 }
 
 # --- Backup Application Configurations ---
-Write-Log "Backing up application configurations..."
+Write-Log "Backing up user's application configurations..."
+#Read-Host "(504) Home apps. Press Enter to continue"
 
 # 1. Browser and Email Configurations
 $appDirs = @(
     ".config/autostart",    # Autostart applications
+    ".config/Code/User/settings.json", # VS Code settings
+    ".config/Code/User/snippets",      # VS Code snippets
     ".config/keepassxc/keepassxc.ini", # KeepassXC config    
     ".config/mpv",          # Celluloid (formerly MPV) media player configs
     ".config/MusicBrainz",  # Picard config 
@@ -521,18 +518,31 @@ $appDirs = @(
     ".face",                # User face/avatar for login
     ".gnupg",               # GnuPG keys and configs
     ".joplin",              # Joplin (assuming default location)
-    "snap/joplin-desktop/current/.config", # Joplin config for Snap
+    "snap/joplin-desktop/current/.config/joplin-desktop/plugins", # Joplin config for Snap
+    "snap/joplin-desktop/current/.config/joplin-desktop/settings.json", # Joplin settings for Snap
+    ".kde",                 # KDE configs (if any)
+    ".local/bin",           # Custom user scripts
+    ".local/share/icons",   # Custom icons
     ".local/share/mime/packages", # Custom MIME types
-    ".mozilla",             # Firefox
-    "snap/firefox/common/.mozilla", # Firefox config for Snap
+    ".mozilla/firefox",    # Firefox
+    "snap/firefox/common/.mozilla/firefox/????????.default/places.sqlite", # Firefox config for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/bookmarkbackups", # Firefox bookmark backups for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/prefs.js", # Firefox prefs for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/user.js",  # Firefox user.js for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/extensions", # Firefox extensions for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/logins.json", # Firefox logins for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/key4.db", # Firefox key database for Snap
     ".pam_environment",     # PAM environment variables
     ".ssh",                 # SSH keys and configs
     ".thunderbird",         # Thunderbird
-    "snap/thunderbird/common/.thunderbird", # Thunderbird config for Snap
+    "snap/thunderbird/common/.thunderbird/????????.default/extensions*", # Thunderbird config for Snap
+    "snap/thunderbird/common/.thunderbird/????????.default/prefs.js", # Thunderbird mail server settings for Snap
+    "snap/thunderbird/common/.thunderbird/????????.default/logins.*", # Thunderbird logins for Snap
     ".zerotier-one",        # ZeroTier
-    "Documents/CommonSoft.loz",        # CommonSoft documents (example)
-    "Projects/babylonlib/.git",        # BabylonLib project git config
-    "Templates"             # User Office templates directory
+    "Documents/CommonSoft.loz",  # CommonSoft documents (example)
+    "Desktop/*.desktop",         # User desktop shortcuts
+    "Projects/babylonlib/.git",  # BabylonLib project git config
+    "Templates"                  # User Office templates directory
 
 )
 
@@ -540,6 +550,7 @@ foreach ($item in $appDirs) {
     $src = Join-Path -Path $USER_HOME -ChildPath $item
     Write-Log "Checking for: $src"
     $result = Copy-Items -SourcePath $src -DestinationRoot $BACKUP_DIR
+    #Read-Host "(553) Copy-Items -> $result. Press Enter to continue"
         
     if ($result -and $env:SUDO_USER) {
         # Ensure correct ownership (use real user, not root)
@@ -555,34 +566,9 @@ foreach ($item in $appDirs) {
    
 }
 
-<#
-foreach ($dir in $appDirs) {
-    $src = Join-Path -Path $USER_HOME -ChildPath $dir
-    Write-Log "Checking for: $src"
-    if (Test-Path $src) {
-        $dest = Join-Path -Path $USER_BACKUP_DIR -ChildPath $dir
-        Write-Log "Copying $src to $dest"
-        # Ensure correct ownership (use real user, not root)
-        Copy-Item -Path $src -Destination $dest -Recurse -Force
-        if ($?) {
-            Write-Log "  ✓ Copied successfully"
-            # Fix ownership if running as sudo
-            if ($env:SUDO_USER) {
-                chown -R "${REAL_USER}:${REAL_USER}" $dest 2>/dev/null
-                if ($LASTEXITCODE -ne 0) {
-                    Write-Log "  ⚠ Warning: Could not fix ownership for $dest" -ForegroundColor Yellow
-                }
-            }
-        } else {
-            Write-Log "  ✗ ERROR: Failed to copy" -ForegroundColor Red
-        }
-    } else {
-        Write-Log "  ⚠ Warning: $src not found, skipping." -ForegroundColor Yellow
-    }
-}
-#>
 # 2. System Configuration Files (requires sudo)
 Write-Log "Backing up system configuration files (requires sudo)..."
+#Read-Host "(568) Root apps. Press Enter to continue"
 
 $appAdmin = @(
     "/etc/apt/sources.list",                  # APT sources
@@ -605,8 +591,8 @@ $appAdmin = @(
     "/etc/samba/smb.conf",                    # Samba configuration
     "/etc/ssh",                               # SSH host keys
     "/etc/sudoers.d",                         # Sudoers configuration
-    "/var/lib/samba",                         # Samba user/domain info if Samba is a DC (if exists)
     "/etc/X11/xorg.conf.d/*.conf",            # X11 configuration files
+    "/var/lib/samba",                         # Samba user/domain info if Samba is a DC (if exists)
     "/var/lib/zerotier-one/identity.*"        # ZeroTier One ID    
 )
 
@@ -617,6 +603,7 @@ foreach ($item in $appAdmin) {
     Copy-Items -SourcePath $item -DestinationRoot $BACKUP_DIR
 }
 
+#Read-Host "(606) /mnt dir. Press Enter to continue"
 # --- Backup /mnt/ directory structure (if exists) ---
 Copy-DirNames -SourcePath "/mnt" -DestinationRoot $BACKUP_DIR -Description "mnt mount point"
 
