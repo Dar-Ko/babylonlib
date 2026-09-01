@@ -20,12 +20,16 @@ Path to the target directory where the search will be performed recursively.
 Optional name of the TSV output file. Default is "matched_files.tsv". The file is created inside $SourceDir.
 
 .EXAMPLE
-.\Find-FilesByBaseName.ps1 -SourceDir "C:\MyFiles" -TargetDir "D:\Backup"
+.\KFindTracks.ps1 -SourceDir "C:\MyFiles" -TargetDir "D:\Backup"
 Searches and saves results to C:\MyFiles\matched_files.tsv
 
 .EXAMPLE
-./Find-FilesByBaseName.ps1 -SourceDir "/home/user/docs" -TargetDir "/mnt/data/archive"
+./KFindTracks.ps1 -SourceDir "/home/user/docs" -TargetDir "/mnt/data/archive"
 Linux‑style paths – works on PowerShell Core.
+
+.NOTES
+    Date:    2026-04-12
+    Version: %VERSION-HASH%
 #>
 
 param(
