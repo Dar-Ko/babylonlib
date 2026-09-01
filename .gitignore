@@ -88,3 +88,6 @@ UpgradeLog*.XML
 _Notes.md
 .DS_Store
 
+# Custom black list
+_noviteti
+
