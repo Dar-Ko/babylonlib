@@ -11,7 +11,11 @@
 .EXAMPLE
     .\KDirList.ps1
     .\KDirList.ps1 -StartPath "C:\Users\Documents"
-#>
+
+.NOTES
+    Date:    2026-03-19
+    Version: %VERSION-HASH%
+    #>
 
 param(
     [Parameter(Mandatory=$false)]
