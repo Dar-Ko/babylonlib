@@ -1,5 +1,6 @@
 - [`KConvertZip27z.ps1`](KConvertZip27z.ps1)   Convert all .zip archives to .7z
 - [`KCreateABC.ps1`](KCreateABC.ps1)   Creates file-system based and alphabetically sorted indexing categories
+- [`KDirList.ps1`](KDirList.ps1)   Creates a content list file to each subdirectory from the given directory recursively
 - [`KExtractLines.ps1`](KExtractLines.ps1)   Extract lines from a source file containing a specific keyword and saves them to a target file
 - [`KFindTracks.ps1`](KFindTracks.ps1)   Compares two folders by file base name (ignoring extensions)
 - [`KFontList.ps1`](KFontList.ps1)   Retrieves font metadata and other basic information on files in the given folder
