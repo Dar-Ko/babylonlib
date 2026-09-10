@@ -44,7 +44,7 @@ apt update && apt upgrade -y
 apt_apps=(
     "7zip" "acetoneiso" "asunder" "caja-actions" "cifs-utils" "curl" "dconf-editor" 
     "duplicity" "flatpak" "git" "gthumb" "keepassxc" 
-    "krop" "meld" "pavucontrol" "pdfarranger" 
+    "krop" "libchromaprint-tools" "meld" "pavucontrol" "pdfarranger" 
     "qbittorrent" "remaster-iso" 
     "remmina" "remmina-plugin-rdp" "remmina-plugin-vnc" 
     "sayonara" 
