@@ -5,6 +5,9 @@
 - [`KFindTracks.ps1`](KFindTracks.ps1)   Compares two folders by file base name (ignoring extensions)
 - [`KFontList.ps1`](KFontList.ps1)   Retrieves font metadata and other basic information on files in the given folder
 - [`KFontProperties.ps1`](KFontProperties.ps1)   Displays the properties of a font installed on the system
+- [`KM4AtoFlac.ps1`](KM4AtoFlac.ps1)   Converting M4A audio files with ALAC to FLAC
+- [`KMp3TagstoFlac.ps1'](KMp3TagstoFlac.ps1)   Copies MP3 audio files metadata (including album art) to matching FLAC files
+- [`KOggToFlac.ps1`](KOggToFlac.ps1)   Converting OGG audio files to FLAC
 - [`KSpotlightImages.ps1`](KSpotlightImages.ps1)   Retrieves the Spotlight images from the system and saves them to a specified directory
 
 - [`KCollectIndexFiles.sh`](KCollectIndexFiles.sh)   Collects all index files from the given directory and its subdirectories into a temporary folder
