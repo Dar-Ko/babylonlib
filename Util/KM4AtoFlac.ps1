@@ -1,11 +1,27 @@
-# Prerequisites: FFmpeg installed on your system path
-# Note: On Windows, if execution is blocked by security policies, run Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process in your PowerShell window first
-# return:
-# 0: Success (All files processed without critical infrastructure failures).
-# 1: No .m4a files found in the folder.
-# 2: FFmpeg is missing from the system PATH.
-# 3: Unhandled critical script exception.
+<#
+.SYNOPSIS
+    Convert M4A audiofiles to FLAC format.
 
+.DESCRIPTION
+    Finds all M4A files with ALAC codecin the current directory and converts them to FLAC format.
+
+.NOTES
+    Prerequisites: FFmpeg installed on your system path
+
+.NOTES
+    On Windows, if execution is blocked by security policies, run 
+      Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+    in your PowerShell window first
+
+.EXAMPLE
+    Get-MySystemInfo -ComputerName "Server01" -Force
+
+.OUTPUTS
+    0: Success.
+    1: No .m4a files found in the folder.
+    2: FFmpeg is missing from the system PATH.
+    3: Unhandled critical script exception.
+#>
 
 # Get all M4A files in the current folder
 $files = Get-ChildItem -Filter *.m4a
@@ -22,12 +38,8 @@ if (-not (Get-Command ffmpeg -ErrorAction SilentlyContinue)) {
     exit 2
 }
 
-Write-Host "Checking M4A files..." -ForegroundColor Cyan
-Write-Host "======================"
-
-
-
-Write-Host "Scanning and converting ALAC files..." -ForegroundColor Cyan
+Write-Host "Checking M4A codec" -ForegroundColor Cyan
+Write-Host "Scanning and converting only ALAC files..." -ForegroundColor Cyan
 Write-Host "=========================================="
 
 foreach ($file in $files) {
@@ -82,6 +94,7 @@ foreach ($file in $files) {
     catch {
         Write-Host "[Error Reading] " -NoNewline -ForegroundColor Red
         Write-Host "$($file.Name) - $($_.Exception.Message)"
+        exit 3
     }
 }
 
