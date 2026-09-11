@@ -2,6 +2,7 @@
 <#
 .SYNOPSIS
     Copies ALL metadata (including album art) from MP3 files to matching FLAC files
+    with automatic execution policy bypass
 .DESCRIPTION
     Matches .flac files in source directory with .mp3 files in reference directory
     by filename (without extension) and copies ALL metadata from MP3 to FLAC
@@ -98,7 +99,6 @@ function Get-MP3AllMetadata {
         
         # Read the metadata
         $metadata = @{}
-        $coverArtExtracted = $false
         
         if (Test-Path $outputFile) {
             $content = Get-Content $outputFile -Raw
@@ -121,7 +121,9 @@ function Get-MP3AllMetadata {
             $coverArt = [System.IO.File]::ReadAllBytes($coverFile)
             $metadata['COVER_ART'] = $coverArt
             $metadata['COVER_ART_FILENAME'] = "cover.jpg"
-            Write-Verbose "  ✓ Extracted album art ($($coverArt.Length) bytes)"
+            # FIXED: Proper string interpolation for the log message
+            $artSize = $coverArt.Length
+            Write-Verbose "  Extracted album art ($artSize bytes)"
         } else {
             Write-Verbose "  No album art found"
         }
@@ -193,10 +195,13 @@ function Set-FLACAllMetadata {
         Write-Host "  Metadata fields to apply:" -ForegroundColor Gray
         foreach ($key in $Metadata.Keys) {
             if ($key -eq 'COVER_ART') {
-                Write-Host "    $key : [Binary data - $($Metadata[$key].Length) bytes]" -ForegroundColor Gray
+                $artSize = $Metadata[$key].Length
+                Write-Host "    $key : [Binary data - $artSize bytes]" -ForegroundColor Gray
             } elseif ($key -ne 'COVER_ART_FILENAME') {
                 $value = $Metadata[$key]
-                if ($value.Length -gt 50) { $value = $value.Substring(0, 47) + "..." }
+                if ($value.Length -gt 50) { 
+                    $value = $value.Substring(0, 47) + "..."
+                }
                 Write-Host "    $key : $value" -ForegroundColor Gray
             }
         }
@@ -229,7 +234,7 @@ function Set-FLACAllMetadata {
                     & metaflac $importCmd 2>&1 | Out-Null
                     
                     if ($LASTEXITCODE -eq 0) {
-                        Write-Verbose "  ✓ Added album art"
+                        Write-Verbose "  Added album art"
                     } else {
                         Write-Warning "  Failed to add album art"
                     }
@@ -282,14 +287,14 @@ function Set-FLACAllMetadata {
             & metaflac $metaflacArgs
             
             if ($LASTEXITCODE -eq 0) {
-                Write-Host "✓ Updated: $(Split-Path $FlacPath -Leaf)" -ForegroundColor Green
+                Write-Host "Updated: $(Split-Path $FlacPath -Leaf)" -ForegroundColor Green
                 return $true
             } else {
                 Write-Warning "Failed to update: $(Split-Path $FlacPath -Leaf) (exit code: $LASTEXITCODE)"
                 return $false
             }
         } else {
-            Write-Host "○ No tags to add: $(Split-Path $FlacPath -Leaf)" -ForegroundColor Yellow
+            Write-Host "No tags to add: $(Split-Path $FlacPath -Leaf)" -ForegroundColor Yellow
             return $true
         }
     }
@@ -397,7 +402,7 @@ function Main {
     
     if ($successCount -gt 0) {
         Write-Host ""
-        Write-Host "✓ All metadata including album art has been copied" -ForegroundColor Green
+        Write-Host "All metadata including album art has been copied" -ForegroundColor Green
     }
     
     if ($DryRun -and $successCount -gt 0) {
