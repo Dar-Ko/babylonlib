@@ -14,18 +14,20 @@
     If specified, shows what would be deleted without actually deleting
 .PARAMETER Recycle
     If specified, sends files to Recycle Bin instead of permanent deletion (Windows only)
-.PARAMETER Confirm
+.PARAMETER Prompt
     If specified, prompts for confirmation before each deletion
 .PARAMETER RemoveEmptyDirs
     If specified, removes empty subdirectories after MP3 deletion
 .PARAMETER LogFile
     Path to log file for recording deletions (optional)
+.PARAMETER Force
+    If specified, skips the initial safety confirmation prompt
 .EXAMPLE
     ./Remove-MatchedMP3.ps1 -FlacDir "/music/flac" -Mp3Dir "/music/mp3"
 .EXAMPLE
     ./Remove-MatchedMP3.ps1 -FlacDir "C:\Music\FLAC" -Mp3Dir "C:\Music\MP3" -DryRun
 .EXAMPLE
-    ./Remove-MatchedMP3.ps1 -FlacDir "/music/flac" -Mp3Dir "/music/mp3" -Recycle -Confirm
+    ./Remove-MatchedMP3.ps1 -FlacDir "/music/flac" -Mp3Dir "/music/mp3" -Recycle -Interactive
 .NOTES
     Date:    2026-06-01
     Version: %VERSION-HASH%
@@ -43,11 +45,13 @@ param(
     
     [switch]$Recycle,
     
-    [switch]$Confirm,
+    [switch]$Prompt,
     
     [switch]$RemoveEmptyDirs,
     
-    [string]$LogFile
+    [string]$LogFile,
+    
+    [switch]$Force
 )
 
 # Check if running on Windows or Linux
@@ -109,8 +113,8 @@ function Remove-MP3File {
         return $true
     }
     
-    # If confirm is enabled, ask for confirmation
-    if ($Confirm) {
+    # If interactive mode is enabled, ask for confirmation
+    if ($Prompt) {
         $choice = Read-Host "Delete '$($FilePath)'? (y/n/a=all, q=quit)"
         switch ($choice.ToLower()) {
             'y' { 
@@ -121,7 +125,7 @@ function Remove-MP3File {
                 return $false
             }
             'a' { 
-                $script:Confirm = $false
+                $script:Interactive = $false
                 Write-Log "Auto-confirming all remaining deletions" -Level "INFO"
             }
             'q' { 
@@ -253,8 +257,8 @@ function Main {
     if ($Recycle -and $isWindows) { 
         Write-Log "Recycle Bin: Enabled (files will be moved to Recycle Bin)" -Level "INFO"
     }
-    if ($Confirm) { 
-        Write-Log "Confirmation: Enabled (will prompt before each deletion)" -Level "INFO"
+    if ($Prompt) { 
+        Write-Log "Interactive Mode: Enabled (will prompt before each deletion)" -Level "INFO"
     }
     if ($RemoveEmptyDirs) { 
         Write-Log "Remove Empty Directories: Enabled" -Level "INFO"
@@ -372,7 +376,7 @@ function Main {
 }
 
 # Run safety check - verify FLAC directory contains actual FLAC files
-if (-not $DryRun) {
+if (-not $DryRun -and -not $Force) {
     Write-Host ""
     Write-Host "SAFETY CHECK:" -ForegroundColor Yellow
     Write-Host "This script will delete MP3 files that have matching FLAC files." -ForegroundColor Yellow
