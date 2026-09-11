@@ -20,7 +20,6 @@
     0: Success.
     1: No .m4a files found in the folder.
     2: FFmpeg is missing from the system PATH.
-    3: Unhandled critical script exception.
 #>
 
 # Get all M4A files in the current folder
@@ -94,7 +93,6 @@ foreach ($file in $files) {
     catch {
         Write-Host "[Error Reading] " -NoNewline -ForegroundColor Red
         Write-Host "$($file.Name) - $($_.Exception.Message)"
-        exit 3
     }
 }
 
