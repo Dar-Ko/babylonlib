@@ -1,7 +1,7 @@
 <#
  .SYNOPSIS
-	Displays font metadata and other basic information on files in the given
-	folder
+    Displays font metadata and other basic information on files in the given
+    folder
  .PARAMETER Directory
     The path to the folder with font files
  .EXAMPLE
@@ -32,7 +32,7 @@ $Files = Get-ChildItem -Path $Directory -Include $Extensions -Recurse -ErrorActi
 
 $Files | ForEach-Object {
     $CurrentFile = $_
-    
+
     # Check if it is a font file (PresentationCore can't read zip/7z/shx directly)
     if ($CurrentFile.Extension -match '\.(ttf|otf|woff2?)') {
         try {
@@ -41,10 +41,10 @@ $Files | ForEach-Object {
 
             foreach ($Family in $FontFamilies) {
                 foreach ($Typeface in $Family.GetTypefaces()) {
-                    
+
                     # Get the raw version/locale string (usually the first one)
                     $RawString = @($Typeface.VersionStrings.Values)[0]
-                    
+
                     # Parse the string: [en-US, Regular] -> US and Regular
                     $Country = "N/A"
                     $Style = "N/A"
