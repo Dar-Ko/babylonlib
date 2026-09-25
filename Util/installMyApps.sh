@@ -135,10 +135,10 @@ echo "Installing Bottles for Wine/Proton compatibility..."
 flatpak install flathub com.usebottles.bottles -y
 DBG_TRACE "3.1"
 
-# Download and install Calibre
-echo "Installing Calibre..."
-flatpak install flathub com.calibre_ebook.calibre -y
-DBG_TRACE "3.2"
+# Download and install Calibre (instead flatpak, use linux-install.sh from download page)
+#echo "Installing Calibre..."
+#flatpak install flathub com.calibre_ebook.calibre -y
+#DBG_TRACE "3.2"
 
 # 4. Add downloaded .deb packages 
 # -------------------------------
@@ -451,6 +451,15 @@ if ! command -v zerotier-cli &> /dev/null; then
     echo "ERROR: ZeroTier installation failed."
 fi
 DBG_TRACE "4.16"
+
+# Calibre installation
+echo "Installing Calibre..."
+wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sh /dev/stdin
+# Check if installation was successful
+if ! command -v calibre &> /dev/null; then
+    echo "ERROR: Calibre installation failed."
+fi
+DBG_TRACE "4.17"
 
 # 5. Standalone Portable Setup (AppImage)
 echo "Setting up Portable Applications Directory..."

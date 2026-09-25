@@ -506,9 +506,11 @@ Write-Log "Backing up user's application configurations..."
 # 1. Browser and Email Configurations
 $appDirs = @(
     ".config/autostart",    # Autostart applications
+    ".config/calibre",      # Calibre configuration
+    ".var/app/com.calibre_ebook.calibre/cache/calibre", # Calibre flatpak configuration
     ".config/Code/User/settings.json", # VS Code settings
     ".config/Code/User/snippets",      # VS Code snippets
-    ".config/keepassxc/keepassxc.ini", # KeepassXC config    
+    ".config/keepassxc/keepassxc.ini", # KeepassXC config
     ".config/mpv",          # Celluloid (formerly MPV) media player configs
     ".config/MusicBrainz",  # Picard config 
     "snap/picard/current/.config/MusicBrainz/Picard", # Picard plugins for Snap
