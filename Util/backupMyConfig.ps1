@@ -41,7 +41,7 @@
     installed-flatpaks.txt - List of installed Flatpak packages (if Flatpak is installed)
     installed-appimages.txt - List of installed AppImage applications
 .NOTES
-    Date:    2026-08-14
+    Date:    2026-10-02
     Version: %VERSION-HASH%
 #>
 
@@ -105,56 +105,56 @@ function Copy-Items {
         [string]$SourcePath,
         [string]$DestinationRoot
     )
-    
+
     Write-Log "  Copying: $SourcePath"
     #Read-Host "(110) Copying: $SourcePath. Press Enter to continue"
-    
+
     # Check if the path contains wildcard characters
     $hasWildcards = $SourcePath -match '[*?\[\]]'
-    
+
     if ($hasWildcards) {
         # --- WILDCARD HANDLING ---
         # Split path into directory and pattern
         $directory = Split-Path -Path $SourcePath -Parent
         $pattern = Split-Path -Path $SourcePath -Leaf
-        
+
         # If no directory specified, use current directory
         if ([string]::IsNullOrEmpty($directory)) {
             $directory = "."
         }
-        
+
         # Check if directory exists
         if (-not (Test-Path $directory -PathType Container)) {
             Write-Log "  ⚠ Warning: Directory '$directory' not found, skipping wildcard pattern." -ForegroundColor Yellow
             return $false
         }
-        
+
         Write-Log "  Searching for pattern '$pattern' in '$directory'" -ForegroundColor Gray
-        
+
         # Get matching items (files and directories)
         $matchingItems = Get-ChildItem -Path $SourcePath -ErrorAction SilentlyContinue
-        
+
         if (-not $matchingItems -or $matchingItems.Count -eq 0) {
             Write-Log "  ⚠ Warning: No items matching pattern '$pattern' in '$directory'" -ForegroundColor Yellow
             return $false
         }
-        
+
         Write-Log "  Found $($matchingItems.Count) item(s) matching pattern '$pattern'"
-        
+
         # Copy each matching item
         $copiedCount = 0
         $totalCount = $matchingItems.Count
-        
+
         foreach ($item in $matchingItems) {
             # Build the relative path from the directory
             # This preserves the original filename/directory name
             $itemRelativePath = $item.FullName.TrimStart('/')
             $dest = Join-Path -Path $DestinationRoot -ChildPath $itemRelativePath
             $destDir = Split-Path -Path $dest -Parent
-            
+
             # Create the destination directory
             New-Item -ItemType Directory -Path $destDir -Force | Out-Null
-            
+
             if ($item.PSIsContainer) {
                 # It's a directory - copy recursively
                 Write-Log "    Copying directory: $($item.Name)/" -ForegroundColor Gray
@@ -164,7 +164,7 @@ function Copy-Items {
                 Write-Log "    Copying file: $($item.Name)" -ForegroundColor Gray
                 Copy-Item -Path $item.FullName -Destination $dest -Force 2>/dev/null
             }
-            
+
             if ($?) {
                 $copiedCount++
                 Write-Log "    ✓ Copied: $($item.Name)" -ForegroundColor Green
@@ -172,29 +172,29 @@ function Copy-Items {
                 Write-Log "    ✗ ERROR: Failed to copy: $($item.Name)" -ForegroundColor Red
             }
         }
-        
+
         Write-Log "  ✓ Copied $copiedCount of $totalCount items"
         return ($copiedCount -eq $totalCount)
-        
+
     } else {
         # --- NO WILDCARD - Standard copy ---
         if (-not (Test-Path $SourcePath)) {
             Write-Log "  ⚠ Warning: Source '$SourcePath' not found, skipping." -ForegroundColor Yellow
             return $false
         }
-        
+
         # Build destination path preserving full structure
         $relativePath = $SourcePath.TrimStart('/')
         $dest = Join-Path -Path $DestinationRoot -ChildPath $relativePath
         $destDir = Split-Path -Path $dest -Parent
-        
+
         Write-Log "    Source: $SourcePath" -ForegroundColor Gray
         Write-Log "    Dest: $dest" -ForegroundColor Gray
         Write-Log "    Dest Dir: $destDir" -ForegroundColor Gray
-        
+
         # Create the destination directory
         New-Item -ItemType Directory -Path $destDir -Force | Out-Null
-        
+
         # Check if it's a directory or file
         if (Test-Path $SourcePath -PathType Container) {
             Write-Log "  Copying directory recursively..." -ForegroundColor Gray
@@ -203,7 +203,7 @@ function Copy-Items {
             Write-Log "  Copying file..." -ForegroundColor Gray
             Copy-Item -Path $SourcePath -Destination $dest -Force 2>/dev/null
         }
-        
+
         if ($?) {
             Write-Log "  ✓ Copied successfully" -ForegroundColor Green
             return $true
@@ -222,33 +222,33 @@ function Copy-DirNames {
         [string]$DestinationRoot,
         [string]$Description = "directory"
     )
-    
+
     if (-not (Test-Path $SourcePath)) {
         Write-Log "  ⚠ Warning ($($MyInvocation.ScriptLineNumber)): Source path '$SourcePath' not found, skipping." -ForegroundColor Yellow
         return $false
     }
-    
+
     # Create destination directory
     $relativePath = $SourcePath.TrimStart('/')
     $destBase = Join-Path -Path $DestinationRoot -ChildPath $relativePath
     New-Item -ItemType Directory -Path $destBase -Force | Out-Null
-    
+
     Write-Log "  Backing up first-level $Description from $SourcePath"
-    
+
     # Get all items at the first level (non-recursive)
     $items = Get-ChildItem -Path $SourcePath -ErrorAction SilentlyContinue
-    
+
     if (-not $items -or $items.Count -eq 0) {
         Write-Log "  ⚠ No items found in $SourcePath" -ForegroundColor Yellow
         return $true
     }
-    
+
     $copiedCount = 0
     $totalCount = $items.Count
-    
+
     foreach ($item in $items) {
         $destItem = Join-Path -Path $destBase -ChildPath $item.Name
-        
+
         if ($item.PSIsContainer) {
             # It's a directory - copy only the directory structure (empty folder)
             Write-Log "    Creating directory: $($item.Name)/"
@@ -265,7 +265,7 @@ function Copy-DirNames {
             }
         }
     }
-    
+
     Write-Log "  ✓ Copied $copiedCount of $totalCount first-level items from $SourcePath"
     return $true
 }
@@ -277,9 +277,9 @@ function Get-AppImages {
         [string]$SearchPath,
         [string]$OutputFile
     )
-    
+
     Write-Log "  Searching for AppImages in: $SearchPath"
-    
+
     # Common AppImage locations
     $appImagePaths = @(
         "$SearchPath/Applications/*.AppImage",
@@ -295,23 +295,23 @@ function Get-AppImages {
         "$SearchPath/Desktop/*.AppImage",
         "$SearchPath/Desktop/*.appimage"
     )
-    
+
     $allAppImages = @()
     $foundPaths = @()
-    
+
     foreach ($pattern in $appImagePaths) {
         $matchingFiles = Get-ChildItem -Path $pattern -ErrorAction SilentlyContinue
         foreach ($file in $matchingFiles) {
             if (-not $file.PSIsContainer) {
                 # Check if it's actually an AppImage (has executable bit or magic bytes)
                 $isAppImage = $false
-                
+
                 # Method 1: Check file command output
                 $fileType = & file -b $file.FullName 2>/dev/null
                 if ($fileType -match "ELF.*executable|AppImage") {
                     $isAppImage = $true
                 }
-                
+
                 # Method 2: Check for AppImage magic bytes
                 if (-not $isAppImage) {
                     $bytes = [System.IO.File]::ReadAllBytes($file.FullName)[0..7] -join ' '
@@ -319,7 +319,7 @@ function Get-AppImages {
                         $isAppImage = $true
                     }
                 }
-                
+
                 # Method 3: Check if it has execute permissions and is a regular file
                 if (-not $isAppImage) {
                     $perms = (Get-Item $file.FullName).UnixMode
@@ -335,7 +335,7 @@ function Get-AppImages {
                         }
                     }
                 }
-                
+
                 if ($isAppImage) {
                     $appImageInfo = [PSCustomObject]@{
                         Path = $file.FullName
@@ -351,7 +351,7 @@ function Get-AppImages {
             }
         }
     }
-    
+
     # Also check for AppImages in common application directories
     $commonAppDirs = @(
         "$SearchPath/.AppImages",
@@ -360,7 +360,7 @@ function Get-AppImages {
         "/opt/appimages",
         "/usr/local/appimages"
     )
-    
+
     foreach ($dir in $commonAppDirs) {
         if (Test-Path $dir) {
             $appImages = Get-ChildItem -Path "$dir/*.AppImage", "$dir/*.appimage" -ErrorAction SilentlyContinue
@@ -380,43 +380,43 @@ function Get-AppImages {
             }
         }
     }
-    
+
     # Remove duplicates
     $allAppImages = $allAppImages | Sort-Object -Property Path -Unique
-    
+
     if ($allAppImages.Count -eq 0) {
         Write-Log "  ℹ No AppImages found in $SearchPath"
         return $false
     }
-    
+
     # Write to output file
     Write-Log "  Found $($allAppImages.Count) AppImage(s)"
-    
+
     $header = "# AppImage List - Generated $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`n"
     $header += "# User: $REAL_USER`n"
     $header += "# Total AppImages: $($allAppImages.Count)`n"
     $header += "# `n"
     $header += "# Format: NAME|PATH|SIZE(MB)|MODIFIED|PERMISSIONS`n"
     $header += "# " + "-" * 70 + "`n"
-    
+
     $content = $header
     foreach ($app in $allAppImages | Sort-Object -Property Name) {
         $sizeMB = [math]::Round($app.Size / 1MB, 2)
         $content += "$($app.Name)|$($app.Path)|$sizeMB MB|$($app.Modified)|$($app.Permissions)`n"
     }
-    
+
     # Add restoration instructions
     $content += "`n# RESTORATION INSTRUCTIONS:`n"
     $content += "# To restore these AppImages after downgrade, copy them back to their original locations:`n"
     $content += "#   sudo cp -r /path/to/backup/appimages/* /original/path/`n"
     $content += "#   chmod +x /path/to/AppImage (if needed)`n"
-    
+
     $content | Out-File -FilePath $OutputFile -Encoding UTF8
-    
+
     # Also create a simple list of just paths (for easy copying)
     $pathList = "$($OutputFile).paths"
     $allAppImages | ForEach-Object { $_.Path } | Out-File -FilePath $pathList -Encoding UTF8
-    
+
     return $true
 }
 
@@ -453,17 +453,17 @@ try {
     } else {
         Write-Log "ERROR: Failed to generate package list" -ForegroundColor Red
     }
-    
+
     # Also generate a more detailed list with versions (optional but helpful)
     $PACKAGE_DETAILED_FILE = Join-Path -Path $BACKUP_DIR -ChildPath "installed-packages-with-versions.txt"
     dpkg -l > $PACKAGE_DETAILED_FILE 2>&1
     Write-Log "Detailed package list with versions saved to: $PACKAGE_DETAILED_FILE"
-    
+
     # Generate list of manually installed packages (not dependencies)
     $MANUAL_PACKAGES_FILE = Join-Path -Path $BACKUP_DIR -ChildPath "manually-installed-packages.txt"
     apt-mark showmanual > $MANUAL_PACKAGES_FILE 2>&1
     Write-Log "Manually installed packages list saved to: $MANUAL_PACKAGES_FILE"
-    
+
     # Generate list of installed snaps (if snap is used)
     if (Get-Command snap -ErrorAction SilentlyContinue) {
         $SNAP_LIST_FILE = Join-Path -Path $BACKUP_DIR -ChildPath "installed-snaps.txt"
@@ -481,17 +481,17 @@ try {
     # Generate list of installed AppImages
     Write-Log "Generating list of installed AppImages..."
     $APPIMAGE_LIST_FILE = Join-Path -Path $BACKUP_DIR -ChildPath "installed-appimages.txt"
-    
+
     # Search in user's home directory and common locations
     $appImageFound = Get-AppImages -SearchPath $USER_HOME -OutputFile $APPIMAGE_LIST_FILE
-    
+
     if ($appImageFound) {
         Write-Log "AppImage list saved to: $APPIMAGE_LIST_FILE"
         Write-Log "  Also saved as: $APPIMAGE_LIST_FILE.paths (just the paths)"
     } else {
         Write-Log "No AppImages found on the system" -ForegroundColor Yellow
         # Create an empty file with note
-        "No AppImages found on the system (searched in $USER_HOME and common locations)" | 
+        "No AppImages found on the system (searched in $USER_HOME and common locations)" |
             Out-File -FilePath $APPIMAGE_LIST_FILE -Encoding UTF8
     }
 
@@ -505,41 +505,43 @@ Write-Log "Backing up user's application configurations..."
 
 # 1. Browser and Email Configurations
 $appDirs = @(
+    ".cert",                # Custom certificates
     ".config/autostart",    # Autostart applications
     ".config/calibre",      # Calibre configuration
-    ".var/app/com.calibre_ebook.calibre/cache/calibre", # Calibre flatpak configuration
+    ".config/caja/scripts", # Ubuntu Mate Caja file manager scripts
     ".config/Code/User/settings.json", # VS Code settings
     ".config/Code/User/snippets",      # VS Code snippets
     ".config/keepassxc/keepassxc.ini", # KeepassXC config
     ".config/mpv",          # Celluloid (formerly MPV) media player configs
-    ".config/MusicBrainz",  # Picard config 
-    "snap/picard/current/.config/MusicBrainz/Picard", # Picard plugins for Snap
-    "snap/picard/current/.config/MusicBrainz/Picard.ini", # Picard config for Snap
+    ".config/MusicBrainz",  # Picard config
     ".config/rustdesk",     # RustDesk
-    ".cert",                # Custom certificates
     ".face",                # User face/avatar for login
     ".gnupg",               # GnuPG keys and configs
     ".joplin",              # Joplin (assuming default location)
-    "snap/joplin-desktop/current/.config/joplin-desktop/plugins", # Joplin config for Snap
-    "snap/joplin-desktop/current/.config/joplin-desktop/settings.json", # Joplin settings for Snap
     ".kde",                 # KDE configs (if any)
     ".local/bin",           # Custom user scripts
     ".local/share/icons",   # Custom icons
+    ".local/share/caja-python/extensions/*.py", #Ubuntu Mate Caja file manager scripts
     ".local/share/mime/packages", # Custom MIME types
-    ".mozilla/firefox",    # Firefox
-    "snap/firefox/common/.mozilla/firefox/????????.default/places.sqlite", # Firefox config for Snap
-    "snap/firefox/common/.mozilla/firefox/????????.default/bookmarkbackups", # Firefox bookmark backups for Snap
-    "snap/firefox/common/.mozilla/firefox/????????.default/prefs.js", # Firefox prefs for Snap
-    "snap/firefox/common/.mozilla/firefox/????????.default/user.js",  # Firefox user.js for Snap
-    "snap/firefox/common/.mozilla/firefox/????????.default/extensions", # Firefox extensions for Snap
-    "snap/firefox/common/.mozilla/firefox/????????.default/logins.json", # Firefox logins for Snap
-    "snap/firefox/common/.mozilla/firefox/????????.default/key4.db", # Firefox key database for Snap
+    ".mozilla/firefox",     # Firefox
     ".pam_environment",     # PAM environment variables
+    "snap/firefox/common/.mozilla/firefox/????????.default/bookmarkbackups", # Firefox bookmark backups for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/extensions",      # Firefox extensions for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/key4.db",         # Firefox key database for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/logins.json",     # Firefox logins for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/places.sqlite",   # Firefox config for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/prefs.js",        # Firefox prefs for Snap
+    "snap/firefox/common/.mozilla/firefox/????????.default/user.js",         # Firefox user.js for Snap
+    "snap/joplin-desktop/current/.config/joplin-desktop/plugins",       # Joplin config for Snap
+    "snap/joplin-desktop/current/.config/joplin-desktop/settings.json", # Joplin settings for Snap
+    "snap/picard/current/.config/MusicBrainz/Picard.ini", # Picard config for Snap
+    "snap/picard/current/.config/MusicBrainz/Picard",     # Picard plugins for Snap
+    "snap/thunderbird/common/.thunderbird/????????.default/extensions*", # Thunderbird config for Snap
+    "snap/thunderbird/common/.thunderbird/????????.default/logins.*",    # Thunderbird logins for Snap
+    "snap/thunderbird/common/.thunderbird/????????.default/prefs.js",    # Thunderbird mail server settings for Snap
     ".ssh",                 # SSH keys and configs
     ".thunderbird",         # Thunderbird
-    "snap/thunderbird/common/.thunderbird/????????.default/extensions*", # Thunderbird config for Snap
-    "snap/thunderbird/common/.thunderbird/????????.default/prefs.js", # Thunderbird mail server settings for Snap
-    "snap/thunderbird/common/.thunderbird/????????.default/logins.*", # Thunderbird logins for Snap
+    ".var/app/com.calibre_ebook.calibre/cache/calibre", # Calibre flatpak configuration
     ".zerotier-one",        # ZeroTier
     "Documents/CommonSoft.loz",  # CommonSoft documents (example)
     "Desktop/*.desktop",         # User desktop shortcuts
@@ -553,7 +555,7 @@ foreach ($item in $appDirs) {
     Write-Log "Checking for: $src"
     $result = Copy-Items -SourcePath $src -DestinationRoot $BACKUP_DIR
     #Read-Host "(553) Copy-Items -> $result. Press Enter to continue"
-        
+
     if ($result -and $env:SUDO_USER) {
         # Ensure correct ownership (use real user, not root)
         $destPath = Split-Path (Join-Path -Path $BACKUP_DIR -ChildPath $item)
@@ -565,7 +567,7 @@ foreach ($item in $appDirs) {
             }
         }
     }
-   
+
 }
 
 # 2. System Configuration Files (requires sudo)
@@ -580,7 +582,7 @@ $appAdmin = @(
     "/etc/cron.d",
     "/etc/cups",                              # CUPS printer configs
     "/etc/default/grub",                      # GRUB configuration
-    "/etc/fstab",                             # Filesystem table (for CFIS mounts)    
+    "/etc/fstab",                             # Filesystem table (for CFIS mounts)
     "/etc/hosts",                             # Hosts file
     "/etc/modprobe.d/alsa-base.conf",         # ALSA sound configuration
     "/etc/modprobe.d/blacklist.conf",         # Module blacklist
@@ -595,7 +597,7 @@ $appAdmin = @(
     "/etc/sudoers.d",                         # Sudoers configuration
     "/etc/X11/xorg.conf.d/*.conf",            # X11 configuration files
     "/var/lib/samba",                         # Samba user/domain info if Samba is a DC (if exists)
-    "/var/lib/zerotier-one/identity.*"        # ZeroTier One ID    
+    "/var/lib/zerotier-one/identity.*"        # ZeroTier One ID
 )
 
 # Process regular paths
@@ -644,23 +646,23 @@ if ($IncludeUserDirs) {
     foreach ($dir in $userDirs) {
         $src = Join-Path -Path $USER_HOME -ChildPath $dir
         Write-Log "Checking for user directory: $src"
-        
+
         if (Test-Path $src) {
             $dest = Join-Path -Path $BACKUP_DIR -ChildPath $dir
             Write-Log "  ✓ Found! Copying $src to $dest"
-            
+
             # Get size before copy for logging
             $sizeBefore = (Get-ChildItem -Path $src -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum
             if ($sizeBefore) {
                 $sizeMB = [math]::Round($sizeBefore / 1MB, 2)
                 Write-Log "  Directory size: $sizeMB MB"
             }
-            
+
             Copy-Item -Path $src -Destination $dest -Recurse -Force -ErrorAction Continue
-            
+
             if ($?) {
                 Write-Log "  ✓ Copied successfully!"
-                
+
                 # Fix ownership if running as sudo
                 if ($env:SUDO_USER) {
                     chown -R "${REAL_USER}:${REAL_USER}" $dest 2>/dev/null
@@ -668,7 +670,7 @@ if ($IncludeUserDirs) {
                         Write-Log "  ⚠ Warning: Could not fix ownership for $dest" -ForegroundColor Yellow
                     }
                 }
-                
+
                 # Verify copy
                 if (Test-Path $dest) {
                     $sizeAfter = (Get-ChildItem -Path $dest -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum
