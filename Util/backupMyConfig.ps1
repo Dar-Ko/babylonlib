@@ -505,6 +505,7 @@ Write-Log "Backing up user's application configurations..."
 
 # 1. Browser and Email Configurations
 $appDirs = @(
+    ".bashrc",              # Set LC_TIME on login
     ".cert",                # Custom certificates
     ".config/autostart",    # Autostart applications
     ".config/calibre",      # Calibre configuration
@@ -519,9 +520,10 @@ $appDirs = @(
     ".gnupg",               # GnuPG keys and configs
     ".joplin",              # Joplin (assuming default location)
     ".kde",                 # KDE configs (if any)
+    ".local/share/applications", # User's application menu
     ".local/bin",           # Custom user scripts
     ".local/share/icons",   # Custom icons
-    ".local/share/caja-python/extensions/*.py", #Ubuntu Mate Caja file manager scripts
+    ".local/share/caja-python/extensions/*.py", #Ubuntu Mate Caja file manager scripts
     ".local/share/mime/packages", # Custom MIME types
     ".mozilla/firefox",     # Firefox
     ".pam_environment",     # PAM environment variables
