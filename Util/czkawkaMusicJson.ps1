@@ -2,7 +2,7 @@
 
 <#
 .SYNOPSIS
-    Compares duplicate audiofiles and merges differences using additional applications.
+    Compares duplicate audio files and merges differences using additional applications.
 .DESCRIPTION
     Parses Czkawka's results_same_music_pretty.json, logs and skips groups with more than files,
     and invokes a helper script to compare or merge every duplicate pair.
@@ -23,7 +23,7 @@ param (
     [string]$JsonPath,
 
     [Parameter(Mandatory = $false)]
-    [string]$MergeScriptPath = (Join-Path $PSScriptRoot "mergeAudioMetadata"),
+    [string]$MergeScriptPath = (Join-Path $PSScriptRoot "mergeAudioMetadata.ps1"),
 
     [Parameter(Mandatory = $false)]
     [string]$LogPath = (Join-Path $PSScriptRoot "czkawka_skipped_groups.log")
@@ -33,11 +33,11 @@ $ErrorActionPreference = "Stop"
 
 if (-not (Test-Path -LiteralPath $JsonPath)) {
     Write-Error "JSON file not found: $JsonPath"
-    exit 1
+    exit 403
 }
 if (-not (Test-Path -LiteralPath $MergeScriptPath)) {
     Write-Error "Phase 1 script not found at: $MergeScriptPath"
-    exit 1
+    exit 404
 }
 
 $rawJson = Get-Content -LiteralPath $JsonPath -Raw -Encoding UTF8 | ConvertFrom-Json
